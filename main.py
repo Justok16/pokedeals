@@ -1029,6 +1029,21 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
     return annonces, annonces_ebay
 
 
+
+
+def grouper_deals_par_scan(deals_list: list) -> list:
+    """Groupe les deals par scan, max 10 par message (anti-spam)."""
+    if not deals_list:
+        return []
+    # Trier par profit décroissant
+    deals_tries = sorted(deals_list, key=lambda d: d["profit_net_estime"], reverse=True)
+    # Grouper par tranches de 10
+    groupes = []
+    for i in range(0, len(deals_tries), 10):
+        groupes.append(deals_tries[i:i+10])
+    return groupes
+
+
 def main() -> int:
     debut = time.time()
     cfg = charger_config()
