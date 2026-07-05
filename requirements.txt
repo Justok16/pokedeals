@@ -1,0 +1,182 @@
+# ============================================================
+# PokéDeals — Configuration
+# C'est le SEUL fichier que tu auras besoin de modifier.
+# ============================================================
+
+# --- Règles d'achat / revente ---
+regles:
+  frais_port_max: 6.0        # € — frais de port maximum acceptés
+  marge_achat: 0.30          # acheter à au moins 30% NET sous la cote
+  marge_revente: 0.10        # marge utilisée pour le prix de revente conseillé
+  multiplicateur_revente: 2.0  # alerte VENTE quand la cote atteint 2x ton prix d'achat
+  frais_revente_estimes: 0.13  # ~13% de frais si revente sur eBay (utilisé pour le calcul "net")
+  cote_min: 5.0              # ne surveiller que les cartes dont la cote est d'au moins 5€
+  prix_max: 0                # 0 = pas de budget maximum par carte
+
+# --- États acceptés (mots-clés détectés dans les annonces) ---
+etats_acceptes:
+  - "neuf"
+  - "neuve"
+  - "near mint"
+  - "nm"
+  - "mint"
+  - "comme neuf"
+  - "jamais joué"
+  - "pack fresh"
+etats_refuses:
+  - "played"
+  - "poor"
+  - "abim"        # abimé / abîmée
+  - "pliée"
+  - "plié"
+  - "damaged"
+  - "psa"         # on ne veut pas de cartes gradées
+  - "pca"
+  - "bgs"
+  - "cgc"
+  - "gradée"
+  - "gradee"
+  - "graded"
+
+# --- Cartes surveillées ---
+# Ajoute / retire des lignes librement.
+# "cote" est optionnelle : si tu la renseignes, elle remplace la cote
+#   calculée automatiquement depuis eBay (utile pour les cartes japonaises).
+# "langue" : fr ou jp (utilisé dans les recherches).
+watchlist:
+  # ----- Série 151 (FR) -----
+  - nom: "Dracaufeu ex 199/165"
+    langue: fr
+  - nom: "Dracaufeu ex 201/165"
+    langue: fr
+  - nom: "Tortank ex 200/165"
+    langue: fr
+  - nom: "Florizarre ex 198/165"
+    langue: fr
+  - nom: "Pikachu 173/165"
+    langue: fr
+  - nom: "Alakazam ex 188/165"
+    langue: fr
+  - nom: "Mew ex 193/165"
+    langue: fr
+  - nom: "Mew ex 205/165"
+    langue: fr
+  - nom: "Salamèche 168/165"
+    langue: fr
+  - nom: "Bulbizarre 166/165"
+    langue: fr
+  - nom: "Carapuce 170/165"
+    langue: fr
+  # ----- Série 151 (JP - SV2a) -----
+  - nom: "Charizard ex 201/165 sv2a"
+    langue: jp
+  - nom: "Mew ex 205/165 sv2a"
+    langue: jp
+  # =====================================================
+  # BLOC MÉGA ÉVOLUTION (depuis octobre 2025)
+  # Astuce : quand tu connais le numéro exact d'une carte
+  # (ex. 187/132), ajoute-le au nom -> recherche plus précise
+  # et cote plus fiable.
+  # =====================================================
+
+  # ----- ME01 Méga-Évolution (10/10/2025) -----
+  - nom: "Méga-Gardevoir ex 187/132"
+    langue: fr
+  - nom: "Méga-Lucario ex 186/132"
+    langue: fr
+  - nom: "Méga-Gardevoir ex SIR"
+    langue: fr
+  - nom: "Méga-Lucario ex SIR"
+    langue: fr
+  - nom: "Méga-Dracaufeu Y ex"
+    langue: fr
+  - nom: "Méga-Latias ex"
+    langue: fr
+
+  # ----- ME02 Flammes Fantasmagoriques (14/11/2025) -----
+  - nom: "Méga-Dracaufeu X ex 125/94"
+    langue: fr
+  - nom: "Méga-Ectoplasma ex flammes fantasmagoriques"
+    langue: fr
+
+  # ----- ME2.5 Héros Transcendants (30/01/2026) -----
+  - nom: "Méga-Dracolosse ex 290/217"
+    langue: fr
+  - nom: "Méga-Ectoplasma ex héros transcendants"
+    langue: fr
+  - nom: "Mewtwo ex Team Rocket héros transcendants"
+    langue: fr
+  - nom: "Pikachu ex héros transcendants"
+    langue: fr
+  - nom: "Zoroark de N ex héros transcendants"
+    langue: fr
+
+  # ----- ME03 Équilibre Parfait (27/03/2026) -----
+  - nom: "Méga-Zygarde ex équilibre parfait"
+    langue: fr
+
+  # ----- ME04 Chaos Ascendant (22/05/2026) -----
+  - nom: "Méga-Amphinobi ex chaos ascendant"
+    langue: fr
+
+  # ----- ME05 Nuit Noire (sortie le 17/07/2026) -----
+  # Décommente ces lignes (enlève le "# ") après la sortie :
+  # - nom: "Méga-Darkrai ex nuit noire"
+  #   langue: fr
+
+# --- Calcul automatique de la cote ---
+cote:
+  # La cote est calculée à partir de la médiane des annonces eBay actives
+  # (achat immédiat), corrigée par ce coefficient car les prix affichés
+  # sont en général un peu au-dessus des prix de vente réels.
+  coefficient_marche: 0.92
+  minimum_annonces: 4   # nombre minimum d'annonces pour calculer une cote fiable
+
+# --- Mon stock (alertes de REVENTE) ---
+# Déclare ici les cartes que tu as ACHETÉES avec leur prix payé (port inclus).
+# À chaque scan, le bot vérifie leur cote actuelle et t'alerte sur Telegram
+# quand la cote atteint 2x ton prix d'achat (multiplicateur_revente).
+# L'alerte est renvoyée une fois par semaine tant que la condition tient.
+#
+# Exemple (enlève les "# " pour activer) :
+# mes_achats:
+#   - nom: "Méga-Gardevoir ex 187/132"
+#     langue: fr
+#     prix_achat: 120
+#   - nom: "Mew ex 205/165"
+#     langue: fr
+#     prix_achat: 35
+#     cote: 90          # optionnel : cote manuelle si peu d'annonces eBay
+mes_achats: []
+
+# --- Récapitulatif quotidien sur Telegram ---
+rapport:
+  actif: true
+  heure: 21        # heure de Paris (le scan qui tourne entre 21h00 et 21h59 l'envoie)
+
+# --- Détection d'anomalies de cote ---
+anomalies:
+  seuil_chute: 0.30    # alerte ⚠️ si une cote perd 30% ou plus
+  seuil_hausse: 0.50   # alerte 🚀 si une cote gagne 50% ou plus
+
+# --- Notifications ---
+notifications:
+  telegram: true    # canal principal (instantané)
+  email: false      # en plus par email (mets "false" si Telegram suffit)
+
+telegram:
+  chat_id: "1245330032"
+  # Le token du bot (donné par @BotFather) est stocké dans les
+  # "Secrets" GitHub (jamais dans ce fichier) : TELEGRAM_BOT_TOKEN
+
+email:
+  destinataire: "justokseize@gmail.com"
+  expediteur: "justokseize@gmail.com"
+  # Le mot de passe d'application Gmail est stocké dans les
+  # "Secrets" GitHub (jamais dans ce fichier) : GMAIL_APP_PASSWORD
+
+# --- Plateformes actives ---
+plateformes:
+  ebay: true
+  vinted: true
+  leboncoin: true   # best effort : Leboncoin bloque parfois les robots
