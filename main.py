@@ -574,7 +574,7 @@ def _etat_ok(texte: str, acceptes: list[str], refuses: list[str]) -> bool:
 
 
 
-def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0) -> tuple[dict | None, str]:
+def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, marge_achat: float | None = None) -> tuple[dict | None, str]:
     """Évalue une annonce. Retourne (deal, status)."""
     r = cfg["regles"]
 
@@ -601,7 +601,9 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0) -
         return None, "état refusé (abîmée / gradée / jouée)"
 
     # --- Achat : total net au moins 10% sous la cote ---
-    seuil_achat = cote * (1 - r["marge_achat"])
+    # Marge par carte (override), sinon marge globale
+    marge = marge_achat if marge_achat is not None else r["marge_achat"]
+    seuil_achat = cote * (1 - marge)
     if total > seuil_achat:
         return None, f"pas assez sous la cote ({total:.2f}€ > seuil {seuil_achat:.2f}€)"
 
@@ -960,6 +962,10 @@ def recap_du_jour(cfg: dict, vues: dict) -> str | None:
     vues[cle] = {"ts": time.time()}
 
     s = _charger_stats().get(jour, {"scans": 0, "annonces": 0, "deals": 0, "profit_potentiel": 0.0})
+    
+    # Profit cumulé sur les 30 derniers jours
+    tous_stats = _charger_stats()
+    profit_cumule = sum(st.get("profit_potentiel", 0) for st in tous_stats.values())
 
     # État du stock
     lignes_stock = []
@@ -976,8 +982,8 @@ def recap_du_jour(cfg: dict, vues: dict) -> str | None:
     msg = (f"📊 <b>PokéDeals — Récap du {maintenant.strftime('%d/%m/%Y')}</b>\n"
            f"🔍 {s['scans']} scans, {s['annonces']} annonces analysées\n"
            f"🔥 {s['deals']} deal(s) détecté(s)"
-           + (f" — profit potentiel cumulé : <b>{s['profit_potentiel']:.0f}€</b>" if s["deals"] else "")
-           + "\n")
+           + (f" — profit du jour : <b>{s['profit_potentiel']:.0f}€</b>" if s["deals"] else "")
+           + f"\n💎 <b>Profit cumulé (30j) : {profit_cumule:.0f}€</b>\n")
     if lignes_stock:
         msg += "📦 <b>Ton stock :</b>\n" + "\n".join(lignes_stock) + "\n"
     msg += "📈 Historique complet des deals : fichier <code>data/deals.csv</code> sur ton dépôt GitHub."
@@ -1045,7 +1051,8 @@ def main() -> int:
                      cote, confiance, len(annonces))
 
         for annonce in annonces:
-            deal, status = evaluate(annonce, cote, cfg, confiance)
+            marge_carte = carte.get("marge_achat")  # override par carte si présent
+            deal, status = evaluate(annonce, cote, cfg, confiance, marge_carte)
             if deal is None:
                 continue
             if deja_vue(vues, deal["id"]):
