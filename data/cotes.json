@@ -1,1 +1,86 @@
-{}
+{
+ "Tortank ex 200/165": [
+  {
+   "cote": 211.14,
+   "ts": 1783375240.5832288
+  }
+ ],
+ "Pikachu 173/165": [
+  {
+   "cote": 101.71,
+   "ts": 1783375246.6945448
+  }
+ ],
+ "Alakazam ex 188/165": [
+  {
+   "cote": 35.86,
+   "ts": 1783375250.4374847
+  }
+ ],
+ "Mew ex 193/165": [
+  {
+   "cote": 57.87,
+   "ts": 1783375253.5037248
+  }
+ ],
+ "Mew ex 205/165": [
+  {
+   "cote": 45.99,
+   "ts": 1783375257.399223
+  }
+ ],
+ "Carapuce 170/165": [
+  {
+   "cote": 115.0,
+   "ts": 1783375269.5625818
+  }
+ ],
+ "Méga-Dracaufeu Y ex": [
+  {
+   "cote": 9.15,
+   "ts": 1783375290.6789348
+  }
+ ],
+ "Méga-Latias ex": [
+  {
+   "cote": 6.35,
+   "ts": 1783375294.3224902
+  }
+ ],
+ "Méga-Ectoplasma ex flammes fantasmagoriques": [
+  {
+   "cote": 4.19,
+   "ts": 1783375299.2964458
+  }
+ ],
+ "Méga-Ectoplasma ex héros transcendants": [
+  {
+   "cote": 36.83,
+   "ts": 1783375305.6605797
+  }
+ ],
+ "Pikachu ex héros transcendants": [
+  {
+   "cote": 7.82,
+   "ts": 1783375311.7877934
+  }
+ ],
+ "Zoroark de N ex héros transcendants": [
+  {
+   "cote": 4.46,
+   "ts": 1783375314.9212358
+  }
+ ],
+ "Méga-Zygarde ex équilibre parfait": [
+  {
+   "cote": 5.52,
+   "ts": 1783375318.4344614
+  }
+ ],
+ "Méga-Amphinobi ex chaos ascendant": [
+  {
+   "cote": 136.6,
+   "ts": 1783375322.20413
+  }
+ ]
+}
