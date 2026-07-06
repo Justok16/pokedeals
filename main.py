@@ -333,16 +333,35 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
     return annonces
 
 
-def calculer_cote(annonces: list[dict], cfg_cote: dict) -> float | None:
-    """Cote = médiane des prix (hors port) des annonces actives × coefficient."""
-    prix = sorted(a["prix"] for a in annonces if a["prix"] > 0)
-    if len(prix) < int(cfg_cote.get("minimum_annonces", 4)):
-        return None
-    # On écarte les 15% extrêmes de chaque côté (annonces fantaisistes)
-    k = max(1, int(len(prix) * 0.15))
-    tronque = prix[k:-k] if len(prix) > 2 * k else prix
-    mediane = statistics.median(tronque)
-    return round(mediane * float(cfg_cote.get("coefficient_marche", 0.92)), 2)
+def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "") -> tuple[float | None, int]:
+    """Cote = médiane des prix des annonces PERTINENTES × coefficient.
+
+    V10 : avant tout calcul, chaque annonce passe le MÊME filtre strict que les
+    deals (bon Pokémon, bon numéro, pas de gradée/lot/scellé/objet). Les valeurs
+    aberrantes restantes sont ensuite écartées par la méthode de l'écart
+    interquartile (IQR). Retourne (cote, nb_annonces_utilisées).
+    """
+    if nom_carte:
+        prix = sorted(a["prix"] for a in annonces
+                      if a["prix"] > 0 and annonce_pertinente(a.get("titre", ""), nom_carte)[0])
+    else:
+        prix = sorted(a["prix"] for a in annonces if a["prix"] > 0)
+
+    if len(prix) < int(cfg_cote.get("minimum_annonces", 8)):
+        return None, len(prix)
+
+    # Élimination des valeurs aberrantes (IQR) : vendeurs fantaisistes, erreurs de prix
+    if len(prix) >= 4:
+        q = statistics.quantiles(prix, n=4)
+        iqr = q[2] - q[0]
+        bas, haut = q[0] - 1.5 * iqr, q[2] + 1.5 * iqr
+        nettoyes = [p for p in prix if bas <= p <= haut] or prix
+    else:
+        nettoyes = prix
+
+    mediane = statistics.median(nettoyes)
+    cote = round(mediane * float(cfg_cote.get("coefficient_marche", 0.92)), 2)
+    return cote, len(nettoyes)
 
 
 VINTED_BASE = "https://www.vinted.fr"
@@ -546,8 +565,8 @@ def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[flo
         except (ValueError, TypeError):
             log.warning("Cote manuelle invalide pour %s", carte.get("nom"))
 
-    # 2) Cote du jour depuis eBay, ajoutée à l'historique
-    cote_instant = calculer_cote(annonces_ebay, cfg["cote"])
+    # 2) Cote du jour depuis eBay (annonces FILTRÉES), ajoutée à l'historique
+    cote_instant, nb_pertinentes = calculer_cote(annonces_ebay, cfg["cote"], carte["nom"])
     if cote_instant:
         enregistrer_cote(carte["nom"], cote_instant)
 
@@ -556,9 +575,10 @@ def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[flo
     if cote is None:
         cote = cote_instant
     if cote is None:
-        log.info("Cote introuvable pour '%s' (pas assez d'annonces eBay)", carte.get("nom"))
+        log.info("Cote introuvable pour '%s' (%d annonce(s) pertinente(s), minimum %s requis)",
+                 carte.get("nom"), nb_pertinentes, cfg["cote"].get("minimum_annonces", 8))
         return None, 0
-    return cote, len(annonces_ebay)
+    return cote, nb_pertinentes
 
 
 def _etat_ok(texte: str, acceptes: list[str], refuses: list[str]) -> bool:
@@ -849,7 +869,8 @@ FICHIER_CSV = os.path.join(RACINE, "data", "deals.csv")
 PARIS = ZoneInfo("Europe/Paris")
 
 COLONNES_CSV = ["date", "carte", "plateforme", "titre", "prix", "port", "total",
-                "cote", "decote_pct", "prix_revente_conseille", "profit_net_estime", "url"]
+                "cote", "tendance_cote", "decote_pct", "prix_revente_conseille", "profit_net_estime",
+                "vendeur_nom", "vendeur_note", "url"]
 
 
 # ------------------------- STATS QUOTIDIENNES -------------------------
@@ -894,9 +915,11 @@ def exporter_csv(deals: list[dict]) -> None:
             w.writerow(COLONNES_CSV)
         maintenant = datetime.now(PARIS).strftime("%Y-%m-%d %H:%M")
         for d in deals:
+            tendance = calculer_tendance_cote(d.get("carte", ""))
             w.writerow([maintenant, d.get("carte", ""), d["plateforme"], d["titre"],
-                        d["prix"], d["port"], d["total"], d["cote"], d["decote_pct"],
-                        d["prix_revente_conseille"], d["profit_net_estime"], d["url"]])
+                        d["prix"], d["port"], d["total"], d["cote"], tendance, d["decote_pct"],
+                        d["prix_revente_conseille"], d["profit_net_estime"],
+                        d.get("vendeur_nom", "?"), f"{d.get('vendeur_pct', 100):.0f}%", d["url"]])
     log.info("CSV : %d deal(s) ajouté(s) à data/deals.csv", len(deals))
 
 
@@ -1119,3 +1142,26 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+def calculer_tendance_cote(nom_carte: str) -> str:
+    """Compare la cote actuelle avec celle d'hier pour déterminer la tendance."""
+    h = historique()
+    if nom_carte not in h or len(h[nom_carte]) < 2:
+        return "="  # pas assez de données
+    
+    cotes = [e["cote"] for e in h[nom_carte]]
+    if len(cotes) < 2:
+        return "="
+    
+    cote_aujourd = cotes[-1]
+    cote_hier = cotes[0] if len(cotes) >= 2 else cote_aujourd
+    
+    if cote_aujourd > cote_hier * 1.05:  # +5% = hausse
+        return "↗️"
+    elif cote_aujourd < cote_hier * 0.95:  # -5% = baisse
+        return "↘️"
+    else:
+        return "="
+
+
+

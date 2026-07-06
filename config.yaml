@@ -112,7 +112,9 @@ watchlist:
 # --- Calcul automatique de la cote ---
 cote:
   coefficient_marche: 0.92
-  minimum_annonces: 4   # nombre minimum d'annonces pour calculer une cote fiable
+  minimum_annonces: 8   # nb minimum d'annonces PERTINENTES pour une cote fiable (V10)
+  # 💡 Pour une carte clé, tu peux imposer TA cote (relevée sur Cardmarket) :
+  #    ajoute "cote: 250" sous la carte dans la watchlist. Elle sera prioritaire.
 
 # --- Mon stock (alertes de REVENTE) ---
 mes_achats: []
