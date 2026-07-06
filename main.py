@@ -131,7 +131,7 @@ def nom_pokemon(nom_carte: str) -> str | None:
     'Zoroark de N ex héros transcendants' -> 'zoroark'
     """
     for mot in normaliser(nom_carte).split():
-        if len(mot) >= 4 and mot not in MOTS_VIDES and not any(c.isdigit() for c in mot):
+        if len(mot) >= 3 and mot not in MOTS_VIDES and not any(c.isdigit() for c in mot):
             return mot
     return None
 
@@ -903,6 +903,27 @@ def enregistrer_scan(nb_annonces: int, deals: list[dict]) -> None:
 
 # ------------------------------ CSV -----------------------------------
 
+def calculer_tendance_cote(nom_carte: str) -> str:
+    """Compare la cote actuelle avec celle d'hier pour déterminer la tendance."""
+    h = historique()
+    if nom_carte not in h or len(h[nom_carte]) < 2:
+        return "="  # pas assez de données
+    
+    cotes = [e["cote"] for e in h[nom_carte]]
+    if len(cotes) < 2:
+        return "="
+    
+    cote_aujourd = cotes[-1]
+    cote_hier = cotes[0] if len(cotes) >= 2 else cote_aujourd
+    
+    if cote_aujourd > cote_hier * 1.05:  # +5% = hausse
+        return "↗️"
+    elif cote_aujourd < cote_hier * 0.95:  # -5% = baisse
+        return "↘️"
+    else:
+        return "="
+
+
 def exporter_csv(deals: list[dict]) -> None:
     """Ajoute chaque deal détecté à data/deals.csv (créé au premier deal)."""
     if not deals:
@@ -1142,26 +1163,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
-def calculer_tendance_cote(nom_carte: str) -> str:
-    """Compare la cote actuelle avec celle d'hier pour déterminer la tendance."""
-    h = historique()
-    if nom_carte not in h or len(h[nom_carte]) < 2:
-        return "="  # pas assez de données
-    
-    cotes = [e["cote"] for e in h[nom_carte]]
-    if len(cotes) < 2:
-        return "="
-    
-    cote_aujourd = cotes[-1]
-    cote_hier = cotes[0] if len(cotes) >= 2 else cote_aujourd
-    
-    if cote_aujourd > cote_hier * 1.05:  # +5% = hausse
-        return "↗️"
-    elif cote_aujourd < cote_hier * 0.95:  # -5% = baisse
-        return "↘️"
-    else:
-        return "="
-
-
-
