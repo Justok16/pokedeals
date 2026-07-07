@@ -10,7 +10,8 @@ regles:
   marge_revente: 0.10        # marge utilisée pour le prix de revente conseillé
   multiplicateur_revente: 2.0  # alerte VENTE quand la cote atteint 2x ton prix d'achat
   frais_revente_estimes: 0.13  # ~13% de frais si revente sur eBay (utilisé pour le calcul "net")
-  cote_min: 5.0              # ne surveiller que les cartes dont la cote est d'au moins 5€
+  cote_min: 15.0             # ignorer les cartes dont la cote est sous 15€ (micro-deals sans intérêt)
+  profit_min: 10.0           # n'alerter que si le profit net estimé atteint au moins 10€
   prix_max: 0                # 0 = pas de budget maximum par carte
 
 # --- États acceptés (mots-clés détectés dans les annonces) ---
@@ -111,7 +112,9 @@ watchlist:
 
 # --- Calcul automatique de la cote ---
 cote:
-  coefficient_marche: 0.92
+  # V12 : la cote est le 1er quartile des annonces pertinentes (le prix "qui part
+  # vite"), et non plus la médiane gonflée par les annonces invendues.
+  coefficient_marche: 1.0
   minimum_annonces: 8   # nb minimum d'annonces PERTINENTES pour une cote fiable (V10)
   # 💡 Pour une carte clé, tu peux imposer TA cote (relevée sur Cardmarket) :
   #    ajoute "cote: 250" sous la carte dans la watchlist. Elle sera prioritaire.
@@ -145,8 +148,22 @@ email:
   # Le mot de passe d'application Gmail est stocké dans les
   # "Secrets" GitHub (jamais dans ce fichier) : GMAIL_APP_PASSWORD
 
+
+# --- Leboncoin via alertes email (contourne le blocage anti-robot) ---
+# 1. Sur leboncoin.fr : fais ta recherche (ex. "dracaufeu ex 199/165"),
+#    clique "Créer une alerte" (email, fréquence : temps réel), connecté
+#    avec l'adresse Gmail ci-dessus.
+# 2. Le secret GitHub GMAIL_APP_PASSWORD doit exister (mot de passe
+#    d'application : myaccount.google.com/apppasswords).
+# 3. Le bot lit les emails NON LUS de Leboncoin à chaque scan et les
+#    traite comme des annonces normales (filtre + cote + alerte Telegram).
+leboncoin_alertes_email:
+  actif: true
+  imap_hote: imap.gmail.com
+  boite: INBOX
+
 # --- Plateformes actives ---
 plateformes:
   ebay: true
   vinted: true
-  leboncoin: true   # best effort : Leboncoin bloque parfois les robots
+  leboncoin: false  # scraping direct bloqué par DataDome -> remplacé par les alertes email ci-dessus

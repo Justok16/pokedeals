@@ -13,6 +13,7 @@ import logging
 import os
 import random
 import re
+import imaplib
 import smtplib
 import statistics
 import sys
@@ -20,6 +21,7 @@ import time
 import unicodedata
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
+import email as email_lib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from zoneinfo import ZoneInfo
@@ -73,7 +75,7 @@ def normaliser(texte: str) -> str:
     """minuscules + sans accents + sans tirets (méga-dracaufeu -> mega dracaufeu)."""
     t = unicodedata.normalize("NFD", (texte or "").lower())
     t = "".join(c for c in t if unicodedata.category(c) != "Mn")
-    return t.replace("-", " ").replace("_", " ")
+    return t.replace("-", " ").replace("_", " ").replace(".", " ")
 
 
 # ------------------- Filtres de pertinence -------------------
@@ -102,6 +104,8 @@ EXCLUSIONS = [
     "oversize", "gold plated", "plastifiee", "sticker", "autocollant",
     # Cartes gradées
     "psa", "pca", "bgs", "cgc", "gradee", "graded", "grade 8", "grade 9", "grade 10",
+    # Cartes abîmées (fausseraient la cote vers le bas)
+    "abim", "damaged", "played", "poor", "endommag",
     # Vêtements & accessoires
     "t shirt", "tee shirt", "tshirt", "pull", "sweat", "hoodie", "veste",
     "casquette", "bonnet", "pyjama", "chaussette", "chausson", "basket",
@@ -116,8 +120,12 @@ EXCLUSIONS = [
 
 # Petits mots à ignorer quand on extrait le nom du Pokémon
 MOTS_VIDES = {"carte", "pokemon", "ex", "gx", "v", "vstar", "vmax", "de", "n",
-              "la", "le", "et", "mega", "team", "rocket", "jp", "fr", "sv2a",
+              "la", "le", "et", "team", "jp", "fr", "sv2a",
               "sir", "sar", "ar", "mhr"}
+# Noms de sets : descriptifs, souvent absents des titres -> jamais exigés
+MOTS_SETS = {"heros", "transcendants", "flammes", "fantasmagoriques",
+             "equilibre", "parfait", "chaos", "ascendant", "nuit", "noire",
+             "serie", "151"}
 
 
 def extraire_numero(texte: str) -> str | None:
@@ -125,15 +133,20 @@ def extraire_numero(texte: str) -> str | None:
     return f"{int(m.group(1))}/{int(m.group(2))}" if m else None
 
 
-def nom_pokemon(nom_carte: str) -> str | None:
-    """Extrait le nom du Pokémon depuis le nom de la watchlist.
-    'Méga-Dracolosse ex 290/217' -> 'dracolosse'
-    'Zoroark de N ex héros transcendants' -> 'zoroark'
+def mots_requis(nom_carte: str) -> list[str]:
+    """Mots distinctifs de la carte, TOUS exigés dans le titre.
+    'Méga-Dracolosse ex 290/217' -> ['mega', 'dracolosse']
+    'Zoroark de N ex héros transcendants' -> ['zoroark']
     """
-    for mot in normaliser(nom_carte).split():
-        if len(mot) >= 3 and mot not in MOTS_VIDES and not any(c.isdigit() for c in mot):
-            return mot
-    return None
+    return [mot for mot in normaliser(nom_carte).split()
+            if len(mot) >= 3 and mot not in MOTS_VIDES and mot not in MOTS_SETS
+            and not any(c.isdigit() for c in mot)]
+
+
+def nom_pokemon(nom_carte: str) -> str | None:
+    """Conservé pour compatibilité : premier mot distinctif."""
+    requis = mots_requis(nom_carte)
+    return requis[0] if requis else None
 
 
 def annonce_pertinente(titre: str, nom_carte: str) -> tuple[bool, str]:
@@ -151,10 +164,19 @@ def annonce_pertinente(titre: str, nom_carte: str) -> tuple[bool, str]:
     if not any(ind in f" {t} " for ind in INDICES_CARTE):
         return False, "pas une carte (aucun indice carte/holo/promo...)"
 
-    # 3) Le nom du Pokémon recherché doit apparaître dans le titre
-    pokemon = nom_pokemon(nom_carte)
-    if pokemon and pokemon not in t:
-        return False, f"pokemon absent du titre ('{pokemon}')"
+    # 3) TOUS les mots distinctifs du nom doivent apparaître dans le titre
+    requis = mots_requis(nom_carte)
+    jetons = t.split()
+    titre_mega = "mega" in jetons or "m" in jetons  # "Méga", "Mega" ou "M." Dracaufeu
+    for mot in requis:
+        if mot == "mega":
+            if not titre_mega:
+                return False, "'mega' absent du titre"
+        elif mot not in t:
+            return False, f"'{mot}' absent du titre"
+    # ... et une carte Méga ne doit pas polluer une recherche non-Méga
+    if titre_mega and "mega" not in requis:
+        return False, "carte Méga hors recherche"
 
     # 4) Numéro exact si précisé dans la watchlist
     numero_voulu = extraire_numero(nom_carte)
@@ -359,8 +381,14 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "") -> 
     else:
         nettoyes = prix
 
-    mediane = statistics.median(nettoyes)
-    cote = round(mediane * float(cfg_cote.get("coefficient_marche", 0.92)), 2)
+    # V12 : cote = 1er QUARTILE des prix demandés, pas la médiane.
+    # Les annonces trop chères s'accumulent (invendues) et gonflent la médiane ;
+    # le prix auquel une carte PART VITE est celui du bas du marché crédible.
+    if len(nettoyes) >= 2:
+        reference = statistics.quantiles(sorted(nettoyes), n=4)[0]
+    else:
+        reference = statistics.median(nettoyes)
+    cote = round(reference * float(cfg_cote.get("coefficient_marche", 1.0)), 2)
     return cote, len(nettoyes)
 
 
@@ -538,6 +566,130 @@ def historique() -> dict:
     return _historique
 
 
+# ====================================================================
+# LEBONCOIN VIA ALERTES EMAIL (V11)
+# Le scraping direct de Leboncoin est bloqué par DataDome (403 permanent
+# depuis les serveurs). Solution officielle et sans risque de ban :
+# l'utilisateur crée des "recherches sauvegardées" sur leboncoin.fr, le
+# site envoie un email à chaque nouvelle annonce, et le bot lit ces
+# emails dans Gmail (IMAP) pour les injecter dans le pipeline normal.
+# ====================================================================
+
+RE_LBC_LIEN = re.compile(r'https://www\.leboncoin\.fr/(?:[a-z_]+/)?(?:ad/)?[a-z_]*/?(\d{6,12})[^"\s<>]*')
+RE_LBC_PRIX = re.compile(r'(\d{1,3}(?:[\s.\u202f\u00a0]?\d{3})*(?:[,.]\d{2})?)\s*€')
+
+
+def _html_vers_texte(html: str, separateur: str = " ") -> str:
+    """Dégrossit du HTML d'email en texte ; chaque balise devient `separateur`."""
+    html = re.sub(r'<(script|style)[^>]*>.*?</\1>', ' ', html, flags=re.DOTALL | re.IGNORECASE)
+    html = re.sub(r'<[^>]+>', separateur, html)
+    html = html.replace('&nbsp;', ' ').replace('&amp;', '&').replace('&#8239;', ' ')
+    return re.sub(r'[ \t\r\n]+', ' ', html)
+
+
+def _prix_depuis_texte(texte: str) -> float | None:
+    m = RE_LBC_PRIX.search(texte)
+    if not m:
+        return None
+    brut = m.group(1).replace(' ', '').replace('\u202f', '').replace('\u00a0', '')
+    brut = brut.replace('.', '').replace(',', '.') if ',' in brut else brut.replace(' ', '')
+    try:
+        return float(brut)
+    except ValueError:
+        return None
+
+
+def lbc_extraire_annonces_email(html: str) -> list[dict]:
+    """Extrait (id, url, titre?, prix?) des emails d'alerte Leboncoin.
+
+    Analyse tolérante : on repère chaque lien d'annonce, puis on cherche un
+    titre et un prix dans le texte qui l'entoure. Les emails LBC changent de
+    mise en page régulièrement, donc on reste volontairement générique.
+    """
+    annonces = []
+    vus = set()
+    for m in RE_LBC_LIEN.finditer(html):
+        ad_id = m.group(1)
+        if ad_id in vus:
+            continue
+        vus.add(ad_id)
+        # Fenêtre de texte autour du lien pour trouver titre et prix
+        debut, fin = max(0, m.start() - 600), min(len(html), m.end() + 600)
+        fenetre = html[debut:fin]
+        # Le prix d'une annonce LBC suit son lien : on cherche d'abord APRÈS,
+        # sinon la fenêtre attraperait le prix de l'annonce précédente.
+        prix = _prix_depuis_texte(_html_vers_texte(html[m.end():fin]))
+        if prix is None:
+            prix = _prix_depuis_texte(_html_vers_texte(fenetre))
+
+        # Titre : d'abord le texte du lien <a ...>...</a> de cette annonce
+        titre = ""
+        m_a = re.search(r'<a[^>]*' + re.escape(ad_id) + r'[^>]*>(.*?)</a>',
+                        fenetre, flags=re.DOTALL | re.IGNORECASE)
+        if m_a:
+            titre = _html_vers_texte(m_a.group(1)).strip()
+        if not (10 <= len(titre) <= 120):
+            # Secours : plus long segment de texte plausible autour du lien
+            titre = ""
+            for morceau in _html_vers_texte(fenetre, separateur="|").split('|'):
+                morceau = morceau.strip()
+                if 10 <= len(morceau) <= 120 and '€' not in morceau and 'http' not in morceau:
+                    if len(morceau) > len(titre):
+                        titre = morceau
+        annonces.append({
+            "id": f"lbc-{ad_id}",
+            "url": f"https://www.leboncoin.fr/ad/collection/{ad_id}",
+            "titre": titre,
+            "prix": prix if prix is not None else 0.0,
+            "port": 0.0,
+            "plateforme": "Leboncoin (alerte)",
+            "etat_texte": "",
+            "vendeur_nom": "voir annonce",
+            "vendeur_pct": 100,
+        })
+    return [a for a in annonces if a["prix"] > 0 and a["titre"]]
+
+
+def lbc_relever_alertes_email(cfg: dict, secrets: dict) -> list[dict]:
+    """Lit les emails d'alerte Leboncoin non lus dans Gmail et en extrait les annonces."""
+    conf = cfg.get("leboncoin_alertes_email", {})
+    if not conf.get("actif"):
+        return []
+    mdp = secrets.get("GMAIL_APP_PASSWORD", "")
+    adresse = cfg.get("email", {}).get("destinataire", "")
+    if not mdp or not adresse:
+        log.info("Alertes email LBC : GMAIL_APP_PASSWORD ou adresse manquant — ignoré")
+        return []
+
+    annonces = []
+    try:
+        imap = imaplib.IMAP4_SSL(conf.get("imap_hote", "imap.gmail.com"))
+        imap.login(adresse, mdp)
+        imap.select(conf.get("boite", "INBOX"))
+        # Emails NON LUS venant de Leboncoin
+        statut, donnees = imap.search(None, '(UNSEEN FROM "leboncoin")')
+        ids = donnees[0].split() if statut == "OK" and donnees and donnees[0] else []
+        for num in ids[-20:]:  # au plus 20 emails par passage
+            statut, msg_data = imap.fetch(num, "(RFC822)")  # fetch marque l'email comme lu
+            if statut != "OK":
+                continue
+            message = email_lib.message_from_bytes(msg_data[0][1])
+            html = ""
+            for part in message.walk():
+                if part.get_content_type() == "text/html":
+                    charset = part.get_content_charset() or "utf-8"
+                    html += part.get_payload(decode=True).decode(charset, errors="replace")
+            if html:
+                annonces.extend(lbc_extraire_annonces_email(html))
+        imap.logout()
+        if annonces:
+            log.info("Alertes email LBC : %d annonce(s) extraite(s) de %d email(s)", len(annonces), len(ids))
+    except Exception as e:  # noqa: BLE001
+        log.warning("Alertes email LBC en erreur (non bloquant) : %s", e)
+    return annonces
+
+
+
 def cote_lissee(nom_carte: str) -> float | None:
     """Médiane des cotes récentes enregistrées pour cette carte."""
     entrees = historique().get(nom_carte, [])
@@ -630,8 +782,9 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
     # --- Revente : au moins 10% net au-dessus de la cote, frais déduits ---
     prix_revente = cote * (1 + r["marge_revente"]) / (1 - r["frais_revente_estimes"])
     profit_net = cote * (1 + r["marge_revente"]) - total
-    if profit_net <= 0:
-        return None, "profit net nul ou négatif"
+    profit_min = float(r.get("profit_min", 0) or 0)
+    if profit_net < max(profit_min, 0.01):
+        return None, f"profit trop faible ({profit_net:.2f}€ < {profit_min:.2f}€ minimum)"
 
     deal = {
         **annonce,
@@ -1125,6 +1278,24 @@ def main() -> int:
         time.sleep(random.uniform(1.5, 3.5))
 
     # --- Suivi du stock : alertes de REVENTE (cote >= 2x prix d'achat) ---
+    # Annonces reçues par email d'alerte Leboncoin (contourne le blocage DataDome)
+    for annonce in lbc_relever_alertes_email(cfg, secrets):
+        for carte in cfg["watchlist"]:
+            pertinent, _ = annonce_pertinente(annonce["titre"], carte["nom"])
+            if not pertinent:
+                continue
+            annonce["carte"] = carte["nom"]
+            cote_carte = carte.get("cote") or cote_lissee(carte["nom"])
+            if not cote_carte:
+                break
+            deal, _statut = evaluate(annonce, float(cote_carte), cfg, 0, carte.get("marge_achat"))
+            if deal and not deja_vue(vues, deal["id"]):
+                log.info("  ✓ DEAL (email LBC) : %s à %.2f€ (cote %.2f€)",
+                         deal["titre"][:60], deal["total"], float(cote_carte))
+                nouveaux_deals.append(deal)
+                marquer(vues, deal["id"])
+            break
+
     alertes_vente = verifier_stock(cfg, secrets, vues)
 
     # Tri : les affaires les plus rentables en premier
