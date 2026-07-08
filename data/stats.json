@@ -20,7 +20,12 @@
  "2026-07-08": {
   "scans": 9,
   "annonces": 12175,
+<<<<<<< Updated upstream
   "deals": 10,
   "profit_potentiel": 2626.3
+=======
+  "deals": 8,
+  "profit_potentiel": 2118.45
+>>>>>>> Stashed changes
  }
 }

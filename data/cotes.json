@@ -18,7 +18,11 @@
   },
   {
    "cote": 432.5,
+<<<<<<< Updated upstream
    "ts": 1783527675.5133858
+=======
+   "ts": 1783530061.775986
+>>>>>>> Stashed changes
   }
  ],
  "Tortank ex 200/165": [
@@ -40,7 +44,11 @@
   },
   {
    "cote": 180.0,
+<<<<<<< Updated upstream
    "ts": 1783527682.3125255
+=======
+   "ts": 1783530067.7825549
+>>>>>>> Stashed changes
   }
  ],
  "Pikachu 173/165": [
@@ -62,7 +70,11 @@
   },
   {
    "cote": 81.0,
+<<<<<<< Updated upstream
    "ts": 1783527688.0510664
+=======
+   "ts": 1783530073.6001577
+>>>>>>> Stashed changes
   }
  ],
  "Alakazam ex 188/165": [
@@ -84,7 +96,11 @@
   },
   {
    "cote": 30.0,
+<<<<<<< Updated upstream
    "ts": 1783527690.7763078
+=======
+   "ts": 1783530076.9127884
+>>>>>>> Stashed changes
   }
  ],
  "Mew ex 193/165": [
@@ -106,7 +122,11 @@
   },
   {
    "cote": 55.0,
+<<<<<<< Updated upstream
    "ts": 1783527694.092843
+=======
+   "ts": 1783530079.9721117
+>>>>>>> Stashed changes
   }
  ],
  "Mew ex 205/165": [
@@ -128,7 +148,11 @@
   },
   {
    "cote": 42.0,
+<<<<<<< Updated upstream
    "ts": 1783527696.645307
+=======
+   "ts": 1783530083.1664565
+>>>>>>> Stashed changes
   }
  ],
  "Carapuce 170/165": [
@@ -150,7 +174,11 @@
   },
   {
    "cote": 107.5,
+<<<<<<< Updated upstream
    "ts": 1783527706.6365552
+=======
+   "ts": 1783530094.106104
+>>>>>>> Stashed changes
   }
  ],
  "Méga-Dracaufeu Y ex": [
@@ -172,7 +200,11 @@
   },
   {
    "cote": 7.0,
+<<<<<<< Updated upstream
    "ts": 1783527728.0642958
+=======
+   "ts": 1783530116.8670027
+>>>>>>> Stashed changes
   }
  ],
  "Méga-Latias ex": [
@@ -194,7 +226,11 @@
   },
   {
    "cote": 3.9,
+<<<<<<< Updated upstream
    "ts": 1783527732.0171666
+=======
+   "ts": 1783530120.0053737
+>>>>>>> Stashed changes
   }
  ],
  "Méga-Ectoplasma ex flammes fantasmagoriques": [
@@ -216,7 +252,11 @@
   },
   {
    "cote": 3.0,
+<<<<<<< Updated upstream
    "ts": 1783527739.1093433
+=======
+   "ts": 1783530125.265912
+>>>>>>> Stashed changes
   }
  ],
  "Méga-Ectoplasma ex héros transcendants": [
@@ -238,7 +278,11 @@
   },
   {
    "cote": 5.62,
+<<<<<<< Updated upstream
    "ts": 1783527746.2236638
+=======
+   "ts": 1783530130.9980419
+>>>>>>> Stashed changes
   }
  ],
  "Pikachu ex héros transcendants": [
@@ -260,7 +304,11 @@
   },
   {
    "cote": 6.65,
+<<<<<<< Updated upstream
    "ts": 1783527752.595534
+=======
+   "ts": 1783530135.9313405
+>>>>>>> Stashed changes
   }
  ],
  "Zoroark de N ex héros transcendants": [
@@ -282,7 +330,11 @@
   },
   {
    "cote": 3.0,
+<<<<<<< Updated upstream
    "ts": 1783527754.7370558
+=======
+   "ts": 1783530138.6405687
+>>>>>>> Stashed changes
   }
  ],
  "Méga-Zygarde ex équilibre parfait": [
@@ -304,7 +356,11 @@
   },
   {
    "cote": 4.78,
+<<<<<<< Updated upstream
    "ts": 1783527757.7512627
+=======
+   "ts": 1783530141.3466847
+>>>>>>> Stashed changes
   }
  ],
  "Méga-Amphinobi ex chaos ascendant": [
@@ -326,7 +382,11 @@
   },
   {
    "cote": 6.72,
+<<<<<<< Updated upstream
    "ts": 1783527761.3976166
+=======
+   "ts": 1783530145.2913313
+>>>>>>> Stashed changes
   }
  ]
 }
