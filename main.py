@@ -537,6 +537,10 @@ RACINE = os.path.dirname(os.path.abspath(__file__))
 FICHIER_COTES = os.path.join(RACINE, "data", "cotes.json")
 HISTORIQUE_MAX = 5          # nombre de cotes conservées par carte
 VALIDITE_JOURS = 7          # une cote de plus de 7 jours est ignorée
+# V13 : toute cote enregistrée AVANT ce déploiement est ignorée puis effacée.
+# Corrige le problème des cotes "fossiles" (ex. Dracaufeu figé à 432,50€) qui
+# survivaient aux tentatives de purge manuelle. Repart d'un historique propre.
+DEPLOIEMENT_TS = 1783530259
 
 
 def _charger_historique() -> dict:
@@ -544,9 +548,17 @@ def _charger_historique() -> dict:
         return {}
     try:
         with open(FICHIER_COTES, "r", encoding="utf-8") as f:
-            return json.load(f)
+            brut = json.load(f)
     except (json.JSONDecodeError, OSError):
         return {}
+    # Purge des cotes antérieures au déploiement (anciennes valeurs polluées)
+    propre = {}
+    for nom, entrees in brut.items():
+        gardees = [e for e in entrees
+                   if isinstance(e, dict) and e.get("ts", 0) >= DEPLOIEMENT_TS]
+        if gardees:
+            propre[nom] = gardees
+    return propre
 
 
 def sauvegarder_historique() -> None:
@@ -691,10 +703,10 @@ def lbc_relever_alertes_email(cfg: dict, secrets: dict) -> list[dict]:
 
 
 def cote_lissee(nom_carte: str) -> float | None:
-    """Médiane des cotes récentes enregistrées pour cette carte."""
+    """Médiane des cotes récentes ET postérieures au déploiement V13."""
     entrees = historique().get(nom_carte, [])
-    limite = time.time() - VALIDITE_JOURS * 86400
-    valeurs = [e["cote"] for e in entrees if e.get("ts", 0) > limite]
+    limite = max(time.time() - VALIDITE_JOURS * 86400, DEPLOIEMENT_TS)
+    valeurs = [e["cote"] for e in entrees if e.get("ts", 0) >= limite]
     if not valeurs:
         return None
     return round(statistics.median(valeurs), 2)
