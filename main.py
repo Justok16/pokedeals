@@ -164,26 +164,53 @@ def annonce_pertinente(titre: str, nom_carte: str) -> tuple[bool, str]:
     if not any(ind in f" {t} " for ind in INDICES_CARTE):
         return False, "pas une carte (aucun indice carte/holo/promo...)"
 
-    # 3) TOUS les mots distinctifs du nom doivent apparaître dans le titre
+    # 3) Cohérence Méga : une carte Méga ne pollue pas une recherche non-Méga
+    #    et inversement.
     requis = mots_requis(nom_carte)
     jetons = t.split()
     titre_mega = "mega" in jetons or "m" in jetons  # "Méga", "Mega" ou "M." Dracaufeu
-    for mot in requis:
-        if mot == "mega":
-            if not titre_mega:
-                return False, "'mega' absent du titre"
-        elif mot not in t:
-            return False, f"'{mot}' absent du titre"
-    # ... et une carte Méga ne doit pas polluer une recherche non-Méga
-    if titre_mega and "mega" not in requis:
+    carte_mega = "mega" in requis
+    if titre_mega and not carte_mega:
         return False, "carte Méga hors recherche"
+    if carte_mega and not titre_mega:
+        return False, "'mega' absent du titre"
 
-    # 4) Numéro exact si précisé dans la watchlist
+    # 4) Le nom du Pokémon (mot distinctif principal) doit être présent.
+    #    C'est le minimum non négociable.
+    pokemon = next((m for m in requis if m != "mega"), None)
+    if pokemon and pokemon not in t:
+        return False, f"'{pokemon}' absent du titre"
+
+    # 5) Le NUMÉRO de carte est la preuve la plus fiable.
+    #    - Bon numéro présent  -> pertinent (on tolère qu'un mot secondaire
+    #      comme "ex" manque : "Dracaufeu 199/165 FR" reste valide).
+    #    - Numéro présent mais DIFFÉRENT -> rejet (199/165 != 200/165).
+    #    - Aucun numéro dans le nom recherché ou l'annonce -> on exige alors
+    #      TOUS les mots secondaires, par prudence.
     numero_voulu = extraire_numero(nom_carte)
+    numero_annonce = extraire_numero(titre)
     if numero_voulu:
-        numero_annonce = extraire_numero(titre)
-        if numero_annonce and numero_annonce != numero_voulu:
-            return False, f"mauvais numéro ({numero_annonce} ≠ {numero_voulu})"
+        if numero_annonce:
+            if numero_annonce != numero_voulu:
+                return False, f"mauvais numéro ({numero_annonce} != {numero_voulu})"
+            # bon numéro + bon pokémon : suffisant, on s'arrête là
+        else:
+            # pas de numéro dans l'annonce : exiger les autres mots distinctifs
+            for mot in requis:
+                if mot not in ("mega", pokemon) and mot not in t:
+                    return False, f"'{mot}' absent (numéro manquant, prudence)"
+    else:
+        # Le nom recherché n'a pas de numéro (ex. les versions SIR).
+        # Exiger tous les mots distinctifs...
+        for mot in requis:
+            if mot == "mega":
+                continue
+            if mot not in t:
+                return False, f"'{mot}' absent du titre"
+        # ... et refuser une annonce qui, elle, porte un numéro : une carte
+        # numérotée (187/132) n'est pas la version SIR non numérotée.
+        if numero_annonce:
+            return False, "annonce numérotée ≠ version sans numéro (SIR)"
 
     return True, "ok"
 

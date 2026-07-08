@@ -115,7 +115,7 @@ cote:
   # V12 : la cote est le 1er quartile des annonces pertinentes (le prix "qui part
   # vite"), et non plus la médiane gonflée par les annonces invendues.
   coefficient_marche: 1.0
-  minimum_annonces: 8   # nb minimum d'annonces PERTINENTES pour une cote fiable (V10)
+  minimum_annonces: 6   # nb minimum d'annonces PERTINENTES pour une cote fiable (V10)
   # 💡 Pour une carte clé, tu peux imposer TA cote (relevée sur Cardmarket) :
   #    ajoute "cote: 250" sous la carte dans la watchlist. Elle sera prioritaire.
 
