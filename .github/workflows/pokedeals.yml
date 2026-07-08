@@ -7,7 +7,7 @@ on:
   workflow_dispatch: {}   # permet aussi de lancer à la main depuis l'onglet Actions
 
 permissions:
-  contents: write   # nécessaire pour sauvegarder data/seen.json
+  contents: write   # nécessaire pour sauvegarder data/*.json
 
 concurrency:
   group: pokedeals
@@ -45,7 +45,16 @@ jobs:
         run: |
           git config user.name "pokedeals-bot"
           git config user.email "bot@pokedeals.local"
-          git pull --rebase --autostash || true
-          git add data/*.json data/*.csv 2>/dev/null || git add data/*.json || true
+          # Les fichiers de données du bot font autorité : on met de côté nos
+          # changements, on récupère la version distante, puis on RÉIMPOSE nos
+          # fichiers de données. Évite les conflits d'autostash rencontrés avant.
+          cp -f data/*.json /tmp/ 2>/dev/null || true
+          cp -f data/*.csv /tmp/ 2>/dev/null || true
+          git stash --include-untracked || true
+          git pull --rebase || git rebase --abort || true
+          git stash drop || true
+          cp -f /tmp/*.json data/ 2>/dev/null || true
+          cp -f /tmp/*.csv data/ 2>/dev/null || true
+          git add data/*.json data/*.csv 2>/dev/null || true
           git diff --cached --quiet || git commit -m "maj mémoire [skip ci]"
           git push || true
