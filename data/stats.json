@@ -1,31 +1,8 @@
 {
- "2026-07-05": {
-  "scans": 3,
-  "annonces": 4034,
-  "deals": 182,
-  "profit_potentiel": 23277.37
- },
- "2026-07-06": {
-  "scans": 11,
-  "annonces": 14834,
-  "deals": 118,
-  "profit_potentiel": 15365.53
- },
- "2026-07-07": {
-  "scans": 13,
-  "annonces": 17574,
-  "deals": 41,
-  "profit_potentiel": 2144.12
- },
  "2026-07-08": {
-  "scans": 9,
-  "annonces": 12175,
-<<<<<<< Updated upstream
-  "deals": 10,
-  "profit_potentiel": 2626.3
-=======
+  "scans": 1,
+  "annonces": 1352,
   "deals": 8,
-  "profit_potentiel": 2118.45
->>>>>>> Stashed changes
+  "profit_potentiel": 744.83
  }
 }
