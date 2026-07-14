@@ -90,17 +90,14 @@ watchlist:
   - nom: "Méga-Gardevoir ex 187/132"    # version dorée (Méga Hyper Rare)
     langue: fr
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
-  - nom: "Méga-Lucario ex 186/132"
+  - nom: "Méga-Lucario ex 188/132"    # version dorée (Méga Hyper Rare) — confirmé
     langue: fr
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
-    # ⚠️ À VÉRIFIER : d'après mes sources, la version dorée de
-    # Méga-Lucario ex est 188/132 (186/132 serait une autre carte).
-    # Si tu vises la dorée, remplace par 188/132.
   - nom: "Méga-Gardevoir ex 178/132"    # version SIR (illustration spéciale)
     langue: fr
   - nom: "Méga-Lucario ex 179/132"      # version SIR (illustration spéciale)
     langue: fr
-  - nom: "Méga-Latias ex 181/132"       # version SIR — ⚠️ à confirmer sur Cardmarket
+  - nom: "Méga-Latias ex 181/132"       # version SIR — confirmé
     langue: fr
 
   # ----- ME02 Flammes Fantasmagoriques (x/094) -----
@@ -112,7 +109,7 @@ watchlist:
   # (voir 284/217 ci-dessous). Entrée retirée — dis-moi si tu veux la remettre.
 
   # ----- ME02.5 Héros Transcendants (x/217) -----
-  - nom: "Méga-Dracaufeu Y ex 294/217"  # Méga Hyper Rare — ⚠️ vérifie que c'est bien la version visée
+  - nom: "Méga-Dracaufeu Y ex 294/217"  # version dorée (Méga Hyper Rare) — confirmé
     langue: fr
   - nom: "Méga-Dracolosse ex 290/217"
     langue: fr
@@ -121,13 +118,15 @@ watchlist:
     langue: fr
   - nom: "Mewtwo ex Team Rocket 281/217"  # version SIR
     langue: fr
-  - nom: "Pikachu ex 277/217"           # version SIR — ⚠️ une variante 276/217 existe aussi
+  - nom: "Pikachu ex 276/217"           # version SIR "Forêt"
+    langue: fr
+  - nom: "Pikachu ex 277/217"           # version SIR "couronne"
     langue: fr
   - nom: "Zoroark de N ex 286/217"      # version SIR
     langue: fr
 
   # ----- ME03 Équilibre Parfait (x/088) -----
-  - nom: "Méga-Zygarde ex 120/088"      # version SIR — ⚠️ autres versions : 104 (UR), 124 (dorée)
+  - nom: "Méga-Zygarde ex 120/088"      # version SIR — confirmé
     langue: fr
 
   # ----- ME04 Chaos Ascendant (x/086) -----
