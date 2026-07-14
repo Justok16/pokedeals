@@ -3,6 +3,14 @@
 TOUT le programme est dans ce seul fichier : plus de dossier modules.
 Il lit config.yaml, scanne eBay/Vinted/Leboncoin, calcule les cotes,
 filtre les faux positifs et envoie les alertes Telegram (+ email si activé).
+
+V15 : le NUMÉRO de collection (ex. 199/165) devient OBLIGATOIRE.
+- Chaque carte de la watchlist doit inclure son numéro dans son nom
+  (ex. "Dracaufeu ex 199/165"). Le numéro part automatiquement dans les
+  requêtes eBay/Vinted/Leboncoin.
+- Une annonce SANS numéro dans le titre est écartée (cote ET alertes) :
+  impossible de distinguer un Dracaufeu commun à 5€ d'une version rare.
+- Purge de l'historique des cotes antérieures à V15 (valeurs polluées).
 """
 from __future__ import annotations
 
@@ -182,23 +190,21 @@ def annonce_pertinente(titre: str, nom_carte: str) -> tuple[bool, str]:
         return False, f"'{pokemon}' absent du titre"
 
     # 5) Le NUMÉRO de carte est la preuve la plus fiable.
-    #    - Bon numéro présent  -> pertinent (on tolère qu'un mot secondaire
-    #      comme "ex" manque : "Dracaufeu 199/165 FR" reste valide).
-    #    - Numéro présent mais DIFFÉRENT -> rejet (199/165 != 200/165).
-    #    - Aucun numéro dans le nom recherché ou l'annonce -> on exige alors
-    #      TOUS les mots secondaires, par prudence.
+    #    V15 : si la carte recherchée porte un numéro, il est OBLIGATOIRE
+    #    dans le titre de l'annonce.
+    #    Pourquoi ? Un "Dracaufeu" à 5€ et un "Dracaufeu ex 199/165" à
+    #    200€ portent le même nom : sans numéro, impossible de trancher.
+    #    Une annonce sans numéro est donc écartée des cotes ET des alertes.
+    #    On rate quelques annonces, mais on élimine les fausses cotes —
+    #    et une cote fausse coûte bien plus cher qu'une annonce ratée.
     numero_voulu = extraire_numero(nom_carte)
     numero_annonce = extraire_numero(titre)
     if numero_voulu:
-        if numero_annonce:
-            if numero_annonce != numero_voulu:
-                return False, f"mauvais numéro ({numero_annonce} != {numero_voulu})"
-            # bon numéro + bon pokémon : suffisant, on s'arrête là
-        else:
-            # pas de numéro dans l'annonce : exiger les autres mots distinctifs
-            for mot in requis:
-                if mot not in ("mega", pokemon) and mot not in t:
-                    return False, f"'{mot}' absent (numéro manquant, prudence)"
+        if not numero_annonce:
+            return False, "aucun numéro dans le titre (exigé depuis V15)"
+        if numero_annonce != numero_voulu:
+            return False, f"mauvais numéro ({numero_annonce} != {numero_voulu})"
+        # bon numéro + bon pokémon : suffisant, on s'arrête là
     else:
         # Le nom recherché n'a pas de numéro (ex. les versions SIR).
         # Exiger tous les mots distinctifs...
@@ -241,6 +247,14 @@ def charger_config(chemin: str | None = None) -> dict:
 
     if not cfg["watchlist"]:
         raise ValueError("La watchlist est vide : ajoute des cartes dans config.yaml")
+
+    # V15 : avertir (sans bloquer) si une carte n'a pas de numéro dans son nom.
+    # Les versions volontairement sans numéro (SIR) peuvent l'omettre, mais
+    # toute carte classique DOIT l'avoir, sinon retour des fausses cotes.
+    for carte in cfg["watchlist"]:
+        if not extraire_numero(carte.get("nom", "")):
+            log.warning("⚠️ '%s' n'a pas de numéro (ex. 199/165) dans config.yaml : "
+                        "filtrage V15 dégradé pour cette carte", carte.get("nom"))
 
     return cfg
 
@@ -325,7 +339,12 @@ def _obtenir_token(client_id: str, client_secret: str) -> str | None:
 
 
 def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40) -> list[dict]:
-    """Retourne les annonces eBay FR en achat immédiat pour une carte."""
+    """Retourne les annonces eBay FR en achat immédiat pour une carte.
+
+    V15 : le numéro de collection contenu dans `nom_carte` (ex. 199/165)
+    part tel quel dans la requête eBay, ce qui élimine l'essentiel du
+    bruit dès la recherche.
+    """
     token = _obtenir_token(secrets["EBAY_CLIENT_ID"], secrets["EBAY_CLIENT_SECRET"])
     if not token:
         return []
@@ -383,12 +402,13 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
 
 
 def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "") -> tuple[float | None, int]:
-    """Cote = médiane des prix des annonces PERTINENTES × coefficient.
+    """Cote = 1er quartile des prix des annonces PERTINENTES × coefficient.
 
-    V10 : avant tout calcul, chaque annonce passe le MÊME filtre strict que les
-    deals (bon Pokémon, bon numéro, pas de gradée/lot/scellé/objet). Les valeurs
-    aberrantes restantes sont ensuite écartées par la méthode de l'écart
-    interquartile (IQR). Retourne (cote, nb_annonces_utilisées).
+    V15 : le filtre `annonce_pertinente` exige désormais le numéro exact de
+    la carte dans chaque titre. Plus AUCUNE annonce ambiguë (même Pokémon,
+    autre version) n'entre dans le calcul. Les valeurs aberrantes restantes
+    sont ensuite écartées par la méthode de l'écart interquartile (IQR).
+    Retourne (cote, nb_annonces_utilisées).
     """
     if nom_carte:
         prix = sorted(a["prix"] for a in annonces
@@ -564,10 +584,11 @@ RACINE = os.path.dirname(os.path.abspath(__file__))
 FICHIER_COTES = os.path.join(RACINE, "data", "cotes.json")
 HISTORIQUE_MAX = 5          # nombre de cotes conservées par carte
 VALIDITE_JOURS = 7          # une cote de plus de 7 jours est ignorée
-# V13 : toute cote enregistrée AVANT ce déploiement est ignorée puis effacée.
-# Corrige le problème des cotes "fossiles" (ex. Dracaufeu figé à 432,50€) qui
-# survivaient aux tentatives de purge manuelle. Repart d'un historique propre.
-DEPLOIEMENT_TS = 1783530259
+# V15 : toute cote enregistrée AVANT ce déploiement est ignorée puis effacée.
+# Les cotes calculées sous V14 étaient polluées par les versions bon marché
+# du même Pokémon (Dracaufeu commun mélangé au Dracaufeu ex 199/165).
+# On repart d'un historique 100% propre, calculé avec le filtre par numéro.
+DEPLOIEMENT_TS = 1783900800  # 13/07/2026 00:00 UTC
 
 
 def _charger_historique() -> dict:
@@ -730,7 +751,7 @@ def lbc_relever_alertes_email(cfg: dict, secrets: dict) -> list[dict]:
 
 
 def cote_lissee(nom_carte: str) -> float | None:
-    """Médiane des cotes récentes ET postérieures au déploiement V13."""
+    """Médiane des cotes récentes ET postérieures au déploiement V15."""
     entrees = historique().get(nom_carte, [])
     limite = max(time.time() - VALIDITE_JOURS * 86400, DEPLOIEMENT_TS)
     valeurs = [e["cote"] for e in entrees if e.get("ts", 0) >= limite]
@@ -795,6 +816,7 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
         return None, f"cote trop faible ({cote:.2f}€ < {r.get('cote_min', 5.0):.2f}€)"
 
     # Filtre anti-faux-positifs : lots, produits scellés, proxys, mauvaise version...
+    # V15 : exige aussi le numéro exact de la carte dans le titre.
     pertinent, raison = annonce_pertinente(annonce.get("titre", ""), annonce.get("carte", ""))
     if not pertinent:
         return None, raison

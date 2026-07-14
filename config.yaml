@@ -1,6 +1,9 @@
 # ============================================================
-# PokéDeals — Configuration
+# PokéDeals — Configuration (V15)
 # C'est le SEUL fichier que tu auras besoin de modifier.
+# V15 : chaque carte porte son NUMÉRO de collection exact.
+# Les noms sont raccourcis (sans nom de set) : le numéro suffit
+# à identifier la carte, et les requêtes eBay sont plus efficaces.
 # ============================================================
 
 # --- Règles d'achat / revente (GLOBALES) ---
@@ -43,7 +46,12 @@ etats_refuses:
 # "marge_achat" est optionnelle : si tu la renseignes, elle override la marge globale.
 # Les cartes ULTRA POPULAIRES (données marché 2026) sont à -25% pour une réactivité maximale.
 # Les autres cartes sont à -30% (défaut).
+#
+# Séries : 151 = x/165 · ME01 Méga-Évolution = x/132 · ME02 Flammes
+# Fantasmagoriques = x/094 · ME02.5 Héros Transcendants = x/217 ·
+# ME03 Équilibre Parfait = x/088 · ME04 Chaos Ascendant = x/086
 watchlist:
+  # ----- Série 151 (FR) -----
   - nom: "Dracaufeu ex 199/165"
     langue: fr
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
@@ -71,42 +79,59 @@ watchlist:
     langue: fr
   - nom: "Carapuce 170/165"
     langue: fr
+
+  # ----- Série 151 (JP, sv2a) -----
   - nom: "Charizard ex 201/165 sv2a"
     langue: jp
   - nom: "Mew ex 205/165 sv2a"
     langue: jp
-  - nom: "Méga-Gardevoir ex 187/132"
+
+  # ----- ME01 Méga-Évolution (x/132) -----
+  - nom: "Méga-Gardevoir ex 187/132"    # version dorée (Méga Hyper Rare)
     langue: fr
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
   - nom: "Méga-Lucario ex 186/132"
     langue: fr
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
-  - nom: "Méga-Gardevoir ex SIR"
+    # ⚠️ À VÉRIFIER : d'après mes sources, la version dorée de
+    # Méga-Lucario ex est 188/132 (186/132 serait une autre carte).
+    # Si tu vises la dorée, remplace par 188/132.
+  - nom: "Méga-Gardevoir ex 178/132"    # version SIR (illustration spéciale)
     langue: fr
-  - nom: "Méga-Lucario ex SIR"
+  - nom: "Méga-Lucario ex 179/132"      # version SIR (illustration spéciale)
     langue: fr
-  - nom: "Méga-Dracaufeu Y ex"
+  - nom: "Méga-Latias ex 181/132"       # version SIR — ⚠️ à confirmer sur Cardmarket
     langue: fr
-  - nom: "Méga-Latias ex"
+
+  # ----- ME02 Flammes Fantasmagoriques (x/094) -----
+  - nom: "Méga-Dracaufeu X ex 125/094"
     langue: fr
-  - nom: "Méga-Dracaufeu X ex 125/94"
-    langue: fr
-  - nom: "Méga-Ectoplasma ex flammes fantasmagoriques"
+  # ⚠️ Méga-Ectoplasma ex n'existe qu'en Double Rare 056/094 dans ME02
+  # (cote ~2-3€, sous ton seuil cote_min de 15€ : le bot l'ignorerait).
+  # Ses versions SIR et Méga Attaque sont sorties dans Héros Transcendants
+  # (voir 284/217 ci-dessous). Entrée retirée — dis-moi si tu veux la remettre.
+
+  # ----- ME02.5 Héros Transcendants (x/217) -----
+  - nom: "Méga-Dracaufeu Y ex 294/217"  # Méga Hyper Rare — ⚠️ vérifie que c'est bien la version visée
     langue: fr
   - nom: "Méga-Dracolosse ex 290/217"
     langue: fr
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
-  - nom: "Méga-Ectoplasma ex héros transcendants"
+  - nom: "Méga-Ectoplasma ex 284/217"   # version SIR (~400€)
     langue: fr
-  - nom: "Mewtwo ex Team Rocket héros transcendants"
+  - nom: "Mewtwo ex Team Rocket 281/217"  # version SIR
     langue: fr
-  - nom: "Pikachu ex héros transcendants"
+  - nom: "Pikachu ex 277/217"           # version SIR — ⚠️ une variante 276/217 existe aussi
     langue: fr
-  - nom: "Zoroark de N ex héros transcendants"
+  - nom: "Zoroark de N ex 286/217"      # version SIR
     langue: fr
-  - nom: "Méga-Zygarde ex équilibre parfait"
+
+  # ----- ME03 Équilibre Parfait (x/088) -----
+  - nom: "Méga-Zygarde ex 120/088"      # version SIR — ⚠️ autres versions : 104 (UR), 124 (dorée)
     langue: fr
-  - nom: "Méga-Amphinobi ex chaos ascendant"
+
+  # ----- ME04 Chaos Ascendant (x/086) -----
+  - nom: "Méga-Amphinobi ex 116/086"    # version SIR (~250-320€) — la dorée est 122/086
     langue: fr
 
 
@@ -115,7 +140,9 @@ cote:
   # V12 : la cote est le 1er quartile des annonces pertinentes (le prix "qui part
   # vite"), et non plus la médiane gonflée par les annonces invendues.
   coefficient_marche: 1.0
-  minimum_annonces: 6   # nb minimum d'annonces PERTINENTES pour une cote fiable (V10)
+  # V15 : le filtre par numéro réduit le nombre d'annonces retenues.
+  # On passe de 6 à 4 annonces minimum — elles sont maintenant toutes fiables.
+  minimum_annonces: 4
   # 💡 Pour une carte clé, tu peux imposer TA cote (relevée sur Cardmarket) :
   #    ajoute "cote: 250" sous la carte dans la watchlist. Elle sera prioritaire.
 
@@ -138,7 +165,7 @@ notifications:
   email: false      # en plus par email (mets "false" si Telegram suffit)
 
 telegram:
-  chat_id: "1245330032"
+  chat_id: "1245330032"   # V15 : vérifié via getUpdates le 13/07/2026
   # Le token du bot (donné par @BotFather) est stocké dans les
   # "Secrets" GitHub (jamais dans ce fichier) : TELEGRAM_BOT_TOKEN
 
