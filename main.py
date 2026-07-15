@@ -507,14 +507,17 @@ def vinted_rechercher(nom_carte: str, langue: str, limite: int = 30, prix_plafon
             prix = float(it["price"]["amount"])
         except (KeyError, ValueError, TypeError):
             continue
+        # V15 : frais de protection acheteur Vinted = 0,7€ fixe + 5% du prix
+        frais_protection = 0.7 + (prix * 0.05)
+        port_total = 3.5 + frais_protection
         annonces.append(
             {
                 "plateforme": "Vinted",
                 "id": f"vinted-{it.get('id', '')}",
                 "titre": it.get("title", ""),
                 "prix": prix,
-                # Port Vinted : ~3-5€ pour une carte en lettre suivie
-                "port": 3.5,
+                # Port Vinted (~3.5€) + frais de protection acheteur (0.7€ + 5%)
+                "port": round(port_total, 2),
                 "url": it.get("url") or f"{VINTED_BASE}/items/{it.get('id', '')}",
                 "etat_texte": (it.get("status") or "") + " " + it.get("title", ""),
             }
