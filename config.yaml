@@ -16,6 +16,10 @@ regles:
   cote_min: 15.0             # ignorer les cartes dont la cote est sous 15€ (micro-deals sans intérêt)
   profit_min: 10.0           # n'alerter que si le profit net estimé atteint au moins 10€
   prix_max: 0                # 0 = pas de budget maximum par carte
+  # V16 : eBay international — annonces situées à l'étranger mais
+  # LIVRABLES en France, avec un port maximum spécifique
+  ebay_international: true
+  frais_port_max_international: 10.0
 
 # --- États acceptés (mots-clés détectés dans les annonces) ---
 etats_acceptes:
@@ -132,6 +136,63 @@ watchlist:
   # ----- ME04 Chaos Ascendant (x/086) -----
   - nom: "Méga-Amphinobi ex 116/086"    # version SIR (~250-320€) — la dorée est 122/086
     langue: fr
+
+  # ----- ME05 Nuit Noire — version JAPONAISE "Abyss Eye" (x/081, déjà sortie) -----
+  - nom: "Mega Darkrai ex 114/081"      # SAR — LA chase card du set
+    langue: jp
+    alias: "Darkrai"
+  - nom: "Mega Darkrai ex 118/081"      # Mega Ultra Rare (dorée)
+    langue: jp
+    alias: "Darkrai"
+  - nom: "Mega Darkrai ex 099/081"      # SR full art
+    langue: jp
+    alias: "Darkrai"
+  - nom: "Mega Zeraora ex 112/081"      # SAR
+    langue: jp
+    alias: "Zeraora"
+  - nom: "Mega Chandelure ex 113/081"   # SAR (Méga-Lugulabre)
+    langue: jp
+    alias: "Lugulabre"
+  - nom: "Morpeko ex 115/081"           # SAR
+    langue: jp
+
+  # ----- ME05 Nuit Noire — version FRANÇAISE (sortie 17/07/2026) -----
+  # ⏳ Les numéros occidentaux ne sont pas encore publiés (le set fusionne
+  # le japonais "Abyss Eye" avec un second set : numérotation différente).
+  # On les ajoutera ensemble le 17 juillet avec les numéros vérifiés :
+  # Méga-Darkrai ex SIR + dorée, Méga-Zeraora ex SIR, Méga-Lugulabre ex,
+  # Méga-Minotaupe ex, Gwynn SIR.
+
+  # ----- Cartes ÉTRANGÈRES (V16) -----
+  # Chaque langue = une entrée séparée (cotes calculées à part, sinon les
+  # versions étrangères moins chères fausseraient les cotes françaises).
+  # "alias" = nom français accepté dans les titres d'annonces.
+  # ⚠️ EN/KR : numérotation identique à la FR/JP pour ces sets (à vérifier
+  # à la première alerte reçue).
+  - nom: "Charizard ex 199/165"         # Dracaufeu ex SIR, version ANGLAISE
+    langue: en
+    alias: "Dracaufeu"
+  - nom: "Blastoise ex 200/165"         # Tortank ex SIR, version ANGLAISE
+    langue: en
+    alias: "Tortank"
+  - nom: "Charizard ex 201/165 KR"      # Dracaufeu ex SAR, version CORÉENNE
+    langue: kr
+    alias: "Dracaufeu"
+  - nom: "Mew ex 205/165 KR"            # version CORÉENNE
+    langue: kr
+  # Cartes CHINOISES : LA carte principale de chaque volume du
+  # "Collect 151" chinois simplifié = un Pikachu Art Rare EXCLUSIF
+  # (illustré par Oswaldo KATO, n'existe dans aucune autre langue).
+  # Numéros confirmés (Bulbapedia). Set numéroté /151 : aucune confusion
+  # possible avec le Pikachu 173/165 français.
+  - nom: "Pikachu 170/151"              # exclusive "Journey" (Pikachu volant)
+    langue: cn
+  - nom: "Pikachu 171/151"              # exclusive "Hope" (avec Psyduck) — la plus chère (~600€+)
+    langue: cn
+  - nom: "Pikachu 172/151"              # exclusive "Surprise" (avec Ectoplasma)
+    langue: cn
+  - nom: "Pikachu 173/151"              # exclusive "Gathering" (clairière de Pikachu)
+    langue: cn
 
 
 # --- Calcul automatique de la cote ---
