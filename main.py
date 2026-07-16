@@ -11,6 +11,16 @@ V15 : le NUMÉRO de collection (ex. 199/165) devient OBLIGATOIRE.
 - Une annonce SANS numéro dans le titre est écartée (cote ET alertes) :
   impossible de distinguer un Dracaufeu commun à 5€ d'une version rare.
 - Purge de l'historique des cotes antérieures à V15 (valeurs polluées).
+
+V16 : langues étrangères + eBay international.
+- Chaque carte a une langue (fr/jp/en/kr/cn). Une carte non-FR n'est
+  retenue que si le titre mentionne sa langue ; une carte FR rejette
+  tout titre mentionnant une langue étrangère (les versions JP/KR/CN,
+  bien moins chères, ne contaminent plus les cotes françaises).
+- Champ optionnel "alias" par carte : nom alternatif du Pokémon
+  (ex. nom "Blastoise ex 200/165" + alias "Tortank").
+- eBay international : annonces livrables en France, port plafonné
+  (regles.ebay_international / frais_port_max_international).
 """
 from __future__ import annotations
 
@@ -133,7 +143,32 @@ MOTS_VIDES = {"carte", "pokemon", "ex", "gx", "v", "vstar", "vmax", "de", "n",
 # Noms de sets : descriptifs, souvent absents des titres -> jamais exigés
 MOTS_SETS = {"heros", "transcendants", "flammes", "fantasmagoriques",
              "equilibre", "parfait", "chaos", "ascendant", "nuit", "noire",
-             "serie", "151"}
+             "serie", "151",
+             # V16.1 : descriptifs de rareté/produit (jamais exigés dans un titre)
+             "trainer", "gallery", "promo", "alternative", "ultra", "rare",
+             "celeste", "prismatiques", "mascarade", "crepusculaire",
+             "aventures", "ensemble", "stars", "etincelantes", "de", "lilie"}
+
+# V16 : gestion des langues.
+# - Suffixe ajouté aux requêtes eBay/Vinted/Leboncoin selon la langue.
+SUFFIXES_LANGUE = {"jp": " japonaise", "en": " anglaise",
+                   "kr": " coréenne", "cn": " chinoise"}
+# - Marqueurs devant figurer dans le TITRE pour valider la langue.
+#   Les marqueurs courts (<= 3 lettres) sont comparés mot à mot pour
+#   éviter les faux positifs ("kr" à l'intérieur d'un autre mot, etc.).
+MARQUEURS_LANGUE = {
+    "jp": ["japonaise", "japonais", "japanese", "japon", "jpn", "jap", "jp", "sv2a"],
+    "en": ["anglaise", "anglais", "english", "eng"],
+    "kr": ["coreenne", "coreen", "korean", "korea", "kor", "kr"],
+    "cn": ["chinoise", "chinois", "chinese", "china", "zh", "cn"],
+}
+TOUS_MARQUEURS = [m for lst in MARQUEURS_LANGUE.values() for m in lst]
+
+
+def _marqueur_present(marqueur: str, texte_norm: str, jetons: list[str]) -> bool:
+    if len(marqueur) <= 3:
+        return marqueur in jetons
+    return marqueur in texte_norm
 
 
 def extraire_numero(texte: str) -> str | None:
@@ -151,13 +186,28 @@ def mots_requis(nom_carte: str) -> list[str]:
             and not any(c.isdigit() for c in mot)]
 
 
+# V16.1 : pour une carte SANS numéro (promo, Trainer Gallery), le type de
+# carte (vmax / vstar / v / gx / ex) DOIT rester distinctif, sinon une V
+# et une VMAX du même Pokémon deviennent indiscernables. On garde donc ces
+# marqueurs de rareté que mots_requis() écarte normalement.
+TYPES_CARTE = {"vmax", "vstar", "gx", "ex", "v"}
+
+
+def mots_requis_stricts(nom_carte: str) -> list[str]:
+    base = mots_requis(nom_carte)
+    for mot in normaliser(nom_carte).split():
+        if mot in TYPES_CARTE and mot not in base:
+            base.append(mot)
+    return base
+
+
 def nom_pokemon(nom_carte: str) -> str | None:
     """Conservé pour compatibilité : premier mot distinctif."""
     requis = mots_requis(nom_carte)
     return requis[0] if requis else None
 
 
-def annonce_pertinente(titre: str, nom_carte: str) -> tuple[bool, str]:
+def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: str = "") -> tuple[bool, str]:
     """Filtre strict : (pertinent, raison)."""
     t = normaliser(titre)
     if not t.strip():
@@ -172,6 +222,19 @@ def annonce_pertinente(titre: str, nom_carte: str) -> tuple[bool, str]:
     if not any(ind in f" {t} " for ind in INDICES_CARTE):
         return False, "pas une carte (aucun indice carte/holo/promo...)"
 
+    # 2bis) Cohérence de LANGUE (V16). Une carte coréenne vaut souvent
+    #    3 à 5 fois moins que la même carte française : mélanger les
+    #    langues fausserait les cotes comme le faisait l'absence de numéro.
+    jetons_langue = t.split()
+    if langue in (None, "", "fr"):
+        for m in TOUS_MARQUEURS:
+            if _marqueur_present(m, t, jetons_langue):
+                return False, f"carte étrangère ('{m}') hors recherche FR"
+    else:
+        marqueurs = MARQUEURS_LANGUE.get(langue, [])
+        if marqueurs and not any(_marqueur_present(m, t, jetons_langue) for m in marqueurs):
+            return False, f"langue '{langue}' non mentionnée dans le titre"
+
     # 3) Cohérence Méga : une carte Méga ne pollue pas une recherche non-Méga
     #    et inversement.
     requis = mots_requis(nom_carte)
@@ -184,10 +247,15 @@ def annonce_pertinente(titre: str, nom_carte: str) -> tuple[bool, str]:
         return False, "'mega' absent du titre"
 
     # 4) Le nom du Pokémon (mot distinctif principal) doit être présent.
-    #    C'est le minimum non négociable.
+    #    V16 : un alias (ex. Tortank pour Blastoise) est aussi accepté,
+    #    car les vendeurs français titrent souvent les cartes étrangères
+    #    avec le nom français du Pokémon.
     pokemon = next((m for m in requis if m != "mega"), None)
-    if pokemon and pokemon not in t:
-        return False, f"'{pokemon}' absent du titre"
+    noms_acceptes = [pokemon] if pokemon else []
+    if alias:
+        noms_acceptes += [m for m in normaliser(alias).split() if len(m) >= 3]
+    if noms_acceptes and not any(n in t for n in noms_acceptes):
+        return False, f"'{pokemon}' (ou alias) absent du titre"
 
     # 5) Le NUMÉRO de carte est la preuve la plus fiable.
     #    V15 : si la carte recherchée porte un numéro, il est OBLIGATOIRE
@@ -206,12 +274,23 @@ def annonce_pertinente(titre: str, nom_carte: str) -> tuple[bool, str]:
             return False, f"mauvais numéro ({numero_annonce} != {numero_voulu})"
         # bon numéro + bon pokémon : suffisant, on s'arrête là
     else:
-        # Le nom recherché n'a pas de numéro (ex. les versions SIR).
-        # Exiger tous les mots distinctifs...
-        for mot in requis:
+        # Le nom recherché n'a pas de numéro (ex. versions SIR, promos, TG).
+        # On exige tous les mots distinctifs, EN CONSERVANT le type de carte
+        # (vmax/v/ex...) pour ne pas confondre une V et une VMAX du même
+        # Pokémon. Le nom principal peut être couvert par l'alias.
+        jetons_titre = t.split()
+        for mot in mots_requis_stricts(nom_carte):
             if mot == "mega":
                 continue
-            if mot not in t:
+            if mot == pokemon and alias and any(
+                    n in t for n in normaliser(alias).split() if len(n) >= 3):
+                continue  # nom principal couvert par l'alias
+            # Les types de carte se comparent mot à mot ("v" ne doit pas
+            # matcher le "v" de "vmax"). Les autres mots : sous-chaîne OK.
+            if mot in TYPES_CARTE:
+                if mot not in jetons_titre:
+                    return False, f"type '{mot}' absent du titre"
+            elif mot not in t:
                 return False, f"'{mot}' absent du titre"
         # ... et refuser une annonce qui, elle, porte un numéro : une carte
         # numérotée (187/132) n'est pas la version SIR non numérotée.
@@ -238,6 +317,8 @@ def charger_config(chemin: str | None = None) -> dict:
     r.setdefault("frais_revente_estimes", 0.13)
     r.setdefault("cote_min", 5.0)
     r.setdefault("prix_max", 0)  # 0 = illimité
+    r.setdefault("ebay_international", False)
+    r.setdefault("frais_port_max_international", 10.0)
 
     cfg.setdefault("watchlist", [])
     cfg.setdefault("etats_acceptes", [])
@@ -338,20 +419,29 @@ def _obtenir_token(client_id: str, client_secret: str) -> str | None:
         return None
 
 
-def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40) -> list[dict]:
-    """Retourne les annonces eBay FR en achat immédiat pour une carte.
+def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40,
+                    cfg_regles: dict | None = None) -> list[dict]:
+    """Retourne les annonces eBay en achat immédiat pour une carte.
 
     V15 : le numéro de collection contenu dans `nom_carte` (ex. 199/165)
-    part tel quel dans la requête eBay, ce qui élimine l'essentiel du
-    bruit dès la recherche.
+    part tel quel dans la requête eBay.
+    V16 : si regles.ebay_international est actif, on cherche tout ce qui
+    est LIVRABLE en France (port <= frais_port_max_international) au lieu
+    de se limiter aux annonces situées en France.
     """
     token = _obtenir_token(secrets["EBAY_CLIENT_ID"], secrets["EBAY_CLIENT_SECRET"])
     if not token:
         return []
 
+    regles = cfg_regles or {}
+    international = bool(regles.get("ebay_international"))
+    port_max_intl = float(regles.get("frais_port_max_international", 10.0))
+
     requete = f"carte pokemon {nom_carte}"
-    if langue == "jp":
-        requete += " japonaise"
+    requete += SUFFIXES_LANGUE.get(langue, "")
+
+    filtre = "buyingOptions:{FIXED_PRICE},priceCurrency:EUR"
+    filtre += ",deliveryCountry:FR" if international else ",itemLocationCountry:FR"
 
     try:
         r = requete_avec_retry(
@@ -364,7 +454,7 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
             params={
                 "q": requete,
                 "limit": str(limite),
-                "filter": "buyingOptions:{FIXED_PRICE},itemLocationCountry:FR,priceCurrency:EUR",
+                "filter": filtre,
             },
             timeout=25,
         )
@@ -380,6 +470,9 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
             prix = float(it["price"]["value"])
         except (KeyError, ValueError, TypeError):
             continue
+        # Sécurité : ne jamais mélanger des devises dans les cotes
+        if (it.get("price", {}).get("currency") or "EUR") != "EUR":
+            continue
         port = 0.0
         opts = it.get("shippingOptions") or []
         if opts:
@@ -387,9 +480,17 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
                 port = float(opts[0]["shippingCost"]["value"])
             except (KeyError, ValueError, TypeError):
                 port = 0.0
+        pays = ((it.get("itemLocation") or {}).get("country") or "FR").upper()
+        if pays != "FR":
+            if not international:
+                continue
+            if not opts:
+                continue  # port inconnu depuis l'étranger : prudence
+            if port > port_max_intl:
+                continue
         annonces.append(
             {
-                "plateforme": "eBay",
+                "plateforme": "eBay" if pays == "FR" else f"eBay ({pays})",
                 "id": f"ebay-{it.get('itemId', '')}",
                 "titre": it.get("title", ""),
                 "prix": prix,
@@ -401,18 +502,20 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
     return annonces
 
 
-def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "") -> tuple[float | None, int]:
+def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
+                  langue: str = "fr", alias: str = "") -> tuple[float | None, int]:
     """Cote = 1er quartile des prix des annonces PERTINENTES × coefficient.
 
     V15 : le filtre `annonce_pertinente` exige désormais le numéro exact de
-    la carte dans chaque titre. Plus AUCUNE annonce ambiguë (même Pokémon,
-    autre version) n'entre dans le calcul. Les valeurs aberrantes restantes
-    sont ensuite écartées par la méthode de l'écart interquartile (IQR).
+    la carte dans chaque titre. V16 : il vérifie aussi la langue. Plus
+    AUCUNE annonce ambiguë (même Pokémon, autre version ou autre langue)
+    n'entre dans le calcul. Les valeurs aberrantes restantes sont ensuite
+    écartées par la méthode de l'écart interquartile (IQR).
     Retourne (cote, nb_annonces_utilisées).
     """
     if nom_carte:
         prix = sorted(a["prix"] for a in annonces
-                      if a["prix"] > 0 and annonce_pertinente(a.get("titre", ""), nom_carte)[0])
+                      if a["prix"] > 0 and annonce_pertinente(a.get("titre", ""), nom_carte, langue, alias)[0])
     else:
         prix = sorted(a["prix"] for a in annonces if a["prix"] > 0)
 
@@ -472,8 +575,7 @@ def vinted_rechercher(nom_carte: str, langue: str, limite: int = 30, prix_plafon
     if s is None:
         return []
     requete = f"carte pokemon {nom_carte}"
-    if langue == "jp":
-        requete += " japonaise"
+    requete += SUFFIXES_LANGUE.get(langue, "")
     params = {
         "search_text": requete,
         "per_page": str(limite),
@@ -538,8 +640,7 @@ LBC_HEADERS = {
 
 def lbc_rechercher(nom_carte: str, langue: str, limite: int = 30) -> list[dict]:
     requete = f"carte pokemon {nom_carte}"
-    if langue == "jp":
-        requete += " japonaise"
+    requete += SUFFIXES_LANGUE.get(langue, "")
     payload = {
         "filters": {
             "category": {"id": "41"},  # Jeux & Jouets
@@ -781,7 +882,9 @@ def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[flo
             log.warning("Cote manuelle invalide pour %s", carte.get("nom"))
 
     # 2) Cote du jour depuis eBay (annonces FILTRÉES), ajoutée à l'historique
-    cote_instant, nb_pertinentes = calculer_cote(annonces_ebay, cfg["cote"], carte["nom"])
+    cote_instant, nb_pertinentes = calculer_cote(
+        annonces_ebay, cfg["cote"], carte["nom"],
+        carte.get("langue", "fr"), carte.get("alias", ""))
     if cote_instant:
         enregistrer_cote(carte["nom"], cote_instant)
 
@@ -820,7 +923,10 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
 
     # Filtre anti-faux-positifs : lots, produits scellés, proxys, mauvaise version...
     # V15 : exige aussi le numéro exact de la carte dans le titre.
-    pertinent, raison = annonce_pertinente(annonce.get("titre", ""), annonce.get("carte", ""))
+    # V16 : exige la cohérence de langue et accepte l'alias du Pokémon.
+    pertinent, raison = annonce_pertinente(
+        annonce.get("titre", ""), annonce.get("carte", ""),
+        annonce.get("langue", "fr"), annonce.get("alias", ""))
     if not pertinent:
         return None, raison
 
@@ -831,8 +937,12 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
     prix_max = float(r.get("prix_max", 0) or 0)
     if prix_max > 0 and total > prix_max:
         return None, f"au-dessus du budget ({total:.2f}€)"
-    if port > r["frais_port_max"]:
-        return None, f"port trop cher ({port:.2f}€ > {r['frais_port_max']:.2f}€)"
+    # V16 : plafond de port spécifique pour les annonces eBay étrangères
+    port_max = float(r["frais_port_max"])
+    if str(annonce.get("plateforme", "")).startswith("eBay ("):
+        port_max = float(r.get("frais_port_max_international", 10.0))
+    if port > port_max:
+        return None, f"port trop cher ({port:.2f}€ > {port_max:.2f}€)"
     if not _etat_ok(annonce.get("etat_texte", ""), cfg["etats_acceptes"], cfg["etats_refuses"]):
         return None, "état refusé (abîmée / gradée / jouée)"
 
@@ -1045,7 +1155,7 @@ def verifier_stock(cfg: dict, secrets: dict, vues: dict) -> list[dict]:
         # Cote actuelle : manuelle si fournie, sinon eBay (recherche + lissage)
         annonces_ebay = []
         if not achat.get("cote"):
-            annonces_ebay = ebay_rechercher(nom, achat.get("langue", "fr"), secrets)
+            annonces_ebay = ebay_rechercher(nom, achat.get("langue", "fr"), secrets, 40, cfg["regles"])
         cote, _ = obtenir_cote(achat, annonces_ebay, cfg)
         if not cote:
             log.info("Stock '%s' : cote introuvable, on réessaiera au prochain scan", nom)
@@ -1268,7 +1378,7 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
     taches = {}
     with ThreadPoolExecutor(max_workers=3) as pool:
         if plateformes.get("ebay"):
-            taches["ebay"] = pool.submit(ebay_rechercher, nom, langue, secrets)
+            taches["ebay"] = pool.submit(ebay_rechercher, nom, langue, secrets, 40, cfg["regles"])
         if plateformes.get("vinted"):
             taches["vinted"] = pool.submit(vinted_rechercher, nom, langue, 30, prix_plafond)
         if plateformes.get("leboncoin"):
@@ -1284,9 +1394,11 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
 
     annonces_ebay = resultats.get("ebay", [])
     annonces = annonces_ebay + resultats.get("vinted", []) + resultats.get("leboncoin", [])
-    # On attache le nom de la carte à chaque annonce (utile aux filtres)
+    # On attache la carte, sa langue et son alias à chaque annonce (filtres)
     for a in annonces:
         a["carte"] = nom
+        a["langue"] = langue
+        a["alias"] = carte.get("alias", "")
     return annonces, annonces_ebay
 
 
@@ -1345,10 +1457,13 @@ def main() -> int:
     # Annonces reçues par email d'alerte Leboncoin (contourne le blocage DataDome)
     for annonce in lbc_relever_alertes_email(cfg, secrets):
         for carte in cfg["watchlist"]:
-            pertinent, _ = annonce_pertinente(annonce["titre"], carte["nom"])
+            pertinent, _ = annonce_pertinente(annonce["titre"], carte["nom"],
+                                              carte.get("langue", "fr"), carte.get("alias", ""))
             if not pertinent:
                 continue
             annonce["carte"] = carte["nom"]
+            annonce["langue"] = carte.get("langue", "fr")
+            annonce["alias"] = carte.get("alias", "")
             cote_carte = carte.get("cote") or cote_lissee(carte["nom"])
             if not cote_carte:
                 break

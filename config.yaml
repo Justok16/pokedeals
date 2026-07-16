@@ -163,7 +163,44 @@ watchlist:
   # Méga-Darkrai ex SIR + dorée, Méga-Zeraora ex SIR, Méga-Lugulabre ex,
   # Méga-Minotaupe ex, Gwynn SIR.
 
-  # ----- Cartes ÉTRANGÈRES (V16) -----
+  # ----- Eeveelutions & Dresseurs populaires (fort potentiel marché) -----
+  # NB : plusieurs de ces cartes ont un format de numéro NON standard
+  # (promos sans dénominateur, Trainer Gallery "TG.."). Le filtre V16 ne
+  # sait matcher que "X/Y". Pour ces cas, on retire le numéro du nom : le
+  # bot exige alors TOUS les mots distinctifs (ex. "noctali" + "vmax"),
+  # ce qui reste fiable pour ces cartes au nom déjà très spécifique.
+  - nom: "Noctali VMAX 095/203"         # Ultra Rare — Évolution Céleste
+    langue: fr
+    alias: "Umbreon"
+  - nom: "Noctali V 189/203"            # Ultra Rare — Évolution Céleste
+    langue: fr
+    alias: "Umbreon"
+  - nom: "Noctali VMAX Trainer Gallery" # TG23/TG30 — Stars Étincelantes (numéro TG non matchable)
+    langue: fr
+    alias: "Umbreon"
+  - nom: "Evoli ex 167/131"             # Alternative — Évolutions Prismatiques
+    langue: fr
+    alias: "Eevee"
+  - nom: "Evoli 188/167"                # AR — Mascarade Crépusculaire
+    langue: fr
+    alias: "Eevee"
+  - nom: "Evoli VMAX SWSH087"           # Promo SWSH (pas de numéro /)
+    langue: fr
+    alias: "Eevee"
+  - nom: "Evoli Trainer Gallery"        # TG11/TG30 — Stars Étincelantes
+    langue: fr
+    alias: "Eevee"
+  - nom: "Evoli ex 174 promo"           # Promo SV (numéro sans dénominateur)
+    langue: fr
+    alias: "Eevee"
+  - nom: "Melofee ex de Lilie 280/217"  # Alternative — Héros Transcendants
+    langue: fr
+    alias: "Clefairy"
+  - nom: "Melofee ex de Lilie 173/159"  # Ultra Rare — Aventures Ensemble
+    langue: fr
+    alias: "Clefairy"
+
+
   # Chaque langue = une entrée séparée (cotes calculées à part, sinon les
   # versions étrangères moins chères fausseraient les cotes françaises).
   # "alias" = nom français accepté dans les titres d'annonces.
