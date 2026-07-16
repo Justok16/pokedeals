@@ -132,6 +132,10 @@ EXCLUSIONS = [
     "peluche", "figurine", "funko", "pop!", "jouet", "lego", "puzzle",
     "piece", "medaille", "mug", "tasse", "gourde", "porte cle", "porte cles",
     "coque", "poster", "tapis", "protege", "sleeve", "toploader",
+    # V17 : accessoires de protection/présentation (pas la carte elle-même)
+    "vitrine", "affichage", "protection", "presentoir", "support",
+    "boitier", "boite de protection", "etui", "pochette", "cadre",
+    "magnetique", "acrylique", "screwdown", "top loader", "porte carte",
     "jeu video", "nintendo switch", "game boy", "ds ", "3ds",
     "livre", "manga", "dvd", "blu ray",
 ]
@@ -531,13 +535,14 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
     else:
         nettoyes = prix
 
-    # V12 : cote = 1er QUARTILE des prix demandés, pas la médiane.
-    # Les annonces trop chères s'accumulent (invendues) et gonflent la médiane ;
-    # le prix auquel une carte PART VITE est celui du bas du marché crédible.
-    if len(nettoyes) >= 2:
-        reference = statistics.quantiles(sorted(nettoyes), n=4)[0]
-    else:
-        reference = statistics.median(nettoyes)
+    # V17 : cote = MÉDIANE des prix nettoyés (après filtrage IQR).
+    # Le 1er quartile (V12) visait "le prix qui part vite", mais il s'est
+    # révélé trop sensible quand le bas du marché est pollué : pour une SR
+    # dont la version commune du même Pokémon traîne à 3-8€, le 1er quartile
+    # plongeait la cote à ~11€ (cf. Darkrai 099, Melofee 173). La médiane
+    # est bien plus stable : il faut que la MOITIÉ du marché soit polluée
+    # pour la fausser, au lieu du seul quart bas.
+    reference = statistics.median(nettoyes)
     cote = round(reference * float(cfg_cote.get("coefficient_marche", 1.0)), 2)
     return cote, len(nettoyes)
 
@@ -692,7 +697,7 @@ VALIDITE_JOURS = 7          # une cote de plus de 7 jours est ignorée
 # Les cotes calculées sous V14 étaient polluées par les versions bon marché
 # du même Pokémon (Dracaufeu commun mélangé au Dracaufeu ex 199/165).
 # On repart d'un historique 100% propre, calculé avec le filtre par numéro.
-DEPLOIEMENT_TS = 1783900800  # 13/07/2026 00:00 UTC
+DEPLOIEMENT_TS = 1784160000  # 16/07/2026 00:00 UTC — purge V17 (cotes fossiles)
 
 
 def _charger_historique() -> dict:
