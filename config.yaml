@@ -61,6 +61,7 @@ watchlist:
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
   - nom: "Dracaufeu ex 201/165"
     langue: fr
+    alias: "Charizard"  # capte les annonces titrées en anglais
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
   - nom: "Tortank ex 200/165"
     langue: fr
@@ -200,36 +201,14 @@ watchlist:
     langue: fr
     alias: "Clefairy"
 
-
-  # Chaque langue = une entrée séparée (cotes calculées à part, sinon les
-  # versions étrangères moins chères fausseraient les cotes françaises).
-  # "alias" = nom français accepté dans les titres d'annonces.
-  # ⚠️ EN/KR : numérotation identique à la FR/JP pour ces sets (à vérifier
-  # à la première alerte reçue).
-  - nom: "Charizard ex 199/165"         # Dracaufeu ex SIR, version ANGLAISE
-    langue: en
-    alias: "Dracaufeu"
-  - nom: "Blastoise ex 200/165"         # Tortank ex SIR, version ANGLAISE
-    langue: en
-    alias: "Tortank"
-  - nom: "Charizard ex 201/165 KR"      # Dracaufeu ex SAR, version CORÉENNE
-    langue: kr
-    alias: "Dracaufeu"
-  - nom: "Mew ex 205/165 KR"            # version CORÉENNE
-    langue: kr
-  # Cartes CHINOISES : LA carte principale de chaque volume du
-  # "Collect 151" chinois simplifié = un Pikachu Art Rare EXCLUSIF
-  # (illustré par Oswaldo KATO, n'existe dans aucune autre langue).
-  # Numéros confirmés (Bulbapedia). Set numéroté /151 : aucune confusion
-  # possible avec le Pikachu 173/165 français.
-  - nom: "Pikachu 170/151"              # exclusive "Journey" (Pikachu volant)
-    langue: cn
-  - nom: "Pikachu 171/151"              # exclusive "Hope" (avec Psyduck) — la plus chère (~600€+)
-    langue: cn
-  - nom: "Pikachu 172/151"              # exclusive "Surprise" (avec Ectoplasma)
-    langue: cn
-  - nom: "Pikachu 173/151"              # exclusive "Gathering" (clairière de Pikachu)
-    langue: cn
+  # ----- Cartes ÉTRANGÈRES (EN/KR/CN) : RETIRÉES en V17.3 -----
+  # Le diagnostic du 16/07 a montré 0 à 1 annonce sur eBay France pour
+  # toutes ces versions (marché FR structurellement vide, numéros
+  # différents selon les pays). Elles polluaient les logs sans jamais
+  # produire de cote. Les versions JAPONAISES (déjà présentes plus haut :
+  # Charizard sv2a, Darkrai/Zeraora Abyss Eye...) fonctionnent, elles.
+  # Pour surveiller une carte étrangère précise à l'avenir, le plus fiable
+  # sera de lui donner une cote manuelle (cote: XX) plutôt qu'un calcul.
 
 
 # --- Calcul automatique de la cote ---

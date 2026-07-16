@@ -518,25 +518,8 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
     Retourne (cote, nb_annonces_utilisées).
     """
     if nom_carte:
-        # V17.2 (DIAGNOSTIC TEMPORAIRE) : on compte les raisons de rejet
-        # pour comprendre pourquoi certaines cartes ne trouvent aucune
-        # annonce. À retirer une fois le diagnostic terminé.
-        from collections import Counter
-        raisons = Counter()
-        prix = []
-        for a in annonces:
-            if a["prix"] <= 0:
-                continue
-            ok, raison = annonce_pertinente(a.get("titre", ""), nom_carte, langue, alias)
-            if ok:
-                prix.append(a["prix"])
-            else:
-                raisons[raison] += 1
-        prix.sort()
-        if len(annonces) > 0 and len(prix) < int(cfg_cote.get("minimum_annonces", 8)):
-            top = ", ".join(f"{r} ×{n}" for r, n in raisons.most_common(4))
-            log.info("    [diag %s] %d annonces reçues, %d retenues. Rejets : %s",
-                     nom_carte, len(annonces), len(prix), top or "(aucun)")
+        prix = sorted(a["prix"] for a in annonces
+                      if a["prix"] > 0 and annonce_pertinente(a.get("titre", ""), nom_carte, langue, alias)[0])
     else:
         prix = sorted(a["prix"] for a in annonces if a["prix"] > 0)
 
