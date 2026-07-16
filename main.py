@@ -693,11 +693,17 @@ RACINE = os.path.dirname(os.path.abspath(__file__))
 FICHIER_COTES = os.path.join(RACINE, "data", "cotes.json")
 HISTORIQUE_MAX = 5          # nombre de cotes conservées par carte
 VALIDITE_JOURS = 7          # une cote de plus de 7 jours est ignorée
-# V15 : toute cote enregistrée AVANT ce déploiement est ignorée puis effacée.
-# Les cotes calculées sous V14 étaient polluées par les versions bon marché
-# du même Pokémon (Dracaufeu commun mélangé au Dracaufeu ex 199/165).
-# On repart d'un historique 100% propre, calculé avec le filtre par numéro.
-DEPLOIEMENT_TS = 1784160000  # 16/07/2026 00:00 UTC — purge V17 (cotes fossiles)
+# V17.1 : purge par VERSION plutôt que par date.
+# La purge par timestamp (DEPLOIEMENT_TS) laissait survivre les cotes
+# recalculées le jour même du déploiement (Dracaufeu figé à 432,50€,
+# Darkrai 099 à 11,16€...). On passe à un "tag" : si le tag stocké dans
+# data/cotes.json ne correspond PAS à PURGE_VERSION ci-dessous, TOUT
+# l'historique est jeté au prochain scan. Pour forcer une remise à zéro
+# à l'avenir, il suffit d'incrémenter ce numéro.
+PURGE_VERSION = 17
+# Conservé pour compatibilité de lecture des anciens fichiers (non utilisé
+# pour la purge elle-même).
+DEPLOIEMENT_TS = 1784160000  # 16/07/2026 00:00 UTC
 
 
 def _charger_historique() -> dict:
@@ -708,21 +714,22 @@ def _charger_historique() -> dict:
             brut = json.load(f)
     except (json.JSONDecodeError, OSError):
         return {}
-    # Purge des cotes antérieures au déploiement (anciennes valeurs polluées)
-    propre = {}
-    for nom, entrees in brut.items():
-        gardees = [e for e in entrees
-                   if isinstance(e, dict) and e.get("ts", 0) >= DEPLOIEMENT_TS]
-        if gardees:
-            propre[nom] = gardees
-    return propre
+    # Purge par version : si le fichier n'a pas le bon tag, on repart de zéro.
+    if not isinstance(brut, dict) or brut.get("_purge_version") != PURGE_VERSION:
+        log.info("Historique des cotes réinitialisé (purge V%s) : repart propre", PURGE_VERSION)
+        return {}
+    # Format valide et à jour : on retire la clé technique et on renvoie les cotes.
+    return {nom: entrees for nom, entrees in brut.items() if nom != "_purge_version"}
 
 
 def sauvegarder_historique() -> None:
     h = historique()
     os.makedirs(os.path.dirname(FICHIER_COTES), exist_ok=True)
+    # On réécrit le tag de version à chaque sauvegarde.
+    a_ecrire = {"_purge_version": PURGE_VERSION}
+    a_ecrire.update(h)
     with open(FICHIER_COTES, "w", encoding="utf-8") as f:
-        json.dump(h, f, ensure_ascii=False, indent=1)
+        json.dump(a_ecrire, f, ensure_ascii=False, indent=1)
 
 
 _historique = None
@@ -860,9 +867,10 @@ def lbc_relever_alertes_email(cfg: dict, secrets: dict) -> list[dict]:
 
 
 def cote_lissee(nom_carte: str) -> float | None:
-    """Médiane des cotes récentes ET postérieures au déploiement V15."""
+    """Médiane des cotes des 7 derniers jours (l'historique est déjà purgé
+    par version au chargement, donc plus besoin de borne de déploiement)."""
     entrees = historique().get(nom_carte, [])
-    limite = max(time.time() - VALIDITE_JOURS * 86400, DEPLOIEMENT_TS)
+    limite = time.time() - VALIDITE_JOURS * 86400
     valeurs = [e["cote"] for e in entrees if e.get("ts", 0) >= limite]
     if not valeurs:
         return None
