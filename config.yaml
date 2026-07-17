@@ -185,15 +185,6 @@ watchlist:
   # sait matcher que "X/Y". Pour ces cas, on retire le numéro du nom : le
   # bot exige alors TOUS les mots distinctifs (ex. "noctali" + "vmax"),
   # ce qui reste fiable pour ces cartes au nom déjà très spécifique.
-  - nom: "Noctali VMAX 095/203"         # Ultra Rare — Évolution Céleste
-    langue: fr
-    alias: "Umbreon"
-  - nom: "Noctali V 189/203"            # Ultra Rare — Évolution Céleste
-    langue: fr
-    alias: "Umbreon"
-  - nom: "Noctali VMAX Trainer Gallery" # TG23/TG30 — Stars Étincelantes (numéro TG non matchable)
-    langue: fr
-    alias: "Umbreon"
   - nom: "Evoli ex 167/131"             # Alternative — Évolutions Prismatiques
     langue: fr
     alias: "Eevee"
