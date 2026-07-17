@@ -267,10 +267,19 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
             return False, f"langue '{langue}' non mentionnée dans le titre"
 
     # 3) Cohérence Méga : une carte Méga ne pollue pas une recherche non-Méga
-    #    et inversement.
+    #    et inversement. ATTENTION : "méga" peut aussi venir du NOM DU SET
+    #    "Méga-Évolution" (ex. un Bulbizarre de ce set n'est PAS une carte
+    #    Méga). On ne compte donc "méga" comme marqueur de carte Méga que
+    #    s'il n'est pas immédiatement suivi de "évolution"/"evolution".
     requis = mots_requis(nom_carte)
     jetons = t.split()
-    titre_mega = "mega" in jetons or "m" in jetons  # "Méga", "Mega" ou "M." Dracaufeu
+    titre_mega = False
+    for i, jet in enumerate(jetons):
+        if jet in ("mega", "m"):
+            suivant = jetons[i + 1] if i + 1 < len(jetons) else ""
+            if suivant not in ("evolution", "evolutions"):
+                titre_mega = True
+                break
     carte_mega = "mega" in requis
     if titre_mega and not carte_mega:
         return False, "carte Méga hors recherche"

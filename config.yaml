@@ -221,6 +221,78 @@ watchlist:
     langue: fr
     alias: "Clefairy"
 
+  # ----- Versions JAPONAISES de Méga déjà surveillées en FR -----
+  - nom: "Mega Lucario ex 092 m1L"      # Mega Brave (JP) = Méga-Lucario 188 FR
+    langue: jp
+    alias: "Lucario"
+  - nom: "Mega Lucario ex 088 m1L"      # Mega Brave (JP) = Méga-Lucario 179 FR
+    langue: jp
+    alias: "Lucario"
+  - nom: "Mega Charizard X ex 110 m2"   # Inferno X (JP) = Méga-Dracaufeu X 125 FR
+    langue: jp
+    alias: "Dracaufeu"
+
+  # ----- Nouvelles paires FR + JP -----
+  - nom: "Mega Dracaufeu X ex 130"      # Flammes Fantasmagoriques (PFL) FR
+    langue: fr
+    alias: "Charizard"
+  - nom: "Mega Charizard X ex 116 m2"   # Inferno X (JP)
+    langue: jp
+    alias: "Dracaufeu"
+  - nom: "Mega Dracaufeu X ex 023"      # MEP Black Star Promos FR
+    langue: fr
+    alias: "Charizard"
+  - nom: "Mega Charizard X ex 223 m2a"  # MEGA Dream ex (JP)
+    langue: jp
+    alias: "Dracaufeu"
+  - nom: "Mega Florizarre ex 177"       # Méga-Évolution (MEG) FR
+    langue: fr
+    alias: "Venusaur"
+  - nom: "Mega Venusaur ex 087 m1L"     # Mega Brave (JP)
+    langue: jp
+    alias: "Florizarre"
+  - nom: "Bulbizarre 133"               # Méga-Évolution (MEG) FR
+    langue: fr
+    alias: "Bulbasaur"
+  - nom: "Bulbasaur 064 m1L"            # Mega Brave (JP)
+    langue: jp
+    alias: "Bulbizarre"
+  - nom: "Herbizarre 134"               # Méga-Évolution (MEG) FR
+    langue: fr
+    alias: "Ivysaur"
+  - nom: "Ivysaur 065 m1L"              # Mega Brave (JP)
+    langue: jp
+    alias: "Herbizarre"
+  - nom: "Miaouss ex 121"               # Équilibre Parfait (POR) FR
+    langue: fr
+    alias: "Meowth"
+  - nom: "Meowth ex 114 m3"             # Nihil Zero (JP)
+    langue: jp
+    alias: "Miaouss"
+  - nom: "Grenousse 088"                # Chaos Ascendant (CRI) FR
+    langue: fr
+    alias: "Froakie"
+  - nom: "Froakie 086 m4"               # Ninja Spinner (JP)
+    langue: jp
+    alias: "Grenousse"
+
+  # ----- Coups de cœur (FR + JP) -----
+  - nom: "Tiplouf 098"                  # Flammes Fantasmagoriques (PFL) FR
+    langue: fr
+  - nom: "Piplup 085 m2"                # Inferno X (JP) = Tiplouf
+    langue: jp
+    alias: "Tiplouf"
+  - nom: "Psykokwak 226"                # Héros Transcendants (ASC) FR
+    langue: fr
+  - nom: "Psyduck 199 m2a"              # MEGA Dream ex (JP) = Psykokwak
+    langue: jp
+    alias: "Psykokwak"
+  - nom: "Plumeline ex 024"            # MEP Black Star Promos FR
+    langue: fr
+  - nom: "Oricorio ex 111 m2"          # Inferno X (JP) = Plumeline ex
+    langue: jp
+    alias: "Plumeline"
+
   # ----- Lugia (icône légendaire recherchée) -----
   - nom: "Lugia V 198/172"              # SAR — S11a VMAX Climax (JP), "the crown pick"
     langue: jp
