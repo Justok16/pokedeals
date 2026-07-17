@@ -148,12 +148,6 @@ watchlist:
   - nom: "Mega Darkrai ex 099/081"      # SR full art
     langue: jp
     alias: "Darkrai"
-  - nom: "Mega Zeraora ex 112/081"      # SAR
-    langue: jp
-    alias: "Zeraora"
-  - nom: "Mega Chandelure ex 113/081"   # SAR (Méga-Lugulabre)
-    langue: jp
-    alias: "Lugulabre"
   - nom: "Morpeko ex 115/081"           # SAR
     langue: jp
 
@@ -200,6 +194,14 @@ watchlist:
   - nom: "Melofee ex de Lilie 173/159"  # Ultra Rare — Aventures Ensemble
     langue: fr
     alias: "Clefairy"
+
+  # ----- Lugia (icône légendaire recherchée) -----
+  - nom: "Lugia V 198/172"              # SAR — S11a VMAX Climax (JP), "the crown pick"
+    langue: jp
+  - nom: "Lugia VSTAR GG70/GG70"        # Galarian Gallery
+    langue: fr
+  - nom: "Lugia V 110/098"              # SR — S12 (JP)
+    langue: jp
 
   # ----- Cartes ÉTRANGÈRES (EN/KR/CN) : RETIRÉES en V17.3 -----
   # Le diagnostic du 16/07 a montré 0 à 1 annonce sur eBay France pour
@@ -261,7 +263,7 @@ email:
 # 3. Le bot lit les emails NON LUS de Leboncoin à chaque scan et les
 #    traite comme des annonces normales (filtre + cote + alerte Telegram).
 leboncoin_alertes_email:
-  actif: true
+  actif: false   # Désactivé : Leboncoin n'active pas les alertes email sur ce compte
   imap_hote: imap.gmail.com
   boite: INBOX
 
