@@ -148,8 +148,19 @@ watchlist:
   - nom: "Mega Darkrai ex 099/081"      # SR full art
     langue: jp
     alias: "Darkrai"
-  - nom: "Morpeko ex 115/081"           # SAR
+  - nom: "Morpeko ex 115/081"           # SAR (version japonaise Abyss Eye)
     langue: jp
+
+  # ----- ME05 Nuit Noire — version FRANÇAISE (sortie 17/07/2026) -----
+  # Le set FR reprend la numérotation japonaise Abyss Eye (114/081 etc.).
+  - nom: "Mega Darkrai ex 114/081"      # SAR — LA carte star (illustr. Akira Egawa)
+    langue: fr
+    alias: "Darkrai"
+  - nom: "Mega Darkrai ex 118/081"      # MUR dorée
+    langue: fr
+    alias: "Darkrai"
+  - nom: "Morpeko ex 117"               # chase coup de cœur (Nuit Noire FR, num. PBL 117)
+    langue: fr
 
   # ----- ME05 Nuit Noire — version FRANÇAISE (sortie 17/07/2026) -----
   # ⏳ Les numéros occidentaux ne sont pas encore publiés (le set fusionne
