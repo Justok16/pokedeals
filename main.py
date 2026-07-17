@@ -232,12 +232,6 @@ def mots_requis_stricts(nom_carte: str) -> list[str]:
     return base
 
 
-def nom_pokemon(nom_carte: str) -> str | None:
-    """Conservé pour compatibilité : premier mot distinctif."""
-    requis = mots_requis(nom_carte)
-    return requis[0] if requis else None
-
-
 def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: str = "") -> tuple[bool, str]:
     """Filtre strict : (pertinent, raison)."""
     t = normaliser(titre)
@@ -1466,21 +1460,6 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
         a["langue"] = langue
         a["alias"] = carte.get("alias", "")
     return annonces, annonces_ebay
-
-
-
-
-def grouper_deals_par_scan(deals_list: list) -> list:
-    """Groupe les deals par scan, max 10 par message (anti-spam)."""
-    if not deals_list:
-        return []
-    # Trier par profit décroissant
-    deals_tries = sorted(deals_list, key=lambda d: d["profit_net_estime"], reverse=True)
-    # Grouper par tranches de 10
-    groupes = []
-    for i in range(0, len(deals_tries), 10):
-        groupes.append(deals_tries[i:i+10])
-    return groupes
 
 
 def main() -> int:
