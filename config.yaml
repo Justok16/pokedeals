@@ -138,6 +138,20 @@ watchlist:
   - nom: "Méga-Amphinobi ex 116/086"    # version SIR (~250-320€) — la dorée est 122/086
     langue: fr
 
+  # ----- Méga japonaises (test — numéros confirmés) -----
+  - nom: "Mega Gardevoir ex 087/063"    # SAR — Mega Symphonia (JP)
+    langue: jp
+    alias: "Gardevoir"
+  - nom: "Mega Zygarde ex 113/080"      # SAR — Nihil Zero (JP)
+    langue: jp
+    alias: "Zygarde"
+  - nom: "Mega Zeraora ex 112/081"      # SAR — Abyss Eye (JP)
+    langue: jp
+    alias: "Zeraora"
+  - nom: "Mega Dragonite ex 246/193"    # SAR — Mega Dream ex (JP) = Méga-Dracolosse
+    langue: jp
+    alias: "Dracolosse"
+
   # ----- ME05 Nuit Noire — version JAPONAISE "Abyss Eye" (x/081, déjà sortie) -----
   - nom: "Mega Darkrai ex 114/081"      # SAR — LA chase card du set
     langue: jp
