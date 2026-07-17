@@ -1,0 +1,66 @@
+name: PokéDeals
+on:
+  schedule:
+    # Toutes les 15 minutes (GitHub peut décaler de quelques minutes)
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}   # permet aussi de lancer à la main depuis l'onglet Actions
+permissions:
+  contents: write   # nécessaire pour sauvegarder data/*.json
+concurrency:
+  group: pokedeals
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Décalage aléatoire (anti-détection)
+        run: sleep $((RANDOM % 90))
+      - name: Lancer le scan
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python main.py
+      - name: Sauvegarder la mémoire (annonces vues + historique des cotes)
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          # Les fichiers de données du bot font autorité : on met de côté nos
+          # changements, on récupère la version distante, puis on RÉIMPOSE nos
+          # fichiers de données. Évite les conflits d'autostash rencontrés avant.
+          cp -f data/*.json /tmp/ 2>/dev/null || true
+          cp -f data/*.csv /tmp/ 2>/dev/null || true
+          git stash --include-untracked || true
+          git pull --rebase || git rebase --abort || true
+          git stash drop || true
+          cp -f /tmp/*.json data/ 2>/dev/null || true
+          cp -f /tmp/*.csv data/ 2>/dev/null || true
+          git add data/*.json data/*.csv 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj mémoire [skip ci]"
+          # Push avec une tentative de rattrapage : si le push échoue (ex. un
+          # autre scan a poussé entre-temps), on refait un pull --rebase en
+          # préservant nos données, puis on re-pousse. Si ça échoue ENCORE, on
+          # laisse le workflow passer au rouge pour que le problème soit visible
+          # (sinon la mémoire non sauvée = risque d'alertes en double).
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f data/*.json /tmp/ 2>/dev/null || true
+            cp -f data/*.csv /tmp/ 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/*.json data/ 2>/dev/null || true
+            cp -f /tmp/*.csv data/ 2>/dev/null || true
+            git add data/*.json data/*.csv 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj mémoire [skip ci]"
+            git push
+          }
