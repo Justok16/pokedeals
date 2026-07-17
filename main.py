@@ -471,7 +471,7 @@ def _obtenir_token(client_id: str, client_secret: str) -> str | None:
 
 
 def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40,
-                    cfg_regles: dict | None = None) -> list[dict]:
+                    cfg_regles: dict | None = None, alias: str = "") -> list[dict]:
     """Retourne les annonces eBay en achat immédiat pour une carte.
 
     V15 : le numéro de collection contenu dans `nom_carte` (ex. 199/165)
@@ -479,6 +479,11 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
     V16 : si regles.ebay_international est actif, on cherche tout ce qui
     est LIVRABLE en France (port <= frais_port_max_international) au lieu
     de se limiter aux annonces situées en France.
+    V17.5 : si un `alias` est fourni (nom alternatif du Pokémon, ex.
+    "Tortank" pour "Blastoise"), on lance AUSSI une recherche eBay sur
+    l'alias et on fusionne. Sans ça, une annonce titrée uniquement avec
+    l'alias (« carte Tortank ex 202 japonaise ») n'était jamais remontée,
+    car la requête ne portait que sur le nom principal.
     """
     token = _obtenir_token(secrets["EBAY_CLIENT_ID"], secrets["EBAY_CLIENT_SECRET"])
     if not token:
@@ -488,35 +493,54 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
     international = bool(regles.get("ebay_international"))
     port_max_intl = float(regles.get("frais_port_max_international", 10.0))
 
-    requete = f"carte pokemon {nom_carte}"
-    requete += SUFFIXES_LANGUE.get(langue, "")
-
     filtre = "buyingOptions:{FIXED_PRICE},priceCurrency:EUR"
     filtre += ",deliveryCountry:FR" if international else ",itemLocationCountry:FR"
+    suffixe = SUFFIXES_LANGUE.get(langue, "")
 
-    try:
-        r = requete_avec_retry(
-            requests.get,
-            BROWSE_URL,
-            headers={
-                "Authorization": f"Bearer {token}",
-                "X-EBAY-C-MARKETPLACE-ID": MARKETPLACE,
-            },
-            params={
-                "q": requete,
-                "limit": str(limite),
-                "filter": filtre,
-            },
-            timeout=25,
-        )
-        r.raise_for_status()
-        items = r.json().get("itemSummaries", []) or []
-    except Exception as e:  # noqa: BLE001
-        log.error("Recherche eBay '%s' échouée : %s", nom_carte, e)
-        return []
+    def _une_recherche(terme: str) -> list[dict]:
+        """Interroge eBay pour un terme et renvoie les annonces brutes."""
+        requete = f"carte pokemon {terme}{suffixe}"
+        try:
+            r = requete_avec_retry(
+                requests.get,
+                BROWSE_URL,
+                headers={
+                    "Authorization": f"Bearer {token}",
+                    "X-EBAY-C-MARKETPLACE-ID": MARKETPLACE,
+                },
+                params={"q": requete, "limit": str(limite), "filter": filtre},
+                timeout=25,
+            )
+            r.raise_for_status()
+            return r.json().get("itemSummaries", []) or []
+        except Exception as e:  # noqa: BLE001
+            log.error("Recherche eBay '%s' échouée : %s", terme, e)
+            return []
+
+    # Recherche sur le nom principal, + sur l'alias si fourni.
+    # On construit le nom recherché pour l'alias en remplaçant le Pokémon
+    # dans le nom de carte (on garde numéro/type) : "Blastoise ex 202" +
+    # alias "Tortank" -> on cherche aussi "Tortank ex 202".
+    items = _une_recherche(nom_carte)
+    alias_norm = normaliser(alias) if alias else ""
+    if alias and alias_norm not in normaliser(nom_carte):
+        terme_alias = nom_carte
+        pokemon_principal = next((m for m in mots_requis(nom_carte) if m != "mega"), None)
+        if pokemon_principal:
+            # remplace le nom du Pokémon (insensible à la casse) par l'alias
+            terme_alias = re.sub(pokemon_principal, alias, nom_carte, flags=re.IGNORECASE)
+        if terme_alias == nom_carte:  # rien remplacé : on préfixe l'alias
+            terme_alias = f"{alias} {nom_carte}"
+        items = items + _une_recherche(terme_alias)
 
     annonces = []
+    vus_ids = set()
     for it in items:
+        item_id = it.get("itemId", "")
+        if item_id and item_id in vus_ids:
+            continue  # annonce déjà captée par l'autre recherche
+        if item_id:
+            vus_ids.add(item_id)
         try:
             prix = float(it["price"]["value"])
         except (KeyError, ValueError, TypeError):
@@ -542,7 +566,7 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
         annonces.append(
             {
                 "plateforme": "eBay" if pays == "FR" else f"eBay ({pays})",
-                "id": f"ebay-{it.get('itemId', '')}",
+                "id": f"ebay-{item_id}",
                 "titre": it.get("title", ""),
                 "prix": prix,
                 "port": port,
@@ -1215,7 +1239,7 @@ def verifier_stock(cfg: dict, secrets: dict, vues: dict) -> list[dict]:
         # Cote actuelle : manuelle si fournie, sinon eBay (recherche + lissage)
         annonces_ebay = []
         if not achat.get("cote"):
-            annonces_ebay = ebay_rechercher(nom, achat.get("langue", "fr"), secrets, 40, cfg["regles"])
+            annonces_ebay = ebay_rechercher(nom, achat.get("langue", "fr"), secrets, 40, cfg["regles"], achat.get("alias", ""))
         cote, _ = obtenir_cote(achat, annonces_ebay, cfg)
         if not cote:
             log.info("Stock '%s' : cote introuvable, on réessaiera au prochain scan", nom)
@@ -1438,7 +1462,7 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
     taches = {}
     with ThreadPoolExecutor(max_workers=3) as pool:
         if plateformes.get("ebay"):
-            taches["ebay"] = pool.submit(ebay_rechercher, nom, langue, secrets, 40, cfg["regles"])
+            taches["ebay"] = pool.submit(ebay_rechercher, nom, langue, secrets, 40, cfg["regles"], carte.get("alias", ""))
         if plateformes.get("vinted"):
             taches["vinted"] = pool.submit(vinted_rechercher, nom, langue, 30, prix_plafond)
         if plateformes.get("leboncoin"):
