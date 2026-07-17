@@ -180,6 +180,33 @@ def extraire_numero(texte: str) -> str | None:
     return f"{int(m.group(1))}/{int(m.group(2))}" if m else None
 
 
+# V17.4 : les cartes Nuit Noire françaises (set PBL) ont un numéro SANS
+# dénominateur ("116", "120"...) au lieu du format "X/Y". Sans traitement
+# spécial, "Darkrai ex 116" et "Darkrai ex 120" deviennent indiscernables
+# (même Pokémon, filtre incapable de distinguer 116 de 120). On extrait donc
+# ce numéro nu du NOM de carte, et on l'exige comme un token isolé dans le
+# titre, en rejetant tout autre numéro nu du même Pokémon.
+RE_NUMERO_NU = re.compile(r"\b(\d{2,3})\b")
+
+
+def numero_nu_voulu(nom_carte: str) -> str | None:
+    """Renvoie le numéro nu (ex '116') si le nom en contient un ET n'a pas
+    de numéro au format X/Y. Sinon None."""
+    if extraire_numero(nom_carte):
+        return None  # déjà un numéro X/Y : géré par la voie normale
+    m = RE_NUMERO_NU.search(nom_carte or "")
+    return m.group(1) if m else None
+
+
+def numeros_nus_titre(titre: str) -> list[str]:
+    """Tous les numéros nus (2-3 chiffres) présents dans un titre normalisé,
+    en excluant ceux qui font partie d'un format X/Y (déjà gérés ailleurs)."""
+    t = titre or ""
+    # On retire d'abord les 'X/Y' pour ne pas capturer leurs composantes.
+    sans_fraction = RE_NUMERO.sub(" ", t)
+    return RE_NUMERO_NU.findall(sans_fraction)
+
+
 def mots_requis(nom_carte: str) -> list[str]:
     """Mots distinctifs de la carte, TOUS exigés dans le titre.
     'Méga-Dracolosse ex 290/217' -> ['mega', 'dracolosse']
@@ -278,10 +305,11 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
             return False, f"mauvais numéro ({numero_annonce} != {numero_voulu})"
         # bon numéro + bon pokémon : suffisant, on s'arrête là
     else:
-        # Le nom recherché n'a pas de numéro (ex. versions SIR, promos, TG).
-        # On exige tous les mots distinctifs, EN CONSERVANT le type de carte
-        # (vmax/v/ex...) pour ne pas confondre une V et une VMAX du même
-        # Pokémon. Le nom principal peut être couvert par l'alias.
+        # Le nom recherché n'a pas de numéro X/Y (ex. versions SIR, promos,
+        # TG, ou cartes PBL Nuit Noire à numéro nu). On exige tous les mots
+        # distinctifs, EN CONSERVANT le type de carte (vmax/v/ex...) pour ne
+        # pas confondre une V et une VMAX du même Pokémon. Le nom principal
+        # peut être couvert par l'alias.
         jetons_titre = t.split()
         for mot in mots_requis_stricts(nom_carte):
             if mot == "mega":
@@ -296,8 +324,24 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
                     return False, f"type '{mot}' absent du titre"
             elif mot not in t:
                 return False, f"'{mot}' absent du titre"
-        # ... et refuser une annonce qui, elle, porte un numéro : une carte
-        # numérotée (187/132) n'est pas la version SIR non numérotée.
+
+        # V17.4 : cartes PBL à numéro nu (Nuit Noire FR : "116", "120"...).
+        # Le numéro voulu DOIT figurer dans le titre, et aucun AUTRE numéro
+        # nu ne doit y figurer (sinon "Darkrai ex 120" matcherait la 116).
+        num_nu = numero_nu_voulu(nom_carte)
+        if num_nu:
+            nus = numeros_nus_titre(titre)
+            if num_nu not in nus:
+                return False, f"numéro {num_nu} absent du titre"
+            autres = [n for n in nus if n != num_nu]
+            if autres:
+                return False, f"autre numéro présent ({autres[0]} ≠ {num_nu})"
+            # Numéro nu exigé et présent : on NE rejette PAS sur numero_annonce
+            # (le titre peut aussi contenir un X/Y, ex '116/086' — cohérent).
+            return True, "ok"
+
+        # ... et refuser une annonce qui, elle, porte un numéro X/Y : une carte
+        # sans numéro (SIR non numérotée) n'est pas une carte numérotée.
         if numero_annonce:
             return False, "annonce numérotée ≠ version sans numéro (SIR)"
 
