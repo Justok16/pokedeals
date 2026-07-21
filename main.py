@@ -175,6 +175,25 @@ def _marqueur_present(marqueur: str, texte_norm: str, jetons: list[str]) -> bool
     return marqueur in texte_norm
 
 
+# V18 : détection de caractères asiatiques dans le titre ORIGINAL (avant
+# normalisation, qui les supprimerait). Une annonce contenant フシギダネ,
+# ピカチュウ, 리자몽, 妙蛙种子... est forcément une carte étrangère, même si
+# le reste du titre est en français. C'est le signal le plus fiable pour
+# rejeter une carte JP/KR/CN vendue sous une carte FR du même numéro.
+import unicodedata as _ud
+
+def _contient_caracteres_asiatiques(texte: str) -> bool:
+    for ch in texte or "":
+        code = ord(ch)
+        # Hiragana, Katakana, Kanji (CJK), Hangul coréen
+        if (0x3040 <= code <= 0x30FF        # hiragana + katakana
+                or 0x4E00 <= code <= 0x9FFF  # idéogrammes CJK (kanji/hanzi)
+                or 0xAC00 <= code <= 0xD7A3  # hangul coréen
+                or 0x3400 <= code <= 0x4DBF):  # CJK étendu
+            return True
+    return False
+
+
 def extraire_numero(texte: str) -> str | None:
     m = RE_NUMERO.search(texte or "")
     return f"{int(m.group(1))}/{int(m.group(2))}" if m else None
@@ -232,8 +251,28 @@ def mots_requis_stricts(nom_carte: str) -> list[str]:
     return base
 
 
-def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: str = "") -> tuple[bool, str]:
-    """Filtre strict : (pertinent, raison)."""
+def _pays_ebay(plateforme: str) -> str | None:
+    """Extrait le code pays d'une plateforme 'eBay (JP)' -> 'jp'. None sinon."""
+    p = str(plateforme or "")
+    if p.startswith("eBay (") and p.endswith(")"):
+        code = p[6:-1].strip().lower()
+        return code or None
+    return None
+
+
+# Correspondance pays eBay -> langue de la carte
+_PAYS_VERS_LANGUE = {"jp": "jp", "kr": "kr", "cn": "cn"}
+
+
+def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: str = "",
+                       plateforme: str = "") -> tuple[bool, str]:
+    """Filtre strict : (pertinent, raison).
+
+    V18 : `plateforme` permet d'utiliser la localisation eBay comme signal
+    de langue. Une annonce "eBay (JP)" au titre 100% français est bien une
+    carte japonaise (localisée au Japon) : elle doit être routée vers
+    l'entrée japonaise, pas vers l'entrée française.
+    """
     t = normaliser(titre)
     if not t.strip():
         return False, "titre vide"
@@ -250,14 +289,29 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
     # 2bis) Cohérence de LANGUE (V16). Une carte coréenne vaut souvent
     #    3 à 5 fois moins que la même carte française : mélanger les
     #    langues fausserait les cotes comme le faisait l'absence de numéro.
+    # V18 : on vérifie d'abord les CARACTÈRES asiatiques sur le titre
+    #    ORIGINAL (avant normalisation, qui les supprime). Un titre
+    #    contenant フシギダネ / ピカチュウ / 리자몽 est forcément étranger.
+    #    On considère aussi la LOCALISATION eBay comme signal de langue.
+    titre_a_des_caracteres_asiatiques = _contient_caracteres_asiatiques(titre)
+    pays = _pays_ebay(plateforme)
+    langue_du_pays = _PAYS_VERS_LANGUE.get(pays) if pays else None
+    origine_asiatique = titre_a_des_caracteres_asiatiques or bool(langue_du_pays)
     jetons_langue = t.split()
     if langue in (None, "", "fr"):
+        if origine_asiatique:
+            return False, "carte étrangère (caractères/origine) hors recherche FR"
         for m in TOUS_MARQUEURS:
             if _marqueur_present(m, t, jetons_langue):
                 return False, f"carte étrangère ('{m}') hors recherche FR"
     else:
         marqueurs = MARQUEURS_LANGUE.get(langue, [])
-        if marqueurs and not any(_marqueur_present(m, t, jetons_langue) for m in marqueurs):
+        # Une carte asiatique (jp/kr/cn) est validée par : un marqueur texte,
+        # OU des caractères asiatiques, OU la localisation eBay du bon pays
+        # (ex. une annonce eBay(JP) au titre français EST une carte japonaise).
+        a_marqueur = any(_marqueur_present(m, t, jetons_langue) for m in marqueurs)
+        localisation_ok = (langue_du_pays == langue)
+        if marqueurs and not a_marqueur and not titre_a_des_caracteres_asiatiques and not localisation_ok:
             return False, f"langue '{langue}' non mentionnée dans le titre"
 
     # 3) Cohérence Méga : une carte Méga ne pollue pas une recherche non-Méga
@@ -577,20 +631,39 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
     return annonces
 
 
+def _localisation_incoherente(annonce: dict, langue: str) -> bool:
+    """V18 : True si l'annonce vient d'un pays incompatible avec la langue
+    recherchée. Une carte FRANÇAISE ne se vend pas depuis le Japon : les
+    annonces "eBay (JP)", "eBay (KR)", "eBay (CN)" doivent être écartées de
+    la cote ET des deals d'une carte FR (sinon la cote est gonflée par des
+    cartes japonaises au même numéro, cf. Pikachu 173/165 et Bulbizarre
+    166/165 vendus en version JP à des prix bien plus élevés).
+    """
+    if langue not in (None, "", "fr"):
+        return False  # pour une carte JP/KR/CN, l'origine étrangère est normale
+    plateforme = str(annonce.get("plateforme", ""))
+    # "eBay (JP)", "eBay (DE)"... : tout ce qui n'est pas FR est suspect pour
+    # une carte française d'un set (151, Méga) qui existe aussi en asiatique.
+    if plateforme.startswith("eBay (") and not plateforme.startswith("eBay (FR"):
+        return True
+    return False
+
+
 def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
                   langue: str = "fr", alias: str = "") -> tuple[float | None, int]:
-    """Cote = 1er quartile des prix des annonces PERTINENTES × coefficient.
+    """Cote = médiane des prix des annonces PERTINENTES × coefficient.
 
-    V15 : le filtre `annonce_pertinente` exige désormais le numéro exact de
-    la carte dans chaque titre. V16 : il vérifie aussi la langue. Plus
-    AUCUNE annonce ambiguë (même Pokémon, autre version ou autre langue)
-    n'entre dans le calcul. Les valeurs aberrantes restantes sont ensuite
-    écartées par la méthode de l'écart interquartile (IQR).
+    V15 : le filtre `annonce_pertinente` exige le numéro exact de la carte.
+    V16 : il vérifie aussi la langue (texte). V18 : on écarte en plus les
+    annonces localisées à l'étranger pour une carte FR (eBay JP/KR/CN), qui
+    gonflaient la cote avec des versions asiatiques au même numéro.
     Retourne (cote, nb_annonces_utilisées).
     """
     if nom_carte:
         prix = sorted(a["prix"] for a in annonces
-                      if a["prix"] > 0 and annonce_pertinente(a.get("titre", ""), nom_carte, langue, alias)[0])
+                      if a["prix"] > 0
+                      and not _localisation_incoherente(a, langue)
+                      and annonce_pertinente(a.get("titre", ""), nom_carte, langue, alias, a.get("plateforme", ""))[0])
     else:
         prix = sorted(a["prix"] for a in annonces if a["prix"] > 0)
 
@@ -688,16 +761,24 @@ def vinted_rechercher(nom_carte: str, langue: str, limite: int = 30, prix_plafon
         # V15 : frais de protection acheteur Vinted = 0,7€ fixe + 5% du prix
         frais_protection = 0.7 + (prix * 0.05)
         port_total = 3.5 + frais_protection
+        # V18 : le titre court Vinted ("Bulbizarre AR 166/165") ne mentionne
+        # souvent PAS la langue ; c'est la DESCRIPTION qui dit "édition 151
+        # Jap". On concatène donc titre + description pour que le filtre de
+        # langue voie ces indices et rejette les cartes japonaises vendues
+        # sous une carte française du même numéro.
+        titre_court = it.get("title", "")
+        description = it.get("description", "") or ""
+        texte_complet = f"{titre_court} {description}".strip()
         annonces.append(
             {
                 "plateforme": "Vinted",
                 "id": f"vinted-{it.get('id', '')}",
-                "titre": it.get("title", ""),
+                "titre": texte_complet,
                 "prix": prix,
                 # Port Vinted (~3.5€) + frais de protection acheteur (0.7€ + 5%)
                 "port": round(port_total, 2),
                 "url": it.get("url") or f"{VINTED_BASE}/items/{it.get('id', '')}",
-                "etat_texte": (it.get("status") or "") + " " + it.get("title", ""),
+                "etat_texte": (it.get("status") or "") + " " + texte_complet,
             }
         )
     return annonces
@@ -771,7 +852,7 @@ VALIDITE_JOURS = 7          # une cote de plus de 7 jours est ignorée
 # data/cotes.json ne correspond PAS à PURGE_VERSION ci-dessous, TOUT
 # l'historique est jeté au prochain scan. Pour forcer une remise à zéro
 # à l'avenir, il suffit d'incrémenter ce numéro.
-PURGE_VERSION = 17
+PURGE_VERSION = 18  # V18 : purge des cotes faussées par le mélange FR/JP
 # Conservé pour compatibilité de lecture des anciens fichiers (non utilisé
 # pour la purge elle-même).
 DEPLOIEMENT_TS = 1784160000  # 16/07/2026 00:00 UTC
@@ -1010,9 +1091,16 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
     # V16 : exige la cohérence de langue et accepte l'alias du Pokémon.
     pertinent, raison = annonce_pertinente(
         annonce.get("titre", ""), annonce.get("carte", ""),
-        annonce.get("langue", "fr"), annonce.get("alias", ""))
+        annonce.get("langue", "fr"), annonce.get("alias", ""), annonce.get("plateforme", ""))
     if not pertinent:
         return None, raison
+
+    # V18 : une carte FRANÇAISE ne s'achète pas depuis le Japon. On rejette
+    # les annonces localisées à l'étranger (eBay JP/KR/CN) qui, au même
+    # numéro, sont des versions asiatiques bien plus chères et faussaient
+    # les deals (cf. Pikachu 173/165 japonais à 81€ vu comme un deal).
+    if _localisation_incoherente(annonce, annonce.get("langue", "fr")):
+        return None, "annonce localisée à l'étranger pour une carte FR"
 
     prix = float(annonce.get("prix", 0))
     port = float(annonce.get("port", 0))

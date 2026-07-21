@@ -127,12 +127,8 @@ watchlist:
     langue: fr
   - nom: "Pikachu ex 277/217"           # version SIR "couronne"
     langue: fr
-  - nom: "Zoroark de N ex 286/217"      # version SIR
-    langue: fr
 
   # ----- ME03 Équilibre Parfait (x/088) -----
-  - nom: "Méga-Zygarde ex 120/088"      # version SIR — confirmé
-    langue: fr
 
   # ----- ME04 Chaos Ascendant (x/086) -----
   - nom: "Méga-Amphinobi ex 116/086"    # version SIR (~250-320€) — la dorée est 122/086
@@ -142,12 +138,6 @@ watchlist:
   - nom: "Mega Gardevoir ex 087/063"    # SAR — Mega Symphonia (JP)
     langue: jp
     alias: "Gardevoir"
-  - nom: "Mega Zygarde ex 113/080"      # SAR — Nihil Zero (JP)
-    langue: jp
-    alias: "Zygarde"
-  - nom: "Mega Zeraora ex 112/081"      # SAR — Abyss Eye (JP)
-    langue: jp
-    alias: "Zeraora"
   - nom: "Mega Dragonite ex 246/193"    # SAR — Mega Dream ex (JP) = Méga-Dracolosse
     langue: jp
     alias: "Dracolosse"
@@ -173,14 +163,6 @@ watchlist:
   - nom: "Mega Darkrai ex 120"          # MUR dorée (~235€)
     langue: fr
     alias: "Darkrai"
-  - nom: "Mega Zeraora ex 114"          # SAR (~59€)
-    langue: fr
-    alias: "Zeraora"
-  - nom: "Mega Lugulabre ex 115"        # SAR (~47€)
-    langue: fr
-    alias: "Lugulabre"
-  - nom: "Gwynn 119"                     # SAR dresseuse (~35€)
-    langue: fr
   - nom: "Morpeko ex 117"               # chase coup de cœur (~50€)
     langue: fr
   - nom: "Poissirene 087"               # coup de cœur (Nuit Noire FR, ~7,50€)
