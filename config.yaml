@@ -445,12 +445,15 @@ watchlist:
 
 # --- Calcul automatique de la cote ---
 cote:
-  # V12 : la cote est le 1er quartile des annonces pertinentes (le prix "qui part
-  # vite"), et non plus la médiane gonflée par les annonces invendues.
+  # V17 : la cote est la MÉDIANE des annonces pertinentes (après filtrage IQR).
   coefficient_marche: 1.0
-  # V15 : le filtre par numéro réduit le nombre d'annonces retenues.
-  # On passe de 6 à 4 annonces minimum — elles sont maintenant toutes fiables.
-  minimum_annonces: 4
+  # V20 : passage de 4 à 6 annonces minimum. Avec seulement 4 annonces, sur
+  # un marché mince (cartes JP/KR de niche), 2 annonces surcotées suffisent à
+  # gonfler la médiane et créer de fausses alertes (cf. Charmander 168/165
+  # sv2a affichée à 58€ alors que le marché réel est à ~27€). À 6 annonces,
+  # la médiane est nettement plus robuste. Les cartes à marché trop mince
+  # n'auront simplement pas de cote (= pas de fausse alerte).
+  minimum_annonces: 6
   # 💡 Pour une carte clé, tu peux imposer TA cote (relevée sur Cardmarket) :
   #    ajoute "cote: 250" sous la carte dans la watchlist. Elle sera prioritaire.
 
