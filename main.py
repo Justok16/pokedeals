@@ -747,11 +747,18 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
     Retourne (cote, nb_annonces_utilisées).
     """
     if nom_carte:
-        prix = sorted(a["prix"] for a in annonces
-                      if a["prix"] > 0
-                      and not _localisation_incoherente(a, langue)
-                      and annonce_pertinente(a.get("titre", ""), nom_carte, langue, alias, a.get("plateforme", ""))[0])
+        # V20 diagnostic : on garde (prix, titre, plateforme) des annonces
+        # retenues pour pouvoir les afficher dans les logs et repérer ce qui
+        # gonfle une cote.
+        retenues = [(a["prix"], a.get("titre", "")[:70], a.get("plateforme", ""))
+                    for a in annonces
+                    if a["prix"] > 0
+                    and not _localisation_incoherente(a, langue)
+                    and annonce_pertinente(a.get("titre", ""), nom_carte, langue, alias, a.get("plateforme", ""))[0]]
+        retenues.sort()
+        prix = [p for p, _, _ in retenues]
     else:
+        retenues = []
         prix = sorted(a["prix"] for a in annonces if a["prix"] > 0)
 
     if len(prix) < int(cfg_cote.get("minimum_annonces", 8)):
@@ -767,14 +774,22 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
         nettoyes = prix
 
     # V17 : cote = MÉDIANE des prix nettoyés (après filtrage IQR).
-    # Le 1er quartile (V12) visait "le prix qui part vite", mais il s'est
-    # révélé trop sensible quand le bas du marché est pollué : pour une SR
-    # dont la version commune du même Pokémon traîne à 3-8€, le 1er quartile
-    # plongeait la cote à ~11€ (cf. Darkrai 099, Melofee 173). La médiane
-    # est bien plus stable : il faut que la MOITIÉ du marché soit polluée
-    # pour la fausser, au lieu du seul quart bas.
     reference = statistics.median(nettoyes)
     cote = round(reference * float(cfg_cote.get("coefficient_marche", 1.0)), 2)
+
+    # V20 diagnostic : détail des annonces qui composent la cote (visible dans
+    # les logs GitHub). Permet de repérer une annonce anormalement chère qui
+    # gonfle la médiane. À retirer une fois le diagnostic terminé.
+    if nom_carte and retenues:
+        rejetes_iqr = [p for p in prix if p not in nettoyes]
+        log.info("    [cote %s] médiane=%.2f€ ×%.2f = %.2f€ | %d annonces retenues%s",
+                 nom_carte, reference, float(cfg_cote.get("coefficient_marche", 1.0)),
+                 cote, len(nettoyes),
+                 f" ({len(rejetes_iqr)} écartées IQR : {rejetes_iqr})" if rejetes_iqr else "")
+        for p, titre, plat in retenues:
+            marque = " ← ÉCARTÉE(IQR)" if p not in nettoyes else ""
+            log.info("        %.2f€  [%s] %s%s", p, plat, titre, marque)
+
     return cote, len(nettoyes)
 
 
