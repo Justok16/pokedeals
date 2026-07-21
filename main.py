@@ -460,9 +460,19 @@ def charger_config(chemin: str | None = None) -> dict:
     with open(chemin, "r", encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
 
+    # V20 : validation défensive du config. Comme il est édité à la main très
+    # souvent, une faute de frappe (valeur en texte, structure cassée) doit
+    # produire un message CLAIR plutôt qu'un crash obscur en plein scan.
+    if not isinstance(cfg, dict):
+        raise ValueError(
+            "config.yaml invalide : le fichier ne contient pas une structure "
+            "correcte (vérifie l'indentation et qu'il n'est pas vide).")
+
     # Valeurs par défaut de sécurité
     cfg.setdefault("regles", {})
     r = cfg["regles"]
+    if not isinstance(r, dict):
+        raise ValueError("config.yaml : la section 'regles' doit être un bloc de clés/valeurs.")
     r.setdefault("frais_port_max", 6.0)
     r.setdefault("marge_achat", 0.10)
     r.setdefault("marge_revente", 0.10)
@@ -472,14 +482,40 @@ def charger_config(chemin: str | None = None) -> dict:
     r.setdefault("ebay_international", False)
     r.setdefault("frais_port_max_international", 10.0)
 
+    # Toutes les règles numériques doivent être des nombres (pas du texte).
+    cles_numeriques = ["frais_port_max", "marge_achat", "marge_revente",
+                       "frais_revente_estimes", "cote_min", "prix_max",
+                       "frais_port_max_international"]
+    for cle in cles_numeriques:
+        try:
+            r[cle] = float(r[cle])
+        except (TypeError, ValueError):
+            raise ValueError(
+                f"config.yaml : la règle '{cle}' vaut '{r[cle]}' qui n'est pas "
+                f"un nombre. Corrige-la (ex. {cle}: 0.30 sans guillemets).")
+    # Bornes de bon sens
+    if not (0 <= r["marge_achat"] < 1):
+        raise ValueError(f"config.yaml : marge_achat doit être entre 0 et 1 (actuel : {r['marge_achat']}).")
+    if not (0 <= r["frais_revente_estimes"] < 1):
+        raise ValueError(f"config.yaml : frais_revente_estimes doit être entre 0 et 1 (actuel : {r['frais_revente_estimes']}).")
+
     cfg.setdefault("watchlist", [])
     cfg.setdefault("etats_acceptes", [])
     cfg.setdefault("etats_refuses", [])
     cfg.setdefault("cote", {"coefficient_marche": 0.92, "minimum_annonces": 4})
     cfg.setdefault("plateformes", {"ebay": True, "vinted": True, "leboncoin": True})
 
+    if not isinstance(cfg["watchlist"], list):
+        raise ValueError("config.yaml : 'watchlist' doit être une liste de cartes (chaque ligne commençant par '- nom:').")
     if not cfg["watchlist"]:
         raise ValueError("La watchlist est vide : ajoute des cartes dans config.yaml")
+
+    # Chaque carte doit être un dictionnaire avec un 'nom' non vide.
+    for i, carte in enumerate(cfg["watchlist"], 1):
+        if not isinstance(carte, dict):
+            raise ValueError(f"config.yaml : la carte n°{i} de la watchlist est mal formée (il manque peut-être 'nom:').")
+        if not str(carte.get("nom", "")).strip():
+            raise ValueError(f"config.yaml : la carte n°{i} de la watchlist n'a pas de 'nom'.")
 
     # V15 : avertir (sans bloquer) si une carte n'a pas de numéro dans son nom.
     # Les versions volontairement sans numéro (SIR) peuvent l'omettre, mais
@@ -628,8 +664,12 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
         terme_alias = nom_carte
         pokemon_principal = next((m for m in mots_requis(nom_carte) if m != "mega"), None)
         if pokemon_principal:
-            # remplace le nom du Pokémon (insensible à la casse) par l'alias
-            terme_alias = re.sub(pokemon_principal, alias, nom_carte, flags=re.IGNORECASE)
+            # remplace le nom du Pokémon (insensible à la casse) par l'alias.
+            # On échappe le motif (re.escape) et le remplacement (\\ -> \\\\)
+            # au cas où un nom/alias contiendrait un caractère spécial regex.
+            remplacement = alias.replace("\\", "\\\\")
+            terme_alias = re.sub(re.escape(pokemon_principal), remplacement,
+                                 nom_carte, flags=re.IGNORECASE)
         if terme_alias == nom_carte:  # rien remplacé : on préfixe l'alias
             terme_alias = f"{alias} {nom_carte}"
         items = items + _une_recherche(terme_alias)
@@ -1173,7 +1213,10 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
         return None, f"pas assez sous la cote ({total:.2f}€ > seuil {seuil_achat:.2f}€)"
 
     # --- Revente : au moins 10% net au-dessus de la cote, frais déduits ---
-    prix_revente = cote * (1 + r["marge_revente"]) / (1 - r["frais_revente_estimes"])
+    # Garde-fou : si frais_revente_estimes >= 1 (100%), le dénominateur
+    # serait nul ou négatif -> on borne à 0.99 max pour éviter le crash.
+    frais_revente = min(float(r["frais_revente_estimes"]), 0.99)
+    prix_revente = cote * (1 + r["marge_revente"]) / (1 - frais_revente)
     profit_net = cote * (1 + r["marge_revente"]) - total
     profit_min = float(r.get("profit_min", 0) or 0)
     if profit_net < max(profit_min, 0.01):
@@ -1217,10 +1260,20 @@ def envoyer_telegram_texte(textes: list[str], cfg_tg: dict, token: str) -> bool:
     return ok
 
 
+def _echapper_html(texte) -> str:
+    """Échappe les caractères spéciaux HTML (< > &) avant insertion dans un
+    message Telegram en parse_mode HTML. Sans ça, un titre d'annonce
+    contenant '<', '>' ou '&' casse le formatage et Telegram REFUSE le
+    message (alerte perdue). On échappe uniquement les 3 caractères
+    réservés, dans le bon ordre (& en premier)."""
+    s = str(texte)
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
 def _texte_vente(v: dict) -> str:
     return (
         f"💰 <b>C'EST LE MOMENT DE VENDRE !</b>\n"
-        f"🎴 <b>{v['nom']}</b>\n"
+        f"🎴 <b>{_echapper_html(v['nom'])}</b>\n"
         f"🛒 Acheté : {v['prix_achat']:.2f}€\n"
         f"📈 Cote actuelle : <b>{v['cote']:.2f}€</b> (x{v['multiple']})\n"
         f"✅ Gain net estimé après frais : <b>+{v['gain_net_estime']:.2f}€</b>"
@@ -1255,8 +1308,8 @@ def envoyer_telegram_ventes(ventes: list[dict], cfg_tg: dict, token: str) -> boo
 
 def _texte_telegram(d: dict) -> str:
     return (
-        f"🔥 <b>{d['titre']}</b>\n"
-        f"🛒 {d['plateforme']} — <b>{d['prix']:.2f}€</b> + {d['port']:.2f}€ port = <b>{d['total']:.2f}€</b>\n"
+        f"🔥 <b>{_echapper_html(d['titre'])}</b>\n"
+        f"🛒 {_echapper_html(d['plateforme'])} — <b>{d['prix']:.2f}€</b> + {d['port']:.2f}€ port = <b>{d['total']:.2f}€</b>\n"
         f"📊 Cote : {d['cote']:.2f}€ (<b>-{d['decote_pct']}%</b>)\n"
         f"💶 Revente conseillée : {d['prix_revente_conseille']:.2f}€\n"
         f"✅ Profit net estimé : <b>+{d['profit_net_estime']:.2f}€</b>\n"
