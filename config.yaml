@@ -71,8 +71,6 @@ watchlist:
   - nom: "Pikachu 173/165"
     langue: fr
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
-  - nom: "Alakazam ex 188/165"
-    langue: fr
   - nom: "Mew ex 193/165"
     langue: fr
   - nom: "Mew ex 205/165"
@@ -90,6 +88,17 @@ watchlist:
     langue: jp
   - nom: "Mew ex 205/165 sv2a"
     langue: jp
+  - nom: "Blastoise ex 202/165 sv2a"    # = Tortank ex FR 200/165
+    langue: jp
+    alias: "Tortank"
+  - nom: "Pikachu 173/165 sv2a"         # = Pikachu FR 173/165
+    langue: jp
+  - nom: "Charmander 168/165 sv2a"      # = Salamèche FR 168/165
+    langue: jp
+    alias: "Salameche"
+  - nom: "Squirtle 170/165 sv2a"        # = Carapuce FR 170/165
+    langue: jp
+    alias: "Carapuce"
 
   # ----- ME01 Méga-Évolution (x/132) -----
   - nom: "Méga-Gardevoir ex 187/132"    # version dorée (Méga Hyper Rare)
@@ -127,6 +136,14 @@ watchlist:
     langue: fr
   - nom: "Pikachu ex 277/217"           # version SIR "couronne"
     langue: fr
+  # Versions japonaises (Héros Transcendants → MEGA Dream ex / Start Deck)
+  - nom: "Team Rocket's Mewtwo ex 237 m2a"  # = Mewtwo Team Rocket FR 281/217
+    langue: jp
+    alias: "Mewtwo"
+  - nom: "Pikachu ex 764 mC"            # = Pikachu ex FR 276/217 (Start Deck 100)
+    langue: jp
+  - nom: "Pikachu ex 234 m2a"           # = Pikachu ex FR 277/217 (MEGA Dream ex)
+    langue: jp
 
   # ----- ME03 Équilibre Parfait (x/088) -----
 
@@ -167,6 +184,9 @@ watchlist:
     langue: fr
   - nom: "Poissirene 087"               # coup de cœur (Nuit Noire FR, ~7,50€)
     langue: fr
+  - nom: "Goldeen 084 m5"               # = Poissirène FR 087 (Abyss Eye JP)
+    langue: jp
+    alias: "Poissirene"
 
   # ----- ME05 Nuit Noire — version FRANÇAISE (sortie 17/07/2026) -----
   # ⏳ Les numéros occidentaux ne sont pas encore publiés (le set fusionne
@@ -196,12 +216,32 @@ watchlist:
   - nom: "Evoli ex 174 promo"           # Promo SV (numéro sans dénominateur)
     langue: fr
     alias: "Eevee"
+  # Versions japonaises des Évoli
+  - nom: "Eevee ex 223 sv8a"            # = Evoli ex FR 167/131 (Terastal Festival)
+    langue: jp
+    alias: "Evoli"
+  - nom: "Eevee 078 sv5a"               # = Evoli FR 188/167 (Crimson Haze)
+    langue: jp
+    alias: "Evoli"
+  - nom: "Eevee VMAX 101 S-P"           # = Evoli VMAX FR SWSH087 (S&S Promos JP)
+    langue: jp
+    alias: "Evoli"
+  - nom: "Eevee 210 s8b"                # = Evoli FR Trainer Gallery (VMAX Climax)
+    langue: jp
+    alias: "Evoli"
+  - nom: "Eevee ex 224 sv8a"            # = Evoli ex FR 174 promo (Terastal Festival)
+    langue: jp
+    alias: "Evoli"
   - nom: "Melofee ex de Lilie 280/217"  # Alternative — Héros Transcendants
     langue: fr
     alias: "Clefairy"
-  - nom: "Melofee ex de Lilie 173/159"  # Ultra Rare — Aventures Ensemble
-    langue: fr
-    alias: "Clefairy"
+  # Versions japonaises de Mélofée de Lilie (Lillie's Clefairy ex)
+  - nom: "Clefairy ex 765 mC"           # = Mélofée de Lilie FR 280/217 (Start Deck 100)
+    langue: jp
+    alias: "Melofee"
+  - nom: "Clefairy ex 126 sv9"          # = Mélofée de Lilie Aventures Ensemble (Battle Partners)
+    langue: jp
+    alias: "Melofee"
 
   # ----- Versions JAPONAISES de Méga déjà surveillées en FR -----
   - nom: "Mega Lucario ex 092 m1L"      # Mega Brave (JP) = Méga-Lucario 188 FR
@@ -282,6 +322,116 @@ watchlist:
     langue: fr
   - nom: "Lugia V 110/098"              # SR — S12 (JP)
     langue: jp
+
+  # ===== VERSIONS CORÉENNES (mêmes numéros que le japonais) =====
+  # Ajoutées pour surveiller le marché coréen. Chaque carte a sa
+  # propre cote coréenne (distincte du japonais grâce à la V19).
+  - nom: "Charizard ex 201/165 sv2a"
+    langue: kr
+  - nom: "Mew ex 205/165 sv2a"
+    langue: kr
+  - nom: "Blastoise ex 202/165 sv2a"
+    langue: kr
+    alias: "Tortank"
+  - nom: "Pikachu 173/165 sv2a"
+    langue: kr
+  - nom: "Charmander 168/165 sv2a"
+    langue: kr
+    alias: "Salameche"
+  - nom: "Squirtle 170/165 sv2a"
+    langue: kr
+    alias: "Carapuce"
+  - nom: "Team Rocket's Mewtwo ex 237 m2a"
+    langue: kr
+    alias: "Mewtwo"
+  - nom: "Pikachu ex 764 mC"
+    langue: kr
+  - nom: "Pikachu ex 234 m2a"
+    langue: kr
+  - nom: "Mega Gardevoir ex 087/063"
+    langue: kr
+    alias: "Gardevoir"
+  - nom: "Mega Dragonite ex 246/193"
+    langue: kr
+    alias: "Dracolosse"
+  - nom: "Mega Darkrai ex 114/081"
+    langue: kr
+    alias: "Darkrai"
+  - nom: "Mega Darkrai ex 118/081"
+    langue: kr
+    alias: "Darkrai"
+  - nom: "Mega Darkrai ex 099/081"
+    langue: kr
+    alias: "Darkrai"
+  - nom: "Morpeko ex 115/081"
+    langue: kr
+  - nom: "Goldeen 084 m5"
+    langue: kr
+    alias: "Poissirene"
+  - nom: "Eevee ex 223 sv8a"
+    langue: kr
+    alias: "Evoli"
+  - nom: "Eevee 078 sv5a"
+    langue: kr
+    alias: "Evoli"
+  - nom: "Eevee VMAX 101 S-P"
+    langue: kr
+    alias: "Evoli"
+  - nom: "Eevee 210 s8b"
+    langue: kr
+    alias: "Evoli"
+  - nom: "Eevee ex 224 sv8a"
+    langue: kr
+    alias: "Evoli"
+  - nom: "Clefairy ex 765 mC"
+    langue: kr
+    alias: "Melofee"
+  - nom: "Clefairy ex 126 sv9"
+    langue: kr
+    alias: "Melofee"
+  - nom: "Mega Lucario ex 092 m1L"
+    langue: kr
+    alias: "Lucario"
+  - nom: "Mega Lucario ex 088 m1L"
+    langue: kr
+    alias: "Lucario"
+  - nom: "Mega Charizard X ex 110 m2"
+    langue: kr
+    alias: "Dracaufeu"
+  - nom: "Mega Charizard X ex 116 m2"
+    langue: kr
+    alias: "Dracaufeu"
+  - nom: "Mega Charizard X ex 223 m2a"
+    langue: kr
+    alias: "Dracaufeu"
+  - nom: "Mega Venusaur ex 087 m1L"
+    langue: kr
+    alias: "Florizarre"
+  - nom: "Bulbasaur 064 m1L"
+    langue: kr
+    alias: "Bulbizarre"
+  - nom: "Ivysaur 065 m1L"
+    langue: kr
+    alias: "Herbizarre"
+  - nom: "Meowth ex 114 m3"
+    langue: kr
+    alias: "Miaouss"
+  - nom: "Froakie 086 m4"
+    langue: kr
+    alias: "Grenousse"
+  - nom: "Piplup 085 m2"
+    langue: kr
+    alias: "Tiplouf"
+  - nom: "Psyduck 199 m2a"
+    langue: kr
+    alias: "Psykokwak"
+  - nom: "Oricorio ex 111 m2"
+    langue: kr
+    alias: "Plumeline"
+  - nom: "Lugia V 198/172"
+    langue: kr
+  - nom: "Lugia V 110/098"
+    langue: kr
 
   # ----- Cartes ÉTRANGÈRES (EN/KR/CN) : RETIRÉES en V17.3 -----
   # Le diagnostic du 16/07 a montré 0 à 1 annonce sur eBay France pour

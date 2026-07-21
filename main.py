@@ -161,11 +161,27 @@ SUFFIXES_LANGUE = {"jp": " japonaise", "en": " anglaise",
 #   Les marqueurs courts (<= 3 lettres) sont comparés mot à mot pour
 #   éviter les faux positifs ("kr" à l'intérieur d'un autre mot, etc.).
 MARQUEURS_LANGUE = {
-    "jp": ["japonaise", "japonais", "japanese", "japon", "jpn", "jap", "jp", "sv2a"],
+    # NB : les codes de SET (sv2a, m2a...) ne sont PAS des marqueurs de
+    # langue — une carte 151 coréenne ou chinoise porte aussi "sv2a". La
+    # langue se prouve par un mot de langue, des caractères, ou la
+    # localisation eBay, jamais par le code de set.
+    "jp": ["japonaise", "japonais", "japanese", "japon", "jpn", "jap", "jp"],
     "en": ["anglaise", "anglais", "english", "eng"],
     "kr": ["coreenne", "coreen", "korean", "korea", "kor", "kr"],
     "cn": ["chinoise", "chinois", "chinese", "china", "zh", "cn"],
+    # V20 : langues EUROPÉENNES non désirées. Une carte italienne/allemande/
+    # espagnole au même numéro qu'une française vaut souvent moins et créait
+    # de faux deals. On les détecte par le mot de langue explicite ET par des
+    # mots très caractéristiques présents dans les annonces ou sur la carte.
+    "it": ["italienne", "italien", "italian", "italiano", "italia",
+           "condizioni", "come da foto", "carta", "fase"],   # "carta"/"fase" = mots carte italiens
+    "de": ["allemande", "allemand", "german", "deutsch", "zustand", "karte", "sammlung"],
+    "es": ["espagnole", "espagnol", "spanish", "espanol", "espana", "estado", "carta espanola"],
+    "pt": ["portugaise", "portugais", "portuguese", "portugues"],
+    "nl": ["nederlands", "kaart"],
 }
+# Langues à REJETER pour une carte française (tout sauf le français).
+LANGUES_NON_FR = ("jp", "en", "kr", "cn", "it", "de", "es", "pt", "nl")
 TOUS_MARQUEURS = [m for lst in MARQUEURS_LANGUE.values() for m in lst]
 
 
@@ -178,20 +194,44 @@ def _marqueur_present(marqueur: str, texte_norm: str, jetons: list[str]) -> bool
 # V18 : détection de caractères asiatiques dans le titre ORIGINAL (avant
 # normalisation, qui les supprimerait). Une annonce contenant フシギダネ,
 # ピカチュウ, 리자몽, 妙蛙种子... est forcément une carte étrangère, même si
-# le reste du titre est en français. C'est le signal le plus fiable pour
-# rejeter une carte JP/KR/CN vendue sous une carte FR du même numéro.
+# le reste du titre est en français.
+# V19 : on distingue MAINTENANT la langue asiatique (jp / kr / cn), car une
+# carte japonaise et sa version coréenne partagent le MÊME numéro. Sans
+# cette distinction, une annonce coréenne (moins chère) polluerait la cote
+# japonaise et inversement — le même piège que FR/JP.
 import unicodedata as _ud
 
-def _contient_caracteres_asiatiques(texte: str) -> bool:
+
+def _script_asiatique(texte: str) -> str | None:
+    """Renvoie 'jp', 'kr' ou 'cn' selon les caractères présents, sinon None.
+    - Hangul (한글)            -> 'kr' (sans ambiguïté)
+    - Hiragana/Katakana (かな) -> 'jp' (sans ambiguïté)
+    - Idéogrammes seuls        -> 'cn' (Hanzi ; les kanji japonais isolés sont
+      rares dans les titres d'annonces, qui contiennent presque toujours des
+      kana ; on tranche donc côté chinois par défaut, la localisation eBay
+      restant le signal prioritaire pour lever un éventuel doute).
+    """
+    a_hangul = a_kana = a_ideo = False
     for ch in texte or "":
         code = ord(ch)
-        # Hiragana, Katakana, Kanji (CJK), Hangul coréen
-        if (0x3040 <= code <= 0x30FF        # hiragana + katakana
-                or 0x4E00 <= code <= 0x9FFF  # idéogrammes CJK (kanji/hanzi)
-                or 0xAC00 <= code <= 0xD7A3  # hangul coréen
-                or 0x3400 <= code <= 0x4DBF):  # CJK étendu
-            return True
-    return False
+        if 0xAC00 <= code <= 0xD7A3:            # hangul
+            a_hangul = True
+        elif 0x3040 <= code <= 0x30FF:          # hiragana + katakana
+            a_kana = True
+        elif (0x4E00 <= code <= 0x9FFF
+              or 0x3400 <= code <= 0x4DBF):     # idéogrammes CJK
+            a_ideo = True
+    if a_hangul:
+        return "kr"
+    if a_kana:
+        return "jp"
+    if a_ideo:
+        return "cn"
+    return None
+
+
+def _contient_caracteres_asiatiques(texte: str) -> bool:
+    return _script_asiatique(texte) is not None
 
 
 def extraire_numero(texte: str) -> str | None:
@@ -286,33 +326,44 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
     if not any(ind in f" {t} " for ind in INDICES_CARTE):
         return False, "pas une carte (aucun indice carte/holo/promo...)"
 
-    # 2bis) Cohérence de LANGUE (V16). Une carte coréenne vaut souvent
-    #    3 à 5 fois moins que la même carte française : mélanger les
-    #    langues fausserait les cotes comme le faisait l'absence de numéro.
-    # V18 : on vérifie d'abord les CARACTÈRES asiatiques sur le titre
-    #    ORIGINAL (avant normalisation, qui les supprime). Un titre
-    #    contenant フシギダネ / ピカチュウ / 리자몽 est forcément étranger.
-    #    On considère aussi la LOCALISATION eBay comme signal de langue.
-    titre_a_des_caracteres_asiatiques = _contient_caracteres_asiatiques(titre)
+    # 2bis) Cohérence de LANGUE. Une carte coréenne vaut souvent moins que
+    #    sa jumelle japonaise (même numéro !) : les mélanger fausserait les
+    #    cotes. V19 : on distingue finement jp / kr / cn.
+    #    Signaux de langue, par ordre de fiabilité :
+    #      1. script du titre (hangul=kr, kana=jp, idéogrammes=cn)
+    #      2. localisation eBay (JP/KR/CN)
+    #      3. marqueurs texte ("korean", "japonaise"...)
+    script = _script_asiatique(titre)              # 'jp'/'kr'/'cn'/None
     pays = _pays_ebay(plateforme)
     langue_du_pays = _PAYS_VERS_LANGUE.get(pays) if pays else None
+    titre_a_des_caracteres_asiatiques = script is not None
     origine_asiatique = titre_a_des_caracteres_asiatiques or bool(langue_du_pays)
     jetons_langue = t.split()
+
+    # Quelle(s) langue(s) asiatique(s) l'annonce revendique-t-elle par son texte ?
+    langues_marquees = {lg for lg, mots in MARQUEURS_LANGUE.items()
+                        if any(_marqueur_present(mm, t, jetons_langue) for mm in mots)}
+
     if langue in (None, "", "fr"):
-        if origine_asiatique:
+        if origine_asiatique or langues_marquees:
             return False, "carte étrangère (caractères/origine) hors recherche FR"
-        for m in TOUS_MARQUEURS:
-            if _marqueur_present(m, t, jetons_langue):
-                return False, f"carte étrangère ('{m}') hors recherche FR"
     else:
-        marqueurs = MARQUEURS_LANGUE.get(langue, [])
-        # Une carte asiatique (jp/kr/cn) est validée par : un marqueur texte,
-        # OU des caractères asiatiques, OU la localisation eBay du bon pays
-        # (ex. une annonce eBay(JP) au titre français EST une carte japonaise).
-        a_marqueur = any(_marqueur_present(m, t, jetons_langue) for m in marqueurs)
-        localisation_ok = (langue_du_pays == langue)
-        if marqueurs and not a_marqueur and not titre_a_des_caracteres_asiatiques and not localisation_ok:
-            return False, f"langue '{langue}' non mentionnée dans le titre"
+        # Carte asiatique (jp/kr/cn). Elle doit correspondre à SA langue et
+        # rejeter les signaux d'une AUTRE langue asiatique.
+        autres = {"jp", "kr", "cn"} - {langue}
+        # Signal contradictoire = l'annonce pointe clairement vers une autre langue
+        if script in autres:
+            return False, f"script {script} ≠ langue {langue}"
+        if langue_du_pays in autres:
+            return False, f"localisation {langue_du_pays} ≠ langue {langue}"
+        if langues_marquees and langue not in langues_marquees and not (script == langue or langue_du_pays == langue):
+            return False, f"marqueur {langues_marquees} ≠ langue {langue}"
+        # Signal POSITIF requis : au moins un indice confirme la bonne langue
+        confirme = (script == langue
+                    or langue_du_pays == langue
+                    or langue in langues_marquees)
+        if not confirme:
+            return False, f"langue '{langue}' non confirmée dans le titre"
 
     # 3) Cohérence Méga : une carte Méga ne pollue pas une recherche non-Méga
     #    et inversement. ATTENTION : "méga" peut aussi venir du NOM DU SET
