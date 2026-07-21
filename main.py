@@ -230,10 +230,6 @@ def _script_asiatique(texte: str) -> str | None:
     return None
 
 
-def _contient_caracteres_asiatiques(texte: str) -> bool:
-    return _script_asiatique(texte) is not None
-
-
 def extraire_numero(texte: str) -> str | None:
     m = RE_NUMERO.search(texte or "")
     return f"{int(m.group(1))}/{int(m.group(2))}" if m else None
@@ -1657,9 +1653,12 @@ def main() -> int:
             nouveaux_deals.append(deal)
             marquer(vues, deal["id"])
 
-        # Pause aléatoire courte entre les cartes (la parallélisation
-        # compense largement : le scan reste ~3x plus rapide qu'avant)
-        time.sleep(random.uniform(1.5, 3.5))
+        # Pause aléatoire courte entre les cartes (anti-détection Vinted).
+        # V20 : réduite de 1,5-3,5s à 0,6-1,4s — sur 120 cartes, l'ancienne
+        # pause représentait ~5 min de pure attente (la moitié du scan !).
+        # La pause courte garde la protection anti-bot tout en divisant ce
+        # coût par 2,5. eBay (API officielle) n'a pas besoin de pause.
+        time.sleep(random.uniform(0.6, 1.4))
 
     # --- Suivi du stock : alertes de REVENTE (cote >= 2x prix d'achat) ---
     # Annonces reçues par email d'alerte Leboncoin (contourne le blocage DataDome)

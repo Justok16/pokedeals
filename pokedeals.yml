@@ -24,7 +24,7 @@ jobs:
       - name: Installer les dépendances
         run: pip install -r requirements.txt
       - name: Décalage aléatoire (anti-détection)
-        run: sleep $((RANDOM % 90))
+        run: sleep $((RANDOM % 30))
       - name: Lancer le scan
         env:
           EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
