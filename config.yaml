@@ -93,6 +93,7 @@ watchlist:
     alias: "Tortank"
   - nom: "Pikachu 173/165 sv2a"         # = Pikachu FR 173/165
     langue: jp
+    cote: 40  # cote manuelle (Cardmarket JP vérifié 21/07/2026 : dès 34,90€ ; l'auto eBay surévaluait à 66€)
   - nom: "Charmander 168/165 sv2a"      # = Salamèche FR 168/165
     langue: jp
     alias: "Salameche"
@@ -442,6 +443,16 @@ watchlist:
   # Pour surveiller une carte étrangère précise à l'avenir, le plus fiable
   # sera de lui donner une cote manuelle (cote: XX) plutôt qu'un calcul.
 
+
+# --- V21 : cotes Cardmarket automatiques (API TCGdex, gratuite) ---
+# mode "observation" : les prix Cardmarket sont AFFICHÉS dans les logs à
+#   côté des cotes eBay, sans rien changer — phase de vérification.
+# mode "actif" : les prix Cardmarket REMPLACENT la cote eBay (les cotes
+#   manuelles "cote:" restent prioritaires ; les cartes inconnues de
+#   l'API et les coréennes gardent la cote eBay).
+api_cotes:
+  actif: true
+  mode: "observation"
 
 # --- Calcul automatique de la cote ---
 cote:
