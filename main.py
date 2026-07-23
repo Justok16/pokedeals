@@ -866,14 +866,58 @@ def _ct_entete(token: str) -> dict:
     return {"Authorization": f"Bearer {token}", "Accept": "application/json"}
 
 
+# Noms FR -> EN des Pokémon suivis (Cardtrader catalogue en anglais).
+# Complète les alias de config.yaml : évite d'avoir à saisir un alias
+# pour chaque carte française. Ajouter ici tout nouveau Pokémon FR.
+CT_NOMS_EN = {
+    "dracaufeu": "Charizard", "tortank": "Blastoise", "florizarre": "Venusaur",
+    "salameche": "Charmander", "salamèche": "Charmander",
+    "bulbizarre": "Bulbasaur", "herbizarre": "Ivysaur",
+    "carapuce": "Squirtle", "carabaffe": "Wartortle",
+    "gardevoir": "Gardevoir", "lucario": "Lucario", "latias": "Latias",
+    "dracolosse": "Dragonite", "ectoplasma": "Gengar",
+    "amphinobi": "Greninja", "grenousse": "Froakie",
+    "miaouss": "Meowth", "psykokwak": "Psyduck", "poissirene": "Goldeen",
+    "tiplouf": "Piplup", "plumeline": "Oricorio", "melofee": "Clefairy",
+    "mélofée": "Clefairy", "evoli": "Eevee", "évoli": "Eevee",
+    "morpeko": "Morpeko", "pikachu": "Pikachu", "mew": "Mew",
+    "mewtwo": "Mewtwo", "darkrai": "Darkrai", "lugia": "Lugia",
+    "zoroark": "Zoroark", "alakazam": "Alakazam",
+}
+
+
+def _ct_numero_de(bp: dict) -> str:
+    """Extrait le numéro de collection d'un blueprint Cardtrader.
+    La structure varie : on ratisse les champs plausibles à tous les
+    niveaux, puis on tente le nom lui-même (souvent 'Pikachu (173/165)')."""
+    props = bp.get("fixed_properties") or {}
+    editable = bp.get("editable_properties") or {}
+    sources = [props, editable, bp]
+    champs = ("collector_number", "card_number", "number", "pokemon_number",
+              "collectors_number", "cardnumber")
+    for src in sources:
+        if not isinstance(src, dict):
+            continue
+        for champ in champs:
+            v = src.get(champ)
+            if v not in (None, "", []):
+                return str(v)
+    # Repli : chercher un numéro dans le nom (« Charizard ex (201/165) »)
+    m = re.search(r"\b(\d{1,3})\s*/\s*\d{1,3}\b", str(bp.get("name", "")))
+    if m:
+        return m.group(1)
+    m = re.search(r"[#(]\s*(\d{1,3})\b", str(bp.get("name", "")))
+    return m.group(1) if m else ""
+
+
 def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
     """Trouve l'identifiant Cardtrader (blueprint_id) d'une carte.
 
-    V22.1 : la recherche passe par /blueprints/export (le seul endpoint
-    de catalogue documenté), filtré par expansion. On tente d'abord une
-    recherche large par nom via /blueprints, puis on retombe sur l'export.
-    Chaque étape est LOGUÉE : une carte introuvable doit se voir dans les
-    logs (le silence de la V22 rendait le diagnostic impossible)."""
+    V22.3 : Cardtrader catalogue les cartes sous leur nom ANGLAIS
+    (« Blastoise », pas « Tortank »). On utilise donc l'alias de la
+    watchlist quand il existe, et on teste plusieurs termes. Le numéro
+    de collection est extrait via _ct_numero_de (plusieurs champs
+    possibles). Chaque étape reste LOGUÉE."""
     cle = f"{carte.get('langue','fr')}|{carte['nom']}"
     ent = _ct_cache["blueprints"].get(cle)
     if ent:
@@ -885,58 +929,62 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
     nom = str(carte["nom"])
     m_num = re.search(r"\b0*(\d+)(?:/0*\d+)?\b", nom)
     numero = m_num.group(1) if m_num else ""
+
+    # Termes à essayer, du plus probable au moins probable :
+    #  1. la traduction anglaise du nom FR (Cardtrader catalogue en anglais)
+    #  2. l'alias de la watchlist (souvent déjà le nom anglais/japonais)
+    #  3. le nom principal tel quel
+    termes: list[str] = []
     mots = [w for w in mots_requis(nom) if w not in ("mega", "ex")]
-    terme = " ".join(mots[:2]) or nom
+    principal = mots[0] if mots else nom
+    en = CT_NOMS_EN.get(normaliser(principal))
+    if en:
+        termes.append(en)
+    alias = str(carte.get("alias") or "").strip()
+    if alias and alias.lower() not in [t.lower() for t in termes]:
+        termes.append(alias)
+    if principal and principal.lower() not in [t.lower() for t in termes]:
+        termes.append(principal.capitalize())
 
     blueprint_id = None
-    try:
-        rep = requests.get(f"{CT_BASE}/blueprints", timeout=20,
-                           headers=_ct_entete(token),
-                           params={"game_id": CT_JEU_POKEMON, "name": terme})
-        if rep.status_code == 401:
-            log.warning("    [Cardtrader] TOKEN INVALIDE OU EXPIRÉ (401) — "
-                        "regénère-le sur cardtrader.com et mets à jour le secret GitHub")
-            return None
-        if rep.status_code != 200:
-            log.info("    [Cardtrader] '%s' : recherche HTTP %s (%s)",
-                     nom, rep.status_code, rep.text[:120])
-            return None
-
-        candidats = rep.json()
-        if not isinstance(candidats, list):
-            log.info("    [Cardtrader] '%s' : réponse inattendue (%s) — clés : %s",
-                     nom, type(candidats).__name__,
-                     list(candidats)[:6] if isinstance(candidats, dict) else "")
-            return None
-        if not candidats:
-            log.info("    [Cardtrader] '%s' : aucun résultat pour la recherche '%s'", nom, terme)
-            _ct_cache["blueprints"][cle] = {"id": None, "ts": time.time()}
-            return None
-
-        # Correspondance par numéro de collection, avec plusieurs champs
-        # possibles (la structure exacte varie selon les jeux/versions).
-        def _numero_de(bp: dict) -> str:
-            props = bp.get("fixed_properties") or {}
-            for champ in ("collector_number", "card_number", "number"):
-                v = props.get(champ) or bp.get(champ)
-                if v:
-                    return str(v)
-            return ""
-
-        for bp in candidats:
-            num_bp = _numero_de(bp).lstrip("0").split("/")[0]
-            if numero and num_bp and num_bp == str(int(numero)):
-                blueprint_id = bp.get("id")
-                log.info("    [Cardtrader] '%s' -> blueprint %s (%s)",
-                         nom, blueprint_id, bp.get("name", "")[:40])
+    dernier_diag = ""
+    for terme in termes:
+        try:
+            rep = requests.get(f"{CT_BASE}/blueprints", timeout=20,
+                               headers=_ct_entete(token),
+                               params={"game_id": CT_JEU_POKEMON, "name": terme})
+            if rep.status_code == 401:
+                log.warning("    [Cardtrader] TOKEN INVALIDE OU EXPIRÉ (401) — "
+                            "regénère-le sur cardtrader.com et mets à jour le secret GitHub")
+                return None
+            if rep.status_code != 200:
+                dernier_diag = f"HTTP {rep.status_code} sur '{terme}'"
+                continue
+            candidats = rep.json()
+            if not isinstance(candidats, list) or not candidats:
+                dernier_diag = f"aucun résultat pour '{terme}'"
+                continue
+            for bp in candidats:
+                num_bp = _ct_numero_de(bp).lstrip("0").split("/")[0]
+                if numero and num_bp and num_bp == str(int(numero)):
+                    blueprint_id = bp.get("id")
+                    log.info("    [Cardtrader] '%s' -> blueprint %s (%s, #%s)",
+                             nom, blueprint_id, str(bp.get("name", ""))[:36], num_bp)
+                    break
+            if blueprint_id:
                 break
-        if blueprint_id is None:
-            exemples = [f"{b.get('name','?')[:28]}#{_numero_de(b)}" for b in candidats[:3]]
-            log.info("    [Cardtrader] '%s' : %d candidats mais aucun au numéro %s — ex. %s",
-                     nom, len(candidats), numero or "?", exemples)
-    except Exception as e:  # noqa: BLE001 — ne doit jamais casser le scan
-        log.info("    [Cardtrader] '%s' : erreur recherche (%s)", nom, e)
-        return None
+            # Diagnostic riche : on montre la STRUCTURE d'un candidat pour
+            # identifier le bon champ de numéro si l'extraction échoue.
+            ex = candidats[0]
+            dernier_diag = (f"{len(candidats)} candidats sur '{terme}' sans numéro {numero} "
+                            f"| champs du 1er : {sorted(ex)[:9]} "
+                            f"| fixed_properties : {sorted((ex.get('fixed_properties') or {}))[:8]}")
+        except Exception as e:  # noqa: BLE001
+            log.info("    [Cardtrader] '%s' : erreur recherche (%s)", nom, e)
+            return None
+
+    if blueprint_id is None:
+        log.info("    [Cardtrader] '%s' introuvable — %s", nom, dernier_diag)
 
     _ct_cache["blueprints"][cle] = {"id": blueprint_id, "ts": time.time()}
     return blueprint_id
