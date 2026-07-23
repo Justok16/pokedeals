@@ -1726,12 +1726,17 @@ def cle_cote(nom_carte: str, langue: str = "fr") -> str:
     return nom_carte if langue == "fr" else f"{nom_carte} ({langue.upper()})"
 
 
+def _cotes_recentes(nom_carte: str, langue: str = "fr") -> list[float]:
+    """Cotes mémorisées encore valides (7 jours) pour une carte."""
+    entrees = historique().get(cle_cote(nom_carte, langue), [])
+    limite = time.time() - VALIDITE_JOURS * 86400
+    return [e["cote"] for e in entrees if e.get("ts", 0) >= limite]
+
+
 def cote_lissee(nom_carte: str, langue: str = "fr") -> float | None:
     """Médiane des cotes des 7 derniers jours (l'historique est déjà purgé
     par version au chargement, donc plus besoin de borne de déploiement)."""
-    entrees = historique().get(cle_cote(nom_carte, langue), [])
-    limite = time.time() - VALIDITE_JOURS * 86400
-    valeurs = [e["cote"] for e in entrees if e.get("ts", 0) >= limite]
+    valeurs = _cotes_recentes(nom_carte, langue)
     if not valeurs:
         return None
     return round(statistics.median(valeurs), 2)
@@ -1770,7 +1775,12 @@ def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[flo
         log.info("Cote introuvable pour '%s' (%d annonce(s) pertinente(s), minimum %s requis)",
                  carte.get("nom"), nb_pertinentes, cfg["cote"].get("minimum_annonces", 8))
         return None, 0
-    return cote, nb_pertinentes
+    # V24 : si la cote vient uniquement du lissage (0 annonce aujourd'hui,
+    # ex. eBay en panne), la confiance reflète le nombre de passages
+    # mémorisés — chacun a exigé le minimum d'annonces à l'époque. Une cote
+    # présente n'a ainsi JAMAIS une confiance de 0 (garde-fou d'evaluate).
+    confiance = nb_pertinentes or len(_cotes_recentes(carte["nom"], carte.get("langue", "fr")))
+    return cote, confiance
 
 
 def _etat_ok(texte: str, acceptes: list[str], refuses: list[str]) -> bool:
@@ -1792,6 +1802,12 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
 
     if cote is None or cote <= 0:
         return None, "cote indisponible"
+    # V24 : jamais d'alerte sur une cote sans aucune donnée derrière elle
+    # (0 annonce ET 0 passage mémorisé). Ce cas ne doit plus se produire
+    # depuis la séparation des cotes par langue, mais on le garantit ici
+    # par construction plutôt que par accident.
+    if confiance < 1:
+        return None, "cote sans confiance (aucune annonce ni historique)"
     if cote < r.get("cote_min", 5.0):
         return None, f"cote trop faible ({cote:.2f}€ < {r.get('cote_min', 5.0):.2f}€)"
 
@@ -1851,7 +1867,7 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
         "decote_pct": round((1 - total / cote) * 100, 1),
         "prix_revente_conseille": round(prix_revente, 2),
         "profit_net_estime": round(profit_net, 2),
-        "confiance": confiance,  # nb d'annonces eBay derrière la cote (99 = cote manuelle)
+        "confiance": confiance,  # nb d'annonces eBay derrière la cote (99 = manuelle, 98 = Cardtrader)
     }
     return deal, "DEAL"
 
@@ -1929,10 +1945,13 @@ def envoyer_telegram_ventes(ventes: list[dict], cfg_tg: dict, token: str) -> boo
 
 
 def _texte_telegram(d: dict) -> str:
+    # V24 : signaler quand la cote vient de Cardtrader (cote de secours),
+    # pour que l'utilisateur sache qu'aucune annonce eBay ne la corrobore.
+    source = " — cote Cardtrader" if d.get("confiance") == 98 else ""
     return (
         f"🔥 <b>{_echapper_html(d['titre'])}</b>\n"
         f"🛒 {_echapper_html(d['plateforme'])} — <b>{d['prix']:.2f}€</b> + {d['port']:.2f}€ port = <b>{d['total']:.2f}€</b>\n"
-        f"📊 Cote : {d['cote']:.2f}€ (<b>-{d['decote_pct']}%</b>)\n"
+        f"📊 Cote : {d['cote']:.2f}€ (<b>-{d['decote_pct']}%</b>){source}\n"
         f"💶 Revente conseillée : {d['prix_revente_conseille']:.2f}€\n"
         f"✅ Profit net estimé : <b>+{d['profit_net_estime']:.2f}€</b>\n"
         f"👉 <a href=\"{d['url']}\">Voir l'annonce</a>"
@@ -2324,7 +2343,12 @@ def main() -> int:
         cote, confiance = obtenir_cote(carte, annonces_ebay, cfg)
 
         # V22 : cote Cardtrader (marché européen, prix réels par langue).
-        # mode "observation" = affiché seulement ; "actif" = remplace la cote.
+        # Trois modes (api_cotes.mode) :
+        #   "observation" : affiché seulement, jamais utilisé comme cote ;
+        #   "secours" (V24) : la cote eBay reste prioritaire ; Cardtrader ne
+        #       sert QUE quand eBay est muet (cartes JP/KR sans annonces FR),
+        #       avec une décote de prudence et un plafond anti-aberrations ;
+        #   "actif" : remplace toujours la cote eBay.
         cfg_api = cfg.get("api_cotes", {})
         if cfg_api.get("actif"):
             nb_bas = int(cfg_api.get("nb_prix_bas", 5))
@@ -2345,9 +2369,28 @@ def main() -> int:
                     log.info("    [Cardtrader %s] %s ≈ %.2f€  (moyenne des %d plus bas)  —  cote eBay : %s",
                              carte.get("langue", "fr").upper(), nom, prix_ct, nb_bas,
                              f"{cote:.2f}€" if cote else "aucune")
-                    if cfg_api.get("mode") == "actif" and not carte.get("cote"):
+                    mode_api = cfg_api.get("mode", "observation")
+                    if mode_api == "actif" and not carte.get("cote"):
                         # Remplace la cote eBay (la cote MANUELLE reste prioritaire).
                         cote, confiance = round(prix_ct, 2), 99
+                    elif mode_api == "secours" and cote is None and not carte.get("cote"):
+                        # V24 GARDE-FOU 5 : sans cote eBay pour recouper, un
+                        # prix Cardtrader aberrant passerait sans contrôle
+                        # (cf. Mew ex 208 KR affiché à 5020€). Un plafond
+                        # absolu bloque ces cas ; au-delà, pas de cote.
+                        plafond = float(cfg_api.get("cote_secours_max", 1500))
+                        if prix_ct > plafond:
+                            log.warning("    [Cardtrader ⚠️] %s : %.2f€ dépasse le plafond de "
+                                        "secours (%.0f€) -> pas de cote pour cette carte",
+                                        nom, prix_ct, plafond)
+                        else:
+                            # Décote de prudence : Cardtrader reflète des prix
+                            # de vente professionnels, souvent un peu au-dessus
+                            # du marché de l'occasion où le bot revend.
+                            decote = float(cfg_api.get("decote_secours", 0.90))
+                            cote, confiance = round(prix_ct * decote, 2), 98
+                            log.info("    [Cardtrader ✔] %s : cote de secours %.2f€ "
+                                     "(%.2f€ × %.2f, eBay muet)", nom, cote, prix_ct, decote)
         if cote:
             log.info("Cote retenue : %.2f€ (confiance : %s annonces) — %d annonces analysées",
                      cote, confiance, len(annonces))
@@ -2384,7 +2427,10 @@ def main() -> int:
             cote_carte = carte.get("cote") or cote_lissee(carte["nom"], carte.get("langue", "fr"))
             if not cote_carte:
                 break
-            deal, _statut = evaluate(annonce, float(cote_carte), cfg, 0, carte.get("marge_achat"))
+            # V24 : confiance réelle (99 = manuelle, sinon nb de passages
+            # mémorisés) — le garde-fou d'evaluate refuse une confiance de 0.
+            conf_lbc = 99 if carte.get("cote") else len(_cotes_recentes(carte["nom"], carte.get("langue", "fr")))
+            deal, _statut = evaluate(annonce, float(cote_carte), cfg, conf_lbc, carte.get("marge_achat"))
             if deal and not deja_vue(vues, deal["id"]):
                 log.info("  ✓ DEAL (email LBC) : %s à %.2f€ (cote %.2f€)",
                          deal["titre"][:60], deal["total"], float(cote_carte))
