@@ -461,10 +461,13 @@ watchlist:
 #   retombe automatiquement sur la cote eBay).
 #
 # nb_prix_bas : la cote = moyenne des N annonces les MOINS CHÈRES.
+# min_annonces : en dessous de N annonces cohérentes, pas de cote
+#   Cardtrader (un marché d'1-2 annonces n'est pas fiable).
 api_cotes:
   actif: true
   mode: "observation"
   nb_prix_bas: 5
+  min_annonces: 3
 
 # --- Calcul automatique de la cote ---
 cote:

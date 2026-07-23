@@ -829,7 +829,7 @@ CT_BASE = "https://api.cardtrader.com/api/v2"
 CT_JEU_POKEMON = 5           # id du jeu Pokémon chez Cardtrader
 CT_CACHE_FICHIER = os.path.join(RACINE, "data", "cardtrader.json")
 CT_CACHE_PRIX_DUREE = 20 * 3600      # prix trouvé : 1 rafraîchissement/jour
-CT_CACHE_ECHEC_DUREE = 300           # échec : on retente au bout de 5 min
+CT_CACHE_ECHEC_DUREE = 2 * 3600      # échec : on retente au bout de 2 h
 CT_CACHE_VERSION = 4                 # incrémenter pour purger le cache
 CT_CACHE_BLUEPRINT_DUREE = 30 * 86400  # blueprint_id : quasi permanent
 # Correspondance langue interne -> code langue Cardtrader
@@ -1090,7 +1090,8 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
     return blueprint_id
 
 
-def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5) -> float | None:
+def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
+                    min_annonces: int = 3) -> float | None:
     """Cote Cardtrader d'une carte = moyenne des `nb_bas` annonces les
     MOINS CHÈRES dans la langue de la carte (port exclu, EUR).
     Retourne None si carte introuvable, pas d'annonce, ou erreur."""
@@ -1133,22 +1134,56 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5) -> float | None:
             elif isinstance(data, list):
                 produits = data
             prix = []
+            gradees = 0
             for p in produits:
                 # Prix en centimes chez Cardtrader (cents + currency)
                 pr = p.get("price") or {}
                 cents = pr.get("cents")
                 devise = (pr.get("currency") or "EUR").upper()
-                if cents and devise == "EUR":
-                    prix.append(float(cents) / 100.0)
+                if not cents or devise != "EUR":
+                    continue
+                # V22.7 GARDE-FOU 1 : écarter les cartes GRADÉES (PSA...),
+                # dont les prix (souvent x5-x20) polluent la moyenne — cause
+                # probable du Mew ex 208 KR affiché à 5020€.
+                props = p.get("properties_hash") or {}
+                texte_annonce = (str(p.get("description") or "") + " "
+                                 + " ".join(f"{k}={v}" for k, v in props.items())).lower()
+                if any(g in texte_annonce for g in ("grad", "psa", "bgs", "cgc", "pca")):
+                    gradees += 1
+                    continue
+                val = float(cents) / 100.0
+                if val > 0:
+                    prix.append(val)
             if prix:
                 prix.sort()
-                retenus = prix[:max(1, nb_bas)]
-                prix_final = round(sum(retenus) / len(retenus), 2)
+                # V22.7 GARDE-FOU 2 : ne garder que le "groupe bas" cohérent.
+                # Une annonce à 5000€ à côté d'annonces à 50€ (gradée non
+                # étiquetée, erreur de saisie) ne doit pas entrer dans la
+                # moyenne : on écarte tout prix > 3x le moins cher (+5€ de
+                # tolérance pour les petites cartes).
+                base = prix[0]
+                groupe = [p for p in prix if p <= base * 3 + 5]
+                # V22.7 GARDE-FOU 3 : un marché d'1 annonce n'est pas un
+                # marché. En dessous de min_annonces, pas de cote Cardtrader
+                # (le bot garde la cote eBay).
+                if len(groupe) < max(1, min_annonces):
+                    log.info("    [Cardtrader] '%s' (%s) : seulement %d annonce(s) "
+                             "cohérente(s) (< %d requises) -> ignoré",
+                             carte["nom"], carte.get("langue", "fr"),
+                             len(groupe), min_annonces)
+                else:
+                    retenus = groupe[:max(1, nb_bas)]
+                    prix_final = round(sum(retenus) / len(retenus), 2)
+                    ecartees = len(prix) - len(groupe)
+                    if ecartees or gradees:
+                        log.info("    [Cardtrader] '%s' : %d annonce(s) aberrante(s) "
+                                 "et %d gradée(s) écartée(s)",
+                                 carte["nom"], ecartees, gradees)
             else:
                 log.info("    [Cardtrader] '%s' (%s) : blueprint %s trouvé mais "
-                         "0 annonce en '%s' (%d produits bruts)",
+                         "0 annonce en '%s' (%d produits bruts, %d gradées)",
                          carte["nom"], carte.get("langue", "fr"), blueprint_id,
-                         langue_ct, len(produits))
+                         langue_ct, len(produits), gradees)
         elif rep.status_code == 429:
             log.info("    [Cardtrader] quota atteint (429), on réessaiera")
             return None
@@ -2279,14 +2314,26 @@ def main() -> int:
         cfg_api = cfg.get("api_cotes", {})
         if cfg_api.get("actif"):
             nb_bas = int(cfg_api.get("nb_prix_bas", 5))
-            prix_ct = cardtrader_prix(carte, secrets.get("CARDTRADER_TOKEN", ""), nb_bas)
+            min_ann = int(cfg_api.get("min_annonces", 3))
+            prix_ct = cardtrader_prix(carte, secrets.get("CARDTRADER_TOKEN", ""), nb_bas, min_ann)
             if prix_ct is not None:
-                log.info("    [Cardtrader %s] %s ≈ %.2f€  (moyenne des %d plus bas)  —  cote eBay : %s",
-                         carte.get("langue", "fr").upper(), nom, prix_ct, nb_bas,
-                         f"{cote:.2f}€" if cote else "aucune")
-                if cfg_api.get("mode") == "actif" and not carte.get("cote"):
-                    # Remplace la cote eBay (la cote MANUELLE reste prioritaire).
-                    cote, confiance = round(prix_ct, 2), 99
+                # V22.7 GARDE-FOU 4 : vérification croisée avec la cote eBay.
+                # Si les deux existent et s'écartent d'un facteur 5+, l'une
+                # des deux est fausse (mauvaise correspondance de carte,
+                # cf. Méga-Dracaufeu X trouvé à 3€ contre 1199€ eBay) : on
+                # n'utilise PAS le prix Cardtrader et on le signale.
+                suspect = bool(cote) and (prix_ct > cote * 5 or prix_ct < cote / 5)
+                if suspect:
+                    log.warning("    [Cardtrader ⚠️] %s : prix %.2f€ INCOHÉRENT avec la cote "
+                                "eBay %.2f€ (facteur > 5) -> Cardtrader ignoré pour cette carte",
+                                nom, prix_ct, cote)
+                else:
+                    log.info("    [Cardtrader %s] %s ≈ %.2f€  (moyenne des %d plus bas)  —  cote eBay : %s",
+                             carte.get("langue", "fr").upper(), nom, prix_ct, nb_bas,
+                             f"{cote:.2f}€" if cote else "aucune")
+                    if cfg_api.get("mode") == "actif" and not carte.get("cote"):
+                        # Remplace la cote eBay (la cote MANUELLE reste prioritaire).
+                        cote, confiance = round(prix_ct, 2), 99
         if cote:
             log.info("Cote retenue : %.2f€ (confiance : %s annonces) — %d annonces analysées",
                      cote, confiance, len(annonces))
