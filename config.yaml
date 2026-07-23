@@ -59,10 +59,6 @@ watchlist:
   - nom: "Dracaufeu ex 199/165"
     langue: fr
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
-  - nom: "Dracaufeu ex 201/165"
-    langue: fr
-    alias: "Charizard"  # capte les annonces titrées en anglais
-    marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
   - nom: "Tortank ex 200/165"
     langue: fr
     marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
@@ -86,8 +82,12 @@ watchlist:
   # ----- Série 151 (JP, sv2a) -----
   - nom: "Charizard ex 201/165 sv2a"
     langue: jp
-  - nom: "Mew ex 205/165 sv2a"
+  - nom: "Mew ex 195 sv2a"              # = Mew ex FR 193/165 (SIR)
     langue: jp
+    alias: "Mew"
+  - nom: "Mew ex 208 sv2a"              # = Mew ex FR 205/165 (doré)
+    langue: jp
+    alias: "Mew"
   - nom: "Blastoise ex 202/165 sv2a"    # = Tortank ex FR 200/165
     langue: jp
     alias: "Tortank"
@@ -329,8 +329,12 @@ watchlist:
   # propre cote coréenne (distincte du japonais grâce à la V19).
   - nom: "Charizard ex 201/165 sv2a"
     langue: kr
-  - nom: "Mew ex 205/165 sv2a"
+  - nom: "Mew ex 195 sv2a"
     langue: kr
+    alias: "Mew"
+  - nom: "Mew ex 208 sv2a"
+    langue: kr
+    alias: "Mew"
   - nom: "Blastoise ex 202/165 sv2a"
     langue: kr
     alias: "Tortank"
@@ -444,15 +448,23 @@ watchlist:
   # sera de lui donner une cote manuelle (cote: XX) plutôt qu'un calcul.
 
 
-# --- V21 : cotes Cardmarket automatiques (API TCGdex, gratuite) ---
-# mode "observation" : les prix Cardmarket sont AFFICHÉS dans les logs à
-#   côté des cotes eBay, sans rien changer — phase de vérification.
-# mode "actif" : les prix Cardmarket REMPLACENT la cote eBay (les cotes
-#   manuelles "cote:" restent prioritaires ; les cartes inconnues de
-#   l'API et les coréennes gardent la cote eBay).
+# --- V22 : cotes CARDTRADER (marché européen, prix réels par langue) ---
+# Cardtrader expose les VRAIES annonces filtrables par langue (fr/jp/kr),
+# en euros, via une API gratuite (token perso dans les secrets GitHub).
+# C'est ce qui manquait à TCGdex (qui mélangeait les langues) et à
+# l'API Cardmarket (fermée + usage quotidien interdit).
+#
+# mode "observation" : le prix Cardtrader est AFFICHÉ dans les logs à
+#   côté de la cote eBay, sans rien changer — phase de vérification.
+# mode "actif" : le prix Cardtrader REMPLACE la cote eBay (les cotes
+#   manuelles "cote:" restent prioritaires ; en cas d'échec API, on
+#   retombe automatiquement sur la cote eBay).
+#
+# nb_prix_bas : la cote = moyenne des N annonces les MOINS CHÈRES.
 api_cotes:
   actif: true
   mode: "observation"
+  nb_prix_bas: 5
 
 # --- Calcul automatique de la cote ---
 cote:

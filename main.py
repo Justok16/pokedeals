@@ -536,6 +536,7 @@ def secrets_env() -> dict:
         "EBAY_CLIENT_SECRET": os.environ.get("EBAY_CLIENT_SECRET", ""),
         "GMAIL_APP_PASSWORD": os.environ.get("GMAIL_APP_PASSWORD", ""),
         "TELEGRAM_BOT_TOKEN": os.environ.get("TELEGRAM_BOT_TOKEN", ""),
+        "CARDTRADER_TOKEN": os.environ.get("CARDTRADER_TOKEN", ""),
     }
 
 
@@ -808,6 +809,164 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
 # Les cartes coréennes ne sont pas cotées par Cardmarket : elles restent
 # sur le système eBay quoi qu'il arrive.
 # =====================================================================
+# =====================================================================
+# V22 : COTES CARDTRADER (marché européen, prix RÉELS par langue)
+# ---------------------------------------------------------------------
+# Pourquoi Cardtrader plutôt que Cardmarket : l'API Cardmarket est
+# fermée aux nouvelles inscriptions ET interdit explicitement la
+# récupération quotidienne de prix. Cardtrader est un marché européen
+# comparable (en EUR), avec une API gratuite (token perso) qui expose
+# les VRAIES annonces filtrables par langue (fr/jp/kr) — exactement ce
+# qui manquait à TCGdex (qui mélangeait les versions linguistiques).
+#
+# Cote = MOYENNE DES N PRIX LES PLUS BAS (choix de l'utilisateur) :
+# plus robuste qu'un prix unique (erreur de saisie, carte abîmée) et
+# plus proche du prix de vente réel que la tendance du marché.
+# =====================================================================
+CT_BASE = "https://api.cardtrader.com/api/v2"
+CT_JEU_POKEMON = 5           # id du jeu Pokémon chez Cardtrader
+CT_CACHE_FICHIER = os.path.join(RACINE, "data", "cardtrader.json")
+CT_CACHE_PRIX_DUREE = 20 * 3600      # prix : 1 rafraîchissement/jour
+CT_CACHE_BLUEPRINT_DUREE = 30 * 86400  # blueprint_id : quasi permanent
+# Correspondance langue interne -> code langue Cardtrader
+CT_LANGUES = {"fr": "fr", "jp": "jp", "kr": "kr", "en": "en"}
+_ct_cache: dict = {"blueprints": {}, "prix": {}}
+
+
+def _ct_charger_cache() -> None:
+    global _ct_cache
+    try:
+        with open(CT_CACHE_FICHIER, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, dict):
+            _ct_cache = {"blueprints": data.get("blueprints", {}),
+                         "prix": data.get("prix", {})}
+    except (OSError, ValueError):
+        pass
+
+
+def _ct_sauver_cache() -> None:
+    try:
+        os.makedirs(os.path.dirname(CT_CACHE_FICHIER), exist_ok=True)
+        with open(CT_CACHE_FICHIER, "w", encoding="utf-8") as f:
+            json.dump(_ct_cache, f, ensure_ascii=False)
+    except OSError as e:
+        log.warning("Cache Cardtrader non sauvegardé : %s", e)
+
+
+def _ct_entete(token: str) -> dict:
+    return {"Authorization": f"Bearer {token}", "Accept": "application/json"}
+
+
+def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
+    """Trouve l'identifiant Cardtrader (blueprint_id) d'une carte, par
+    recherche sur son nom + numéro. Mis en cache 30 jours (un blueprint
+    ne change pas). Retourne None si la carte est introuvable."""
+    cle = f"{carte.get('langue','fr')}|{carte['nom']}"
+    ent = _ct_cache["blueprints"].get(cle)
+    if ent and (time.time() - ent.get("ts", 0)) < CT_CACHE_BLUEPRINT_DUREE:
+        return ent.get("id")  # peut être None (carte connue comme absente)
+
+    # Termes de recherche : le nom du Pokémon + le numéro de la carte.
+    nom = str(carte["nom"])
+    m_num = re.search(r"\b0*(\d+)(?:/0*\d+)?\b", nom)
+    numero = m_num.group(1) if m_num else ""
+    mots = [w for w in mots_requis(nom) if w not in ("mega", "ex")]
+    terme = " ".join(mots[:2]) or nom
+
+    blueprint_id = None
+    try:
+        rep = requests.get(f"{CT_BASE}/blueprints", timeout=20,
+                           headers=_ct_entete(token),
+                           params={"game_id": CT_JEU_POKEMON, "name": terme})
+        if rep.status_code == 200:
+            candidats = rep.json()
+            if isinstance(candidats, list):
+                for bp in candidats:
+                    # On exige le NUMÉRO exact (même rigueur que le filtre eBay)
+                    props = bp.get("fixed_properties") or {}
+                    collector = str(props.get("collector_number")
+                                    or bp.get("collector_number") or "")
+                    if numero and collector:
+                        if str(int(numero)) == str(collector).lstrip("0").split("/")[0]:
+                            blueprint_id = bp.get("id")
+                            break
+                    elif numero and numero in str(bp.get("name", "")):
+                        blueprint_id = bp.get("id")
+                        break
+        elif rep.status_code == 401:
+            log.warning("    [Cardtrader] token invalide ou expiré (401)")
+        else:
+            log.info("    [Cardtrader] recherche '%s' : HTTP %s", terme, rep.status_code)
+    except Exception as e:  # noqa: BLE001 — ne doit jamais casser le scan
+        log.info("    [Cardtrader] erreur recherche '%s' : %s", nom, e)
+        return None  # erreur réseau : pas de mise en cache
+
+    _ct_cache["blueprints"][cle] = {"id": blueprint_id, "ts": time.time()}
+    return blueprint_id
+
+
+def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5) -> float | None:
+    """Cote Cardtrader d'une carte = moyenne des `nb_bas` annonces les
+    MOINS CHÈRES dans la langue de la carte (port exclu, EUR).
+    Retourne None si carte introuvable, pas d'annonce, ou erreur."""
+    if not token:
+        return None
+    langue_ct = CT_LANGUES.get(carte.get("langue", "fr"))
+    if not langue_ct:
+        return None
+
+    cle = f"{carte.get('langue','fr')}|{carte['nom']}"
+    ent = _ct_cache["prix"].get(cle)
+    if ent and (time.time() - ent.get("ts", 0)) < CT_CACHE_PRIX_DUREE:
+        return ent.get("prix")
+
+    blueprint_id = _ct_trouver_blueprint(carte, token)
+    if not blueprint_id:
+        _ct_cache["prix"][cle] = {"prix": None, "ts": time.time()}
+        return None
+
+    prix_final = None
+    try:
+        rep = requests.get(f"{CT_BASE}/marketplace/products", timeout=20,
+                           headers=_ct_entete(token),
+                           params={"blueprint_id": blueprint_id,
+                                   "language": langue_ct})
+        if rep.status_code == 200:
+            data = rep.json()
+            # La réponse est un dict {blueprint_id: [produits]} ou une liste
+            produits = []
+            if isinstance(data, dict):
+                for v in data.values():
+                    if isinstance(v, list):
+                        produits.extend(v)
+            elif isinstance(data, list):
+                produits = data
+            prix = []
+            for p in produits:
+                # Prix en centimes chez Cardtrader (cents + currency)
+                pr = p.get("price") or {}
+                cents = pr.get("cents")
+                devise = (pr.get("currency") or "EUR").upper()
+                if cents and devise == "EUR":
+                    prix.append(float(cents) / 100.0)
+            if prix:
+                prix.sort()
+                retenus = prix[:max(1, nb_bas)]
+                prix_final = round(sum(retenus) / len(retenus), 2)
+        elif rep.status_code == 429:
+            log.info("    [Cardtrader] quota atteint (429), on réessaiera")
+            return None
+        else:
+            log.info("    [Cardtrader] prix bp=%s : HTTP %s", blueprint_id, rep.status_code)
+    except Exception as e:  # noqa: BLE001
+        log.info("    [Cardtrader] erreur prix '%s' : %s", carte["nom"], e)
+        return None
+
+    _ct_cache["prix"][cle] = {"prix": prix_final, "ts": time.time()}
+    return prix_final
+
+
 TCGDEX_BASE = "https://api.tcgdex.net/v2"
 API_CACHE_FICHIER = os.path.join(RACINE, "data", "api_prix.json")
 API_CACHE_DUREE = 20 * 3600  # ≈ 1 rafraîchissement par jour et par carte
@@ -1897,7 +2056,7 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
 def main() -> int:
     debut = time.time()
     cfg = charger_config()
-    _api_charger_cache()  # V21 : cache des prix Cardmarket (1 requête/carte/jour)
+    _ct_charger_cache()  # V22 : cache Cardtrader (blueprints + prix du jour)
     secrets = secrets_env()
     vues = charger_vues()
 
@@ -1913,16 +2072,19 @@ def main() -> int:
 
         cote, confiance = obtenir_cote(carte, annonces_ebay, cfg)
 
-        # V21 : prix Cardmarket via l'API (observation ou remplacement).
+        # V22 : cote Cardtrader (marché européen, prix réels par langue).
+        # mode "observation" = affiché seulement ; "actif" = remplace la cote.
         cfg_api = cfg.get("api_cotes", {})
         if cfg_api.get("actif"):
-            prix_api = api_prix_carte(carte)
-            if prix_api is not None:
-                log.info("    [API Cardmarket] %s ≈ %.2f€  (cote eBay : %s)",
-                         nom, prix_api, f"{cote:.2f}€" if cote else "aucune")
+            nb_bas = int(cfg_api.get("nb_prix_bas", 5))
+            prix_ct = cardtrader_prix(carte, secrets.get("CARDTRADER_TOKEN", ""), nb_bas)
+            if prix_ct is not None:
+                log.info("    [Cardtrader %s] %s ≈ %.2f€  (moyenne des %d plus bas)  —  cote eBay : %s",
+                         carte.get("langue", "fr").upper(), nom, prix_ct, nb_bas,
+                         f"{cote:.2f}€" if cote else "aucune")
                 if cfg_api.get("mode") == "actif" and not carte.get("cote"):
                     # Remplace la cote eBay (la cote MANUELLE reste prioritaire).
-                    cote, confiance = round(prix_api, 2), 99
+                    cote, confiance = round(prix_ct, 2), 99
         if cote:
             log.info("Cote retenue : %.2f€ (confiance : %s annonces) — %d annonces analysées",
                      cote, confiance, len(annonces))
@@ -1968,7 +2130,7 @@ def main() -> int:
             break
 
     alertes_vente = verifier_stock(cfg, secrets, vues)
-    _api_sauver_cache()  # V21 : persistance du cache des prix Cardmarket
+    _ct_sauver_cache()  # V22 : persistance du cache Cardtrader
 
     # Tri : les affaires les plus rentables en premier
     nouveaux_deals.sort(key=lambda d: d["profit_net_estime"], reverse=True)

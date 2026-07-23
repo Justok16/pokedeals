@@ -31,6 +31,7 @@ jobs:
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CARDTRADER_TOKEN: ${{ secrets.CARDTRADER_TOKEN }}
         run: python main.py
       - name: Sauvegarder la mémoire (annonces vues + historique des cotes)
         run: |
