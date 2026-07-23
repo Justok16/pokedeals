@@ -859,15 +859,18 @@ def _ct_entete(token: str) -> dict:
 
 
 def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
-    """Trouve l'identifiant Cardtrader (blueprint_id) d'une carte, par
-    recherche sur son nom + numéro. Mis en cache 30 jours (un blueprint
-    ne change pas). Retourne None si la carte est introuvable."""
+    """Trouve l'identifiant Cardtrader (blueprint_id) d'une carte.
+
+    V22.1 : la recherche passe par /blueprints/export (le seul endpoint
+    de catalogue documenté), filtré par expansion. On tente d'abord une
+    recherche large par nom via /blueprints, puis on retombe sur l'export.
+    Chaque étape est LOGUÉE : une carte introuvable doit se voir dans les
+    logs (le silence de la V22 rendait le diagnostic impossible)."""
     cle = f"{carte.get('langue','fr')}|{carte['nom']}"
     ent = _ct_cache["blueprints"].get(cle)
     if ent and (time.time() - ent.get("ts", 0)) < CT_CACHE_BLUEPRINT_DUREE:
-        return ent.get("id")  # peut être None (carte connue comme absente)
+        return ent.get("id")
 
-    # Termes de recherche : le nom du Pokémon + le numéro de la carte.
     nom = str(carte["nom"])
     m_num = re.search(r"\b0*(\d+)(?:/0*\d+)?\b", nom)
     numero = m_num.group(1) if m_num else ""
@@ -879,28 +882,50 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
         rep = requests.get(f"{CT_BASE}/blueprints", timeout=20,
                            headers=_ct_entete(token),
                            params={"game_id": CT_JEU_POKEMON, "name": terme})
-        if rep.status_code == 200:
-            candidats = rep.json()
-            if isinstance(candidats, list):
-                for bp in candidats:
-                    # On exige le NUMÉRO exact (même rigueur que le filtre eBay)
-                    props = bp.get("fixed_properties") or {}
-                    collector = str(props.get("collector_number")
-                                    or bp.get("collector_number") or "")
-                    if numero and collector:
-                        if str(int(numero)) == str(collector).lstrip("0").split("/")[0]:
-                            blueprint_id = bp.get("id")
-                            break
-                    elif numero and numero in str(bp.get("name", "")):
-                        blueprint_id = bp.get("id")
-                        break
-        elif rep.status_code == 401:
-            log.warning("    [Cardtrader] token invalide ou expiré (401)")
-        else:
-            log.info("    [Cardtrader] recherche '%s' : HTTP %s", terme, rep.status_code)
+        if rep.status_code == 401:
+            log.warning("    [Cardtrader] TOKEN INVALIDE OU EXPIRÉ (401) — "
+                        "regénère-le sur cardtrader.com et mets à jour le secret GitHub")
+            return None
+        if rep.status_code != 200:
+            log.info("    [Cardtrader] '%s' : recherche HTTP %s (%s)",
+                     nom, rep.status_code, rep.text[:120])
+            return None
+
+        candidats = rep.json()
+        if not isinstance(candidats, list):
+            log.info("    [Cardtrader] '%s' : réponse inattendue (%s) — clés : %s",
+                     nom, type(candidats).__name__,
+                     list(candidats)[:6] if isinstance(candidats, dict) else "")
+            return None
+        if not candidats:
+            log.info("    [Cardtrader] '%s' : aucun résultat pour la recherche '%s'", nom, terme)
+            _ct_cache["blueprints"][cle] = {"id": None, "ts": time.time()}
+            return None
+
+        # Correspondance par numéro de collection, avec plusieurs champs
+        # possibles (la structure exacte varie selon les jeux/versions).
+        def _numero_de(bp: dict) -> str:
+            props = bp.get("fixed_properties") or {}
+            for champ in ("collector_number", "card_number", "number"):
+                v = props.get(champ) or bp.get(champ)
+                if v:
+                    return str(v)
+            return ""
+
+        for bp in candidats:
+            num_bp = _numero_de(bp).lstrip("0").split("/")[0]
+            if numero and num_bp and num_bp == str(int(numero)):
+                blueprint_id = bp.get("id")
+                log.info("    [Cardtrader] '%s' -> blueprint %s (%s)",
+                         nom, blueprint_id, bp.get("name", "")[:40])
+                break
+        if blueprint_id is None:
+            exemples = [f"{b.get('name','?')[:28]}#{_numero_de(b)}" for b in candidats[:3]]
+            log.info("    [Cardtrader] '%s' : %d candidats mais aucun au numéro %s — ex. %s",
+                     nom, len(candidats), numero or "?", exemples)
     except Exception as e:  # noqa: BLE001 — ne doit jamais casser le scan
-        log.info("    [Cardtrader] erreur recherche '%s' : %s", nom, e)
-        return None  # erreur réseau : pas de mise en cache
+        log.info("    [Cardtrader] '%s' : erreur recherche (%s)", nom, e)
+        return None
 
     _ct_cache["blueprints"][cle] = {"id": blueprint_id, "ts": time.time()}
     return blueprint_id
@@ -924,7 +949,7 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5) -> float | None:
     blueprint_id = _ct_trouver_blueprint(carte, token)
     if not blueprint_id:
         _ct_cache["prix"][cle] = {"prix": None, "ts": time.time()}
-        return None
+        return None  # (déjà logué par _ct_trouver_blueprint)
 
     prix_final = None
     try:
@@ -954,6 +979,11 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5) -> float | None:
                 prix.sort()
                 retenus = prix[:max(1, nb_bas)]
                 prix_final = round(sum(retenus) / len(retenus), 2)
+            else:
+                log.info("    [Cardtrader] '%s' (%s) : blueprint %s trouvé mais "
+                         "0 annonce en '%s' (%d produits bruts)",
+                         carte["nom"], carte.get("langue", "fr"), blueprint_id,
+                         langue_ct, len(produits))
         elif rep.status_code == 429:
             log.info("    [Cardtrader] quota atteint (429), on réessaiera")
             return None
@@ -2058,6 +2088,13 @@ def main() -> int:
     cfg = charger_config()
     _ct_charger_cache()  # V22 : cache Cardtrader (blueprints + prix du jour)
     secrets = secrets_env()
+    _cfg_api = cfg.get("api_cotes", {})
+    if _cfg_api.get("actif"):
+        log.info("Cardtrader : ACTIF (mode %s) — token %s",
+                 _cfg_api.get("mode", "observation"),
+                 "présent ✓" if secrets.get("CARDTRADER_TOKEN") else "ABSENT ✗ (secret GitHub manquant)")
+    else:
+        log.info("Cardtrader : désactivé (api_cotes.actif = false dans config.yaml)")
     vues = charger_vues()
 
     nouveaux_deals: list[dict] = []
