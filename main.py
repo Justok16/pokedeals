@@ -826,7 +826,9 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
 CT_BASE = "https://api.cardtrader.com/api/v2"
 CT_JEU_POKEMON = 5           # id du jeu Pokémon chez Cardtrader
 CT_CACHE_FICHIER = os.path.join(RACINE, "data", "cardtrader.json")
-CT_CACHE_PRIX_DUREE = 20 * 3600      # prix : 1 rafraîchissement/jour
+CT_CACHE_PRIX_DUREE = 20 * 3600      # prix trouvé : 1 rafraîchissement/jour
+CT_CACHE_ECHEC_DUREE = 3600          # échec : on retente au bout d'1 h
+CT_CACHE_VERSION = 2                 # incrémenter pour purger le cache
 CT_CACHE_BLUEPRINT_DUREE = 30 * 86400  # blueprint_id : quasi permanent
 # Correspondance langue interne -> code langue Cardtrader
 CT_LANGUES = {"fr": "fr", "jp": "jp", "kr": "kr", "en": "en"}
@@ -839,6 +841,12 @@ def _ct_charger_cache() -> None:
         with open(CT_CACHE_FICHIER, "r", encoding="utf-8") as f:
             data = json.load(f)
         if isinstance(data, dict):
+            # Purge si le cache vient d'une version antérieure (il peut
+            # contenir des échecs figés par un bug corrigé depuis).
+            if int(data.get("version", 0)) != CT_CACHE_VERSION:
+                log.info("Cache Cardtrader réinitialisé (nouvelle version) : repart propre")
+                _ct_cache = {"blueprints": {}, "prix": {}}
+                return
             _ct_cache = {"blueprints": data.get("blueprints", {}),
                          "prix": data.get("prix", {})}
     except (OSError, ValueError):
@@ -849,7 +857,7 @@ def _ct_sauver_cache() -> None:
     try:
         os.makedirs(os.path.dirname(CT_CACHE_FICHIER), exist_ok=True)
         with open(CT_CACHE_FICHIER, "w", encoding="utf-8") as f:
-            json.dump(_ct_cache, f, ensure_ascii=False)
+            json.dump({"version": CT_CACHE_VERSION, **_ct_cache}, f, ensure_ascii=False)
     except OSError as e:
         log.warning("Cache Cardtrader non sauvegardé : %s", e)
 
@@ -868,8 +876,11 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
     logs (le silence de la V22 rendait le diagnostic impossible)."""
     cle = f"{carte.get('langue','fr')}|{carte['nom']}"
     ent = _ct_cache["blueprints"].get(cle)
-    if ent and (time.time() - ent.get("ts", 0)) < CT_CACHE_BLUEPRINT_DUREE:
-        return ent.get("id")
+    if ent:
+        age = time.time() - ent.get("ts", 0)
+        duree = CT_CACHE_BLUEPRINT_DUREE if ent.get("id") else CT_CACHE_ECHEC_DUREE
+        if age < duree:
+            return ent.get("id")
 
     nom = str(carte["nom"])
     m_num = re.search(r"\b0*(\d+)(?:/0*\d+)?\b", nom)
@@ -943,8 +954,14 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5) -> float | None:
 
     cle = f"{carte.get('langue','fr')}|{carte['nom']}"
     ent = _ct_cache["prix"].get(cle)
-    if ent and (time.time() - ent.get("ts", 0)) < CT_CACHE_PRIX_DUREE:
-        return ent.get("prix")
+    if ent:
+        age = time.time() - ent.get("ts", 0)
+        # V22.2 : un SUCCÈS est gardé ~1 jour ; un ÉCHEC seulement 1 h.
+        # Sinon un scan raté fige toutes les cartes en "None" pendant 20 h
+        # et masque complètement le diagnostic (cas vécu en V22.1).
+        duree = CT_CACHE_PRIX_DUREE if ent.get("prix") is not None else CT_CACHE_ECHEC_DUREE
+        if age < duree:
+            return ent.get("prix")
 
     blueprint_id = _ct_trouver_blueprint(carte, token)
     if not blueprint_id:
