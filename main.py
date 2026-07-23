@@ -888,26 +888,42 @@ CT_NOMS_EN = {
 
 def _ct_numero_de(bp: dict) -> str:
     """Extrait le numéro de collection d'un blueprint Cardtrader.
-    La structure varie : on ratisse les champs plausibles à tous les
-    niveaux, puis on tente le nom lui-même (souvent 'Pikachu (173/165)')."""
+
+    V22.4 : l'endpoint /blueprints ne renvoie PAS de champ numérique
+    dédié (constaté en production : les seuls champs sont back_image,
+    category_id, expansion_id, game_id, id, image, meta_name, name,
+    slug). Le numéro se trouve donc dans le NOM ou le SLUG, sous des
+    formes variées : « Charizard ex (199/165) », « Pikachu 173/165 »,
+    « charizard-ex-199-165 », « ... #199 ».
+    """
     props = bp.get("fixed_properties") or {}
     editable = bp.get("editable_properties") or {}
-    sources = [props, editable, bp]
-    champs = ("collector_number", "card_number", "number", "pokemon_number",
-              "collectors_number", "cardnumber")
-    for src in sources:
-        if not isinstance(src, dict):
+    for src in (props, editable, bp):
+        if isinstance(src, dict):
+            for champ in ("collector_number", "card_number", "number",
+                          "collectors_number", "cardnumber"):
+                v = src.get(champ)
+                if v not in (None, "", []):
+                    return str(v)
+
+    # Champs textuels réellement présents dans la réponse.
+    for champ in ("name", "meta_name", "slug"):
+        texte = str(bp.get(champ) or "")
+        if not texte:
             continue
-        for champ in champs:
-            v = src.get(champ)
-            if v not in (None, "", []):
-                return str(v)
-    # Repli : chercher un numéro dans le nom (« Charizard ex (201/165) »)
-    m = re.search(r"\b(\d{1,3})\s*/\s*\d{1,3}\b", str(bp.get("name", "")))
-    if m:
-        return m.group(1)
-    m = re.search(r"[#(]\s*(\d{1,3})\b", str(bp.get("name", "")))
-    return m.group(1) if m else ""
+        # « 199/165 » ou « 199-165 » (slug) -> 199
+        mm = re.search(r"\b(\d{1,3})\s*[/-]\s*(\d{2,3})\b", texte)
+        if mm:
+            return mm.group(1)
+        # « #199 » ou « (199) »
+        mm = re.search(r"[#(]\s*0*(\d{1,3})\b", texte)
+        if mm:
+            return mm.group(1)
+        # « ... 199 » en fin de nom
+        mm = re.search(r"\b0*(\d{1,3})\s*$", texte.strip())
+        if mm:
+            return mm.group(1)
+    return ""
 
 
 def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
@@ -973,12 +989,12 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
                     break
             if blueprint_id:
                 break
-            # Diagnostic riche : on montre la STRUCTURE d'un candidat pour
-            # identifier le bon champ de numéro si l'extraction échoue.
-            ex = candidats[0]
+            # Diagnostic : montrer les NOMS réels des candidats permet de
+            # voir sous quelle forme Cardtrader écrit le numéro de carte.
+            apercu = [f"{str(c.get('name',''))[:34]} | slug={str(c.get('slug',''))[:34]}"
+                      for c in candidats[:3]]
             dernier_diag = (f"{len(candidats)} candidats sur '{terme}' sans numéro {numero} "
-                            f"| champs du 1er : {sorted(ex)[:9]} "
-                            f"| fixed_properties : {sorted((ex.get('fixed_properties') or {}))[:8]}")
+                            f"| exemples : {apercu}")
         except Exception as e:  # noqa: BLE001
             log.info("    [Cardtrader] '%s' : erreur recherche (%s)", nom, e)
             return None
