@@ -75,9 +75,13 @@ def requete_avec_retry(methode, url, tentatives: int = 3, **kwargs):
     for i in range(tentatives):
         try:
             r = methode(url, **kwargs)
-            if r.status_code == 429:
+            # V25 : on réessaie avec backoff sur 429 (quota) ET sur les
+            # erreurs serveur 5xx (503 Service Unavailable d'eBay, 502...),
+            # qui sont temporaires. Avant, un 5xx repartait immédiatement
+            # sans nouvelle tentative et faisait perdre la source du scan.
+            if r.status_code == 429 or r.status_code >= 500:
                 attente = (2 ** (i + 1)) + random.uniform(0, 2)
-                log.info("429 reçu, pause de %.1fs", attente)
+                log.info("HTTP %s reçu, pause de %.1fs avant nouvelle tentative", r.status_code, attente)
                 time.sleep(attente)
                 continue
             return r
@@ -87,6 +91,20 @@ def requete_avec_retry(methode, url, tentatives: int = 3, **kwargs):
     if derniere_erreur:
         raise derniere_erreur
     return r
+
+
+def _ecrire_json_atomique(chemin: str, donnees, indent=None) -> None:
+    """Écrit un JSON de façon ATOMIQUE : on écrit dans un fichier temporaire
+    du même dossier, puis on le renomme (os.replace est atomique sur un même
+    système de fichiers). Un run tué en plein milieu (limite de temps
+    GitHub Actions, erreur disque) ne peut donc plus laisser un fichier
+    d'état à moitié écrit — un JSON corrompu = mémoire perdue et alertes en
+    double au scan suivant."""
+    os.makedirs(os.path.dirname(chemin), exist_ok=True)
+    tmp = f"{chemin}.tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(donnees, f, ensure_ascii=False, indent=indent)
+    os.replace(tmp, chemin)
 
 
 # ------------------- Normalisation de texte -------------------
@@ -564,9 +582,7 @@ def sauvegarder_vues(vues: dict) -> None:
     # Nettoyage des entrées trop anciennes
     limite = time.time() - RETENTION_JOURS * 86400
     vues = {k: v for k, v in vues.items() if v.get("ts", 0) > limite}
-    os.makedirs(os.path.dirname(FICHIER_SEEN), exist_ok=True)
-    with open(FICHIER_SEEN, "w", encoding="utf-8") as f:
-        json.dump(vues, f, ensure_ascii=False, indent=1)
+    _ecrire_json_atomique(FICHIER_SEEN, vues, indent=1)
 
 
 def deja_vue(vues: dict, annonce_id: str) -> bool:
@@ -699,10 +715,17 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
         port = 0.0
         opts = it.get("shippingOptions") or []
         if opts:
-            try:
-                port = float(opts[0]["shippingCost"]["value"])
-            except (KeyError, ValueError, TypeError):
-                port = 0.0
+            # V25 : eBay renvoie plusieurs options de livraison ; la première
+            # n'est pas forcément la moins chère (ex. express à 25€ avant une
+            # éco à 5€). On retient le port MINIMUM, sinon de vrais deals
+            # étaient rejetés à tort par le plafond de port.
+            couts = []
+            for o in opts:
+                try:
+                    couts.append(float(o["shippingCost"]["value"]))
+                except (KeyError, ValueError, TypeError):
+                    continue
+            port = min(couts) if couts else 0.0
         pays = ((it.get("itemLocation") or {}).get("country") or "FR").upper()
         if pays != "FR":
             if not international:
@@ -873,9 +896,7 @@ def _ct_charger_cache() -> None:
 
 def _ct_sauver_cache() -> None:
     try:
-        os.makedirs(os.path.dirname(CT_CACHE_FICHIER), exist_ok=True)
-        with open(CT_CACHE_FICHIER, "w", encoding="utf-8") as f:
-            json.dump({"sig": _ct_signature_code(), **_ct_cache}, f, ensure_ascii=False)
+        _ecrire_json_atomique(CT_CACHE_FICHIER, {"sig": _ct_signature_code(), **_ct_cache})
     except OSError as e:
         log.warning("Cache Cardtrader non sauvegardé : %s", e)
 
@@ -1138,6 +1159,7 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
                 produits = data
             prix = []
             gradees = 0
+            abimees = 0
             for p in produits:
                 # Prix en centimes chez Cardtrader (cents + currency)
                 pr = p.get("price") or {}
@@ -1153,6 +1175,16 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
                                  + " ".join(f"{k}={v}" for k, v in props.items())).lower()
                 if any(g in texte_annonce for g in ("grad", "psa", "bgs", "cgc", "pca")):
                     gradees += 1
+                    continue
+                # V25 GARDE-FOU : n'inclure QUE les cartes en bon état. Le bot
+                # ne vise que du neuf/near mint (cf. README) ; or Cardtrader
+                # vend aussi des cartes "Played"/"Poor" bradées qui tiraient la
+                # moyenne des prix bas vers le bas -> cote sous-évaluée -> faux
+                # deals sur des annonces NM. On lit le champ 'condition' de
+                # l'annonce et on écarte tout ce qui n'est pas (Near) Mint.
+                cond = str(props.get("condition", "")).lower()
+                if cond and not ("mint" in cond):  # "Mint" et "Near Mint" acceptés
+                    abimees += 1
                     continue
                 val = float(cents) / 100.0
                 if val > 0:
@@ -1178,15 +1210,15 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
                     retenus = groupe[:max(1, nb_bas)]
                     prix_final = round(sum(retenus) / len(retenus), 2)
                     ecartees = len(prix) - len(groupe)
-                    if ecartees or gradees:
-                        log.info("    [Cardtrader] '%s' : %d annonce(s) aberrante(s) "
-                                 "et %d gradée(s) écartée(s)",
-                                 carte["nom"], ecartees, gradees)
+                    if ecartees or gradees or abimees:
+                        log.info("    [Cardtrader] '%s' : %d annonce(s) aberrante(s), "
+                                 "%d gradée(s) et %d abîmée(s) écartée(s)",
+                                 carte["nom"], ecartees, gradees, abimees)
             else:
                 log.info("    [Cardtrader] '%s' (%s) : blueprint %s trouvé mais "
-                         "0 annonce en '%s' (%d produits bruts, %d gradées)",
+                         "0 annonce en '%s' (%d produits bruts, %d gradées, %d abîmées)",
                          carte["nom"], carte.get("langue", "fr"), blueprint_id,
-                         langue_ct, len(produits), gradees)
+                         langue_ct, len(produits), gradees, abimees)
         elif rep.status_code == 429:
             log.info("    [Cardtrader] quota atteint (429), on réessaiera")
             return None
@@ -1279,9 +1311,7 @@ def _api_charger_cache() -> None:
 
 def _api_sauver_cache() -> None:
     try:
-        os.makedirs(os.path.dirname(API_CACHE_FICHIER), exist_ok=True)
-        with open(API_CACHE_FICHIER, "w", encoding="utf-8") as f:
-            json.dump(_api_prix_cache, f, ensure_ascii=False)
+        _ecrire_json_atomique(API_CACHE_FICHIER, _api_prix_cache)
     except OSError as e:
         log.warning("Cache API non sauvegardé : %s", e)
 
@@ -1575,12 +1605,10 @@ def _charger_historique() -> dict:
 
 def sauvegarder_historique() -> None:
     h = historique()
-    os.makedirs(os.path.dirname(FICHIER_COTES), exist_ok=True)
     # On réécrit le tag de version à chaque sauvegarde.
     a_ecrire = {"_purge_version": PURGE_VERSION}
     a_ecrire.update(h)
-    with open(FICHIER_COTES, "w", encoding="utf-8") as f:
-        json.dump(a_ecrire, f, ensure_ascii=False, indent=1)
+    _ecrire_json_atomique(FICHIER_COTES, a_ecrire, indent=1)
 
 
 _historique = None
@@ -1997,17 +2025,24 @@ def envoyer_telegram(deals: list[dict], cfg_tg: dict, token: str) -> bool:
 
 
 def _html_deal(d: dict) -> str:
+    # V25 : le titre, la plateforme et l'URL viennent de l'annonce (donc d'un
+    # vendeur tiers) et sont insérés dans du HTML. Sans échappement, un titre
+    # du type <img src=x onerror=...> pourrait injecter du code dans le mail.
+    # On échappe < > & partout, plus les guillemets dans l'URL (attribut href).
+    titre = _echapper_html(d['titre'])
+    plateforme = _echapper_html(d['plateforme'])
+    url = _echapper_html(d['url']).replace('"', "&quot;")
     return f"""
     <div style="border:1px solid #ddd;border-radius:8px;padding:14px;margin:10px 0;font-family:Arial">
-      <h3 style="margin:0 0 6px">🔥 {d['titre']}</h3>
+      <h3 style="margin:0 0 6px">🔥 {titre}</h3>
       <p style="margin:4px 0">
-        <b>Plateforme :</b> {d['plateforme']}<br>
+        <b>Plateforme :</b> {plateforme}<br>
         <b>Prix :</b> {d['prix']:.2f}€ + {d['port']:.2f}€ de port = <b>{d['total']:.2f}€</b><br>
         <b>Cote estimée :</b> {d['cote']:.2f}€ &nbsp;(<b style="color:green">-{d['decote_pct']}%</b>)<br>
         <b>Prix de revente conseillé :</b> {d['prix_revente_conseille']:.2f}€<br>
         <b>Profit net estimé :</b> <b style="color:green">+{d['profit_net_estime']:.2f}€</b>
       </p>
-      <a href="{d['url']}" style="display:inline-block;background:#1a73e8;color:#fff;
+      <a href="{url}" style="display:inline-block;background:#1a73e8;color:#fff;
          padding:8px 16px;border-radius:6px;text-decoration:none">Voir l'annonce ➜</a>
     </div>"""
 
@@ -2136,9 +2171,7 @@ def enregistrer_scan(nb_annonces: int, deals: list[dict]) -> None:
     s["profit_potentiel"] = round(s["profit_potentiel"] + sum(d["profit_net_estime"] for d in deals), 2)
     stats[jour] = s
     stats = dict(sorted(stats.items())[-30:])  # 30 derniers jours
-    os.makedirs(os.path.dirname(FICHIER_STATS), exist_ok=True)
-    with open(FICHIER_STATS, "w", encoding="utf-8") as f:
-        json.dump(stats, f, ensure_ascii=False, indent=1)
+    _ecrire_json_atomique(FICHIER_STATS, stats, indent=1)
 
 
 # ------------------------------ CSV -----------------------------------
