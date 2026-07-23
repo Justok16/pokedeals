@@ -834,7 +834,7 @@ CT_CACHE_VERSION = 4                 # incrémenter pour purger le cache
 CT_CACHE_BLUEPRINT_DUREE = 30 * 86400  # blueprint_id : quasi permanent
 # Correspondance langue interne -> code langue Cardtrader
 CT_LANGUES = {"fr": "fr", "jp": "jp", "kr": "kr", "en": "en"}
-_ct_cache: dict = {"blueprints": {}, "prix": {}}
+_ct_cache: dict = {"blueprints": {}, "prix": {}, "expansions": []}
 
 
 def _ct_signature_code() -> str:
@@ -901,6 +901,51 @@ CT_NOMS_EN = {
 }
 
 
+# Dénominateur de la carte -> mots-clés du nom de set chez Cardtrader.
+# Sert à cibler la bonne expansion (l'API plafonne à 50 résultats sur une
+# recherche par nom, donc on interroge le set entier puis on filtre).
+CT_SETS = {
+    "165": ["151"],                              # Pokémon 151 (sv2a / EV3.5)
+    "132": ["mega evolution", "megaevolution"],  # Méga-Évolution (ME01)
+    "094": ["phantasmal", "flames"],             # Flammes Fantasmagoriques (ME02)
+    "217": ["ascendant", "transcend"],           # Héros Ascendants/Transcendants
+    "086": ["chaos"],                            # Chaos Ascendant (ME04)
+    "081": ["abyss"],                            # Abyss Eye (M5)
+    "131": ["prismatic"],                        # Évolutions Prismatiques
+    "167": ["twilight", "masquerade"],           # Mascarade Crépusculaire
+    "193": ["dream"],                            # MEGA Dream ex (m2a)
+    "063": ["mega", "gardevoir"],
+    "172": ["paradigm", "trigger"],
+    "098": ["lost", "origin"],
+}
+
+
+# Code de set japonais présent dans le nom -> mots-clés Cardtrader.
+# Beaucoup de cartes JP/KR n'ont pas de dénominateur (« Mew ex 195 sv2a »)
+# mais portent leur code de set, ce qui suffit à cibler l'expansion.
+CT_SETS_JP = {
+    "sv2a": ["151"], "sv8a": ["terastal"], "sv5a": ["crimson"],
+    "sv9": ["battle partners"], "s8b": ["vmax climax"], "s12": ["paradigm"],
+    "m1l": ["mega evolution"], "m2": ["mega"], "m2a": ["dream"],
+    "m3": ["mega"], "m4": ["mega"], "m5": ["abyss"], "mc": ["start deck"],
+}
+
+
+def _ct_indices_set(nom: str, denom: str) -> list:
+    """Mots-clés permettant d'identifier l'expansion Cardtrader d'une carte,
+    à partir de son dénominateur (.../165) ou de son code de set JP (sv2a).
+    Le dénominateur est testé avec ET sans zéros initiaux (094 <-> 94)."""
+    if denom:
+        for variante in (denom, denom.lstrip("0"), denom.zfill(3)):
+            if variante in CT_SETS:
+                return CT_SETS[variante]
+    n = normaliser(nom)
+    for code, indices in CT_SETS_JP.items():
+        if re.search(rf"\b{re.escape(code)}\b", n):
+            return indices
+    return []
+
+
 def _ct_numero_de(bp: dict) -> str:
     """Extrait le numéro de collection d'un blueprint Cardtrader.
 
@@ -922,12 +967,17 @@ def _ct_numero_de(bp: dict) -> str:
                     return str(v)
 
     # Champs textuels réellement présents dans la réponse.
+    # ATTENTION : le slug commence par l'ID Cardtrader
+    # (« 110706-pikachu-48-162-breakthrough ») — on le retire d'abord,
+    # sinon on prend l'ID pour le numéro de carte.
     for champ in ("name", "meta_name", "slug"):
         texte = str(bp.get(champ) or "")
         if not texte:
             continue
-        # « 199/165 » ou « 199-165 » (slug) -> 199
-        mm = re.search(r"\b(\d{1,3})\s*[/-]\s*(\d{2,3})\b", texte)
+        if champ == "slug":
+            texte = re.sub(r"^\d+-", "", texte)
+        # « 199/165 », « 48-162 » -> 199 / 48
+        mm = re.search(r"\b0*(\d{1,3})\s*[/-]\s*0*(\d{2,3})\b", texte)
         if mm:
             return mm.group(1)
         # « #199 » ou « (199) »
@@ -941,14 +991,34 @@ def _ct_numero_de(bp: dict) -> str:
     return ""
 
 
+def _ct_expansions(token: str) -> list:
+    """Liste (mise en cache) des expansions Pokémon de Cardtrader."""
+    if _ct_cache.get("expansions"):
+        return _ct_cache["expansions"]
+    try:
+        rep = requests.get(f"{CT_BASE}/expansions", timeout=25,
+                           headers=_ct_entete(token))
+        if rep.status_code == 200 and isinstance(rep.json(), list):
+            exps = [e for e in rep.json() if e.get("game_id") == CT_JEU_POKEMON]
+            _ct_cache["expansions"] = exps
+            log.info("    [Cardtrader] %d expansions Pokémon chargées", len(exps))
+            return exps
+        log.info("    [Cardtrader] /expansions : HTTP %s", rep.status_code)
+    except Exception as e:  # noqa: BLE001
+        log.info("    [Cardtrader] /expansions : erreur (%s)", e)
+    return []
+
+
 def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
     """Trouve l'identifiant Cardtrader (blueprint_id) d'une carte.
 
-    V22.3 : Cardtrader catalogue les cartes sous leur nom ANGLAIS
-    (« Blastoise », pas « Tortank »). On utilise donc l'alias de la
-    watchlist quand il existe, et on teste plusieurs termes. Le numéro
-    de collection est extrait via _ct_numero_de (plusieurs champs
-    possibles). Chaque étape reste LOGUÉE."""
+    V22.6 : la recherche par NOM est inutilisable (l'API plafonne à 50
+    résultats, or un Pokémon populaire a des centaines de cartes — celle
+    cherchée n'y figure jamais). On passe donc par le SET : on récupère
+    tous les blueprints de l'expansion, puis on filtre sur le numéro
+    exact. Le nom du set est déduit du dénominateur de la carte
+    (ex. .../165 -> Pokémon 151) via CT_SETS.
+    """
     cle = f"{carte.get('langue','fr')}|{carte['nom']}"
     ent = _ct_cache["blueprints"].get(cle)
     if ent:
@@ -958,64 +1028,63 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
             return ent.get("id")
 
     nom = str(carte["nom"])
-    m_num = re.search(r"\b0*(\d+)(?:/0*\d+)?\b", nom)
-    numero = m_num.group(1) if m_num else ""
+    m_xy = re.search(r"\b0*(\d+)\s*/\s*0*(\d+)\b", nom)
+    m_seul = re.search(r"\b0*(\d+)\b", nom)
+    numero = m_xy.group(1) if m_xy else (m_seul.group(1) if m_seul else "")
+    denom = m_xy.group(2) if m_xy else ""
+    if not numero:
+        log.info("    [Cardtrader] '%s' : pas de numéro exploitable", nom)
+        _ct_cache["blueprints"][cle] = {"id": None, "ts": time.time()}
+        return None
 
-    # Termes à essayer, du plus probable au moins probable :
-    #  1. la traduction anglaise du nom FR (Cardtrader catalogue en anglais)
-    #  2. l'alias de la watchlist (souvent déjà le nom anglais/japonais)
-    #  3. le nom principal tel quel
-    termes: list[str] = []
+    # Nom anglais du Pokémon (Cardtrader catalogue en anglais)
     mots = [w for w in mots_requis(nom) if w not in ("mega", "ex")]
     principal = mots[0] if mots else nom
-    en = CT_NOMS_EN.get(normaliser(principal))
-    if en:
-        termes.append(en)
-    alias = str(carte.get("alias") or "").strip()
-    if alias and alias.lower() not in [t.lower() for t in termes]:
-        termes.append(alias)
-    if principal and principal.lower() not in [t.lower() for t in termes]:
-        termes.append(principal.capitalize())
+    nom_en = CT_NOMS_EN.get(normaliser(principal), principal).lower()
+
+    # Expansions candidates : celles dont le nom correspond au set déduit
+    exps = _ct_expansions(token)
+    if not exps:
+        _ct_cache["blueprints"][cle] = {"id": None, "ts": time.time()}
+        return None
+    indices = _ct_indices_set(nom, denom)
+    candidats_exp = [e for e in exps
+                     if any(ind in normaliser(str(e.get("name", ""))) for ind in indices)] if indices else []
 
     blueprint_id = None
-    dernier_diag = ""
-    for terme in termes:
+    diag = f"set inconnu pour /{denom}" if not candidats_exp else ""
+    for exp in candidats_exp[:4]:
         try:
-            rep = requests.get(f"{CT_BASE}/blueprints", timeout=20,
+            rep = requests.get(f"{CT_BASE}/blueprints/export", timeout=30,
                                headers=_ct_entete(token),
-                               params={"game_id": CT_JEU_POKEMON, "name": terme})
-            if rep.status_code == 401:
-                log.warning("    [Cardtrader] TOKEN INVALIDE OU EXPIRÉ (401) — "
-                            "regénère-le sur cardtrader.com et mets à jour le secret GitHub")
-                return None
+                               params={"expansion_id": exp.get("id")})
             if rep.status_code != 200:
-                dernier_diag = f"HTTP {rep.status_code} sur '{terme}'"
+                diag = f"export {exp.get('name')} : HTTP {rep.status_code}"
                 continue
-            candidats = rep.json()
-            if not isinstance(candidats, list) or not candidats:
-                dernier_diag = f"aucun résultat pour '{terme}'"
+            bps = rep.json()
+            if not isinstance(bps, list):
+                diag = f"export {exp.get('name')} : réponse inattendue"
                 continue
-            for bp in candidats:
-                num_bp = _ct_numero_de(bp).lstrip("0").split("/")[0]
-                if numero and num_bp and num_bp == str(int(numero)):
-                    blueprint_id = bp.get("id")
-                    log.info("    [Cardtrader] '%s' -> blueprint %s (%s, #%s)",
-                             nom, blueprint_id, str(bp.get("name", ""))[:36], num_bp)
-                    break
+            for bp in bps:
+                if _ct_numero_de(bp).lstrip("0") != str(int(numero)):
+                    continue
+                if nom_en and nom_en not in normaliser(str(bp.get("name", ""))):
+                    continue
+                blueprint_id = bp.get("id")
+                log.info("    [Cardtrader] '%s' -> blueprint %s (%s / %s, #%s)",
+                         nom, blueprint_id, str(bp.get("name", ""))[:30],
+                         str(exp.get("name", ""))[:22], numero)
+                break
             if blueprint_id:
                 break
-            # Diagnostic : montrer les NOMS réels des candidats permet de
-            # voir sous quelle forme Cardtrader écrit le numéro de carte.
-            apercu = [f"{str(c.get('name',''))[:34]} | slug={str(c.get('slug',''))[:34]}"
-                      for c in candidats[:3]]
-            dernier_diag = (f"{len(candidats)} candidats sur '{terme}' sans numéro {numero} "
-                            f"| exemples : {apercu}")
+            diag = (f"{len(bps)} cartes dans '{exp.get('name')}' mais aucune "
+                    f"'{nom_en}' #{numero}")
         except Exception as e:  # noqa: BLE001
-            log.info("    [Cardtrader] '%s' : erreur recherche (%s)", nom, e)
+            log.info("    [Cardtrader] '%s' : erreur export (%s)", nom, e)
             return None
 
     if blueprint_id is None:
-        log.info("    [Cardtrader] '%s' introuvable — %s", nom, dernier_diag)
+        log.info("    [Cardtrader] '%s' introuvable — %s", nom, diag)
 
     _ct_cache["blueprints"][cle] = {"id": blueprint_id, "ts": time.time()}
     return blueprint_id
