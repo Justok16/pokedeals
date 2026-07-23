@@ -523,10 +523,13 @@ def charger_config(chemin: str | None = None) -> dict:
     # V15 : avertir (sans bloquer) si une carte n'a pas de numéro dans son nom.
     # Les versions volontairement sans numéro (SIR) peuvent l'omettre, mais
     # toute carte classique DOIT l'avoir, sinon retour des fausses cotes.
+    # V23 : un numéro NU (ex. "195 sv2a", "116") est aussi valide — il est
+    # géré par le filtrage V17.4, inutile d'alerter pour ces cartes.
     for carte in cfg["watchlist"]:
-        if not extraire_numero(carte.get("nom", "")):
+        nom = carte.get("nom", "")
+        if not extraire_numero(nom) and not numero_nu_voulu(nom):
             log.warning("⚠️ '%s' n'a pas de numéro (ex. 199/165) dans config.yaml : "
-                        "filtrage V15 dégradé pour cette carte", carte.get("nom"))
+                        "filtrage V15 dégradé pour cette carte", nom)
 
     return cfg
 
@@ -1548,7 +1551,7 @@ VALIDITE_JOURS = 7          # une cote de plus de 7 jours est ignorée
 # data/cotes.json ne correspond PAS à PURGE_VERSION ci-dessous, TOUT
 # l'historique est jeté au prochain scan. Pour forcer une remise à zéro
 # à l'avenir, il suffit d'incrémenter ce numéro.
-PURGE_VERSION = 19  # V20 : purge des cotes calculées sur trop peu d'annonces (marché mince)
+PURGE_VERSION = 20  # V23 : purge des cotes JP/KR qui partageaient la même clé (KR héritait de la cote JP)
 # Conservé pour compatibilité de lecture des anciens fichiers (non utilisé
 # pour la purge elle-même).
 DEPLOIEMENT_TS = 1784160000  # 16/07/2026 00:00 UTC
@@ -1714,10 +1717,19 @@ def lbc_relever_alertes_email(cfg: dict, secrets: dict) -> list[dict]:
 
 
 
-def cote_lissee(nom_carte: str) -> float | None:
+# V23 : la clé d'historique inclut la LANGUE. La watchlist contient la même
+# carte en jp et en kr sous un nom identique (ex. "Charizard ex 201/165 sv2a"),
+# et les deux versions partageaient la même mémoire : la KR, presque jamais
+# cotée sur eBay, héritait de la cote JP (~2x plus chère) -> fausses alertes.
+def cle_cote(nom_carte: str, langue: str = "fr") -> str:
+    langue = (langue or "fr").lower()
+    return nom_carte if langue == "fr" else f"{nom_carte} ({langue.upper()})"
+
+
+def cote_lissee(nom_carte: str, langue: str = "fr") -> float | None:
     """Médiane des cotes des 7 derniers jours (l'historique est déjà purgé
     par version au chargement, donc plus besoin de borne de déploiement)."""
-    entrees = historique().get(nom_carte, [])
+    entrees = historique().get(cle_cote(nom_carte, langue), [])
     limite = time.time() - VALIDITE_JOURS * 86400
     valeurs = [e["cote"] for e in entrees if e.get("ts", 0) >= limite]
     if not valeurs:
@@ -1725,11 +1737,12 @@ def cote_lissee(nom_carte: str) -> float | None:
     return round(statistics.median(valeurs), 2)
 
 
-def enregistrer_cote(nom_carte: str, cote: float) -> None:
+def enregistrer_cote(nom_carte: str, cote: float, langue: str = "fr") -> None:
     h = historique()
-    entrees = h.get(nom_carte, [])
+    cle = cle_cote(nom_carte, langue)
+    entrees = h.get(cle, [])
     entrees.append({"cote": cote, "ts": time.time()})
-    h[nom_carte] = entrees[-HISTORIQUE_MAX:]
+    h[cle] = entrees[-HISTORIQUE_MAX:]
 
 
 def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[float | None, int]:
@@ -1747,10 +1760,10 @@ def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[flo
         annonces_ebay, cfg["cote"], carte["nom"],
         carte.get("langue", "fr"), carte.get("alias", ""))
     if cote_instant:
-        enregistrer_cote(carte["nom"], cote_instant)
+        enregistrer_cote(carte["nom"], cote_instant, carte.get("langue", "fr"))
 
     # 3) Cote lissée (médiane des derniers passages)
-    cote = cote_lissee(carte["nom"])
+    cote = cote_lissee(carte["nom"], carte.get("langue", "fr"))
     if cote is None:
         cote = cote_instant
     if cote is None:
@@ -2111,13 +2124,14 @@ def enregistrer_scan(nb_annonces: int, deals: list[dict]) -> None:
 
 # ------------------------------ CSV -----------------------------------
 
-def calculer_tendance_cote(nom_carte: str) -> str:
+def calculer_tendance_cote(nom_carte: str, langue: str = "fr") -> str:
     """Compare la cote actuelle avec celle d'hier pour déterminer la tendance."""
     h = historique()
-    if nom_carte not in h or len(h[nom_carte]) < 2:
+    cle = cle_cote(nom_carte, langue)
+    if cle not in h or len(h[cle]) < 2:
         return "="  # pas assez de données
-    
-    cotes = [e["cote"] for e in h[nom_carte]]
+
+    cotes = [e["cote"] for e in h[cle]]
     if len(cotes) < 2:
         return "="
     
@@ -2144,7 +2158,7 @@ def exporter_csv(deals: list[dict]) -> None:
             w.writerow(COLONNES_CSV)
         maintenant = datetime.now(PARIS).strftime("%Y-%m-%d %H:%M")
         for d in deals:
-            tendance = calculer_tendance_cote(d.get("carte", ""))
+            tendance = calculer_tendance_cote(d.get("carte", ""), d.get("langue", "fr"))
             w.writerow([maintenant, d.get("carte", ""), d["plateforme"], d["titre"],
                         d["prix"], d["port"], d["total"], d["cote"], tendance, d["decote_pct"],
                         d["prix_revente_conseille"], d["profit_net_estime"],
@@ -2226,7 +2240,7 @@ def recap_du_jour(cfg: dict, vues: dict) -> str | None:
         nom, prix = achat.get("nom"), achat.get("prix_achat")
         if not nom or not prix:
             continue
-        cote = achat.get("cote") or cote_lissee(nom)
+        cote = achat.get("cote") or cote_lissee(nom, achat.get("langue", "fr"))
         if cote:
             progression = float(cote) / (float(prix) * multiplicateur) * 100
             lignes_stock.append(f"  • {nom} : cote {float(cote):.0f}€ ({min(progression, 999):.0f}% de l'objectif)")
@@ -2252,7 +2266,7 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
     # Plafond de prix envoyé à Vinted pour réduire le bruit :
     # cote lissée connue -> on ne demande que les annonces sous le seuil d'achat
     prix_plafond = None
-    cote_connue = carte.get("cote") or cote_lissee(nom)
+    cote_connue = carte.get("cote") or cote_lissee(nom, langue)
     if cote_connue:
         prix_plafond = round(float(cote_connue) * (1 - cfg["regles"]["marge_achat"]), 2)
 
@@ -2367,7 +2381,7 @@ def main() -> int:
             annonce["carte"] = carte["nom"]
             annonce["langue"] = carte.get("langue", "fr")
             annonce["alias"] = carte.get("alias", "")
-            cote_carte = carte.get("cote") or cote_lissee(carte["nom"])
+            cote_carte = carte.get("cote") or cote_lissee(carte["nom"], carte.get("langue", "fr"))
             if not cote_carte:
                 break
             deal, _statut = evaluate(annonce, float(cote_carte), cfg, 0, carte.get("marge_achat"))
