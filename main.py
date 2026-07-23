@@ -26,6 +26,8 @@ from __future__ import annotations
 
 import base64
 import csv
+import hashlib
+import inspect
 import json
 import logging
 import os
@@ -827,12 +829,26 @@ CT_BASE = "https://api.cardtrader.com/api/v2"
 CT_JEU_POKEMON = 5           # id du jeu Pokémon chez Cardtrader
 CT_CACHE_FICHIER = os.path.join(RACINE, "data", "cardtrader.json")
 CT_CACHE_PRIX_DUREE = 20 * 3600      # prix trouvé : 1 rafraîchissement/jour
-CT_CACHE_ECHEC_DUREE = 3600          # échec : on retente au bout d'1 h
-CT_CACHE_VERSION = 2                 # incrémenter pour purger le cache
+CT_CACHE_ECHEC_DUREE = 300           # échec : on retente au bout de 5 min
+CT_CACHE_VERSION = 4                 # incrémenter pour purger le cache
 CT_CACHE_BLUEPRINT_DUREE = 30 * 86400  # blueprint_id : quasi permanent
 # Correspondance langue interne -> code langue Cardtrader
 CT_LANGUES = {"fr": "fr", "jp": "jp", "kr": "kr", "en": "en"}
 _ct_cache: dict = {"blueprints": {}, "prix": {}}
+
+
+def _ct_signature_code() -> str:
+    """Empreinte du code de recherche Cardtrader. Si ce code change, le
+    cache est automatiquement purgé : les échecs enregistrés par une
+    version précédente ne peuvent plus masquer une correction (piège
+    rencontré plusieurs fois pendant la mise au point)."""
+    try:
+        src = (inspect.getsource(_ct_numero_de)
+               + inspect.getsource(_ct_trouver_blueprint)
+               + str(sorted(CT_NOMS_EN.items())))
+        return hashlib.md5(src.encode("utf-8")).hexdigest()[:12]
+    except Exception:  # noqa: BLE001
+        return str(CT_CACHE_VERSION)
 
 
 def _ct_charger_cache() -> None:
@@ -841,10 +857,9 @@ def _ct_charger_cache() -> None:
         with open(CT_CACHE_FICHIER, "r", encoding="utf-8") as f:
             data = json.load(f)
         if isinstance(data, dict):
-            # Purge si le cache vient d'une version antérieure (il peut
-            # contenir des échecs figés par un bug corrigé depuis).
-            if int(data.get("version", 0)) != CT_CACHE_VERSION:
-                log.info("Cache Cardtrader réinitialisé (nouvelle version) : repart propre")
+            # Purge si le code de recherche a changé depuis l'écriture.
+            if data.get("sig") != _ct_signature_code():
+                log.info("Cache Cardtrader réinitialisé (code modifié) : repart propre")
                 _ct_cache = {"blueprints": {}, "prix": {}}
                 return
             _ct_cache = {"blueprints": data.get("blueprints", {}),
@@ -857,7 +872,7 @@ def _ct_sauver_cache() -> None:
     try:
         os.makedirs(os.path.dirname(CT_CACHE_FICHIER), exist_ok=True)
         with open(CT_CACHE_FICHIER, "w", encoding="utf-8") as f:
-            json.dump({"version": CT_CACHE_VERSION, **_ct_cache}, f, ensure_ascii=False)
+            json.dump({"sig": _ct_signature_code(), **_ct_cache}, f, ensure_ascii=False)
     except OSError as e:
         log.warning("Cache Cardtrader non sauvegardé : %s", e)
 
