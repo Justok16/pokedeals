@@ -489,7 +489,12 @@ cote:
   # dépasse la tendance Cardmarket d'un facteur 1,8 à 2,5.
   # Les DEUX valeurs sont affichées dans les logs quelle que soit la
   # méthode retenue -> on peut comparer avant de basculer.
-  methode: "mediane"
+  # Basculé en "bas_marche" le 24/07/2026 après vérification manuelle
+  # contre Cardmarket sur 5 cartes : le bas-marché l'emporte à chaque
+  # fois (Tortank 169,20€ vs Cardmarket 173,65€ ; Bulbizarre 95,58€ vs
+  # 66,74€ ; Evoli 174 37,56€ vs 19,35€...). La médiane surévaluait de
+  # 1,3x à 2,6x, le bas-marché de 1,0x à 1,9x.
+  methode: "bas_marche"
   nb_prix_bas: 5
   # V17 : la cote est la MÉDIANE des annonces pertinentes (après filtrage IQR).
   coefficient_marche: 1.0
