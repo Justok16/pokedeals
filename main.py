@@ -1048,6 +1048,43 @@ def _ct_expansions(token: str) -> list:
     return []
 
 
+def _ct_expansions_recentes(token: str, combien: int) -> list:
+    """Les `combien` expansions Pokémon les plus RÉCENTES.
+
+    V24 : sert de repli quand le set d'une carte n'est pas déductible de
+    son nom (promos, numéros nus : « Morpeko ex 117 », « Poissirene 087 »).
+    Cardtrader ne renvoyant pas de date de sortie exploitable, on trie par
+    identifiant décroissant — les id sont attribués chronologiquement, donc
+    les plus grands correspondent aux sorties les plus récentes. C'est une
+    approximation, mais elle colle au besoin : la watchlist ne suit que des
+    séries récentes.
+    """
+    exps = _ct_expansions(token)
+    if not exps:
+        return []
+    return sorted(exps, key=lambda e: int(e.get("id") or 0), reverse=True)[:combien]
+
+
+def _ct_blueprints_du_set(expansion_id: int, token: str) -> list:
+    """Catalogue d'une expansion, mis en cache pour toute la session.
+    Évite de re-télécharger le même set pour chaque carte non résolue."""
+    cle = str(expansion_id)
+    cache = _ct_cache.setdefault("sets", {})
+    if cle in cache:
+        return cache[cle]
+    try:
+        rep = requests.get(f"{CT_BASE}/blueprints/export", timeout=30,
+                           headers=_ct_entete(token),
+                           params={"expansion_id": expansion_id})
+        bps = rep.json() if rep.status_code == 200 else []
+        if not isinstance(bps, list):
+            bps = []
+    except Exception:  # noqa: BLE001
+        bps = []
+    cache[cle] = bps
+    return bps
+
+
 def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
     """Trouve l'identifiant Cardtrader (blueprint_id) d'une carte.
 
@@ -1090,19 +1127,26 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
     candidats_exp = [e for e in exps
                      if any(ind in normaliser(str(e.get("name", ""))) for ind in indices)] if indices else []
 
+    # V24 : REPLI. Si le set n'est pas déductible du nom (promo, numéro nu),
+    # on cherche dans les N expansions les plus RÉCENTES. La watchlist ne
+    # suivant que des séries récentes, c'est suffisant — et entièrement
+    # automatique (aucune saisie de set à maintenir).
+    repli = False
+    if not candidats_exp:
+        nb_recents = int(_ct_cfg.get("sets_recents", 0))
+        if nb_recents > 0:
+            candidats_exp = _ct_expansions_recentes(token, nb_recents)
+            repli = True
+
     blueprint_id = None
     diag = f"set inconnu pour /{denom}" if not candidats_exp else ""
-    for exp in candidats_exp[:4]:
+    # Sans repli on teste peu de sets (la déduction est fiable) ; avec repli
+    # on ratisse plus large, mais les catalogues sont mis en cache.
+    for exp in candidats_exp[:(len(candidats_exp) if repli else 4)]:
         try:
-            rep = requests.get(f"{CT_BASE}/blueprints/export", timeout=30,
-                               headers=_ct_entete(token),
-                               params={"expansion_id": exp.get("id")})
-            if rep.status_code != 200:
-                diag = f"export {exp.get('name')} : HTTP {rep.status_code}"
-                continue
-            bps = rep.json()
-            if not isinstance(bps, list):
-                diag = f"export {exp.get('name')} : réponse inattendue"
+            bps = _ct_blueprints_du_set(exp.get("id"), token)
+            if not bps:
+                diag = f"export {exp.get('name')} : vide ou indisponible"
                 continue
             for bp in bps:
                 if _ct_numero_de(bp).lstrip("0") != str(int(numero)):
@@ -1110,9 +1154,10 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
                 if nom_en and nom_en not in normaliser(str(bp.get("name", ""))):
                     continue
                 blueprint_id = bp.get("id")
-                log.info("    [Cardtrader] '%s' -> blueprint %s (%s / %s, #%s)",
+                log.info("    [Cardtrader] '%s' -> blueprint %s (%s / %s, #%s)%s",
                          nom, blueprint_id, str(bp.get("name", ""))[:30],
-                         str(exp.get("name", ""))[:22], numero)
+                         str(exp.get("name", ""))[:22], numero,
+                         "  [via sets récents]" if repli else "")
                 break
             if blueprint_id:
                 break
@@ -1152,6 +1197,40 @@ def _calibration_coefficient() -> float | None:
     if len(_calibration_paires) < 5:
         return None
     return round(statistics.median(_calibration_paires), 3)
+
+
+# V24 : configuration Cardtrader accessible aux fonctions internes
+# (renseignée au démarrage depuis config.yaml).
+_ct_cfg: dict = {}
+
+# V24 : prix Cardtrader déjà obtenus, par carte « dénudée » de sa langue.
+# Sert de garde-fou pour les cartes SANS cote eBay : une même carte ne peut
+# pas valoir 100x plus dans une langue que dans une autre. Cas vécu : Mew ex
+# 208 sv2a coté 51€ en JP mais 5020€ en KR (annonces aberrantes, cohérentes
+# entre elles, donc invisibles pour les autres garde-fous).
+_ct_prix_par_carte: dict = {}
+
+
+def _ct_cle_carte(carte: dict) -> str:
+    """Identifiant d'une carte indépendant de sa langue."""
+    return normaliser(str(carte.get("nom", "")))
+
+
+def _ct_incoherent_entre_langues(carte: dict, prix: float, facteur: float) -> tuple[bool, str]:
+    """La même carte dans une autre langue donne-t-elle un prix radicalement
+    différent ? Retourne (suspect, explication)."""
+    cle = _ct_cle_carte(carte)
+    connus = _ct_prix_par_carte.get(cle, {})
+    for lg, p in connus.items():
+        if lg == carte.get("langue") or not p:
+            continue
+        if prix > p * facteur or prix < p / facteur:
+            return True, f"{prix:.2f}€ contre {p:.2f}€ en {lg.upper()}"
+    return False, ""
+
+
+def _ct_memoriser_prix(carte: dict, prix: float) -> None:
+    _ct_prix_par_carte.setdefault(_ct_cle_carte(carte), {})[carte.get("langue", "fr")] = prix
 
 
 def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
@@ -2369,6 +2448,7 @@ def main() -> int:
     _ct_charger_cache()  # V22 : cache Cardtrader (blueprints + prix du jour)
     secrets = secrets_env()
     _cfg_api = cfg.get("api_cotes", {})
+    _ct_cfg.update(_cfg_api)  # V24 : accessible aux fonctions de recherche
     if _cfg_api.get("actif"):
         log.info("Cardtrader : ACTIF (mode %s) — token %s",
                  _cfg_api.get("mode", "observation"),
@@ -2403,11 +2483,20 @@ def main() -> int:
                 # cf. Méga-Dracaufeu X trouvé à 3€ contre 1199€ eBay) : on
                 # n'utilise PAS le prix Cardtrader et on le signale.
                 suspect = bool(cote) and (prix_ct > cote * 5 or prix_ct < cote / 5)
+                motif = f"cote eBay {cote:.2f}€" if suspect else ""
+                # V24 GARDE-FOU 5 : cohérence ENTRE LANGUES. Indispensable
+                # pour les cartes SANS cote eBay, que le garde-fou 4 ne peut
+                # pas protéger (cf. Mew ex 208 sv2a : 51€ en JP, 5020€ en KR
+                # alors qu'il s'achète à moins de 30€ sur Cardmarket).
+                if not suspect:
+                    facteur_lg = float(cfg_api.get("facteur_langues", 5))
+                    suspect, motif = _ct_incoherent_entre_langues(carte, prix_ct, facteur_lg)
                 if suspect:
-                    log.warning("    [Cardtrader ⚠️] %s : prix %.2f€ INCOHÉRENT avec la cote "
-                                "eBay %.2f€ (facteur > 5) -> Cardtrader ignoré pour cette carte",
-                                nom, prix_ct, cote)
+                    log.warning("    [Cardtrader ⚠️] %s : prix %.2f€ INCOHÉRENT (%s) "
+                                "-> Cardtrader ignoré pour cette carte",
+                                nom, prix_ct, motif)
                 else:
+                    _ct_memoriser_prix(carte, prix_ct)
                     log.info("    [Cardtrader %s] %s ≈ %.2f€  (moyenne des %d plus bas)  —  cote eBay : %s",
                              carte.get("langue", "fr").upper(), nom, prix_ct, nb_bas,
                              f"{cote:.2f}€" if cote else "aucune")

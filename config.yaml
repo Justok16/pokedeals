@@ -468,6 +468,18 @@ api_cotes:
   mode: "observation"
   nb_prix_bas: 5
   min_annonces: 3
+  # V24 : quand le set d'une carte n'est pas déductible de son nom
+  # (promos, numéros nus : « Morpeko ex 117 », « Poissirene 087 »), on
+  # cherche dans les N expansions les plus RÉCENTES. La watchlist ne
+  # suivant que des séries récentes, 30 suffit largement. Les catalogues
+  # sont mis en cache, donc le surcoût reste limité.
+  # Mettre 0 pour désactiver ce repli.
+  sets_recents: 30
+  # V24 : une même carte ne peut pas valoir N fois plus dans une langue
+  # que dans une autre. Au-delà de ce facteur, le prix est écarté.
+  # Protège les cartes SANS cote eBay (cf. Mew ex 208 sv2a : 51€ en JP
+  # mais 5020€ en KR, alors qu'il s'achète à moins de 30€ sur Cardmarket).
+  facteur_langues: 5
 
 # --- V22.8 : garde-fou anti « prix d'appel » ---
 # Une annonce dont le prix total est inférieur à ce pourcentage de la cote
