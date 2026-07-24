@@ -797,22 +797,43 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
 
     # V17 : cote = MÉDIANE des prix nettoyés (après filtrage IQR).
     reference = statistics.median(nettoyes)
-    cote = round(reference * float(cfg_cote.get("coefficient_marche", 1.0)), 2)
+    coef = float(cfg_cote.get("coefficient_marche", 1.0))
+    cote = round(reference * coef, 2)
+
+    # V23 : MÉTHODE ALTERNATIVE — moyenne des N annonces les moins chères.
+    # Motif : les prix eBay sont des prix DEMANDÉS. La médiane capture le
+    # milieu des espoirs de vendeurs, pas le prix auquel une carte part
+    # réellement. Mesuré sur 3 cartes vérifiées à la main contre Cardmarket,
+    # la médiane eBay dépasse la tendance Cardmarket d'un facteur 1,8 à 2,5.
+    # La moyenne du bas de marché (même méthode que pour Cardtrader) s'en
+    # approche nettement mieux — et se réajuste seule quand le marché bouge.
+    nb_bas = int(cfg_cote.get("nb_prix_bas", 5))
+    bas_marche = sorted(nettoyes)[:max(1, nb_bas)]
+    cote_basse = round((sum(bas_marche) / len(bas_marche)) * coef, 2)
+
+    mode_cote = str(cfg_cote.get("methode", "mediane")).lower()
+    if mode_cote == "bas_marche":
+        cote_retenue = cote_basse
+    else:
+        cote_retenue = cote
 
     # V20 diagnostic : détail des annonces qui composent la cote (visible dans
     # les logs GitHub). Permet de repérer une annonce anormalement chère qui
     # gonfle la médiane. À retirer une fois le diagnostic terminé.
     if nom_carte and retenues:
         rejetes_iqr = [p for p in prix if p not in nettoyes]
-        log.info("    [cote %s] médiane=%.2f€ ×%.2f = %.2f€ | %d annonces retenues%s",
-                 nom_carte, reference, float(cfg_cote.get("coefficient_marche", 1.0)),
-                 cote, len(nettoyes),
+        log.info("    [cote %s] médiane=%.2f€ | bas-marché(%d)=%.2f€ | ×%.2f -> RETENUE %.2f€"
+                 " | %d annonces%s",
+                 nom_carte, reference, len(bas_marche), cote_basse / coef if coef else cote_basse,
+                 coef, cote_retenue, len(nettoyes),
                  f" ({len(rejetes_iqr)} écartées IQR : {rejetes_iqr})" if rejetes_iqr else "")
         for p, titre, plat in retenues:
             marque = " ← ÉCARTÉE(IQR)" if p not in nettoyes else ""
+            if p in bas_marche and not marque:
+                marque = " ← bas-marché"
             log.info("        %.2f€  [%s] %s%s", p, plat, titre, marque)
 
-    return cote, len(nettoyes)
+    return cote_retenue, len(nettoyes)
 
 
 # =====================================================================
@@ -1106,6 +1127,31 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
 
     _ct_cache["blueprints"][cle] = {"id": blueprint_id, "ts": time.time()}
     return blueprint_id
+
+
+# V23 : CALIBRATION AUTOMATIQUE eBay -> marché réel.
+# Sur les cartes où l'on dispose des DEUX sources (cote eBay ET prix
+# Cardtrader), on mesure le rapport réel. Le rapport MÉDIAN de toutes ces
+# paires donne un coefficient correcteur qui suit le marché tout seul —
+# contrairement à une cote saisie à la main, qui vieillit en silence.
+_calibration_paires: list[float] = []
+
+
+def _calibration_ajouter(cote_ebay: float, prix_ct: float) -> None:
+    """Enregistre une paire (cote eBay, prix Cardtrader) pour la calibration."""
+    if cote_ebay and prix_ct and cote_ebay > 0 and prix_ct > 0:
+        rapport = prix_ct / cote_ebay
+        # On ignore les rapports absurdes (mauvaise correspondance de carte) :
+        # une vraie divergence de marché reste dans une fourchette raisonnable.
+        if 0.2 <= rapport <= 2.0:
+            _calibration_paires.append(rapport)
+
+
+def _calibration_coefficient() -> float | None:
+    """Coefficient correcteur médian, ou None si trop peu de mesures."""
+    if len(_calibration_paires) < 5:
+        return None
+    return round(statistics.median(_calibration_paires), 3)
 
 
 def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
@@ -2365,6 +2411,9 @@ def main() -> int:
                     log.info("    [Cardtrader %s] %s ≈ %.2f€  (moyenne des %d plus bas)  —  cote eBay : %s",
                              carte.get("langue", "fr").upper(), nom, prix_ct, nb_bas,
                              f"{cote:.2f}€" if cote else "aucune")
+                    # V23 : mémoriser l'écart pour calibrer les cartes que
+                    # Cardtrader ne couvre pas.
+                    _calibration_ajouter(cote or 0, prix_ct)
                     if cfg_api.get("mode") == "actif" and not carte.get("cote"):
                         # Remplace la cote eBay (la cote MANUELLE reste prioritaire).
                         cote, confiance = round(prix_ct, 2), 99
@@ -2417,6 +2466,20 @@ def main() -> int:
 
     # Tri : les affaires les plus rentables en premier
     nouveaux_deals.sort(key=lambda d: d["profit_net_estime"], reverse=True)
+
+    # V23 : bilan de calibration. Affiche l'écart RÉEL mesuré entre les cotes
+    # eBay et les prix Cardtrader sur les cartes couvertes par les deux
+    # sources. C'est ce coefficient qui pourra corriger automatiquement les
+    # cartes que Cardtrader ne couvre pas (mode observation pour l'instant).
+    _coef_mesure = _calibration_coefficient()
+    if _coef_mesure is not None:
+        log.info("Calibration eBay -> marché réel : coefficient %.3f "
+                 "(mesuré sur %d cartes ayant les deux sources). "
+                 "Une cote eBay de 100€ vaudrait donc ~%.0f€ au prix réel.",
+                 _coef_mesure, len(_calibration_paires), 100 * _coef_mesure)
+    elif _calibration_paires:
+        log.info("Calibration : seulement %d mesure(s) eBay/Cardtrader "
+                 "(5 minimum pour un coefficient fiable)", len(_calibration_paires))
 
     log.info("Analyse terminée en %.0fs : %d annonces, %d nouveau(x) deal(s), %d alerte(s) de vente",
              time.time() - debut, total_annonces, len(nouveaux_deals), len(alertes_vente))

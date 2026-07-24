@@ -479,6 +479,18 @@ prix_plancher_ratio: 0.15
 
 # --- Calcul automatique de la cote ---
 cote:
+  # V23 : MÉTHODE de calcul de la cote eBay.
+  #   "mediane"    = milieu des prix DEMANDÉS (historique — surévalue le
+  #                  marché réel, car eBay affiche des espoirs de vendeurs)
+  #   "bas_marche" = moyenne des `nb_prix_bas` annonces les moins chères
+  #                  (même logique que Cardtrader, plus proche du prix
+  #                  auquel une carte part réellement)
+  # Vérifié à la main contre Cardmarket sur 3 cartes : la médiane eBay
+  # dépasse la tendance Cardmarket d'un facteur 1,8 à 2,5.
+  # Les DEUX valeurs sont affichées dans les logs quelle que soit la
+  # méthode retenue -> on peut comparer avant de basculer.
+  methode: "mediane"
+  nb_prix_bas: 5
   # V17 : la cote est la MÉDIANE des annonces pertinentes (après filtrage IQR).
   coefficient_marche: 1.0
   # V20 : passage de 4 à 6 annonces minimum. Avec seulement 4 annonces, sur
