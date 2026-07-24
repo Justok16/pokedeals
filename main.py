@@ -1285,13 +1285,31 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
                 devise = (pr.get("currency") or "EUR").upper()
                 if not cents or devise != "EUR":
                     continue
-                # V22.7 GARDE-FOU 1 : écarter les cartes GRADÉES (PSA...),
-                # dont les prix (souvent x5-x20) polluent la moyenne — cause
-                # probable du Mew ex 208 KR affiché à 5020€.
+                # V24.1 GARDE-FOU 1 : écarter les cartes GRADÉES (PSA...),
+                # dont les prix (souvent x5-x20) polluent la moyenne.
+                # ATTENTION au piège corrigé ici : Cardtrader expose un champ
+                # `graded` valant "false" sur les annonces NORMALES. Chercher
+                # la chaîne "grad" dans le texte des propriétés écartait donc
+                # TOUTES les annonces (« graded=false » contient « grad »).
+                # Cas vécu : Mega Dragonite JP, 7 annonces saines écartées ->
+                # prix gonflé à 316€ contre 265€ de tendance Cardmarket.
+                # On lit désormais la VALEUR du champ, et on ne cherche les
+                # sigles de gradeurs que dans la description libre.
                 props = p.get("properties_hash") or {}
-                texte_annonce = (str(p.get("description") or "") + " "
-                                 + " ".join(f"{k}={v}" for k, v in props.items())).lower()
-                if any(g in texte_annonce for g in ("grad", "psa", "bgs", "cgc", "pca")):
+                est_gradee = False
+                for champ in ("graded", "is_graded", "grading"):
+                    v = props.get(champ)
+                    if isinstance(v, bool):
+                        est_gradee = est_gradee or v
+                    elif isinstance(v, str) and v.strip().lower() not in ("", "false", "no", "none", "0"):
+                        est_gradee = True
+                # Sigles de gradeurs dans la description libre uniquement.
+                description = str(p.get("description") or "").lower()
+                if any(g in description for g in (" psa", "psa ", "psa10", "bgs", "cgc",
+                                                  " pca", "pca ", "gradee", "graded",
+                                                  "gem mint", "slab")):
+                    est_gradee = True
+                if est_gradee:
                     gradees += 1
                     continue
                 val = float(cents) / 100.0
