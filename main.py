@@ -176,7 +176,14 @@ MARQUEURS_LANGUE = {
     # de faux deals. On les détecte par le mot de langue explicite ET par des
     # mots très caractéristiques présents dans les annonces ou sur la carte.
     "it": ["italienne", "italien", "italian", "italiano", "italia",
-           "condizioni", "come da foto", "carta", "fase"],   # "carta"/"fase" = mots carte italiens
+           "condizioni", "come da foto", "carta", "fase",
+           # V22.8 : mots relevés dans de vraies annonces Vinted italiennes
+           # qui avaient un titre parfaitement « neutre » (le piège : seule
+           # la description trahissait la langue).
+           "comprare", "spedisco", "spedizione", "chiedere", "informazioni",
+           "lingua", "espansione", "numero della", "nome della", "carte da",
+           "perfette", "ottime", "buone condizioni", "regalo", "prezzo",
+           "disponibile", "vendo", "scambio", "grazie", "salve", "ciao"],
     "de": ["allemande", "allemand", "german", "deutsch", "zustand", "karte", "sammlung"],
     "es": ["espagnole", "espagnol", "spanish", "espanol", "espana", "estado", "carta espanola"],
     "pt": ["portugaise", "portugais", "portuguese", "portugues"],
@@ -184,6 +191,17 @@ MARQUEURS_LANGUE = {
 }
 # Langues à REJETER pour une carte française (tout sauf le français).
 LANGUES_NON_FR = ("jp", "en", "kr", "cn", "it", "de", "es", "pt", "nl")
+
+# V22.8 : formules signalant une ENCHÈRE DÉGUISÉE. Le vendeur affiche un
+# prix dérisoire (1€) et invite à surenchérir en commentaire — le prix
+# affiché n'a alors aucun rapport avec le prix de vente réel.
+SIGNAUX_ENCHERE = (
+    "non comprare", "ne pas acheter", "n achetez pas", "nachetez pas",
+    "do not buy", "dont buy", "enchere", "encheres", "asta", "offerta",
+    "faire offre", "meilleure offre", "au plus offrant", "plus offrant",
+    "chiedere per informazioni", "mp pour prix", "prix en mp",
+    "commentaire pour prix", "spedisco energia", "spedisco solo energia",
+)
 TOUS_MARQUEURS = [m for lst in MARQUEURS_LANGUE.values() for m in lst]
 
 
@@ -1820,6 +1838,22 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
     seuil_achat = cote * (1 - marge)
     if total > seuil_achat:
         return None, f"pas assez sous la cote ({total:.2f}€ > seuil {seuil_achat:.2f}€)"
+
+    # V22.8 : GARDE-FOU « TROP BEAU POUR ÊTRE VRAI ».
+    # Une carte à 340€ affichée 1€ n'est pas une affaire : c'est un prix
+    # d'appel pour créer des enchères en commentaire (pratique courante et
+    # interdite sur Vinted), un article factice, ou une erreur. Cas vécu :
+    # Méga-Lucario Gold 188/132 à 1€ + port, description « Non comprare a
+    # 1 € » (= « n'achetez pas à 1 € »). En dessous d'un certain pourcentage
+    # de la cote, une annonce est suspecte, pas exceptionnelle.
+    seuil_absurde = float(r.get("prix_plancher_ratio", 0.15))
+    if cote > 0 and total < cote * seuil_absurde:
+        return None, (f"prix d'appel suspect ({total:.2f}€ = {total / cote * 100:.0f}% "
+                      f"de la cote {cote:.2f}€, seuil {seuil_absurde * 100:.0f}%)")
+    # Signal explicite d'enchère déguisée dans le texte de l'annonce.
+    texte_annonce = normaliser(str(annonce.get("titre", "")))
+    if any(sig in texte_annonce for sig in SIGNAUX_ENCHERE):
+        return None, "annonce d'enchère déguisée (prix d'appel)"
 
     # --- Revente : au moins 10% net au-dessus de la cote, frais déduits ---
     # Garde-fou : si frais_revente_estimes >= 1 (100%), le dénominateur

@@ -469,6 +469,14 @@ api_cotes:
   nb_prix_bas: 5
   min_annonces: 3
 
+# --- V22.8 : garde-fou anti « prix d'appel » ---
+# Une annonce dont le prix total est inférieur à ce pourcentage de la cote
+# est REJETÉE (pas alertée) : à ce niveau, ce n'est plus une affaire mais
+# une enchère déguisée, un article factice ou une erreur.
+# Ex. 0.15 = on ignore tout ce qui est sous 15% de la cote
+#     (une carte cotée 365€ affichée 5€ ne déclenche plus d'alerte).
+prix_plancher_ratio: 0.15
+
 # --- Calcul automatique de la cote ---
 cote:
   # V17 : la cote est la MÉDIANE des annonces pertinentes (après filtrage IQR).
