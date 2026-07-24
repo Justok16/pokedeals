@@ -463,9 +463,13 @@ watchlist:
 # nb_prix_bas : la cote = moyenne des N annonces les MOINS CHÈRES.
 # min_annonces : en dessous de N annonces cohérentes, pas de cote
 #   Cardtrader (un marché d'1-2 annonces n'est pas fiable).
+# mode "secours" (V24) : la cote eBay reste PRIORITAIRE ; Cardtrader ne
+#   sert que quand eBay ne trouve rien (cartes JP/KR sans annonces en
+#   France), avec une décote de prudence et un plafond. Les alertes
+#   concernées sont marquées "cote Cardtrader" sur Telegram.
 api_cotes:
   actif: true
-  mode: "observation"
+  mode: "secours"
   nb_prix_bas: 5
   min_annonces: 3
   # V24 : quand le set d'une carte n'est pas déductible de son nom
@@ -480,6 +484,12 @@ api_cotes:
   # Protège les cartes SANS cote eBay (cf. Mew ex 208 sv2a : 51€ en JP
   # mais 5020€ en KR, alors qu'il s'achète à moins de 30€ sur Cardmarket).
   facteur_langues: 5
+  # V24 : en mode secours, cote = prix Cardtrader x ce coefficient
+  # (0.90 = -10% de prudence, Cardtrader étant un marché pro).
+  decote_secours: 0.90
+  # V24 : en mode secours, un prix Cardtrader au-dessus de ce plafond est
+  # ignoré (protège des aberrations quand aucune cote eBay ne recoupe).
+  cote_secours_max: 1500
 
 # --- V22.8 : garde-fou anti « prix d'appel » ---
 # Une annonce dont le prix total est inférieur à ce pourcentage de la cote

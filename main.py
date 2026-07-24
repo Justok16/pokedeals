@@ -194,7 +194,14 @@ MARQUEURS_LANGUE = {
     # de faux deals. On les détecte par le mot de langue explicite ET par des
     # mots très caractéristiques présents dans les annonces ou sur la carte.
     "it": ["italienne", "italien", "italian", "italiano", "italia",
-           "condizioni", "come da foto", "carta", "fase"],   # "carta"/"fase" = mots carte italiens
+           "condizioni", "come da foto", "carta", "fase",
+           # V22.8 : mots relevés dans de vraies annonces Vinted italiennes
+           # qui avaient un titre parfaitement « neutre » (le piège : seule
+           # la description trahissait la langue).
+           "comprare", "spedisco", "spedizione", "chiedere", "informazioni",
+           "lingua", "espansione", "numero della", "nome della", "carte da",
+           "perfette", "ottime", "buone condizioni", "regalo", "prezzo",
+           "disponibile", "vendo", "scambio", "grazie", "salve", "ciao"],
     "de": ["allemande", "allemand", "german", "deutsch", "zustand", "karte", "sammlung"],
     "es": ["espagnole", "espagnol", "spanish", "espanol", "espana", "estado", "carta espanola"],
     "pt": ["portugaise", "portugais", "portuguese", "portugues"],
@@ -202,6 +209,17 @@ MARQUEURS_LANGUE = {
 }
 # Langues à REJETER pour une carte française (tout sauf le français).
 LANGUES_NON_FR = ("jp", "en", "kr", "cn", "it", "de", "es", "pt", "nl")
+
+# V22.8 : formules signalant une ENCHÈRE DÉGUISÉE. Le vendeur affiche un
+# prix dérisoire (1€) et invite à surenchérir en commentaire — le prix
+# affiché n'a alors aucun rapport avec le prix de vente réel.
+SIGNAUX_ENCHERE = (
+    "non comprare", "ne pas acheter", "n achetez pas", "nachetez pas",
+    "do not buy", "dont buy", "enchere", "encheres", "asta", "offerta",
+    "faire offre", "meilleure offre", "au plus offrant", "plus offrant",
+    "chiedere per informazioni", "mp pour prix", "prix en mp",
+    "commentaire pour prix", "spedisco energia", "spedisco solo energia",
+)
 TOUS_MARQUEURS = [m for lst in MARQUEURS_LANGUE.values() for m in lst]
 
 
@@ -805,22 +823,43 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
 
     # V17 : cote = MÉDIANE des prix nettoyés (après filtrage IQR).
     reference = statistics.median(nettoyes)
-    cote = round(reference * float(cfg_cote.get("coefficient_marche", 1.0)), 2)
+    coef = float(cfg_cote.get("coefficient_marche", 1.0))
+    cote = round(reference * coef, 2)
+
+    # V23 : MÉTHODE ALTERNATIVE — moyenne des N annonces les moins chères.
+    # Motif : les prix eBay sont des prix DEMANDÉS. La médiane capture le
+    # milieu des espoirs de vendeurs, pas le prix auquel une carte part
+    # réellement. Mesuré sur 3 cartes vérifiées à la main contre Cardmarket,
+    # la médiane eBay dépasse la tendance Cardmarket d'un facteur 1,8 à 2,5.
+    # La moyenne du bas de marché (même méthode que pour Cardtrader) s'en
+    # approche nettement mieux — et se réajuste seule quand le marché bouge.
+    nb_bas = int(cfg_cote.get("nb_prix_bas", 5))
+    bas_marche = sorted(nettoyes)[:max(1, nb_bas)]
+    cote_basse = round((sum(bas_marche) / len(bas_marche)) * coef, 2)
+
+    mode_cote = str(cfg_cote.get("methode", "mediane")).lower()
+    if mode_cote == "bas_marche":
+        cote_retenue = cote_basse
+    else:
+        cote_retenue = cote
 
     # V20 diagnostic : détail des annonces qui composent la cote (visible dans
     # les logs GitHub). Permet de repérer une annonce anormalement chère qui
     # gonfle la médiane. À retirer une fois le diagnostic terminé.
     if nom_carte and retenues:
         rejetes_iqr = [p for p in prix if p not in nettoyes]
-        log.info("    [cote %s] médiane=%.2f€ ×%.2f = %.2f€ | %d annonces retenues%s",
-                 nom_carte, reference, float(cfg_cote.get("coefficient_marche", 1.0)),
-                 cote, len(nettoyes),
+        log.info("    [cote %s] médiane=%.2f€ | bas-marché(%d)=%.2f€ | ×%.2f -> RETENUE %.2f€"
+                 " | %d annonces%s",
+                 nom_carte, reference, len(bas_marche), cote_basse / coef if coef else cote_basse,
+                 coef, cote_retenue, len(nettoyes),
                  f" ({len(rejetes_iqr)} écartées IQR : {rejetes_iqr})" if rejetes_iqr else "")
         for p, titre, plat in retenues:
             marque = " ← ÉCARTÉE(IQR)" if p not in nettoyes else ""
+            if p in bas_marche and not marque:
+                marque = " ← bas-marché"
             log.info("        %.2f€  [%s] %s%s", p, plat, titre, marque)
 
-    return cote, len(nettoyes)
+    return cote_retenue, len(nettoyes)
 
 
 # =====================================================================
@@ -1038,6 +1077,43 @@ def _ct_expansions(token: str) -> list:
     return []
 
 
+def _ct_expansions_recentes(token: str, combien: int) -> list:
+    """Les `combien` expansions Pokémon les plus RÉCENTES.
+
+    V24 : sert de repli quand le set d'une carte n'est pas déductible de
+    son nom (promos, numéros nus : « Morpeko ex 117 », « Poissirene 087 »).
+    Cardtrader ne renvoyant pas de date de sortie exploitable, on trie par
+    identifiant décroissant — les id sont attribués chronologiquement, donc
+    les plus grands correspondent aux sorties les plus récentes. C'est une
+    approximation, mais elle colle au besoin : la watchlist ne suit que des
+    séries récentes.
+    """
+    exps = _ct_expansions(token)
+    if not exps:
+        return []
+    return sorted(exps, key=lambda e: int(e.get("id") or 0), reverse=True)[:combien]
+
+
+def _ct_blueprints_du_set(expansion_id: int, token: str) -> list:
+    """Catalogue d'une expansion, mis en cache pour toute la session.
+    Évite de re-télécharger le même set pour chaque carte non résolue."""
+    cle = str(expansion_id)
+    cache = _ct_cache.setdefault("sets", {})
+    if cle in cache:
+        return cache[cle]
+    try:
+        rep = requests.get(f"{CT_BASE}/blueprints/export", timeout=30,
+                           headers=_ct_entete(token),
+                           params={"expansion_id": expansion_id})
+        bps = rep.json() if rep.status_code == 200 else []
+        if not isinstance(bps, list):
+            bps = []
+    except Exception:  # noqa: BLE001
+        bps = []
+    cache[cle] = bps
+    return bps
+
+
 def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
     """Trouve l'identifiant Cardtrader (blueprint_id) d'une carte.
 
@@ -1080,19 +1156,26 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
     candidats_exp = [e for e in exps
                      if any(ind in normaliser(str(e.get("name", ""))) for ind in indices)] if indices else []
 
+    # V24 : REPLI. Si le set n'est pas déductible du nom (promo, numéro nu),
+    # on cherche dans les N expansions les plus RÉCENTES. La watchlist ne
+    # suivant que des séries récentes, c'est suffisant — et entièrement
+    # automatique (aucune saisie de set à maintenir).
+    repli = False
+    if not candidats_exp:
+        nb_recents = int(_ct_cfg.get("sets_recents", 0))
+        if nb_recents > 0:
+            candidats_exp = _ct_expansions_recentes(token, nb_recents)
+            repli = True
+
     blueprint_id = None
     diag = f"set inconnu pour /{denom}" if not candidats_exp else ""
-    for exp in candidats_exp[:4]:
+    # Sans repli on teste peu de sets (la déduction est fiable) ; avec repli
+    # on ratisse plus large, mais les catalogues sont mis en cache.
+    for exp in candidats_exp[:(len(candidats_exp) if repli else 4)]:
         try:
-            rep = requests.get(f"{CT_BASE}/blueprints/export", timeout=30,
-                               headers=_ct_entete(token),
-                               params={"expansion_id": exp.get("id")})
-            if rep.status_code != 200:
-                diag = f"export {exp.get('name')} : HTTP {rep.status_code}"
-                continue
-            bps = rep.json()
-            if not isinstance(bps, list):
-                diag = f"export {exp.get('name')} : réponse inattendue"
+            bps = _ct_blueprints_du_set(exp.get("id"), token)
+            if not bps:
+                diag = f"export {exp.get('name')} : vide ou indisponible"
                 continue
             for bp in bps:
                 if _ct_numero_de(bp).lstrip("0") != str(int(numero)):
@@ -1100,9 +1183,10 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
                 if nom_en and nom_en not in normaliser(str(bp.get("name", ""))):
                     continue
                 blueprint_id = bp.get("id")
-                log.info("    [Cardtrader] '%s' -> blueprint %s (%s / %s, #%s)",
+                log.info("    [Cardtrader] '%s' -> blueprint %s (%s / %s, #%s)%s",
                          nom, blueprint_id, str(bp.get("name", ""))[:30],
-                         str(exp.get("name", ""))[:22], numero)
+                         str(exp.get("name", ""))[:22], numero,
+                         "  [via sets récents]" if repli else "")
                 break
             if blueprint_id:
                 break
@@ -1117,6 +1201,65 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
 
     _ct_cache["blueprints"][cle] = {"id": blueprint_id, "ts": time.time()}
     return blueprint_id
+
+
+# V23 : CALIBRATION AUTOMATIQUE eBay -> marché réel.
+# Sur les cartes où l'on dispose des DEUX sources (cote eBay ET prix
+# Cardtrader), on mesure le rapport réel. Le rapport MÉDIAN de toutes ces
+# paires donne un coefficient correcteur qui suit le marché tout seul —
+# contrairement à une cote saisie à la main, qui vieillit en silence.
+_calibration_paires: list[float] = []
+
+
+def _calibration_ajouter(cote_ebay: float, prix_ct: float) -> None:
+    """Enregistre une paire (cote eBay, prix Cardtrader) pour la calibration."""
+    if cote_ebay and prix_ct and cote_ebay > 0 and prix_ct > 0:
+        rapport = prix_ct / cote_ebay
+        # On ignore les rapports absurdes (mauvaise correspondance de carte) :
+        # une vraie divergence de marché reste dans une fourchette raisonnable.
+        if 0.2 <= rapport <= 2.0:
+            _calibration_paires.append(rapport)
+
+
+def _calibration_coefficient() -> float | None:
+    """Coefficient correcteur médian, ou None si trop peu de mesures."""
+    if len(_calibration_paires) < 5:
+        return None
+    return round(statistics.median(_calibration_paires), 3)
+
+
+# V24 : configuration Cardtrader accessible aux fonctions internes
+# (renseignée au démarrage depuis config.yaml).
+_ct_cfg: dict = {}
+
+# V24 : prix Cardtrader déjà obtenus, par carte « dénudée » de sa langue.
+# Sert de garde-fou pour les cartes SANS cote eBay : une même carte ne peut
+# pas valoir 100x plus dans une langue que dans une autre. Cas vécu : Mew ex
+# 208 sv2a coté 51€ en JP mais 5020€ en KR (annonces aberrantes, cohérentes
+# entre elles, donc invisibles pour les autres garde-fous).
+_ct_prix_par_carte: dict = {}
+
+
+def _ct_cle_carte(carte: dict) -> str:
+    """Identifiant d'une carte indépendant de sa langue."""
+    return normaliser(str(carte.get("nom", "")))
+
+
+def _ct_incoherent_entre_langues(carte: dict, prix: float, facteur: float) -> tuple[bool, str]:
+    """La même carte dans une autre langue donne-t-elle un prix radicalement
+    différent ? Retourne (suspect, explication)."""
+    cle = _ct_cle_carte(carte)
+    connus = _ct_prix_par_carte.get(cle, {})
+    for lg, p in connus.items():
+        if lg == carte.get("langue") or not p:
+            continue
+        if prix > p * facteur or prix < p / facteur:
+            return True, f"{prix:.2f}€ contre {p:.2f}€ en {lg.upper()}"
+    return False, ""
+
+
+def _ct_memoriser_prix(carte: dict, prix: float) -> None:
+    _ct_prix_par_carte.setdefault(_ct_cle_carte(carte), {})[carte.get("langue", "fr")] = prix
 
 
 def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
@@ -1172,13 +1315,31 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
                 devise = (pr.get("currency") or "EUR").upper()
                 if not cents or devise != "EUR":
                     continue
-                # V22.7 GARDE-FOU 1 : écarter les cartes GRADÉES (PSA...),
-                # dont les prix (souvent x5-x20) polluent la moyenne — cause
-                # probable du Mew ex 208 KR affiché à 5020€.
+                # V24.1 GARDE-FOU 1 : écarter les cartes GRADÉES (PSA...),
+                # dont les prix (souvent x5-x20) polluent la moyenne.
+                # ATTENTION au piège corrigé ici : Cardtrader expose un champ
+                # `graded` valant "false" sur les annonces NORMALES. Chercher
+                # la chaîne "grad" dans le texte des propriétés écartait donc
+                # TOUTES les annonces (« graded=false » contient « grad »).
+                # Cas vécu : Mega Dragonite JP, 7 annonces saines écartées ->
+                # prix gonflé à 316€ contre 265€ de tendance Cardmarket.
+                # On lit désormais la VALEUR du champ, et on ne cherche les
+                # sigles de gradeurs que dans la description libre.
                 props = p.get("properties_hash") or {}
-                texte_annonce = (str(p.get("description") or "") + " "
-                                 + " ".join(f"{k}={v}" for k, v in props.items())).lower()
-                if any(g in texte_annonce for g in ("grad", "psa", "bgs", "cgc", "pca")):
+                est_gradee = False
+                for champ in ("graded", "is_graded", "grading"):
+                    v = props.get(champ)
+                    if isinstance(v, bool):
+                        est_gradee = est_gradee or v
+                    elif isinstance(v, str) and v.strip().lower() not in ("", "false", "no", "none", "0"):
+                        est_gradee = True
+                # Sigles de gradeurs dans la description libre uniquement.
+                description = str(p.get("description") or "").lower()
+                if any(g in description for g in (" psa", "psa ", "psa10", "bgs", "cgc",
+                                                  " pca", "pca ", "gradee", "graded",
+                                                  "gem mint", "slab")):
+                    est_gradee = True
+                if est_gradee:
                     gradees += 1
                     continue
                 # V25 GARDE-FOU : n'inclure QUE les cartes en bon état. Le bot
@@ -1187,8 +1348,10 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
                 # moyenne des prix bas vers le bas -> cote sous-évaluée -> faux
                 # deals sur des annonces NM. On lit le champ 'condition' de
                 # l'annonce et on écarte tout ce qui n'est pas (Near) Mint.
+                # Même prudence que pour `graded` : on n'écarte QUE si le champ
+                # est renseigné et ne contient pas "mint".
                 cond = str(props.get("condition", "")).lower()
-                if cond and not ("mint" in cond):  # "Mint" et "Near Mint" acceptés
+                if cond and "mint" not in cond:  # "Mint" et "Near Mint" acceptés
                     abimees += 1
                     continue
                 val = float(cents) / 100.0
@@ -1586,7 +1749,7 @@ VALIDITE_JOURS = 7          # une cote de plus de 7 jours est ignorée
 # data/cotes.json ne correspond PAS à PURGE_VERSION ci-dessous, TOUT
 # l'historique est jeté au prochain scan. Pour forcer une remise à zéro
 # à l'avenir, il suffit d'incrémenter ce numéro.
-PURGE_VERSION = 20  # V23 : purge des cotes JP/KR qui partageaient la même clé (KR héritait de la cote JP)
+PURGE_VERSION = 21  # V26 : purge des cotes JP/KR qui partageaient la même clé (KR héritait de la cote JP)
 # Conservé pour compatibilité de lecture des anciens fichiers (non utilisé
 # pour la purge elle-même).
 DEPLOIEMENT_TS = 1784160000  # 16/07/2026 00:00 UTC
@@ -1836,9 +1999,8 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
     if cote is None or cote <= 0:
         return None, "cote indisponible"
     # V24 : jamais d'alerte sur une cote sans aucune donnée derrière elle
-    # (0 annonce ET 0 passage mémorisé). Ce cas ne doit plus se produire
-    # depuis la séparation des cotes par langue, mais on le garantit ici
-    # par construction plutôt que par accident.
+    # (0 annonce ET 0 passage mémorisé). Garanti par construction plutôt
+    # que par accident.
     if confiance < 1:
         return None, "cote sans confiance (aucune annonce ni historique)"
     if cote < r.get("cote_min", 5.0):
@@ -1882,6 +2044,26 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
     seuil_achat = cote * (1 - marge)
     if total > seuil_achat:
         return None, f"pas assez sous la cote ({total:.2f}€ > seuil {seuil_achat:.2f}€)"
+
+    # V22.8 : GARDE-FOU « TROP BEAU POUR ÊTRE VRAI ».
+    # Une carte à 340€ affichée 1€ n'est pas une affaire : c'est un prix
+    # d'appel pour créer des enchères en commentaire (pratique courante et
+    # interdite sur Vinted), un article factice, ou une erreur. Cas vécu :
+    # Méga-Lucario Gold 188/132 à 1€ + port, description « Non comprare a
+    # 1 € » (= « n'achetez pas à 1 € »). En dessous d'un certain pourcentage
+    # de la cote, une annonce est suspecte, pas exceptionnelle.
+    # V26 : ce réglage est déclaré à la RACINE de config.yaml, alors que le
+    # code ne regardait que dans `regles` -> il retombait toujours sur la
+    # valeur par défaut et toute modification restait sans effet. On lit
+    # désormais les deux emplacements.
+    seuil_absurde = float(cfg.get("prix_plancher_ratio", r.get("prix_plancher_ratio", 0.15)))
+    if cote > 0 and total < cote * seuil_absurde:
+        return None, (f"prix d'appel suspect ({total:.2f}€ = {total / cote * 100:.0f}% "
+                      f"de la cote {cote:.2f}€, seuil {seuil_absurde * 100:.0f}%)")
+    # Signal explicite d'enchère déguisée dans le texte de l'annonce.
+    texte_annonce = normaliser(str(annonce.get("titre", "")))
+    if any(sig in texte_annonce for sig in SIGNAUX_ENCHERE):
+        return None, "annonce d'enchère déguisée (prix d'appel)"
 
     # --- Revente : au moins 10% net au-dessus de la cote, frais déduits ---
     # Garde-fou : si frais_revente_estimes >= 1 (100%), le dénominateur
@@ -2360,6 +2542,7 @@ def main() -> int:
     _ct_charger_cache()  # V22 : cache Cardtrader (blueprints + prix du jour)
     secrets = secrets_env()
     _cfg_api = cfg.get("api_cotes", {})
+    _ct_cfg.update(_cfg_api)  # V24 : accessible aux fonctions de recherche
     if _cfg_api.get("actif"):
         log.info("Cardtrader : ACTIF (mode %s) — token %s",
                  _cfg_api.get("mode", "observation"),
@@ -2381,12 +2564,7 @@ def main() -> int:
         cote, confiance = obtenir_cote(carte, annonces_ebay, cfg)
 
         # V22 : cote Cardtrader (marché européen, prix réels par langue).
-        # Trois modes (api_cotes.mode) :
-        #   "observation" : affiché seulement, jamais utilisé comme cote ;
-        #   "secours" (V24) : la cote eBay reste prioritaire ; Cardtrader ne
-        #       sert QUE quand eBay est muet (cartes JP/KR sans annonces FR),
-        #       avec une décote de prudence et un plafond anti-aberrations ;
-        #   "actif" : remplace toujours la cote eBay.
+        # mode "observation" = affiché seulement ; "actif" = remplace la cote.
         cfg_api = cfg.get("api_cotes", {})
         if cfg_api.get("actif"):
             nb_bas = int(cfg_api.get("nb_prix_bas", 5))
@@ -2399,23 +2577,35 @@ def main() -> int:
                 # cf. Méga-Dracaufeu X trouvé à 3€ contre 1199€ eBay) : on
                 # n'utilise PAS le prix Cardtrader et on le signale.
                 suspect = bool(cote) and (prix_ct > cote * 5 or prix_ct < cote / 5)
+                motif = f"cote eBay {cote:.2f}€" if suspect else ""
+                # V24 GARDE-FOU 5 : cohérence ENTRE LANGUES. Indispensable
+                # pour les cartes SANS cote eBay, que le garde-fou 4 ne peut
+                # pas protéger (cf. Mew ex 208 sv2a : 51€ en JP, 5020€ en KR
+                # alors qu'il s'achète à moins de 30€ sur Cardmarket).
+                if not suspect:
+                    facteur_lg = float(cfg_api.get("facteur_langues", 5))
+                    suspect, motif = _ct_incoherent_entre_langues(carte, prix_ct, facteur_lg)
                 if suspect:
-                    log.warning("    [Cardtrader ⚠️] %s : prix %.2f€ INCOHÉRENT avec la cote "
-                                "eBay %.2f€ (facteur > 5) -> Cardtrader ignoré pour cette carte",
-                                nom, prix_ct, cote)
+                    log.warning("    [Cardtrader ⚠️] %s : prix %.2f€ INCOHÉRENT (%s) "
+                                "-> Cardtrader ignoré pour cette carte",
+                                nom, prix_ct, motif)
                 else:
+                    _ct_memoriser_prix(carte, prix_ct)
                     log.info("    [Cardtrader %s] %s ≈ %.2f€  (moyenne des %d plus bas)  —  cote eBay : %s",
                              carte.get("langue", "fr").upper(), nom, prix_ct, nb_bas,
                              f"{cote:.2f}€" if cote else "aucune")
+                    # V23 : mémoriser l'écart pour calibrer les cartes que
+                    # Cardtrader ne couvre pas.
+                    _calibration_ajouter(cote or 0, prix_ct)
                     mode_api = cfg_api.get("mode", "observation")
                     if mode_api == "actif" and not carte.get("cote"):
                         # Remplace la cote eBay (la cote MANUELLE reste prioritaire).
                         cote, confiance = round(prix_ct, 2), 99
                     elif mode_api == "secours" and cote is None and not carte.get("cote"):
-                        # V24 GARDE-FOU 5 : sans cote eBay pour recouper, un
-                        # prix Cardtrader aberrant passerait sans contrôle
-                        # (cf. Mew ex 208 KR affiché à 5020€). Un plafond
-                        # absolu bloque ces cas ; au-delà, pas de cote.
+                        # V24 : eBay muet (cartes JP/KR sans annonces en
+                        # France) -> Cardtrader sert de cote de secours.
+                        # Plafond absolu : sans cote eBay pour recouper, un
+                        # prix aberrant passerait sans contrôle.
                         plafond = float(cfg_api.get("cote_secours_max", 1500))
                         if prix_ct > plafond:
                             log.warning("    [Cardtrader ⚠️] %s : %.2f€ dépasse le plafond de "
@@ -2423,8 +2613,8 @@ def main() -> int:
                                         nom, prix_ct, plafond)
                         else:
                             # Décote de prudence : Cardtrader reflète des prix
-                            # de vente professionnels, souvent un peu au-dessus
-                            # du marché de l'occasion où le bot revend.
+                            # de vente professionnels, un peu au-dessus du
+                            # marché de l'occasion où le bot revend.
                             decote = float(cfg_api.get("decote_secours", 0.90))
                             cote, confiance = round(prix_ct * decote, 2), 98
                             log.info("    [Cardtrader ✔] %s : cote de secours %.2f€ "
@@ -2481,6 +2671,20 @@ def main() -> int:
 
     # Tri : les affaires les plus rentables en premier
     nouveaux_deals.sort(key=lambda d: d["profit_net_estime"], reverse=True)
+
+    # V23 : bilan de calibration. Affiche l'écart RÉEL mesuré entre les cotes
+    # eBay et les prix Cardtrader sur les cartes couvertes par les deux
+    # sources. C'est ce coefficient qui pourra corriger automatiquement les
+    # cartes que Cardtrader ne couvre pas (mode observation pour l'instant).
+    _coef_mesure = _calibration_coefficient()
+    if _coef_mesure is not None:
+        log.info("Calibration eBay -> marché réel : coefficient %.3f "
+                 "(mesuré sur %d cartes ayant les deux sources). "
+                 "Une cote eBay de 100€ vaudrait donc ~%.0f€ au prix réel.",
+                 _coef_mesure, len(_calibration_paires), 100 * _coef_mesure)
+    elif _calibration_paires:
+        log.info("Calibration : seulement %d mesure(s) eBay/Cardtrader "
+                 "(5 minimum pour un coefficient fiable)", len(_calibration_paires))
 
     log.info("Analyse terminée en %.0fs : %d annonces, %d nouveau(x) deal(s), %d alerte(s) de vente",
              time.time() - debut, total_annonces, len(nouveaux_deals), len(alertes_vente))
