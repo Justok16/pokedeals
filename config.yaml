@@ -456,10 +456,6 @@ watchlist:
 #
 # mode "observation" : le prix Cardtrader est AFFICHÉ dans les logs à
 #   côté de la cote eBay, sans rien changer — phase de vérification.
-# mode "secours" (V24, recommandé) : la cote eBay reste PRIORITAIRE ;
-#   Cardtrader ne sert que quand eBay ne trouve rien (cartes JP/KR sans
-#   annonces en France), avec une décote de prudence et un plafond.
-#   Les alertes concernées sont marquées "cote Cardtrader" sur Telegram.
 # mode "actif" : le prix Cardtrader REMPLACE la cote eBay (les cotes
 #   manuelles "cote:" restent prioritaires ; en cas d'échec API, on
 #   retombe automatiquement sur la cote eBay).
@@ -467,19 +463,11 @@ watchlist:
 # nb_prix_bas : la cote = moyenne des N annonces les MOINS CHÈRES.
 # min_annonces : en dessous de N annonces cohérentes, pas de cote
 #   Cardtrader (un marché d'1-2 annonces n'est pas fiable).
-# decote_secours : en mode secours, la cote = prix Cardtrader × ce
-#   coefficient (0.90 = -10% de prudence, car Cardtrader reflète des
-#   prix de vente pro, un peu au-dessus du marché de l'occasion).
-# cote_secours_max : en mode secours, un prix Cardtrader au-dessus de ce
-#   plafond est ignoré (protège des prix aberrants type 5000€ quand
-#   aucune cote eBay ne permet de recouper).
 api_cotes:
   actif: true
-  mode: "secours"
+  mode: "observation"
   nb_prix_bas: 5
   min_annonces: 3
-  decote_secours: 0.90
-  cote_secours_max: 1500
 
 # --- Calcul automatique de la cote ---
 cote:

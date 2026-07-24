@@ -75,13 +75,9 @@ def requete_avec_retry(methode, url, tentatives: int = 3, **kwargs):
     for i in range(tentatives):
         try:
             r = methode(url, **kwargs)
-            # V25 : on réessaie avec backoff sur 429 (quota) ET sur les
-            # erreurs serveur 5xx (503 Service Unavailable d'eBay, 502...),
-            # qui sont temporaires. Avant, un 5xx repartait immédiatement
-            # sans nouvelle tentative et faisait perdre la source du scan.
-            if r.status_code == 429 or r.status_code >= 500:
+            if r.status_code == 429:
                 attente = (2 ** (i + 1)) + random.uniform(0, 2)
-                log.info("HTTP %s reçu, pause de %.1fs avant nouvelle tentative", r.status_code, attente)
+                log.info("429 reçu, pause de %.1fs", attente)
                 time.sleep(attente)
                 continue
             return r
@@ -91,20 +87,6 @@ def requete_avec_retry(methode, url, tentatives: int = 3, **kwargs):
     if derniere_erreur:
         raise derniere_erreur
     return r
-
-
-def _ecrire_json_atomique(chemin: str, donnees, indent=None) -> None:
-    """Écrit un JSON de façon ATOMIQUE : on écrit dans un fichier temporaire
-    du même dossier, puis on le renomme (os.replace est atomique sur un même
-    système de fichiers). Un run tué en plein milieu (limite de temps
-    GitHub Actions, erreur disque) ne peut donc plus laisser un fichier
-    d'état à moitié écrit — un JSON corrompu = mémoire perdue et alertes en
-    double au scan suivant."""
-    os.makedirs(os.path.dirname(chemin), exist_ok=True)
-    tmp = f"{chemin}.tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(donnees, f, ensure_ascii=False, indent=indent)
-    os.replace(tmp, chemin)
 
 
 # ------------------- Normalisation de texte -------------------
@@ -541,13 +523,10 @@ def charger_config(chemin: str | None = None) -> dict:
     # V15 : avertir (sans bloquer) si une carte n'a pas de numéro dans son nom.
     # Les versions volontairement sans numéro (SIR) peuvent l'omettre, mais
     # toute carte classique DOIT l'avoir, sinon retour des fausses cotes.
-    # V23 : un numéro NU (ex. "195 sv2a", "116") est aussi valide — il est
-    # géré par le filtrage V17.4, inutile d'alerter pour ces cartes.
     for carte in cfg["watchlist"]:
-        nom = carte.get("nom", "")
-        if not extraire_numero(nom) and not numero_nu_voulu(nom):
+        if not extraire_numero(carte.get("nom", "")):
             log.warning("⚠️ '%s' n'a pas de numéro (ex. 199/165) dans config.yaml : "
-                        "filtrage V15 dégradé pour cette carte", nom)
+                        "filtrage V15 dégradé pour cette carte", carte.get("nom"))
 
     return cfg
 
@@ -582,7 +561,9 @@ def sauvegarder_vues(vues: dict) -> None:
     # Nettoyage des entrées trop anciennes
     limite = time.time() - RETENTION_JOURS * 86400
     vues = {k: v for k, v in vues.items() if v.get("ts", 0) > limite}
-    _ecrire_json_atomique(FICHIER_SEEN, vues, indent=1)
+    os.makedirs(os.path.dirname(FICHIER_SEEN), exist_ok=True)
+    with open(FICHIER_SEEN, "w", encoding="utf-8") as f:
+        json.dump(vues, f, ensure_ascii=False, indent=1)
 
 
 def deja_vue(vues: dict, annonce_id: str) -> bool:
@@ -715,17 +696,10 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
         port = 0.0
         opts = it.get("shippingOptions") or []
         if opts:
-            # V25 : eBay renvoie plusieurs options de livraison ; la première
-            # n'est pas forcément la moins chère (ex. express à 25€ avant une
-            # éco à 5€). On retient le port MINIMUM, sinon de vrais deals
-            # étaient rejetés à tort par le plafond de port.
-            couts = []
-            for o in opts:
-                try:
-                    couts.append(float(o["shippingCost"]["value"]))
-                except (KeyError, ValueError, TypeError):
-                    continue
-            port = min(couts) if couts else 0.0
+            try:
+                port = float(opts[0]["shippingCost"]["value"])
+            except (KeyError, ValueError, TypeError):
+                port = 0.0
         pays = ((it.get("itemLocation") or {}).get("country") or "FR").upper()
         if pays != "FR":
             if not international:
@@ -896,7 +870,9 @@ def _ct_charger_cache() -> None:
 
 def _ct_sauver_cache() -> None:
     try:
-        _ecrire_json_atomique(CT_CACHE_FICHIER, {"sig": _ct_signature_code(), **_ct_cache})
+        os.makedirs(os.path.dirname(CT_CACHE_FICHIER), exist_ok=True)
+        with open(CT_CACHE_FICHIER, "w", encoding="utf-8") as f:
+            json.dump({"sig": _ct_signature_code(), **_ct_cache}, f, ensure_ascii=False)
     except OSError as e:
         log.warning("Cache Cardtrader non sauvegardé : %s", e)
 
@@ -1159,7 +1135,6 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
                 produits = data
             prix = []
             gradees = 0
-            abimees = 0
             for p in produits:
                 # Prix en centimes chez Cardtrader (cents + currency)
                 pr = p.get("price") or {}
@@ -1175,16 +1150,6 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
                                  + " ".join(f"{k}={v}" for k, v in props.items())).lower()
                 if any(g in texte_annonce for g in ("grad", "psa", "bgs", "cgc", "pca")):
                     gradees += 1
-                    continue
-                # V25 GARDE-FOU : n'inclure QUE les cartes en bon état. Le bot
-                # ne vise que du neuf/near mint (cf. README) ; or Cardtrader
-                # vend aussi des cartes "Played"/"Poor" bradées qui tiraient la
-                # moyenne des prix bas vers le bas -> cote sous-évaluée -> faux
-                # deals sur des annonces NM. On lit le champ 'condition' de
-                # l'annonce et on écarte tout ce qui n'est pas (Near) Mint.
-                cond = str(props.get("condition", "")).lower()
-                if cond and not ("mint" in cond):  # "Mint" et "Near Mint" acceptés
-                    abimees += 1
                     continue
                 val = float(cents) / 100.0
                 if val > 0:
@@ -1210,15 +1175,15 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
                     retenus = groupe[:max(1, nb_bas)]
                     prix_final = round(sum(retenus) / len(retenus), 2)
                     ecartees = len(prix) - len(groupe)
-                    if ecartees or gradees or abimees:
-                        log.info("    [Cardtrader] '%s' : %d annonce(s) aberrante(s), "
-                                 "%d gradée(s) et %d abîmée(s) écartée(s)",
-                                 carte["nom"], ecartees, gradees, abimees)
+                    if ecartees or gradees:
+                        log.info("    [Cardtrader] '%s' : %d annonce(s) aberrante(s) "
+                                 "et %d gradée(s) écartée(s)",
+                                 carte["nom"], ecartees, gradees)
             else:
                 log.info("    [Cardtrader] '%s' (%s) : blueprint %s trouvé mais "
-                         "0 annonce en '%s' (%d produits bruts, %d gradées, %d abîmées)",
+                         "0 annonce en '%s' (%d produits bruts, %d gradées)",
                          carte["nom"], carte.get("langue", "fr"), blueprint_id,
-                         langue_ct, len(produits), gradees, abimees)
+                         langue_ct, len(produits), gradees)
         elif rep.status_code == 429:
             log.info("    [Cardtrader] quota atteint (429), on réessaiera")
             return None
@@ -1311,7 +1276,9 @@ def _api_charger_cache() -> None:
 
 def _api_sauver_cache() -> None:
     try:
-        _ecrire_json_atomique(API_CACHE_FICHIER, _api_prix_cache)
+        os.makedirs(os.path.dirname(API_CACHE_FICHIER), exist_ok=True)
+        with open(API_CACHE_FICHIER, "w", encoding="utf-8") as f:
+            json.dump(_api_prix_cache, f, ensure_ascii=False)
     except OSError as e:
         log.warning("Cache API non sauvegardé : %s", e)
 
@@ -1581,7 +1548,7 @@ VALIDITE_JOURS = 7          # une cote de plus de 7 jours est ignorée
 # data/cotes.json ne correspond PAS à PURGE_VERSION ci-dessous, TOUT
 # l'historique est jeté au prochain scan. Pour forcer une remise à zéro
 # à l'avenir, il suffit d'incrémenter ce numéro.
-PURGE_VERSION = 20  # V23 : purge des cotes JP/KR qui partageaient la même clé (KR héritait de la cote JP)
+PURGE_VERSION = 19  # V20 : purge des cotes calculées sur trop peu d'annonces (marché mince)
 # Conservé pour compatibilité de lecture des anciens fichiers (non utilisé
 # pour la purge elle-même).
 DEPLOIEMENT_TS = 1784160000  # 16/07/2026 00:00 UTC
@@ -1605,10 +1572,12 @@ def _charger_historique() -> dict:
 
 def sauvegarder_historique() -> None:
     h = historique()
+    os.makedirs(os.path.dirname(FICHIER_COTES), exist_ok=True)
     # On réécrit le tag de version à chaque sauvegarde.
     a_ecrire = {"_purge_version": PURGE_VERSION}
     a_ecrire.update(h)
-    _ecrire_json_atomique(FICHIER_COTES, a_ecrire, indent=1)
+    with open(FICHIER_COTES, "w", encoding="utf-8") as f:
+        json.dump(a_ecrire, f, ensure_ascii=False, indent=1)
 
 
 _historique = None
@@ -1745,37 +1714,22 @@ def lbc_relever_alertes_email(cfg: dict, secrets: dict) -> list[dict]:
 
 
 
-# V23 : la clé d'historique inclut la LANGUE. La watchlist contient la même
-# carte en jp et en kr sous un nom identique (ex. "Charizard ex 201/165 sv2a"),
-# et les deux versions partageaient la même mémoire : la KR, presque jamais
-# cotée sur eBay, héritait de la cote JP (~2x plus chère) -> fausses alertes.
-def cle_cote(nom_carte: str, langue: str = "fr") -> str:
-    langue = (langue or "fr").lower()
-    return nom_carte if langue == "fr" else f"{nom_carte} ({langue.upper()})"
-
-
-def _cotes_recentes(nom_carte: str, langue: str = "fr") -> list[float]:
-    """Cotes mémorisées encore valides (7 jours) pour une carte."""
-    entrees = historique().get(cle_cote(nom_carte, langue), [])
-    limite = time.time() - VALIDITE_JOURS * 86400
-    return [e["cote"] for e in entrees if e.get("ts", 0) >= limite]
-
-
-def cote_lissee(nom_carte: str, langue: str = "fr") -> float | None:
+def cote_lissee(nom_carte: str) -> float | None:
     """Médiane des cotes des 7 derniers jours (l'historique est déjà purgé
     par version au chargement, donc plus besoin de borne de déploiement)."""
-    valeurs = _cotes_recentes(nom_carte, langue)
+    entrees = historique().get(nom_carte, [])
+    limite = time.time() - VALIDITE_JOURS * 86400
+    valeurs = [e["cote"] for e in entrees if e.get("ts", 0) >= limite]
     if not valeurs:
         return None
     return round(statistics.median(valeurs), 2)
 
 
-def enregistrer_cote(nom_carte: str, cote: float, langue: str = "fr") -> None:
+def enregistrer_cote(nom_carte: str, cote: float) -> None:
     h = historique()
-    cle = cle_cote(nom_carte, langue)
-    entrees = h.get(cle, [])
+    entrees = h.get(nom_carte, [])
     entrees.append({"cote": cote, "ts": time.time()})
-    h[cle] = entrees[-HISTORIQUE_MAX:]
+    h[nom_carte] = entrees[-HISTORIQUE_MAX:]
 
 
 def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[float | None, int]:
@@ -1793,22 +1747,17 @@ def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[flo
         annonces_ebay, cfg["cote"], carte["nom"],
         carte.get("langue", "fr"), carte.get("alias", ""))
     if cote_instant:
-        enregistrer_cote(carte["nom"], cote_instant, carte.get("langue", "fr"))
+        enregistrer_cote(carte["nom"], cote_instant)
 
     # 3) Cote lissée (médiane des derniers passages)
-    cote = cote_lissee(carte["nom"], carte.get("langue", "fr"))
+    cote = cote_lissee(carte["nom"])
     if cote is None:
         cote = cote_instant
     if cote is None:
         log.info("Cote introuvable pour '%s' (%d annonce(s) pertinente(s), minimum %s requis)",
                  carte.get("nom"), nb_pertinentes, cfg["cote"].get("minimum_annonces", 8))
         return None, 0
-    # V24 : si la cote vient uniquement du lissage (0 annonce aujourd'hui,
-    # ex. eBay en panne), la confiance reflète le nombre de passages
-    # mémorisés — chacun a exigé le minimum d'annonces à l'époque. Une cote
-    # présente n'a ainsi JAMAIS une confiance de 0 (garde-fou d'evaluate).
-    confiance = nb_pertinentes or len(_cotes_recentes(carte["nom"], carte.get("langue", "fr")))
-    return cote, confiance
+    return cote, nb_pertinentes
 
 
 def _etat_ok(texte: str, acceptes: list[str], refuses: list[str]) -> bool:
@@ -1830,12 +1779,6 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
 
     if cote is None or cote <= 0:
         return None, "cote indisponible"
-    # V24 : jamais d'alerte sur une cote sans aucune donnée derrière elle
-    # (0 annonce ET 0 passage mémorisé). Ce cas ne doit plus se produire
-    # depuis la séparation des cotes par langue, mais on le garantit ici
-    # par construction plutôt que par accident.
-    if confiance < 1:
-        return None, "cote sans confiance (aucune annonce ni historique)"
     if cote < r.get("cote_min", 5.0):
         return None, f"cote trop faible ({cote:.2f}€ < {r.get('cote_min', 5.0):.2f}€)"
 
@@ -1895,7 +1838,7 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
         "decote_pct": round((1 - total / cote) * 100, 1),
         "prix_revente_conseille": round(prix_revente, 2),
         "profit_net_estime": round(profit_net, 2),
-        "confiance": confiance,  # nb d'annonces eBay derrière la cote (99 = manuelle, 98 = Cardtrader)
+        "confiance": confiance,  # nb d'annonces eBay derrière la cote (99 = cote manuelle)
     }
     return deal, "DEAL"
 
@@ -1973,13 +1916,10 @@ def envoyer_telegram_ventes(ventes: list[dict], cfg_tg: dict, token: str) -> boo
 
 
 def _texte_telegram(d: dict) -> str:
-    # V24 : signaler quand la cote vient de Cardtrader (cote de secours),
-    # pour que l'utilisateur sache qu'aucune annonce eBay ne la corrobore.
-    source = " — cote Cardtrader" if d.get("confiance") == 98 else ""
     return (
         f"🔥 <b>{_echapper_html(d['titre'])}</b>\n"
         f"🛒 {_echapper_html(d['plateforme'])} — <b>{d['prix']:.2f}€</b> + {d['port']:.2f}€ port = <b>{d['total']:.2f}€</b>\n"
-        f"📊 Cote : {d['cote']:.2f}€ (<b>-{d['decote_pct']}%</b>){source}\n"
+        f"📊 Cote : {d['cote']:.2f}€ (<b>-{d['decote_pct']}%</b>)\n"
         f"💶 Revente conseillée : {d['prix_revente_conseille']:.2f}€\n"
         f"✅ Profit net estimé : <b>+{d['profit_net_estime']:.2f}€</b>\n"
         f"👉 <a href=\"{d['url']}\">Voir l'annonce</a>"
@@ -2025,24 +1965,17 @@ def envoyer_telegram(deals: list[dict], cfg_tg: dict, token: str) -> bool:
 
 
 def _html_deal(d: dict) -> str:
-    # V25 : le titre, la plateforme et l'URL viennent de l'annonce (donc d'un
-    # vendeur tiers) et sont insérés dans du HTML. Sans échappement, un titre
-    # du type <img src=x onerror=...> pourrait injecter du code dans le mail.
-    # On échappe < > & partout, plus les guillemets dans l'URL (attribut href).
-    titre = _echapper_html(d['titre'])
-    plateforme = _echapper_html(d['plateforme'])
-    url = _echapper_html(d['url']).replace('"', "&quot;")
     return f"""
     <div style="border:1px solid #ddd;border-radius:8px;padding:14px;margin:10px 0;font-family:Arial">
-      <h3 style="margin:0 0 6px">🔥 {titre}</h3>
+      <h3 style="margin:0 0 6px">🔥 {d['titre']}</h3>
       <p style="margin:4px 0">
-        <b>Plateforme :</b> {plateforme}<br>
+        <b>Plateforme :</b> {d['plateforme']}<br>
         <b>Prix :</b> {d['prix']:.2f}€ + {d['port']:.2f}€ de port = <b>{d['total']:.2f}€</b><br>
         <b>Cote estimée :</b> {d['cote']:.2f}€ &nbsp;(<b style="color:green">-{d['decote_pct']}%</b>)<br>
         <b>Prix de revente conseillé :</b> {d['prix_revente_conseille']:.2f}€<br>
         <b>Profit net estimé :</b> <b style="color:green">+{d['profit_net_estime']:.2f}€</b>
       </p>
-      <a href="{url}" style="display:inline-block;background:#1a73e8;color:#fff;
+      <a href="{d['url']}" style="display:inline-block;background:#1a73e8;color:#fff;
          padding:8px 16px;border-radius:6px;text-decoration:none">Voir l'annonce ➜</a>
     </div>"""
 
@@ -2171,19 +2104,20 @@ def enregistrer_scan(nb_annonces: int, deals: list[dict]) -> None:
     s["profit_potentiel"] = round(s["profit_potentiel"] + sum(d["profit_net_estime"] for d in deals), 2)
     stats[jour] = s
     stats = dict(sorted(stats.items())[-30:])  # 30 derniers jours
-    _ecrire_json_atomique(FICHIER_STATS, stats, indent=1)
+    os.makedirs(os.path.dirname(FICHIER_STATS), exist_ok=True)
+    with open(FICHIER_STATS, "w", encoding="utf-8") as f:
+        json.dump(stats, f, ensure_ascii=False, indent=1)
 
 
 # ------------------------------ CSV -----------------------------------
 
-def calculer_tendance_cote(nom_carte: str, langue: str = "fr") -> str:
+def calculer_tendance_cote(nom_carte: str) -> str:
     """Compare la cote actuelle avec celle d'hier pour déterminer la tendance."""
     h = historique()
-    cle = cle_cote(nom_carte, langue)
-    if cle not in h or len(h[cle]) < 2:
+    if nom_carte not in h or len(h[nom_carte]) < 2:
         return "="  # pas assez de données
-
-    cotes = [e["cote"] for e in h[cle]]
+    
+    cotes = [e["cote"] for e in h[nom_carte]]
     if len(cotes) < 2:
         return "="
     
@@ -2210,7 +2144,7 @@ def exporter_csv(deals: list[dict]) -> None:
             w.writerow(COLONNES_CSV)
         maintenant = datetime.now(PARIS).strftime("%Y-%m-%d %H:%M")
         for d in deals:
-            tendance = calculer_tendance_cote(d.get("carte", ""), d.get("langue", "fr"))
+            tendance = calculer_tendance_cote(d.get("carte", ""))
             w.writerow([maintenant, d.get("carte", ""), d["plateforme"], d["titre"],
                         d["prix"], d["port"], d["total"], d["cote"], tendance, d["decote_pct"],
                         d["prix_revente_conseille"], d["profit_net_estime"],
@@ -2292,7 +2226,7 @@ def recap_du_jour(cfg: dict, vues: dict) -> str | None:
         nom, prix = achat.get("nom"), achat.get("prix_achat")
         if not nom or not prix:
             continue
-        cote = achat.get("cote") or cote_lissee(nom, achat.get("langue", "fr"))
+        cote = achat.get("cote") or cote_lissee(nom)
         if cote:
             progression = float(cote) / (float(prix) * multiplicateur) * 100
             lignes_stock.append(f"  • {nom} : cote {float(cote):.0f}€ ({min(progression, 999):.0f}% de l'objectif)")
@@ -2318,7 +2252,7 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
     # Plafond de prix envoyé à Vinted pour réduire le bruit :
     # cote lissée connue -> on ne demande que les annonces sous le seuil d'achat
     prix_plafond = None
-    cote_connue = carte.get("cote") or cote_lissee(nom, langue)
+    cote_connue = carte.get("cote") or cote_lissee(nom)
     if cote_connue:
         prix_plafond = round(float(cote_connue) * (1 - cfg["regles"]["marge_achat"]), 2)
 
@@ -2376,12 +2310,7 @@ def main() -> int:
         cote, confiance = obtenir_cote(carte, annonces_ebay, cfg)
 
         # V22 : cote Cardtrader (marché européen, prix réels par langue).
-        # Trois modes (api_cotes.mode) :
-        #   "observation" : affiché seulement, jamais utilisé comme cote ;
-        #   "secours" (V24) : la cote eBay reste prioritaire ; Cardtrader ne
-        #       sert QUE quand eBay est muet (cartes JP/KR sans annonces FR),
-        #       avec une décote de prudence et un plafond anti-aberrations ;
-        #   "actif" : remplace toujours la cote eBay.
+        # mode "observation" = affiché seulement ; "actif" = remplace la cote.
         cfg_api = cfg.get("api_cotes", {})
         if cfg_api.get("actif"):
             nb_bas = int(cfg_api.get("nb_prix_bas", 5))
@@ -2402,28 +2331,9 @@ def main() -> int:
                     log.info("    [Cardtrader %s] %s ≈ %.2f€  (moyenne des %d plus bas)  —  cote eBay : %s",
                              carte.get("langue", "fr").upper(), nom, prix_ct, nb_bas,
                              f"{cote:.2f}€" if cote else "aucune")
-                    mode_api = cfg_api.get("mode", "observation")
-                    if mode_api == "actif" and not carte.get("cote"):
+                    if cfg_api.get("mode") == "actif" and not carte.get("cote"):
                         # Remplace la cote eBay (la cote MANUELLE reste prioritaire).
                         cote, confiance = round(prix_ct, 2), 99
-                    elif mode_api == "secours" and cote is None and not carte.get("cote"):
-                        # V24 GARDE-FOU 5 : sans cote eBay pour recouper, un
-                        # prix Cardtrader aberrant passerait sans contrôle
-                        # (cf. Mew ex 208 KR affiché à 5020€). Un plafond
-                        # absolu bloque ces cas ; au-delà, pas de cote.
-                        plafond = float(cfg_api.get("cote_secours_max", 1500))
-                        if prix_ct > plafond:
-                            log.warning("    [Cardtrader ⚠️] %s : %.2f€ dépasse le plafond de "
-                                        "secours (%.0f€) -> pas de cote pour cette carte",
-                                        nom, prix_ct, plafond)
-                        else:
-                            # Décote de prudence : Cardtrader reflète des prix
-                            # de vente professionnels, souvent un peu au-dessus
-                            # du marché de l'occasion où le bot revend.
-                            decote = float(cfg_api.get("decote_secours", 0.90))
-                            cote, confiance = round(prix_ct * decote, 2), 98
-                            log.info("    [Cardtrader ✔] %s : cote de secours %.2f€ "
-                                     "(%.2f€ × %.2f, eBay muet)", nom, cote, prix_ct, decote)
         if cote:
             log.info("Cote retenue : %.2f€ (confiance : %s annonces) — %d annonces analysées",
                      cote, confiance, len(annonces))
@@ -2457,13 +2367,10 @@ def main() -> int:
             annonce["carte"] = carte["nom"]
             annonce["langue"] = carte.get("langue", "fr")
             annonce["alias"] = carte.get("alias", "")
-            cote_carte = carte.get("cote") or cote_lissee(carte["nom"], carte.get("langue", "fr"))
+            cote_carte = carte.get("cote") or cote_lissee(carte["nom"])
             if not cote_carte:
                 break
-            # V24 : confiance réelle (99 = manuelle, sinon nb de passages
-            # mémorisés) — le garde-fou d'evaluate refuse une confiance de 0.
-            conf_lbc = 99 if carte.get("cote") else len(_cotes_recentes(carte["nom"], carte.get("langue", "fr")))
-            deal, _statut = evaluate(annonce, float(cote_carte), cfg, conf_lbc, carte.get("marge_achat"))
+            deal, _statut = evaluate(annonce, float(cote_carte), cfg, 0, carte.get("marge_achat"))
             if deal and not deja_vue(vues, deal["id"]):
                 log.info("  ✓ DEAL (email LBC) : %s à %.2f€ (cote %.2f€)",
                          deal["titre"][:60], deal["total"], float(cote_carte))
