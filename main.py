@@ -2774,23 +2774,49 @@ def main() -> int:
                     _calibration_ajouter(cote or 0, prix_ct)
 
                     # V27 : APPLICATION du prix Cardtrader selon le mode.
-                    # Jusqu'ici, seul le mode "actif" était implémenté : un
-                    # config.yaml réglé sur "secours" ne faisait donc RIEN,
-                    # et les prix Cardtrader étaient calculés puis jetés.
-                    # Conséquence : ~24 cartes (toute la passe coréenne, plus
-                    # une dizaine de japonaises) n'avaient AUCUNE cote et
-                    # étaient invisibles pour le bot, alors que Cardtrader
-                    # connaissait leur prix.
-                    #
                     #   observation : le prix est seulement affiché
                     #   secours     : utilisé UNIQUEMENT si eBay n'a rien
                     #   actif       : remplace systématiquement la cote eBay
+                    #   plus_bas    : V32 — on garde le prix le PLUS BAS entre
+                    #     eBay et Cardtrader. Motif : les prix eBay sont des
+                    #     prix DEMANDÉS, pas des prix payés. Une carte peut
+                    #     rester affichée à 130€ pendant des mois sans se
+                    #     vendre pendant que le vrai marché est à 70€. Prendre
+                    #     le plus bas des deux sources se rapproche davantage
+                    #     du prix réel qu'une seule source.
+                    #     Sécurité : si les deux prix sont trop différents
+                    #     (l'un fait plus du double de l'autre), c'est le
+                    #     signe d'une erreur (mauvaise carte, gradée non
+                    #     détectée...) -> on garde alors le PLUS HAUT des deux,
+                    #     par prudence, plutôt que de foncer sur un prix qui
+                    #     pourrait être une erreur.
                     #
                     # La cote MANUELLE (config.yaml) reste prioritaire dans
                     # tous les cas.
                     mode_ct = str(cfg_api.get("mode", "observation")).lower()
                     if carte.get("cote"):
                         pass  # cote manuelle : on ne touche à rien
+                    elif mode_ct == "plus_bas":
+                        if cote is None:
+                            cote, confiance = round(prix_ct, 2), 98
+                            log.info("    [Cardtrader -> COTE] %s (%s) : eBay muet, "
+                                     "cote fixée à %.2f€ par Cardtrader",
+                                     nom, carte.get("langue", "fr").upper(), cote)
+                        else:
+                            grand = max(cote, prix_ct)
+                            petit = min(cote, prix_ct)
+                            if grand > petit * 2:
+                                log.info("    [Cardtrader] %s : écart trop important "
+                                         "entre eBay (%.2f€) et Cardtrader (%.2f€) "
+                                         "-> on garde le PLUS HAUT par prudence (%.2f€)",
+                                         nom, cote, prix_ct, grand)
+                                cote = round(grand, 2)
+                            elif prix_ct < cote:
+                                log.info("    [Cardtrader -> COTE] %s : Cardtrader "
+                                         "(%.2f€) plus bas qu'eBay (%.2f€) -> retenu",
+                                         nom, prix_ct, cote)
+                                cote, confiance = round(prix_ct, 2), 98
+                            # sinon eBay était déjà le plus bas : on ne touche à rien
                     elif mode_ct == "actif" or (mode_ct == "secours" and cote is None):
                         origine = "eBay muet" if cote is None else f"remplace {cote:.2f}€ eBay"
                         cote, confiance = round(prix_ct, 2), 98

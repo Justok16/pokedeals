@@ -472,7 +472,7 @@ watchlist:
 #   concernées sont marquées "cote Cardtrader" sur Telegram.
 api_cotes:
   actif: true
-  mode: "secours"
+  mode: "plus_bas"
   nb_prix_bas: 5
   min_annonces: 3
   # V24 : quand le set d'une carte n'est pas déductible de son nom
