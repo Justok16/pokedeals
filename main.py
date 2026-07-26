@@ -177,10 +177,22 @@ MARQUEURS_LANGUE = {
     # langue — une carte 151 coréenne ou chinoise porte aussi "sv2a". La
     # langue se prouve par un mot de langue, des caractères, ou la
     # localisation eBay, jamais par le code de set.
-    "jp": ["japonaise", "japonais", "japanese", "japon", "jpn", "jap", "jp"],
-    "en": ["anglaise", "anglais", "english", "eng"],
-    "kr": ["coreenne", "coreen", "korean", "korea", "kor", "kr"],
-    "cn": ["chinoise", "chinois", "chinese", "china", "zh", "cn"],
+    "jp": ["japonaise", "japonais", "japanese", "japon", "jpn", "jap", "jp",
+           # V30 : formes ITALIENNE, ESPAGNOLE, ALLEMANDE et NÉERLANDAISE.
+           # Cas vécu : une annonce Vinted titrée « Pokémon Pikachu AR
+           # 173/165 – Giapponese – Art Rare » (vendeur italien, carte
+           # japonaise) a franchi le filtre FR et failli être comparée à
+           # la cote française de 114,42€. Le mot était dans le titre, en
+           # clair — on ne le connaissait simplement pas.
+           "giapponese", "giapponesi", "giappone",
+           "japones", "japonesa", "japonesas",
+           "japanisch", "japanische", "japans"],
+    "en": ["anglaise", "anglais", "english", "eng",
+           "inglese", "ingles", "englisch"],
+    "kr": ["coreenne", "coreen", "korean", "korea", "kor", "kr",
+           "coreano", "coreana", "koreanisch", "koreaans"],
+    "cn": ["chinoise", "chinois", "chinese", "china", "zh", "cn",
+           "cinese", "cinesi", "chino", "chinesisch"],
     # V20 : langues EUROPÉENNES non désirées. Une carte italienne/allemande/
     # espagnole au même numéro qu'une française vaut souvent moins et créait
     # de faux deals. On les détecte par le mot de langue explicite ET par des
@@ -1799,10 +1811,29 @@ def vinted_description(item_id: str) -> str | None:
     """
     s = _get_vinted_session()
     if s is None or not item_id:
+        log.info("    [Vinted] fiche %s illisible : pas de session", item_id)
         return None
     try:
         r = requete_avec_retry(s.get, VINTED_ITEM + str(item_id), timeout=20)
+        # V30 : cookies expirés (401) ou blocage temporaire (403) -> on
+        # refait UNE tentative avec une session neuve, exactement comme le
+        # fait déjà vinted_rechercher. Sans ça, une session périmée rendait
+        # TOUTES les fiches illisibles, donc plus aucune alerte Vinted du
+        # tout — et en silence.
+        if r.status_code in (401, 403):
+            global _vinted_session
+            log.info("    [Vinted] fiche %s : HTTP %s, on renouvelle la session",
+                     item_id, r.status_code)
+            _vinted_session = None
+            s = _get_vinted_session()
+            if s is None:
+                return None
+            r = requete_avec_retry(s.get, VINTED_ITEM + str(item_id), timeout=20)
         if r.status_code != 200:
+            # V30 : on journalise le CODE. Sans lui, impossible de savoir si
+            # l'échec vient d'une session périmée, d'un blocage anti-bot ou
+            # d'une annonce supprimée — et donc impossible de le corriger.
+            log.info("    [Vinted] fiche %s illisible : HTTP %s", item_id, r.status_code)
             return None
         item = (r.json() or {}).get("item") or {}
         # V26 TEMPORAIRE (à retirer après 1 scan) : lister les champs
@@ -1811,7 +1842,9 @@ def vinted_description(item_id: str) -> str | None:
         # de localisation, comme sur eBay.
         log.info("    [Vinted debug] champs disponibles : %s", sorted(item.keys()))
         return str(item.get("description") or "")
-    except Exception:  # noqa: BLE001 — ne doit jamais casser le scan
+    except Exception as e:  # noqa: BLE001 — ne doit jamais casser le scan
+        log.info("    [Vinted] fiche %s illisible : %s (%s)",
+                 item_id, type(e).__name__, str(e)[:80])
         return None
 
 
