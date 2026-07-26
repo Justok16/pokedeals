@@ -221,6 +221,61 @@ def _marqueur_present(marqueur: str, texte_norm: str, jetons: list[str]) -> bool
     return marqueur in texte_norm
 
 
+# =====================================================================
+# V28 : CODES DE SET JAPONAIS = PREUVE QUE LA CARTE N'EST PAS FRANÇAISE
+# ---------------------------------------------------------------------
+# Cas vécu (fausse alerte Telegram) : une annonce Vinted titrée
+# « Pikachu AR sv2a 173/165 — État parfait », photo d'une carte
+# CORÉENNE, comparée à la cote FRANÇAISE de 114,42€ -> faux profit
+# annoncé de +84,91€.
+#
+# Pourquoi tous les filtres l'ont laissée passer :
+#   - aucun caractère coréen dans le TITRE (seulement sur la photo)
+#   - aucun mot de langue ("coréenne", "korean"...)
+#   - bon Pokémon, bon numéro 173/165
+#   - et le filtre "preuve de français" a trouvé « état » et
+#     « parfait »... qui prouvent seulement que le VENDEUR est
+#     français, pas que la CARTE l'est. Un vendeur français vend
+#     très bien une carte coréenne.
+#
+# Le vrai signal : « sv2a » est le code de set JAPONAIS de la série
+# 151, porté par les versions JP et KR. La version FRANÇAISE ne le
+# porte JAMAIS (elle affiche EV3.5, 151, Écarlate & Violet).
+# Ce code ne dit pas LAQUELLE des langues asiatiques (JP et KR le
+# partagent), mais il exclut le français avec certitude.
+#
+# Effet double : supprime ces fausses alertes ET nettoie les cotes FR,
+# qui absorbaient des cartes japonaises au même numéro (constaté :
+# « Bulbizarre AR SFG 9.5 – SV2a 151 (166/165) » à 70€ comptée dans
+# le bas-marché de la cote française).
+# =====================================================================
+SETS_ASIATIQUES = {
+    # Écarlate & Violet japonais (sv...)
+    "sv1", "sv1a", "sv1s", "sv1v", "sv2", "sv2a", "sv2d", "sv2p",
+    "sv3", "sv3a", "sv4", "sv4a", "sv4k", "sv4m", "sv5a", "sv5k", "sv5m",
+    "sv6", "sv6a", "sv7", "sv7a", "sv8", "sv8a", "sv9", "sv9a",
+    "sv10", "sv11b", "sv11w",
+    # Épée & Bouclier japonais (s...)
+    "s8b", "s9a", "s10a", "s11", "s12", "s12a",
+    # Méga-Évolution japonais (m...)
+    "m1l", "m1s", "m2", "m2a", "m3", "m4", "m5", "mc",
+    # Promos japonaises
+    "s-p",
+}
+
+
+def code_set_asiatique(jetons: list[str]) -> str | None:
+    """Renvoie le code de set japonais trouvé dans les jetons, sinon None.
+
+    Comparaison mot à mot : « sv2a » doit être un jeton isolé, pour ne
+    pas confondre avec un fragment d'un autre mot.
+    """
+    for jeton in jetons:
+        if jeton in SETS_ASIATIQUES:
+            return jeton
+    return None
+
+
 # V18 : détection de caractères asiatiques dans le titre ORIGINAL (avant
 # normalisation, qui les supprimerait). Une annonce contenant フシギダネ,
 # ピカチュウ, 리자몽, 妙蛙种子... est forcément une carte étrangère, même si
@@ -430,6 +485,13 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
     if langue in (None, "", "fr"):
         if origine_asiatique or langues_marquees:
             return False, "carte étrangère (caractères/origine) hors recherche FR"
+        # V28 : un code de set JAPONAIS (sv2a, m2a, s8b...) dans le titre
+        # prouve que la carte n'est pas française — même si le vendeur, lui,
+        # écrit en français. Signal factuel, pas du vocabulaire.
+        code_jp = code_set_asiatique(jetons_langue)
+        if code_jp:
+            return False, (f"carte étrangère : code de set japonais "
+                           f"'{code_jp}' (une carte FR n'en porte jamais)")
     else:
         # Carte asiatique (jp/kr/cn). Elle doit correspondre à SA langue et
         # rejeter les signaux d'une AUTRE langue asiatique.
@@ -1714,35 +1776,43 @@ def vinted_rechercher(nom_carte: str, langue: str, limite: int = 30, prix_plafon
 VINTED_ITEM = VINTED_BASE + "/api/v2/items/"
 
 
-def vinted_description(item_id: str) -> str:
+def vinted_description(item_id: str) -> str | None:
     """Description complète d'une annonce Vinted.
 
     V25 : l'endpoint de RECHERCHE (/catalog/items) ne renvoie pas la
     description — seulement le titre. Or sur Vinted le titre est souvent
-    neutre (« Mew ex 205/165 ») alors que la description trahit la langue
-    (« Carta Pokémon ... ita », « Carte japonaise de la série 151 »).
-    Résultat : des cartes italiennes ou japonaises passaient le filtre et
-    étaient comparées à la cote FRANÇAISE, donc signalées comme affaires.
-    On va donc chercher la description sur la fiche détaillée, mais
-    UNIQUEMENT pour les annonces qui s'apprêtent à déclencher une alerte
-    (quelques-unes par scan) : le surcoût réseau reste négligeable.
+    neutre (« Bulbizarre AR 166/165 ») alors que la description trahit la
+    langue (« Extension SV2a — Carte Japonaise »). On va donc chercher la
+    description sur la fiche détaillée, mais UNIQUEMENT pour les annonces
+    qui s'apprêtent à déclencher une alerte.
+
+    V29 : la fonction distingue désormais DEUX situations que l'ancienne
+    version confondait, avec des conséquences opposées :
+      - None : la fiche n'a PAS pu être lue (réseau, 429, session
+        expirée, annonce supprimée). On ne sait rien -> l'appelant doit
+        s'abstenir d'alerter et réessayer au prochain scan.
+      - ""   : la fiche a bien été lue, le vendeur n'a simplement rien
+        écrit. Information exploitable.
+    Avant, les deux renvoyaient "" : un simple incident réseau faisait
+    donc passer une carte japonaise pour une carte française (cas vécu :
+    Bulbizarre AR 166/165 japonais alerté contre la cote FR de 109,58€).
     """
     s = _get_vinted_session()
     if s is None or not item_id:
-        return ""
+        return None
     try:
         r = requete_avec_retry(s.get, VINTED_ITEM + str(item_id), timeout=20)
         if r.status_code != 200:
-            return ""
+            return None
         item = (r.json() or {}).get("item") or {}
         # V26 TEMPORAIRE (à retirer après 1 scan) : lister les champs
         # disponibles. Si la fiche expose un pays / une locale du vendeur,
-        # on remplacera toute la liste MARQUEURS_FRANCAIS par un vrai
-        # filtre de localisation, comme sur eBay.
+        # on remplacera la détection par vocabulaire par un vrai filtre
+        # de localisation, comme sur eBay.
         log.info("    [Vinted debug] champs disponibles : %s", sorted(item.keys()))
         return str(item.get("description") or "")
     except Exception:  # noqa: BLE001 — ne doit jamais casser le scan
-        return ""
+        return None
 
 
 LBC_API = "https://api.leboncoin.fr/finder/search"
@@ -2137,701 +2207,4 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
 
     deal = {
         **annonce,
-        "cote": round(cote, 2),
-        "total": round(total, 2),
-        "decote_pct": round((1 - total / cote) * 100, 1),
-        "prix_revente_conseille": round(prix_revente, 2),
-        "profit_net_estime": round(profit_net, 2),
-        # nb d'annonces eBay derrière la cote.
-        # Valeurs spéciales : 99 = cote manuelle (config.yaml),
-        #                     98 = cote fournie par Cardtrader (V27).
-        "confiance": confiance,
-    }
-    return deal, "DEAL"
-
-
-def envoyer_telegram_texte(textes: list[str], cfg_tg: dict, token: str) -> bool:
-    """Envoie des messages Telegram libres (récap quotidien, anomalies...)."""
-
-    if not textes:
-        return True
-    if not token or not str(cfg_tg.get("chat_id", "")).strip():
-        log.error("Telegram non configuré : message non envoyé")
-        return False
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
-    ok = True
-    for txt in textes:
-        try:
-            r = requests.post(
-                url,
-                json={"chat_id": str(cfg_tg["chat_id"]), "text": txt, "parse_mode": "HTML"},
-                timeout=20,
-            )
-            if r.status_code != 200:
-                log.error("Telegram a refusé le message (%s)", r.status_code)
-                ok = False
-        except Exception as e:  # noqa: BLE001
-            log.error("Échec message Telegram : %s", e)
-            ok = False
-    return ok
-
-
-def _echapper_html(texte) -> str:
-    """Échappe les caractères spéciaux HTML (< > &) avant insertion dans un
-    message Telegram en parse_mode HTML. Sans ça, un titre d'annonce
-    contenant '<', '>' ou '&' casse le formatage et Telegram REFUSE le
-    message (alerte perdue). On échappe uniquement les 3 caractères
-    réservés, dans le bon ordre (& en premier)."""
-    s = str(texte)
-    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-
-
-def _texte_vente(v: dict) -> str:
-    return (
-        f"💰 <b>C'EST LE MOMENT DE VENDRE !</b>\n"
-        f"🎴 <b>{_echapper_html(v['nom'])}</b>\n"
-        f"🛒 Acheté : {v['prix_achat']:.2f}€\n"
-        f"📈 Cote actuelle : <b>{v['cote']:.2f}€</b> (x{v['multiple']})\n"
-        f"✅ Gain net estimé après frais : <b>+{v['gain_net_estime']:.2f}€</b>"
-    )
-
-
-def envoyer_telegram_ventes(ventes: list[dict], cfg_tg: dict, token: str) -> bool:
-    """Alertes de revente (stock ayant atteint l'objectif) sur Telegram."""
-
-    if not ventes:
-        return True
-    if not token or not str(cfg_tg.get("chat_id", "")).strip():
-        log.error("Telegram non configuré : alerte de vente non envoyée")
-        return False
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
-    ok = True
-    for v in ventes:
-        try:
-            r = requests.post(
-                url,
-                json={"chat_id": str(cfg_tg["chat_id"]), "text": _texte_vente(v), "parse_mode": "HTML"},
-                timeout=20,
-            )
-            if r.status_code != 200:
-                log.error("Telegram a refusé l'alerte vente (%s)", r.status_code)
-                ok = False
-        except Exception as e:  # noqa: BLE001
-            log.error("Échec alerte vente Telegram : %s", e)
-            ok = False
-    return ok
-
-
-def _texte_telegram(d: dict) -> str:
-    return (
-        f"🔥 <b>{_echapper_html(d['titre'])}</b>\n"
-        f"🛒 {_echapper_html(d['plateforme'])} — <b>{d['prix']:.2f}€</b> + {d['port']:.2f}€ port = <b>{d['total']:.2f}€</b>\n"
-        f"📊 Cote : {d['cote']:.2f}€ (<b>-{d['decote_pct']}%</b>)\n"
-        f"💶 Revente conseillée : {d['prix_revente_conseille']:.2f}€\n"
-        f"✅ Profit net estimé : <b>+{d['profit_net_estime']:.2f}€</b>\n"
-        f"👉 <a href=\"{d['url']}\">Voir l'annonce</a>"
-    )
-
-
-def envoyer_telegram(deals: list[dict], cfg_tg: dict, token: str) -> bool:
-    """Envoie une notification Telegram par deal (instantané)."""
-
-    if not deals:
-        return True
-    if not token:
-        log.error("TELEGRAM_BOT_TOKEN manquant : notification Telegram impossible")
-        return False
-    chat_id = str(cfg_tg.get("chat_id", "")).strip()
-    if not chat_id:
-        log.error("telegram.chat_id manquant dans config.yaml")
-        return False
-
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
-    ok = True
-    for d in deals:
-        try:
-            r = requests.post(
-                url,
-                json={
-                    "chat_id": chat_id,
-                    "text": _texte_telegram(d),
-                    "parse_mode": "HTML",
-                    "disable_web_page_preview": False,
-                },
-                timeout=20,
-            )
-            if r.status_code != 200:
-                log.error("Telegram a refusé le message (%s) : %s", r.status_code, r.text[:200])
-                ok = False
-        except Exception as e:  # noqa: BLE001
-            log.error("Échec envoi Telegram : %s", e)
-            ok = False
-    if ok:
-        log.info("Telegram : %d notification(s) envoyée(s)", len(deals))
-    return ok
-
-
-def _html_deal(d: dict) -> str:
-    return f"""
-    <div style="border:1px solid #ddd;border-radius:8px;padding:14px;margin:10px 0;font-family:Arial">
-      <h3 style="margin:0 0 6px">🔥 {d['titre']}</h3>
-      <p style="margin:4px 0">
-        <b>Plateforme :</b> {d['plateforme']}<br>
-        <b>Prix :</b> {d['prix']:.2f}€ + {d['port']:.2f}€ de port = <b>{d['total']:.2f}€</b><br>
-        <b>Cote estimée :</b> {d['cote']:.2f}€ &nbsp;(<b style="color:green">-{d['decote_pct']}%</b>)<br>
-        <b>Prix de revente conseillé :</b> {d['prix_revente_conseille']:.2f}€<br>
-        <b>Profit net estimé :</b> <b style="color:green">+{d['profit_net_estime']:.2f}€</b>
-      </p>
-      <a href="{d['url']}" style="display:inline-block;background:#1a73e8;color:#fff;
-         padding:8px 16px;border-radius:6px;text-decoration:none">Voir l'annonce ➜</a>
-    </div>"""
-
-
-def envoyer_alertes(deals: list[dict], cfg_email: dict, mot_de_passe: str) -> bool:
-    if not deals:
-        return True
-    if not mot_de_passe:
-        log.error("GMAIL_APP_PASSWORD manquant : impossible d'envoyer le mail")
-        return False
-
-    corps = "".join(_html_deal(d) for d in deals)
-    html = f"""<html><body style="font-family:Arial">
-      <h2>💰 PokéDeals — {len(deals)} affaire(s) détectée(s)</h2>
-      {corps}
-      <p style="color:#888;font-size:12px">Vérifie toujours les photos et la description
-      avant d'acheter : le bot ne voit que le texte de l'annonce.</p>
-    </body></html>"""
-
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = f"🔥 PokéDeals : {len(deals)} bonne(s) affaire(s) !"
-    msg["From"] = cfg_email["expediteur"]
-    msg["To"] = cfg_email["destinataire"]
-    msg.attach(MIMEText(html, "html", "utf-8"))
-
-    try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as srv:
-            srv.login(cfg_email["expediteur"], mot_de_passe)
-            srv.send_message(msg)
-        log.info("Email envoyé (%d deals)", len(deals))
-        return True
-    except Exception as e:  # noqa: BLE001
-        log.error("Échec de l'envoi du mail : %s", e)
-        return False
-
-
-RAPPEL_JOURS = 7  # ne pas re-alerter la même carte avant 7 jours
-
-
-def verifier_stock(cfg: dict, secrets: dict, vues: dict) -> list[dict]:
-    """Retourne la liste des alertes de vente à envoyer."""
-    achats = cfg.get("mes_achats") or []
-    if not achats:
-        return []
-
-    multiplicateur = float(cfg["regles"].get("multiplicateur_revente", 2.0))
-    frais = float(cfg["regles"].get("frais_revente_estimes", 0.13))
-    alertes = []
-
-    for achat in achats:
-        nom = achat.get("nom")
-        prix_achat = achat.get("prix_achat")
-        if not nom or not prix_achat:
-            log.warning("Entrée mes_achats incomplète ignorée : %s", achat)
-            continue
-        prix_achat = float(prix_achat)
-
-        # Cote actuelle : manuelle si fournie, sinon eBay (recherche + lissage)
-        annonces_ebay = []
-        if not achat.get("cote"):
-            annonces_ebay = ebay_rechercher(nom, achat.get("langue", "fr"), secrets, 40, cfg["regles"], achat.get("alias", ""))
-        cote, _ = obtenir_cote(achat, annonces_ebay, cfg)
-        if not cote:
-            log.info("Stock '%s' : cote introuvable, on réessaiera au prochain scan", nom)
-            continue
-
-        seuil = prix_achat * multiplicateur
-        if cote < seuil:
-            log.info("Stock '%s' : cote %.2f€ / objectif %.2f€ (x%.1f de %.2f€)",
-                     nom, cote, seuil, multiplicateur, prix_achat)
-            continue
-
-        # Anti-spam : une alerte par carte par semaine maximum
-        cle = f"vente-{nom}"
-        derniere = vues.get(cle, {}).get("ts", 0)
-        if time.time() - derniere < RAPPEL_JOURS * 86400:
-            continue
-        vues[cle] = {"ts": time.time()}
-
-        gain_net = cote * (1 - frais) - prix_achat
-        alertes.append(
-            {
-                "nom": nom,
-                "prix_achat": round(prix_achat, 2),
-                "cote": round(cote, 2),
-                "multiple": round(cote / prix_achat, 2),
-                "gain_net_estime": round(gain_net, 2),
-            }
-        )
-        log.info("  💰 ALERTE VENTE : %s — cote %.2f€ = x%.2f ton prix d'achat",
-                 nom, cote, cote / prix_achat)
-
-    return alertes
-
-
-RACINE = os.path.dirname(os.path.abspath(__file__))
-FICHIER_STATS = os.path.join(RACINE, "data", "stats.json")
-FICHIER_CSV = os.path.join(RACINE, "data", "deals.csv")
-PARIS = ZoneInfo("Europe/Paris")
-
-COLONNES_CSV = ["date", "carte", "plateforme", "titre", "prix", "port", "total",
-                "cote", "tendance_cote", "decote_pct", "prix_revente_conseille", "profit_net_estime",
-                "vendeur_nom", "vendeur_note", "url"]
-
-
-# ------------------------- STATS QUOTIDIENNES -------------------------
-
-def _charger_stats() -> dict:
-    if not os.path.exists(FICHIER_STATS):
-        return {}
-    try:
-        with open(FICHIER_STATS, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (json.JSONDecodeError, OSError):
-        return {}
-
-
-def enregistrer_scan(nb_annonces: int, deals: list[dict]) -> None:
-    """Ajoute les chiffres du scan courant aux stats du jour (garde 30 jours)."""
-    stats = _charger_stats()
-    jour = datetime.now(PARIS).strftime("%Y-%m-%d")
-    s = stats.get(jour, {"scans": 0, "annonces": 0, "deals": 0, "profit_potentiel": 0.0})
-    s["scans"] += 1
-    s["annonces"] += nb_annonces
-    s["deals"] += len(deals)
-    s["profit_potentiel"] = round(s["profit_potentiel"] + sum(d["profit_net_estime"] for d in deals), 2)
-    stats[jour] = s
-    stats = dict(sorted(stats.items())[-30:])  # 30 derniers jours
-    os.makedirs(os.path.dirname(FICHIER_STATS), exist_ok=True)
-    with open(FICHIER_STATS, "w", encoding="utf-8") as f:
-        json.dump(stats, f, ensure_ascii=False, indent=1)
-
-
-# ------------------------------ CSV -----------------------------------
-
-def calculer_tendance_cote(nom_carte: str, langue: str = "fr") -> str:
-    """Compare la cote actuelle avec celle d'hier pour déterminer la tendance."""
-    h = historique()
-    cle = cle_cote(nom_carte, langue)
-    if cle not in h or len(h[cle]) < 2:
-        return "="  # pas assez de données
-
-    cotes = [e["cote"] for e in h[cle]]
-    if len(cotes) < 2:
-        return "="
-
-    cote_aujourd = cotes[-1]
-    cote_hier = cotes[0] if len(cotes) >= 2 else cote_aujourd
-
-    if cote_aujourd > cote_hier * 1.05:  # +5% = hausse
-        return "↗️"
-    elif cote_aujourd < cote_hier * 0.95:  # -5% = baisse
-        return "↘️"
-    else:
-        return "="
-
-
-def exporter_csv(deals: list[dict]) -> None:
-    """Ajoute chaque deal détecté à data/deals.csv (créé au premier deal)."""
-    if not deals:
-        return
-    nouveau = not os.path.exists(FICHIER_CSV)
-    os.makedirs(os.path.dirname(FICHIER_CSV), exist_ok=True)
-    with open(FICHIER_CSV, "a", newline="", encoding="utf-8") as f:
-        w = csv.writer(f, delimiter=";")
-        if nouveau:
-            w.writerow(COLONNES_CSV)
-        maintenant = datetime.now(PARIS).strftime("%Y-%m-%d %H:%M")
-        for d in deals:
-            tendance = calculer_tendance_cote(d.get("carte", ""), d.get("langue", "fr"))
-            w.writerow([maintenant, d.get("carte", ""), d["plateforme"], d["titre"],
-                        d["prix"], d["port"], d["total"], d["cote"], tendance, d["decote_pct"],
-                        d["prix_revente_conseille"], d["profit_net_estime"],
-                        d.get("vendeur_nom", "?"), f"{d.get('vendeur_pct', 100):.0f}%", d["url"]])
-    log.info("CSV : %d deal(s) ajouté(s) à data/deals.csv", len(deals))
-
-
-# --------------------------- ANOMALIES --------------------------------
-
-def detecter_anomalies(cfg: dict, vues: dict) -> list[str]:
-    """Compare la cote la plus récente à la plus ancienne de l'historique.
-
-    Retourne une liste de messages Telegram (HTML) à envoyer.
-    """
-    seuil_chute = float(cfg.get("anomalies", {}).get("seuil_chute", 0.30))
-    seuil_hausse = float(cfg.get("anomalies", {}).get("seuil_hausse", 0.50))
-    messages = []
-
-    for cle, entrees in historique().items():
-        if len(entrees) < 3:
-            continue  # pas assez de recul
-        # V26 : la clé vaut « Nom|langue » — on l'affiche proprement.
-        nom_seul, _, lg = cle.partition("|")
-        nom = f"{nom_seul} ({lg.upper()})" if lg else nom_seul
-        ancienne, recente = entrees[0]["cote"], entrees[-1]["cote"]
-        if ancienne <= 0:
-            continue
-        variation = (recente - ancienne) / ancienne
-
-        alerte = None
-        if variation <= -seuil_chute:
-            alerte = (f"⚠️ <b>COTE EN CHUTE</b> : {nom}\n"
-                      f"📉 {ancienne:.2f}€ → {recente:.2f}€ ({variation * 100:+.0f}%)\n"
-                      f"Prudence : possible vague de contrefaçons ou réimpression. "
-                      f"Vérifie avant d'acheter, et si tu l'as en stock, envisage de vendre.")
-        elif variation >= seuil_hausse:
-            alerte = (f"🚀 <b>COTE EN FORTE HAUSSE</b> : {nom}\n"
-                      f"📈 {ancienne:.2f}€ → {recente:.2f}€ ({variation * 100:+.0f}%)\n"
-                      f"La carte devient recherchée : priorité aux alertes d'achat sur celle-ci.")
-        if not alerte:
-            continue
-
-        # Anti-spam : une alerte anomalie par carte toutes les 48h
-        cle_antispam = f"anomalie-{cle}"
-        if time.time() - vues.get(cle_antispam, {}).get("ts", 0) < 48 * 3600:
-            continue
-        vues[cle_antispam] = {"ts": time.time()}
-        messages.append(alerte)
-        log.info("Anomalie détectée sur '%s' : %+.0f%%", nom, variation * 100)
-
-    return messages
-
-
-# ------------------------ RÉCAPITULATIF 21H ----------------------------
-
-def recap_du_jour(cfg: dict, vues: dict) -> str | None:
-    """Retourne le message de récap si on est dans la fenêtre d'envoi (sinon None)."""
-    heure_cible = int(cfg.get("rapport", {}).get("heure", 21))
-    if not cfg.get("rapport", {}).get("actif", True):
-        return None
-
-    maintenant = datetime.now(PARIS)
-    if maintenant.hour != heure_cible:
-        return None
-
-    jour = maintenant.strftime("%Y-%m-%d")
-    cle = f"rapport-{jour}"
-    if cle in vues:  # déjà envoyé aujourd'hui
-        return None
-    vues[cle] = {"ts": time.time()}
-
-    s = _charger_stats().get(jour, {"scans": 0, "annonces": 0, "deals": 0, "profit_potentiel": 0.0})
-
-    # Profit cumulé sur les 30 derniers jours
-    tous_stats = _charger_stats()
-    profit_cumule = sum(st.get("profit_potentiel", 0) for st in tous_stats.values())
-
-    # État du stock
-    lignes_stock = []
-    multiplicateur = float(cfg["regles"].get("multiplicateur_revente", 2.0))
-    for achat in (cfg.get("mes_achats") or []):
-        nom, prix = achat.get("nom"), achat.get("prix_achat")
-        if not nom or not prix:
-            continue
-        cote = achat.get("cote") or cote_lissee(nom, achat.get("langue", "fr"))
-        if cote:
-            progression = float(cote) / (float(prix) * multiplicateur) * 100
-            lignes_stock.append(f"  • {nom} : cote {float(cote):.0f}€ ({min(progression, 999):.0f}% de l'objectif)")
-
-    msg = (f"📊 <b>PokéDeals — Récap du {maintenant.strftime('%d/%m/%Y')}</b>\n"
-           f"🔍 {s['scans']} scans, {s['annonces']} annonces analysées\n"
-           f"🔥 {s['deals']} deal(s) détecté(s)"
-           + (f" — profit du jour : <b>{s['profit_potentiel']:.0f}€</b>" if s["deals"] else "")
-           + f"\n💎 <b>Profit cumulé (30j) : {profit_cumule:.0f}€</b>\n")
-    if lignes_stock:
-        msg += "📦 <b>Ton stock :</b>\n" + "\n".join(lignes_stock) + "\n"
-    msg += "📈 Historique complet des deals : fichier <code>data/deals.csv</code> sur ton dépôt GitHub."
-    return msg
-
-
-def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[dict]]:
-    """Interroge les 3 plateformes en parallèle. Retourne (annonces, annonces_ebay)."""
-    nom, langue = carte["nom"], carte.get("langue", "fr")
-    plateformes = cfg["plateformes"]
-
-    # Plafond de prix envoyé à Vinted pour réduire le bruit :
-    # cote lissée connue -> on ne demande que les annonces sous le seuil d'achat
-    prix_plafond = None
-    cote_connue = carte.get("cote") or cote_lissee(nom, langue)
-    if cote_connue:
-        prix_plafond = round(float(cote_connue) * (1 - cfg["regles"]["marge_achat"]), 2)
-
-    taches = {}
-    with ThreadPoolExecutor(max_workers=3) as pool:
-        if plateformes.get("ebay"):
-            taches["ebay"] = pool.submit(ebay_rechercher, nom, langue, secrets, 40, cfg["regles"], carte.get("alias", ""))
-        if plateformes.get("vinted"):
-            taches["vinted"] = pool.submit(vinted_rechercher, nom, langue, 30, prix_plafond)
-        if plateformes.get("leboncoin"):
-            taches["leboncoin"] = pool.submit(lbc_rechercher, nom, langue)
-
-    resultats = {}
-    for cle, fut in taches.items():
-        try:
-            resultats[cle] = fut.result(timeout=60)
-        except Exception as e:  # noqa: BLE001
-            log.warning("Plateforme %s en erreur pour '%s' : %s", cle, nom, e)
-            resultats[cle] = []
-
-    annonces_ebay = resultats.get("ebay", [])
-    annonces = annonces_ebay + resultats.get("vinted", []) + resultats.get("leboncoin", [])
-    # On attache la carte, sa langue et son alias à chaque annonce (filtres)
-    for a in annonces:
-        a["carte"] = nom
-        a["langue"] = langue
-        a["alias"] = carte.get("alias", "")
-    return annonces, annonces_ebay
-
-
-def main() -> int:
-    debut = time.time()
-    cfg = charger_config()
-    _ct_charger_cache()  # V22 : cache Cardtrader (blueprints + prix du jour)
-    secrets = secrets_env()
-    _cfg_api = cfg.get("api_cotes", {})
-    _ct_cfg.update(_cfg_api)  # V24 : accessible aux fonctions de recherche
-    if _cfg_api.get("actif"):
-        log.info("Cardtrader : ACTIF (mode %s) — token %s",
-                 _cfg_api.get("mode", "observation"),
-                 "présent ✓" if secrets.get("CARDTRADER_TOKEN") else "ABSENT ✗ (secret GitHub manquant)")
-    else:
-        log.info("Cardtrader : désactivé (api_cotes.actif = false dans config.yaml)")
-    vues = charger_vues()
-
-    nouveaux_deals: list[dict] = []
-    total_annonces = 0
-
-    for carte in cfg["watchlist"]:
-        nom = carte["nom"]
-        log.info("=== %s (%s) ===", nom, carte.get("langue", "fr").upper())
-
-        annonces, annonces_ebay = collecter(carte, cfg, secrets)
-        total_annonces += len(annonces)
-
-        cote, confiance = obtenir_cote(carte, annonces_ebay, cfg)
-
-        # V22 : cote Cardtrader (marché européen, prix réels par langue).
-        # mode "observation" = affiché seulement ; "actif" = remplace la cote.
-        cfg_api = cfg.get("api_cotes", {})
-        if cfg_api.get("actif"):
-            nb_bas = int(cfg_api.get("nb_prix_bas", 5))
-            min_ann = int(cfg_api.get("min_annonces", 3))
-            prix_ct = cardtrader_prix(carte, secrets.get("CARDTRADER_TOKEN", ""), nb_bas, min_ann)
-            if prix_ct is not None:
-                # V22.7 GARDE-FOU 4 : vérification croisée avec la cote eBay.
-                # Si les deux existent et s'écartent d'un facteur 5+, l'une
-                # des deux est fausse (mauvaise correspondance de carte,
-                # cf. Méga-Dracaufeu X trouvé à 3€ contre 1199€ eBay) : on
-                # n'utilise PAS le prix Cardtrader et on le signale.
-                suspect = bool(cote) and (prix_ct > cote * 5 or prix_ct < cote / 5)
-                motif = f"cote eBay {cote:.2f}€" if suspect else ""
-                # V24 GARDE-FOU 5 : cohérence ENTRE LANGUES. Indispensable
-                # pour les cartes SANS cote eBay, que le garde-fou 4 ne peut
-                # pas protéger (cf. Mew ex 208 sv2a : 51€ en JP, 5020€ en KR
-                # alors qu'il s'achète à moins de 30€ sur Cardmarket).
-                if not suspect:
-                    facteur_lg = float(cfg_api.get("facteur_langues", 5))
-                    suspect, motif = _ct_incoherent_entre_langues(carte, prix_ct, facteur_lg)
-                if suspect:
-                    log.warning("    [Cardtrader ⚠️] %s : prix %.2f€ INCOHÉRENT (%s) "
-                                "-> Cardtrader ignoré pour cette carte",
-                                nom, prix_ct, motif)
-                else:
-                    _ct_memoriser_prix(carte, prix_ct)
-                    log.info("    [Cardtrader %s] %s ≈ %.2f€  (moyenne des %d plus bas)  —  cote eBay : %s",
-                             carte.get("langue", "fr").upper(), nom, prix_ct, nb_bas,
-                             f"{cote:.2f}€" if cote else "aucune")
-                    # V23 : mémoriser l'écart pour calibrer les cartes que
-                    # Cardtrader ne couvre pas.
-                    _calibration_ajouter(cote or 0, prix_ct)
-
-                    # V27 : APPLICATION du prix Cardtrader selon le mode.
-                    # Jusqu'ici, seul le mode "actif" était implémenté : un
-                    # config.yaml réglé sur "secours" ne faisait donc RIEN,
-                    # et les prix Cardtrader étaient calculés puis jetés.
-                    # Conséquence : ~24 cartes (toute la passe coréenne, plus
-                    # une dizaine de japonaises) n'avaient AUCUNE cote et
-                    # étaient invisibles pour le bot, alors que Cardtrader
-                    # connaissait leur prix.
-                    #
-                    #   observation : le prix est seulement affiché
-                    #   secours     : utilisé UNIQUEMENT si eBay n'a rien
-                    #   actif       : remplace systématiquement la cote eBay
-                    #
-                    # La cote MANUELLE (config.yaml) reste prioritaire dans
-                    # tous les cas.
-                    mode_ct = str(cfg_api.get("mode", "observation")).lower()
-                    if carte.get("cote"):
-                        pass  # cote manuelle : on ne touche à rien
-                    elif mode_ct == "actif" or (mode_ct == "secours" and cote is None):
-                        origine = "eBay muet" if cote is None else f"remplace {cote:.2f}€ eBay"
-                        cote, confiance = round(prix_ct, 2), 98
-                        log.info("    [Cardtrader -> COTE] %s (%s) : cote fixée à %.2f€ "
-                                 "par Cardtrader (mode %s, %s)",
-                                 nom, carte.get("langue", "fr").upper(), cote,
-                                 mode_ct, origine)
-        if cote:
-            log.info("Cote retenue : %.2f€ (confiance : %s annonces) — %d annonces analysées",
-                     cote, confiance, len(annonces))
-
-        for annonce in annonces:
-            marge_carte = carte.get("marge_achat")  # override par carte si présent
-            deal, status = evaluate(annonce, cote, cfg, confiance, marge_carte)
-            if deal is None:
-                continue
-            if deja_vue(vues, deal["id"]):
-                continue
-            # V25 : CONTRÔLE FINAL DE LANGUE sur les annonces Vinted.
-            # Le titre seul ne suffit pas (cf. vinted_description) : on va
-            # chercher la description de la fiche et on repasse le filtre.
-            # Ne concerne que les rares annonces sur le point d'alerter.
-            if str(deal.get("id", "")).startswith("vinted-"):
-                desc = vinted_description(str(deal["id"]).replace("vinted-", "", 1))
-                texte_annonce = f"{deal.get('titre', '')} {desc}".strip()
-                if desc:
-                    ok_lg, motif = annonce_pertinente(
-                        texte_annonce, carte["nom"],
-                        carte.get("langue", "fr"), carte.get("alias", ""))
-                    # On ne rejette QUE sur un motif de LANGUE. Les autres
-                    # exclusions (lot, bundle...) ne doivent pas s'appliquer
-                    # à la description : un vendeur qui écrit « merci de
-                    # privilégier l'achat par lot » vend bien une carte seule,
-                    # et son annonce serait écartée à tort.
-                    if not ok_lg and ("étrangère" in motif or "langue" in motif):
-                        log.info("  ✗ Écarté après lecture de la description : %s (%s)",
-                                 deal["titre"][:50], motif)
-                        marquer(vues, deal["id"])  # ne pas re-tester à chaque scan
-                        continue
-
-                # V26 : preuve positive de français. Cartes FR uniquement —
-                # les cartes JP/KR/CN gardent leur filtre habituel.
-                if carte.get("langue", "fr") in (None, "", "fr"):
-                    neutre = _nom_neutre_entre_langues(carte["nom"])
-                    t_norm = normaliser(texte_annonce)
-                    mots_fr = [m for m in mots_requis(carte["nom"]) if m != "mega"]
-                    nom_fr = mots_fr[0] if mots_fr else ""
-
-                    # (a) Le nom FRANÇAIS doit figurer en toutes lettres.
-                    #     Un titre bilingue « Dracaufeu / Charizard » le
-                    #     contient : il PASSE — c'est même une preuve de
-                    #     français, un vendeur italien n'écrit jamais
-                    #     « Dracaufeu ». Ce qu'on écarte ici, c'est
-                    #     uniquement l'annonce qui n'a passé le filtre que
-                    #     par son ALIAS anglais, sans jamais nommer la
-                    #     carte en français.
-                    if not neutre and nom_fr and nom_fr not in t_norm:
-                        log.info("  ✗ Écarté : nom français '%s' absent de l'annonce "
-                                 "(reconnue via l'alias seul) — %s",
-                                 nom_fr, deal["titre"][:50])
-                        marquer(vues, deal["id"])
-                        continue
-
-                    # (b) Nom neutre (Mew, Pikachu, Lucario...) : le nom ne
-                    #     prouve rien, on exige un mot français — MAIS
-                    #     seulement si on a pu LIRE la description. Une
-                    #     description absente (429, session expirée, fiche
-                    #     supprimée) est un incident réseau, pas une preuve
-                    #     d'annonce étrangère : sans le `desc and`, on
-                    #     écarterait de vraies annonces françaises pour une
-                    #     panne, et en les marquant vues, définitivement.
-                    if neutre and desc and not preuve_francais(texte_annonce):
-                        log.info("  ✗ Écarté : nom de Pokémon identique dans toutes "
-                                 "les langues et aucun mot français dans l'annonce "
-                                 "— %s", deal["titre"][:50])
-                        marquer(vues, deal["id"])
-                        continue
-            log.info("  ✓ DEAL : %s à %.2f€ (cote %.2f€)", deal["titre"][:60], deal["total"], cote)
-            nouveaux_deals.append(deal)
-            marquer(vues, deal["id"])
-
-        # Pause aléatoire courte entre les cartes (anti-détection Vinted).
-        # V20 : réduite de 1,5-3,5s à 0,6-1,4s — sur 120 cartes, l'ancienne
-        # pause représentait ~5 min de pure attente (la moitié du scan !).
-        # La pause courte garde la protection anti-bot tout en divisant ce
-        # coût par 2,5. eBay (API officielle) n'a pas besoin de pause.
-        time.sleep(random.uniform(0.6, 1.4))
-
-    # --- Suivi du stock : alertes de REVENTE (cote >= 2x prix d'achat) ---
-    # Annonces reçues par email d'alerte Leboncoin (contourne le blocage DataDome)
-    for annonce in lbc_relever_alertes_email(cfg, secrets):
-        for carte in cfg["watchlist"]:
-            pertinent, _ = annonce_pertinente(annonce["titre"], carte["nom"],
-                                              carte.get("langue", "fr"), carte.get("alias", ""))
-            if not pertinent:
-                continue
-            annonce["carte"] = carte["nom"]
-            annonce["langue"] = carte.get("langue", "fr")
-            annonce["alias"] = carte.get("alias", "")
-            cote_carte = carte.get("cote") or cote_lissee(carte["nom"], carte.get("langue", "fr"))
-            if not cote_carte:
-                break
-            deal, _statut = evaluate(annonce, float(cote_carte), cfg, 0, carte.get("marge_achat"))
-            if deal and not deja_vue(vues, deal["id"]):
-                log.info("  ✓ DEAL (email LBC) : %s à %.2f€ (cote %.2f€)",
-                         deal["titre"][:60], deal["total"], float(cote_carte))
-                nouveaux_deals.append(deal)
-                marquer(vues, deal["id"])
-            break
-
-    alertes_vente = verifier_stock(cfg, secrets, vues)
-    _ct_sauver_cache()  # V22 : persistance du cache Cardtrader
-
-    # Tri : les affaires les plus rentables en premier
-    nouveaux_deals.sort(key=lambda d: d["profit_net_estime"], reverse=True)
-
-    # V23 : bilan de calibration. Affiche l'écart RÉEL mesuré entre les cotes
-    # eBay et les prix Cardtrader sur les cartes couvertes par les deux
-    # sources. C'est ce coefficient qui pourra corriger automatiquement les
-    # cartes que Cardtrader ne couvre pas (mode observation pour l'instant).
-    _coef_mesure = _calibration_coefficient()
-    if _coef_mesure is not None:
-        log.info("Calibration eBay -> marché réel : coefficient %.3f "
-                 "(mesuré sur %d cartes ayant les deux sources). "
-                 "Une cote eBay de 100€ vaudrait donc ~%.0f€ au prix réel.",
-                 _coef_mesure, len(_calibration_paires), 100 * _coef_mesure)
-    elif _calibration_paires:
-        log.info("Calibration : seulement %d mesure(s) eBay/Cardtrader "
-                 "(5 minimum pour un coefficient fiable)", len(_calibration_paires))
-
-    log.info("Analyse terminée en %.0fs : %d annonces, %d nouveau(x) deal(s), %d alerte(s) de vente",
-             time.time() - debut, total_annonces, len(nouveaux_deals), len(alertes_vente))
-
-    notif = cfg.get("notifications", {"telegram": True, "email": True})
-    if nouveaux_deals:
-        if notif.get("telegram") and "telegram" in cfg:
-            envoyer_telegram(nouveaux_deals, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
-        if notif.get("email") and "email" in cfg:
-            envoyer_alertes(nouveaux_deals, cfg["email"], secrets["GMAIL_APP_PASSWORD"])
-    if alertes_vente and notif.get("telegram") and "telegram" in cfg:
-        envoyer_telegram_ventes(alertes_vente, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
-
-    # --- Stats du jour + export CSV de l'historique des deals ---
-    enregistrer_scan(total_annonces, nouveaux_deals)
-    exporter_csv(nouveaux_deals)
-
-    # --- Détection d'anomalies de cote (chute >=30% / hausse >=50%) ---
-    anomalies = detecter_anomalies(cfg, vues)
-    if anomalies and notif.get("telegram") and "telegram" in cfg:
-        envoyer_telegram_texte(anomalies, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
-
-    # --- Récapitulatif quotidien (envoyé une fois, vers 21h heure de Paris) ---
-    recap = recap_du_jour(cfg, vues)
-    if recap and notif.get("telegram") and "telegram" in cfg:
-        envoyer_telegram_texte([recap], cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
-
-    sauvegarder_vues(vues)
-    sauvegarder_historique()
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
+        "cote": round(cote,
