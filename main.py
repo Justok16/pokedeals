@@ -1010,7 +1010,7 @@ CT_JEU_POKEMON = 5           # id du jeu Pokémon chez Cardtrader
 CT_CACHE_FICHIER = os.path.join(RACINE, "data", "cardtrader.json")
 CT_CACHE_PRIX_DUREE = 20 * 3600      # prix trouvé : 1 rafraîchissement/jour
 CT_CACHE_ECHEC_DUREE = 2 * 3600      # échec : on retente au bout de 2 h
-CT_CACHE_VERSION = 4                 # incrémenter pour purger le cache
+CT_CACHE_VERSION = 5                 # V31 : purge forcée pour déclencher le diagnostic d'extension
 CT_CACHE_BLUEPRINT_DUREE = 30 * 86400  # blueprint_id : quasi permanent
 # Correspondance langue interne -> code langue Cardtrader
 CT_LANGUES = {"fr": "fr", "jp": "jp", "kr": "kr", "en": "en"}
