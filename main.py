@@ -21,6 +21,16 @@ V16 : langues étrangères + eBay international.
   (ex. nom "Blastoise ex 200/165" + alias "Tortank").
 - eBay international : annonces livrables en France, port plafonné
   (regles.ebay_international / frais_port_max_international).
+
+V26 : DEUX CORRECTIONS MAJEURES.
+1. Les clés de l'historique des cotes intègrent désormais la LANGUE.
+   Avant, une carte présente en JP et en KR sous le même nom partageait
+   la même cote : la passe coréenne relisait le prix japonais et
+   l'affichait comme sien, avec 0 annonce derrière. Toute annonce KR
+   était donc comparée à un prix JP — fausse alerte assurée.
+2. Preuve positive de français sur les annonces Vinted. Vinted ne
+   fournit aucun pays exploitable : une italienne au titre neutre y
+   était indiscernable d'une française et déclenchait des alertes.
 """
 from __future__ import annotations
 
@@ -305,6 +315,63 @@ def mots_requis_stricts(nom_carte: str) -> list[str]:
         if mot in TYPES_CARTE and mot not in base:
             base.append(mot)
     return base
+
+
+# =====================================================================
+# V26 : PREUVE POSITIVE DE FRANÇAIS (annonces Vinted uniquement)
+# ---------------------------------------------------------------------
+# Sur eBay, _localisation_incoherente écarte déjà TOUTE annonce non
+# localisée en France quand la carte recherchée est française —
+# italiennes comprises. Rien à ajouter de ce côté.
+#
+# Vinted, lui, ne fournit aucun pays exploitable. Le filtre habituel
+# exige le nom FRANÇAIS du Pokémon, ce qui suffit pour Dracaufeu : un
+# vendeur italien n'écrit jamais « Dracaufeu ». Mais le nom ne prouve
+# RIEN pour les Pokémon qui s'écrivent pareil dans toutes les langues :
+# Mew, Pikachu, Mewtwo, Lucario, Gardevoir, Darkrai, Morpeko, Latias,
+# Lugia, Zoroark. Un titre « Mew ex 205/165 » est compatible avec les
+# versions FR, JP, KR, IT, EN, DE et ES à la fois — elles portent toutes
+# le même numéro. C'est exactement là que les italiennes passaient.
+#
+# Le danger n'est PAS d'alerter sur une carte qui n'existe pas en
+# français : c'est de comparer une italienne à 40€ à la COTE FRANÇAISE
+# de 40€, alors que l'italienne en vaut 25.
+# =====================================================================
+MARQUEURS_FRANCAIS = (
+    "francaise", "francais", "france", "vf",
+    "neuve", "neuf", "etat", "envoi", "envoie", "livraison", "expedition",
+    "vends", "vendue", "achat", "acheteur", "merci", "bonjour",
+    "rapide", "soignee", "parfait", "jouee",
+    "prix ferme", "port compris", "port offert", "main propre",
+)
+
+
+def _nom_neutre_entre_langues(nom_carte: str) -> bool:
+    """Le nom du Pokémon s'écrit-il pareil en français et en anglais ?
+
+    'Dracaufeu ex 199/165' -> False : le nom prouve à lui seul la langue
+    'Mew ex 205/165'       -> True  : le nom ne prouve rien
+
+    Un Pokémon absent de CT_NOMS_EN est traité comme NEUTRE : mieux vaut
+    exiger une preuve inutile que laisser passer une italienne.
+    (CT_NOMS_EN est défini plus bas dans ce fichier ; Python ne résout le
+    nom qu'au moment de l'appel, donc l'ordre n'a pas d'importance.)
+    """
+    mots = [m for m in mots_requis(nom_carte) if m != "mega"]
+    if not mots:
+        return True
+    fr = mots[0]
+    en = normaliser(CT_NOMS_EN.get(fr, ""))
+    if not en:
+        return True
+    return en == fr
+
+
+def preuve_francais(texte: str) -> bool:
+    """Un mot typiquement français figure-t-il dans l'annonce ?"""
+    t = normaliser(texte)
+    jetons = t.split()
+    return any(_marqueur_present(m, t, jetons) for m in MARQUEURS_FRANCAIS)
 
 
 def _pays_ebay(plateforme: str) -> str | None:
@@ -1668,6 +1735,11 @@ def vinted_description(item_id: str) -> str:
         if r.status_code != 200:
             return ""
         item = (r.json() or {}).get("item") or {}
+        # V26 TEMPORAIRE (à retirer après 1 scan) : lister les champs
+        # disponibles. Si la fiche expose un pays / une locale du vendeur,
+        # on remplacera toute la liste MARQUEURS_FRANCAIS par un vrai
+        # filtre de localisation, comme sur eBay.
+        log.info("    [Vinted debug] champs disponibles : %s", sorted(item.keys()))
         return str(item.get("description") or "")
     except Exception:  # noqa: BLE001 — ne doit jamais casser le scan
         return ""
@@ -1741,7 +1813,7 @@ VALIDITE_JOURS = 7          # une cote de plus de 7 jours est ignorée
 # data/cotes.json ne correspond PAS à PURGE_VERSION ci-dessous, TOUT
 # l'historique est jeté au prochain scan. Pour forcer une remise à zéro
 # à l'avenir, il suffit d'incrémenter ce numéro.
-PURGE_VERSION = 19  # V20 : purge des cotes calculées sur trop peu d'annonces (marché mince)
+PURGE_VERSION = 20  # V26 : les clés d'historique intègrent la langue (fuite KR<-JP)
 # Conservé pour compatibilité de lecture des anciens fichiers (non utilisé
 # pour la purge elle-même).
 DEPLOIEMENT_TS = 1784160000  # 16/07/2026 00:00 UTC
@@ -1906,11 +1978,28 @@ def lbc_relever_alertes_email(cfg: dict, secrets: dict) -> list[dict]:
     return annonces
 
 
+# =====================================================================
+# V26 : CLÉS D'HISTORIQUE PAR LANGUE
+# ---------------------------------------------------------------------
+# LE NOM SEUL NE SUFFIT PAS. Une même carte figure dans la watchlist
+# sous le MÊME nom dans plusieurs langues (« Charizard ex 201/165 sv2a »
+# existe en JP et en KR). Avec le nom pour seule clé, la passe KR
+# relisait la cote JAPONAISE enregistrée quelques secondes plus tôt et
+# l'affichait comme sa propre cote — avec 0 annonce derrière. Une
+# annonce coréenne était donc comparée à un prix japonais : fausse
+# alerte garantie dès qu'un écart de marché existe entre les deux
+# langues (et le coréen se vend moins cher que le japonais).
+# =====================================================================
 
-def cote_lissee(nom_carte: str) -> float | None:
+def cle_cote(nom_carte: str, langue: str = "fr") -> str:
+    """Clé d'historique d'une cote : nom + langue."""
+    return f"{nom_carte}|{str(langue or 'fr').lower()}"
+
+
+def cote_lissee(nom_carte: str, langue: str = "fr") -> float | None:
     """Médiane des cotes des 7 derniers jours (l'historique est déjà purgé
     par version au chargement, donc plus besoin de borne de déploiement)."""
-    entrees = historique().get(nom_carte, [])
+    entrees = historique().get(cle_cote(nom_carte, langue), [])
     limite = time.time() - VALIDITE_JOURS * 86400
     valeurs = [e["cote"] for e in entrees if e.get("ts", 0) >= limite]
     if not valeurs:
@@ -1918,11 +2007,12 @@ def cote_lissee(nom_carte: str) -> float | None:
     return round(statistics.median(valeurs), 2)
 
 
-def enregistrer_cote(nom_carte: str, cote: float) -> None:
+def enregistrer_cote(nom_carte: str, cote: float, langue: str = "fr") -> None:
     h = historique()
-    entrees = h.get(nom_carte, [])
+    cle = cle_cote(nom_carte, langue)
+    entrees = h.get(cle, [])
     entrees.append({"cote": cote, "ts": time.time()})
-    h[nom_carte] = entrees[-HISTORIQUE_MAX:]
+    h[cle] = entrees[-HISTORIQUE_MAX:]
 
 
 def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[float | None, int]:
@@ -1936,20 +2026,27 @@ def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[flo
             log.warning("Cote manuelle invalide pour %s", carte.get("nom"))
 
     # 2) Cote du jour depuis eBay (annonces FILTRÉES), ajoutée à l'historique
+    langue = carte.get("langue", "fr")
     cote_instant, nb_pertinentes = calculer_cote(
         annonces_ebay, cfg["cote"], carte["nom"],
-        carte.get("langue", "fr"), carte.get("alias", ""))
+        langue, carte.get("alias", ""))
     if cote_instant:
-        enregistrer_cote(carte["nom"], cote_instant)
+        enregistrer_cote(carte["nom"], cote_instant, langue)
 
-    # 3) Cote lissée (médiane des derniers passages)
-    cote = cote_lissee(carte["nom"])
+    # 3) Cote lissée (médiane des derniers passages, MÊME LANGUE uniquement)
+    cote = cote_lissee(carte["nom"], langue)
     if cote is None:
         cote = cote_instant
     if cote is None:
         log.info("Cote introuvable pour '%s' (%d annonce(s) pertinente(s), minimum %s requis)",
                  carte.get("nom"), nb_pertinentes, cfg["cote"].get("minimum_annonces", 8))
         return None, 0
+    # V26 : dire clairement quand la cote vient de la MÉMOIRE et non du scan
+    # du jour. Une cote « confiance : 0 annonces » n'est plus un mystère.
+    if cote_instant is None:
+        log.info("    [cote %s (%s)] aucune annonce eBay ce scan -> cote MÉMORISÉE "
+                 "de %.2f€ réutilisée (moins de %s jours)",
+                 carte["nom"], str(langue).upper(), cote, VALIDITE_JOURS)
     return cote, nb_pertinentes
 
 
@@ -1962,8 +2059,6 @@ def _etat_ok(texte: str, acceptes: list[str], refuses: list[str]) -> bool:
     if not any(mot in t for mot in acceptes):
         return True
     return True
-
-
 
 
 def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, marge_achat: float | None = None) -> tuple[dict | None, str]:
@@ -2320,19 +2415,20 @@ def enregistrer_scan(nb_annonces: int, deals: list[dict]) -> None:
 
 # ------------------------------ CSV -----------------------------------
 
-def calculer_tendance_cote(nom_carte: str) -> str:
+def calculer_tendance_cote(nom_carte: str, langue: str = "fr") -> str:
     """Compare la cote actuelle avec celle d'hier pour déterminer la tendance."""
     h = historique()
-    if nom_carte not in h or len(h[nom_carte]) < 2:
+    cle = cle_cote(nom_carte, langue)
+    if cle not in h or len(h[cle]) < 2:
         return "="  # pas assez de données
-    
-    cotes = [e["cote"] for e in h[nom_carte]]
+
+    cotes = [e["cote"] for e in h[cle]]
     if len(cotes) < 2:
         return "="
-    
+
     cote_aujourd = cotes[-1]
     cote_hier = cotes[0] if len(cotes) >= 2 else cote_aujourd
-    
+
     if cote_aujourd > cote_hier * 1.05:  # +5% = hausse
         return "↗️"
     elif cote_aujourd < cote_hier * 0.95:  # -5% = baisse
@@ -2353,7 +2449,7 @@ def exporter_csv(deals: list[dict]) -> None:
             w.writerow(COLONNES_CSV)
         maintenant = datetime.now(PARIS).strftime("%Y-%m-%d %H:%M")
         for d in deals:
-            tendance = calculer_tendance_cote(d.get("carte", ""))
+            tendance = calculer_tendance_cote(d.get("carte", ""), d.get("langue", "fr"))
             w.writerow([maintenant, d.get("carte", ""), d["plateforme"], d["titre"],
                         d["prix"], d["port"], d["total"], d["cote"], tendance, d["decote_pct"],
                         d["prix_revente_conseille"], d["profit_net_estime"],
@@ -2372,9 +2468,12 @@ def detecter_anomalies(cfg: dict, vues: dict) -> list[str]:
     seuil_hausse = float(cfg.get("anomalies", {}).get("seuil_hausse", 0.50))
     messages = []
 
-    for nom, entrees in historique().items():
+    for cle, entrees in historique().items():
         if len(entrees) < 3:
             continue  # pas assez de recul
+        # V26 : la clé vaut « Nom|langue » — on l'affiche proprement.
+        nom_seul, _, lg = cle.partition("|")
+        nom = f"{nom_seul} ({lg.upper()})" if lg else nom_seul
         ancienne, recente = entrees[0]["cote"], entrees[-1]["cote"]
         if ancienne <= 0:
             continue
@@ -2394,10 +2493,10 @@ def detecter_anomalies(cfg: dict, vues: dict) -> list[str]:
             continue
 
         # Anti-spam : une alerte anomalie par carte toutes les 48h
-        cle = f"anomalie-{nom}"
-        if time.time() - vues.get(cle, {}).get("ts", 0) < 48 * 3600:
+        cle_antispam = f"anomalie-{cle}"
+        if time.time() - vues.get(cle_antispam, {}).get("ts", 0) < 48 * 3600:
             continue
-        vues[cle] = {"ts": time.time()}
+        vues[cle_antispam] = {"ts": time.time()}
         messages.append(alerte)
         log.info("Anomalie détectée sur '%s' : %+.0f%%", nom, variation * 100)
 
@@ -2423,7 +2522,7 @@ def recap_du_jour(cfg: dict, vues: dict) -> str | None:
     vues[cle] = {"ts": time.time()}
 
     s = _charger_stats().get(jour, {"scans": 0, "annonces": 0, "deals": 0, "profit_potentiel": 0.0})
-    
+
     # Profit cumulé sur les 30 derniers jours
     tous_stats = _charger_stats()
     profit_cumule = sum(st.get("profit_potentiel", 0) for st in tous_stats.values())
@@ -2435,7 +2534,7 @@ def recap_du_jour(cfg: dict, vues: dict) -> str | None:
         nom, prix = achat.get("nom"), achat.get("prix_achat")
         if not nom or not prix:
             continue
-        cote = achat.get("cote") or cote_lissee(nom)
+        cote = achat.get("cote") or cote_lissee(nom, achat.get("langue", "fr"))
         if cote:
             progression = float(cote) / (float(prix) * multiplicateur) * 100
             lignes_stock.append(f"  • {nom} : cote {float(cote):.0f}€ ({min(progression, 999):.0f}% de l'objectif)")
@@ -2451,8 +2550,6 @@ def recap_du_jour(cfg: dict, vues: dict) -> str | None:
     return msg
 
 
-
-
 def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[dict]]:
     """Interroge les 3 plateformes en parallèle. Retourne (annonces, annonces_ebay)."""
     nom, langue = carte["nom"], carte.get("langue", "fr")
@@ -2461,7 +2558,7 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
     # Plafond de prix envoyé à Vinted pour réduire le bruit :
     # cote lissée connue -> on ne demande que les annonces sous le seuil d'achat
     prix_plafond = None
-    cote_connue = carte.get("cote") or cote_lissee(nom)
+    cote_connue = carte.get("cote") or cote_lissee(nom, langue)
     if cote_connue:
         prix_plafond = round(float(cote_connue) * (1 - cfg["regles"]["marge_achat"]), 2)
 
@@ -2573,9 +2670,10 @@ def main() -> int:
             # Ne concerne que les rares annonces sur le point d'alerter.
             if str(deal.get("id", "")).startswith("vinted-"):
                 desc = vinted_description(str(deal["id"]).replace("vinted-", "", 1))
+                texte_annonce = f"{deal.get('titre', '')} {desc}".strip()
                 if desc:
                     ok_lg, motif = annonce_pertinente(
-                        f"{deal.get('titre', '')} {desc}", carte["nom"],
+                        texte_annonce, carte["nom"],
                         carte.get("langue", "fr"), carte.get("alias", ""))
                     # On ne rejette QUE sur un motif de LANGUE. Les autres
                     # exclusions (lot, bundle...) ne doivent pas s'appliquer
@@ -2586,6 +2684,44 @@ def main() -> int:
                         log.info("  ✗ Écarté après lecture de la description : %s (%s)",
                                  deal["titre"][:50], motif)
                         marquer(vues, deal["id"])  # ne pas re-tester à chaque scan
+                        continue
+
+                # V26 : preuve positive de français. Cartes FR uniquement —
+                # les cartes JP/KR/CN gardent leur filtre habituel.
+                if carte.get("langue", "fr") in (None, "", "fr"):
+                    neutre = _nom_neutre_entre_langues(carte["nom"])
+                    t_norm = normaliser(texte_annonce)
+                    mots_fr = [m for m in mots_requis(carte["nom"]) if m != "mega"]
+                    nom_fr = mots_fr[0] if mots_fr else ""
+
+                    # (a) Le nom FRANÇAIS doit figurer en toutes lettres.
+                    #     Un titre bilingue « Dracaufeu / Charizard » le
+                    #     contient : il PASSE — c'est même une preuve de
+                    #     français, un vendeur italien n'écrit jamais
+                    #     « Dracaufeu ». Ce qu'on écarte ici, c'est
+                    #     uniquement l'annonce qui n'a passé le filtre que
+                    #     par son ALIAS anglais, sans jamais nommer la
+                    #     carte en français.
+                    if not neutre and nom_fr and nom_fr not in t_norm:
+                        log.info("  ✗ Écarté : nom français '%s' absent de l'annonce "
+                                 "(reconnue via l'alias seul) — %s",
+                                 nom_fr, deal["titre"][:50])
+                        marquer(vues, deal["id"])
+                        continue
+
+                    # (b) Nom neutre (Mew, Pikachu, Lucario...) : le nom ne
+                    #     prouve rien, on exige un mot français — MAIS
+                    #     seulement si on a pu LIRE la description. Une
+                    #     description absente (429, session expirée, fiche
+                    #     supprimée) est un incident réseau, pas une preuve
+                    #     d'annonce étrangère : sans le `desc and`, on
+                    #     écarterait de vraies annonces françaises pour une
+                    #     panne, et en les marquant vues, définitivement.
+                    if neutre and desc and not preuve_francais(texte_annonce):
+                        log.info("  ✗ Écarté : nom de Pokémon identique dans toutes "
+                                 "les langues et aucun mot français dans l'annonce "
+                                 "— %s", deal["titre"][:50])
+                        marquer(vues, deal["id"])
                         continue
             log.info("  ✓ DEAL : %s à %.2f€ (cote %.2f€)", deal["titre"][:60], deal["total"], cote)
             nouveaux_deals.append(deal)
@@ -2609,7 +2745,7 @@ def main() -> int:
             annonce["carte"] = carte["nom"]
             annonce["langue"] = carte.get("langue", "fr")
             annonce["alias"] = carte.get("alias", "")
-            cote_carte = carte.get("cote") or cote_lissee(carte["nom"])
+            cote_carte = carte.get("cote") or cote_lissee(carte["nom"], carte.get("langue", "fr"))
             if not cote_carte:
                 break
             deal, _statut = evaluate(annonce, float(cote_carte), cfg, 0, carte.get("marge_achat"))
