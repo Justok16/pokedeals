@@ -2142,7 +2142,10 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
         "decote_pct": round((1 - total / cote) * 100, 1),
         "prix_revente_conseille": round(prix_revente, 2),
         "profit_net_estime": round(profit_net, 2),
-        "confiance": confiance,  # nb d'annonces eBay derrière la cote (99 = cote manuelle)
+        # nb d'annonces eBay derrière la cote.
+        # Valeurs spéciales : 99 = cote manuelle (config.yaml),
+        #                     98 = cote fournie par Cardtrader (V27).
+        "confiance": confiance,
     }
     return deal, "DEAL"
 
@@ -2650,9 +2653,32 @@ def main() -> int:
                     # V23 : mémoriser l'écart pour calibrer les cartes que
                     # Cardtrader ne couvre pas.
                     _calibration_ajouter(cote or 0, prix_ct)
-                    if cfg_api.get("mode") == "actif" and not carte.get("cote"):
-                        # Remplace la cote eBay (la cote MANUELLE reste prioritaire).
-                        cote, confiance = round(prix_ct, 2), 99
+
+                    # V27 : APPLICATION du prix Cardtrader selon le mode.
+                    # Jusqu'ici, seul le mode "actif" était implémenté : un
+                    # config.yaml réglé sur "secours" ne faisait donc RIEN,
+                    # et les prix Cardtrader étaient calculés puis jetés.
+                    # Conséquence : ~24 cartes (toute la passe coréenne, plus
+                    # une dizaine de japonaises) n'avaient AUCUNE cote et
+                    # étaient invisibles pour le bot, alors que Cardtrader
+                    # connaissait leur prix.
+                    #
+                    #   observation : le prix est seulement affiché
+                    #   secours     : utilisé UNIQUEMENT si eBay n'a rien
+                    #   actif       : remplace systématiquement la cote eBay
+                    #
+                    # La cote MANUELLE (config.yaml) reste prioritaire dans
+                    # tous les cas.
+                    mode_ct = str(cfg_api.get("mode", "observation")).lower()
+                    if carte.get("cote"):
+                        pass  # cote manuelle : on ne touche à rien
+                    elif mode_ct == "actif" or (mode_ct == "secours" and cote is None):
+                        origine = "eBay muet" if cote is None else f"remplace {cote:.2f}€ eBay"
+                        cote, confiance = round(prix_ct, 2), 98
+                        log.info("    [Cardtrader -> COTE] %s (%s) : cote fixée à %.2f€ "
+                                 "par Cardtrader (mode %s, %s)",
+                                 nom, carte.get("langue", "fr").upper(), cote,
+                                 mode_ct, origine)
         if cote:
             log.info("Cote retenue : %.2f€ (confiance : %s annonces) — %d annonces analysées",
                      cote, confiance, len(annonces))
