@@ -1283,6 +1283,7 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
             repli = True
 
     blueprint_id = None
+    nom_exp_trouve = ""   # V31 : extension retenue, pour diagnostic
     diag = f"set inconnu pour /{denom}" if not candidats_exp else ""
     # Sans repli on teste peu de sets (la déduction est fiable) ; avec repli
     # on ratisse plus large, mais les catalogues sont mis en cache.
@@ -1298,9 +1299,10 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
                 if nom_en and nom_en not in normaliser(str(bp.get("name", ""))):
                     continue
                 blueprint_id = bp.get("id")
+                nom_exp_trouve = str(exp.get("name", ""))
                 log.info("    [Cardtrader] '%s' -> blueprint %s (%s / %s, #%s)%s",
                          nom, blueprint_id, str(bp.get("name", ""))[:30],
-                         str(exp.get("name", ""))[:22], numero,
+                         nom_exp_trouve[:22], numero,
                          "  [via sets récents]" if repli else "")
                 break
             if blueprint_id:
@@ -1314,7 +1316,15 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
     if blueprint_id is None:
         log.info("    [Cardtrader] '%s' introuvable — %s", nom, diag)
 
-    _ct_cache["blueprints"][cle] = {"id": blueprint_id, "ts": time.time()}
+    # V31 : on mémorise AUSSI l'extension retenue. Sans elle, un
+    # « blueprint trouvé mais 0 annonce en fr » est indiagnosticable : on ne
+    # sait pas si Cardtrader n'a vraiment aucune carte française, ou si le
+    # bot a visé la mauvaise extension. Cas suspecté : CT_SETS["165"] vaut
+    # ["151"], ce qui matche l'extension JAPONAISE sv2a « 151 » aussi bien
+    # que l'internationale — et une extension japonaise n'a évidemment
+    # aucune impression française.
+    _ct_cache["blueprints"][cle] = {"id": blueprint_id, "exp": nom_exp_trouve,
+                                    "ts": time.time()}
     return blueprint_id
 
 
@@ -1485,10 +1495,16 @@ def cardtrader_prix(carte: dict, token: str, nb_bas: int = 5,
                                  "et %d gradée(s) écartée(s)",
                                  carte["nom"], ecartees, gradees)
             else:
-                log.info("    [Cardtrader] '%s' (%s) : blueprint %s trouvé mais "
-                         "0 annonce en '%s' (%d produits bruts, %d gradées)",
+                # V31 : on affiche l'EXTENSION retenue. « 0 produit brut » sur
+                # un marché européen est invraisemblable pour une carte
+                # française courante : si l'extension affichée est japonaise,
+                # le bot cherche la version FR dans un set qui n'en a pas.
+                exp_diag = (_ct_cache["blueprints"]
+                            .get(cle, {}).get("exp") or "extension inconnue")
+                log.info("    [Cardtrader] '%s' (%s) : blueprint %s dans '%s' "
+                         "mais 0 annonce en '%s' (%d produits bruts, %d gradées)",
                          carte["nom"], carte.get("langue", "fr"), blueprint_id,
-                         langue_ct, len(produits), gradees)
+                         exp_diag[:34], langue_ct, len(produits), gradees)
         elif rep.status_code == 429:
             log.info("    [Cardtrader] quota atteint (429), on réessaiera")
             return None
