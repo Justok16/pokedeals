@@ -1300,10 +1300,18 @@ def _ct_trouver_blueprint(carte: dict, token: str) -> int | None:
                     continue
                 blueprint_id = bp.get("id")
                 nom_exp_trouve = str(exp.get("name", ""))
-                log.info("    [Cardtrader] '%s' -> blueprint %s (%s / %s, #%s)%s",
+                # V33 : on affiche le champ cardmarket_id du blueprint, s'il
+                # existe. But : vérifier si Cardtrader fournit directement le
+                # numéro Cardmarket correspondant à cette carte. Si oui, on
+                # pourra relier automatiquement chaque carte à son vrai prix
+                # Cardmarket (le fichier "guide des prix" téléchargé une fois
+                # par jour), sans avoir à deviner ni à scanner Cardmarket.
+                cm_id_trouve = bp.get("cardmarket_id")
+                log.info("    [Cardtrader] '%s' -> blueprint %s (%s / %s, #%s)%s "
+                         "| cardmarket_id=%s",
                          nom, blueprint_id, str(bp.get("name", ""))[:30],
                          nom_exp_trouve[:22], numero,
-                         "  [via sets récents]" if repli else "")
+                         "  [via sets récents]" if repli else "", cm_id_trouve)
                 break
             if blueprint_id:
                 break
