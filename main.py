@@ -2963,6 +2963,12 @@ def main() -> int:
             marge_carte = carte.get("marge_achat")  # override par carte si présent
             deal, status = evaluate(annonce, cote, cfg, confiance, marge_carte)
             if deal is None:
+                # V35 DIAGNOSTIC TEMPORAIRE : pourquoi une annonce visiblement
+                # sous la cote (donc potentiellement une affaire) est écartée.
+                # Sans ce log, aucune trace de la raison n'existe nulle part.
+                if cote and annonce.get("prix", 0) > 0 and annonce["prix"] < cote * 0.85:
+                    log.info("    [Diagnostic rejet] %.2f€ '%s' -> %s",
+                             annonce["prix"], annonce.get("titre", "")[:50], status)
                 continue
             if deja_vue(vues, deal["id"]):
                 continue
