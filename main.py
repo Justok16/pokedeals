@@ -2463,12 +2463,28 @@ def envoyer_telegram_ventes(ventes: list[dict], cfg_tg: dict, token: str) -> boo
 
 
 def _texte_telegram(d: dict) -> str:
+    # V37 : AVERTISSEMENT sur les écarts extrêmes. Une décote de plus de 30%
+    # sous la cote est un vrai signal d'alerte, PAS une bonne nouvelle plus
+    # grande : le programme lit uniquement le TEXTE de l'annonce, jamais la
+    # photo. Cas vécu : une annonce titrée entièrement en français (drapeau
+    # 🇫🇷, "EV3.5", "Écarlate et Violet") pointait en réalité vers une carte
+    # CORÉENNE sur la photo — le vendeur avait mis la mauvaise image. Aucun
+    # filtre textuel ne peut détecter ça. Un écart de prix trop généreux est
+    # souvent le seul indice indirect qu'il faut vérifier la photo avant
+    # d'acheter.
+    avertissement = ""
+    if d.get("decote_pct", 0) and float(d["decote_pct"]) >= 30:
+        avertissement = (
+            "\n⚠️ <b>Écart important avec la cote — vérifie la photo avant "
+            "d'acheter</b> (le titre peut être juste, mais l'image parfois "
+            "ne correspond pas à la carte annoncée).")
     return (
         f"🔥 <b>{_echapper_html(d['titre'])}</b>\n"
         f"🛒 {_echapper_html(d['plateforme'])} — <b>{d['prix']:.2f}€</b> + {d['port']:.2f}€ port = <b>{d['total']:.2f}€</b>\n"
         f"📊 Cote : {d['cote']:.2f}€ (<b>-{d['decote_pct']}%</b>)\n"
         f"💶 Revente conseillée : {d['prix_revente_conseille']:.2f}€\n"
-        f"✅ Profit net estimé : <b>+{d['profit_net_estime']:.2f}€</b>\n"
+        f"✅ Profit net estimé : <b>+{d['profit_net_estime']:.2f}€</b>"
+        f"{avertissement}\n"
         f"👉 <a href=\"{d['url']}\">Voir l'annonce</a>"
     )
 
