@@ -111,6 +111,14 @@ def normaliser(texte: str) -> str:
 # ------------------- Filtres de pertinence -------------------
 
 RE_NUMERO = re.compile(r"(\d{1,3})\s*/\s*(\d{2,3})")
+# V38 : certains vendeurs écrivent le numéro avec un tiret ou une espace
+# au lieu du slash ("199-165", "199 165"). Sans ce filtre de secours, ces
+# annonces étaient systématiquement rejetées ("aucun numéro dans le
+# titre"), même quand tout le reste du titre était correct. On ne
+# l'utilise qu'en repli, après avoir essayé le slash — le slash reste
+# prioritaire pour éviter de capturer par erreur une date ou une
+# référence interne au vendeur (ex. "025-09").
+RE_NUMERO_SEPARATEUR = re.compile(r"\b(\d{1,3})[-\s](\d{2,3})\b")
 
 # 1) L'annonce doit contenir AU MOINS UN de ces indices de "vraie carte"
 INDICES_CARTE = [
@@ -332,6 +340,19 @@ def extraire_numero(texte: str) -> str | None:
     return f"{int(m.group(1))}/{int(m.group(2))}" if m else None
 
 
+def extraire_numero_annonce(titre: str) -> str | None:
+    """Comme extraire_numero, mais avec un repli tiret/espace ('199-165',
+    '199 165'). Réservé aux TITRES D'ANNONCES (eBay/Vinted) : le nom de la
+    carte dans config.yaml doit rester sur le format strict X/Y, sinon un
+    tiret dans "Méga-Dracaufeu" pourrait être pris à tort pour un numéro.
+    """
+    direct = extraire_numero(titre)
+    if direct:
+        return direct
+    m = RE_NUMERO_SEPARATEUR.search(titre or "")
+    return f"{int(m.group(1))}/{int(m.group(2))}" if m else None
+
+
 # V17.4 : les cartes Nuit Noire françaises (set PBL) ont un numéro SANS
 # dénominateur ("116", "120"...) au lieu du format "X/Y". Sans traitement
 # spécial, "Darkrai ex 116" et "Darkrai ex 120" deviennent indiscernables
@@ -405,11 +426,16 @@ def mots_requis_stricts(nom_carte: str) -> list[str]:
 # de 40€, alors que l'italienne en vaut 25.
 # =====================================================================
 MARQUEURS_FRANCAIS = (
-    "francaise", "francais", "france", "vf",
-    "neuve", "neuf", "etat", "envoi", "envoie", "livraison", "expedition",
-    "vends", "vendue", "achat", "acheteur", "merci", "bonjour",
-    "rapide", "soignee", "parfait", "jouee",
-    "prix ferme", "port compris", "port offert", "main propre",
+    "francaise", "francais", "france",
+    # V39 : retrait de "etat", "envoi", "envoie", "livraison", "expedition",
+    # "merci", "bonjour", "rapide", "soignee", "jouee" et des formules de
+    # prix ("prix ferme", "port compris"...). Même raisonnement que pour
+    # "vf"/"parfait" retirés à la session précédente : ces mots prouvent
+    # que le VENDEUR écrit en français, pas que la CARTE l'est. Un vendeur
+    # français vend très bien une carte japonaise ou coréenne en écrivant
+    # "état parfait, envoi rapide, merci". Ne restent que les mots qui
+    # décrivent explicitement la nationalité de la carte elle-même.
+    "neuve", "neuf",
 )
 
 
@@ -464,6 +490,15 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
     l'entrée japonaise, pas vers l'entrée française.
     """
     t = normaliser(titre)
+    # V39 : neutraliser "non gradée" / "ungraded" AVANT le test des mots
+    # exclus. La correction faite dans _etat_ok() ne suffisait pas : cette
+    # fonction-ci a sa PROPRE liste (EXCLUSIONS, qui contient aussi "gradee"
+    # et "graded") et elle est testée plus tôt dans le pipeline. Une annonce
+    # « Dracaufeu ex 199/165 non gradée » était donc encore rejetée ici,
+    # avant même d'atteindre le correctif de la session précédente.
+    for negation in ("non gradee", "non-gradee", "pas gradee",
+                     "ungraded", "not graded", "no grading", "sans grading"):
+        t = t.replace(negation, "")
     if not t.strip():
         return False, "titre vide"
 
@@ -562,7 +597,7 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
     #    On rate quelques annonces, mais on élimine les fausses cotes —
     #    et une cote fausse coûte bien plus cher qu'une annonce ratée.
     numero_voulu = extraire_numero(nom_carte)
-    numero_annonce = extraire_numero(titre)
+    numero_annonce = extraire_numero_annonce(titre)
     if numero_voulu:
         if not numero_annonce:
             return False, "aucun numéro dans le titre (exigé depuis V15)"
@@ -583,10 +618,15 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
                     n in t for n in normaliser(alias).split() if len(n) >= 3):
                 continue  # nom principal couvert par l'alias
             # Les types de carte se comparent mot à mot ("v" ne doit pas
-            # matcher le "v" de "vmax"). Les autres mots : sous-chaîne OK.
-            if mot in TYPES_CARTE:
+            # matcher le "v" de "vmax"). Le nom PRINCIPAL du Pokémon aussi :
+            # sans ça, "mew" est considéré présent dans "mewtwo" (sous-
+            # chaîne), et une carte sans numéro pourrait valider une
+            # annonce d'un AUTRE Pokémon au nom proche. Les autres mots
+            # (noms de sets composés, etc.) restent en sous-chaîne, plus
+            # tolérants et sans ce risque de confusion entre Pokémon.
+            if mot in TYPES_CARTE or mot == pokemon:
                 if mot not in jetons_titre:
-                    return False, f"type '{mot}' absent du titre"
+                    return False, f"'{mot}' absent du titre (mot entier requis)"
             elif mot not in t:
                 return False, f"'{mot}' absent du titre"
 
@@ -852,21 +892,37 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
         # Sécurité : ne jamais mélanger des devises dans les cotes
         if (it.get("price", {}).get("currency") or "EUR") != "EUR":
             continue
-        port = 0.0
+        # V39 : port = None tant qu'on ne sait pas. AVANT, port valait 0.0
+        # par défaut, donc une annonce FRANÇAISE sans "shippingOptions"
+        # disponible dans la réponse eBay était traitée comme "port
+        # gratuit" — alors que le vrai port pouvait être de 15-20€ sur une
+        # carte chère. Le garde-fou "port inconnu -> prudence" n'existait
+        # jusqu'ici que pour les annonces ÉTRANGÈRES (international) ; les
+        # annonces françaises n'avaient aucune protection équivalente.
+        # On prend aussi le port LE PLUS BAS parmi toutes les options
+        # proposées (pas seulement la première, qui n'est pas forcément
+        # la moins chère).
+        port = None
         opts = it.get("shippingOptions") or []
-        if opts:
+        for option in opts:
             try:
-                port = float(opts[0]["shippingCost"]["value"])
+                cout = float(option["shippingCost"]["value"])
             except (KeyError, ValueError, TypeError):
-                port = 0.0
+                continue
+            port = cout if port is None else min(port, cout)
         pays = ((it.get("itemLocation") or {}).get("country") or "FR").upper()
         if pays != "FR":
             if not international:
                 continue
-            if not opts:
+            if port is None:
                 continue  # port inconnu depuis l'étranger : prudence
             if port > port_max_intl:
                 continue
+        elif port is None:
+            # V39 : port inconnu pour une annonce FRANÇAISE -> on l'écarte
+            # aussi, plutôt que de supposer 0€. Mieux vaut rater une
+            # annonce que de comparer un faux "total" à la cote.
+            continue
         annonces.append(
             {
                 "plateforme": "eBay" if pays == "FR" else f"eBay ({pays})",
@@ -2286,10 +2342,14 @@ def _etat_ok(texte: str, acceptes: list[str], refuses: list[str]) -> bool:
         t = t.replace(negation, "")
     if any(mot in t for mot in refuses):
         return False
-    # Si aucun mot-clé d'état n'est présent, on laisse passer :
-    # beaucoup de vendeurs n'indiquent pas l'état dans le titre.
-    if not any(mot in t for mot in acceptes):
-        return True
+    # V39 : nettoyage de code. etats_acceptes ne fait volontairement
+    # RIEN filtrer — l'intention (documentée depuis le début) est
+    # "accepter tout sauf les états explicitement refusés", beaucoup de
+    # vendeurs n'indiquant pas l'état dans le titre. L'ancien code avait
+    # deux branches qui renvoyaient toutes les deux True, ce qui donnait
+    # l'impression trompeuse qu'un vrai filtre existait. etats_acceptes
+    # dans config.yaml reste donc décoratif : garder la liste n'a pas
+    # d'effet, seule etats_refuses agit.
     return True
 
 
@@ -2462,6 +2522,15 @@ def envoyer_telegram_ventes(ventes: list[dict], cfg_tg: dict, token: str) -> boo
     return ok
 
 
+def _echapper_url_html(url: str) -> str:
+    """Échappe uniquement le '&' dans une URL pour usage en attribut HTML
+    (href="..."). Les '<', '>' et '"' sont volontairement laissés intacts
+    dans le chemin/la requête d'une URL normale, mais '&' doit être encodé
+    en &amp; dans du HTML, sinon Telegram peut refuser le message si l'URL
+    contient plusieurs paramètres (ex. '?item=1&category=2')."""
+    return str(url).replace("&", "&amp;")
+
+
 def _texte_telegram(d: dict) -> str:
     # V37 : AVERTISSEMENT sur les écarts extrêmes. Une décote de plus de 30%
     # sous la cote est un vrai signal d'alerte, PAS une bonne nouvelle plus
@@ -2485,7 +2554,7 @@ def _texte_telegram(d: dict) -> str:
         f"💶 Revente conseillée : {d['prix_revente_conseille']:.2f}€\n"
         f"✅ Profit net estimé : <b>+{d['profit_net_estime']:.2f}€</b>"
         f"{avertissement}\n"
-        f"👉 <a href=\"{d['url']}\">Voir l'annonce</a>"
+        f"👉 <a href=\"{_echapper_url_html(d['url'])}\">Voir l'annonce</a>"
     )
 
 
@@ -2696,6 +2765,16 @@ def calculer_tendance_cote(nom_carte: str, langue: str = "fr") -> str:
         return "="
 
 
+def _proteger_csv(valeur) -> str:
+    """Préfixe d'une apostrophe les valeurs commençant par =, +, -, @ : ces
+    caractères sont interprétés comme le début d'une FORMULE par Excel et
+    LibreOffice quand le CSV est ouvert. Un titre d'annonce vient d'un
+    vendeur inconnu ; sans cette protection, un titre du genre
+    "=HYPERLINK(...)" pourrait s'exécuter comme une formule à l'ouverture."""
+    texte = str(valeur)
+    return f"'{texte}" if texte.startswith(("=", "+", "-", "@")) else texte
+
+
 def exporter_csv(deals: list[dict]) -> None:
     """Ajoute chaque deal détecté à data/deals.csv (créé au premier deal)."""
     if not deals:
@@ -2709,10 +2788,11 @@ def exporter_csv(deals: list[dict]) -> None:
         maintenant = datetime.now(PARIS).strftime("%Y-%m-%d %H:%M")
         for d in deals:
             tendance = calculer_tendance_cote(d.get("carte", ""), d.get("langue", "fr"))
-            w.writerow([maintenant, d.get("carte", ""), d["plateforme"], d["titre"],
+            w.writerow([maintenant, d.get("carte", ""), d["plateforme"], _proteger_csv(d["titre"]),
                         d["prix"], d["port"], d["total"], d["cote"], tendance, d["decote_pct"],
                         d["prix_revente_conseille"], d["profit_net_estime"],
-                        d.get("vendeur_nom", "?"), f"{d.get('vendeur_pct', 100):.0f}%", d["url"]])
+                        _proteger_csv(d.get("vendeur_nom", "?")), f"{d.get('vendeur_pct', 100):.0f}%",
+                        _proteger_csv(d["url"])])
     log.info("CSV : %d deal(s) ajouté(s) à data/deals.csv", len(deals))
 
 
@@ -2870,6 +2950,9 @@ def main() -> int:
     # différentes selon la langue (JP/KR/FR...) — signe possible d'un
     # mélange de langue quelque part dans le calcul.
     cotes_par_carte: dict[str, list[tuple[str, float]]] = {}
+    # V39 : identifiants des deals trouvés, marqués "vus" seulement après
+    # un envoi de notification réussi (voir plus bas).
+    deals_a_marquer: list[str] = []
 
     for carte in cfg["watchlist"]:
         nom = carte["nom"]
@@ -3078,7 +3161,15 @@ def main() -> int:
                     #     d'annonce étrangère : sans le `desc and`, on
                     #     écarterait de vraies annonces françaises pour une
                     #     panne, et en les marquant vues, définitivement.
-                    if neutre and desc and not preuve_francais(texte_annonce):
+                    # V39 : desc=="" (fiche LUE mais vendeur n'a rien écrit)
+                    # contournait ce test — "and desc" étant faux sur une
+                    # chaîne vide, exactement comme sur None. Or le cas None
+                    # est déjà écarté plus haut (continue) : ici, desc ne
+                    # peut plus valoir que "" ou du texte réel. On retire
+                    # donc "and desc", qui ne protégeait plus rien et
+                    # laissait passer sans preuve les annonces où la fiche
+                    # est lisible mais simplement vide.
+                    if neutre and not preuve_francais(texte_annonce):
                         log.info("  ✗ Écarté : nom de Pokémon identique dans toutes "
                                  "les langues et aucun mot français dans l'annonce "
                                  "— %s", deal["titre"][:50])
@@ -3086,7 +3177,13 @@ def main() -> int:
                         continue
             log.info("  ✓ DEAL : %s à %.2f€ (cote %.2f€)", deal["titre"][:60], deal["total"], cote)
             nouveaux_deals.append(deal)
-            marquer(vues, deal["id"])
+            # V39 : le marquage "vu" est retardé après l'envoi Telegram/email
+            # (voir plus bas dans main()). AVANT, l'annonce était marquée vue
+            # immédiatement ici — si Telegram tombait en panne ce jour-là
+            # (token expiré, quota, erreur réseau...), l'affaire disparaissait
+            # définitivement sans jamais avoir été notifiée. On stocke
+            # seulement l'identifiant pour l'instant.
+            deals_a_marquer.append(deal["id"])
 
         # Pause aléatoire courte entre les cartes (anti-détection Vinted).
         # V20 : réduite de 1,5-3,5s à 0,6-1,4s — sur 120 cartes, l'ancienne
@@ -3114,7 +3211,7 @@ def main() -> int:
                 log.info("  ✓ DEAL (email LBC) : %s à %.2f€ (cote %.2f€)",
                          deal["titre"][:60], deal["total"], float(cote_carte))
                 nouveaux_deals.append(deal)
-                marquer(vues, deal["id"])
+                deals_a_marquer.append(deal["id"])  # V39 : marquage retardé, cf. plus bas
             break
 
     # V34 : vérification de cohérence entre langues. Pour chaque carte
@@ -3164,10 +3261,25 @@ def main() -> int:
 
     notif = cfg.get("notifications", {"telegram": True, "email": True})
     if nouveaux_deals:
+        # V39 : on ne marque les deals comme "vus" QUE si au moins une
+        # notification est bien partie. Avant, marquer(vues, ...) était
+        # appelé dès la détection du deal (voir plus haut), donc un échec
+        # Telegram (token expiré, quota, panne réseau) faisait disparaître
+        # l'affaire pour toujours, sans jamais avoir prévenu personne.
+        notification_reussie = False
         if notif.get("telegram") and "telegram" in cfg:
-            envoyer_telegram(nouveaux_deals, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
+            if envoyer_telegram(nouveaux_deals, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"]):
+                notification_reussie = True
         if notif.get("email") and "email" in cfg:
-            envoyer_alertes(nouveaux_deals, cfg["email"], secrets["GMAIL_APP_PASSWORD"])
+            if envoyer_alertes(nouveaux_deals, cfg["email"], secrets["GMAIL_APP_PASSWORD"]):
+                notification_reussie = True
+        if notification_reussie:
+            for annonce_id in deals_a_marquer:
+                marquer(vues, annonce_id)
+        else:
+            log.warning("Aucune notification envoyée avec succès pour %d deal(s) : "
+                       "ils resteront visibles au prochain scan (non marqués vus)",
+                       len(nouveaux_deals))
     if alertes_vente and notif.get("telegram") and "telegram" in cfg:
         envoyer_telegram_ventes(alertes_vente, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
 
