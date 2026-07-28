@@ -2387,16 +2387,18 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
         return None, f"au-dessus du budget ({total:.2f}€)"
     # V36 : le plafond de port n'a plus de sens en chiffre FIXE quand la
     # watchlist va des cartes à 15€ (port à 6€ = 40% du prix, déjà limite)
-    # aux cartes à 400-900€ (port à 6€ = irréaliste, un envoi assuré et
-    # suivi pour un objet de cette valeur coûte souvent 15-20€). Cas vécu :
-    # une annonce Dracaufeu ex 199/165 à 300€ (cote 389€, donc déjà une
-    # vraie affaire) rejetée pour un port de 19,20€.
-    # Le plafond devient donc : le plus GRAND entre le chiffre fixe du
-    # config (toujours valable pour les petites cartes) et 5% du prix de
-    # la carte (qui monte automatiquement pour les cartes chères).
-    port_max = max(float(r["frais_port_max"]), prix * 0.05)
+    # V40 : plafond basé sur la COTE, pas sur le prix de l'annonce. Le
+    # prix payé varie (c'est justement ce qu'on négocie), mais le vrai
+    # risque du port reste proportionnel à la VALEUR RÉELLE de la carte.
+    # Avec le prix comme base, une même carte à cote 389€ pouvait avoir
+    # un plafond de port différent selon qu'elle était trouvée à 300€ ou
+    # à 350€ — logique bancale, et ça faisait rejeter 43 annonces sur un
+    # seul scan (souvent à quelques centimes du seuil) pour un motif
+    # qui n'avait pas de sens économique clair.
+    base_port = cote if (cote and cote > 0) else prix
+    port_max = max(float(r["frais_port_max"]), base_port * 0.05)
     if str(annonce.get("plateforme", "")).startswith("eBay ("):
-        port_max = max(float(r.get("frais_port_max_international", 10.0)), prix * 0.05)
+        port_max = max(float(r.get("frais_port_max_international", 10.0)), base_port * 0.05)
     if port > port_max:
         return None, f"port trop cher ({port:.2f}€ > {port_max:.2f}€)"
     if not _etat_ok(annonce.get("etat_texte", ""), cfg["etats_acceptes"], cfg["etats_refuses"]):
