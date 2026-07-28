@@ -2273,6 +2273,17 @@ def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[flo
 
 def _etat_ok(texte: str, acceptes: list[str], refuses: list[str]) -> bool:
     t = (texte or "").lower()
+    # V36 : NÉGATIONS. "Non gradée" / "ungraded" / "pas gradée" sont des
+    # informations RASSURANTES (le vendeur précise que ce n'est PAS gradé),
+    # mais elles contiennent littéralement le mot "gradée" — donc rejetées
+    # à tort par erreur depuis le début. Cas vécu : "Non gradée Carte
+    # Pokémon FR DRACAUFEU EX..." à 310€ (79€ sous la cote) écartée pour
+    # "état refusé (gradée)" alors que la carte n'est justement PAS gradée.
+    # On neutralise ces négations avant de chercher les mots interdits.
+    for negation in ("non gradée", "non gradee", "non-gradée", "non-gradee",
+                     "pas gradée", "pas gradee", "ungraded", "not graded",
+                     "no grading", "sans grading"):
+        t = t.replace(negation, "")
     if any(mot in t for mot in refuses):
         return False
     # Si aucun mot-clé d'état n'est présent, on laisse passer :
