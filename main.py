@@ -2800,9 +2800,22 @@ def exporter_csv(deals: list[dict]) -> None:
 # --------------------------- ANOMALIES --------------------------------
 
 def detecter_anomalies(cfg: dict, vues: dict) -> list[str]:
-    """Compare la cote la plus récente à la plus ancienne de l'historique.
+    """Compare une moyenne RÉCENTE à une moyenne ANCIENNE de l'historique.
 
     Retourne une liste de messages Telegram (HTML) à envoyer.
+
+    V42 : AVANT, la comparaison se faisait entre UN SEUL point ancien et
+    UN SEUL point récent (entrees[0] et entrees[-1]). Une cote INSTANTANÉE
+    peut sursauter d'un scan à l'autre sans que le vrai marché ait bougé —
+    cas vécu : Evoli 188/167 est passée de 127,78€ à 226,59€ en un seul
+    scan simplement parce que l'annonce à 80€ qui faisait partie du "bas
+    du marché" a disparu (vendue), et deux annonces à prix DEMANDÉS jamais
+    vendus (299,99€, 332,95€) ont dû la remplacer dans le calcul. Une
+    alerte "+77%" est alors partie alors que la cote LISSÉE (celle qui
+    sert réellement aux achats) n'avait quasiment pas bougé (127,78€
+    inchangée). On compare désormais la moyenne des 2 valeurs les plus
+    anciennes à la moyenne des 2 plus récentes : un sursaut isolé pèse
+    deux fois moins et ne suffit plus, à lui seul, à déclencher l'alerte.
     """
     seuil_chute = float(cfg.get("anomalies", {}).get("seuil_chute", 0.30))
     seuil_hausse = float(cfg.get("anomalies", {}).get("seuil_hausse", 0.50))
@@ -2814,7 +2827,10 @@ def detecter_anomalies(cfg: dict, vues: dict) -> list[str]:
         # V26 : la clé vaut « Nom|langue » — on l'affiche proprement.
         nom_seul, _, lg = cle.partition("|")
         nom = f"{nom_seul} ({lg.upper()})" if lg else nom_seul
-        ancienne, recente = entrees[0]["cote"], entrees[-1]["cote"]
+        valeurs = [e["cote"] for e in entrees]
+        nb_lisse = min(2, len(valeurs) // 2) or 1
+        ancienne = statistics.mean(valeurs[:nb_lisse])
+        recente = statistics.mean(valeurs[-nb_lisse:])
         if ancienne <= 0:
             continue
         variation = (recente - ancienne) / ancienne
