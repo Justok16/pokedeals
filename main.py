@@ -2314,10 +2314,18 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
     prix_max = float(r.get("prix_max", 0) or 0)
     if prix_max > 0 and total > prix_max:
         return None, f"au-dessus du budget ({total:.2f}€)"
-    # V16 : plafond de port spécifique pour les annonces eBay étrangères
-    port_max = float(r["frais_port_max"])
+    # V36 : le plafond de port n'a plus de sens en chiffre FIXE quand la
+    # watchlist va des cartes à 15€ (port à 6€ = 40% du prix, déjà limite)
+    # aux cartes à 400-900€ (port à 6€ = irréaliste, un envoi assuré et
+    # suivi pour un objet de cette valeur coûte souvent 15-20€). Cas vécu :
+    # une annonce Dracaufeu ex 199/165 à 300€ (cote 389€, donc déjà une
+    # vraie affaire) rejetée pour un port de 19,20€.
+    # Le plafond devient donc : le plus GRAND entre le chiffre fixe du
+    # config (toujours valable pour les petites cartes) et 5% du prix de
+    # la carte (qui monte automatiquement pour les cartes chères).
+    port_max = max(float(r["frais_port_max"]), prix * 0.05)
     if str(annonce.get("plateforme", "")).startswith("eBay ("):
-        port_max = float(r.get("frais_port_max_international", 10.0))
+        port_max = max(float(r.get("frais_port_max_international", 10.0)), prix * 0.05)
     if port > port_max:
         return None, f"port trop cher ({port:.2f}€ > {port_max:.2f}€)"
     if not _etat_ok(annonce.get("etat_texte", ""), cfg["etats_acceptes"], cfg["etats_refuses"]):
@@ -2965,10 +2973,15 @@ def main() -> int:
             if deal is None:
                 # V35 DIAGNOSTIC TEMPORAIRE : pourquoi une annonce visiblement
                 # sous la cote (donc potentiellement une affaire) est écartée.
-                # Sans ce log, aucune trace de la raison n'existe nulle part.
                 if cote and annonce.get("prix", 0) > 0 and annonce["prix"] < cote * 0.85:
                     log.info("    [Diagnostic rejet] %.2f€ '%s' -> %s",
                              annonce["prix"], annonce.get("titre", "")[:50], status)
+                    if status.startswith("état refusé"):
+                        # V35b : on affiche le texte COMPLET testé (condition
+                        # eBay + titre), pas juste le titre, pour voir quel
+                        # mot a vraiment déclenché le rejet.
+                        log.info("        [Diagnostic état] texte complet testé : %r",
+                                 annonce.get("etat_texte", ""))
                 continue
             if deja_vue(vues, deal["id"]):
                 continue
