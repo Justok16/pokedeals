@@ -2390,15 +2390,14 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
     # V40 : plafond basé sur la COTE, pas sur le prix de l'annonce. Le
     # prix payé varie (c'est justement ce qu'on négocie), mais le vrai
     # risque du port reste proportionnel à la VALEUR RÉELLE de la carte.
-    # Avec le prix comme base, une même carte à cote 389€ pouvait avoir
-    # un plafond de port différent selon qu'elle était trouvée à 300€ ou
-    # à 350€ — logique bancale, et ça faisait rejeter 43 annonces sur un
-    # seul scan (souvent à quelques centimes du seuil) pour un motif
-    # qui n'avait pas de sens économique clair.
+    # V41 : passage de 5% à 7%. À 5%, une carte à ~160€ de cote (comme
+    # Florizarre) plafonnait le port à 8€, alors que les ports réels
+    # tournaient autour de 10-11€ sur cette gamme de prix -> 30 annonces
+    # rejetées sur un seul scan pour ce seul motif.
     base_port = cote if (cote and cote > 0) else prix
-    port_max = max(float(r["frais_port_max"]), base_port * 0.05)
+    port_max = max(float(r["frais_port_max"]), base_port * 0.07)
     if str(annonce.get("plateforme", "")).startswith("eBay ("):
-        port_max = max(float(r.get("frais_port_max_international", 10.0)), base_port * 0.05)
+        port_max = max(float(r.get("frais_port_max_international", 10.0)), base_port * 0.07)
     if port > port_max:
         return None, f"port trop cher ({port:.2f}€ > {port_max:.2f}€)"
     if not _etat_ok(annonce.get("etat_texte", ""), cfg["etats_acceptes"], cfg["etats_refuses"]):
