@@ -9,7 +9,7 @@
 # --- Règles d'achat / revente (GLOBALES) ---
 regles:
   frais_port_max: 6.0        # € — frais de port maximum acceptés
-  marge_achat: 0.30          # achat par défaut à au moins 30% NET sous la cote
+  marge_achat: 0.10          # achat par défaut à au moins 10% NET sous la cote
   marge_revente: 0.10        # marge utilisée pour le prix de revente conseillé
   multiplicateur_revente: 2.0  # alerte VENTE quand la cote atteint 2x ton prix d'achat
   frais_revente_estimes: 0.13  # ~13% de frais si revente sur eBay (utilisé pour le calcul "net")
@@ -58,21 +58,17 @@ watchlist:
   # ----- Série 151 (FR) -----
   - nom: "Dracaufeu ex 199/165"
     langue: fr
-    marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
   - nom: "Tortank ex 200/165"
     langue: fr
-    marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
   - nom: "Florizarre ex 198/165"
     langue: fr
   - nom: "Pikachu 173/165"
     langue: fr
-    marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
     cote: 78  # cote manuelle (Cardmarket vérifié 26/07/2026 : tendance 77,77€ ; l'auto eBay surévaluait à 114€)
   - nom: "Mew ex 193/165"
     langue: fr
   - nom: "Mew ex 205/165"
     langue: fr
-    marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
   - nom: "Salamèche 168/165"
     langue: fr
   - nom: "Bulbizarre 166/165"
@@ -106,10 +102,8 @@ watchlist:
   # ----- ME01 Méga-Évolution (x/132) -----
   - nom: "Méga-Gardevoir ex 187/132"    # version dorée (Méga Hyper Rare)
     langue: fr
-    marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
   - nom: "Méga-Lucario ex 188/132"    # version dorée (Méga Hyper Rare) — confirmé
     langue: fr
-    marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
     cote: 180  # cote manuelle (Cardmarket vérifié 26/07/2026 : tendance 180,43€ ; l'auto eBay surévaluait à 304€)
   - nom: "Méga-Gardevoir ex 178/132"    # version SIR (illustration spéciale)
     langue: fr
@@ -131,7 +125,6 @@ watchlist:
     langue: fr
   - nom: "Méga-Dracolosse ex 290/217"
     langue: fr
-    marge_achat: 0.25  # ULTRA STAR (réactivité maximale)
   - nom: "Méga-Ectoplasma ex 284/217"   # version SIR (~400€)
     langue: fr
   - nom: "Mewtwo ex Team Rocket 281/217"  # version SIR
