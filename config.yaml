@@ -577,7 +577,7 @@ email:
 # 3. Le bot lit les emails NON LUS de Leboncoin à chaque scan et les
 #    traite comme des annonces normales (filtre + cote + alerte Telegram).
 leboncoin_alertes_email:
-  actif: false   # Désactivé : Leboncoin n'active pas les alertes email sur ce compte
+  actif: true   # Réactivé 02/08/2026 : alertes email confirmées fonctionnelles
   imap_hote: imap.gmail.com
   boite: INBOX
 
