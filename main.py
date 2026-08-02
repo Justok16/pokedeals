@@ -745,6 +745,65 @@ RACINE = os.path.dirname(os.path.abspath(__file__))
 FICHIER_SEEN = os.path.join(RACINE, "data", "seen.json")
 RETENTION_JOURS = 30
 
+# =====================================================================
+# V44 : SUIVI DE L'ANCIENNETÉ DES ANNONCES (pour repérer les prix qui
+# ne se vendent jamais).
+# ---------------------------------------------------------------------
+# seen.json ne suffit pas pour ça : il ne mémorise QUE les annonces qui
+# ont failli devenir un deal. Or le problème vient justement des annonces
+# qui composent le calcul de la cote SANS jamais devenir un deal — une
+# annonce à 300€ qui traîne sans se vendre gonfle la cote, mais n'est
+# jamais "vue" au sens actuel du programme.
+# On crée donc un suivi séparé : première date à laquelle chaque
+# annonce a été VUE dans le calcul de cote (pas seulement testée pour
+# une alerte). Une annonce qui reste identique sur plusieurs jours
+# n'est probablement jamais vendue à ce prix.
+# =====================================================================
+FICHIER_ANCIENNETE = os.path.join(RACINE, "data", "anciennete_annonces.json")
+ANCIENNETE_RETENTION_JOURS = 45  # un peu plus que seen.json, pour garder assez d'historique
+
+_anciennete: dict | None = None
+
+
+def _charger_anciennete() -> dict:
+    if not os.path.exists(FICHIER_ANCIENNETE):
+        return {}
+    try:
+        with open(FICHIER_ANCIENNETE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def anciennete() -> dict:
+    global _anciennete
+    if _anciennete is None:
+        _anciennete = _charger_anciennete()
+    return _anciennete
+
+
+def sauvegarder_anciennete() -> None:
+    donnees = anciennete()
+    limite = time.time() - ANCIENNETE_RETENTION_JOURS * 86400
+    donnees = {k: v for k, v in donnees.items() if v.get("premiere_vue", 0) > limite}
+    os.makedirs(os.path.dirname(FICHIER_ANCIENNETE), exist_ok=True)
+    with open(FICHIER_ANCIENNETE, "w", encoding="utf-8") as f:
+        json.dump(donnees, f, ensure_ascii=False, indent=1)
+
+
+def jours_en_ligne(annonce_id: str) -> float:
+    """Nombre de jours depuis la première fois que cette annonce a été vue
+    dans un calcul de cote. Enregistre aussi la première apparition si
+    c'est la première fois qu'on la voit. Retourne 0.0 pour une annonce
+    toute nouvelle (aucun signal d'ancienneté, ni bon ni mauvais)."""
+    donnees = anciennete()
+    maintenant = time.time()
+    entree = donnees.get(annonce_id)
+    if entree is None:
+        donnees[annonce_id] = {"premiere_vue": maintenant}
+        return 0.0
+    return (maintenant - entree["premiere_vue"]) / 86400
+
 
 def charger_vues() -> dict:
     if not os.path.exists(FICHIER_SEEN):
@@ -968,14 +1027,15 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
     if nom_carte:
         # V20 diagnostic : on garde (prix, titre, plateforme) des annonces
         # retenues pour pouvoir les afficher dans les logs et repérer ce qui
-        # gonfle une cote.
-        retenues = [(a["prix"], a.get("titre", "")[:70], a.get("plateforme", ""))
+        # gonfle une cote. V44 : on garde aussi l'id, pour le suivi
+        # d'ancienneté (annonces qui traînent sans se vendre).
+        retenues = [(a["prix"], a.get("titre", "")[:70], a.get("plateforme", ""), a.get("id", ""))
                     for a in annonces
                     if a["prix"] > 0
                     and not _localisation_incoherente(a, langue)
                     and annonce_pertinente(a.get("titre", ""), nom_carte, langue, alias, a.get("plateforme", ""))[0]]
         retenues.sort()
-        prix = [p for p, _, _ in retenues]
+        prix = [p for p, _, _, _ in retenues]
     else:
         retenues = []
         prix = sorted(a["prix"] for a in annonces if a["prix"] > 0)
@@ -1005,7 +1065,20 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
     # La moyenne du bas de marché (même méthode que pour Cardtrader) s'en
     # approche nettement mieux — et se réajuste seule quand le marché bouge.
     nb_bas = int(cfg_cote.get("nb_prix_bas", 5))
-    bas_marche = sorted(nettoyes)[:max(1, nb_bas)]
+    seuil_jours = float(cfg_cote.get("seuil_jours_stagnant", 10))
+    if nom_carte and retenues:
+        # V44 : une annonce en ligne depuis plus de `seuil_jours_stagnant`
+        # jours ne se vend probablement pas à ce prix — elle gonfle le
+        # panier bas-marché sans refléter un vrai prix de vente. On
+        # l'écarte du panier tant que des annonces plus fraîches
+        # suffisent ; sinon on la garde (mieux qu'aucune cote).
+        candidats = sorted(nettoyes)
+        fraiches = [p for p, _, _, aid in retenues
+                   if p in candidats and jours_en_ligne(aid) < seuil_jours]
+        fraiches.sort()
+        bas_marche = fraiches[:max(1, nb_bas)] if len(fraiches) >= max(1, nb_bas) else candidats[:max(1, nb_bas)]
+    else:
+        bas_marche = sorted(nettoyes)[:max(1, nb_bas)]
     cote_basse = round((sum(bas_marche) / len(bas_marche)) * coef, 2)
 
     mode_cote = str(cfg_cote.get("methode", "mediane")).lower()
@@ -1024,10 +1097,12 @@ def calculer_cote(annonces: list[dict], cfg_cote: dict, nom_carte: str = "",
                  nom_carte, reference, len(bas_marche), cote_basse / coef if coef else cote_basse,
                  coef, cote_retenue, len(nettoyes),
                  f" ({len(rejetes_iqr)} écartées IQR : {rejetes_iqr})" if rejetes_iqr else "")
-        for p, titre, plat in retenues:
+        for p, titre, plat, aid in retenues:
             marque = " ← ÉCARTÉE(IQR)" if p not in nettoyes else ""
             if p in bas_marche and not marque:
                 marque = " ← bas-marché"
+            elif not marque and p in candidats and jours_en_ligne(aid) >= seuil_jours:
+                marque = f" ← stagnante ({jours_en_ligne(aid):.0f}j, exclue du panier)"
             log.info("        %.2f€  [%s] %s%s", p, plat, titre, marque)
 
     return cote_retenue, len(nettoyes)
@@ -3320,6 +3395,7 @@ def main() -> int:
 
     sauvegarder_vues(vues)
     sauvegarder_historique()
+    sauvegarder_anciennete()
     return 0
 
 
