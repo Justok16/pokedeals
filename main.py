@@ -2432,6 +2432,36 @@ def evaluate(annonce: dict, cote: float | None, cfg: dict, confiance: int = 0, m
     """Évalue une annonce. Retourne (deal, status)."""
     r = cfg["regles"]
 
+    # V45 : SEUIL DE PRIX FIXE, indépendant de la cote. Certaines cartes ont
+    # un prix d'achat cible fixé à la main (ex. "je veux Plumeline à 15€ ou
+    # moins, peu importe la cote calculée"). Défini par carte dans
+    # config.yaml via "prix_max_fixe". Compare le PRIX SEUL (hors port),
+    # comme demandé — pas le total.
+    prix_fixe = annonce.get("prix_max_fixe")
+    if prix_fixe:
+        pertinent, raison = annonce_pertinente(
+            annonce.get("titre", ""), annonce.get("carte", ""),
+            annonce.get("langue", "fr"), annonce.get("alias", ""), annonce.get("plateforme", ""))
+        if not pertinent:
+            return None, raison
+        if _localisation_incoherente(annonce, annonce.get("langue", "fr")):
+            return None, "annonce localisée à l'étranger"
+        if not _etat_ok(annonce.get("etat_texte", ""), cfg["etats_acceptes"], cfg["etats_refuses"]):
+            return None, "état refusé (abîmée / gradée / jouée)"
+        prix = float(annonce.get("prix", 0))
+        if prix <= 0 or prix > float(prix_fixe):
+            return None, f"prix ({prix:.2f}€) au-dessus du seuil fixe ({float(prix_fixe):.2f}€)"
+        deal = {
+            **annonce,
+            "cote": float(prix_fixe),
+            "total": round(prix + float(annonce.get("port", 0)), 2),
+            "decote_pct": 0.0,
+            "prix_revente_conseille": 0.0,
+            "profit_net_estime": 0.0,
+            "confiance": 100,  # 100 = seuil fixe manuel
+        }
+        return deal, "DEAL (seuil fixe)"
+
     if cote is None or cote <= 0:
         return None, "cote indisponible"
     if cote < r.get("cote_min", 5.0):
@@ -2608,6 +2638,15 @@ def _echapper_url_html(url: str) -> str:
 
 
 def _texte_telegram(d: dict) -> str:
+    # V45 : message dédié pour un deal sur seuil de prix fixe (confiance
+    # 100). Pas de cote/décote/profit à afficher, ça n'a pas de sens ici.
+    if d.get("confiance") == 100:
+        return (
+            f"🎯 <b>{_echapper_html(d['titre'])}</b>\n"
+            f"🛒 {_echapper_html(d['plateforme'])} — <b>{d['prix']:.2f}€</b> "
+            f"(seuil fixé : {d['cote']:.2f}€, port non compté)\n"
+            f"👉 <a href=\"{_echapper_url_html(d['url'])}\">Voir l'annonce</a>"
+        )
     # V37 : AVERTISSEMENT sur les écarts extrêmes. Une décote de plus de 30%
     # sous la cote est un vrai signal d'alerte, PAS une bonne nouvelle plus
     # grande : le programme lit uniquement le TEXTE de l'annonce, jamais la
@@ -3017,6 +3056,7 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
         a["carte"] = nom
         a["langue"] = langue
         a["alias"] = carte.get("alias", "")
+        a["prix_max_fixe"] = carte.get("prix_max_fixe")
     return annonces, annonces_ebay
 
 

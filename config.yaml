@@ -76,6 +76,7 @@ watchlist:
     cote: 70  # cote manuelle (prix réel constaté 26/07/2026 ; l'auto eBay surévaluait à 137€)
   - nom: "Carapuce 170/165"
     langue: fr
+    prix_max_fixe: 18  # V45 : alerte si prix <=18€ hors port, peu importe la cote
 
   # ----- Série 151 (JP, sv2a) -----
   - nom: "Charizard ex 201/165 sv2a"
@@ -98,6 +99,7 @@ watchlist:
   - nom: "Squirtle 170/165 sv2a"        # = Carapuce FR 170/165
     langue: jp
     alias: "Carapuce"
+    prix_max_fixe: 18
 
   # ----- ME01 Méga-Évolution (x/132) -----
   - nom: "Méga-Gardevoir ex 187/132"    # version dorée (Méga Hyper Rare)
@@ -308,9 +310,11 @@ watchlist:
     alias: "Psykokwak"
   - nom: "Plumeline ex 024"            # MEP Black Star Promos FR
     langue: fr
+    prix_max_fixe: 15  # V45 : alerte si prix <=15€ hors port, peu importe la cote
   - nom: "Oricorio ex 111 m2"          # Inferno X (JP) = Plumeline ex
     langue: jp
     alias: "Plumeline"
+    prix_max_fixe: 15
 
   # ----- Lugia (icône légendaire recherchée) -----
   - nom: "Lugia V 198/172"              # SAR — S11a VMAX Climax (JP), "the crown pick"
@@ -342,6 +346,7 @@ watchlist:
   - nom: "Squirtle 170/165 sv2a"
     langue: kr
     alias: "Carapuce"
+    prix_max_fixe: 18
   - nom: "Team Rocket's Mewtwo ex 237 m2a"
     langue: kr
     alias: "Mewtwo"
@@ -429,6 +434,7 @@ watchlist:
   - nom: "Oricorio ex 111 m2"
     langue: kr
     alias: "Plumeline"
+    prix_max_fixe: 15
   - nom: "Lugia V 198/172"
     langue: kr
   - nom: "Lugia V 110/098"
