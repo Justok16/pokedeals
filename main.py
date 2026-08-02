@@ -2310,21 +2310,6 @@ def lbc_relever_alertes_email(cfg: dict, secrets: dict) -> list[dict]:
         # Emails NON LUS venant de Leboncoin
         statut, donnees = imap.search(None, '(UNSEEN FROM "leboncoin")')
         ids = donnees[0].split() if statut == "OK" and donnees and donnees[0] else []
-        # V46 DIAGNOSTIC TEMPORAIRE : voir précisément ce que Gmail renvoie,
-        # pour savoir si le filtre FROM "leboncoin" est le bon, ou si le
-        # problème est ailleurs (aucun email non lu du tout, etc.).
-        statut_tous, donnees_tous = imap.search(None, "UNSEEN")
-        ids_tous = donnees_tous[0].split() if statut_tous == "OK" and donnees_tous and donnees_tous[0] else []
-        log.info("[LBC diagnostic] emails non lus (tous expéditeurs) : %d | "
-                 "emails non lus de 'leboncoin' : %d", len(ids_tous), len(ids))
-        if ids_tous and not ids:
-            # Affiche l'expéditeur des 3 premiers emails non lus, pour voir
-            # si Leboncoin utilise une adresse qui ne contient pas "leboncoin"
-            for num in ids_tous[:3]:
-                _, msg_data = imap.fetch(num, "(BODY[HEADER.FIELDS (FROM SUBJECT)])")
-                if msg_data and msg_data[0]:
-                    entete = msg_data[0][1].decode("utf-8", errors="replace")[:200]
-                    log.info("[LBC diagnostic] email non lu trouvé : %s", entete.replace("\n", " | "))
         for num in ids[-20:]:  # au plus 20 emails par passage
             statut, msg_data = imap.fetch(num, "(RFC822)")  # fetch marque l'email comme lu
             if statut != "OK":
