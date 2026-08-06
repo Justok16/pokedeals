@@ -64,7 +64,8 @@ watchlist:
     langue: fr
   - nom: "Pikachu 173/165"
     langue: fr
-    cote: 78  # cote manuelle (Cardmarket vérifié 26/07/2026 : tendance 77,77€ ; l'auto eBay surévaluait à 114€)
+    # cote manuelle (78€, posée le 26/07/2026) retirée le 07/08/2026 : repasse
+    # au calcul automatique (eBay+Cardtrader+Cardmarket, mode "plus_bas").
   - nom: "Mew ex 193/165"
     langue: fr
   - nom: "Mew ex 205/165"
@@ -73,7 +74,8 @@ watchlist:
     langue: fr
   - nom: "Bulbizarre 166/165"
     langue: fr
-    cote: 70  # cote manuelle (prix réel constaté 26/07/2026 ; l'auto eBay surévaluait à 137€)
+    # cote manuelle (70€, posée le 26/07/2026) retirée le 07/08/2026 : repasse
+    # au calcul automatique (eBay+Cardtrader+Cardmarket, mode "plus_bas").
   - nom: "Carapuce 170/165"
     langue: fr
     prix_max_fixe: 18  # V45 : alerte si prix <=18€ hors port, peu importe la cote
@@ -92,7 +94,8 @@ watchlist:
     alias: "Tortank"
   - nom: "Pikachu 173/165 sv2a"         # = Pikachu FR 173/165
     langue: jp
-    cote: 40  # cote manuelle (Cardmarket JP vérifié 21/07/2026 : dès 34,90€ ; l'auto eBay surévaluait à 66€)
+    # cote manuelle (40€, posée le 21/07/2026) retirée le 07/08/2026 : repasse
+    # au calcul automatique (eBay+Cardtrader+Cardmarket, mode "plus_bas").
   - nom: "Charmander 168/165 sv2a"      # = Salamèche FR 168/165
     langue: jp
     alias: "Salameche"
@@ -106,7 +109,8 @@ watchlist:
     langue: fr
   - nom: "Méga-Lucario ex 188/132"    # version dorée (Méga Hyper Rare) — confirmé
     langue: fr
-    cote: 180  # cote manuelle (Cardmarket vérifié 26/07/2026 : tendance 180,43€ ; l'auto eBay surévaluait à 304€)
+    # cote manuelle (180€, posée le 26/07/2026) retirée le 07/08/2026 : repasse
+    # au calcul automatique (eBay+Cardtrader+Cardmarket, mode "plus_bas").
   - nom: "Méga-Gardevoir ex 178/132"    # version SIR (illustration spéciale)
     langue: fr
   - nom: "Méga-Lucario ex 179/132"      # version SIR (illustration spéciale)
@@ -537,6 +541,10 @@ cote:
   minimum_annonces: 6
   # 💡 Pour une carte clé, tu peux imposer TA cote (relevée sur Cardmarket) :
   #    ajoute "cote: 250" sous la carte dans la watchlist. Elle sera prioritaire.
+  #    Ajoute aussi cote_date: "2026-08-07" (date du jour où tu l'as
+  #    relevée) : passé 30 jours, le bot t'enverra un rappel Telegram pour la
+  #    revérifier (sinon elle peut devenir fausse en silence pendant des mois).
+  #    Sans cote_date, pas de rappel possible.
 
 # --- Mon stock (alertes de REVENTE) ---
 mes_achats: []

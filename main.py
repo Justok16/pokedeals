@@ -832,6 +832,23 @@ def marquer(vues: dict, annonce_id: str) -> None:
     vues[annonce_id] = {"ts": time.time()}
 
 
+# V46 : mutualise le mécanisme "anti-spam" (une alerte par clé, pas plus
+# souvent que `duree_secondes`) qui était copié-collé à l'identique à trois
+# endroits (verifier_stock, detecter_anomalies, et l'alerte d'écart entre
+# langues) avec le même bug potentiel si on oubliait de marquer après coup.
+# Réutilise `vues` (déjà persisté dans data/seen.json) comme stockage : les
+# clés d'anti-spam ("vente-...", "anomalie-...", "ecart-langues-...") vivent
+# à côté des identifiants d'annonces, distinguées par leur préfixe.
+def anti_spam(vues: dict, cle: str, duree_secondes: float) -> bool:
+    """True si une alerte peut partir pour `cle` (silence écoulé) — et marque
+    alors `cle` comme envoyée maintenant. False si on est encore dans la
+    période de silence (rien n'est marqué, on pourra ré-essayer plus tard)."""
+    if time.time() - vues.get(cle, {}).get("ts", 0) < duree_secondes:
+        return False
+    vues[cle] = {"ts": time.time()}
+    return True
+
+
 TOKEN_URL = "https://api.ebay.com/identity/v1/oauth2/token"
 BROWSE_URL = "https://api.ebay.com/buy/browse/v1/item_summary/search"
 MARKETPLACE = "EBAY_FR"
@@ -2323,8 +2340,18 @@ def lbc_relever_alertes_email(cfg: dict, secrets: dict) -> list[dict]:
             if html:
                 annonces.extend(lbc_extraire_annonces_email(html))
         imap.logout()
+        # V46 : avant, rien n'était loggé si 0 email trouvé ou 0 annonce
+        # extraite -> impossible de savoir depuis les logs GitHub Actions si
+        # le canal Leboncoin est bloqué (aucune alerte Leboncoin reçue côté
+        # Gmail) ou cassé côté code (mise en page LBC changée, regex à jour
+        # mais extraction vide). Les trois cas sont maintenant distingués.
         if annonces:
             log.info("Alertes email LBC : %d annonce(s) extraite(s) de %d email(s)", len(annonces), len(ids))
+        elif ids:
+            log.warning("Alertes email LBC : %d email(s) non lu(s) de Leboncoin trouvé(s) mais AUCUNE annonce "
+                        "extraite (mise en page Leboncoin changée ?)", len(ids))
+        else:
+            log.info("Alertes email LBC : aucun email non lu de Leboncoin trouvé dans %s", adresse)
     except Exception as e:  # noqa: BLE001
         log.warning("Alertes email LBC en erreur (non bloquant) : %s", e)
     return annonces
@@ -2796,11 +2823,8 @@ def verifier_stock(cfg: dict, secrets: dict, vues: dict) -> list[dict]:
             continue
 
         # Anti-spam : une alerte par carte par semaine maximum
-        cle = f"vente-{nom}"
-        derniere = vues.get(cle, {}).get("ts", 0)
-        if time.time() - derniere < RAPPEL_JOURS * 86400:
+        if not anti_spam(vues, f"vente-{nom}", RAPPEL_JOURS * 86400):
             continue
-        vues[cle] = {"ts": time.time()}
 
         gain_net = cote * (1 - frais) - prix_achat
         alertes.append(
@@ -2963,12 +2987,60 @@ def detecter_anomalies(cfg: dict, vues: dict) -> list[str]:
             continue
 
         # Anti-spam : une alerte anomalie par carte toutes les 48h
-        cle_antispam = f"anomalie-{cle}"
-        if time.time() - vues.get(cle_antispam, {}).get("ts", 0) < 48 * 3600:
+        if not anti_spam(vues, f"anomalie-{cle}", 48 * 3600):
             continue
-        vues[cle_antispam] = {"ts": time.time()}
         messages.append(alerte)
         log.info("Anomalie détectée sur '%s' : %+.0f%%", nom, variation * 100)
+
+    return messages
+
+
+# V46 : au-delà de ce nombre de jours, une cote manuelle (champ `cote:` dans
+# la watchlist) déclenche un rappel de revérification (voir fonction
+# ci-dessous). Une cote manuelle fige un prix relevé à la main un jour donné
+# ; sans rappel, elle peut devenir fausse en silence pendant des mois si
+# personne n'y repense (cas vécu : 4 cotes manuelles datant de fin juillet
+# 2026, jamais revérifiées depuis leur ajout).
+COTE_MANUELLE_MAX_JOURS = 30
+
+
+def verifier_cotes_manuelles_perimees(cfg: dict, vues: dict) -> list[str]:
+    """Rappelle de revérifier les cotes manuelles trop anciennes.
+
+    Une carte de la watchlist avec `cote: XX` ET `cote_date: "AAAA-MM-JJ"`
+    déclenche un rappel Telegram si `cote_date` a plus de
+    COTE_MANUELLE_MAX_JOURS jours. Sans `cote_date`, aucune vérification
+    n'est possible (comportement inchangé) : le champ est optionnel, mais
+    c'est lui qui active le rappel.
+    """
+    messages = []
+    for carte in cfg.get("watchlist", []):
+        cote = carte.get("cote")
+        date_txt = carte.get("cote_date")
+        if not cote or not date_txt:
+            continue
+        try:
+            date_maj = datetime.strptime(str(date_txt), "%Y-%m-%d")
+        except ValueError:
+            log.warning("cote_date invalide pour %s : %r (attendu AAAA-MM-JJ)",
+                        carte.get("nom"), date_txt)
+            continue
+        age_jours = (datetime.now(PARIS).date() - date_maj.date()).days
+        if age_jours < COTE_MANUELLE_MAX_JOURS:
+            continue
+        nom = carte.get("nom", "?")
+        langue = carte.get("langue", "fr")
+        # Anti-spam : un seul rappel par carte par semaine tant qu'elle
+        # n'est pas mise à jour dans config.yaml.
+        if not anti_spam(vues, f"cote-perimee-{nom}|{langue}", 7 * 86400):
+            continue
+        messages.append(
+            f"🗓️ <b>COTE MANUELLE À REVÉRIFIER</b> : {nom} ({langue.upper()})\n"
+            f"Figée à {cote}€ le {date_txt} ({age_jours} jours). Revérifie le "
+            f"prix réel (Cardmarket...) et mets à jour `cote_date` dans "
+            f"config.yaml — ou retire la ligne `cote:` pour repasser au "
+            f"calcul automatique.")
+        log.info("Cote manuelle périmée : %s (%s, %d jours)", nom, langue.upper(), age_jours)
 
     return messages
 
@@ -3360,10 +3432,12 @@ def main() -> int:
         valeurs = [v for _, v in entrees]
         grand, petit = max(valeurs), min(valeurs)
         if petit > 0 and grand / petit >= seuil_langues:
-            cle_antispam = f"ecart-langues-{cle}"
-            if time.time() - vues.get(cle_antispam, {}).get("ts", 0) < 48 * 3600:
+            # V46 : anti-spam - une alerte d'écart de langue par carte toutes
+            # les 48h maximum (même mécanisme que les anomalies de cote
+            # ci-dessus), pour ne pas ré-envoyer la même alerte à chaque scan
+            # (toutes les 15 min) tant que l'écart persiste.
+            if not anti_spam(vues, f"ecart-langues-{cle}", 48 * 3600):
                 continue
-            vues[cle_antispam] = {"ts": time.time()}
             details = ", ".join(f"{n} : {v:.2f}€" for n, v in entrees)
             alertes_langues.append(
                 f"⚠️ <b>ÉCART SUSPECT ENTRE LANGUES</b> : {cle}\n{details}\n"
@@ -3431,6 +3505,11 @@ def main() -> int:
     # V34 : alertes d'écart suspect entre langues (voir plus haut dans main).
     if alertes_langues and notif.get("telegram") and "telegram" in cfg:
         envoyer_telegram_texte(alertes_langues, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
+
+    # V46 : rappel de revérification des cotes manuelles trop anciennes.
+    cotes_perimees = verifier_cotes_manuelles_perimees(cfg, vues)
+    if cotes_perimees and notif.get("telegram") and "telegram" in cfg:
+        envoyer_telegram_texte(cotes_perimees, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
 
     # --- Récapitulatif quotidien (envoyé une fois, vers 21h heure de Paris) ---
     recap = recap_du_jour(cfg, vues)
