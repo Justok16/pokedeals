@@ -3360,6 +3360,10 @@ def main() -> int:
         valeurs = [v for _, v in entrees]
         grand, petit = max(valeurs), min(valeurs)
         if petit > 0 and grand / petit >= seuil_langues:
+            cle_antispam = f"ecart-langues-{cle}"
+            if time.time() - vues.get(cle_antispam, {}).get("ts", 0) < 48 * 3600:
+                continue
+            vues[cle_antispam] = {"ts": time.time()}
             details = ", ".join(f"{n} : {v:.2f}€" for n, v in entrees)
             alertes_langues.append(
                 f"⚠️ <b>ÉCART SUSPECT ENTRE LANGUES</b> : {cle}\n{details}\n"
