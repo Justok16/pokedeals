@@ -1,0 +1,66 @@
+name: Scan Shopify
+on:
+  schedule:
+    # Toutes les 30 minutes -- independant du cron principal (main.py,
+    # toutes les 15 min). Les deux tournent en parallele sur le meme repo ;
+    # cf. l'etape de sauvegarde ci-dessous pour la gestion des collisions Git.
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      boutiques:
+        description: "Domaines a scanner, separes par des espaces (vide = les 40 boutiques par defaut)"
+        required: false
+        default: ""
+permissions:
+  contents: write   # necessaire pour sauvegarder data/stock_boutiques_tcg.json
+concurrency:
+  group: scan_shopify   # groupe DEDIE, distinct de "pokedeals" (main.py) :
+  cancel-in-progress: false  # les deux workflows tournent independamment l'un de l'autre
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18   # ~6.3 min mesurees sur les 40 boutiques + marge pour rate-limits occasionnels
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le scan Shopify (40 boutiques par defaut)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python scan_boutique.py ${{ github.event.inputs.boutiques }}
+      - name: Sauvegarder la mémoire de stock
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          # Meme logique de rattrapage que pokedeals.yml : on met de cote notre
+          # fichier de memoire, on recupere la version distante (qui peut avoir
+          # avance entre-temps -- cron parallele toutes les 15 min sur le meme
+          # repo), puis on reimpose notre version fraichement scannee.
+          cp -f data/stock_boutiques_tcg.json /tmp/stock_boutiques_tcg.json 2>/dev/null || true
+          git stash || true
+          git pull --rebase || git rebase --abort || true
+          git stash pop || true
+          cp -f /tmp/stock_boutiques_tcg.json data/stock_boutiques_tcg.json 2>/dev/null || true
+          git add data/stock_boutiques_tcg.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj mémoire stock shopify [skip ci]"
+          # Push avec un rattrapage (comme pokedeals.yml) : si le push echoue
+          # (l'autre cron a pousse entre-temps), on refait un pull --rebase en
+          # preservant notre memoire, puis on re-pousse. Si ca echoue ENCORE,
+          # on laisse le workflow passer au rouge pour que ce soit visible
+          # (sinon la memoire non sauvee = risque de rater/dupliquer une
+          # detection de retour en stock au prochain cycle).
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f data/stock_boutiques_tcg.json /tmp/stock_boutiques_tcg.json 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/stock_boutiques_tcg.json data/stock_boutiques_tcg.json 2>/dev/null || true
+            git add data/stock_boutiques_tcg.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj mémoire stock shopify [skip ci]"
+            git push
+          }
