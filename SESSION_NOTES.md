@@ -1,7 +1,7 @@
 # Notes de session — extension multi-plateforme PokéDeals
 
 Dernière mise à jour : 2026-08-10 (fin de session — couverture des
-boutiques sans sitemap terminée, 83 boutiques actives au total).
+boutiques sans sitemap terminée, 84 boutiques actives au total).
 
 ## Contexte du projet
 
@@ -257,19 +257,39 @@ avant de toucher du code partagé) : 81/81 OK, 0 échec, 6 deals
 avant/après inchangés, mêmes 3 rejets légitimes qu'avant (aucun nouveau) —
 **aucune régression** du changement de header.
 
-### Boutiques intégrées (2, via repli recherche HTML)
+### Boutiques intégrées (3)
 
-- **`investcollect.com`** — 55 résultats à confiance forte sur la
-  watchlist complète (194 critères), **3 vraies bonnes affaires détectées**
-  avec garde-fous (prix/décote/devise) vérifiés dans `evaluer_deal` :
-  Méga-Dracaufeu Y ex 294/217 à 320€ (cote 356€, -10.2%), Méga-Dracolosse
-  ex 290/217 à 400€ (cote 583€, **-31.4%**), Méga-Dracaufeu X ex à 50€
-  (cote 65€, -23%). Vrai vendeur de cartes à l'unité (catégorie dédiée
-  "cartes-a-l-unites", numéros de set dans les slugs produit).
-- **`lepantheon-tcg.com`** — 2 résultats à confiance forte (1 produit
-  unique, matché via nom + alias), 0 deal ce cycle précis — intégrée quand
-  même (même principe que les boutiques déjà actives qui ont 0 match
-  certains cycles ; recherche native confirmée fonctionnelle et pertinente).
+- **`investcollect.com`** (repli recherche HTML) — 55 résultats à
+  confiance forte sur la watchlist complète (194 critères), **3 vraies
+  bonnes affaires détectées** avec garde-fous (prix/décote/devise)
+  vérifiés dans `evaluer_deal` : Méga-Dracaufeu Y ex 294/217 à 320€ (cote
+  356€, -10.2%), Méga-Dracolosse ex 290/217 à 400€ (cote 583€,
+  **-31.4%**), Méga-Dracaufeu X ex à 50€ (cote 65€, -23%). Vrai vendeur de
+  cartes à l'unité (catégorie dédiée "cartes-a-l-unites", numéros de set
+  dans les slugs produit).
+- **`lepantheon-tcg.com`** (repli recherche HTML) — 2 résultats à
+  confiance forte (1 produit unique, matché via nom + alias), 0 deal ce
+  cycle précis — intégrée quand même (même principe que les boutiques
+  déjà actives qui ont 0 match certains cycles ; recherche native
+  confirmée fonctionnelle et pertinente).
+- **`mymesis.fr`** (repli API REST — **demande explicite de l'utilisateur
+  de pousser le diagnostic**, boutique qu'il affectionne) — le repli
+  recherche HTML reste non viable (son moteur de recherche visible est un
+  widget Elementor "Jet Search" piloté par AJAX côté client, une requête
+  GET statique sur `?s=` renvoie une page quasi identique quelle que soit
+  la requête). MAIS son
+  **API REST WooCommerce "Store API" publique**
+  (`wp-json/wc/store/v1/products?search=...`) répond parfaitement : ce
+  n'est PAS un contournement, c'est le point d'entrée officiel documenté
+  pour les vitrines headless, actif par défaut sur la plupart des
+  installations WooCommerce, indépendant du widget de recherche du thème.
+  Nouvelle methode `ConnecteurWooCommerce.rechercher_via_api_rest()` (JSON
+  structuré : nom, prix en CENTIMES, devise, stock — pas besoin de
+  récupérer chaque page produit individuellement). Testée sur la watchlist
+  complète : **57 résultats à confiance forte**, vrai vendeur de cartes à
+  l'unité (catégorie "cartes-pokemon-a-lunite"), 0 deal ce cycle précis
+  mais garde-fous vérifiés sans faux positif. Intégrée dans
+  `BOUTIQUES_WOOCOMMERCE_REPLI_API_REST` (LOT_A).
 
 ### Boutiques diagnostiquées, NON intégrées (raison précise pour chacune)
 
@@ -302,14 +322,6 @@ avant/après inchangés, mêmes 3 rejets légitimes qu'avant (aucun nouveau) —
   Abandonné après plusieurs tentatives espacées (45s, 180s, 300s), suivant
   la consigne de ne pas insister indéfiniment sur un site qui répond 429
   en boucle.
-- **`mymesis.fr`** — sitemap cassé (déjà documenté) ET repli recherche
-  HTML non viable : son moteur de recherche est un widget Elementor "Jet
-  Search" piloté par AJAX côté client, une requête GET statique sur `?s=`
-  renvoie une page quasi identique quelle que soit la requête (vérifié :
-  moins de 600 octets d'écart entre "Dracaufeu" et une requête bidon,
-  aucun lien produit pertinent). Récupérer les vrais résultats
-  nécessiterait de rétro-ingénierer l'appel AJAX du widget — non fait
-  (boutique déjà jugée faible priorité : accessoires/sleeves).
 - **`bcd-jeux.fr`** — sitemap toujours cassé côté site (re-testé,
   confirmé identique à l'audit initial : l'index sitemap répond 200 mais
   ses 3 sous-fichiers déclarés renvoient tous 404).

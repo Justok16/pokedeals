@@ -43,6 +43,7 @@ LOT_A = [
     "lecoindesbarons.com", "figuyatta.com", "magicalstore.fr",
     "pokestock.fr", "jmcards.fr", "ecardstore.fr", "pokelite.fr",
     "pokegourou.com", "pokeloutre.fr",
+    "mymesis.fr",  # repli API REST, pas de sitemap -- volume negligeable, ajoutee au lot le plus leger
 ]
 LOT_B = [
     "k-tcg.com", "placeofgeek.fr", "lepion.com", "vinticards.fr",
@@ -74,22 +75,32 @@ BOUTIQUES_WOOCOMMERCE_SANS_SITEMAP = [
     "nexthobby.fr",
 ]
 
-# RETIREE le 10/08/2026 : mymesis.fr a un robots.txt qui declare le sitemap
-# d'un domaine TIERS generique/demo ("https://enhancedwordpress.fr/sitemap_index.xml")
-# vendant des articles sans rapport (sacs, casquettes, parapluies) -- pas
-# une panne technique mais une configuration jamais finalisee cote site.
-# A reintegrer seulement si son propre robots.txt est corrige un jour --
-# retester avec :
+# RETIREE de BOUTIQUES_WOOCOMMERCE_SITEMAP le 10/08/2026 : mymesis.fr a un
+# robots.txt qui declare le sitemap d'un domaine TIERS generique/demo
+# ("https://enhancedwordpress.fr/sitemap_index.xml") -- pas une panne
+# technique mais une configuration jamais finalisee cote site. A
+# reintegrer dans la strategie sitemap seulement si son propre robots.txt
+# est corrige un jour -- retester avec :
 #   python -c "from connecteur_woocommerce import ConnecteurWooCommerce as C; print(C('mymesis.fr')._decouvrir_sitemaps_racine())"
-#
-# Repli "recherche HTML" NON PLUS VIABLE (teste 10/08/2026) : son moteur de
-# recherche est un widget Elementor "Jet Search" pilote par AJAX cote client
-# -- une requete GET statique sur "?s=..." renvoie une page quasi identique
-# quelle que soit la requete (verifie : "Dracaufeu" et une requete bidon
-# donnent une longueur de reponse a moins de 600 octets d'ecart, aucun lien
-# produit pertinent). Recuperer les vrais resultats necessiterait de
-# retro-ingenierer l'appel AJAX de ce widget -- non fait (boutique deja
-# jugee faible priorite : accessoires/sleeves, peu de cartes a l'unite).
 BOUTIQUES_WOOCOMMERCE_SITEMAP_INCORRECT = [
+    "mymesis.fr",
+]
+
+# Repli "recherche HTML" NON VIABLE pour mymesis.fr (teste 10/08/2026) :
+# son moteur de recherche visible est un widget Elementor "Jet Search"
+# pilote par AJAX cote client -- une requete GET statique sur "?s=..."
+# renvoie une page quasi identique quelle que soit la requete (verifie :
+# "Dracaufeu" et une requete bidon donnent une longueur de reponse a moins
+# de 600 octets d'ecart, aucun lien produit pertinent).
+#
+# MAIS repli via l'API REST WooCommerce "Store API"
+# (wp-json/wc/store/v1/products, cf. ConnecteurWooCommerce.rechercher_via_api_rest)
+# CONFIRME FONCTIONNEL -- API publique documentee (vitrines headless),
+# independante du widget de recherche du theme. Testee sur la watchlist
+# complete (194 criteres) : 57 resultats a confiance forte, vrai vendeur
+# de cartes a l'unite (categorie "cartes-pokemon-a-lunite"), 0 deal ce
+# cycle precis mais garde-fous (prix/decote/devise) verifies sans faux
+# positif -- integree pour la couverture future.
+BOUTIQUES_WOOCOMMERCE_REPLI_API_REST = [
     "mymesis.fr",
 ]

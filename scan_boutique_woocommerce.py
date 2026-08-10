@@ -36,9 +36,16 @@ def scanner_boutique_complet(
     memoire_stock: dict,
     cotes: dict,
     regles: dict,
+    repli_api_rest: bool = False,
 ) -> tuple[list[dict], list[dict]]:
     """Scanne UNE boutique WooCommerce et retourne
     (deals_bonne_affaire, evenements_retour_stock).
+
+    `repli_api_rest=True` : boutique dont la recherche visible est pilotee
+    par JS/AJAX (widget de theme), sans sitemap exploitable -- utilise
+    l'API REST WooCommerce "Store API" (rechercher_via_api_rest) au lieu du
+    sitemap XML. Meme structures de retour, aucune modification requise
+    cote bonne_affaire_shopify.py / alerte_stock.py.
 
     Ne catch AUCUNE exception ici -- c'est la responsabilite de l'appelant
     (scanner_plusieurs_boutiques) de faire en sorte qu'un echec sur cette
@@ -48,8 +55,11 @@ def scanner_boutique_complet(
     criteres = list(cartes_par_critere.keys())
 
     connecteur = ConnecteurWooCommerce(domaine)
-    urls_produits = connecteur.recuperer_toutes_les_urls_produits()                    # 1 seul appel sitemap
-    resultats_par_critere = connecteur.rechercher_dans_catalogue(urls_produits, criteres)  # 1 seul passage
+    if repli_api_rest:
+        resultats_par_critere = connecteur.rechercher_via_api_rest(criteres)
+    else:
+        urls_produits = connecteur.recuperer_toutes_les_urls_produits()                    # 1 seul appel sitemap
+        resultats_par_critere = connecteur.rechercher_dans_catalogue(urls_produits, criteres)  # 1 seul passage
 
     deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, cotes, regles)
     evenements_stock = detecter_retours_en_stock(domaine, resultats_par_critere, cartes_par_critere, memoire_stock)
@@ -63,7 +73,9 @@ def scanner_plusieurs_boutiques(
     memoire_stock: dict,
     cotes: dict,
     regles: dict,
+    boutiques_repli_api_rest: set[str] | None = None,
 ) -> dict:
+    boutiques_repli_api_rest = boutiques_repli_api_rest or set()
     debut = time.monotonic()
     tous_les_deals: list[dict] = []
     tous_les_evenements: list[dict] = []
@@ -72,7 +84,8 @@ def scanner_plusieurs_boutiques(
 
     for i, domaine in enumerate(boutiques):
         try:
-            deals, evenements = scanner_boutique_complet(domaine, cartes, memoire_stock, cotes, regles)
+            repli_api_rest = domaine in boutiques_repli_api_rest
+            deals, evenements = scanner_boutique_complet(domaine, cartes, memoire_stock, cotes, regles, repli_api_rest)
             tous_les_deals.extend(deals)
             tous_les_evenements.extend(evenements)
             boutiques_ok.append(domaine)
@@ -96,10 +109,11 @@ def scanner_plusieurs_boutiques(
 
 
 if __name__ == "__main__":
-    from boutiques_woocommerce import BOUTIQUES_WOOCOMMERCE_SITEMAP
+    from boutiques_woocommerce import BOUTIQUES_WOOCOMMERCE_REPLI_API_REST, BOUTIQUES_WOOCOMMERCE_SITEMAP
     from watchlist_shopify import charger_watchlist_config
 
-    boutiques = sys.argv[1:] if len(sys.argv) > 1 else BOUTIQUES_WOOCOMMERCE_SITEMAP
+    boutiques = sys.argv[1:] if len(sys.argv) > 1 else BOUTIQUES_WOOCOMMERCE_SITEMAP + BOUTIQUES_WOOCOMMERCE_REPLI_API_REST
+    boutiques_repli_api_rest = set(boutiques) & set(BOUTIQUES_WOOCOMMERCE_REPLI_API_REST)
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 
@@ -113,7 +127,7 @@ if __name__ == "__main__":
 
     memoire_stock = charger_memoire(FICHIER_MEMOIRE)
 
-    resume = scanner_plusieurs_boutiques(boutiques, cartes, memoire_stock, cotes, regles)
+    resume = scanner_plusieurs_boutiques(boutiques, cartes, memoire_stock, cotes, regles, boutiques_repli_api_rest)
 
     sauvegarder_memoire(memoire_stock, FICHIER_MEMOIRE)
 

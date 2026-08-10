@@ -54,6 +54,7 @@ from connecteur_shopify import (
     CritereRecherche,
     ResultatRecherche,
     _regex_numero_sans_denominateur,
+    _titre_correspond,
     detecter_langue,
 )
 
@@ -503,6 +504,81 @@ class ConnecteurWooCommerce:
                 resultat = self._evaluer_url(url, nom, numero, confiance_base)
                 if resultat:
                     resultats_par_critere[(nom, numero)].append(resultat)
+
+        return resultats_par_critere
+
+    def _decouvrir_produits_api_rest(self, nom: str) -> list[dict]:
+        """Repli via l'API REST WooCommerce "Store API"
+        (wp-json/wc/store/v1/products), publique et documentee -- PAS un
+        contournement, c'est l'API officielle destinee aux vitrines
+        headless, activee par defaut sur la plupart des installations
+        WooCommerce. Alternative au repli recherche HTML pour les
+        boutiques dont la recherche visible est pilotee par JS/AJAX cote
+        client (constate sur mymesis.fr : widget Elementor "Jet Search",
+        une requete GET statique sur "?s=" ne renvoie pas de resultats
+        filtres) -- l'API REST, elle, applique un vrai filtrage cote
+        serveur independant du widget de recherche du theme.
+
+        Renvoie directement les produits en JSON structure (nom, prix,
+        devise, stock) : pas besoin de recuperer chaque page produit
+        individuellement comme pour le repli HTML."""
+        try:
+            url = f"{self.base_url}/wp-json/wc/store/v1/products?search={quote(nom)}&per_page=50"
+            r = self.session.get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
+            r.raise_for_status()
+            produits = r.json()
+        except (requests.exceptions.RequestException, ValueError):
+            return []
+        return produits if isinstance(produits, list) else []
+
+    def rechercher_via_api_rest(
+        self, criteres: list[tuple[str, str | None]]
+    ) -> dict[tuple[str, str | None], list[ResultatRecherche]]:
+        """Repli via l'API REST WooCommerce -- a utiliser pour les
+        boutiques dont le repli recherche HTML echoue faute de recherche
+        cote serveur exploitable (cf. _decouvrir_produits_api_rest)."""
+        resultats_par_critere: dict[tuple[str, str | None], list[ResultatRecherche]] = {
+            (nom, numero): [] for nom, numero in criteres
+        }
+        produits_par_nom: dict[str, list[dict]] = {}
+
+        for nom, numero in criteres:
+            critere = CritereRecherche(nom=nom, numero=numero)
+            confiance_base = "forte" if numero is not None else "faible"
+
+            if nom not in produits_par_nom:
+                produits_par_nom[nom] = self._decouvrir_produits_api_rest(nom)
+                time.sleep(DELAI_ENTRE_PAGES_PRODUIT)
+
+            for produit in produits_par_nom[nom]:
+                titre = produit.get("name", "")
+                if not _titre_correspond(titre, critere):
+                    continue
+
+                prix_info = produit.get("prices") or {}
+                try:
+                    unite_min = int(prix_info.get("currency_minor_unit", 2))
+                    prix = float(prix_info["price"]) / (10 ** unite_min)
+                except (KeyError, TypeError, ValueError):
+                    continue
+
+                devise = (prix_info.get("currency_code") or "").upper()
+                devise_ok = devise == "EUR"
+                confiance = confiance_base if devise_ok else "faible"
+                images = produit.get("images") or []
+
+                resultats_par_critere[(nom, numero)].append(ResultatRecherche(
+                    boutique=self.nom_affiche,
+                    titre=titre,
+                    prix=prix,
+                    en_stock=bool(produit.get("is_in_stock")),
+                    url_produit=produit.get("permalink", ""),
+                    variante_titre="",
+                    image_url=images[0].get("src") if images else None,
+                    langue_detectee=detecter_langue(titre),
+                    confiance=confiance,
+                    necessite_verification_manuelle=(numero is None) or not devise_ok,
+                ))
 
         return resultats_par_critere
 
