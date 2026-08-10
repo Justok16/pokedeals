@@ -1,0 +1,115 @@
+name: Scan WooCommerce
+on:
+  schedule:
+    # Toutes les 30 minutes -- independant des trois autres cron (main.py
+    # 15 min, scan_shopify.yml et scan_prestashop.yml 30 min). Tous tournent
+    # en parallele sur le meme repo ; cf. les etapes de sauvegarde ci-dessous
+    # pour la gestion des collisions Git.
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      boutiques:
+        description: "Domaines a scanner (remplace les 2 lots par defaut, ignore le decoupage en 2 jobs)"
+        required: false
+        default: ""
+permissions:
+  contents: write   # necessaire pour sauvegarder data/stock_boutiques_tcg_woocommerce.json
+concurrency:
+  group: scan_woocommerce   # groupe DEDIE, distinct des 3 autres workflows
+  cancel-in-progress: false
+jobs:
+  # 19.0 min mesurees en local sur les 26 boutiques d'un coup -- marge
+  # insuffisante face au surcout habituel de GitHub Actions (vu +19 a +38%
+  # sur les 2 autres plateformes, ce qui aurait pu depasser un timeout de
+  # 20 min). Scinde en 2 lots EQUILIBRES PAR VOLUME D'URLs sitemap (pas par
+  # nombre de boutiques -- cardshunter.fr/k-tcg.com/hamacards.com a eux
+  # seuls pesent la moitie du volume total), executes SEQUENTIELLEMENT
+  # (job B attend job A via "needs") pour eviter que les deux jobs
+  # n'ecrivent en meme temps sur data/stock_boutiques_tcg_woocommerce.json
+  # au sein du MEME run -- une vraie course, contrairement aux collisions
+  # inter-workflows deja gerees par pull --rebase.
+  scan_lot_a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le scan WooCommerce (lot A)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          if [ -n "${{ github.event.inputs.boutiques }}" ]; then
+            python scan_boutique_woocommerce.py ${{ github.event.inputs.boutiques }}
+          else
+            python -c "from boutiques_woocommerce import LOT_A; print(' '.join(LOT_A))" > /tmp/lot_a.txt
+            python scan_boutique_woocommerce.py $(cat /tmp/lot_a.txt)
+          fi
+      - name: Sauvegarder la mémoire de stock (lot A)
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          cp -f data/stock_boutiques_tcg_woocommerce.json /tmp/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+          git stash || true
+          git pull --rebase || git rebase --abort || true
+          git stash pop || true
+          cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+          git add data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot A) [skip ci]"
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f data/stock_boutiques_tcg_woocommerce.json /tmp/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+            git add data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot A) [skip ci]"
+            git push
+          }
+
+  scan_lot_b:
+    needs: scan_lot_a   # execution sequentielle -- evite une course sur le meme fichier memoire au sein du run
+    if: ${{ github.event.inputs.boutiques == '' || github.event.inputs.boutiques == null }}  # lot B saute si un scan cible manuel est demande
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le scan WooCommerce (lot B)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          python -c "from boutiques_woocommerce import LOT_B; print(' '.join(LOT_B))" > /tmp/lot_b.txt
+          python scan_boutique_woocommerce.py $(cat /tmp/lot_b.txt)
+      - name: Sauvegarder la mémoire de stock (lot B)
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          cp -f data/stock_boutiques_tcg_woocommerce.json /tmp/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+          git stash || true
+          git pull --rebase || git rebase --abort || true
+          git stash pop || true
+          cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+          git add data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot B) [skip ci]"
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f data/stock_boutiques_tcg_woocommerce.json /tmp/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+            git add data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot B) [skip ci]"
+            git push
+          }
