@@ -45,7 +45,7 @@ from urllib.parse import quote
 import requests
 
 from connecteur_shopify import (
-    HEADERS,
+    HEADERS_HTML,
     TIMEOUT,
     CritereRecherche,
     ResultatRecherche,
@@ -149,11 +149,13 @@ def _extraire_microdata_produit(html: str) -> dict | None:
     microdata schema.org (itemprop=...) directement dans le HTML -- certains
     themes PrestaShop les exposent SANS passer par JSON-LD (constate sur
     pokemoncarte.com et investcollect.com, aucun des deux n'a de JSON-LD
-    Product). Prend la PREMIERE occurrence dans l'ordre du document :
+    Product). Le PRIX prend la PREMIERE occurrence dans l'ordre du document :
     verifie manuellement sur pokemoncarte.com que ca correspond bien au
     prix affiche en premier sur la page (id="our_price_display"), pas a un
     widget annexe -- les autres occurrences plus bas sur la page sont des
-    produits associes/variantes, pas le prix principal."""
+    produits associes/variantes, pas le prix principal. Le TITRE prend la
+    premiere occurrence NON VIDE (voir commentaire plus bas -- la marque
+    precede parfois le produit avec un itemprop="name" vide)."""
     m_prix = re.search(r'itemprop="price"[^>]*content="([^"]+)"', html)
     if not m_prix:
         return None
@@ -169,10 +171,19 @@ def _extraire_microdata_produit(html: str) -> dict | None:
     m_dispo = re.search(r'itemprop="availability"[^>]*(?:content|href)="([^"]+)"', html)
     en_stock = bool(m_dispo and m_dispo.group(1).rstrip("/").endswith(("InStock", "LimitedAvailability")))
 
+    # PREMIERE occurrence NON VIDE (pas juste la premiere tout court) :
+    # certains themes placent un itemprop="name" pour la MARQUE avant celui
+    # du produit (ex: "<meta itemprop="name" content="The Pokémon Company">"
+    # dans un bloc itemtype=".../Brand"), un tag <meta> auto-ferme sans texte
+    # interne -- la regex capture alors une chaine vide entre ">" et le tag
+    # suivant. Bug reel constate sur investcollect.com : la 1ere occurrence
+    # (marque) donnait un titre vide, la 2e (le <h1> du produit) le vrai nom.
     titre = ""
-    m_titre = re.search(r'itemprop="name"[^>]*>([^<]*)', html)
-    if m_titre and m_titre.group(1).strip():
-        titre = m_titre.group(1).strip()
+    for m_titre in re.finditer(r'itemprop="name"[^>]*>([^<]*)', html):
+        candidat = m_titre.group(1).strip()
+        if candidat:
+            titre = candidat
+            break
 
     return {"prix": prix, "devise": devise, "en_stock": en_stock, "titre": titre}
 
@@ -193,7 +204,7 @@ class ConnecteurPrestaShopSitemap:
         cas frequent : plusieurs boutiques renvoient un 200 sur un chemin
         de sitemap absent, avec la page d'accueil comme contenu)."""
         try:
-            r = self.session.get(f"{self.base_url}/robots.txt", headers=HEADERS, timeout=TIMEOUT)
+            r = self.session.get(f"{self.base_url}/robots.txt", headers=HEADERS_HTML, timeout=TIMEOUT)
             if r.status_code == 200:
                 declares = re.findall(r"(?im)^sitemap:\s*(\S+)", r.text)
                 declares = [u if u.startswith("http") else f"{self.base_url}{u}" for u in declares]
@@ -204,7 +215,7 @@ class ConnecteurPrestaShopSitemap:
 
         for chemin in CHEMINS_SITEMAP_CANDIDATS:
             try:
-                r = self.session.get(f"{self.base_url}{chemin}", headers=HEADERS, timeout=TIMEOUT)
+                r = self.session.get(f"{self.base_url}{chemin}", headers=HEADERS_HTML, timeout=TIMEOUT)
                 if r.status_code == 200 and _est_xml_valide(r.content):
                     return [r.url]
             except requests.exceptions.RequestException:
@@ -219,7 +230,7 @@ class ConnecteurPrestaShopSitemap:
         vus.add(sitemap_url)
 
         try:
-            r = self.session.get(sitemap_url, headers=HEADERS, timeout=TIMEOUT)
+            r = self.session.get(sitemap_url, headers=HEADERS_HTML, timeout=TIMEOUT)
             r.raise_for_status()
             if not _est_xml_valide(r.content):
                 return []
@@ -263,7 +274,7 @@ class ConnecteurPrestaShopSitemap:
         absent. Factorise pour etre utilisee aussi bien par la strategie
         sitemap que par le repli recherche HTML."""
         try:
-            r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
+            r = self.session.get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
             r.raise_for_status()
         except requests.exceptions.RequestException:
             return None
@@ -347,10 +358,20 @@ class ConnecteurPrestaShopSitemap:
         investcollect.com). En revanche, l'URL produit PrestaShop suit
         presque toujours le motif "/{id}-{slug}.html" (id produit numerique
         en tete du dernier segment) -- verifie identique sur blazingtail.fr,
-        gamespirit.fr, pokemoncarte.com, investcollect.com, lepantheon-tcg.com."""
+        gamespirit.fr, pokemoncarte.com, investcollect.com, lepantheon-tcg.com.
+
+        Le parametre "s" est le standard PrestaShop (controller=search), mais
+        certains themes surchargent le moteur de recherche avec un parametre
+        different -- constate sur pokemoncarte.com (2 formulaires de
+        recherche sur la page d'accueil, le theme utilise "search_query" et
+        ignore "s" silencieusement : meme longueur de reponse, quelle que
+        soit la requete, tant que "search_query" est absent). Envoyer les
+        deux parametres simultanement est sans risque (un site qui n'utilise
+        que "s" ignore juste "search_query" en trop, verifie sur
+        blazingtail.fr/lepantheon-tcg.com/investcollect.com)."""
         try:
-            url = f"{self.base_url}/recherche?controller=search&s={quote(nom)}"
-            r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
+            url = f"{self.base_url}/recherche?controller=search&s={quote(nom)}&search_query={quote(nom)}"
+            r = self.session.get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
             r.raise_for_status()
         except requests.exceptions.RequestException:
             return []

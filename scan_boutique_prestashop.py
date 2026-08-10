@@ -40,13 +40,20 @@ def scanner_boutique_complet(
     memoire_stock: dict,
     cotes: dict,
     regles: dict,
+    repli_html: bool = False,
 ) -> tuple[list[dict], list[dict]]:
     """Scanne UNE boutique PrestaShop et retourne
     (deals_bonne_affaire, evenements_retour_stock).
 
-    Un seul appel reseau pour lister le sitemap et un seul passage de
-    matching, partages entre les deux logiques. `memoire_stock` est mise a
-    jour en place (cf. alerte_stock.py).
+    `repli_html=True` : boutique SANS sitemap exploitable (cf.
+    BOUTIQUES_PRESTASHOP_REPLI_HTML dans boutiques_prestashop.py) -- utilise
+    la recherche native PrestaShop (rechercher_via_recherche_html) au lieu
+    du sitemap XML. Meme structures de retour, aucune modification requise
+    cote bonne_affaire_shopify.py / alerte_stock.py.
+
+    Un seul appel reseau (sitemap OU recherche selon le mode) et un seul
+    passage de matching, partages entre les deux logiques. `memoire_stock`
+    est mise a jour en place (cf. alerte_stock.py).
 
     Ne catch AUCUNE exception ici -- c'est la responsabilite de l'appelant
     (scanner_plusieurs_boutiques) de faire en sorte qu'un echec sur cette
@@ -56,8 +63,11 @@ def scanner_boutique_complet(
     criteres = list(cartes_par_critere.keys())
 
     connecteur = ConnecteurPrestaShopSitemap(domaine)
-    urls_produits = connecteur.recuperer_toutes_les_urls_produits()                    # 1 seul appel sitemap
-    resultats_par_critere = connecteur.rechercher_dans_catalogue(urls_produits, criteres)  # 1 seul passage
+    if repli_html:
+        resultats_par_critere = connecteur.rechercher_via_recherche_html(criteres)
+    else:
+        urls_produits = connecteur.recuperer_toutes_les_urls_produits()                    # 1 seul appel sitemap
+        resultats_par_critere = connecteur.rechercher_dans_catalogue(urls_produits, criteres)  # 1 seul passage
 
     deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, cotes, regles)
     evenements_stock = detecter_retours_en_stock(domaine, resultats_par_critere, cartes_par_critere, memoire_stock)
@@ -71,7 +81,9 @@ def scanner_plusieurs_boutiques(
     memoire_stock: dict,
     cotes: dict,
     regles: dict,
+    boutiques_repli_html: set[str] | None = None,
 ) -> dict:
+    boutiques_repli_html = boutiques_repli_html or set()
     debut = time.monotonic()
     tous_les_deals: list[dict] = []
     tous_les_evenements: list[dict] = []
@@ -80,7 +92,8 @@ def scanner_plusieurs_boutiques(
 
     for i, domaine in enumerate(boutiques):
         try:
-            deals, evenements = scanner_boutique_complet(domaine, cartes, memoire_stock, cotes, regles)
+            repli_html = domaine in boutiques_repli_html
+            deals, evenements = scanner_boutique_complet(domaine, cartes, memoire_stock, cotes, regles, repli_html)
             tous_les_deals.extend(deals)
             tous_les_evenements.extend(evenements)
             boutiques_ok.append(domaine)
@@ -104,13 +117,16 @@ def scanner_plusieurs_boutiques(
 
 
 if __name__ == "__main__":
-    from boutiques_prestashop import BOUTIQUES_PRESTASHOP_SITEMAP
+    from boutiques_prestashop import BOUTIQUES_PRESTASHOP_REPLI_HTML, BOUTIQUES_PRESTASHOP_SITEMAP
     from watchlist_shopify import charger_watchlist_config
 
     # Test cible : `python scan_boutique_prestashop.py blazingtail.fr` ne
-    # scanne QUE les domaines passes en argument. Sans argument : toutes
-    # les boutiques PrestaShop couvertes par sitemap.
-    boutiques = sys.argv[1:] if len(sys.argv) > 1 else BOUTIQUES_PRESTASHOP_SITEMAP
+    # scanne QUE les domaines passes en argument (repli HTML applique
+    # automatiquement si le domaine appartient a BOUTIQUES_PRESTASHOP_REPLI_HTML).
+    # Sans argument : toutes les boutiques PrestaShop actives (sitemap +
+    # repli recherche HTML).
+    boutiques = sys.argv[1:] if len(sys.argv) > 1 else BOUTIQUES_PRESTASHOP_SITEMAP + BOUTIQUES_PRESTASHOP_REPLI_HTML
+    boutiques_repli_html = set(boutiques) & set(BOUTIQUES_PRESTASHOP_REPLI_HTML)
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 
@@ -124,7 +140,7 @@ if __name__ == "__main__":
 
     memoire_stock = charger_memoire(FICHIER_MEMOIRE)
 
-    resume = scanner_plusieurs_boutiques(boutiques, cartes, memoire_stock, cotes, regles)
+    resume = scanner_plusieurs_boutiques(boutiques, cartes, memoire_stock, cotes, regles, boutiques_repli_html)
 
     sauvegarder_memoire(memoire_stock, FICHIER_MEMOIRE)
 

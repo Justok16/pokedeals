@@ -24,15 +24,48 @@ BOUTIQUES_PRESTASHOP_SITEMAP = [
     "kyseii.fr",
 ]
 
-# Sans sitemap exploitable (a traiter plus tard via un repli "recherche
-# HTML" si on decide d'investir dedans -- cf. discussion) :
-#   gamespirit.fr, pokemoncarte.com, lepantheon-tcg.com, investcollect.com
-# (investcollect.com bloque aussi en 403, anti-bot probable)
+# Sans sitemap exploitable, couvertes via le repli "recherche HTML"
+# (ConnecteurPrestaShopSitemap.rechercher_via_recherche_html, cf.
+# scan_boutique_prestashop.py) -- ajoutees le 10/08/2026 apres correction de
+# 2 bugs reels qui les rendaient inexploitables a tort :
+#   1. Header partage "Accept: application/json" (herite du connecteur
+#      Shopify) renvoyait un corps de reponse VIDE sur les pages produit de
+#      certains sites -- confondu avec un vrai blocage anti-bot (403) sur
+#      investcollect.com, qui n'en etait pas un. Fix : HEADERS_HTML dedie
+#      aux pages HTML (cf. connecteur_shopify.py), utilise par les 2
+#      connecteurs sans sitemap.
+#   2. Extraction du TITRE microdata prenait la 1ere occurrence
+#      itemprop="name" du document (le nom de la MARQUE, "The Pokemon
+#      Company", dans un <meta> vide) au lieu de la 1ere occurrence NON
+#      VIDE (le vrai nom produit, dans le <h1>).
+# Teste sur la watchlist complete (194 criteres) apres fix :
+#   investcollect.com : 55 resultats a confiance forte, 3 vraies bonnes
+#     affaires detectees (garde-fous prix/decote/devise verifies, ex:
+#     Mega-Dracolosse ex 290/217 a 400e vs cote 583e, -31.4%).
+#   lepantheon-tcg.com : 2 resultats a confiance forte (1 produit unique,
+#     matche via nom+alias), 0 deal ce cycle -- integree quand meme, meme
+#     principe que les boutiques actives qui ont 0 match certains cycles.
+BOUTIQUES_PRESTASHOP_REPLI_HTML = [
+    "investcollect.com",
+    "lepantheon-tcg.com",
+]
+
+# Techniquement accessibles et corrigees (memes 2 bugs que ci-dessus), mais
+# NON integrees faute de valeur reelle -- verifie sur la watchlist complete
+# (194 criteres) le 10/08/2026 :
+#   gamespirit.fr : boutique retro-gaming/goodies generaliste (jeux video,
+#     figurines, maquettes), aucune categorie "cartes a l'unite", 0 carte
+#     TCG trouvee (uniquement des accessoires : boites de protection,
+#     portfolios) -- pas un probleme technique, un vrai desalignement de
+#     catalogue avec la watchlist.
+#   pokemoncarte.com : recherche fonctionnelle (bug de parametre corrige,
+#     voir _decouvrir_candidats_recherche dans connecteur_prestashop_sitemap.py),
+#     mais 22 resultats tous a confiance FAIBLE (matching nom seul, jamais
+#     nom+numero) -- 0 alerte automatique possible en l'etat. A reevaluer si
+#     son catalogue s'etoffe ou si le matching nom+numero est ameliore.
 BOUTIQUES_PRESTASHOP_SANS_SITEMAP = [
     "gamespirit.fr",
     "pokemoncarte.com",
-    "lepantheon-tcg.com",
-    "investcollect.com",
 ]
 
 # RETIREE le 10/08/2026 : bcd-jeux.fr a un sitemap CASSE cote site. Son

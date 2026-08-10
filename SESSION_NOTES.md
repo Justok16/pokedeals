@@ -1,6 +1,7 @@
 # Notes de session — extension multi-plateforme PokéDeals
 
-Dernière mise à jour : 2026-08-10, en fin de session (contexte sur le point de manquer).
+Dernière mise à jour : 2026-08-10 (fin de session — couverture des
+boutiques sans sitemap terminée, 83 boutiques actives au total).
 
 ## Contexte du projet
 
@@ -215,54 +216,129 @@ pourrait reproduire le même faux positif jusqu'à être découvert et ajouté
 
 **Orchestrateurs (un par plateforme, appelés par les workflows) :**
 - `scan_boutique.py` (Shopify, 40 boutiques actives dans `boutiques_shopify.py`)
-- `scan_boutique_prestashop.py` (PrestaShop, 15 boutiques actives dans `boutiques_prestashop.py` — 16 couvertes par sitemap moins `bcd-jeux.fr` retirée, sitemap cassé côté site)
+- `scan_boutique_prestashop.py` (PrestaShop, 17 boutiques actives dans `boutiques_prestashop.py` — 15 couvertes par sitemap + 2 via repli recherche HTML : `investcollect.com`, `lepantheon-tcg.com`, cf. section dédiée ci-dessous)
 - `scan_boutique_woocommerce.py` (WooCommerce, 26 boutiques actives dans `boutiques_woocommerce.py`, scindées en 2 lots équilibrés par volume d'URLs pour le workflow)
 
 **Workflows GitHub Actions :** `.github/workflows/{pokedeals,scan_shopify,scan_prestashop,scan_woocommerce}.yml`
 
-## Travail de couverture interrompu, code écrit mais PAS testé de bout en bout ni intégré aux listes actives
+## Couverture des boutiques sans sitemap — TERMINÉE (2026-08-10)
 
-Suite à la demande "compléter avec les cas restants les plus rentables", du
-code a été ajouté (déjà commité) mais l'intégration finale n'a pas été
-terminée avant que la priorité bascule sur les 3 bugs de production :
+Reprise du travail interrompu ("compléter avec les cas restants les plus
+rentables"). Diagnostic poussé au maximum sur chaque boutique bloquée,
+dans les limites raisonnables (pas de navigateur headless, pas de
+contournement anti-bot lourd, respect des rate-limits).
 
-- **Repli "recherche HTML"** (`rechercher_via_recherche_html`) ajouté à
-  `connecteur_prestashop_sitemap.py` et `connecteur_woocommerce.py`, pour
-  les boutiques sans sitemap exploitable. Fonctionne en isolation
-  (vérifié sur pokemoncarte.com, investcollect.com, kiokutcg.fr,
-  nexthobby.fr) mais :
-  - **`gamespirit.fr` et `lepantheon-tcg.com`** : confirmés NON couvrables
-    (ni sitemap, ni JSON-LD, ni microdata schema.org) — à laisser de côté.
-  - **`mymesis.fr`** : sitemap cassé (pointe vers un domaine de démo
-    générique) ET sa recherche interne ne renvoie aucun résultat pour
-    "dracaufeu"/"pikachu" — probablement faible valeur (boutique
-    accessoires/sleeves), pas prioritaire.
-  - **`nexthobby.fr`** : re-testé avec succès (200 après 45s d'attente),
-    identifié comme WooCommerce, sans sitemap. Repli recherche HTML
-    fonctionnel après généralisation de la détection (classes CSS trop
-    fragiles, remplacées par une détection par forme d'URL/domaine).
-  - **`investcollect.com`** : plus de blocage 403 constaté (contrairement à
-    l'audit initial) — son HTML de recherche est parfois rendu dans un
-    bloc échappé façon JSON (`href=\"https:\/\/...\"`), un cas de
-    normalisation ajouté dans `_decouvrir_candidats_recherche`.
-  - **PAS ENCORE FAIT** : re-test complet sur l'échantillon de 10 cartes
-    pour `pokemoncarte.com`/`investcollect.com`/`kiokutcg.fr`/
-    `nexthobby.fr` avec le code le plus à jour (les derniers tests datent
-    d'avant certains fixes) ; intégration de ces boutiques dans
-    `boutiques_prestashop.py`/`boutiques_woocommerce.py` (listes actives) ;
-    aucun nouveau workflow à créer (décision déjà prise : les intégrer aux
-    workflows existants, pas de 5e cron).
+### 2 bugs réels trouvés et corrigés (impact potentiellement large)
+
+En creusant pourquoi `investcollect.com` semblait "bloqué en 403" (a priori
+faux, l'audit initial l'avait mal diagnostiqué) :
+
+1. **Header partagé `Accept: application/json`** (`connecteur_shopify.py`,
+   `HEADERS`) — pensé générique, en réalité pertinent SEULEMENT pour l'API
+   JSON Shopify (`/products.json`), mais réutilisé par erreur pour TOUTES
+   les requêtes HTML des connecteurs PrestaShop/WooCommerce (robots.txt,
+   sitemap, pages produit, pages de recherche). Sur `investcollect.com`,
+   ce header fait renvoyer un corps de réponse **VIDE** (200 OK, 0 octet)
+   sur les pages produit — aucune erreur levée, juste un `ResultatRecherche`
+   silencieusement absent, facilement confondu avec un vrai blocage
+   anti-bot. **Fix** : nouvelle constante `HEADERS_HTML` (Accept
+   navigateur classique) dans `connecteur_shopify.py`, utilisée par les
+   deux connecteurs sans sitemap pour TOUS leurs appels HTTP (pas
+   seulement le point bloqué).
+2. **Extraction du titre en microdata** (`_extraire_microdata_produit`,
+   `connecteur_prestashop_sitemap.py`) — prenait la PREMIÈRE occurrence
+   `itemprop="name"` du document, qui est souvent celle de la MARQUE
+   ("The Pokémon Company", dans un `<meta>` auto-fermé sans texte interne)
+   plutôt que celle du produit (dans le `<h1>`, plus bas). **Fix** : prend
+   désormais la première occurrence NON VIDE.
+
+**Test de non-régression complet sur les 81 boutiques actives** (requis
+avant de toucher du code partagé) : 81/81 OK, 0 échec, 6 deals
+avant/après inchangés, mêmes 3 rejets légitimes qu'avant (aucun nouveau) —
+**aucune régression** du changement de header.
+
+### Boutiques intégrées (2, via repli recherche HTML)
+
+- **`investcollect.com`** — 55 résultats à confiance forte sur la
+  watchlist complète (194 critères), **3 vraies bonnes affaires détectées**
+  avec garde-fous (prix/décote/devise) vérifiés dans `evaluer_deal` :
+  Méga-Dracaufeu Y ex 294/217 à 320€ (cote 356€, -10.2%), Méga-Dracolosse
+  ex 290/217 à 400€ (cote 583€, **-31.4%**), Méga-Dracaufeu X ex à 50€
+  (cote 65€, -23%). Vrai vendeur de cartes à l'unité (catégorie dédiée
+  "cartes-a-l-unites", numéros de set dans les slugs produit).
+- **`lepantheon-tcg.com`** — 2 résultats à confiance forte (1 produit
+  unique, matché via nom + alias), 0 deal ce cycle précis — intégrée quand
+  même (même principe que les boutiques déjà actives qui ont 0 match
+  certains cycles ; recherche native confirmée fonctionnelle et pertinente).
+
+### Boutiques diagnostiquées, NON intégrées (raison précise pour chacune)
+
+- **`gamespirit.fr`** — technique OK une fois le bon sous-domaine trouvé
+  (son formulaire de recherche pointe vers `www2.gamespirit.fr`, pas
+  `gamespirit.fr` — pas exploité en code, boutique jugée non prioritaire
+  malgré la découverte). Catalogue vérifié : boutique généraliste
+  rétro-gaming/figurines/goodies, AUCUNE carte à l'unité (recherche
+  "pokemon carte" ne remonte que des accessoires — boîtes de protection,
+  portfolios — et un jeu Game Boy), pas de catégorie "cartes à l'unité"
+  (404). Pas un problème technique : désalignement de catalogue.
+- **`pokemoncarte.com`** — bug de paramètre corrigé (son thème utilise
+  `search_query`, pas le `s` standard PrestaShop ; `_decouvrir_candidats_recherche`
+  envoie désormais les deux). Recherche fonctionnelle, mais 22 résultats
+  sur la watchlist complète, TOUS à confiance FAIBLE (matching nom seul,
+  jamais nom+numéro) — 0 alerte automatique possible en l'état. À
+  réévaluer si son catalogue s'étoffe.
+- **`kiokutcg.fr`** — repli recherche HTML fonctionnel (WooCommerce, pas
+  de sitemap), mais 0 résultat sur la watchlist complète : boutique de
+  PRODUITS SCELLÉS (coffrets, displays, tripacks, mini-tins), aucune carte
+  à l'unité trouvée sur plusieurs recherches (Pikachu, Dracaufeu ex,
+  Evoli).
+- **`nexthobby.fr`** — identifié WooCommerce, sans sitemap, repli
+  recherche HTML fonctionnel QUAND accessible (confirmé : 27 candidats
+  réels pour "Dracaufeu", mais essentiellement des accessoires/sleeves,
+  pas de carte à l'unité vue). **Rate-limit très agressif** : persiste
+  même après 5 minutes sans requête (pas de header `Retry-After` fourni,
+  au-delà d'un simple throttle par minute) — incompatible avec un cycle de
+  scan automatique (~60-90 requêtes nécessaires sur la watchlist complète).
+  Abandonné après plusieurs tentatives espacées (45s, 180s, 300s), suivant
+  la consigne de ne pas insister indéfiniment sur un site qui répond 429
+  en boucle.
+- **`mymesis.fr`** — sitemap cassé (déjà documenté) ET repli recherche
+  HTML non viable : son moteur de recherche est un widget Elementor "Jet
+  Search" piloté par AJAX côté client, une requête GET statique sur `?s=`
+  renvoie une page quasi identique quelle que soit la requête (vérifié :
+  moins de 600 octets d'écart entre "Dracaufeu" et une requête bidon,
+  aucun lien produit pertinent). Récupérer les vrais résultats
+  nécessiterait de rétro-ingénierer l'appel AJAX du widget — non fait
+  (boutique déjà jugée faible priorité : accessoires/sleeves).
+- **`bcd-jeux.fr`** — sitemap toujours cassé côté site (re-testé,
+  confirmé identique à l'audit initial : l'index sitemap répond 200 mais
+  ses 3 sous-fichiers déclarés renvoient tous 404).
+- **`loot-factory.com`** — certificat SSL/TLS invalide côté serveur
+  ("unable to get local issuer certificate", chaîne de certificats
+  incomplète) — bloque toute requête HTTPS avant même d'atteindre
+  `/products.json`. Pas de contournement raisonnable sans désactiver la
+  vérification TLS (hors de question).
+- **`uturitrading.com`** — VRAI Shopify confirmé (signaux `cdn.shopify.com`
+  présents, page d'accueil accessible), mais `/products.json` renvoie 404
+  — l'endpoint JSON public semble désactivé volontairement côté marchand.
+  Alternative sitemap.xml non investiguée (faible priorité).
+- **Cardmarket** — explicitement hors scope (protection anti-bot
+  volontairement dissuasive), non exploré par consigne.
 
 ## Prochaines étapes suggérées (par ordre de priorité)
 
 1. ~~Committer le fix de symétrie du filtre qualificatif~~ — fait.
 2. ~~Terminer le test de non-régression du fix qualificatif sur les listes
-   actives complètes des 3 plateformes~~ — fait (81/81 boutiques, 2 runs,
-   0 régression, cf. sections dédiées ci-dessus). Committer le fix du faux
-   positif `NOMS_SET_QUALIFICATIF_AMBIGU` (`watchlist_shopify.py`,
-   `bonne_affaire_shopify.py`, `alerte_stock.py` — modifiés, pas encore
-   commités à la fin de cette session).
-3. Reprendre le travail de couverture interrompu : test final sur
-   l'échantillon de 10 cartes pour les 4 boutiques nouvellement
-   couvrables (pokemoncarte.com, investcollect.com, kiokutcg.fr,
-   nexthobby.fr), puis intégration dans les listes actives existantes.
+   actives complètes des 3 plateformes~~ — fait (81/81 boutiques, plusieurs
+   runs, 0 régression).
+3. ~~Reprendre le travail de couverture interrompu~~ — fait (cf. section
+   dédiée ci-dessus). `investcollect.com` et `lepantheon-tcg.com` intégrées
+   aux listes actives PrestaShop ; 8 boutiques diagnostiquées et
+   documentées comme non-intégrables (raisons précises par boutique).
+4. Surveiller les premiers cycles de prod sur `investcollect.com` — c'est
+   la boutique la plus prometteuse trouvée cette session (3 deals réels
+   détectés en un seul passage de test), à confirmer sur la durée.
+5. `pokemoncarte.com` et `gamespirit.fr` : rien à faire dans l'immédiat,
+   mais si la watchlist s'étend un jour vers des cartes plus communes/
+   variées, refaire un test rapide (le blocage vient du catalogue, pas de
+   la technique).

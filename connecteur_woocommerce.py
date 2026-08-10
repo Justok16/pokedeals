@@ -49,7 +49,7 @@ from urllib.parse import quote
 import requests
 
 from connecteur_shopify import (
-    HEADERS,
+    HEADERS_HTML,
     TIMEOUT,
     CritereRecherche,
     ResultatRecherche,
@@ -275,7 +275,7 @@ class ConnecteurWooCommerce:
 
     def _decouvrir_sitemaps_racine(self) -> list[str]:
         try:
-            r = self.session.get(f"{self.base_url}/robots.txt", headers=HEADERS, timeout=TIMEOUT)
+            r = self.session.get(f"{self.base_url}/robots.txt", headers=HEADERS_HTML, timeout=TIMEOUT)
             if r.status_code == 200:
                 declares = re.findall(r"(?im)^sitemap:\s*(\S+)", r.text)
                 declares = [u if u.startswith("http") else f"{self.base_url}{u}" for u in declares]
@@ -286,7 +286,7 @@ class ConnecteurWooCommerce:
 
         for chemin in CHEMINS_SITEMAP_CANDIDATS:
             try:
-                r = self.session.get(f"{self.base_url}{chemin}", headers=HEADERS, timeout=TIMEOUT)
+                r = self.session.get(f"{self.base_url}{chemin}", headers=HEADERS_HTML, timeout=TIMEOUT)
                 if r.status_code == 200 and _est_xml_valide(r.content):
                     return [r.url]
             except requests.exceptions.RequestException:
@@ -301,7 +301,7 @@ class ConnecteurWooCommerce:
         vus.add(sitemap_url)
 
         try:
-            r = self.session.get(sitemap_url, headers=HEADERS, timeout=TIMEOUT)
+            r = self.session.get(sitemap_url, headers=HEADERS_HTML, timeout=TIMEOUT)
             r.raise_for_status()
             if not _est_xml_valide(r.content):
                 return []
@@ -354,7 +354,7 @@ class ConnecteurWooCommerce:
         pour etre utilisee aussi bien par la strategie sitemap que par le
         repli recherche HTML (meme extraction, seule la decouverte differe)."""
         try:
-            r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
+            r = self.session.get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
             r.raise_for_status()
         except requests.exceptions.RequestException:
             return None
@@ -464,7 +464,7 @@ class ConnecteurWooCommerce:
         les segments clairement non-produits, plus fiable d'un theme a l'autre."""
         try:
             url = f"{self.base_url}/?s={quote(nom)}&post_type=product"
-            r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
+            r = self.session.get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
             r.raise_for_status()
         except requests.exceptions.RequestException:
             return []

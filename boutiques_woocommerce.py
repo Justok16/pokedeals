@@ -51,9 +51,27 @@ LOT_B = [
     "importpokecoree.com", "pokemoms.fr", "topdecktcg.fr",
 ]
 
-# Sans sitemap exploitable :
+# Sans sitemap exploitable, repli "recherche HTML" teste le 10/08/2026 --
+# NON integrees faute de valeur reelle (pas un probleme technique) :
 BOUTIQUES_WOOCOMMERCE_SANS_SITEMAP = [
-    "kiokutcg.fr",  # aucun sitemap declare (robots.txt vide de toute ligne "Sitemap:", aucun chemin standard ne repond)
+    # kiokutcg.fr : aucun sitemap declare (robots.txt vide de toute ligne
+    # "Sitemap:", aucun chemin standard ne repond). Repli recherche HTML
+    # (ConnecteurWooCommerce.rechercher_via_recherche_html) fonctionnel,
+    # mais 0 resultat sur la watchlist complete (194 criteres) -- boutique
+    # de PRODUITS SCELLES (coffrets, displays, tripacks, mini-tins),
+    # aucune carte a l'unite trouvee lors de plusieurs recherches
+    # (Pikachu/Dracaufeu ex/Evoli), a confirmer si son catalogue evolue.
+    "kiokutcg.fr",
+    # nexthobby.fr : meme constat que kiokutcg.fr (pas de sitemap, repli
+    # recherche HTML fonctionnel quand accessible -- confirme 27 candidats
+    # reels pour "Dracaufeu", essentiellement des ACCESSOIRES/sleeves, pas
+    # de carte a l'unite vue). Rate-limit (429) tres agressif : persiste
+    # meme apres 5 minutes sans requete (au-dela du simple throttle par
+    # minute, pas de header Retry-After fourni) -- incompatible avec un
+    # cycle de scan automatique (~60-90 requetes necessaires sur la
+    # watchlist complete). A reevaluer seulement si le site assouplit sa
+    # politique de rate-limit.
+    "nexthobby.fr",
 ]
 
 # RETIREE le 10/08/2026 : mymesis.fr a un robots.txt qui declare le sitemap
@@ -63,6 +81,15 @@ BOUTIQUES_WOOCOMMERCE_SANS_SITEMAP = [
 # A reintegrer seulement si son propre robots.txt est corrige un jour --
 # retester avec :
 #   python -c "from connecteur_woocommerce import ConnecteurWooCommerce as C; print(C('mymesis.fr')._decouvrir_sitemaps_racine())"
+#
+# Repli "recherche HTML" NON PLUS VIABLE (teste 10/08/2026) : son moteur de
+# recherche est un widget Elementor "Jet Search" pilote par AJAX cote client
+# -- une requete GET statique sur "?s=..." renvoie une page quasi identique
+# quelle que soit la requete (verifie : "Dracaufeu" et une requete bidon
+# donnent une longueur de reponse a moins de 600 octets d'ecart, aucun lien
+# produit pertinent). Recuperer les vrais resultats necessiterait de
+# retro-ingenierer l'appel AJAX de ce widget -- non fait (boutique deja
+# jugee faible priorite : accessoires/sleeves, peu de cartes a l'unite).
 BOUTIQUES_WOOCOMMERCE_SITEMAP_INCORRECT = [
     "mymesis.fr",
 ]

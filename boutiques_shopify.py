@@ -47,11 +47,24 @@ BOUTIQUES_SHOPIFY = [
 
 # Detectees Shopify en priorite 2 (plateforme identifiee mais API non confirmee
 # lors de l'audit initial -- a re-tester avec connecteur_shopify.py directement,
-# il gere le cas ou products.json ne renvoie rien)
+# il gere le cas ou products.json ne renvoie rien).
+# Retestees le 10/08/2026, toujours NON exploitables (pas un bug cote
+# connecteur) :
+#   loot-factory.com : certificat SSL/TLS invalide cote serveur
+#     ("unable to get local issuer certificate", chaine de certificats
+#     incomplete) -- bloque toute requete HTTPS avant meme d'atteindre
+#     products.json. Pas de contournement raisonnable sans desactiver la
+#     verification TLS (hors de question).
+#   uturitrading.com : VRAI Shopify confirme (signaux cdn.shopify.com
+#     presents, page d'accueil accessible en 200), mais /products.json
+#     renvoie 404 -- l'endpoint JSON public semble desactive
+#     volontairement cote marchand. Alternative sitemap.xml non
+#     investiguee (faible priorite, boutique non prioritaire).
 BOUTIQUES_SHOPIFY_A_CONFIRMER = [
     "loot-factory.com",
     "uturitrading.com",
 ]
 
-# nexthobby.fr : en cours de re-test suite a un rate-limit (429) lors de l'audit.
-# Voir retest_nexthobby.py -- sera ajoute a la bonne liste selon le resultat.
+# nexthobby.fr : identifiee WooCommerce (pas Shopify) -- cf.
+# boutiques_woocommerce.py / BOUTIQUES_WOOCOMMERCE_SANS_SITEMAP pour le
+# diagnostic complet (rate-limit trop agressif, non integree).

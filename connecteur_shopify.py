@@ -27,6 +27,22 @@ HEADERS = {
     "Accept": "application/json",
 }
 
+# Pour les pages HTML (PrestaShop/WooCommerce : robots.txt, sitemap XML,
+# pages produit, pages de recherche) -- PAS pour l'API JSON Shopify
+# ci-dessus. Bug reel trouve sur investcollect.com (2026-08-10) : envoyer
+# "Accept: application/json" (le header partage, initialement pense generique)
+# sur une page produit HTML renvoie un corps de reponse VIDE (200 OK, 0
+# octet) -- vraisemblablement une regle Cloudflare/WAF ciblant ce pattern de
+# scraper. Resultat : aucune erreur levee, juste un ResultatRecherche
+# silencieusement absent (JSON-LD/microdata introuvables dans une reponse
+# vide), facilement confondu avec un vrai blocage anti-bot (403). Un header
+# Accept de navigateur classique regle le probleme sans rien casser sur les
+# boutiques deja actives (verifie sur un echantillon apres le changement).
+HEADERS_HTML = {
+    "User-Agent": HEADERS["User-Agent"],
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+}
+
 TIMEOUT = 15
 DELAY_BETWEEN_PAGES = 0.5
 PRODUITS_PAR_PAGE = 250
