@@ -85,19 +85,6 @@ prod.
   pendant le test de régression (`Pikachu ex 234 m2a` vs un produit
   *"Pikachu – Promo SWSH – SWSH234"* sans "ex", sur fuji-store.fr).
 
-## Point en cours de vérification (pas encore confirmé à 100%)
-
-Le test de non-régression du fix #3 (qualificatif) a été fait sur
-**cardshunter.fr et fuji-store.fr uniquement** (script Python ad hoc,
-résultats vus dans le terminal, pas sauvegardés dans un fichier). Il montre
-que les deals déjà validés (`Evoli ex 174 promo`, `Mega Dracaufeu X ex 023`)
-continuent de se déclencher normalement — mais ce n'est PAS un test
-exhaustif sur toutes les boutiques actives des 3 plateformes. À reprendre
-si on veut une garantie plus large avant le prochain cycle de prod (déjà en
-cours de toute façon via les crons existants, donc le risque réel est
-faible — au pire quelques faux rejets ou faux positifs isolés, pas une
-casse généralisée).
-
 ## Asymétrie du filtre qualificatif — CONFIRMÉE ET CORRIGÉE (2026-08-10)
 
 Le fix initial (`bonne_affaire_shopify.py` / `alerte_stock.py`) ne
@@ -131,6 +118,86 @@ fixe)` déclenché à tort) avant correctif.
 
 Script de test : non sauvegardé dans le repo (scratchpad temporaire), à
 refaire si besoin de re-vérifier.
+
+## Test de non-régression COMPLET sur 81 boutiques — FAIT, deal count inchangé (2026-08-10)
+
+Script ad hoc (lecture seule, aucune écriture mémoire prod, aucun envoi
+Telegram) scannant les listes actives réelles des 3 plateformes
+(`BOUTIQUES_SHOPIFY` 40, `BOUTIQUES_PRESTASHOP_SITEMAP` 15,
+`BOUTIQUES_WOOCOMMERCE_SITEMAP` 26 — 81 boutiques, 0 échec) avec la
+watchlist complète (194 critères de recherche chargés, alias inclus).
+
+Pour chaque résultat à confiance forte (758-759 selon le run, léger bruit
+de stock/catalogue entre deux scans à 30 min d'écart), comparaison de
+l'ANCIEN comportement (asymétrique, ré-implémenté localement dans le
+script pour diff) contre le NOUVEAU (code actuel) :
+
+- **Deals détectés AVANT le fix (simulé) : 6 = Deals détectés APRÈS le fix : 6**
+  → aucune bonne affaire perdue, sur les deux runs (avant et après le fix
+  du faux positif décrit ci-dessous).
+- **1er run** (avant le fix du faux positif) : 11 rejets introduits par le
+  filtre symétrique — analysés un par un, **8 étaient des faux positifs**
+  (voir section suivante) et 3 des vrais rejets légitimes.
+- **2e run** (après le fix du faux positif) : **3 rejets introduits**,
+  exactement les 3 vrais rejets légitimes attendus (aucun faux positif
+  restant).
+
+## Faux positif dans `detecter_qualificatif_titre()` — CONFIRMÉ ET CORRIGÉ (2026-08-10)
+
+**Cause racine** : la fonction cherchait un qualificatif ("ex"/"gx"/"v"/
+"vmax"/"vstar") n'importe où dans le titre du produit. Or certains
+coffrets/sets portent EUX-MÊMES ce mot dans leur propre nom (branding
+marketing du coffret, pas rareté de la carte) : "MEGA Dream ex" (coffret
+JP) et "VMAX Climax" (set S8b FR/JP). Résultat : des cartes de BASE
+(non-ex) matchant un produit de ces coffrets étaient rejetées à tort —
+8 cas réels trouvés lors du 1er scan complet (`Psyduck/Psykokwak 199`
+chez `lemantcg.fr`, `japantradingcardstore.com`, `cartespokemon.com`,
+`japan2uk.com` ; `Evoli/Eevee 210` chez `cardshunter.fr` et
+`japantradingcardstore.com`).
+
+**Approche testée et rejetée** : une simple fenêtre de caractères autour
+du numéro matché (comme suggéré initialement) ne suffit PAS — mesure
+précise des distances réelles : le faux positif le plus proche ("ex" dans
+"MEGA Dream ex" collé au nom de carte "Psykokwak ex") est à seulement 5
+caractères du numéro, alors qu'un vrai rejet légitime ("Voltali V" pour
+une carte `Eevee`) est aussi à 1 caractère du numéro — aucune taille de
+fenêtre ne sépare proprement les deux catégories, la distance seule ne
+suffit pas à distinguer "la carte est une ex" de "le nom du coffret
+contient ex".
+
+**Fix appliqué** (`watchlist_shopify.py`) :
+1. Nouvelle constante `NOMS_SET_QUALIFICATIF_AMBIGU = {"mega dream",
+   "vmax climax"}` (même esprit que `CODES_SET_CONNUS` déjà existant) :
+   si le titre contient un de ces noms de coffret connus, on renonce à y
+   détecter un qualificatif (première ligne de défense — résout
+   effectivement les 8 cas).
+2. `FENETRE_QUALIFICATIF_TITRE = 40` caractères autour du numéro matché
+   (défense en profondeur complémentaire, pas suffisante seule) — les 3
+   vrais rejets légitimes se trouvent tous à ≤17 caractères du numéro.
+3. `detecter_qualificatif_titre()` prend maintenant un 2e paramètre
+   `numero: str | None` (réutilise `_regex_numero_sans_denominateur` de
+   `connecteur_shopify.py`, déjà partagée par les 3 connecteurs) ; les
+   deux points d'appel (`bonne_affaire_shopify.py`, `alerte_stock.py`)
+   passent désormais `carte.numero`.
+
+**Test ciblé** (script ad hoc, 15 cas, tous OK, cartes/cotes chargées
+depuis les vrais `config.yaml`/`data/cotes.json`) :
+- 6 titres distincts couvrant les 8 faux positifs → ne rejettent plus.
+- 3 vrais rejets légitimes (Voltali V, Iron Crown ex, Iron Hands ex) →
+  toujours rejetés.
+- Non-régression : Plumeline ex (avec/sans "ex" dans le titre), Evoli ex
+  174 promo, Mega Dracaufeu X ex 023 → comportement qualificatif inchangé.
+- Cas symétrique original (Bulbizarre 166/165 sans qualificatif vs titre
+  "Bulbizarre ex 166/165") → toujours rejeté correctement.
+
+**Test complet 81 boutiques re-lancé après ce fix** : confirmé ci-dessus
+(2e run, 3 rejets restants = exactement les 3 cas légitimes attendus).
+
+**Risque résiduel documenté** : `NOMS_SET_QUALIFICATIF_AMBIGU` est une
+liste curée, à compléter au fil des faux positifs constatés (comme
+`CODES_SET_CONNUS`) — un futur coffret au nom ambigu non répertorié
+pourrait reproduire le même faux positif jusqu'à être découvert et ajouté
+à la liste.
 
 ## Fichiers concernés dans cette phase (pour s'orienter vite)
 
@@ -188,11 +255,13 @@ terminée avant que la priorité bascule sur les 3 bugs de production :
 
 ## Prochaines étapes suggérées (par ordre de priorité)
 
-1. Committer le fix de symétrie du filtre qualificatif (`watchlist_shopify.py`,
-   `bonne_affaire_shopify.py`, `alerte_stock.py` — modifiés, pas encore commités).
-2. Terminer le test de non-régression du fix qualificatif sur les listes
-   actives complètes des 3 plateformes (pas juste 2 boutiques) — toujours
-   pas fait à l'échelle complète, seulement via tests synthétiques ciblés.
+1. ~~Committer le fix de symétrie du filtre qualificatif~~ — fait.
+2. ~~Terminer le test de non-régression du fix qualificatif sur les listes
+   actives complètes des 3 plateformes~~ — fait (81/81 boutiques, 2 runs,
+   0 régression, cf. sections dédiées ci-dessus). Committer le fix du faux
+   positif `NOMS_SET_QUALIFICATIF_AMBIGU` (`watchlist_shopify.py`,
+   `bonne_affaire_shopify.py`, `alerte_stock.py` — modifiés, pas encore
+   commités à la fin de cette session).
 3. Reprendre le travail de couverture interrompu : test final sur
    l'échantillon de 10 cartes pour les 4 boutiques nouvellement
    couvrables (pokemoncarte.com, investcollect.com, kiokutcg.fr,

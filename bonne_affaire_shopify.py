@@ -105,7 +105,7 @@ def evaluer_deal(
     # de base ("Bulbizarre 166/165") pourrait matcher a tort une version
     # "ex"/"GX"/"V" homonyme (meme nom+numero, carte differente en realite).
     if carte.qualificatif is None:
-        qualificatif_titre = detecter_qualificatif_titre(resultat.titre)
+        qualificatif_titre = detecter_qualificatif_titre(resultat.titre, carte.numero)
         if qualificatif_titre is not None:
             return None, f"qualificatif inattendu (\"{qualificatif_titre}\" present dans le titre, absent de la config)"
 

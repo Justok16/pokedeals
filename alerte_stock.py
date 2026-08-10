@@ -106,7 +106,7 @@ def detecter_retours_en_stock(
             # Sens INVERSE (symetrique) : une carte configuree SANS
             # qualificatif ne doit pas matcher un titre qui en porte un
             # (carte "ex"/"GX"/"V" homonyme, en realite differente).
-            candidats = [r for r in candidats if detecter_qualificatif_titre(r.titre) is None]
+            candidats = [r for r in candidats if detecter_qualificatif_titre(r.titre, carte.numero) is None]
 
         resultats_fiables_par_carte.setdefault(carte.nom_config, []).extend(candidats)
 

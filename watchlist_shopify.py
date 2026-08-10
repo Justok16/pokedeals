@@ -16,6 +16,8 @@ from pathlib import Path
 
 import yaml
 
+from connecteur_shopify import _regex_numero_sans_denominateur
+
 # Chemin relatif au repo (ce fichier vit a la racine, a cote de main.py et
 # config.yaml) -- indispensable pour tourner sur le runner GitHub Actions.
 CHEMIN_CONFIG_DEFAUT = Path(__file__).parent / "config.yaml"
@@ -41,6 +43,35 @@ MOTS_TERMINATEURS = {"ex", "gx", "v", "vmax", "vstar", "promo", "de", "du", "des
 # stock) a matche a la place du bon (28€, rupture), declenchant une fausse
 # alerte via le seuil fixe 15€.
 MOTS_QUALIFICATIFS = {"ex", "gx", "v", "vmax", "vstar"}
+
+# Noms de coffret/set connus qui portent EUX-MEMES "ex"/"vmax" dans leur
+# propre nom (branding marketing du coffret, pas rarete de la carte).
+# Constate lors du test de non-regression sur 81 boutiques (2026-08-10) :
+# certains vendeurs dupliquent ce mot juste apres le nom de la carte dans le
+# titre (ex: "M2A 199/193 - Psykokwak ex - MEGA Dream ex" pour un Psykokwak
+# de BASE, non-ex), rendant la simple proximite au numero insuffisante pour
+# distinguer un vrai qualificatif de carte d'un echo du nom du coffret --
+# une fenetre de caracteres autour du numero (cf. FENETRE_QUALIFICATIF_TITRE
+# ci-dessous) ne suffit PAS a elle seule : dans l'exemple ci-dessus, "ex"
+# colle a "Psykokwak" (le nom de la carte) a seulement 13 caracteres du
+# numero, une distance indiscernable d'un vrai qualificatif legitime comme
+# "Plumeline ex 024". Complete au fil des faux positifs constates (meme
+# esprit que CODES_SET_CONNUS) : quand un titre contient un de ces noms, on
+# renonce a y detecter un qualificatif plutot que de risquer un faux rejet.
+NOMS_SET_QUALIFICATIF_AMBIGU = {
+    "mega dream",   # coffret JP "MEGA Dream ex" -- ex: Psyduck/Psykokwak 199/193
+    "vmax climax",  # set FR/JP "VMAX Climax" (S8b) -- ex: Evoli/Eevee 210
+}
+
+# Fenetre de caracteres autour du numero matche dans laquelle chercher un
+# qualificatif -- defense en profondeur en complement de
+# NOMS_SET_QUALIFICATIF_AMBIGU : les 3 vrais qualificatifs constates lors du
+# test de non-regression (Voltali V, Iron Crown ex, Iron Hands ex -- des
+# cartes DIFFERENTES matchees a tort via un nom de set contenant "Eevee")
+# se trouvent tous a 17 caracteres ou moins du numero ; une fenetre plus
+# large limite le risque qu'un mot sans rapport, loin dans un titre a
+# rallonge, declenche un rejet.
+FENETRE_QUALIFICATIF_TITRE = 40
 
 
 @dataclass(frozen=True)
@@ -110,17 +141,39 @@ def _extraire_nom_et_numero(nom_config: str) -> tuple[str, str | None, str | Non
     return nom_recherche, numero, qualificatif
 
 
-def detecter_qualificatif_titre(titre: str) -> str | None:
+def detecter_qualificatif_titre(titre: str, numero: str | None = None) -> str | None:
     """Detecte un qualificatif ("ex"/"gx"/"v"/"vmax"/"vstar") present dans un
     titre de PRODUIT (pas config.yaml), pour la verification SYMETRIQUE du
     filtre qualificatif (cf. bonne_affaire_shopify.py / alerte_stock.py) :
     une carte configuree SANS qualificatif (carte.qualificatif is None) ne
     doit pas matcher un titre qui en porte un -- sinon une carte de base
     ("Bulbizarre 166/165") pourrait matcher a tort une version "ex"/"GX"/"V"
-    homonyme (meme nom+numero, carte differente en realite)."""
+    homonyme (meme nom+numero, carte differente en realite).
+
+    `numero` (carte.numero) restreint la recherche a une FENETRE de
+    caracteres autour du numero matche dans le titre, au lieu du titre
+    entier -- limite le risque qu'un mot sans rapport, loin dans le titre,
+    declenche un rejet. Voir NOMS_SET_QUALIFICATIF_AMBIGU pour la premiere
+    ligne de defense (noms de coffret dont le nom contient lui-meme un
+    qualificatif)."""
     titre_lower = titre.lower()
+
+    if any(nom_set in titre_lower for nom_set in NOMS_SET_QUALIFICATIF_AMBIGU):
+        return None
+
+    zone = titre_lower
+    if numero:
+        if "/" in numero:
+            correspondance = re.search(re.escape(numero.lower()), titre_lower)
+        else:
+            correspondance = _regex_numero_sans_denominateur(numero).search(titre)
+        if correspondance:
+            debut = max(0, correspondance.start() - FENETRE_QUALIFICATIF_TITRE)
+            fin = min(len(titre_lower), correspondance.end() + FENETRE_QUALIFICATIF_TITRE)
+            zone = titre_lower[debut:fin]
+
     for mot in MOTS_QUALIFICATIFS:
-        if re.search(rf"\b{mot}\b", titre_lower):
+        if re.search(rf"\b{mot}\b", zone):
             return mot
     return None
 
