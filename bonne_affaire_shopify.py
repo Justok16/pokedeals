@@ -18,6 +18,7 @@ peut de toute facon pas etre achete.
 """
 
 import json
+import re
 from pathlib import Path
 
 import requests
@@ -72,10 +73,32 @@ def evaluer_deal(
     # different fortement d'une langue a l'autre (cf. main.py, protection
     # equivalente cote eBay : _localisation_incoherente). On ne rejette que
     # si une AUTRE langue est explicitement detectee dans le titre ; si rien
-    # n'est detecte (langue_detectee=None), on laisse passer (comportement
-    # inchange, risque residuel documente).
-    if resultat.langue_detectee is not None and resultat.langue_detectee != carte.langue:
+    # n'est detecte (langue_detectee=None), on laisse passer (risque residuel
+    # documente : aucun mot de langue ET aucun code de set reconnu dans le titre).
+    #
+    # "jp_ou_kr" (cf. connecteur_shopify.detecter_langue) : code de set
+    # partage entre impressions japonaises et coreennes (meme numerotation,
+    # config.yaml a souvent les deux entrees jp/kr pour le meme numero) --
+    # incompatible avec une carte configuree en fr, mais compatible avec jp
+    # OU kr puisqu'on ne peut pas trancher lequel des deux a partir du seul
+    # code de set.
+    if resultat.langue_detectee == "jp_ou_kr":
+        if carte.langue not in ("jp", "kr"):
+            return None, f"langue incoherente (jp_ou_kr != {carte.langue})"
+    elif resultat.langue_detectee is not None and resultat.langue_detectee != carte.langue:
         return None, f"langue incoherente ({resultat.langue_detectee} != {carte.langue})"
+
+    # Qualificatif ("ex"/"gx"/"v"/"vmax"/"vstar") : rejette une carte
+    # HOMONYME (meme nom+numero) mais d'une edition differente. Bug reel
+    # corrige : "Plumeline ex 024" (config.yaml) et "Plumeline 24 Sun & Moon
+    # REVERSE" (carte plus ancienne, non-ex) partagent le meme nom+numero --
+    # sans ce filtre, le mauvais Plumeline (1,50€) matchait a la place du bon
+    # (28€), declenchant une fausse alerte via le seuil fixe.
+    if carte.qualificatif and not re.search(rf"\b{re.escape(carte.qualificatif)}\b", resultat.titre.lower()):
+        # \b...\b (limites de mot) et pas un simple "in" : le qualificatif
+        # "v" en substring nu matcherait quasiment tous les titres (ex:
+        # "Evoli" contient un "v").
+        return None, f"qualificatif manquant (\"{carte.qualificatif}\" absent du titre)"
 
     prix = resultat.prix
 

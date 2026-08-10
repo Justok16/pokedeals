@@ -44,6 +44,7 @@ import sys
 import time
 import unicodedata
 import xml.etree.ElementTree as ET
+from urllib.parse import quote
 
 import requests
 
@@ -74,6 +75,19 @@ SEGMENTS_TAXONOMIE_EXCLUS = (
 SEGMENTS_URL_EXCLUS = (
     "/panier", "/mon-compte", "/checkout", "/cart", "/my-account",
     "/nous-contacter", "/contact", "/boutique/</loc>",  # racine boutique seule
+)
+
+# Segments a exclure des liens trouves sur une page de RESULTATS DE RECHERCHE
+# (repli sans sitemap) -- plus larges que SEGMENTS_URL_EXCLUS car une page de
+# recherche contient aussi des liens de nav/pagination/tri absents d'un sitemap.
+SEGMENTS_RECHERCHE_EXCLUS = SEGMENTS_URL_EXCLUS + (
+    "/page/", "/categorie-produit/", "/product-category/", "/product-tag/",
+    "/wp-content/", "/wp-json/", "/wp-admin/", "?s=", "?add-to-cart=",
+    ".css", ".js", ".jpg", ".jpeg", ".png", ".webp", ".svg", ".ico",
+    "/feed/", "/feed", "xmlrpc.php", "/a-propos", "/about", "/professionnels",
+    "/vendre-mes-cartes", "/blog/", "/faq", "/mentions-legales",
+    "/conditions-generales", "/politique-de-confidentialite", "/livraison",
+    "/cgv", "/nos-services",
 )
 
 DISPONIBILITES_JSONLD_EN_STOCK = {
@@ -170,6 +184,34 @@ def _analyser_offre_jsonld(produit_jsonld: dict) -> dict:
         "devise": offres.get("priceCurrency"),
         "en_stock": offres.get("availability", "") in DISPONIBILITES_JSONLD_EN_STOCK,
     }
+
+
+def _extraire_variations(html: str) -> list[dict]:
+    """Extrait le tableau JSON data-product_variations d'une fiche produit
+    WooCommerce variable (present des qu'une carte a un attribut "etat" --
+    la quasi-totalite des fiches carte a l'unite sur WooCommerce, meme
+    quand une SEULE condition est proposee). Retourne [] si absent/invalide."""
+    m = re.search(r'data-product_variations="([^"]+)"', html)
+    if not m:
+        return []
+    try:
+        return json.loads(html_module.unescape(m.group(1)))
+    except (json.JSONDecodeError, ValueError):
+        return []
+
+
+def _offre_depuis_variation(variation: dict) -> dict | None:
+    """Convertit UNE entree du tableau data-product_variations en
+    prix/stock, en lisant le "availability_html" (le VRAI statut affiche a
+    l'utilisateur -- rendu cote serveur au chargement de la page) plutot
+    que de se fier a un flag booleen separe qui peut etre desynchronise."""
+    try:
+        prix = float(variation.get("display_price"))
+    except (TypeError, ValueError):
+        return None
+    dispo_html = (variation.get("availability_html") or "").lower()
+    en_stock = "in-stock" in dispo_html and "out-of-stock" not in dispo_html
+    return {"prix": prix, "en_stock": en_stock}
 
 
 def _extraire_html_woocommerce(html: str) -> dict | None:
@@ -304,6 +346,84 @@ class ConnecteurWooCommerce:
         toutes_urls = list(dict.fromkeys(toutes_urls))
         return [u for u in toutes_urls if not any(seg in u for seg in SEGMENTS_URL_EXCLUS)]
 
+    def _evaluer_url(
+        self, url: str, nom: str, numero: str | None, confiance_base: str
+    ) -> ResultatRecherche | None:
+        """Recupere UNE page produit et en extrait un ResultatRecherche
+        (JSON-LD prioritaire, repli HTML natif WooCommerce sinon). Factorise
+        pour etre utilisee aussi bien par la strategie sitemap que par le
+        repli recherche HTML (meme extraction, seule la decouverte differe)."""
+        try:
+            r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
+            r.raise_for_status()
+        except requests.exceptions.RequestException:
+            return None
+        finally:
+            time.sleep(DELAI_ENTRE_PAGES_PRODUIT)
+
+        # Decodage UTF-8 explicite plutot que r.text : plusieurs boutiques
+        # WordPress ne declarent pas le charset dans leur en-tete
+        # Content-Type ("text/html" sans "; charset=..."), ce qui fait
+        # retomber requests sur ISO-8859-1 par defaut (RFC 2616) alors que
+        # le contenu reel est en UTF-8 -- constate sur mgs-shop.fr (titres
+        # illisibles : "RÃ¨gne" au lieu de "Règne"). WordPress sert
+        # quasi-systematiquement de l'UTF-8, donc on decode directement
+        # plutot que de deviner.
+        html = r.content.decode("utf-8", errors="replace")
+        produit_jsonld = _extraire_jsonld_produit(html)
+        if produit_jsonld is not None:
+            offre = _analyser_offre_jsonld(produit_jsonld)
+            titre = produit_jsonld.get("name", "")
+            image = produit_jsonld.get("image")
+            if isinstance(image, list):
+                image = image[0] if image else None
+        else:
+            offre = _extraire_html_woocommerce(html)
+            if offre is None:
+                return None  # ni JSON-LD ni repli HTML exploitable -> ignore cette page
+            titre = offre.get("titre", "")
+            image = None
+
+        if offre["prix"] is None:
+            return None
+
+        # Cross-validation via data-product_variations, present des qu'une
+        # carte a un attribut "etat" (near-mint, excellent...) -- la quasi-
+        # totalite des fiches carte a l'unite sur WooCommerce, meme avec une
+        # SEULE condition proposee. Bug reel corrige : sur fuji-store.fr, le
+        # JSON-LD annoncait "InStock" alors que l'UNIQUE variation portait
+        # elle-meme "En rupture de stock" dans son availability_html (rendu
+        # serveur, donc plus fiable qu'un schema JSON-LD potentiellement en
+        # cache/perime). Avec une seule variation, pas d'ambiguite : on lui
+        # fait confiance. Avec plusieurs, on ne peut pas savoir laquelle
+        # correspond au prix capte -> confiance abaissee plutot que de deviner.
+        variations = _extraire_variations(html)
+        ambigu_plusieurs_variations = False
+        if len(variations) == 1:
+            offre_variation = _offre_depuis_variation(variations[0])
+            if offre_variation is not None:
+                offre["en_stock"] = offre_variation["en_stock"]
+        elif len(variations) > 1:
+            ambigu_plusieurs_variations = True
+
+        devise = (offre["devise"] or "").upper()
+        devise_ok = devise == "EUR"
+        confiance = confiance_base if (devise_ok and not ambigu_plusieurs_variations) else "faible"
+        necessite_verif = (numero is None) or not devise_ok or ambigu_plusieurs_variations
+
+        return ResultatRecherche(
+            boutique=self.nom_affiche,
+            titre=titre or url,
+            prix=offre["prix"],
+            en_stock=offre["en_stock"],
+            url_produit=url,
+            variante_titre="",
+            image_url=image,
+            langue_detectee=detecter_langue(titre or ""),
+            confiance=confiance,
+            necessite_verification_manuelle=necessite_verif,
+        )
+
     def rechercher_dans_catalogue(
         self, urls_produits: list[str], criteres: list[tuple[str, str | None]]
     ) -> dict[tuple[str, str | None], list[ResultatRecherche]]:
@@ -320,57 +440,69 @@ class ConnecteurWooCommerce:
                 candidats = candidats[:LIMITE_CANDIDATS_PAR_CRITERE]
 
             for url in candidats:
-                try:
-                    r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
-                    r.raise_for_status()
-                except requests.exceptions.RequestException:
-                    continue
-                finally:
-                    time.sleep(DELAI_ENTRE_PAGES_PRODUIT)
+                resultat = self._evaluer_url(url, nom, numero, confiance_base)
+                if resultat:
+                    resultats_par_critere[(nom, numero)].append(resultat)
 
-                # Decodage UTF-8 explicite plutot que r.text : plusieurs
-                # boutiques WordPress ne declarent pas le charset dans leur
-                # en-tete Content-Type ("text/html" sans "; charset=..."),
-                # ce qui fait retomber requests sur ISO-8859-1 par defaut
-                # (RFC 2616) alors que le contenu reel est en UTF-8 --
-                # constate sur mgs-shop.fr (titres illisibles : "RÃ¨gne" au
-                # lieu de "Règne"). WordPress sert quasi-systematiquement de
-                # l'UTF-8, donc on decode directement plutot que de deviner.
-                html = r.content.decode("utf-8", errors="replace")
-                produit_jsonld = _extraire_jsonld_produit(html)
-                if produit_jsonld is not None:
-                    offre = _analyser_offre_jsonld(produit_jsonld)
-                    titre = produit_jsonld.get("name", "")
-                    image = produit_jsonld.get("image")
-                    if isinstance(image, list):
-                        image = image[0] if image else None
-                else:
-                    offre = _extraire_html_woocommerce(html)
-                    if offre is None:
-                        continue  # ni JSON-LD ni repli HTML exploitable -> ignore cette page
-                    titre = offre.get("titre", "")
-                    image = None
+        return resultats_par_critere
 
-                if offre["prix"] is None:
-                    continue
+    def _decouvrir_candidats_recherche(self, nom: str) -> list[str]:
+        """Repli quand aucun sitemap n'est exploitable : utilise la
+        recherche WordPress native (?s=) pour trouver des URLs candidates.
+        Recherche sur le NOM SEUL -- inclure le numero de carte degrade la
+        pertinence de la recherche native sur les boutiques testees
+        (0 resultat des qu'un "/" ou un nombre isole est ajoute a la
+        requete) ; le filtrage nom+numero se fait ensuite normalement via
+        _slug_correspond sur les URLs candidates trouvees.
 
-                devise = (offre["devise"] or "").upper()
-                devise_ok = devise == "EUR"
-                confiance = confiance_base if devise_ok else "faible"
-                necessite_verif = (numero is None) or not devise_ok
+        Detection par DOMAINE + exclusions plutot que par classe CSS : la
+        classe de lien produit WooCommerce standard
+        ("woocommerce-loop-product__link") fonctionne sur certains themes
+        (kiokutcg.fr) mais pas d'autres (nexthobby.fr n'a aucune classe de
+        ce type sur ses liens produit, meme constat que sur PrestaShop) --
+        on recupere donc tous les liens internes du domaine et on exclut
+        les segments clairement non-produits, plus fiable d'un theme a l'autre."""
+        try:
+            url = f"{self.base_url}/?s={quote(nom)}&post_type=product"
+            r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
+            r.raise_for_status()
+        except requests.exceptions.RequestException:
+            return []
+        html = r.content.decode("utf-8", errors="replace")
 
-                resultats_par_critere[(nom, numero)].append(ResultatRecherche(
-                    boutique=self.nom_affiche,
-                    titre=titre or url,
-                    prix=offre["prix"],
-                    en_stock=offre["en_stock"],
-                    url_produit=url,
-                    variante_titre="",
-                    image_url=image,
-                    langue_detectee=detecter_langue(titre or ""),
-                    confiance=confiance,
-                    necessite_verification_manuelle=necessite_verif,
-                ))
+        domaine_nu = self.domaine.removeprefix("www.")
+        candidats = re.findall(rf'href="(https?://(?:www\.)?{re.escape(domaine_nu)}/[^"]+)"', html)
+        candidats = [u for u in candidats if not any(seg in u for seg in SEGMENTS_RECHERCHE_EXCLUS)]
+        return list(dict.fromkeys(candidats))
+
+    def rechercher_via_recherche_html(
+        self, criteres: list[tuple[str, str | None]]
+    ) -> dict[tuple[str, str | None], list[ResultatRecherche]]:
+        """Repli SANS sitemap : decouverte via la recherche native WordPress
+        (?s=) plutot que le sitemap XML. A utiliser uniquement pour les
+        boutiques ou aucun sitemap exploitable n'a ete trouve."""
+        resultats_par_critere: dict[tuple[str, str | None], list[ResultatRecherche]] = {
+            (nom, numero): [] for nom, numero in criteres
+        }
+        candidats_par_nom: dict[str, list[str]] = {}
+
+        for nom, numero in criteres:
+            critere = CritereRecherche(nom=nom, numero=numero)
+            confiance_base = "forte" if numero is not None else "faible"
+
+            if nom not in candidats_par_nom:
+                candidats_par_nom[nom] = self._decouvrir_candidats_recherche(nom)
+                time.sleep(DELAI_ENTRE_PAGES_PRODUIT)
+            candidats_bruts = candidats_par_nom[nom]
+
+            candidats = [u for u in candidats_bruts if _slug_correspond(u, critere)]
+            if len(candidats) > LIMITE_CANDIDATS_PAR_CRITERE:
+                candidats = candidats[:LIMITE_CANDIDATS_PAR_CRITERE]
+
+            for url in candidats:
+                resultat = self._evaluer_url(url, nom, numero, confiance_base)
+                if resultat:
+                    resultats_par_critere[(nom, numero)].append(resultat)
 
         return resultats_par_critere
 

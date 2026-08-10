@@ -18,6 +18,7 @@ sont trop peu fiables pour declencher une alerte de retour en stock.
 
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -91,9 +92,17 @@ def detecter_retours_en_stock(
         carte = cartes_par_critere.get(cle)
         if carte is None or carte.numero is None:
             continue  # confiance faible (repli nom seul) : hors perimetre
-        resultats_fiables_par_carte.setdefault(carte.nom_config, []).extend(
-            [r for r in resultats if r.confiance == "forte"]
-        )
+
+        candidats = [r for r in resultats if r.confiance == "forte"]
+        if carte.qualificatif:
+            # Rejette une carte HOMONYME (meme nom+numero, edition
+            # differente) sans le qualificatif attendu ("ex"/"gx"/"v"/...)
+            # dans son titre -- meme bug/correctif que bonne_affaire_shopify.py
+            # (cf. "Plumeline ex 024" vs "Plumeline 24 Sun & Moon REVERSE").
+            motif = re.compile(rf"\b{re.escape(carte.qualificatif)}\b")
+            candidats = [r for r in candidats if motif.search(r.titre.lower())]
+
+        resultats_fiables_par_carte.setdefault(carte.nom_config, []).extend(candidats)
 
     for nom_config, resultats_fiables in resultats_fiables_par_carte.items():
         en_stock_actuel = any(r.en_stock for r in resultats_fiables)

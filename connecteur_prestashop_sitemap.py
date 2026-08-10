@@ -40,6 +40,7 @@ import sys
 import time
 import unicodedata
 import xml.etree.ElementTree as ET
+from urllib.parse import quote
 
 import requests
 
@@ -143,6 +144,39 @@ def _analyser_offre(produit_jsonld: dict) -> dict:
     }
 
 
+def _extraire_microdata_produit(html: str) -> dict | None:
+    """Repli quand aucun JSON-LD Product n'est trouve : lit les attributs
+    microdata schema.org (itemprop=...) directement dans le HTML -- certains
+    themes PrestaShop les exposent SANS passer par JSON-LD (constate sur
+    pokemoncarte.com et investcollect.com, aucun des deux n'a de JSON-LD
+    Product). Prend la PREMIERE occurrence dans l'ordre du document :
+    verifie manuellement sur pokemoncarte.com que ca correspond bien au
+    prix affiche en premier sur la page (id="our_price_display"), pas a un
+    widget annexe -- les autres occurrences plus bas sur la page sont des
+    produits associes/variantes, pas le prix principal."""
+    m_prix = re.search(r'itemprop="price"[^>]*content="([^"]+)"', html)
+    if not m_prix:
+        return None
+    try:
+        prix = float(m_prix.group(1))
+    except ValueError:
+        return None
+
+    m_devise = re.search(r'itemprop="priceCurrency"[^>]*content="([^"]+)"', html)
+    devise = m_devise.group(1) if m_devise else None
+
+    # availability peut etre porte par <meta content="..."> ou <link href="...">
+    m_dispo = re.search(r'itemprop="availability"[^>]*(?:content|href)="([^"]+)"', html)
+    en_stock = bool(m_dispo and m_dispo.group(1).rstrip("/").endswith(("InStock", "LimitedAvailability")))
+
+    titre = ""
+    m_titre = re.search(r'itemprop="name"[^>]*>([^<]*)', html)
+    if m_titre and m_titre.group(1).strip():
+        titre = m_titre.group(1).strip()
+
+    return {"prix": prix, "devise": devise, "en_stock": en_stock, "titre": titre}
+
+
 class ConnecteurPrestaShopSitemap:
     """Connecteur PrestaShop generique base sur le sitemap XML + JSON-LD des pages produit."""
 
@@ -221,11 +255,63 @@ class ConnecteurPrestaShopSitemap:
         toutes_urls = list(dict.fromkeys(toutes_urls))  # dedupe en gardant l'ordre
         return [u for u in toutes_urls if not any(seg in u for seg in SEGMENTS_EXCLUS)]
 
+    def _evaluer_url(
+        self, url: str, nom: str, numero: str | None, confiance_base: str
+    ) -> ResultatRecherche | None:
+        """Recupere UNE page produit et en extrait un ResultatRecherche :
+        JSON-LD prioritaire, repli microdata schema.org (itemprop=...) si
+        absent. Factorise pour etre utilisee aussi bien par la strategie
+        sitemap que par le repli recherche HTML."""
+        try:
+            r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
+            r.raise_for_status()
+        except requests.exceptions.RequestException:
+            return None
+        finally:
+            time.sleep(DELAI_ENTRE_PAGES_PRODUIT)
+
+        html = r.content.decode("utf-8", errors="replace")
+
+        produit_jsonld = _extraire_jsonld_produit(html)
+        if produit_jsonld is not None:
+            offre = _analyser_offre(produit_jsonld)
+            titre = produit_jsonld.get("name", "")
+            image = produit_jsonld.get("image")
+            if isinstance(image, list):
+                image = image[0] if image else None
+        else:
+            offre = _extraire_microdata_produit(html)
+            if offre is None:
+                return None  # ni JSON-LD ni microdata exploitable -> ignore cette page
+            titre = offre.get("titre", "")
+            image = None
+
+        if offre["prix"] is None:
+            return None
+
+        devise = (offre["devise"] or "").upper()
+        devise_ok = devise == "EUR"
+        confiance = confiance_base if devise_ok else "faible"
+        necessite_verif = (numero is None) or not devise_ok
+
+        return ResultatRecherche(
+            boutique=self.nom_affiche,
+            titre=titre or url,
+            prix=offre["prix"],
+            en_stock=offre["en_stock"],
+            url_produit=url,
+            variante_titre="",
+            image_url=image,
+            langue_detectee=detecter_langue(titre or ""),
+            confiance=confiance,
+            necessite_verification_manuelle=necessite_verif,
+        )
+
     def rechercher_dans_catalogue(
         self, urls_produits: list[str], criteres: list[tuple[str, str | None]]
     ) -> dict[tuple[str, str | None], list[ResultatRecherche]]:
-        """Filtre les URLs par critere (slug), puis recupere le JSON-LD de
-        chaque page candidate. Meme structure de retour que
+        """Filtre les URLs par critere (slug), puis recupere chaque page
+        candidate. Meme structure de retour que
         ConnecteurShopify.rechercher_dans_catalogue."""
         resultats_par_critere: dict[tuple[str, str | None], list[ResultatRecherche]] = {
             (nom, numero): [] for nom, numero in criteres
@@ -240,43 +326,72 @@ class ConnecteurPrestaShopSitemap:
                 candidats = candidats[:LIMITE_CANDIDATS_PAR_CRITERE]
 
             for url in candidats:
-                try:
-                    r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
-                    r.raise_for_status()
-                except requests.exceptions.RequestException:
-                    continue
-                finally:
-                    time.sleep(DELAI_ENTRE_PAGES_PRODUIT)
+                resultat = self._evaluer_url(url, nom, numero, confiance_base)
+                if resultat:
+                    resultats_par_critere[(nom, numero)].append(resultat)
 
-                produit = _extraire_jsonld_produit(r.text)
-                if produit is None:
-                    continue  # pas de JSON-LD exploitable -> ignore (V1 volontairement etroite)
+        return resultats_par_critere
 
-                offre = _analyser_offre(produit)
-                if offre["prix"] is None:
-                    continue
+    def _decouvrir_candidats_recherche(self, nom: str) -> list[str]:
+        """Repli quand aucun sitemap n'est exploitable : utilise la
+        recherche PrestaShop native (?controller=search&s=) pour trouver
+        des URLs candidates. Recherche sur le NOM SEUL (meme constat que
+        pour WooCommerce : inclure le numero avec un "/" fait chuter le
+        nombre de resultats a 0 sur les boutiques testees) ; le filtrage
+        nom+numero se fait ensuite normalement via _slug_correspond.
 
-                devise = (offre["devise"] or "").upper()
-                devise_ok = devise == "EUR"
-                confiance = confiance_base if devise_ok else "faible"
-                necessite_verif = (numero is None) or not devise_ok
+        Detection par FORME D'URL plutot que par classe CSS : les classes
+        de lien produit varient enormement d'un theme a l'autre (verifie
+        sur 4 boutiques : "product-miniature__link", "product-cover-link",
+        "product-name", et meme des liens SANS classe du tout sur
+        investcollect.com). En revanche, l'URL produit PrestaShop suit
+        presque toujours le motif "/{id}-{slug}.html" (id produit numerique
+        en tete du dernier segment) -- verifie identique sur blazingtail.fr,
+        gamespirit.fr, pokemoncarte.com, investcollect.com, lepantheon-tcg.com."""
+        try:
+            url = f"{self.base_url}/recherche?controller=search&s={quote(nom)}"
+            r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
+            r.raise_for_status()
+        except requests.exceptions.RequestException:
+            return []
+        html = r.content.decode("utf-8", errors="replace")
+        # Certaines boutiques (constate sur investcollect.com) rendent la
+        # liste de resultats via un bloc echappe façon JSON
+        # (href=\"https:\/\/...\") plutot que du HTML brut -- on normalise
+        # les echappements courants avant de chercher les liens.
+        html = html.replace("\\/", "/").replace('\\"', '"')
 
-                image = produit.get("image")
-                if isinstance(image, list):
-                    image = image[0] if image else None
+        candidats = re.findall(r'href="(https?://[^"]*/\d+-[^/"]+\.html[^"]*)"', html)
+        return list(dict.fromkeys(candidats))
 
-                resultats_par_critere[(nom, numero)].append(ResultatRecherche(
-                    boutique=self.nom_affiche,
-                    titre=produit.get("name", ""),
-                    prix=offre["prix"],
-                    en_stock=offre["en_stock"],
-                    url_produit=url,
-                    variante_titre="",
-                    image_url=image,
-                    langue_detectee=detecter_langue(produit.get("name", "")),
-                    confiance=confiance,
-                    necessite_verification_manuelle=necessite_verif,
-                ))
+    def rechercher_via_recherche_html(
+        self, criteres: list[tuple[str, str | None]]
+    ) -> dict[tuple[str, str | None], list[ResultatRecherche]]:
+        """Repli SANS sitemap : decouverte via la recherche native
+        PrestaShop plutot que le sitemap XML. A utiliser uniquement pour
+        les boutiques ou aucun sitemap exploitable n'a ete trouve."""
+        resultats_par_critere: dict[tuple[str, str | None], list[ResultatRecherche]] = {
+            (nom, numero): [] for nom, numero in criteres
+        }
+        candidats_par_nom: dict[str, list[str]] = {}
+
+        for nom, numero in criteres:
+            critere = CritereRecherche(nom=nom, numero=numero)
+            confiance_base = "forte" if numero is not None else "faible"
+
+            if nom not in candidats_par_nom:
+                candidats_par_nom[nom] = self._decouvrir_candidats_recherche(nom)
+                time.sleep(DELAI_ENTRE_PAGES_PRODUIT)
+            candidats_bruts = candidats_par_nom[nom]
+
+            candidats = [u for u in candidats_bruts if _slug_correspond(u, critere)]
+            if len(candidats) > LIMITE_CANDIDATS_PAR_CRITERE:
+                candidats = candidats[:LIMITE_CANDIDATS_PAR_CRITERE]
+
+            for url in candidats:
+                resultat = self._evaluer_url(url, nom, numero, confiance_base)
+                if resultat:
+                    resultats_par_critere[(nom, numero)].append(resultat)
 
         return resultats_par_critere
 

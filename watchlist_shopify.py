@@ -32,6 +32,15 @@ PREFIXES_A_IGNORER = {"team", "rocket's", "rocket"}
 # Mots qui METTENT FIN a la collecte du nom de recherche (tout ce qui suit
 # est un qualificatif -- rarete, forme, promo -- pas le nom du Pokemon).
 MOTS_TERMINATEURS = {"ex", "gx", "v", "vmax", "vstar", "promo", "de", "du", "des"}
+# Sous-ensemble de MOTS_TERMINATEURS qui distingue reellement des cartes
+# DIFFERENTES portant le meme nom+numero (contrairement a "promo"/"de"/"du"/
+# "des", qui ne sont pas des mecaniques de jeu). Bug reel corrige : "Plumeline
+# ex 024" (config.yaml, MEP Black Star Promos) et "Plumeline 24 Sun & Moon
+# REVERSE" (carte plus ancienne, non-ex, sans rapport) partagent le meme
+# nom+numero -- sans distinguer le "ex", le mauvais Plumeline (1,50€, en
+# stock) a matche a la place du bon (28€, rupture), declenchant une fausse
+# alerte via le seuil fixe 15€.
+MOTS_QUALIFICATIFS = {"ex", "gx", "v", "vmax", "vstar"}
 
 
 @dataclass(frozen=True)
@@ -41,6 +50,11 @@ class CarteWatchlist:
     langue: str                # "fr" / "jp" / "kr" -- pour la cle cotes.json
     nom_config: str            # nom EXACT tel qu'ecrit dans config.yaml (avec "ex" etc.)
     prix_max_fixe: float | None = None  # override eventuel (cf. config.yaml)
+    # "ex"/"gx"/"v"/"vmax"/"vstar" si present dans nom_config, sinon None.
+    # Sert a rejeter un match nom+numero qui ne porte PAS ce qualificatif
+    # dans son titre (carte homonyme differente) -- cf. bonne_affaire_shopify.py
+    # et alerte_stock.py qui appliquent ce filtre.
+    qualificatif: str | None = None
 
     @property
     def cle_recherche(self) -> tuple[str, str | None]:
@@ -53,9 +67,10 @@ class CarteWatchlist:
         return f"{self.nom_config}|{self.langue}"
 
 
-def _extraire_nom_et_numero(nom_config: str) -> tuple[str, str | None]:
-    """Extrait (nom_recherche, numero) a partir du champ "nom" brut de
-    config.yaml, ex: "Charmander 168/165 sv2a" -> ("Charmander", "168/165")."""
+def _extraire_nom_et_numero(nom_config: str) -> tuple[str, str | None, str | None]:
+    """Extrait (nom_recherche, numero, qualificatif) a partir du champ "nom"
+    brut de config.yaml, ex: "Charmander 168/165 sv2a" -> ("Charmander",
+    "168/165", None) ; "Plumeline ex 024" -> ("Plumeline", "024", "ex")."""
     tokens = nom_config.split()
 
     numero = None
@@ -76,10 +91,13 @@ def _extraire_nom_et_numero(nom_config: str) -> tuple[str, str | None]:
         idx += 1
 
     premiers_mots = []
+    qualificatif = None
     for tok in tokens[idx:]:
         tok_clean = tok.strip(",()")
         tok_lower = tok_clean.lower()
         if tok_lower in MOTS_TERMINATEURS or tok_lower in CODES_SET_CONNUS:
+            if tok_lower in MOTS_QUALIFICATIFS:
+                qualificatif = tok_lower
             break
         if any(ch.isdigit() for ch in tok_clean):
             break
@@ -89,7 +107,7 @@ def _extraire_nom_et_numero(nom_config: str) -> tuple[str, str | None]:
         nom_recherche = " ".join(premiers_mots)
     else:
         nom_recherche = tokens[idx] if idx < len(tokens) else tokens[0]
-    return nom_recherche, numero
+    return nom_recherche, numero, qualificatif
 
 
 def charger_watchlist_config(chemin: Path = CHEMIN_CONFIG_DEFAUT) -> list[CarteWatchlist]:
@@ -113,11 +131,11 @@ def charger_watchlist_config(chemin: Path = CHEMIN_CONFIG_DEFAUT) -> list[CarteW
         alias = entree.get("alias")
         prix_max_fixe = entree.get("prix_max_fixe")
 
-        nom_recherche, numero = _extraire_nom_et_numero(nom_config)
-        cartes.append(CarteWatchlist(nom_recherche, numero, langue, nom_config, prix_max_fixe))
+        nom_recherche, numero, qualificatif = _extraire_nom_et_numero(nom_config)
+        cartes.append(CarteWatchlist(nom_recherche, numero, langue, nom_config, prix_max_fixe, qualificatif))
 
         if alias and alias.strip().lower() != nom_recherche.strip().lower():
-            cartes.append(CarteWatchlist(alias.strip(), numero, langue, nom_config, prix_max_fixe))
+            cartes.append(CarteWatchlist(alias.strip(), numero, langue, nom_config, prix_max_fixe, qualificatif))
 
     return cartes
 

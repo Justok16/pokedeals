@@ -77,16 +77,44 @@ class ResultatRecherche:
     necessite_verification_manuelle: bool = False
 
 
+# Codes de set courts propres aux impressions JAPONAISES/COREENNES (JP et KR
+# partagent la meme numerotation, cf. config.yaml : "VERSIONS CORÉENNES
+# (mêmes numéros que le japonais)"), utilises en repli de detection de
+# langue quand le titre ne contient AUCUN mot explicite ("Japonais"/"Coréen").
+# Reprend watchlist_shopify.CODES_SET_CONNUS (sans "s-p", trop generique/pas
+# exclusivement asiatique). Corrige un bug reel constate en prod :
+# "Bulbizarre AR 166/165 - SV2A" sur hikarudistribution.com n'etait detecte
+# dans AUCUNE langue (pas de mot explicite), et se faisait donc comparer a
+# tort a la cote FRANCAISE de "Bulbizarre 166/165" (config.yaml n'a pas
+# d'entree JP/KR pour ce numero -- seulement FR) alors que "SV2A" est le code
+# de l'extension japonaise "Pokémon Card 151", jamais utilise sur une carte
+# imprimee en France.
+CODES_SET_ASIATIQUES = {
+    "sv2a", "sv8a", "sv5a", "sv9", "s8b", "m2a", "m1l", "m2", "m3", "m4", "m5", "mc",
+}
+
+
 def detecter_langue(titre: str) -> str | None:
     """Devine la langue d'un produit a partir des mentions dans son titre.
 
     Retourne None si aucune mention n'est trouvee (indetermine), plutot que
-    de deviner a partir d'autres indices (nom de domaine, etc.).
+    de deviner a partir d'autres indices (nom de domaine, etc.) -- SAUF pour
+    les codes de set JP/KR (cf. CODES_SET_ASIATIQUES), un signal fiable meme
+    sans mot de langue explicite.
     """
     titre_lower = titre.lower()
     for langue, mots in LANGUE_MOTS_CLES.items():
         if any(mot in titre_lower for mot in mots):
             return langue
+
+    mots_titre = re.findall(r"[a-z0-9]+", titre_lower)
+    if any(mot in CODES_SET_ASIATIQUES for mot in mots_titre):
+        # "jp_ou_kr" : le code de set ne permet pas de distinguer JP de KR
+        # (numerotation partagee) -- cf. bonne_affaire_shopify.py qui traite
+        # cette valeur comme compatible avec une carte configuree en jp OU kr,
+        # mais incoherente avec une carte configuree en fr.
+        return "jp_ou_kr"
+
     return None
 
 
