@@ -337,6 +337,118 @@ avant/après inchangés, mêmes 3 rejets légitimes qu'avant (aucun nouveau) —
 - **Cardmarket** — explicitement hors scope (protection anti-bot
   volontairement dissuasive), non exploré par consigne.
 
+## Nouvelle fonctionnalité : radar de précommandes (2026-08-10/11)
+
+Détection de l'**apparition** d'un produit scellé surveillé (précommande
+qui n'existait pas avant → existe maintenant, en stock ou non) — PAS un
+retour en stock d'un produit déjà catalogué (ça, c'est `alerte_stock.py`).
+Système entièrement **indépendant** des 2 alertes existantes (bonnes
+affaires + retour en stock sur cartes à l'unité) : nouveaux fichiers
+dédiés, aucune modification des connecteurs/scans/orchestrateurs
+existants.
+
+**Fichiers ajoutés :**
+- `precommandes_watchlist.py` — `PRODUITS_SURVEILLES` (liste des produits
+  à guetter), matching mots-clés (double groupe édition+type) + extraction
+  et validation de date sur la page produit.
+- `alerte_precommande.py` — mémoire d'état (`data/precommandes_anniversaire.json`,
+  une entrée par `domaine|nom_produit`, alerte une seule fois par produit
+  x boutique, avec re-alerte si la confiance passe de "moyenne" à "forte")
+  + envoi Telegram dédié (🎉).
+- `radar_precommandes.py` — scanners par plateforme, réutilisent les
+  connecteurs existants SANS les modifier : Shopify (catalogue complet
+  déjà récupéré, titre+description disponibles sans requête
+  supplémentaire), PrestaShop/WooCommerce sitemap (préfiltre léger sur le
+  slug avant de charger la page complète), PrestaShop/WooCommerce replis
+  (recherche par mot-clé "type" via le mécanisme de découverte déjà en
+  place, y compris `rechercher_via_api_rest` pour mymesis.fr).
+- `scan_precommandes.py` — orchestrateur CLI
+  (`python scan_precommandes.py {shopify|prestashop|woocommerce} [boutiques...]`),
+  conçu pour être ajouté comme **étape supplémentaire** aux 3 workflows
+  GitHub Actions existants (pas de nouveau workflow séparé) — s'arrête de
+  lui-même si tous les produits surveillés ont dépassé leur date de sortie.
+
+**3 produits surveillés actuellement** (cf. `PRODUITS_SURVEILLES`) :
+Coffret ETB 30e Anniversaire (sortie 16/09/2026), Coffret ETB ME06 Règne
+Delta (06/11/2026), Collection Ultra-Premium 30e Anniversaire Mentali/Noctali
+(06/11/2026).
+
+### 2 bugs trouvés et corrigés PENDANT le test sur échantillon (14 boutiques)
+
+Le test sur échantillon (5 Shopify, 4 PrestaShop dont 1 repli, 5
+WooCommerce dont `mymesis.fr` en API REST) a révélé, comme demandé, des
+**vrais faux positifs** avant d'être considéré validé :
+
+1. **Mots-clés trop génériques** (1er run : 15 candidats, 4 faux
+   positifs) :
+   - `"celebration"`/`"célébration"` seul matchait à tort l'**ANCIEN**
+     coffret "Celebrations"/"Célébrations" (25e anniversaire, EB7.5,
+     2021, toujours en vente/revente) — constaté sur `lemantcg.fr`,
+     `hikarudistribution.com`, `poke-geek.fr`, et un produit SLEEVES (pas
+     même un ETB) sur `hamacards.com`. **Fix** : retiré du groupe édition
+     du produit 1, ne garde que les expressions complètes sans ambiguïté
+     ("30e anniversaire", "30th anniversary", "30th celebration").
+   - `"ultra premium"` seul est aussi un adjectif marketing générique
+     ("carte ultra premium issue de l'extension...") utilisé sur des
+     cartes à l'unité SANS RAPPORT — constaté sur `questcorner.fr` (une
+     simple Noctali-VMAX EVS matchée à tort). **Fix** : remplacé par la
+     phrase complète `"collection ultra premium"` / `"ultra premium collection"`.
+2. **Asymétrie de normalisation** (2e run après fix #1 : la boutique
+   `poke-geek.fr` a perdu un match pourtant légitime — régression
+   introduite PAR le fix #1). En renforçant la normalisation du texte de
+   page (ponctuation/tirets/apostrophes écrasés en espace, pour mieux
+   gérer "Ultra-Premium" vs "Ultra Premium"), les mots-clés eux-mêmes
+   (ex: `"dresseur d'elite"`, avec apostrophe) n'étaient PAS normalisés
+   avant comparaison — un mot-clé avec apostrophe ne peut alors plus
+   JAMAIS matcher un texte normalisé (donc sans apostrophe). **Fix** :
+   normaliser aussi les mots-clés au moment de la comparaison, pas
+   seulement le texte de la page.
+
+**Résultat final** (3e run, après les 2 fix) : **9 candidats, 1 confiance
+forte, 8 confiance moyenne, 0 faux positif** — tous les vrais matches
+préservés (dont `hikarudistribution.com` : *"Coffret Dresseur d'Élite
+(ETB) Pokémon - Règne Delta - ME06 - Français"* avec la date 06/11/2026
+explicitement confirmée sur la page → confiance forte), tous les faux
+positifs identifiés éliminés.
+
+### Comment ajouter un futur produit à surveiller
+
+Ajouter une entrée à `PRODUITS_SURVEILLES` dans `precommandes_watchlist.py`
+— aucune autre modification de code nécessaire. Exemple pour un futur set
+JP fictif "Coffret ME07" sortant le 15 janvier 2027 :
+
+```python
+ProduitSurveille(
+    nom="Coffret Dresseur d'Élite — ME07 FR",
+    mots_cles_edition=frozenset({"me07", "nom-du-set-en-toutes-lettres"}),
+    mots_cles_type=frozenset({"dresseur d'elite", "dresseur elite", "etb", "elite trainer box"}),
+    date_sortie=date(2027, 1, 15),
+),
+```
+
+Règles à respecter (retour d'expérience direct du test ci-dessus) :
+- **Toujours 2 groupes** (édition ET type), jamais un mot-clé isolé —
+  c'est ce qui évite les faux positifs massifs.
+- **Éviter les mots-clés génériques/adjectifs courants** ("celebration",
+  "premium", "édition limitée"...) — préférer des expressions complètes
+  et spécifiques au produit, ou des codes/noms officiels peu ambigus
+  ("ME06", "règne delta").
+- Le radar s'arrête tout seul après `date_sortie` — pas besoin de retirer
+  l'entrée manuellement une fois le produit sorti (mais elle peut être
+  retirée par propreté si on veut).
+
+### Pas encore fait (activation en prod)
+
+L'implémentation est testée et validée sur échantillon, mais **PAS encore
+branchée aux 3 workflows GitHub Actions existants** (`scan_shopify.yml`,
+`scan_prestashop.yml`, `scan_woocommerce.yml`) — ajouter une étape
+`python scan_precommandes.py {plateforme}` après l'étape de scan
+existante dans chacun, avec le même `TELEGRAM_BOT_TOKEN`. Coût : double le
+nombre de requêtes réseau par cycle sur chaque plateforme (nouveau
+parcours complet du catalogue/sitemap, séparé du scan cartes existant) —
+à surveiller sur les marges de timeout GitHub Actions déjà serrées (cf.
+notes sur le découpage en 2 lots WooCommerce).
+
 ## Prochaines étapes suggérées (par ordre de priorité)
 
 1. ~~Committer le fix de symétrie du filtre qualificatif~~ — fait.
