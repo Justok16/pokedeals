@@ -34,6 +34,17 @@ jobs:
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
+        with:
+          # IMPORTANT : sans "ref", checkout se cale par defaut sur le
+          # commit qui a declenche le RUN (fige au demarrage), identique
+          # pour tous les jobs du run -- meme si scan_lot_b demarre APRES
+          # que scan_lot_a ait pousse son commit. Ca causait un conflit
+          # "add/add" sur data/stock_boutiques_tcg_woocommerce.json (les 2
+          # jobs le creaient chacun de leur cote a partir du meme vieux
+          # commit). "ref: main" force la resolution dynamique de la
+          # branche AU MOMENT du checkout, donc scan_lot_b recupere bien
+          # le commit fraichement pousse par scan_lot_a.
+          ref: main
       - name: Installer Python
         uses: actions/setup-python@v5
         with:
@@ -56,7 +67,7 @@ jobs:
           git config user.name "pokedeals-bot"
           git config user.email "bot@pokedeals.local"
           cp -f data/stock_boutiques_tcg_woocommerce.json /tmp/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-          git stash || true
+          git stash -u || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
           cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
@@ -80,6 +91,17 @@ jobs:
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
+        with:
+          # IMPORTANT : sans "ref", checkout se cale par defaut sur le
+          # commit qui a declenche le RUN (fige au demarrage), identique
+          # pour tous les jobs du run -- meme si scan_lot_b demarre APRES
+          # que scan_lot_a ait pousse son commit. Ca causait un conflit
+          # "add/add" sur data/stock_boutiques_tcg_woocommerce.json (les 2
+          # jobs le creaient chacun de leur cote a partir du meme vieux
+          # commit). "ref: main" force la resolution dynamique de la
+          # branche AU MOMENT du checkout, donc scan_lot_b recupere bien
+          # le commit fraichement pousse par scan_lot_a.
+          ref: main
       - name: Installer Python
         uses: actions/setup-python@v5
         with:
@@ -98,7 +120,7 @@ jobs:
           git config user.name "pokedeals-bot"
           git config user.email "bot@pokedeals.local"
           cp -f data/stock_boutiques_tcg_woocommerce.json /tmp/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-          git stash || true
+          git stash -u || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
           cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
