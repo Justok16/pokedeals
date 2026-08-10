@@ -1,0 +1,72 @@
+name: Scan PrestaShop
+on:
+  schedule:
+    # Toutes les 30 minutes -- independant des deux autres cron (main.py
+    # toutes les 15 min, scan_shopify.yml toutes les 30 min aussi). Les
+    # trois tournent en parallele sur le meme repo ; cf. l'etape de
+    # sauvegarde ci-dessous pour la gestion des collisions Git.
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      boutiques:
+        description: "Domaines a scanner, separes par des espaces (vide = les 15 boutiques par defaut)"
+        required: false
+        default: ""
+permissions:
+  contents: write   # necessaire pour sauvegarder data/stock_boutiques_tcg_prestashop.json
+concurrency:
+  group: scan_prestashop   # groupe DEDIE, distinct de "pokedeals" et "scan_shopify"
+  cancel-in-progress: false  # les trois workflows tournent independamment les uns des autres
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    # 6.8 min mesurees en local sur les 16 boutiques (avant retrait de
+    # bcd-jeux.fr) -- marge large car 2 sitemaps sont volumineux
+    # (skydreamer.fr ~31 Mo, ludum.fr ~17 Mo) et pourraient ralentir sur le
+    # reseau du runner GitHub Actions.
+    timeout-minutes: 20
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le scan PrestaShop (15 boutiques par defaut)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python scan_boutique_prestashop.py ${{ github.event.inputs.boutiques }}
+      - name: Sauvegarder la mémoire de stock
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          # Meme logique de rattrapage que pokedeals.yml / scan_shopify.yml :
+          # on met de cote notre fichier de memoire, on recupere la version
+          # distante (qui peut avoir avance entre-temps -- deux autres cron
+          # tournent en parallele sur le meme repo), puis on reimpose notre
+          # version fraichement scannee.
+          cp -f data/stock_boutiques_tcg_prestashop.json /tmp/stock_boutiques_tcg_prestashop.json 2>/dev/null || true
+          git stash || true
+          git pull --rebase || git rebase --abort || true
+          git stash pop || true
+          cp -f /tmp/stock_boutiques_tcg_prestashop.json data/stock_boutiques_tcg_prestashop.json 2>/dev/null || true
+          git add data/stock_boutiques_tcg_prestashop.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj mémoire stock prestashop [skip ci]"
+          # Push avec un rattrapage : si le push echoue (un autre cron a
+          # pousse entre-temps), on refait un pull --rebase en preservant
+          # notre memoire, puis on re-pousse. Si ca echoue ENCORE, on laisse
+          # le workflow passer au rouge pour que ce soit visible (sinon la
+          # memoire non sauvee = risque de rater/dupliquer une detection de
+          # retour en stock au prochain cycle).
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f data/stock_boutiques_tcg_prestashop.json /tmp/stock_boutiques_tcg_prestashop.json 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/stock_boutiques_tcg_prestashop.json data/stock_boutiques_tcg_prestashop.json 2>/dev/null || true
+            git add data/stock_boutiques_tcg_prestashop.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj mémoire stock prestashop [skip ci]"
+            git push
+          }
