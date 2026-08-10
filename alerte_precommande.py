@@ -49,10 +49,25 @@ def detecter_nouvelles_precommandes(
     url_produit, prix, en_stock} deja filtres/evalues par
     precommandes_watchlist.evaluer_correspondance (confiance != None).
 
-    Alerte UNE SEULE FOIS par (domaine, nom_produit) -- meme principe que
-    alerte_stock.py pour ne pas spammer a chaque cycle. Si un match a
-    confiance "moyenne" est deja memorise et qu'un match "forte" est
-    trouve ensuite (date confirmee apres coup), une SECONDE alerte est
+    N'ALERTE JAMAIS sur la toute premiere detection d'un (domaine,
+    nom_produit) -- MEME PRINCIPE que alerte_stock.py ("Une carte x
+    boutique jamais vue avant est ajoutee a la memoire mais NE DECLENCHE
+    PAS d'alerte, evite le spam massif au premier lancement"). Bug reel
+    corrige le 11/08/2026 : la version precedente alertait des la premiere
+    detection, ce qui a produit une avalanche d'alertes des l'activation
+    du radar pour des pages qui EXISTAIENT DEJA avant (annonces precoces
+    de revendeurs, notamment japonais, souvent hors stock ou pas encore
+    ouvertes a la commande) -- pas de vraie "apparition", juste l'effet de
+    bord d'une memoire vide au premier cycle. Desormais, seules les
+    apparitions constatees APRES un premier cycle de reference (qui etablit
+    la base sans alerter) declenchent une alerte -- au prix d'un risque
+    residuel documente : une precommande qui ouvre entre le tout premier
+    cycle de reference et le second n'est detectee qu'au 2e cycle (30 min
+    de retard max, pas un vrai raté).
+
+    Alerte ENSUITE une seule fois par (domaine, nom_produit) -- si un
+    match a confiance "moyenne" est deja memorise et qu'un match "forte"
+    est trouve ensuite (date confirmee apres coup), une SECONDE alerte est
     envoyee pour signaler la confirmation -- utile (l'info "date
     confirmee" a une vraie valeur), pas juste du bruit."""
     evenements = []
@@ -60,6 +75,7 @@ def detecter_nouvelles_precommandes(
     for c in candidats:
         cle_mem = _cle_memoire(domaine, c["nom_produit"])
         etat_precedent = memoire.get(cle_mem)
+        premiere_fois = etat_precedent is None
 
         deja_alerte_a_ce_niveau = (
             etat_precedent is not None
@@ -73,7 +89,7 @@ def detecter_nouvelles_precommandes(
             and etat_precedent.get("confiance") == "forte"
         )
 
-        if not deja_alerte_a_ce_niveau and not deja_confirme_mieux:
+        if not premiere_fois and not deja_alerte_a_ce_niveau and not deja_confirme_mieux:
             evenements.append(c)
 
         memoire[cle_mem] = {
@@ -99,13 +115,26 @@ def _echapper_url_html(url: str) -> str:
 
 def _texte_precommande(e: dict) -> str:
     niveau = "🟢 confirmée (date de sortie détectée)" if e["confiance"] == "forte" else "🟡 probable (mots-clés seuls)"
+    # Statut de stock explicite -- evite la confusion constatee en prod
+    # (alerte "précommande détectée" comprise a tort comme "achetable
+    # maintenant" alors que la page peut tres bien exister hors stock ou
+    # pas encore ouverte a la commande, cf. bug corrige le 11/08/2026 sur
+    # le declenchement premature de l'alerte elle-meme -- ce champ ne
+    # remplace pas ce fix, il rend juste chaque alerte auto-suffisante).
+    if e.get("en_stock") is True:
+        stock_ligne = "📦 En stock / commandable\n"
+    elif e.get("en_stock") is False:
+        stock_ligne = "⛔ Page trouvée mais actuellement HORS STOCK (pas encore commandable)\n"
+    else:
+        stock_ligne = "❓ Statut de stock indéterminé\n"
     prix_ligne = f"💰 {e['prix']:.2f}€\n" if e.get("prix") else ""
     lien_ligne = f"👉 <a href=\"{_echapper_url_html(e['url_produit'])}\">Voir le produit</a>" if e.get("url_produit") else ""
     return (
         f"🎉 <b>Précommande détectée !</b>\n"
-        f"📦 <b>{_echapper_html(e['nom_produit'])}</b>\n"
+        f"🎁 <b>{_echapper_html(e['nom_produit'])}</b>\n"
         f"🏪 {_echapper_html(e['domaine'])}\n"
         f"🔎 Confiance : {niveau}\n"
+        f"{stock_ligne}"
         f"{prix_ligne}"
         f"📝 {_echapper_html(e['titre'])}\n"
         f"{lien_ligne}"

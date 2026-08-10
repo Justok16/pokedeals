@@ -470,11 +470,60 @@ même principe que `stock_boutiques_tcg{,_prestashop,_woocommerce}.json`.
 
 **Coût réseau** : double le nombre de requêtes par cycle sur chaque
 plateforme (nouveau parcours du catalogue/sitemap, séparé du scan cartes
-existant). Marges de timeout élargies en conséquence (cf. ci-dessus), mais
-**pas encore vérifiées en conditions réelles GitHub Actions** — à
-surveiller sur les premiers cycles de prod (main.py/scan_shopify.yml
-avaient déjà montré un surcoût réseau GitHub Actions de +19 à +38% par
-rapport aux mesures locales).
+existant). Marges de timeout élargies en conséquence (cf. ci-dessus).
+
+**Confirmé fonctionnel en prod** : run Shopify #19 (commit `5e58183`)
+terminé en succès, 16 min (contre ~9 min avant, cohérent avec le nouveau
+step). `data/precommandes_anniversaire_shopify.json` créé et commité
+automatiquement par le bot, avec des détections réelles cohérentes avec
+le test sur échantillon.
+
+### Bug de première activation — CONFIRMÉ ET CORRIGÉ (2026-08-11)
+
+**Signalé par l'utilisateur** peu après l'activation : alertes Telegram
+reçues pour des précommandes qui se révèlent en réalité **hors stock ou
+pas encore ouvertes à la commande**.
+
+**Cause racine** : `detecter_nouvelles_precommandes()` (`alerte_precommande.py`)
+alertait dès la **toute première détection** d'un `(domaine, nom_produit)`
+— contrairement à `alerte_stock.py`, qui n'alerte JAMAIS sur la première
+détection ("Une carte x boutique jamais vue avant est ajoutee a la
+memoire mais NE DECLENCHE PAS d'alerte, evite le spam massif au premier
+lancement"). Ce choix de conception avait été fait délibérément (docstring
+d'origine : "Alerte UNE SEULE FOIS... contrairement à alerte_stock.py")
+en pensant que "premiere apparition = evenement interessant" — raisonnement
+correct pour un produit qui apparaît APRÈS l'activation du radar, mais
+FAUX pour le tout premier cycle : les 84 boutiques ont été scannées pour
+la première fois avec une mémoire vide, donc TOUTE page déjà existante
+au moment de l'activation (souvent des annonces précoces de revendeurs,
+notamment japonais, pas encore réellement ouvertes à la commande) a été
+traitée comme une "apparition" et a déclenché une alerte immédiate — pas
+un faux positif de matching (les mots-clés/dates étaient corrects), mais
+une alerte prématurée/pas actionnable.
+
+**Fix appliqué** : alignement sur le principe déjà éprouvé d'`alerte_stock.py`
+— la première détection d'un `(domaine, nom_produit)` établit
+silencieusement une base de référence, sans alerte. Seules les apparitions
+constatées APRÈS ce premier cycle de référence déclenchent une alerte.
+Risque résiduel documenté : une précommande qui ouvre entre le tout
+premier cycle et le second n'est détectée qu'au 2e passage (30 min de
+retard max, pas un vrai raté).
+
+**Amélioration complémentaire** : le message Telegram affiche désormais
+explicitement le statut de stock (📦 en stock / ⛔ hors stock / ❓
+indéterminé selon les données disponibles par plateforme) — rend chaque
+alerte auto-suffisante sans avoir à cliquer pour découvrir que la page
+n'est pas encore commandable.
+
+Testé (3 scénarios simulés : 1re détection → pas d'alerte ; re-détection
+identique → pas d'alerte ; upgrade moyenne→forte → alerte de confirmation ;
+nouveau produit sur boutique déjà connue → pas d'alerte non plus, tous
+corrects).
+
+**Note** : les 9 entrées déjà présentes dans
+`data/precommandes_anniversaire_shopify.json` (issues du premier cycle
+raté) restent en l'état — elles servent maintenant de base de référence
+légitime pour la détection future, pas besoin de les effacer.
 
 ## Prochaines étapes suggérées (par ordre de priorité)
 
