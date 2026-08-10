@@ -6,7 +6,7 @@ Interroge l'endpoint public /products.json expose par toute boutique Shopify
 rechercher des produits par critere (nom, numero), dans le meme esprit que
 les connecteurs existants (eBay, Vinted, Cardtrader).
 
-Reutilisable tel quel sur les ~40 boutiques Shopify identifiees lors de
+Reutilisable tel quel sur les ~39 boutiques Shopify identifiees lors de
 l'audit (voir audit_boutiques.py) : il suffit de changer le nom de domaine.
 """
 

@@ -118,7 +118,7 @@ if __name__ == "__main__":
     from watchlist_shopify import charger_watchlist_config
 
     # Test cible : `python scan_boutique.py kyoriyu.fr questcorner.fr` ne
-    # scanne QUE les domaines passes en argument, au lieu des 40 boutiques.
+    # scanne QUE les domaines passes en argument, au lieu des 39 boutiques.
     # Sans argument : comportement normal (toutes les boutiques).
     boutiques = sys.argv[1:] if len(sys.argv) > 1 else BOUTIQUES_SHOPIFY
 

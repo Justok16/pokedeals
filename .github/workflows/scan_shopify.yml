@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       boutiques:
-        description: "Domaines a scanner, separes par des espaces (vide = les 40 boutiques par defaut)"
+        description: "Domaines a scanner, separes par des espaces (vide = les 39 boutiques par defaut)"
         required: false
         default: ""
 permissions:
@@ -34,7 +34,7 @@ jobs:
           cache: pip
       - name: Installer les dépendances
         run: pip install -r requirements.txt
-      - name: Lancer le scan Shopify (40 boutiques par defaut)
+      - name: Lancer le scan Shopify (39 boutiques par defaut)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: python scan_boutique.py ${{ github.event.inputs.boutiques }}

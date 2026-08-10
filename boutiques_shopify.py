@@ -2,6 +2,11 @@
 # Issues de l'audit technique (aout 2026) sur les 122 boutiques de la liste de Justok.
 # A utiliser avec connecteur_shopify.py -- un seul connecteur pour toutes ces boutiques.
 
+# RETIREE le 11/08/2026 (demande explicite) : card-binder.com est une
+# boutique anglophone vendant des produits anglophones -- hors interet
+# pour Justok (watchlist FR/JP).
+#   "card-binder.com",
+
 BOUTIQUES_SHOPIFY = [
     "dracaugames.com",
     "cardlabtcg.com",
@@ -39,7 +44,6 @@ BOUTIQUES_SHOPIFY = [
     "kimstcgstore.com",
     "japan2uk.com",
     "riotcg.shop",
-    "card-binder.com",
     "japanresell.fr",
     "lectorshop.com",
     "cardotaku.com",

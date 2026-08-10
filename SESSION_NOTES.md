@@ -1,7 +1,8 @@
 # Notes de session — extension multi-plateforme PokéDeals
 
 Dernière mise à jour : 2026-08-10 (fin de session — couverture des
-boutiques sans sitemap terminée, 84 boutiques actives au total).
+boutiques sans sitemap terminée, 83 boutiques actives au total
+(card-binder.com retirée le 11/08/2026, boutique anglophone hors intérêt).
 
 ## Contexte du projet
 
@@ -215,7 +216,7 @@ pourrait reproduire le même faux positif jusqu'à être découvert et ajouté
 - `alerte_stock.py` — retours en stock (mémoire JSON par plateforme), même garde-fou qualificatif
 
 **Orchestrateurs (un par plateforme, appelés par les workflows) :**
-- `scan_boutique.py` (Shopify, 40 boutiques actives dans `boutiques_shopify.py`)
+- `scan_boutique.py` (Shopify, 39 boutiques actives dans `boutiques_shopify.py`)
 - `scan_boutique_prestashop.py` (PrestaShop, 17 boutiques actives dans `boutiques_prestashop.py` — 15 couvertes par sitemap + 2 via repli recherche HTML : `investcollect.com`, `lepantheon-tcg.com`, cf. section dédiée ci-dessous)
 - `scan_boutique_woocommerce.py` (WooCommerce, 26 boutiques actives dans `boutiques_woocommerce.py`, scindées en 2 lots équilibrés par volume d'URLs pour le workflow)
 
@@ -493,7 +494,8 @@ lancement"). Ce choix de conception avait été fait délibérément (docstring
 d'origine : "Alerte UNE SEULE FOIS... contrairement à alerte_stock.py")
 en pensant que "premiere apparition = evenement interessant" — raisonnement
 correct pour un produit qui apparaît APRÈS l'activation du radar, mais
-FAUX pour le tout premier cycle : les 84 boutiques ont été scannées pour
+FAUX pour le tout premier cycle : les 84 boutiques (alors actives, avant
+le retrait de card-binder.com) ont été scannées pour
 la première fois avec une mémoire vide, donc TOUTE page déjà existante
 au moment de l'activation (souvent des annonces précoces de revendeurs,
 notamment japonais, pas encore réellement ouvertes à la commande) a été
