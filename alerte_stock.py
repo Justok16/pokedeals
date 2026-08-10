@@ -27,6 +27,7 @@ import requests
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from connecteur_shopify import ConnecteurShopify  # noqa: E402
+from watchlist_shopify import detecter_qualificatif_titre  # noqa: E402
 
 FICHIER_MEMOIRE = Path(__file__).parent / "data" / "stock_boutiques_tcg.json"
 
@@ -101,6 +102,11 @@ def detecter_retours_en_stock(
             # (cf. "Plumeline ex 024" vs "Plumeline 24 Sun & Moon REVERSE").
             motif = re.compile(rf"\b{re.escape(carte.qualificatif)}\b")
             candidats = [r for r in candidats if motif.search(r.titre.lower())]
+        else:
+            # Sens INVERSE (symetrique) : une carte configuree SANS
+            # qualificatif ne doit pas matcher un titre qui en porte un
+            # (carte "ex"/"GX"/"V" homonyme, en realite differente).
+            candidats = [r for r in candidats if detecter_qualificatif_titre(r.titre) is None]
 
         resultats_fiables_par_carte.setdefault(carte.nom_config, []).extend(candidats)
 

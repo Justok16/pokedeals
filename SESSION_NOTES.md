@@ -98,36 +98,39 @@ cours de toute façon via les crons existants, donc le risque réel est
 faible — au pire quelques faux rejets ou faux positifs isolés, pas une
 casse généralisée).
 
-## Question ouverte à creuser en priorité la prochaine session
+## Asymétrie du filtre qualificatif — CONFIRMÉE ET CORRIGÉE (2026-08-10)
 
-**Le filtre de qualificatif (bug 3) fonctionne-t-il de façon SYMÉTRIQUE ?**
+Le fix initial (`bonne_affaire_shopify.py` / `alerte_stock.py`) ne
+vérifiait qu'un seul sens : *si `carte.qualificatif` est défini (ex: "ex")
+ET absent du titre produit → rejeter.* Le `if carte.qualificatif` initial
+sautait tout le bloc quand `carte.qualificatif` est `None`, donc le sens
+inverse n'était pas couvert.
 
-Le fix actuel (`bonne_affaire_shopify.py` / `alerte_stock.py`) vérifie :
-*si `carte.qualificatif` est défini (ex: "ex") ET absent du titre produit →
-rejeter.*
+**Reproduit par un test synthétique** (carte config `"Bulbizarre 166/165"`
+sans qualificatif vs titre produit `"Bulbizarre ex 166/165 - Edition
+Speciale"`) : le mauvais match passait bien à travers (`DEAL (seuil
+fixe)` déclenché à tort) avant correctif.
 
-Mais le cas INVERSE n'a **pas été vérifié** : si `config.yaml` ne contient
-PAS de qualificatif (carte de base, ex: `"Bulbizarre 133"` sans "ex") mais
-que le produit matché sur une boutique est en réalité une version "ex"/
-"GX"/"V"/"VMAX" de cette carte (nom+numéro identiques, mais différente en
-vrai) — ce cas serait-il aussi rejeté, ou passerait-il à travers ?
+**Correctif appliqué :**
+- `watchlist_shopify.py` : nouvelle fonction `detecter_qualificatif_titre(titre)`
+  qui cherche "ex"/"gx"/"v"/"vmax"/"vstar" (mêmes `\b...\b`, pas de faux
+  positif type "Evoli" contient "v") directement dans un titre de produit.
+- `bonne_affaire_shopify.py` (`evaluer_deal`) et `alerte_stock.py` : quand
+  `carte.qualificatif is None`, on rejette désormais tout résultat dont le
+  titre contient un qualificatif détecté par `detecter_qualificatif_titre`.
 
-Code actuel (`bonne_affaire_shopify.py`) :
-```python
-if carte.qualificatif and not re.search(rf"\b{re.escape(carte.qualificatif)}\b", resultat.titre.lower()):
-    return None, f"qualificatif manquant (\"{carte.qualificatif}\" absent du titre)"
-```
-Ce `if carte.qualificatif` initial signifie que **si `carte.qualificatif`
-est `None`, le bloc entier est sauté** — donc AUCUNE vérification n'est
-faite dans le sens inverse. Une carte de base pourrait potentiellement
-matcher un produit "ex"/"GX"/"V"/"VMAX" homonyme sans être rejetée. À
-vérifier avec un exemple réel (chercher dans `config.yaml` une carte SANS
-qualificatif dont le nom+numéro existe aussi en version "ex" quelque part)
-avant de considérer le bug 3 totalement clos. Si confirmé, le fix
-symétrique consisterait à détecter un qualificatif dans le TITRE produit
-(pas seulement dans `carte.nom_config`) et à le comparer à
-`carte.qualificatif` (y compris quand ce dernier est `None` — rejeter si le
-titre a un qualificatif que la config n'a pas).
+**Test de non-régression** (script ad hoc, 7 cas, tous OK) :
+1. Carte base vs titre "ex" homonyme → rejeté (nouveau comportement, avant : bug).
+2. Carte base vs titre sans qualificatif → matche normalement (pas de régression).
+3. Plumeline ex vs titre avec "ex" → matche (pas de régression sur le fix original).
+4. Plumeline ex vs titre sans "ex" → rejeté (bug original toujours corrigé).
+5. Evoli ex 174 promo → matche (deal déjà validé en prod, confirmé).
+6. Mega Dracaufeu X ex 023 → matche (deal déjà validé en prod, confirmé).
+7. Evoli base (nom contient "v") vs titre sans vrai qualificatif → matche
+   (vérifie l'absence de faux positif du `\bv\b` sur "Evoli").
+
+Script de test : non sauvegardé dans le repo (scratchpad temporaire), à
+refaire si besoin de re-vérifier.
 
 ## Fichiers concernés dans cette phase (pour s'orienter vite)
 
@@ -185,10 +188,11 @@ terminée avant que la priorité bascule sur les 3 bugs de production :
 
 ## Prochaines étapes suggérées (par ordre de priorité)
 
-1. Vérifier la question ouverte sur la symétrie du filtre qualificatif (cf.
-   section dédiée ci-dessus) — risque de faux positif résiduel non fermé.
+1. Committer le fix de symétrie du filtre qualificatif (`watchlist_shopify.py`,
+   `bonne_affaire_shopify.py`, `alerte_stock.py` — modifiés, pas encore commités).
 2. Terminer le test de non-régression du fix qualificatif sur les listes
-   actives complètes des 3 plateformes (pas juste 2 boutiques).
+   actives complètes des 3 plateformes (pas juste 2 boutiques) — toujours
+   pas fait à l'échelle complète, seulement via tests synthétiques ciblés.
 3. Reprendre le travail de couverture interrompu : test final sur
    l'échantillon de 10 cartes pour les 4 boutiques nouvellement
    couvrables (pokemoncarte.com, investcollect.com, kiokutcg.fr,

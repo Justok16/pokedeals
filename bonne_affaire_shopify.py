@@ -24,7 +24,7 @@ from pathlib import Path
 import requests
 import yaml
 
-from watchlist_shopify import CarteWatchlist
+from watchlist_shopify import CarteWatchlist, detecter_qualificatif_titre
 
 # Chemins relatifs au repo (ce fichier vit a la racine, a cote de main.py,
 # config.yaml et data/) -- indispensable pour tourner sur le runner GitHub
@@ -99,6 +99,15 @@ def evaluer_deal(
         # "v" en substring nu matcherait quasiment tous les titres (ex:
         # "Evoli" contient un "v").
         return None, f"qualificatif manquant (\"{carte.qualificatif}\" absent du titre)"
+
+    # Sens INVERSE (symetrique) : une carte configuree SANS qualificatif ne
+    # doit pas non plus matcher un titre qui en porte un -- sinon une carte
+    # de base ("Bulbizarre 166/165") pourrait matcher a tort une version
+    # "ex"/"GX"/"V" homonyme (meme nom+numero, carte differente en realite).
+    if carte.qualificatif is None:
+        qualificatif_titre = detecter_qualificatif_titre(resultat.titre)
+        if qualificatif_titre is not None:
+            return None, f"qualificatif inattendu (\"{qualificatif_titre}\" present dans le titre, absent de la config)"
 
     prix = resultat.prix
 

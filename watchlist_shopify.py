@@ -110,6 +110,21 @@ def _extraire_nom_et_numero(nom_config: str) -> tuple[str, str | None, str | Non
     return nom_recherche, numero, qualificatif
 
 
+def detecter_qualificatif_titre(titre: str) -> str | None:
+    """Detecte un qualificatif ("ex"/"gx"/"v"/"vmax"/"vstar") present dans un
+    titre de PRODUIT (pas config.yaml), pour la verification SYMETRIQUE du
+    filtre qualificatif (cf. bonne_affaire_shopify.py / alerte_stock.py) :
+    une carte configuree SANS qualificatif (carte.qualificatif is None) ne
+    doit pas matcher un titre qui en porte un -- sinon une carte de base
+    ("Bulbizarre 166/165") pourrait matcher a tort une version "ex"/"GX"/"V"
+    homonyme (meme nom+numero, carte differente en realite)."""
+    titre_lower = titre.lower()
+    for mot in MOTS_QUALIFICATIFS:
+        if re.search(rf"\b{mot}\b", titre_lower):
+            return mot
+    return None
+
+
 def charger_watchlist_config(chemin: Path = CHEMIN_CONFIG_DEFAUT) -> list[CarteWatchlist]:
     """Parse la watchlist reelle de config.yaml (121 cartes) en CarteWatchlist,
     prete pour ConnecteurShopify.
