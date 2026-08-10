@@ -23,6 +23,7 @@ scanner (radar desactive de lui-meme).
 import os
 import sys
 import time
+from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -44,6 +45,18 @@ from radar_precommandes import (
 
 DELAI_ENTRE_BOUTIQUES = 2.5
 TELEGRAM_CHAT_ID = "1245330032"
+
+# Un fichier memoire PAR PLATEFORME (meme principe que
+# stock_boutiques_tcg{,_prestashop,_woocommerce}.json pour alerte_stock.py) :
+# les 3 workflows GitHub Actions tournent en PARALLELE toutes les 30 min --
+# un fichier unique partage entre les 3 risquerait un vrai conflit de
+# contenu JSON (pas juste un conflit git resolu par rebase) si deux
+# workflows le modifient au meme moment.
+FICHIER_MEMOIRE_PAR_PLATEFORME = {
+    "shopify": Path(__file__).parent / "data" / "precommandes_anniversaire_shopify.json",
+    "prestashop": Path(__file__).parent / "data" / "precommandes_anniversaire_prestashop.json",
+    "woocommerce": Path(__file__).parent / "data" / "precommandes_anniversaire_woocommerce.json",
+}
 
 
 def _boutiques_et_replis(plateforme: str) -> tuple[list[str], dict[str, str]]:
@@ -137,9 +150,10 @@ if __name__ == "__main__":
     print(f"{len(boutiques)} boutique(s) {plateforme} a scanner")
     print(f"Telegram : {'configure' if token else 'NON configure (TELEGRAM_BOT_TOKEN absent -- envoi desactive)'}\n")
 
-    memoire = charger_memoire()
+    fichier_memoire = FICHIER_MEMOIRE_PAR_PLATEFORME[plateforme]
+    memoire = charger_memoire(fichier_memoire)
     resume = scanner_plusieurs_boutiques(plateforme, boutiques, modes, produits, memoire)
-    sauvegarder_memoire(memoire)
+    sauvegarder_memoire(memoire, fichier_memoire)
 
     envoyer_telegram_precommandes(resume["evenements"], TELEGRAM_CHAT_ID, token)
 

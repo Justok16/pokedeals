@@ -437,17 +437,44 @@ Règles à respecter (retour d'expérience direct du test ci-dessus) :
   l'entrée manuellement une fois le produit sorti (mais elle peut être
   retirée par propreté si on veut).
 
-### Pas encore fait (activation en prod)
+### Activation en prod — FAIT (2026-08-11)
 
-L'implémentation est testée et validée sur échantillon, mais **PAS encore
-branchée aux 3 workflows GitHub Actions existants** (`scan_shopify.yml`,
-`scan_prestashop.yml`, `scan_woocommerce.yml`) — ajouter une étape
-`python scan_precommandes.py {plateforme}` après l'étape de scan
-existante dans chacun, avec le même `TELEGRAM_BOT_TOKEN`. Coût : double le
-nombre de requêtes réseau par cycle sur chaque plateforme (nouveau
-parcours complet du catalogue/sitemap, séparé du scan cartes existant) —
-à surveiller sur les marges de timeout GitHub Actions déjà serrées (cf.
-notes sur le découpage en 2 lots WooCommerce).
+Branché aux 3 workflows GitHub Actions existants, comme étape(s)
+supplémentaire(s) après le scan cartes existant, **sans nouveau workflow
+séparé** :
+
+- **`scan_shopify.yml`** — 1 étape `python scan_precommandes.py shopify`
+  + sa sauvegarde mémoire (même logique stash/pull-rebase/push que les
+    fichiers de stock existants). `timeout-minutes` relevé de 18 à 25.
+- **`scan_prestashop.yml`** — même pattern, `timeout-minutes` relevé de
+  20 à 30 (les 2 plus gros sitemaps, skydreamer.fr/ludum.fr, sont relus
+  une seconde fois par le radar).
+- **`scan_woocommerce.yml`** — nouveau **job** `scan_precommandes` (pas
+  un nouveau fichier workflow) qui démarre après `scan_lot_b` : 2 étapes
+  séquentielles (lot A, puis lot B + `mymesis.fr` en API REST) au sein du
+  même job, une seule sauvegarde mémoire à la fin. `timeout-minutes: 25`
+  pour ce nouveau job — à surveiller/ajuster selon la durée réelle
+  mesurée en prod (le radar est en principe moins coûteux par boutique
+  que le scan cartes : pas de matching sur 194 critères, juste un
+  préfiltre de slug puis quelques pages ciblées).
+
+**Correction de conception appliquée avant l'activation** : la mémoire du
+radar était initialement un fichier UNIQUE partagé entre les 3
+plateformes (`data/precommandes_anniversaire.json`) — un vrai risque de
+collision puisque les 3 workflows tournent en parallèle toutes les 30 min
+(contrairement aux fichiers de stock existants, déjà séparés par
+plateforme pour cette raison précise). **Fix** : `scan_precommandes.py`
+charge/sauvegarde désormais dans un fichier dédié par plateforme
+(`data/precommandes_anniversaire_{shopify,prestashop,woocommerce}.json`),
+même principe que `stock_boutiques_tcg{,_prestashop,_woocommerce}.json`.
+
+**Coût réseau** : double le nombre de requêtes par cycle sur chaque
+plateforme (nouveau parcours du catalogue/sitemap, séparé du scan cartes
+existant). Marges de timeout élargies en conséquence (cf. ci-dessus), mais
+**pas encore vérifiées en conditions réelles GitHub Actions** — à
+surveiller sur les premiers cycles de prod (main.py/scan_shopify.yml
+avaient déjà montré un surcoût réseau GitHub Actions de +19 à +38% par
+rapport aux mesures locales).
 
 ## Prochaines étapes suggérées (par ordre de priorité)
 

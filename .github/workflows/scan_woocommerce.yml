@@ -135,3 +135,60 @@ jobs:
             git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot B) [skip ci]"
             git push
           }
+
+  scan_precommandes:
+    needs: scan_lot_b   # tourne apres les 2 lots du scan cartes existant, jamais en parallele d'eux
+    if: ${{ github.event.inputs.boutiques == '' || github.event.inputs.boutiques == null }}  # saute si un scan cible manuel est demande
+    runs-on: ubuntu-latest
+    # Meme volume de boutiques que le scan cartes (qui a besoin de 2 lots
+    # sequentiels pour tenir dans 18 min chacun), mais le radar est moins
+    # couteux par boutique (pas de matching sur 194 criteres -- juste un
+    # prefiltre de slug puis quelques pages ciblees) : les 2 lots sont
+    # traites l'un apres l'autre en 2 etapes du MEME job plutot qu'en 2 jobs
+    # separes. A scinder en jobs distincts si la duree mesuree en prod
+    # depasse la marge ci-dessous.
+    timeout-minutes: 25
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta) — lot A
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          python -c "from boutiques_woocommerce import LOT_A; print(' '.join(LOT_A))" > /tmp/lot_a.txt
+          python scan_precommandes.py woocommerce $(cat /tmp/lot_a.txt)
+      - name: Lancer le radar précommandes — lot B + API REST (mymesis.fr)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          python -c "from boutiques_woocommerce import LOT_B, BOUTIQUES_WOOCOMMERCE_REPLI_API_REST; print(' '.join(LOT_B + BOUTIQUES_WOOCOMMERCE_REPLI_API_REST))" > /tmp/lot_b_precommandes.txt
+          python scan_precommandes.py woocommerce $(cat /tmp/lot_b_precommandes.txt)
+      - name: Sauvegarder la mémoire du radar précommandes
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          cp -f data/precommandes_anniversaire_woocommerce.json /tmp/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
+          git stash -u || true
+          git pull --rebase || git rebase --abort || true
+          git stash pop || true
+          cp -f /tmp/precommandes_anniversaire_woocommerce.json data/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
+          git add data/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj mémoire radar précommandes woocommerce [skip ci]"
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f data/precommandes_anniversaire_woocommerce.json /tmp/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/precommandes_anniversaire_woocommerce.json data/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
+            git add data/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj mémoire radar précommandes woocommerce [skip ci]"
+            git push
+          }

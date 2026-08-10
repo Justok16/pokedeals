@@ -19,7 +19,11 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 18   # ~6.3 min mesurees sur les 40 boutiques + marge pour rate-limits occasionnels
+    # 18 min de marge pour le scan cartes (~6.3 min mesurees + rate-limits
+    # occasionnels) + le radar precommandes ajoute ensuite (nouveau parcours
+    # complet du catalogue Shopify, cf. etape dediee plus bas) -- a
+    # resserrer/reajuster si la duree mesuree en prod le permet.
+    timeout-minutes: 25
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
@@ -62,5 +66,29 @@ jobs:
             cp -f /tmp/stock_boutiques_tcg.json data/stock_boutiques_tcg.json 2>/dev/null || true
             git add data/stock_boutiques_tcg.json 2>/dev/null || true
             git diff --cached --quiet || git commit -m "maj mémoire stock shopify [skip ci]"
+            git push
+          }
+      - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python scan_precommandes.py shopify
+      - name: Sauvegarder la mémoire du radar précommandes
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          cp -f data/precommandes_anniversaire_shopify.json /tmp/precommandes_anniversaire_shopify.json 2>/dev/null || true
+          git stash || true
+          git pull --rebase || git rebase --abort || true
+          git stash pop || true
+          cp -f /tmp/precommandes_anniversaire_shopify.json data/precommandes_anniversaire_shopify.json 2>/dev/null || true
+          git add data/precommandes_anniversaire_shopify.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj mémoire radar précommandes shopify [skip ci]"
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f data/precommandes_anniversaire_shopify.json /tmp/precommandes_anniversaire_shopify.json 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/precommandes_anniversaire_shopify.json data/precommandes_anniversaire_shopify.json 2>/dev/null || true
+            git add data/precommandes_anniversaire_shopify.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj mémoire radar précommandes shopify [skip ci]"
             git push
           }
