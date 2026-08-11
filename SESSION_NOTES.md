@@ -699,6 +699,15 @@ refactoring cosmétique gratuit) :
    (`audit_resultats_0_15.md`, `audit_resultats_15_122.md`,
    `audit_boutiques.py`) qui n'existent pas dans le repo (jamais créés,
    ou supprimés avant cette session) — références retirées/corrigées.
+5. **Duplication supplémentaire fusionnée** : `_evaluer_page_prestashop()`
+   et `_evaluer_page_woocommerce()` dans `radar_precommandes.py` étaient
+   identiques à 100% (aucune logique spécifique à la plateforme — juste
+   `connecteur.session`/`connecteur.nom_affiche`, présents sur les deux
+   classes de connecteur). Fusionnées en une seule `_evaluer_page()`
+   (duck typing). Docstring du module également corrigé : décrivait
+   encore l'ANCIEN préfiltre (type seul) après le fix du bug de timeout.
+   Testé : `blazingtail.fr` → 0 candidat, `hamacards.com` → 4 candidats
+   identiques aux matches déjà connus (résultats inchangés après fusion).
 
 ## Prochaines étapes suggérées (par ordre de priorité)
 

@@ -14,11 +14,11 @@ Strategie par plateforme :
     directement titre ET description (body_html) de chaque produit -- pas
     de requete supplementaire necessaire.
   - PrestaShop/WooCommerce (sitemap) : filtrage LEGER sur le slug de
-    chaque URL (mots-cles TYPE seulement -- "etb"/"upc"/personnage --
-    plus discriminant qu'un mot d'edition generique comme "anniversaire",
-    limite le nombre de pages a recuperer) avant de charger la page
-    complete (titre + texte) pour la verification finale (mots-cles
-    edition+type ET date).
+    chaque URL, exigeant AU MOINS UN mot-cle du groupe EDITION *ET* AU
+    MOINS UN du groupe TYPE (meme double exigence que la verification
+    finale, appliquee tot pour limiter le nombre de pages a recuperer --
+    cf. _slug_est_candidat), avant de charger la page complete (titre +
+    texte) pour la verification finale (mots-cles edition+type ET date).
   - PrestaShop/WooCommerce (repli recherche HTML/API REST, boutiques sans
     sitemap) : une recherche par mot-cle "type" (ETB, UPC, mentali...) via
     le mecanisme de decouverte deja existant, meme filtrage final.
@@ -133,9 +133,14 @@ def scanner_shopify(domaine: str, produits: list[ProduitSurveille], connecteur=N
     return candidats
 
 
-# --- PrestaShop : sitemap (prefiltre slug) + repli recherche HTML (par mot-cle type) ---
+# --- PrestaShop/WooCommerce : sitemap (prefiltre slug) + repli recherche HTML ---
+# Une seule fonction de recuperation de page partagee : la logique (requete,
+# extraction titre/texte, evaluation) ne depend d'aucune specificite de
+# plateforme -- seul le TYPE de connecteur differe (duck typing sur
+# .session/.nom_affiche, presents sur les deux classes). Fusionnee le
+# 11/08/2026 (etait dupliquee a l'identique entre les deux plateformes).
 
-def _evaluer_page_prestashop(connecteur: ConnecteurPrestaShopSitemap, url: str, produits: list[ProduitSurveille]) -> list[dict]:
+def _evaluer_page(connecteur, url: str, produits: list[ProduitSurveille]) -> list[dict]:
     try:
         r = connecteur.session.get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
         r.raise_for_status()
@@ -168,7 +173,7 @@ def scanner_prestashop_sitemap(domaine: str, produits: list[ProduitSurveille]) -
 
     resultats = []
     for url in candidats_urls:
-        resultats.extend(_evaluer_page_prestashop(connecteur, url, produits))
+        resultats.extend(_evaluer_page(connecteur, url, produits))
     return resultats
 
 
@@ -182,32 +187,8 @@ def scanner_prestashop_repli_html(domaine: str, produits: list[ProduitSurveille]
 
     resultats = []
     for url in urls_vues:
-        resultats.extend(_evaluer_page_prestashop(connecteur, url, produits))
+        resultats.extend(_evaluer_page(connecteur, url, produits))
     return resultats
-
-
-# --- WooCommerce : sitemap (prefiltre slug) + repli recherche HTML / API REST ---
-
-def _evaluer_page_woocommerce(connecteur: ConnecteurWooCommerce, url: str, produits: list[ProduitSurveille]) -> list[dict]:
-    try:
-        r = connecteur.session.get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
-        r.raise_for_status()
-    except requests.exceptions.RequestException:
-        return []
-    finally:
-        time.sleep(DELAI_ENTRE_PAGES)
-
-    html = r.content.decode("utf-8", errors="replace")
-    m_titre = re.search(r"<title[^>]*>([^<]*)</title>", html, re.IGNORECASE)
-    titre = m_titre.group(1).strip() if m_titre else ""
-    texte = re.sub(r"<[^>]+>", " ", html)[:5000]
-
-    candidats = []
-    for produit in produits:
-        c = _candidat(connecteur.nom_affiche, produit, titre, texte, url)
-        if c:
-            candidats.append(c)
-    return candidats
 
 
 def scanner_woocommerce_sitemap(domaine: str, produits: list[ProduitSurveille]) -> list[dict]:
@@ -221,7 +202,7 @@ def scanner_woocommerce_sitemap(domaine: str, produits: list[ProduitSurveille]) 
 
     resultats = []
     for url in candidats_urls:
-        resultats.extend(_evaluer_page_woocommerce(connecteur, url, produits))
+        resultats.extend(_evaluer_page(connecteur, url, produits))
     return resultats
 
 
@@ -235,7 +216,7 @@ def scanner_woocommerce_repli_html(domaine: str, produits: list[ProduitSurveille
 
     resultats = []
     for url in urls_vues:
-        resultats.extend(_evaluer_page_woocommerce(connecteur, url, produits))
+        resultats.extend(_evaluer_page(connecteur, url, produits))
     return resultats
 
 
