@@ -149,6 +149,47 @@ def _regex_numero_sans_denominateur(numero: str) -> re.Pattern:
     return re.compile(r"(?<!\d)" + corps + r"(?!\d)", re.IGNORECASE)
 
 
+# Motif "NNN/MMM" ou "NNN-MMM" (numero de carte AVEC denominateur -- "/"
+# dans un titre de produit, "-" dans un slug d'URL type PrestaShop/
+# WooCommerce, ex ".../evoli-054-078-...html") -- sert a retirer le
+# DENOMINATEUR (2e nombre) avant de chercher un numero SANS denominateur,
+# tout en GARDANT le numerateur (1er nombre, capture group 1).
+#
+# Bug reel corrige le 11/08/2026 (signale par l'utilisateur) : la carte
+# "Eevee 078 sv5a" (config.yaml, numero NU "078", version JP/KR d'Evoli)
+# matchait a tort "Evoli 054/078" sur blazingtail.fr -- une carte FRANCAISE
+# Pokemon GO totalement differente, ou "078" n'est que le DENOMINATEUR de
+# la fraction (nombre total de cartes du set), pas le numero de la carte.
+# _regex_numero_sans_denominateur ne fait qu'un lookaround anti-chiffre
+# immediat ; il ne sait pas qu'un "078" precede d'un "/" ou "-" ET d'un
+# autre nombre juste avant fait partie d'une fraction NNN/MMM sans rapport.
+#
+# IMPORTANT : on retire seulement le DENOMINATEUR, pas toute la fraction --
+# contrairement a numeros_nus_titre() dans main.py (systeme eBay/Vinted),
+# qui retire la fraction ENTIERE avant de chercher un numero nu. Ca marche
+# pour main.py car son usage du numero nu est reserve aux cartes dont le
+# numero REEL n'a jamais de denominateur (V17.4, Nuit Noire FR/PBL). Ici,
+# le numero "sans denominateur" en config.yaml ("Eevee 078 sv5a") est
+# souvent un artefact du parsing (le code de set "sv5a" est retire du nom,
+# cf. watchlist_shopify._extraire_nom_et_numero) alors que la VRAIE carte
+# affiche generalement un numero complet "078/069" en boutique -- retirer
+# la fraction entiere ferait perdre ce vrai match (verifie : cause un
+# FAUX REJET sur un titre reel "Eevee 078/069 SAR sv5a Crimson Haze"). Ne
+# retirer que le denominateur regle les deux cas a la fois : le numerateur
+# "078" d'une VRAIE carte reste trouvable, le denominateur "078" d'une
+# fraction SANS RAPPORT ("054/078") disparait.
+RE_FRACTION_NUMERO = re.compile(r"(\d{1,3})\s*[/-]\s*\d{2,3}")
+
+
+def _retirer_fractions(texte: str) -> str:
+    """Dans un texte (titre ou URL brute, AVANT normalisation eventuelle),
+    retire le DENOMINATEUR de tout motif NNN/MMM ou NNN-MMM tout en gardant
+    le numerateur -- a utiliser avant de chercher un numero SANS
+    denominateur avec _regex_numero_sans_denominateur (cf.
+    RE_FRACTION_NUMERO ci-dessus)."""
+    return RE_FRACTION_NUMERO.sub(r"\1 ", texte)
+
+
 def _titre_correspond(titre: str, critere: CritereRecherche) -> bool:
     """Applique les regles de matching nom/numero decrites dans la doc de
     rechercher_par_mots_cles."""
@@ -167,8 +208,11 @@ def _titre_correspond(titre: str, critere: CritereRecherche) -> bool:
         return critere.numero.lower() in titre_lower
 
     # Numero sans denominateur -> le nom seul ne suffit jamais : on exige en
-    # plus une correspondance (tolerante au padding de zeros) du numero.
-    return bool(_regex_numero_sans_denominateur(critere.numero).search(titre))
+    # plus une correspondance (tolerante au padding de zeros) du numero,
+    # apres avoir retire toute fraction NNN/MMM du titre (cf.
+    # _retirer_fractions -- evite de matcher le DENOMINATEUR d'une carte
+    # homonyme sans rapport).
+    return bool(_regex_numero_sans_denominateur(critere.numero).search(_retirer_fractions(titre)))
 
 
 class ConnecteurShopify:

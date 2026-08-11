@@ -54,6 +54,7 @@ from connecteur_shopify import (
     CritereRecherche,
     ResultatRecherche,
     _regex_numero_sans_denominateur,
+    _retirer_fractions,
     _titre_correspond,
     detecter_langue,
 )
@@ -121,7 +122,13 @@ def _slug_correspond(url: str, critere: CritereRecherche) -> bool:
         return True
     if "/" in critere.numero:
         return _normaliser_texte(critere.numero) in texte
-    return bool(_regex_numero_sans_denominateur(critere.numero).search(texte))
+    # Numero sans denominateur -> retirer d'abord toute fraction NNN-MMM de
+    # l'URL BRUTE (avant normalisation) pour ne pas matcher le
+    # DENOMINATEUR d'une carte homonyme sans rapport -- meme bug/fix que
+    # connecteur_prestashop_sitemap.py, cf. RE_FRACTION_NUMERO dans
+    # connecteur_shopify.py.
+    texte_sans_fractions = _normaliser_texte(_retirer_fractions(url))
+    return bool(_regex_numero_sans_denominateur(critere.numero).search(texte_sans_fractions))
 
 
 def _est_xml_valide(contenu: bytes) -> bool:

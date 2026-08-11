@@ -527,6 +527,97 @@ corrects).
 raté) restent en l'état — elles servent maintenant de base de référence
 légitime pour la détection future, pas besoin de les effacer.
 
+## Faux positif matching numéro/fraction — CONFIRMÉ ET CORRIGÉ (2026-08-11)
+
+**Signalé par l'utilisateur** : alerte 📦 (`alerte_stock.py`) reçue pour
+"Evoli 078 sv5a" (JP/KR) sur `blazingtail.fr`, alors que la carte réelle
+en vente est *"Carte Pokémon Évoli 054/078 Commune Pokémon GO (JCC)"* —
+une carte FR sans rapport à 0,35€.
+
+**Cause racine** : `config.yaml` stocke le numéro de "Eevee 078 sv5a" SANS
+dénominateur ("078" seul — artefact du parsing, qui retire le code de set
+"sv5a" du nom). Le matching numéro-sans-dénominateur
+(`_regex_numero_sans_denominateur`, partagé par les 3 connecteurs) fait
+une simple recherche regex tolérante au padding de zéros, bornée par des
+lookarounds anti-chiffre — mais SANS vérifier si le "078" trouvé fait
+partie d'une fraction NNN/MMM sans rapport. Sur le slug
+`.../evoli-054-078-...html`, "078" est le **DÉNOMINATEUR** (nombre total
+de cartes du set Pokémon GO), pas le numéro de la carte — mais la regex
+ne fait pas la différence.
+
+**Comparaison avec `main.py`/eBay** : le système principal a DÉJÀ ce
+garde-fou depuis longtemps (`numeros_nus_titre`, V17.4) — il retire
+D'ABORD toute fraction NNN/MMM du titre avant de chercher un numéro nu.
+Mais une reprise LITTÉRALE de cette logique (tout retirer) casse un vrai
+cas ici : `numero_nu_voulu` dans `main.py` sert aux cartes dont le numéro
+RÉEL n'a jamais de dénominateur (Nuit Noire FR/PBL) ; le numéro "sans
+dénominateur" de nos cartes JP/KR ("Eevee 078 sv5a") est souvent un simple
+artefact de parsing — la vraie carte affiche généralement un numéro
+complet type "078/069" en boutique. Retirer la fraction ENTIÈRE ferait
+perdre ce vrai match (vérifié par un test : *faux rejet* sur un titre réel
+"Eevee 078/069 SAR sv5a Crimson Haze").
+
+**Fix retenu** (factorisé dans `connecteur_shopify.py`, partagé par les 3
+connecteurs — pas dupliqué) : `_retirer_fractions()` retire uniquement le
+**DÉNOMINATEUR** d'une fraction NNN/MMM ou NNN-MMM, en gardant le
+numérateur. Résultat : "054/078" → "054" (le "078" dénominateur
+disparaît, le faux positif est rejeté) ; "078/069" → "078" (le numérateur
+recherché reste trouvable, le vrai match est préservé).
+
+**Test** (7 scénarios) : le cas signalé (rejeté), un vrai numéro AVEC
+dénominateur (188/167, préservé), un vrai numéro SANS dénominateur du
+tout (078 seul, préservé), le même cas signalé côté titre Shopify (rejeté),
+un vrai numéro affiché AVEC dénominateur en boutique (078/069, préservé),
+et Plumeline ex 024 (non-régression du fix précédent, préservé) — tous OK.
+
+**Non-régression à l'échelle** : test complet sur 80 boutiques actives
+(39 Shopify + 15 PrestaShop + 26 WooCommerce — 80 et non 81, `card-binder.com`
+retirée entre-temps) : 80/80 OK, 0 échec, 6 deals avant/après inchangés,
+mêmes 3 rejets légitimes qu'avant (aucun nouveau).
+
+**Nettoyage** : l'entrée mémoire polluée par le faux positif
+(`blazingtail.fr|Eevee 078 sv5a`, `en_stock: true`) a été retirée de
+`data/stock_boutiques_tcg_prestashop.json` — le prochain cycle réétablira
+une base de référence propre, sans alerte (première détection = pas
+d'alerte, cf. le même principe déjà appliqué à `alerte_precommande.py`).
+
+## Timeout du radar de précommandes en prod — CONFIRMÉ ET CORRIGÉ (2026-08-11)
+
+**Constaté par l'utilisateur** (captures d'écran GitHub Actions) : les
+jobs `scan_precommandes` (PrestaShop, 30m15s) et `scan_precommandes`
+(WooCommerce, 25m16s) ont été **annulés** pour dépassement du timeout
+configuré, immédiatement après l'activation.
+
+**Cause racine** : le préfiltre de slug (`_slug_contient_type`, avant
+récupération complète d'une page) ne vérifiait que le groupe **TYPE**
+("etb"/"upc"/nom de personnage) — des termes bien trop courants
+(N'IMPORTE QUEL set a un ETB). Sur `blazingtail.fr` SEUL : **251
+candidats** matchés par ce préfiltre trop laxiste, dont des **URLs
+d'images (.jpg)** jamais filtrées (le sitemap combine sitemap produits +
+sitemap images). Chaque candidat = une requête réseau + le délai de
+politesse habituel → explosion du temps total sur les gros catalogues
+(mesuré ensuite : `cardshunter.fr` 269 candidats, `k-tcg.com` 27,
+`hamacards.com` 188).
+
+**Fix** : nouveau préfiltre `_slug_est_candidat()` qui exige **les deux
+groupes** (édition ET type) dans le slug — même double exigence que
+`evaluer_correspondance()` sur le texte complet de la page, appliquée
+plus tôt pour limiter le nombre de pages à récupérer — et exclut les
+extensions média (`.jpg`/`.jpeg`/`.png`/`.webp`/`.gif`/`.svg`/`.css`/`.js`).
+
+**Résultat mesuré** :
+- `blazingtail.fr` : 251 → **0** candidats
+- `cardshunter.fr` : 269 → **0**
+- `k-tcg.com` : 27 → **0**
+- `hamacards.com` : 188 → **4** (cohérent avec les vrais matches déjà
+  identifiés sur cette boutique lors du test sur échantillon — le fix ne
+  perd rien de réel, il élimine le bruit).
+
+**Note** : les scanners *repli* (recherche HTML par mot-clé, API REST)
+n'étaient pas concernés par ce bug précis — leur découverte de candidats
+est déjà bornée par la recherche elle-même, pas par un parcours de
+sitemap complet.
+
 ## Prochaines étapes suggérées (par ordre de priorité)
 
 1. ~~Committer le fix de symétrie du filtre qualificatif~~ — fait.

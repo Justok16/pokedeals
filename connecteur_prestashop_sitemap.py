@@ -50,6 +50,7 @@ from connecteur_shopify import (
     CritereRecherche,
     ResultatRecherche,
     _regex_numero_sans_denominateur,
+    _retirer_fractions,
     detecter_langue,
 )
 
@@ -98,7 +99,16 @@ def _slug_correspond(url: str, critere: CritereRecherche) -> bool:
         # "199/165" -> normalise "199 165" (le "/" devient un espace, comme le "-" du slug)
         return _normaliser_texte(critere.numero) in texte
 
-    return bool(_regex_numero_sans_denominateur(critere.numero).search(texte))
+    # Numero sans denominateur -> retirer d'abord toute fraction NNN-MMM de
+    # l'URL BRUTE (avant normalisation -- le "-" du slug ne survit pas a
+    # _normaliser_texte, qui le transforme deja en espace) : evite de
+    # matcher le DENOMINATEUR d'une carte homonyme sans rapport. Bug reel
+    # corrige le 11/08/2026 : "Eevee 078 sv5a" (numero nu "078") matchait a
+    # tort ".../evoli-054-078-...html" (carte FR Pokemon GO sans rapport,
+    # "078" etant le denominateur du set, pas le numero de la carte) --
+    # cf. RE_FRACTION_NUMERO dans connecteur_shopify.py.
+    texte_sans_fractions = _normaliser_texte(_retirer_fractions(url))
+    return bool(_regex_numero_sans_denominateur(critere.numero).search(texte_sans_fractions))
 
 
 def _est_xml_valide(contenu: bytes) -> bool:

@@ -52,14 +52,45 @@ def _normaliser_slug(texte: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", sans_accents.lower()).strip()
 
 
+# Extensions d'assets (images, feuilles de style...) presentes dans
+# certains sitemaps PrestaShop/WooCommerce combines (sitemap produit +
+# sitemap images) -- jamais des pages produit, a exclure du prefiltre
+# AVANT tout, sinon chaque candidat image compte pour une requete gaspillee.
+_EXTENSIONS_MEDIA = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".ico", ".css", ".js")
+
+
 def _slug_contient_type(url: str, produit: ProduitSurveille) -> bool:
-    """Prefiltre LEGER (pas de requete reseau) : le slug de l'URL contient
-    au moins un mot-cle du groupe TYPE du produit surveille. Sert
-    uniquement a limiter le nombre de pages recuperees -- la verification
-    complete (mots-cles edition+type ET date) se fait apres, sur le texte
-    reel de la page."""
+    """ANCIEN prefiltre (mot-cle TYPE seul) -- CONSERVE uniquement pour
+    reference/tests, plus utilise par les scanners (cf. _slug_est_candidat
+    ci-dessous, qui exige aussi le groupe EDITION)."""
     slug_norm = _normaliser_slug(url)
     return any(_normaliser_slug(mot) in slug_norm for mot in produit.mots_cles_type)
+
+
+def _slug_est_candidat(url: str, produit: ProduitSurveille) -> bool:
+    """Prefiltre LEGER (pas de requete reseau) : le slug de l'URL contient
+    au moins un mot-cle du groupe EDITION *ET* au moins un du groupe TYPE
+    (meme double exigence que evaluer_correspondance, appliquee tot pour
+    limiter le nombre de pages recuperees).
+
+    Bug reel corrige le 11/08/2026 : l'ancien prefiltre ("_slug_contient_type")
+    ne verifiait que le groupe TYPE ("etb"/"upc"/nom de personnage), des
+    mots bien trop courants (N'IMPORTE QUEL set a un ETB) -- sur
+    blazingtail.fr seul, ca remontait 251 candidats (dont des URLs
+    d'IMAGES .jpg, jamais filtrees), chacun necessitant une requete +
+    delai de politesse -> timeout du job GitHub Actions (25-30 min
+    depasses). Exiger les DEUX groupes des le prefiltre (comme le fait
+    deja evaluer_correspondance sur le texte complet de la page) reduit
+    drastiquement le nombre de pages a recuperer, sans perte de rappel
+    constatee : les vrais matches trouves jusqu'ici (Shopify) contenaient
+    tous les deux groupes dans leur slug/titre (ex "elite-trainer-box-30th-
+    celebration-francais", "etb-pokemon-me06-regne-delta-francais")."""
+    if url.lower().endswith(_EXTENSIONS_MEDIA):
+        return False
+    slug_norm = _normaliser_slug(url)
+    a_edition = any(_normaliser_slug(mot) in slug_norm for mot in produit.mots_cles_edition)
+    a_type = any(_normaliser_slug(mot) in slug_norm for mot in produit.mots_cles_type)
+    return a_edition and a_type
 
 
 def _candidat(domaine, produit, titre, texte_desc, url, prix=None, en_stock=None):
@@ -140,7 +171,7 @@ def scanner_prestashop_sitemap(domaine: str, produits: list[ProduitSurveille]) -
 
     candidats_urls = {
         u for u in urls
-        if any(_slug_contient_type(u, p) for p in produits)
+        if any(_slug_est_candidat(u, p) for p in produits)
     }
 
     resultats = []
@@ -193,7 +224,7 @@ def scanner_woocommerce_sitemap(domaine: str, produits: list[ProduitSurveille]) 
 
     candidats_urls = {
         u for u in urls
-        if any(_slug_contient_type(u, p) for p in produits)
+        if any(_slug_est_candidat(u, p) for p in produits)
     }
 
     resultats = []
