@@ -768,3 +768,60 @@ committé — aucun changement "à l'aveugle".
 **Rien de bloquant ni de risqué n'a été laissé en suspens.** Les seuls
 points ouverts sont des observations à faire sur la durée (cf. section
 "Prochaines étapes" ci-dessus), pas des actions requises immédiatement.
+
+## Validation en conditions réelles — CONFIRMÉE (2026-08-11 matin)
+
+Vérification du premier cycle complet des 3 workflows après les fixes de
+la nuit (préfiltre précommandes resserré, garde-fou langue
+`alerte_stock.py`, fix microdata `investcollect.com`), via l'UI GitHub
+Actions (pas d'accès aux logs bruts, non connecté).
+
+**Timeout du radar précommandes — RÉSOLU, confirmé.**
+- `scan_woocommerce.yml` run #15 (commit `fd8bb54`, après tous les fixes) :
+  **`Status: Success`**, job `scan_precommandes` en **8m 53s** (contre
+  25 min dépassées et job annulé avant le fix). Jobs `scan_lot_a` (16m)
+  et `scan_lot_b` (7m59s) également réussis, aucune régression.
+- `scan_prestashop.yml` run #17 (commit `c61acdd`) : `Status: Success`,
+  24m23s au total (scan cartes + étape précommandes dans le même job),
+  sous le timeout de 30 min.
+- `scan_shopify.yml` run #24 (commit `f3f8c14`) : `Status: Success`,
+  17m au total, sous le timeout de 25 min.
+
+**Note distincte (pas une régression du radar précommandes)** :
+`scan_woocommerce.yml` run #12 (commit `9d7d394`, donc APRÈS le fix
+fraction/timeout mais juste avant le fix stock DOM) a été annulé pour
+dépassement — mais le job en cause était `scan_lot_a` (le scan cartes
+existant, 18 min dépassées), PAS `scan_precommandes` (jamais démarré,
+bloqué par la dépendance `needs: scan_lot_a`). Flake réseau ponctuel déjà
+documenté comme risque connu dans ce projet ("+19 à +38% de surcoût
+GitHub Actions vs mesures locales") — les runs suivants (#13-15) ont
+tous réussi sans réintervention.
+
+**Volume de candidats / alertes** : pas d'accès aux logs détaillés
+(non connecté à GitHub), mais les fichiers mémoire du radar confirment
+un volume raisonnable et cohérent avec les tests d'hier soir — PAS
+l'explosion à 250+ candidats d'avant le fix :
+- `precommandes_anniversaire_shopify.json` : 6 entrées (1 confiance forte
+  — ME06 Règne Delta chez `hikarudistribution.com` —, 5 moyenne), dont
+  une **boutique inédite** (`lectorshop.com`) jamais vue lors des tests
+  d'hier — signe que le radar continue de découvrir de vrais nouveaux
+  produits en tournant.
+- `precommandes_anniversaire_prestashop.json` : 0 entrée (cohérent : les
+  boutiques PrestaShop en repli n'avaient déjà rien trouvé hier).
+- `precommandes_anniversaire_woocommerce.json` : 3 entrées (toutes
+  `hamacards.com`, cohérent avec les tests d'hier).
+
+**Régression stock/bonnes affaires** : aucune détectée. Les 3 fichiers de
+mémoire stock couvrent bien 39 boutiques Shopify + 17 PrestaShop +
+27 WooCommerce (comptes exacts attendus après le retrait de
+`card-binder.com` et l'intégration `investcollect.com`/`lepantheon-tcg.com`/
+`mymesis.fr`) — aucune boutique disparue. Flux de commits `[skip ci]`
+régulier et sans interruption sur les 3 plateformes depuis les fixes.
+
+**Limite de cette vérification** : pas de compte exact "candidats évalués
+par boutique après préfiltre" ni de contenu précis des alertes Telegram
+envoyées (nécessiterait l'accès aux logs GitHub Actions, non disponible
+sans connexion). Le faisceau d'indices (succès systématique, volumes de
+mémoire cohérents, comptes de boutiques exacts) est jugé suffisant pour
+valider les fixes, mais une vérification plus fine reste possible si
+besoin (connexion GitHub + lecture des logs bruts).
