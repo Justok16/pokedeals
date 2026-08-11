@@ -154,6 +154,36 @@ def _analyser_offre(produit_jsonld: dict) -> dict:
     }
 
 
+# Messages de rupture affiches par le theme PrestaShop pres du bouton
+# "Ajouter au panier" (span id="product-availability", vide quand le
+# produit est disponible, rempli de ce texte sinon) -- rendu cote SERVEUR
+# au chargement de la page, donc plus fiable que le microdata/JSON-LD
+# schema.org "availability", qui peut etre genere par un plugin SEO en
+# cache et DESYNCHRONISE du stock reel. Bug reel constate le 11/08/2026
+# (signale par l'utilisateur) : investcollect.com annoncait "InStock" en
+# microdata pour "Méga-Dracaufeu X ex MEP023" alors que la page affichait
+# litteralement "Rupture de stock" sous le bouton -- meme categorie de bug
+# que celui deja corrige cote WooCommerce (JSON-LD "InStock" vs variation
+# "En rupture de stock" reelle, cf. _extraire_variations plus haut dans le
+# projet) : le signal RENDU (DOM) prime toujours sur le signal STRUCTURE
+# (microdata/JSON-LD) quand ils se contredisent.
+MOTS_RUPTURE_DOM = ("rupture", "indisponible", "epuise")
+
+
+def _stock_indisponible_selon_dom(html: str) -> bool:
+    """True si le span d'affichage du stock du theme PrestaShop annonce
+    explicitement une rupture -- a utiliser pour FORCER en_stock=False
+    meme si le microdata/JSON-LD annonce le contraire (jamais l'inverse :
+    un span vide ne prouve pas la disponibilite, juste l'ABSENCE d'un
+    message de rupture affiche)."""
+    m = re.search(r'<span[^>]*id="product-availability"[^>]*>(.*?)</span>', html, re.S)
+    if not m:
+        return False
+    texte = re.sub(r"<[^>]+>", " ", m.group(1))
+    texte_norm = unicodedata.normalize("NFKD", texte).encode("ascii", "ignore").decode("ascii").lower()
+    return any(mot in texte_norm for mot in MOTS_RUPTURE_DOM)
+
+
 def _extraire_microdata_produit(html: str) -> dict | None:
     """Repli quand aucun JSON-LD Product n'est trouve : lit les attributs
     microdata schema.org (itemprop=...) directement dans le HTML -- certains
@@ -315,11 +345,16 @@ class ConnecteurPrestaShopSitemap:
         confiance = confiance_base if devise_ok else "faible"
         necessite_verif = (numero is None) or not devise_ok
 
+        # Le DOM rendu prime sur le microdata/JSON-LD s'ils se contredisent
+        # (cf. _stock_indisponible_selon_dom) -- ne peut que degrader
+        # en_stock de True vers False, jamais l'inverse.
+        en_stock = offre["en_stock"] and not _stock_indisponible_selon_dom(html)
+
         return ResultatRecherche(
             boutique=self.nom_affiche,
             titre=titre or url,
             prix=offre["prix"],
-            en_stock=offre["en_stock"],
+            en_stock=en_stock,
             url_produit=url,
             variante_titre="",
             image_url=image,

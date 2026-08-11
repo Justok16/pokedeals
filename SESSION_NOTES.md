@@ -618,6 +618,46 @@ n'étaient pas concernés par ce bug précis — leur découverte de candidats
 est déjà bornée par la recherche elle-même, pas par un parcours de
 sitemap complet.
 
+## Stock désynchronisé (microdata vs DOM réel) sur investcollect.com — CONFIRMÉ ET CORRIGÉ (2026-08-11)
+
+**Signalé par l'utilisateur** : alertes 🔥 "bonne affaire" reçues pour
+*Méga-Dracaufeu X ex MEP023* et *Méga-Dracolosse ex 290/217* sur
+`investcollect.com`, alors que les deux étaient en réalité **hors stock**.
+Diagnostic initial infructueux : le code lisait `en_stock=True` pour les
+deux via microdata schema.org, cohérent avec les données extraites — rien
+n'indiquait de bug jusqu'à vérification VISUELLE des pages réelles.
+
+**Cause racine** : le microdata `itemprop="availability"` annonçait
+`InStock` pour les deux produits, alors que la page affichait
+littéralement **"Rupture de stock"** sous le bouton "Ajouter au panier"
+(span `id="product-availability"`, rendu côté SERVEUR au chargement —
+vide quand disponible, rempli du message sinon). Le microdata est
+vraisemblablement généré par un module/plugin en cache, désynchronisé du
+stock réel. **Même catégorie de bug** que celui déjà rencontré et corrigé
+côté WooCommerce plus tôt dans le projet (JSON-LD "InStock" vs variation
+réelle "En rupture de stock") — jamais porté côté PrestaShop jusqu'ici.
+
+**Fix** : nouvelle fonction `_stock_indisponible_selon_dom()` dans
+`connecteur_prestashop_sitemap.py`, appliquée en **override** dans
+`_evaluer_url()` (utilisée par les 2 stratégies, sitemap et repli) : ne
+peut que dégrader `en_stock` de `True` vers `False`, jamais l'inverse (un
+span vide ne PROUVE pas la disponibilité, il signale juste l'absence d'un
+message de rupture affiché).
+
+**Tests** :
+- Les 2 cas signalés (`MEP023`, `290/217`) → `en_stock=False`, corrigé.
+- Le 3e deal connu (`Méga-Dracaufeu Y ex 294/217`, réellement en stock,
+  vérifié visuellement au navigateur) → `en_stock=True`, préservé.
+- Vérifié sans effet de bord sur un thème PrestaShop différent
+  (`blazingtail.fr`) : le même span existe (module partagé) mais reste
+  correctement vide sur un produit en stock.
+- Non-régression complète sur 80 boutiques actives : 80/80 OK, 0 échec,
+  6 deals inchangés (l'échantillon standard ne couvre pas
+  `investcollect.com`, qui est en repli HTML — testé séparément).
+- Vérification ciblée `investcollect.com` : deals détectés passés de
+  **3 à 1** (exactement les 2 faux positifs signalés disparaissent, le
+  vrai deal reste) — confirmation directe du fix.
+
 ## Prochaines étapes suggérées (par ordre de priorité)
 
 1. ~~Committer le fix de symétrie du filtre qualificatif~~ — fait.
