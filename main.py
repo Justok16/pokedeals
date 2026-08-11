@@ -66,6 +66,18 @@ logging.basicConfig(
 )
 log = logging.getLogger("pokedeals")
 
+
+def _ecrire_json_atomique(chemin: str, donnees, **kwargs) -> None:
+    """Ecrit un JSON de facon atomique (fichier temporaire + os.replace) pour
+    ne jamais laisser un data/*.json tronque/corrompu si le process est tue
+    en plein ecriture (ex. timeout GitHub Actions)."""
+    os.makedirs(os.path.dirname(chemin), exist_ok=True)
+    tmp = f"{chemin}.tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(donnees, f, **kwargs)
+    os.replace(tmp, chemin)
+
+
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36",
@@ -786,9 +798,7 @@ def sauvegarder_anciennete() -> None:
     donnees = anciennete()
     limite = time.time() - ANCIENNETE_RETENTION_JOURS * 86400
     donnees = {k: v for k, v in donnees.items() if v.get("premiere_vue", 0) > limite}
-    os.makedirs(os.path.dirname(FICHIER_ANCIENNETE), exist_ok=True)
-    with open(FICHIER_ANCIENNETE, "w", encoding="utf-8") as f:
-        json.dump(donnees, f, ensure_ascii=False, indent=1)
+    _ecrire_json_atomique(FICHIER_ANCIENNETE, donnees, ensure_ascii=False, indent=1)
 
 
 def jours_en_ligne(annonce_id: str) -> float:
@@ -819,9 +829,7 @@ def sauvegarder_vues(vues: dict) -> None:
     # Nettoyage des entrées trop anciennes
     limite = time.time() - RETENTION_JOURS * 86400
     vues = {k: v for k, v in vues.items() if v.get("ts", 0) > limite}
-    os.makedirs(os.path.dirname(FICHIER_SEEN), exist_ok=True)
-    with open(FICHIER_SEEN, "w", encoding="utf-8") as f:
-        json.dump(vues, f, ensure_ascii=False, indent=1)
+    _ecrire_json_atomique(FICHIER_SEEN, vues, ensure_ascii=False, indent=1)
 
 
 def deja_vue(vues: dict, annonce_id: str) -> bool:
@@ -1201,9 +1209,7 @@ def _ct_charger_cache() -> None:
 
 def _ct_sauver_cache() -> None:
     try:
-        os.makedirs(os.path.dirname(CT_CACHE_FICHIER), exist_ok=True)
-        with open(CT_CACHE_FICHIER, "w", encoding="utf-8") as f:
-            json.dump({"sig": _ct_signature_code(), **_ct_cache}, f, ensure_ascii=False)
+        _ecrire_json_atomique(CT_CACHE_FICHIER, {"sig": _ct_signature_code(), **_ct_cache}, ensure_ascii=False)
     except OSError as e:
         log.warning("Cache Cardtrader non sauvegardé : %s", e)
 
@@ -1727,9 +1733,7 @@ def _cm_charger_guide_prix() -> None:
         _cm_charge_le = time.time()
         log.info("[Cardmarket] guide des prix téléchargé : %d cartes avec prix "
                  "(sur %d au total)", len(_cm_prix_par_id), len(guides))
-        os.makedirs(os.path.dirname(CM_CACHE_FICHIER), exist_ok=True)
-        with open(CM_CACHE_FICHIER, "w", encoding="utf-8") as f:
-            json.dump(_cm_prix_par_id, f)
+        _ecrire_json_atomique(CM_CACHE_FICHIER, _cm_prix_par_id)
     except Exception as e:  # noqa: BLE001
         log.warning("[Cardmarket] échec du téléchargement du guide des prix : %s", e)
 
@@ -1847,9 +1851,7 @@ def _api_charger_cache() -> None:
 
 def _api_sauver_cache() -> None:
     try:
-        os.makedirs(os.path.dirname(API_CACHE_FICHIER), exist_ok=True)
-        with open(API_CACHE_FICHIER, "w", encoding="utf-8") as f:
-            json.dump(_api_prix_cache, f, ensure_ascii=False)
+        _ecrire_json_atomique(API_CACHE_FICHIER, _api_prix_cache, ensure_ascii=False)
     except OSError as e:
         log.warning("Cache API non sauvegardé : %s", e)
 
@@ -2206,12 +2208,10 @@ def _charger_historique() -> dict:
 
 def sauvegarder_historique() -> None:
     h = historique()
-    os.makedirs(os.path.dirname(FICHIER_COTES), exist_ok=True)
     # On réécrit le tag de version à chaque sauvegarde.
     a_ecrire = {"_purge_version": PURGE_VERSION}
     a_ecrire.update(h)
-    with open(FICHIER_COTES, "w", encoding="utf-8") as f:
-        json.dump(a_ecrire, f, ensure_ascii=False, indent=1)
+    _ecrire_json_atomique(FICHIER_COTES, a_ecrire, ensure_ascii=False, indent=1)
 
 
 _historique = None
@@ -2875,9 +2875,7 @@ def enregistrer_scan(nb_annonces: int, deals: list[dict]) -> None:
     s["profit_potentiel"] = round(s["profit_potentiel"] + sum(d["profit_net_estime"] for d in deals), 2)
     stats[jour] = s
     stats = dict(sorted(stats.items())[-30:])  # 30 derniers jours
-    os.makedirs(os.path.dirname(FICHIER_STATS), exist_ok=True)
-    with open(FICHIER_STATS, "w", encoding="utf-8") as f:
-        json.dump(stats, f, ensure_ascii=False, indent=1)
+    _ecrire_json_atomique(FICHIER_STATS, stats, ensure_ascii=False, indent=1)
 
 
 # ------------------------------ CSV -----------------------------------

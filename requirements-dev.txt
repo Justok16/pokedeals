@@ -1,0 +1,5 @@
+# Dependances de developpement uniquement (tests) -- PAS installees en
+# production par les workflows GitHub Actions, qui n'utilisent que
+# requirements.txt.
+-r requirements.txt
+pytest>=8.0

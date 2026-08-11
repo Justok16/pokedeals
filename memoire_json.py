@@ -21,6 +21,11 @@ def charger_memoire(chemin: Path) -> dict:
 
 
 def sauvegarder_memoire(memoire: dict, chemin: Path) -> None:
+    """Ecriture atomique (fichier temporaire + remplacement) : evite un
+    fichier tronque/corrompu si le process est tue en plein ecriture (ex.
+    timeout GitHub Actions)."""
     chemin.parent.mkdir(parents=True, exist_ok=True)
-    with open(chemin, "w", encoding="utf-8") as f:
+    tmp = chemin.with_suffix(chemin.suffix + ".tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
         json.dump(memoire, f, indent=2, ensure_ascii=False)
+    tmp.replace(chemin)

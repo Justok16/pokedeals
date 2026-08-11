@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Fichiers temporaires d'ecriture atomique (voir memoire_json.py / main.py)
+*.tmp
+
+# Secrets locaux (jamais utilises en prod, GitHub Actions passe par secrets.*)
+.env

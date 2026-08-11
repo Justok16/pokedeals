@@ -82,7 +82,9 @@ Deux familles de schéma, une par fonctionnalité, jamais mélangées :
 ## Commandes
 
 ```bash
-pip install -r requirements.txt        # requests + PyYAML, seules dépendances
+pip install -r requirements.txt        # requests + PyYAML, seules dépendances de PROD
+pip install -r requirements-dev.txt    # + pytest, pour lancer les tests (jamais installé en prod)
+python -m pytest tests/ -v             # tests unitaires (~20 cas, sub-seconde) sur les fonctions les plus fragiles
 python main.py                         # système historique : un scan complet
 python scan_boutique.py [boutiques]    # scan cartes Shopify (vide = toutes les boutiques actives)
 python scan_boutique_prestashop.py [boutiques]
@@ -90,7 +92,9 @@ python scan_boutique_woocommerce.py [boutiques]
 python scan_precommandes.py {shopify|prestashop|woocommerce} [boutiques]
 ```
 
-Pas de suite de tests, de linter ni de `--dry-run` dans ce repo. Chaque script effectue de vraies requêtes HTTP et peut envoyer de vraies notifications Telegram/email, et modifie `data/*.json` en place. Préférer tester une fonction isolée via un script Python ad hoc plutôt que de lancer un orchestrateur complet quand on itère sur un détail.
+`tests/` couvre les fonctions de matching les plus sujettes à régression (`detecter_langue`, `_retirer_fractions`, `detecter_qualificatif_titre`, `evaluer_deal`) — un cas par bug réel déjà rencontré en prod (cf. pièges connus ci-dessous et `SESSION_NOTES.md`). Lancé automatiquement par `.github/workflows/tests.yml` sur chaque push/PR, workflow séparé des 4 workflows de scan (pas de secrets, pas d'écriture sur `data/`). Ce n'est pas une couverture exhaustive : pas de test sur les connecteurs eux-mêmes (nécessiterait des fixtures HTML/JSON par plateforme, pas fait à ce stade) ni sur `main.py`.
+
+Pas de linter ni de `--dry-run` dans ce repo. Les orchestrateurs (`main.py`, `scan_boutique*.py`, `scan_precommandes.py`) effectuent de vraies requêtes HTTP et peuvent envoyer de vraies notifications Telegram/email, et modifient `data/*.json` en place — préférer les tests unitaires ou un script ad hoc pour itérer sur un détail plutôt que de relancer un orchestrateur complet. Les écritures dans `data/*.json` sont **atomiques** (fichier `.tmp` puis remplacement, via `_ecrire_json_atomique` dans `main.py` et `memoire_json.sauvegarder_memoire`) — un process tué en plein milieu (timeout GitHub Actions) ne peut plus laisser de fichier tronqué.
 
 Secrets requis en variables d'env (secrets GitHub Actions en prod) : `EBAY_CLIENT_ID`, `EBAY_CLIENT_SECRET`, `TELEGRAM_BOT_TOKEN`, `CARDTRADER_TOKEN`, et optionnellement `GMAIL_APP_PASSWORD`.
 
