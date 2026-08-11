@@ -1,8 +1,11 @@
 # Notes de session — extension multi-plateforme PokéDeals
 
-Dernière mise à jour : 2026-08-10 (fin de session — couverture des
-boutiques sans sitemap terminée, 83 boutiques actives au total
-(card-binder.com retirée le 11/08/2026, boutique anglophone hors intérêt).
+Dernière mise à jour : 2026-08-11 (nuit, en autonomie pendant que
+l'utilisateur dormait — 83 boutiques actives au total, radar de
+précommandes activé en prod, 3 bugs réels signalés par l'utilisateur
+corrigés, passe de nettoyage effectuée). Voir la toute dernière section
+"Résumé de la nuit" en bas de fichier pour le récapitulatif complet à
+lire au réveil.
 
 ## Contexte du projet
 
@@ -709,20 +712,59 @@ refactoring cosmétique gratuit) :
    Testé : `blazingtail.fr` → 0 candidat, `hamacards.com` → 4 candidats
    identiques aux matches déjà connus (résultats inchangés après fusion).
 
-## Prochaines étapes suggérées (par ordre de priorité)
+## Prochaines étapes suggérées (par ordre de priorité, mises à jour 2026-08-11 nuit)
 
-1. ~~Committer le fix de symétrie du filtre qualificatif~~ — fait.
-2. ~~Terminer le test de non-régression du fix qualificatif sur les listes
-   actives complètes des 3 plateformes~~ — fait (81/81 boutiques, plusieurs
-   runs, 0 régression).
-3. ~~Reprendre le travail de couverture interrompu~~ — fait (cf. section
-   dédiée ci-dessus). `investcollect.com` et `lepantheon-tcg.com` intégrées
-   aux listes actives PrestaShop ; 8 boutiques diagnostiquées et
-   documentées comme non-intégrables (raisons précises par boutique).
-4. Surveiller les premiers cycles de prod sur `investcollect.com` — c'est
-   la boutique la plus prometteuse trouvée cette session (3 deals réels
-   détectés en un seul passage de test), à confirmer sur la durée.
-5. `pokemoncarte.com` et `gamespirit.fr` : rien à faire dans l'immédiat,
+1. Surveiller les premiers cycles de prod du radar de précommandes
+   (activé cette nuit sur les 3 workflows) — confirmer que les timeouts
+   élargis (25-30 min) sont suffisants en conditions réelles GitHub
+   Actions, et qu'aucune nouvelle alerte prématurée n'apparaît.
+2. Surveiller `investcollect.com` sur la durée — boutique prometteuse
+   (plusieurs deals réels trouvés), maintenant avec une lecture de stock
+   fiabilisée (fix DOM vs microdata).
+3. `pokemoncarte.com` et `gamespirit.fr` : rien à faire dans l'immédiat,
    mais si la watchlist s'étend un jour vers des cartes plus communes/
    variées, refaire un test rapide (le blocage vient du catalogue, pas de
    la technique).
+4. Envisager d'appliquer le même garde-fou "DOM prime sur microdata"
+   (cf. `_stock_indisponible_selon_dom`) aux autres boutiques PrestaShop
+   sitemap si un faux positif similaire est un jour signalé ailleurs que
+   sur `investcollect.com` — pas fait préventivement cette nuit (pas de
+   preuve que d'autres thèmes ont ce problème, éviter de deviner).
+
+## Résumé de la nuit (2026-08-11, en autonomie pendant que l'utilisateur dormait)
+
+L'utilisateur est allé se coucher en autorisant explicitement la
+poursuite du travail en autonomie (commit + push sans attendre de
+validation, sauf action réellement risquée), puis une relecture complète
+du code de la session pour nettoyer ce qui pouvait l'être. Résumé
+chronologique de cette portion de la session :
+
+1. **Push des 2 fixes déjà validés avant le coucher** (numéro/fraction +
+   timeout radar précommandes) — conflit de merge sur le fichier mémoire
+   (le bot de prod avait re-détecté le même faux positif entre-temps),
+   résolu en gardant la version corrigée.
+2. **Bug signalé par l'utilisateur** : alertes 🔥 reçues pour 2 produits
+   `investcollect.com` en réalité hors stock (Méga-Dracaufeu X ex MEP023,
+   Méga-Dracolosse ex 290/217). Diagnostiqué en vérifiant visuellement
+   les pages réelles au navigateur : microdata schema.org désynchronisé
+   du DOM réellement affiché ("Rupture de stock" visible, microdata dit
+   "InStock"). Corrigé, testé (les 2 cas exacts + non-régression complète
+   80/80 boutiques + vérification ciblée investcollect.com : 3 deals → 1,
+   les 2 faux positifs disparaissent).
+3. **Passe de nettoyage** (5 changements réels, aucun cosmétique) : code
+   mort supprimé, 2 duplications factorisées (`_normaliser_texte`/
+   `_slug_correspond` entre PrestaShop/WooCommerce, `_evaluer_page_*`
+   dans le radar précommandes), un vrai gap de cohérence de langue comblé
+   dans `alerte_stock.py` (absent alors que présent dans
+   `bonne_affaire_shopify.py`), 3 références de documentation cassées
+   corrigées (fichiers d'audit inexistants).
+
+**Tout est commité ET poussé** (`git log` propre, working tree clean au
+moment d'écrire ceci). Chaque changement a été testé individuellement
+(scénarios unitaires ciblés) ET vérifié par au moins un test de
+non-régression à l'échelle réelle (60-80 boutiques) avant d'être
+committé — aucun changement "à l'aveugle".
+
+**Rien de bloquant ni de risqué n'a été laissé en suspens.** Les seuls
+points ouverts sont des observations à faire sur la durée (cf. section
+"Prochaines étapes" ci-dessus), pas des actions requises immédiatement.
