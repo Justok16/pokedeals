@@ -914,3 +914,151 @@ sans connexion). Le faisceau d'indices (succès systématique, volumes de
 mémoire cohérents, comptes de boutiques exacts) est jugé suffisant pour
 valider les fixes, mais une vérification plus fine reste possible si
 besoin (connexion GitHub + lecture des logs bruts).
+
+## Audit de santé complet — 2026-08-11 après-midi
+
+Passe méthodique demandée par l'utilisateur : points chauds connus,
+recherche libre d'angles morts, nettoyage général, vérification de
+sécurité (secrets), non-régression avant/après. Résumé structuré
+ci-dessous — **c'est cette section, avec "État du programme" juste après,
+qui fait foi pour une reprise rapide en début de prochaine session.**
+
+### Trouvé et corrigé
+
+- **4 duplications de code factorisées** (angles morts du même type que le
+  gap de langue `alerte_stock.py` trouvé la veille) :
+  - `_echapper_html`/`_echapper_url_html` (identiques dans 3 fichiers) →
+    nouveau `telegram_utils.py`.
+  - `charger_memoire`/`sauvegarder_memoire` (identiques dans 2 fichiers) →
+    nouveau `memoire_json.py` (wrappers minces conservés dans chaque
+    module pour préserver le défaut `FICHIER_MEMOIRE` existant).
+  - `_est_xml_valide` (identique entre PrestaShop/WooCommerce) →
+    factorisée dans `connecteur_shopify.py`.
+- **Imports morts retirés** : 3 imports devenus inutiles suite à la
+  consolidation de la veille (non nettoyés sur le coup), + `traceback`/
+  `Path` jamais utilisés dans `scan_boutique.py` (pré-existant, trouvé au
+  passage).
+- **`NOMS_SET_QUALIFICATIF_AMBIGU`** : le besoin d'entretien manuel
+  périodique était documenté uniquement dans `SESSION_NOTES.md`, pas
+  découvrable depuis le code lui-même — ajouté un flag explicite
+  "ENTRETIEN MANUEL REQUIS" directement en commentaire. Confirmé qu'il
+  n'existe pas d'approche positionnelle plus robuste (déjà écartée lors
+  du fix original : mesures de distance montrant un faux positif et un
+  vrai rejet à la même distance du numéro, indiscernables).
+- **Section "Fichiers concernés"** de `SESSION_NOTES.md` (écrite tôt dans
+  la session, jamais mise à jour depuis) : comptes de boutiques et
+  description des garde-fous `alerte_stock.py` corrigés, marquée comme
+  partiellement obsolète au profit de la présente section.
+- **Correction d'une hypothèse antérieure** : la "dérive de durée" de
+  `scan_precommandes` (8m53s → 23-24min) n'est PAS une dérive continue —
+  2 pics isolés (#17, #19) encadrés de cycles normaux (8-10 min), stable
+  depuis sur 3 cycles consécutifs (#20-22 : 8m25s-8m47s). Reclassé de
+  "à surveiller de près" à "sain, cause des 2 pics non identifiée avec
+  les outils disponibles mais non récurrente".
+
+**Aucun changement de comportement de matching, de seuil ou de logique
+métier dans cette passe** — uniquement structurel (factorisation,
+suppression de code mort, documentation). Confirmé par une non-régression
+complète AVANT (80/80 boutiques, 6 deals, 3 rejets légitimes) et APRÈS
+(identique) tous les changements.
+
+### Vérifié et confirmé sain
+
+- **Sécurité / secrets** : aucun token en clair dans le code actuel ni
+  dans l'historique git complet (892 commits scannés, recherche par motif
+  de token Telegram + recherche de fichiers `.env`/secrets jamais
+  committés). Les 3 workflows référencent bien `${{ secrets.TELEGRAM_BOT_TOKEN }}`
+  partout, jamais de valeur en dur.
+- **`investcollect.com`** : les 2 faux positifs corrigés la veille
+  (Méga-Dracaufeu X ex MEP023, Méga-Dracolosse ex 290/217) restent
+  correctement détectés comme hors stock sur plusieurs cycles de
+  production réels (dernière vérification : `12:45:33Z`). Spot-check en
+  direct d'une carte supplémentaire (`Dracaufeu ex 199/165`, transition
+  True→False) confirmé cohérent avec la page réelle.
+  Fix stable, pas de régression.
+- **Garde-fous entre connecteurs** : `bonne_affaire_shopify.py` et
+  `alerte_stock.py` appliquent désormais les MÊMES garde-fous dans le
+  MÊME ordre (en_stock → langue → qualificatif symétrique), vérifié ligne
+  par ligne. Le radar de précommandes n'a pas d'équivalent direct
+  (modèle de matching différent, mots-clés + date plutôt que nom+numéro)
+  mais applique une rigueur structurellement comparable (double exigence
+  édition+type + confirmation par date).
+- **Format des fichiers mémoire (`data/*.json`)** : les 3 fichiers de
+  stock (`stock_boutiques_tcg{,_prestashop,_woocommerce}.json`) partagent
+  un schéma identique (`{domaine}|{nom_config}` → `{en_stock,
+  derniere_verification}`), de même pour les 3 fichiers de précommandes
+  (`{domaine}|{nom_produit}` → `{confiance, raison, titre_produit,
+  url_produit, derniere_verification}`). Les deux familles ont des
+  schémas différents entre elles, ce qui est attendu (objets suivis
+  différents) — pas d'incohérence involontaire trouvée.
+- **Encodage des fichiers mémoire précommandes** : fausse alerte
+  initiale (caractères accentués affichés en `�` lors d'un diagnostic via
+  la console Windows/Bash) — vérifié avec l'outil de lecture de fichier
+  dédié que le contenu réel est du UTF-8 propre (`Élite`, `Pokémon`
+  s'affichent correctement). Aucune corruption réelle, juste une
+  limitation d'affichage de la console cp1252 utilisée pour le
+  diagnostic.
+
+### En observation (pas d'action requise, à surveiller sur la durée)
+
+- Les 2 pics isolés de `scan_precommandes` (#17, #19) restent
+  inexpliqués précisément (cause non identifiable sans accès aux logs
+  bruts GitHub Actions) — si le motif se reproduit, creuser avec un accès
+  aux logs.
+- `investcollect.com` et le radar de précommandes sont les 2 ajouts les
+  plus récents du projet — à revalider une fois de plus après quelques
+  jours de recul pour confirmer la stabilité à plus long terme.
+
+### Points nécessitant une décision utilisateur (non tranchés seul)
+
+- **`CLAUDE.md` est significativement obsolète** : il décrit uniquement
+  l'ancien système `main.py` (eBay/Vinted/Cardtrader/Leboncoin), sans
+  mentionner DU TOUT l'extension multi-plateforme boutiques TCG
+  (connecteurs Shopify/PrestaShop/WooCommerce, `bonne_affaire_shopify.py`,
+  `alerte_stock.py`, le radar de précommandes, ni les 4 workflows GitHub
+  Actions associés). Une future session Claude Code démarrant sur ce
+  projet ne trouverait cette extension entière que via `SESSION_NOTES.md`
+  (fichier de log chronologique, pas un guide de référence). Mise à jour
+  substantielle non faite dans cette passe (hors périmètre "nettoyage",
+  plutôt une vraie rédaction de documentation) — à décider si/quand la
+  faire, potentiellement dans une session dédiée.
+
+## État du programme au 2026-08-11 (référence pour la prochaine session)
+
+**83 boutiques actives** au total : 39 Shopify + 17 PrestaShop (15
+sitemap + `investcollect.com`/`lepantheon-tcg.com` en repli HTML) + 27
+WooCommerce (26 sitemap + `mymesis.fr` en repli API REST).
+
+**Inventaire des fichiers** (racine du repo, par rôle) :
+
+| Fichier | Rôle |
+|---|---|
+| `main.py` | Système historique eBay/Vinted/Cardtrader/Leboncoin (documenté dans `CLAUDE.md`) |
+| `config.yaml` | Watchlist partagée par `main.py` ET le système boutiques TCG |
+| `connecteur_shopify.py` | Connecteur Shopify + fonctions PARTAGÉES par les 3 connecteurs (`_titre_correspond`, `_slug_correspond`, `_normaliser_texte`, `_regex_numero_sans_denominateur`, `_retirer_fractions`, `_est_xml_valide`, `detecter_langue`) |
+| `connecteur_prestashop_sitemap.py` | Connecteur PrestaShop (sitemap + repli recherche HTML + fix stock DOM) |
+| `connecteur_woocommerce.py` | Connecteur WooCommerce (sitemap + repli recherche HTML + repli API REST) |
+| `watchlist_shopify.py` | `CarteWatchlist`, parsing `config.yaml`, matching qualificatif (symétrique + faux positifs noms de coffret) |
+| `bonne_affaire_shopify.py` | Alerte 🔥 bonnes affaires (garde-fous stock/langue/qualificatif) |
+| `alerte_stock.py` | Alerte 📦 retour en stock (mêmes garde-fous que ci-dessus) |
+| `precommandes_watchlist.py` | Watchlist + matching du radar précommandes (mots-clés + date) |
+| `alerte_precommande.py` | Mémoire + alerte 🎉 du radar précommandes |
+| `radar_precommandes.py` | Scanners par plateforme du radar précommandes |
+| `scan_precommandes.py` | Orchestrateur CLI du radar précommandes |
+| `telegram_utils.py` | Échappement HTML partagé par les 3 modules d'alerte |
+| `memoire_json.py` | Chargement/sauvegarde JSON partagé par `alerte_stock.py`/`alerte_precommande.py` |
+| `boutiques_shopify.py` / `boutiques_prestashop.py` / `boutiques_woocommerce.py` | Listes de boutiques actives par plateforme (+ boutiques diagnostiquées non-intégrables, documentées) |
+| `scan_boutique.py` / `scan_boutique_prestashop.py` / `scan_boutique_woocommerce.py` | Orchestrateurs de scan cartes par plateforme |
+| `.github/workflows/{pokedeals,scan_shopify,scan_prestashop,scan_woocommerce}.yml` | 4 workflows CI, cron 15-30 min |
+
+**État de santé par composant** (au 2026-08-11 après-midi) :
+- Connecteurs (Shopify/PrestaShop/WooCommerce) : sains, garde-fous cohérents, aucune duplication de logique métier restante.
+- `bonne_affaire_shopify.py` / `alerte_stock.py` : sains, garde-fous identiques et alignés.
+- Radar de précommandes : actif en prod, timeouts respectés depuis les fixes de la nuit, stabilisé après 2 pics isolés.
+- `investcollect.com` : sain, fix stock DOM stable sur plusieurs cycles réels.
+- Sécurité : aucune fuite de secret détectée (code + historique complet).
+- `CLAUDE.md` : obsolète (cf. décision ci-dessus) — seul point de dette technique documentaire connu à ce jour.
+
+**Prochaine session** : partir de cette section + la section "Points
+nécessitant une décision utilisateur" ci-dessus plutôt que de relire
+l'historique chronologique complet, sauf besoin de détail sur un bug précis.
