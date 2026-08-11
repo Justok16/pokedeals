@@ -30,7 +30,14 @@ jobs:
   # inter-workflows deja gerees par pull --rebase.
   scan_lot_a:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    # 18 -> 22 min le 11/08/2026 : diagnostic du run #12 annule (18m17s,
+    # timeout depasse) -- marge normale mesuree de 13m27s a 16m15s sur 6
+    # runs reussis (soit seulement 1m45s a 4m33s de marge sur 18 min),
+    # deja tendue en fonctionnement normal (LOT_A concentre cardshunter.fr
+    # et hamacards.com, 2 des 3 plus gros catalogues WooCommerce). Pas lie
+    # au radar precommandes (jobs sequentiels, aucun chevauchement
+    # possible, cf. SESSION_NOTES.md pour le diagnostic complet).
+    timeout-minutes: 22
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4

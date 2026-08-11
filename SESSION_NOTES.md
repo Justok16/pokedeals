@@ -779,10 +779,9 @@ de "+19 à +38%" par rapport aux mesures locales — un ralentissement
 mineur et ponctuel suffit à faire basculer un cycle en timeout.
 
 **Recommandation** : augmenter légèrement `timeout-minutes` du job
-`scan_lot_a` dans `scan_woocommerce.yml` (ex. 18 → 22 min, cohérent avec
-la marge mesurée). **Pas encore appliqué** — changement de configuration
-d'exécution (pas de comportement de scan), mais laissé en attente de
-validation explicite comme demandé, plutôt que commité en autonomie.
+`scan_lot_a` dans `scan_woocommerce.yml` (18 → 22 min, cohérent avec la
+marge mesurée). **Appliqué le 11/08/2026 après validation explicite de
+l'utilisateur.**
 
 ### Découverte secondaire (bonus, hors du périmètre demandé mais notable)
 
