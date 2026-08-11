@@ -712,6 +712,92 @@ refactoring cosmétique gratuit) :
    Testé : `blazingtail.fr` → 0 candidat, `hamacards.com` → 4 candidats
    identiques aux matches déjà connus (résultats inchangés après fusion).
 
+## Diagnostic du flake `scan_lot_a` (run WooCommerce #12 annulé) — 2026-08-11 matin
+
+**Investigation demandée par l'utilisateur** suite au run #12 annulé (18m17s,
+timeout de 18 min dépassé sur le job `scan_lot_a`) constaté lors de la
+vérification post-fixes de la nuit. Objectif : comprendre la cause avant
+tout correctif, pas d'ajustement de timeout à l'aveugle.
+
+### Données collectées (historique des jobs sur les runs #12 à #19, via l'UI GitHub Actions)
+
+| Run | Commit | `scan_lot_a` | `scan_lot_b` | `scan_precommandes` | Statut |
+|---|---|---|---|---|---|
+| #12 | `9d7d394` | **18m17s → ANNULÉ** (timeout 18m0s dépassé) | 0s (jamais démarré) | 0s (jamais démarré) | Cancelled |
+| #13 | `63f2bc8` | 13m27s | 4m44s | 7m55s | Success |
+| #14 | `3393bac` | 16m15s | 5m29s | 8m12s | Success |
+| #15 | `fd8bb54` | 16m0s | 7m59s | 8m53s | Success |
+| #17 | `17dfb78` | 13m53s | 7m46s | **24m0s** | Success |
+| #18 | `dd218d4` | 13m41s | 4m55s | 10m3s | Success |
+| #19 | `7207229` | 13m58s | 4m0s | **23m41s** | Success |
+
+### Réponses aux 5 points d'investigation
+
+1. **Fréquence** : 1 seul dépassement (`scan_lot_a`) sur 7 runs vérifiés
+   depuis l'activation du radar précommandes (structure à 3 jobs) — soit
+   ~14% de l'échantillon disponible. Pas d'accès à un historique plus
+   long via `gh` CLI (non installé sur cette machine) ni aux logs bruts
+   (non connecté à GitHub) — l'échantillon UI est le maximum accessible
+   dans ces conditions.
+2. **Logs du run #12** : détail ligne par ligne inaccessible sans
+   connexion, mais l'info clé est disponible via l'UI : c'est bien
+   `scan_lot_a` qui a été annulé pour dépassement de SON PROPRE timeout
+   (18m0s), et lui seul — `scan_lot_b`/`scan_precommandes` n'ont jamais
+   démarré (bloqués par leur dépendance `needs:`).
+3. **Boutiques de LOT_A** : `cardshunter.fr` (58 011 URLs sitemap) et
+   `hamacards.com` (39 757 URLs) — 2 des 3 plus gros catalogues
+   WooCommerce du projet — y sont concentrés, déjà identifiés dans le
+   commentaire d'origine de `boutiques_woocommerce.py` comme pesant
+   "la moitié du volume total" à eux deux lors du découpage initial en
+   lots. Rien de nouveau : composition de LOT_A inchangée par les fixes
+   de cette nuit.
+4. **Chevauchement avec `scan_precommandes`** : **NON, exclu avec
+   certitude**. Les 3 jobs sont **séquentiels** (`needs: scan_lot_a` puis
+   `needs: scan_lot_b`), jamais en parallèle sur le même run — chaque job
+   GitHub Actions tourne de plus sur sa propre VM isolée (pas de
+   partage CPU/réseau entre jobs, même séquentiels). Confirmé
+   concrètement par le run #12 : `scan_precommandes` n'a jamais démarré
+   pendant que `scan_lot_a` traînait.
+5. **Marge réelle** : `scan_lot_a` tourne normalement entre **13m27s et
+   16m15s** contre un budget de 18 min — soit une marge de seulement
+   **1m45s à 4m33s** selon les runs, DÉJÀ SERRÉE en fonctionnement
+   normal, avant même de compter un éventuel ralentissement réseau
+   ponctuel. Le run #14 (16m15s) montre que cette marge peut descendre
+   à moins de 2 minutes même sur un run qui réussit.
+
+### Diagnostic
+
+**Hypothèse retenue : timeout budgété trop juste — confiance ÉLEVÉE.**
+Pas un problème latent lié aux fixes de cette nuit (le chevauchement
+avec `scan_precommandes` est formellement exclu, structure séquentielle
++ VMs isolées), pas une régression introduite hier soir (composition de
+LOT_A inchangée). C'est une caractéristique préexistante : LOT_A
+concentre les 2 plus gros catalogues, sa marge de fonctionnement normal
+est déjà mince (jusqu'à ~1m45s dans le pire cas réussi observé), et le
+projet documente déjà lui-même un surcoût réseau GitHub Actions habituel
+de "+19 à +38%" par rapport aux mesures locales — un ralentissement
+mineur et ponctuel suffit à faire basculer un cycle en timeout.
+
+**Recommandation** : augmenter légèrement `timeout-minutes` du job
+`scan_lot_a` dans `scan_woocommerce.yml` (ex. 18 → 22 min, cohérent avec
+la marge mesurée). **Pas encore appliqué** — changement de configuration
+d'exécution (pas de comportement de scan), mais laissé en attente de
+validation explicite comme demandé, plutôt que commité en autonomie.
+
+### Découverte secondaire (bonus, hors du périmètre demandé mais notable)
+
+`scan_precommandes` montre une variance BEAUCOUP plus large que
+`scan_lot_a` (8m12s à **24m0s** selon les runs) et talonne dangereusement
+son propre budget de 25 min sur 2 des 3 runs les plus récents (#17 :
+24m0s, #19 : 23m41s — plus de 95% du budget consommé, alors que #15,18
+n'en utilisaient que 33-40%). Cause probable : le nombre de candidats
+réellement évalués varie fortement d'un cycle à l'autre (dépend de ce
+qui est actuellement en ligne sur chaque boutique au moment du scan,
+contrairement à `scan_lot_a` qui traite toujours la même charge de
+travail fixe). **Pas encore un timeout dépassé**, mais la marge se réduit
+rapidement — à surveiller de près, prochain point de friction probable
+si la tendance se confirme sur plusieurs cycles supplémentaires.
+
 ## Prochaines étapes suggérées (par ordre de priorité, mises à jour 2026-08-11 nuit)
 
 1. Surveiller les premiers cycles de prod du radar de précommandes
