@@ -49,9 +49,7 @@ from connecteur_shopify import (
     TIMEOUT,
     CritereRecherche,
     ResultatRecherche,
-    _normaliser_texte,
-    _regex_numero_sans_denominateur,
-    _retirer_fractions,
+    _est_xml_valide,
     _slug_correspond,
     detecter_langue,
 )
@@ -78,14 +76,9 @@ DISPONIBILITES_EN_STOCK = {
 }
 
 
-# _normaliser_texte et _slug_correspond sont partagees avec
-# connecteur_woocommerce.py -- factorisees dans connecteur_shopify.py le
-# 11/08/2026 (code strictement identique dans les deux fichiers avant ca).
-
-
-def _est_xml_valide(contenu: bytes) -> bool:
-    debut = contenu.lstrip()[:200].lower()
-    return debut.startswith(b"<?xml") or debut.startswith(b"<urlset") or debut.startswith(b"<sitemapindex")
+# _normaliser_texte, _slug_correspond et _est_xml_valide sont partagees
+# avec connecteur_woocommerce.py -- factorisees dans connecteur_shopify.py
+# le 11/08/2026 (code strictement identique dans les deux fichiers avant ca).
 
 
 def _extraire_jsonld_produit(html: str) -> dict | None:

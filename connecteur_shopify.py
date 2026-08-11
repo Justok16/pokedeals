@@ -252,6 +252,16 @@ def _slug_correspond(url: str, critere: CritereRecherche) -> bool:
     return bool(_regex_numero_sans_denominateur(critere.numero).search(texte_sans_fractions))
 
 
+def _est_xml_valide(contenu: bytes) -> bool:
+    """Verifie qu'une reponse HTTP est bien du XML (pas une page HTML de
+    secours -- cas frequent : plusieurs boutiques renvoient un 200 sur un
+    chemin de sitemap absent, avec la page d'accueil comme contenu).
+    Partagee par connecteur_prestashop_sitemap.py et connecteur_woocommerce.py
+    (code identique dans les deux avant factorisation ici le 11/08/2026)."""
+    debut = contenu.lstrip()[:200].lower()
+    return debut.startswith(b"<?xml") or debut.startswith(b"<urlset") or debut.startswith(b"<sitemapindex")
+
+
 class ConnecteurShopify:
     """Connecteur generique pour une boutique Shopify, identifiee par son domaine."""
 

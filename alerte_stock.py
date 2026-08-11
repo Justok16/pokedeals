@@ -27,6 +27,8 @@ import requests
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from connecteur_shopify import ConnecteurShopify  # noqa: E402
+from memoire_json import charger_memoire as _charger_memoire_generique, sauvegarder_memoire as _sauvegarder_memoire_generique  # noqa: E402
+from telegram_utils import echapper_html as _echapper_html, echapper_url_html as _echapper_url_html  # noqa: E402
 from watchlist_shopify import detecter_qualificatif_titre  # noqa: E402
 
 FICHIER_MEMOIRE = Path(__file__).parent / "data" / "stock_boutiques_tcg.json"
@@ -42,19 +44,11 @@ def _cle_memoire(domaine: str, nom_config: str) -> str:
 
 
 def charger_memoire(chemin: Path = FICHIER_MEMOIRE) -> dict:
-    if not chemin.exists():
-        return {}
-    try:
-        with open(chemin, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (json.JSONDecodeError, OSError):
-        return {}
+    return _charger_memoire_generique(chemin)
 
 
 def sauvegarder_memoire(memoire: dict, chemin: Path = FICHIER_MEMOIRE) -> None:
-    chemin.parent.mkdir(parents=True, exist_ok=True)
-    with open(chemin, "w", encoding="utf-8") as f:
-        json.dump(memoire, f, indent=2, ensure_ascii=False)
+    _sauvegarder_memoire_generique(memoire, chemin)
 
 
 def detecter_retours_en_stock(
@@ -152,13 +146,8 @@ def detecter_retours_en_stock(
 
 
 # --- Notification Telegram (visuellement distincte de l'alerte "bonne affaire") ---
-
-def _echapper_html(texte) -> str:
-    return str(texte).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-
-
-def _echapper_url_html(url: str) -> str:
-    return str(url).replace("&", "&amp;")
+# _echapper_html/_echapper_url_html : cf. telegram_utils.py (import en tete
+# de fichier).
 
 
 def _texte_retour_stock(e: dict) -> str:

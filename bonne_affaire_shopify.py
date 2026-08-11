@@ -24,6 +24,7 @@ from pathlib import Path
 import requests
 import yaml
 
+from telegram_utils import echapper_html as _echapper_html, echapper_url_html as _echapper_url_html
 from watchlist_shopify import CarteWatchlist, detecter_qualificatif_titre
 
 # Chemins relatifs au repo (ce fichier vit a la racine, a cote de main.py,
@@ -210,13 +211,9 @@ def detecter_bonnes_affaires(
 
 
 # --- Notification Telegram (style proche de l'alerte eBay existante : 🔥) ---
-
-def _echapper_html(texte) -> str:
-    return str(texte).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-
-
-def _echapper_url_html(url: str) -> str:
-    return str(url).replace("&", "&amp;")
+# _echapper_html/_echapper_url_html : cf. telegram_utils.py (partage avec
+# alerte_stock.py / alerte_precommande.py, factorise le 11/08/2026 -- code
+# identique disperse dans les 3 fichiers avant ca).
 
 
 def _texte_bonne_affaire(d: dict) -> str:

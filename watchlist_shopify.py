@@ -55,9 +55,16 @@ MOTS_QUALIFICATIFS = {"ex", "gx", "v", "vmax", "vstar"}
 # ci-dessous) ne suffit PAS a elle seule : dans l'exemple ci-dessus, "ex"
 # colle a "Psykokwak" (le nom de la carte) a seulement 13 caracteres du
 # numero, une distance indiscernable d'un vrai qualificatif legitime comme
-# "Plumeline ex 024". Complete au fil des faux positifs constates (meme
-# esprit que CODES_SET_CONNUS) : quand un titre contient un de ces noms, on
-# renonce a y detecter un qualificatif plutot que de risquer un faux rejet.
+# "Plumeline ex 024". Pas de fix "positionnel" plus robuste connu -- deja
+# ecarte (cf. commentaire ci-dessus) car indiscernable du cas legitime a la
+# meme distance. Seule parade fiable : cette liste, curee a la main.
+#
+# >>> ENTRETIEN MANUEL REQUIS : liste volontairement INCOMPLETE, a
+# completer au fil des faux positifs constates (meme esprit que
+# CODES_SET_CONNUS ci-dessus). Un futur coffret au nom ambigu non
+# repertorie ici reproduira le meme faux rejet jusqu'a etre decouvert et
+# ajoute -- pas d'alerte automatique en cas d'oubli, verification humaine
+# necessaire si un rejet suspect de qualificatif est signale. <<<
 NOMS_SET_QUALIFICATIF_AMBIGU = {
     "mega dream",   # coffret JP "MEGA Dream ex" -- ex: Psyduck/Psykokwak 199/193
     "vmax climax",  # set FR/JP "VMAX Climax" (S8b) -- ex: Evoli/Eevee 210

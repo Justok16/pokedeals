@@ -206,6 +206,10 @@ pourrait reproduire le même faux positif jusqu'à être découvert et ajouté
 
 ## Fichiers concernés dans cette phase (pour s'orienter vite)
 
+**⚠️ Section partiellement obsolète — voir "État du programme" en toute fin
+de fichier pour l'inventaire à jour et faisant foi.** Conservée telle
+quelle pour l'historique.
+
 **Connecteurs (un par plateforme, structure `ResultatRecherche` commune) :**
 - `connecteur_shopify.py` — Shopify, `/products.json`, détection de langue partagée par les 3 connecteurs
 - `connecteur_prestashop_sitemap.py` — PrestaShop, sitemap XML + JSON-LD + repli microdata (`itemprop=`) + repli recherche HTML (`?controller=search&s=`) pour les boutiques sans sitemap
@@ -216,12 +220,12 @@ pourrait reproduire le même faux positif jusqu'à être découvert et ajouté
 
 **Logiques d'alerte (génériques, agnostiques du connecteur) :**
 - `bonne_affaire_shopify.py` — seuil de prix/cote, garde-fous devise + langue + qualificatif + décote ≥30%
-- `alerte_stock.py` — retours en stock (mémoire JSON par plateforme), même garde-fou qualificatif
+- `alerte_stock.py` — retours en stock (mémoire JSON par plateforme), mêmes garde-fous langue + qualificatif que `bonne_affaire_shopify.py`
 
 **Orchestrateurs (un par plateforme, appelés par les workflows) :**
 - `scan_boutique.py` (Shopify, 39 boutiques actives dans `boutiques_shopify.py`)
 - `scan_boutique_prestashop.py` (PrestaShop, 17 boutiques actives dans `boutiques_prestashop.py` — 15 couvertes par sitemap + 2 via repli recherche HTML : `investcollect.com`, `lepantheon-tcg.com`, cf. section dédiée ci-dessous)
-- `scan_boutique_woocommerce.py` (WooCommerce, 26 boutiques actives dans `boutiques_woocommerce.py`, scindées en 2 lots équilibrés par volume d'URLs pour le workflow)
+- `scan_boutique_woocommerce.py` (WooCommerce, 27 boutiques actives dans `boutiques_woocommerce.py` — 26 sitemap + `mymesis.fr` via repli API REST, scindées en 2 lots équilibrés par volume d'URLs pour le workflow)
 
 **Workflows GitHub Actions :** `.github/workflows/{pokedeals,scan_shopify,scan_prestashop,scan_woocommerce}.yml`
 

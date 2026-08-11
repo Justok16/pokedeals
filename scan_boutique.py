@@ -22,8 +22,6 @@ Boucle sur plusieurs boutiques (cf. boutiques_shopify.py) :
 import os
 import sys
 import time
-import traceback
-from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
