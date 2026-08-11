@@ -59,23 +59,15 @@ def _normaliser_slug(texte: str) -> str:
 _EXTENSIONS_MEDIA = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".ico", ".css", ".js")
 
 
-def _slug_contient_type(url: str, produit: ProduitSurveille) -> bool:
-    """ANCIEN prefiltre (mot-cle TYPE seul) -- CONSERVE uniquement pour
-    reference/tests, plus utilise par les scanners (cf. _slug_est_candidat
-    ci-dessous, qui exige aussi le groupe EDITION)."""
-    slug_norm = _normaliser_slug(url)
-    return any(_normaliser_slug(mot) in slug_norm for mot in produit.mots_cles_type)
-
-
 def _slug_est_candidat(url: str, produit: ProduitSurveille) -> bool:
     """Prefiltre LEGER (pas de requete reseau) : le slug de l'URL contient
     au moins un mot-cle du groupe EDITION *ET* au moins un du groupe TYPE
     (meme double exigence que evaluer_correspondance, appliquee tot pour
     limiter le nombre de pages recuperees).
 
-    Bug reel corrige le 11/08/2026 : l'ancien prefiltre ("_slug_contient_type")
-    ne verifiait que le groupe TYPE ("etb"/"upc"/nom de personnage), des
-    mots bien trop courants (N'IMPORTE QUEL set a un ETB) -- sur
+    Bug reel corrige le 11/08/2026 : un premier prefiltre ne verifiait que
+    le groupe TYPE ("etb"/"upc"/nom de personnage), des mots bien trop
+    courants (N'IMPORTE QUEL set a un ETB) -- sur
     blazingtail.fr seul, ca remontait 251 candidats (dont des URLs
     d'IMAGES .jpg, jamais filtrees), chacun necessitant une requete +
     delai de politesse -> timeout du job GitHub Actions (25-30 min

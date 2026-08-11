@@ -1,7 +1,7 @@
 # Boutiques WooCommerce confirmees couvertes par la strategie SITEMAP
 # (cf. connecteur_woocommerce.py). Inspection aout 2026 sur les 28 boutiques
-# WooCommerce identifiees dans l'audit technique (audit_resultats_0_15.md /
-# audit_resultats_15_122.md) : 26/28 exposent un sitemap XML exploitable.
+# WooCommerce identifiees dans l'audit technique initial : 26/28 exposent
+# un sitemap XML exploitable.
 
 BOUTIQUES_WOOCOMMERCE_SITEMAP = [
     "guizettefamily.com",

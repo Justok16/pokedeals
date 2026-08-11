@@ -7,12 +7,13 @@ rechercher des produits par critere (nom, numero), dans le meme esprit que
 les connecteurs existants (eBay, Vinted, Cardtrader).
 
 Reutilisable tel quel sur les ~39 boutiques Shopify identifiees lors de
-l'audit (voir audit_boutiques.py) : il suffit de changer le nom de domaine.
+l'audit (cf. boutiques_shopify.py) : il suffit de changer le nom de domaine.
 """
 
 import re
 import sys
 import time
+import unicodedata
 from dataclasses import dataclass
 
 import requests
@@ -213,6 +214,42 @@ def _titre_correspond(titre: str, critere: CritereRecherche) -> bool:
     # _retirer_fractions -- evite de matcher le DENOMINATEUR d'une carte
     # homonyme sans rapport).
     return bool(_regex_numero_sans_denominateur(critere.numero).search(_retirer_fractions(titre)))
+
+
+def _normaliser_texte(texte: str) -> str:
+    """Minuscule, accents retires, tout separateur non-alphanumerique
+    remplace par un espace -- pour comparer un nom de config.yaml (accents,
+    espaces) a un slug d'URL (sans accents, tirets). Partagee par
+    connecteur_prestashop_sitemap.py et connecteur_woocommerce.py (code
+    identique dans les deux avant factorisation ici le 11/08/2026)."""
+    sans_accents = unicodedata.normalize("NFKD", texte).encode("ascii", "ignore").decode("ascii")
+    return re.sub(r"[^a-z0-9]+", " ", sans_accents.lower()).strip()
+
+
+def _slug_correspond(url: str, critere: CritereRecherche) -> bool:
+    """Meme regles de matching que _titre_correspond (nom ET numero
+    obligatoires des qu'un numero existe), appliquees au slug d'une URL
+    apres normalisation (accents/tirets neutralises). Partagee par
+    connecteur_prestashop_sitemap.py et connecteur_woocommerce.py (code
+    identique dans les deux avant factorisation ici le 11/08/2026)."""
+    texte = _normaliser_texte(url)
+
+    if _normaliser_texte(critere.nom) not in texte:
+        return False
+    if critere.numero is None:
+        return True
+
+    if "/" in critere.numero:
+        # "199/165" -> normalise "199 165" (le "/" devient un espace, comme le "-" du slug)
+        return _normaliser_texte(critere.numero) in texte
+
+    # Numero sans denominateur -> retirer d'abord toute fraction NNN-MMM de
+    # l'URL BRUTE (avant normalisation -- le "-" du slug ne survit pas a
+    # _normaliser_texte, qui le transforme deja en espace) : evite de
+    # matcher le DENOMINATEUR d'une carte homonyme sans rapport (cf.
+    # RE_FRACTION_NUMERO plus haut).
+    texte_sans_fractions = _normaliser_texte(_retirer_fractions(url))
+    return bool(_regex_numero_sans_denominateur(critere.numero).search(texte_sans_fractions))
 
 
 class ConnecteurShopify:

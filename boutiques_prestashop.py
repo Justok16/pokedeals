@@ -1,10 +1,9 @@
 # Boutiques PrestaShop confirmees couvertes par la strategie SITEMAP
 # (cf. connecteur_prestashop_sitemap.py). Inspection manuelle aout 2026 sur
-# les 20 boutiques PrestaShop identifiees dans l'audit technique
-# (audit_resultats_0_15.md / audit_resultats_15_122.md) : 16/20 exposent un
-# sitemap XML exploitable (natif /sitemap.xml, declare dans robots.txt, ou
-# via le module tiers /1_index_sitemap.xml). 15/16 reellement actives ici
-# (bcd-jeux.fr retiree, voir plus bas).
+# les 20 boutiques PrestaShop identifiees dans l'audit technique initial :
+# 16/20 exposent un sitemap XML exploitable (natif /sitemap.xml, declare
+# dans robots.txt, ou via le module tiers /1_index_sitemap.xml). 15/16
+# reellement actives ici (bcd-jeux.fr retiree, voir plus bas).
 
 BOUTIQUES_PRESTASHOP_SITEMAP = [
     "blazingtail.fr",

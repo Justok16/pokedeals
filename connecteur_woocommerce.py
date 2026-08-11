@@ -42,7 +42,6 @@ import json
 import re
 import sys
 import time
-import unicodedata
 import xml.etree.ElementTree as ET
 from urllib.parse import quote
 
@@ -53,8 +52,10 @@ from connecteur_shopify import (
     TIMEOUT,
     CritereRecherche,
     ResultatRecherche,
+    _normaliser_texte,
     _regex_numero_sans_denominateur,
     _retirer_fractions,
+    _slug_correspond,
     _titre_correspond,
     detecter_langue,
 )
@@ -107,28 +108,9 @@ SYMBOLES_DEVISE = {
 }
 
 
-def _normaliser_texte(texte: str) -> str:
-    sans_accents = unicodedata.normalize("NFKD", texte).encode("ascii", "ignore").decode("ascii")
-    return re.sub(r"[^a-z0-9]+", " ", sans_accents.lower()).strip()
-
-
-def _slug_correspond(url: str, critere: CritereRecherche) -> bool:
-    """Meme regles de matching que les 2 autres connecteurs (nom ET numero
-    obligatoires des qu'un numero existe), appliquees au slug de l'URL."""
-    texte = _normaliser_texte(url)
-    if _normaliser_texte(critere.nom) not in texte:
-        return False
-    if critere.numero is None:
-        return True
-    if "/" in critere.numero:
-        return _normaliser_texte(critere.numero) in texte
-    # Numero sans denominateur -> retirer d'abord toute fraction NNN-MMM de
-    # l'URL BRUTE (avant normalisation) pour ne pas matcher le
-    # DENOMINATEUR d'une carte homonyme sans rapport -- meme bug/fix que
-    # connecteur_prestashop_sitemap.py, cf. RE_FRACTION_NUMERO dans
-    # connecteur_shopify.py.
-    texte_sans_fractions = _normaliser_texte(_retirer_fractions(url))
-    return bool(_regex_numero_sans_denominateur(critere.numero).search(texte_sans_fractions))
+# _normaliser_texte et _slug_correspond sont partagees avec
+# connecteur_prestashop_sitemap.py -- factorisees dans connecteur_shopify.py
+# le 11/08/2026 (code strictement identique dans les deux fichiers avant ca).
 
 
 def _est_xml_valide(contenu: bytes) -> bool:

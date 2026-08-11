@@ -95,6 +95,20 @@ def detecter_retours_en_stock(
             continue  # confiance faible (repli nom seul) : hors perimetre
 
         candidats = [r for r in resultats if r.confiance == "forte"]
+
+        # Coherence de langue -- meme garde-fou que bonne_affaire_shopify.py
+        # (evaluer_deal), jusqu'ici absent ici : une carte FR ne doit pas
+        # matcher un retour en stock d'une carte homonyme explicitement
+        # detectee dans une AUTRE langue (nom+numero identiques, edition
+        # differente). "jp_ou_kr" reste compatible avec une carte configuree
+        # jp OU kr (numerotation partagee, cf. connecteur_shopify.detecter_langue).
+        def _langue_coherente(r):
+            if r.langue_detectee == "jp_ou_kr":
+                return carte.langue in ("jp", "kr")
+            return r.langue_detectee is None or r.langue_detectee == carte.langue
+
+        candidats = [r for r in candidats if _langue_coherente(r)]
+
         if carte.qualificatif:
             # Rejette une carte HOMONYME (meme nom+numero, edition
             # differente) sans le qualificatif attendu ("ex"/"gx"/"v"/...)

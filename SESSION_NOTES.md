@@ -658,6 +658,48 @@ message de rupture affiché).
   **3 à 1** (exactement les 2 faux positifs signalés disparaissent, le
   vrai deal reste) — confirmation directe du fix.
 
+## Passe de relecture/nettoyage — FAITE (2026-08-11, en autonomie)
+
+L'utilisateur est allé se coucher en autorisant une relecture complète du
+code produit dans la session, avec liberté de nettoyer/simplifier ce qui
+peut l'être. 4 changements réels identifiés et appliqués (pas de
+refactoring cosmétique gratuit) :
+
+1. **Code mort supprimé** : `_slug_contient_type()` dans
+   `radar_precommandes.py` — ancien préfiltre (mot-clé TYPE seul)
+   remplacé par `_slug_est_candidat()` lors du fix du timeout, mais
+   jamais retiré, devenu inutilisé nulle part dans le repo.
+2. **Duplication factorisée** : `_normaliser_texte()` et
+   `_slug_correspond()` étaient dupliquées **à l'identique** dans
+   `connecteur_prestashop_sitemap.py` et `connecteur_woocommerce.py`
+   (déjà le cas avant cette session, perpétué en appliquant le fix
+   fraction/dénominateur aux deux séparément plutôt que de factoriser
+   tout de suite). Déplacées dans `connecteur_shopify.py` (module déjà
+   "partagé", y héberge déjà `_titre_correspond`/`_regex_numero_sans_denominateur`/
+   `_retirer_fractions`), importées par les deux autres connecteurs.
+   Testé : les 8 scénarios de non-régression du fix fraction/dénominateur
+   passent identiquement via les deux connecteurs consolidés + test
+   complet sur 80 boutiques (0 échec, deals inchangés).
+3. **Gap de cohérence de langue comblé** : `alerte_stock.py`
+   (`detecter_retours_en_stock`) n'avait PAS le garde-fou de cohérence de
+   langue déjà présent dans `bonne_affaire_shopify.py` (`evaluer_deal`) —
+   une carte FR pouvait matcher un retour en stock d'une carte JP/KR
+   homonyme (même nom+numéro, édition différente). Gap réel repéré en
+   comparant les deux fonctions pendant la session (pas un bug signalé,
+   une incohérence trouvée en relisant). Fix : même logique exacte
+   copiée (compatible `jp_ou_kr` avec `jp`/`kr`, `None` = pas de
+   vérification possible = laisse passer, risque résiduel documenté déjà
+   accepté ailleurs). Testé : 3 scénarios unitaires + test réel sur 4
+   boutiques JP/mixtes (`hikarudistribution.com`, `japan2uk.com`,
+   `leviacards.com`, `kyoriyu.fr`, transitions forcées) — aucune erreur,
+   résultats cohérents.
+4. **Références de documentation cassées corrigées** : 3 fichiers
+   (`boutiques_prestashop.py`, `boutiques_woocommerce.py`,
+   `connecteur_shopify.py`) référençaient des fichiers d'audit
+   (`audit_resultats_0_15.md`, `audit_resultats_15_122.md`,
+   `audit_boutiques.py`) qui n'existent pas dans le repo (jamais créés,
+   ou supprimés avant cette session) — références retirées/corrigées.
+
 ## Prochaines étapes suggérées (par ordre de priorité)
 
 1. ~~Committer le fix de symétrie du filtre qualificatif~~ — fait.

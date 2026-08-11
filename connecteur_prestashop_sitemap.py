@@ -49,8 +49,10 @@ from connecteur_shopify import (
     TIMEOUT,
     CritereRecherche,
     ResultatRecherche,
+    _normaliser_texte,
     _regex_numero_sans_denominateur,
     _retirer_fractions,
+    _slug_correspond,
     detecter_langue,
 )
 
@@ -76,39 +78,9 @@ DISPONIBILITES_EN_STOCK = {
 }
 
 
-def _normaliser_texte(texte: str) -> str:
-    """Minuscule, accents retires, tout separateur non-alphanumerique
-    remplace par un espace -- pour comparer un nom de config.yaml (accents,
-    espaces) a un slug d'URL (sans accents, tirets)."""
-    sans_accents = unicodedata.normalize("NFKD", texte).encode("ascii", "ignore").decode("ascii")
-    return re.sub(r"[^a-z0-9]+", " ", sans_accents.lower()).strip()
-
-
-def _slug_correspond(url: str, critere: CritereRecherche) -> bool:
-    """Meme regles de matching que connecteur_shopify._titre_correspond
-    (nom ET numero obligatoires des qu'un numero existe), appliquees au
-    slug de l'URL apres normalisation (accents/tirets neutralises)."""
-    texte = _normaliser_texte(url)
-
-    if _normaliser_texte(critere.nom) not in texte:
-        return False
-    if critere.numero is None:
-        return True
-
-    if "/" in critere.numero:
-        # "199/165" -> normalise "199 165" (le "/" devient un espace, comme le "-" du slug)
-        return _normaliser_texte(critere.numero) in texte
-
-    # Numero sans denominateur -> retirer d'abord toute fraction NNN-MMM de
-    # l'URL BRUTE (avant normalisation -- le "-" du slug ne survit pas a
-    # _normaliser_texte, qui le transforme deja en espace) : evite de
-    # matcher le DENOMINATEUR d'une carte homonyme sans rapport. Bug reel
-    # corrige le 11/08/2026 : "Eevee 078 sv5a" (numero nu "078") matchait a
-    # tort ".../evoli-054-078-...html" (carte FR Pokemon GO sans rapport,
-    # "078" etant le denominateur du set, pas le numero de la carte) --
-    # cf. RE_FRACTION_NUMERO dans connecteur_shopify.py.
-    texte_sans_fractions = _normaliser_texte(_retirer_fractions(url))
-    return bool(_regex_numero_sans_denominateur(critere.numero).search(texte_sans_fractions))
+# _normaliser_texte et _slug_correspond sont partagees avec
+# connecteur_woocommerce.py -- factorisees dans connecteur_shopify.py le
+# 11/08/2026 (code strictement identique dans les deux fichiers avant ca).
 
 
 def _est_xml_valide(contenu: bytes) -> bool:
