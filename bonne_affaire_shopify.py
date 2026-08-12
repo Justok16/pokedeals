@@ -59,12 +59,46 @@ def charger_regles(chemin: Path = CHEMIN_CONFIG_DEFAUT) -> dict:
     return cfg.get("regles", {})
 
 
+# V47 (13/08/2026) : mots signalant une carte GRADEE (PSA/CGC/BGS...)
+# plutot qu'une carte brute -- MEME liste que EXCLUSIONS dans main.py
+# (systeme eBay historique), qui a ce garde-fou depuis longtemps.
+# bonne_affaire_shopify.py ne l'avait PAS : une carte gradee (valeur
+# generalement tres differente d'une carte brute, dans un sens ou l'autre
+# selon la note) se faisait comparer a tort a la cote d'une carte BRUTE
+# (data/cotes.json, calculee a partir d'annonces deja filtrees pour
+# exclure les gradees cote eBay). Cas reel signale par Justok le
+# 13/08/2026 : Evoli ex 167/131 sur relictcg.com, 2 annonces "PSA 8" /
+# "CCC 9.5" alertees comme "bonne affaire" a -53.9%/-32.4% -- comparaison
+# biaisee, pas une vraie decote.
+MOTS_CARTE_GRADEE = (
+    "psa", "pca", "bgs", "cgc", "ccc", "gradee", "graded",
+    "grade 8", "grade 9", "grade 10",
+)
+# Neutralisees AVANT le test ci-dessus, meme logique que annonce_pertinente()
+# dans main.py (V39) : "non gradee" contient "gradee" en sous-chaine et
+# serait sinon rejetee a tort alors que c'est justement une carte BRUTE.
+NEGATIONS_GRADATION = (
+    "non gradee", "non-gradee", "pas gradee",
+    "ungraded", "not graded", "no grading", "sans grading",
+)
+
+
+def _est_carte_gradee(titre: str) -> bool:
+    t = titre.lower()
+    for negation in NEGATIONS_GRADATION:
+        t = t.replace(negation, "")
+    return any(mot in t for mot in MOTS_CARTE_GRADEE)
+
+
 def evaluer_deal(
     resultat, carte: CarteWatchlist, cotes: dict, regles: dict
 ) -> tuple[dict | None, str]:
     """Applique les regles de bonne affaire a un ResultatRecherche donne.
     Retourne (deal, raison) -- deal est None si ce n'est pas une affaire,
     auquel cas `raison` explique pourquoi (pour du log/debug)."""
+
+    if _est_carte_gradee(resultat.titre):
+        return None, "carte gradee (PSA/CGC/BGS...) -- non comparable a la cote d'une carte brute"
 
     if not resultat.en_stock:
         return None, "rupture de stock"

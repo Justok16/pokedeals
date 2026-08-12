@@ -42,6 +42,36 @@ REGLES = {"cote_min": 5.0, "marge_achat": 0.10, "prix_plancher_ratio": 0.15,
 COTES = {"Dracaufeu ex 199/165|fr": [{"cote": 100.0, "ts": 0}]}
 
 
+def test_carte_gradee_psa_rejetee():
+    # Cas reel signale par Justok le 13/08/2026 : Evoli ex 167/131 sur
+    # relictcg.com, annonce "PSA 8" alertee comme "bonne affaire" a -53.9%
+    # -- une carte gradee n'est pas comparable a la cote d'une carte brute.
+    titre = "Acheter - Evoli ex SAR - PRE167/131 - EV8.5 - PSA 8 - FR"
+    deal, raison = evaluer_deal(_resultat(titre=titre), _carte(), COTES, REGLES)
+    assert deal is None
+    assert "gradee" in raison
+
+
+def test_carte_gradee_ccc_rejetee():
+    # Meme soiree, 2e annonce sur la meme carte : notation de gradation
+    # differente ("CCC 9.5") -- pas dans la liste initiale, ajoutee suite
+    # a ce cas reel.
+    titre = "Evoli ex - Evolutions Prismatiques 167/131 - CCC 9.5 - FR"
+    deal, raison = evaluer_deal(_resultat(titre=titre), _carte(), COTES, REGLES)
+    assert deal is None
+    assert "gradee" in raison
+
+
+def test_carte_non_gradee_nest_pas_rejetee_a_tort():
+    # "non gradee" contient "gradee" en sous-chaine -- ne doit PAS etre
+    # exclue (c'est justement une carte BRUTE), meme negation que main.py.
+    # (titre volontairement SANS "ex" pour ne pas declencher le garde-fou
+    # qualificatif symetrique, deja teste ailleurs dans ce fichier.)
+    titre = "Dracaufeu 199/165 non gradee excellent etat"
+    deal, raison = evaluer_deal(_resultat(titre=titre), _carte(), COTES, REGLES)
+    assert deal is not None, raison
+
+
 def test_rupture_de_stock_rejetee():
     deal, raison = evaluer_deal(_resultat(en_stock=False), _carte(), COTES, REGLES)
     assert deal is None
