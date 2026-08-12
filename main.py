@@ -2665,13 +2665,23 @@ def _echapper_url_html(url: str) -> str:
 
 
 def _texte_telegram(d: dict) -> str:
+    # V46 : ligne Cardmarket, purement informative -- n'existe QUE quand
+    # main() a pu la calculer en toute confiance (cf. commentaire V46 dans
+    # main(), juste après les GARDE-FOU 4/5). N'influence jamais "cote" ni
+    # aucune décision : simple info affichée en plus pour vérification
+    # visuelle rapide avant achat.
+    ligne_cardmarket = ""
+    if d.get("cardmarket_prix") is not None:
+        ligne_cardmarket = f"\n🇪🇺 Cardmarket (tendance) : {d['cardmarket_prix']:.2f}€"
+
     # V45 : message dédié pour un deal sur seuil de prix fixe (confiance
     # 100). Pas de cote/décote/profit à afficher, ça n'a pas de sens ici.
     if d.get("confiance") == 100:
         return (
             f"🎯 <b>{_echapper_html(d['titre'])}</b>\n"
             f"🛒 {_echapper_html(d['plateforme'])} — <b>{d['prix']:.2f}€</b> "
-            f"(seuil fixé : {d['cote']:.2f}€, port non compté)\n"
+            f"(seuil fixé : {d['cote']:.2f}€, port non compté)"
+            f"{ligne_cardmarket}\n"
             f"👉 <a href=\"{_echapper_url_html(d['url'])}\">Voir l'annonce</a>"
         )
     # V37 : AVERTISSEMENT sur les écarts extrêmes. Une décote de plus de 30%
@@ -2692,7 +2702,8 @@ def _texte_telegram(d: dict) -> str:
     return (
         f"🔥 <b>{_echapper_html(d['titre'])}</b>\n"
         f"🛒 {_echapper_html(d['plateforme'])} — <b>{d['prix']:.2f}€</b> + {d['port']:.2f}€ port = <b>{d['total']:.2f}€</b>\n"
-        f"📊 Cote : {d['cote']:.2f}€ (<b>-{d['decote_pct']}%</b>)\n"
+        f"📊 Cote : {d['cote']:.2f}€ (<b>-{d['decote_pct']}%</b>)"
+        f"{ligne_cardmarket}\n"
         f"💶 Revente conseillée : {d['prix_revente_conseille']:.2f}€\n"
         f"✅ Profit net estimé : <b>+{d['profit_net_estime']:.2f}€</b>"
         f"{avertissement}\n"
@@ -3164,6 +3175,7 @@ def main() -> int:
         total_annonces += len(annonces)
 
         cote, confiance = obtenir_cote(carte, annonces_ebay, cfg)
+        prix_cm_affiche = None  # V46 : prix Cardmarket affiché sur Telegram (info seule, jamais utilisé pour decider)
 
         # V22 : cote Cardtrader (marché européen, prix réels par langue).
         # mode "observation" = affiché seulement ; "actif" = remplace la cote.
@@ -3200,6 +3212,19 @@ def main() -> int:
                     # Cardtrader ne couvre pas.
                     _calibration_ajouter(cote or 0, prix_ct)
 
+                    # V46 : prix Cardmarket calculé ICI (avant le if/elif de
+                    # mode), pas seulement en mode "plus_bas" -- pour pouvoir
+                    # l'AFFICHER dans le message Telegram quel que soit le
+                    # mode actif, sans jamais influencer la cote retenue.
+                    # Sûr par construction : on n'atteint ce point QUE si le
+                    # prix Cardtrader vient de passer le GARDE-FOU 4 (cross-
+                    # check eBay) ET le GARDE-FOU 5 (cohérence de langue)
+                    # ci-dessus -- donc seulement quand on est déjà confiant
+                    # que c'est la bonne carte, dans la bonne langue. Si l'un
+                    # des deux avait échoué, "suspect" serait True et ce code
+                    # ne serait jamais exécuté (cf. branche if suspect: ci-dessus).
+                    prix_cm_affiche = cardmarket_prix(carte, secrets.get("CARDTRADER_TOKEN", ""))
+
                     # V27 : APPLICATION du prix Cardtrader selon le mode.
                     #   observation : le prix est seulement affiché
                     #   secours     : utilisé UNIQUEMENT si eBay n'a rien
@@ -3229,7 +3254,10 @@ def main() -> int:
                         # donne un prix de VENTE réel plutôt qu'un prix
                         # demandé (vérifié : Bulbizarre 166/165 FR, eBay
                         # demandait 88€, Cardmarket vend réellement 65€).
-                        prix_cm = cardmarket_prix(carte, secrets.get("CARDTRADER_TOKEN", ""))
+                        # V46 : déjà calculé plus haut (prix_cm_affiche),
+                        # réutilisé ici sous son ancien nom local pour ne
+                        # rien changer à la logique de comparaison suivante.
+                        prix_cm = prix_cm_affiche
 
                         candidats = [("eBay", cote)] if cote is not None else []
                         candidats.append(("Cardtrader", prix_ct))
@@ -3280,6 +3308,11 @@ def main() -> int:
                 (f"{nom} ({carte.get('langue', 'fr').upper()})", cote))
 
         for annonce in annonces:
+            # V46 : prix Cardmarket transporté jusqu'au deal final pour
+            # affichage Telegram (evaluate() fait `deal = {**annonce, ...}`,
+            # donc ce champ traverse tel quel jusqu'à _texte_telegram).
+            if prix_cm_affiche is not None:
+                annonce["cardmarket_prix"] = prix_cm_affiche
             marge_carte = carte.get("marge_achat")  # override par carte si présent
             deal, status = evaluate(annonce, cote, cfg, confiance, marge_carte)
             if deal is None:
