@@ -60,7 +60,7 @@ from connecteur_shopify import HEADERS, HEADERS_HTML, TIMEOUT
 from memoire_json import charger_memoire, sauvegarder_memoire
 from telegram_utils import echapper_html
 
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+sys.stdout.reconfigure(encoding="utf-8", errors="replace", line_buffering=True)
 
 FICHIER_MEMOIRE = Path(__file__).parent / "data" / "decouverte_boutiques_memoire.json"
 FICHIER_BOUTIQUES_DECOUVERTES = Path(__file__).parent / "boutiques_decouvertes.py"
@@ -298,8 +298,11 @@ def envoyer_telegram_rapport(ajouts: list[dict], a_examiner: list[dict], chat_id
 
 
 def main() -> None:
-    token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
-    chat_id = os.environ.get("TELEGRAM_CHAT_ID", "1245330032")  # meme chat que le reste de PokeDeals
+    # .strip() par precaution -- un secret GitHub colle avec un espace/retour
+    # a la ligne invisible casserait l'URL Telegram (bot{token}/sendMessage)
+    # et donnerait un 404 (token non reconnu), constate le 12/08/2026.
+    token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID", "1245330032").strip()  # meme chat que le reste de PokeDeals
 
     memoire = charger_memoire(FICHIER_MEMOIRE)
     domaines_deja_vus = set(memoire.get("domaines_verifies", {}).keys())
