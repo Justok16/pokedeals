@@ -1,6 +1,14 @@
 {
   "_derniers_signaux_notifies": {},
-  "Oricorio ex 111 m2|jp": [],
+  "Oricorio ex 111 m2|jp": [
+    {
+      "date": "2026-08-12",
+      "prix_pokemonpricetracker": 27.69,
+      "devise_pokemonpricetracker": "USD",
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": null
+    }
+  ],
   "Squirtle 170/165 sv2a|jp": [
     {
       "date": "2026-08-12",
