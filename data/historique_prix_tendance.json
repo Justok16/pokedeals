@@ -1,6 +1,20 @@
 {
   "_derniers_signaux_notifies": {},
   "Oricorio ex 111 m2|jp": [],
-  "Squirtle 170/165 sv2a|jp": [],
-  "Psyduck 199 m2a|jp": []
+  "Squirtle 170/165 sv2a|jp": [
+    {
+      "date": "2026-08-12",
+      "prix_pokemonpricetracker": 25.27,
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": null
+    }
+  ],
+  "Psyduck 199 m2a|jp": [
+    {
+      "date": "2026-08-12",
+      "prix_pokemonpricetracker": 19.08,
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": null
+    }
+  ]
 }
