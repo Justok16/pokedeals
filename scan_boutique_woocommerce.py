@@ -109,10 +109,17 @@ def scanner_plusieurs_boutiques(
 
 
 if __name__ == "__main__":
+    from boutiques_decouvertes import BOUTIQUES_WOOCOMMERCE_AUTO
     from boutiques_woocommerce import BOUTIQUES_WOOCOMMERCE_REPLI_API_REST, BOUTIQUES_WOOCOMMERCE_SITEMAP
     from watchlist_shopify import charger_watchlist_config
 
-    boutiques = sys.argv[1:] if len(sys.argv) > 1 else BOUTIQUES_WOOCOMMERCE_SITEMAP + BOUTIQUES_WOOCOMMERCE_REPLI_API_REST
+    # Sans argument : boutiques curees a la main + boutiques ajoutees
+    # automatiquement par decouverte_boutiques.py (radar AFNIC). En
+    # production, la production passe LOT_A/LOT_B explicitement (cf.
+    # scan_woocommerce.yml) -- BOUTIQUES_WOOCOMMERCE_AUTO y est scannee
+    # via une etape dediee separee, pas via ce defaut.
+    boutiques = (sys.argv[1:] if len(sys.argv) > 1
+                 else BOUTIQUES_WOOCOMMERCE_SITEMAP + BOUTIQUES_WOOCOMMERCE_REPLI_API_REST + BOUTIQUES_WOOCOMMERCE_AUTO)
     boutiques_repli_api_rest = set(boutiques) & set(BOUTIQUES_WOOCOMMERCE_REPLI_API_REST)
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")

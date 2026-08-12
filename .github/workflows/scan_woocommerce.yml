@@ -120,7 +120,9 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: |
-          python -c "from boutiques_woocommerce import LOT_B; print(' '.join(LOT_B))" > /tmp/lot_b.txt
+          # BOUTIQUES_WOOCOMMERCE_AUTO : boutiques ajoutees par decouverte_boutiques.py
+          # (radar AFNIC) -- greffees au lot B, qui a le plus de marge de temps.
+          python -c "from boutiques_woocommerce import LOT_B; from boutiques_decouvertes import BOUTIQUES_WOOCOMMERCE_AUTO; print(' '.join(LOT_B + BOUTIQUES_WOOCOMMERCE_AUTO))" > /tmp/lot_b.txt
           python scan_boutique_woocommerce.py $(cat /tmp/lot_b.txt)
       - name: Sauvegarder la mémoire de stock (lot B)
         run: |
@@ -179,11 +181,11 @@ jobs:
         run: |
           python -c "from boutiques_woocommerce import LOT_B, BOUTIQUES_WOOCOMMERCE_REPLI_API_REST; print(' '.join(LOT_B + BOUTIQUES_WOOCOMMERCE_REPLI_API_REST))" > /tmp/lot_b_precommandes.txt
           python scan_precommandes.py woocommerce $(cat /tmp/lot_b_precommandes.txt)
-      - name: Lancer le radar précommandes — boutiques scellé uniquement (pokemagique.fr)
+      - name: Lancer le radar précommandes — boutiques scellé uniquement
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: |
-          python -c "from boutiques_woocommerce import BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT; print(' '.join(BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT))" > /tmp/lot_precommande_seulement.txt
+          python -c "from boutiques_woocommerce import BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT; from boutiques_decouvertes import BOUTIQUES_WOOCOMMERCE_AUTO_PRECOMMANDE_SEULEMENT; print(' '.join(BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT + BOUTIQUES_WOOCOMMERCE_AUTO_PRECOMMANDE_SEULEMENT))" > /tmp/lot_precommande_seulement.txt
           python scan_precommandes.py woocommerce $(cat /tmp/lot_precommande_seulement.txt)
       - name: Sauvegarder la mémoire du radar précommandes
         run: |

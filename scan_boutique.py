@@ -112,13 +112,15 @@ def scanner_plusieurs_boutiques(
 
 
 if __name__ == "__main__":
+    from boutiques_decouvertes import BOUTIQUES_SHOPIFY_AUTO
     from boutiques_shopify import BOUTIQUES_SHOPIFY
     from watchlist_shopify import charger_watchlist_config
 
     # Test cible : `python scan_boutique.py kyoriyu.fr questcorner.fr` ne
-    # scanne QUE les domaines passes en argument, au lieu des 39 boutiques.
-    # Sans argument : comportement normal (toutes les boutiques).
-    boutiques = sys.argv[1:] if len(sys.argv) > 1 else BOUTIQUES_SHOPIFY
+    # scanne QUE les domaines passes en argument, au lieu de la liste
+    # complete. Sans argument : boutiques curees a la main + boutiques
+    # ajoutees automatiquement par decouverte_boutiques.py (radar AFNIC).
+    boutiques = sys.argv[1:] if len(sys.argv) > 1 else list(BOUTIQUES_SHOPIFY) + list(BOUTIQUES_SHOPIFY_AUTO)
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 

@@ -1,0 +1,59 @@
+name: Decouverte Boutiques
+
+on:
+  schedule:
+    # Hebdomadaire (lundi 06h00 UTC) -- suffisant car les fichiers AFNIC
+    # restent disponibles 7 jours sur leur serveur (le script en telecharge
+    # toujours les 7 derniers), donc un cron plus frequent n'apporterait rien.
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}
+permissions:
+  contents: write   # necessaire pour sauvegarder boutiques_decouvertes.py + data/decouverte_boutiques_memoire.json
+concurrency:
+  group: decouverte_boutiques   # groupe DEDIE, distinct des 4 autres workflows
+  cancel-in-progress: false
+jobs:
+  decouverte:
+    runs-on: ubuntu-latest
+    # Jusqu'a MAX_CANDIDATS_PAR_CYCLE (60) verifications, ~2-3s chacune
+    # (1-2 requetes HTTP + delai de politesse) -> quelques minutes en
+    # theorie, marge large tant que le volume reel n'est pas mesure.
+    timeout-minutes: 20
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le radar de découverte (AFNIC)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python decouverte_boutiques.py
+      - name: Sauvegarder les résultats (boutiques_decouvertes.py + mémoire)
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          cp -f boutiques_decouvertes.py /tmp/boutiques_decouvertes.py 2>/dev/null || true
+          cp -f data/decouverte_boutiques_memoire.json /tmp/decouverte_boutiques_memoire.json 2>/dev/null || true
+          git stash -u || true
+          git pull --rebase || git rebase --abort || true
+          git stash pop || true
+          cp -f /tmp/boutiques_decouvertes.py boutiques_decouvertes.py 2>/dev/null || true
+          cp -f /tmp/decouverte_boutiques_memoire.json data/decouverte_boutiques_memoire.json 2>/dev/null || true
+          git add boutiques_decouvertes.py data/decouverte_boutiques_memoire.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj radar decouverte boutiques [skip ci]"
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f boutiques_decouvertes.py /tmp/boutiques_decouvertes.py 2>/dev/null || true
+            cp -f data/decouverte_boutiques_memoire.json /tmp/decouverte_boutiques_memoire.json 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/boutiques_decouvertes.py boutiques_decouvertes.py 2>/dev/null || true
+            cp -f /tmp/decouverte_boutiques_memoire.json data/decouverte_boutiques_memoire.json 2>/dev/null || true
+            git add boutiques_decouvertes.py data/decouverte_boutiques_memoire.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj radar decouverte boutiques [skip ci]"
+            git push
+          }
