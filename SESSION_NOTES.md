@@ -1175,12 +1175,130 @@ encore tourné en prod au moment de ce commit, cron hebdomadaire lundi
 GitHub). À vérifier au prochain lundi ou via un déclenchement manuel
 (`workflow_dispatch`) par Justok si besoin de confirmer plus tôt.
 
-## État du programme au 2026-08-12 (référence pour la prochaine session)
+## Session du 2026-08-12/13 : cote Cardmarket affichée, suivi de tendance JP, fix cartes gradées
+
+### Cote Cardmarket affichée sur Telegram (V46)
+
+Justok a transmis un prompt suggéré par DeepSeek : ajouter un mode
+`api_cotes.mode = "cardmarket"` qui utiliserait `cardmarket_prix()` comme
+SEULE source de cote. **Refusé après vérification** : `cardmarket_prix()`
+dépend entièrement du blueprint Cardtrader pour trouver le
+`cardmarket_id` — pas une source indépendante. Un mode exclusif
+supprimerait tous les garde-fous existants (GARDE-FOU 4 écart eBay,
+GARDE-FOU 5 cohérence langue) et réintroduirait exactement le type de
+faux positif qu'ils empêchent (cf. Mew ex 208 JP/KR, Méga-Dracaufeu X
+3€ vs 1199€, déjà documentés dans le code). Le prompt se trompait même
+de nom de fichier ("pokedeals.py" au lieu de `main.py`), signe que
+DeepSeek n'avait pas accès au code réel.
+
+**Version retenue** : `prix_cm_affiche` calculé au même endroit qu'avant
+(juste après les GARDE-FOU 4/5, donc uniquement quand Cardtrader est
+déjà jugé fiable), mais désormais **affiché** dans le message Telegram
+("🇪🇺 Cardmarket (tendance)") quel que soit `api_cotes.mode`, sans jamais
+toucher à `cote` ni à la logique de décision. Testé (formatage
+avec/sans le champ, non-régression du mode `plus_bas`).
+
+### Suivi de tendance de prix long terme — 3 cartes JP (`historique_prix.py`)
+
+Demande de Justok : savoir s'il est intéressant d'acheter une carte
+précise selon son historique de prix sur la durée, pour 3 cartes JP
+(Plumeline ex/Oricorio ex m2-111, Carapuce/Squirtle sv2a-170,
+Psykokwak/Psyduck m2a-199).
+
+**Vérification préalable** (avant tout code) : aucune donnée d'un an
+n'existe nulle part — `data/cotes.json` est plafonné à 5 points/carte
+(`HISTORIQUE_MAX`) ET purgé à chaque `PURGE_VERSION`. Le "nombre
+d'achats" (volume de ventes réelles) n'est accessible gratuitement pour
+AUCUNE carte — même mur que l'API eBay Marketplace Insights déjà
+rencontré pour le bot BTC.
+
+**Solution construite** : `watchlist_tendance.py` (liste explicite et
+réduite, 3 cartes choisies par Justok, pas la watchlist complète) +
+`historique_prix.py` (accumulateur quotidien INDÉPENDANT de `cotes.json`,
+jamais plafonné ni purgé). Combine [PokemonPriceTracker](https://www.pokemonpricetracker.com)
+(API tierce gratuite, `POKEMONPRICETRACKER_API_KEY`, couvre le JP/KR) et
+la dernière cote locale en repli. Signal de tendance calculé seulement
+au-delà de 14 points accumulés (même logique que `alerte_stock.py` :
+pas de conclusion prématurée). Workflow dédié `tendance_prix.yml`, cron
+quotidien 8h30 UTC. Alerte Telegram uniquement au CHANGEMENT de signal.
+
+**3 itérations de debug en conditions réelles** (logs fournis par
+Justok à chaque fois) :
+1. `name`/`number` ne sont PAS des paramètres acceptés par l'API (HTTP
+   400) — corrigé en combinant nom+numéro dans `search` (texte libre) +
+   `set`.
+2. Oricorio ex 111 renvoyait `total:1` mais `data:[]` avec le `set`
+   précisé — ajout d'un repli automatique sans `set` si la 1ère
+   recherche échoue. Les 3 cartes ont fini par toutes fonctionner.
+3. Le repli a révélé la vraie réponse complète : `setName` réel =
+   "M2: Inferno X", pas "MEGA Dream ex" que j'avais mis par erreur dans
+   `watchlist_tendance.py` (confusion avec le code `m2a` de Psyduck, un
+   set différent — c'est d'ailleurs exactement le nom que Justok avait
+   donné dès le premier message). Corrigé pour matcher directement sans
+   dépendre du repli à l'avenir.
+
+**Conversion USD → EUR** : les prix PokemonPriceTracker sont confirmés
+en USD (vérifié via la réponse réelle). Sources de change gratuites
+sans clé vérifiées en direct (frankfurter.dev en priorité, repli
+open.er-api.com), appliquées UNIQUEMENT à l'affichage Telegram — jamais
+aux données stockées ni au calcul de tendance (un écart en % entre 2
+valeurs USD reste mathématiquement valide sans conversion). Montant
+converti en gras + montant d'origine entre parenthèses, toujours
+transparent sur la source. Repli propre si les 2 sources de taux
+échouent le même jour (affiche la devise d'origine plutôt que de
+bloquer l'alerte).
+
+**Refus explicite de connexion GitHub** : Justok a proposé de me
+connecter à son compte GitHub pour lire les logs moi-même (par lassitude
+de coller les logs à la main). Refusé : entrer un mot de passe reste
+interdit quelle que soit l'autorisation donnée, et un token même en
+lecture seule élargirait mon accès à son compte au-delà du nécessaire.
+Le partage manuel de logs n'était de toute façon qu'un besoin ponctuel
+de mise au point, pas permanent — le système alerte maintenant tout
+seul par Telegram.
+
+### Fix cartes gradées non filtrées dans le système boutiques TCG
+
+Justok a reçu 4 alertes Telegram réelles un soir et a demandé si
+c'était inquiétant. Analyse alerte par alerte :
+- **Écart suspect entre langues** (Squirtle JP 23.19€ vs KR 11.48€,
+  ratio 2.02× pour un seuil de 2.0×) : garde-fou `main.py` existant
+  (V34/anti-spam, indépendant de cette session), fonctionne comme prévu,
+  pas un bug.
+- **2× Evoli ex 167/131 sur relictcg.com** (150€ et 220€, "-53.9%" et
+  "-32.4%") : **vrai bug confirmé**. Les 2 annonces sont des cartes
+  GRADÉES (PSA 8, CCC 9.5) comparées à tort à la cote d'une carte BRUTE.
+  Vérifié par grep : `main.py` exclut les cartes gradées depuis
+  longtemps (`EXCLUSIONS` : psa/pca/bgs/cgc/gradee/graded + négation
+  "non gradée"), mais `bonne_affaire_shopify.py`/`alerte_stock.py`
+  n'avaient AUCUN filtre équivalent — zéro occurrence dans tout le
+  système boutiques TCG avant ce fix.
+- **Méga-Lucario ex 179/132 sur lesprofesseurschinent.fr** (200€,
+  -32.6%) : re-scanné après le fix, toujours présent → vraie bonne
+  affaire confirmée, pas un faux positif.
+
+**Fix** : `_est_carte_gradee()` dans `bonne_affaire_shopify.py` (même
+liste de mots-clés que `main.py` + négation, PLUS "ccc" qui manquait
+même dans la liste d'origine de `main.py` — découvert via la 2e alerte
+réelle). Même garde-fou appliqué dans `alerte_stock.py` (import croisé,
+pas de duplication), pour respecter la convention "mêmes garde-fous,
+même ordre" déjà établie entre les deux modules.
+
+**Testé** : les 2 titres réels rejetés, non-régression sur les cas
+bruts existants (dont la négation "non gradée"), **non-régression
+réelle en relançant un scan** sur les 2 boutiques concernées
+(relictcg.com : 2→0 deal, faux positifs disparus ; lesprofesseurschinent.fr :
+1 deal inchangé, confirmé légitime). 4 nouveaux tests, suite complète
+36/36 OK.
+
+## État du programme au 2026-08-13 (référence pour la prochaine session)
 
 **95 boutiques actives** au total (hors radar de découverte, qui démarre
 à 0 et grossira automatiquement) : 44 Shopify (dont 3 en
 `BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT`) + 17 PrestaShop (inchangé) +
 28 WooCommerce (dont 2 en `BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT`).
+**3 cartes JP suivies en tendance longue durée** (système séparé, cf.
+`watchlist_tendance.py`).
 
 **Inventaire des fichiers** (racine du repo, par rôle) :
 
@@ -1192,26 +1310,32 @@ GitHub). À vérifier au prochain lundi ou via un déclenchement manuel
 | `connecteur_prestashop_sitemap.py` | Connecteur PrestaShop (sitemap + repli recherche HTML + fix stock DOM) |
 | `connecteur_woocommerce.py` | Connecteur WooCommerce (sitemap + repli recherche HTML + repli API REST) |
 | `watchlist_shopify.py` | `CarteWatchlist`, parsing `config.yaml`, matching qualificatif (symétrique + faux positifs noms de coffret) |
-| `bonne_affaire_shopify.py` | Alerte 🔥 bonnes affaires (garde-fous stock/langue/qualificatif) |
+| `bonne_affaire_shopify.py` | Alerte 🔥 bonnes affaires (garde-fous stock/gradée/langue/qualificatif) + `_est_carte_gradee()` partagée |
 | `alerte_stock.py` | Alerte 📦 retour en stock (mêmes garde-fous que ci-dessus) |
 | `precommandes_watchlist.py` | Watchlist + matching du radar précommandes (mots-clés + date) |
 | `alerte_precommande.py` | Mémoire + alerte 🎉 du radar précommandes |
 | `radar_precommandes.py` | Scanners par plateforme du radar précommandes |
 | `scan_precommandes.py` | Orchestrateur CLI du radar précommandes |
-| `telegram_utils.py` | Échappement HTML partagé par les 3 modules d'alerte |
-| `memoire_json.py` | Chargement/sauvegarde JSON partagé par `alerte_stock.py`/`alerte_precommande.py` |
+| `decouverte_boutiques.py` / `watchlist_tendance.py`... voir `boutiques_decouvertes.py` | Radar de découverte automatique de boutiques (AFNIC), listes auto-gérées |
+| `historique_prix.py` / `watchlist_tendance.py` | Accumulateur + signal de tendance long terme, 3 cartes JP, conversion USD→EUR |
+| `telegram_utils.py` | Échappement HTML partagé par les modules d'alerte |
+| `memoire_json.py` | Chargement/sauvegarde JSON partagé par plusieurs modules |
 | `boutiques_shopify.py` / `boutiques_prestashop.py` / `boutiques_woocommerce.py` | Listes de boutiques actives par plateforme (+ boutiques diagnostiquées non-intégrables, documentées) |
 | `scan_boutique.py` / `scan_boutique_prestashop.py` / `scan_boutique_woocommerce.py` | Orchestrateurs de scan cartes par plateforme |
-| `.github/workflows/{pokedeals,scan_shopify,scan_prestashop,scan_woocommerce}.yml` | 4 workflows CI, cron 15-30 min |
+| `tests/` | Suite pytest (36 tests), lancée sur chaque push/PR via `tests.yml` |
+| `.github/workflows/{pokedeals,scan_shopify,scan_prestashop,scan_woocommerce,decouverte_boutiques,tendance_prix,tests}.yml` | 7 workflows CI au total |
 
-**État de santé par composant** (au 2026-08-11 après-midi) :
-- Connecteurs (Shopify/PrestaShop/WooCommerce) : sains, garde-fous cohérents, aucune duplication de logique métier restante.
-- `bonne_affaire_shopify.py` / `alerte_stock.py` : sains, garde-fous identiques et alignés.
-- Radar de précommandes : actif en prod, timeouts respectés depuis les fixes de la nuit, stabilisé après 2 pics isolés.
-- `investcollect.com` : sain, fix stock DOM stable sur plusieurs cycles réels.
-- Sécurité : aucune fuite de secret détectée (code + historique complet).
-- `CLAUDE.md` : obsolète (cf. décision ci-dessus) — seul point de dette technique documentaire connu à ce jour.
+**État de santé par composant** (au 2026-08-13) :
+- Connecteurs (Shopify/PrestaShop/WooCommerce) : sains, garde-fous cohérents (stock → gradée → langue → qualificatif), aucune duplication de logique métier restante.
+- `bonne_affaire_shopify.py` / `alerte_stock.py` : sains depuis le fix cartes gradées, garde-fous identiques et alignés dans les 2.
+- Radar de précommandes : actif en prod, stable.
+- Radar de découverte (AFNIC) : actif, testé en conditions réelles, Telegram fonctionnel.
+- Suivi de tendance (3 cartes JP) : actif, PokemonPriceTracker fonctionnel pour les 3 cartes après 3 itérations de correction, conversion USD→EUR en place. Signal de tendance pas encore significatif (moins de 14 points accumulés) — à revisiter dans ~2 semaines.
+- Sécurité : aucune fuite de secret détectée (code + historique complet). Refus explicite d'un accès GitHub direct (voir ci-dessus).
+- `CLAUDE.md` : à jour, tenu synchronisé à chaque ajout de cette session.
 
-**Prochaine session** : partir de cette section + la section "Points
-nécessitant une décision utilisateur" ci-dessus plutôt que de relire
-l'historique chronologique complet, sauf besoin de détail sur un bug précis.
+**Prochaine session** : partir de cette section plutôt que de relire
+l'historique chronologique complet, sauf besoin de détail sur un bug
+précis. Point à surveiller dans ~2 semaines : le premier vrai signal de
+tendance sur les 3 cartes JP (`bon_moment_achat`/`prix_eleve`), une fois
+`MIN_POINTS_POUR_SIGNAL` (14) atteint.
