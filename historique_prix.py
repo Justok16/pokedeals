@@ -70,9 +70,16 @@ def _cle_historique(carte: CarteTendance) -> str:
 
 def _pokemonpricetracker_prix(carte: CarteTendance, cle_api: str) -> dict | None:
     """Interroge PokemonPriceTracker pour le prix marche actuel d'une carte
-    japonaise, best-effort (API tierce, jamais testee en conditions reelles
-    avant que Justok fournisse sa cle -- champs de reponse a confirmer/
-    ajuster au premier vrai retour, cf. commentaire plus bas).
+    japonaise, best-effort.
+
+    V2 (12/08/2026, apres le tout premier run reel) : "name"/"number" ne
+    sont PAS des parametres acceptes par l'API (HTTP 400, confirme en
+    prod) -- les seuls parametres documentes sont search/set/setId/
+    tcgPlayerId/etc. On combine donc nom + numero dans "search" (recherche
+    texte libre), avec "set" pour restreindre. La structure exacte de la
+    reponse JSON n'est TOUJOURS PAS confirmee (pas encore eu de 200 avec
+    resultat) -- le parsing ci-dessous reste best-effort, avec le JSON brut
+    logué en cas d'echec pour ajuster au prochain run.
 
     Retourne None si la carte n'est pas trouvee, si l'API echoue, ou si la
     cle n'est pas configuree -- jamais bloquant pour le reste du script."""
@@ -84,30 +91,27 @@ def _pokemonpricetracker_prix(carte: CarteTendance, cle_api: str) -> dict | None
             headers={**HEADERS, "Authorization": f"Bearer {cle_api}"},
             params={
                 "language": "japanese" if carte.langue in ("jp", "kr") else "chinese",
-                "name": carte.nom_anglais,
+                "search": f"{carte.nom_anglais} {carte.numero}",
                 "set": carte.set_jp,
-                "number": carte.numero,
+                "includeEbay": "true",
                 "limit": 1,
             },
             timeout=TIMEOUT,
         )
         if r.status_code != 200:
-            print(f"[pokemonpricetracker] {carte.nom_affichage} : HTTP {r.status_code} — {r.text[:200]}", file=sys.stderr)
+            print(f"[pokemonpricetracker] {carte.nom_affichage} : HTTP {r.status_code} — {r.text[:300]}", file=sys.stderr)
             return None
         data = r.json()
-        # NOTE : structure de reponse a CONFIRMER avec une cle API reelle --
-        # basee sur la documentation publique au 12/08/2026, pas testee en
-        # conditions reelles. A ajuster au premier run si les noms de champs
-        # different (cf. print du JSON brut ci-dessous en cas d'echec de parsing).
-        resultats = data.get("data") or data.get("cards") or ([data] if data.get("name") else [])
+        resultats = data.get("data") or data.get("cards") or data.get("results") or ([data] if data.get("name") else [])
         if not resultats:
+            print(f"[pokemonpricetracker] {carte.nom_affichage} : aucun resultat — reponse brute : {str(data)[:400]}", file=sys.stderr)
             return None
         carte_trouvee = resultats[0]
-        prix = (carte_trouvee.get("prices") or {}).get("market")
+        prix = (carte_trouvee.get("prices") or {}).get("market") or carte_trouvee.get("marketPrice") or carte_trouvee.get("price")
         ventes_psa10 = ((carte_trouvee.get("ebay") or {}).get("psa10") or {}).get("avg")
         if prix is None:
-            print(f"[pokemonpricetracker] {carte.nom_affichage} : reponse recue mais champ prix introuvable "
-                  f"— reponse brute : {str(data)[:300]}", file=sys.stderr)
+            print(f"[pokemonpricetracker] {carte.nom_affichage} : resultat trouve mais champ prix introuvable "
+                  f"— resultat brut : {str(carte_trouvee)[:400]}", file=sys.stderr)
             return None
         return {"prix_marche": float(prix), "prix_gradee_psa10": float(ventes_psa10) if ventes_psa10 else None}
     except (requests.exceptions.RequestException, ValueError, KeyError, TypeError) as e:
