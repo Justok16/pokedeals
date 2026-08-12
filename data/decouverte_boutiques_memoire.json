@@ -1,0 +1,12 @@
+{
+  "domaines_verifies": {
+    "pokemongolaval.fr": {
+      "derniere_verification": "2026-08-12T01:59:13+00:00",
+      "verdict": "non_boutique"
+    },
+    "pokemont.fr": {
+      "derniere_verification": "2026-08-12T01:59:16+00:00",
+      "verdict": "non_boutique"
+    }
+  }
+}
