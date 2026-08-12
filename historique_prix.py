@@ -44,6 +44,13 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 FICHIER_HISTORIQUE = Path(__file__).parent / "data" / "historique_prix_tendance.json"
 FICHIER_COTES = Path(__file__).parent / "data" / "cotes.json"
 
+# Sources de taux de change GRATUITES et SANS CLE, verifiees en direct le
+# 13/08/2026 -- frankfurter.dev (Banque Centrale Europeenne) en priorite,
+# open.er-api.com en repli si la 1ere echoue. Conversion appliquee
+# UNIQUEMENT a L'AFFICHAGE (Telegram) -- jamais aux donnees stockees ni au
+# calcul de tendance, qui reste en devise d'origine (un ecart en % entre
+# 2 valeurs USD est mathematiquement valide sans conversion prealable).
+
 POKEMONPRICETRACKER_BASE_URL = "https://www.pokemonpricetracker.com/api/v2"
 
 # Large mais pas illimite -- ~3 ans de points quotidiens, garde-fou contre
@@ -206,6 +213,45 @@ def _devise_reference(point: dict) -> str:
     return "EUR"
 
 
+_cache_taux_change: dict[str, float | None] = {}
+
+
+def taux_change_vers_eur(devise: str) -> float | None:
+    """Taux de change actuel devise -> EUR (combien vaut 1 unite de `devise`
+    en euros), source gratuite sans cle. Mis en cache pour la duree du
+    script (un seul appel reseau par execution, meme si plusieurs cartes
+    sont dans une devise etrangere). Retourne None si aucune des 2 sources
+    ne repond -- jamais bloquant, l'appelant doit gerer ce cas (affichage
+    du montant en devise d'origine uniquement)."""
+    if devise == "EUR":
+        return 1.0
+    if devise in _cache_taux_change:
+        return _cache_taux_change[devise]
+
+    taux = None
+    try:
+        r = requests.get(
+            "https://api.frankfurter.dev/v1/latest",
+            params={"from": devise, "to": "EUR"},
+            timeout=TIMEOUT,
+        )
+        if r.status_code == 200:
+            taux = float(r.json()["rates"]["EUR"])
+    except (requests.exceptions.RequestException, ValueError, KeyError, TypeError) as e:
+        print(f"[taux_change] frankfurter.dev echec pour {devise} : {e}", file=sys.stderr)
+
+    if taux is None:
+        try:
+            r = requests.get(f"https://open.er-api.com/v6/latest/{devise}", timeout=TIMEOUT)
+            if r.status_code == 200:
+                taux = float(r.json()["rates"]["EUR"])
+        except (requests.exceptions.RequestException, ValueError, KeyError, TypeError) as e:
+            print(f"[taux_change] open.er-api.com echec pour {devise} : {e}", file=sys.stderr)
+
+    _cache_taux_change[devise] = taux
+    return taux
+
+
 def analyser_tendance(points: list[dict]) -> dict | None:
     """Calcule un signal simple : prix le plus recent vs moyenne des
     `FENETRE_MOYENNE_JOURS` derniers jours DISPONIBLES (pas forcement
@@ -266,12 +312,27 @@ def _texte_telegram_tendance(carte: CarteTendance, tendance: dict) -> str:
         f"📈 <b>Tendance prix — {carte.nom_affichage}</b>",
         _LIBELLES_SIGNAL.get(tendance["signal"], tendance["signal"]),
         "",
-        f"Prix actuel ({tendance['date_actuelle']}) : <b>{tendance['prix_actuel']:.2f} {devise}</b>",
-        f"Moyenne des {tendance['nb_points_fenetre']} derniers points : {tendance['moyenne_recente']:.2f} {devise}",
-        f"Écart : <b>{tendance['ecart_pct']:+.1f}%</b>",
     ]
-    if devise != "EUR":
-        lignes.append("\n⚠️ Prix en devise étrangère (source PokemonPriceTracker) — pas encore converti en euros.")
+
+    # Conversion EUR uniquement pour l'AFFICHAGE -- le signal/ecart_pct ci-dessus
+    # a deja ete calcule en devise d'origine (correct : un ecart en % ne depend
+    # pas de la devise). Best-effort : si le taux echoue, on affiche quand meme
+    # le montant en devise d'origine plutot que de bloquer toute l'alerte.
+    taux = taux_change_vers_eur(devise) if devise != "EUR" else 1.0
+    if taux is not None:
+        prix_eur = tendance["prix_actuel"] * taux
+        moyenne_eur = tendance["moyenne_recente"] * taux
+        if devise == "EUR":
+            lignes.append(f"Prix actuel ({tendance['date_actuelle']}) : <b>{prix_eur:.2f}€</b>")
+            lignes.append(f"Moyenne des {tendance['nb_points_fenetre']} derniers points : {moyenne_eur:.2f}€")
+        else:
+            lignes.append(f"Prix actuel ({tendance['date_actuelle']}) : <b>≈{prix_eur:.2f}€</b> ({tendance['prix_actuel']:.2f} {devise})")
+            lignes.append(f"Moyenne des {tendance['nb_points_fenetre']} derniers points : ≈{moyenne_eur:.2f}€ ({tendance['moyenne_recente']:.2f} {devise})")
+    else:
+        lignes.append(f"Prix actuel ({tendance['date_actuelle']}) : <b>{tendance['prix_actuel']:.2f} {devise}</b> (conversion € indisponible aujourd'hui)")
+        lignes.append(f"Moyenne des {tendance['nb_points_fenetre']} derniers points : {tendance['moyenne_recente']:.2f} {devise}")
+
+    lignes.append(f"Écart : <b>{tendance['ecart_pct']:+.1f}%</b>")
     return "\n".join(lignes)
 
 

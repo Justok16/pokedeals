@@ -1,7 +1,12 @@
 """Tests de la logique de tendance de prix (historique_prix.py) -- purement
 locaux, aucun appel reseau (PokemonPriceTracker n'est jamais interroge ici)."""
 
-from historique_prix import MIN_POINTS_POUR_SIGNAL, analyser_tendance
+from unittest.mock import patch
+
+import requests
+
+from historique_prix import MIN_POINTS_POUR_SIGNAL, analyser_tendance, taux_change_vers_eur, _texte_telegram_tendance
+from watchlist_tendance import CARTES_TENDANCE
 
 
 def _points(prix: list[float], debut_jour: int = 1) -> list[dict]:
@@ -52,3 +57,31 @@ def test_points_sans_aucun_prix_sont_ignores():
     resultat = analyser_tendance(points)
     assert resultat["signal"] == "pas_assez_de_donnees"
     assert resultat["nb_points"] == 0
+
+
+def test_taux_change_eur_vers_eur_est_toujours_1_sans_reseau():
+    # Pas de mock necessaire : le passthrough EUR->EUR ne doit jamais appeler le reseau.
+    assert taux_change_vers_eur("EUR") == 1.0
+
+
+def test_taux_change_retourne_none_si_les_2_sources_echouent():
+    with patch("historique_prix.requests.get", side_effect=requests.exceptions.ConnectionError("coupe")):
+        assert taux_change_vers_eur("CHF") is None
+
+
+def test_texte_telegram_affiche_conversion_euro_quand_taux_disponible():
+    tendance = {"signal": "stable", "prix_actuel": 10.0, "devise": "USD", "date_actuelle": "2026-08-13",
+                "moyenne_recente": 10.0, "ecart_pct": 0.0, "nb_points_fenetre": 14, "nb_points_total": 14}
+    with patch("historique_prix.taux_change_vers_eur", return_value=0.9):
+        texte = _texte_telegram_tendance(CARTES_TENDANCE[0], tendance)
+    assert "9.00€" in texte
+    assert "10.00 USD" in texte
+
+
+def test_texte_telegram_ne_plante_pas_si_taux_indisponible():
+    tendance = {"signal": "stable", "prix_actuel": 10.0, "devise": "USD", "date_actuelle": "2026-08-13",
+                "moyenne_recente": 10.0, "ecart_pct": 0.0, "nb_points_fenetre": 14, "nb_points_total": 14}
+    with patch("historique_prix.taux_change_vers_eur", return_value=None):
+        texte = _texte_telegram_tendance(CARTES_TENDANCE[0], tendance)
+    assert "conversion € indisponible" in texte
+    assert "10.00 USD" in texte
