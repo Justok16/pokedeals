@@ -53,12 +53,21 @@ Système **indépendant** des scans cartes ci-dessus (nouveaux fichiers, aucune 
 - `radar_precommandes.py` — scanners par plateforme, réutilisent les connecteurs existants sans les modifier. Le préfiltre de slug (`_slug_est_candidat`) exige les deux groupes de mots-clés (édition ET type) avant de charger une page complète — voir pièges ci-dessous pour l'historique de ce choix.
 - `scan_precommandes.py` — orchestrateur CLI (`python scan_precommandes.py {shopify|prestashop|woocommerce} [boutiques...]`), branché comme étape supplémentaire dans les 3 workflows de scan boutiques (pas de workflow séparé). S'arrête de lui-même une fois tous les produits surveillés passés leur date de sortie.
 
+### Radar de découverte automatique de boutiques
+
+Système **indépendant** ajouté le 12/08/2026, ne modifie jamais les listes annotées à la main :
+- `decouverte_boutiques.py` — télécharge les 7 derniers jours de listes AFNIC (nouveaux domaines `.fr` créés, gratuit, sans clé, cf. `https://www.afnic.fr/wp-media/ftp/domaineTLD_Afnic/YYYYMMDD_CREA_fr.txt`), filtre par mots-clés sur le nom de domaine, puis vérifie techniquement chaque candidat (Shopify `/products.json` ou WooCommerce `product-sitemap.xml`) avec les mêmes critères objectifs que la vérification manuelle (motif de numéro de collection NNN/MMM + mention Pokémon explicite). N'ajoute automatiquement que si le signal est net (`SEUIL_*`) ; sinon rapporte sans ajouter. Une boutique au catalogue encore vide n'est **pas** mémorisée définitivement (reste re-vérifiée chaque semaine), seule une absence totale de boutique l'est.
+- `boutiques_decouvertes.py` — fichier **auto-généré**, réécrit en entier à chaque cycle (`BOUTIQUES_SHOPIFY_AUTO`, `BOUTIQUES_SHOPIFY_AUTO_PRECOMMANDE_SEULEMENT`, `BOUTIQUES_WOOCOMMERCE_AUTO`, `BOUTIQUES_WOOCOMMERCE_AUTO_PRECOMMANDE_SEULEMENT`) — ne jamais éditer à la main, une boutique trouvée manuellement va dans `boutiques_shopify.py`/`boutiques_woocommerce.py` à la place.
+- Câblé dans `scan_boutique.py`, `scan_boutique_woocommerce.py` et `scan_precommandes.py` (les listes `*_AUTO*` s'ajoutent aux listes curées à la main) — voir pièges ci-dessous pour la limite connue de cette approche.
+
+**Fichiers `*_PRECOMMANDE_SEULEMENT`** (dans `boutiques_shopify.py`/`boutiques_woocommerce.py`, et leurs équivalents `*_AUTO_*`) : boutiques actives mais 100% scellé (0 carte à l'unité) — volontairement exclues des listes actives de scan cartes pour ne pas les polluer de candidats voués à 0 résultat, mais incluses dans le radar précommandes. Toute boutique qui vend À LA FOIS des cartes à l'unité ET du scellé n'a besoin que d'être dans la liste principale : `scan_precommandes.py` inclut déjà l'intégralité des listes de cartes dans son propre périmètre (cf. `_boutiques_et_replis`).
+
 ### Modules transverses
 
 - `telegram_utils.py` — `echapper_html`/`echapper_url_html`, partagés par les 3 modules d'alerte boutiques TCG.
-- `memoire_json.py` — `charger_memoire`/`sauvegarder_memoire` génériques pour un fichier JSON, partagés par `alerte_stock.py` et `alerte_precommande.py`.
+- `memoire_json.py` — `charger_memoire`/`sauvegarder_memoire` génériques pour un fichier JSON, partagés par `alerte_stock.py`, `alerte_precommande.py` et `decouverte_boutiques.py`.
 
-## CI/déploiement — 4 workflows GitHub Actions
+## CI/déploiement — 5 workflows GitHub Actions
 
 Tournent en parallèle sur le même repo, chacun avec son propre groupe de concurrence (`concurrency.group`) pour ne jamais se bloquer mutuellement, et une étape de sauvegarde mémoire avec dance stash/pull-rebase/push pour éviter les collisions Git entre crons qui se chevauchent.
 
@@ -68,6 +77,7 @@ Tournent en parallèle sur le même repo, chacun avec son propre groupe de concu
 | `scan_shopify.yml` | 30 min | 25 min | scan cartes Shopify + radar précommandes Shopify |
 | `scan_prestashop.yml` | 30 min | 30 min | scan cartes PrestaShop + radar précommandes PrestaShop |
 | `scan_woocommerce.yml` | 30 min | 22 min (lot A) + 18 min (lot B) + 25 min (précommandes) | 3 jobs séquentiels (`needs:`) : scan cartes lot A, lot B, puis radar précommandes (lot A + lot B) |
+| `decouverte_boutiques.yml` | hebdomadaire (lundi 06h UTC) | 20 min | radar de découverte automatique de nouvelles boutiques (AFNIC) |
 
 `scan_woocommerce.yml` est le seul à jobs multiples (nécessaire car son plus gros catalogue à lui seul dépasse le budget d'un run simple) ; les jobs sont **séquentiels**, jamais en parallèle entre eux au sein d'un même run, pour éviter une course d'écriture sur le même fichier mémoire.
 
@@ -78,6 +88,7 @@ Avant de changer un timeout ou une composition de lot, vérifier `SESSION_NOTES.
 Deux familles de schéma, une par fonctionnalité, jamais mélangées :
 - **Stock/bonnes affaires** (`seen.json`, `cotes.json`, `anciennete_annonces.json` pour `main.py` ; `stock_boutiques_tcg.json`/`stock_boutiques_tcg_prestashop.json`/`stock_boutiques_tcg_woocommerce.json` — un fichier **par plateforme**, séparés justement pour éviter les collisions entre workflows parallèles).
 - **Précommandes** (`precommandes_anniversaire_{shopify,prestashop,woocommerce}.json` — un fichier par plateforme, clé `{domaine}|{nom_produit}`, valeurs `{confiance, raison, titre_produit, url_produit, derniere_verification}`).
+- **Découverte** (`decouverte_boutiques_memoire.json` — clé `{domaine}`, valeurs `{derniere_verification, verdict}` ; contient uniquement les domaines définitivement écartés ou déjà ajoutés, jamais les candidats "insuffisants" qui restent re-vérifiés chaque semaine).
 
 ## Commandes
 
@@ -114,6 +125,8 @@ Secrets requis en variables d'env (secrets GitHub Actions en prod) : `EBAY_CLIEN
 - **Fractions numéro/dénominateur** (`NNN/MMM`) dans un slug ou un titre : ne jamais chercher un numéro nu sans d'abord neutraliser le **dénominateur** d'une fraction sans rapport (`_retirer_fractions` retire uniquement le dénominateur, pas la fraction entière — retirer la fraction entière casse les vrais numéros qui n'ont jamais de dénominateur affiché ailleurs).
 - **Microdata/JSON-LD de disponibilité en cache, désynchronisé du DOM réel** : rencontré deux fois indépendamment (WooCommerce sur une variation produit, PrestaShop sur `investcollect.com`) — le microdata/JSON-LD peut annoncer `InStock` alors que la page affiche littéralement une mention de rupture. Un nouveau connecteur de plateforme doit prévoir une vérification DOM en override qui ne peut que dégrader `en_stock` de `True` vers `False`, jamais l'inverse.
 - **Préfiltre de découverte de candidats trop laxiste** : le radar de précommandes a explosé en timeout parce que son préfiltre de slug ne vérifiait qu'un seul groupe de mots-clés (type) au lieu des deux (édition + type) — tout connecteur qui parcourt un sitemap complet doit filtrer sur les DEUX groupes avant de charger une page, et exclure les extensions média (le sitemap combine souvent sitemap produits + sitemap images).
+- **Nom de domaine trompeur ou évocateur mais non pertinent** : un nom qui semble Pokémon (ex. un domaine contenant "poke") peut être une tout autre franchise (une boutique trouvée le 12/08/2026 vendait exclusivement du Disney Lorcana malgré un nom à consonance Pokémon). Le radar de découverte (`decouverte_boutiques.py`) ne se fie donc JAMAIS au nom de domaine pour la décision finale — uniquement pour générer des candidats à vérifier ; la décision d'ajout se fait sur le contenu réel du catalogue (mention Pokémon explicite + numéro de collection). Ne pas simplifier cette étape même si ça semble redondant.
+- **Boutique fraîchement enregistrée avec un catalogue encore vide** : ne pas mémoriser un verdict "pas assez de signal" comme définitif, sous peine de ne plus jamais revérifier une boutique légitime qui n'a simplement pas encore eu le temps de s'approvisionner (cas réel : `nemee-tcg.fr`, 1 seul produit au premier passage). Seule l'absence totale de site (aucune plateforme détectée) justifie une mémorisation permanente.
 
 ## Journal détaillé
 

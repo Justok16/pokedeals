@@ -1023,11 +1023,164 @@ complète AVANT (80/80 boutiques, 6 deals, 3 rejets légitimes) et APRÈS
   plutôt une vraie rédaction de documentation) — à décider si/quand la
   faire, potentiellement dans une session dédiée.
 
-## État du programme au 2026-08-11 (référence pour la prochaine session)
+## Session du 2026-08-12 : CLAUDE.md réécrit, revue croisée, 12 boutiques ajoutées, radar de découverte AFNIC
 
-**83 boutiques actives** au total : 39 Shopify + 17 PrestaShop (15
-sitemap + `investcollect.com`/`lepantheon-tcg.com` en repli HTML) + 27
-WooCommerce (26 sitemap + `mymesis.fr` en repli API REST).
+### CLAUDE.md réécrit pour refléter le projet actuel
+
+Décision en attente depuis la session précédente (cf. section "Points
+nécessitant une décision utilisateur" ci-dessus) : réécriture complète
+demandée par Justok et faite. Nouveau contenu basé sur le code réel et
+`SESSION_NOTES.md` comme sources de vérité (pas de mémoire de conversation) :
+vue d'ensemble des 3 fonctions actives, architecture réelle (connecteurs,
+alertes, radar précommandes), 5 workflows, fichiers de mémoire, 5+ pièges
+connus. Validé par Justok avant commit.
+
+### Revue croisée DeepSeek/ChatGPT sur le repo public
+
+Justok a demandé un avis à deux IA concurrentes (repo `alertes-btc` ET
+`pokedeals` volontairement publics pour ça, cf. décision déjà actée).
+Chaque retour vérifié point par point contre le code réel avant d'agir
+(aucune IA n'avait accès au code, plusieurs suggestions étaient déjà
+résolues ou fausses) :
+- **Confirmé et corrigé** : écriture atomique des `data/*.json` (fichier
+  `.tmp` + `os.replace`, dans `main.py` et `memoire_json.py`) — évite un
+  fichier tronqué si le process est tué en plein écriture (timeout GH
+  Actions). Seul point réel non traité, identifié indépendamment par les
+  deux IA.
+- **Ajouté** : suite de tests unitaires (`tests/`, pytest, 22 cas) sur les
+  fonctions de matching les plus fragiles, un cas par bug réel déjà
+  corrigé. Nouveau workflow `tests.yml` (push/PR, séparé des scans).
+  `.gitignore` ajouté (absent jusque-là).
+- **Écarté à raison** (vérifié faux ou déjà résolu) : "duplication entre
+  connecteurs" (déjà factorisée), "URLs codées en dur" (déjà centralisées
+  dans `boutiques_*.py`), "timeouts/sessions HTTP manquants" (déjà en
+  place), "`cancel-in-progress: true` sur les workflows de scan" (aurait
+  cassé le système, ils tournent volontairement en parallèle).
+
+### Bot BTC (`alertes-btc`) : bug de robustesse corrigé
+
+Sur demande de relecture complète : `send_telegram()` pouvait lever une
+exception (échec Telegram) AVANT que `state.json` soit sauvegardé —
+risque de re-tentative de la même alerte en boucle avec un signal
+périmé. Fix : `try/except` autour de l'envoi, `save_state()` s'exécute
+toujours, le job échoue quand même visiblement (`sys.exit(1)`) si l'envoi
+a raté. Testé (état sauvegardé même avec un token Telegram invalide
+simulé). Confirmé : token Telegram partagé entre `alertes-btc` et
+`pokedeals` est un choix voulu de Justok, pas une erreur (cf. mémoire
+`project_shared_telegram_bot.md`).
+
+### 12 nouvelles boutiques ajoutées, vérifiées une à une
+
+Justok a fourni des captures d'écran + des liens directs pour des
+boutiques candidates. Chacune vérifiée techniquement (Shopify/WooCommerce
+confirmé + ratio réel de cartes à l'unité avec numéro de collection, pas
+juste présence du mot "pokemon") avant intégration — plusieurs faux
+positifs trouvés en cours de route :
+- **Ajoutées à `BOUTIQUES_SHOPIFY`** (singles) : `playshop.fr` (214/214
+  singles tagués "pokemon-tcg"), `kairyu.fr` (74 singles Pokémon sur 190,
+  2 vrais deals détectés dès le 1er scan), `kwilytcg.com` (39 singles
+  FR/JP/CN), `upcfrance.shop` (singles + scellé), `wwcg.fr` (singles
+  confirmés, type "carte pokémon" explicite).
+- **Nouveau mécanisme `BOUTIQUES_*_PRECOMMANDE_SEULEMENT`** (Shopify ET
+  WooCommerce) : boutiques actives mais 100% scellé (0 carte à l'unité) —
+  inutiles pour le scan cartes mais utiles au radar précommandes,
+  volontairement PAS dans les listes actives pour ne pas polluer le scan
+  cartes de candidats voués à 0 résultat. `lepotoryko.fr`, `bgeek.be`
+  (Belge), `cardsarena.fr` (Shopify) + `pokemagique.fr`, `pokeshop.cards`
+  (WooCommerce). Câblé dans `scan_precommandes.py` (`_boutiques_et_replis`)
+  et une étape dédiée dans `scan_woocommerce.yml`.
+- **Rejetées avec raison documentée** (dans `boutiques_shopify.py`) :
+  `lorenzone.fr` (boutique Disney LORCANA malgré un nom à consonance
+  Pokémon — 243 "singles" trouvés, tous des cartes Lorcana), `europetcg.com`
+  (catalogue trop généraliste), `poketropik.fr`/`pokemon-laboutique.fr`
+  (certificat SSL invalide, même catégorie que `loot-factory.com`),
+  `ton-pokemon.fr` (c'est un blog, pas une boutique), `cartepokemon.shop`/
+  `redom.store` (domaine introuvable, DNS ne résout pas), `icekeeper.fr`
+  (ne vend aucune carte, juste des boîtiers de protection).
+- **Non intégrable en l'état** : `cmay-collections.com` — Shopify confirmé
+  mais vitrine "headless" (frontend Next.js personnalisé), n'expose pas
+  l'endpoint `/products.json` standard. Nécessiterait un connecteur
+  différent (API GraphQL Storefront) — hors périmètre d'un ajout simple,
+  documenté comme chantier à part si Justok le souhaite un jour.
+- **En attente** : `osakard.com` — Shopify confirmé mais protégé par mot
+  de passe (refonte en cours), retour annoncé par Justok pour septembre
+  2026, à retester à partir de cette date.
+
+Chaque ajout testé en conditions réelles avant commit (scan réel sur les
+nouveaux domaines, pas juste une vérification théorique) + suite de tests
+unitaires à chaque fois.
+
+### Radar de découverte automatique de boutiques (AFNIC)
+
+Demande initiale de Justok : un système qui scanne le web en continu pour
+trouver de nouvelles boutiques Shopify françaises (recherche moteur +
+WHOIS + "outils de scan"). Vérification de faisabilité AVANT de coder
+(même démarche que pour CoinGlass/CMC sur le projet BTC) :
+- **Recherche web continue gratuite : PORTE FERMÉE en 2026.** Google
+  Custom Search API fermée aux nouveaux comptes + dépréciée au
+  01/01/2027. Brave Search API a supprimé son tier gratuit pour les
+  nouveaux comptes en février 2026 (facturation à l'usage désormais).
+  Aucune alternative gratuite et pérenne trouvée pour une vraie recherche
+  web par mots-clés.
+- **AFNIC (registre officiel .fr) : la vraie bonne surprise.** Publie en
+  libre accès, sans clé ni inscription, une liste QUOTIDIENNE des
+  nouveaux domaines `.fr` enregistrés
+  (`https://www.afnic.fr/wp-media/ftp/domaineTLD_Afnic/YYYYMMDD_CREA_fr.txt`,
+  disponible 7 jours sur le serveur — donc un cron hebdomadaire suffit).
+  Format texte simple, un domaine par ligne, vérifié en conditions
+  réelles (fichier du 11/08/2026 téléchargé et parsé avec succès, 3042
+  domaines ce jour-là).
+- **Limite assumée et documentée** : ne couvre QUE les `.fr` fraîchement
+  créés avec un nom de domaine évocateur — n'aurait pas trouvé la moitié
+  des boutiques ajoutées cette même session (`kairyu.fr`, `upcfrance.shop`
+  en `.shop`, `kwilytcg.com` en `.com`...). La veille manuelle de Justok
+  reste complémentaire, pas remplacée.
+
+Construit (`decouverte_boutiques.py`, workflow hebdomadaire dédié
+`decouverte_boutiques.yml`, lundi 06h UTC) : télécharge 7 jours de
+listes AFNIC → filtre par mots-clés sur le nom de domaine → vérifie
+techniquement chaque candidat (Shopify `/products.json` ou WooCommerce
+`product-sitemap.xml`) avec les MÊMES critères objectifs que la
+vérification manuelle du jour (numéro NNN/MMM + mention Pokémon
+explicite) → ajout AUTOMATIQUE seulement si le signal est net (seuils
+stricts), sinon juste rapporté sans ajout → notification Telegram
+récapitulative à chaque cycle.
+
+Fichiers auto-gérés **séparés** des listes annotées à la main
+(`boutiques_decouvertes.py`, jamais `boutiques_shopify.py`/
+`boutiques_woocommerce.py`) pour ne jamais risquer d'écraser leurs
+commentaires/contexte accumulés au fil des sessions. Câblé dans
+`scan_boutique.py`, `scan_boutique_woocommerce.py`, `scan_precommandes.py`.
+
+**Bug de conception trouvé et corrigé PENDANT le test** (avant tout
+commit) : une boutique fraîchement enregistrée avec un catalogue encore
+vide (cas réel rencontré en testant : `nemee-tcg.fr`, 1 seul produit)
+était mémorisée comme "signal insuffisant" **définitivement** — ne
+serait donc plus jamais revérifiée alors que son catalogue pouvait se
+remplir dans les semaines suivantes. Fix : seule l'absence totale de
+site (aucune plateforme détectée du tout) est mémorisée en permanence ;
+un signal "insuffisant" reste re-vérifié à chaque cycle hebdomadaire.
+
+**Testé avant commit** : classification automatique validée sur les 4 cas
+déjà connus du travail manuel du jour (`playshop.fr` → singles,
+`lorenzone.fr` → rejeté À RAISON malgré le nom Pokémon trompeur,
+`bgeek.be` → scellé, domaine inexistant → non_boutique) — tous
+correspondent exactement au jugement manuel. Cycle complet exécuté sur
+les vraies données AFNIC du jour, round-trip d'écriture du fichier
+auto-généré vérifié, suite de tests unitaires (22/22 OK) à chaque étape.
+
+**Non testé en conditions réelles GitHub Actions** (le workflow n'a pas
+encore tourné en prod au moment de ce commit, cron hebdomadaire lundi
+06h UTC — pas de moyen de le déclencher manuellement sans être connecté à
+GitHub). À vérifier au prochain lundi ou via un déclenchement manuel
+(`workflow_dispatch`) par Justok si besoin de confirmer plus tôt.
+
+## État du programme au 2026-08-12 (référence pour la prochaine session)
+
+**95 boutiques actives** au total (hors radar de découverte, qui démarre
+à 0 et grossira automatiquement) : 44 Shopify (dont 3 en
+`BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT`) + 17 PrestaShop (inchangé) +
+28 WooCommerce (dont 2 en `BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT`).
 
 **Inventaire des fichiers** (racine du repo, par rôle) :
 
