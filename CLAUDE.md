@@ -62,6 +62,14 @@ Système **indépendant** ajouté le 12/08/2026, ne modifie jamais les listes an
 
 **Fichiers `*_PRECOMMANDE_SEULEMENT`** (dans `boutiques_shopify.py`/`boutiques_woocommerce.py`, et leurs équivalents `*_AUTO_*`) : boutiques actives mais 100% scellé (0 carte à l'unité) — volontairement exclues des listes actives de scan cartes pour ne pas les polluer de candidats voués à 0 résultat, mais incluses dans le radar précommandes. Toute boutique qui vend À LA FOIS des cartes à l'unité ET du scellé n'a besoin que d'être dans la liste principale : `scan_precommandes.py` inclut déjà l'intégralité des listes de cartes dans son propre périmètre (cf. `_boutiques_et_replis`).
 
+### Tendance de prix long terme (aide à la décision d'achat)
+
+Système **indépendant** ajouté le 12/08/2026, pour répondre à "est-ce le bon moment pour acheter CETTE carte précise ?" sur un petit nombre de cartes JP/KR/CN explicitement choisies (pas la watchlist complète) :
+- `watchlist_tendance.py` — `CARTES_TENDANCE`, liste explicite et réduite (ajout manuel délibéré, pas automatique).
+- `historique_prix.py` — accumulateur quotidien **indépendant** de `data/cotes.json` (qui est plafonné à 5 points/carte et purgé à chaque `PURGE_VERSION`, donc inutilisable pour du long terme). Combine deux sources : l'API tierce gratuite [PokemonPriceTracker](https://www.pokemonpricetracker.com) (couvre les cartes JP/KR, secret `POKEMONPRICETRACKER_API_KEY`, non testée en conditions réelles avant la première clé fournie — champs de réponse à confirmer au premier run) et, en repli, la dernière cote locale de `data/cotes.json` si elle existe. Signal de tendance (`analyser_tendance`) calculé seulement au-delà de `MIN_POINTS_POUR_SIGNAL` (14) points accumulés — jamais de conclusion prématurée sur un historique trop court, même logique que `alerte_stock.py`.
+- **Limite assumée et documentée** : aucun "nombre d'achats" (volume de ventes réelles) n'existe gratuitement pour la plupart des cartes — l'API eBay correspondante (Marketplace Insights) est fermée aux nouveaux comptes (déjà vérifié). PokemonPriceTracker ne fournit un historique de ventes eBay réelles que pour les copies **gradées** (PSA/CGC), jamais pour les cartes brutes. Le signal de tendance repose donc sur un **prix de marché**, pas un volume — à ne jamais présenter comme plus fiable que ça.
+- Workflow dédié `tendance_prix.yml`, cron quotidien (pas besoin de plus fréquent pour un signal à l'échelle de semaines/mois). Alerte Telegram uniquement au **changement** de signal (`bon_moment_achat` / `prix_eleve` / `stable`), jamais de répétition quotidienne du même signal.
+
 ### Modules transverses
 
 - `telegram_utils.py` — `echapper_html`/`echapper_url_html`, partagés par les 3 modules d'alerte boutiques TCG.

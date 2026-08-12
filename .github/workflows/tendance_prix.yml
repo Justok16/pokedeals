@@ -1,0 +1,53 @@
+name: Tendance Prix
+
+on:
+  schedule:
+    # Quotidien (08h30 UTC, apres la mise a jour du F&G/cotes du matin) --
+    # un point de prix par jour suffit largement pour un indicateur de
+    # tendance a l'echelle de semaines/mois, pas besoin de plus frequent.
+    - cron: "30 8 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write   # necessaire pour sauvegarder data/historique_prix_tendance.json
+concurrency:
+  group: tendance_prix   # groupe DEDIE, distinct des 5 autres workflows
+  cancel-in-progress: false
+jobs:
+  tendance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le suivi de tendance de prix
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          POKEMONPRICETRACKER_API_KEY: ${{ secrets.POKEMONPRICETRACKER_API_KEY }}
+        run: python historique_prix.py
+      - name: Sauvegarder l'historique de tendance
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          cp -f data/historique_prix_tendance.json /tmp/historique_prix_tendance.json 2>/dev/null || true
+          git stash -u || true
+          git pull --rebase || git rebase --abort || true
+          git stash pop || true
+          cp -f /tmp/historique_prix_tendance.json data/historique_prix_tendance.json 2>/dev/null || true
+          git add data/historique_prix_tendance.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj historique tendance prix [skip ci]"
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f data/historique_prix_tendance.json /tmp/historique_prix_tendance.json 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/historique_prix_tendance.json data/historique_prix_tendance.json 2>/dev/null || true
+            git add data/historique_prix_tendance.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj historique tendance prix [skip ci]"
+            git push
+          }
