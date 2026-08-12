@@ -68,52 +68,74 @@ def _cle_historique(carte: CarteTendance) -> str:
     return f"{carte.nom_config}|{carte.langue}"
 
 
+def _requete_pokemonpricetracker(carte: CarteTendance, cle_api: str, avec_set: bool) -> list | None:
+    """Un seul appel a /cards. `avec_set=False` : repli sans le parametre
+    "set" (recherche texte libre seule), utilise si la recherche avec set
+    ne renvoie rien -- cas reel constate le 12/08/2026 (Oricorio ex 111,
+    set "MEGA Dream ex" : total=1 cote API mais data=[] avec le set
+    precise, cause exacte non confirmee)."""
+    params = {
+        "language": "japanese" if carte.langue in ("jp", "kr") else "chinese",
+        "search": f"{carte.nom_anglais} {carte.numero}",
+        "includeEbay": "true",
+        "limit": 1,
+    }
+    if avec_set:
+        params["set"] = carte.set_jp
+    r = requests.get(
+        f"{POKEMONPRICETRACKER_BASE_URL}/cards",
+        headers={**HEADERS, "Authorization": f"Bearer {cle_api}"},
+        params=params,
+        timeout=TIMEOUT,
+    )
+    if r.status_code != 200:
+        print(f"[pokemonpricetracker] {carte.nom_affichage} (avec_set={avec_set}) : HTTP {r.status_code} — {r.text[:300]}", file=sys.stderr)
+        return None
+    data = r.json()
+    resultats = data.get("data") or data.get("cards") or data.get("results") or ([data] if data.get("name") else [])
+    if not resultats:
+        print(f"[pokemonpricetracker] {carte.nom_affichage} (avec_set={avec_set}) : aucun resultat — "
+              f"reponse brute : {str(data)[:400]}", file=sys.stderr)
+    return resultats
+
+
 def _pokemonpricetracker_prix(carte: CarteTendance, cle_api: str) -> dict | None:
     """Interroge PokemonPriceTracker pour le prix marche actuel d'une carte
-    japonaise, best-effort.
-
-    V2 (12/08/2026, apres le tout premier run reel) : "name"/"number" ne
-    sont PAS des parametres acceptes par l'API (HTTP 400, confirme en
-    prod) -- les seuls parametres documentes sont search/set/setId/
-    tcgPlayerId/etc. On combine donc nom + numero dans "search" (recherche
-    texte libre), avec "set" pour restreindre. La structure exacte de la
-    reponse JSON n'est TOUJOURS PAS confirmee (pas encore eu de 200 avec
-    resultat) -- le parsing ci-dessous reste best-effort, avec le JSON brut
-    logué en cas d'echec pour ajuster au prochain run.
+    japonaise, best-effort. Essaie d'abord avec "set" (plus precis), puis
+    sans si rien n'est trouve (cf. _requete_pokemonpricetracker).
 
     Retourne None si la carte n'est pas trouvee, si l'API echoue, ou si la
     cle n'est pas configuree -- jamais bloquant pour le reste du script."""
     if not cle_api:
         return None
     try:
-        r = requests.get(
-            f"{POKEMONPRICETRACKER_BASE_URL}/cards",
-            headers={**HEADERS, "Authorization": f"Bearer {cle_api}"},
-            params={
-                "language": "japanese" if carte.langue in ("jp", "kr") else "chinese",
-                "search": f"{carte.nom_anglais} {carte.numero}",
-                "set": carte.set_jp,
-                "includeEbay": "true",
-                "limit": 1,
-            },
-            timeout=TIMEOUT,
-        )
-        if r.status_code != 200:
-            print(f"[pokemonpricetracker] {carte.nom_affichage} : HTTP {r.status_code} — {r.text[:300]}", file=sys.stderr)
-            return None
-        data = r.json()
-        resultats = data.get("data") or data.get("cards") or data.get("results") or ([data] if data.get("name") else [])
+        resultats = _requete_pokemonpricetracker(carte, cle_api, avec_set=True)
         if not resultats:
-            print(f"[pokemonpricetracker] {carte.nom_affichage} : aucun resultat — reponse brute : {str(data)[:400]}", file=sys.stderr)
+            resultats = _requete_pokemonpricetracker(carte, cle_api, avec_set=False)
+        if not resultats:
             return None
+
         carte_trouvee = resultats[0]
+        # V3 : on logue TOUJOURS le resultat brut (succes inclus) tant que
+        # la structure exacte de reponse n'est pas totalement stabilisee --
+        # notamment pour confirmer la DEVISE (PokemonPriceTracker agrege
+        # TCGPlayer, tres probablement des prix en USD, jamais confirme
+        # avec certitude) et reperer d'autres champs utiles (volume de
+        # ventes sur carte brute, pas seulement gradee PSA10).
+        print(f"[pokemonpricetracker] {carte.nom_affichage} : resultat brut — {str(carte_trouvee)[:500]}")
+
         prix = (carte_trouvee.get("prices") or {}).get("market") or carte_trouvee.get("marketPrice") or carte_trouvee.get("price")
+        devise = (carte_trouvee.get("prices") or {}).get("currency") or carte_trouvee.get("currency")
         ventes_psa10 = ((carte_trouvee.get("ebay") or {}).get("psa10") or {}).get("avg")
         if prix is None:
             print(f"[pokemonpricetracker] {carte.nom_affichage} : resultat trouve mais champ prix introuvable "
                   f"— resultat brut : {str(carte_trouvee)[:400]}", file=sys.stderr)
             return None
-        return {"prix_marche": float(prix), "prix_gradee_psa10": float(ventes_psa10) if ventes_psa10 else None}
+        return {
+            "prix_marche": float(prix),
+            "devise": devise or "USD",  # USD par defaut si absent -- hypothese la plus probable (agregateur TCGPlayer), a confirmer
+            "prix_gradee_psa10": float(ventes_psa10) if ventes_psa10 else None,
+        }
     except (requests.exceptions.RequestException, ValueError, KeyError, TypeError) as e:
         print(f"[pokemonpricetracker] {carte.nom_affichage} : echec — {e}", file=sys.stderr)
         return None
@@ -158,8 +180,9 @@ def enregistrer_point_du_jour(carte: CarteTendance, historique: dict, cle_api_pp
     point = {
         "date": aujourdhui,
         "prix_pokemonpricetracker": donnees_ppt["prix_marche"] if donnees_ppt else None,
+        "devise_pokemonpricetracker": donnees_ppt.get("devise") if donnees_ppt else None,
         "prix_gradee_psa10": donnees_ppt.get("prix_gradee_psa10") if donnees_ppt else None,
-        "cote_pokedeals": cote_locale,
+        "cote_pokedeals": cote_locale,  # toujours en EUR (source PokeDeals/eBay)
     }
     points.append(point)
     if len(points) > LIMITE_POINTS_PAR_CARTE:
@@ -174,6 +197,15 @@ def _prix_reference(point: dict) -> float | None:
     return point.get("prix_pokemonpricetracker") or point.get("cote_pokedeals")
 
 
+def _devise_reference(point: dict) -> str:
+    """Devise correspondant au prix retourne par _prix_reference -- pour
+    ne jamais afficher un montant sans dire dans quelle monnaie il est
+    (PokemonPriceTracker = tres probablement USD, PokeDeals = toujours EUR)."""
+    if point.get("prix_pokemonpricetracker") is not None:
+        return point.get("devise_pokemonpricetracker") or "USD"
+    return "EUR"
+
+
 def analyser_tendance(points: list[dict]) -> dict | None:
     """Calcule un signal simple : prix le plus recent vs moyenne des
     `FENETRE_MOYENNE_JOURS` derniers jours DISPONIBLES (pas forcement
@@ -184,14 +216,14 @@ def analyser_tendance(points: list[dict]) -> dict | None:
     comparer a une moyenne calculee sur trop peu de points n'a pas de sens
     statistique (meme logique que alerte_stock.py : pas de conclusion sur
     une premiere donnee)."""
-    valeurs = [(_prix_reference(p), p["date"]) for p in points if _prix_reference(p) is not None]
+    valeurs = [(_prix_reference(p), p["date"], _devise_reference(p)) for p in points if _prix_reference(p) is not None]
     if len(valeurs) < MIN_POINTS_POUR_SIGNAL:
         return {"signal": "pas_assez_de_donnees", "nb_points": len(valeurs),
                 "points_manquants": MIN_POINTS_POUR_SIGNAL - len(valeurs)}
 
     fenetre = valeurs[-FENETRE_MOYENNE_JOURS:]
-    prix_actuel, date_actuelle = valeurs[-1]
-    moyenne_recente = statistics.mean(v for v, _ in fenetre)
+    prix_actuel, date_actuelle, devise_actuelle = valeurs[-1]
+    moyenne_recente = statistics.mean(v for v, _, _ in fenetre)
     ecart_pct = (prix_actuel - moyenne_recente) / moyenne_recente * 100
 
     if ecart_pct <= -SEUIL_SIGNAL_PCT:
@@ -204,6 +236,7 @@ def analyser_tendance(points: list[dict]) -> dict | None:
     return {
         "signal": signal,
         "prix_actuel": round(prix_actuel, 2),
+        "devise": devise_actuelle,
         "date_actuelle": date_actuelle,
         "moyenne_recente": round(moyenne_recente, 2),
         "ecart_pct": round(ecart_pct, 1),
@@ -228,14 +261,17 @@ _LIBELLES_SIGNAL = {
 
 
 def _texte_telegram_tendance(carte: CarteTendance, tendance: dict) -> str:
+    devise = tendance.get("devise", "EUR")
     lignes = [
         f"📈 <b>Tendance prix — {carte.nom_affichage}</b>",
         _LIBELLES_SIGNAL.get(tendance["signal"], tendance["signal"]),
         "",
-        f"Prix actuel ({tendance['date_actuelle']}) : <b>{tendance['prix_actuel']:.2f}€</b>",
-        f"Moyenne des {tendance['nb_points_fenetre']} derniers points : {tendance['moyenne_recente']:.2f}€",
+        f"Prix actuel ({tendance['date_actuelle']}) : <b>{tendance['prix_actuel']:.2f} {devise}</b>",
+        f"Moyenne des {tendance['nb_points_fenetre']} derniers points : {tendance['moyenne_recente']:.2f} {devise}",
         f"Écart : <b>{tendance['ecart_pct']:+.1f}%</b>",
     ]
+    if devise != "EUR":
+        lignes.append("\n⚠️ Prix en devise étrangère (source PokemonPriceTracker) — pas encore converti en euros.")
     return "\n".join(lignes)
 
 
