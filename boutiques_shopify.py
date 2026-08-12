@@ -55,6 +55,7 @@ BOUTIQUES_SHOPIFY = [
     "kairyu.fr",         # boutique multi-JCC, 74 cartes Pokemon a l'unite confirmees sur 190 singles
     "kwilytcg.com",       # 39 cartes Pokemon a l'unite confirmees (FR/JP/CN), + grade
     "upcfrance.shop",     # singles + scelle (Coffrets 30e Anniversaire deja en catalogue)
+    "wwcg.fr",            # AJOUTEE le 12/08/2026 -- cartes Pokemon a l'unite confirmees (type "carte pokemon" explicite)
 ]
 
 # AJOUTEES le 12/08/2026 : boutiques verifiees Shopify, actives, mais dont
@@ -69,6 +70,7 @@ BOUTIQUES_SHOPIFY = [
 BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT = [
     "lepotoryko.fr",   # multi-JCC (Pokemon/YuGiOh/Lorcana/One Piece), catalogue Pokemon = 100% scelle
     "bgeek.be",        # BELGE (.be, pas .fr) -- multi-JCC, catalogue Pokemon = 100% scelle
+    "cardsarena.fr",   # AJOUTEE le 12/08/2026 -- multi-jeux (TCG/figurines/jeux societe), 48 produits Pokemon, 100% scelle
 ]
 
 # Detectees Shopify en priorite 2 (plateforme identifiee mais API non confirmee
@@ -118,18 +120,24 @@ BOUTIQUES_SHOPIFY_A_CONFIRMER = [
 #     + boosters/coffrets/accessoires, 0 carte a l'unite sur 51 produits)
 #     -- cf. boutiques_woocommerce.BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT.
 
-# Candidats NON RESOLUS (nom de boutique sans URL fiable trouvee, ou
-# plusieurs URLs candidates trouvees sans certitude sur la bonne) -- besoin
-# du lien exact de Justok avant de pouvoir verifier :
-#   "Wonderful World Cards and Games" -- aucun site trouve sous ce nom.
-#   "Card Arena Shop" -- seul resultat trouve est un magasin AMERICAIN
-#     (cardarenausa.com, Californie), ne correspond probablement pas.
-#   "PokeVault" -- plusieurs sites possibles (pokevault.com US/JP,
-#     pokevaults.fr, pokevaultcards.com, pokeshop.cards), aucun moyen de
-#     determiner lequel sans le lien exact.
-#   "CMay Collections" -- cmay-collections.com trouve, mais plateforme non
-#     identifiee avec certitude (pas de /products.json standard, page
-#     d'accueil en redirection JS) -- verification manuelle necessaire.
-#   "Osakard" -- osakard.com trouve et confirme Shopify, mais actuellement
-#     protege par un mot de passe (boutique fermee ou pas encore lancee
-#     publiquement) -- a retester si elle ouvre.
+# Suite du 12/08/2026 : liens exacts fournis par Justok pour les candidats
+# ci-dessus initialement non resolus.
+#   "Wonderful World Cards and Games" = wwcg.fr -> AJOUTEE a BOUTIQUES_SHOPIFY
+#     (voir plus haut), cartes Pokemon a l'unite confirmees.
+#   "Card Arena Shop" = cardsarena.fr (PAS cardarenausa.com, boutique
+#     francaise distincte) -> AJOUTEE a BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT
+#     (voir plus haut), 100% scelle.
+#   "PokeVault" = pokeshop.cards -> VRAI WooCommerce (pas Shopify), 100%
+#     scelle -- cf. boutiques_woocommerce.BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT.
+#   "CMay Collections" = cmay-collections.com -> plateforme confirmee
+#     Shopify, mais vitrine "headless" (frontend Next.js personnalise,
+#     pas le theme Shopify standard) : n'expose PAS l'endpoint public
+#     /products.json que connecteur_shopify.py sait lire (verifie :
+#     404 sur products.json, page renvoie du HTML genere par Next.js/
+#     "__next_error__", pas du Liquid Shopify classique). Integration
+#     necessiterait un connecteur different (API GraphQL Storefront avec
+#     token public) -- NON FAIT, hors perimetre d'un ajout de liste simple.
+#     A envisager comme un vrai chantier a part si Justok le souhaite.
+#   "Osakard" = osakard.com -> Shopify confirme, mais boutique en pleine
+#     refonte (protegee par mot de passe), retour annonce par Justok pour
+#     septembre 2026 -- A RETESTER a partir de cette date, pas avant.

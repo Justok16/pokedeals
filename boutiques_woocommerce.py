@@ -115,4 +115,5 @@ BOUTIQUES_WOOCOMMERCE_REPLI_API_REST = [
 # cartes -- scannee via une etape dediee dans scan_woocommerce.yml.
 BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT = [
     "pokemagique.fr",
+    "pokeshop.cards",  # AJOUTEE le 12/08/2026 -- multi-JCC (Pokemon/One Piece), 24 produits, 100% scelle
 ]
