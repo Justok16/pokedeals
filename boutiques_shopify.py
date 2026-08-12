@@ -47,6 +47,28 @@ BOUTIQUES_SHOPIFY = [
     "japanresell.fr",
     "lectorshop.com",
     "cardotaku.com",
+    # AJOUTEES le 12/08/2026 -- issues des captures d'ecran fournies par
+    # Justok, verifiees une a une (Shopify confirme via /products.json +
+    # ratio reel de cartes a l'unite avec numero de collection, pas juste
+    # presence du mot "pokemon") avant integration :
+    "playshop.fr",      # 214/214 produits tagges "pokemon-tcg", excellent signal
+    "kairyu.fr",         # boutique multi-JCC, 74 cartes Pokemon a l'unite confirmees sur 190 singles
+    "kwilytcg.com",       # 39 cartes Pokemon a l'unite confirmees (FR/JP/CN), + grade
+    "upcfrance.shop",     # singles + scelle (Coffrets 30e Anniversaire deja en catalogue)
+]
+
+# AJOUTEES le 12/08/2026 : boutiques verifiees Shopify, actives, mais dont
+# le catalogue est 100% SCELLE (coffrets/boosters/ETB), 0 carte a l'unite
+# trouvee sur un echantillon de leur collection Pokemon dediee. Inutiles
+# pour bonne_affaire_shopify.py/alerte_stock.py (scan cartes), MAIS utiles
+# pour le radar de precommandes (precommandes_watchlist.py) qui cherche
+# justement des produits scellés precis. Volontairement PAS dans
+# BOUTIQUES_SHOPIFY ci-dessus pour ne pas polluer le scan cartes de
+# candidats voues a 0 resultat a chaque cycle -- cf. scan_precommandes.py
+# (_boutiques_et_replis) qui les ajoute specifiquement au radar precommandes.
+BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT = [
+    "lepotoryko.fr",   # multi-JCC (Pokemon/YuGiOh/Lorcana/One Piece), catalogue Pokemon = 100% scelle
+    "bgeek.be",        # BELGE (.be, pas .fr) -- multi-JCC, catalogue Pokemon = 100% scelle
 ]
 
 # Detectees Shopify en priorite 2 (plateforme identifiee mais API non confirmee
@@ -72,3 +94,42 @@ BOUTIQUES_SHOPIFY_A_CONFIRMER = [
 # nexthobby.fr : identifiee WooCommerce (pas Shopify) -- cf.
 # boutiques_woocommerce.py / BOUTIQUES_WOOCOMMERCE_SANS_SITEMAP pour le
 # diagnostic complet (rate-limit trop agressif, non integree).
+
+# Candidats issus des captures d'ecran de Justok (12/08/2026), verifies et
+# REJETES -- raison precise pour chacun, pour eviter de re-tester en vain :
+#   lorenzone.fr : VRAI Shopify, mais boutique Disney LORCANA, pas Pokemon
+#     (243 "singles" trouves, tous des cartes Lorcana -- faux positif du
+#     nom de domaine).
+#   europetcg.com : Shopify confirme, mais catalogue generaliste multi-JCC
+#     tres reduit (52 produits, principalement Naruto/Lorcana/One Piece),
+#     0 carte Pokemon avec numero de collection detectee.
+#   poketropik.fr, pokemon-laboutique.fr : certificat SSL/TLS invalide
+#     cote serveur (meme categorie que loot-factory.com ci-dessus, verifie
+#     via `requests` -- pas juste curl) -- pas de contournement raisonnable
+#     sans desactiver la verification TLS (hors de question).
+#   ton-pokemon.fr : ce n'est PAS une boutique, c'est un blog WordPress
+#     ("Le blog de ton-pokemon.fr"), aucun signal WooCommerce/e-commerce.
+#   cartepokemon.shop, redom.store : domaine introuvable, la resolution
+#     DNS echoue completement -- a reverifier avec Justok si coquille dans
+#     la capture d'ecran d'origine.
+#   icekeeper.fr : ne vend AUCUNE carte -- boutique specialisee dans les
+#     boitiers de protection acrylique pour displays/ETB uniquement.
+#   pokemagique.fr : VRAI WooCommerce (pas Shopify), 100% scelle (peluches
+#     + boosters/coffrets/accessoires, 0 carte a l'unite sur 51 produits)
+#     -- cf. boutiques_woocommerce.BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT.
+
+# Candidats NON RESOLUS (nom de boutique sans URL fiable trouvee, ou
+# plusieurs URLs candidates trouvees sans certitude sur la bonne) -- besoin
+# du lien exact de Justok avant de pouvoir verifier :
+#   "Wonderful World Cards and Games" -- aucun site trouve sous ce nom.
+#   "Card Arena Shop" -- seul resultat trouve est un magasin AMERICAIN
+#     (cardarenausa.com, Californie), ne correspond probablement pas.
+#   "PokeVault" -- plusieurs sites possibles (pokevault.com US/JP,
+#     pokevaults.fr, pokevaultcards.com, pokeshop.cards), aucun moyen de
+#     determiner lequel sans le lien exact.
+#   "CMay Collections" -- cmay-collections.com trouve, mais plateforme non
+#     identifiee avec certitude (pas de /products.json standard, page
+#     d'accueil en redirection JS) -- verification manuelle necessaire.
+#   "Osakard" -- osakard.com trouve et confirme Shopify, mais actuellement
+#     protege par un mot de passe (boutique fermee ou pas encore lancee
+#     publiquement) -- a retester si elle ouvre.

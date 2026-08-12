@@ -104,3 +104,15 @@ BOUTIQUES_WOOCOMMERCE_SITEMAP_INCORRECT = [
 BOUTIQUES_WOOCOMMERCE_REPLI_API_REST = [
     "mymesis.fr",
 ]
+
+# AJOUTEE le 12/08/2026 : boutique verifiee WooCommerce (product-sitemap.xml
+# valide, mis a jour la veille), active, mais catalogue 100% SCELLE
+# (peluches + boosters/coffrets/accessoires + quelques produits Naruto/One
+# Piece, 0 carte a l'unite sur les 51 produits du sitemap). Inutile pour
+# alerte_stock.py (scan cartes), mais utile pour le radar de precommandes
+# (precommandes_watchlist.py). Volontairement PAS dans
+# BOUTIQUES_WOOCOMMERCE_SITEMAP/LOT_A/LOT_B pour ne pas polluer le scan
+# cartes -- scannee via une etape dediee dans scan_woocommerce.yml.
+BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT = [
+    "pokemagique.fr",
+]

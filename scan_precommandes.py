@@ -64,8 +64,10 @@ def _boutiques_et_replis(plateforme: str) -> tuple[list[str], dict[str, str]]:
     la plateforme donnee -- mode_repli vaut "html", "api_rest", ou absent
     du dict pour les boutiques en sitemap standard."""
     if plateforme == "shopify":
-        from boutiques_shopify import BOUTIQUES_SHOPIFY
-        return list(BOUTIQUES_SHOPIFY), {}
+        from boutiques_shopify import BOUTIQUES_SHOPIFY, BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT
+        # BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT : boutiques 100% scelle,
+        # exclues du scan cartes mais pertinentes ici (cf. boutiques_shopify.py).
+        return list(BOUTIQUES_SHOPIFY) + list(BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT), {}
 
     if plateforme == "prestashop":
         from boutiques_prestashop import BOUTIQUES_PRESTASHOP_REPLI_HTML, BOUTIQUES_PRESTASHOP_SITEMAP
@@ -74,8 +76,13 @@ def _boutiques_et_replis(plateforme: str) -> tuple[list[str], dict[str, str]]:
         return boutiques, modes
 
     if plateforme == "woocommerce":
-        from boutiques_woocommerce import BOUTIQUES_WOOCOMMERCE_REPLI_API_REST, BOUTIQUES_WOOCOMMERCE_SITEMAP
-        boutiques = list(BOUTIQUES_WOOCOMMERCE_SITEMAP) + list(BOUTIQUES_WOOCOMMERCE_REPLI_API_REST)
+        from boutiques_woocommerce import (
+            BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT,
+            BOUTIQUES_WOOCOMMERCE_REPLI_API_REST,
+            BOUTIQUES_WOOCOMMERCE_SITEMAP,
+        )
+        boutiques = (list(BOUTIQUES_WOOCOMMERCE_SITEMAP) + list(BOUTIQUES_WOOCOMMERCE_REPLI_API_REST)
+                     + list(BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT))
         modes = {d: "api_rest" for d in BOUTIQUES_WOOCOMMERCE_REPLI_API_REST}
         return boutiques, modes
 
