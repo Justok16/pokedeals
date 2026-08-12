@@ -36,7 +36,12 @@ CARTES_TENDANCE = [
         langue="jp",
         nom_affichage="Plumeline ex (Oricorio ex)",
         nom_anglais="Oricorio ex",
-        set_jp="MEGA Dream ex",
+        # CORRIGE le 13/08/2026 : "MEGA Dream ex" etait une erreur (confusion
+        # avec le code "m2a" de Psyduck) -- confirme par la reponse reelle de
+        # PokemonPriceTracker le 12/08/2026 : setName="M2: Inferno X" (code
+        # de set "m2", pas "m2a"). C'est bien ce que Justok avait donne des
+        # le depart ("Inferno X - Oricorio ex").
+        set_jp="M2: Inferno X",
         numero="111",
     ),
     CarteTendance(
