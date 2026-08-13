@@ -1428,6 +1428,88 @@ revisiter dans quelques jours : combien des 16 cartes "blueprint
 introuvable" sont récupérées par les 2 corrections de mapping, et
 combien des 14 "marché trop fin" par `min_annonces_kr`.
 
+### Radar de prix bas quotidien (nouveau système) + corrections m2/m3/m4
+
+Justok a demandé un digest quotidien Telegram (11h Paris) pour 4 cartes
+suivies en priorité (Plumeline ex, Carapuce, Psykokwak, + Tiplouf ajoutée
+en cours de session), toutes langues (FR/JP/KR/CN) et sites confondus
+(eBay/Vinted/Cardtrader/83 boutiques TCG — Leboncoin/Cardmarket/TCGplayer
+explicitement exclus, cf. `CLAUDE.md`), avec alerte immédiate dès qu'un
+prix passe sous la cote.
+
+**Décision d'architecture** : les alertes "sous la cote" pour FR/JP/KR
+existaient déjà (ces cartes sont dans `config.yaml` depuis longtemps) —
+rien à construire. Pour le CN (langue absente jusqu'ici), ajouté comme
+entrées `config.yaml` normales avec cote **manuelle** (Cardmarket/
+Cardtrader ne cotent pas le chinois) : bénéficie automatiquement des
+systèmes existants sans dupliquer la logique. Le nouveau code
+(`watchlist_prix_bas.py` + `radar_prix_bas.py` + `prix_bas_quotidien.yml`)
+ne fait QUE le digest quotidien "prix le plus bas du jour, dispo
+confirmée", en réutilisant les connecteurs eBay/Vinted/boutiques
+existants sans les modifier (même esprit que `radar_precommandes.py`).
+
+**Régression en creusant les cotes CN** : en posant une cote manuelle pour
+Tiplouf, Justok a fourni des captures Cardmarket réelles montrant que la
+cote calculée (eBay) pour Tiplouf/Piplup était ~20x trop basse (FR 0,72€
+vs 11,82€ réel ; JP 0,45€ vs 5,70€ réel). Justok a explicitement demandé
+de ne PAS se contenter d'une cote manuelle et de creuser l'automatisation
+— **feedback enregistré en mémoire durable** (`feedback_dig_deeper_
+automate.md`) pour les sessions futures.
+
+**Cause racine FR (Tiplouf)** : `"Tiplouf 098"` n'avait pas de
+dénominateur — la vraie référence est `098/094` (confirmé TCGdex
+`me02-098`, tendance 12,04€ quasi identique à la capture 11,82€). Sans
+dénominateur, ni Cardtrader (`CT_SETS["094"]` déjà mappé vers Phantasmal
+Flames mais jamais consulté) ni le filtre anti-confusion eBay/boutiques
+ne pouvaient fonctionner. Corrigé (`config.yaml`), cote manuelle FR
+retirée.
+
+**Cause racine JP (Piplup, "m2")** : creusé plus loin, DEUX bugs trouvés
+dans `main.py` :
+1. `CT_SETS_JP["m2"]` avait été mappé (session précédente le jour même) à
+   tort vers `"phantasmal"` (= ME02 international) par similarité de
+   code — en réalité "m2" est le set **japonais exclusif** `M2 :
+   インフェルノX` ("Inferno X", confirmé via `TCGdex /ja/sets`), sans
+   aucun rapport avec ME02. Corrigé vers `"inferno"`. Même erreur
+   suspectée et corrigée pour m3 (`ムニキスゼロ`, aucune traduction
+   anglaise fiable trouvée — mot-clé `"zero"` posé à titre provisoire,
+   NON vérifié) et m4 (`ニンジャスピナー` = "Ninja Spinner", confiance
+   modérée). m5 (`アビスアイ` = Abyss Eye) était déjà correct, laissé
+   inchangé.
+2. `deduire_api_id()` ne complétait jamais un numéro JP à 3 chiffres
+   (`"m2-85"` au lieu de `"m2-085"`) — vérifié en direct : 404 sans le
+   padding, 200 avec. Bug latent sur tout numéro JP < 100, seul le cas
+   promo SWSH avait déjà ce padding.
+   Avec les 2 fix, le repli TCGdex retrouve Piplup JP à 6,14€ (confirmé
+   par la capture Cardmarket, 5,70€) — **vérifié EN DIRECT avant de
+   retirer la cote manuelle**, pas seulement déduit.
+
+**Vérification étendue aux 3 autres cartes "m2"** (sur consigne de
+Justok de creuser systématiquement, pas juste le cas qui a déclenché
+l'alerte) :
+- Oricorio ex JP (Plumeline ex) : TCGdex retrouve 51,41€ — très au-dessus
+  des ~25€ estimés initialement (source PokemonPriceTracker, moins
+  fiable). Justok a repéré en parallèle une vraie annonce CN à 28€ sur
+  Cardmarket, confirmant que 51,41€ est la bonne tendance (Cardmarket
+  affiche 52,90€/44,64€ de façon indépendante) et que 28€ est une vraie
+  bonne affaire (~45% sous tendance), pas le prix normal. Cote CN
+  Plumeline corrigée de 25€ à 50€.
+- Squirtle JP : TCGdex retrouve 0,80€ — un MAUVAIS match (carte commune,
+  pas l'alt-art recherchée). Pas corrigé activement, mais vérifié que le
+  garde-fou d'écart (×3) déjà en place aurait empêché cette valeur de
+  contaminer la cote réelle (23,54€ via Cardtrader) si jamais Cardtrader
+  échouait un jour pour cette carte précise — limite connue du repli
+  TCGdex pour ce set spécifique, à surveiller.
+- Psyduck CN (17€, posée en début de session) : confirmée indépendamment
+  par TCGdex (16,79€), aucun changement nécessaire.
+
+**Tests** : 36/36 OK après chaque modification. `radar_prix_bas.py`
+vérifié en simulant tout le flux de données SANS réseau (16/16 entrées
+config.yaml retrouvées, 28 `CarteWatchlist` avec variantes alias, 19
+critères de recherche uniques) — la partie réseau (eBay/Vinted/83
+boutiques) reste **non testable en local** faute de secrets, à confirmer
+au premier run réel (demain 11h Paris).
+
 ## État du programme au 2026-08-13 (référence pour la prochaine session)
 
 **95 boutiques actives** au total (hors radar de découverte, qui démarre
@@ -1435,7 +1517,11 @@ combien des 14 "marché trop fin" par `min_annonces_kr`.
 `BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT`) + 17 PrestaShop (inchangé) +
 28 WooCommerce (dont 2 en `BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT`).
 **3 cartes JP suivies en tendance longue durée** (système séparé, cf.
-`watchlist_tendance.py`).
+`watchlist_tendance.py`). **122 cartes dans la watchlist principale**
+(`config.yaml`, +4 depuis la dernière session : versions chinoises de
+Plumeline ex/Carapuce/Psykokwak/Tiplouf). **4 cartes suivies en priorité
+absolue** par le nouveau radar de prix bas quotidien (`watchlist_prix_
+bas.py`), FR/JP/KR/CN, digest Telegram 11h Paris.
 
 **Inventaire des fichiers** (racine du repo, par rôle) :
 
@@ -1459,8 +1545,9 @@ combien des 14 "marché trop fin" par `min_annonces_kr`.
 | `memoire_json.py` | Chargement/sauvegarde JSON partagé par plusieurs modules |
 | `boutiques_shopify.py` / `boutiques_prestashop.py` / `boutiques_woocommerce.py` | Listes de boutiques actives par plateforme (+ boutiques diagnostiquées non-intégrables, documentées) |
 | `scan_boutique.py` / `scan_boutique_prestashop.py` / `scan_boutique_woocommerce.py` | Orchestrateurs de scan cartes par plateforme |
+| `watchlist_prix_bas.py` / `radar_prix_bas.py` | Radar de prix bas quotidien (4 cartes × 4 langues, digest Telegram 11h) |
 | `tests/` | Suite pytest (36 tests), lancée sur chaque push/PR via `tests.yml` |
-| `.github/workflows/{pokedeals,scan_shopify,scan_prestashop,scan_woocommerce,decouverte_boutiques,tendance_prix,tests}.yml` | 7 workflows CI au total |
+| `.github/workflows/{pokedeals,scan_shopify,scan_prestashop,scan_woocommerce,decouverte_boutiques,tendance_prix,prix_bas_quotidien,tests}.yml` | 8 workflows CI au total |
 
 **État de santé par composant** (au 2026-08-13) :
 - Connecteurs (Shopify/PrestaShop/WooCommerce) : sains, garde-fous cohérents (stock → gradée → langue → qualificatif), aucune duplication de logique métier restante.
@@ -1468,11 +1555,21 @@ combien des 14 "marché trop fin" par `min_annonces_kr`.
 - Radar de précommandes : actif en prod, stable.
 - Radar de découverte (AFNIC) : actif, testé en conditions réelles, Telegram fonctionnel.
 - Suivi de tendance (3 cartes JP) : actif, PokemonPriceTracker fonctionnel pour les 3 cartes après 3 itérations de correction, conversion USD→EUR en place. Signal de tendance pas encore significatif (moins de 14 points accumulés) — à revisiter dans ~2 semaines.
+- Cotes eBay/Cardtrader/TCGdex : repli TCGdex généralisé à toute la watchlist, sets JP exclusifs (M2/M3/M4/M5, MC, M1S, S12) désormais correctement identifiés séparément des sets internationaux ME0x -- m3 ("zero") reste une supposition non vérifiée, à confirmer dès qu'une vraie annonce Cardtrader de ce set est repérée.
+- Radar de prix bas quotidien : code complet et testé HORS réseau (flux de données vérifié), **premier run réel pas encore eu lieu** (cron demain 11h Paris) — couverture eBay/Vinted/boutiques à confirmer.
 - Sécurité : aucune fuite de secret détectée (code + historique complet). Refus explicite d'un accès GitHub direct (voir ci-dessus).
 - `CLAUDE.md` : à jour, tenu synchronisé à chaque ajout de cette session.
 
 **Prochaine session** : partir de cette section plutôt que de relire
 l'historique chronologique complet, sauf besoin de détail sur un bug
-précis. Point à surveiller dans ~2 semaines : le premier vrai signal de
-tendance sur les 3 cartes JP (`bon_moment_achat`/`prix_eleve`), une fois
-`MIN_POINTS_POUR_SIGNAL` (14) atteint.
+précis. Points à surveiller :
+- Le premier vrai signal de tendance sur les 3 cartes JP
+  (`bon_moment_achat`/`prix_eleve`), une fois `MIN_POINTS_POUR_SIGNAL`
+  (14) atteint (~2 semaines).
+- Le premier run réel de `prix_bas_quotidien.yml` (demain 11h Paris) :
+  vérifier que le digest part bien, que les 4 familles trouvent au moins
+  un résultat, et que le scan (83+ boutiques) tient dans les 35 min.
+- Une routine cloud programmée (`trig_014zQxygUSVJaX2yxdA2PfB5`) vérifie
+  le 14/08/2026 vers 20h20 UTC combien des 32 cartes sans garde-fou de
+  cette session ont récupéré un prix Cardtrader réel suite aux
+  corrections de mapping.

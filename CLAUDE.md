@@ -71,14 +71,23 @@ Système **indépendant** ajouté le 12/08/2026, pour répondre à "est-ce le bo
 - **Limite assumée et documentée** : aucun "nombre d'achats" (volume de ventes réelles) n'existe gratuitement pour la plupart des cartes — l'API eBay correspondante (Marketplace Insights) est fermée aux nouveaux comptes (déjà vérifié). PokemonPriceTracker ne fournit un historique de ventes eBay réelles que pour les copies **gradées** (PSA/CGC), jamais pour les cartes brutes. Le signal de tendance repose donc sur un **prix de marché**, pas un volume — à ne jamais présenter comme plus fiable que ça.
 - Workflow dédié `tendance_prix.yml`, cron quotidien (pas besoin de plus fréquent pour un signal à l'échelle de semaines/mois). Alerte Telegram uniquement au **changement** de signal (`bon_moment_achat` / `prix_eleve` / `stable`), jamais de répétition quotidienne du même signal.
 
+### Prix bas quotidien (état des lieux, pas une alerte de deal)
+
+Système **indépendant** ajouté le 13/08/2026, pour 4 cartes explicitement choisies par Justok (`watchlist_prix_bas.py` : Plumeline ex, Carapuce, Psykokwak, Tiplouf), suivies dans les 4 langues qui l'intéressent (FR/JP/KR/CN, chacune ajoutée à `config.yaml` — y compris le chinois, langue absente jusqu'ici, avec cote **manuelle** obligatoire faute de source automatisée pour cette langue). Répond à "quel est le prix le plus bas disponible aujourd'hui, tous sites/langues confondus ?" — envoyé sur Telegram **chaque jour à 11h (Paris)** même sans bonne affaire détectée, contrairement à `bonne_affaire_shopify.py`/`main.py` qui n'alertent QUE sous la cote.
+
+- `watchlist_prix_bas.py` — regroupe les 4 cartes × 4 langues par "famille", en pointant vers les entrées `config.yaml` existantes (aucune duplication de nom/numéro/qualificatif).
+- `radar_prix_bas.py` — orchestrateur : réutilise `ebay_rechercher`/`vinted_rechercher`/`annonce_pertinente` de `main.py`, et les connecteurs Shopify/PrestaShop/WooCommerce existants (même esprit que `radar_precommandes.py` : connecteurs réutilisés tels quels, watchlist ciblée à part) — mais retourne les résultats **bruts** (prix/stock/url), pas filtrés par cote, puisque l'objectif est le prix le plus bas du jour, pas la détection de deal. Les alertes immédiates "sous la cote" pour ces mêmes cartes restent gérées par les systèmes existants (aucune logique dupliquée).
+- Volontairement **hors périmètre** : Leboncoin (bloqué par anti-bot, alertes email pré-configurées seulement, pas de recherche à la demande), Cardmarket (API fermée + scraping quotidien interdit par leurs CGU), TCGplayer (marché quasi exclusivement américain, peu pertinent pour un filtre "vendeur en France").
+- Workflow dédié `prix_bas_quotidien.yml`, cron quotidien 9h UTC (= 11h Paris en été, dérive à 12h en hiver — même limite déjà acceptée pour `tendance_prix.yml`, pas d'ajustement DST).
+
 ### Modules transverses
 
 - `telegram_utils.py` — `echapper_html`/`echapper_url_html`, partagés par les 3 modules d'alerte boutiques TCG.
 - `memoire_json.py` — `charger_memoire`/`sauvegarder_memoire` génériques pour un fichier JSON, partagés par `alerte_stock.py`, `alerte_precommande.py` et `decouverte_boutiques.py`.
 
-## CI/déploiement — 5 workflows GitHub Actions
+## CI/déploiement — 8 workflows GitHub Actions
 
-Tournent en parallèle sur le même repo, chacun avec son propre groupe de concurrence (`concurrency.group`) pour ne jamais se bloquer mutuellement, et une étape de sauvegarde mémoire avec dance stash/pull-rebase/push pour éviter les collisions Git entre crons qui se chevauchent.
+Tournent en parallèle sur le même repo, chacun avec son propre groupe de concurrence (`concurrency.group`) pour ne jamais se bloquer mutuellement, et une étape de sauvegarde mémoire avec dance stash/pull-rebase/push pour éviter les collisions Git entre crons qui se chevauchent (sauf les workflows sans fichier mémoire, ex. `prix_bas_quotidien.yml`, `permissions: contents: read` seulement).
 
 | Workflow | Cadence | Timeout | Contenu |
 |---|---|---|---|
@@ -87,6 +96,9 @@ Tournent en parallèle sur le même repo, chacun avec son propre groupe de concu
 | `scan_prestashop.yml` | 30 min | 30 min | scan cartes PrestaShop + radar précommandes PrestaShop |
 | `scan_woocommerce.yml` | 30 min | 22 min (lot A) + 18 min (lot B) + 25 min (précommandes) | 3 jobs séquentiels (`needs:`) : scan cartes lot A, lot B, puis radar précommandes (lot A + lot B) |
 | `decouverte_boutiques.yml` | hebdomadaire (lundi 06h UTC) | 20 min | radar de découverte automatique de nouvelles boutiques (AFNIC) |
+| `tendance_prix.yml` | quotidien 8h30 UTC | 10 min | suivi de tendance de prix long terme (3 cartes JP) |
+| `prix_bas_quotidien.yml` | quotidien 9h UTC (~11h Paris) | 35 min | radar de prix bas quotidien (4 cartes × 4 langues, tous sites confondus) |
+| `tests.yml` | à chaque push/PR | — | suite pytest (cf. section Commandes) |
 
 `scan_woocommerce.yml` est le seul à jobs multiples (nécessaire car son plus gros catalogue à lui seul dépasse le budget d'un run simple) ; les jobs sont **séquentiels**, jamais en parallèle entre eux au sein d'un même run, pour éviter une course d'écriture sur le même fichier mémoire.
 

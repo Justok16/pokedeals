@@ -1,0 +1,39 @@
+name: Prix Bas Quotidien
+
+on:
+  schedule:
+    # Quotidien a 11h heure de Paris. Cron GitHub Actions fixe en UTC, pas
+    # d'ajustement automatique DST -- 9h UTC = 11h Paris en ete (CEST,
+    # situation actuelle) mais 12h Paris en hiver (CET). Meme limite deja
+    # acceptee pour tendance_prix.yml (8h30 UTC fixe) : un ecart d'1h deux
+    # fois par an n'est pas genant pour ce type d'alerte.
+    - cron: "0 9 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: read   # aucune ecriture -- ce radar n'a pas de fichier memoire
+concurrency:
+  group: prix_bas_quotidien   # groupe DEDIE, distinct des 6 autres workflows
+  cancel-in-progress: false
+jobs:
+  prix-bas:
+    runs-on: ubuntu-latest
+    # Scan cible (19 criteres) mais sur TOUTES les boutiques actives (83+),
+    # meme cout reseau qu'un scan_boutique*.py complet -- marge alignee sur
+    # le plus long des 3 scans existants (scan_woocommerce.yml).
+    timeout-minutes: 35
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le radar de prix bas quotidien
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python radar_prix_bas.py
