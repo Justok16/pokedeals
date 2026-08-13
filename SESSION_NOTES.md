@@ -1370,6 +1370,64 @@ chez TCGdex). Si l'une de ces cartes se retrouve un jour sans Cardtrader
 non plus, elle n'aura simplement aucun garde-fou — comportement identique
 à avant cette session (pas de régression, juste pas d'amélioration).
 
+### 4 cartes JP supplémentaires + set S11a/S12/MC/M1S japonais exclusifs
+
+Justok a fourni les vrais liens Cardmarket pour 4 des 6 cartes ci-dessus,
+révélant les codes de set réels (`mC`/`MC` = Start Deck 100 Battle
+Collection, `m1S`/`M1S` = Mega Symphonia, `s12`/`S12` = Paradigm Trigger)
+— des sets **japonais exclusifs**, jamais sortis à l'international,
+absents du catalogue `/en/` de TCGdex mais présents sous `/ja/`.
+`api_prix_carte()` essaie désormais `/ja/` en repli quand `/en/` renvoie
+404 pour une carte JP (corrige la cause racine, pas seulement ces 4
+cartes). `api_id` explicite ajouté pour `Pikachu ex 764 mC` (MC-764,
+856,17€), `Clefairy ex 765 mC` (MC-765, 392,73€), `Mega Gardevoir ex
+087/063` (M1S-087, pas encore de prix côté TCGdex), `Lugia V 110/098`
+(S12-110, idem). `Lugia V 198/172` et `Lugia VSTAR GG70/GG70` retirées
+de la watchlist sur demande explicite — introuvables même par Justok.
+
+### Couverture Cardtrader pour les 32 dernières cartes sans garde-fou
+
+Justok a demandé "le prix le plus juste possible" et de faire le maximum.
+Analyse du **vrai cache Cardtrader de production** (`data/cardtrader.json`,
+généré avec le vrai token, contrairement à l'environnement local) : sur
+118 cartes, 86 ont un garde-fou proactif (Cardtrader réel OU TCGdex),
+32 n'en ont aucun (30 coréennes + 2 japonaises en attente de prix
+TCGdex). Bonne nouvelle trouvée en creusant : les 30 coréennes ont
+toutes un équivalent FR/JP suivi, donc bénéficient au moins du garde-fou
+réactif "écart suspect entre langues" (V34) — plus faible qu'une
+correction proactive (il alerte APRÈS qu'un possible faux positif soit
+déjà parti), mais pas un filet totalement absent.
+
+Recherche de la cause des échecs Cardtrader (via `blueprint_id` en
+cache) : 14 cartes ont un blueprint trouvé mais un marché jugé trop fin
+(< `min_annonces`) ; 16 n'ont même pas de blueprint. Sur ces 16, 2 vrais
+bugs de mapping trouvés dans `_ct_indices_set`/`CT_SETS`/`CT_SETS_JP`,
+**affectant JP et KR de façon identique** (pas un problème propre au
+coréen) :
+- `CT_SETS["098"]` pointait vers "Lost Origin" au lieu de "Paradigm
+  Trigger" — seule carte concernée, `Lugia V 110/098`, confirmée via les
+  liens Cardmarket. Corrigé.
+- `CT_SETS_JP["m2"/"m3"/"m4"]` utilisaient tous le mot-clé générique
+  "mega", qui ne matche que ME01 "Mega Evolution" — les vrais noms
+  anglais de ME02/ME03/ME04 (confirmés via TCGdex : Phantasmal Flames/
+  Perfect Order/Chaos Rising) ne contiennent pas "mega" du tout.
+  Corrigé avec les bons mots-clés. Expliquait l'échec total (JP ET KR)
+  pour Meowth ex, Froakie, Piplup, Mega Charizard X, Oricorio ex.
+
+Ajouté aussi `min_annonces_kr: 1` (vs 3 par défaut) dans `config.yaml` :
+le coréen est la SEULE langue sans repli TCGdex possible (Cardmarket ne
+cote pas le coréen), donc la seule où Cardtrader est le dernier rempart.
+Un marché coréen d'1 annonce reste moins fiable qu'un marché FR/JP de 3,
+mais mieux qu'aucune vérification — les GARDE-FOU 2 (prix aberrants
+écartés) et 4 (écart ×5 vs eBay) existants limitent le risque d'une
+annonce isolée erronée.
+
+**Non vérifiable en local** (pas de `CARDTRADER_TOKEN` dans cet
+environnement) — impact réel à confirmer au prochain run en prod. À
+revisiter dans quelques jours : combien des 16 cartes "blueprint
+introuvable" sont récupérées par les 2 corrections de mapping, et
+combien des 14 "marché trop fin" par `min_annonces_kr`.
+
 ## État du programme au 2026-08-13 (référence pour la prochaine session)
 
 **95 boutiques actives** au total (hors radar de découverte, qui démarre
