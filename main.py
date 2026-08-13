@@ -1941,10 +1941,23 @@ def api_prix_carte(carte: dict) -> float | None:
             if rep.status_code == 200:
                 prix = _api_lire_prix(rep.json())
             elif rep.status_code == 404:
-                # Set déduit erroné : on tente la recherche par numéro.
-                trouve_id, prix = _api_recherche_par_numero(carte)
-                if trouve_id:
-                    log.info("    [API] %s : trouvé via recherche -> %s", carte["nom"], trouve_id)
+                # V47 : certains sets JAPONAIS EXCLUSIFS (jamais sortis à
+                # l'international : MC = Start Deck 100 Battle Collection,
+                # M1S = Mega Symphonia, S12 = Paradigm Trigger...) n'existent
+                # QUE côté catalogue japonais de TCGdex ("/ja/"), pas "/en/".
+                # Cas vécu : Pikachu ex 764 mC, Clefairy ex 765 mC, Mega
+                # Gardevoir ex 087/063 (api_id explicite dans config.yaml,
+                # confirmés via Cardmarket par Justok) -- 404 systématique
+                # sur "/en/" malgré un api_id juste.
+                if carte.get("langue") == "jp":
+                    rep_ja = requests.get(f"{TCGDEX_BASE}/ja/cards/{api_id}", timeout=15)
+                    if rep_ja.status_code == 200:
+                        prix = _api_lire_prix(rep_ja.json())
+                if prix is None:
+                    # Set déduit erroné : on tente la recherche par numéro.
+                    trouve_id, prix = _api_recherche_par_numero(carte)
+                    if trouve_id:
+                        log.info("    [API] %s : trouvé via recherche -> %s", carte["nom"], trouve_id)
             else:
                 log.info("    [API] %s : HTTP %s", api_id, rep.status_code)
         else:

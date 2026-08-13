@@ -145,6 +145,7 @@ watchlist:
     alias: "Mewtwo"
   - nom: "Pikachu ex 764 mC"            # = Pikachu ex FR 276/217 (Start Deck 100)
     langue: jp
+    api_id: "MC-764"  # V47 : confirme via Cardmarket (lien fourni par Justok)
   - nom: "Pikachu ex 234 m2a"           # = Pikachu ex FR 277/217 (MEGA Dream ex)
     langue: jp
 
@@ -158,6 +159,7 @@ watchlist:
   - nom: "Mega Gardevoir ex 087/063"    # SAR — Mega Symphonia (JP)
     langue: jp
     alias: "Gardevoir"
+    api_id: "M1S-087"  # V47 : confirme (set M1S = Mega Symphonia officiel:63 -> denom 063 exact)
   - nom: "Mega Dragonite ex 246/193"    # SAR — Mega Dream ex (JP) = Méga-Dracolosse
     langue: jp
     alias: "Dracolosse"
@@ -250,6 +252,7 @@ watchlist:
   # Versions japonaises de Mélofée de Lilie (Lillie's Clefairy ex)
   - nom: "Clefairy ex 765 mC"           # = Mélofée de Lilie FR 280/217 (Start Deck 100)
     langue: jp
+    api_id: "MC-765"  # V47 : confirme via Cardmarket (lien fourni par Justok)
     alias: "Melofee"
   - nom: "Clefairy ex 126 sv9"          # = Mélofée de Lilie Aventures Ensemble (Battle Partners)
     langue: jp
@@ -330,12 +333,17 @@ watchlist:
     prix_max_fixe: 15
 
   # ----- Lugia (icône légendaire recherchée) -----
-  - nom: "Lugia V 198/172"              # SAR — S11a VMAX Climax (JP), "the crown pick"
-    langue: jp
+  # V47 : "Lugia V 198/172" retirée le 13/08/2026 -- introuvable (ni sur
+  # TCGdex, ni par Justok sur Cardmarket). Le set S11a (VMAX Climax) note
+  # en commentaire ne colle pas (68 cartes, denominateur attendu 172) ; le
+  # bon set S12 correspond a l'autre carte "Lugia V 110/098" ci-dessous,
+  # pas a celle-ci -- carte abandonnee plutot que suivie sans reference
+  # de prix fiable.
   - nom: "Lugia VSTAR GG70/GG70"        # Galarian Gallery
     langue: fr
   - nom: "Lugia V 110/098"              # SR — S12 (JP)
     langue: jp
+    api_id: "S12-110"  # V47 : confirme via Cardmarket (lien fourni par Justok)
 
   # ===== VERSIONS CORÉENNES (mêmes numéros que le japonais) =====
   # Ajoutées pour surveiller le marché coréen. Chaque carte a sa
@@ -448,8 +456,6 @@ watchlist:
     langue: kr
     alias: "Plumeline"
     prix_max_fixe: 15
-  - nom: "Lugia V 198/172"
-    langue: kr
   - nom: "Lugia V 110/098"
     langue: kr
 
