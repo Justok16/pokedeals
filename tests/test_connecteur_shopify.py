@@ -7,6 +7,7 @@ from connecteur_shopify import (
     _regex_numero_sans_denominateur,
     _retirer_fractions,
     _titre_correspond,
+    detecter_etat,
     detecter_langue,
 )
 
@@ -59,3 +60,22 @@ def test_titre_correspond_faux_positif_fraction_denominateur():
 def test_titre_correspond_vrai_numero_sans_denominateur_toujours_valide():
     critere = CritereRecherche(nom="Eevee", numero="078")
     assert _titre_correspond("Eevee 078/069 SAR sv5a Crimson Haze", critere) is True
+
+
+def test_detecter_etat_label_simple():
+    # Cas reel (14/08/2026) : kairyu.fr, fiche produit "Etat : Exc".
+    assert detecter_etat("<p>Série : Terastal Fest ex</p><p>Etat : Exc</p>") == "exc"
+
+
+def test_detecter_etat_avec_accent_et_valeur_composee():
+    assert detecter_etat("État: Near Mint") == "near mint"
+
+
+def test_detecter_etat_aucun_label_present():
+    assert detecter_etat("<h1>223/187 Eevee ex</h1><p>Prix : 32.90€</p>") is None
+
+
+def test_detecter_etat_ignore_le_mot_excellent_hors_champ_dedie():
+    # "excellent" perdu dans un paragraphe marketing (pas apres un label
+    # d'etat) ne doit PAS etre capture -- seul un vrai champ structure compte.
+    assert detecter_etat("<p>Carte conservee en excellent etat de collection</p>") is None

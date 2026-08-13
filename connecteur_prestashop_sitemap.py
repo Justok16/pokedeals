@@ -51,6 +51,7 @@ from connecteur_shopify import (
     ResultatRecherche,
     _est_xml_valide,
     _slug_correspond,
+    detecter_etat,
     detecter_langue,
 )
 
@@ -326,6 +327,7 @@ class ConnecteurPrestaShopSitemap:
             langue_detectee=detecter_langue(titre or ""),
             confiance=confiance,
             necessite_verification_manuelle=necessite_verif,
+            etat_detecte=detecter_etat(html),
         )
 
     def rechercher_dans_catalogue(

@@ -90,6 +90,54 @@ def _est_carte_gradee(titre: str) -> bool:
     return any(mot in t for mot in MOTS_CARTE_GRADEE)
 
 
+# V48 (14/08/2026) : etats de conservation INFERIEURS a "Near Mint/Neuf" a
+# exclure -- Justok ne veut etre alerte QUE sur des cartes neuves/NM (ou
+# equivalent). Echelle courante des boutiques cartes (proche de Cardmarket) :
+# Mint/Near Mint > Excellent > Good > Light Played > Played > Poor. Cas reel
+# qui motive ce garde-fou : kairyu.fr, "Eevee ex 223 sv8a", fiche produit
+# "Etat : Exc" (Excellent, pas Near Mint) alertee a tort comme bonne affaire
+# a -32.2%.
+#
+# S'applique UNIQUEMENT sur resultat.etat_detecte (cf. connecteur_shopify.
+# detecter_etat, ancre sur un label "Etat :"/"Condition :"/... dans la fiche
+# produit) -- JAMAIS sur le titre ou la description complets : "ex" est
+# present dans la quasi-totalite des titres de la watchlist et ne doit
+# jamais etre confondu avec l'abreviation anglaise d'"Excellent".
+#
+# Liste volontairement incomplete (meme limite que MOTS_CARTE_GRADEE /
+# NOMS_SET_QUALIFICATIF_AMBIGU) -- a enrichir au fil des formulations
+# rencontrees en prod.
+MOTS_ETAT_REFUSE = (
+    "excellent", "exc",
+    "good", "gd",
+    "light played", "lp",
+    "played", "jouee", "joue",
+    "moderately played", "mp",
+    "heavily played", "hp",
+    "poor", "po",
+    "damaged", "abime", "plie", "moyen",
+)
+
+
+def _etat_refuse(etat_detecte: str | None) -> bool:
+    """True si un etat de conservation INFERIEUR a Near Mint/Neuf a ete
+    explicitement detecte sur la fiche produit. None (aucun label d'etat
+    trouve) n'est PAS refuse : beaucoup de boutiques n'indiquent pas l'etat
+    sur toutes leurs fiches, mieux vaut ne pas rater une vraie bonne affaire
+    faute d'info -- meme philosophie que etats_acceptes/etats_refuses de
+    main.py (V39 : seul un etat explicitement refuse bloque)."""
+    if not etat_detecte:
+        return False
+    mots = etat_detecte.split()
+    for motif in MOTS_ETAT_REFUSE:
+        if " " in motif:
+            if motif in etat_detecte:
+                return True
+        elif motif in mots:
+            return True
+    return False
+
+
 def evaluer_deal(
     resultat, carte: CarteWatchlist, cotes: dict, regles: dict
 ) -> tuple[dict | None, str]:
@@ -99,6 +147,9 @@ def evaluer_deal(
 
     if _est_carte_gradee(resultat.titre):
         return None, "carte gradee (PSA/CGC/BGS...) -- non comparable a la cote d'une carte brute"
+
+    if _etat_refuse(resultat.etat_detecte):
+        return None, f"etat refuse ({resultat.etat_detecte}) -- Neuf/NM uniquement"
 
     if not resultat.en_stock:
         return None, "rupture de stock"

@@ -92,6 +92,12 @@ class ResultatRecherche:
     # dans la watchlist -> a verifier manuellement avant d'alerter.
     confiance: str = "forte"
     necessite_verification_manuelle: bool = False
+    # Mention brute d'etat/condition ("exc", "nm", "near mint"...) extraite
+    # de la fiche produit via detecter_etat() ci-dessous, ou None si aucun
+    # label d'etat trouve. Pure extraction, ne tranche PAS accepte/refuse
+    # (meme separation que langue_detectee/evaluer_deal) -- cf.
+    # bonne_affaire_shopify._etat_refuse (partagee avec alerte_stock.py).
+    etat_detecte: str | None = None
 
 
 # Codes de set courts propres aux impressions JAPONAISES/COREENNES (JP et KR
@@ -133,6 +139,41 @@ def detecter_langue(titre: str) -> str | None:
         return "jp_ou_kr"
 
     return None
+
+
+# Reconnait une mention explicite d'etat/condition dans une description
+# produit (ex: "Etat : Exc", "État: NM", "Condition : Near Mint",
+# "Qualite : Excellent"). Volontairement ANCRE sur un label SUIVI D'UN VRAI
+# SEPARATEUR (":" ou "-") -- jamais une recherche libre dans tout le texte :
+# un mot comme "excellent" perdu dans un paragraphe marketing ("carte
+# conservee en excellent etat de collection") ne doit pas etre confondu avec
+# un vrai champ d'etat structure (le separateur obligatoire evite justement
+# de capturer ce qui suit un "etat" rencontre au fil d'une phrase), et
+# surtout "ex" (dans la quasi-totalite des titres de la watchlist, ex "Eevee
+# ex") ne doit JAMAIS etre cherche en dehors de ce champ etroit. Cas reel qui
+# motive cette fonction (14/08/2026) : kairyu.fr affiche "Etat : Exc"
+# (Excellent, pas Near Mint) sur sa fiche produit -- alerte a tort en "bonne
+# affaire".
+RE_ETAT_LABEL = re.compile(
+    r"(?:etat|état|condition|qualit[ée])\s*[:\-]\s*([a-zàâäéèêëïîôöùûüç]"
+    r"[a-zàâäéèêëïîôöùûüç .]{0,24})",
+    re.IGNORECASE,
+)
+
+
+def detecter_etat(texte: str) -> str | None:
+    """Extrait la mention d'etat/condition d'une carte depuis une
+    description produit (HTML ou texte brut). Retourne le texte capture,
+    normalise (minuscule, accents retires), ou None si aucun label d'etat
+    n'est trouve dans le texte -- PURE EXTRACTION, ne tranche pas
+    accepte/refuse (meme separation que langue_detectee/evaluer_deal),
+    cf. bonne_affaire_shopify._etat_refuse (partagee avec alerte_stock.py)
+    pour la decision."""
+    sans_balises = re.sub(r"<[^>]+>", " ", texte or "")
+    m = RE_ETAT_LABEL.search(sans_balises)
+    if not m:
+        return None
+    return _normaliser_texte(m.group(1)) or None
 
 
 def _regex_numero_sans_denominateur(numero: str) -> re.Pattern:
@@ -341,6 +382,9 @@ class ConnecteurShopify:
                 if images:
                     image_url = images[0].get("src")
                 langue_detectee = detecter_langue(titre)
+                # body_html deja present dans la reponse /products.json deja
+                # recuperee -- aucune requete reseau supplementaire.
+                etat_detecte = detecter_etat(produit.get("body_html", "") or "")
 
                 for variant in produit.get("variants", []):
                     try:
@@ -359,6 +403,7 @@ class ConnecteurShopify:
                         langue_detectee=langue_detectee,
                         confiance=confiance,
                         necessite_verification_manuelle=necessite_verification,
+                        etat_detecte=etat_detecte,
                     ))
 
         return resultats_par_critere
