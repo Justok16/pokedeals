@@ -166,14 +166,22 @@ watchlist:
   - nom: "Mega Darkrai ex 114/081"      # SAR — LA chase card du set
     langue: jp
     alias: "Darkrai"
+    # V47 : deduire_api_id() ne sait pas mapper x/081 (JP) -> TCGdex --
+    # identifiant trouve par recherche manuelle (nom + rarete Special
+    # Illustration Rare + prix ~240-310e coherent avec le "~250e" deja
+    # note ci-dessus pour l'equivalent FR).
+    api_id: "me05-116"
   - nom: "Mega Darkrai ex 118/081"      # Mega Ultra Rare (dorée)
     langue: jp
     alias: "Darkrai"
+    api_id: "me05-120"  # V47 : Mega Hyper Rare (doree), ~130-175e
   - nom: "Mega Darkrai ex 099/081"      # SR full art
     langue: jp
     alias: "Darkrai"
+    api_id: "me05-101"  # V47 : Ultra Rare (version de base), ~9-10e
   - nom: "Morpeko ex 115/081"           # SAR (version japonaise Abyss Eye)
     langue: jp
+    api_id: "me05-117"  # V47 : Special Illustration Rare, ~63-66e
 
   # ----- ME05 Nuit Noire — version FRANÇAISE (PBL, sortie 17/07/2026) -----
   # Numéros PBL français confirmés visuellement (différents du JP Abyss Eye).
@@ -216,6 +224,7 @@ watchlist:
   - nom: "Evoli Trainer Gallery"        # TG11/TG30 — Stars Étincelantes
     langue: fr
     alias: "Eevee"
+    api_id: "swsh9.5tg-TG11"  # V47 : TG11/30 confirme, deduire_api_id() ne gere pas le format "TG.."
   - nom: "Evoli ex 174 promo"           # Promo SV (numéro sans dénominateur)
     langue: fr
     alias: "Eevee"
