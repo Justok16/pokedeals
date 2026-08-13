@@ -3145,6 +3145,7 @@ def main() -> int:
     debut = time.time()
     cfg = charger_config()
     _ct_charger_cache()  # V22 : cache Cardtrader (blueprints + prix du jour)
+    _api_charger_cache()  # V47 : cache TCGdex (repli quand Cardtrader n'a rien)
     secrets = secrets_env()
     _cfg_api = cfg.get("api_cotes", {})
     _ct_cfg.update(_cfg_api)  # V24 : accessible aux fonctions de recherche
@@ -3175,6 +3176,7 @@ def main() -> int:
         total_annonces += len(annonces)
 
         cote, confiance = obtenir_cote(carte, annonces_ebay, cfg)
+        cote_avant_correction = cote  # V47 : pour détecter un ajustement Cardtrader/TCGdex ci-dessous
         prix_cm_affiche = None  # V46 : prix Cardmarket affiché sur Telegram (info seule, jamais utilisé pour decider)
 
         # V22 : cote Cardtrader (marché européen, prix réels par langue).
@@ -3290,6 +3292,57 @@ def main() -> int:
                                  "par Cardtrader (mode %s, %s)",
                                  nom, carte.get("langue", "fr").upper(), cote,
                                  mode_ct, origine)
+            else:
+                # V47 : Cardtrader n'a RIEN pour cette carte (ni annonce
+                # marketplace -> prix_ct None, ni cm_id -> cardmarket_prix()
+                # inatteignable non plus) : aucun des garde-fous existants ne
+                # peut alors corriger une cote eBay isolée. TCGdex (Cardmarket
+                # officiel, gratuit, INDÉPENDANT de Cardtrader) sert de repli.
+                # Cas réel qui motive ce repli : Evoli ex 167/131, cote eBay
+                # à 325,28€ (aucune annonce eBay proche du vrai prix) alors
+                # que Cardmarket affichait ~145€ ; Cardtrader n'avait ni
+                # marketplace ni cm_id pour cette carte (trop récente).
+                mode_ct = str(cfg_api.get("mode", "observation")).lower()
+                if mode_ct == "plus_bas" and not carte.get("cote"):
+                    prix_tcgdex = api_prix_carte(carte)
+                    if prix_tcgdex is not None:
+                        prix_cm_affiche = prix_tcgdex
+                        if cote is None:
+                            cote, confiance = round(prix_tcgdex, 2), 96
+                            log.info("    [TCGdex -> COTE] %s : eBay muet, Cardtrader "
+                                     "absent -> cote fixée à %.2f€ (Cardmarket via TCGdex)",
+                                     nom, cote)
+                        else:
+                            # V17 documente un biais eBay (prix DEMANDÉS) déjà
+                            # mesuré entre 1,8x et 2,5x la tendance Cardmarket
+                            # -- un seuil de suspicion à 2x (comme pour les 3
+                            # sources Cardtrader/eBay/Cardmarket combinées, où
+                            # la redondance rend un écart bas plus fiable)
+                            # rejetterait ici l'écart eBay ATTENDU et annulerait
+                            # la correction dans le cas même où elle sert le
+                            # plus. On tolère donc jusqu'à 3x avant de se méfier.
+                            grand, petit = max(cote, prix_tcgdex), min(cote, prix_tcgdex)
+                            if grand > petit * 3:
+                                log.info("    [Cotes] %s : écart trop important entre eBay "
+                                         "(%.2f€) et Cardmarket/TCGdex (%.2f€) -> on garde "
+                                         "la PLUS HAUTE par prudence", nom, cote, prix_tcgdex)
+                            else:
+                                log.info("    [Cotes -> RETENU] %s : Cardmarket/TCGdex "
+                                         "(%.2f€) est plus bas que eBay (%.2f€)",
+                                         nom, prix_tcgdex, cote)
+                                cote, confiance = round(petit, 2), 96
+        # V47 : data/cotes.json ne contenait jusqu'ici QUE la cote eBay brute
+        # (enregistrée dans obtenir_cote(), avant toute correction Cardtrader/
+        # TCGdex ci-dessus) -- alors que le système boutiques TCG (
+        # bonne_affaire_shopify.py/alerte_stock.py) lit ce fichier TEL QUEL,
+        # sans repasser par cette correction. Une cote corrigée ici restait
+        # donc invisible pour les alertes 🔥/📦 des boutiques Shopify/
+        # PrestaShop/WooCommerce, qui continuaient de comparer au prix eBay
+        # brut (cas réel : Evoli ex 167/131, 325,28€ eBay non corrigé alerté
+        # sur cardshunter.fr alors que Cardmarket était à ~145€). On persiste
+        # donc la cote FINALEMENT retenue quand elle diffère de la brute.
+        if cote and cote != cote_avant_correction:
+            enregistrer_cote(nom, cote, carte.get("langue", "fr"))
         if cote:
             log.info("Cote retenue : %.2f€ (confiance : %s annonces) — %d annonces analysées",
                      cote, confiance, len(annonces))
@@ -3479,6 +3532,7 @@ def main() -> int:
 
     alertes_vente = verifier_stock(cfg, secrets, vues)
     _ct_sauver_cache()  # V22 : persistance du cache Cardtrader
+    _api_sauver_cache()  # V47 : persistance du cache TCGdex
 
     # Tri : les affaires les plus rentables en premier
     nouveaux_deals.sort(key=lambda d: d["profit_net_estime"], reverse=True)

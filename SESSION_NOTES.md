@@ -1291,6 +1291,56 @@ réelle en relançant un scan** sur les 2 boutiques concernées
 1 deal inchangé, confirmé légitime). 4 nouveaux tests, suite complète
 36/36 OK.
 
+### Repli TCGdex automatique quand Cardtrader n'a rien (V47)
+
+Justok a reçu une alerte 🔥 réelle sur `cardshunter.fr` (Evoli ex 167/131,
+165€, "Cote : 325,28€ (-49,3%)") et a fourni une capture de la vraie page
+Cardmarket montrant une tendance à ~145-150€ — écart net, garde-fou
+d'avertissement déclenché à raison.
+
+**Diagnostic** : l'alerte vient du système boutiques TCG
+(`bonne_affaire_shopify.py`), qui lit `data/cotes.json` — cote calculée
+par `main.py` en bas-marché eBay (3 annonces les moins chères, méthode
+V43). `cardtrader.json` montrait `"prix": null` ET `"cm_id": null` pour
+cette carte : le seul garde-fou censé corriger une cote eBay isolée
+(vérification croisée Cardtrader, GARDE-FOU 4/5) était donc totalement
+hors service pour ce cas précis — carte trop récente, pas encore
+référencée côté Cardtrader. Vérifié en direct sur eBay.fr : même les 3
+annonces FR non-gradées les moins chères du moment tournent ~183€ en
+moyenne, donc le 325,28€ enregistré reflète un panier différent (marché
+eBay qui bouge) plutôt qu'une erreur de carte.
+
+**Solution** : réactivation de `api_prix_carte()` (TCGdex/Cardmarket,
+code V21 écrit mais jamais branché depuis l'arrivée de Cardtrader en
+V22 — `_api_charger_cache()`/`_api_sauver_cache()` n'étaient même pas
+appelés). Sert désormais de repli INDÉPENDANT de Cardtrader quand celui-ci
+ne renvoie rien (`prix_ct is None`), uniquement en mode `plus_bas` et
+hors cote manuelle. Seuil de suspicion fixé à ×3 (pas ×2 comme pour la
+fusion à 3 sources Cardtrader/eBay/Cardmarket) : le biais eBay documenté
+en V17 (facteur 1,8-2,5×) doit pouvoir être corrigé, un seuil à ×2
+l'aurait exclu du champ d'action dans le cas même qui motive ce repli.
+Testé en direct : `deduire_api_id` résout correctement `sv08.5-167`
+(mapping dénominateur déjà existant), TCGdex retourne 145,46€ — cohérent
+avec la capture Cardmarket de Justok. Correction confirmée par simulation
+complète du bloc (325,28€ -> 145,46€).
+
+**Persistance corrigée pour le système boutiques TCG** : `data/cotes.json`
+n'enregistrait jusqu'ici QUE la cote eBay brute (dans `obtenir_cote()`,
+avant toute correction Cardtrader/TCGdex) — la correction restait donc
+invisible pour `bonne_affaire_shopify.py`/`alerte_stock.py`, qui lisent
+ce fichier tel quel sans repasser par `main.py`. Un défaut préexistant,
+qui touchait aussi les corrections Cardtrader déjà en place (jamais
+persistées non plus). Corrigé : la cote FINALEMENT retenue (après
+correction, quelle que soit sa source) est maintenant réenregistrée dans
+l'historique quand elle diffère de la cote brute, avant la sauvegarde en
+fin de `main()`. Bénéficie automatiquement aux 2 systèmes sans aucune
+config par carte.
+
+**Tests** : suite complète 36/36 OK (aucun test unitaire n'existe sur
+`main.py`, cf. convention documentée dans `CLAUDE.md`) + simulation
+manuelle du bloc de correction avec les vraies fonctions (`cardtrader_prix`
+sans token -> `None` comme en dev local, `api_prix_carte` en appel réel).
+
 ## État du programme au 2026-08-13 (référence pour la prochaine session)
 
 **95 boutiques actives** au total (hors radar de découverte, qui démarre
