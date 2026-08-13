@@ -1917,17 +1917,25 @@ def _api_recherche_par_numero(carte: dict) -> tuple[str | None, float | None]:
     carte, même d'un set que le code ne connaît pas, est retrouvée tant que
     Cardmarket la cote. Retourne (api_id, prix) ou (None, None).
 
-    On filtre par le numéro local ET (si dispo) le dénominateur = taille du
-    set, pour ne pas confondre deux cartes de même numéro dans des sets
-    différents. La langue française passe par les sets internationaux, donc
-    on interroge l'API en anglais (les prix Cardmarket sont les mêmes)."""
+    On filtre par le numéro local ET le dénominateur = taille du set, pour
+    ne pas confondre deux cartes de même numéro dans des sets différents.
+    GARDE-FOU : sans dénominateur dans le nom, aucune vérification n'est
+    possible -> on refuse tout match plutôt que de prendre le premier
+    candidat TCGdex au hasard, tous sets confondus depuis 1999. Cas vécu
+    (13/08/2026) : "Mega Charizard X ex 110 m2" (JP, sans dénominateur
+    affiché) confondu avec une carte anglaise "Base Set 2" numérotée 110
+    par pure coïncidence -> cote à 0,44€ contre 853,83€ de vraies annonces
+    Cardtrader ignorées ensuite car jugées "incohérentes" avec cette cote
+    fausse. Même logique de prudence pour un set dont la taille officielle
+    est inconnue de TCGdex (`total` absent) : pas de vérification possible
+    non plus, donc pas de match. La langue française passe par les sets
+    internationaux, donc on interroge l'API en anglais (les prix
+    Cardmarket sont les mêmes)."""
     nom = str(carte["nom"])
     m_xy = re.search(r"\b0*(\d+)/0*(\d+)\b", nom)
-    m_seul = re.search(r"\b0*(\d+)\b", nom)
-    numero = m_xy.group(1) if m_xy else (m_seul.group(1) if m_seul else None)
-    denom = m_xy.group(2) if m_xy else None
-    if not numero:
+    if not m_xy:
         return None, None
+    numero, denom = m_xy.group(1), m_xy.group(2)
     try:
         # L'API permet de filtrer par numéro local : renvoie les cartes
         # candidates (tous sets confondus) qu'on départage par dénominateur.
@@ -1948,8 +1956,8 @@ def _api_recherche_par_numero(carte: dict) -> tuple[str | None, float | None]:
                 continue
             d = det.json()
             total = ((d.get("set") or {}).get("cardCount") or {}).get("official")
-            if denom and total and str(total) != denom:
-                continue  # mauvais set (dénominateur différent)
+            if not total or str(total) != denom:
+                continue  # mauvais set (dénominateur différent ou inconnu)
             prix = _api_lire_prix(d)
             if prix is not None:
                 return cid, prix
