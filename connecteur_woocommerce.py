@@ -55,6 +55,7 @@ from connecteur_shopify import (
     _est_xml_valide,
     _slug_correspond,
     _titre_correspond,
+    detecter_etat,
     detecter_langue,
 )
 
@@ -406,6 +407,7 @@ class ConnecteurWooCommerce:
             langue_detectee=detecter_langue(titre or ""),
             confiance=confiance,
             necessite_verification_manuelle=necessite_verif,
+            etat_detecte=detecter_etat(html),
         )
 
     def rechercher_dans_catalogue(
@@ -549,6 +551,9 @@ class ConnecteurWooCommerce:
                 devise_ok = devise == "EUR"
                 confiance = confiance_base if devise_ok else "faible"
                 images = produit.get("images") or []
+                # Store API : pas de page HTML recuperee ici, mais les champs
+                # description/short_description exposent le meme texte.
+                texte_description = f"{produit.get('short_description', '')} {produit.get('description', '')}"
 
                 resultats_par_critere[(nom, numero)].append(ResultatRecherche(
                     boutique=self.nom_affiche,
@@ -561,6 +566,7 @@ class ConnecteurWooCommerce:
                     langue_detectee=detecter_langue(titre),
                     confiance=confiance,
                     necessite_verification_manuelle=(numero is None) or not devise_ok,
+                    etat_detecte=detecter_etat(texte_description),
                 ))
 
         return resultats_par_critere

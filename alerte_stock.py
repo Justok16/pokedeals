@@ -26,7 +26,7 @@ from pathlib import Path
 import requests
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from bonne_affaire_shopify import _est_carte_gradee  # noqa: E402
+from bonne_affaire_shopify import _est_carte_gradee, _etat_refuse  # noqa: E402
 from connecteur_shopify import ConnecteurShopify  # noqa: E402
 from memoire_json import charger_memoire as _charger_memoire_generique, sauvegarder_memoire as _sauvegarder_memoire_generique  # noqa: E402
 from telegram_utils import echapper_html as _echapper_html, echapper_url_html as _echapper_url_html  # noqa: E402
@@ -97,6 +97,12 @@ def detecter_retours_en_stock(
         # qu'un retour en stock de la carte BRUTE suivie ; sans ce filtre,
         # une annonce gradee homonyme declenche une alerte trompeuse.
         candidats = [r for r in candidats if not _est_carte_gradee(r.titre)]
+
+        # V48 (14/08/2026) : exclusion des etats de conservation INFERIEURS
+        # a Near Mint/Neuf, meme garde-fou que bonne_affaire_shopify.py
+        # (evaluer_deal) -- Justok ne veut etre alerte que sur des cartes
+        # neuves/NM, cf. cas reel kairyu.fr (Eevee ex 223 sv8a, "Etat : Exc").
+        candidats = [r for r in candidats if not _etat_refuse(r.etat_detecte)]
 
         # Coherence de langue -- meme garde-fou que bonne_affaire_shopify.py
         # (evaluer_deal), jusqu'ici absent ici : une carte FR ne doit pas

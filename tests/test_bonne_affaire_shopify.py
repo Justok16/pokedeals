@@ -4,7 +4,7 @@ garde-fou correspond a un bug reel deja rencontre en prod, cf.
 SESSION_NOTES.md."""
 
 from connecteur_shopify import ResultatRecherche
-from bonne_affaire_shopify import evaluer_deal
+from bonne_affaire_shopify import _etat_refuse, evaluer_deal
 from watchlist_shopify import CarteWatchlist
 
 
@@ -19,6 +19,7 @@ def _resultat(**kwargs) -> ResultatRecherche:
         image_url=None,
         langue_detectee=None,
         confiance="forte",
+        etat_detecte=None,
     )
     base.update(kwargs)
     return ResultatRecherche(**base)
@@ -70,6 +71,35 @@ def test_carte_non_gradee_nest_pas_rejetee_a_tort():
     titre = "Dracaufeu 199/165 non gradee excellent etat"
     deal, raison = evaluer_deal(_resultat(titre=titre), _carte(), COTES, REGLES)
     assert deal is not None, raison
+
+
+def test_etat_excellent_rejete():
+    # Cas reel (14/08/2026) : kairyu.fr, Eevee ex 223 sv8a, "Etat : Exc"
+    # alertee a tort comme bonne affaire -- Justok ne veut que du Neuf/NM.
+    deal, raison = evaluer_deal(_resultat(etat_detecte="exc"), _carte(), COTES, REGLES)
+    assert deal is None
+    assert "etat refuse" in raison
+
+
+def test_etat_near_mint_nest_pas_rejete():
+    deal, raison = evaluer_deal(_resultat(etat_detecte="near mint"), _carte(), COTES, REGLES)
+    assert deal is not None, raison
+
+
+def test_etat_absent_nest_pas_rejete():
+    # Aucun label d'etat trouve sur la fiche produit -> on alerte quand meme
+    # (beaucoup de boutiques n'indiquent pas l'etat sur toutes leurs fiches).
+    deal, raison = evaluer_deal(_resultat(etat_detecte=None), _carte(), COTES, REGLES)
+    assert deal is not None, raison
+
+
+def test_etat_refuse_fonction_directe():
+    assert _etat_refuse("exc") is True
+    assert _etat_refuse("excellent") is True
+    assert _etat_refuse("light played") is True
+    assert _etat_refuse("near mint") is False
+    assert _etat_refuse("neuf") is False
+    assert _etat_refuse(None) is False
 
 
 def test_rupture_de_stock_rejetee():
