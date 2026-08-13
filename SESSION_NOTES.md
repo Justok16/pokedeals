@@ -1555,7 +1555,23 @@ bas.py`), FR/JP/KR/CN, digest Telegram 11h Paris.
 - Radar de précommandes : actif en prod, stable.
 - Radar de découverte (AFNIC) : actif, testé en conditions réelles, Telegram fonctionnel.
 - Suivi de tendance (3 cartes JP) : actif, PokemonPriceTracker fonctionnel pour les 3 cartes après 3 itérations de correction, conversion USD→EUR en place. Signal de tendance pas encore significatif (moins de 14 points accumulés) — à revisiter dans ~2 semaines.
-- Cotes eBay/Cardtrader/TCGdex : repli TCGdex généralisé à toute la watchlist, sets JP exclusifs (M2/M3/M4/M5, MC, M1S, S12) désormais correctement identifiés séparément des sets internationaux ME0x -- m3 ("zero") reste une supposition non vérifiée, à confirmer dès qu'une vraie annonce Cardtrader de ce set est repérée.
+- Cotes eBay/Cardtrader/TCGdex : repli TCGdex généralisé à toute la watchlist, sets JP exclusifs (M2/M3/M4/M5, MC, M1S, S12) désormais correctement identifiés séparément des sets internationaux ME0x -- m3 confirmé le 13/08/2026 : le set s'appelle officiellement "Nihil Zero" chez Cardtrader (annonces réelles trouvées, dont Meowth ex, la carte suivie ici), mot-clé resserré de "zero" à "nihil zero" pour plus de précision.
+
+### Vérification du mot-clé m3 "zero" (13/08/2026, en fin de session)
+
+Recherche web ciblée sur `cardtrader.com` : le set JP m3 (« ムニキスゼロ ») est
+bien référencé chez Cardtrader sous le nom **"Nihil Zero"**
+(`cardtrader.com/en/games/pokemon/expansions/nihil-zero/categories`), avec
+des annonces réelles listées, dont **"Meowth ex ... Nihil Zero"** —
+exactement la carte JP 114 m3 suivie dans la watchlist, celle qui
+déclenchait le doute initial. `CT_SETS_JP["m3"]` resserré de `["zero"]` à
+`["nihil zero"]` dans `main.py` : toujours suffisant pour matcher, mais
+moins de risque de faux positif qu'un mot seul. 36/36 tests toujours OK.
+Le cache `data/cardtrader.json` ne se purge pas automatiquement pour ce
+genre de changement (la signature de cache ne hache pas `CT_SETS_JP`),
+mais l'entrée `None` existante pour Meowth ex JP expirera naturellement
+au prochain cycle de retry (`CT_CACHE_ECHEC_DUREE`, 2h) — pas besoin
+d'intervention manuelle.
 - Radar de prix bas quotidien : code complet et testé HORS réseau (flux de données vérifié), **premier run réel pas encore eu lieu** (cron demain 11h Paris) — couverture eBay/Vinted/boutiques à confirmer.
 - Sécurité : aucune fuite de secret détectée (code + historique complet). Refus explicite d'un accès GitHub direct (voir ci-dessus).
 - `CLAUDE.md` : à jour, tenu synchronisé à chaque ajout de cette session.

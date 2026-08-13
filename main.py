@@ -1290,13 +1290,14 @@ CT_SETS_JP = {
     # ex. Goldeen 084 m5 -> 4,72€) -- meme methode appliquee ici : mot-cle
     # anglais phonetique du nom JP reel, pas le nom international ME0x.
     "m1l": ["mega evolution"], "m2": ["inferno"], "m2a": ["dream"],
-    # m3 "ムニキスゼロ" : AUCUNE transliteration anglaise fiable trouvee
-    # (pas de nom occidental officiel, set trop recent/exclusif JP pour
-    # figurer sur TCGdex/en). "zero" seul, prudent : risque de faux
-    # positif faible (peu d'extensions Cardtrader contiennent ce mot) mais
-    # NON VERIFIE -- a confirmer/corriger des qu'une vraie annonce
-    # Cardtrader de ce set est repérée.
-    "m3": ["zero"],
+    # m3 "ムニキスゼロ" : VERIFIE le 13/08/2026 -- le set existe bien chez
+    # Cardtrader sous le nom officiel "Nihil Zero"
+    # (cardtrader.com/en/games/pokemon/expansions/nihil-zero/categories),
+    # avec des annonces reelles incluant "Meowth ex ... Nihil Zero"
+    # (exactement la carte JP 114 m3 suivie ici). Mot-cle resserre de
+    # "zero" seul a "nihil zero" -- toujours suffisant et plus precis,
+    # moins de risque de faux positif sur un autre set contenant "zero".
+    "m3": ["nihil zero"],
     "m4": ["ninja spinner"],  # "ニンジャスピナー", transliteration phonetique directe
     "m5": ["abyss"], "mc": ["start deck"],
 }
