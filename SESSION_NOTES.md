@@ -1341,6 +1341,35 @@ config par carte.
 manuelle du bloc de correction avec les vraies fonctions (`cardtrader_prix`
 sans token -> `None` comme en dev local, `api_prix_carte` en appel réel).
 
+**Couverture élargie à toute la watchlist** : Justok a demandé si le repli
+pouvait couvrir toutes les cartes, pas seulement Evoli ex. Test réel sur
+les 82 cartes éligibles (hors KR, hors cote manuelle) de `config.yaml` :
+TCGdex trouve un prix pour **71/82 (~87%)** sans aucune intervention,
+`deduire_api_id()` suffisant seul. Sur les 11 échecs, 5 corrigées en
+ajoutant un `api_id:` explicite (champ déjà prévu dans `config.yaml`,
+prioritaire sur la déduction automatique) après recherche manuelle sur
+l'API TCGdex, vérifiées par cohérence de rareté/prix avec les notes déjà
+présentes dans la watchlist (ex. `Mega Darkrai ex 116` FR annoté "~250€"
+confirme le match JP `me05-116`, Special Illustration Rare à 239-312€) :
+- `Mega Darkrai ex 114/081` (jp) -> `me05-116`
+- `Mega Darkrai ex 118/081` (jp) -> `me05-120`
+- `Mega Darkrai ex 099/081` (jp) -> `me05-101`
+- `Morpeko ex 115/081` (jp) -> `me05-117`
+- `Evoli Trainer Gallery` (fr) -> `swsh9.5tg-TG11`
+
+**6 cartes restent sans repli**, aucune correspondance trouvée dans
+TCGdex malgré recherche par nom et par numéro local dans toute la base
+(pas de devinette risquée — mieux vaut aucune cote qu'une cote sur la
+mauvaise carte) : `Pikachu ex 764 mC`, `Clefairy ex 765 mC` (numéros
+locaux 764/765 absents de toute la base TCGdex), `Mega Gardevoir ex
+087/063` (jp, aucun set dont le total correspond au dénominateur 063),
+`Lugia V 198/172`, `Lugia V 110/098` (jp, le set international déduit
+`s12`→`swsh12` ne contient pas Lugia à ces numéros), `Lugia VSTAR
+GG70/GG70` (fr, aucune carte "Lugia VSTAR" dans un sous-ensemble "GG"
+chez TCGdex). Si l'une de ces cartes se retrouve un jour sans Cardtrader
+non plus, elle n'aura simplement aucun garde-fou — comportement identique
+à avant cette session (pas de régression, juste pas d'amélioration).
+
 ## État du programme au 2026-08-13 (référence pour la prochaine session)
 
 **95 boutiques actives** au total (hors radar de découverte, qui démarre
