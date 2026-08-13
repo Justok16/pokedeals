@@ -327,17 +327,21 @@ watchlist:
   # l'automatisation (desormais fonctionnelle) reprendre la main.
   - nom: "Tiplouf 098/094"               # Flammes Fantasmagoriques (PFL) FR
     langue: fr
-  # V47 : meme diagnostic pour le JP (code "m2" = Inferno X, deja corrige
-  # cote Cardtrader dans main.py -- CT_SETS_JP["m2"] pointait a tort vers
-  # "mega" avant cette session). Cote manuelle CONSERVEE par prudence :
-  # correction Cardtrader pas encore verifiee en conditions reelles
-  # (contrairement au denominateur FR ci-dessus, confirme directement via
-  # TCGdex). A retirer une fois confirmee par le prochain run reel.
+  # V47 : cause racine trouvee ici aussi, en creusant plus loin plutot que
+  # de laisser la cote manuelle (demande explicite de Justok). "m2" =
+  # set JAPONAIS EXCLUSIF "M2 : インフェルノX" (Inferno X, confirme via
+  # TCGdex /ja/sets), SANS AUCUN RAPPORT avec "ME02 Phantasmal Flames"
+  # malgre la similitude du code -- CT_SETS_JP["m2"] corrige en
+  # consequence dans main.py. Deuxieme bug trouve au passage : l'identifiant
+  # TCGdex ("m2-85") necessitait un padding a 3 chiffres ("m2-085") jamais
+  # applique pour les cartes JP (seul le cas promo SWSH l'avait) -- corrige
+  # dans deduire_api_id(). Avec les deux fix, le repli TCGdex retrouve
+  # automatiquement 6,14€ (quasi identique a la capture Cardmarket de
+  # Justok, 5,70€) : cote manuelle retiree, automatisation confirmee EN
+  # DIRECT (pas seulement deduite) avant de la retirer.
   - nom: "Piplup 085 m2"                # Inferno X (JP) = Tiplouf
     langue: jp
     alias: "Tiplouf"
-    cote: 5.70
-    cote_date: "2026-08-13"
   - nom: "Psykokwak 226"                # Héros Transcendants (ASC) FR
     langue: fr
   - nom: "Psyduck 199 m2a"              # MEGA Dream ex (JP) = Psykokwak
@@ -492,7 +496,15 @@ watchlist:
   - nom: "Oricorio ex"                  # = Plumeline ex FR/JP/KR (pas de numéro CN connu)
     langue: cn
     alias: "Plumeline"
-    cote: 25          # approx. via PokemonPriceTracker JP (~27,69$ -> ~25,5€)
+    # V47 : 25€ (estimation initiale via PokemonPriceTracker) corrigée à
+    # 50€ -- en creusant la panne Cardtrader "m2" (cf. Piplup), TCGdex a
+    # retrouvé le JP "m2-111" (オドリドリex, Inferno X, SIR) à 51,41€ de
+    # tendance, confirmé indépendamment par la vraie page Cardmarket
+    # (52,90€ tendance / 44,64€ moy.30j, capture Justok 13/08/2026). Une
+    # annonce a 28€ y est repérée : ~45% sous la tendance, DONC une vraie
+    # bonne affaire (pas le prix normal) -- vendeur a verifier (drapeau non
+    # confirme francais sur la capture).
+    cote: 50
     cote_date: "2026-08-13"
   - nom: "Squirtle"                     # = Carapuce FR/JP/KR (pas de numéro CN connu)
     langue: cn

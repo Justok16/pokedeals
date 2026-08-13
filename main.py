@@ -1267,16 +1267,38 @@ CT_SETS = {
 CT_SETS_JP = {
     "sv2a": ["151"], "sv8a": ["terastal"], "sv5a": ["crimson"],
     "sv9": ["battle partners"], "s8b": ["vmax climax"], "s12": ["paradigm"],
-    # V47 : m2/m3/m4 pointaient tous vers le mot-clé generique "mega", qui
-    # ne matche QUE l'expansion ME01 "Mega Evolution" -- les vrais noms
-    # anglais de ME02/ME03/ME04 (confirmes via TCGdex) ne contiennent pas
-    # "mega" du tout, donc la recherche echouait silencieusement pour
-    # toute carte de ces 3 sets (constate identiquement en JP et KR :
-    # Meowth ex 114 m3, Froakie 086 m4, Mega Charizard X ex m2, Piplup
-    # 085 m2, Oricorio ex 111 m2 -- aucun blueprint trouve dans aucune
-    # langue avant ce correctif).
-    "m1l": ["mega evolution"], "m2": ["phantasmal"], "m2a": ["dream"],
-    "m3": ["perfect order"], "m4": ["chaos rising"], "m5": ["abyss"], "mc": ["start deck"],
+    # V47 (premiere passe) : m2/m3/m4 pointaient tous vers le mot-cle
+    # generique "mega", qui ne matche QUE l'expansion ME01 "Mega Evolution"
+    # -- constate identiquement en JP et KR (Meowth ex 114 m3, Froakie 086
+    # m4, Mega Charizard X ex m2, Piplup 085 m2, Oricorio ex 111 m2 :
+    # aucun blueprint trouve dans aucune langue avant correctif).
+    #
+    # V47 (correction) : la premiere passe avait mappe m2/m3/m4 vers les
+    # noms INTERNATIONAUX ME02/ME03/ME04 (Phantasmal Flames/Perfect Order/
+    # Chaos Rising) par similitude de code -- ERREUR reperee en creusant
+    # suite a une question de Justok sur l'automatisation de Piplup/
+    # Tiplouf : "m2" (code JP, catalogue via /ja/sets sur TCGdex) est en
+    # realite le set JAPONAIS EXCLUSIF "M2 : インフェルノX" ("Inferno X",
+    # deja identifie par Justok des le debut de la session), SANS AUCUN
+    # RAPPORT avec "ME02 Phantasmal Flames" -- deux sets differents malgre
+    # la similitude du code. Meme suspicion pour m3 ("M3 : ムニキスゼロ")
+    # et m4 ("M4 : ニンジャスピナー"), confirmee par TCGdex : series "M"
+    # (ポケモンカードゲーム MEGA, exclusive JP) totalement distincte de la
+    # serie "ME" (internationale). m5 ("M5 : アビスアイ" = Abyss Eye) avait
+    # ete laisse INCHANGE lors de la premiere passe et s'est avere juste
+    # (confirme par un blueprint Cardtrader deja trouve en prod avec succes,
+    # ex. Goldeen 084 m5 -> 4,72€) -- meme methode appliquee ici : mot-cle
+    # anglais phonetique du nom JP reel, pas le nom international ME0x.
+    "m1l": ["mega evolution"], "m2": ["inferno"], "m2a": ["dream"],
+    # m3 "ムニキスゼロ" : AUCUNE transliteration anglaise fiable trouvee
+    # (pas de nom occidental officiel, set trop recent/exclusif JP pour
+    # figurer sur TCGdex/en). "zero" seul, prudent : risque de faux
+    # positif faible (peu d'extensions Cardtrader contiennent ce mot) mais
+    # NON VERIFIE -- a confirmer/corriger des qu'une vraie annonce
+    # Cardtrader de ce set est repérée.
+    "m3": ["zero"],
+    "m4": ["ninja spinner"],  # "ニンジャスピナー", transliteration phonetique directe
+    "m5": ["abyss"], "mc": ["start deck"],
 }
 
 
@@ -1812,7 +1834,17 @@ def deduire_api_id(carte: dict) -> str | None:
     carte. Les noms fournis contiennent déjà set + numéro pour les cartes
     japonaises ; pour les françaises, la Série 151 (x/165) correspond au
     set international sv03.5. Un champ `api_id` dans config.yaml est
-    prioritaire sur la déduction (pour corriger un cas particulier)."""
+    prioritaire sur la déduction (pour corriger un cas particulier).
+
+    V47 : TCGdex exige un numéro local TOUJOURS complété à 3 chiffres
+    (ex. "m2-085", jamais "m2-85" -- vérifié en direct : 404 sans le
+    padding, 200 avec). Seul le cas SWSH promo (déjà en `:03d`) l'avait
+    jusqu'ici -- bug latent sur tous les autres numéros < 100, découvert
+    en creusant la cote Piplup 085 m2 (Justok a demandé d'approfondir
+    plutôt que de se contenter d'une cote manuelle). Sans ce padding,
+    l'appel direct échouait TOUJOURS pour ces cartes et retombait sur la
+    recherche générique par numéro seul (_api_recherche_par_numero),
+    beaucoup moins fiable (pas de set pour désambiguïser)."""
     if carte.get("api_id"):
         return str(carte["api_id"])
     langue = carte.get("langue", "fr")
@@ -1823,18 +1855,18 @@ def deduire_api_id(carte: dict) -> str | None:
         m_set = RE_SET_JP.search(nom)
         m_num = re.search(r"\b0*(\d+)\b", nom)
         if m_set and m_num:
-            return f"{m_set.group(1)}-{int(m_num.group(1))}"
+            return f"{m_set.group(1)}-{int(m_num.group(1)):03d}"
         # Pas de code de set : le dénominateur peut identifier le set.
         m_xy = re.search(r"\b0*(\d+)/0*(\d+)\b", nom)
         if m_xy:
             set_id = _DENOM_VERS_SET.get(("jp", int(m_xy.group(2))))
             if set_id:
-                return f"{set_id}-{int(m_xy.group(1))}"
+                return f"{set_id}-{int(m_xy.group(1)):03d}"
         return None
     # Cartes françaises : Série 151 = set international sv03.5
     m151 = re.search(r"\b(\d+)/165\b", nom)
     if m151:
-        return f"sv03.5-{int(m151.group(1))}"
+        return f"sv03.5-{int(m151.group(1)):03d}"
     # Promos identifiables : SWSH087 -> swshp ; "promo" SV -> svp
     m_swsh = re.search(r"\bSWSH0*(\d+)\b", nom)
     if m_swsh:
@@ -1842,13 +1874,13 @@ def deduire_api_id(carte: dict) -> str | None:
     if "promo" in nom.lower():
         m_num = re.search(r"\b0*(\d+)\b", nom)
         if m_num:
-            return f"svp-{int(m_num.group(1))}"
+            return f"svp-{int(m_num.group(1)):03d}"
     # Autres sets FR par dénominateur confirmé
     m_xy = re.search(r"\b0*(\d+)/0*(\d+)\b", nom)
     if m_xy:
         set_id = _DENOM_VERS_SET.get(("fr", int(m_xy.group(2))))
         if set_id:
-            return f"{set_id}-{int(m_xy.group(1))}"
+            return f"{set_id}-{int(m_xy.group(1)):03d}"
     return None
 
 
