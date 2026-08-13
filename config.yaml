@@ -333,14 +333,13 @@ watchlist:
     prix_max_fixe: 15
 
   # ----- Lugia (icône légendaire recherchée) -----
-  # V47 : "Lugia V 198/172" retirée le 13/08/2026 -- introuvable (ni sur
-  # TCGdex, ni par Justok sur Cardmarket). Le set S11a (VMAX Climax) note
-  # en commentaire ne colle pas (68 cartes, denominateur attendu 172) ; le
+  # V47 : "Lugia V 198/172" et "Lugia VSTAR GG70/GG70" retirées le
+  # 13/08/2026 -- introuvables (ni sur TCGdex, ni par Justok sur
+  # Cardmarket). Pour la premiere, le set S11a (VMAX Climax) note en
+  # commentaire ne collait pas (68 cartes, denominateur attendu 172) ; le
   # bon set S12 correspond a l'autre carte "Lugia V 110/098" ci-dessous,
-  # pas a celle-ci -- carte abandonnee plutot que suivie sans reference
+  # pas a celle-ci. Cartes abandonnees plutot que suivies sans reference
   # de prix fiable.
-  - nom: "Lugia VSTAR GG70/GG70"        # Galarian Gallery
-    langue: fr
   - nom: "Lugia V 110/098"              # SR — S12 (JP)
     langue: jp
     api_id: "S12-110"  # V47 : confirme via Cardmarket (lien fourni par Justok)
