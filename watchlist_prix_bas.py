@@ -63,7 +63,7 @@ FAMILLES_PRIX_BAS = [
     FamillePrixBas(
         nom_affichage="Tiplouf (Piplup)",
         variantes=[
-            VariantePrixBas("fr", "Tiplouf 098"),
+            VariantePrixBas("fr", "Tiplouf 098/094"),
             VariantePrixBas("jp", "Piplup 085 m2"),
             VariantePrixBas("kr", "Piplup 085 m2"),
             VariantePrixBas("cn", "Piplup"),

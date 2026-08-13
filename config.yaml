@@ -314,17 +314,25 @@ watchlist:
     alias: "Grenousse"
 
   # ----- Coups de cœur (FR + JP) -----
-  # V47 : cotes eBay mesurées à ~0,45-0,72€ ici -- très en dessous de la
-  # vraie tendance Cardmarket (captures fournies par Justok le 13/08/2026 :
-  # PFL 098 FR = 11,82€, m2 085 JP "Inferno X" = 5,70€), même symptôme que
-  # le bug Evoli ex de cette même session (cote eBay isolée sans annonce
-  # proche du vrai prix, aucun garde-fou Cardtrader/TCGdex disponible pour
-  # cette carte précise). Cotes MANUELLES posées en attendant une
-  # correction automatisée équivalente.
-  - nom: "Tiplouf 098"                  # Flammes Fantasmagoriques (PFL) FR
+  # V47 : cause racine trouvee (pas juste corrigee a la main) -- "Tiplouf
+  # 098" n'avait PAS de denominateur, alors que la vraie reference est
+  # "098/094" (confirme sur TCGdex : me02-098, tendance 12,04e, quasi
+  # identique a la capture Cardmarket de Justok du 13/08/2026 : 11,82e).
+  # Sans denominateur, ni Cardtrader (CT_SETS["094"] = Phantasmal Flames,
+  # deja mappe, mais jamais consulte faute de denom) ni le filtre eBay/
+  # boutiques (numero "098" nu, risque de confondre avec une AUTRE carte
+  # numerotee 098 dans un set different) ne pouvaient fonctionner
+  # correctement -- explique la cote eBay erronee a ~0,72e. Corrige en
+  # ajoutant le denominateur ; cote manuelle retiree pour laisser
+  # l'automatisation (desormais fonctionnelle) reprendre la main.
+  - nom: "Tiplouf 098/094"               # Flammes Fantasmagoriques (PFL) FR
     langue: fr
-    cote: 11.82
-    cote_date: "2026-08-13"
+  # V47 : meme diagnostic pour le JP (code "m2" = Inferno X, deja corrige
+  # cote Cardtrader dans main.py -- CT_SETS_JP["m2"] pointait a tort vers
+  # "mega" avant cette session). Cote manuelle CONSERVEE par prudence :
+  # correction Cardtrader pas encore verifiee en conditions reelles
+  # (contrairement au denominateur FR ci-dessus, confirme directement via
+  # TCGdex). A retirer une fois confirmee par le prochain run reel.
   - nom: "Piplup 085 m2"                # Inferno X (JP) = Tiplouf
     langue: jp
     alias: "Tiplouf"
