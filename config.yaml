@@ -492,6 +492,15 @@ api_cotes:
   mode: "plus_bas"
   nb_prix_bas: 5
   min_annonces: 3
+  # V47 : seuil ABAISSÉ spécifiquement pour les cartes coréennes (langue:
+  # kr) — la SEULE langue sans aucun repli TCGdex possible (Cardmarket ne
+  # cote pas le coréen). Sans Cardtrader, ces cartes n'ont aucune
+  # vérification croisée du tout. Un marché coréen de 1 annonce reste
+  # moins fiable qu'un marché FR/JP de 3, mais mieux qu'aucune
+  # vérification — les GARDE-FOU 2 (prix aberrants écartés) et 4 (écart
+  # ×5 vs eBay) restent actifs et limitent le risque d'une annonce isolée
+  # erronée.
+  min_annonces_kr: 1
   # V24 : quand le set d'une carte n'est pas déductible de son nom
   # (promos, numéros nus : « Morpeko ex 117 », « Poissirene 087 »), on
   # cherche dans les N expansions les plus RÉCENTES. La watchlist ne

@@ -1253,7 +1253,11 @@ CT_SETS = {
     "193": ["dream"],                            # MEGA Dream ex (m2a)
     "063": ["mega", "gardevoir"],
     "172": ["paradigm", "trigger"],
-    "098": ["lost", "origin"],
+    # V47 : "098" pointait vers "Lost Origin" -- mauvais set pour l'unique
+    # carte de la watchlist utilisant ce denominateur ("Lugia V 110/098",
+    # confirme JP "Paradigm Trigger" via Cardmarket, cf. session du
+    # 13/08/2026). Corrige : aucune autre carte n'utilise ce denominateur.
+    "098": ["paradigm", "trigger"],
 }
 
 
@@ -1263,8 +1267,16 @@ CT_SETS = {
 CT_SETS_JP = {
     "sv2a": ["151"], "sv8a": ["terastal"], "sv5a": ["crimson"],
     "sv9": ["battle partners"], "s8b": ["vmax climax"], "s12": ["paradigm"],
-    "m1l": ["mega evolution"], "m2": ["mega"], "m2a": ["dream"],
-    "m3": ["mega"], "m4": ["mega"], "m5": ["abyss"], "mc": ["start deck"],
+    # V47 : m2/m3/m4 pointaient tous vers le mot-clé generique "mega", qui
+    # ne matche QUE l'expansion ME01 "Mega Evolution" -- les vrais noms
+    # anglais de ME02/ME03/ME04 (confirmes via TCGdex) ne contiennent pas
+    # "mega" du tout, donc la recherche echouait silencieusement pour
+    # toute carte de ces 3 sets (constate identiquement en JP et KR :
+    # Meowth ex 114 m3, Froakie 086 m4, Mega Charizard X ex m2, Piplup
+    # 085 m2, Oricorio ex 111 m2 -- aucun blueprint trouve dans aucune
+    # langue avant ce correctif).
+    "m1l": ["mega evolution"], "m2": ["phantasmal"], "m2a": ["dream"],
+    "m3": ["perfect order"], "m4": ["chaos rising"], "m5": ["abyss"], "mc": ["start deck"],
 }
 
 
@@ -3198,6 +3210,17 @@ def main() -> int:
         if cfg_api.get("actif"):
             nb_bas = int(cfg_api.get("nb_prix_bas", 5))
             min_ann = int(cfg_api.get("min_annonces", 3))
+            if carte.get("langue") == "kr":
+                # V47 : le coréen n'a AUCUN repli TCGdex possible (Cardmarket
+                # ne cote pas le coréen) -- c'est la SEULE langue où
+                # Cardtrader est le dernier rempart avant une cote eBay non
+                # vérifiée. Seuil abaissé pour ces cartes uniquement (marché
+                # coréen structurellement plus mince) : un peu de signal réel
+                # Cardtrader, même sur 1-2 annonces, protège mieux qu'aucune
+                # vérification croisée -- les GARDE-FOU 2 (élimination des
+                # prix aberrants) et 4 (écart ×5 vs eBay) restent actifs et
+                # limitent le risque d'une annonce isolée erronée.
+                min_ann = int(cfg_api.get("min_annonces_kr", 1))
             prix_ct = cardtrader_prix(carte, secrets.get("CARDTRADER_TOKEN", ""), nb_bas, min_ann)
             if prix_ct is not None:
                 # V22.7 GARDE-FOU 4 : vérification croisée avec la cote eBay.
