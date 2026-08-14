@@ -14,6 +14,8 @@ PokéDeals est un bot d'alerte Pokémon TCG entièrement automatisé, sans serve
 
 Les fonctions 2 et 3 partagent les mêmes connecteurs de scraping mais des logiques d'alerte et des fichiers mémoire séparés. Elles ne modifient jamais `main.py` ni ses fichiers de mémoire (`data/seen.json`, `data/cotes.json`, etc.).
 
+En plus de ces 3 fonctions du bot, le dépôt héberge aussi `mcp_pokedeals/`, un outil **développeur** (serveur MCP pour Claude Code, cf. section dédiée plus bas) — jamais exécuté en cron, sans lien avec les alertes Telegram.
+
 ## Architecture réelle
 
 ### Système historique (`main.py`)
@@ -83,7 +85,17 @@ Système **indépendant** ajouté le 13/08/2026, pour 4 cartes explicitement cho
 ### Modules transverses
 
 - `telegram_utils.py` — `echapper_html`/`echapper_url_html`, partagés par les 3 modules d'alerte boutiques TCG.
-- `memoire_json.py` — `charger_memoire`/`sauvegarder_memoire` génériques pour un fichier JSON, partagés par `alerte_stock.py`, `alerte_precommande.py` et `decouverte_boutiques.py`.
+- `memoire_json.py` — `charger_memoire`/`sauvegarder_memoire` génériques pour un fichier JSON, partagés par `alerte_stock.py`, `alerte_precommande.py`, `decouverte_boutiques.py` **et** `mcp_pokedeals/cache.py`.
+
+## Serveur MCP (`mcp_pokedeals/`) — outil développeur, PAS une fonction du bot
+
+Ajouté le 14/08/2026, système **totalement indépendant** des 3 fonctions ci-dessus : ne tourne jamais en CI/cron, ne modifie et ne lit aucun fichier `data/*.json` de PokéDeals (son propre cache vit dans `mcp_pokedeals/.cache/`, exclu de git). Expose des données Pokémon TCG (cartes, sets, prix) à une IA comme Claude Code via le protocole MCP (transport stdio, lancé en local par l'utilisateur — `python -m mcp_pokedeals.server`).
+
+- **Fournisseurs** : TCGdex (`providers/tcgdex.py`, API publique gratuite, appels REST directs — champs JSON vérifiés via le code déjà en prod dans `main.py`, pas via le SDK officiel `tcgdex-sdk` non vérifié à l'écriture) ; CardDex (`providers/carddex.py`, gratuit avec clé optionnelle, URL de base **à vérifier par l'utilisateur** avant premier usage, cf. son README) ; Cardmarket (`providers/cardmarket.py`, guide de prix officiel gratuit actif par défaut — même technique que `cardmarket_prix()` dans `main.py` — API Marketplace OAuth volontairement **non implémentée**, nécessite un compte vendeur).
+- **Outils exposés** : `search_cards`, `get_card`, `search_set`, `get_set_cards`, `get_card_prices`, `analyze_card` (synthèse informative, jamais une prédiction de valeur).
+- **Dépendances séparées** (`mcp_pokedeals/requirements.txt` : `mcp`, `requests`, `python-dotenv`) — jamais dans `requirements.txt` racine, jamais installées par les workflows CI.
+- Voir `mcp_pokedeals/README.md` pour l'installation, la config Claude Code (`.mcp.json` à la racine) et le statut détaillé de chaque source.
+- Piège déjà rencontré : le SDK officiel `mcp` (PyPI) a renommé `mcp.server.fastmcp.FastMCP` en `mcp.server.mcpserver.MCPServer` dans sa v2 — un `pip install mcp` sans version fixée casse tout code écrit pour l'ancienne API (`ModuleNotFoundError`).
 
 ## CI/déploiement — 8 workflows GitHub Actions
 

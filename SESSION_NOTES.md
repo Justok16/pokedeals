@@ -1589,3 +1589,109 @@ précis. Points à surveiller :
   le 14/08/2026 vers 20h20 UTC combien des 32 cartes sans garde-fou de
   cette session ont récupéré un prix Cardtrader réel suite aux
   corrections de mapping.
+
+## Session du 14/08/2026
+
+### Bug 1 : cotes JP anormalement basses (0,44€/0,54€/0,45€) — cause racine trouvée par remontée aux logs bruts
+
+Trois alertes "écart suspect entre langues" reçues à 00:15 (Paris) pour
+Mega Charizard X ex 110 m2, Froakie 086 m4, Piplup 085 m2 (cote JP plate
+et anormalement basse, cote KR normale). Diagnostic fait en remontant aux
+logs GitHub Actions bruts du run concerné puis du run précédent qui avait
+calculé/mémorisé ces cotes (pas de supposition, lecture ligne par ligne).
+
+**Cause racine** : PAS Cardtrader (qui n'avait aucune annonce pour ces 3
+cartes au moment du calcul initial). La cote fausse venait du repli TCGdex
+`_api_recherche_par_numero()` (utilisé quand Cardtrader ne trouve rien) :
+sans dénominateur dans le nom de la carte (format JP `"110 m2"`, jamais
+`"110/188 m2"`), le filtre de vérification du set (`if denom and total and
+...`) ne s'exécutait jamais, et la fonction acceptait le premier candidat
+TCGdex renvoyé -- tous sets confondus depuis 1999. Résultat concret : une
+carte "Base Set 2" anglaise de 1999 numérotée 110 par pure coïncidence a
+été confondue avec la carte JP recherchée (853,83€ de vraie valeur réduite
+à 0,44€). Cette cote fausse, une fois mémorisée dans `data/cotes.json`,
+servait ensuite de référence au garde-fou anti-incohérence de Cardtrader,
+qui rejetait alors les VRAIES annonces Cardtrader comme "incohérentes" --
+une boucle auto-entretenue.
+
+**Correctif** : `_api_recherche_par_numero()` refuse maintenant tout match
+sans dénominateur dans le nom, ou si la taille officielle du set est
+inconnue de TCGdex -- plutôt que de deviner. Les 3 entrées fausses de
+`data/cotes.json` ont aussi été purgées manuellement (le fix de code seul
+n'aurait pas empêché leur réutilisation pendant encore jusqu'à 7 jours).
+Vérifié sur un run réel après fusion : les 3 cartes récupèrent leurs
+vraies cotes Cardtrader (853,83€/5,53€/4,10€), plus aucune alerte
+"écart suspect" pour elles. PR #1 fusionnée.
+
+Même classe de bug que le cas Squirtle JP déjà documenté plus haut
+(0,80€ via un mauvais match TCGdex) -- cette fois avec un vrai fix
+générique plutôt qu'un simple constat.
+
+### Bug 2 : aucun filtre d'état de conservation côté boutiques TCG (Neuf/NM uniquement demandé)
+
+Alerte 🔥 reçue pour Eevee ex 223 sv8a sur kairyu.fr, "Etat : Exc"
+(Excellent, pas Near Mint) alertée à tort comme bonne affaire à -32,2%.
+`etats_acceptes`/`etats_refuses` existait déjà dans `config.yaml`, mais
+n'était lu QUE par `main.py` (système eBay historique) -- jamais par
+`bonne_affaire_shopify.py`/`alerte_stock.py`. Le connecteur Shopify ne
+lisait même pas `body_html` (là où l'état est écrit) : aucune donnée
+disponible pour filtrer.
+
+**Correctif** : nouvelle fonction `detecter_etat()` dans
+`connecteur_shopify.py`, ANCRÉE sur un label suivi d'un vrai séparateur
+(`"Etat :"`/`"Condition :"` + `:`/`-`) -- jamais une recherche libre dans
+le texte, pour ne jamais confondre "ex" (quasi tous les titres de la
+watchlist) avec l'abréviation d'"Excellent". Branchée sur les 3
+connecteurs, sans requête réseau supplémentaire (texte déjà récupéré).
+`bonne_affaire_shopify._etat_refuse()` (liste `MOTS_ETAT_REFUSE`) rejette
+un état explicitement inférieur à Near Mint/Neuf ; aucun label trouvé =
+accepté (même philosophie que `main.py`). Même garde-fou dans
+`alerte_stock.py`. Vérifié sur un run réel après fusion : kairyu.fr ne
+remonte plus cette carte comme deal. PR #2 fusionnée.
+
+### Nouveau : serveur MCP (`mcp_pokedeals/`) pour Claude Code
+
+Ajout d'un serveur MCP exposant TCGdex/CardDex/Cardmarket à Claude Code,
+sur demande explicite de Justok, en 3 phases : audit complet du dépôt (sans
+rien modifier) présenté et validé avant d'écrire du code, implémentation,
+puis tests + doc. Détails dans `mcp_pokedeals/README.md` et la nouvelle
+section dédiée de `CLAUDE.md`.
+
+Points notables :
+- TCGdex intégré via appels REST directs (pas le SDK officiel
+  `tcgdex-sdk`, dont le modèle d'objets Python exact n'a pas pu être
+  vérifié -- accès web direct bloqué dans l'environnement de
+  développement, seule la recherche web fonctionnait).
+- Cardmarket : réutilisation du guide de prix officiel déjà en place dans
+  `main.py` (gratuit, sans auth) ; API Marketplace (OAuth, compte
+  vendeur) explicitement NON implémentée, documentée comme telle.
+- CardDex : service réel confirmé (bêta publique) mais URL de base non
+  vérifiable en direct -- documentée "à vérifier", corrigeable par
+  variable d'env sans toucher au code.
+- Bug détecté et corrigé AVANT de committer : le SDK officiel `mcp`
+  (PyPI) installe sa v2 par défaut, qui renomme
+  `mcp.server.fastmcp.FastMCP` en `mcp.server.mcpserver.MCPServer` --
+  découvert en installant réellement le package et en l'introspectant,
+  pas supposé. Le serveur a été importé avec succès et ses 6 outils
+  listés (`list_tools()`) avant de committer.
+- 22 nouveaux tests (mocks HTTP, aucun appel réseau réel), 45/45 tests
+  existants toujours au vert (isolation confirmée). PR #3 fusionnée.
+
+### Guide (hors dépôt) : 5 MCP Pokémon tiers pour la machine locale de Justok
+
+Sur demande séparée, audit + test réel (clone/install/build) de 5 MCP
+externes (Cardpeer, TCGdex via Pipeworx, pokemon-tcg-mcp de grzetich,
+ptcg-mcp de jlgrimes, PokeClaude de briansunter) -- config donnée en
+message, PAS committée dans ce dépôt (installation sur la machine locale
+de l'utilisateur, sans rapport avec le code PokéDeals). A noter pour une
+session future si le sujet revient :
+- Cardpeer (`cardpeer.com/mcp`) : AUCUNE preuve trouvée de son existence
+  en tant que serveur MCP malgré recherche web -- site marketplace réel,
+  mais l'endpoint MCP n'est confirmé nulle part. Justok a choisi de
+  tenter quand même, en connaissance de cause.
+- `pokemon-tcg-mcp` (grzetich) : cassé tel quel (`requirements.txt`
+  installe `mcp` sans version fixée -> v2, qui a supprimé
+  `mcp.server.fastmcp` -- même piège que ci-dessus). Fix vérifié : forcer
+  `pip install "mcp<2"`.
+- `ptcg-mcp` (jlgrimes) et PokeClaude (briansunter) : clonés/testés avec
+  succès, fonctionnent tels quels.
