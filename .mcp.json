@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "pokedeals": {
+      "command": "python",
+      "args": ["-m", "mcp_pokedeals.server"]
+    }
+  }
+}

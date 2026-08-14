@@ -10,3 +10,7 @@ venv/
 
 # Secrets locaux (jamais utilises en prod, GitHub Actions passe par secrets.*)
 .env
+
+# Cache local du serveur MCP (mcp_pokedeals/) -- donnees temporaires
+# reconstructibles a tout moment, jamais a committer.
+mcp_pokedeals/.cache/
