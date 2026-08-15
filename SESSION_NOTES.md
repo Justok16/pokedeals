@@ -1695,3 +1695,87 @@ session future si le sujet revient :
   `pip install "mcp<2"`.
 - `ptcg-mcp` (jlgrimes) et PokeClaude (briansunter) : clonés/testés avec
   succès, fonctionnent tels quels.
+
+## Session du 15/08/2026 (soir) — 2 bugs CI corrigés + audit de santé complet
+
+Déclenché par un mail d'échec `Scan PrestaShop` (12h11, job `scan`,
+`ENOENT ... .git/objects/75`), puis par un signalement de l'utilisateur en
+soirée ("plusieurs scans qui n'étaient pas passés"). PR #6 fusionnée
+(squash), branche `claude/cardtrader-jp-prices-bug-95mb50` repartie de
+`main` avant travail (l'ancienne PR #1 de cette branche était déjà
+fusionnée depuis longtemps, cf. section correspondante plus haut).
+
+### Bug 1 : sortie Python bufferisée = logs vides en cas de timeout
+
+`Scan PrestaShop` a enchaîné plusieurs annulations pour dépassement de son
+timeout de 30 min (le scan prenait ~7 min à l'origine). En allant chercher
+le log complet d'un run annulé pour identifier la boutique fautive : le
+log était **totalement vide** entre le lancement du script et
+l'annulation, alors que `scan_boutique_prestashop.py` affiche pourtant une
+ligne de progression par boutique (`print(...)`, sans `flush=True`).
+Cause : hors TTY, la sortie standard Python est bufferisée par blocs — un
+process tué (timeout) avant que le buffer ne se remplisse ne laisse
+**aucune trace** dans le log GitHub Actions, même si le script avait déjà
+affiché de la progression en mémoire.
+
+**Correctif** : `PYTHONUNBUFFERED: "1"` ajouté à toutes les étapes
+`run: python ...` des 7 workflows (pas seulement `scan_prestashop.yml`,
+par cohérence — n'importe lequel des scans peut un jour se retrouver dans
+la même situation).
+
+### Bug 2 : stash orphelin après un `git stash pop` en conflit → cascade
+
+Root cause d'un échec dur (`Scan PrestaShop`, exit 128, "Committing is not
+possible because you have unmerged files") trouvée dans le log complet :
+
+1. Étape "Sauvegarder la mémoire de stock" : conflit sur
+   `stock_boutiques_tcg_prestashop.json` pendant `git stash pop` (deux
+   crons parallèles avaient poussé entre-temps). Le `cp`/`add`/`commit` de
+   rattrapage réimpose la version fraîchement scannée et le push passe —
+   mais `git stash pop` en conflit **ne supprime jamais l'entrée du
+   stash** ("kept in case you need it again").
+2. Ce stash orphelin reste dans le même dossier de travail, partagé par
+   toutes les étapes du job.
+3. Étape suivante, "Sauvegarder la mémoire du radar précommandes" : son
+   propre `git stash pop` tente de réappliquer CE MÊME stash orphelin →
+   nouveau conflit sur un fichier dont cette étape ne sait rien gérer →
+   `git commit` refuse (chemin non fusionné dans l'index) → job en échec.
+
+**Correctif** : `git stash drop || true` juste après chaque
+`git stash pop || true`, dans `scan_prestashop.yml` et `scan_shopify.yml`
+(les 2 seuls workflows à enchaîner 2 cycles stash/pull/pop dans le même
+job — les autres n'ont qu'une seule étape de sauvegarde par job, donc pas
+de risque de cascade).
+
+### Audit de santé complet (sur demande explicite, ~90 runs des dernières
+heures passés en revue)
+
+- **Scan Shopify, PokéDeals (main.py), Tendance Prix, Prix Bas Quotidien,
+  Tests** : 100% verts, rien à signaler.
+- **Scan WooCommerce** : 1 échec dur, même classe d'incident transitoire
+  runner GitHub (`ENOENT ... .git/objects/b1`, réapparu une 3e fois dans
+  la soirée sur un 3e workflow différent — reste un incident
+  d'infrastructure GitHub Actions, pas de code, auto-résolu au cycle
+  suivant à chaque fois) ; 3 runs annulés, tous vérifiés = le job
+  `scan_lot_a` heurtant exactement son budget de 22 min, déjà documenté et
+  accepté comme flake connu (cf. section "Diagnostic du flake scan_lot_a"
+  plus haut) — PAS une nouvelle régression, rien touché.
+- **Découverte Boutiques** : aucun run planifié depuis sa création
+  (cron hebdomadaire lundi 6h UTC, prochain 17/08) — normal, pas un bug.
+- Fichiers mémoire (`data/*.json`) vérifiés non corrompus malgré les
+  conflits git de la soirée (écriture atomique + logique de rattrapage
+  ont tenu). 51 tests unitaires au vert sur `main` après fusion.
+
+### Cause du timeout `Scan PrestaShop` lui-même — TOUJOURS NON IDENTIFIÉE
+
+Tentative de reproduction en environnement de dev (même script, mêmes 17
+boutiques, aucun `TELEGRAM_BOT_TOKEN` donc aucune alerte réelle envoyée) :
+cycle complet terminé en **2 min 33s**, aucune boutique lente. Impossible
+de reproduire le ralentissement observé sur les runners GitHub Actions
+depuis cet environnement — hypothèse la plus probable : une ou plusieurs
+boutiques appliquent un rate-limit/anti-bot ciblant spécifiquement les
+plages d'IP connues des runners GitHub (comportement réseau différent de
+celui observé ici), pas un bug de code. Le correctif `PYTHONUNBUFFERED`
+est le préalable nécessaire pour enfin voir, au prochain timeout réel en
+prod, quelle boutique précisément bloque — pas encore observé en
+conditions réelles au moment d'écrire ceci.
