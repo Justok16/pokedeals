@@ -30,6 +30,7 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           POKEMONPRICETRACKER_API_KEY: ${{ secrets.POKEMONPRICETRACKER_API_KEY }}
+          PYTHONUNBUFFERED: "1"
         run: python historique_prix.py
       - name: Sauvegarder l'historique de tendance
         run: |

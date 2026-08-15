@@ -36,4 +36,5 @@ jobs:
           EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PYTHONUNBUFFERED: "1"
         run: python radar_prix_bas.py

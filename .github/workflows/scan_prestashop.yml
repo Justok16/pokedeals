@@ -40,6 +40,7 @@ jobs:
       - name: Lancer le scan PrestaShop (15 boutiques par defaut)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PYTHONUNBUFFERED: "1"   # sans ca, la sortie (progression boutique par boutique) reste bufferisee et n'apparait dans le log que si le job va au bout -- inutile pour diagnostiquer un timeout (cf. run du 15/08/2026, log vide malgre 30 min ecoulees)
         run: python scan_boutique_prestashop.py ${{ github.event.inputs.boutiques }}
       - name: Sauvegarder la mémoire de stock
         run: |
@@ -54,6 +55,7 @@ jobs:
           git stash || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
+          git stash drop || true   # si le pop a laisse un conflit (stash "garde en cas de besoin"), on le purge -- notre cp/add/commit juste apres reimpose de toute facon la version fraichement scannee ; un stash oublie ici polluerait l'etape "Sauvegarder" suivante DANS LE MEME JOB (cf. SESSION_NOTES.md, cascade du 15/08/2026)
           cp -f /tmp/stock_boutiques_tcg_prestashop.json data/stock_boutiques_tcg_prestashop.json 2>/dev/null || true
           git add data/stock_boutiques_tcg_prestashop.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "maj mémoire stock prestashop [skip ci]"
@@ -75,6 +77,7 @@ jobs:
       - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PYTHONUNBUFFERED: "1"
         run: python scan_precommandes.py prestashop
       - name: Sauvegarder la mémoire du radar précommandes
         run: |
@@ -84,6 +87,7 @@ jobs:
           git stash || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
+          git stash drop || true   # meme parade qu'a l'etape precedente -- purge un eventuel stash laisse par un pop en conflit
           cp -f /tmp/precommandes_anniversaire_prestashop.json data/precommandes_anniversaire_prestashop.json 2>/dev/null || true
           git add data/precommandes_anniversaire_prestashop.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "maj mémoire radar précommandes prestashop [skip ci]"

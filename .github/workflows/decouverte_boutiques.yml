@@ -32,6 +32,7 @@ jobs:
       - name: Lancer le radar de découverte (AFNIC)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PYTHONUNBUFFERED: "1"
         run: python decouverte_boutiques.py
       - name: Sauvegarder les résultats (boutiques_decouvertes.py + mémoire)
         run: |
