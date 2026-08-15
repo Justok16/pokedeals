@@ -37,6 +37,7 @@ jobs:
       - name: Lancer le scan Shopify (39 boutiques par defaut)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
         run: python scan_boutique.py ${{ github.event.inputs.boutiques }}
       - name: Sauvegarder la mémoire de stock
         run: |
@@ -71,6 +72,7 @@ jobs:
       - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PYTHONUNBUFFERED: "1"
         run: python scan_precommandes.py shopify
       - name: Sauvegarder la mémoire du radar précommandes
         run: |
