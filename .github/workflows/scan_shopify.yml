@@ -51,6 +51,7 @@ jobs:
           git stash || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
+          git stash drop || true   # si le pop a laisse un conflit (stash "garde en cas de besoin"), on le purge -- notre cp/add/commit juste apres reimpose de toute facon la version fraichement scannee ; un stash oublie ici polluerait l'etape "Sauvegarder" suivante DANS LE MEME JOB (cf. SESSION_NOTES.md, cascade du 15/08/2026 sur scan_prestashop.yml)
           cp -f /tmp/stock_boutiques_tcg.json data/stock_boutiques_tcg.json 2>/dev/null || true
           git add data/stock_boutiques_tcg.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "maj mémoire stock shopify [skip ci]"
@@ -82,6 +83,7 @@ jobs:
           git stash || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
+          git stash drop || true   # meme parade qu'a l'etape precedente -- purge un eventuel stash laisse par un pop en conflit
           cp -f /tmp/precommandes_anniversaire_shopify.json data/precommandes_anniversaire_shopify.json 2>/dev/null || true
           git add data/precommandes_anniversaire_shopify.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "maj mémoire radar précommandes shopify [skip ci]"
