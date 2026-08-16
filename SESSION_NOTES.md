@@ -1818,3 +1818,41 @@ boutiques par défaut corrigé dans `scan_prestashop.yml` (17 → 16).
 Reste à confirmer sur 2-3 cycles de prod que le retrait suffit (pas de
 nouveau timeout), et à surveiller si `investcollect.com` développe un jour
 le même comportement.
+
+### Purge de 17 cotes fantômes héritées du bug du 13/08 (16/08/2026, ~3h)
+
+Justok signale une alerte Telegram "ÉCART SUSPECT ENTRE LANGUES" reçue à
+03:16 : `Oricorio ex 111 m2` coté 0,33€ en JP contre 50€ en CN (carte
+suivie personnellement : "Inferno X - Oricorio ex", JP/KR/CN-T). 0,33€ est
+absurde pour cette carte (valeur réelle confirmée ~50€ via Cardmarket, cf.
+session du 13/08).
+
+Root cause : `data/cotes.json` contenait encore la valeur héritée du run
+BUGUÉ du 13/08 19:58:21 UTC (le tout premier bug corrigé cette session-là,
+PR #1 -- `_api_recherche_par_numero()` acceptait alors n'importe quel
+candidat TCGdex pour une carte SANS dénominateur dans son nom). Le fix
+empêche toute NOUVELLE cote fausse d'être créée, mais ne purge jamais
+rétroactivement les valeurs déjà mémorisées -- et `VALIDITE_JOURS = 7`
+dans `main.py` les gardait valides jusqu'au 20/08.
+
+En élargissant la recherche à toutes les entrées `data/cotes.json` datées
+de cette même fenêtre (19:55-20:00 UTC le 13/08) pour des cartes SANS "/"
+dans leur nom (donc structurellement impossibles à produire avec le code
+actuel, qui refuse tout match sans dénominateur) : **17 entrées** au total
+partageaient ce défaut, dont 9 cartes "ex" à des cotes ridicules (0,15€ à
+1,79€ pour des Mega Darkrai ex/Mega Dracaufeu X ex/Oricorio ex/etc. --
+jamais crédible pour ce type de carte) et 8 cartes de base plus ambiguës
+(Bulbizarre, Ivysaur, Grenousse...) dont la valeur PARAÎT plausible mais
+reste non vérifiée par la même méthode buguée -- purgées aussi par
+prudence, une devinette qui tombe juste par hasard n'est pas plus fiable
+qu'une devinette qui tombe faux. Vérifié : aucune entrée équivalente
+apparue APRÈS le déploiement du fix (13/08 22:35 UTC) -- confirme que le
+correctif tient, c'était uniquement un reliquat de l'incident initial,
+jamais réapparu depuis.
+
+Les 17 clés supprimées de `data/cotes.json` (liste complète dans le commit
+git) : au prochain scan, ces cartes retomberont sur `None` ("cote
+introuvable") tant qu'aucune vraie donnée eBay/Cardtrader/Cardmarket ne
+sera disponible -- plus sûr qu'un chiffre inventé, même si ça veut dire
+temporairement aucune alerte "bonne affaire" possible sur ces cartes
+précises.
