@@ -19,18 +19,20 @@ import requests
 from memoire_json import charger_memoire as _charger_memoire_generique, sauvegarder_memoire as _sauvegarder_memoire_generique
 from telegram_utils import echapper_html as _echapper_html, echapper_url_html as _echapper_url_html
 
-FICHIER_MEMOIRE = Path(__file__).parent / "data" / "precommandes_anniversaire.json"
-
-
 def _cle_memoire(domaine: str, nom_produit: str) -> str:
     return f"{domaine}|{nom_produit}"
 
 
-def charger_memoire(chemin: Path = FICHIER_MEMOIRE) -> dict:
+# Pas de valeur par defaut pour `chemin` : un fichier memoire PAR PLATEFORME
+# existe (precommandes_anniversaire_{shopify,prestashop,woocommerce}.json),
+# scan_precommandes.py passe toujours le chemin explicite -- un defaut
+# generique pointerait vers un fichier qui n'existe jamais reellement
+# (piege trouve a l'audit du 16/08/2026, defaut jamais utilise en pratique).
+def charger_memoire(chemin: Path) -> dict:
     return _charger_memoire_generique(chemin)
 
 
-def sauvegarder_memoire(memoire: dict, chemin: Path = FICHIER_MEMOIRE) -> None:
+def sauvegarder_memoire(memoire: dict, chemin: Path) -> None:
     _sauvegarder_memoire_generique(memoire, chemin)
 
 

@@ -44,7 +44,6 @@ listes annotees a la main par Justok/les sessions precedentes) -- lit
 uniquement boutiques_decouvertes.py, qu'il possede entierement.
 """
 
-import json
 import os
 import re
 import sys
@@ -262,7 +261,15 @@ BOUTIQUES_WOOCOMMERCE_AUTO = {listes["woocommerce"]!r}
 
 BOUTIQUES_WOOCOMMERCE_AUTO_PRECOMMANDE_SEULEMENT = {listes["woocommerce_precommande"]!r}
 '''
-    FICHIER_BOUTIQUES_DECOUVERTES.write_text(contenu, encoding="utf-8")
+    # Ecriture ATOMIQUE (fichier temporaire + remplacement), meme principe
+    # que _ecrire_json_atomique (main.py) / memoire_json.sauvegarder_memoire
+    # -- ce fichier est un MODULE PYTHON importe par 3 workflows
+    # (scan_boutique.py, scan_boutique_woocommerce.py, scan_precommandes.py) :
+    # un process tue en plein "write_text" laisserait un .py tronque et
+    # casserait leur import au prochain scan, pas juste une donnee perimee.
+    tmp = FICHIER_BOUTIQUES_DECOUVERTES.with_suffix(".py.tmp")
+    tmp.write_text(contenu, encoding="utf-8")
+    tmp.replace(FICHIER_BOUTIQUES_DECOUVERTES)
 
 
 def envoyer_telegram_rapport(ajouts: list[dict], a_examiner: list[dict], chat_id: str, token: str) -> None:

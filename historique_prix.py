@@ -385,9 +385,9 @@ if __name__ == "__main__":
             if derniers_signaux.get(cle) != tendance["signal"]:
                 if envoyer_telegram_tendance(carte, tendance, chat_id_tg, token_tg):
                     derniers_signaux[cle] = tendance["signal"]
-                    print(f"  -> alerte envoyee (changement de signal)")
+                    print("  -> alerte envoyee (changement de signal)")
             else:
-                print(f"  -> signal inchange depuis la derniere alerte, silence")
+                print("  -> signal inchange depuis la derniere alerte, silence")
 
     sauvegarder_historique(historique)
     print(f"\nHistorique sauvegarde dans {FICHIER_HISTORIQUE}")

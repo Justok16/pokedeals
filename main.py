@@ -316,7 +316,6 @@ def code_set_asiatique(jetons: list[str]) -> str | None:
 # carte japonaise et sa version coréenne partagent le MÊME numéro. Sans
 # cette distinction, une annonce coréenne (moins chère) polluerait la cote
 # japonaise et inversement — le même piège que FR/JP.
-import unicodedata as _ud
 
 
 def _script_asiatique(texte: str) -> str | None:
@@ -3179,8 +3178,19 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
     if cote_connue:
         prix_plafond = round(float(cote_connue) * (1 - cfg["regles"]["marge_achat"]), 2)
 
+    # V49 (audit du 16/08/2026) : `with ThreadPoolExecutor(...) as pool:`
+    # appelle shutdown(wait=True) a la SORTIE du bloc -- donc AVANT meme
+    # d'atteindre la boucle .result(timeout=60) ci-dessous, qui attendait
+    # deja (sans limite) la fin des 3 taches. Le "timeout=60" ne servait
+    # donc a rien en pratique : un retry Vinted avec backoff (jusqu'a 3
+    # tentatives de 25s + pauses progressives) peut a lui seul depasser 90s,
+    # bloquant collecter() bien au-dela de la limite apparente. Pool géré
+    # manuellement + shutdown(wait=False) : la tache lente continue en
+    # arriere-plan jusqu'a son propre timeout HTTP interne, mais ne bloque
+    # plus le scan des cartes suivantes.
     taches = {}
-    with ThreadPoolExecutor(max_workers=3) as pool:
+    pool = ThreadPoolExecutor(max_workers=3)
+    try:
         if plateformes.get("ebay"):
             taches["ebay"] = pool.submit(ebay_rechercher, nom, langue, secrets, 40, cfg["regles"], carte.get("alias", ""))
         if plateformes.get("vinted"):
@@ -3188,13 +3198,15 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
         if plateformes.get("leboncoin"):
             taches["leboncoin"] = pool.submit(lbc_rechercher, nom, langue)
 
-    resultats = {}
-    for cle, fut in taches.items():
-        try:
-            resultats[cle] = fut.result(timeout=60)
-        except Exception as e:  # noqa: BLE001
-            log.warning("Plateforme %s en erreur pour '%s' : %s", cle, nom, e)
-            resultats[cle] = []
+        resultats = {}
+        for cle, fut in taches.items():
+            try:
+                resultats[cle] = fut.result(timeout=60)
+            except Exception as e:  # noqa: BLE001
+                log.warning("Plateforme %s en erreur pour '%s' : %s", cle, nom, e)
+                resultats[cle] = []
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
 
     annonces_ebay = resultats.get("ebay", [])
     annonces = annonces_ebay + resultats.get("vinted", []) + resultats.get("leboncoin", [])

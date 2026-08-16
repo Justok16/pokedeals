@@ -113,8 +113,11 @@ class TCGdexProvider:
         return [self._carte_brief_depuis_json(item, langue) for item in data[:limite_reelle]]
 
     def _carte_depuis_json(self, d: dict, langue: str) -> Card:
+        # Note : `pricing` (prix Cardmarket deja integres par TCGdex) est
+        # disponible sur la reponse brute mais volontairement pas copie dans
+        # Card -- cf. services/prices.py, qui garde chaque source de prix
+        # bien separee plutot que de la fusionner dans les infos carte.
         set_info = d.get("set") or {}
-        pricing = ((d.get("pricing") or {}).get("cardmarket")) or {}
         return Card(
             id=d.get("id", ""),
             name=d.get("name", ""),
@@ -136,10 +139,6 @@ class TCGdexProvider:
             language=langue,
             source="tcgdex",
         )
-        # Note : `pricing` (prix Cardmarket deja integres par TCGdex) est
-        # disponible sur la reponse brute mais volontairement pas copie dans
-        # Card -- cf. services/prices.py, qui garde chaque source de prix
-        # bien separee plutot que de la fusionner dans les infos carte.
 
     def _carte_brief_depuis_json(self, d: dict, langue: str) -> Card:
         # Les resultats de recherche TCGdex sont des objets "CardBrief"
