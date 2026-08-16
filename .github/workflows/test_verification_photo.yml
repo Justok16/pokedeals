@@ -1,0 +1,35 @@
+name: Test verification photo
+on:
+  workflow_dispatch:
+    inputs:
+      image_url:
+        description: "URL de la photo a tester"
+        required: true
+      nom_carte:
+        description: "Nom de la carte attendue (ex: Dracaufeu ex 199/165)"
+        required: true
+      langue:
+        description: "Langue attendue (fr/jp/en/kr/cn)"
+        required: false
+        default: "fr"
+permissions:
+  contents: read   # outil de diagnostic manuel : aucune ecriture sur data/
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Tester la vérification photo
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: python verification_photo.py "${{ github.event.inputs.image_url }}" "${{ github.event.inputs.nom_carte }}" "${{ github.event.inputs.langue }}"

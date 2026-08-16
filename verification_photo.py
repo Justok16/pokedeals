@@ -144,3 +144,30 @@ def verifier_photo_annonce(image_url: str, nom_carte: str, langue: str, api_key:
         return None, "erreur API de vérification"
 
     return _interpreter_reponse(texte)
+
+
+if __name__ == "__main__":
+    # Outil de test manuel (meme convention que alerte_stock.py) :
+    #   python verification_photo.py <image_url> <nom_carte> [langue]
+    # Necessite ANTHROPIC_API_KEY dans l'environnement.
+    import os
+    import sys
+
+    if len(sys.argv) < 3:
+        print("Usage : python verification_photo.py <image_url> <nom_carte> [langue]")
+        print('Exemple : python verification_photo.py https://exemple.fr/photo.jpg "Dracaufeu ex 199/165" fr')
+        sys.exit(1)
+
+    _image_url = sys.argv[1]
+    _nom_carte = sys.argv[2]
+    _langue = sys.argv[3] if len(sys.argv) > 3 else "fr"
+    _api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+
+    print(f"Carte attendue : {_nom_carte} ({_langue})")
+    print(f"Photo          : {_image_url}")
+    print(f"Clé API        : {'présente' if _api_key else 'ABSENTE (ANTHROPIC_API_KEY non définie)'}\n")
+
+    _verdict, _raison = verifier_photo_annonce(_image_url, _nom_carte, _langue, _api_key)
+    print(f"Verdict : {_verdict or 'NON CONCLUANT'}")
+    if _raison:
+        print(f"Raison  : {_raison}")
