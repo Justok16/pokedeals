@@ -1856,3 +1856,62 @@ introuvable") tant qu'aucune vraie donnée eBay/Cardtrader/Cardmarket ne
 sera disponible -- plus sûr qu'un chiffre inventé, même si ça veut dire
 temporairement aucune alerte "bonne affaire" possible sur ces cartes
 précises.
+
+## Audit de santé complet du code (16/08/2026, ~4h)
+
+Demande explicite de Justok : "audit entier du code... supprimer, modifier,
+améliorer ou optimiser". Analyse statique (pyflakes + vulture sur tout le
+dépôt) + relecture manuelle des fichiers pas encore couverts par les
+sessions précédentes (connecteur_woocommerce.py, decouverte_boutiques.py,
+historique_prix.py, bonne_affaire_shopify.py en entier). Codebase globalement
+saine (0 `except:` nu, 0 argument par défaut mutable, 0 TODO/FIXME oublié) --
+peu de trouvailles mais 2 réelles, une petite et une plus structurelle.
+
+**Nettoyage mineur** (commit `ad781b2`) : imports inutilisés (`json` dans
+`decouverte_boutiques.py`, `unicodedata as _ud` doublon dans `main.py`),
+variable `pricing` calculée puis jamais utilisée (`mcp_pokedeals/providers/
+tcgdex.py`), 2 f-strings sans placeholder, défaut `FICHIER_MEMOIRE` mort
+dans `alerte_precommande.py` (pointait vers un fichier qui n'existe jamais
+en pratique -- `scan_precommandes.py` passe toujours un chemin explicite).
+
+**2 bugs réels trouvés et corrigés** (mêmes commit) :
+1. `_ecrire_boutiques_decouvertes()` écrivait `boutiques_decouvertes.py`
+   (un MODULE PYTHON importé par 3 workflows) sans écriture atomique,
+   contrairement à tout le reste du projet -- un process tué en pleine
+   écriture y aurait laissé un fichier tronqué, cassant l'import des 3
+   workflows au lieu de juste perdre une donnée périmée. Corrigé (fichier
+   `.tmp` + remplacement).
+2. `collecter()` (`main.py`) : `with ThreadPoolExecutor(...) as pool:`
+   appelle `shutdown(wait=True)` à la SORTIE du bloc -- avant même
+   d'atteindre la boucle `.result(timeout=60)` juste après, qui attendait
+   donc déjà sans limite la fin des 3 tâches (eBay/Vinted/Leboncoin). Un
+   retry Vinted avec backoff peut à lui seul dépasser 90s, largement au-delà
+   du timeout apparent -- risque latent de contribuer aux mêmes dépassements
+   de timeout que ceux diagnostiqués ce soir côté PrestaShop, jamais
+   confirmé en prod côté `main.py` mais structurellement réel. Corrigé (pool
+   géré à la main + `shutdown(wait=False, cancel_futures=True)`), vérifié
+   par mesure directe : avant 5.0s bloqué malgré un timeout de 1s, après
+   1.2s en respectant le timeout.
+
+**Refactor structurel** (commit `9f98b29`) : la chaîne de garde-fous
+(gradée → état → langue → qualificatif symétrique) était dupliquée à la
+main dans 3 fichiers (`bonne_affaire_shopify.evaluer_deal`,
+`alerte_stock.detecter_retours_en_stock`, et
+`radar_prix_bas._resultat_boutique_fiable`) -- exactement la duplication
+que CLAUDE.md documentait déjà comme risquée ("pièges connus"), et qui a
+causé 3 bugs réels distincts par le passé (garde-fou langue puis état
+oubliés dans `alerte_stock.py`, chaîne entière absente de
+`radar_prix_bas.py` jusqu'au 14/08/2026). Extrait dans
+`garde_fous_boutique(resultat, carte) -> (ok, raison)`
+(`bonne_affaire_shopify.py`), appelée par les 3 -- rend ce genre d'oubli
+structurellement impossible désormais. Ne couvre pas le garde-fou stock
+(sémantique différente par appelant).
+
+Vérifié : 52/52 tests unitaires (les 3 suites qui couvrent exactement ces
+scénarios inchangées, toujours au vert) + non-régression réseau réelle
+(`scan_boutique.py` sur 6 boutiques Shopify actives, `radar_prix_bas.py`
+sur les 83 boutiques actives -- 0 erreur dans les deux cas).
+
+CLAUDE.md mis à jour (commit `54db2fa`) : description de
+`garde_fous_boutique()`, 2 nouveaux pièges connus (ThreadPoolExecutor +
+écriture non-atomique d'un `.py` généré).
