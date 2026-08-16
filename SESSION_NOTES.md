@@ -1779,3 +1779,42 @@ celui observé ici), pas un bug de code. Le correctif `PYTHONUNBUFFERED`
 est le préalable nécessaire pour enfin voir, au prochain timeout réel en
 prod, quelle boutique précisément bloque — pas encore observé en
 conditions réelles au moment d'écrire ceci.
+
+### Cause du timeout `Scan PrestaShop` — RÉSOLUE (16/08/2026, ~1h du matin)
+
+Run manuel déclenché via l'API Actions (id `31917110961`) pour observer le
+correctif `PYTHONUNBUFFERED` en conditions réelles sans attendre le
+prochain cron. Log complet fourni par Justok (collé directement dans la
+conversation) : le correctif fonctionne parfaitement, progression
+boutique par boutique visible en direct, ET le correctif du stash orphelin
+fonctionne aussi ("Dropped refs/stash@{0}" / "No stash entries found" —
+plus de cascade de conflit).
+
+Chronométrage exact des 17 boutiques (étape "Lancer le scan PrestaShop") :
+16 boutiques entre 3s et 2min40s chacune, SAUF `lepantheon-tcg.com` (la
+dernière, 17/17) : **14min34s à elle seule** (874s sur 1525.9s de durée
+totale de l'étape). Dans l'étape suivante (radar précommandes), même
+scénario : 16/17 boutiques traitées en un peu plus de 3 minutes, puis
+blocage total sur la 17e (`lepantheon-tcg.com` à nouveau) jusqu'au timeout
+du job entier (30 min).
+
+Confirme l'hypothèse posée plus haut : le scan complet tourne en 2min33s
+depuis l'environnement de dev (IP différente), donc ce n'est pas un
+problème de code (`investcollect.com`, qui utilise exactement la même
+méthode `rechercher_via_recherche_html` sans sitemap, reste rapide) —
+`lepantheon-tcg.com` applique très probablement un rate-limit/anti-bot
+ciblant spécifiquement les plages d'IP des runners GitHub Actions (Azure).
+
+**Correctif** : `lepantheon-tcg.com` retirée de
+`BOUTIQUES_PRESTASHOP_REPLI_HTML` vers une nouvelle liste documentée
+`BOUTIQUES_PRESTASHOP_REPLI_HTML_TROP_LENTE` dans `boutiques_prestashop.py`
+(même convention que `BOUTIQUES_PRESTASHOP_SITEMAP_CASSE` pour
+`bcd-jeux.fr`) — consommée à la fois par `scan_boutique_prestashop.py` et
+`scan_precommandes.py`, donc corrige les deux étapes qui timeoutaient.
+Décision facilitée par la valeur déjà marginale de cette boutique (1 seul
+produit unique jamais trouvé en test, 0 deal ce cycle-là). Nombre de
+boutiques par défaut corrigé dans `scan_prestashop.yml` (17 → 16).
+
+Reste à confirmer sur 2-3 cycles de prod que le retrait suffit (pas de
+nouveau timeout), et à surveiller si `investcollect.com` développe un jour
+le même comportement.
