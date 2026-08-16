@@ -39,7 +39,7 @@ FAMILLES_PRIX_BAS = [
             VariantePrixBas("fr", "Plumeline ex 024"),
             VariantePrixBas("jp", "Oricorio ex 111 m2"),
             VariantePrixBas("kr", "Oricorio ex 111 m2"),
-            VariantePrixBas("cn", "Oricorio ex"),
+            VariantePrixBas("cn", "Oricorio ex 111 m2"),
         ],
     ),
     FamillePrixBas(
@@ -48,7 +48,7 @@ FAMILLES_PRIX_BAS = [
             VariantePrixBas("fr", "Carapuce 170/165"),
             VariantePrixBas("jp", "Squirtle 170/165 sv2a"),
             VariantePrixBas("kr", "Squirtle 170/165 sv2a"),
-            VariantePrixBas("cn", "Squirtle"),
+            VariantePrixBas("cn", "Squirtle 170/165 sv2a"),
         ],
     ),
     FamillePrixBas(
@@ -57,7 +57,7 @@ FAMILLES_PRIX_BAS = [
             VariantePrixBas("fr", "Psykokwak 226"),
             VariantePrixBas("jp", "Psyduck 199 m2a"),
             VariantePrixBas("kr", "Psyduck 199 m2a"),
-            VariantePrixBas("cn", "Psyduck"),
+            VariantePrixBas("cn", "Psyduck 199 m2a"),
         ],
     ),
     FamillePrixBas(
@@ -66,7 +66,7 @@ FAMILLES_PRIX_BAS = [
             VariantePrixBas("fr", "Tiplouf 098/094"),
             VariantePrixBas("jp", "Piplup 085 m2"),
             VariantePrixBas("kr", "Piplup 085 m2"),
-            VariantePrixBas("cn", "Piplup"),
+            VariantePrixBas("cn", "Piplup 085 m2"),
         ],
     ),
 ]

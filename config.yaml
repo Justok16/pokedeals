@@ -485,15 +485,18 @@ watchlist:
   # Ajoutées le 13/08/2026, pour les 4 mêmes cartes suivies en FR/JP/KR
   # ci-dessus (Plumeline ex, Carapuce, Psykokwak, Tiplouf) -- cf.
   # radar_prix_bas.py / watchlist_prix_bas.py pour le digest quotidien 11h
-  # qui les couvre. Pas de numéro de set chinois connu (aucune référence
-  # exacte disponible) : nom seul, comme le permet déjà le filtre V16 pour
-  # les promos sans dénominateur. Cardtrader/Cardmarket ne cotent PAS le
-  # chinois (déjà documenté ci-dessus, section V17.3) -- cote MANUELLE
-  # obligatoire, approximée par Justok à partir de la cote coréenne/japonaise
-  # déjà connue pour ces mêmes cartes ("proche du coréen" selon son
-  # expérience). À REVÉRIFIER si une vraie annonce chinoise est repérée :
-  # ces cotes sont des ESTIMATIONS de départ, pas des prix confirmés.
-  - nom: "Oricorio ex"                  # = Plumeline ex FR/JP/KR (pas de numéro CN connu)
+  # qui les couvre. UNIQUEMENT le chinois TRADITIONNEL (Chinois-T sur
+  # Cardmarket) -- confirmé par Justok le 16/08/2026 : contrairement au
+  # chinois simplifié (références totalement différentes, hors périmètre),
+  # le chinois traditionnel partage les MÊMES numéros de carte et de série
+  # que les versions japonaise/coréenne. Le "nom" reprend donc EXACTEMENT
+  # le même texte que l'entrée JP/KR correspondante (numéro + code de set
+  # inclus) -- corrige un vrai bug signalé le 15/08/2026 soir : sans
+  # numéro, l'entrée CN de Carapuce ("Squirtle" seul) matchait N'IMPORTE
+  # QUEL Squirtle sur Vinted, pas spécifiquement la sv2a 170/165 suivie.
+  # Cardtrader/Cardmarket ne cotent toujours PAS le chinois (déjà documenté
+  # ci-dessus, section V17.3) -- cote MANUELLE toujours nécessaire.
+  - nom: "Oricorio ex 111 m2"           # = Plumeline ex FR / m2-111 JP/KR
     langue: cn
     alias: "Plumeline"
     # V47 : 25€ (estimation initiale via PokemonPriceTracker) corrigée à
@@ -506,17 +509,17 @@ watchlist:
     # confirme francais sur la capture).
     cote: 50
     cote_date: "2026-08-13"
-  - nom: "Squirtle"                     # = Carapuce FR/JP/KR (pas de numéro CN connu)
+  - nom: "Squirtle 170/165 sv2a"        # = Carapuce FR / 170/165 sv2a JP/KR
     langue: cn
     alias: "Carapuce"
     cote: 12          # Cardtrader KR réel (12,4€), approximation retenue par Justok
     cote_date: "2026-08-13"
-  - nom: "Psyduck"                      # = Psykokwak FR/JP/KR (pas de numéro CN connu)
+  - nom: "Psyduck 199 m2a"              # = Psykokwak FR / 199 m2a JP/KR
     langue: cn
     alias: "Psykokwak"
     cote: 17          # approx. via PokemonPriceTracker JP (~19,08$ -> ~17,6€)
     cote_date: "2026-08-13"
-  - nom: "Piplup"                       # = Tiplouf FR/JP/KR (pas de numéro CN connu)
+  - nom: "Piplup 085 m2"                # = Tiplouf FR / 085 m2 JP/KR
     langue: cn
     alias: "Tiplouf"
     # V47 : cote posée après correction -- la cote eBay JP/FR d'origine

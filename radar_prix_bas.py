@@ -218,6 +218,14 @@ def analyser_famille(famille, entrees_brutes: dict, secrets: dict, cfg_regles: d
                 meilleur = {**r, "langue": variante.langue}
 
         for carte in cartes_boutiques_par_nom_config.get(variante.nom_config, []):
+            # Le meme nom_config est parfois partage entre plusieurs langues
+            # (ex. JP/KR/CN-T qui reprennent le meme numero/code de set) :
+            # sans ce filtre, un resultat coreen trouve pendant l'iteration
+            # "jp" se serait vu etiquete a tort "langue: jp" plus bas (bug
+            # reel trouve le 16/08/2026, revele en corrigeant l'entree CN de
+            # Carapuce -- meme nom_config que JP/KR depuis ce correctif).
+            if carte.langue != variante.langue:
+                continue
             for res in resultats_boutiques.get(carte.cle_recherche, []):
                 if res.confiance != "forte" or not res.en_stock:
                     continue
