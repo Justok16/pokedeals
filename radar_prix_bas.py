@@ -30,7 +30,6 @@ France").
 """
 
 import os
-import re
 import sys
 import time
 
@@ -39,7 +38,7 @@ import requests
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import main as pokedeals
-from bonne_affaire_shopify import _est_carte_gradee, _etat_refuse
+from bonne_affaire_shopify import garde_fous_boutique
 from boutiques_decouvertes import BOUTIQUES_SHOPIFY_AUTO, BOUTIQUES_WOOCOMMERCE_AUTO
 from boutiques_prestashop import BOUTIQUES_PRESTASHOP_REPLI_HTML, BOUTIQUES_PRESTASHOP_SITEMAP
 from boutiques_shopify import BOUTIQUES_SHOPIFY
@@ -52,7 +51,7 @@ from connecteur_shopify import ConnecteurShopify
 from connecteur_woocommerce import ConnecteurWooCommerce
 from telegram_utils import echapper_html, echapper_url_html
 from watchlist_prix_bas import FAMILLES_PRIX_BAS
-from watchlist_shopify import charger_watchlist_config, detecter_qualificatif_titre
+from watchlist_shopify import charger_watchlist_config
 
 TELEGRAM_CHAT_ID = "1245330032"
 DELAI_ENTRE_BOUTIQUES = 2.0  # meme politesse que scan_boutique*.py
@@ -178,28 +177,16 @@ def _scanner_boutiques(criteres: list[tuple[str, str | None]]) -> dict:
 
 def _resultat_boutique_fiable(res, carte) -> bool:
     """Memes garde-fous, dans le meme ordre, que bonne_affaire_shopify.py/
-    alerte_stock.py (gradee -> etat -> langue -> qualificatif) -- ce radar
-    reutilise les MEMES ResultatRecherche mais avait jusqu'ici son propre
-    filtre "confiance forte + en stock" SANS ces garde-fous, ce qui laissait
-    passer des cartes homonymes non-ex/gradees/langue incoherente. Cas reel
-    (14/08/2026) : "Plumeline ex 024" (config) confondu avec "Plumeline 24
-    Sun & Moon REVERSE" (1,50€, meme nom+numero, pas "ex") sur kyoriyu.fr --
-    exactement le piege deja documente et corrige ailleurs, mais jamais ici."""
-    if _est_carte_gradee(res.titre):
-        return False
-    if _etat_refuse(res.etat_detecte):
-        return False
-    if res.langue_detectee == "jp_ou_kr":
-        if carte.langue not in ("jp", "kr"):
-            return False
-    elif res.langue_detectee is not None and res.langue_detectee != carte.langue:
-        return False
-    if carte.qualificatif:
-        if not re.search(rf"\b{re.escape(carte.qualificatif)}\b", res.titre.lower()):
-            return False
-    elif detecter_qualificatif_titre(res.titre, carte.numero) is not None:
-        return False
-    return True
+    alerte_stock.py (gradee -> etat -> langue -> qualificatif) -- factorises
+    dans garde_fous_boutique() le 16/08/2026 (audit de sante). Ce radar
+    reutilise les MEMES ResultatRecherche mais avait jusqu'au 14/08/2026 son
+    propre filtre "confiance forte + en stock" SANS ces garde-fous, ce qui
+    laissait passer des cartes homonymes non-ex/gradees/langue incoherente.
+    Cas reel (14/08/2026) : "Plumeline ex 024" (config) confondu avec
+    "Plumeline 24 Sun & Moon REVERSE" (1,50€, meme nom+numero, pas "ex") sur
+    kyoriyu.fr -- exactement le piege deja documente et corrige ailleurs,
+    mais jamais ici a l'epoque."""
+    return garde_fous_boutique(res, carte)[0]
 
 
 def analyser_famille(famille, entrees_brutes: dict, secrets: dict, cfg_regles: dict,

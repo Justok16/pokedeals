@@ -18,7 +18,6 @@ sont trop peu fiables pour declencher une alerte de retour en stock.
 
 import json
 import os
-import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -26,11 +25,10 @@ from pathlib import Path
 import requests
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from bonne_affaire_shopify import _est_carte_gradee, _etat_refuse  # noqa: E402
+from bonne_affaire_shopify import garde_fous_boutique  # noqa: E402
 from connecteur_shopify import ConnecteurShopify  # noqa: E402
 from memoire_json import charger_memoire as _charger_memoire_generique, sauvegarder_memoire as _sauvegarder_memoire_generique  # noqa: E402
 from telegram_utils import echapper_html as _echapper_html, echapper_url_html as _echapper_url_html  # noqa: E402
-from watchlist_shopify import detecter_qualificatif_titre  # noqa: E402
 
 FICHIER_MEMOIRE = Path(__file__).parent / "data" / "stock_boutiques_tcg.json"
 
@@ -91,44 +89,13 @@ def detecter_retours_en_stock(
 
         candidats = [r for r in resultats if r.confiance == "forte"]
 
-        # V47 (13/08/2026) : exclusion des cartes GRADEES, meme garde-fou
-        # que bonne_affaire_shopify.py (evaluer_deal) -- une carte gradee
-        # (PSA/CGC/BGS...) qui revient en stock n'est pas la meme chose
-        # qu'un retour en stock de la carte BRUTE suivie ; sans ce filtre,
-        # une annonce gradee homonyme declenche une alerte trompeuse.
-        candidats = [r for r in candidats if not _est_carte_gradee(r.titre)]
-
-        # V48 (14/08/2026) : exclusion des etats de conservation INFERIEURS
-        # a Near Mint/Neuf, meme garde-fou que bonne_affaire_shopify.py
-        # (evaluer_deal) -- Justok ne veut etre alerte que sur des cartes
-        # neuves/NM, cf. cas reel kairyu.fr (Eevee ex 223 sv8a, "Etat : Exc").
-        candidats = [r for r in candidats if not _etat_refuse(r.etat_detecte)]
-
-        # Coherence de langue -- meme garde-fou que bonne_affaire_shopify.py
-        # (evaluer_deal), jusqu'ici absent ici : une carte FR ne doit pas
-        # matcher un retour en stock d'une carte homonyme explicitement
-        # detectee dans une AUTRE langue (nom+numero identiques, edition
-        # differente). "jp_ou_kr" reste compatible avec une carte configuree
-        # jp OU kr (numerotation partagee, cf. connecteur_shopify.detecter_langue).
-        def _langue_coherente(r):
-            if r.langue_detectee == "jp_ou_kr":
-                return carte.langue in ("jp", "kr")
-            return r.langue_detectee is None or r.langue_detectee == carte.langue
-
-        candidats = [r for r in candidats if _langue_coherente(r)]
-
-        if carte.qualificatif:
-            # Rejette une carte HOMONYME (meme nom+numero, edition
-            # differente) sans le qualificatif attendu ("ex"/"gx"/"v"/...)
-            # dans son titre -- meme bug/correctif que bonne_affaire_shopify.py
-            # (cf. "Plumeline ex 024" vs "Plumeline 24 Sun & Moon REVERSE").
-            motif = re.compile(rf"\b{re.escape(carte.qualificatif)}\b")
-            candidats = [r for r in candidats if motif.search(r.titre.lower())]
-        else:
-            # Sens INVERSE (symetrique) : une carte configuree SANS
-            # qualificatif ne doit pas matcher un titre qui en porte un
-            # (carte "ex"/"GX"/"V" homonyme, en realite differente).
-            candidats = [r for r in candidats if detecter_qualificatif_titre(r.titre, carte.numero) is None]
+        # Garde-fous COMMUNS avec bonne_affaire_shopify.py/radar_prix_bas.py
+        # (gradee -> etat -> langue -> qualificatif), factorises le
+        # 16/08/2026 -- cf. garde_fous_boutique() pour l'historique des 3
+        # bugs reels que cette duplication maintenue a la main avait deja
+        # causes (garde-fou langue puis etat oublies ici, chaine entiere
+        # absente de radar_prix_bas.py).
+        candidats = [r for r in candidats if garde_fous_boutique(r, carte)[0]]
 
         resultats_fiables_par_carte.setdefault(carte.nom_config, []).extend(candidats)
 

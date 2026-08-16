@@ -138,21 +138,28 @@ def _etat_refuse(etat_detecte: str | None) -> bool:
     return False
 
 
-def evaluer_deal(
-    resultat, carte: CarteWatchlist, cotes: dict, regles: dict
-) -> tuple[dict | None, str]:
-    """Applique les regles de bonne affaire a un ResultatRecherche donne.
-    Retourne (deal, raison) -- deal est None si ce n'est pas une affaire,
-    auquel cas `raison` explique pourquoi (pour du log/debug)."""
+def garde_fous_boutique(resultat, carte: CarteWatchlist) -> tuple[bool, str]:
+    """Garde-fous COMMUNS aux 3 points d'alerte boutiques TCG
+    (bonne_affaire_shopify.evaluer_deal, alerte_stock.detecter_retours_en_stock,
+    radar_prix_bas._resultat_boutique_fiable), dans le meme ordre partout :
+    gradee -> etat -> langue -> qualificatif (x2, symetrique). Factorises ici
+    le 16/08/2026 (audit de sante) -- 3 copies maintenues a la main avaient
+    deja cause 3 bugs reels distincts (garde-fou langue oublie dans
+    alerte_stock.py, garde-fou etat oublie dans alerte_stock.py, chaine
+    ENTIERE absente de radar_prix_bas.py jusqu'au 14/08/2026) : un seul point
+    de verite rend ce genre d'oubli structurellement impossible.
 
+    Ne verifie PAS le stock (`resultat.en_stock`) : chaque appelant a sa
+    propre semantique -- bonne_affaire_shopify exige en_stock=True,
+    alerte_stock DETECTE justement les transitions de stock, radar_prix_bas
+    filtre en amont (cf. analyser_famille) -- reste a la charge de l'appelant.
+
+    Retourne (ok, raison) -- raison est une chaine vide si ok=True."""
     if _est_carte_gradee(resultat.titre):
-        return None, "carte gradee (PSA/CGC/BGS...) -- non comparable a la cote d'une carte brute"
+        return False, "carte gradee (PSA/CGC/BGS...) -- non comparable a la cote d'une carte brute"
 
     if _etat_refuse(resultat.etat_detecte):
-        return None, f"etat refuse ({resultat.etat_detecte}) -- Neuf/NM uniquement"
-
-    if not resultat.en_stock:
-        return None, "rupture de stock"
+        return False, f"etat refuse ({resultat.etat_detecte}) -- Neuf/NM uniquement"
 
     # Coherence de langue : une carte FR ne s'achete pas comme si elle etait
     # japonaise/chinoise/coreenne, meme numero et meme nom -- les cotes
@@ -170,9 +177,9 @@ def evaluer_deal(
     # code de set.
     if resultat.langue_detectee == "jp_ou_kr":
         if carte.langue not in ("jp", "kr"):
-            return None, f"langue incoherente (jp_ou_kr != {carte.langue})"
+            return False, f"langue incoherente (jp_ou_kr != {carte.langue})"
     elif resultat.langue_detectee is not None and resultat.langue_detectee != carte.langue:
-        return None, f"langue incoherente ({resultat.langue_detectee} != {carte.langue})"
+        return False, f"langue incoherente ({resultat.langue_detectee} != {carte.langue})"
 
     # Qualificatif ("ex"/"gx"/"v"/"vmax"/"vstar") : rejette une carte
     # HOMONYME (meme nom+numero) mais d'une edition differente. Bug reel
@@ -180,20 +187,38 @@ def evaluer_deal(
     # REVERSE" (carte plus ancienne, non-ex) partagent le meme nom+numero --
     # sans ce filtre, le mauvais Plumeline (1,50€) matchait a la place du bon
     # (28€), declenchant une fausse alerte via le seuil fixe.
-    if carte.qualificatif and not re.search(rf"\b{re.escape(carte.qualificatif)}\b", resultat.titre.lower()):
+    if carte.qualificatif:
         # \b...\b (limites de mot) et pas un simple "in" : le qualificatif
         # "v" en substring nu matcherait quasiment tous les titres (ex:
         # "Evoli" contient un "v").
-        return None, f"qualificatif manquant (\"{carte.qualificatif}\" absent du titre)"
-
-    # Sens INVERSE (symetrique) : une carte configuree SANS qualificatif ne
-    # doit pas non plus matcher un titre qui en porte un -- sinon une carte
-    # de base ("Bulbizarre 166/165") pourrait matcher a tort une version
-    # "ex"/"GX"/"V" homonyme (meme nom+numero, carte differente en realite).
-    if carte.qualificatif is None:
+        if not re.search(rf"\b{re.escape(carte.qualificatif)}\b", resultat.titre.lower()):
+            return False, f"qualificatif manquant (\"{carte.qualificatif}\" absent du titre)"
+    else:
+        # Sens INVERSE (symetrique) : une carte configuree SANS qualificatif
+        # ne doit pas non plus matcher un titre qui en porte un -- sinon une
+        # carte de base ("Bulbizarre 166/165") pourrait matcher a tort une
+        # version "ex"/"GX"/"V" homonyme (meme nom+numero, carte differente
+        # en realite).
         qualificatif_titre = detecter_qualificatif_titre(resultat.titre, carte.numero)
         if qualificatif_titre is not None:
-            return None, f"qualificatif inattendu (\"{qualificatif_titre}\" present dans le titre, absent de la config)"
+            return False, f"qualificatif inattendu (\"{qualificatif_titre}\" present dans le titre, absent de la config)"
+
+    return True, ""
+
+
+def evaluer_deal(
+    resultat, carte: CarteWatchlist, cotes: dict, regles: dict
+) -> tuple[dict | None, str]:
+    """Applique les regles de bonne affaire a un ResultatRecherche donne.
+    Retourne (deal, raison) -- deal est None si ce n'est pas une affaire,
+    auquel cas `raison` explique pourquoi (pour du log/debug)."""
+
+    ok, raison = garde_fous_boutique(resultat, carte)
+    if not ok:
+        return None, raison
+
+    if not resultat.en_stock:
+        return None, "rupture de stock"
 
     prix = resultat.prix
 
