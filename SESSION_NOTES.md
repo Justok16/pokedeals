@@ -1986,6 +1986,67 @@ Prochain module candidat (pas commencé) : à déterminer à la prochaine
 session, en gardant le même principe (petit périmètre, zéro dépendance
 vers l'avant, tests dédiés avant commit).
 
+## Deuxième module extrait de main.py : notifications_historique.py (16/08/2026)
+
+Suite à la mise en place de la vérification photo (cf. section suivante,
+faite juste avant dans la même session), et pendant que Justok demandait
+"s'il y a quelque chose à finir ou améliorer, j'aimerais bien qu'on le
+fasse maintenant" : deuxième extraction du découpage progressif de
+`main.py`, même principe que `filtre_annonces.py`.
+
+**Module choisi** : la couche notifications Telegram/email du système
+historique -- `envoyer_telegram_texte`, `_echapper_html`, `_texte_vente`,
+`envoyer_telegram_ventes`, `_echapper_url_html`, `_ligne_verification_photo`,
+`_texte_telegram`, `envoyer_telegram`, `_html_deal`, `envoyer_alertes`
+(lignes 2153-2399 de l'ancien `main.py`). Choisi car entièrement autonome :
+aucune dépendance vers l'avant dans `main.py` (vérifié via `grep` sur
+chaque nom, comme pour la première extraction), aucun état partagé, ne
+manipule que des dicts `deal`/`vente` passés en paramètre. Seule
+dépendance externe : `verification_photo.verifier_photo_annonce` (déjà un
+module séparé). Nouveau fichier `notifications_historique.py` (~275
+lignes), avec son propre logger dédié (`pokedeals.notifications_historique`,
+même convention que `verification_photo.py`) plutôt que le logger racine
+`pokedeals` partagé par le reste de `main.py`.
+
+`main.py` ne réimporte que les 4 fonctions publiques réellement utilisées
+ailleurs (`envoyer_telegram_texte`, `envoyer_telegram_ventes`,
+`envoyer_telegram`, `envoyer_alertes`) -- vérifié via `grep` que rien
+d'autre n'était appelé après la fin du bloc (une seule mention de
+`_texte_telegram` restante, dans un COMMENTAIRE, pas du code). Imports
+`smtplib`/`MIMEMultipart`/`MIMEText` retirés de `main.py` (plus utilisés
+sur place, déménagés avec le bloc) ; `imaplib`/`email as email_lib`
+restent (utilisés ailleurs, par `lbc_relever_alertes_email` pour LIRE les
+emails Leboncoin -- fonction différente de l'envoi SMTP).
+
+**Test touché par l'extraction** : `tests/test_main_verification_photo.py`
+(ajouté un peu plus tôt dans la session, testait `main._texte_telegram`/
+`main.envoyer_telegram` avec des patches sur `main.verifier_photo_annonce`/
+`main.requests.post`) a été supprimé et remplacé par
+`tests/test_notifications_historique.py`, qui importe directement depuis
+le nouveau module et patch `notifications_historique.verifier_photo_annonce`/
+`notifications_historique.requests.post` -- les patches `unittest.mock`
+ciblent le namespace où le code s'exécute réellement, qui a changé avec
+le déménagement. Même raisonnement déjà appliqué à
+`bonne_affaire_shopify.py`/`alerte_stock.py` pour `garde_fous_boutique()`.
+
+**Résultat** : `main.py` passe sous les 3000 lignes (2999, contre ~3690
+avant le début du découpage). Prochains candidats identifiés mais non
+extraits (notés dans CLAUDE.md pour la prochaine session) : le connecteur
+Cardtrader (le plus gros bloc restant, ~565 lignes, mais `CT_NOMS_EN` y
+est défini et utilisé par `_nom_neutre_entre_langues()` resté dans
+`main.py` -- nécessiterait un import retour, à traiter avec soin comme
+pour `_nom_neutre_entre_langues`/`filtre_annonces.py`), le connecteur
+TCGdex, le connecteur Leboncoin.
+
+Vérifié avant commit : `pyflakes` propre sur `main.py` et
+`notifications_historique.py`, import réel de `main.py` +
+`bonne_affaire_shopify.py`/`alerte_stock.py`/`radar_prix_bas.py`/
+`precommandes_watchlist.py`/`notifications_historique.py` en subprocess
+isolé, appel direct de `envoyer_telegram_texte` (chat_id vide -> `False`
+proprement, aucune exception), suite complète `pytest tests/` (95/95, le
+compte total est resté identique car les tests ont été déplacés 1:1 vers
+le nouveau fichier, pas dupliqués).
+
 ## Étude de faisabilité + implémentation : vérification photo des annonces (16/08/2026)
 
 Suite au retour ChatGPT relayé par Justok ("pas d'analyse photo" cité comme
