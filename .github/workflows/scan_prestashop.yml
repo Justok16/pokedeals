@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       boutiques:
-        description: "Domaines a scanner, separes par des espaces (vide = les 15 boutiques par defaut)"
+        description: "Domaines a scanner, separes par des espaces (vide = les 16 boutiques par defaut)"
         required: false
         default: ""
 permissions:
@@ -37,7 +37,7 @@ jobs:
           cache: pip
       - name: Installer les dépendances
         run: pip install -r requirements.txt
-      - name: Lancer le scan PrestaShop (15 boutiques par defaut)
+      - name: Lancer le scan PrestaShop (16 boutiques par defaut)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie (progression boutique par boutique) reste bufferisee et n'apparait dans le log que si le job va au bout -- inutile pour diagnostiquer un timeout (cf. run du 15/08/2026, log vide malgre 30 min ecoulees)

@@ -41,11 +41,31 @@ BOUTIQUES_PRESTASHOP_SITEMAP = [
 #   investcollect.com : 55 resultats a confiance forte, 3 vraies bonnes
 #     affaires detectees (garde-fous prix/decote/devise verifies, ex:
 #     Mega-Dracolosse ex 290/217 a 400e vs cote 583e, -31.4%).
-#   lepantheon-tcg.com : 2 resultats a confiance forte (1 produit unique,
-#     matche via nom+alias), 0 deal ce cycle -- integree quand meme, meme
-#     principe que les boutiques actives qui ont 0 match certains cycles.
+# lepantheon-tcg.com a ete retiree le 16/08/2026, voir
+# BOUTIQUES_PRESTASHOP_REPLI_HTML_TROP_LENTE plus bas.
 BOUTIQUES_PRESTASHOP_REPLI_HTML = [
     "investcollect.com",
+]
+
+# RETIREE le 16/08/2026 : lepantheon-tcg.com a fait echouer/timeout
+# scan_prestashop.yml a repetition dans la soiree du 15/08/2026 (job entier
+# a 30 min de budget). Diagnostic confirme grace au fix PYTHONUNBUFFERED
+# (cf. SESSION_NOTES.md) : sur un run reel, les 16 AUTRES boutiques (dont
+# investcollect.com, meme methode "repli HTML" sans sitemap) ont pris entre
+# quelques secondes et ~2 min chacune -- lepantheon-tcg.com, SEULE, a pris
+# 14min34s a elle seule (874s sur un total de 1525.9s pour les 17
+# boutiques), et a de nouveau bloque l'etape suivante (radar precommandes)
+# jusqu'au timeout du job. Le meme scan complet termine en 2min33s dans un
+# environnement de dev different (IP differente) : tout pointe vers un
+# rate-limit/anti-bot cote lepantheon-tcg.com qui cible specifiquement les
+# plages d'IP des runners GitHub Actions (Azure), pas un probleme de notre
+# code (`rechercher_via_recherche_html` fait le meme nombre de requetes,
+# avec le meme delai de politesse, pour investcollect.com qui reste rapide).
+# Valeur deja documentee comme marginale avant meme cet incident (1 seul
+# produit unique jamais trouve, 0 deal). A REINTEGRER dans
+# BOUTIQUES_PRESTASHOP_REPLI_HTML seulement si un futur test manuel montre
+# un temps de reponse redevenu raisonnable.
+BOUTIQUES_PRESTASHOP_REPLI_HTML_TROP_LENTE = [
     "lepantheon-tcg.com",
 ]
 
