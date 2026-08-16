@@ -91,6 +91,7 @@ Système **indépendant** ajouté le 13/08/2026, pour 4 cartes explicitement cho
 
 - `telegram_utils.py` — `echapper_html`/`echapper_url_html`, partagés par les 3 modules d'alerte boutiques TCG.
 - `memoire_json.py` — `charger_memoire`/`sauvegarder_memoire` génériques pour un fichier JSON, partagés par `alerte_stock.py`, `alerte_precommande.py`, `decouverte_boutiques.py` **et** `mcp_pokedeals/cache.py`.
+- `verification_photo.py` — ajouté le 16/08/2026 après étude de faisabilité (cf. SESSION_NOTES.md). Système **optionnel et non bloquant** : `verifier_photo_annonce(image_url, nom_carte, langue, api_key)` interroge un modèle de vision (Claude Haiku) pour vérifier que la PHOTO d'une annonce montre bien le bon Pokémon dans la bonne langue — jamais l'authenticité ni la condition/le centrage, qu'une IA généraliste ne peut pas juger de façon fiable sur une photo de petite annonce. N'est appelé QUE sur les annonces qui ont déjà passé tous les filtres texte ET sont sur le point de déclencher une alerte Telegram (`main.envoyer_telegram` pour eBay/Vinted, `bonne_affaire_shopify.envoyer_telegram_bonnes_affaires` pour les boutiques TCG) — jamais sur le flux brut d'annonces scannées. Actif uniquement si le secret `ANTHROPIC_API_KEY` est configuré ; absent → comportement strictement inchangé. Ne bloque jamais une alerte : toute situation ambiguë (image inaccessible, réponse hors format, erreur réseau) renvoie `(None, raison)`, traité comme "non concluant", jamais comme une confirmation ni un rejet.
 
 ## Serveur MCP (`mcp_pokedeals/`) — outil développeur, PAS une fonction du bot
 
@@ -133,7 +134,7 @@ Deux familles de schéma, une par fonctionnalité, jamais mélangées :
 ```bash
 pip install -r requirements.txt        # requests + PyYAML, seules dépendances de PROD
 pip install -r requirements-dev.txt    # + pytest, pour lancer les tests (jamais installé en prod)
-python -m pytest tests/ -v             # tests unitaires (~75 cas, sub-seconde) sur les fonctions les plus fragiles
+python -m pytest tests/ -v             # tests unitaires (~95 cas, sub-seconde) sur les fonctions les plus fragiles
 python main.py                         # système historique : un scan complet
 python scan_boutique.py [boutiques]    # scan cartes Shopify (vide = toutes les boutiques actives)
 python scan_boutique_prestashop.py [boutiques]
@@ -145,7 +146,7 @@ python scan_precommandes.py {shopify|prestashop|woocommerce} [boutiques]
 
 Pas de linter ni de `--dry-run` dans ce repo. Les orchestrateurs (`main.py`, `scan_boutique*.py`, `scan_precommandes.py`) effectuent de vraies requêtes HTTP et peuvent envoyer de vraies notifications Telegram/email, et modifient `data/*.json` en place — préférer les tests unitaires ou un script ad hoc pour itérer sur un détail plutôt que de relancer un orchestrateur complet. Les écritures dans `data/*.json` sont **atomiques** (fichier `.tmp` puis remplacement, via `_ecrire_json_atomique` dans `main.py` et `memoire_json.sauvegarder_memoire`) — un process tué en plein milieu (timeout GitHub Actions) ne peut plus laisser de fichier tronqué.
 
-Secrets requis en variables d'env (secrets GitHub Actions en prod) : `EBAY_CLIENT_ID`, `EBAY_CLIENT_SECRET`, `TELEGRAM_BOT_TOKEN`, `CARDTRADER_TOKEN`, et optionnellement `GMAIL_APP_PASSWORD`.
+Secrets requis en variables d'env (secrets GitHub Actions en prod) : `EBAY_CLIENT_ID`, `EBAY_CLIENT_SECRET`, `TELEGRAM_BOT_TOKEN`, `CARDTRADER_TOKEN`, et optionnellement `GMAIL_APP_PASSWORD`, `ANTHROPIC_API_KEY` (cf. `verification_photo.py`).
 
 ## Conventions de travail
 

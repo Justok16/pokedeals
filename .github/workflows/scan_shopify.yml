@@ -37,6 +37,7 @@ jobs:
       - name: Lancer le scan Shopify (39 boutiques par defaut)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optionnel : active la verification photo (cf. verification_photo.py)
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
         run: python scan_boutique.py ${{ github.event.inputs.boutiques }}
       - name: Sauvegarder la mémoire de stock

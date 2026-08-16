@@ -123,6 +123,7 @@ if __name__ == "__main__":
     boutiques = sys.argv[1:] if len(sys.argv) > 1 else list(BOUTIQUES_SHOPIFY) + list(BOUTIQUES_SHOPIFY_AUTO)
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    cle_anthropic = os.environ.get("ANTHROPIC_API_KEY", "")
 
     cartes = charger_watchlist_config()
     print(f"{len(cartes)} criteres de recherche charges depuis config.yaml (121 cartes, avec variantes alias)")
@@ -141,7 +142,7 @@ if __name__ == "__main__":
     # Envoi Telegram REEL (une fois le cycle complet termine, meme pattern
     # que main.py qui envoie une fois tous les deals collectes). Chaque
     # fonction gere son propre canal/format et ne fait rien si la liste est vide.
-    envoyer_telegram_bonnes_affaires(resume["deals"], TELEGRAM_CHAT_ID, token)
+    envoyer_telegram_bonnes_affaires(resume["deals"], TELEGRAM_CHAT_ID, token, cle_anthropic)
     envoyer_telegram_retours_stock(resume["evenements_stock"], TELEGRAM_CHAT_ID, token)
 
     print(f"\n{'=' * 70}")

@@ -1985,3 +1985,91 @@ main.py filtre_annonces.py` (0 avertissement), import réel de `main.py`
 Prochain module candidat (pas commencé) : à déterminer à la prochaine
 session, en gardant le même principe (petit périmètre, zéro dépendance
 vers l'avant, tests dédiés avant commit).
+
+## Étude de faisabilité + implémentation : vérification photo des annonces (16/08/2026)
+
+Suite au retour ChatGPT relayé par Justok ("pas d'analyse photo" cité comme
+lacune), étude de faisabilité menée avant tout code (cf. réponse détaillée
+donnée à l'utilisateur dans la conversation). Conclusion : viable et peu
+coûteux, mais volontairement restreint à UNE seule vérification — la photo
+montre-t-elle bien le bon Pokémon dans la bonne langue ? — et pas
+l'authenticité ni la condition/le centrage, qu'une IA de vision généraliste
+ne peut pas juger de façon fiable sur une photo de petite annonce.
+
+**Motivation concrète** : cas déjà documenté en commentaire V37 dans
+`main.py` — une annonce Vinted titrée entièrement en français pointait en
+réalité vers une carte CORÉENNE sur la photo, aucun filtre texte ne
+pouvant le détecter. Jusqu'ici, seule protection : un avertissement
+générique envoyé quand la décote dépasse 30%.
+
+**Validé par Justok puis étendu** : approbation initiale pour le système
+eBay/Vinted (`main.py`) uniquement ; en cours d'implémentation, Justok a
+demandé d'étendre aussi aux boutiques TCG (Shopify/PrestaShop/WooCommerce,
+`bonne_affaire_shopify.py`), qui ont elles aussi de bonnes photos
+disponibles via leurs connecteurs existants (`ResultatRecherche.image_url`,
+déjà extrait par les 3 connecteurs). Leboncoin reste hors périmètre (pas
+d'URL de photo exploitable via son système d'alertes email) ; les autres
+systèmes indépendants (précommandes, tendance de prix, prix bas
+quotidien) ne sont pas concernés.
+
+**Implémentation** :
+- Nouveau module `verification_photo.py` : `verifier_photo_annonce(image_url,
+  nom_carte, langue, api_key) -> (verdict, raison)`. Appelle l'API Anthropic
+  Messages directement en `requests` (pas de SDK `anthropic`, pour rester
+  fidèle à la convention "requests + PyYAML seules dépendances de PROD"),
+  modèle `claude-haiku-4-5-20251001` (le moins cher, suffisant pour ce
+  classement grossier). Réponse attendue au format strict
+  `COHERENT`/`INCOHERENT: raison`/`INCERTAIN: raison`, parsée par
+  `_interpreter_reponse()` -- toute réponse hors format OU "INCERTAIN" est
+  traitée comme NON CONCLUANTE (`None`), jamais comme une confirmation ni un
+  rejet implicite. Ne lève jamais d'exception : secret absent, image
+  inaccessible, timeout, erreur API -> `(None, raison)` systématiquement.
+- `main.py` : `ebay_rechercher()`/`vinted_rechercher()` capturent maintenant
+  `image_url` (absent auparavant, vérifié en lisant le code avant de coder --
+  aucun champ image n'était extrait des réponses API alors que eBay Browse
+  API et Vinted le fournissent). `evaluate()` transporte `image_url`/`langue`
+  automatiquement (spread `{**annonce, ...}`, aucun changement nécessaire
+  côté `evaluate()` lui-même). `envoyer_telegram()` prend un paramètre
+  optionnel `anthropic_api_key` : si fourni ET `image_url` présent sur le
+  deal, appelle la vérification juste avant l'envoi (donc uniquement sur les
+  quelques deals déjà filtrés par TOUTE la chaîne de règles existante,
+  jamais sur le flux brut). Résultat ajouté en ligne supplémentaire dans le
+  message Telegram (`_ligne_verification_photo()`), en complément de
+  l'avertissement générique décote≥30% existant (V37), jamais en
+  remplacement. Secret `ANTHROPIC_API_KEY` ajouté à `secrets_env()`
+  (optionnel, comme `GMAIL_APP_PASSWORD`).
+- `bonne_affaire_shopify.py` : `evaluer_deal()` transporte désormais
+  `image_url` (déjà présent sur `ResultatRecherche`, jamais recopié dans le
+  dict `deal` jusqu'ici) et `langue` (depuis `carte.langue`) dans les deux
+  branches (seuil fixe et cote normale). `_texte_bonne_affaire()` et
+  `envoyer_telegram_bonnes_affaires()` reçoivent le même traitement que côté
+  `main.py` (paramètre optionnel, ligne ajoutée, jamais bloquant).
+  `scan_boutique.py`/`scan_boutique_prestashop.py`/`scan_boutique_woocommerce.py`
+  lisent `ANTHROPIC_API_KEY` depuis l'environnement et le passent à
+  `envoyer_telegram_bonnes_affaires()`.
+- Workflows : `ANTHROPIC_API_KEY` ajouté (optionnel) aux étapes de SCAN
+  CARTES uniquement (`pokedeals.yml`, `scan_shopify.yml`,
+  `scan_prestashop.yml`, `scan_woocommerce.yml` lots A et B) -- PAS aux
+  étapes de radar précommandes, qui n'utilisent pas ce mécanisme.
+
+**Tests** : 3 nouveaux fichiers/extensions —
+`tests/test_verification_photo.py` (9 cas : pas de clé -> 0 appel réseau,
+pas d'image -> 0 appel réseau, les 3 verdicts bien parsés, image
+inaccessible/erreur API ne plantent jamais), `tests/test_main_verification_photo.py`
+(7 cas côté `main.py`, dont la vérification que `envoyer_telegram()`
+n'appelle la vérification QUE si clé + image présentes, avec les bons
+arguments), et extension de `tests/test_bonne_affaire_shopify.py` (5 cas
+équivalents côté boutiques TCG). Tous mockent `requests.get`/`requests.post`
+-- aucun appel réseau réel dans la suite de tests.
+
+Vérifié avant commit : `pyflakes` propre sur tous les fichiers touchés,
+import réel de `main.py`/`bonne_affaire_shopify.py`/`alerte_stock.py`/
+`radar_prix_bas.py` en subprocess isolé, suite complète `pytest tests/`
+(95/95), et un run RÉEL de `scan_boutique.py` sur 2 boutiques actives
+(`dracaugames.com`, `cardlabtcg.com`) pour vérifier que la nouvelle
+plomberie (`image_url`/`langue` sur les deals) ne casse rien en conditions
+réelles -- 0 erreur, 3.3s. `ANTHROPIC_API_KEY` n'étant pas configuré dans
+cet environnement, le nouveau code de vérification lui-même n'a été validé
+qu'en tests unitaires mockés (pas encore de vérification en conditions
+réelles avec un vrai appel API -- à surveiller au premier cycle de prod une
+fois le secret configuré par Justok).

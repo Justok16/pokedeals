@@ -62,6 +62,7 @@ jobs:
       - name: Lancer le scan WooCommerce (lot A)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optionnel : active la verification photo (cf. verification_photo.py)
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
         run: |
           if [ -n "${{ github.event.inputs.boutiques }}" ]; then
@@ -120,6 +121,7 @@ jobs:
       - name: Lancer le scan WooCommerce (lot B)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optionnel : active la verification photo (cf. verification_photo.py)
           PYTHONUNBUFFERED: "1"
         run: |
           # BOUTIQUES_WOOCOMMERCE_AUTO : boutiques ajoutees par decouverte_boutiques.py

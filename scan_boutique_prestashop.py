@@ -129,6 +129,7 @@ if __name__ == "__main__":
     boutiques_repli_html = set(boutiques) & set(BOUTIQUES_PRESTASHOP_REPLI_HTML)
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    cle_anthropic = os.environ.get("ANTHROPIC_API_KEY", "")
 
     cartes = charger_watchlist_config()
     print(f"{len(cartes)} criteres de recherche charges depuis config.yaml (121 cartes, avec variantes alias)")
@@ -146,7 +147,7 @@ if __name__ == "__main__":
 
     # Envoi Telegram REEL. Chaque fonction gere son propre canal/format et
     # ne fait rien si la liste est vide.
-    envoyer_telegram_bonnes_affaires(resume["deals"], TELEGRAM_CHAT_ID, token)
+    envoyer_telegram_bonnes_affaires(resume["deals"], TELEGRAM_CHAT_ID, token, cle_anthropic)
     envoyer_telegram_retours_stock(resume["evenements_stock"], TELEGRAM_CHAT_ID, token)
 
     print(f"\n{'=' * 70}")

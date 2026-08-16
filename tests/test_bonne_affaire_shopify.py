@@ -3,8 +3,12 @@
 garde-fou correspond a un bug reel deja rencontre en prod, cf.
 SESSION_NOTES.md."""
 
+from unittest.mock import patch
+
 from connecteur_shopify import ResultatRecherche
-from bonne_affaire_shopify import _etat_refuse, evaluer_deal
+from bonne_affaire_shopify import (
+    _etat_refuse, _texte_bonne_affaire, envoyer_telegram_bonnes_affaires, evaluer_deal,
+)
 from watchlist_shopify import CarteWatchlist
 
 
@@ -166,3 +170,56 @@ def test_seuil_fixe_prioritaire_sur_la_cote():
     deal, raison = evaluer_deal(_resultat(prix=65.0), carte, COTES, REGLES)
     assert deal is None
     assert "seuil fixe" in raison
+
+
+def test_deal_transporte_image_url_et_langue_pour_la_verification_photo():
+    # image_url/langue doivent survivre jusqu'au deal pour que
+    # envoyer_telegram_bonnes_affaires puisse appeler verifier_photo_annonce.
+    deal, raison = evaluer_deal(
+        _resultat(image_url="https://exemple.fr/photo.jpg"), _carte(), COTES, REGLES)
+    assert deal is not None, raison
+    assert deal["image_url"] == "https://exemple.fr/photo.jpg"
+    assert deal["langue"] == "fr"
+
+
+def test_texte_bonne_affaire_ajoute_la_ligne_incoherente():
+    d = {"nom": "Test", "boutique": "x.fr", "prix": 10.0, "cote": 20.0,
+         "decote_pct": 45.0, "prix_revente_conseille": 25.0,
+         "profit_net_estime": 10.0, "confiance": 0, "url_produit": "https://x"}
+    texte = _texte_bonne_affaire(d, ("incoherent", "carte coréenne visible"))
+    assert "INCOHÉRENTE" in texte
+    assert "carte coréenne visible" in texte
+
+
+def test_texte_bonne_affaire_verification_non_tentee_naffiche_rien():
+    d = {"nom": "Test", "boutique": "x.fr", "prix": 10.0, "cote": 20.0,
+         "decote_pct": 5.0, "prix_revente_conseille": 25.0,
+         "profit_net_estime": 10.0, "confiance": 0, "url_produit": "https://x"}
+    assert "Vérification IA" not in _texte_bonne_affaire(d, None)
+    assert "Vérification IA" not in _texte_bonne_affaire(d)
+
+
+def test_envoyer_telegram_bonnes_affaires_sans_cle_api_ninterroge_jamais_la_verification():
+    deal = {"nom": "Test", "boutique": "x.fr", "prix": 10.0, "cote": 20.0,
+            "decote_pct": 5.0, "prix_revente_conseille": 25.0,
+            "profit_net_estime": 10.0, "confiance": 0, "url_produit": "https://x",
+            "image_url": "https://x.fr/photo.jpg", "langue": "fr"}
+    with patch("bonne_affaire_shopify.verifier_photo_annonce") as verif_mock, \
+         patch("bonne_affaire_shopify.requests.post") as post_mock:
+        post_mock.return_value.status_code = 200
+        envoyer_telegram_bonnes_affaires([deal], "chat123", "token-telegram", anthropic_api_key="")
+    verif_mock.assert_not_called()
+
+
+def test_envoyer_telegram_bonnes_affaires_avec_cle_et_image_appelle_la_verification():
+    deal = {"nom": "Dracaufeu ex 199/165", "boutique": "x.fr", "prix": 10.0, "cote": 20.0,
+            "decote_pct": 5.0, "prix_revente_conseille": 25.0,
+            "profit_net_estime": 10.0, "confiance": 0, "url_produit": "https://x",
+            "image_url": "https://x.fr/photo.jpg", "langue": "jp"}
+    with patch("bonne_affaire_shopify.verifier_photo_annonce", return_value=("incoherent", "carte coréenne")) as verif_mock, \
+         patch("bonne_affaire_shopify.requests.post") as post_mock:
+        post_mock.return_value.status_code = 200
+        envoyer_telegram_bonnes_affaires([deal], "chat123", "token-telegram", anthropic_api_key="sk-ant-xxx")
+    verif_mock.assert_called_once_with("https://x.fr/photo.jpg", "Dracaufeu ex 199/165", "jp", "sk-ant-xxx")
+    texte_envoye = post_mock.call_args.kwargs["json"]["text"]
+    assert "INCOHÉRENTE" in texte_envoye

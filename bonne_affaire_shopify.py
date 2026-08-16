@@ -25,6 +25,7 @@ import requests
 import yaml
 
 from telegram_utils import echapper_html as _echapper_html, echapper_url_html as _echapper_url_html
+from verification_photo import verifier_photo_annonce
 from watchlist_shopify import CarteWatchlist, detecter_qualificatif_titre
 
 # Chemins relatifs au repo (ce fichier vit a la racine, a cote de main.py,
@@ -232,6 +233,8 @@ def evaluer_deal(
             "nom": carte.nom_config,
             "titre_produit": resultat.titre,
             "url_produit": resultat.url_produit,
+            "image_url": resultat.image_url,
+            "langue": carte.langue,
             "prix": round(prix, 2),
             "cote": float(carte.prix_max_fixe),
             "decote_pct": 0.0,
@@ -273,6 +276,8 @@ def evaluer_deal(
         "nom": carte.nom_config,
         "titre_produit": resultat.titre,
         "url_produit": resultat.url_produit,
+        "image_url": resultat.image_url,
+        "langue": carte.langue,
         "prix": round(prix, 2),
         "cote": round(cote, 2),
         "decote_pct": round((1 - prix / cote) * 100, 1),
@@ -326,19 +331,38 @@ def detecter_bonnes_affaires(
 # identique disperse dans les 3 fichiers avant ca).
 
 
-def _texte_bonne_affaire(d: dict) -> str:
+def _ligne_verification_photo(verif_photo: tuple[str | None, str] | None) -> str:
+    """Meme logique que main._ligne_verification_photo (cf. ce fichier pour
+    le detail) : None = pas tente, (None, raison) = tente mais non
+    concluant -- les deux cas n'ajoutent rien au message."""
+    if verif_photo is None:
+        return ""
+    verdict, raison = verif_photo
+    if verdict == "coherent":
+        return "\n📸 Vérification IA : photo cohérente avec la carte/langue attendue."
+    if verdict == "incoherent":
+        return f"\n🚨 <b>Vérification IA : photo INCOHÉRENTE</b> ({_echapper_html(raison)}) — vérifie avant d'acheter !"
+    return ""
+
+
+def _texte_bonne_affaire(d: dict, verif_photo: tuple[str | None, str] | None = None) -> str:
+    ligne_photo = _ligne_verification_photo(verif_photo)
     if d.get("confiance") == 100:
         return (
             f"🎯 <b>{_echapper_html(d['nom'])}</b>\n"
             f"🏪 {_echapper_html(d['boutique'])} — <b>{d['prix']:.2f}€</b> "
-            f"(seuil fixe : {d['cote']:.2f}€)\n"
+            f"(seuil fixe : {d['cote']:.2f}€)"
+            f"{ligne_photo}\n"
             f"👉 <a href=\"{_echapper_url_html(d['url_produit'])}\">Voir le produit</a>"
         )
     # Meme garde-fou que main.py (cote eBay) : une decote extreme n'est pas
     # forcement une bonne nouvelle plus grande -- ca peut etre une erreur de
     # prix, un produit factice, ou (pour Shopify specifiquement) une variante
     # mal identifiee (mauvaise langue/edition). On avertit sans bloquer
-    # l'alerte : la decision finale reste a l'humain.
+    # l'alerte : la decision finale reste a l'humain. `ligne_photo` (cf.
+    # verification_photo.py, actif seulement si ANTHROPIC_API_KEY est
+    # configure) vient completer cet avertissement generique, jamais s'y
+    # substituer.
     avertissement = ""
     if d.get("decote_pct", 0) and float(d["decote_pct"]) >= 30:
         avertissement = (
@@ -350,12 +374,15 @@ def _texte_bonne_affaire(d: dict) -> str:
         f"📊 Cote : {d['cote']:.2f}€ (<b>-{d['decote_pct']}%</b>)\n"
         f"💶 Revente conseillée : {d['prix_revente_conseille']:.2f}€\n"
         f"✅ Profit net estimé : <b>+{d['profit_net_estime']:.2f}€</b>"
-        f"{avertissement}\n"
+        f"{avertissement}{ligne_photo}\n"
         f"👉 <a href=\"{_echapper_url_html(d['url_produit'])}\">Voir le produit</a>"
     )
 
 
-def envoyer_telegram_bonnes_affaires(deals: list[dict], chat_id: str, token: str) -> bool:
+def envoyer_telegram_bonnes_affaires(deals: list[dict], chat_id: str, token: str, anthropic_api_key: str = "") -> bool:
+    """`anthropic_api_key` (optionnel) : meme mecanisme que
+    main.envoyer_telegram -- verification photo juste avant l'envoi, sur les
+    deals deja filtres uniquement. Cf. verification_photo.py."""
     if not deals:
         return True
     if not token or not chat_id:
@@ -365,10 +392,14 @@ def envoyer_telegram_bonnes_affaires(deals: list[dict], chat_id: str, token: str
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     ok = True
     for d in deals:
+        verif_photo = None
+        if anthropic_api_key and d.get("image_url"):
+            verif_photo = verifier_photo_annonce(
+                d["image_url"], d.get("nom", d.get("titre_produit", "")), d.get("langue", "fr"), anthropic_api_key)
         try:
             r = requests.post(
                 url,
-                json={"chat_id": chat_id, "text": _texte_bonne_affaire(d), "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": _texte_bonne_affaire(d, verif_photo), "parse_mode": "HTML"},
                 timeout=20,
             )
             if r.status_code != 200:
