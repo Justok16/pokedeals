@@ -20,7 +20,11 @@ En plus de ces 3 fonctions du bot, le dépôt héberge aussi `mcp_pokedeals/`, u
 
 ### Système historique (`main.py`)
 
-Fichier unique (~3500 lignes), pas de module. Reste organisé en sections délimitées par des banners `# ====` : utilitaires HTTP/texte, filtres de pertinence d'annonce (`annonce_pertinente`), chargement config, état "vues" (dédup), connecteurs eBay/Cardtrader/Cardmarket/Vinted/Leboncoin, moteur de cote (`obtenir_cote`), évaluation de deal (`evaluate`), notifications Telegram/email, stats/CSV, orchestration (`collecter`/`main`). Chaque changement de règle non-trivial porte un commentaire `VNN:` expliquant le cas concret qui l'a motivé — c'est le changelog du fichier, à respecter pour tout nouveau changement.
+Fichier principal (~3200 lignes). Reste organisé en sections délimitées par des banners `# ====` : utilitaires HTTP, chargement config, état "vues" (dédup), connecteurs eBay/Cardtrader/Cardmarket/Vinted/Leboncoin, moteur de cote (`obtenir_cote`), évaluation de deal (`evaluate`), notifications Telegram/email, stats/CSV, orchestration (`collecter`/`main`). Chaque changement de règle non-trivial porte un commentaire `VNN:` expliquant le cas concret qui l'a motivé — c'est le changelog du fichier, à respecter pour tout nouveau changement.
+
+Depuis le 16/08/2026, un **découpage progressif et prudent** (décidé avec l'utilisateur, un module à la fois, tests + non-régression à chaque étape, jamais de réécriture en un coup) en extrait les fonctions les plus autonomes vers des modules dédiés :
+- `filtre_annonces.py` — normalisation de texte et filtre de pertinence des annonces (`normaliser`, `extraire_numero`, `mots_requis`, `preuve_francais`, `annonce_pertinente`...), fonctions pures sans état partagé ni appel réseau. `main.py` les réimporte. `_nom_neutre_entre_langues()` reste dans `main.py` (dépend de `CT_NOMS_EN`, défini plus loin dans `main.py`). Testé dans `tests/test_filtre_annonces.py` — première couverture de test dédiée à une fonction de `main.py`.
+- Prochain module candidat : pas encore déterminé (à choisir à la prochaine session selon le même principe : petit périmètre, zéro dépendance vers l'avant).
 
 `config.yaml` reste l'interface principale : `watchlist`, `regles`, `api_cotes`, `mes_achats`, `notifications`, `plateformes`. Il est partagé avec le système boutiques TCG (même `watchlist` de cartes, réutilisée par `watchlist_shopify.py`).
 
@@ -129,7 +133,7 @@ Deux familles de schéma, une par fonctionnalité, jamais mélangées :
 ```bash
 pip install -r requirements.txt        # requests + PyYAML, seules dépendances de PROD
 pip install -r requirements-dev.txt    # + pytest, pour lancer les tests (jamais installé en prod)
-python -m pytest tests/ -v             # tests unitaires (~20 cas, sub-seconde) sur les fonctions les plus fragiles
+python -m pytest tests/ -v             # tests unitaires (~75 cas, sub-seconde) sur les fonctions les plus fragiles
 python main.py                         # système historique : un scan complet
 python scan_boutique.py [boutiques]    # scan cartes Shopify (vide = toutes les boutiques actives)
 python scan_boutique_prestashop.py [boutiques]
@@ -137,7 +141,7 @@ python scan_boutique_woocommerce.py [boutiques]
 python scan_precommandes.py {shopify|prestashop|woocommerce} [boutiques]
 ```
 
-`tests/` couvre les fonctions de matching les plus sujettes à régression (`detecter_langue`, `_retirer_fractions`, `detecter_qualificatif_titre`, `evaluer_deal`) — un cas par bug réel déjà rencontré en prod (cf. pièges connus ci-dessous et `SESSION_NOTES.md`). Lancé automatiquement par `.github/workflows/tests.yml` sur chaque push/PR, workflow séparé des 4 workflows de scan (pas de secrets, pas d'écriture sur `data/`). Ce n'est pas une couverture exhaustive : pas de test sur les connecteurs eux-mêmes (nécessiterait des fixtures HTML/JSON par plateforme, pas fait à ce stade) ni sur `main.py`.
+`tests/` couvre les fonctions de matching les plus sujettes à régression (`detecter_langue`, `_retirer_fractions`, `detecter_qualificatif_titre`, `evaluer_deal`, `annonce_pertinente`) — un cas par bug réel déjà rencontré en prod (cf. pièges connus ci-dessous et `SESSION_NOTES.md`). Lancé automatiquement par `.github/workflows/tests.yml` sur chaque push/PR, workflow séparé des 4 workflows de scan (pas de secrets, pas d'écriture sur `data/`). Ce n'est pas une couverture exhaustive : pas de test sur les connecteurs eux-mêmes (nécessiterait des fixtures HTML/JSON par plateforme, pas fait à ce stade) ; `main.py` a maintenant une première couverture (`tests/test_filtre_annonces.py`, via le module extrait `filtre_annonces.py`) mais reste globalement peu testé.
 
 Pas de linter ni de `--dry-run` dans ce repo. Les orchestrateurs (`main.py`, `scan_boutique*.py`, `scan_precommandes.py`) effectuent de vraies requêtes HTTP et peuvent envoyer de vraies notifications Telegram/email, et modifient `data/*.json` en place — préférer les tests unitaires ou un script ad hoc pour itérer sur un détail plutôt que de relancer un orchestrateur complet. Les écritures dans `data/*.json` sont **atomiques** (fichier `.tmp` puis remplacement, via `_ecrire_json_atomique` dans `main.py` et `memoire_json.sauvegarder_memoire`) — un process tué en plein milieu (timeout GitHub Actions) ne peut plus laisser de fichier tronqué.
 

@@ -1915,3 +1915,73 @@ sur les 83 boutiques actives -- 0 erreur dans les deux cas).
 CLAUDE.md mis à jour (commit `54db2fa`) : description de
 `garde_fous_boutique()`, 2 nouveaux pièges connus (ThreadPoolExecutor +
 écriture non-atomique d'un `.py` généré).
+
+## Découpage progressif de `main.py` — premier module extrait (16/08/2026)
+
+Suite au retour ChatGPT relayé par Justok sur la dette technique de
+`main.py` (alors ~3690 lignes, un seul fichier, zéro test dédié), et
+après validation explicite via `AskUserQuestion` ("Découpage progressif
+et prudent, un module à la fois, avec tests et non-régression à chaque
+étape — PAS de réécriture en un coup") : premier module extrait.
+
+**Module choisi (le plus sûr)** : normalisation de texte + filtre de
+pertinence des annonces, centré sur `annonce_pertinente()` — aucun état
+partagé, aucun appel réseau, fonctions pures. Nouveau fichier
+`filtre_annonces.py` (≈470 lignes), contient : `normaliser`,
+`extraire_numero`/`extraire_numero_annonce`, `numero_nu_voulu`/
+`numeros_nus_titre`, `mots_requis`/`mots_requis_stricts`,
+`code_set_asiatique`, `_script_asiatique`, `preuve_francais`, et
+`annonce_pertinente` elle-même, plus toutes les constantes associées
+(`INDICES_CARTE`, `EXCLUSIONS`, `MARQUEURS_LANGUE`, `SETS_ASIATIQUES`,
+`MARQUEURS_FRANCAIS`...).
+
+**Exclusion délibérée** : `_nom_neutre_entre_langues()` (definie juste à
+côté dans l'ancien `main.py`, lignes 453-471) est RESTÉE dans `main.py`.
+Raison : elle dépend de `CT_NOMS_EN`, un dictionnaire défini bien plus
+loin dans `main.py` (table de correspondance FR->EN utilisée par le
+moteur de cote) — une dépendance vers l'avant qui sort du périmètre
+"texte pur" de ce premier module. L'extraire aussi aurait forcé soit à
+déplacer `CT_NOMS_EN` (hors scope, risque plus large), soit à créer une
+dépendance circulaire entre `filtre_annonces.py` et `main.py`. Gardée en
+place, elle importe simplement `normaliser`/`mots_requis` du nouveau
+module (résolution Python normale, aucun problème d'ordre).
+
+`main.py` importe maintenant depuis `filtre_annonces` uniquement les 8
+noms qu'il utilise réellement plus loin dans le fichier (`normaliser`,
+`SUFFIXES_LANGUE`, `SIGNAUX_ENCHERE`, `extraire_numero`,
+`numero_nu_voulu`, `mots_requis`, `preuve_francais`,
+`annonce_pertinente`) — vérifié précisément via `pyflakes` (0
+avertissement après coup, contre 17 "imported but unused" avec un import
+`*` naïf qui aurait été testé d'abord). Suppression au passage de l'import
+`unicodedata` devenu inutile dans `main.py` (déplacé tout entier dans
+`filtre_annonces.py`). Docstring d'en-tête de `main.py` mise à jour : la
+phrase "TOUT le programme est dans ce seul fichier" (vestige d'un
+historique d'upload manuel très ancien, confirmé via `git log -S`, pas
+une décision architecturale à préserver) a été retirée.
+
+**Nouveau fichier de tests** `tests/test_filtre_annonces.py` (22 cas) —
+première couverture de test dédiée à une fonction de `main.py`, qui
+n'avait jusqu'ici aucun test. Un cas par bug réel déjà documenté en
+commentaire dans le code (V15 numéro obligatoire, V17.4 numéro nu PBL,
+V26 preuve positive de français, V28 code de set japonais, V30
+"giapponese", V38 séparateur tiret, V39 neutralisation "non gradée"),
+plus les cas structurels (Méga vs nom de set "Méga-Évolution", alias,
+confirmation de langue par script asiatique). 2 cas ont nécessité une
+correction du TITRE de test après premier échec (pas un bug du code) :
+un titre en katakana pur sans le nom romanisé du Pokémon ne peut jamais
+matcher `mots_requis` (qui compare des mots latins normalisés), et un
+titre coréen sans aucun `INDICES_CARTE` latin ("carte"/"card"/"holo"...)
+est rejeté dès l'étape 2 avant même d'atteindre le test de langue — les
+deux comportements sont corrects, seuls mes titres de test de départ
+étaient irréalistes.
+
+Vérifié avant commit : `python3 -m ast.parse` (syntaxe), `pyflakes
+main.py filtre_annonces.py` (0 avertissement), import réel de `main.py`
++ tous les modules qui en dépendent (`radar_prix_bas.py`,
+`bonne_affaire_shopify.py`, `precommandes_watchlist.py`,
+`alerte_stock.py`) en subprocess isolé, suite complète `pytest tests/`
+(74/74, dont les 22 nouveaux) — 0 régression.
+
+Prochain module candidat (pas commencé) : à déterminer à la prochaine
+session, en gardant le même principe (petit périmètre, zéro dépendance
+vers l'avant, tests dédiés avant commit).
