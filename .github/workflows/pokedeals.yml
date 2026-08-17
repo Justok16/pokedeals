@@ -42,14 +42,34 @@ jobs:
           # Les fichiers de données du bot font autorité : on met de côté nos
           # changements, on récupère la version distante, puis on RÉIMPOSE nos
           # fichiers de données. Évite les conflits d'autostash rencontrés avant.
-          cp -f data/*.json /tmp/ 2>/dev/null || true
-          cp -f data/*.csv /tmp/ 2>/dev/null || true
+          #
+          # IMPORTANT (audit externe du 17/08/2026, cf. SESSION_NOTES.md) :
+          # on ne sauvegarde/reimpose QUE les fichiers que main.py possede
+          # reellement (lui-meme + moteur_cote.py + connecteur_cardtrader.py +
+          # connecteur_tcgdex.py, tous importes par main.py). Un "cp data/*.json"
+          # englobait AUSSI les fichiers des 3 autres workflows (stock
+          # boutiques, precommandes, decouverte, tendance) qui tournent en
+          # parallele sur le meme repo -- si l'un d'eux poussait une mise a
+          # jour PENDANT que ce job tournait, "git pull --rebase" la
+          # recuperait correctement, mais le "cp /tmp/*.json data/" qui
+          # suivait l'ecrasait aussitot par la version perimee d'avant le
+          # pull, sans que rien ne le signale (pas une corruption de fichier
+          # -- juste une mise a jour d'un AUTRE workflow silencieusement
+          # annulee, avec un risque concret d'alerte de retour en stock
+          # dupliquee au cycle suivant de ce workflow).
+          FICHIERS_MAIN="seen.json cotes.json anciennete_annonces.json stats.json cardtrader.json api_prix.json cardmarket_prix.json"
+          for f in $FICHIERS_MAIN; do
+            cp -f "data/$f" "/tmp/$f" 2>/dev/null || true
+          done
+          cp -f data/deals.csv /tmp/deals.csv 2>/dev/null || true
           git stash --include-untracked || true
           git pull --rebase || git rebase --abort || true
           git stash drop || true
-          cp -f /tmp/*.json data/ 2>/dev/null || true
-          cp -f /tmp/*.csv data/ 2>/dev/null || true
-          git add data/*.json data/*.csv 2>/dev/null || true
+          for f in $FICHIERS_MAIN; do
+            cp -f "/tmp/$f" "data/$f" 2>/dev/null || true
+          done
+          cp -f /tmp/deals.csv data/deals.csv 2>/dev/null || true
+          git add $(printf 'data/%s ' $FICHIERS_MAIN) data/deals.csv 2>/dev/null || true
           git diff --cached --quiet || git commit -m "maj mémoire [skip ci]"
           # Push avec une tentative de rattrapage : si le push échoue (ex. un
           # autre scan a poussé entre-temps), on refait un pull --rebase en
@@ -58,12 +78,16 @@ jobs:
           # (sinon la mémoire non sauvée = risque d'alertes en double).
           git push || {
             echo "Push refusé, tentative de rattrapage..."
-            cp -f data/*.json /tmp/ 2>/dev/null || true
-            cp -f data/*.csv /tmp/ 2>/dev/null || true
+            for f in $FICHIERS_MAIN; do
+              cp -f "data/$f" "/tmp/$f" 2>/dev/null || true
+            done
+            cp -f data/deals.csv /tmp/deals.csv 2>/dev/null || true
             git pull --rebase || git rebase --abort || true
-            cp -f /tmp/*.json data/ 2>/dev/null || true
-            cp -f /tmp/*.csv data/ 2>/dev/null || true
-            git add data/*.json data/*.csv 2>/dev/null || true
+            for f in $FICHIERS_MAIN; do
+              cp -f "/tmp/$f" "data/$f" 2>/dev/null || true
+            done
+            cp -f /tmp/deals.csv data/deals.csv 2>/dev/null || true
+            git add $(printf 'data/%s ' $FICHIERS_MAIN) data/deals.csv 2>/dev/null || true
             git diff --cached --quiet || git commit -m "maj mémoire [skip ci]"
             git push
           }

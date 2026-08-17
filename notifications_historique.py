@@ -99,12 +99,15 @@ def envoyer_telegram_ventes(ventes: list[dict], cfg_tg: dict, token: str) -> boo
 
 
 def _echapper_url_html(url: str) -> str:
-    """Échappe uniquement le '&' dans une URL pour usage en attribut HTML
-    (href="..."). Les '<', '>' et '"' sont volontairement laissés intacts
-    dans le chemin/la requête d'une URL normale, mais '&' doit être encodé
-    en &amp; dans du HTML, sinon Telegram peut refuser le message si l'URL
-    contient plusieurs paramètres (ex. '?item=1&category=2')."""
-    return str(url).replace("&", "&amp;")
+    """Échappe une URL pour usage en attribut HTML (href="..."). '&' doit
+    être encodé en &amp; dans du HTML, sinon Telegram peut refuser le
+    message si l'URL contient plusieurs paramètres (ex.
+    '?item=1&category=2'). V51 (audit externe du 17/08/2026) : échappe
+    aussi '<'/'>' par cohérence avec telegram_utils.echapper_url_html --
+    invalides dans une vraie URL, mais mieux vaut les neutraliser
+    explicitement que de laisser une URL malformée casser l'attribut ou
+    le parsing HTML de Telegram."""
+    return str(url).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
 def _ligne_verification_photo(verif_photo: tuple[str | None, str] | None) -> str:

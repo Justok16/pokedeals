@@ -7,7 +7,8 @@ from unittest.mock import patch
 
 from connecteur_shopify import ResultatRecherche
 from bonne_affaire_shopify import (
-    _etat_refuse, _texte_bonne_affaire, envoyer_telegram_bonnes_affaires, evaluer_deal,
+    _etat_refuse, _texte_bonne_affaire, detecter_bonnes_affaires,
+    envoyer_telegram_bonnes_affaires, evaluer_deal,
 )
 from watchlist_shopify import CarteWatchlist
 
@@ -241,3 +242,78 @@ def test_envoyer_telegram_bonnes_affaires_verdict_incoherent_nempeche_jamais_len
         resultat = envoyer_telegram_bonnes_affaires([deal], "chat123", "token-telegram", anthropic_api_key="sk-ant-xxx")
     post_mock.assert_called_once()
     assert resultat is True
+
+
+# ------------------- detecter_bonnes_affaires (orchestration) -------------------
+# Audit externe du 17/08/2026 (cf. SESSION_NOTES.md) : evaluer_deal() etait
+# teste garde-fou par garde-fou, mais l'orchestrateur qui parcourt les
+# resultats par critere, filtre par confiance et dedoublonne n'avait aucun
+# test dedie -- un bug de cablage ici (mauvaise cle, dedup casse...) ne
+# serait detecte par aucun des tests ci-dessus.
+
+def test_detecter_bonnes_affaires_cas_nominal():
+    carte = _carte()
+    cle = carte.cle_recherche
+    resultats_par_critere = {cle: [_resultat(prix=50.0)]}
+    cartes_par_critere = {cle: carte}
+    deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, COTES, REGLES)
+    assert len(deals) == 1
+    assert deals[0]["boutique"] == "exemple.fr"
+
+
+def test_detecter_bonnes_affaires_ignore_la_confiance_faible():
+    carte = _carte()
+    cle = carte.cle_recherche
+    resultats_par_critere = {cle: [_resultat(prix=50.0, confiance="faible")]}
+    cartes_par_critere = {cle: carte}
+    deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, COTES, REGLES)
+    assert deals == []
+
+
+def test_detecter_bonnes_affaires_ignore_carte_sans_numero():
+    # carte.numero absent -> hors perimetre (meme logique que
+    # detecter_retours_en_stock, cf. alerte_stock.py).
+    carte = _carte(numero=None)
+    cle = ("Dracaufeu", None)
+    resultats_par_critere = {cle: [_resultat(prix=50.0)]}
+    cartes_par_critere = {cle: carte}
+    deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, COTES, REGLES)
+    assert deals == []
+
+
+def test_detecter_bonnes_affaires_ignore_critere_sans_carte_associee():
+    cle_orpheline = ("Miaouss", "042/165")
+    resultats_par_critere = {cle_orpheline: [_resultat(prix=50.0)]}
+    deals = detecter_bonnes_affaires(resultats_par_critere, {}, COTES, REGLES)
+    assert deals == []
+
+
+def test_detecter_bonnes_affaires_dedoublonne_le_meme_produit_trouve_par_deux_criteres():
+    # Une carte trouvee via son nom principal ET son alias peut faire
+    # remonter deux fois LE MEME produit (meme boutique + meme URL).
+    carte_nom = _carte(nom_config="Dracaufeu ex 199/165")
+    carte_alias = _carte(nom_recherche="Charizard", nom_config="Dracaufeu ex 199/165")
+    cle_nom = ("Dracaufeu", "199/165")
+    cle_alias = ("Charizard", "199/165")
+    meme_url = "https://exemple.fr/le-meme-produit"
+    resultats_par_critere = {
+        cle_nom: [_resultat(prix=50.0, url_produit=meme_url)],
+        cle_alias: [_resultat(prix=50.0, url_produit=meme_url)],
+    }
+    cartes_par_critere = {cle_nom: carte_nom, cle_alias: carte_alias}
+    deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, COTES, REGLES)
+    assert len(deals) == 1
+
+
+def test_detecter_bonnes_affaires_ne_dedoublonne_pas_deux_produits_differents():
+    carte = _carte()
+    cle = carte.cle_recherche
+    resultats_par_critere = {
+        cle: [
+            _resultat(prix=50.0, url_produit="https://exemple.fr/produit-a"),
+            _resultat(prix=55.0, url_produit="https://exemple.fr/produit-b"),
+        ],
+    }
+    cartes_par_critere = {cle: carte}
+    deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, COTES, REGLES)
+    assert len(deals) == 2
