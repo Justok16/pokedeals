@@ -2741,3 +2741,44 @@ Aucun changement de logique Python dans cette passe — uniquement 3 valeurs
 (ce dernier pour documenter la reconfirmation, sans changer sa valeur).
 Vérifié : les 3 fichiers YAML restent syntaxiquement valides
 (`yaml.safe_load`).
+
+## V51 : reformule l'alerte "photo INCOHÉRENTE" après un faux positif réel (17/08/2026)
+
+Signalé par Justok : une alerte 🔥 pour Méga-Dracaufeu X ex 125/094 (eBay,
+700€ + 2,78€ de port, cote 916,67€, **+305,56€ de profit net estimé**)
+affichait "🚨 Vérification IA : photo INCOHÉRENTE (La carte montre
+Méga-Dracaufeu Y (version bleue), pas Méga-Dracaufeu X...)" — alors que la
+photo montrait bien la bonne carte (confirmé par Justok, dont
+l'identification de carte fait foi par convention, cf. CLAUDE.md). Faux
+positif du modèle de vision (Claude Haiku) sur une distinction visuelle
+fine (variantes Méga X/Y), pas un bug de code : l'image était correctement
+téléchargée et transmise, le prompt correctement formé.
+
+**Pas de correctif déterministe possible** côté prompt/modèle (limite déjà
+documentée dans `verification_photo.py` : "qu'une IA de vision généraliste
+ne peut pas juger de façon fiable"). La vérification reste volontairement
+NON BLOQUANTE depuis sa conception précisément pour ce genre de cas —
+l'alerte 🔥 est bien partie malgré le faux "INCOHÉRENTE". Le vrai problème
+trouvé : le message affichait ce verdict comme un FAIT confirmé
+("INCOHÉRENTE" en majuscules, ton alarmiste), risquant de faire fuir un
+vrai deal (+305€) sur un faux positif, alors que le système est censé
+n'ajouter qu'un signal informatif imparfait.
+
+**Correctif** : reformulation du message dans les deux points d'affichage
+(`notifications_historique._ligne_verification_photo()` et
+`bonne_affaire_shopify._ligne_verification_photo()`, copies dupliquées
+identiques -- candidates à factoriser un jour, pas fait ici pour rester
+scopé au bug signalé) — le verdict "incohérent" est maintenant présenté
+en minuscules ("photo semble incohérente") avec une phrase explicite
+"cette vérification automatique peut se tromper (ex. variantes
+visuellement proches), regarde toi-même la photo avant de décider !".
+Aucun changement de logique (le verdict "coherent"/"incoherent"/None et
+le comportement non-bloquant sont inchangés), uniquement le TEXTE affiché
+à l'utilisateur — pour recalibrer la confiance sans perdre le signal
+(souvent utile, cf. cas réel documenté dans `verification_photo.py` :
+annonce Vinted en français pointant vers une carte coréenne).
+
+Tests mis à jour (`tests/test_notifications_historique.py`,
+`tests/test_bonne_affaire_shopify.py`) : les 3 assertions qui vérifiaient
+la présence de "INCOHÉRENTE" (majuscules) vérifient maintenant
+"incohérente" + "peut se tromper". Suite complète : 202/202.

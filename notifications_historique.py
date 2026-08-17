@@ -120,7 +120,18 @@ def _ligne_verification_photo(verif_photo: tuple[str | None, str] | None) -> str
     if verdict == "coherent":
         return "\n📸 Vérification IA : photo cohérente avec la carte/langue attendue."
     if verdict == "incoherent":
-        return f"\n🚨 <b>Vérification IA : photo INCOHÉRENTE</b> ({_echapper_html(raison)}) — vérifie avant d'acheter !"
+        # V51 : reformule pour ne plus afficher "INCOHÉRENTE" comme un fait
+        # confirmé -- cas réel (17/08/2026) où l'IA de vision a confondu
+        # Méga-Dracaufeu X et Y (variantes visuellement proches) sur une
+        # vraie bonne affaire (+305€ de profit estimé), photo pourtant
+        # correcte. Le verdict reste affiché (signal utile la plupart du
+        # temps), mais explicitement présenté comme une IA généraliste
+        # pouvant se tromper, pas une certitude -- pour ne plus faire fuir
+        # un vrai deal sur un faux positif.
+        return (f"\n🚨 <b>Vérification IA</b> : photo semble incohérente "
+                f"({_echapper_html(raison)}) — cette vérification automatique "
+                f"peut se tromper (ex. variantes visuellement proches), "
+                f"regarde toi-même la photo avant de décider !")
     return ""  # non concluant (None, raison) : pas de ligne, ni confirmation ni rejet
 
 

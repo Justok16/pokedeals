@@ -341,7 +341,13 @@ def _ligne_verification_photo(verif_photo: tuple[str | None, str] | None) -> str
     if verdict == "coherent":
         return "\n📸 Vérification IA : photo cohérente avec la carte/langue attendue."
     if verdict == "incoherent":
-        return f"\n🚨 <b>Vérification IA : photo INCOHÉRENTE</b> ({_echapper_html(raison)}) — vérifie avant d'acheter !"
+        # V51 : meme reformulation que notifications_historique.py (cf. son
+        # commentaire) -- ne plus afficher "INCOHÉRENTE" comme un fait
+        # confirmé, l'IA de vision peut se tromper (ex. variantes proches).
+        return (f"\n🚨 <b>Vérification IA</b> : photo semble incohérente "
+                f"({_echapper_html(raison)}) — cette vérification automatique "
+                f"peut se tromper (ex. variantes visuellement proches), "
+                f"regarde toi-même la photo avant de décider !")
     return ""
 
 
