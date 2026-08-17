@@ -1550,9 +1550,27 @@ def _get_vinted_session() -> requests.Session | None:
         return None
 
 
+# V50 (17/08/2026) : compteurs de FIABILITÉ Vinted/Leboncoin, remis à zéro
+# à chaque cycle (cf. main()). Un "échec" ici = une vraie exception/erreur
+# réseau dans le bloc try/except de la fonction -- jamais un 0 résultat
+# légitime, ni un blocage 403/429 Leboncoin (déjà documenté comme un
+# comportement anti-bot ROUTINE, pas une panne). Objectif : détecter qu'un
+# connecteur est CASSÉ (ex. Vinted change son API/ses cookies) avant que ça
+# ne passe inaperçu pendant des jours -- cf. verifier_fiabilite_plateformes()
+# plus bas, appelée une fois par cycle dans main().
+_stats_fiabilite = {"vinted_appels": 0, "vinted_echecs": 0, "leboncoin_appels": 0, "leboncoin_echecs": 0}
+
+
+def _reinitialiser_stats_fiabilite() -> None:
+    for cle in _stats_fiabilite:
+        _stats_fiabilite[cle] = 0
+
+
 def vinted_rechercher(nom_carte: str, langue: str, limite: int = 30, prix_plafond: float | None = None) -> list[dict]:
+    _stats_fiabilite["vinted_appels"] += 1
     s = _get_vinted_session()
     if s is None:
+        _stats_fiabilite["vinted_echecs"] += 1
         return []
     requete = f"carte pokemon {nom_carte}"
     requete += SUFFIXES_LANGUE.get(langue, "")
@@ -1581,6 +1599,7 @@ def vinted_rechercher(nom_carte: str, langue: str, limite: int = 30, prix_plafon
         items = r.json().get("items", []) or []
     except Exception as e:  # noqa: BLE001
         log.warning("Recherche Vinted '%s' échouée : %s", nom_carte, e)
+        _stats_fiabilite["vinted_echecs"] += 1
         return []
 
     annonces = []
@@ -1691,6 +1710,7 @@ LBC_HEADERS = {
 
 
 def lbc_rechercher(nom_carte: str, langue: str, limite: int = 30) -> list[dict]:
+    _stats_fiabilite["leboncoin_appels"] += 1
     requete = f"carte pokemon {nom_carte}"
     requete += SUFFIXES_LANGUE.get(langue, "")
     payload = {
@@ -1711,6 +1731,7 @@ def lbc_rechercher(nom_carte: str, langue: str, limite: int = 30) -> list[dict]:
         ads = r.json().get("ads", []) or []
     except Exception as e:  # noqa: BLE001
         log.info("Leboncoin indisponible (%s) — on continue sans", e)
+        _stats_fiabilite["leboncoin_echecs"] += 1
         return []
 
     annonces = []
@@ -2417,6 +2438,55 @@ def verifier_cotes_manuelles_perimees(cfg: dict, vues: dict) -> list[str]:
     return messages
 
 
+# V50 : au-delà de ce nombre d'appels sur un cycle, un taux d'échec élevé
+# devient un signal fiable (pas un hasard sur un tout petit échantillon --
+# ex. un run de test manuel sur 2-3 cartes où Vinted a un pépin ponctuel).
+SEUIL_MIN_APPELS_FIABILITE = 5
+# 80% d'échecs RÉELS (pas de 0 résultat) sur un cycle entier : un connecteur
+# qui fonctionne encore correctement échoue occasionnellement (réseau,
+# timeout ponctuel), jamais presque systématiquement.
+SEUIL_TAUX_ECHEC_FIABILITE = 0.8
+
+
+# Anti-spam : pokedeals.yml tourne toutes les 15 min -- sans ça, une
+# plateforme cassée déclencherait une alerte à CHAQUE cycle, en continu,
+# jusqu'à la correction. Une alerte toutes les 6h reste largement assez
+# réactif pour agir, sans noyer Justok de messages identiques.
+DELAI_ANTI_SPAM_FIABILITE = 6 * 3600
+
+
+def verifier_fiabilite_plateformes(vues: dict) -> list[str]:
+    """Alerte si Vinted et/ou Leboncoin échouent de façon quasi systématique
+    sur CE cycle -- signe probable d'un connecteur CASSÉ (ex. Vinted change
+    son format d'API ou son mécanisme de cookies), à distinguer d'un échec
+    isolé (réseau, timeout ponctuel) déjà toléré partout ailleurs dans le
+    programme sans alerte. S'appuie sur _stats_fiabilite, alimenté par
+    vinted_rechercher()/lbc_rechercher() au fil du cycle (cf. plus haut) --
+    à appeler une fois, après la boucle complète sur la watchlist."""
+    alertes = []
+    for plateforme, cle_appels, cle_echecs in (
+        ("Vinted", "vinted_appels", "vinted_echecs"),
+        ("Leboncoin", "leboncoin_appels", "leboncoin_echecs"),
+    ):
+        appels = _stats_fiabilite[cle_appels]
+        echecs = _stats_fiabilite[cle_echecs]
+        if appels < SEUIL_MIN_APPELS_FIABILITE:
+            continue
+        taux = echecs / appels
+        if taux < SEUIL_TAUX_ECHEC_FIABILITE:
+            continue
+        if not anti_spam(vues, f"fiabilite-{plateforme.lower()}", DELAI_ANTI_SPAM_FIABILITE):
+            continue
+        alertes.append(
+            f"🚨 <b>{plateforme} semble cassé</b>\n"
+            f"{echecs}/{appels} recherches en échec sur ce cycle ({taux * 100:.0f}%). "
+            f"Vérifie si l'API a changé côté {plateforme} (format de réponse, "
+            f"cookies/session, blocage anti-bot renforcé...).")
+        log.warning("Fiabilité %s dégradée : %d/%d échecs (%.0f%%)",
+                    plateforme, echecs, appels, taux * 100)
+    return alertes
+
+
 # ------------------------ RÉCAPITULATIF 21H ----------------------------
 
 def recap_du_jour(cfg: dict, vues: dict) -> str | None:
@@ -2519,6 +2589,7 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
 
 def main() -> int:
     debut = time.time()
+    _reinitialiser_stats_fiabilite()  # V50 : un cycle frais, un compteur frais
     cfg = charger_config()
     _ct_charger_cache()  # V22 : cache Cardtrader (blueprints + prix du jour)
     _api_charger_cache()  # V47 : cache TCGdex (repli quand Cardtrader n'a rien)
@@ -2983,6 +3054,12 @@ def main() -> int:
     cotes_perimees = verifier_cotes_manuelles_perimees(cfg, vues)
     if cotes_perimees and notif.get("telegram") and "telegram" in cfg:
         envoyer_telegram_texte(cotes_perimees, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
+
+    # V50 : alerte si Vinted/Leboncoin échouent de façon quasi systématique
+    # sur ce cycle (connecteur probablement cassé, cf. verifier_fiabilite_plateformes).
+    alertes_fiabilite = verifier_fiabilite_plateformes(vues)
+    if alertes_fiabilite and notif.get("telegram") and "telegram" in cfg:
+        envoyer_telegram_texte(alertes_fiabilite, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
 
     # --- Récapitulatif quotidien (envoyé une fois, vers 21h heure de Paris) ---
     recap = recap_du_jour(cfg, vues)

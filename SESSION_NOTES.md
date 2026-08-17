@@ -2280,3 +2280,59 @@ candidats après synchronisation), suite complète `pytest tests/`
 inchangée (101/101, ce fix ne touche pas de fonction couverte par des
 tests dédiés -- `main()` de `decouverte_boutiques.py` n'est pas testé
 unitairement, comme les autres orchestrateurs du projet).
+
+## Retour sur le bilan ChatGPT : alerte de fiabilité Vinted/Leboncoin (17/08/2026)
+
+Justok a demandé un rappel des points restants de l'avis ChatGPT relayé la
+veille, puis validé (via un choix multiple) de traiter les deux éléments
+encore ouverts : cette alerte de fiabilité, et la poursuite du découpage
+de `main.py`. Consigne explicite : "fais en sorte que tout soit fini et
+fonctionne à la perfection [...] du moment que tu peux te corriger et ne
+pas créer de bug."
+
+**Problème visé** : si Vinted ou Leboncoin change son API/son mécanisme
+de cookies du jour au lendemain, `vinted_rechercher()`/`lbc_rechercher()`
+avalent déjà l'exception et renvoient `[]` (comportement voulu, pour ne
+jamais faire planter un cycle sur une plateforme en panne) -- mais rien
+ne distinguait "0 résultat légitime pour cette carte" de "la plateforme
+entière ne répond plus", donc une casse totale et durable pouvait passer
+inaperçue pendant des jours.
+
+**Choix d'implémentation** : plutôt que de changer la signature de
+`vinted_rechercher()`/`lbc_rechercher()` (aurait fallu mettre à jour
+`radar_prix_bas.py`, seul autre appelant de `vinted_rechercher`, et créer
+un risque de régression pour un gain marginal), compteurs module-level
+`_stats_fiabilite` (`{plateforme}_appels`/`{plateforme}_echecs`),
+incrémentés directement dans les blocs `try`/`except` existants des deux
+fonctions -- zéro changement de signature, zéro appelant à toucher.
+Remis à zéro en tout début de `main()` (`_reinitialiser_stats_fiabilite()`)
+: chaque cycle cron repart d'un compteur propre.
+
+Point d'attention explicite : le blocage 403/429 de Leboncoin (déjà
+documenté dans le code comme un comportement anti-bot ROUTINE, pas une
+panne) est volontairement EXCLU du comptage d'échecs -- seul le bloc
+`except Exception` générique (erreur réseau/timeout/format inattendu)
+compte. Sans cette distinction, l'alerte se serait déclenchée en continu
+puisque Leboncoin bloque fréquemment par conception.
+
+`verifier_fiabilite_plateformes(vues)`, appelée une fois en fin de
+`main()` (même emplacement que `detecter_anomalies`/
+`verifier_cotes_manuelles_perimees`) : alerte si le taux d'échec dépasse
+80% (`SEUIL_TAUX_ECHEC_FIABILITE`) sur au moins 5 appels
+(`SEUIL_MIN_APPELS_FIABILITE`, pour ne pas conclure sur un tout petit
+échantillon). Anti-spam 6h (`DELAI_ANTI_SPAM_FIABILITE`, réutilise
+`anti_spam()` déjà existant) -- sans ça, `pokedeals.yml` tournant toutes
+les 15 min aurait ré-envoyé la même alerte en boucle tant que le
+problème persiste.
+
+**Tests** : nouveau `tests/test_fiabilite_plateformes.py` (9 cas) --
+aucune alerte sous le seuil minimum d'appels (même à 100% d'échec),
+aucune alerte à taux normal, alerte correcte par plateforme et pour les
+deux à la fois, anti-spam empêchant bien une répétition immédiate,
+réinitialisation des compteurs, et surtout : vérification que
+`vinted_rechercher()` compte bien un vrai échec (session indisponible)
+et que `lbc_rechercher()` NE compte PAS un 403 comme un échec (mock de
+`_get_vinted_session`/`requete_avec_retry` via `monkeypatch`).
+
+Vérifié avant commit : `pyflakes` propre sur `main.py`, suite complète
+`pytest tests/` (110/110).

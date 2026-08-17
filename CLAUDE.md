@@ -22,6 +22,8 @@ En plus de ces 3 fonctions du bot, le dépôt héberge aussi `mcp_pokedeals/`, u
 
 Fichier principal (~3200 lignes). Reste organisé en sections délimitées par des banners `# ====` : utilitaires HTTP, chargement config, état "vues" (dédup), connecteurs eBay/Cardtrader/Cardmarket/Vinted/Leboncoin, moteur de cote (`obtenir_cote`), évaluation de deal (`evaluate`), notifications Telegram/email, stats/CSV, orchestration (`collecter`/`main`). Chaque changement de règle non-trivial porte un commentaire `VNN:` expliquant le cas concret qui l'a motivé — c'est le changelog du fichier, à respecter pour tout nouveau changement.
 
+**Alerte de fiabilité Vinted/Leboncoin** (V50, 17/08/2026) : `vinted_rechercher()`/`lbc_rechercher()` comptabilisent leurs échecs RÉELS (exception, pas un 0 résultat légitime, ni un blocage 403/429 Leboncoin — déjà documenté comme un comportement anti-bot routine) dans `_stats_fiabilite`, remis à zéro à chaque cycle (`_reinitialiser_stats_fiabilite()`). `verifier_fiabilite_plateformes(vues)`, appelée une fois en fin de `main()`, alerte sur Telegram si une plateforme dépasse `SEUIL_TAUX_ECHEC_FIABILITE` (80%) sur au moins `SEUIL_MIN_APPELS_FIABILITE` (5) appels — signe qu'un connecteur est probablement CASSÉ (API changée côté plateforme), pas un simple aléa réseau. Anti-spam 6h (`DELAI_ANTI_SPAM_FIABILITE`) pour ne pas ré-alerter à chaque cycle de 15 min tant que ce n'est pas corrigé.
+
 Depuis le 16/08/2026, un **découpage progressif et prudent** (décidé avec l'utilisateur, un module à la fois, tests + non-régression à chaque étape, jamais de réécriture en un coup) en extrait les fonctions les plus autonomes vers des modules dédiés :
 - `filtre_annonces.py` — normalisation de texte et filtre de pertinence des annonces (`normaliser`, `extraire_numero`, `mots_requis`, `preuve_francais`, `annonce_pertinente`...), fonctions pures sans état partagé ni appel réseau. `main.py` les réimporte. `_nom_neutre_entre_langues()` reste dans `main.py` (dépend de `CT_NOMS_EN`, défini plus loin dans `main.py`). Testé dans `tests/test_filtre_annonces.py` — première couverture de test dédiée à une fonction de `main.py`.
 - `notifications_historique.py` — formatage et envoi des notifications Telegram/email du système historique (`envoyer_telegram`, `envoyer_telegram_texte`, `envoyer_telegram_ventes`, `envoyer_alertes`, `_texte_telegram`...), y compris le branchement de `verification_photo.py`. Bloc entièrement autonome (aucune dépendance vers l'avant, seulement des dicts deal/vente passés en paramètre). `main.py` réimporte les 4 fonctions publiques. Testé dans `tests/test_notifications_historique.py`.
@@ -135,7 +137,7 @@ Deux familles de schéma, une par fonctionnalité, jamais mélangées :
 ```bash
 pip install -r requirements.txt        # requests + PyYAML, seules dépendances de PROD
 pip install -r requirements-dev.txt    # + pytest, pour lancer les tests (jamais installé en prod)
-python -m pytest tests/ -v             # tests unitaires (~100 cas, sub-seconde) sur les fonctions les plus fragiles
+python -m pytest tests/ -v             # tests unitaires (~110 cas, sub-seconde) sur les fonctions les plus fragiles
 python main.py                         # système historique : un scan complet
 python scan_boutique.py [boutiques]    # scan cartes Shopify (vide = toutes les boutiques actives)
 python scan_boutique_prestashop.py [boutiques]
