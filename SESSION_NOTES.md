@@ -2676,3 +2676,68 @@ sur une carte de la watchlist (repli correct sur la cote mémorisée),
 suite complète `pytest tests/` (202/202). `main.py` passe de 2105 à 1663
 lignes (~3690 lignes au tout début du découpage, 16/08/2026 -- sept
 modules extraits, plus de 2000 lignes déplacées).
+
+## Audit des marges de timeout des 8 workflows + revue des pièges connus (17/08/2026)
+
+Demandé par Justok après l'extraction de `moteur_cote.py` : vérifier si des
+marges de timeout sont devenues trop justes, et repasser sur les pièges
+connus pour un cas non couvert. Délégué à un agent en arrière-plan pour la
+collecte de données (beaucoup d'appels API GitHub), puis **vérifié
+manuellement avant d'agir** — l'agent avait mal daté ses observations
+(comparé des échecs anciens à un correctif récent sans vérifier l'horodatage
+du commit vs celui des runs), ce qui aurait mené à une fausse alerte si pris
+tel quel.
+
+**Ce qui a été confirmé sain sans changement** : `pokedeals.yml` (15 min de
+budget, 4.7-6.0 min réels, marge très large), `scan_prestashop.yml` (30 min
+de budget, 13.2-15.7 min réels), `scan_woocommerce.yml` → `scan_lot_b` et
+`scan_precommandes` (18/25 min de budget, 5-10 min réels),
+`decouverte_boutiques.yml`/`tendance_prix.yml` (quelques secondes contre
+10-20 min de budget). Les 14 pièges documentés dans `CLAUDE.md` ont tous été
+revérifiés par recherche dans le code (grep ciblé) — tous intacts, aucune
+régression, y compris dans les modules extraits aujourd'hui même
+(`moteur_cote.py`, `connecteur_leboncoin.py`, `http_utils.py`,
+`stats_fiabilite.py`, qui référencent d'ailleurs eux-mêmes certains de ces
+pièges dans leurs propres commentaires).
+
+**Fausse alerte écartée après vérification** : l'agent a signalé
+`scan_lot_a` (WooCommerce) comme "le fix du 16/08 ne tient pas" en trouvant
+6 annulations sur 30 runs récents (~20%). Vérification manuelle : le commit
+du fix (`3ec8bb4`, déplacement de `mymesis.fr` vers `LOT_B` + coupe-circuit
+API REST) a en réalité été poussé le **17/08 à 06h53:46 UTC** — PAS "le
+16/08" comme son propre message de commit le disait (erreur d'horodatage
+dans le commit lui-même, à noter pour éviter de la reproduire). Or les 6
+annulations trouvées par l'agent datent TOUTES d'avant ce commit (la
+dernière à 06h30, soit 23 minutes avant le fix). Log du run annulé de
+06h30 lu en détail : `mymesis.fr` était bien encore listé en 13e boutique
+de LOT_A (confirmant qu'il tournait sur l'ancien code), bloqué de 06h43:49
+jusqu'à l'annulation à 06h52:46 (9+ min sans jamais finir) — exactement le
+symptôme déjà diagnostiqué et censé être corrigé. Les 2 cycles complets
+observés APRÈS le fix (08h26 et 09h06) sont tous les deux propres :
+`scan_lot_a` en 13m26s-13m36s (contre 22 min de budget, ~38-39% de marge,
+sain), `scan_lot_b` en 4m51s-5m19s, `scan_precommandes` en 9m14s (le
+premier cycle) et en cours mais sans signe de lenteur pour le second. Le
+fix tient bel et bien — l'agent avait juste mélangé des données d'avant et
+d'après le correctif sans vérifier l'horodatage du commit. Commentaire du
+job `scan_lot_a` dans `scan_woocommerce.yml` mis à jour pour documenter
+cette reconfirmation (et éviter qu'un futur diagnostic reparte de zéro en
+voyant les vieilles annulations dans l'historique GitHub Actions).
+
+**Deux marges resserrées par prudence** (aucun échec réel constaté sur ces
+deux workflows à ce jour, mais marge jugée insuffisante pour absorber un
+ralentissement ponctuel, cf. le surcoût réseau GitHub Actions de +19 à
++38% déjà documenté ailleurs) :
+- `scan_shopify.yml` : 10 runs consécutifs mesurés à 16.2-19.9 min contre
+  un budget de 25 min (marge tombée à ~20%, alors que le commentaire du
+  fichier datait encore d'une mesure locale à 6.3 min, très en dessous de
+  la réalité de prod) → budget remonté à **30 min**.
+- `prix_bas_quotidien.yml` : seulement 3 cycles depuis son activation
+  (peu de recul), mais le pire des trois a consommé 30.6 min sur un
+  budget de 35 min (~87%, ~12.6% de marge) → budget remonté à **40 min**.
+
+Aucun changement de logique Python dans cette passe — uniquement 3 valeurs
+`timeout-minutes` et leurs commentaires explicatifs, dans
+`scan_shopify.yml`, `prix_bas_quotidien.yml` et `scan_woocommerce.yml`
+(ce dernier pour documenter la reconfirmation, sans changer sa valeur).
+Vérifié : les 3 fichiers YAML restent syntaxiquement valides
+(`yaml.safe_load`).

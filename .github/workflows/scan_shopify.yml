@@ -19,11 +19,15 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    # 18 min de marge pour le scan cartes (~6.3 min mesurees + rate-limits
-    # occasionnels) + le radar precommandes ajoute ensuite (nouveau parcours
-    # complet du catalogue Shopify, cf. etape dediee plus bas) -- a
-    # resserrer/reajuster si la duree mesuree en prod le permet.
-    timeout-minutes: 25
+    # Mesure reelle en prod le 17/08/2026 (10 runs consecutifs, scan cartes +
+    # radar precommandes) : 16.2-19.9 min, tous reussis -- mais marge tombee
+    # a ~20% du budget (25 min), sous le surcout habituel de GitHub Actions
+    # deja documente ailleurs dans ce projet (+19 a +38% vs mesures locales,
+    # cf. diagnostic scan_lot_a dans SESSION_NOTES.md). Remonte a 30 min par
+    # prudence (aucun timeout reel constate a ce jour, mais marge jugee trop
+    # juste pour absorber un ralentissement ponctuel) -- a resserrer si la
+    # duree mesuree reste stable sur plusieurs jours.
+    timeout-minutes: 30
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
