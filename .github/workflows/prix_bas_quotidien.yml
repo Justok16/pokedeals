@@ -18,9 +18,13 @@ jobs:
   prix-bas:
     runs-on: ubuntu-latest
     # Scan cible (19 criteres) mais sur TOUTES les boutiques actives (83+),
-    # meme cout reseau qu'un scan_boutique*.py complet -- marge alignee sur
-    # le plus long des 3 scans existants (scan_woocommerce.yml).
-    timeout-minutes: 35
+    # meme cout reseau qu'un scan_boutique*.py complet. Mesure reelle en
+    # prod le 17/08/2026 (3 premiers runs depuis l'activation) : 20.6 a
+    # 30.6 min, tous reussis mais le pire cas ne laissait que ~12% de marge
+    # sur le budget de 35 min -- remonte a 40 min par prudence (peu de recul
+    # encore, seulement 3 cycles), a resserrer une fois plus de cycles
+    # mesures si la duree se stabilise nettement en dessous.
+    timeout-minutes: 40
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4

@@ -37,6 +37,13 @@ jobs:
     # et hamacards.com, 2 des 3 plus gros catalogues WooCommerce). Pas lie
     # au radar precommandes (jobs sequentiels, aucun chevauchement
     # possible, cf. SESSION_NOTES.md pour le diagnostic complet).
+    # Marge reconfirmee le 17/08/2026 apres le fix mymesis.fr (deplacee
+    # vers LOT_B, cf. boutiques_woocommerce.py) : 13m26s-13m36s sur les 2
+    # premiers cycles de production suivant le fix, soit ~8 min/36% de
+    # marge -- nettement plus sain qu'avant le fix. Plusieurs annulations
+    # observees le 16-17/08 juste avant le fix (mymesis.fr encore en
+    # LOT_A, bloquee 9+ min) ne sont PAS un signe de marge insuffisante du
+    # timeout lui-meme : elles datent toutes d'avant le commit du fix.
     timeout-minutes: 22
     steps:
       - name: Récupérer le code

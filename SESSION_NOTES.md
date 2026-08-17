@@ -2475,3 +2475,269 @@ renommage volontaire déjà utilisé pour Cardtrader), `pyflakes` propre,
 import réel de tous les modules dépendants en subprocess isolé, appel
 réel de `_api_charger_cache()` (95 entrées chargées depuis le vrai
 `data/api_prix.json`), suite complète `pytest tests/` (137/137).
+
+## Cinquième et sixième modules extraits de main.py : http_utils.py, stats_fiabilite.py, connecteur_leboncoin.py (17/08/2026)
+
+Suite directe (même session, mandat "on continue" de Justok). Ce module
+était le premier du découpage à ne PAS former un bloc contigu dans
+`main.py` : `lbc_rechercher`/`LBC_API`/`LBC_HEADERS` d'un côté (lignes
+944-1000), `lbc_extraire_annonces_email`/`lbc_relever_alertes_email`/
+`_html_vers_texte`/`_prix_depuis_texte`/`RE_LBC_LIEN`/`RE_LBC_PRIX` de
+l'autre (lignes 1063-1184), séparés par le moteur de cote/historique
+(`_charger_historique`, `sauvegarder_historique`, `historique()`) qui
+n'a AUCUNE dépendance avec l'un ou l'autre bloc et reste dans `main.py`.
+Recollés en un seul fichier `connecteur_leboncoin.py`.
+
+**Deux dépendances auraient créé un import circulaire** si laissées
+dans `main.py` (qui aurait dû importer `connecteur_leboncoin`, qui
+aurait dû importer en retour depuis `main.py`) :
+- `requete_avec_retry`/`user_agent`/`USER_AGENTS` : utilisées par
+  `lbc_rechercher`, mais AUSSI par `ebay_rechercher`/`vinted_rechercher`/
+  `vinted_description`, qui restent dans `main.py`. Extraites dans un
+  nouveau module `http_utils.py` (bloc pur, sans état partagé, déjà
+  repéré comme candidat naturel plus tôt dans la session) ; `main.py`
+  les réimporte comme il le fait déjà pour `ecrire_json_atomique`
+  (`json_utils.py`).
+- `_stats_fiabilite` (dict de compteurs V50) : incrémenté à la fois par
+  `vinted_rechercher()` (resté dans `main.py`) et `lbc_rechercher()`
+  (migré). Extrait dans un nouveau module `stats_fiabilite.py`, minimal
+  (juste le dict). Point vérifié avant d'écrire le code (même démarche
+  que pour `_ct_cache` chez Cardtrader) : `_stats_fiabilite` n'est
+  JAMAIS réassigné en bloc dans `main.py`, seulement muté clé par clé
+  (`_stats_fiabilite[cle] = 0` dans `_reinitialiser_stats_fiabilite()`,
+  `+= 1` dans les connecteurs) -- donc un simple
+  `from stats_fiabilite import _stats_fiabilite` dans les deux modules
+  suffit, PAS besoin d'accès qualifié comme `connecteur_cardtrader._ct_cache`.
+  Vérifié explicitement par un test d'intégration (mutation via
+  `main._stats_fiabilite`, lecture via `connecteur_leboncoin._stats_fiabilite`,
+  même objet dict).
+
+**Réimporté dans `main.py`** : `lbc_rechercher`, `lbc_relever_alertes_email`
+(les 2 seuls noms Leboncoin utilisés ailleurs dans `main.py`, dans
+`collecter()` et `main()`) ; `user_agent`, `requete_avec_retry` (pas
+`USER_AGENTS`, jamais référencé directement ailleurs dans `main.py` --
+repéré par `pyflakes` comme import inutile puis retiré) ; `_stats_fiabilite`.
+
+Ancien banner de commentaire "LEBONCOIN VIA ALERTES EMAIL (V11)" (qui
+expliquait le choix du repli email face au blocage DataDome) retiré de
+`main.py` et absorbé dans le docstring de `connecteur_leboncoin.py` --
+même traitement que les banners Cardtrader/TCGdex précédents.
+
+Deux imports devenus inutiles dans `main.py` après le départ de
+`lbc_relever_alertes_email` (seul consommateur) : `imaplib`, `email as
+email_lib` -- retirés (repérés par `pyflakes`).
+
+**Résultat** : `main.py` passe de 2319 à 2105 lignes (-214, dont le
+retrait du banner de commentaire) -- 6 modules extraits au total depuis
+le 16/08/2026, main.py réduit d'environ 3690 à 2105 lignes.
+
+**Tests** : nouveaux `tests/test_connecteur_leboncoin.py` (12 cas --
+blocage 403/429 jamais compté comme échec de fiabilité, vraie panne
+réseau comptée, parsing de la réponse API, gestion des espaces
+insécables dans un prix, extraction/dédoublonnage/rejet d'annonces
+depuis un HTML d'email, `lbc_relever_alertes_email` ne fait aucun appel
+IMAP si désactivé ou sans mot de passe) et `tests/test_http_utils.py` (4
+cas -- retry sur 429, propagation d'erreur après épuisement des
+tentatives). Un test PRÉEXISTANT (`tests/test_fiabilite_plateformes.py::
+test_lbc_rechercher_403_nest_pas_compte_comme_un_echec`) a dû être
+corrigé : il monkeypatchait `main.requete_avec_retry`, qui n'a plus
+aucun effet sur le code réellement exécuté par `lbc_rechercher()`
+(désormais dans `connecteur_leboncoin.py`, avec sa propre référence
+importée) -- corrigé pour patcher `connecteur_leboncoin.requete_avec_retry`,
+avec un commentaire expliquant pourquoi ce n'est plus équivalent depuis
+l'extraction.
+
+Vérifié avant commit : diff ligne à ligne des DEUX blocs extraits contre
+l'original, chacun contre une extraction `sed` fraîche du fichier
+`main.py` juste avant l'édition (0 différence sur les deux, en dehors
+des imports/en-tête du nouveau module) ; `pyflakes` propre sur les 4
+fichiers touchés (`main.py`, `connecteur_leboncoin.py`, `http_utils.py`,
+`stats_fiabilite.py`) ; import réel de tous les modules en subprocess
+isolé, avec vérification explicite que les objets réimportés dans
+`main.py` sont bien les MÊMES objets que ceux de `connecteur_leboncoin.py`
+(`is`, pas juste `==`) ; test fonctionnel réel de
+`lbc_extraire_annonces_email()` sur un HTML d'exemple ; suite complète
+`pytest tests/` (152/152, après correction du test préexistant).
+
+## Septième module extrait de main.py : moteur_cote.py (17/08/2026)
+
+Suite directe (même session, l'utilisateur a explicitement demandé de
+s'attaquer au moteur de cote/évaluation SI c'est fait "minutieusement et
+vérifié derrière", "le plus propre possible, bénéfique aussi bien pour le
+code que pour l'utilisateur" — après que ce module ait été identifié
+comme le seul candidat restant, mais jugé "trop central/risqué pour une
+extraction casuelle"). Extraction la plus étendue et la plus rigoureuse du
+découpage à ce jour, à la hauteur du risque :
+
+**Portée** : `calculer_cote()` (calcul du prix de référence -- médiane
+eBay nettoyée des valeurs aberrantes IQR, ou moyenne du bas de marché
+selon `cfg.cote.methode`), `_localisation_incoherente()` (V18, garde-fou
+langue/pays), le suivi d'ancienneté des annonces (V44 : `anciennete()`,
+`jours_en_ligne()`, sert à exclure du panier bas-marché une annonce qui
+traîne sans se vendre), la persistance de l'historique des cotes
+(`historique()`, `sauvegarder_historique()`, purge par `PURGE_VERSION`),
+`cle_cote()`/`cote_lissee()`/`enregistrer_cote()`/`obtenir_cote()` (choix
+de la cote : manuelle > lissée > instantanée), `_etat_ok()` (V36, gère
+les négations "non gradée"), `evaluate()` (décision DEAL/pas-DEAL, tous
+les garde-fous : seuil fixe V45, prix d'appel suspect V22.8, port V40/V41,
+profit minimum...) et `calculer_tendance_cote()` (flèche hausse/baisse
+pour le CSV).
+
+**Quatre blocs non contigus recollés** (contre deux pour
+`connecteur_leboncoin.py`) : le suivi d'ancienneté (entre le "vues"/dédup
+et le fetch eBay), `_localisation_incoherente`+`calculer_cote` (entre le
+fetch eBay et les cotes Cardmarket/TCGdex), l'historique+`evaluate` (entre
+le fetch Vinted et les notifications), et `calculer_tendance_cote` (entre
+les stats et l'export CSV) -- chacun laissé à sa place originale sauf
+extraction, avec un commentaire pointant vers `moteur_cote.py` là où un
+lecteur pourrait chercher la fonction disparue (ex. dans la section CSV,
+juste avant `_proteger_csv`).
+
+**`detecter_anomalies()`/`verifier_cotes_manuelles_perimees()` restent
+dans `main.py`** bien qu'elles lisent `historique()` : ce sont des
+générateurs d'ALERTES Telegram couplés à `anti_spam()`/`vues` (état du
+système de dédup, hors périmètre du moteur de cote), même logique que
+`verifier_fiabilite_plateformes()` restée en place lors de l'extraction
+de `_stats_fiabilite`.
+
+**Deux dépendances évitant un import circulaire, déjà réglées lors de
+l'extraction précédente** : `annonce_pertinente`/`normaliser`/
+`SIGNAUX_ENCHERE` (déjà dans `filtre_annonces.py`) et
+`ecrire_json_atomique` (déjà dans `json_utils.py`) -- aucun nouveau
+module de support nécessaire cette fois, contrairement à Leboncoin
+(`http_utils.py`/`stats_fiabilite.py`).
+
+**Aucun état mutable partagé réassigné en bloc** : `_historique` et
+`_anciennete` (dicts de cache) sont mutés via leurs accesseurs
+`historique()`/`anciennete()`, jamais réassignés depuis l'extérieur --
+`main.py` ne réimporte que des FONCTIONS, jamais ces variables
+directement, donc pas de piège de liaison figée comme `_ct_cache`.
+
+**Nettoyage des imports devenus inutiles** dans `main.py`, repéré par
+`pyflakes` : `SIGNAUX_ENCHERE` (n'était utilisée que dans `evaluate()`,
+migrée), `calculer_cote` et `cle_cote` (jamais appelées directement par
+`main.py` -- seulement via `obtenir_cote()`/`cote_lissee()`/
+`enregistrer_cote()`/`calculer_tendance_cote()`, qui restent le seul
+point d'entrée public utilisé).
+
+**Méthode d'extraction adaptée à l'ampleur du risque** : après un faux
+départ (édition par index de ligne Python, deux fois en erreur d'un
+cran -- confusion entre "numéro de ligne fichier" et "position dans la
+liste 0-indexée", cf. leçon déjà notée pour Cardtrader), la refonte a été
+reconstruite par CONCATÉNATION DE SEGMENTS `sed` (extraits par numéro de
+ligne vérifié juste avant usage) plutôt que par des slices Python
+calculées à la main -- élimine complètement le risque d'erreur d'indice.
+Chaque segment inchangé a été extrait individuellement puis recollé avec
+les blocs de remplacement (imports), la version finale relue diff par
+diff contre l'ancienne pour confirmer que SEUL le contenu voulu avait
+changé (renommages `_ecrire_json_atomique` -> `ecrire_json_atomique`,
+suppression des redéfinitions locales de `RACINE`, et les 4 blocs
+d'import). Un excès ponctuel de lignes vides aux points de jonction
+(sous-produit mécanique de la concaténation) a été identifié et corrigé
+à la main avant de valider le fichier final.
+
+**Vérification différentielle (au-delà du protocole habituel)** : en plus
+du diff ligne à ligne des 4 blocs extraits contre l'original, un script
+de comparaison a fait tourner CÔTE À CÔTE l'ancien `main.py` (sauvegardé
+avant modification, importé sous un nom distinct) et le nouveau
+(`main.py` + `moteur_cote.py`) sur 1200 cas générés pour `calculer_cote()`
+(annonces aléatoires, langues FR/JP, méthode médiane/bas-marché) et 2000
+cas pour `evaluate()` (prix/port/cote/confiance/marge/état/plateforme/
+seuil fixe aléatoires, couvrant tous les chemins de rejet documentés) :
+**0 différence** de résultat entre ancien et nouveau code sur l'ensemble
+des 3200 comparaisons. C'est la vérification la plus forte appliquée à
+ce jour dans le découpage, proportionnée au fait que ce module n'avait
+JAMAIS eu de test dédié avant aujourd'hui (contrairement aux connecteurs,
+qui avaient déjà des tests de non-régression).
+
+**Tests** : nouveau `tests/test_moteur_cote.py` (50 cas) -- un cas par
+comportement documenté par un commentaire `VNN` dans le code (V15 numéro
+exact, V16 langue, V17 médiane, V18 localisation, V20 diagnostic, V22.8
+prix d'appel suspect, V23 méthode bas-marché, V26 clés par langue, V36
+négations d'état, V39 `etats_acceptes` décoratif, V40/V41 plafond de port
+basé sur la cote, V44 exclusion des annonces stagnantes, V45 seuil de
+prix fixe), plus la persistance de l'historique (purge par version,
+chargement/sauvegarde réels via `tmp_path`, jamais sur `data/cotes.json`)
+et `obtenir_cote()` (priorité manuelle > instantanée > lissée > absente).
+Isolation systématique de `_historique`/`_anciennete` du disque réel via
+une fixture `autouse` (jamais de lecture/écriture sur les fichiers de
+production pendant les tests).
+
+Vérifié avant commit : diff ligne à ligne des 4 blocs extraits contre
+l'original (0 différence hors renommages/redéfinitions RACINE attendus),
+comparaison différentielle ancien/nouveau (3200 cas, 0 différence, cf.
+ci-dessus), `pyflakes` propre sur l'ensemble du dépôt (`main.py` et tous
+les modules touchés, imports inutiles retirés), import réel avec
+vérification d'identité d'objet (`is`, pas `==`) entre les fonctions
+réimportées dans `main.py` et celles de `moteur_cote.py`, chargement réel
+des fichiers de production (`data/cotes.json` : 94 clés, `data/
+anciennete_annonces.json` : 380 entrées) et appel réel de `obtenir_cote()`
+sur une carte de la watchlist (repli correct sur la cote mémorisée),
+suite complète `pytest tests/` (202/202). `main.py` passe de 2105 à 1663
+lignes (~3690 lignes au tout début du découpage, 16/08/2026 -- sept
+modules extraits, plus de 2000 lignes déplacées).
+
+## Audit des marges de timeout des 8 workflows + revue des pièges connus (17/08/2026)
+
+Demandé par Justok après l'extraction de `moteur_cote.py` : vérifier si des
+marges de timeout sont devenues trop justes, et repasser sur les pièges
+connus pour un cas non couvert. Délégué à un agent en arrière-plan pour la
+collecte de données (beaucoup d'appels API GitHub), puis **vérifié
+manuellement avant d'agir** — l'agent avait mal daté ses observations
+(comparé des échecs anciens à un correctif récent sans vérifier l'horodatage
+du commit vs celui des runs), ce qui aurait mené à une fausse alerte si pris
+tel quel.
+
+**Ce qui a été confirmé sain sans changement** : `pokedeals.yml` (15 min de
+budget, 4.7-6.0 min réels, marge très large), `scan_prestashop.yml` (30 min
+de budget, 13.2-15.7 min réels), `scan_woocommerce.yml` → `scan_lot_b` et
+`scan_precommandes` (18/25 min de budget, 5-10 min réels),
+`decouverte_boutiques.yml`/`tendance_prix.yml` (quelques secondes contre
+10-20 min de budget). Les 14 pièges documentés dans `CLAUDE.md` ont tous été
+revérifiés par recherche dans le code (grep ciblé) — tous intacts, aucune
+régression, y compris dans les modules extraits aujourd'hui même
+(`moteur_cote.py`, `connecteur_leboncoin.py`, `http_utils.py`,
+`stats_fiabilite.py`, qui référencent d'ailleurs eux-mêmes certains de ces
+pièges dans leurs propres commentaires).
+
+**Fausse alerte écartée après vérification** : l'agent a signalé
+`scan_lot_a` (WooCommerce) comme "le fix du 16/08 ne tient pas" en trouvant
+6 annulations sur 30 runs récents (~20%). Vérification manuelle : le commit
+du fix (`3ec8bb4`, déplacement de `mymesis.fr` vers `LOT_B` + coupe-circuit
+API REST) a en réalité été poussé le **17/08 à 06h53:46 UTC** — PAS "le
+16/08" comme son propre message de commit le disait (erreur d'horodatage
+dans le commit lui-même, à noter pour éviter de la reproduire). Or les 6
+annulations trouvées par l'agent datent TOUTES d'avant ce commit (la
+dernière à 06h30, soit 23 minutes avant le fix). Log du run annulé de
+06h30 lu en détail : `mymesis.fr` était bien encore listé en 13e boutique
+de LOT_A (confirmant qu'il tournait sur l'ancien code), bloqué de 06h43:49
+jusqu'à l'annulation à 06h52:46 (9+ min sans jamais finir) — exactement le
+symptôme déjà diagnostiqué et censé être corrigé. Les 2 cycles complets
+observés APRÈS le fix (08h26 et 09h06) sont tous les deux propres :
+`scan_lot_a` en 13m26s-13m36s (contre 22 min de budget, ~38-39% de marge,
+sain), `scan_lot_b` en 4m51s-5m19s, `scan_precommandes` en 9m14s (le
+premier cycle) et en cours mais sans signe de lenteur pour le second. Le
+fix tient bel et bien — l'agent avait juste mélangé des données d'avant et
+d'après le correctif sans vérifier l'horodatage du commit. Commentaire du
+job `scan_lot_a` dans `scan_woocommerce.yml` mis à jour pour documenter
+cette reconfirmation (et éviter qu'un futur diagnostic reparte de zéro en
+voyant les vieilles annulations dans l'historique GitHub Actions).
+
+**Deux marges resserrées par prudence** (aucun échec réel constaté sur ces
+deux workflows à ce jour, mais marge jugée insuffisante pour absorber un
+ralentissement ponctuel, cf. le surcoût réseau GitHub Actions de +19 à
++38% déjà documenté ailleurs) :
+- `scan_shopify.yml` : 10 runs consécutifs mesurés à 16.2-19.9 min contre
+  un budget de 25 min (marge tombée à ~20%, alors que le commentaire du
+  fichier datait encore d'une mesure locale à 6.3 min, très en dessous de
+  la réalité de prod) → budget remonté à **30 min**.
+- `prix_bas_quotidien.yml` : seulement 3 cycles depuis son activation
+  (peu de recul), mais le pire des trois a consommé 30.6 min sur un
+  budget de 35 min (~87%, ~12.6% de marge) → budget remonté à **40 min**.
+
+Aucun changement de logique Python dans cette passe — uniquement 3 valeurs
+`timeout-minutes` et leurs commentaires explicatifs, dans
+`scan_shopify.yml`, `prix_bas_quotidien.yml` et `scan_woocommerce.yml`
+(ce dernier pour documenter la reconfirmation, sans changer sa valeur).
+Vérifié : les 3 fichiers YAML restent syntaxiquement valides
+(`yaml.safe_load`).

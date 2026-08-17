@@ -86,6 +86,12 @@ def test_lbc_rechercher_403_nest_pas_compte_comme_un_echec(monkeypatch):
     # deja documente et tolere -- ne doit JAMAIS compter comme un "echec"
     # au sens de cette alerte (sinon elle se declencherait en continu,
     # Leboncoin bloquant frequemment par design).
+    # lbc_rechercher vit desormais dans connecteur_leboncoin.py (extrait le
+    # 17/08/2026) : main.lbc_rechercher n'est qu'une reference reimportee,
+    # donc le monkeypatch doit cibler le module ou l'appel reseau a lieu
+    # reellement -- patcher main.requete_avec_retry n'aurait ici aucun effet.
+    import connecteur_leboncoin
+
     class _ReponseBloquee:
         status_code = 403
         text = "forbidden"
@@ -93,7 +99,7 @@ def test_lbc_rechercher_403_nest_pas_compte_comme_un_echec(monkeypatch):
     def _requete_bloquee(*args, **kwargs):
         return _ReponseBloquee()
 
-    monkeypatch.setattr(main, "requete_avec_retry", _requete_bloquee)
+    monkeypatch.setattr(connecteur_leboncoin, "requete_avec_retry", _requete_bloquee)
     resultat = main.lbc_rechercher("Dracaufeu ex 199/165", "fr")
     assert resultat == []
     assert main._stats_fiabilite["leboncoin_appels"] == 1
