@@ -2475,3 +2475,86 @@ renommage volontaire déjà utilisé pour Cardtrader), `pyflakes` propre,
 import réel de tous les modules dépendants en subprocess isolé, appel
 réel de `_api_charger_cache()` (95 entrées chargées depuis le vrai
 `data/api_prix.json`), suite complète `pytest tests/` (137/137).
+
+## Cinquième et sixième modules extraits de main.py : http_utils.py, stats_fiabilite.py, connecteur_leboncoin.py (17/08/2026)
+
+Suite directe (même session, mandat "on continue" de Justok). Ce module
+était le premier du découpage à ne PAS former un bloc contigu dans
+`main.py` : `lbc_rechercher`/`LBC_API`/`LBC_HEADERS` d'un côté (lignes
+944-1000), `lbc_extraire_annonces_email`/`lbc_relever_alertes_email`/
+`_html_vers_texte`/`_prix_depuis_texte`/`RE_LBC_LIEN`/`RE_LBC_PRIX` de
+l'autre (lignes 1063-1184), séparés par le moteur de cote/historique
+(`_charger_historique`, `sauvegarder_historique`, `historique()`) qui
+n'a AUCUNE dépendance avec l'un ou l'autre bloc et reste dans `main.py`.
+Recollés en un seul fichier `connecteur_leboncoin.py`.
+
+**Deux dépendances auraient créé un import circulaire** si laissées
+dans `main.py` (qui aurait dû importer `connecteur_leboncoin`, qui
+aurait dû importer en retour depuis `main.py`) :
+- `requete_avec_retry`/`user_agent`/`USER_AGENTS` : utilisées par
+  `lbc_rechercher`, mais AUSSI par `ebay_rechercher`/`vinted_rechercher`/
+  `vinted_description`, qui restent dans `main.py`. Extraites dans un
+  nouveau module `http_utils.py` (bloc pur, sans état partagé, déjà
+  repéré comme candidat naturel plus tôt dans la session) ; `main.py`
+  les réimporte comme il le fait déjà pour `ecrire_json_atomique`
+  (`json_utils.py`).
+- `_stats_fiabilite` (dict de compteurs V50) : incrémenté à la fois par
+  `vinted_rechercher()` (resté dans `main.py`) et `lbc_rechercher()`
+  (migré). Extrait dans un nouveau module `stats_fiabilite.py`, minimal
+  (juste le dict). Point vérifié avant d'écrire le code (même démarche
+  que pour `_ct_cache` chez Cardtrader) : `_stats_fiabilite` n'est
+  JAMAIS réassigné en bloc dans `main.py`, seulement muté clé par clé
+  (`_stats_fiabilite[cle] = 0` dans `_reinitialiser_stats_fiabilite()`,
+  `+= 1` dans les connecteurs) -- donc un simple
+  `from stats_fiabilite import _stats_fiabilite` dans les deux modules
+  suffit, PAS besoin d'accès qualifié comme `connecteur_cardtrader._ct_cache`.
+  Vérifié explicitement par un test d'intégration (mutation via
+  `main._stats_fiabilite`, lecture via `connecteur_leboncoin._stats_fiabilite`,
+  même objet dict).
+
+**Réimporté dans `main.py`** : `lbc_rechercher`, `lbc_relever_alertes_email`
+(les 2 seuls noms Leboncoin utilisés ailleurs dans `main.py`, dans
+`collecter()` et `main()`) ; `user_agent`, `requete_avec_retry` (pas
+`USER_AGENTS`, jamais référencé directement ailleurs dans `main.py` --
+repéré par `pyflakes` comme import inutile puis retiré) ; `_stats_fiabilite`.
+
+Ancien banner de commentaire "LEBONCOIN VIA ALERTES EMAIL (V11)" (qui
+expliquait le choix du repli email face au blocage DataDome) retiré de
+`main.py` et absorbé dans le docstring de `connecteur_leboncoin.py` --
+même traitement que les banners Cardtrader/TCGdex précédents.
+
+Deux imports devenus inutiles dans `main.py` après le départ de
+`lbc_relever_alertes_email` (seul consommateur) : `imaplib`, `email as
+email_lib` -- retirés (repérés par `pyflakes`).
+
+**Résultat** : `main.py` passe de 2319 à 2105 lignes (-214, dont le
+retrait du banner de commentaire) -- 6 modules extraits au total depuis
+le 16/08/2026, main.py réduit d'environ 3690 à 2105 lignes.
+
+**Tests** : nouveaux `tests/test_connecteur_leboncoin.py` (12 cas --
+blocage 403/429 jamais compté comme échec de fiabilité, vraie panne
+réseau comptée, parsing de la réponse API, gestion des espaces
+insécables dans un prix, extraction/dédoublonnage/rejet d'annonces
+depuis un HTML d'email, `lbc_relever_alertes_email` ne fait aucun appel
+IMAP si désactivé ou sans mot de passe) et `tests/test_http_utils.py` (4
+cas -- retry sur 429, propagation d'erreur après épuisement des
+tentatives). Un test PRÉEXISTANT (`tests/test_fiabilite_plateformes.py::
+test_lbc_rechercher_403_nest_pas_compte_comme_un_echec`) a dû être
+corrigé : il monkeypatchait `main.requete_avec_retry`, qui n'a plus
+aucun effet sur le code réellement exécuté par `lbc_rechercher()`
+(désormais dans `connecteur_leboncoin.py`, avec sa propre référence
+importée) -- corrigé pour patcher `connecteur_leboncoin.requete_avec_retry`,
+avec un commentaire expliquant pourquoi ce n'est plus équivalent depuis
+l'extraction.
+
+Vérifié avant commit : diff ligne à ligne des DEUX blocs extraits contre
+l'original, chacun contre une extraction `sed` fraîche du fichier
+`main.py` juste avant l'édition (0 différence sur les deux, en dehors
+des imports/en-tête du nouveau module) ; `pyflakes` propre sur les 4
+fichiers touchés (`main.py`, `connecteur_leboncoin.py`, `http_utils.py`,
+`stats_fiabilite.py`) ; import réel de tous les modules en subprocess
+isolé, avec vérification explicite que les objets réimportés dans
+`main.py` sont bien les MÊMES objets que ceux de `connecteur_leboncoin.py`
+(`is`, pas juste `==`) ; test fonctionnel réel de
+`lbc_extraire_annonces_email()` sur un HTML d'exemple ; suite complète
+`pytest tests/` (152/152, après correction du test préexistant).
