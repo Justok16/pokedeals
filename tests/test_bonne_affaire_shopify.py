@@ -224,3 +224,20 @@ def test_envoyer_telegram_bonnes_affaires_avec_cle_et_image_appelle_la_verificat
     verif_mock.assert_called_once_with("https://x.fr/photo.jpg", "Dracaufeu ex 199/165", "jp", "sk-ant-xxx")
     texte_envoye = post_mock.call_args.kwargs["json"]["text"]
     assert "incohérente" in texte_envoye
+
+
+def test_envoyer_telegram_bonnes_affaires_verdict_incoherent_nempeche_jamais_lenvoi():
+    # Cas reel (17/08/2026, cf. SESSION_NOTES.md V51) : un faux positif de
+    # verification photo NE DOIT JAMAIS empecher l'envoi d'un vrai deal --
+    # le systeme est concu comme purement informatif, jamais bloquant.
+    deal = {"nom": "Dracaufeu ex 199/165", "boutique": "x.fr", "prix": 10.0, "cote": 20.0,
+            "decote_pct": 5.0, "prix_revente_conseille": 25.0,
+            "profit_net_estime": 10.0, "confiance": 0, "url_produit": "https://x",
+            "image_url": "https://x.fr/photo.jpg", "langue": "jp"}
+    with patch("bonne_affaire_shopify.verifier_photo_annonce",
+               return_value=("incoherent", "carte differente sur la photo")), \
+         patch("bonne_affaire_shopify.requests.post") as post_mock:
+        post_mock.return_value.status_code = 200
+        resultat = envoyer_telegram_bonnes_affaires([deal], "chat123", "token-telegram", anthropic_api_key="sk-ant-xxx")
+    post_mock.assert_called_once()
+    assert resultat is True
