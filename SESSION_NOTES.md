@@ -2558,3 +2558,121 @@ isolé, avec vérification explicite que les objets réimportés dans
 (`is`, pas juste `==`) ; test fonctionnel réel de
 `lbc_extraire_annonces_email()` sur un HTML d'exemple ; suite complète
 `pytest tests/` (152/152, après correction du test préexistant).
+
+## Septième module extrait de main.py : moteur_cote.py (17/08/2026)
+
+Suite directe (même session, l'utilisateur a explicitement demandé de
+s'attaquer au moteur de cote/évaluation SI c'est fait "minutieusement et
+vérifié derrière", "le plus propre possible, bénéfique aussi bien pour le
+code que pour l'utilisateur" — après que ce module ait été identifié
+comme le seul candidat restant, mais jugé "trop central/risqué pour une
+extraction casuelle"). Extraction la plus étendue et la plus rigoureuse du
+découpage à ce jour, à la hauteur du risque :
+
+**Portée** : `calculer_cote()` (calcul du prix de référence -- médiane
+eBay nettoyée des valeurs aberrantes IQR, ou moyenne du bas de marché
+selon `cfg.cote.methode`), `_localisation_incoherente()` (V18, garde-fou
+langue/pays), le suivi d'ancienneté des annonces (V44 : `anciennete()`,
+`jours_en_ligne()`, sert à exclure du panier bas-marché une annonce qui
+traîne sans se vendre), la persistance de l'historique des cotes
+(`historique()`, `sauvegarder_historique()`, purge par `PURGE_VERSION`),
+`cle_cote()`/`cote_lissee()`/`enregistrer_cote()`/`obtenir_cote()` (choix
+de la cote : manuelle > lissée > instantanée), `_etat_ok()` (V36, gère
+les négations "non gradée"), `evaluate()` (décision DEAL/pas-DEAL, tous
+les garde-fous : seuil fixe V45, prix d'appel suspect V22.8, port V40/V41,
+profit minimum...) et `calculer_tendance_cote()` (flèche hausse/baisse
+pour le CSV).
+
+**Quatre blocs non contigus recollés** (contre deux pour
+`connecteur_leboncoin.py`) : le suivi d'ancienneté (entre le "vues"/dédup
+et le fetch eBay), `_localisation_incoherente`+`calculer_cote` (entre le
+fetch eBay et les cotes Cardmarket/TCGdex), l'historique+`evaluate` (entre
+le fetch Vinted et les notifications), et `calculer_tendance_cote` (entre
+les stats et l'export CSV) -- chacun laissé à sa place originale sauf
+extraction, avec un commentaire pointant vers `moteur_cote.py` là où un
+lecteur pourrait chercher la fonction disparue (ex. dans la section CSV,
+juste avant `_proteger_csv`).
+
+**`detecter_anomalies()`/`verifier_cotes_manuelles_perimees()` restent
+dans `main.py`** bien qu'elles lisent `historique()` : ce sont des
+générateurs d'ALERTES Telegram couplés à `anti_spam()`/`vues` (état du
+système de dédup, hors périmètre du moteur de cote), même logique que
+`verifier_fiabilite_plateformes()` restée en place lors de l'extraction
+de `_stats_fiabilite`.
+
+**Deux dépendances évitant un import circulaire, déjà réglées lors de
+l'extraction précédente** : `annonce_pertinente`/`normaliser`/
+`SIGNAUX_ENCHERE` (déjà dans `filtre_annonces.py`) et
+`ecrire_json_atomique` (déjà dans `json_utils.py`) -- aucun nouveau
+module de support nécessaire cette fois, contrairement à Leboncoin
+(`http_utils.py`/`stats_fiabilite.py`).
+
+**Aucun état mutable partagé réassigné en bloc** : `_historique` et
+`_anciennete` (dicts de cache) sont mutés via leurs accesseurs
+`historique()`/`anciennete()`, jamais réassignés depuis l'extérieur --
+`main.py` ne réimporte que des FONCTIONS, jamais ces variables
+directement, donc pas de piège de liaison figée comme `_ct_cache`.
+
+**Nettoyage des imports devenus inutiles** dans `main.py`, repéré par
+`pyflakes` : `SIGNAUX_ENCHERE` (n'était utilisée que dans `evaluate()`,
+migrée), `calculer_cote` et `cle_cote` (jamais appelées directement par
+`main.py` -- seulement via `obtenir_cote()`/`cote_lissee()`/
+`enregistrer_cote()`/`calculer_tendance_cote()`, qui restent le seul
+point d'entrée public utilisé).
+
+**Méthode d'extraction adaptée à l'ampleur du risque** : après un faux
+départ (édition par index de ligne Python, deux fois en erreur d'un
+cran -- confusion entre "numéro de ligne fichier" et "position dans la
+liste 0-indexée", cf. leçon déjà notée pour Cardtrader), la refonte a été
+reconstruite par CONCATÉNATION DE SEGMENTS `sed` (extraits par numéro de
+ligne vérifié juste avant usage) plutôt que par des slices Python
+calculées à la main -- élimine complètement le risque d'erreur d'indice.
+Chaque segment inchangé a été extrait individuellement puis recollé avec
+les blocs de remplacement (imports), la version finale relue diff par
+diff contre l'ancienne pour confirmer que SEUL le contenu voulu avait
+changé (renommages `_ecrire_json_atomique` -> `ecrire_json_atomique`,
+suppression des redéfinitions locales de `RACINE`, et les 4 blocs
+d'import). Un excès ponctuel de lignes vides aux points de jonction
+(sous-produit mécanique de la concaténation) a été identifié et corrigé
+à la main avant de valider le fichier final.
+
+**Vérification différentielle (au-delà du protocole habituel)** : en plus
+du diff ligne à ligne des 4 blocs extraits contre l'original, un script
+de comparaison a fait tourner CÔTE À CÔTE l'ancien `main.py` (sauvegardé
+avant modification, importé sous un nom distinct) et le nouveau
+(`main.py` + `moteur_cote.py`) sur 1200 cas générés pour `calculer_cote()`
+(annonces aléatoires, langues FR/JP, méthode médiane/bas-marché) et 2000
+cas pour `evaluate()` (prix/port/cote/confiance/marge/état/plateforme/
+seuil fixe aléatoires, couvrant tous les chemins de rejet documentés) :
+**0 différence** de résultat entre ancien et nouveau code sur l'ensemble
+des 3200 comparaisons. C'est la vérification la plus forte appliquée à
+ce jour dans le découpage, proportionnée au fait que ce module n'avait
+JAMAIS eu de test dédié avant aujourd'hui (contrairement aux connecteurs,
+qui avaient déjà des tests de non-régression).
+
+**Tests** : nouveau `tests/test_moteur_cote.py` (50 cas) -- un cas par
+comportement documenté par un commentaire `VNN` dans le code (V15 numéro
+exact, V16 langue, V17 médiane, V18 localisation, V20 diagnostic, V22.8
+prix d'appel suspect, V23 méthode bas-marché, V26 clés par langue, V36
+négations d'état, V39 `etats_acceptes` décoratif, V40/V41 plafond de port
+basé sur la cote, V44 exclusion des annonces stagnantes, V45 seuil de
+prix fixe), plus la persistance de l'historique (purge par version,
+chargement/sauvegarde réels via `tmp_path`, jamais sur `data/cotes.json`)
+et `obtenir_cote()` (priorité manuelle > instantanée > lissée > absente).
+Isolation systématique de `_historique`/`_anciennete` du disque réel via
+une fixture `autouse` (jamais de lecture/écriture sur les fichiers de
+production pendant les tests).
+
+Vérifié avant commit : diff ligne à ligne des 4 blocs extraits contre
+l'original (0 différence hors renommages/redéfinitions RACINE attendus),
+comparaison différentielle ancien/nouveau (3200 cas, 0 différence, cf.
+ci-dessus), `pyflakes` propre sur l'ensemble du dépôt (`main.py` et tous
+les modules touchés, imports inutiles retirés), import réel avec
+vérification d'identité d'objet (`is`, pas `==`) entre les fonctions
+réimportées dans `main.py` et celles de `moteur_cote.py`, chargement réel
+des fichiers de production (`data/cotes.json` : 94 clés, `data/
+anciennete_annonces.json` : 380 entrées) et appel réel de `obtenir_cote()`
+sur une carte de la watchlist (repli correct sur la cote mémorisée),
+suite complète `pytest tests/` (202/202). `main.py` passe de 2105 à 1663
+lignes (~3690 lignes au tout début du découpage, 16/08/2026 -- sept
+modules extraits, plus de 2000 lignes déplacées).
