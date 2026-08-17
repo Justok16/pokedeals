@@ -2436,3 +2436,42 @@ géré proprement, `None` retourné sans exception, comme le code le
 garantit explicitement pour ce cas ("échec réseau : pas bloquant").
 Aucun fichier `data/*.json` modifié par ces vérifications (lecture
 seule, `_ct_sauver_cache()` jamais appelée).
+
+## Quatrième module extrait de main.py : connecteur_tcgdex.py (17/08/2026)
+
+Suite directe (même session, même consigne de Justok de continuer "dans
+l'ordre qui te parait le plus judicieux"). Extraction beaucoup plus
+simple que `connecteur_cardtrader.py` : aucun couplage particulier avec
+`main.py` (aucun dict réassigné, aucune dépendance vers l'avant) --
+seulement 3 fonctions publiques réutilisées ailleurs
+(`_api_charger_cache`, `_api_sauver_cache`, `api_prix_carte`, toutes
+appelées depuis `main()`).
+
+Leçon du module précédent appliquée cette fois : les numéros de ligne
+ont été revérifiés (`grep -n "^TCGDEX_BASE = \|^VINTED_BASE = "`) juste
+avant l'extraction du bloc de `main.py`, sans réutiliser un numéro
+calculé plus tôt dans la conversation -- même incident que la fois
+précédente évité d'entrée de jeu.
+
+**Réimporté dans `main.py`** (3 noms seulement) : `_api_charger_cache`,
+`_api_sauver_cache`, `api_prix_carte`. Aucun accès qualifié nécessaire
+(pas de dict réassigné comme `_ct_cache` chez Cardtrader).
+
+**Résultat** : `main.py` passe sous les 2320 lignes (2319, contre ~3690
+avant le début du découpage -- 4 modules extraits, plus de 1350 lignes
+déplacées). Candidat restant : le connecteur Leboncoin.
+
+**Tests** : nouveau `tests/test_connecteur_tcgdex.py` (12 cas) --
+déduction d'identifiant pour chaque piège déjà documenté en commentaire
+(V47 : padding à 3 chiffres obligatoire, coréen toujours exclu, série
+151 FR, code de set JP avec ET sans dénominateur, promos SWSH/SV,
+absence totale d'indice = pas de match), lecture de prix (repli sur les
+champs disponibles), et confirmation qu'une carte coréenne ne déclenche
+aucun appel réseau.
+
+Vérifié avant commit : diff ligne à ligne du bloc extrait contre
+l'original AVANT toute modification de `main.py` (0 différence hors le
+renommage volontaire déjà utilisé pour Cardtrader), `pyflakes` propre,
+import réel de tous les modules dépendants en subprocess isolé, appel
+réel de `_api_charger_cache()` (95 entrées chargées depuis le vrai
+`data/api_prix.json`), suite complète `pytest tests/` (137/137).

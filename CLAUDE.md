@@ -29,7 +29,8 @@ Depuis le 16/08/2026, un **découpage progressif et prudent** (décidé avec l'u
 - `notifications_historique.py` — formatage et envoi des notifications Telegram/email du système historique (`envoyer_telegram`, `envoyer_telegram_texte`, `envoyer_telegram_ventes`, `envoyer_alertes`, `_texte_telegram`...), y compris le branchement de `verification_photo.py`. Bloc entièrement autonome (aucune dépendance vers l'avant, seulement des dicts deal/vente passés en paramètre). `main.py` réimporte les 4 fonctions publiques. Testé dans `tests/test_notifications_historique.py`.
 - `connecteur_cardtrader.py` — intégration Cardtrader (recherche de blueprint, prix de marché, garde-fous de cohérence, calibration eBay -> marché réel). `CT_NOMS_EN` y est réimportée par `_nom_neutre_entre_langues()`, restée dans `main.py`. Point d'attention géré explicitement : `_ct_cache` est un dict **réassigné** (pas seulement muté) par `_ct_charger_cache()` — `cardmarket_prix()` (resté dans `main.py`, dépend de `_ct_trouver_blueprint`/`_ct_cache` pour retrouver le `cardmarket_id` déjà résolu par Cardtrader) y accède via `connecteur_cardtrader._ct_cache` (accès qualifié), jamais via un `from ... import _ct_cache` qui figerait la liaison sur l'ancien objet. Testé dans `tests/test_connecteur_cardtrader.py`, y compris ce piège de réassignation.
 - `json_utils.py` — `ecrire_json_atomique()`, écriture atomique générique extraite de `main.py` en même temps que `connecteur_cardtrader.py` (qui en a besoin aussi) pour éviter une duplication. `main.py` continue à l'utiliser sous son nom local historique `_ecrire_json_atomique` (alias d'import).
-- Prochain module candidat : pas encore déterminé (à choisir à la prochaine session selon le même principe : petit périmètre, zéro dépendance vers l'avant). Candidats identifiés mais pas encore extraits : le connecteur TCGdex (`deduire_api_id`, `api_prix_carte`...), le connecteur Leboncoin (`lbc_rechercher`, `lbc_extraire_annonces_email`...).
+- `connecteur_tcgdex.py` — intégration TCGdex (`deduire_api_id`, `api_prix_carte`...), repli quand Cardtrader n'a rien (republie les prix tendance Cardmarket). Extraction simple, aucun couplage particulier avec `main.py` au-delà des 3 fonctions publiques réimportées normalement. Testé dans `tests/test_connecteur_tcgdex.py`.
+- Prochain module candidat : pas encore déterminé. Candidat identifié mais pas encore extrait : le connecteur Leboncoin (`lbc_rechercher`, `lbc_extraire_annonces_email`...).
 
 `config.yaml` reste l'interface principale : `watchlist`, `regles`, `api_cotes`, `mes_achats`, `notifications`, `plateformes`. Il est partagé avec le système boutiques TCG (même `watchlist` de cartes, réutilisée par `watchlist_shopify.py`).
 
@@ -139,7 +140,7 @@ Deux familles de schéma, une par fonctionnalité, jamais mélangées :
 ```bash
 pip install -r requirements.txt        # requests + PyYAML, seules dépendances de PROD
 pip install -r requirements-dev.txt    # + pytest, pour lancer les tests (jamais installé en prod)
-python -m pytest tests/ -v             # tests unitaires (~125 cas, sub-seconde) sur les fonctions les plus fragiles
+python -m pytest tests/ -v             # tests unitaires (~135 cas, sub-seconde) sur les fonctions les plus fragiles
 python main.py                         # système historique : un scan complet
 python scan_boutique.py [boutiques]    # scan cartes Shopify (vide = toutes les boutiques actives)
 python scan_boutique_prestashop.py [boutiques]
