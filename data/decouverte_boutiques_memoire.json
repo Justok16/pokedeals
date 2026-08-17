@@ -7,6 +7,10 @@
     "pokemont.fr": {
       "derniere_verification": "2026-08-12T01:59:16+00:00",
       "verdict": "non_boutique"
+    },
+    "nemee-tcg.fr": {
+      "derniere_verification": "2026-08-17T06:59:17+00:00",
+      "verdict": "rejete_manuellement"
     }
   }
 }

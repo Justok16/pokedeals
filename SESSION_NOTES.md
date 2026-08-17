@@ -2239,3 +2239,44 @@ qui a déclenché le coupe-circuit en conditions réelles dans le sandbox
 (3 échecs consécutifs détectés et log imprimé, `cardshunter.fr` scanné
 normalement dans la foulée) -- confirmation que le mécanisme fonctionne
 de bout en bout, pas seulement en tests mockés.
+
+## Rejet manuel définitif d'un candidat du radar de découverte (17/08/2026)
+
+Justok a reçu l'alerte Telegram "Radar de découverte" signalant `nemee-tcg.fr`
+comme candidat ambigu (verdict `"insuffisant"`, cf. `verifier_candidat()`),
+vérifié le catalogue de son côté et demandé sa suppression définitive --
+il ne veut pas de cette boutique sur PokéDeals.
+
+**Problème** : le radar (`decouverte_boutiques.py`) mémorise définitivement
+les verdicts `"singles"`/`"scelle"` (ajoutés) et `"non_boutique"` (aucune
+plateforme détectée), mais PAS `"insuffisant"` (candidat ambigu) --
+décision délibérée pour ne pas rater une boutique dont le catalogue
+grossit (cas déjà documenté : `nemee-tcg.fr` avait 1 seul produit le
+12/08/2026). Sans mécanisme dédié, un rejet humain explicite aurait été
+silencieusement ignoré, et la boutique serait revenue dans un futur
+rapport tant qu'elle reste dans la fenêtre de 7 jours des fichiers AFNIC.
+
+**Fix** : nouveau `DOMAINES_REJETES_MANUELLEMENT` (set curé à la main,
+même principe que `NOMS_SET_QUALIFICATIF_AMBIGU`/`MOTS_CARTE_GRADEE`
+ailleurs dans le projet) dans `decouverte_boutiques.py`, avec
+`nemee-tcg.fr` comme premier domaine. `main()` synchronise ce set dans
+`memoire["domaines_verifies"]` à CHAQUE cycle (verdict
+`"rejete_manuellement"`), avant de calculer `domaines_deja_vus` -- donc
+même si le fichier mémoire est un jour recréé/vidé, le rejet reste
+permanent tant que le domaine reste dans la liste curée. Contrairement
+à `"insuffisant"`, ce verdict N'EST PAS un simple manque de signal
+temporaire : c'est une décision humaine délibérée, jamais remise en
+cause (même principe que la confiance à 100% sur les identifications de
+cartes données par Justok).
+
+Pour un effet immédiat (sans attendre le prochain cron hebdomadaire du
+lundi), `data/decouverte_boutiques_memoire.json` a aussi été mis à jour
+directement (écriture atomique, même pattern que partout ailleurs dans
+le projet) avec l'entrée `nemee-tcg.fr -> {"verdict": "rejete_manuellement"}`.
+
+Vérifié : `pyflakes` propre, simulation de la logique de filtrage en
+Python direct (confirmé que `nemee-tcg.fr` est bien exclu de la liste de
+candidats après synchronisation), suite complète `pytest tests/`
+inchangée (101/101, ce fix ne touche pas de fonction couverte par des
+tests dédiés -- `main()` de `decouverte_boutiques.py` n'est pas testé
+unitairement, comme les autres orchestrateurs du projet).

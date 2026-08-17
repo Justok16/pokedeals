@@ -128,7 +128,7 @@ Avant de changer un timeout ou une composition de lot, vérifier `SESSION_NOTES.
 Deux familles de schéma, une par fonctionnalité, jamais mélangées :
 - **Stock/bonnes affaires** (`seen.json`, `cotes.json`, `anciennete_annonces.json` pour `main.py` ; `stock_boutiques_tcg.json`/`stock_boutiques_tcg_prestashop.json`/`stock_boutiques_tcg_woocommerce.json` — un fichier **par plateforme**, séparés justement pour éviter les collisions entre workflows parallèles).
 - **Précommandes** (`precommandes_anniversaire_{shopify,prestashop,woocommerce}.json` — un fichier par plateforme, clé `{domaine}|{nom_produit}`, valeurs `{confiance, raison, titre_produit, url_produit, derniere_verification}`).
-- **Découverte** (`decouverte_boutiques_memoire.json` — clé `{domaine}`, valeurs `{derniere_verification, verdict}` ; contient uniquement les domaines définitivement écartés ou déjà ajoutés, jamais les candidats "insuffisants" qui restent re-vérifiés chaque semaine).
+- **Découverte** (`decouverte_boutiques_memoire.json` — clé `{domaine}`, valeurs `{derniere_verification, verdict}` ; contient uniquement les domaines définitivement écartés ou déjà ajoutés, jamais les candidats "insuffisants" qui restent re-vérifiés chaque semaine — sauf `verdict: "rejete_manuellement"`, synchronisé à chaque cycle depuis `DOMAINES_REJETES_MANUELLEMENT` dans `decouverte_boutiques.py` pour les boutiques que Justok a explicitement écartées après vérification, même si le signal automatique redevient positif plus tard).
 
 ## Commandes
 

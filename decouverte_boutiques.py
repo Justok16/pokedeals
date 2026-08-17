@@ -94,6 +94,24 @@ SEUIL_MIN_SINGLES_POKEMON = 15
 SEUIL_RATIO_POKEMON_SUR_SINGLES = 0.5  # au moins 50% des "singles" detectes doivent etre explicitement Pokemon
 SEUIL_MIN_PRODUITS_SCELLE_POKEMON = 5  # pour le classement "scelle uniquement"
 
+# Domaines explicitement REJETES par Justok apres verification manuelle du
+# catalogue reel -- decision humaine definitive, jamais remise en cause ni
+# re-proposee par le radar, meme si le signal automatique (SEUIL_* ci-dessus)
+# redevient positif plus tard (ex. le catalogue grossit). Curee a la main,
+# meme principe que NOMS_SET_QUALIFICATIF_AMBIGU/MOTS_CARTE_GRADEE ailleurs
+# dans le projet -- a enrichir au fil des rejets manuels de Justok.
+#
+# Necessaire car le verdict "insuffisant" (candidat ambigu, cf.
+# verifier_candidat) n'est JAMAIS memorise definitivement dans
+# domaines_verifies (choix delibere pour re-verifier une boutique dont le
+# catalogue n'est pas encore approvisionne, cf. cas nemee-tcg.fr du
+# 12/08/2026 plus bas dans ce fichier) -- sans cette liste, un rejet humain
+# explicite serait silencieusement ignore et la boutique reviendrait dans
+# un futur rapport "candidat ambigu, a verifier a la main".
+DOMAINES_REJETES_MANUELLEMENT = {
+    "nemee-tcg.fr",  # rejete le 17/08/2026 par Justok apres verification manuelle
+}
+
 
 def _telecharger_fichier_afnic(jour: "datetime") -> list[str]:
     """Telecharge la liste des domaines .fr crees un jour donne. Retourne
@@ -312,6 +330,17 @@ def main() -> None:
     chat_id = os.environ.get("TELEGRAM_CHAT_ID", "1245330032").strip()  # meme chat que le reste de PokeDeals
 
     memoire = charger_memoire(FICHIER_MEMOIRE)
+
+    # Synchronise les rejets manuels dans la memoire persistante a CHAQUE
+    # cycle -- garantit qu'ils ne sont plus jamais re-proposes, meme si le
+    # fichier memoire est recree/vide, sans dependre du minutage exact du
+    # prochain cycle ni d'une modification manuelle du fichier JSON.
+    for domaine_rejete in DOMAINES_REJETES_MANUELLEMENT:
+        memoire.setdefault("domaines_verifies", {})[domaine_rejete] = {
+            "derniere_verification": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "verdict": "rejete_manuellement",
+        }
+
     domaines_deja_vus = set(memoire.get("domaines_verifies", {}).keys())
 
     print("Telechargement des listes AFNIC (7 derniers jours)...")
