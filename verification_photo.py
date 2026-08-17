@@ -27,7 +27,10 @@ silencieux d'un deal reel.
 from __future__ import annotations
 
 import base64
+import ipaddress
 import logging
+import socket
+from urllib.parse import urlparse
 
 import requests
 
@@ -42,19 +45,61 @@ LIBELLES_LANGUE = {
     "kr": "coréenne", "cn": "chinoise",
 }
 
+# Audit externe du 17/08/2026 (cf. SESSION_NOTES.md) : image_url vient
+# d'annonces tierces (eBay/Vinted/boutiques) -- rien n'empêchait jusqu'ici
+# de faire télécharger par le runner GitHub Actions une URL pointant vers
+# une ressource interne (ex. service de métadonnées cloud à
+# 169.254.169.254, localhost...), ni de plafonner la taille téléchargée.
+TAILLE_IMAGE_MAX = 10 * 1024 * 1024  # 10 Mo -- largement suffisant pour une photo d'annonce
+
+
+def _url_photo_autorisee(image_url: str) -> bool:
+    """Garde-fou SSRF basique : True seulement si l'URL est http(s) et que
+    son hôte résout vers une IP publique (pas privée/loopback/link-local).
+    Limite connue et acceptée : une résolution DNS ultérieure différente
+    (DNS rebinding) pourrait en théorie contourner ce contrôle -- risque
+    jugé disproportionné à mitiger entièrement ici vu le contexte (runner
+    GitHub Actions éphémère, aucun secret sensible exposé localement au-
+    delà de ce qui est déjà dans l'environnement du job)."""
+    try:
+        parsed = urlparse(image_url)
+    except ValueError:
+        return False
+    if parsed.scheme not in ("http", "https") or not parsed.hostname:
+        return False
+    try:
+        infos = socket.getaddrinfo(parsed.hostname, None)
+    except socket.gaierror:
+        return False  # hôte introuvable : refusé par prudence
+    for info in infos:
+        ip = ipaddress.ip_address(info[4][0])
+        if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
+            return False
+    return True
+
 
 def _telecharger_image(image_url: str) -> tuple[bytes, str] | None:
     """Telecharge l'image et devine son type MIME. None si echec."""
+    if not _url_photo_autorisee(image_url):
+        log.warning("URL image refusée (schéma ou hôte non autorisé) : %s", image_url)
+        return None
     try:
-        r = requests.get(image_url, timeout=15)
+        r = requests.get(image_url, timeout=15, stream=True)
         r.raise_for_status()
+        contenu = bytearray()
+        for morceau in r.iter_content(chunk_size=65536):
+            contenu.extend(morceau)
+            if len(contenu) > TAILLE_IMAGE_MAX:
+                log.warning("Image trop volumineuse (> %d Mo), abandon : %s",
+                            TAILLE_IMAGE_MAX // (1024 * 1024), image_url)
+                return None
     except Exception as e:  # noqa: BLE001
         log.warning("Téléchargement image échoué (%s) : %s", image_url, e)
         return None
     contenu_type = r.headers.get("Content-Type", "image/jpeg").split(";")[0].strip()
     if not contenu_type.startswith("image/"):
         contenu_type = "image/jpeg"  # repli raisonnable, la plupart des photos d'annonce sont en JPEG
-    return r.content, contenu_type
+    return bytes(contenu), contenu_type
 
 
 def _interpreter_reponse(texte: str) -> tuple[str | None, str]:

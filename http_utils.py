@@ -33,15 +33,25 @@ def user_agent() -> str:
 
 
 def requete_avec_retry(methode, url, tentatives: int = 3, **kwargs):
-    """Requête HTTP avec 3 tentatives et attente progressive."""
+    """Requête HTTP avec 3 tentatives et attente progressive.
+
+    Retente sur 429 (rate-limit) ET sur les erreurs serveur temporaires
+    (5xx, 408 Request Timeout) -- audit externe du 17/08/2026 (cf.
+    SESSION_NOTES.md) : avant, un 503 ponctuel d'eBay/Vinted/Cardtrader
+    (fréquent sur des API publiques) était retourné tel quel sans
+    nouvelle tentative, alors qu'un simple retry quelques secondes plus
+    tard aurait souvent suffi. Les codes 4xx autres que 408/429 restent
+    retournés immédiatement (une vraie erreur client ne se corrige pas
+    en réessayant)."""
+    CODES_A_RETENTER = {408, 429}
     derniere_erreur = None
     r = None
     for i in range(tentatives):
         try:
             r = methode(url, **kwargs)
-            if r.status_code == 429:
+            if r.status_code in CODES_A_RETENTER or r.status_code >= 500:
                 attente = (2 ** (i + 1)) + random.uniform(0, 2)
-                log.info("429 reçu, pause de %.1fs", attente)
+                log.info("%d reçu, pause de %.1fs", r.status_code, attente)
                 time.sleep(attente)
                 continue
             return r

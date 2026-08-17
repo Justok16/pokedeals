@@ -25,7 +25,7 @@ Détecte dès qu'un produit scellé précis que tu attends (ex. un coffret anniv
 
 | Icône | Signification |
 |---|---|
-| 🔥 | Bonne affaire détectée (historique ou boutique) : au moins 30% sous la cote, carte neuve/near mint, non gradée |
+| 🔥 | Bonne affaire détectée (historique ou boutique) : suffisamment sous la cote (seuil réglable, cf. `marge_achat` dans `config.yaml`), carte neuve/near mint, non gradée |
 | 📦 | Une carte suivie est revenue en stock chez une boutique |
 | 🎉 | Un produit scellé attendu vient d'apparaître en précommande |
 | 💰 | Une carte de ton stock (`mes_achats`) a atteint 2× ton prix d'achat — c'est le moment de vendre |

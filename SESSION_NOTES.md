@@ -2782,3 +2782,123 @@ Tests mis à jour (`tests/test_notifications_historique.py`,
 `tests/test_bonne_affaire_shopify.py`) : les 3 assertions qui vérifiaient
 la présence de "INCOHÉRENTE" (majuscules) vérifient maintenant
 "incohérente" + "peut se tromper". Suite complète : 202/202.
+
+## Audit externe par deux IA concurrentes (DeepSeek + ChatGPT), 17/08/2026
+
+Demandé par Justok : audit indépendant du projet par deux IA rivales, avec
+un prompt structuré (lecture README/CLAUDE.md/SESSION_NOTES.md/tests,
+priorité correction/sécurité/fiabilité/couverture de tests/architecture/
+documentation). Chaque retour a été **vérifié contre le code réel avant
+toute action** — les deux audits contiennent des erreurs factuelles
+qu'il aurait été dangereux de suivre aveuglément.
+
+**Faux/inexacts, écartés après vérification** :
+- DeepSeek affirmait `main.py` à 389 lignes (`wc -l` confirme 1663).
+- DeepSeek affirmait qu'aucun test ne couvre l'IQR/la méthode bas-marché/
+  les annonces stagnantes/la localisation incohérente/la cote lissée dans
+  `calculer_cote()` — faux, les 5 comportements ont chacun un test dédié
+  dans `tests/test_moteur_cote.py` (noms quasi identiques à ceux que
+  DeepSeek proposait d'ajouter, signe qu'il n'a probablement pas
+  réellement lu ce fichier de test).
+- ChatGPT affirmait que le port était "caché" sur les deals à seuil fixe
+  (`prix_max_fixe`) — faux, le message Telegram affiche systématiquement
+  "prix + port = total" sur toute alerte, seuil fixe inclus (vérifié dans
+  `notifications_historique.py` et `moteur_cote.py`).
+
+**Vrais, corrigés dans cette passe** :
+
+1. **`pokedeals.yml` faisait `cp data/*.json`** (repéré par ChatGPT, le
+   point le plus sérieux des deux audits). Confirmé en lisant le
+   workflow : il sauvegardait/restaurait TOUS les fichiers JSON de
+   `data/`, y compris ceux appartenant aux 3 autres workflows (stock
+   boutiques, précommandes, découverte, tendance) qui tournent en
+   parallèle sur le même dépôt. Scénario concret : un `scan_shopify.yml`
+   pousse une mise à jour de `data/stock_boutiques_tcg.json` PENDANT que
+   `pokedeals.yml` tourne ; `git pull --rebase` la récupère correctement,
+   mais le `cp /tmp/*.json data/` qui suit l'écrasait aussitôt par la
+   version périmée capturée avant le pull — pas une corruption de fichier
+   (l'écriture atomique reste intacte), mais une mise à jour silencieusement
+   annulée, avec un risque concret d'alerte de retour en stock dupliquée
+   au cycle suivant. **Corrigé** : le backup/restore ne porte plus que sur
+   les 7 JSON + 1 CSV réellement possédés par `main.py` (lui-même +
+   `moteur_cote.py` + `connecteur_cardtrader.py` + `connecteur_tcgdex.py`) :
+   `seen.json`, `cotes.json`, `anciennete_annonces.json`, `stats.json`,
+   `cardtrader.json`, `api_prix.json`, `cardmarket_prix.json`,
+   `deals.csv`. Testé manuellement en bash (simulation d'un fichier d'un
+   autre workflow mis à jour "pendant" le run : reste intact après le
+   nouveau code, contre écrasé avant).
+
+2. **`requete_avec_retry` ne retentait que sur 429**, jamais sur 5xx/408
+   (DeepSeek) — confirmé dans `http_utils.py`. Un 503 ponctuel d'eBay/
+   Vinted/Cardtrader (fréquent sur API publiques) faisait échouer le
+   cycle pour cette carte/boutique sans nouvelle tentative. Étendu aux
+   codes 408 et ≥500 ; les vrais 4xx (401/403/404...) restent retournés
+   immédiatement (pas de retry sur une erreur qui ne se corrige pas en
+   réessayant).
+
+3. **`verification_photo.py` téléchargeait une image sans valider
+   l'URL** ni limiter sa taille (DeepSeek) — confirmé : `image_url` vient
+   d'annonces tierces (eBay/Vinted/boutiques), rien n'empêchait de faire
+   télécharger par le runner GitHub Actions une URL pointant vers une
+   ressource interne (ex. service de métadonnées cloud à
+   169.254.169.254) ni de plafonner la taille téléchargée. **Corrigé** :
+   nouvelle fonction `_url_photo_autorisee()` (schéma http/https
+   obligatoire + résolution DNS de l'hôte rejetée si IP privée/loopback/
+   link-local/réservée/multicast), et téléchargement en streaming avec
+   plafond `TAILLE_IMAGE_MAX` (10 Mo). Limite connue et documentée en
+   commentaire : un DNS rebinding pourrait en théorie contourner le
+   contrôle (résolution différente entre notre vérification et l'appel
+   `requests.get()` réel) -- jugé disproportionné à mitiger entièrement
+   ici (runner GitHub Actions éphémère, pas de secret sensible exposé
+   localement au-delà de l'environnement du job).
+
+4. **`README.md` affichait encore "au moins 30% sous la cote"** alors que
+   `config.yaml` est à 10% (`marge_achat: 0.10`) — contradiction
+   introduite par moi-même lors de la réécriture du README plus tôt dans
+   la session (j'avais bien écrit ailleurs dans le même fichier "les
+   valeurs actuelles dans config.yaml font foi", mais laissé un chiffre
+   en dur juste au-dessus). Corrigé pour renvoyer vers `config.yaml`
+   plutôt que dupliquer un chiffre qui se désynchronise.
+
+5. **`echapper_url_html` (`telegram_utils.py`) n'échappait que `&`**, pas
+   `<`/`>` (DeepSeek, mineur) — aligné sur `echapper_html`. Une copie
+   dupliquée du même nom existait aussi dans `notifications_historique.py`
+   (jamais migrée vers `telegram_utils.py` lors de la factorisation du
+   11/08/2026, avec son propre commentaire justifiant explicitement de
+   NE PAS échapper `<`/`>` -- rationale qui ne tenait pas à l'examen,
+   ces caractères n'étant jamais valides dans une vraie URL) : alignée
+   par cohérence.
+
+6. **`detecter_bonnes_affaires()` (orchestrateur qui filtre par
+   confiance et dédoublonne) n'avait aucun test dédié** (DeepSeek) —
+   confirmé : seul `evaluer_deal()` (le garde-fou par garde-fou) était
+   testé, pas la boucle qui l'appelle. 6 nouveaux tests ajoutés (cas
+   nominal, confiance faible ignorée, carte sans numéro ignorée, critère
+   orphelin ignoré, déduplication du même produit trouvé via nom+alias,
+   non-déduplication de deux produits réellement différents).
+
+**Signalés comme réels mais non prioritaires** (mentionnés à Justok,
+pas d'action immédiate) :
+- `LIMITE_CANDIDATS_PAR_CRITERE` (15, dans `connecteur_prestashop_sitemap.py`
+  et `connecteur_woocommerce.py`) peut en théorie créer un faux négatif
+  si un critère SANS numéro matche >15 URLs -- mais déjà largement
+  mitigé par la convention du projet (numéro obligatoire dans la
+  watchlist depuis V15, déjà documentée comme piège connu dans
+  `CLAUDE.md`).
+- Absence de tests d'intégration bout-en-bout pour `main()`/`collecter()`
+  -- limitation déjà connue et assumée (`CLAUDE.md` le dit explicitement :
+  "ce qui reste dans main.py... demeure peu testé directement").
+- La cote reste basée sur des prix EBAY DEMANDÉS, pas des prix de vente
+  réels -- limite structurelle déjà identifiée et discutée avec Justok
+  dans une session précédente (compromis assumé, pas actionnable
+  facilement : pas d'API de volume de ventes gratuite disponible).
+
+**Vérification avant commit** : suite complète `pytest tests/`
+(219/219, +15 tests nouveaux : 4 sur `requete_avec_retry`, 6 sur
+`_url_photo_autorisee`/taille max, 6 sur `detecter_bonnes_affaires`,
+moins les 1 test existant remplacé), `pyflakes` propre sur tout le
+dépôt, `pokedeals.yml` validé par `yaml.safe_load` ET par une simulation
+bash locale du scénario de collision (fichier d'un autre workflow
+confirmé intact après le nouveau code, altéré par l'ancien), résolution
+DNS réelle testée en direct pour `_url_photo_autorisee` (google.com
+autorisé, localhost/127.0.0.1/169.254.169.254/file:// refusés).
