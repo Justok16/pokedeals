@@ -71,3 +71,17 @@ def test_envoyer_telegram_avec_cle_et_image_appelle_la_verification():
     # Le texte envoye a Telegram doit refleter le verdict de la verification.
     texte_envoye = post_mock.call_args.kwargs["json"]["text"]
     assert "cohérente" in texte_envoye
+
+
+def test_envoyer_telegram_verdict_incoherent_nempeche_jamais_lenvoi():
+    # Cas reel (17/08/2026, cf. SESSION_NOTES.md V51) : un faux positif de
+    # verification photo NE DOIT JAMAIS empecher l'envoi d'un vrai deal --
+    # le systeme est concu comme purement informatif, jamais bloquant.
+    deal = _deal(image_url="https://ebay.fr/photo.jpg", carte="Dracaufeu ex 199/165", langue="fr")
+    with patch("notifications_historique.verifier_photo_annonce",
+               return_value=("incoherent", "carte differente sur la photo")), \
+         patch("notifications_historique.requests.post") as post_mock:
+        post_mock.return_value.status_code = 200
+        resultat = envoyer_telegram([deal], {"chat_id": "123"}, "token-telegram", anthropic_api_key="sk-ant-xxx")
+    post_mock.assert_called_once()
+    assert resultat is True
