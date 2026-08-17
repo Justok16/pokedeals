@@ -43,13 +43,21 @@ LOT_A = [
     "lecoindesbarons.com", "figuyatta.com", "magicalstore.fr",
     "pokestock.fr", "jmcards.fr", "ecardstore.fr", "pokelite.fr",
     "pokegourou.com", "pokeloutre.fr",
-    "mymesis.fr",  # repli API REST, pas de sitemap -- volume negligeable, ajoutee au lot le plus leger
 ]
 LOT_B = [
     "k-tcg.com", "placeofgeek.fr", "lepion.com", "vinticards.fr",
     "lecrocodeal.com", "mgs-shop.fr", "hobby-one.net", "fuji-store.fr",
     "pakushop.com", "guizettefamily.com", "pokuji.fr",
     "importpokecoree.com", "pokemoms.fr", "topdecktcg.fr",
+    # mymesis.fr : deplacee de LOT_A vers LOT_B le 16/08/2026 (diagnostic
+    # flake scan_lot_a, cf. SESSION_NOTES.md) -- repli API REST (pas de
+    # sitemap), volume normalement negligeable MAIS observe au moins une
+    # fois bloque 7+ min sans jamais finir (API distante lente/instable ce
+    # jour-la) dans LOT_A, dont la marge sur son timeout est deja tendue
+    # (cardshunter.fr + hamacards.com y concentrent l'essentiel du volume).
+    # LOT_B a une marge bien plus large (4-8 min pour un budget de 18 min),
+    # donc mieux placee pour absorber ce genre de pic ponctuel.
+    "mymesis.fr",
 ]
 
 # Sans sitemap exploitable, repli "recherche HTML" teste le 10/08/2026 --

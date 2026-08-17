@@ -2134,3 +2134,108 @@ cet environnement, le nouveau code de vérification lui-même n'a été validé
 qu'en tests unitaires mockés (pas encore de vérification en conditions
 réelles avec un vrai appel API -- à surveiller au premier cycle de prod une
 fois le secret configuré par Justok).
+
+**Mise à jour** : Justok a configuré le secret `ANTHROPIC_API_KEY` peu
+après. Vérification en conditions réelles faite en 2 temps : (1) un run
+manuel de `scan_shopify.yml` (2 boutiques) a confirmé que le secret est
+bien chargé par le workflow (`ANTHROPIC_API_KEY: ***` dans les logs),
+mais 0 deal détecté ce coup-ci donc aucun appel réel à l'API n'a été
+exercé ; (2) ajout d'un petit outil de test permanent (`verification_photo.py`,
+bloc `__main__`, même convention que `alerte_stock.py`) + workflow dédié
+`test_verification_photo.yml` (workflow_dispatch uniquement, lecture
+seule) pour tester manuellement avec une vraie image sans attendre un
+deal réel. Testé avec une vraie photo Charizard/Dracaufeu Base Set
+anglais (`https://images.pokemontcg.io/base1/4.png`) : verdict `coherent`
+en 1,3s, confirmant que l'appel API fonctionne bout en bout.
+
+## Diagnostic + fix du flake scan_lot_a WooCommerce, round 2 (16/08/2026)
+
+En vérifiant l'état général du projet (Justok : "s'il y a quelque chose à
+finir ou améliorer, j'aimerais bien qu'on le fasse maintenant"), un run
+`Scan WooCommerce` annulé a été repéré dans l'historique GitHub Actions
+récent. Investigation demandée par Justok AVANT tout correctif (même
+protocole que le diagnostic du 11/08/2026, référencé dans CLAUDE.md :
+"ne pas ajuster à l'aveugle").
+
+**Données collectées** (logs bruts de plusieurs runs récents, timestamps
+ligne par ligne) :
+- 4 runs annulés sur les 20 derniers (20%), tous après 17h -- 0 annulation
+  le matin (10h-16h46). Le timeout de `scan_lot_a` (22 min, déjà remonté
+  une fois le 11/08) a de nouveau été atteint pile (22m13s) sur un run.
+  Un autre run a vu `scan_precommandes` (25 min de budget) dépasser à
+  25m17s. Comme les jobs sont séquentiels (`needs:`), une annulation de
+  `scan_lot_a` fait sauter `scan_lot_b` ET `scan_precommandes` derrière.
+- Durée de `scan_lot_a` mesurée sur plusieurs runs du même jour : 12m00s
+  (10h12) -> 17m22s (16h56) -> 18m34s (17h27) -> **22m13s, ANNULÉ** (20h05).
+- Détail boutique par boutique (logs `[i/13] boutique : OK`, calcul des
+  écarts entre timestamps consécutifs) :
+  - `cardshunter.fr` : stable, ~4m25-4m30s à chaque run.
+  - `hamacards.com` : TRÈS variable -- 6m00s dans un run, 9m57s dans un
+    autre (même jour, quelques heures d'écart).
+  - `mymesis.fr` (repli API REST, 13e/13e boutique du lot) : normalement
+    rapide (42s-1min), mais dans le run annulé de 20h05, encore en cours
+    d'exécution après 7+ minutes SANS AVOIR FINI quand le job a été tué --
+    un vrai blocage, pas juste une lenteur (contrairement aux runs où il
+    finit toujours, même lentement).
+  - Les 10 autres boutiques du lot : rapides et stables (~4-5 min pour
+    toutes ensemble).
+
+**Diagnostic** : pas une dérive progressive de la taille des catalogues
+(hypothèse initiale, jamais confirmée faute d'accès réseau direct au
+sandbox pour comparer les tailles de sitemap -- proxy sandbox bloquant
+les domaines de boutiques, cf. `curl $HTTPS_PROXY/__agentproxy/status`).
+Le vrai signal : `cardshunter.fr` + `hamacards.com` consomment déjà
+~10-14 min à eux deux (marge déjà tendue, cf. diagnostic du 11/08), ET
+`mymesis.fr` peut en plus se bloquer complètement via son repli API REST
+(`rechercher_via_api_rest`, `connecteur_woocommerce.py`) : cette fonction
+interroge l'API une fois par nom de carte UNIQUE (~100+ noms dans la
+watchlist), chacun avec un timeout de 15s, SANS AUCUNE protection contre
+une série d'échecs consécutifs -- si l'API distante ralentit/rate-limite
+en cours de cycle, le pire cas théorique est `100 × 15s` ≈ 25 minutes,
+largement suffisant pour expliquer le blocage observé.
+
+**Décision de Justok** : les deux corrections combinées (pas l'une ou
+l'autre) :
+
+1. **Déplacement** : `mymesis.fr` retirée de `LOT_A` et ajoutée à `LOT_B`
+   (`boutiques_woocommerce.py`) -- LOT_B a une marge bien plus large
+   (4-8 min mesurés pour un budget de 18 min), donc mieux placée pour
+   absorber un pic ponctuel de `mymesis.fr`. Changement d'une ligne, même
+   principe que le déplacement de `lepantheon-tcg.com` plus tôt dans la
+   session. N'affecte PAS le radar de précommandes : `mymesis.fr` y est
+   déjà scannée dans l'étape "lot B + API REST" (`scan_woocommerce.yml`),
+   indépendamment de son appartenance à `LOT_A`/`LOT_B` pour le scan
+   cartes.
+
+2. **Coupe-circuit** : nouveau paramètre `SEUIL_ECHECS_CONSECUTIFS_API_REST = 3`
+   sur `ConnecteurWooCommerce`. `_decouvrir_produits_api_rest()` renvoie
+   désormais `(produits, ok)` au lieu de juste `produits` -- `ok=False`
+   distingue un ÉCHEC (timeout/erreur réseau) d'une recherche réussie qui
+   ne renvoie simplement aucun produit (ne jamais confondre les deux,
+   même philosophie que les autres garde-fous du projet : ne pas
+   sur-réagir à une absence de résultat légitime). `rechercher_via_api_rest()`
+   compte les échecs CONSÉCUTIFS (un succès réinitialise le compteur) et,
+   au-delà du seuil, arrête d'interroger l'API pour le reste du cycle sur
+   cette boutique -- les noms restants reçoivent une liste vide sans appel
+   réseau, avec un message imprimé pour visibilité dans les logs.
+   Un autre appelant de `_decouvrir_produits_api_rest()` existait
+   (`radar_precommandes.py`, `scanner_woocommerce_api_rest`) et a été mis
+   à jour pour déballer le nouveau tuple (pas de coupe-circuit ajouté là :
+   hors périmètre de ce fix, logique d'appel différente).
+
+**Tests** : nouveau fichier `tests/test_connecteur_woocommerce.py` (6 cas) --
+succès renvoie `ok=True`, timeout renvoie `ok=False`, le coupe-circuit
+s'arrête pile au 3e échec CONSÉCUTIF, un succès au milieu d'une série
+d'échecs réinitialise le compteur (jamais de faux déclenchement sur des
+échecs non consécutifs), aucun impact si tout réussit, un nom déjà vu
+n'est jamais interrogé deux fois. Tous mockent `_decouvrir_produits_api_rest`
+directement (pas de vrai appel réseau).
+
+Vérifié avant commit : `pyflakes` propre sur les 3 fichiers touchés
+(`connecteur_woocommerce.py`, `boutiques_woocommerce.py`,
+`radar_precommandes.py`), suite complète `pytest tests/` (101/101), ET
+un run RÉEL (`scan_boutique_woocommerce.py mymesis.fr cardshunter.fr`)
+qui a déclenché le coupe-circuit en conditions réelles dans le sandbox
+(3 échecs consécutifs détectés et log imprimé, `cardshunter.fr` scanné
+normalement dans la foulée) -- confirmation que le mécanisme fonctionne
+de bout en bout, pas seulement en tests mockés.

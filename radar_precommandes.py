@@ -226,7 +226,8 @@ def scanner_woocommerce_api_rest(domaine: str, produits: list[ProduitSurveille])
     vus_ids = set()
     for produit in produits:
         for mot in produit.mots_cles_type:
-            for p in connecteur._decouvrir_produits_api_rest(mot):
+            produits_api, _ok = connecteur._decouvrir_produits_api_rest(mot)
+            for p in produits_api:
                 if p.get("id") in vus_ids:
                     continue
                 vus_ids.add(p.get("id"))

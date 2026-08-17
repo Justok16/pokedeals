@@ -492,7 +492,7 @@ class ConnecteurWooCommerce:
 
         return resultats_par_critere
 
-    def _decouvrir_produits_api_rest(self, nom: str) -> list[dict]:
+    def _decouvrir_produits_api_rest(self, nom: str) -> tuple[list[dict], bool]:
         """Repli via l'API REST WooCommerce "Store API"
         (wp-json/wc/store/v1/products), publique et documentee -- PAS un
         contournement, c'est l'API officielle destinee aux vitrines
@@ -504,17 +504,27 @@ class ConnecteurWooCommerce:
         filtres) -- l'API REST, elle, applique un vrai filtrage cote
         serveur independant du widget de recherche du theme.
 
-        Renvoie directement les produits en JSON structure (nom, prix,
-        devise, stock) : pas besoin de recuperer chaque page produit
-        individuellement comme pour le repli HTML."""
+        Renvoie (produits, ok) : ok=False si la requete a echoue
+        (timeout/erreur reseau/reponse invalide), a distinguer d'une
+        recherche reussie qui ne renvoie simplement aucun produit -- cf.
+        rechercher_via_api_rest() qui s'appuie dessus pour son coupe-circuit."""
         try:
             url = f"{self.base_url}/wp-json/wc/store/v1/products?search={quote(nom)}&per_page=50"
             r = self.session.get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
             r.raise_for_status()
             produits = r.json()
         except (requests.exceptions.RequestException, ValueError):
-            return []
-        return produits if isinstance(produits, list) else []
+            return [], False
+        return (produits if isinstance(produits, list) else []), True
+
+    # Nombre d'echecs CONSECUTIFS (timeout/erreur reseau) au-dela duquel on
+    # suppose l'API distante en panne/rate-limitee pour ce cycle et on
+    # arrete d'insister -- plutot que de consommer, dans le pire cas, ~15s
+    # (TIMEOUT) par nom de carte restant (~100+ noms uniques dans la
+    # watchlist). Cas reel (16/08/2026) : mymesis.fr bloque 7+ min sans
+    # jamais finir dans scan_lot_a (deja tendu par cardshunter.fr/
+    # hamacards.com), job tue par son propre timeout -- cf. SESSION_NOTES.md.
+    SEUIL_ECHECS_CONSECUTIFS_API_REST = 3
 
     def rechercher_via_api_rest(
         self, criteres: list[tuple[str, str | None]]
@@ -526,14 +536,29 @@ class ConnecteurWooCommerce:
             (nom, numero): [] for nom, numero in criteres
         }
         produits_par_nom: dict[str, list[dict]] = {}
+        echecs_consecutifs = 0
+        api_abandonnee = False
 
         for nom, numero in criteres:
             critere = CritereRecherche(nom=nom, numero=numero)
             confiance_base = "forte" if numero is not None else "faible"
 
             if nom not in produits_par_nom:
-                produits_par_nom[nom] = self._decouvrir_produits_api_rest(nom)
-                time.sleep(DELAI_ENTRE_PAGES_PRODUIT)
+                if api_abandonnee:
+                    produits_par_nom[nom] = []
+                else:
+                    produits, ok = self._decouvrir_produits_api_rest(nom)
+                    produits_par_nom[nom] = produits
+                    if ok:
+                        echecs_consecutifs = 0
+                    else:
+                        echecs_consecutifs += 1
+                        if echecs_consecutifs >= self.SEUIL_ECHECS_CONSECUTIFS_API_REST:
+                            api_abandonnee = True
+                            print(f"[{self.nom_affiche}] API REST : {echecs_consecutifs} "
+                                  f"echecs consecutifs -- abandon pour ce cycle "
+                                  f"({len(criteres)} criteres au total, arret sur '{nom}')")
+                    time.sleep(DELAI_ENTRE_PAGES_PRODUIT)
 
             for produit in produits_par_nom[nom]:
                 titre = produit.get("name", "")
