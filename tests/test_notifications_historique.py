@@ -29,8 +29,12 @@ def test_texte_telegram_verdict_coherent():
 
 
 def test_texte_telegram_verdict_incoherent():
+    # V51 : le verdict n'est plus affiché en majuscules comme un fait
+    # confirmé (cf. faux positif reel Mega-Dracaufeu X/Y, 17/08/2026) --
+    # le message hedge desormais explicitement ("peut se tromper").
     texte = _texte_telegram(_deal(), ("incoherent", "carte japonaise sur la photo"))
-    assert "INCOHÉRENTE" in texte
+    assert "incohérente" in texte
+    assert "peut se tromper" in texte
     assert "carte japonaise sur la photo" in texte
 
 

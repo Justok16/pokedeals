@@ -187,7 +187,8 @@ def test_texte_bonne_affaire_ajoute_la_ligne_incoherente():
          "decote_pct": 45.0, "prix_revente_conseille": 25.0,
          "profit_net_estime": 10.0, "confiance": 0, "url_produit": "https://x"}
     texte = _texte_bonne_affaire(d, ("incoherent", "carte coréenne visible"))
-    assert "INCOHÉRENTE" in texte
+    assert "incohérente" in texte
+    assert "peut se tromper" in texte
     assert "carte coréenne visible" in texte
 
 
@@ -222,4 +223,4 @@ def test_envoyer_telegram_bonnes_affaires_avec_cle_et_image_appelle_la_verificat
         envoyer_telegram_bonnes_affaires([deal], "chat123", "token-telegram", anthropic_api_key="sk-ant-xxx")
     verif_mock.assert_called_once_with("https://x.fr/photo.jpg", "Dracaufeu ex 199/165", "jp", "sk-ant-xxx")
     texte_envoye = post_mock.call_args.kwargs["json"]["text"]
-    assert "INCOHÉRENTE" in texte_envoye
+    assert "incohérente" in texte_envoye
