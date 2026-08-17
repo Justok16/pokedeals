@@ -2336,3 +2336,103 @@ et que `lbc_rechercher()` NE compte PAS un 403 comme un échec (mock de
 
 Vérifié avant commit : `pyflakes` propre sur `main.py`, suite complète
 `pytest tests/` (110/110).
+
+## Troisième module extrait de main.py : connecteur_cardtrader.py (17/08/2026)
+
+Suite directe de la section précédente (même session, même consigne de
+Justok : "fais en sorte que tout soit fini et fonctionne à la perfection
+[...] du moment que tu peux te corriger et ne pas créer de bug"). Module
+le plus gros et le plus couplé identifié pour le découpage progressif de
+`main.py` (~565 lignes), déjà signalé dans CLAUDE.md comme nécessitant
+un import retour pour `CT_NOMS_EN`.
+
+**Incident évité en cours de route** : première tentative d'extraction
+faite avec des numéros de ligne PÉRIMÉS (calculés avant l'édit de
+`_ecrire_json_atomique`, qui a décalé tout le fichier de plusieurs
+lignes) -- le `sed`/slicing Python a coupé le bloc au mauvais endroit,
+tronquant une partie du banner de commentaire Cardmarket qui suit. Détecté
+immédiatement par une vérification de diff systématique (comparaison
+ligne à ligne du bloc extrait contre l'original avant de toucher
+`main.py`) plutôt que de faire confiance aveuglément au résultat. Comme
+`main.py` n'était pas encore committé à ce stade, correction simple :
+`git checkout -- main.py` pour repartir de zéro, puis re-extraction avec
+des numéros de ligne fraîchement recalculés APRÈS l'édit préalable. Cet
+incident renforce la leçon déjà tirée plus tôt dans le projet (piège
+"écriture non-atomique") : ne jamais faire confiance à un numéro de ligne
+sans le revérifier juste avant de s'en servir, surtout après une édition
+précédente du même fichier dans la même session.
+
+**Deux points de couplage réels, gérés explicitement (pas juste
+constatés)** :
+1. `CT_NOMS_EN` (table FR->EN) est utilisée par `_nom_neutre_entre_langues()`,
+   restée dans `main.py` -- déjà anticipé, réimportée normalement
+   (`from connecteur_cardtrader import CT_NOMS_EN`), aucun souci : ce
+   dict n'est jamais réassigné après sa définition, seulement lu.
+2. **Piège NON anticipé initialement, trouvé en cartographiant les
+   dépendances avant d'écrire le moindre code** : `_ct_cache` (dict de
+   cache blueprints/prix) EST réassigné par `_ct_charger_cache()`
+   (`global _ct_cache; _ct_cache = {...}`), pas seulement muté par
+   `.update()`/`.setdefault()`. Un `from connecteur_cardtrader import
+   _ct_cache` dans `main.py` aurait figé la liaison sur l'objet
+   dict EXISTANT AU MOMENT DE L'IMPORT -- une réassignation ultérieure
+   dans `connecteur_cardtrader.py` ne serait JAMAIS vue par `main.py`,
+   qui aurait continué à lire un cache figé/périmé indéfiniment après le
+   premier chargement. Seul `cardmarket_prix()` (reste dans `main.py`,
+   a besoin de `_ct_trouver_blueprint`/`_ct_cache` pour retrouver le
+   `cardmarket_id` déjà résolu par Cardtrader) était concerné. Corrigé
+   par un accès QUALIFIÉ (`import connecteur_cardtrader` puis
+   `connecteur_cardtrader._ct_cache["blueprints"]...`), qui lit toujours
+   l'attribut COURANT du module, jamais une copie figée. Vérifié
+   explicitement par un test dédié (`test_ct_cache_reassignation_visible_via_acces_qualifie`)
+   ET par une simulation manuelle (réassignation directe de
+   `connecteur_cardtrader._ct_cache`, confirmation que l'accès qualifié
+   voit bien le nouvel objet).
+
+**Extraction annexe** : `_ecrire_json_atomique()` (écriture JSON atomique
+générique, jusqu'ici dupliquée nulle part mais utilisée SEULEMENT par
+`main.py`) déplacée dans un nouveau `json_utils.py`, car
+`connecteur_cardtrader.py` en a aussi besoin (`_ct_sauver_cache()`) --
+sans ce partage, `connecteur_cardtrader.py` aurait dû soit dupliquer la
+fonction, soit importer depuis `main.py` (créant un import circulaire
+réel : `main.py` importe `connecteur_cardtrader`, qui aurait importé
+`main.py`). `main.py` continue à appeler `_ecrire_json_atomique(...)`
+sous son nom historique partout (6 autres call sites inchangés) via un
+alias d'import (`from json_utils import ecrire_json_atomique as
+_ecrire_json_atomique`).
+
+**Réimporté dans `main.py`** (10 noms, le plus gros nombre de tous les
+modules extraits jusqu'ici -- reflète le couplage réel de ce connecteur
+avec l'orchestration) : `CT_NOMS_EN`, `_ct_charger_cache`,
+`_ct_sauver_cache`, `_ct_trouver_blueprint`, `_ct_incoherent_entre_langues`,
+`_ct_memoriser_prix`, `_calibration_ajouter`, `_calibration_coefficient`,
+`_calibration_paires`, `_ct_cfg`, `cardtrader_prix` -- plus l'import du
+module entier (`import connecteur_cardtrader`) pour l'accès qualifié à
+`_ct_cache`. `hashlib`/`inspect` retirés des imports de `main.py` (plus
+utilisés sur place, déménagés avec `_ct_signature_code()`).
+
+**Résultat** : `main.py` passe sous les 2530 lignes (2527, contre ~3690
+avant le début du découpage -- plus de 1150 lignes déplacées vers des
+modules dédiés en 3 extractions). Candidats restants : le connecteur
+TCGdex, le connecteur Leboncoin.
+
+**Tests** : nouveau `tests/test_connecteur_cardtrader.py` (15 cas) --
+extraction de numéro de carte (3 formats différents, dont le piège
+slug/ID déjà documenté), déduction de set par dénominateur ET par code
+JP, cohérence de prix entre langues, calibration (rapports absurdes
+ignorés, coefficient sous le minimum), robustesse de la signature de
+cache, et le test dédié au piège de réassignation de `_ct_cache`
+ci-dessus.
+
+Vérifié avant commit : diff ligne à ligne du bloc extrait contre
+l'original AVANT toute modification de `main.py` (0 différence hors le
+renommage volontaire `_ecrire_json_atomique` -> `ecrire_json_atomique`),
+`pyflakes` propre sur tous les fichiers touchés, import réel de tous les
+modules dépendants en subprocess isolé, suite complète `pytest tests/`
+(125/125), et un test fonctionnel réel en conditions de production :
+chargement du VRAI fichier `data/cardtrader.json` (122 blueprints/122
+prix en cache), calcul réel d'un coefficient de calibration, et appel de
+`cardmarket_prix()` avec un token vide -- échec réseau (proxy sandbox)
+géré proprement, `None` retourné sans exception, comme le code le
+garantit explicitement pour ce cas ("échec réseau : pas bloquant").
+Aucun fichier `data/*.json` modifié par ces vérifications (lecture
+seule, `_ct_sauver_cache()` jamais appelée).
