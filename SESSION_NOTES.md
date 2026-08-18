@@ -3577,3 +3577,85 @@ le meme prefixe, integration bout-en-bout dans `recuperer_toutes_les_urls_produi
 
 **Verification avant commit** : suite complète `pytest tests/` (307/307,
 +4 nouveaux), `pyflakes` propre.
+
+## Balayage méthodique complet du reste du projet (18/08/2026)
+
+Suite à une remarque justifiée de Justok (des pistes déjà repérées en
+interne -- `connecteur_woocommerce.py`, workflows CI -- n'avaient pas été
+creusées avant qu'il ne le demande explicitement, alors que l'audit
+"complet" avait été demandé dès le départ) : reprise systématique,
+fichier par fichier, de TOUT ce qui n'avait pas encore été relu en entier
+cette session (`connecteur_shopify.py`, `watchlist_shopify.py`,
+`connecteur_leboncoin.py`, `connecteur_cardtrader.py`,
+`connecteur_tcgdex.py`, `alerte_stock.py`, `alerte_precommande.py`,
+`radar_precommandes.py`, `precommandes_watchlist.py`, `historique_prix.py`
+en entier, `moteur_cote.py` en entier, `verification_photo.py`,
+`http_utils.py`, les 4 orchestrateurs `scan_*.py`, et le reste de
+`main.py` non extrait -- `ebay_rechercher`, `vinted_rechercher`,
+`vinted_description`, `collecter`, `main`).
+
+**Deux défauts réels trouvés et corrigés :**
+
+**1. Confiance non-monotone dans `alerte_precommande.py`** :
+`detecter_nouvelles_precommandes()` autorisait la confiance mémorisée
+("forte"/"moyenne") à redescendre d'un cycle à l'autre si une page perd
+temporairement sa date de sortie visible (redesign, texte modifié) --
+`deja_confirme_mieux` se base sur la confiance ACTUELLEMENT mémorisée,
+pas sur "a-t-elle DÉJÀ été forte un jour". Conséquence concrète : un
+scénario forte -> moyenne (silencieux, comme prévu) -> forte à nouveau
+déclencherait à tort une 2e alerte de "confirmation" pour une date déjà
+confirmée une première fois. Corrigé en rendant la confiance mémorisée
+MONOTONE (plancher à "forte" dès qu'elle l'a été une fois). 2 nouveaux
+tests couvrant explicitement le cycle complet forte->moyenne->forte.
+
+**2. Sommeil inutile après le dernier essai dans `http_utils.py`** :
+`requete_avec_retry()` dormait pour la durée du backoff même après
+l'ÉCHEC DE LA DERNIÈRE tentative -- aucune tentative suivante n'attend ce
+délai, donc c'était du temps pur gaspillé (jusqu'à ~10s par appel raté).
+Fonction utilisée par eBay/Vinted/Leboncoin pour CHAQUE carte de la
+watchlist (100+) : lors d'une vraie panne prolongée d'une de ces API,
+cette perte se multiplie (jusqu'à ~13 minutes de sommeil pur gaspillé sur
+un cycle complet) -- exactement le genre de marge de timeout déjà tendue
+documentée ailleurs dans ce projet (`scan_lot_a`, mymesis.fr). Corrigé en
+ne dormant plus après la dernière tentative (ni sur échec HTTP retentable,
+ni sur exception réseau). 2 nouveaux tests vérifiant le nombre exact
+d'appels à `time.sleep`.
+
+**Nettoyage mineur** : suppression d'un `log.info` de debug dans
+`main.vinted_description()`, marqué "V26 TEMPORAIRE (à retirer après 1
+scan)" dans son propre commentaire mais jamais retiré depuis (confirmé
+via `git log -S` : présent depuis les tout premiers commits du projet,
+bien avant le début du système de versionnage V-actuel) -- aucun filtre
+de localisation basé sur ce diagnostic n'a jamais été construit (confirmé
+par recherche dans tout le code), le filtre de langue Vinted repose
+entièrement sur l'analyse du texte (titre+description), pas sur un champ
+structuré.
+
+**Deux limites latentes notées mais délibérément NON corrigées** (impact
+nul en pratique aujourd'hui, correctif disproportionné par rapport au
+risque réel) :
+- `ebay_rechercher()` (`main.py`) : la substitution de nom par l'alias
+  utilise un nom "principal" issu de `mots_requis()` (accents retirés),
+  recherché ensuite dans le nom ORIGINAL (accents conservés) via une
+  regex `IGNORECASE` -- qui ne neutralise que la casse, pas les accents.
+  Si une future carte de la watchlist avait un nom accentué ET un alias
+  (aucune actuellement, vérifié par script sur les 122 entrées réelles de
+  `config.yaml`), la substitution échouerait silencieusement -- mais le
+  repli déjà prévu ("rien remplacé -> préfixer l'alias") produit quand
+  même un terme de recherche exploitable, juste moins précis. Aucun
+  crash, aucune perte de fonctionnalité observable.
+- `historique_prix.analyser_tendance()` : la docstring affirme "retourne
+  None" en dessous du seuil minimum de points, mais le code retourne
+  toujours un dict (`{"signal": "pas_assez_de_donnees", ...}`) -- tous
+  les appelants réels traitent déjà la valeur de retour comme un dict
+  (jamais `is None`), donc incohérence de documentation pure, aucun
+  risque de `TypeError`.
+
+**Reste du fichier passé en revue sans anomalie** : `bonne_affaire_shopify.py`,
+`radar_prix_bas.py`, `connecteur_prestashop_sitemap.py`,
+`verification_photo.py` (garde-fou SSRF déjà solide), `json_utils.py`/
+`memoire_json.py` (déjà audités), les 4 orchestrateurs `scan_*.py`
+(ordre d'écriture mémoire V57 appliqué de façon cohérente partout).
+
+**Vérification avant commit** : suite complète `pytest tests/` (311/311,
++4 nouveaux tests), `pyflakes` propre sur tout le dépôt.
