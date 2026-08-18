@@ -106,8 +106,11 @@ def _echapper_url_html(url: str) -> str:
     aussi '<'/'>' par cohérence avec telegram_utils.echapper_url_html --
     invalides dans une vraie URL, mais mieux vaut les neutraliser
     explicitement que de laisser une URL malformée casser l'attribut ou
-    le parsing HTML de Telegram."""
-    return str(url).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    le parsing HTML de Telegram. V59 (audit du 18/08/2026) : échappe aussi
+    le guillemet double, qui fermerait prématurément l'attribut
+    href="..." (seul usage de cette fonction) et ferait rejeter l'envoi
+    entier par Telegram (erreur 400)."""
+    return str(url).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
 
 
 def _ligne_verification_photo(verif_photo: tuple[str | None, str] | None) -> str:

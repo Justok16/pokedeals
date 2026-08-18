@@ -3506,3 +3506,32 @@ aurait déclenché l'ancien bug -> plus d'alerte après le fix ; exactement
 
 **Vérification avant commit** : suite complète `pytest tests/` (296/296,
 +7 nouveaux), `pyflakes` propre sur tous les fichiers modifiés.
+
+## V59 : guillemet double non échappé dans `echapper_url_html` (18/08/2026)
+
+Audit maximal en autonomie, suite. `echapper_url_html`
+(`telegram_utils.py`, et sa copie déliberée dans `notifications_historique.py`)
+échappait `&`/`<`/`>` (V51) mais pas le guillemet double `"` -- alors que
+cette fonction n'est utilisée QUE pour construire un attribut
+`href="..."` dans les messages Telegram (4 fichiers : `bonne_affaire_shopify.py`,
+`alerte_stock.py`, `alerte_precommande.py`, `radar_prix_bas.py`, plus
+`notifications_historique.py`). Une URL contenant un `"` non échappé
+fermerait prématurément l'attribut et casserait le HTML du message --
+Telegram rejette alors l'envoi entier (erreur 400 "can't parse entities"),
+silencieusement pour l'utilisateur si personne ne surveille les logs
+GitHub Actions. Risque théorique en pratique (une vraie URL scrapée
+contient rarement un `"` brut, en général déjà percent-encodé par le
+serveur d'origine) mais un garde-fou gratuit et cohérent avec la
+philosophie déjà appliquée à `<`/`>` en V51.
+
+Corrigé dans les 2 copies (`telegram_utils.echapper_url_html` et
+`notifications_historique._echapper_url_html`) : ajout de
+`.replace('"', "&quot;")`. 8 nouveaux tests
+(`tests/test_telegram_utils.py`, nouveau fichier, première couverture
+dédiée à `telegram_utils.py` ; + 2 cas dans
+`tests/test_notifications_historique.py`), y compris une vérification
+bout-en-bout que `_texte_telegram()` produit toujours un attribut
+`href="..."` correctement délimité même avec une URL piégée.
+
+**Vérification avant commit** : suite complète `pytest tests/` (304/304,
++8 nouveaux), `pyflakes` propre.
