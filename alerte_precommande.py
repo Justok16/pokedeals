@@ -46,20 +46,35 @@ def detecter_nouvelles_precommandes(
     precommandes_watchlist.evaluer_correspondance (confiance != None).
 
     N'ALERTE JAMAIS sur la toute premiere detection d'un (domaine,
-    nom_produit) -- MEME PRINCIPE que alerte_stock.py ("Une carte x
-    boutique jamais vue avant est ajoutee a la memoire mais NE DECLENCHE
-    PAS d'alerte, evite le spam massif au premier lancement"). Bug reel
-    corrige le 11/08/2026 : la version precedente alertait des la premiere
-    detection, ce qui a produit une avalanche d'alertes des l'activation
-    du radar pour des pages qui EXISTAIENT DEJA avant (annonces precoces
-    de revendeurs, notamment japonais, souvent hors stock ou pas encore
-    ouvertes a la commande) -- pas de vraie "apparition", juste l'effet de
-    bord d'une memoire vide au premier cycle. Desormais, seules les
-    apparitions constatees APRES un premier cycle de reference (qui etablit
-    la base sans alerter) declenchent une alerte -- au prix d'un risque
-    residuel documente : une precommande qui ouvre entre le tout premier
-    cycle de reference et le second n'est detectee qu'au 2e cycle (30 min
-    de retard max, pas un vrai raté).
+    nom_produit) A CONFIANCE "MOYENNE" -- MEME PRINCIPE que alerte_stock.py
+    ("Une carte x boutique jamais vue avant est ajoutee a la memoire mais
+    NE DECLENCHE PAS d'alerte, evite le spam massif au premier lancement").
+    Bug reel corrige le 11/08/2026 : la version precedente alertait des la
+    premiere detection, ce qui a produit une avalanche d'alertes des
+    l'activation du radar pour des pages qui EXISTAIENT DEJA avant
+    (annonces precoces de revendeurs, notamment japonais, souvent hors
+    stock ou pas encore ouvertes a la commande) -- pas de vraie
+    "apparition", juste l'effet de bord d'une memoire vide au premier
+    cycle. Desormais, seules les apparitions constatees APRES un premier
+    cycle de reference (qui etablit la base sans alerter) declenchent une
+    alerte -- au prix d'un risque residuel documente : une precommande qui
+    ouvre entre le tout premier cycle de reference et le second n'est
+    detectee qu'au 2e cycle (30 min de retard max, pas un vrai raté).
+
+    EXCEPTION ajoutee le 18/08/2026 (signale par Justok : deux boutiques,
+    playshop.fr et gamesavenue.fr, avaient la precommande du Coffret 30e
+    Anniversaire disponible avec DATE DE SORTIE DEJA CONFIRMEE des leur
+    toute premiere verification -- jamais alertees, malgre une info
+    parfaitement fiable et actionnable). Le risque de faux positif qui a
+    motive la regle du 11/08 concernait des matches "moyenne" (mots-cles
+    seuls, sans date -- une vieille annonce sans rapport peut matcher par
+    coincidence). Un match "forte" des la premiere detection est un
+    signal d'une nature differente : la date de sortie EXACTE attendue est
+    deja confirmee sur la page, un faux positif par coincidence est
+    quasiment exclu. Donc : premiere detection a confiance "moyenne" ->
+    toujours silencieuse (memoire etablie, meme comportement qu'avant) ;
+    premiere detection DIRECTEMENT a confiance "forte" -> alerte
+    immediate, ne pas attendre un 2e cycle pour une info deja fiable.
 
     Alerte ENSUITE une seule fois par (domaine, nom_produit) -- si un
     match a confiance "moyenne" est deja memorise et qu'un match "forte"
@@ -72,6 +87,11 @@ def detecter_nouvelles_precommandes(
         cle_mem = _cle_memoire(domaine, c["nom_produit"])
         etat_precedent = memoire.get(cle_mem)
         premiere_fois = etat_precedent is None
+        # Cf. docstring V53 : seule la premiere detection a confiance
+        # "moyenne" reste silencieuse -- une premiere detection deja
+        # "forte" (date confirmee) est un signal trop fiable pour attendre
+        # un 2e cycle.
+        premiere_fois_ambigue = premiere_fois and c["confiance"] != "forte"
 
         deja_alerte_a_ce_niveau = (
             etat_precedent is not None
@@ -85,7 +105,7 @@ def detecter_nouvelles_precommandes(
             and etat_precedent.get("confiance") == "forte"
         )
 
-        if not premiere_fois and not deja_alerte_a_ce_niveau and not deja_confirme_mieux:
+        if not premiere_fois_ambigue and not deja_alerte_a_ce_niveau and not deja_confirme_mieux:
             evenements.append(c)
 
         memoire[cle_mem] = {
