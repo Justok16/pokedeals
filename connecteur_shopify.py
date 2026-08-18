@@ -313,7 +313,23 @@ class ConnecteurShopify:
         self.session = requests.Session()
 
     def recuperer_tout_le_catalogue(self) -> list[dict]:
-        """Pagine sur /products.json jusqu'a epuisement du catalogue (ou limite de securite)."""
+        """Pagine sur /products.json jusqu'a epuisement du catalogue (ou limite de securite).
+
+        Audit du 18/08/2026 (cf. SESSION_NOTES.md) : un echec sur la page 1
+        (reseau, timeout, JSON invalide) levait auparavant AUCUNE exception
+        -- juste un catalogue vide retourne silencieusement, indiscernable
+        d'une boutique dont AUCUN produit ne matche la watchlist ce cycle.
+        Consequence reelle : alerte_stock.detecter_retours_en_stock()
+        enregistrait alors `en_stock: False` pour CHAQUE carte suivie sur
+        cette boutique (memoire mise a jour meme sans alerte), creant une
+        fausse transition rupture->stock (donc une fausse alerte 📦) des que
+        le reseau se retablissait -- sans que ce cycle en echec n'apparaisse
+        meme dans boutiques_echec (le mecanisme de resilience deja prevu par
+        scanner_plusieurs_boutiques, cf. scan_boutique.py, n'etait jamais
+        declenche puisqu'aucune exception ne remontait). Une page >= 2 en
+        echec reste toleree (catalogue partiel deja recupere, encore
+        exploitable) -- seule la toute PREMIERE page determine si la
+        boutique entiere doit etre traitee comme en echec."""
         produits: list[dict] = []
 
         for page in range(1, MAX_PAGES + 1):
@@ -322,8 +338,12 @@ class ConnecteurShopify:
                 r = self.session.get(url, headers=HEADERS, timeout=TIMEOUT)
                 r.raise_for_status()
                 data = r.json()
-            except (requests.exceptions.RequestException, ValueError):
-                # Page en echec (reseau, timeout, JSON invalide) -> on s'arrete proprement
+            except (requests.exceptions.RequestException, ValueError) as e:
+                if page == 1:
+                    raise RuntimeError(
+                        f"echec recuperation catalogue Shopify pour {self.domaine} (page 1) : {e}"
+                    ) from e
+                # Page suivante en echec -> catalogue partiel deja recupere reste exploitable.
                 break
 
             page_produits = data.get("products", [])

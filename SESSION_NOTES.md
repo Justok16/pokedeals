@@ -2902,3 +2902,91 @@ bash locale du scénario de collision (fichier d'un autre workflow
 confirmé intact après le nouveau code, altéré par l'ancien), résolution
 DNS réelle testée en direct pour `_url_photo_autorisee` (google.com
 autorisé, localhost/127.0.0.1/169.254.169.254/file:// refusés).
+
+## Boutique jamais enregistrée (gmcardsandtoys.com) + fausses alertes 📦 sur échec réseau total (18/08/2026)
+
+Deux sujets distincts remontés/creusés le même jour.
+
+**1. Précommande manquée, signalée par Justok.** Une précommande du
+Coffret ETB 30e Anniversaire vue le 18/08/2026 sur `gmcardsandtoys.com`
+(`/fr-fr/collections/chiques/PRECO`) n'a jamais alerté. Diagnostic :
+la boutique n'était enregistrée **nulle part** dans PokéDeals — ni
+listes manuelles, ni mémoire de découverte auto. Cause racine :
+`decouverte_boutiques.py` ne couvre que les nouveaux domaines `.fr`
+(listes AFNIC) ; `gmcardsandtoys.com` est en `.com`, structurellement
+invisible pour ce mécanisme quelle que soit sa date de création — pas
+un bug de la logique d'alerte. Corrigé (PR #11, mergée) : ajout à
+`BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT` (confirmé par Justok :
+scellé uniquement ; le produit lui-même était déjà dans
+`PRODUITS_SURVEILLES`). Plateforme déduite du motif d'URL
+(`/collections/<handle>`, préfixe `/fr-fr/` typique de Shopify
+Markets) — PAS vérifiée via `/products.json` (réseau sortant bloqué
+vers ce domaine dans l'environnement de dev) ; à confirmer au premier
+vrai cycle `scan_shopify.yml`.
+
+**2. Audit "zéro bug" demandé par Justok, en parallèle.** En vérifiant
+un signalement d'un des deux audits IA concurrents (cf. entrée du
+17/08/2026) sur le thème "un échec réseau peut-il produire une fausse
+alerte de retour en stock ?", confirmé un vrai bug **dans les 3
+connecteurs boutiques** (`connecteur_shopify.py`,
+`connecteur_prestashop_sitemap.py`, `connecteur_woocommerce.py`) :
+
+- `recuperer_tout_le_catalogue()` (Shopify) : un échec de la toute
+  PREMIÈRE page `/products.json` (réseau, timeout, JSON invalide)
+  renvoyait un catalogue vide **sans lever d'exception** — indiscernable
+  d'une boutique dont aucun produit ne matche la watchlist ce cycle.
+- `recuperer_toutes_les_urls_produits()` (PrestaShop/WooCommerce) : même
+  défaut si aucun sitemap racine n'est trouvé, ou si tous échouent à se
+  charger.
+
+Conséquence réelle tracée dans le code : `scanner_boutique_complet()`
+(chacun des 3 `scan_boutique*.py`) passe ce catalogue vide tel quel à
+`alerte_stock.detecter_retours_en_stock()`, qui enregistre alors
+`en_stock: False` pour **chaque** carte suivie sur cette boutique (la
+mémoire est mise à jour à chaque cycle, en_stock ou non). Dès que le
+réseau se rétablit, si le produit est réellement en stock, la
+transition `False -> True` déclenche une **fausse** alerte 📦. Pire :
+ce cycle en échec n'apparaissait même pas dans `boutiques_echec` (le
+mécanisme de résilience déjà prévu par `scanner_plusieurs_boutiques`,
+avec son `try/except` par boutique) puisqu'aucune exception ne
+remontait jamais — un vrai échec réseau se présentait dans les logs
+comme "OK — 0 deal(s), 0 retour(s) en stock", impossible à distinguer
+d'un cycle normal sans correspondance.
+
+Corrigé en levant une `RuntimeError` uniquement sur l'échec TOTAL de
+la première étape de récupération (page 1 Shopify ; aucune URL sitemap
+du tout, avant filtre des segments exclus, pour PrestaShop/WooCommerce)
+— une page suivante en échec après un catalogue partiel déjà récupéré
+reste tolérée (pas fatale), et un résultat vide **après** filtre des
+segments exclus (boutique fraîchement enregistrée, sitemap encore
+quasi vide) reste traité comme légitime, pas comme une erreur. La
+`RuntimeError` remonte jusqu'au `try/except` déjà existant de
+`scanner_plusieurs_boutiques` (identique dans les 3 orchestrateurs),
+qui la journalise proprement dans `boutiques_echec` et **saute** la
+boutique pour ce cycle — sans jamais toucher `memoire_stock` pour elle,
+donc plus de fausse transition rupture→stock.
+
+11 nouveaux tests (`test_connecteur_shopify.py`,
+`test_connecteur_woocommerce.py`, et un nouveau
+`test_connecteur_prestashop_sitemap.py` — première couverture dédiée à
+ce connecteur, jusqu'ici à 0 test comme documenté dans `CLAUDE.md`) :
+lève bien sur échec total, ne lève PAS sur catalogue page-1 réellement
+vide, ne lève PAS sur un résultat vide seulement après filtrage des
+segments exclus, tolère un échec de pagination après un premier
+succès (Shopify).
+
+**Limite assumée** : non-régression "sur l'ensemble des boutiques
+actives" (convention habituelle du projet pour tout changement de
+connecteur partagé) non réalisable depuis cette session — le réseau
+sortant de cet environnement de développement est bloqué vers la
+plupart des domaines externes (constaté en tentant de vérifier
+gmcardsandtoys.com ci-dessus). Le changement ne modifie AUCUN chemin de
+succès (mêmes valeurs de retour qu'avant sur un scan normal) — seul le
+chemin d'échec total change de comportement (lève au lieu de renvoyer
+`[]`), donc le risque de régression sur un scan sain est jugé
+négligeable, mais à surveiller sur les premiers vrais cycles en prod
+(`boutiques_echec` devrait désormais faire apparaître les échecs réseau
+qui étaient auparavant invisibles).
+
+**Vérification avant commit** : suite complète `pytest tests/`
+(230/230, +11 tests nouveaux).

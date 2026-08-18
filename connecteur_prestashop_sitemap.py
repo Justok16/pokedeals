@@ -263,11 +263,30 @@ class ConnecteurPrestaShopSitemap:
 
     def recuperer_toutes_les_urls_produits(self) -> list[str]:
         """Decouvre et liste toutes les URLs du sitemap, moins les segments
-        clairement non-produits (categories techniques, CMS, panier...)."""
+        clairement non-produits (categories techniques, CMS, panier...).
+
+        Audit du 18/08/2026 (meme cause racine que connecteur_shopify.py,
+        cf. son commentaire) : un echec TOTAL de decouverte (aucun sitemap
+        racine trouve, ou tous en echec de recuperation) renvoyait
+        auparavant une liste vide, indiscernable d'une boutique dont le
+        sitemap est reellement vide de produits -- consequence identique
+        (fausses alertes 📦 de retour en stock, cf. alerte_stock.py). Cette
+        methode n'est appelee QUE pour les boutiques SANS repli_html (cf.
+        scan_boutique_prestashop.py), donc une liste vide ici est TOUJOURS
+        anormale (le sitemap a ete verifie fonctionnel avant l'ajout a
+        BOUTIQUES_PRESTASHOP_SITEMAP). On leve seulement si le resultat AVANT
+        filtre des segments exclus est vide -- un resultat vide APRES filtre
+        (boutique fraichement enregistree, sitemap encore quasi-vide, cf.
+        pieges connus) reste un resultat legitime, pas une erreur."""
         racines = self._decouvrir_sitemaps_racine()
         toutes_urls: list[str] = []
         for racine in racines:
             toutes_urls.extend(self._lister_urls_recursif(racine))
+
+        if not toutes_urls:
+            raise RuntimeError(
+                f"aucune URL produit recuperee pour {self.domaine} (sitemap introuvable ou en echec)"
+            )
 
         toutes_urls = list(dict.fromkeys(toutes_urls))  # dedupe en gardant l'ordre
         return [u for u in toutes_urls if not any(seg in u for seg in SEGMENTS_EXCLUS)]

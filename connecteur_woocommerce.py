@@ -323,10 +323,24 @@ class ConnecteurWooCommerce:
         return []
 
     def recuperer_toutes_les_urls_produits(self) -> list[str]:
+        """Audit du 18/08/2026 (meme cause racine que connecteur_shopify.py
+        et connecteur_prestashop_sitemap.py, cf. leurs commentaires) : un
+        echec TOTAL de decouverte du sitemap renvoyait auparavant une liste
+        vide, indiscernable d'un sitemap reellement vide -- fausses alertes
+        📦 en consequence (alerte_stock.py). N'est appelee QUE pour les
+        boutiques SANS repli_api_rest (cf. scan_boutique_woocommerce.py),
+        donc une liste vide ici est TOUJOURS anormale. On leve seulement si
+        le resultat AVANT filtre des segments exclus est vide -- un resultat
+        vide APRES filtre (boutique fraichement enregistree) reste legitime."""
         racines = self._decouvrir_sitemaps_racine()
         toutes_urls: list[str] = []
         for racine in racines:
             toutes_urls.extend(self._lister_urls_recursif(racine))
+
+        if not toutes_urls:
+            raise RuntimeError(
+                f"aucune URL produit recuperee pour {self.domaine} (sitemap introuvable ou en echec)"
+            )
 
         toutes_urls = list(dict.fromkeys(toutes_urls))
         return [u for u in toutes_urls if not any(seg in u for seg in SEGMENTS_URL_EXCLUS)]
