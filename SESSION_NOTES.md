@@ -3325,3 +3325,53 @@ bug).
 
 **Vérification avant commit** : suite complète `pytest tests/` (263/263,
 +9 nouveaux), `pyflakes` propre sur tout le dépôt.
+
+## V57 : alertes perdues définitivement si Telegram échoue après la sauvegarde mémoire (18/08/2026)
+
+Suite du round 2 de l'audit externe -- le 4e problème réel confirmé, traité
+séparément vu son ampleur (2 systèmes d'alerte + 4 orchestrateurs).
+
+**Le problème** : dans `alerte_precommande.detecter_nouvelles_precommandes()`
+et `alerte_stock.detecter_retours_en_stock()`, la mémoire était écrite
+IMMÉDIATEMENT pour CHAQUE candidat (qu'il déclenche un événement ou non).
+Les 4 orchestrateurs concernés (`scan_precommandes.py`,
+`scan_boutique.py`, `scan_boutique_prestashop.py`,
+`scan_boutique_woocommerce.py`) sauvegardaient ensuite cette mémoire sur
+disque **avant** même la tentative d'envoi Telegram. Concrètement : un
+échec Telegram (timeout, 500, token invalide, panne temporaire) survenant
+APRÈS cette écriture laissait la mémoire dans l'état "déjà alerté" alors
+qu'aucune alerte n'était jamais partie -- l'événement était perdu
+DÉFINITIVEMENT, la transition ne pouvant plus jamais être redétectée au
+cycle suivant puisque l'état mémorisé ne changerait plus.
+
+**Corrigé** (même principe dans les deux systèmes) : pour un candidat qui
+déclenche un événement, l'état à mémoriser n'est plus écrit dans
+`detecter_nouvelles_precommandes()`/`detecter_retours_en_stock()` -- il
+est attaché à l'événement lui-même (clés internes `_cle_memoire`/
+`_nouvel_etat`) et n'est commité dans `memoire` qu'**après confirmation
+d'envoi Telegram réussi**, par `envoyer_telegram_precommandes()`/
+`envoyer_telegram_retours_stock()` (nouveau paramètre optionnel
+`memoire`). Un échec laisse la mémoire intacte pour CET événement précis
+-- garantie "au moins une fois" : redétecté et retenté au cycle suivant.
+Pour un candidat SANS événement (rien n'est dû à l'utilisateur), l'écriture
+reste immédiate (aucun risque de perte puisqu'aucune alerte n'est en jeu).
+
+Les 4 orchestrateurs réordonnés en conséquence : `sauvegarder_memoire()`
+appelée APRÈS (plus avant) la tentative d'envoi Telegram, avec `memoire`
+désormais passée à `envoyer_telegram_retours_stock()`/
+`envoyer_telegram_precommandes()`. `envoyer_telegram_bonnes_affaires()`
+(deals prix, `bonne_affaire_shopify.py`) n'est PAS concernée -- ce système
+n'a pas de mémoire de dédoublonnage persistante (réévalué à chaque cycle
+depuis le prix courant vs la cote), rien à perdre de ce côté.
+
+15 nouveaux tests (10 dans `tests/test_alerte_precommande.py`, 4 dans
+`tests/test_alerte_stock.py`) : écriture différée vérifiée pour un
+événement alertant, écriture immédiate inchangée pour un non-événement,
+commit uniquement sur succès Telegram (200), non-commit sur échec HTTP et
+sur exception réseau, redétection garantie au cycle suivant après un
+échec, commit partiel correct quand plusieurs événements ont des issues
+différentes (un succès + un échec dans le même envoi), rétrocompatibilité
+de `envoyer_telegram_precommandes()` sans le paramètre `memoire`.
+
+**Vérification avant commit** : suite complète `pytest tests/` (273/273,
++15 nouveaux depuis ce point), `pyflakes` propre sur tout le dépôt.

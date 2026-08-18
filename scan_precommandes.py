@@ -165,9 +165,15 @@ if __name__ == "__main__":
     fichier_memoire = FICHIER_MEMOIRE_PAR_PLATEFORME[plateforme]
     memoire = charger_memoire(fichier_memoire)
     resume = scanner_plusieurs_boutiques(plateforme, boutiques, modes, produits, memoire)
+    # V57 (18/08/2026, audit externe) : sauvegarde APRES la tentative
+    # d'envoi Telegram (pas avant) -- envoyer_telegram_precommandes()
+    # commite desormais l'etat des evenements alertes dans `memoire`
+    # elle-meme, uniquement pour ceux effectivement envoyes avec succes.
+    # Sauvegarder avant aurait fige "deja alerte" en memoire meme pour un
+    # envoi qui echoue, perdant l'evenement definitivement (plus jamais
+    # redetecte au cycle suivant).
+    envoyer_telegram_precommandes(resume["evenements"], TELEGRAM_CHAT_ID, token, memoire)
     sauvegarder_memoire(memoire, fichier_memoire)
-
-    envoyer_telegram_precommandes(resume["evenements"], TELEGRAM_CHAT_ID, token)
 
     print(f"\n{'=' * 70}")
     print("RESUME DU CYCLE PRECOMMANDES")

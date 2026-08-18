@@ -75,7 +75,21 @@ def detecter_retours_en_stock(
       - La memoire est mise a jour pour CHAQUE combinaison carte x boutique
         a chaque appel, qu'elle soit en stock ou non a ce cycle -- sinon les
         transitions futures ne peuvent plus etre detectees correctement.
-    """
+
+    ECRITURE MEMOIRE DIFFEREE (audit externe du 18/08/2026, verifie contre
+    le code reel avant correction, meme principe que
+    alerte_precommande.detecter_nouvelles_precommandes) : pour une carte
+    qui declenche un evenement "retour en stock", `memoire[cle_mem]` n'est
+    PLUS ecrit ici -- l'etat a memoriser est attache a l'evenement
+    (`_cle_memoire`/`_nouvel_etat`) et n'est commite qu'apres confirmation
+    d'envoi Telegram reussi, par `envoyer_telegram_retours_stock()`. Avant
+    ce correctif, la memoire etait ecrite ICI puis sauvegardee sur disque
+    AVANT la tentative d'envoi Telegram (cf. scan_boutique*.py) : un echec
+    Telegram survenant apres cette ecriture figeait "en_stock: True" en
+    memoire alors qu'aucune alerte n'etait jamais partie -- perte
+    DEFINITIVE de l'evenement, la transition False->True ne pouvant plus
+    jamais etre redetectee au cycle suivant. Pour une carte SANS evenement
+    (rien n'est du a l'utilisateur), l'ecriture reste immediate."""
     evenements = []
     maintenant = datetime.now(timezone.utc).isoformat(timespec="seconds")
 
@@ -106,6 +120,11 @@ def detecter_retours_en_stock(
         etat_precedent = memoire.get(cle_mem)
         etait_en_stock = etat_precedent["en_stock"] if etat_precedent else None
 
+        nouvel_etat = {
+            "en_stock": en_stock_actuel,
+            "derniere_verification": maintenant,
+        }
+
         # Alerte uniquement si un etat precedent existait DEJA (pas au premier
         # passage) ET que ce precedent etait "rupture" ET que c'est maintenant "stock".
         if etait_en_stock is False and en_stock_actuel is True:
@@ -116,12 +135,11 @@ def detecter_retours_en_stock(
                 "prix": meilleur.prix,
                 "titre_produit": meilleur.titre,
                 "url_produit": meilleur.url_produit,
+                "_cle_memoire": cle_mem,
+                "_nouvel_etat": nouvel_etat,
             })
-
-        memoire[cle_mem] = {
-            "en_stock": en_stock_actuel,
-            "derniere_verification": maintenant,
-        }
+        else:
+            memoire[cle_mem] = nouvel_etat
 
     return evenements
 
@@ -141,12 +159,19 @@ def _texte_retour_stock(e: dict) -> str:
     )
 
 
-def envoyer_telegram_retours_stock(evenements: list[dict], chat_id: str, token: str) -> bool:
+def envoyer_telegram_retours_stock(evenements: list[dict], chat_id: str, token: str, memoire: dict | None = None) -> bool:
     """Envoie une alerte Telegram par retour en stock detecte.
 
     Format volontairement different de l'alerte "bonne affaire" existante
     (📦 + "De retour en stock !" au lieu de 🔥/💰 + cote/decote/profit) pour
-    etre reconnaissable d'un coup d'oeil."""
+    etre reconnaissable d'un coup d'oeil.
+
+    `memoire`, si fourni (audit externe du 18/08/2026) : l'etat differe
+    de `detecter_retours_en_stock()` (`e["_cle_memoire"]`/`e["_nouvel_etat"]`)
+    n'est commite dans `memoire` QU'APRES confirmation d'envoi reussi pour
+    CET evenement precis -- un echec laisse `memoire` intacte pour lui,
+    afin que la transition rupture->stock soit redetectee et re-tentee au
+    prochain cycle plutot que perdue definitivement."""
     if not evenements:
         return True
     if not token or not chat_id:
@@ -156,17 +181,24 @@ def envoyer_telegram_retours_stock(evenements: list[dict], chat_id: str, token: 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     ok = True
     for e in evenements:
+        succes = False
         try:
             r = requests.post(
                 url,
                 json={"chat_id": chat_id, "text": _texte_retour_stock(e), "parse_mode": "HTML"},
                 timeout=20,
             )
-            if r.status_code != 200:
+            if r.status_code == 200:
+                succes = True
+            else:
                 print(f"[alerte_stock] Telegram a refuse l'alerte ({r.status_code}) : {r.text[:200]}")
-                ok = False
         except Exception as ex:  # noqa: BLE001
             print(f"[alerte_stock] Echec envoi Telegram : {ex}")
+
+        if succes:
+            if memoire is not None and "_cle_memoire" in e:
+                memoire[e["_cle_memoire"]] = e["_nouvel_etat"]
+        else:
             ok = False
     return ok
 

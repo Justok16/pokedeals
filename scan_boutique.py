@@ -137,13 +137,19 @@ if __name__ == "__main__":
 
     resume = scanner_plusieurs_boutiques(boutiques, cartes, memoire_stock, cotes, regles)
 
-    sauvegarder_memoire(memoire_stock)
-
     # Envoi Telegram REEL (une fois le cycle complet termine, meme pattern
     # que main.py qui envoie une fois tous les deals collectes). Chaque
     # fonction gere son propre canal/format et ne fait rien si la liste est vide.
     envoyer_telegram_bonnes_affaires(resume["deals"], TELEGRAM_CHAT_ID, token, cle_anthropic)
-    envoyer_telegram_retours_stock(resume["evenements_stock"], TELEGRAM_CHAT_ID, token)
+    # V57 (18/08/2026, audit externe) : sauvegarde APRES la tentative
+    # d'envoi -- envoyer_telegram_retours_stock() commite desormais l'etat
+    # "retour en stock" dans memoire_stock elle-meme, uniquement pour les
+    # evenements effectivement envoyes avec succes. Sauvegarder avant
+    # aurait fige la transition en memoire meme pour un envoi qui echoue,
+    # la rendant indetectable au cycle suivant (perte definitive).
+    envoyer_telegram_retours_stock(resume["evenements_stock"], TELEGRAM_CHAT_ID, token, memoire_stock)
+
+    sauvegarder_memoire(memoire_stock)
 
     print(f"\n{'=' * 70}")
     print("RESUME DU CYCLE")
