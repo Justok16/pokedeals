@@ -3029,3 +3029,27 @@ Débloqué via `prix_max_fixe` (même mécanisme déjà en place pour Carapuce
 (234/234, +4 tests nouveaux), `config.yaml` validé par `yaml.safe_load` +
 `charger_watchlist_config()` (199 critères, sans erreur), `pyflakes`
 propre.
+
+## Rafraîchissement des cotes manuelles CN (18/08/2026)
+
+Justok a fourni 4 nouvelles captures Cardmarket JP (référence des 4 cotes
+manuelles chinois-traditionnel, cf. entrée du 13/08 sur ce même sujet) :
+
+- **Plumeline ex (Oricorio m2-111)** : tendance 52,51€ -- cohérent avec les
+  50€ retenus, juste `cote_date` rafraîchie.
+- **Psykokwak (Psyduck m2a-199)** : tendance 16,59€ -- cohérent avec les
+  17€ retenus, juste `cote_date` rafraîchie.
+- **Tiplouf (Piplup m2-085)** : tendance 4,00€ contre 5,70€ le 13/08
+  (-30% environ, vraie baisse de marché, pas du bruit) -- cote corrigée
+  de 6€ à 4€.
+- **Carapuce (Squirtle sv2a-170)** : tendance JP 25,53€, plus du double de
+  la cote actuelle (12€, basée sur Cardtrader KR à l'origine). Écart
+  signalé à Justok plutôt que corrigé à l'aveugle (même principe que
+  `cote_min`/Tiplouf plus haut) -- décision explicite : GARDER la
+  référence KR, ne pas basculer sur le JP comme les 3 autres cartes CN.
+  Documenté dans le commentaire pour qu'une future session ne "corrige"
+  pas cet écart apparent sans revérifier d'abord.
+
+**Vérification avant commit** : suite complète `pytest tests/` (234/234,
+inchangé -- pas de code touché, uniquement `config.yaml`), `config.yaml`
+validé par `yaml.safe_load` + `charger_watchlist_config()` (199 critères).
