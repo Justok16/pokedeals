@@ -15,8 +15,18 @@ import os
 def ecrire_json_atomique(chemin: str, donnees, **kwargs) -> None:
     """Ecrit un JSON de facon atomique (fichier temporaire + os.replace)
     pour ne jamais laisser un data/*.json tronque/corrompu si le process
-    est tue en plein ecriture (ex. timeout GitHub Actions)."""
-    os.makedirs(os.path.dirname(chemin), exist_ok=True)
+    est tue en plein ecriture (ex. timeout GitHub Actions).
+
+    Audit du 18/08/2026 : os.makedirs(os.path.dirname(chemin)) levait
+    FileNotFoundError si `chemin` etait un nom de fichier NU (sans
+    composant de dossier, ex. "test.json") -- os.path.dirname() renvoie
+    alors "", et os.makedirs("") echoue. Tous les appels reels du projet
+    utilisent des chemins deja enracines dans data/ (donc jamais touches
+    par ce cas), mais corrige quand meme par prudence (garde-fou gratuit,
+    zero risque pour les appels existants)."""
+    dossier = os.path.dirname(chemin)
+    if dossier:
+        os.makedirs(dossier, exist_ok=True)
     tmp = f"{chemin}.tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(donnees, f, **kwargs)
