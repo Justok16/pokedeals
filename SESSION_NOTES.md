@@ -2990,3 +2990,42 @@ qui étaient auparavant invisibles).
 
 **Vérification avant commit** : suite complète `pytest tests/`
 (230/230, +11 tests nouveaux).
+
+## Suite de l'audit maximal (18/08/2026) : accent manqué + cote_min bloquait Tiplouf
+
+Deux points supplémentaires trouvés en poursuivant l'audit du même jour.
+
+**1. `_est_carte_gradee()` (`bonne_affaire_shopify.py`) ratait "Gradée"
+accentué.** Simple `.lower()` sans retrait d'accent — "Gradée" (orthographe
+FR naturelle sur une fiche produit) ne matchait jamais "gradee" (seule
+forme dans `MOTS_CARTE_GRADEE`), contrairement à `config.yaml ->
+etats_refuses` qui liste déjà les deux formes pour ce même mot côté
+système eBay/Vinted historique. Corrigé en réutilisant
+`_normaliser_texte()` (`connecteur_shopify.py`) au lieu du `.lower()` nu
+— retire aussi les accents des négations (`NEGATIONS_GRADATION`). 4
+nouveaux tests, première couverture dédiée à cette fonction.
+
+**2. `cote_min` (15€, regles globales) bloquait silencieusement TOUTE
+alerte sur Tiplouf.** En vérifiant `data/cotes.json` : cote réelle
+13,89-19,3€ (FR), ~4,10€ (JP), ~4,99€ (KR) — régulièrement/toujours sous
+le seuil de 15€. `evaluate()` (`moteur_cote.py`) et le garde-fou
+équivalent de `bonne_affaire_shopify.py` (même clé `regles.cote_min`)
+rejettent une cote insuffisante AVANT même de comparer le prix : aucun
+prix, même excellent, ne pouvait donc jamais déclencher d'alerte sur
+cette carte — ni côté eBay/Vinted/Leboncoin, ni côté boutiques Shopify.
+Repéré en vérifiant un signalement d'un des deux audits IA concurrents
+(cf. entrée du 17/08/2026), contre les vraies données de `data/cotes.json`
+plutôt que sur la seule foi du signalement.
+
+Ce n'était pas un choix technique à trancher seul : `cote_min` est une
+règle métier ("ignorer les micro-deals sans intérêt"), et Tiplouf est
+justement l'une des 4 cartes suivies en priorité par Justok
+(`radar_prix_bas.py`) — signalé à Justok plutôt que corrigé à l'aveugle.
+Débloqué via `prix_max_fixe` (même mécanisme déjà en place pour Carapuce
+18€/Plumeline 15€, court-circuite `cote_min`) : seuils choisis par Justok,
+14€ (FR), 4€ (JP et KR) sur les 3 entrées watchlist correspondantes.
+
+**Vérification avant commit** : suite complète `pytest tests/`
+(234/234, +4 tests nouveaux), `config.yaml` validé par `yaml.safe_load` +
+`charger_watchlist_config()` (199 critères, sans erreur), `pyflakes`
+propre.
