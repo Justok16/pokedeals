@@ -3053,3 +3053,21 @@ manuelles chinois-traditionnel, cf. entrée du 13/08 sur ce même sujet) :
 **Vérification avant commit** : suite complète `pytest tests/` (234/234,
 inchangé -- pas de code touché, uniquement `config.yaml`), `config.yaml`
 validé par `yaml.safe_load` + `charger_watchlist_config()` (199 critères).
+
+## Cote manuelle posée pour Psykokwak FR (18/08/2026)
+
+En répondant à une question de Justok ("as-tu besoin des cotes
+françaises ?"), vérification de `data/cotes.json` pour les 4 cartes
+suivies de près : 3/4 ont une cote automatique fonctionnelle (Carapuce
+~89-92€, Plumeline ~43€, Tiplouf ~14-19€), mais **Psykokwak FR (226,
+Héros Transcendants) n'a AUCUNE entrée du tout** -- ni eBay/Vinted ni le
+repli Cardtrader/TCGdex n'ont jamais produit de cote pour cette carte,
+signalé à Justok plutôt que deviné. Justok a fourni une capture Cardmarket
+FR en retour : tendance 64,46€ (30j 61,11€ / 7j 63,12€ -- le "1 jour" à
+110,08€ est un pic isolé récent, pas retenu comme référence). Cote
+manuelle posée à 64€ (`cote_date: "2026-08-18"`, rappel automatique après
+30 jours comme pour toute cote manuelle).
+
+**Vérification avant commit** : suite complète `pytest tests/` (234/234,
+inchangé), `config.yaml` validé par `yaml.safe_load` +
+`charger_watchlist_config()` (199 critères).
