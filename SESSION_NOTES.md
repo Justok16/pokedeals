@@ -3452,3 +3452,57 @@ intermédiaires manquants, ne laisse pas de fichier `.tmp` après écriture,
 
 **Vérification avant commit** : suite complète `pytest tests/` (289/289,
 +14 nouveaux), `pyflakes` propre.
+
+## Trois correctifs de l'audit maximal en autonomie (18/08/2026, suite et fin de session)
+
+Poursuite de l'audit demandé ("audit complet, sérieux, au maximum de tes
+capacités... je te laisse choisir ce qui te semble le plus judicieux"),
+sur les 3 zones repérées mais pas encore traitées lors des passes
+précédentes de cette même session.
+
+**1. Code mort dans `filtre_annonces.py`** : `LANGUES_NON_FR` et
+`TOUS_MARQUEURS`, deux constantes module-level, n'étaient référencées
+nulle part ailleurs dans le projet (confirmé par `grep` sur tout le
+dépôt) -- vestiges d'une itération antérieure du filtre de langue.
+Supprimées.
+
+**2. Domaine rejeté manuellement mais jamais retiré des listes actives
+(`decouverte_boutiques.py`)** : `DOMAINES_REJETES_MANUELLEMENT` (rejets
+humains définitifs, ex. `nemee-tcg.fr`) n'était synchronisé QUE dans la
+mémoire persistante (`domaines_verifies`), pour empêcher une
+RE-proposition future -- mais si un domaine avait déjà été ajouté
+automatiquement à `boutiques_decouvertes.py` AVANT ce rejet manuel, il
+restait actif dans les listes `BOUTIQUES_*_AUTO` et continuait d'être
+scanné à chaque cycle, malgré la décision explicite de Justok. Corrigé
+par une nouvelle fonction `_retirer_domaines_rejetes()`, appelée juste
+avant `_ecrire_boutiques_decouvertes()` dans `main()`, qui retire de
+TOUTES les listes actives tout domaine présent dans
+`DOMAINES_REJETES_MANUELLEMENT`. Logique extraite en fonction pure
+dédiée (plutôt que laissée inline dans `main()`) spécifiquement pour la
+rendre testable, même principe que le découpage progressif de `main.py`
+décrit dans `CLAUDE.md`. 3 nouveaux tests
+(`tests/test_decouverte_boutiques.py`, nouveau fichier).
+
+**3. Dégénérescence du lissage V42 à exactement 3 points d'historique
+(`main.py`, `detecter_anomalies()`)** : `nb_lisse = min(2, len(valeurs) // 2)
+or 1` retombe à **1** (division entière) pour exactement 3 points --
+soit très exactement la comparaison À UN SEUL POINT que V42 avait corrigée
+(cas vécu : Evoli 188/167, +77% en un seul scan à cause de la disparition
+d'une annonce du bas de marché, sans que le vrai marché ait bougé). Or
+l'historique est plafonné à 5 points/carte et purgé à chaque
+`PURGE_VERSION` (cf. `CLAUDE.md`) -- l'état à 3 points est donc traversé
+par CHAQUE carte suivie juste après une purge, pas un cas rare ou
+théorique. Corrigé par `nb_lisse = min(2, len(valeurs) - 1)`, qui vaut
+toujours 2 dès que la garde `len(entrees) < 3` en amont est passée (les
+2 fenêtres se chevauchent sur 1 valeur commune à exactement 3 points, ce
+qui amortit encore plus la variation détectée -- jamais un problème pour
+un détecteur dont le but est d'éviter les faux positifs). Premier test
+dédié à `detecter_anomalies()` dans tout le projet
+(`tests/test_detecter_anomalies.py`, nouveau fichier, 4 cas) : moins de
+3 points -> aucune alerte ; exactement 3 points avec un sursaut isolé qui
+aurait déclenché l'ancien bug -> plus d'alerte après le fix ; exactement
+3 points avec une vraie grosse variation confirmée -> alerte quand même ;
+4 points -> comportement inchangé (déjà correct avant ce fix).
+
+**Vérification avant commit** : suite complète `pytest tests/` (296/296,
++7 nouveaux), `pyflakes` propre sur tous les fichiers modifiés.

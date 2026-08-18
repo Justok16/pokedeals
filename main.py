@@ -946,7 +946,17 @@ def detecter_anomalies(cfg: dict, vues: dict) -> list[str]:
         nom_seul, _, lg = cle.partition("|")
         nom = f"{nom_seul} ({lg.upper()})" if lg else nom_seul
         valeurs = [e["cote"] for e in entrees]
-        nb_lisse = min(2, len(valeurs) // 2) or 1
+        # V58 : `len(valeurs) // 2` retombe à 1 pour exactement 3 points
+        # (division entière), ce qui redonne la comparaison À UN SEUL POINT
+        # que V42 visait justement à éliminer — et cet état à 3 points est
+        # celui que traverse CHAQUE carte juste après une purge
+        # (PURGE_VERSION), donc pas un cas rare. `len(valeurs) - 1` reste
+        # toujours ≥ 2 dès que la garde `len(entrees) < 3` ci-dessus est
+        # passée, donc nb_lisse vaut systématiquement 2 (les 2 fenêtres se
+        # chevauchent sur 1 point à 3 valeurs, ce qui amortit encore plus
+        # la variation détectée — jamais un problème pour un détecteur
+        # d'anomalies dont le but est d'éviter les faux positifs).
+        nb_lisse = min(2, len(valeurs) - 1)
         ancienne = statistics.mean(valeurs[:nb_lisse])
         recente = statistics.mean(valeurs[-nb_lisse:])
         if ancienne <= 0:
