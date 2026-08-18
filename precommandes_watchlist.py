@@ -40,11 +40,17 @@ class ProduitSurveille:
     date_sortie : date de sortie officielle FR -- sert à CONFIRMER un match
         trouve (si une date est detectable sur la page) et a desactiver
         automatiquement la detection une fois passee.
+    prioritaire : marque un produit auquel Justok tient particulierement --
+        purement cosmetique (ajoute un ⭐ dans l'alerte Telegram, cf.
+        alerte_precommande._texte_precommande), n'affecte AUCUNE logique de
+        detection/suppression d'alerte. Ajoute le 18/08/2026 pour l'UPC
+        Noctali, a la demande explicite de Justok.
     """
     nom: str
     mots_cles_edition: frozenset[str]
     mots_cles_type: frozenset[str]
     date_sortie: date
+    prioritaire: bool = False
 
 
 PRODUITS_SURVEILLES: list[ProduitSurveille] = [
@@ -121,6 +127,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             "noctali", "umbreon",
         }),
         date_sortie=date(2026, 11, 6),
+        prioritaire=True,  # celle qui interesse le plus Justok (18/08/2026)
     ),
 ]
 
