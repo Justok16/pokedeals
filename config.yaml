@@ -353,6 +353,15 @@ watchlist:
     prix_max_fixe: 4
   - nom: "Psykokwak 226"                # Héros Transcendants (ASC) FR
     langue: fr
+    # V53 (18/08/2026) : aucune cote n'a jamais ete calculee pour cette
+    # carte (absente de data/cotes.json -- ni eBay/Vinted ni le repli
+    # Cardtrader/TCGdex n'ont jamais abouti). Cote manuelle posee suite a
+    # une capture Cardmarket FR fournie par Justok : tendance 64,46€ (30j
+    # 61,11€ / 7j 63,12€) -- le "1 jour" a 110,08€ est un pic recent isole
+    # (visible sur le graphique), pas retenu comme reference (bruit, pas
+    # signal).
+    cote: 64
+    cote_date: "2026-08-18"
   - nom: "Psyduck 199 m2a"              # MEGA Dream ex (JP) = Psykokwak
     langue: jp
     alias: "Psykokwak"
