@@ -76,8 +76,25 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         }),
         date_sortie=date(2026, 11, 6),
     ),
+    # V55 (18/08/2026) : precedemment UNE seule entree "Journee et Soiree
+    # (Mentali/Noctali)" avec les mots-cles type des DEUX personnages --
+    # signale par Justok : UPC Mentali et UPC Noctali sont deux produits
+    # DISTINCTS (fiches produit separees, precommandes potentiellement
+    # ouvertes a des moments differents), pas un seul produit a 2 variantes.
+    # Bug reel identifie avant qu'il ne se manifeste (verifie en creusant
+    # la memoire du 18/08 : aucune boutique n'avait encore les DEUX
+    # fiches a la fois) : _candidat() (radar_precommandes.py) utilise
+    # `produit.nom` comme cle de memoire (`domaine|nom_produit`, cf.
+    # alerte_precommande._cle_memoire) -- avec un seul ProduitSurveille
+    # couvrant les deux personnages, les 2 fiches d'une meme boutique
+    # auraient partage la MEME cle memoire, et detecter_nouvelles_precommandes()
+    # aurait alors traite la 2e fiche scannee comme "deja connue" (ou pire,
+    # ecrase silencieusement les infos de la 1ere) -- une des deux
+    # precommandes aurait ete perdue sans jamais alerter. Scinde en 2
+    # entrees separees, memes mots-cles edition et date_sortie, mots-cles
+    # type isoles par personnage.
     ProduitSurveille(
-        nom="Collection Ultra-Premium — 30e Anniversaire Journée et Soirée (Mentali/Noctali) FR",
+        nom="Collection Ultra-Premium — Espeon (Mentali) 30e Anniversaire FR",
         mots_cles_edition=frozenset({
             # PAS de "ultra premium" seul : c'est aussi un adjectif
             # marketing generique ("carte ultra premium issue de
@@ -90,7 +107,18 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             "journee et soiree", "day and night",
         }),
         mots_cles_type=frozenset({
-            "mentali", "espeon", "noctali", "umbreon",
+            "mentali", "espeon",
+        }),
+        date_sortie=date(2026, 11, 6),
+    ),
+    ProduitSurveille(
+        nom="Collection Ultra-Premium — Umbreon (Noctali) 30e Anniversaire FR",
+        mots_cles_edition=frozenset({
+            "collection ultra premium", "ultra premium collection", "upc",
+            "journee et soiree", "day and night",
+        }),
+        mots_cles_type=frozenset({
+            "noctali", "umbreon",
         }),
         date_sortie=date(2026, 11, 6),
     ),

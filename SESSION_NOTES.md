@@ -3159,3 +3159,58 @@ jour de 4 tests existants (fixtures `memoire` complétées avec
 
 **Vérification avant commit** : suite complète `pytest tests/` (246/246,
 +5 nouveaux), `pyflakes` propre.
+
+## V55 : UPC Mentali et UPC Noctali étaient un seul produit surveillé, pas deux (18/08/2026)
+
+Justok, en réaction au petit audit récapitulatif de la journée, a précisé :
+"UPC Mentali et UPC Noctali sont deux produits distincts". Vérification
+dans `precommandes_watchlist.py` : l'entrée "Collection Ultra-Premium —
+30e Anniversaire Journée et Soirée (Mentali/Noctali) FR" couvrait bien les
+DEUX personnages avec un seul `ProduitSurveille` (mots-clés type incluant
+`mentali`/`espeon` ET `noctali`/`umbreon`).
+
+Bug réel identifié **avant qu'il ne se manifeste** (creusé dans la mémoire
+du jour même, pas une supposition) : `radar_precommandes._candidat()`
+utilise `produit.nom` comme clé de mémoire (`domaine|nom_produit`, cf.
+`alerte_precommande._cle_memoire`) -- avec un seul `ProduitSurveille`
+couvrant les deux personnages, deux fiches produit distinctes d'une même
+boutique (une pour chaque UPC) auraient partagé la MÊME clé mémoire.
+`detecter_nouvelles_precommandes()` traite les candidats un par un pour
+un même domaine et écrit `memoire[cle_mem]` à chaque itération : la
+seconde fiche scannée aurait donc silencieusement écrasé les infos de la
+première en mémoire (deux URLs, deux prix, deux statuts de stock
+distincts pour un seul emplacement mémoire), perdant le suivi d'une des
+deux précommandes sans jamais alerter dessus. Vérifié que ce cas ne
+s'était pas encore produit (les 4 entrées existantes en mémoire, une par
+boutique, ne couvraient chacune qu'un seul des deux personnages) --
+trouvé avant le premier vrai dégât, pas après.
+
+**Corrigé** : scindé en 2 `ProduitSurveille` distincts ("Collection
+Ultra-Premium — Espeon (Mentali) 30e Anniversaire FR" et "... — Umbreon
+(Noctali) ..."), mêmes mots-clés édition et `date_sortie`, mots-clés type
+isolés par personnage. Les 4 entrées mémoire existantes (clé basée sur
+l'ancien nom fusionné) retirées des 3 fichiers de mémoire précommandes
+pour que le prochain cycle les re-détecte proprement sous les nouvelles
+clés séparées -- toutes à confiance "moyenne" (donc silencieuses au
+prochain cycle, comportement inchangé pour l'utilisateur, juste la
+mémoire interne qui se réaligne).
+
+4 nouveaux tests (`tests/test_precommandes_watchlist.py`, nouveau fichier
+-- première couverture dédiée à ce module) : les deux produits ont des
+noms distincts ; un titre "UPC Mentali" ne matche QUE le produit Mentali,
+jamais Noctali (et inversement) ; la variante anglaise "Espeon" matche
+bien le même produit que "Mentali".
+
+**Vérification avant commit** : suite complète `pytest tests/` (250/250,
++4 nouveaux), `pyflakes` propre, diff des 2 fichiers mémoire concernés
+vérifié minimal (suppressions seules, aucun autre changement).
+
+**Preuve en direct que le fix V53 fonctionne** : en résolvant un conflit
+sur `data/precommandes_anniversaire_shopify.json` (cycle de scan concurrent
+pendant cette édition), `playshop.fr` avait déjà été re-détectée à
+confiance "forte" à 12:10:59 UTC -- la toute première vraie alerte
+immédiate en prod grâce au fix précédent. Cette entrée (nommée sous
+l'ancien produit fusionné) a aussi été retirée pour le même
+rattrapage V55 -- effet de bord mineur assumé : Justok reçoit une alerte
+quasi-identique une seconde fois au prochain cycle, sous le nom du
+produit désormais correctement scindé (Mentali seul).
