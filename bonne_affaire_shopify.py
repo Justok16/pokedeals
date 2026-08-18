@@ -24,6 +24,7 @@ from pathlib import Path
 import requests
 import yaml
 
+from connecteur_shopify import _normaliser_texte
 from telegram_utils import echapper_html as _echapper_html, echapper_url_html as _echapper_url_html
 from verification_photo import verifier_photo_annonce
 from watchlist_shopify import CarteWatchlist, detecter_qualificatif_titre
@@ -85,9 +86,18 @@ NEGATIONS_GRADATION = (
 
 
 def _est_carte_gradee(titre: str) -> bool:
-    t = titre.lower()
+    # Audit du 18/08/2026 (cf. SESSION_NOTES.md) : un simple .lower() ne
+    # retire PAS les accents -- "Gradée" (accent, frequent sur une fiche
+    # produit FR) ne matchait donc JAMAIS "gradee" (sans accent, seul
+    # present dans MOTS_CARTE_GRADEE/NEGATIONS_GRADATION), contrairement a
+    # config.yaml -> etats_refuses qui liste explicitement les DEUX formes
+    # pour ce meme mot. _normaliser_texte() (connecteur_shopify.py) retire
+    # les accents ET normalise la ponctuation (donc "non-gradee" == "non
+    # gradee" apres normalisation, les deux formes de NEGATIONS_GRADATION
+    # restent presentes mais deviennent redondantes, sans risque).
+    t = _normaliser_texte(titre)
     for negation in NEGATIONS_GRADATION:
-        t = t.replace(negation, "")
+        t = t.replace(_normaliser_texte(negation), "")
     return any(mot in t for mot in MOTS_CARTE_GRADEE)
 
 

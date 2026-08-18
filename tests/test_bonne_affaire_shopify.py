@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 from connecteur_shopify import ResultatRecherche
 from bonne_affaire_shopify import (
-    _etat_refuse, _texte_bonne_affaire, detecter_bonnes_affaires,
+    _est_carte_gradee, _etat_refuse, _texte_bonne_affaire, detecter_bonnes_affaires,
     envoyer_telegram_bonnes_affaires, evaluer_deal,
 )
 from watchlist_shopify import CarteWatchlist
@@ -317,3 +317,26 @@ def test_detecter_bonnes_affaires_ne_dedoublonne_pas_deux_produits_differents():
     cartes_par_critere = {cle: carte}
     deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, COTES, REGLES)
     assert len(deals) == 2
+
+
+# ------------------- _est_carte_gradee (audit du 18/08/2026) -------------------
+# Avant ce correctif, un simple .lower() (sans retrait d'accent) faisait
+# passer a travers les fiches produit ecrivant "Gradée" (accent) au lieu de
+# "gradee" -- contrairement a config.yaml -> etats_refuses qui liste
+# explicitement les deux formes pour ce meme mot.
+
+def test_est_carte_gradee_detecte_le_mot_accentue():
+    assert _est_carte_gradee("Dracaufeu ex 199/165 - Carte Gradée par un pro") is True
+
+
+def test_est_carte_gradee_detecte_un_service_de_gradation():
+    assert _est_carte_gradee("Dracaufeu ex 199/165 PSA 9") is True
+
+
+def test_est_carte_gradee_negation_accentuee_nempeche_pas_le_faux_rejet():
+    # "Non Gradée" (accent) doit etre neutralisee, comme sa forme sans accent.
+    assert _est_carte_gradee("Dracaufeu ex 199/165 - Non Gradée, carte brute") is False
+
+
+def test_est_carte_gradee_carte_normale_non_signalee():
+    assert _est_carte_gradee("Dracaufeu ex 199/165 - Near Mint") is False

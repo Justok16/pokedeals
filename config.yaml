@@ -327,6 +327,12 @@ watchlist:
   # l'automatisation (desormais fonctionnelle) reprendre la main.
   - nom: "Tiplouf 098/094"               # Flammes Fantasmagoriques (PFL) FR
     langue: fr
+    # V52 (18/08/2026) : audit maximal -- cote_min (15€, regles globales)
+    # bloquait TOUTE alerte pour cette carte, sa cote reelle (13,89-19,3€,
+    # cf. data/cotes.json) passant regulierement sous le seuil. Meme
+    # mecanisme que Carapuce/Plumeline (prix_max_fixe bypass cote_min),
+    # seuil choisi par Justok.
+    prix_max_fixe: 14
   # V47 : cause racine trouvee ici aussi, en creusant plus loin plutot que
   # de laisser la cote manuelle (demande explicite de Justok). "m2" =
   # set JAPONAIS EXCLUSIF "M2 : インフェルノX" (Inferno X, confirme via
@@ -342,6 +348,9 @@ watchlist:
   - nom: "Piplup 085 m2"                # Inferno X (JP) = Tiplouf
     langue: jp
     alias: "Tiplouf"
+    # V52 (18/08/2026) : meme raison que Tiplouf FR ci-dessus -- cote reelle
+    # (~4,10€) tres sous cote_min (15€), seuil choisi par Justok.
+    prix_max_fixe: 4
   - nom: "Psykokwak 226"                # Héros Transcendants (ASC) FR
     langue: fr
   - nom: "Psyduck 199 m2a"              # MEGA Dream ex (JP) = Psykokwak
@@ -471,6 +480,9 @@ watchlist:
   - nom: "Piplup 085 m2"
     langue: kr
     alias: "Tiplouf"
+    # V52 (18/08/2026) : meme raison que Tiplouf FR/JP ci-dessus -- cote
+    # reelle (~4,99€) tres sous cote_min (15€), seuil choisi par Justok.
+    prix_max_fixe: 4
   - nom: "Psyduck 199 m2a"
     langue: kr
     alias: "Psykokwak"
