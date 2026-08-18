@@ -76,7 +76,7 @@ SEGMENTS_TAXONOMIE_EXCLUS = (
 
 SEGMENTS_URL_EXCLUS = (
     "/panier", "/mon-compte", "/checkout", "/cart", "/my-account",
-    "/nous-contacter", "/contact", "/boutique/</loc>",  # racine boutique seule
+    "/nous-contacter", "/contact",
 )
 
 # Segments a exclure des liens trouves sur une page de RESULTATS DE RECHERCHE
@@ -111,6 +111,25 @@ SYMBOLES_DEVISE = {
 # avec connecteur_prestashop_sitemap.py -- factorisees dans
 # connecteur_shopify.py le 11/08/2026 (code strictement identique dans les
 # deux fichiers avant ca).
+
+
+def _est_racine_boutique(url: str) -> bool:
+    """True si `url` est EXACTEMENT la page racine de la categorie boutique
+    (ex. ".../boutique/"), jamais un vrai produit.
+
+    Audit du 18/08/2026 : cette exclusion vivait auparavant dans
+    SEGMENTS_URL_EXCLUS sous la forme du segment "/boutique/</loc>" -- cense
+    filtrer la racine boutique quand elle apparait dans le sitemap, mais qui
+    ne pouvait JAMAIS matcher : les URLs testees viennent soit du texte deja
+    PARSE par ElementTree (`loc.text`, qui ne contient plus aucune balise
+    XML), soit d'un `href="..."` extrait par regex -- aucune des deux ne
+    contient jamais le texte litteral "</loc>". Un simple "/boutique/" en
+    substring exclusion aurait ete pire : c'est aussi le PREFIXE commun a
+    TOUTE vraie URL produit sous ce chemin (".../boutique/pikachu-151/"),
+    qu'un simple `in` aurait exclue a tort dans son integralite -- d'ou cette
+    verification par SUFFIXE EXACT, apres avoir retire un `/` de fin
+    eventuel."""
+    return url.rstrip("/").endswith("/boutique")
 
 
 def _est_sous_sitemap_produit(url: str) -> bool:
@@ -343,7 +362,10 @@ class ConnecteurWooCommerce:
             )
 
         toutes_urls = list(dict.fromkeys(toutes_urls))
-        return [u for u in toutes_urls if not any(seg in u for seg in SEGMENTS_URL_EXCLUS)]
+        return [
+            u for u in toutes_urls
+            if not any(seg in u for seg in SEGMENTS_URL_EXCLUS) and not _est_racine_boutique(u)
+        ]
 
     def _evaluer_url(
         self, url: str, nom: str, numero: str | None, confiance_base: str
@@ -472,7 +494,10 @@ class ConnecteurWooCommerce:
 
         domaine_nu = self.domaine.removeprefix("www.")
         candidats = re.findall(rf'href="(https?://(?:www\.)?{re.escape(domaine_nu)}/[^"]+)"', html)
-        candidats = [u for u in candidats if not any(seg in u for seg in SEGMENTS_RECHERCHE_EXCLUS)]
+        candidats = [
+            u for u in candidats
+            if not any(seg in u for seg in SEGMENTS_RECHERCHE_EXCLUS) and not _est_racine_boutique(u)
+        ]
         return list(dict.fromkeys(candidats))
 
     def rechercher_via_recherche_html(

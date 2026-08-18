@@ -3535,3 +3535,45 @@ bout-en-bout que `_texte_telegram()` produit toujours un attribut
 
 **Vérification avant commit** : suite complète `pytest tests/` (304/304,
 +8 nouveaux), `pyflakes` propre.
+
+## V60 : exclusion "racine boutique" jamais fonctionnelle dans connecteur_woocommerce.py (18/08/2026)
+
+Audit maximal en autonomie, suite -- piste demandee explicitement par
+Justok ("connecteur_woocommerce.py" + "workflows CI"). `SEGMENTS_URL_EXCLUS`
+contenait depuis le tout premier commit de ce connecteur le segment
+`"/boutique/</loc>"`, cense filtrer la page racine de la categorie boutique
+(".../boutique/") quand elle apparait par erreur parmi les URLs produit --
+mais ce segment ne pouvait JAMAIS matcher : les URLs testees viennent soit
+du texte deja PARSE par `ElementTree` (`loc.text.strip()`, qui ne contient
+plus aucune balise XML), soit d'un `href="..."` extrait par regex -- aucune
+des deux ne contient jamais le texte litteral `"</loc>"`. Exclusion morte
+depuis l'origine, jamais declenchee en pratique (verifie par `git log -S`).
+
+Un simple retrait du `</loc>` (substring "/boutique/" seul) aurait ete PIRE
+qu'inutile : "/boutique/" est aussi le PREFIXE de toute vraie URL produit
+sous ce chemin (".../boutique/pikachu-151/"), qu'un `in` aurait alors
+exclue integralement -- l'exact inverse de l'effet voulu.
+
+Corrigé par une fonction dediee `_est_racine_boutique(url)`, qui verifie un
+SUFFIXE EXACT (`url.rstrip("/").endswith("/boutique")`) plutot qu'une
+inclusion, appliquee separement de `SEGMENTS_URL_EXCLUS`/
+`SEGMENTS_RECHERCHE_EXCLUS` dans les 2 points de decouverte d'URLs
+(sitemap et repli recherche HTML).
+
+Audit plus large mene en parallele sur les 9 workflows GitHub Actions
+(cf. demande explicite de Justok) : RAS -- la parade "stash pop || true" +
+"stash drop || true" (deja documentee dans CLAUDE.md, pieges connus) est
+appliquee de facon coherente partout ou elle s'applique, `PYTHONUNBUFFERED`
+est present sur chaque etape `run: python ...`, les listes de fichiers
+memoire sauvegardees correspondent bien au perimetre reel de chaque
+workflow (pas de wildcard `cp data/*.json` reintroduit). Le seul 9e fichier
+workflow (`test_verification_photo.yml`, `workflow_dispatch` uniquement,
+outil de diagnostic manuel) n'apparait pas dans le tableau de cadence de
+CLAUDE.md, ce qui est normal (pas un cron) -- pas une omission a corriger.
+
+4 nouveaux tests (`tests/test_connecteur_woocommerce.py`) : detection de la
+racine boutique par suffixe exact, non-exclusion d'un vrai produit partageant
+le meme prefixe, integration bout-en-bout dans `recuperer_toutes_les_urls_produits()`.
+
+**Verification avant commit** : suite complète `pytest tests/` (307/307,
++4 nouveaux), `pyflakes` propre.
