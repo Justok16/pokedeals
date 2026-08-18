@@ -3375,3 +3375,51 @@ de `envoyer_telegram_precommandes()` sans le paramètre `memoire`.
 
 **Vérification avant commit** : suite complète `pytest tests/` (273/273,
 +15 nouveaux depuis ce point), `pyflakes` propre sur tout le dépôt.
+
+## Audit maximal en autonomie (18/08/2026, après-midi) : mélange de devises dans le signal de tendance
+
+Justok, avant de s'absenter, a explicitement autorisé les décisions
+autonomes ("je te laisse choisir ce qui te semble le plus judicieux") et
+demandé un audit complet et sérieux au-delà des 2 rounds externes déjà
+traités. Reprise du finding "USD/EUR currency mixing" signalé par un des
+agents d'audit internes plus tôt dans la session mais jamais vérifié ni
+corrigé (le travail avait bifurqué vers les demandes de Justok sur les
+précommandes).
+
+**Vérifié contre les vraies données** (`data/historique_prix_tendance.json`)
+avant toute correction : les 3 cartes suivies (Oricorio/Squirtle/Psyduck)
+avaient bien 5/5 points en USD (PokemonPriceTracker a répondu tous les
+jours jusqu'ici) -- le bug ne s'était donc PAS encore matérialisé en
+pratique, confirmant "latent, pas déclenché" plutôt qu'une supposition.
+
+**Le bug réel** : `_prix_reference()` (`historique_prix.py`) bascule
+silencieusement, jour par jour, entre PokemonPriceTracker (USD la plupart
+du temps) et `cote_pokedeals` (TOUJOURS EUR) selon la source disponible
+CE jour-là. `analyser_tendance()` calculait ensuite une moyenne
+arithmétique brute sur la fenêtre de points, sans jamais vérifier qu'ils
+partagent tous la même devise -- un simple échec ponctuel de l'API
+PokemonPriceTracker (panne, rate-limit) un jour donné aurait fait
+basculer ce jour-là sur la cote PokeDeals en EUR, mélangeant silencieusement
+USD et EUR dans le calcul. Contredit l'hypothèse documentée dans
+CLAUDE.md ("un écart en % entre 2 valeurs USD est déjà correct sans
+conversion") -- vraie uniquement si toute la série comparée reste dans
+la même devise, ce que rien ne garantissait.
+
+**Corrigé** : `analyser_tendance()` ne retient désormais, pour le calcul
+(moyenne ET seuil `MIN_POINTS_POUR_SIGNAL`), que les points dans la MÊME
+devise que le point le plus récent -- reste fidèle au principe déjà en
+place "pas de conversion dans le calcul, uniquement à l'affichage" (cf.
+docstring du module) plutôt que de convertir à la volée. Effet de bord
+assumé : si la devise de référence change souvent, le nombre de points
+"utilisables" peut redescendre sous le seuil minimum plus souvent qu'avant
+-- comportement voulu (mieux vaut attendre une série homogène qu'un faux
+signal).
+
+2 nouveaux tests : un jour isolé dans une autre devise n'influence pas la
+moyenne (au lieu de la faire chuter d'un facteur ~20 si mélangé tel quel
+dans le cas testé) ; une majorité de points dans une devise différente du
+point le plus récent peut faire retomber sous le seuil minimum même si le
+total brut toutes devises confondues l'atteignait.
+
+**Vérification avant commit** : suite complète `pytest tests/` (275/275,
++2 nouveaux), `pyflakes` propre.
