@@ -261,15 +261,41 @@ def analyser_tendance(points: list[dict]) -> dict | None:
     Retourne None tant que MIN_POINTS_POUR_SIGNAL n'est pas atteint --
     comparer a une moyenne calculee sur trop peu de points n'a pas de sens
     statistique (meme logique que alerte_stock.py : pas de conclusion sur
-    une premiere donnee)."""
-    valeurs = [(_prix_reference(p), p["date"], _devise_reference(p)) for p in points if _prix_reference(p) is not None]
-    if len(valeurs) < MIN_POINTS_POUR_SIGNAL:
-        return {"signal": "pas_assez_de_donnees", "nb_points": len(valeurs),
-                "points_manquants": MIN_POINTS_POUR_SIGNAL - len(valeurs)}
+    une premiere donnee).
 
-    fenetre = valeurs[-FENETRE_MOYENNE_JOURS:]
-    prix_actuel, date_actuelle, devise_actuelle = valeurs[-1]
-    moyenne_recente = statistics.mean(v for v, _, _ in fenetre)
+    Audit externe du 18/08/2026 (verifie contre les vraies donnees
+    accumulees avant correction -- les 3 cartes suivies n'avaient encore
+    QUE des points PokemonPriceTracker/USD au moment de la verification,
+    donc le bug ne s'etait pas encore materialise, mais restait latent) :
+    `_prix_reference()` bascule silencieusement, jour par jour, entre
+    PokemonPriceTracker (USD la plupart du temps) et `cote_pokedeals`
+    (TOUJOURS EUR) selon la source disponible CE jour-la -- rien ne
+    garantissait que tous les points d'une meme fenetre de calcul soient
+    dans la MEME devise. Un simple echec ponctuel de l'API PokemonPriceTracker
+    un jour donne (panne, rate-limit) aurait fait tomber ce jour-la sur la
+    cote PokeDeals en EUR, melangeant silencieusement USD et EUR dans le
+    calcul de moyenne -- contrairement a l'hypothese documentee dans
+    CLAUDE.md ("un ecart en % entre 2 valeurs USD est deja correct sans
+    conversion"), vraie UNIQUEMENT si toute la serie comparee est dans la
+    MEME devise. Corrige en ne retenant, pour le calcul, QUE les points
+    dans la MEME devise que le point le plus recent -- reste fidele au
+    principe "pas de conversion dans le calcul, uniquement a l'affichage"
+    (cf. module docstring) plutot que de convertir a la volee."""
+    valeurs = [(_prix_reference(p), p["date"], _devise_reference(p)) for p in points if _prix_reference(p) is not None]
+    if not valeurs:
+        return {"signal": "pas_assez_de_donnees", "nb_points": 0,
+                "points_manquants": MIN_POINTS_POUR_SIGNAL}
+
+    devise_actuelle = valeurs[-1][2]
+    valeurs_meme_devise = [(v, d) for v, d, dev in valeurs if dev == devise_actuelle]
+
+    if len(valeurs_meme_devise) < MIN_POINTS_POUR_SIGNAL:
+        return {"signal": "pas_assez_de_donnees", "nb_points": len(valeurs_meme_devise),
+                "points_manquants": MIN_POINTS_POUR_SIGNAL - len(valeurs_meme_devise)}
+
+    fenetre = valeurs_meme_devise[-FENETRE_MOYENNE_JOURS:]
+    prix_actuel, date_actuelle = valeurs_meme_devise[-1]
+    moyenne_recente = statistics.mean(v for v, _ in fenetre)
     ecart_pct = (prix_actuel - moyenne_recente) / moyenne_recente * 100
 
     if ecart_pct <= -SEUIL_SIGNAL_PCT:

@@ -42,6 +42,37 @@ def test_prix_stable_ne_declenche_aucun_signal_extreme():
     assert resultat["signal"] == "stable"
 
 
+def test_un_seul_jour_en_devise_differente_est_exclu_du_calcul():
+    # Audit externe du 18/08/2026 : un jour ou PokemonPriceTracker echoue
+    # (repli sur cote_pokedeals, TOUJOURS en EUR) au milieu d'une serie
+    # USD ne doit PAS corrompre la moyenne -- le point EUR isole est exclu
+    # du calcul, pas converti ni mélangé tel quel.
+    points = _points([100.0] * 19) + [
+        {"date": "2026-08-01", "prix_pokemonpricetracker": None, "cote_pokedeals": 5.0},  # EUR, valeur tres differente
+    ] + _points([100.0], debut_jour=33)
+    resultat = analyser_tendance(points)
+    # 20 points USD (les 19 + le dernier) + 1 point EUR exclu -> stable,
+    # PAS influence par le "5.0" EUR qui aurait fait chuter la moyenne
+    # d'un facteur ~20 si mélangé tel quel.
+    assert resultat["signal"] == "stable"
+    assert resultat["devise"] == "USD"
+    assert resultat["moyenne_recente"] == 100.0
+
+
+def test_devise_mixte_peut_repasser_sous_le_seuil_minimum():
+    # Si la majorite des points recents sont dans une AUTRE devise que le
+    # point le plus recent, le nombre de points UTILISABLES (meme devise)
+    # peut retomber sous MIN_POINTS_POUR_SIGNAL, meme si le total brut
+    # (toutes devises confondues) l'atteint.
+    points = (
+        [{"date": f"2026-07-{i:02d}", "prix_pokemonpricetracker": None, "cote_pokedeals": 50.0} for i in range(1, 15)]
+        + _points([100.0], debut_jour=32)  # 1 seul point USD, le plus recent
+    )
+    resultat = analyser_tendance(points)
+    assert resultat["signal"] == "pas_assez_de_donnees"
+    assert resultat["nb_points"] == 1  # seul le point USD (meme devise que le plus recent) compte
+
+
 def test_repli_sur_cote_pokedeals_si_pokemonpricetracker_absent():
     points = [
         {"date": f"2026-07-{i:02d}", "prix_pokemonpricetracker": None, "cote_pokedeals": 50.0}
