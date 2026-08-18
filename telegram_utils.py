@@ -16,4 +16,11 @@ def echapper_url_html(url: str) -> str:
     # echapper aussi < et > (invalides dans une URL, mais mieux vaut les
     # neutraliser explicitement que de laisser une URL malformee casser
     # l'attribut href="..." ou le parsing HTML de Telegram).
-    return str(url).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    # V59 (audit du 18/08/2026) : echappe aussi le guillemet double --
+    # cette fonction n'est utilisee QUE dans un attribut href="..." (jamais
+    # en texte libre), donc un '"' non echappe dans l'URL fermerait
+    # prematurement l'attribut et casserait le HTML du message (Telegram
+    # rejette alors l'envoi entier avec une erreur 400 "can't parse
+    # entities" -- silencieux pour l'utilisateur si personne ne surveille
+    # les logs).
+    return str(url).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")

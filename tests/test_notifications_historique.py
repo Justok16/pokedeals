@@ -5,7 +5,7 @@ cle API et une image sont disponibles, jamais bloquant."""
 
 from unittest.mock import patch
 
-from notifications_historique import _texte_telegram, envoyer_telegram
+from notifications_historique import _echapper_url_html, _texte_telegram, envoyer_telegram
 
 
 def _deal(**kwargs) -> dict:
@@ -26,6 +26,26 @@ def test_texte_telegram_sans_verification_est_inchange():
 def test_texte_telegram_verdict_coherent():
     texte = _texte_telegram(_deal(), ("coherent", ""))
     assert "cohérente" in texte
+
+
+def test_echapper_url_html_echappe_le_guillemet_double():
+    # V59 (audit du 18/08/2026) : cette fonction n'est utilisee QUE dans un
+    # attribut href="..." -- un guillemet non echappe fermerait
+    # prematurement l'attribut et casserait le HTML du message (rejet
+    # Telegram, erreur 400). Copie locale de telegram_utils.echapper_url_html
+    # (deliberement dupliquee, cf. docstring du module).
+    resultat = _echapper_url_html('https://ex.fr/p?x="onmouseover=alert(1)')
+    assert '"' not in resultat
+    assert "&quot;" in resultat
+
+
+def test_texte_telegram_url_avec_guillemet_produit_un_href_valide():
+    texte = _texte_telegram(_deal(url='https://ebay.fr/x?y="><b>'))
+    assert texte.count('href="') == 1
+    # Le href doit rester correctement delimite par exactement 2 guillemets.
+    debut = texte.index('href="')
+    fin = texte.index('">', debut)
+    assert '"' not in texte[debut + len('href="'):fin]
 
 
 def test_texte_telegram_verdict_incoherent():
