@@ -3114,3 +3114,48 @@ déjà confirmé mieux).
 **Vérification avant commit** : suite complète `pytest tests/` (241/241,
 +7 nouveaux), `pyflakes` propre, diff de la mémoire vérifié minimal (4
 suppressions, aucun autre changement de formatage).
+
+## V54 : transition hors-stock -> en-stock jamais mémorisée pour les précommandes (18/08/2026)
+
+Justok, en réaction au fix V53 ci-dessus, a précisé sa vraie attente :
+"les dates de précommande ne sont pas égales aux dates de sortie -- je
+veux pouvoir précommander dès que possible pour être SÛR de pouvoir
+acheter". En relisant `detecter_nouvelles_precommandes()` à la lumière de
+cette précision, un second angle mort direct : `memoire[cle_mem]` ne
+stockait JAMAIS `en_stock` -- seule `confiance` déterminait si on
+re-alertait. Conséquence concrète : une page qui apparaît tôt (date de
+sortie déjà confirmée, donc alerte immédiate grâce à V53) mais encore
+HORS STOCK (annonce/placeholder avant ouverture réelle) déclenchait bien
+une alerte UNE FOIS -- puis plus JAMAIS de second signal quand elle
+devient réellement commandable, la confiance ne changeant pas entre les
+deux états. Exactement l'inverse de ce que Justok demande : le moment qui
+compte pour lui n'est pas l'apparition de la page, c'est le moment où il
+peut réellement passer commande.
+
+**Corrigé** : `en_stock` est désormais mémorisé, et une alerte se
+déclenche dès que ce champ passe à `True` alors qu'il ne l'était pas avant
+(`False`/indéterminé -> `True`) pour un produit **déjà connu**, quel que
+soit son niveau de confiance actuel -- cette transition prime sur toutes
+les autres règles de suppression, y compris `deja_confirme_mieux`. Une
+toute première détection reste soumise aux règles habituelles (V53) :
+cette exception ne s'applique qu'à un produit dont le stock vient de
+changer, pas à une apparition inédite.
+
+**Effet de bord assumé** : les entrées déjà en mémoire avant ce correctif
+n'ont jamais eu `en_stock` enregistré -- au prochain cycle, si l'une
+d'elles se trouve actuellement en stock, la transition `None -> True`
+sera interprétée comme une ouverture et alertera une fois (rattrapage
+naturel, pas un bug). Assumé délibérément : cohérent avec la priorité
+explicite de Justok (mieux vaut une alerte de rattrapage honnête qu'un
+silence), et chaque alerte reste auto-suffisante (`_texte_precommande`
+indique déjà le niveau de confiance réel -- 🟡 probable vs 🟢 confirmée).
+
+5 nouveaux tests couvrant la transition (déjà "forte"+hors stock -> en
+stock alerte ; stock indéterminé -> en stock alerte ; reste hors stock ne
+re-alerte pas ; reste en stock ne re-alerte pas deux fois ; une première
+détection "moyenne" même en_stock=True reste silencieuse), plus mise à
+jour de 4 tests existants (fixtures `memoire` complétées avec
+`en_stock: True` pour isoler ce qu'ils testent réellement).
+
+**Vérification avant commit** : suite complète `pytest tests/` (246/246,
++5 nouveaux), `pyflakes` propre.
