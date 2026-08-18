@@ -3423,3 +3423,32 @@ total brut toutes devises confondues l'atteignait.
 
 **Vérification avant commit** : suite complète `pytest tests/` (275/275,
 +2 nouveaux), `pyflakes` propre.
+
+## Couverture de test pour les 2 seuls points d'écriture disque du projet (18/08/2026)
+
+Audit maximal en autonomie, suite. `json_utils.ecrire_json_atomique()` et
+`memoire_json.sauvegarder_memoire()` sont les 2 SEULES fonctions qui
+écrivent sur le disque dans tout PokéDeals (toutes deux en écriture
+atomique fichier temporaire + remplacement) -- jusqu'ici à 0 test dédié
+malgré ce rôle critique.
+
+Au passage, un vrai défaut de robustesse latent (déjà noté mais jamais
+corrigé lors d'un audit précédent) : `os.makedirs(os.path.dirname(chemin))`
+dans `ecrire_json_atomique()` lève `FileNotFoundError` si `chemin` est un
+nom de fichier NU sans composant de dossier (`os.path.dirname()` renvoie
+`""`, et `os.makedirs("")` échoue) -- vérifié que les 14 appels réels du
+projet (main.py, moteur_cote.py, connecteur_cardtrader.py, connecteur_tcgdex.py,
+et tous les appelants de `sauvegarder_memoire`) utilisent tous des chemins
+déjà enracinés dans `data/`, donc jamais atteints par ce cas -- corrigé
+quand même par prudence (garde-fou gratuit, zéro risque pour les appels
+existants).
+
+14 nouveaux tests (`tests/test_json_utils.py` et `tests/test_memoire_json.py`,
+nouveaux fichiers) : écrit/relit les mêmes données, crée les dossiers
+intermédiaires manquants, ne laisse pas de fichier `.tmp` après écriture,
+écrase correctement un fichier existant, préserve les accents
+(`ensure_ascii=False`), fichier absent/JSON corrompu renvoient `{}`
+(jamais une exception), et le cas du nom de fichier nu corrigé ci-dessus.
+
+**Vérification avant commit** : suite complète `pytest tests/` (289/289,
++14 nouveaux), `pyflakes` propre.
