@@ -18,7 +18,6 @@ peut de toute facon pas etre achete.
 """
 
 import json
-import re
 from pathlib import Path
 
 import requests
@@ -27,7 +26,7 @@ import yaml
 from connecteur_shopify import _normaliser_texte
 from telegram_utils import echapper_html as _echapper_html, echapper_url_html as _echapper_url_html
 from verification_photo import verifier_photo_annonce
-from watchlist_shopify import CarteWatchlist, detecter_qualificatif_titre
+from watchlist_shopify import CarteWatchlist, detecter_qualificatif_titre, qualificatif_present_dans_titre
 
 # Chemins relatifs au repo (ce fichier vit a la racine, a cote de main.py,
 # config.yaml et data/) -- indispensable pour tourner sur le runner GitHub
@@ -199,10 +198,18 @@ def garde_fous_boutique(resultat, carte: CarteWatchlist) -> tuple[bool, str]:
     # sans ce filtre, le mauvais Plumeline (1,50€) matchait a la place du bon
     # (28€), declenchant une fausse alerte via le seuil fixe.
     if carte.qualificatif:
-        # \b...\b (limites de mot) et pas un simple "in" : le qualificatif
-        # "v" en substring nu matcherait quasiment tous les titres (ex:
-        # "Evoli" contient un "v").
-        if not re.search(rf"\b{re.escape(carte.qualificatif)}\b", resultat.titre.lower()):
+        # Audit externe du 18/08/2026 (verifie contre le code reel) :
+        # cherchait auparavant `\bex\b` (limites de mot, pas un simple
+        # "in" -- "v" nu matcherait "Evoli") sur le titre ENTIER, sans
+        # aucune protection contre un nom de SET contenant lui-meme un mot
+        # de qualificatif ("... — MEGA Dream ex"), contrairement a la
+        # verification NEGATIVE symetrique ci-dessous (deja fenetree).
+        # qualificatif_present_dans_titre() applique desormais la MEME
+        # fenetre (FENETRE_QUALIFICATIF_TITRE, watchlist_shopify.py) --
+        # cf. sa docstring pour pourquoi le court-circuit
+        # NOMS_SET_QUALIFICATIF_AMBIGU n'est PAS repris ici (causerait le
+        # rejet a tort de vraies cartes "ex" issues de sets au nom ambigu).
+        if not qualificatif_present_dans_titre(resultat.titre, carte.qualificatif, carte.numero):
             return False, f"qualificatif manquant (\"{carte.qualificatif}\" absent du titre)"
     else:
         # Sens INVERSE (symetrique) : une carte configuree SANS qualificatif

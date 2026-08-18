@@ -1,0 +1,93 @@
+"""Tests de non-regression pour radar_precommandes.py.
+
+Premiere couverture dediee a ce module (audit externe du 18/08/2026, cf.
+SESSION_NOTES.md) -- se concentre sur le coupe-circuit de
+scanner_woocommerce_api_rest() : cette fonction appelait auparavant
+_decouvrir_produits_api_rest() directement, une fois par (produit,
+mot-cle type), SANS reprendre le coupe-circuit deja present dans
+rechercher_via_api_rest() (connecteur_woocommerce.py) -- une boutique
+lente/instable pouvait donc consommer un nombre non borne de timeouts
+avant de passer a la suivante."""
+
+from datetime import date
+from unittest.mock import Mock, patch
+
+from connecteur_woocommerce import ConnecteurWooCommerce
+from precommandes_watchlist import ProduitSurveille
+from radar_precommandes import _evaluer_page, scanner_woocommerce_api_rest
+
+
+def _produit(nom="Coffret Test", mots_type=("etb", "elite trainer box")):
+    return ProduitSurveille(
+        nom=nom,
+        mots_cles_edition=frozenset({"30e anniversaire"}),
+        mots_cles_type=frozenset(mots_type),
+        date_sortie=date(2026, 9, 16),
+    )
+
+
+def test_sarrete_apres_3_echecs_consecutifs():
+    produits = [_produit(mots_type=("mot1", "mot2", "mot3", "mot4"))]
+    with patch.object(ConnecteurWooCommerce, "_decouvrir_produits_api_rest", return_value=([], False)) as appel_mock, \
+         patch("radar_precommandes.time.sleep"):
+        scanner_woocommerce_api_rest("exemple.fr", produits)
+    assert appel_mock.call_count == 3  # coupe-circuit declenche pile au 3e echec
+
+
+def test_echec_non_consecutif_ne_declenche_pas_le_coupe_circuit():
+    produits = [_produit(mots_type=("mot1", "mot2", "mot3", "mot4", "mot5"))]
+    sequence = [([], False), ([], False), ([{"id": 9, "name": "ok"}], True), ([], False), ([], False)]
+    with patch.object(ConnecteurWooCommerce, "_decouvrir_produits_api_rest", side_effect=sequence) as appel_mock, \
+         patch("radar_precommandes.time.sleep"):
+        scanner_woocommerce_api_rest("exemple.fr", produits)
+    assert appel_mock.call_count == 5  # jamais abandonne : le succes du milieu a reinitialise le compteur
+
+
+def test_tout_succes_naffecte_jamais_le_coupe_circuit():
+    produits = [_produit(mots_type=("mot1", "mot2", "mot3"))]
+    with patch.object(ConnecteurWooCommerce, "_decouvrir_produits_api_rest", return_value=([], True)) as appel_mock, \
+         patch("radar_precommandes.time.sleep"):
+        scanner_woocommerce_api_rest("exemple.fr", produits)
+    assert appel_mock.call_count == 3
+
+
+def test_coupe_circuit_sapplique_a_travers_plusieurs_produits():
+    # Le compteur d'echecs consecutifs traverse les differents produits
+    # surveilles, pas seulement les mots-cles d'UN SEUL produit.
+    produits = [_produit(nom="A", mots_type=("mot1",)), _produit(nom="B", mots_type=("mot2", "mot3", "mot4"))]
+    with patch.object(ConnecteurWooCommerce, "_decouvrir_produits_api_rest", return_value=([], False)) as appel_mock, \
+         patch("radar_precommandes.time.sleep"):
+        scanner_woocommerce_api_rest("exemple.fr", produits)
+    assert appel_mock.call_count == 3
+
+
+# ------------------- _evaluer_page : plus de troncature a 5000 caracteres -------------------
+
+def test_evaluer_page_trouve_une_date_situee_apres_5000_caracteres():
+    # Audit externe du 18/08/2026 : le texte de page etait auparavant
+    # tronque a 5000 caracteres avant d'etre passe a evaluer_correspondance
+    # -- une date de sortie situee plus loin dans une page a rallonge
+    # (nav/en-tete/description longue avant la date) ne pouvait jamais
+    # etre trouvee, plafonnant la confiance a "moyenne" indefiniment.
+    produit = ProduitSurveille(
+        nom="Coffret Test",
+        mots_cles_edition=frozenset({"30e anniversaire"}),
+        mots_cles_type=frozenset({"etb"}),
+        date_sortie=date(2026, 9, 16),
+    )
+    remplissage = "<p>du contenu sans rapport</p>" * 300  # bien plus de 5000 caracteres
+    html = f"<html><title>ETB 30e anniversaire</title><body>{remplissage}<p>Date de sortie : 16 septembre 2026</p></body></html>"
+    assert len(html) > 5000
+
+    connecteur = Mock()
+    connecteur.nom_affiche = "exemple.fr"
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    reponse.content = html.encode("utf-8")
+    connecteur.session.get.return_value = reponse
+
+    with patch("radar_precommandes.time.sleep"):
+        candidats = _evaluer_page(connecteur, "https://exemple.fr/produit", [produit])
+
+    assert len(candidats) == 1
+    assert candidats[0]["confiance"] == "forte"
