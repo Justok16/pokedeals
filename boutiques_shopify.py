@@ -71,6 +71,18 @@ BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT = [
     "lepotoryko.fr",   # multi-JCC (Pokemon/YuGiOh/Lorcana/One Piece), catalogue Pokemon = 100% scelle
     "bgeek.be",        # BELGE (.be, pas .fr) -- multi-JCC, catalogue Pokemon = 100% scelle
     "cardsarena.fr",   # AJOUTEE le 12/08/2026 -- multi-jeux (TCG/figurines/jeux societe), 48 produits Pokemon, 100% scelle
+    # AJOUTEE le 18/08/2026 -- signalee par Justok : precommande Coffret ETB
+    # 30e Anniversaire vue le 18/08/2026 sur /fr-fr/collections/chiques/PRECO,
+    # jamais alertee car la boutique n'etait enregistree NULLE PART (ni ici,
+    # ni dans la decouverte auto -- domaine .com, hors perimetre de
+    # decouverte_boutiques.py qui ne couvre que les nouveaux .fr AFNIC).
+    # Plateforme deduite du motif d'URL (/collections/<handle>, prefixe
+    # /fr-fr/ typique de Shopify Markets) -- PAS verifiee via /products.json
+    # depuis cette session (reseau sortant bloque vers ce domaine dans cet
+    # environnement). Si Shopify est un mauvais diagnostic, le connecteur
+    # echoue silencieusement (catalogue vide, cf. recuperer_tout_le_catalogue)
+    # sans casser le scan -- a reverifier au premier vrai cycle en prod.
+    "gmcardsandtoys.com",
 ]
 
 # Detectees Shopify en priorite 2 (plateforme identifiee mais API non confirmee
