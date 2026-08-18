@@ -519,18 +519,30 @@ watchlist:
     # annonce a 28€ y est repérée : ~45% sous la tendance, DONC une vraie
     # bonne affaire (pas le prix normal) -- vendeur a verifier (drapeau non
     # confirme francais sur la capture).
+    # V52 (18/08/2026) : reverifiee par Justok (nouvelle capture Cardmarket
+    # JP), tendance 52,51€ -- toujours cohérente avec les 50€ retenus,
+    # aucun changement de valeur, juste la date de verification.
     cote: 50
-    cote_date: "2026-08-13"
+    cote_date: "2026-08-18"
   - nom: "Squirtle 170/165 sv2a"        # = Carapuce FR / 170/165 sv2a JP/KR
     langue: cn
     alias: "Carapuce"
+    # V52 (18/08/2026) : la tendance Cardmarket JP a plus que double depuis
+    # (25,53€, capture Justok 18/08/2026) -- Justok a explicitement choisi
+    # de GARDER la reference Cardtrader KR (12,4€) plutot que de basculer
+    # sur le JP comme les 3 autres cartes CN, decision confirmee apres
+    # qu'on lui ait signale l'ecart. Ne pas "corriger" vers le JP sans
+    # repasser par lui.
     cote: 12          # Cardtrader KR réel (12,4€), approximation retenue par Justok
     cote_date: "2026-08-13"
   - nom: "Psyduck 199 m2a"              # = Psykokwak FR / 199 m2a JP/KR
     langue: cn
     alias: "Psykokwak"
+    # V52 (18/08/2026) : reverifiee par Justok (nouvelle capture Cardmarket
+    # JP), tendance 16,59€ -- toujours cohérente avec les 17€ retenus,
+    # aucun changement de valeur, juste la date de verification.
     cote: 17          # approx. via PokemonPriceTracker JP (~19,08$ -> ~17,6€)
-    cote_date: "2026-08-13"
+    cote_date: "2026-08-18"
   - nom: "Piplup 085 m2"                # = Tiplouf FR / 085 m2 JP/KR
     langue: cn
     alias: "Tiplouf"
@@ -539,8 +551,11 @@ watchlist:
     # basse. Approximée depuis la tendance Cardmarket JP réelle (5,70€,
     # capture fournie par Justok le 13/08/2026), même méthode que les 3
     # autres cartes CN (JP en repli faute de référence coréenne).
-    cote: 6
-    cote_date: "2026-08-13"
+    # V52 (18/08/2026) : vraie baisse de marché depuis -- nouvelle capture
+    # Cardmarket JP (Justok) : tendance 4,00€ (7j 4,84€ / 1j 4,69€), contre
+    # 5,70€ le 13/08 (-30% environ). Cote rebaissée en conséquence.
+    cote: 4
+    cote_date: "2026-08-18"
 
   # ----- Cartes ÉTRANGÈRES (EN/KR/CN) : RETIRÉES en V17.3 -----
   # Le diagnostic du 16/07 a montré 0 à 1 annonce sur eBay France pour
