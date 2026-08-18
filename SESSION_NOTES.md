@@ -3071,3 +3071,46 @@ manuelle posée à 64€ (`cote_date: "2026-08-18"`, rappel automatique après
 **Vérification avant commit** : suite complète `pytest tests/` (234/234,
 inchangé), `config.yaml` validé par `yaml.safe_load` +
 `charger_watchlist_config()` (199 critères).
+
+## V53 : précommandes à confiance "forte" jamais alertées dès la 1ère détection (18/08/2026)
+
+Justok a signalé n'avoir jamais reçu d'alerte 🎉 pour le Coffret ETB 30e
+Anniversaire, alors que le radar l'a bien repéré sur `playshop.fr` et
+`gamesavenue.fr` (visible dans `data/precommandes_anniversaire_shopify.json`).
+Diagnostic via `git log -S` sur ces clés précises (pas une supposition) :
+les deux boutiques avaient la date de sortie DÉJÀ confirmée sur la page dès
+leur toute première vérification (12/08 et 14/08) -- jamais alertées,
+puisque `detecter_nouvelles_precommandes()` (`alerte_precommande.py`)
+rendait silencieuse la toute première détection d'un `(domaine,
+nom_produit)`, **quelle que soit sa confiance**, pour éviter le bug réel du
+11/08 (spam sur des annonces déjà existantes). Le même angle mort touchait
+2 autres cas jamais remarqués (`hikarudistribution.com` pour l'ETB ME06
+Règne Delta, `playshop.fr` pour la Collection Ultra-Premium Mentali) --
+tous vérifiés avec la même méthode `git log -S` avant de conclure, aucun
+n'était passé par une transition moyenne→forte qui aurait déjà dû alerter.
+
+Le risque de faux positif du 11/08 concernait spécifiquement les matches
+"moyenne" (mots-clés seuls, une vieille annonce sans rapport peut matcher
+par coïncidence) -- un match "forte" dès la première détection a une
+nature différente : la date de sortie EXACTE attendue est déjà confirmée
+sur la page, un faux positif par coïncidence est quasiment exclu.
+
+**Corrigé** : `premiere_fois_ambigue = premiere_fois and confiance !=
+"forte"` -- seule une première détection à confiance "moyenne" reste
+silencieuse (mémoire établie, comportement inchangé) ; une première
+détection DIRECTEMENT à "forte" alerte immédiatement. Les 4 entrées
+concernées ont été retirées de `data/precommandes_anniversaire_shopify.json`
+(via `memoire_json.charger_memoire`/`sauvegarder_memoire`, pas un
+`json.dump` à la main, pour préserver le format exact du fichier -- premier
+essai avec `sort_keys=True` corrigé après avoir vu un diff de 70 lignes
+au lieu de 4 suppressions propres) pour que le prochain cycle les
+redétecte comme "nouvelles" et déclenche les vraies alertes Telegram.
+
+7 nouveaux tests (`tests/test_alerte_precommande.py`) -- première
+couverture dédiée à `detecter_nouvelles_precommandes()`, jusqu'ici à 0
+test malgré sa logique à 3 états (premiere fois / déjà vu à ce niveau /
+déjà confirmé mieux).
+
+**Vérification avant commit** : suite complète `pytest tests/` (241/241,
++7 nouveaux), `pyflakes` propre, diff de la mémoire vérifié minimal (4
+suppressions, aucun autre changement de formatage).
