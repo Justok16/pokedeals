@@ -9,6 +9,12 @@ concurrency:
   group: tests-${{ github.ref }}
   cancel-in-progress: true
 
+# Audit du 18/08/2026 : seul workflow du repo sans permissions explicites --
+# n'a besoin que de lire le code (checkout + pytest, aucun push/commentaire/
+# artefact). Moindre privilège : pas d'ecriture par defaut sur GITHUB_TOKEN.
+permissions:
+  contents: read
+
 jobs:
   pytest:
     runs-on: ubuntu-latest

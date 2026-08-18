@@ -2,7 +2,13 @@
 3 connecteurs (connecteur_shopify.py), issues de bugs reels deja rencontres
 et corriges -- cf. SESSION_NOTES.md pour le detail de chaque cas."""
 
+from unittest.mock import Mock, patch
+
+import pytest
+import requests
+
 from connecteur_shopify import (
+    ConnecteurShopify,
     CritereRecherche,
     _regex_numero_sans_denominateur,
     _retirer_fractions,
@@ -79,3 +85,50 @@ def test_detecter_etat_ignore_le_mot_excellent_hors_champ_dedie():
     # "excellent" perdu dans un paragraphe marketing (pas apres un label
     # d'etat) ne doit PAS etre capture -- seul un vrai champ structure compte.
     assert detecter_etat("<p>Carte conservee en excellent etat de collection</p>") is None
+
+
+# ------------------- recuperer_tout_le_catalogue (audit du 18/08/2026) -------------------
+# Avant ce correctif, un echec de la page 1 (reseau/timeout/JSON invalide)
+# renvoyait un catalogue vide SANS lever -- indiscernable d'une boutique sans
+# aucun produit ce cycle. Consequence reelle : alerte_stock.py enregistrait
+# `en_stock: False` pour chaque carte suivie, creant une fausse alerte
+# "retour en stock" des que le reseau se retablissait. Cf. commentaire de
+# recuperer_tout_le_catalogue() pour le detail complet.
+
+def test_recuperer_catalogue_leve_si_la_page_1_echoue_reseau():
+    c = ConnecteurShopify("boutique-en-panne.fr")
+    with patch.object(c.session, "get", side_effect=requests.exceptions.ConnectionError("panne")):
+        with pytest.raises(RuntimeError):
+            c.recuperer_tout_le_catalogue()
+
+
+def test_recuperer_catalogue_leve_si_la_page_1_renvoie_un_json_invalide():
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    reponse.json = Mock(side_effect=ValueError("JSON invalide"))
+    c = ConnecteurShopify("boutique-cassee.fr")
+    with patch.object(c.session, "get", return_value=reponse):
+        with pytest.raises(RuntimeError):
+            c.recuperer_tout_le_catalogue()
+
+
+def test_recuperer_catalogue_ne_leve_pas_si_la_page_1_est_reellement_vide():
+    # Boutique reelle sans aucun produit -- resultat legitime, pas une erreur.
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    reponse.json = Mock(return_value={"products": []})
+    c = ConnecteurShopify("boutique-vide.fr")
+    with patch.object(c.session, "get", return_value=reponse):
+        assert c.recuperer_tout_le_catalogue() == []
+
+
+def test_recuperer_catalogue_tolere_un_echec_sur_une_page_suivante():
+    # Page 1 OK (catalogue partiel deja utile) -> une page 2 en echec ne
+    # doit PAS faire lever d'exception, juste arreter la pagination.
+    page_1 = Mock()
+    page_1.raise_for_status = Mock()
+    page_1.json = Mock(return_value={"products": [{"id": 1, "title": "Dracaufeu ex 199/165"}] * 250})
+    c = ConnecteurShopify("boutique-ok.fr")
+    with patch.object(c.session, "get", side_effect=[page_1, requests.exceptions.Timeout("trop long")]):
+        produits = c.recuperer_tout_le_catalogue()
+    assert len(produits) == 250

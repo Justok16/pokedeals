@@ -86,6 +86,7 @@ jobs:
           git stash -u || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
+          git stash drop || true   # purge defensive d'un stash laisse par un pop en conflit -- un seul appel de sauvegarde dans ce job (runner jete juste apres), donc sans le risque de cascade documente dans CLAUDE.md (scan_prestashop.yml/scan_shopify.yml), mais garde par coherence/prudence
           cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
           git add data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot A) [skip ci]"
@@ -143,6 +144,7 @@ jobs:
           git stash -u || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
+          git stash drop || true   # purge defensive d'un stash laisse par un pop en conflit -- un seul appel de sauvegarde dans ce job (runner jete juste apres), donc sans le risque de cascade documente dans CLAUDE.md (scan_prestashop.yml/scan_shopify.yml), mais garde par coherence/prudence
           cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
           git add data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot B) [skip ci]"
@@ -187,12 +189,24 @@ jobs:
         run: |
           python -c "from boutiques_woocommerce import LOT_A; print(' '.join(LOT_A))" > /tmp/lot_a.txt
           python scan_precommandes.py woocommerce $(cat /tmp/lot_a.txt)
-      - name: Lancer le radar précommandes — lot B + API REST (mymesis.fr)
+      - name: Lancer le radar précommandes — lot B
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           PYTHONUNBUFFERED: "1"
         run: |
-          python -c "from boutiques_woocommerce import LOT_B, BOUTIQUES_WOOCOMMERCE_REPLI_API_REST; print(' '.join(LOT_B + BOUTIQUES_WOOCOMMERCE_REPLI_API_REST))" > /tmp/lot_b_precommandes.txt
+          # Audit du 18/08/2026 (cf. SESSION_NOTES.md) : ce step concatenait
+          # auparavant "LOT_B + BOUTIQUES_WOOCOMMERCE_REPLI_API_REST", mais
+          # mymesis.fr (seul membre de cette derniere liste) fait DEJA partie
+          # de LOT_B depuis son deplacement le 16/08/2026 (cf.
+          # boutiques_woocommerce.py) -- la concatenation le faisait donc
+          # scanner DEUX FOIS dans ce meme step (pas de fausse alerte grace
+          # a la dedup memoire d'alerte_precommande.py, mais un vrai gaspillage
+          # de temps reseau sur une boutique deja connue pour etre lente). Le
+          # mode "api_rest" reste correctement applique a mymesis.fr : `modes`
+          # (scan_precommandes.py, _boutiques_et_replis) est calcule depuis
+          # les listes completes, independamment de la liste de boutiques
+          # passee en argument CLI ci-dessous.
+          python -c "from boutiques_woocommerce import LOT_B; print(' '.join(LOT_B))" > /tmp/lot_b_precommandes.txt
           python scan_precommandes.py woocommerce $(cat /tmp/lot_b_precommandes.txt)
       - name: Lancer le radar précommandes — boutiques scellé uniquement
         env:
@@ -209,6 +223,7 @@ jobs:
           git stash -u || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
+          git stash drop || true   # purge defensive d'un stash laisse par un pop en conflit -- un seul appel de sauvegarde dans ce job (runner jete juste apres), donc sans le risque de cascade documente dans CLAUDE.md (scan_prestashop.yml/scan_shopify.yml), mais garde par coherence/prudence
           cp -f /tmp/precommandes_anniversaire_woocommerce.json data/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
           git add data/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "maj mémoire radar précommandes woocommerce [skip ci]"

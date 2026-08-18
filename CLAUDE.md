@@ -120,12 +120,12 @@ Tournent en parallèle sur le même repo, chacun avec son propre groupe de concu
 | Workflow | Cadence | Timeout | Contenu |
 |---|---|---|---|
 | `pokedeals.yml` | 15 min | 15 min | `main.py` (système historique) |
-| `scan_shopify.yml` | 30 min | 25 min | scan cartes Shopify + radar précommandes Shopify |
+| `scan_shopify.yml` | 30 min | 30 min | scan cartes Shopify + radar précommandes Shopify |
 | `scan_prestashop.yml` | 30 min | 30 min | scan cartes PrestaShop + radar précommandes PrestaShop |
 | `scan_woocommerce.yml` | 30 min | 22 min (lot A) + 18 min (lot B) + 25 min (précommandes) | 3 jobs séquentiels (`needs:`) : scan cartes lot A, lot B, puis radar précommandes (lot A + lot B) |
 | `decouverte_boutiques.yml` | hebdomadaire (lundi 06h UTC) | 20 min | radar de découverte automatique de nouvelles boutiques (AFNIC) |
 | `tendance_prix.yml` | quotidien 8h30 UTC | 10 min | suivi de tendance de prix long terme (3 cartes JP) |
-| `prix_bas_quotidien.yml` | quotidien 9h UTC (~11h Paris) | 35 min | radar de prix bas quotidien (4 cartes × 4 langues, tous sites confondus) |
+| `prix_bas_quotidien.yml` | quotidien 9h UTC (~11h Paris) | 40 min | radar de prix bas quotidien (4 cartes × 4 langues, tous sites confondus) |
 | `tests.yml` | à chaque push/PR | — | suite pytest (cf. section Commandes) |
 
 `scan_woocommerce.yml` est le seul à jobs multiples (nécessaire car son plus gros catalogue à lui seul dépasse le budget d'un run simple) ; les jobs sont **séquentiels**, jamais en parallèle entre eux au sein d'un même run, pour éviter une course d'écriture sur le même fichier mémoire.

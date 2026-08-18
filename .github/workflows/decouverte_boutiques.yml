@@ -43,6 +43,7 @@ jobs:
           git stash -u || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
+          git stash drop || true   # purge defensive d'un stash laisse par un pop en conflit -- un seul appel de sauvegarde dans ce job (runner jete juste apres), donc sans le risque de cascade documente dans CLAUDE.md (scan_prestashop.yml/scan_shopify.yml), mais garde par coherence/prudence
           cp -f /tmp/boutiques_decouvertes.py boutiques_decouvertes.py 2>/dev/null || true
           cp -f /tmp/decouverte_boutiques_memoire.json data/decouverte_boutiques_memoire.json 2>/dev/null || true
           git add boutiques_decouvertes.py data/decouverte_boutiques_memoire.json 2>/dev/null || true

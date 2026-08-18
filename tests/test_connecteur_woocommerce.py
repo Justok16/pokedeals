@@ -5,6 +5,8 @@ min sans jamais finir)."""
 
 from unittest.mock import patch
 
+import pytest
+
 from connecteur_woocommerce import ConnecteurWooCommerce
 
 
@@ -77,3 +79,34 @@ def test_noms_deja_vus_ne_re_appellent_jamais_lapi():
          patch("connecteur_woocommerce.time.sleep"):
         c.rechercher_via_api_rest(criteres)
     assert appel_mock.call_count == 1
+
+
+# ------------------- recuperer_toutes_les_urls_produits (audit du 18/08/2026) -------------------
+# Meme cause racine que connecteur_shopify.py (cf. son commentaire) : un
+# echec TOTAL de decouverte du sitemap renvoyait auparavant une liste vide
+# SANS lever -- indiscernable d'un sitemap reellement vide, avec la meme
+# consequence (fausses alertes 📦 dans alerte_stock.py).
+
+def test_recuperer_urls_leve_si_aucun_sitemap_racine_trouve():
+    c = ConnecteurWooCommerce("boutique-en-panne.fr")
+    with patch.object(c, "_decouvrir_sitemaps_racine", return_value=[]):
+        with pytest.raises(RuntimeError):
+            c.recuperer_toutes_les_urls_produits()
+
+
+def test_recuperer_urls_leve_si_le_sitemap_racine_ne_renvoie_aucune_url():
+    c = ConnecteurWooCommerce("boutique-cassee.fr")
+    with patch.object(c, "_decouvrir_sitemaps_racine", return_value=["https://boutique-cassee.fr/sitemap.xml"]), \
+         patch.object(c, "_lister_urls_recursif", return_value=[]):
+        with pytest.raises(RuntimeError):
+            c.recuperer_toutes_les_urls_produits()
+
+
+def test_recuperer_urls_naffecte_pas_un_resultat_vide_apres_filtre_segments():
+    # Le sitemap contient de vraies URLs (fetch reussi), mais toutes
+    # exclues par SEGMENTS_URL_EXCLUS (ex: uniquement des pages techniques
+    # panier/compte) -- resultat legitime, pas une erreur.
+    c = ConnecteurWooCommerce("boutique-toute-neuve.fr")
+    with patch.object(c, "_decouvrir_sitemaps_racine", return_value=["https://boutique-toute-neuve.fr/sitemap.xml"]), \
+         patch.object(c, "_lister_urls_recursif", return_value=["https://boutique-toute-neuve.fr/mon-compte/"]):
+        assert c.recuperer_toutes_les_urls_produits() == []
