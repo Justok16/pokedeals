@@ -148,6 +148,26 @@ def _extraire_nom_et_numero(nom_config: str) -> tuple[str, str | None, str | Non
     return nom_recherche, numero, qualificatif
 
 
+def _zone_qualificatif(titre: str, titre_lower: str, numero: str | None) -> str:
+    """Retourne la zone de texte (fenetre autour du numero matche si
+    fourni, titre entier sinon) dans laquelle chercher un qualificatif --
+    reduit le risque qu'un mot sans rapport, loin dans un titre a
+    rallonge, soit capture a tort. Partagee par detecter_qualificatif_titre()
+    et qualificatif_present_dans_titre() (extraite le 18/08/2026, audit
+    externe, pour eviter que les deux dupliquent cette meme logique)."""
+    zone = titre_lower
+    if numero:
+        if "/" in numero:
+            correspondance = re.search(re.escape(numero.lower()), titre_lower)
+        else:
+            correspondance = _regex_numero_sans_denominateur(numero).search(titre)
+        if correspondance:
+            debut = max(0, correspondance.start() - FENETRE_QUALIFICATIF_TITRE)
+            fin = min(len(titre_lower), correspondance.end() + FENETRE_QUALIFICATIF_TITRE)
+            zone = titre_lower[debut:fin]
+    return zone
+
+
 def detecter_qualificatif_titre(titre: str, numero: str | None = None) -> str | None:
     """Detecte un qualificatif ("ex"/"gx"/"v"/"vmax"/"vstar") present dans un
     titre de PRODUIT (pas config.yaml), pour la verification SYMETRIQUE du
@@ -162,27 +182,43 @@ def detecter_qualificatif_titre(titre: str, numero: str | None = None) -> str | 
     entier -- limite le risque qu'un mot sans rapport, loin dans le titre,
     declenche un rejet. Voir NOMS_SET_QUALIFICATIF_AMBIGU pour la premiere
     ligne de defense (noms de coffret dont le nom contient lui-meme un
-    qualificatif)."""
+    qualificatif) -- COURT-CIRCUIT VOLONTAIRE : specifique a cette
+    fonction (verification NEGATIVE), ne pas reprendre tel quel pour une
+    verification POSITIVE, cf. qualificatif_present_dans_titre() ci-dessous."""
     titre_lower = titre.lower()
 
     if any(nom_set in titre_lower for nom_set in NOMS_SET_QUALIFICATIF_AMBIGU):
         return None
 
-    zone = titre_lower
-    if numero:
-        if "/" in numero:
-            correspondance = re.search(re.escape(numero.lower()), titre_lower)
-        else:
-            correspondance = _regex_numero_sans_denominateur(numero).search(titre)
-        if correspondance:
-            debut = max(0, correspondance.start() - FENETRE_QUALIFICATIF_TITRE)
-            fin = min(len(titre_lower), correspondance.end() + FENETRE_QUALIFICATIF_TITRE)
-            zone = titre_lower[debut:fin]
-
+    zone = _zone_qualificatif(titre, titre_lower, numero)
     for mot in MOTS_QUALIFICATIFS:
         if re.search(rf"\b{mot}\b", zone):
             return mot
     return None
+
+
+def qualificatif_present_dans_titre(titre: str, qualificatif: str, numero: str | None = None) -> bool:
+    """Verifie qu'un qualificatif ATTENDU (config.yaml, ex: carte.qualificatif
+    == "ex") apparait dans la zone proche du numero de la carte dans un
+    titre de produit -- audit externe du 18/08/2026 (verifie contre le code
+    reel) : le garde-fou positif (bonne_affaire_shopify.py) faisait
+    auparavant une recherche `\\bex\\b` sur le titre ENTIER, sans aucune
+    protection -- alors que la verification NEGATIVE symetrique
+    (detecter_qualificatif_titre) beneficie deja d'un fenetrage. Meme
+    fenetre ici (FENETRE_QUALIFICATIF_TITRE, via _zone_qualificatif), MAIS
+    volontairement SANS le court-circuit NOMS_SET_QUALIFICATIF_AMBIGU : ce
+    court-circuit existe pour eviter un FAUX REJET d'une carte SANS
+    qualificatif propre dont le nom de SET en contient un ("MEGA Dream
+    ex") -- l'appliquer ici produirait l'effet INVERSE, un FAUX REJET
+    d'une carte qui a REELLEMENT ce qualificatif mais vient justement d'un
+    set au nom ambigu (ex: "Team Rocket's Mewtwo ex", issu du set
+    japonais "MEGA Dream ex", deja suivi dans la watchlist). Le fenetrage
+    reste une vraie protection ici : il reduit le risque qu'un mot de
+    qualificatif tres eloigne dans un titre a rallonge soit compte a tort
+    comme appartenant a CETTE carte."""
+    titre_lower = titre.lower()
+    zone = _zone_qualificatif(titre, titre_lower, numero)
+    return bool(re.search(rf"\b{re.escape(qualificatif)}\b", zone))
 
 
 def charger_watchlist_config(chemin: Path = CHEMIN_CONFIG_DEFAUT) -> list[CarteWatchlist]:

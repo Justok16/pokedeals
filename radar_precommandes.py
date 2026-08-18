@@ -153,7 +153,18 @@ def _evaluer_page(connecteur, url: str, produits: list[ProduitSurveille]) -> lis
     html = r.content.decode("utf-8", errors="replace")
     m_titre = re.search(r"<title[^>]*>([^<]*)</title>", html, re.IGNORECASE)
     titre = m_titre.group(1).strip() if m_titre else ""
-    texte = re.sub(r"<[^>]+>", " ", html)[:5000]  # texte brut, suffisant pour mots-cles + date
+    # Audit externe du 18/08/2026 (verifie contre le code reel) : la
+    # troncature a 5000 caracteres coupait potentiellement AVANT la date de
+    # sortie sur un theme avec beaucoup de contenu avant la description
+    # produit (nav, en-tete, fil d'ariane, widget panier...) -- l'hypothese
+    # "5000 caracteres suffisent pour mots-cles + date" n'etait pas verifiee.
+    # Consequence reelle limitee (le radar V54 alerte quand meme sur une
+    # transition de stock, meme sans date confirmee) mais peut retarder/
+    # empecher la confiance "forte" et l'alerte immediate correspondante
+    # (V53). scanner_shopify() (meme fichier) n'a AUCUNE troncature
+    # equivalente sur body_html -- retiree ici par coherence, le cout de
+    # traitement d'un texte de page web complet est negligeable.
+    texte = re.sub(r"<[^>]+>", " ", html)
 
     candidats = []
     for produit in produits:
@@ -222,12 +233,40 @@ def scanner_woocommerce_repli_html(domaine: str, produits: list[ProduitSurveille
 
 
 def scanner_woocommerce_api_rest(domaine: str, produits: list[ProduitSurveille]) -> list[dict]:
+    """Audit externe du 18/08/2026 (verifie contre le code reel, cf.
+    SESSION_NOTES.md) : appelait auparavant `_decouvrir_produits_api_rest()`
+    directement, une fois par (produit, mot-cle type) -- jusqu'a 12 appels
+    (4 produits x ~3 mots-cles chacun) sans AUCUN coupe-circuit, alors que
+    `_decouvrir_produits_api_rest()` documente explicitement que
+    `rechercher_via_api_rest()` s'appuie sur son retour `ok` pour un
+    coupe-circuit (SEUIL_ECHECS_CONSECUTIFS_API_REST). La boutique qui a
+    motive ce repli API REST (mymesis.fr) est justement celle deja connue
+    pour etre lente/instable (cf. le coupe-circuit du connecteur principal,
+    16/08/2026) -- une boutique bloquee ici pouvait consommer jusqu'a
+    12 x timeout avant de passer a la suivante, sans aucune protection.
+    Meme logique de coupe-circuit que rechercher_via_api_rest() reprise ici
+    (mots-cles differents des criteres carte, mais meme principe : apres N
+    echecs D'AFFILEE, on arrete d'interroger cette boutique pour ce cycle)."""
     connecteur = ConnecteurWooCommerce(domaine)
     candidats = []
     vus_ids = set()
+    echecs_consecutifs = 0
+    api_abandonnee = False
     for produit in produits:
+        if api_abandonnee:
+            break
         for mot in produit.mots_cles_type:
-            produits_api, _ok = connecteur._decouvrir_produits_api_rest(mot)
+            if api_abandonnee:
+                break
+            produits_api, ok = connecteur._decouvrir_produits_api_rest(mot)
+            if ok:
+                echecs_consecutifs = 0
+            else:
+                echecs_consecutifs += 1
+                if echecs_consecutifs >= connecteur.SEUIL_ECHECS_CONSECUTIFS_API_REST:
+                    api_abandonnee = True
+                    print(f"[{domaine}] API REST precommandes : {echecs_consecutifs} "
+                          f"echecs consecutifs -- abandon pour ce cycle")
             for p in produits_api:
                 if p.get("id") in vus_ids:
                     continue

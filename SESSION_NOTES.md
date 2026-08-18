@@ -3236,3 +3236,92 @@ bien "⭐" quand `prioritaire=True` et ne le contient pas par défaut
 
 **Vérification avant commit** : suite complète `pytest tests/` (254/254,
 +6 nouveaux), `pyflakes` propre.
+
+## Audit externe par deux IA concurrentes, round 2 (18/08/2026)
+
+Justok a demandé un nouveau prompt d'audit (donné en chat, mêmes principes
+que le round du 17/08 : lire CLAUDE.md/SESSION_NOTES.md d'abord, ne jamais
+se fier à un commentaire sans vérifier le code réel), puis a collé les
+deux rapports (ChatGPT + DeepSeek). Vérification systématique de chaque
+finding avant toute action, comme pour le round précédent.
+
+**Faux positifs confirmés (2, tous deux à "confiance 99-100%" côté
+ChatGPT, et repris tel quel par DeepSeek pour le premier)** :
+- "`pokedeals.yml` écrase encore les mémoires des autres workflows" —
+  FAUX : le fichier utilise `FICHIERS_MAIN` (liste explicite), pas
+  `data/*.json`. C'est très exactement le fix déjà mergé le 17/08 (PR
+  #10) — les deux IA décrivaient une version manifestement périmée/mise
+  en cache du fichier, pas son contenu réel.
+- "`prioritaire=True` de Noctali perdu avant l'alerte Telegram (`_candidat()`
+  ne copie pas `produit.prioritaire`)" — FAUX : vérifié ligne par ligne,
+  `_candidat()` (radar_precommandes.py:101) inclut bien
+  `"prioritaire": produit.prioritaire`. Code écrit et testé dans cette
+  même session quelques échanges plus tôt (PR #19) — même hypothèse de
+  cache/contenu périmé que le premier faux positif.
+
+**4 problèmes réels confirmés et corrigés** :
+
+1. **Radar précommandes WooCommerce sans coupe-circuit API REST**
+   (`radar_precommandes.py`, `scanner_woocommerce_api_rest`) — appelait
+   `_decouvrir_produits_api_rest()` directement (jusqu'à 12 appels, 4
+   produits × ~3 mots-clés chacun), en ignorant le retour `_ok` --
+   contrairement à `rechercher_via_api_rest()` (connecteur_woocommerce.py)
+   qui a le coupe-circuit `SEUIL_ECHECS_CONSECUTIFS_API_REST` justement
+   ajouté le 16/08 pour `mymesis.fr` (déjà connue lente/instable, et
+   c'est exactement la boutique qui utilise ce repli API REST). Corrigé
+   en reprenant la même logique de coupe-circuit directement dans
+   `scanner_woocommerce_api_rest`. 4 nouveaux tests
+   (`tests/test_radar_precommandes.py`, nouveau fichier — première
+   couverture dédiée à ce module).
+
+2. **Troncature à 5000 caractères avant recherche de mots-clés/date**
+   (`radar_precommandes.py`, `_evaluer_page`) — une date de sortie située
+   au-delà de 5000 caractères de texte brut (nav/en-tête/description
+   longue avant la date, fréquent sur un thème riche) ne pouvait jamais
+   être trouvée, plafonnant la confiance à "moyenne" indéfiniment pour ce
+   genre de page. Le connecteur Shopify (`scanner_shopify`) n'a AUCUNE
+   troncature équivalente sur `body_html` -- retirée ici par cohérence,
+   coût de traitement négligeable pour du texte de page web. 1 nouveau
+   test (page de 9000+ caractères avec date après le seuil, confiance
+   "forte" attendue).
+
+3. **Garde-fou qualificatif positif sans protection contre les noms de
+   set ambigus** (`bonne_affaire_shopify.py`, `garde_fous_boutique`) —
+   la vérification "carte.qualificatif attendu, est-il présent ?"
+   cherchait `\bex\b` sur le titre ENTIER sans aucune protection, alors
+   que la vérification NÉGATIVE symétrique (`detecter_qualificatif_titre`,
+   déjà existante) bénéficie d'un fenêtrage autour du numéro ET d'un
+   court-circuit sur `NOMS_SET_QUALIFICATIF_AMBIGU` ("MEGA Dream ex",
+   "VMAX Climax"). Fix DÉLIBÉRÉMENT PAS un simple appel à
+   `detecter_qualificatif_titre()` : son court-circuit "nom de set
+   ambigu" est correct pour la vérification négative (éviter un faux
+   rejet d'une carte SANS qualificatif) mais produirait l'effet INVERSE
+   ici (faux rejet d'une VRAIE carte "ex" issue d'un set au nom ambigu,
+   ex. Team Rocket's Mewtwo ex, m2a "MEGA Dream ex", déjà suivie dans la
+   watchlist). Nouvelle fonction `qualificatif_present_dans_titre()`
+   (watchlist_shopify.py) : même fenêtrage (`FENETRE_QUALIFICATIF_TITRE`,
+   factorisé dans `_zone_qualificatif`), SANS le court-circuit
+   `NOMS_SET_QUALIFICATIF_AMBIGU`. 4 nouveaux tests, dont un qui vérifie
+   explicitement la non-régression sur le cas Team Rocket's Mewtwo ex.
+
+4. **Alertes perdues définitivement si Telegram échoue après la
+   sauvegarde mémoire** — trouvé réel et vérifié (`scan_precommandes.py` :
+   `sauvegarder_memoire()` appelée avant `envoyer_telegram_precommandes()` ;
+   même ordre dans `alerte_stock.py`/les 3 `scan_boutique*.py`). PAS
+   encore corrigé à ce stade de la vérification -- fix plus large
+   (retarder l'écriture mémoire des évènements alertés jusqu'à
+   confirmation Telegram, sur 2 systèmes distincts + 4 orchestrateurs) --
+   traité séparément ci-dessous.
+
+**Éléments jugés non-actionnables ou déjà couverts** (DeepSeek
+uniquement, admet explicitement ne pas avoir pu cloner le dépôt et
+travailler sur des extraits tronqués) : absence de validation de schéma
+JSON avant écriture (générique, pas de scénario concret) ; retry réseau
+dans les orchestrateurs (limite déjà connue/acceptée) ; détection de
+langue des codes de set asiatiques (DeepSeek admet lui-même ne pas
+pouvoir confirmer si le fix est présent, faute d'avoir le fichier
+complet -- il l'est, vérifié) ; `prix_max: 0` (point de vigilance, pas un
+bug).
+
+**Vérification avant commit** : suite complète `pytest tests/` (263/263,
++9 nouveaux), `pyflakes` propre sur tout le dépôt.
