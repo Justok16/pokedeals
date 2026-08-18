@@ -102,7 +102,23 @@ def detecter_nouvelles_precommandes(
     `deja_confirme_mieux`. Une premiere detection (jamais vue avant)
     reste soumise aux regles habituelles ci-dessus (silencieuse si
     "moyenne", alerte immediate si "forte") : cette exception ne
-    s'applique qu'a un produit DEJA connu dont le stock vient de changer."""
+    s'applique qu'a un produit DEJA connu dont le stock vient de changer.
+
+    ECRITURE MEMOIRE DIFFEREE (V57, 18/08/2026, audit externe -- verifie
+    contre le code reel avant correction) : pour un candidat qui declenche
+    une alerte, `memoire[cle_mem]` n'est PLUS ecrit ici -- l'etat a
+    memoriser est attache a l'evenement retourne (cles internes
+    `_cle_memoire`/`_nouvel_etat`) et n'est commite qu'apres confirmation
+    d'envoi Telegram reussi, par `envoyer_telegram_precommandes()`. Avant
+    ce correctif, la memoire etait ecrite ICI puis sauvegardee sur disque
+    AVANT meme la tentative d'envoi Telegram (cf. scan_precommandes.py) :
+    un echec Telegram (timeout, 500, token invalide...) survenant APRES
+    cette ecriture laissait la memoire dans l'etat "deja alerte" alors
+    qu'aucune alerte n'etait jamais partie -- perte DEFINITIVE de
+    l'evenement, plus aucune chance de le detecter a nouveau puisque l'etat
+    memorise ne changerait plus au cycle suivant. Pour un candidat qui NE
+    declenche PAS d'alerte (rien n'est du a l'utilisateur), l'ecriture
+    reste immediate : aucune perte possible dans ce cas."""
     evenements = []
 
     for c in candidats:
@@ -135,12 +151,7 @@ def detecter_nouvelles_precommandes(
             and c.get("en_stock") is True
         )
 
-        if stock_vient_de_souvrir or (
-            not premiere_fois_ambigue and not deja_alerte_a_ce_niveau and not deja_confirme_mieux
-        ):
-            evenements.append(c)
-
-        memoire[cle_mem] = {
+        nouvel_etat = {
             "confiance": c["confiance"],
             "raison": c["raison"],
             "titre_produit": c["titre"],
@@ -148,6 +159,15 @@ def detecter_nouvelles_precommandes(
             "derniere_verification": c.get("horodatage", ""),
             "en_stock": c.get("en_stock"),
         }
+
+        if stock_vient_de_souvrir or (
+            not premiere_fois_ambigue and not deja_alerte_a_ce_niveau and not deja_confirme_mieux
+        ):
+            c["_cle_memoire"] = cle_mem
+            c["_nouvel_etat"] = nouvel_etat
+            evenements.append(c)
+        else:
+            memoire[cle_mem] = nouvel_etat
 
     return evenements
 
@@ -190,7 +210,14 @@ def _texte_precommande(e: dict) -> str:
     )
 
 
-def envoyer_telegram_precommandes(evenements: list[dict], chat_id: str, token: str) -> bool:
+def envoyer_telegram_precommandes(evenements: list[dict], chat_id: str, token: str, memoire: dict | None = None) -> bool:
+    """`memoire`, si fourni (V57, 18/08/2026) : l'etat differe de
+    `detecter_nouvelles_precommandes()` (`e["_cle_memoire"]`/`e["_nouvel_etat"]`)
+    n'est commite dans `memoire` QU'APRES confirmation d'envoi reussi pour
+    CET evenement precis -- un echec (Telegram indisponible, token
+    invalide...) laisse `memoire` intacte pour cet evenement, afin qu'il
+    soit redetecte et re-tente au prochain cycle plutot que perdu
+    definitivement (cf. docstring de detecter_nouvelles_precommandes)."""
     if not evenements:
         return True
     if not token or not chat_id:
@@ -200,16 +227,23 @@ def envoyer_telegram_precommandes(evenements: list[dict], chat_id: str, token: s
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     ok = True
     for e in evenements:
+        succes = False
         try:
             r = requests.post(
                 url,
                 json={"chat_id": chat_id, "text": _texte_precommande(e), "parse_mode": "HTML"},
                 timeout=20,
             )
-            if r.status_code != 200:
+            if r.status_code == 200:
+                succes = True
+            else:
                 print(f"[alerte_precommande] Telegram a refuse l'alerte ({r.status_code}) : {r.text[:200]}")
-                ok = False
         except Exception as ex:  # noqa: BLE001
             print(f"[alerte_precommande] Echec envoi Telegram : {ex}")
+
+        if succes:
+            if memoire is not None and "_cle_memoire" in e:
+                memoire[e["_cle_memoire"]] = e["_nouvel_etat"]
+        else:
             ok = False
     return ok
