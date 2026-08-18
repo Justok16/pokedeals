@@ -173,9 +173,14 @@ def _texte_precommande(e: dict) -> str:
         stock_ligne = "❓ Statut de stock indéterminé\n"
     prix_ligne = f"💰 {e['prix']:.2f}€\n" if e.get("prix") else ""
     lien_ligne = f"👉 <a href=\"{_echapper_url_html(e['url_produit'])}\">Voir le produit</a>" if e.get("url_produit") else ""
+    # Marqueur purement cosmetique (V56, 18/08/2026, demande explicite de
+    # Justok pour l'UPC Noctali) -- n'affecte aucune logique de detection.
+    titre_ligne = f"🎁 <b>{_echapper_html(e['nom_produit'])}</b>"
+    if e.get("prioritaire"):
+        titre_ligne = f"⭐ {titre_ligne}"
     return (
         f"🎉 <b>Précommande détectée !</b>\n"
-        f"🎁 <b>{_echapper_html(e['nom_produit'])}</b>\n"
+        f"{titre_ligne}\n"
         f"🏪 {_echapper_html(e['domaine'])}\n"
         f"🔎 Confiance : {niveau}\n"
         f"{stock_ligne}"

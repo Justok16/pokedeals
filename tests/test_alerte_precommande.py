@@ -18,7 +18,7 @@ la premiere apparition de la page. Les tests de suppression "classiques"
 ci-dessous fixent `en_stock: True` cote memoire pour isoler ce qu'ils
 testent reellement (la logique de confiance) de cette nouvelle regle."""
 
-from alerte_precommande import detecter_nouvelles_precommandes
+from alerte_precommande import _texte_precommande, detecter_nouvelles_precommandes
 
 
 def _candidat(nom_produit="ETB 30e Anniversaire", confiance="moyenne", **kw):
@@ -136,3 +136,15 @@ def test_plusieurs_candidats_independants_meme_boutique():
     assert len(evenements) == 1
     assert evenements[0]["nom_produit"] == "ETB 30e Anniversaire"
     assert len(memoire) == 2
+
+
+# ------------------- V56 : marqueur ⭐ prioritaire dans le texte Telegram -------------------
+
+def test_texte_precommande_ajoute_une_etoile_si_prioritaire():
+    texte = _texte_precommande(_candidat(domaine="exemple.fr", prioritaire=True))
+    assert "⭐" in texte
+
+
+def test_texte_precommande_najoute_pas_detoile_par_defaut():
+    texte = _texte_precommande(_candidat(domaine="exemple.fr"))
+    assert "⭐" not in texte

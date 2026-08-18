@@ -53,3 +53,17 @@ def test_titre_upc_espeon_ne_matche_que_le_produit_mentali():
     titre = "Collection Ultra-Premium Espeon — 30th Celebration"
     assert titre_correspond_produit(titre, mentali) is True
     assert titre_correspond_produit(titre, noctali) is False
+
+
+# ------------------- V56 : marqueur prioritaire (⭐ Noctali) -------------------
+
+def test_noctali_est_marque_prioritaire():
+    # Demande explicite de Justok (18/08/2026) : purement cosmetique, cf.
+    # alerte_precommande._texte_precommande.
+    noctali = _produit("Umbreon (Noctali)")
+    assert noctali.prioritaire is True
+
+
+def test_mentali_nest_pas_marque_prioritaire_par_defaut():
+    mentali = _produit("Espeon (Mentali)")
+    assert mentali.prioritaire is False

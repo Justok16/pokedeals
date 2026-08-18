@@ -3214,3 +3214,25 @@ l'ancien produit fusionné) a aussi été retirée pour le même
 rattrapage V55 -- effet de bord mineur assumé : Justok reçoit une alerte
 quasi-identique une seconde fois au prochain cycle, sous le nom du
 produit désormais correctement scindé (Mentali seul).
+
+## V56 : marqueur ⭐ pour l'UPC Noctali (18/08/2026)
+
+Demande explicite de Justok, juste après le split V55 : "le produit qui
+m'intéresse le plus au niveau des précommandes c'est l'UPC Noctali".
+Ajouté un champ `prioritaire: bool = False` à `ProduitSurveille`
+(`precommandes_watchlist.py`) -- purement cosmétique, n'affecte AUCUNE
+logique de détection/suppression d'alerte (documenté explicitement dans
+la docstring pour ne pas le confondre avec un futur besoin fonctionnel).
+`prioritaire=True` posé sur l'entrée Noctali uniquement. Le champ
+traverse `_candidat()` (`radar_precommandes.py`, seul point de
+construction des candidats, partagé par les 3 plateformes) jusqu'à
+`_texte_precommande()` (`alerte_precommande.py`), qui préfixe le nom du
+produit par "⭐" dans le message Telegram quand `prioritaire` est vrai.
+
+6 nouveaux tests : Noctali marqué prioritaire / Mentali non marqué par
+défaut (`test_precommandes_watchlist.py`), le texte Telegram contient
+bien "⭐" quand `prioritaire=True` et ne le contient pas par défaut
+(`test_alerte_precommande.py`).
+
+**Vérification avant commit** : suite complète `pytest tests/` (254/254,
++6 nouveaux), `pyflakes` propre.
