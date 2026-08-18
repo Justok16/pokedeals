@@ -290,6 +290,18 @@ BOUTIQUES_WOOCOMMERCE_AUTO_PRECOMMANDE_SEULEMENT = {listes["woocommerce_precomma
     tmp.replace(FICHIER_BOUTIQUES_DECOUVERTES)
 
 
+def _retirer_domaines_rejetes(listes: dict[str, list[str]]) -> dict[str, list[str]]:
+    """Retire des listes actives tout domaine present dans
+    DOMAINES_REJETES_MANUELLEMENT -- corrige le cas ou un domaine avait ete
+    ajoute automatiquement AVANT d'etre rejete par Justok : sans ce retrait,
+    la synchronisation memoire (dans main()) empeche seulement une
+    re-proposition future, mais le domaine restait actif dans
+    boutiques_decouvertes.py et continuait d'etre scanne (audit du
+    18/08/2026)."""
+    return {cle: [d for d in domaines if d not in DOMAINES_REJETES_MANUELLEMENT]
+            for cle, domaines in listes.items()}
+
+
 def envoyer_telegram_rapport(ajouts: list[dict], a_examiner: list[dict], chat_id: str, token: str) -> None:
     if not token or not chat_id:
         print("Telegram non configure : rapport de decouverte non envoye.")
@@ -390,6 +402,7 @@ def main() -> None:
         cle = f"{'shopify' if c['plateforme'] == 'shopify' else 'woocommerce'}" + ("_precommande" if c["verdict"] == "scelle" else "")
         if c["domaine"] not in listes[cle]:
             listes[cle].append(c["domaine"])
+    listes = _retirer_domaines_rejetes(listes)
     _ecrire_boutiques_decouvertes(listes)
 
     sauvegarder_memoire(memoire, FICHIER_MEMOIRE)

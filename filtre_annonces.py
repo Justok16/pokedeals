@@ -139,8 +139,6 @@ MARQUEURS_LANGUE = {
     "pt": ["portugaise", "portugais", "portuguese", "portugues"],
     "nl": ["nederlands", "kaart"],
 }
-# Langues à REJETER pour une carte française (tout sauf le français).
-LANGUES_NON_FR = ("jp", "en", "kr", "cn", "it", "de", "es", "pt", "nl")
 
 # V22.8 : formules signalant une ENCHÈRE DÉGUISÉE. Le vendeur affiche un
 # prix dérisoire (1€) et invite à surenchérir en commentaire — le prix
@@ -152,7 +150,6 @@ SIGNAUX_ENCHERE = (
     "chiedere per informazioni", "mp pour prix", "prix en mp",
     "commentaire pour prix", "spedisco energia", "spedisco solo energia",
 )
-TOUS_MARQUEURS = [m for lst in MARQUEURS_LANGUE.values() for m in lst]
 
 
 def _marqueur_present(marqueur: str, texte_norm: str, jetons: list[str]) -> bool:
