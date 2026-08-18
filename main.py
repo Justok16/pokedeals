@@ -734,11 +734,6 @@ def vinted_description(item_id: str) -> str | None:
             log.info("    [Vinted] fiche %s illisible : HTTP %s", item_id, r.status_code)
             return None
         item = (r.json() or {}).get("item") or {}
-        # V26 TEMPORAIRE (à retirer après 1 scan) : lister les champs
-        # disponibles. Si la fiche expose un pays / une locale du vendeur,
-        # on remplacera la détection par vocabulaire par un vrai filtre
-        # de localisation, comme sur eBay.
-        log.info("    [Vinted debug] champs disponibles : %s", sorted(item.keys()))
         return str(item.get("description") or "")
     except Exception as e:  # noqa: BLE001 — ne doit jamais casser le scan
         log.info("    [Vinted] fiche %s illisible : %s (%s)",

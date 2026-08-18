@@ -80,3 +80,26 @@ def test_requete_avec_retry_propage_lerreur_apres_toutes_les_tentatives():
             assert False, "aurait du lever"
         except requests.exceptions.ConnectionError:
             pass
+
+
+def test_requete_avec_retry_ne_dort_pas_apres_lechec_de_la_derniere_tentative_5xx():
+    # Audit du 18/08/2026 : dormir apres le DERNIER essai est pur gaspillage
+    # (aucune tentative suivante n'attend ce delai) -- cout reel multiplie
+    # par le nombre de cartes cherchees lors d'une vraie panne prolongee.
+    reponse_503 = type("R", (), {"status_code": 503})()
+    appel = lambda url, **kw: reponse_503  # noqa: E731
+    with patch("http_utils.time.sleep") as sleep_mock:
+        r = http_utils.requete_avec_retry(appel, "https://x", tentatives=3)
+    assert r.status_code == 503
+    assert sleep_mock.call_count == 2  # entre les 3 tentatives, jamais apres la derniere
+
+
+def test_requete_avec_retry_ne_dort_pas_apres_lechec_de_la_derniere_tentative_reseau():
+    def appel(url, **kw):
+        raise requests.exceptions.ConnectionError("panne")
+    with patch("http_utils.time.sleep") as sleep_mock:
+        try:
+            http_utils.requete_avec_retry(appel, "https://x", tentatives=3)
+        except requests.exceptions.ConnectionError:
+            pass
+    assert sleep_mock.call_count == 2

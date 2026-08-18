@@ -47,9 +47,19 @@ def requete_avec_retry(methode, url, tentatives: int = 3, **kwargs):
     derniere_erreur = None
     r = None
     for i in range(tentatives):
+        derniere_tentative = i == tentatives - 1
         try:
             r = methode(url, **kwargs)
             if r.status_code in CODES_A_RETENTER or r.status_code >= 500:
+                if derniere_tentative:
+                    # Audit du 18/08/2026 : plus aucune tentative a suivre --
+                    # dormir ici n'attend rien, ca ne fait que gaspiller du
+                    # temps sur le budget du job (jusqu'a ~10s par appel, un
+                    # cout reel multiplie par ~100+ cartes de la watchlist
+                    # lors d'une vraie panne prolongee d'une API, cf.
+                    # SESSION_NOTES.md pour d'autres cas de marge de timeout
+                    # deja tendue sur ce projet).
+                    break
                 attente = (2 ** (i + 1)) + random.uniform(0, 2)
                 log.info("%d reçu, pause de %.1fs", r.status_code, attente)
                 time.sleep(attente)
@@ -57,7 +67,8 @@ def requete_avec_retry(methode, url, tentatives: int = 3, **kwargs):
             return r
         except requests.RequestException as e:
             derniere_erreur = e
-            time.sleep((2 ** i) + random.uniform(0, 1))
+            if not derniere_tentative:
+                time.sleep((2 ** i) + random.uniform(0, 1))
     if derniere_erreur:
         raise derniere_erreur
     return r

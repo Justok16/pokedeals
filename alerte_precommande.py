@@ -151,8 +151,22 @@ def detecter_nouvelles_precommandes(
             and c.get("en_stock") is True
         )
 
+        # Confiance MONOTONE (audit du 18/08/2026) : une fois "forte"
+        # confirmee, ne redescend plus jamais a "moyenne" en memoire, meme
+        # si un cycle ulterieur ne retrouve plus la date sur la page (ex.
+        # boutique qui retire la mention de date apres l'annonce initiale,
+        # ou texte de page legerement modifie). Sans ce plancher, un cycle
+        # "forte" -> "moyenne" (silencieux, cf. deja_confirme_mieux) ecrase
+        # la memoire avec "moyenne" ; un cycle SUIVANT qui retrouve "forte"
+        # ne verrait alors plus deja_confirme_mieux=True et redeclencherait
+        # a tort une 2e alerte de "confirmation" pour une date deja
+        # confirmee une premiere fois.
+        confiance_memorisee = c["confiance"]
+        if etat_precedent is not None and etat_precedent.get("confiance") == "forte":
+            confiance_memorisee = "forte"
+
         nouvel_etat = {
-            "confiance": c["confiance"],
+            "confiance": confiance_memorisee,
             "raison": c["raison"],
             "titre_produit": c["titre"],
             "url_produit": c["url_produit"],

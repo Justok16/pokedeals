@@ -84,6 +84,28 @@ def test_deja_vu_a_forte_nouveau_match_moyenne_ne_re_alerte_pas():
     assert evenements == []
 
 
+def test_confiance_forte_ne_redescend_jamais_en_memoire():
+    # Audit du 18/08/2026 : un cycle qui ne retrouve plus la date sur la
+    # page (boutique qui retire/modifie le texte) ne doit PAS ecraser la
+    # confiance "forte" deja confirmee en memoire par "moyenne" -- sinon un
+    # cycle ULTERIEUR qui retrouve "forte" redeclencherait a tort une 2e
+    # alerte de "confirmation" pour une date deja confirmee une 1ere fois.
+    memoire = {"exemple.fr|ETB 30e Anniversaire": {"confiance": "forte", "en_stock": True}}
+    detecter_nouvelles_precommandes("exemple.fr", [_candidat(confiance="moyenne")], memoire)
+    assert memoire["exemple.fr|ETB 30e Anniversaire"]["confiance"] == "forte"
+
+
+def test_flapping_forte_moyenne_forte_ne_re_alerte_pas_a_la_3e_detection():
+    # Verification bout-en-bout du scenario complet : forte (memorisee) ->
+    # moyenne (silencieux, ne doit pas degrader la memoire) -> forte a
+    # nouveau -> toujours pas d'alerte (deja confirme la 1ere fois).
+    memoire = {"exemple.fr|ETB 30e Anniversaire": {"confiance": "forte", "en_stock": True}}
+    evenements_cycle2 = detecter_nouvelles_precommandes("exemple.fr", [_candidat(confiance="moyenne")], memoire)
+    assert evenements_cycle2 == []
+    evenements_cycle3 = detecter_nouvelles_precommandes("exemple.fr", [_candidat(confiance="forte")], memoire)
+    assert evenements_cycle3 == []
+
+
 def test_deja_vu_a_forte_nouveau_match_forte_ne_re_alerte_pas():
     memoire = {"exemple.fr|ETB 30e Anniversaire": {"confiance": "forte", "en_stock": True}}
     evenements = detecter_nouvelles_precommandes("exemple.fr", [_candidat(confiance="forte")], memoire)
