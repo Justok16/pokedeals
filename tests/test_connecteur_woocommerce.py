@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import pytest
 
-from connecteur_woocommerce import ConnecteurWooCommerce
+from connecteur_woocommerce import ConnecteurWooCommerce, _est_racine_boutique
 
 
 def _connecteur() -> ConnecteurWooCommerce:
@@ -110,3 +110,31 @@ def test_recuperer_urls_naffecte_pas_un_resultat_vide_apres_filtre_segments():
     with patch.object(c, "_decouvrir_sitemaps_racine", return_value=["https://boutique-toute-neuve.fr/sitemap.xml"]), \
          patch.object(c, "_lister_urls_recursif", return_value=["https://boutique-toute-neuve.fr/mon-compte/"]):
         assert c.recuperer_toutes_les_urls_produits() == []
+
+
+# ------------------- _est_racine_boutique (audit du 18/08/2026) -------------------
+# L'exclusion vivait auparavant dans SEGMENTS_URL_EXCLUS sous la forme du
+# segment "/boutique/</loc>" -- cense filtrer la racine boutique dans le
+# sitemap, mais qui ne pouvait JAMAIS matcher : les URLs testees viennent du
+# texte deja PARSE (ElementTree `loc.text`, ou un `href="..."` extrait par
+# regex), qui ne contient jamais le texte litteral "</loc>".
+
+def test_racine_boutique_est_detectee():
+    assert _est_racine_boutique("https://exemple.fr/boutique/") is True
+    assert _est_racine_boutique("https://exemple.fr/boutique") is True
+
+
+def test_vrai_produit_sous_boutique_nest_pas_exclu():
+    # "/boutique/" est le PREFIXE de toute vraie URL produit sous ce chemin
+    # -- un simple "in" les aurait exclues a tort dans leur integralite.
+    assert _est_racine_boutique("https://exemple.fr/boutique/pikachu-151/") is False
+
+
+def test_recuperer_urls_exclut_la_racine_boutique_seule():
+    c = ConnecteurWooCommerce("exemple.fr")
+    with patch.object(c, "_decouvrir_sitemaps_racine", return_value=["https://exemple.fr/sitemap.xml"]), \
+         patch.object(c, "_lister_urls_recursif", return_value=[
+             "https://exemple.fr/boutique/",
+             "https://exemple.fr/boutique/pikachu-151/",
+         ]):
+        assert c.recuperer_toutes_les_urls_produits() == ["https://exemple.fr/boutique/pikachu-151/"]
