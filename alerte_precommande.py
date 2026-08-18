@@ -80,7 +80,29 @@ def detecter_nouvelles_precommandes(
     match a confiance "moyenne" est deja memorise et qu'un match "forte"
     est trouve ensuite (date confirmee apres coup), une SECONDE alerte est
     envoyee pour signaler la confirmation -- utile (l'info "date
-    confirmee" a une vraie valeur), pas juste du bruit."""
+    confirmee" a une vraie valeur), pas juste du bruit.
+
+    EXCEPTION ajoutee le 18/08/2026 (Justok : "les dates de precommande ne
+    sont pas egales aux dates de sortie -- je veux pouvoir precommander
+    des que possible pour etre SUR de pouvoir acheter"). Avant ce
+    correctif, `en_stock` n'etait JAMAIS memorise -- seule `confiance`
+    determinait si on re-alertait. Consequence concrete : une page qui
+    apparait tot (date de sortie deja confirmee, donc alerte immediate
+    grace au fix precedent) mais encore HORS STOCK (annonce/placeholder
+    avant ouverture reelle des precommandes) declenchait bien une alerte
+    UNE FOIS -- puis plus JAMAIS de second signal quand elle devient
+    reellement commandable, puisque la confiance ne change pas entre les
+    deux etats. Exactement le scenario que Justok voulait couvrir : le
+    moment qui compte pour lui n'est pas l'apparition de la page, c'est le
+    moment ou il peut reellement passer commande. Corrige en memorisant
+    aussi `en_stock` et en declenchant une alerte des que ce champ passe a
+    True alors qu'il ne l'etait pas avant (False/indetermine -> True),
+    INDEPENDAMMENT du niveau de confiance -- cette transition prime sur
+    toutes les autres regles de suppression ci-dessus, y compris
+    `deja_confirme_mieux`. Une premiere detection (jamais vue avant)
+    reste soumise aux regles habituelles ci-dessus (silencieuse si
+    "moyenne", alerte immediate si "forte") : cette exception ne
+    s'applique qu'a un produit DEJA connu dont le stock vient de changer."""
     evenements = []
 
     for c in candidats:
@@ -104,8 +126,18 @@ def detecter_nouvelles_precommandes(
             etat_precedent is not None
             and etat_precedent.get("confiance") == "forte"
         )
+        # Cf. docstring V54 : un produit deja connu qui devient commandable
+        # (stock False/indetermine -> True) alerte TOUJOURS, meme si la
+        # confiance n'a pas change et meme si "forte" a deja ete confirmee.
+        stock_vient_de_souvrir = (
+            etat_precedent is not None
+            and etat_precedent.get("en_stock") is not True
+            and c.get("en_stock") is True
+        )
 
-        if not premiere_fois_ambigue and not deja_alerte_a_ce_niveau and not deja_confirme_mieux:
+        if stock_vient_de_souvrir or (
+            not premiere_fois_ambigue and not deja_alerte_a_ce_niveau and not deja_confirme_mieux
+        ):
             evenements.append(c)
 
         memoire[cle_mem] = {
@@ -114,6 +146,7 @@ def detecter_nouvelles_precommandes(
             "titre_produit": c["titre"],
             "url_produit": c["url_produit"],
             "derniere_verification": c.get("horodatage", ""),
+            "en_stock": c.get("en_stock"),
         }
 
     return evenements
