@@ -40,6 +40,7 @@ jobs:
           git stash -u || true
           git pull --rebase || git rebase --abort || true
           git stash pop || true
+          git stash drop || true   # purge defensive d'un stash laisse par un pop en conflit -- un seul appel de sauvegarde dans ce job (runner jete juste apres), donc sans le risque de cascade documente dans CLAUDE.md (scan_prestashop.yml/scan_shopify.yml), mais garde par coherence/prudence
           cp -f /tmp/historique_prix_tendance.json data/historique_prix_tendance.json 2>/dev/null || true
           git add data/historique_prix_tendance.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "maj historique tendance prix [skip ci]"
