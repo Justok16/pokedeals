@@ -30,6 +30,9 @@ jobs:
   # inter-workflows deja gerees par pull --rebase.
   scan_lot_a:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
     # 18 -> 22 min le 11/08/2026 : diagnostic du run #12 annule (18m17s,
     # timeout depasse) -- marge normale mesuree de 13m27s a 16m15s sur 6
     # runs reussis (soit seulement 1m45s a 4m33s de marge sur 18 min),
@@ -104,6 +107,9 @@ jobs:
     needs: scan_lot_a   # execution sequentielle -- evite une course sur le meme fichier memoire au sein du run
     if: ${{ github.event.inputs.boutiques == '' || github.event.inputs.boutiques == null }}  # lot B saute si un scan cible manuel est demande
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
     timeout-minutes: 18
     steps:
       - name: Récupérer le code
@@ -162,6 +168,9 @@ jobs:
     needs: scan_lot_b   # tourne apres les 2 lots du scan cartes existant, jamais en parallele d'eux
     if: ${{ github.event.inputs.boutiques == '' || github.event.inputs.boutiques == null }}  # saute si un scan cible manuel est demande
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
     # Meme volume de boutiques que le scan cartes (qui a besoin de 2 lots
     # sequentiels pour tenir dans 18 min chacun), mais le radar est moins
     # couteux par boutique (pas de matching sur 194 criteres -- juste un

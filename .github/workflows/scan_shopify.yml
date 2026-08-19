@@ -19,6 +19,9 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
     # Mesure reelle en prod le 17/08/2026 (10 runs consecutifs, scan cartes +
     # radar precommandes) : 16.2-19.9 min, tous reussis -- mais marge tombee
     # a ~20% du budget (25 min), sous le surcout habituel de GitHub Actions

@@ -17,6 +17,9 @@ concurrency:
 jobs:
   prix-bas:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
     # Scan cible (19 criteres) mais sur TOUTES les boutiques actives (83+),
     # meme cout reseau qu'un scan_boutique*.py complet. Mesure reelle en
     # prod le 17/08/2026 (3 premiers runs depuis l'activation) : 20.6 a

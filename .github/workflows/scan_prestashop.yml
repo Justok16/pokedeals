@@ -20,6 +20,9 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
     # 6.8 min mesurees en local sur les 16 boutiques (avant retrait de
     # bcd-jeux.fr) -- marge large car 2 sitemaps sont volumineux
     # (skydreamer.fr ~31 Mo, ludum.fr ~17 Mo) et pourraient ralentir sur le
