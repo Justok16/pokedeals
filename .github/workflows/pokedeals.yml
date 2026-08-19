@@ -12,6 +12,9 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
     timeout-minutes: 15
     steps:
       - name: Récupérer le code

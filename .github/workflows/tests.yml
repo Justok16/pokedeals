@@ -18,6 +18,9 @@ permissions:
 jobs:
   pytest:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
     timeout-minutes: 5
     steps:
       - name: Récupérer le code

@@ -15,6 +15,9 @@ concurrency:
 jobs:
   tendance:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
     timeout-minutes: 10
     steps:
       - name: Récupérer le code
