@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PokéDeals — SaaS
 
-## Getting Started
+Application web (Next.js, App Router, Tailwind CSS) permettant à chaque
+utilisateur de configurer sa propre watchlist de cartes Pokémon TCG (nom,
+langue, seuil de prix) et de recevoir ses alertes personnalisées, en
+complément du bot `scraper/` qui tourne déjà en production.
 
-First, run the development server:
+PWA : voir `public/sw.js`, `public/manifest` (généré via `app/manifest.ts`)
+et `app/register-sw.tsx`.
+
+## Mise en route
+
+### 1. Créer le projet Supabase + appliquer le schéma
+
+**Option automatique (recommandée)** — nécessite `jq` et un accès réseau
+non restreint vers `api.supabase.com` (donc en local, pas depuis un
+environnement sandboxé) :
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 1. Créer un compte sur https://supabase.com
+# 2. Créer un jeton sur https://supabase.com/dashboard/account/tokens
+export SUPABASE_ACCESS_TOKEN=sbp_xxxxx
+./scripts/setup-supabase.sh
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Le script crée le projet, applique `supabase/migrations/0001_watchlist_items.sql`,
+et écrit `.env.local` avec l'URL et la clé anonyme.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Option manuelle** :
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Créer un compte sur [supabase.com](https://supabase.com) et un nouveau projet.
+2. Dans **Project Settings > API**, récupérer l'URL du projet et la clé `anon public`.
+3. Copier `.env.example` vers `.env.local` et renseigner ces deux valeurs.
+4. Dans le dashboard Supabase (**SQL Editor**), exécuter le contenu de
+   `supabase/migrations/0001_watchlist_items.sql`.
 
-## Learn More
+### 2. Configurer les fournisseurs OAuth (Google + GitHub)
 
-To learn more about Next.js, take a look at the following resources:
+Dans le dashboard Supabase, **Authentication > Providers** :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Google** : créer des identifiants OAuth 2.0 dans
+  [Google Cloud Console](https://console.cloud.google.com/apis/credentials),
+  avec comme URI de redirection autorisée celle indiquée par Supabase
+  (`https://<projet>.supabase.co/auth/v1/callback`). Renseigner le Client ID
+  et le Client Secret dans Supabase.
+- **GitHub** : créer une OAuth App dans
+  [GitHub Developer Settings](https://github.com/settings/developers), même
+  URI de callback. Renseigner le Client ID et le Client Secret dans Supabase.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Dans **Authentication > URL Configuration**, ajouter l'URL du site (en local :
+`http://localhost:3000`, en prod : l'URL Vercel) à la liste des Redirect URLs.
 
-## Deploy on Vercel
+### 3. Lancer en local
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm install
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Structure
+
+- `app/page.tsx` — landing page
+- `app/login/` — connexion OAuth (Google/GitHub)
+- `app/auth/callback/` — échange du code OAuth contre une session
+- `app/dashboard/` — watchlist protégée (liste, ajout, suppression)
+- `lib/supabase/` — clients Supabase (browser, server, middleware)
+- `proxy.ts` — rafraîchissement de session + protection de `/dashboard`
+- `supabase/migrations/` — schéma SQL (table `watchlist_items`, policies RLS)
+- `scripts/setup-supabase.sh` — provisionne le projet Supabase et applique le schéma via l'API (à lancer en local)
+
+## Déploiement
+
+Prévu pour [Vercel](https://vercel.com) : connecter le repo, définir le
+répertoire racine du projet sur `saas/`, et renseigner les variables
+d'environnement `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+dans les réglages du projet Vercel.
