@@ -10,25 +10,31 @@ et `app/register-sw.tsx`.
 
 ## Mise en route
 
-### 1. Créer un projet Supabase
+### 1. Créer le projet Supabase + appliquer le schéma
+
+**Option automatique (recommandée)** — nécessite `jq` et un accès réseau
+non restreint vers `api.supabase.com` (donc en local, pas depuis un
+environnement sandboxé) :
+
+```bash
+# 1. Créer un compte sur https://supabase.com
+# 2. Créer un jeton sur https://supabase.com/dashboard/account/tokens
+export SUPABASE_ACCESS_TOKEN=sbp_xxxxx
+./scripts/setup-supabase.sh
+```
+
+Le script crée le projet, applique `supabase/migrations/0001_watchlist_items.sql`,
+et écrit `.env.local` avec l'URL et la clé anonyme.
+
+**Option manuelle** :
 
 1. Créer un compte sur [supabase.com](https://supabase.com) et un nouveau projet.
 2. Dans **Project Settings > API**, récupérer l'URL du projet et la clé `anon public`.
-3. Copier `.env.example` vers `.env.local` et renseigner ces deux valeurs :
+3. Copier `.env.example` vers `.env.local` et renseigner ces deux valeurs.
+4. Dans le dashboard Supabase (**SQL Editor**), exécuter le contenu de
+   `supabase/migrations/0001_watchlist_items.sql`.
 
-   ```bash
-   cp .env.example .env.local
-   ```
-
-### 2. Appliquer le schéma de base de données
-
-Le schéma vit dans `supabase/migrations/`. Depuis le dashboard Supabase
-(**SQL Editor**), exécuter le contenu de `supabase/migrations/0001_watchlist_items.sql`.
-
-(Alternative en local avec la CLI Supabase : `npx supabase link` puis
-`npx supabase db push` — nécessite Docker.)
-
-### 3. Configurer les fournisseurs OAuth (Google + GitHub)
+### 2. Configurer les fournisseurs OAuth (Google + GitHub)
 
 Dans le dashboard Supabase, **Authentication > Providers** :
 
@@ -44,7 +50,7 @@ Dans le dashboard Supabase, **Authentication > Providers** :
 Dans **Authentication > URL Configuration**, ajouter l'URL du site (en local :
 `http://localhost:3000`, en prod : l'URL Vercel) à la liste des Redirect URLs.
 
-### 4. Lancer en local
+### 3. Lancer en local
 
 ```bash
 npm install
@@ -58,8 +64,9 @@ npm run dev
 - `app/auth/callback/` — échange du code OAuth contre une session
 - `app/dashboard/` — watchlist protégée (liste, ajout, suppression)
 - `lib/supabase/` — clients Supabase (browser, server, middleware)
-- `middleware.ts` — rafraîchissement de session + protection de `/dashboard`
+- `proxy.ts` — rafraîchissement de session + protection de `/dashboard`
 - `supabase/migrations/` — schéma SQL (table `watchlist_items`, policies RLS)
+- `scripts/setup-supabase.sh` — provisionne le projet Supabase et applique le schéma via l'API (à lancer en local)
 
 ## Déploiement
 
