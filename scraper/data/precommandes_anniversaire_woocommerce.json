@@ -4,7 +4,7 @@
     "raison": "date de sortie attendue (2026-09-16) confirmee sur la page",
     "titre_produit": "ETB Pokémon 30e Anniversaire – Coffret Dresseur d’Élite FR | HamaCards",
     "url_produit": "https://www.hamacards.com/produit/coffret-dresseur-delite-etb-pokemon-30e-anniversaire-francais/",
-    "derniere_verification": "2026-08-20T17:21:54+00:00",
+    "derniere_verification": "2026-08-20T18:48:44+00:00",
     "en_stock": null
   },
   "hamacards.com|Coffret Dresseur d'Élite — ME06 Règne Delta FR": {
@@ -12,7 +12,7 @@
     "raison": "date de sortie attendue (2026-11-06) confirmee sur la page",
     "titre_produit": "UPC Pokémon Noctali ex 30e Anniversaire FR | HamaCards",
     "url_produit": "https://www.hamacards.com/produit/coffret-pokemon-collection-ultra-premium-upc-noctali-ex-30e-anniversaire-francais/",
-    "derniere_verification": "2026-08-20T17:21:52+00:00",
+    "derniere_verification": "2026-08-20T18:48:54+00:00",
     "en_stock": null
   },
   "hamacards.com|Collection Ultra-Premium — Espeon (Mentali) 30e Anniversaire FR": {
@@ -20,7 +20,7 @@
     "raison": "date de sortie attendue (2026-11-06) confirmee sur la page",
     "titre_produit": "UPC Pokémon Noctali ex 30e Anniversaire FR | HamaCards",
     "url_produit": "https://www.hamacards.com/produit/coffret-pokemon-collection-ultra-premium-upc-noctali-ex-30e-anniversaire-francais/",
-    "derniere_verification": "2026-08-20T17:21:52+00:00",
+    "derniere_verification": "2026-08-20T18:48:54+00:00",
     "en_stock": null
   },
   "hamacards.com|Collection Ultra-Premium — Umbreon (Noctali) 30e Anniversaire FR": {
@@ -28,7 +28,7 @@
     "raison": "date de sortie attendue (2026-11-06) confirmee sur la page",
     "titre_produit": "UPC Pokémon Noctali ex 30e Anniversaire FR | HamaCards",
     "url_produit": "https://www.hamacards.com/produit/coffret-pokemon-collection-ultra-premium-upc-noctali-ex-30e-anniversaire-francais/",
-    "derniere_verification": "2026-08-20T17:21:52+00:00",
+    "derniere_verification": "2026-08-20T18:48:54+00:00",
     "en_stock": null
   },
   "fuji-store.fr|Coffret Dresseur d'Élite — 30e Anniversaire (30th Celebration) FR": {
@@ -37,6 +37,14 @@
     "titre_produit": "ETB 30e ANNIVERSAIRE - ME5.5 - FRANCAIS 2026 POKEMON | Fuji Store",
     "url_produit": "https://fuji-store.fr/produit/etb-30e-anniversaire-me5-5-francais-2026-pokemon/",
     "derniere_verification": "2026-08-20T00:53:57+00:00",
+    "en_stock": null
+  },
+  "guizettefamily.com|Coffret Dresseur d'Élite — ME06 Règne Delta FR": {
+    "confiance": "forte",
+    "raison": "date de sortie attendue (2026-11-06) confirmee sur la page",
+    "titre_produit": "ETB ME06 - Règne Delta - Pokémon - Guizette Family",
+    "url_produit": "https://www.guizettefamily.com/produit/etb-me06-regne-delta-pokemon/",
+    "derniere_verification": "2026-08-20T18:52:06+00:00",
     "en_stock": null
   }
 }
