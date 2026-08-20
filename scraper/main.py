@@ -1128,6 +1128,34 @@ def verifier_fiabilite_plateformes(vues: dict) -> list[str]:
     return alertes
 
 
+def verifier_circuit_ebay(vues: dict) -> list[str]:
+    """Alerte si le coupe-circuit 429 eBay (cf. _ebay_circuit, V61) s'est
+    déclenché sur CE cycle -- signe d'un blocage eBay généralisé (429 sur
+    la quasi-totalité des recherches), à distinguer d'un échec isolé déjà
+    toléré silencieusement partout ailleurs. Signal binaire (déclenché ou
+    pas), contrairement à verifier_fiabilite_plateformes() qui calcule un
+    taux -- eBay n'a pas de compteur d'appels/échecs équivalent à
+    _stats_fiabilite, seul l'état du coupe-circuit lui-même est observable.
+
+    Même anti-spam que verifier_fiabilite_plateformes() (DELAI_ANTI_SPAM_FIABILITE,
+    6h) pour ne pas ré-alerter à chaque cycle de 15 min tant que le blocage
+    persiste -- cas vécu : 13 cycles consécutifs les 19-20/08/2026, qui
+    auraient produit 13 alertes identiques sans cette protection."""
+    if not _ebay_circuit["abandonne"]:
+        return []
+    if not anti_spam(vues, "fiabilite-ebay", DELAI_ANTI_SPAM_FIABILITE):
+        return []
+    log.warning("Coupe-circuit eBay déclenché sur ce cycle (%d échecs 429 consécutifs)",
+                _ebay_circuit["echecs_consecutifs"])
+    return [
+        f"🚨 <b>eBay semble bloqué (429)</b>\n"
+        f"{_ebay_circuit['echecs_consecutifs']} échec(s) 429 consécutif(s) sur ce cycle -- "
+        f"eBay abandonné pour le reste du scan, Vinted/Leboncoin/Cardtrader/cotes en cache "
+        f"ont pris le relais. Si ça persiste sur plusieurs cycles, le rate-limit eBay est "
+        f"peut-être devenu plus sévère qu'avant."
+    ]
+
+
 # ------------------------ RÉCAPITULATIF 21H ----------------------------
 
 def recap_du_jour(cfg: dict, vues: dict) -> str | None:
@@ -1702,6 +1730,12 @@ def main() -> int:
     alertes_fiabilite = verifier_fiabilite_plateformes(vues)
     if alertes_fiabilite and notif.get("telegram") and "telegram" in cfg:
         envoyer_telegram_texte(alertes_fiabilite, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
+
+    # V61 : alerte si le coupe-circuit 429 eBay s'est déclenché sur ce cycle
+    # (blocage eBay généralisé, cf. _ebay_circuit / verifier_circuit_ebay).
+    alertes_circuit_ebay = verifier_circuit_ebay(vues)
+    if alertes_circuit_ebay and notif.get("telegram") and "telegram" in cfg:
+        envoyer_telegram_texte(alertes_circuit_ebay, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
 
     # --- Récapitulatif quotidien (envoyé une fois, vers 21h heure de Paris) ---
     recap = recap_du_jour(cfg, vues)
