@@ -102,3 +102,34 @@ def test_recherche_reussie_renvoie_bien_les_annonces():
         resultat = main.ebay_rechercher("Dracaufeu 199/165", "fr", {"EBAY_CLIENT_ID": "x", "EBAY_CLIENT_SECRET": "y"})
     assert len(resultat) == 1
     assert resultat[0]["prix"] == 10.0
+
+
+# ------------------- verifier_circuit_ebay (alerte Telegram, V61) -------------------
+# Meme principe que verifier_fiabilite_plateformes() (Vinted/Leboncoin) : signale
+# sur Telegram quand le coupe-circuit se declenche, avec le meme anti-spam
+# (DELAI_ANTI_SPAM_FIABILITE, 6h) pour ne pas spammer a chaque cycle de 15 min
+# tant qu'un blocage eBay persiste (cas vecu : 13 cycles consecutifs).
+
+def test_verifier_circuit_ebay_silencieux_si_coupe_circuit_non_declenche():
+    assert main._ebay_circuit["abandonne"] is False
+    assert main.verifier_circuit_ebay({}) == []
+
+
+def test_verifier_circuit_ebay_alerte_si_coupe_circuit_declenche():
+    main._ebay_circuit["abandonne"] = True
+    main._ebay_circuit["echecs_consecutifs"] = 3
+    alertes = main.verifier_circuit_ebay({})
+    assert len(alertes) == 1
+    assert "eBay" in alertes[0]
+    assert "429" in alertes[0]
+
+
+def test_verifier_circuit_ebay_respecte_lanti_spam():
+    main._ebay_circuit["abandonne"] = True
+    vues = {}
+    premiere = main.verifier_circuit_ebay(vues)
+    assert len(premiere) == 1
+    # Meme cycle "declenche" derechef (comme un cycle suivant qui retrouve
+    # le coupe-circuit encore actif) -- pas de 2e alerte avant le delai anti-spam.
+    seconde = main.verifier_circuit_ebay(vues)
+    assert seconde == []

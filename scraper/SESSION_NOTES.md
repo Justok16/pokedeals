@@ -3718,3 +3718,30 @@ dès 07h04). Correctif appliqué directement à `scraper/main.py` /
 
 **Vérification avant commit** : suite complète `pytest tests/`
 (319/319, +8 nouveaux), `pyflakes` propre.
+
+## V61 (suite) : alerte Telegram sur déclenchement du coupe-circuit eBay (20/08/2026)
+
+Complément demandé par Justok après le coupe-circuit 429 eBay (V61) :
+même visibilité que `verifier_fiabilite_plateformes()` (Vinted/Leboncoin,
+V50) pour eBay -- jusqu'ici, le déclenchement du coupe-circuit n'était
+visible que dans les logs GitHub Actions, jamais notifié.
+
+Ajout de `verifier_circuit_ebay(vues)`, appelée une fois en fin de
+`main()` juste après `verifier_fiabilite_plateformes()` : si
+`_ebay_circuit["abandonne"]` est vrai à la fin du cycle, envoie une
+alerte 🚨 récapitulant le nombre d'échecs 429 consécutifs qui ont
+déclenché le coupe-circuit. Signal binaire (déclenché ou pas), à la
+différence de `verifier_fiabilite_plateformes()` qui calcule un taux --
+eBay n'a pas de compteur d'appels/échecs équivalent à `_stats_fiabilite`.
+
+Même anti-spam que Vinted/Leboncoin (`DELAI_ANTI_SPAM_FIABILITE`, 6h,
+clé `"fiabilite-ebay"`) : indispensable ici aussi, sinon un blocage eBay
+prolongé (13 cycles consécutifs constatés le 19-20/08) aurait produit
+autant d'alertes identiques, une toutes les 15 min.
+
+3 nouveaux tests (`tests/test_circuit_ebay.py`) : silence si le
+coupe-circuit n'est pas déclenché, alerte si déclenché (contenu du
+message vérifié), anti-spam respecté sur un 2e appel rapproché.
+
+**Vérification avant commit** : suite complète `pytest tests/`
+(322/322, +3 nouveaux), `pyflakes` propre.
