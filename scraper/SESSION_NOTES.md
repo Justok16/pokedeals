@@ -3659,3 +3659,62 @@ risque réel) :
 
 **Vérification avant commit** : suite complète `pytest tests/` (311/311,
 +4 nouveaux tests), `pyflakes` propre sur tout le dépôt.
+
+## V61 : coupe-circuit sur les 429 eBay (20/08/2026)
+
+Suivi quotidien de marge de timeout demandé par Justok (routine du
+17/08/2026). Deux épisodes de blocage eBay généralisé (`429 Too Many
+Requests` sur quasiment chaque recherche) détectés :
+- 19/08, 05h23-06h32 UTC : 3 cycles `pokedeals.yml` consécutifs annulés
+  (~45 min).
+- 19/08 21h48 - 20/08 06h03 UTC : **13 cycles consécutifs** annulés
+  (8h+), 2e occurrence en moins de 24h, ampleur x10 par rapport à la
+  première. Auto-rétabli au cycle suivant (07h04, retour à 5-6 min).
+
+Cause confirmée dans les logs des 2 épisodes : `requete_avec_retry()`
+épuise ses tentatives sur CHAQUE recherche eBay (chaque carte perd
+~17s en retries 429 avant d'échouer, x2 pour la recherche alias),
+empêchant le cycle de compléter dans le budget de 15 min de
+`pokedeals.yml` -- et donc de sauvegarder la mémoire (l'étape est
+sautée quand le job est annulé), avec un risque réel de rater/dupliquer
+des alertes sur la fenêtre concernée. Un simple `timeout-minutes` plus
+large n'aurait pas réglé le fond : avec ~120 cartes dans la watchlist,
+un cycle complet pendant un vrai blocage eBay prendrait facilement
+30-35 min rien que pour épuiser les échecs eBay -- pas garanti de
+tenir même avec un timeout doublé.
+
+**Corrigé** par un coupe-circuit dans `main.py` (`_ebay_circuit`,
+`SEUIL_ECHECS_CONSECUTIFS_EBAY = 3`), même principe déjà éprouvé dans
+ce projet pour `mymesis.fr` (`connecteur_woocommerce.py`,
+`SEUIL_ECHECS_CONSECUTIFS_API_REST`) : après 3 échecs 429 D'AFFILÉE
+(pas 3 au total -- un succès remet le compteur à zéro), `ebay_rechercher()`
+renvoie `[]` immédiatement pour le RESTE du cycle, sans le moindre
+appel réseau -- le bot continue sur Vinted/Leboncoin/Cardtrader/cotes
+en cache. Le coupe-circuit repose spécifiquement sur le code HTTP 429
+(pas une erreur réseau générique) : portée volontairement étroite,
+calquée sur le signal réellement observé dans les 2 épisodes, pas une
+protection généraliste contre toute panne. Réinitialisé à chaque
+cycle (`_reinitialiser_circuit_ebay()`, appelée au début de `main()`,
+même pattern que `_reinitialiser_stats_fiabilite()` V50).
+
+8 nouveaux tests (`tests/test_circuit_ebay.py`, nouveau fichier) :
+déclenchement à 3 échecs consécutifs, non-déclenchement à 2, remise à
+zéro sur un succès intercalé, indifférence à une erreur non-429 (portée
+volontairement étroite), aucun appel réseau une fois déclenché,
+recherche alias sautée si le coupe-circuit se déclenche sur la
+recherche principale de la même carte, réinitialisation explicite,
+non-régression du chemin de succès normal.
+
+**Restructuration découverte pendant ce correctif** : le dépôt a été
+réorganisé par une session parallèle (PR #29, "Transforme saas/ en
+PWA") -- tout le code du bot (`main.py`, connecteurs, `data/`,
+`CLAUDE.md`, `SESSION_NOTES.md`, `tests/`...) vit désormais sous
+`scraper/`, à côté d'un nouveau dossier `saas/`. Les workflows
+`.github/workflows/*.yml` ont été mis à jour en conséquence
+(`defaults: run: working-directory: scraper`), déjà vérifiés
+fonctionnels sur les runs `pokedeals.yml` du 20/08 (retour à 5-6 min
+dès 07h04). Correctif appliqué directement à `scraper/main.py` /
+`scraper/tests/` -- pas de changement nécessaire côté `saas/`.
+
+**Vérification avant commit** : suite complète `pytest tests/`
+(319/319, +8 nouveaux), `pyflakes` propre.
