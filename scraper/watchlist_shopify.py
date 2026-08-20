@@ -105,7 +105,7 @@ class CarteWatchlist:
         return f"{self.nom_config}|{self.langue}"
 
 
-def _extraire_nom_et_numero(nom_config: str) -> tuple[str, str | None, str | None]:
+def extraire_nom_et_numero(nom_config: str) -> tuple[str, str | None, str | None]:
     """Extrait (nom_recherche, numero, qualificatif) a partir du champ "nom"
     brut de config.yaml, ex: "Charmander 168/165 sv2a" -> ("Charmander",
     "168/165", None) ; "Plumeline ex 024" -> ("Plumeline", "024", "ex")."""
@@ -242,7 +242,7 @@ def charger_watchlist_config(chemin: Path = CHEMIN_CONFIG_DEFAUT) -> list[CarteW
         alias = entree.get("alias")
         prix_max_fixe = entree.get("prix_max_fixe")
 
-        nom_recherche, numero, qualificatif = _extraire_nom_et_numero(nom_config)
+        nom_recherche, numero, qualificatif = extraire_nom_et_numero(nom_config)
         cartes.append(CarteWatchlist(nom_recherche, numero, langue, nom_config, prix_max_fixe, qualificatif))
 
         if alias and alias.strip().lower() != nom_recherche.strip().lower():

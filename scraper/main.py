@@ -833,6 +833,7 @@ from notifications_historique import (  # noqa: E402
     envoyer_alertes,
 )
 import connecteur_supabase  # noqa: E402
+from watchlist_saas import dict_watchlist_saas, MAX_CARTES_SAAS_EBAY  # noqa: E402
 
 
 
@@ -1269,6 +1270,22 @@ def main() -> int:
     _ct_charger_cache()  # V22 : cache Cardtrader (blueprints + prix du jour)
     _api_charger_cache()  # V47 : cache TCGdex (repli quand Cardtrader n'a rien)
     secrets = secrets_env()
+
+    # SaaS (saas/) : etend la watchlist eBay/Vinted/Leboncoin avec les
+    # cartes ajoutees par les utilisateurs du SaaS, en plus de config.yaml
+    # -- plafonnee a MAX_CARTES_SAAS_EBAY (cout reseau REEL par carte ici,
+    # contrairement aux scanners boutiques ; cf. watchlist_saas.py).
+    # Purement additif : n'ecrase jamais cfg["watchlist"], ne modifie
+    # jamais config.yaml. Secrets Supabase absents -> liste vide, aucun effet.
+    _cartes_saas = dict_watchlist_saas(
+        secrets.get("SUPABASE_URL", ""), secrets.get("SUPABASE_SERVICE_ROLE_KEY", ""),
+        max_cartes=MAX_CARTES_SAAS_EBAY,
+    )
+    if _cartes_saas:
+        log.info("SaaS : %d carte(s) supplementaire(s) de watchlists utilisateur ajoutee(s) au scan",
+                  len(_cartes_saas))
+        cfg["watchlist"] = cfg["watchlist"] + _cartes_saas
+
     _cfg_api = cfg.get("api_cotes", {})
     _ct_cfg.update(_cfg_api)  # V24 : accessible aux fonctions de recherche
     if _cfg_api.get("actif"):

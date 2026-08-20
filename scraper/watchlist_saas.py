@@ -1,0 +1,95 @@
+"""
+Etend la watchlist scraper avec les cartes ajoutees par les utilisateurs du
+SaaS (saas/, table watchlist_items), en plus de la watchlist curee a la
+main dans config.yaml. Systeme ENTIEREMENT additif : ne modifie jamais
+config.yaml (ni sur disque ni en memoire), ne touche pas a son parsing
+existant -- reutilise watchlist_shopify.extraire_nom_et_numero() pour
+convertir chaque carte SaaS au meme format que les entrees curees.
+
+Deux usages distincts, avec des couts reseau tres differents :
+- scan_boutique*.py (Shopify/PrestaShop/WooCommerce) : le catalogue ENTIER
+  d'une boutique est deja recupere en un seul appel reseau, quel que soit
+  le nombre de cartes recherchees (cf. scan_boutique.py,
+  ConnecteurShopify.recuperer_tout_le_catalogue). Ajouter des cartes SaaS
+  ici est donc GRATUIT en requetes HTTP, seulement un peu plus de matching
+  local -- aucune limite (cartes_watchlist_saas()).
+- main.py (eBay/Vinted/Leboncoin, via collecter()) : UNE recherche reseau
+  PAR carte -- rate-limit 429 deja documente (CLAUDE.md/SESSION_NOTES.md,
+  coupe-circuit connecteur_ebay). Chaque carte SaaS ajoutee ici a un cout
+  reseau reel : plafonne a MAX_CARTES_SAAS_EBAY, priorisees par nombre
+  d'utilisateurs qui la surveillent (dict_watchlist_saas(max_cartes=...)).
+
+Absent de secrets Supabase ou erreur reseau -> liste vide (cf.
+connecteur_supabase.lister_watchlist_items, deja no-op silencieux) :
+aucun de ces deux usages ne peut donc echouer a cause de ce module.
+"""
+from __future__ import annotations
+
+from connecteur_supabase import lister_watchlist_items
+from filtre_annonces import normaliser
+from watchlist_shopify import CarteWatchlist, extraire_nom_et_numero
+
+MAX_CARTES_SAAS_EBAY = 20
+
+
+def _grouper_par_carte(items: list[dict]) -> list[dict]:
+    """Deduplique les watchlist_items (potentiellement un par utilisateur
+    qui surveille la meme carte) en une entree par carte (nom normalise +
+    langue). prix_max_fixe = le seuil le PLUS HAUT parmi les utilisateurs
+    qui la surveillent -- chaque utilisateur est ensuite refiltre
+    individuellement contre SON PROPRE seuil par
+    connecteur_supabase.trouver_correspondances() (deja appele plus loin
+    dans main.py sur les deals detectes), donc elargir le seuil ici ne cree
+    jamais de fausse alerte, seulement une detection plus large en amont.
+    `nb_utilisateurs` sert a prioriser en cas de plafond (MAX_CARTES_SAAS_EBAY)."""
+    groupes: dict[tuple[str, str], dict] = {}
+    for item in items:
+        nom_carte = (item.get("nom_carte") or "").strip()
+        nom_norm = normaliser(nom_carte)
+        if not nom_norm:
+            continue
+        langue = (item.get("langue") or "fr").lower()
+        try:
+            seuil = float(item.get("prix_seuil", 0))
+        except (TypeError, ValueError):
+            continue
+        if seuil <= 0:
+            continue
+        cle = (nom_norm, langue)
+        if cle not in groupes:
+            groupes[cle] = {"nom": nom_carte, "langue": langue, "prix_max_fixe": seuil, "nb_utilisateurs": 1}
+        else:
+            groupes[cle]["prix_max_fixe"] = max(groupes[cle]["prix_max_fixe"], seuil)
+            groupes[cle]["nb_utilisateurs"] += 1
+    return sorted(groupes.values(), key=lambda g: g["nb_utilisateurs"], reverse=True)
+
+
+def dict_watchlist_saas(
+    supabase_url: str, service_role_key: str, max_cartes: int | None = None
+) -> list[dict]:
+    """Cartes SaaS distinctes, au meme format que les entrees de
+    cfg["watchlist"] (config.yaml) : [{"nom", "langue", "prix_max_fixe"}, ...].
+    `max_cartes` limite le nombre d'entrees retournees (les plus
+    demandees en premier) -- a utiliser pour main.py, jamais pour les
+    scanners boutiques (cf. docstring du module)."""
+    items = lister_watchlist_items(supabase_url, service_role_key)
+    cartes = _grouper_par_carte(items)
+    if max_cartes is not None:
+        cartes = cartes[:max_cartes]
+    return [
+        {"nom": c["nom"], "langue": c["langue"], "prix_max_fixe": c["prix_max_fixe"]}
+        for c in cartes
+    ]
+
+
+def cartes_watchlist_saas(supabase_url: str, service_role_key: str) -> list[CarteWatchlist]:
+    """Cartes SaaS distinctes converties en CarteWatchlist, pretes pour les
+    scanners boutiques (scan_boutique*.py) -- AUCUNE limite de nombre (cf.
+    docstring du module : gratuit en requetes HTTP pour ces scanners)."""
+    cartes: list[CarteWatchlist] = []
+    for entree in dict_watchlist_saas(supabase_url, service_role_key):
+        nom_recherche, numero, qualificatif = extraire_nom_et_numero(entree["nom"])
+        cartes.append(CarteWatchlist(
+            nom_recherche, numero, entree["langue"], entree["nom"], entree["prix_max_fixe"], qualificatif
+        ))
+    return cartes

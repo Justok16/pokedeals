@@ -45,6 +45,8 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optionnel : active la verification photo (cf. verification_photo.py)
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}   # optionnel : ajoute les cartes des watchlists SaaS (cf. watchlist_saas.py)
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
         run: python scan_boutique.py ${{ github.event.inputs.boutiques }}
       - name: Sauvegarder la mémoire de stock
