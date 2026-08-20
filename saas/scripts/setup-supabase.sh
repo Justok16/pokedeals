@@ -25,7 +25,7 @@ REGION="${2:-eu-west-3}"
 API="https://api.supabase.com/v1"
 AUTH_HEADER="Authorization: Bearer ${SUPABASE_ACCESS_TOKEN}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MIGRATION_FILE="${SCRIPT_DIR}/../supabase/migrations/0001_watchlist_items.sql"
+MIGRATIONS_DIR="${SCRIPT_DIR}/../supabase/migrations"
 ENV_FILE="${SCRIPT_DIR}/../.env.local"
 
 if ! command -v jq >/dev/null 2>&1; then
@@ -72,22 +72,25 @@ if [ "$STATUS" != "ACTIVE_HEALTHY" ]; then
   exit 1
 fi
 
-echo "==> Application du schéma ($MIGRATION_FILE)..."
-SQL_ESCAPED=$(jq -Rs . < "$MIGRATION_FILE")
-QUERY_RESPONSE=$(curl -sS -X POST "$API/projects/$PROJECT_REF/database/query" \
-  -H "$AUTH_HEADER" -H "Content-Type: application/json" \
-  -d "{\"query\": $SQL_ESCAPED}")
+for MIGRATION_FILE in "$MIGRATIONS_DIR"/*.sql; do
+  echo "==> Application de la migration ($(basename "$MIGRATION_FILE"))..."
+  SQL_ESCAPED=$(jq -Rs . < "$MIGRATION_FILE")
+  QUERY_RESPONSE=$(curl -sS -X POST "$API/projects/$PROJECT_REF/database/query" \
+    -H "$AUTH_HEADER" -H "Content-Type: application/json" \
+    -d "{\"query\": $SQL_ESCAPED}")
 
-if echo "$QUERY_RESPONSE" | jq -e '.error' >/dev/null 2>&1; then
-  echo "Erreur lors de l'application du schéma :" >&2
-  echo "$QUERY_RESPONSE" | jq . >&2
-  exit 1
-fi
-echo "    schéma appliqué."
+  if echo "$QUERY_RESPONSE" | jq -e '.error' >/dev/null 2>&1; then
+    echo "Erreur lors de l'application de $(basename "$MIGRATION_FILE") :" >&2
+    echo "$QUERY_RESPONSE" | jq . >&2
+    exit 1
+  fi
+  echo "    OK."
+done
 
 echo "==> Récupération des clés API..."
 API_KEYS=$(curl -sS -H "$AUTH_HEADER" "$API/projects/$PROJECT_REF/api-keys")
 ANON_KEY=$(echo "$API_KEYS" | jq -r '.[] | select(.name == "anon") | .api_key')
+SERVICE_ROLE_KEY=$(echo "$API_KEYS" | jq -r '.[] | select(.name == "service_role") | .api_key')
 
 cat > "$ENV_FILE" <<EOF
 NEXT_PUBLIC_SUPABASE_URL=https://${PROJECT_REF}.supabase.co
@@ -103,3 +106,12 @@ echo "  https://supabase.com/dashboard/project/${PROJECT_REF}/auth/providers"
 echo ""
 echo "URI de redirection à renseigner côté Google Cloud Console / GitHub :"
 echo "  https://${PROJECT_REF}.supabase.co/auth/v1/callback"
+echo ""
+echo "Pour connecter le scraper (scraper/) à cette même base -- alimente les"
+echo "watchlists persos, cf. scraper/connecteur_supabase.py -- ajoute ces 2"
+echo "secrets GitHub Actions sur le dépôt (Settings > Secrets and variables >"
+echo "Actions) :"
+echo "  SUPABASE_URL = https://${PROJECT_REF}.supabase.co"
+echo "  SUPABASE_SERVICE_ROLE_KEY = ${SERVICE_ROLE_KEY}"
+echo "(clé SECRÈTE, contourne les policies RLS -- ne JAMAIS l'utiliser côté"
+echo "SaaS/navigateur, uniquement dans les secrets GitHub Actions du scraper)"

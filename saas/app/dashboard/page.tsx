@@ -23,6 +23,12 @@ export default async function DashboardPage() {
     .select("id, nom_carte, langue, prix_seuil, notes, created_at")
     .order("created_at", { ascending: false });
 
+  const { data: alertes, error: erreurAlertes } = await supabase
+    .from("watchlist_alerts")
+    .select("id, titre, prix, url, plateforme, created_at, watchlist_items(nom_carte)")
+    .order("created_at", { ascending: false })
+    .limit(20);
+
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-8 px-6 py-12">
       <header className="flex items-center justify-between">
@@ -121,6 +127,46 @@ export default async function DashboardPage() {
               </button>
             </form>
           </div>
+        ))}
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h2 className="text-sm font-medium">Dernières bonnes affaires détectées</h2>
+
+        {erreurAlertes && (
+          <p className="text-sm text-red-600 dark:text-red-400">
+            Erreur de chargement : {erreurAlertes.message}
+          </p>
+        )}
+
+        {!erreurAlertes && alertes?.length === 0 && (
+          <p className="text-sm text-zinc-500">
+            Aucune alerte pour l&apos;instant — dès qu&apos;une carte de ta
+            watchlist tombe sous ton seuil de prix, elle apparaîtra ici.
+          </p>
+        )}
+
+        {alertes?.map((alerte) => (
+          <a
+            key={alerte.id}
+            href={alerte.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between rounded-lg border border-zinc-200 px-4 py-3 transition hover:border-zinc-400 dark:border-zinc-800 dark:hover:border-zinc-600"
+          >
+            <div>
+              <p className="text-sm font-medium">
+                {alerte.watchlist_items?.[0]?.nom_carte ?? alerte.titre}
+              </p>
+              <p className="text-xs text-zinc-500">
+                {alerte.titre}
+                {alerte.plateforme ? ` · ${alerte.plateforme}` : ""}
+              </p>
+            </div>
+            <p className="text-sm font-semibold">
+              {Number(alerte.prix).toFixed(2)} €
+            </p>
+          </a>
         ))}
       </section>
     </main>

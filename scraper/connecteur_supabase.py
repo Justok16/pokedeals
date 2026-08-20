@@ -1,0 +1,113 @@
+"""
+Connecteur optionnel vers la base Supabase du SaaS (saas/) : lit les
+watchlists personnalisées des utilisateurs et y enregistre les deals qui
+matchent, pour affichage dans le dashboard (saas/app/dashboard).
+
+Système ENTIÈREMENT additif et non-bloquant, même philosophie que
+verification_photo.py : n'intervient qu'APRÈS qu'un deal a déjà été détecté
+et validé par le système historique (nouveaux_deals dans main.py), jamais
+dans la détection elle-même. Actif uniquement si les secrets SUPABASE_URL/
+SUPABASE_SERVICE_ROLE_KEY sont configurés ; absents -> no-op silencieux.
+Toute erreur réseau/API est avalée (log + liste vide), ne doit jamais faire
+échouer un cycle de scan pour une fonctionnalité annexe.
+
+Le matching réutilise le nom EXACT (normalisé) de la carte tel que défini
+dans config.yaml (watchlist) / saisi par l'utilisateur dans le dashboard
+(même format attendu, ex. "Dracaufeu ex 199/165") -- pas de recherche eBay
+dédiée par utilisateur : ça multiplierait les appels sur une API déjà
+sujette au rate-limit 429 documenté dans CLAUDE.md/SESSION_NOTES.md.
+"""
+from __future__ import annotations
+
+import logging
+
+import requests
+
+from filtre_annonces import normaliser
+
+log = logging.getLogger("pokedeals.connecteur_supabase")
+
+TIMEOUT = 10
+
+
+def lister_watchlist_items(supabase_url: str, service_role_key: str) -> list[dict]:
+    """Récupère toutes les watchlists de tous les utilisateurs (clé service_role,
+    contourne volontairement les policies RLS -- c'est le scraper, pas un
+    utilisateur). Retourne [] si les secrets sont absents ou en cas d'erreur."""
+    if not supabase_url or not service_role_key:
+        return []
+    try:
+        r = requests.get(
+            f"{supabase_url.rstrip('/')}/rest/v1/watchlist_items",
+            params={"select": "id,user_id,nom_carte,langue,prix_seuil"},
+            headers={
+                "apikey": service_role_key,
+                "Authorization": f"Bearer {service_role_key}",
+            },
+            timeout=TIMEOUT,
+        )
+        r.raise_for_status()
+        return r.json()
+    except requests.RequestException as e:
+        log.warning("Lecture des watchlists Supabase échouée (%s) -- ignorée ce cycle", e)
+        return []
+
+
+def trouver_correspondances(deals: list[dict], items: list[dict]) -> list[dict]:
+    """Compare chaque deal déjà validé aux watchlists utilisateur (nom normalisé
+    + langue + seuil de prix). Retourne les lignes prêtes à insérer dans
+    watchlist_alerts."""
+    if not deals or not items:
+        return []
+    alertes = []
+    for item in items:
+        nom_norm = normaliser(item.get("nom_carte", ""))
+        if not nom_norm:
+            continue
+        langue = (item.get("langue") or "fr").lower()
+        try:
+            seuil = float(item.get("prix_seuil", 0))
+        except (TypeError, ValueError):
+            continue
+        for deal in deals:
+            if normaliser(deal.get("carte", "")) != nom_norm:
+                continue
+            if (deal.get("langue") or "fr").lower() != langue:
+                continue
+            total = float(deal.get("total", 0))
+            if total > seuil:
+                continue
+            alertes.append({
+                "user_id": item["user_id"],
+                "watchlist_item_id": item["id"],
+                "titre": deal.get("titre", "")[:500],
+                "prix": total,
+                "url": deal.get("url", ""),
+                "plateforme": deal.get("plateforme", ""),
+            })
+    return alertes
+
+
+def enregistrer_alertes(supabase_url: str, service_role_key: str, alertes: list[dict]) -> None:
+    """Insère les correspondances trouvées. Une même alerte (même carte
+    surveillée + même annonce) n'est jamais dupliquée : contrainte unique
+    (watchlist_item_id, url) côté base + `resolution=ignore-duplicates`."""
+    if not alertes or not supabase_url or not service_role_key:
+        return
+    try:
+        r = requests.post(
+            f"{supabase_url.rstrip('/')}/rest/v1/watchlist_alerts",
+            json=alertes,
+            headers={
+                "apikey": service_role_key,
+                "Authorization": f"Bearer {service_role_key}",
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal,resolution=ignore-duplicates",
+            },
+            timeout=TIMEOUT,
+        )
+        r.raise_for_status()
+        log.info("[Supabase] %d alerte(s) watchlist enregistrée(s) pour le dashboard SaaS",
+                  len(alertes))
+    except requests.RequestException as e:
+        log.warning("Écriture des alertes watchlist Supabase échouée (%s) -- ignorée ce cycle", e)

@@ -2,8 +2,9 @@
 
 Application web (Next.js, App Router, Tailwind CSS) permettant à chaque
 utilisateur de configurer sa propre watchlist de cartes Pokémon TCG (nom,
-langue, seuil de prix) et de recevoir ses alertes personnalisées, en
-complément du bot `scraper/` qui tourne déjà en production.
+langue, seuil de prix) et de voir apparaître ici les bonnes affaires
+détectées par le bot `scraper/`, qui alimente la même base Supabase (cf.
+`scraper/connecteur_supabase.py`) en plus de ses alertes Telegram existantes.
 
 PWA : voir `public/sw.js`, `public/manifest` (généré via `app/manifest.ts`)
 et `app/register-sw.tsx`.
@@ -23,16 +24,27 @@ export SUPABASE_ACCESS_TOKEN=sbp_xxxxx
 ./scripts/setup-supabase.sh
 ```
 
-Le script crée le projet, applique `supabase/migrations/0001_watchlist_items.sql`,
-et écrit `.env.local` avec l'URL et la clé anonyme.
+Le script crée le projet, applique toutes les migrations de
+`supabase/migrations/` (schéma `watchlist_items` + `watchlist_alerts`),
+écrit `.env.local` avec l'URL et la clé anonyme, et affiche à la fin les
+deux secrets à ajouter côté GitHub Actions pour connecter le scraper
+(`SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY`).
 
 **Option manuelle** :
 
 1. Créer un compte sur [supabase.com](https://supabase.com) et un nouveau projet.
 2. Dans **Project Settings > API**, récupérer l'URL du projet et la clé `anon public`.
 3. Copier `.env.example` vers `.env.local` et renseigner ces deux valeurs.
-4. Dans le dashboard Supabase (**SQL Editor**), exécuter le contenu de
-   `supabase/migrations/0001_watchlist_items.sql`.
+4. Dans le dashboard Supabase (**SQL Editor**), exécuter dans l'ordre le
+   contenu de chaque fichier de `supabase/migrations/` (`0001_...` puis
+   `0002_...`).
+5. Pour connecter le scraper : dans **Project Settings > API**, récupérer
+   aussi la clé `service_role` (secrète), puis l'ajouter avec l'URL du
+   projet comme secrets `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` sur le
+   dépôt GitHub (**Settings > Secrets and variables > Actions**). Sans ces
+   secrets, le scraper continue de fonctionner normalement (fonctionnalité
+   optionnelle, cf. `scraper/connecteur_supabase.py`) — les utilisateurs ne
+   verront simplement aucune alerte apparaître dans leur dashboard.
 
 ### 2. Configurer les fournisseurs OAuth (Google + GitHub)
 
@@ -62,10 +74,10 @@ npm run dev
 - `app/page.tsx` — landing page
 - `app/login/` — connexion OAuth (Google/GitHub)
 - `app/auth/callback/` — échange du code OAuth contre une session
-- `app/dashboard/` — watchlist protégée (liste, ajout, suppression)
+- `app/dashboard/` — watchlist protégée (liste, ajout, suppression) + dernières alertes détectées
 - `lib/supabase/` — clients Supabase (browser, server, middleware)
 - `proxy.ts` — rafraîchissement de session + protection de `/dashboard`
-- `supabase/migrations/` — schéma SQL (table `watchlist_items`, policies RLS)
+- `supabase/migrations/` — schéma SQL (`watchlist_items`, `watchlist_alerts`, policies RLS)
 - `scripts/setup-supabase.sh` — provisionne le projet Supabase et applique le schéma via l'API (à lancer en local)
 
 ## Déploiement

@@ -201,6 +201,10 @@ def secrets_env() -> dict:
         # Optionnel : active la verification photo (cf. verification_photo.py).
         # Absent -> comportement inchange (avertissement generique existant).
         "ANTHROPIC_API_KEY": os.environ.get("ANTHROPIC_API_KEY", ""),
+        # Optionnel : alimente les watchlists persos du SaaS (saas/), cf.
+        # connecteur_supabase.py. Absent -> no-op silencieux.
+        "SUPABASE_URL": os.environ.get("SUPABASE_URL", ""),
+        "SUPABASE_SERVICE_ROLE_KEY": os.environ.get("SUPABASE_SERVICE_ROLE_KEY", ""),
     }
 
 
@@ -828,6 +832,7 @@ from notifications_historique import (  # noqa: E402
     envoyer_telegram,
     envoyer_alertes,
 )
+import connecteur_supabase  # noqa: E402
 
 
 
@@ -1664,6 +1669,19 @@ def main() -> int:
 
     # Tri : les affaires les plus rentables en premier
     nouveaux_deals.sort(key=lambda d: d["profit_net_estime"], reverse=True)
+
+    # SaaS (saas/) : fait correspondre les deals déjà validés ci-dessus aux
+    # watchlists personnalisées des utilisateurs (base Supabase), pour
+    # affichage dans leur dashboard. Entièrement additif et non-bloquant
+    # (secrets absents ou Supabase indisponible -> no-op silencieux, cf.
+    # connecteur_supabase.py) -- n'affecte jamais la détection/notification
+    # Telegram/email ci-dessous.
+    _watchlist_items_saas = connecteur_supabase.lister_watchlist_items(
+        secrets.get("SUPABASE_URL", ""), secrets.get("SUPABASE_SERVICE_ROLE_KEY", ""))
+    if _watchlist_items_saas:
+        _alertes_saas = connecteur_supabase.trouver_correspondances(nouveaux_deals, _watchlist_items_saas)
+        connecteur_supabase.enregistrer_alertes(
+            secrets.get("SUPABASE_URL", ""), secrets.get("SUPABASE_SERVICE_ROLE_KEY", ""), _alertes_saas)
 
     # V23 : bilan de calibration. Affiche l'écart RÉEL mesuré entre les cotes
     # eBay et les prix Cardtrader sur les cartes couvertes par les deux
