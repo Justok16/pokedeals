@@ -257,6 +257,36 @@ MARKETPLACE = "EBAY_FR"
 
 _token_cache = {"token": None, "expire": 0}
 
+# V61 (20/08/2026) : coupe-circuit sur les 429 eBay -- meme principe que
+# SEUIL_ECHECS_CONSECUTIFS_API_REST (connecteur_woocommerce.py, mymesis.fr).
+# Cas reel qui motive ce correctif : 2 episodes de blocage eBay generalise
+# (429 sur QUASIMENT chaque recherche) le 19-20/08/2026, le second ayant
+# annule 13 cycles consecutifs de pokedeals.yml sur plus de 8h (cf.
+# SESSION_NOTES.md) -- chaque carte epuisait ses tentatives de retry
+# (~17s perdues rien qu'en 429 avant echec) sans jamais completer le cycle
+# dans le budget de 15 min, empechant meme la sauvegarde de la memoire.
+# Apres N echecs 429 D'AFFILEE (pas N au total -- un succes remet le
+# compteur a zero), on arrete d'interroger eBay pour le RESTE du cycle :
+# le bot continue sur Vinted/Leboncoin/Cardtrader/cotes en cache plutot que
+# de epuiser le budget du job en retries voues a l'echec.
+SEUIL_ECHECS_CONSECUTIFS_EBAY = 3
+_ebay_circuit = {"echecs_consecutifs": 0, "abandonne": False}
+
+
+def _reinitialiser_circuit_ebay() -> None:
+    _ebay_circuit["echecs_consecutifs"] = 0
+    _ebay_circuit["abandonne"] = False
+
+
+def _signaler_echec_429_ebay() -> None:
+    _ebay_circuit["echecs_consecutifs"] += 1
+    if (not _ebay_circuit["abandonne"]
+            and _ebay_circuit["echecs_consecutifs"] >= SEUIL_ECHECS_CONSECUTIFS_EBAY):
+        _ebay_circuit["abandonne"] = True
+        log.warning("eBay : %d échec(s) 429 consécutif(s) -- coupe-circuit déclenché, "
+                    "eBay abandonné pour le reste de ce cycle (Vinted/Leboncoin/Cardtrader "
+                    "continuent normalement)", _ebay_circuit["echecs_consecutifs"])
+
 
 def _obtenir_token(client_id: str, client_secret: str) -> str | None:
     if _token_cache["token"] and time.time() < _token_cache["expire"] - 60:
@@ -302,7 +332,14 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
     l'alias et on fusionne. Sans ça, une annonce titrée uniquement avec
     l'alias (« carte Tortank ex 202 japonaise ») n'était jamais remontée,
     car la requête ne portait que sur le nom principal.
+    V61 : si le coupe-circuit 429 (cf. _ebay_circuit) est déclenché,
+    renvoie immédiatement [] sans le moindre appel réseau -- évite de
+    gaspiller le budget du job en retries voués à l'échec pendant un vrai
+    blocage eBay généralisé.
     """
+    if _ebay_circuit["abandonne"]:
+        return []
+
     token = _obtenir_token(secrets["EBAY_CLIENT_ID"], secrets["EBAY_CLIENT_SECRET"])
     if not token:
         return []
@@ -330,7 +367,16 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
                 timeout=25,
             )
             r.raise_for_status()
+            # V61 : une reponse EXPLOITABLE (2xx, meme 0 resultat) remet le
+            # compteur d'echecs consecutifs a zero -- coherent avec le
+            # coupe-circuit deja utilise pour mymesis.fr (connecteur_woocommerce.py).
+            _ebay_circuit["echecs_consecutifs"] = 0
             return r.json().get("itemSummaries", []) or []
+        except requests.exceptions.HTTPError as e:
+            if e.response is not None and e.response.status_code == 429:
+                _signaler_echec_429_ebay()
+            log.error("Recherche eBay '%s' échouée : %s", terme, e)
+            return []
         except Exception as e:  # noqa: BLE001
             log.error("Recherche eBay '%s' échouée : %s", terme, e)
             return []
@@ -341,7 +387,10 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
     # alias "Tortank" -> on cherche aussi "Tortank ex 202".
     items = _une_recherche(nom_carte)
     alias_norm = normaliser(alias) if alias else ""
-    if alias and alias_norm not in normaliser(nom_carte):
+    # V61 : re-verifie le coupe-circuit avant la recherche alias -- si le
+    # premier appel ci-dessus vient de le declencher, inutile de gaspiller
+    # un 2e appel voue au meme echec pour cette meme carte.
+    if alias and alias_norm not in normaliser(nom_carte) and not _ebay_circuit["abandonne"]:
         terme_alias = nom_carte
         pokemon_principal = next((m for m in mots_requis(nom_carte) if m != "mega"), None)
         if pokemon_principal:
@@ -1079,6 +1128,34 @@ def verifier_fiabilite_plateformes(vues: dict) -> list[str]:
     return alertes
 
 
+def verifier_circuit_ebay(vues: dict) -> list[str]:
+    """Alerte si le coupe-circuit 429 eBay (cf. _ebay_circuit, V61) s'est
+    déclenché sur CE cycle -- signe d'un blocage eBay généralisé (429 sur
+    la quasi-totalité des recherches), à distinguer d'un échec isolé déjà
+    toléré silencieusement partout ailleurs. Signal binaire (déclenché ou
+    pas), contrairement à verifier_fiabilite_plateformes() qui calcule un
+    taux -- eBay n'a pas de compteur d'appels/échecs équivalent à
+    _stats_fiabilite, seul l'état du coupe-circuit lui-même est observable.
+
+    Même anti-spam que verifier_fiabilite_plateformes() (DELAI_ANTI_SPAM_FIABILITE,
+    6h) pour ne pas ré-alerter à chaque cycle de 15 min tant que le blocage
+    persiste -- cas vécu : 13 cycles consécutifs les 19-20/08/2026, qui
+    auraient produit 13 alertes identiques sans cette protection."""
+    if not _ebay_circuit["abandonne"]:
+        return []
+    if not anti_spam(vues, "fiabilite-ebay", DELAI_ANTI_SPAM_FIABILITE):
+        return []
+    log.warning("Coupe-circuit eBay déclenché sur ce cycle (%d échecs 429 consécutifs)",
+                _ebay_circuit["echecs_consecutifs"])
+    return [
+        f"🚨 <b>eBay semble bloqué (429)</b>\n"
+        f"{_ebay_circuit['echecs_consecutifs']} échec(s) 429 consécutif(s) sur ce cycle -- "
+        f"eBay abandonné pour le reste du scan, Vinted/Leboncoin/Cardtrader/cotes en cache "
+        f"ont pris le relais. Si ça persiste sur plusieurs cycles, le rate-limit eBay est "
+        f"peut-être devenu plus sévère qu'avant."
+    ]
+
+
 # ------------------------ RÉCAPITULATIF 21H ----------------------------
 
 def recap_du_jour(cfg: dict, vues: dict) -> str | None:
@@ -1182,6 +1259,7 @@ def collecter(carte: dict, cfg: dict, secrets: dict) -> tuple[list[dict], list[d
 def main() -> int:
     debut = time.time()
     _reinitialiser_stats_fiabilite()  # V50 : un cycle frais, un compteur frais
+    _reinitialiser_circuit_ebay()  # V61 : idem pour le coupe-circuit 429 eBay
     cfg = charger_config()
     _ct_charger_cache()  # V22 : cache Cardtrader (blueprints + prix du jour)
     _api_charger_cache()  # V47 : cache TCGdex (repli quand Cardtrader n'a rien)
@@ -1652,6 +1730,12 @@ def main() -> int:
     alertes_fiabilite = verifier_fiabilite_plateformes(vues)
     if alertes_fiabilite and notif.get("telegram") and "telegram" in cfg:
         envoyer_telegram_texte(alertes_fiabilite, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
+
+    # V61 : alerte si le coupe-circuit 429 eBay s'est déclenché sur ce cycle
+    # (blocage eBay généralisé, cf. _ebay_circuit / verifier_circuit_ebay).
+    alertes_circuit_ebay = verifier_circuit_ebay(vues)
+    if alertes_circuit_ebay and notif.get("telegram") and "telegram" in cfg:
+        envoyer_telegram_texte(alertes_circuit_ebay, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
 
     # --- Récapitulatif quotidien (envoyé une fois, vers 21h heure de Paris) ---
     recap = recap_du_jour(cfg, vues)
