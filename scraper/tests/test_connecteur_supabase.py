@@ -134,9 +134,36 @@ def test_enregistrer_succes_envoie_bien_les_alertes():
     reponse = Mock()
     reponse.raise_for_status = Mock()
     alertes = [{"user_id": "u1", "watchlist_item_id": "i1", "titre": "t", "prix": 10.0, "url": "https://x/1"}]
+    reponse.json.return_value = alertes
     with patch("connecteur_supabase.requests.post", return_value=reponse) as post_mock:
-        enregistrer_alertes("https://x.supabase.co", "cle-secrete", alertes)
+        nouvelles = enregistrer_alertes("https://x.supabase.co", "cle-secrete", alertes)
     args, kwargs = post_mock.call_args
     assert args[0] == "https://x.supabase.co/rest/v1/watchlist_alerts"
     assert kwargs["json"] == alertes
     assert "ignore-duplicates" in kwargs["headers"]["Prefer"]
+    assert "return=representation" in kwargs["headers"]["Prefer"]
+    assert nouvelles == alertes
+
+
+def test_enregistrer_ne_retourne_que_les_lignes_reellement_inserees():
+    """Les doublons ignores (resolution=ignore-duplicates) n'apparaissent pas
+    dans la reponse -- notifications_saas.py depend de ce comportement pour
+    ne pas re-notifier une alerte deja connue."""
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    reponse.json.return_value = []  # tout etait deja connu, rien de nouveau
+    with patch("connecteur_supabase.requests.post", return_value=reponse):
+        nouvelles = enregistrer_alertes(
+            "https://x.supabase.co", "cle-secrete",
+            [{"user_id": "u1", "watchlist_item_id": "i1", "titre": "t", "prix": 10.0, "url": "https://x/1"}])
+    assert nouvelles == []
+
+
+def test_enregistrer_liste_vide_retourne_liste_vide():
+    assert enregistrer_alertes("https://x.supabase.co", "cle-secrete", []) == []
+
+
+def test_enregistrer_erreur_reseau_retourne_liste_vide():
+    with patch("connecteur_supabase.requests.post", side_effect=requests.RequestException("boom")):
+        nouvelles = enregistrer_alertes("https://x.supabase.co", "cle-secrete", [{"user_id": "u1"}])
+    assert nouvelles == []

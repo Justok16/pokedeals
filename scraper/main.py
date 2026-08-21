@@ -205,6 +205,13 @@ def secrets_env() -> dict:
         # connecteur_supabase.py. Absent -> no-op silencieux.
         "SUPABASE_URL": os.environ.get("SUPABASE_URL", ""),
         "SUPABASE_SERVICE_ROLE_KEY": os.environ.get("SUPABASE_SERVICE_ROLE_KEY", ""),
+        # Optionnels : notifications push/email des utilisateurs SaaS, cf.
+        # notifications_saas.py. Chaque canal (push, email) est independant :
+        # absent -> ce canal est simplement saute, jamais d'erreur.
+        "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
+        "VAPID_CLAIM_EMAIL": os.environ.get("VAPID_CLAIM_EMAIL", ""),
+        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY", ""),
+        "RESEND_FROM_EMAIL": os.environ.get("RESEND_FROM_EMAIL", ""),
     }
 
 
@@ -833,6 +840,7 @@ from notifications_historique import (  # noqa: E402
     envoyer_alertes,
 )
 import connecteur_supabase  # noqa: E402
+import notifications_saas  # noqa: E402
 from watchlist_saas import dict_watchlist_saas, MAX_CARTES_SAAS_EBAY  # noqa: E402
 
 
@@ -1697,8 +1705,11 @@ def main() -> int:
         secrets.get("SUPABASE_URL", ""), secrets.get("SUPABASE_SERVICE_ROLE_KEY", ""))
     if _watchlist_items_saas:
         _alertes_saas = connecteur_supabase.trouver_correspondances(nouveaux_deals, _watchlist_items_saas)
-        connecteur_supabase.enregistrer_alertes(
+        _nouvelles_alertes_saas = connecteur_supabase.enregistrer_alertes(
             secrets.get("SUPABASE_URL", ""), secrets.get("SUPABASE_SERVICE_ROLE_KEY", ""), _alertes_saas)
+        # Notifie (push/email) uniquement les alertes REELLEMENT nouvelles
+        # (pas les doublons deja connus) -- cf. notifications_saas.py.
+        notifications_saas.notifier_nouvelles_alertes(secrets, _nouvelles_alertes_saas)
 
     # V23 : bilan de calibration. Affiche l'écart RÉEL mesuré entre les cotes
     # eBay et les prix Cardtrader sur les cartes couvertes par les deux

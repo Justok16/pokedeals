@@ -88,12 +88,18 @@ def trouver_correspondances(deals: list[dict], items: list[dict]) -> list[dict]:
     return alertes
 
 
-def enregistrer_alertes(supabase_url: str, service_role_key: str, alertes: list[dict]) -> None:
+def enregistrer_alertes(supabase_url: str, service_role_key: str, alertes: list[dict]) -> list[dict]:
     """Insère les correspondances trouvées. Une même alerte (même carte
     surveillée + même annonce) n'est jamais dupliquée : contrainte unique
-    (watchlist_item_id, url) côté base + `resolution=ignore-duplicates`."""
+    (watchlist_item_id, url) côté base + `resolution=ignore-duplicates`.
+
+    Retourne UNIQUEMENT les lignes réellement insérées (les doublons ignorés
+    n'apparaissent pas dans la réponse `return=representation`) -- utilisé par
+    notifications_saas.py pour ne notifier (push/email) qu'une seule fois par
+    alerte réellement NOUVELLE, jamais à chaque cycle sur les mêmes deals déjà
+    connus."""
     if not alertes or not supabase_url or not service_role_key:
-        return
+        return []
     try:
         r = requests.post(
             f"{supabase_url.rstrip('/')}/rest/v1/watchlist_alerts",
@@ -102,12 +108,15 @@ def enregistrer_alertes(supabase_url: str, service_role_key: str, alertes: list[
                 "apikey": service_role_key,
                 "Authorization": f"Bearer {service_role_key}",
                 "Content-Type": "application/json",
-                "Prefer": "return=minimal,resolution=ignore-duplicates",
+                "Prefer": "return=representation,resolution=ignore-duplicates",
             },
             timeout=TIMEOUT,
         )
         r.raise_for_status()
+        nouvelles = r.json()
         log.info("[Supabase] %d alerte(s) watchlist enregistrée(s) pour le dashboard SaaS",
-                  len(alertes))
+                  len(nouvelles))
+        return nouvelles
     except requests.RequestException as e:
         log.warning("Écriture des alertes watchlist Supabase échouée (%s) -- ignorée ce cycle", e)
+        return []
