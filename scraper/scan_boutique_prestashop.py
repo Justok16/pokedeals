@@ -118,6 +118,7 @@ def scanner_plusieurs_boutiques(
 
 if __name__ == "__main__":
     from boutiques_prestashop import BOUTIQUES_PRESTASHOP_REPLI_HTML, BOUTIQUES_PRESTASHOP_SITEMAP
+    from watchlist_saas import cartes_watchlist_saas
     from watchlist_shopify import charger_watchlist_config
 
     # Test cible : `python scan_boutique_prestashop.py blazingtail.fr` ne
@@ -132,6 +133,15 @@ if __name__ == "__main__":
     cle_anthropic = os.environ.get("ANTHROPIC_API_KEY", "")
 
     cartes = charger_watchlist_config()
+    # SaaS (saas/) : ajoute les cartes des watchlists utilisateur, en plus
+    # de config.yaml -- GRATUIT ici en requetes HTTP (catalogue entier deja
+    # recupere en un seul appel par boutique, cf. watchlist_saas.py),
+    # contrairement a main.py (eBay/Vinted/Leboncoin, plafonne la-bas).
+    cartes_saas = cartes_watchlist_saas(
+        os.environ.get("SUPABASE_URL", ""), os.environ.get("SUPABASE_SERVICE_ROLE_KEY", ""))
+    if cartes_saas:
+        print(f"{len(cartes_saas)} carte(s) supplementaire(s) des watchlists utilisateur (SaaS) ajoutee(s)")
+        cartes = cartes + cartes_saas
     print(f"{len(cartes)} criteres de recherche charges depuis config.yaml (121 cartes, avec variantes alias)")
     print(f"{len(boutiques)} boutique(s) a scanner : {', '.join(boutiques)}")
     print(f"Telegram : {'configure' if token else 'NON configure (TELEGRAM_BOT_TOKEN absent -- envoi desactive)'}\n")

@@ -44,6 +44,8 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optionnel : active la verification photo (cf. verification_photo.py)
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}   # optionnel : ajoute les cartes des watchlists SaaS (cf. watchlist_saas.py)
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie (progression boutique par boutique) reste bufferisee et n'apparait dans le log que si le job va au bout -- inutile pour diagnostiquer un timeout (cf. run du 15/08/2026, log vide malgre 30 min ecoulees)
         run: python scan_boutique_prestashop.py ${{ github.event.inputs.boutiques }}
       - name: Sauvegarder la mémoire de stock

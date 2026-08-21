@@ -213,7 +213,7 @@ def _regex_numero_sans_denominateur(numero: str) -> re.Pattern:
 # numero REEL n'a jamais de denominateur (V17.4, Nuit Noire FR/PBL). Ici,
 # le numero "sans denominateur" en config.yaml ("Eevee 078 sv5a") est
 # souvent un artefact du parsing (le code de set "sv5a" est retire du nom,
-# cf. watchlist_shopify._extraire_nom_et_numero) alors que la VRAIE carte
+# cf. watchlist_shopify.extraire_nom_et_numero) alors que la VRAIE carte
 # affiche generalement un numero complet "078/069" en boutique -- retirer
 # la fraction entiere ferait perdre ce vrai match (verifie : cause un
 # FAUX REJET sur un titre reel "Eevee 078/069 SAR sv5a Crimson Haze"). Ne
