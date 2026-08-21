@@ -98,7 +98,39 @@ certain volume) :
 3. Ajouter les secrets GitHub Actions `RESEND_API_KEY` et `RESEND_FROM_EMAIL`
    (l'adresse d'envoi, ex: `PokéDeals <alertes@tondomaine.com>`)
 
-### 4. Lancer en local
+### 4. Abonnement payant (Stripe) — optionnel
+
+Sans cette config, tout le monde reste sur le niveau gratuit (`LIMITE_CARTES_GRATUIT`
+cartes, cf. `lib/stripe.ts`) — le bouton "Passer à l'abonnement" échouera
+tant que `STRIPE_PRICE_ID` n'est pas configuré.
+
+1. Créer un compte sur [stripe.com](https://stripe.com)
+2. **Product catalog > Add product** : créer un produit (ex. "PokéDeals Pro"),
+   prix récurrent mensuel **7,99€**. Copier l'ID du prix (`price_...`) →
+   secret/variable `STRIPE_PRICE_ID`.
+3. **Coupons** (tarif early bird verrouillé à vie, 200 premiers abonnés) :
+   créer un coupon avec :
+   - ID exact : `early-bird-200` (référencé en dur dans `lib/stripe.ts`)
+   - Montant : -3,00€, durée **forever** (le prix reste réduit tant que
+     l'abonnement continue, pas juste le premier mois)
+   - **Max redemptions : 200** — Stripe désactive le coupon tout seul une
+     fois ce nombre atteint, le checkout applique alors automatiquement le
+     tarif plein sans rien à faire de plus.
+4. **Developers > API keys** : copier la clé secrète → `STRIPE_SECRET_KEY`
+5. **Developers > Webhooks > Add endpoint** : URL `<ton-domaine>/api/webhooks/stripe`,
+   événements à écouter : `checkout.session.completed`,
+   `customer.subscription.updated`, `customer.subscription.deleted`. Copier
+   le secret de signature (`whsec_...`) → `STRIPE_WEBHOOK_SECRET`
+6. Renseigner aussi `SUPABASE_SERVICE_ROLE_KEY` (même clé que celle donnée
+   au scraper, cf. section 1) — nécessaire pour que le webhook écrive
+   l'état d'abonnement (RLS interdit à l'utilisateur de le faire lui-même)
+7. Appliquer la migration `0004_subscriptions.sql` (relancer
+   `./scripts/setup-supabase.sh`, ou manuellement dans le SQL Editor)
+
+En mode test Stripe, utiliser la carte `4242 4242 4242 4242` (n'importe
+quelle date future, n'importe quel CVC) pour simuler un paiement.
+
+### 5. Lancer en local
 
 ```bash
 npm install
@@ -110,10 +142,12 @@ npm run dev
 - `app/page.tsx` — landing page
 - `app/login/` — connexion OAuth (Google/GitHub)
 - `app/auth/callback/` — échange du code OAuth contre une session
-- `app/dashboard/` — watchlist protégée (liste, ajout, modification, suppression) + dernières alertes détectées + notifications (push/email)
-- `lib/supabase/` — clients Supabase (browser, server, middleware)
+- `app/dashboard/` — watchlist protégée (liste, ajout, modification, suppression) + dernières alertes détectées + notifications (push/email) + statut d'abonnement
+- `app/api/webhooks/stripe/` — synchronise l'état d'abonnement depuis les événements Stripe
+- `lib/supabase/` — clients Supabase (browser, server, middleware, admin service_role)
+- `lib/stripe.ts` — client Stripe + constantes (limite gratuite, coupon early bird)
 - `proxy.ts` — rafraîchissement de session + protection de `/dashboard`
-- `supabase/migrations/` — schéma SQL (`watchlist_items`, `watchlist_alerts`, `push_subscriptions`, `user_preferences`, policies RLS)
+- `supabase/migrations/` — schéma SQL (`watchlist_items`, `watchlist_alerts`, `push_subscriptions`, `user_preferences`, `subscriptions`, policies RLS)
 - `scripts/setup-supabase.sh` — provisionne le projet Supabase et applique le schéma via l'API (à lancer en local)
 
 ## Déploiement
@@ -121,4 +155,6 @@ npm run dev
 Prévu pour [Vercel](https://vercel.com) : connecter le repo, définir le
 répertoire racine du projet sur `saas/`, et renseigner les variables
 d'environnement `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` /
-`NEXT_PUBLIC_VAPID_PUBLIC_KEY` dans les réglages du projet Vercel.
+`NEXT_PUBLIC_VAPID_PUBLIC_KEY` / `SUPABASE_SERVICE_ROLE_KEY` /
+`STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` / `STRIPE_PRICE_ID` /
+`NEXT_PUBLIC_SITE_URL` dans les réglages du projet Vercel.
