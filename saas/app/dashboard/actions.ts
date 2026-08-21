@@ -3,8 +3,22 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { EARLY_BIRD_COUPON_ID, LIMITE_CARTES_GRATUIT, getStripe } from "@/lib/stripe";
 
 const LANGUES_VALIDES = ["fr", "jp", "en", "kr", "cn"] as const;
+const STATUTS_ABONNEMENT_ACTIF = ["active", "trialing"];
+
+async function abonnementActif(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string
+): Promise<boolean> {
+  const { data } = await supabase
+    .from("subscriptions")
+    .select("status")
+    .eq("user_id", userId)
+    .maybeSingle();
+  return !!data && STATUTS_ABONNEMENT_ACTIF.includes(data.status);
+}
 
 export async function ajouterCarte(formData: FormData) {
   const supabase = await createClient();
@@ -28,6 +42,18 @@ export async function ajouterCarte(formData: FormData) {
   }
   if (!LANGUES_VALIDES.includes(langue as (typeof LANGUES_VALIDES)[number])) {
     throw new Error("Langue invalide.");
+  }
+
+  if (!(await abonnementActif(supabase, user.id))) {
+    const { count } = await supabase
+      .from("watchlist_items")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id);
+    if ((count ?? 0) >= LIMITE_CARTES_GRATUIT) {
+      throw new Error(
+        `Limite de ${LIMITE_CARTES_GRATUIT} cartes gratuites atteinte -- passe à l'abonnement pour en surveiller plus.`
+      );
+    }
   }
 
   const { error } = await supabase.from("watchlist_items").insert({
@@ -167,6 +193,67 @@ export async function basculerNotifEmail(formData: FormData) {
   if (error) throw new Error(error.message);
 
   revalidatePath("/dashboard");
+}
+
+export async function creerSessionCheckout() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const stripe = getStripe();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+  // Tarif early bird (200 premiers abonnés, verrouillé à vie) : appliqué
+  // automatiquement tant que le coupon Stripe a des redemptions restantes
+  // (coupon.valid passe à false de lui-même une fois max_redemptions
+  // atteint -- Stripe gère le comptage, pas nous). Coupon absent/erreur ->
+  // tarif standard, sans jamais bloquer le checkout.
+  let discounts: { coupon: string }[] | undefined;
+  try {
+    const coupon = await stripe.coupons.retrieve(EARLY_BIRD_COUPON_ID);
+    if (coupon.valid) discounts = [{ coupon: coupon.id }];
+  } catch {
+    // coupon pas encore créé côté dashboard Stripe -- tarif standard
+  }
+
+  const session = await stripe.checkout.sessions.create({
+    mode: "subscription",
+    line_items: [{ price: process.env.STRIPE_PRICE_ID!, quantity: 1 }],
+    customer_email: user.email,
+    client_reference_id: user.id,
+    discounts,
+    success_url: `${siteUrl}/dashboard?abonnement=succes`,
+    cancel_url: `${siteUrl}/dashboard?abonnement=annule`,
+  });
+
+  if (session.url) redirect(session.url);
+}
+
+export async function creerSessionPortail() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { data: abonnement } = await supabase
+    .from("subscriptions")
+    .select("stripe_customer_id")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (!abonnement?.stripe_customer_id) redirect("/dashboard");
+
+  const stripe = getStripe();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const session = await stripe.billingPortal.sessions.create({
+    customer: abonnement.stripe_customer_id,
+    return_url: `${siteUrl}/dashboard`,
+  });
+
+  redirect(session.url);
 }
 
 export async function deconnexion() {

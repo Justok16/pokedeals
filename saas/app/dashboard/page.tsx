@@ -1,8 +1,11 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { LIMITE_CARTES_GRATUIT } from "@/lib/stripe";
 import {
   ajouterCarte,
   basculerNotifEmail,
+  creerSessionCheckout,
+  creerSessionPortail,
   deconnexion,
   modifierCarte,
   supprimerCarte,
@@ -17,7 +20,8 @@ const LABELS_LANGUE: Record<string, string> = {
   cn: "Chinois",
 };
 
-export default async function DashboardPage() {
+export default async function DashboardPage(props: PageProps<"/dashboard">) {
+  const searchParams = await props.searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -29,6 +33,15 @@ export default async function DashboardPage() {
     .from("watchlist_items")
     .select("id, nom_carte, langue, prix_seuil, notes, created_at")
     .order("created_at", { ascending: false });
+
+  const { data: abonnement } = await supabase
+    .from("subscriptions")
+    .select("status, current_period_end")
+    .eq("user_id", user.id)
+    .maybeSingle();
+  const abonnementActif =
+    abonnement?.status === "active" || abonnement?.status === "trialing";
+  const nombreCartes = cartes?.length ?? 0;
 
   const { data: alertes, error: erreurAlertes } = await supabase
     .from("watchlist_alerts")
@@ -59,6 +72,55 @@ export default async function DashboardPage() {
           </button>
         </form>
       </header>
+
+      {searchParams.abonnement === "succes" && (
+        <p className="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-800 dark:bg-green-950 dark:text-green-300">
+          Abonnement activé, merci ! Ça peut prendre quelques secondes à
+          apparaître ci-dessous.
+        </p>
+      )}
+      {searchParams.abonnement === "annule" && (
+        <p className="rounded-lg bg-zinc-100 px-4 py-3 text-sm text-zinc-600 dark:bg-zinc-900 dark:text-zinc-400">
+          Paiement annulé — tu peux réessayer à tout moment.
+        </p>
+      )}
+
+      <section className="flex items-center justify-between rounded-xl border border-zinc-200 p-5 dark:border-zinc-800">
+        <div>
+          <h2 className="text-sm font-medium">Abonnement</h2>
+          {abonnementActif ? (
+            <p className="text-xs text-zinc-500">
+              Actif — cartes illimitées
+              {abonnement?.current_period_end
+                ? ` · renouvellement le ${new Date(abonnement.current_period_end).toLocaleDateString("fr-FR")}`
+                : ""}
+            </p>
+          ) : (
+            <p className="text-xs text-zinc-500">
+              Gratuit — {nombreCartes}/{LIMITE_CARTES_GRATUIT} cartes utilisées
+            </p>
+          )}
+        </div>
+        {abonnementActif ? (
+          <form action={creerSessionPortail}>
+            <button
+              type="submit"
+              className="text-xs text-zinc-500 underline-offset-4 hover:underline"
+            >
+              Gérer mon abonnement
+            </button>
+          </form>
+        ) : (
+          <form action={creerSessionCheckout}>
+            <button
+              type="submit"
+              className="rounded-lg bg-zinc-900 px-4 py-2 text-xs font-medium text-white transition hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+            >
+              Passer à l&apos;abonnement
+            </button>
+          </form>
+        )}
+      </section>
 
       <section className="flex flex-col gap-2 rounded-xl border border-zinc-200 p-5 dark:border-zinc-800">
         <h2 className="text-sm font-medium">Notifications</h2>
