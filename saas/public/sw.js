@@ -64,3 +64,38 @@ self.addEventListener("fetch", (event) => {
     );
   }
 });
+
+// Notifications push (scraper/notifications_saas.py) : payload JSON
+// {title, body, url}. Toute erreur de parsing retombe sur un texte
+// generique -- jamais d'echec silencieux de la notification elle-meme.
+self.addEventListener("push", (event) => {
+  let payload = { title: "PokéDeals", body: "Nouvelle alerte disponible." };
+  try {
+    if (event.data) payload = { ...payload, ...event.data.json() };
+  } catch {
+    // payload non-JSON ignoré, on garde le texte générique
+  }
+
+  event.waitUntil(
+    self.registration.showNotification(payload.title, {
+      body: payload.body,
+      icon: "/icons/icon-192.png",
+      badge: "/icons/icon-192.png",
+      data: { url: payload.url || "/dashboard" },
+    })
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const url = event.notification.data?.url || "/dashboard";
+  event.waitUntil(
+    self.clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((clientsArr) => {
+        const existant = clientsArr.find((c) => c.url.includes(url));
+        if (existant) return existant.focus();
+        return self.clients.openWindow(url);
+      })
+  );
+});
