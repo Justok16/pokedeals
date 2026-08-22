@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Alertes en temps réel sur les bonnes affaires Pokémon TCG.",
     start_url: "/",
     display: "standalone",
-    background_color: "#1e1b4b",
-    theme_color: "#1e3a8a",
+    background_color: "#1c1e22",
+    theme_color: "#1c1e22",
     orientation: "portrait-primary",
     icons: [
       {
