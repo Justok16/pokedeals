@@ -1311,6 +1311,11 @@ def main() -> int:
     # différentes selon la langue (JP/KR/FR...) — signe possible d'un
     # mélange de langue quelque part dans le calcul.
     cotes_par_carte: dict[str, list[tuple[str, float]]] = {}
+    # SaaS (saas/) : cotes calculees ce cycle, pour exposer un "prix marche"
+    # dans le dashboard utilisateur (table market_cotes, cf.
+    # connecteur_supabase.enregistrer_cotes_marche). Entierement additif,
+    # n'affecte jamais la detection/notification ci-dessous.
+    cotes_marche_a_enregistrer: list[dict] = []
     # V39 : identifiants des deals trouvés, marqués "vus" seulement après
     # un envoi de notification réussi (voir plus bas).
     deals_a_marquer: list[str] = []
@@ -1517,6 +1522,12 @@ def main() -> int:
             cle_regroupement = f"{normaliser(carte.get('alias') or nom)}|{normaliser(str(numero_carte))}"
             cotes_par_carte.setdefault(cle_regroupement, []).append(
                 (f"{nom} ({carte.get('langue', 'fr').upper()})", cote))
+            cotes_marche_a_enregistrer.append({
+                "nom_norm": normaliser(nom),
+                "langue": carte.get("langue", "fr").lower(),
+                "cote": cote,
+                "confiance": confiance,
+            })
 
         for annonce in annonces:
             # V46 : prix Cardmarket transporté jusqu'au deal final pour
@@ -1710,6 +1721,14 @@ def main() -> int:
         # Notifie (push/email) uniquement les alertes REELLEMENT nouvelles
         # (pas les doublons deja connus) -- cf. notifications_saas.py.
         notifications_saas.notifier_nouvelles_alertes(secrets, _nouvelles_alertes_saas)
+
+    # SaaS : expose les cotes calculées ce cycle comme "prix marché" dans
+    # le dashboard utilisateur (independant de la presence de watchlists
+    # SaaS -- utile meme si _watchlist_items_saas est vide, pour les cartes
+    # de config.yaml).
+    connecteur_supabase.enregistrer_cotes_marche(
+        secrets.get("SUPABASE_URL", ""), secrets.get("SUPABASE_SERVICE_ROLE_KEY", ""),
+        cotes_marche_a_enregistrer)
 
     # V23 : bilan de calibration. Affiche l'écart RÉEL mesuré entre les cotes
     # eBay et les prix Cardtrader sur les cartes couvertes par les deux

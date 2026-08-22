@@ -120,3 +120,32 @@ def enregistrer_alertes(supabase_url: str, service_role_key: str, alertes: list[
     except requests.RequestException as e:
         log.warning("Écriture des alertes watchlist Supabase échouée (%s) -- ignorée ce cycle", e)
         return []
+
+
+def enregistrer_cotes_marche(supabase_url: str, service_role_key: str, cotes: list[dict]) -> None:
+    """Upsert des cotes (prix de référence marché) calculées ce cycle, pour
+    affichage d'un "prix marché" dans le dashboard SaaS. `cotes` :
+    [{"nom_norm", "langue", "cote", "confiance"}, ...] -- une entrée par
+    carte scannée ce cycle (config.yaml + watchlist SaaS confondues, cf.
+    main.py). Clé (nom_norm, langue) : une carte déjà connue est mise à
+    jour, jamais dupliquée (contrainte unique côté base + resolution=
+    merge-duplicates)."""
+    if not cotes or not supabase_url or not service_role_key:
+        return
+    try:
+        r = requests.post(
+            f"{supabase_url.rstrip('/')}/rest/v1/market_cotes",
+            json=cotes,
+            headers={
+                "apikey": service_role_key,
+                "Authorization": f"Bearer {service_role_key}",
+                "Content-Type": "application/json",
+                "Prefer": "resolution=merge-duplicates",
+            },
+            timeout=TIMEOUT,
+        )
+        r.raise_for_status()
+        log.info("[Supabase] %d cote(s) marché enregistrée(s)/mise(s) à jour pour le dashboard SaaS",
+                  len(cotes))
+    except requests.RequestException as e:
+        log.warning("Écriture des cotes marché Supabase échouée (%s) -- ignorée ce cycle", e)
