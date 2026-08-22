@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
+import { Syne, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import RegisterServiceWorker from "./register-sw";
 
-const bricolage = Bricolage_Grotesque({
+const syne = Syne({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "700", "800"],
+  weight: ["600", "700", "800"],
 });
 
 const plexSans = IBM_Plex_Sans({
@@ -46,7 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`${bricolage.variable} ${plexSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${syne.variable} ${plexSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <RegisterServiceWorker />
