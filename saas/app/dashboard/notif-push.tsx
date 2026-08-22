@@ -83,7 +83,7 @@ export default function NotifPush() {
 
   if (etat === "indisponible") {
     return (
-      <p className="text-xs text-zinc-500">
+      <p className="text-xs text-muted">
         Notifications push non supportées sur ce navigateur.
       </p>
     );
@@ -95,7 +95,7 @@ export default function NotifPush() {
         <button
           type="button"
           onClick={desactiver}
-          className="text-xs text-zinc-500 underline-offset-4 hover:underline"
+          className="text-xs text-muted underline-offset-4 hover:text-foreground hover:underline"
         >
           Désactiver les notifications push
         </button>
@@ -104,14 +104,14 @@ export default function NotifPush() {
           type="button"
           onClick={activer}
           disabled={etat === "en_cours"}
-          className="text-xs text-zinc-500 underline-offset-4 hover:underline disabled:opacity-50"
+          className="text-xs text-muted underline-offset-4 hover:text-foreground hover:underline disabled:opacity-50"
         >
           {etat === "refuse"
             ? "Notifications bloquées — autorise-les dans les réglages du navigateur"
             : "Activer les notifications push"}
         </button>
       )}
-      {erreur && <span className="text-xs text-red-600 dark:text-red-400">{erreur}</span>}
+      {erreur && <span className="text-xs text-danger">{erreur}</span>}
     </div>
   );
 }
