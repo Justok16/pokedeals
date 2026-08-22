@@ -3745,3 +3745,43 @@ message vérifié), anti-spam respecté sur un 2e appel rapproché.
 
 **Vérification avant commit** : suite complète `pytest tests/`
 (322/322, +3 nouveaux), `pyflakes` propre.
+
+## V62 : `verification_photo.py` passe de Claude Haiku à Claude Sonnet (22/08/2026)
+
+Signalé par Justok : 5 alertes consécutives (Méga-Dracolosse ex 290/217
+×2, Méga-Lucario ex 179/132, Mew ex 193/165, Dracaufeu 199/165) toutes
+marquées à tort "photo semble incohérente" alors que les photos étaient
+bonnes (confirmé par Justok). Faux positifs du modèle de vision
+(`claude-haiku-4-5-20251001`) : lecture erronée de numéros de collection
+(numéro inventé "370" sur une carte qui n'affiche que "290/217"),
+confusion d'espèce (Dracaufeu identifié comme "Corvaillier ex"),
+confusion d'édition (Mew ex moderne pris pour une "ancienne extension").
+
+Cas le plus révélateur : sur Méga-Lucario ex, la réponse du modèle
+commençait par le token `INCOHERENT:` (déclenchant l'alerte, cf.
+`_interpreter_reponse` qui ne lit que le premier mot) mais le
+raisonnement qui suivait se contredisait lui-même et concluait "donc
+elle est COHERENT" -- pas un bug de parsing (le code fait exactement ce
+qui est documenté : ne fait confiance qu'au verdict qui ouvre la
+réponse), mais un signe que Haiku n'est pas assez fiable sur cette tâche
+de lecture fine de petites photos d'annonces. Différent du faux positif
+déjà rencontré et mitigé le 17/08 (V51, reformulation du message
+seulement) : ici la fréquence (5/5 le même jour) justifiait de retenter
+un correctif à la source plutôt que de se contenter du message
+d'avertissement déjà en place.
+
+Correctif : `MODELE` passe de `"claude-haiku-4-5-20251001"` à
+`"claude-sonnet-5"` dans `verification_photo.py` -- volume d'appels
+négligeable (quelques annonces/jour, uniquement celles qui ont déjà
+passé tous les filtres texte et sont sur le point de déclencher une
+alerte), donc le coût supplémentaire de Sonnet vs Haiku reste
+insignifiant. Aucun changement de logique (prompt, format de réponse
+attendu, comportement non-bloquant `(verdict, raison)` inchangés) --
+seul le modèle appelé change. `CLAUDE.md` mis à jour en conséquence.
+
+**Vérification avant commit** : suite complète `pytest tests/`
+(377/380, les 3 échecs restants concernent `test_notifications_saas.py`
+et sont dus à `pywebpush` non installable dans cet environnement local
+-- module tiers déclaré dans `requirements.txt`, sans rapport avec ce
+changement, déjà fonctionnel en CI GitHub Actions), `pyflakes` propre
+sur `verification_photo.py`.
