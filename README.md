@@ -1,7 +1,5 @@
 # PokéDeals
 
-Ce dépôt héberge deux projets distincts, côte à côte :
-
 ## `scraper/` — bot de veille de prix Pokémon TCG (production)
 
 Le bot Python historique : scanne eBay, Vinted, Leboncoin et 83+ boutiques
@@ -19,26 +17,17 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## `saas/` — application web SaaS (en développement)
+## Application web SaaS
 
-Nouvelle application web, initialisée avec Next.js (TypeScript, Tailwind CSS,
-App Router). Pas encore en production.
-
-```bash
-cd saas
-npm install
-npm run dev
-```
+L'application web (watchlists personnalisées, notifications, abonnement payant)
+vit dans un dépôt privé séparé : `justok16/pokedeals-saas`. Elle alimente sa base
+Supabase à partir de ce scraper (voir `scraper/connecteur_supabase.py`), mais son
+code n'est pas hébergé ici.
 
 ## Structure du dépôt
 
 ```
 .
 ├── .github/workflows/   # workflows CI/CD (cron du scraper + tests)
-├── scraper/              # bot Python de veille de prix (production)
-└── saas/                 # application web SaaS (Next.js, en développement)
+└── scraper/              # bot Python de veille de prix (production)
 ```
-
-Les deux projets sont indépendants : le scraper ne dépend pas du SaaS et
-inversement. Les workflows GitHub Actions dans `.github/workflows/` exécutent
-leurs commandes avec `working-directory: scraper`.
