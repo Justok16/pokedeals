@@ -36,7 +36,7 @@ import requests
 
 log = logging.getLogger("pokedeals.verification_photo")
 
-MODELE = "claude-haiku-4-5-20251001"
+MODELE = "claude-sonnet-5"
 API_URL = "https://api.anthropic.com/v1/messages"
 API_VERSION = "2023-06-01"
 
