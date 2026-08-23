@@ -118,7 +118,7 @@ def scanner_plusieurs_boutiques(
 
 if __name__ == "__main__":
     from boutiques_prestashop import BOUTIQUES_PRESTASHOP_REPLI_HTML, BOUTIQUES_PRESTASHOP_SITEMAP
-    from watchlist_saas import cartes_watchlist_saas
+    from watchlist_saas import cartes_watchlist_saas, notifier_deals_boutique_saas
     from watchlist_shopify import charger_watchlist_config
 
     # Test cible : `python scan_boutique_prestashop.py blazingtail.fr` ne
@@ -152,6 +152,20 @@ if __name__ == "__main__":
     memoire_stock = charger_memoire(FICHIER_MEMOIRE)
 
     resume = scanner_plusieurs_boutiques(boutiques, cartes, memoire_stock, cotes, regles, boutiques_repli_html)
+
+    # SaaS (saas/) : fait correspondre les deals boutiques deja valides
+    # ci-dessus aux watchlists personnalisees des utilisateurs, enregistre
+    # les alertes et notifie (push/email) -- meme pipeline que main.py pour
+    # eBay/Vinted. Entierement additif et non-bloquant.
+    secrets_saas = {
+        "SUPABASE_URL": os.environ.get("SUPABASE_URL", ""),
+        "SUPABASE_SERVICE_ROLE_KEY": os.environ.get("SUPABASE_SERVICE_ROLE_KEY", ""),
+        "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
+        "VAPID_CLAIM_EMAIL": os.environ.get("VAPID_CLAIM_EMAIL", ""),
+        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY", ""),
+        "RESEND_FROM_EMAIL": os.environ.get("RESEND_FROM_EMAIL", ""),
+    }
+    notifier_deals_boutique_saas(secrets_saas, resume["deals"])
 
     # Envoi Telegram REEL. Chaque fonction gere son propre canal/format et
     # ne fait rien si la liste est vide.

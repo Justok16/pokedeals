@@ -111,7 +111,7 @@ def scanner_plusieurs_boutiques(
 if __name__ == "__main__":
     from boutiques_decouvertes import BOUTIQUES_WOOCOMMERCE_AUTO
     from boutiques_woocommerce import BOUTIQUES_WOOCOMMERCE_REPLI_API_REST, BOUTIQUES_WOOCOMMERCE_SITEMAP
-    from watchlist_saas import cartes_watchlist_saas
+    from watchlist_saas import cartes_watchlist_saas, notifier_deals_boutique_saas
     from watchlist_shopify import charger_watchlist_config
 
     # Sans argument : boutiques curees a la main + boutiques ajoutees
@@ -146,6 +146,20 @@ if __name__ == "__main__":
     memoire_stock = charger_memoire(FICHIER_MEMOIRE)
 
     resume = scanner_plusieurs_boutiques(boutiques, cartes, memoire_stock, cotes, regles, boutiques_repli_api_rest)
+
+    # SaaS (saas/) : fait correspondre les deals boutiques deja valides
+    # ci-dessus aux watchlists personnalisees des utilisateurs, enregistre
+    # les alertes et notifie (push/email) -- meme pipeline que main.py pour
+    # eBay/Vinted. Entierement additif et non-bloquant.
+    secrets_saas = {
+        "SUPABASE_URL": os.environ.get("SUPABASE_URL", ""),
+        "SUPABASE_SERVICE_ROLE_KEY": os.environ.get("SUPABASE_SERVICE_ROLE_KEY", ""),
+        "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
+        "VAPID_CLAIM_EMAIL": os.environ.get("VAPID_CLAIM_EMAIL", ""),
+        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY", ""),
+        "RESEND_FROM_EMAIL": os.environ.get("RESEND_FROM_EMAIL", ""),
+    }
+    notifier_deals_boutique_saas(secrets_saas, resume["deals"])
 
     envoyer_telegram_bonnes_affaires(resume["deals"], TELEGRAM_CHAT_ID, token, cle_anthropic)
     # V57 (18/08/2026, audit externe) : sauvegarde APRES la tentative

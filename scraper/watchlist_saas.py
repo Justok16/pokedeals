@@ -25,6 +25,8 @@ aucun de ces deux usages ne peut donc echouer a cause de ce module.
 """
 from __future__ import annotations
 
+import connecteur_supabase
+import notifications_saas
 from connecteur_supabase import lister_watchlist_items
 from filtre_annonces import normaliser
 from watchlist_shopify import CarteWatchlist, extraire_nom_et_numero
@@ -93,3 +95,35 @@ def cartes_watchlist_saas(supabase_url: str, service_role_key: str) -> list[Cart
             nom_recherche, numero, entree["langue"], entree["nom"], entree["prix_max_fixe"], qualificatif
         ))
     return cartes
+
+
+def notifier_deals_boutique_saas(secrets: dict, deals_boutique: list[dict]) -> None:
+    """Fait correspondre les deals detectes par les scanners boutiques
+    (scan_boutique*.py, format bonne_affaire_shopify.evaluer_deal --
+    nom/langue/prix/titre_produit/url_produit/boutique) aux watchlists
+    personnalisees des utilisateurs SaaS, enregistre les alertes et notifie
+    (push/email) uniquement les nouvelles -- meme pipeline que main.py pour
+    eBay/Vinted, jusqu'ici applique aux boutiques SEULEMENT pour le scan
+    (cartes_watchlist_saas ci-dessus), jamais pour l'alerte elle-meme.
+    Entierement additif et non-bloquant (memes garanties que
+    connecteur_supabase.py : secrets absents ou erreur reseau -> no-op)."""
+    supabase_url = secrets.get("SUPABASE_URL", "")
+    service_role_key = secrets.get("SUPABASE_SERVICE_ROLE_KEY", "")
+    watchlist_items = connecteur_supabase.lister_watchlist_items(supabase_url, service_role_key)
+    if not watchlist_items:
+        return
+
+    deals_normalises = [
+        {
+            "carte": d["nom"],
+            "langue": d["langue"],
+            "total": d["prix"],
+            "titre": d["titre_produit"],
+            "url": d["url_produit"],
+            "plateforme": d["boutique"],
+        }
+        for d in deals_boutique
+    ]
+    alertes = connecteur_supabase.trouver_correspondances(deals_normalises, watchlist_items)
+    nouvelles_alertes = connecteur_supabase.enregistrer_alertes(supabase_url, service_role_key, alertes)
+    notifications_saas.notifier_nouvelles_alertes(secrets, nouvelles_alertes)
