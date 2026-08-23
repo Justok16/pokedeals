@@ -1,4 +1,13 @@
-from precommande_generique import produit_est_candidat_precommande
+from precommande_generique import (
+    CATEGORIE_AUTRE,
+    CATEGORIE_BOOSTERS_BLISTERS,
+    CATEGORIE_COFFRETS,
+    CATEGORIE_DISPLAYS,
+    CATEGORIE_ETB,
+    CATEGORIE_POKEBOX_TINS,
+    determiner_categorie_produit,
+    produit_est_candidat_precommande,
+)
 
 
 # ------------------- cas positifs -------------------
@@ -89,3 +98,43 @@ def test_rejet_carte_a_lunite_deja_en_vente():
         "Pokémon Pikachu 25/102 Base Set"
     )
     assert ok is False
+
+
+# ------------------- determiner_categorie_produit -------------------
+
+def test_categorie_etb():
+    assert determiner_categorie_produit("Coffret Dresseur d'Élite Pokémon ME07") == CATEGORIE_ETB
+
+
+def test_categorie_display():
+    assert determiner_categorie_produit("Display Pokémon Écarlate Violet") == CATEGORIE_DISPLAYS
+
+
+def test_categorie_boosters_blisters():
+    assert determiner_categorie_produit("Blister Pokémon 3 boosters") == CATEGORIE_BOOSTERS_BLISTERS
+
+
+def test_categorie_coffrets():
+    assert determiner_categorie_produit("Collection Premium Pokémon Umbreon") == CATEGORIE_COFFRETS
+
+
+def test_categorie_pokebox_tins():
+    assert determiner_categorie_produit("Pokébox Tin Métal Pokémon Dracaufeu") == CATEGORIE_POKEBOX_TINS
+
+
+def test_categorie_autre_si_aucun_mot_cle_ne_matche():
+    assert determiner_categorie_produit("Précommande Pokémon Objet Mystère") == CATEGORIE_AUTRE
+
+
+def test_categorie_etb_prioritaire_sur_coffret_generique():
+    """"ETB" doit l'emporter meme si "boite"/"box" (mots-cles generiques de
+    CATEGORIE_COFFRETS) apparaissent aussi dans le meme titre."""
+    assert determiner_categorie_produit(
+        "Précommande ETB Pokémon (Elite Trainer Box, coffret dresseur)"
+    ) == CATEGORIE_ETB
+
+
+def test_categorie_display_prioritaire_sur_booster():
+    """"display" (categorie specifique) l'emporte sur "booster" (categorie
+    plus generique) quand les deux mots apparaissent dans le meme titre."""
+    assert determiner_categorie_produit("Display de boosters Pokémon") == CATEGORIE_DISPLAYS

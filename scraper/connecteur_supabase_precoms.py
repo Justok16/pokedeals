@@ -57,6 +57,7 @@ def enregistrer_precommande_alertes(
             "boutique": e["domaine"],
             "url_produit": e["url_produit"],
             "prix": e.get("prix"),
+            "categorie": e.get("categorie"),
         }
         for e in evenements
     ]

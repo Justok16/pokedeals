@@ -67,6 +67,51 @@ FRANCHISES_EXCLUES = frozenset({
 })
 
 
+# Categories exposees au filtre du dashboard PokePrecoms (justok16/pokeprecoms,
+# app/dashboard/page.tsx) -- ajoute le 23/08/2026 a la demande de Justok.
+# Liste volontairement FERMEE (contrairement a MOTS_CLES_TYPE_PRODUIT_SCELLE,
+# qui ne fait qu'accepter/rejeter) : un produit qui ne matche AUCUN mot-cle
+# ci-dessous tombe dans CATEGORIE_AUTRE plutot que d'etre force dans une
+# categorie incorrecte -- le dashboard affiche cette categorie comme un
+# onglet a part, jamais masquee.
+CATEGORIE_DISPLAYS = "Displays"
+CATEGORIE_ETB = "ETB"
+CATEGORIE_BOOSTERS_BLISTERS = "Boosters & Blisters"
+CATEGORIE_COFFRETS = "Coffrets"
+CATEGORIE_POKEBOX_TINS = "Pokébox & Tins"
+CATEGORIE_AUTRE = "Autres"
+
+# Ordre de verification volontaire : du plus specifique au plus generique,
+# pour eviter qu'un mot-cle generique ("box" dans "coffret"/"booster box")
+# ne masque une categorie plus precise presente dans le meme titre (ex. "ETB"
+# doit l'emporter sur "coffret" si les deux mots apparaissent). Chaque
+# categorie a sa propre liste, volontairement incomplete comme
+# MOTS_CLES_TYPE_PRODUIT_SCELLE -- a enrichir au fil des cas reels constates.
+_CATEGORIES_PAR_PRIORITE = (
+    (CATEGORIE_ETB, frozenset({"etb", "dresseur d'elite", "dresseur elite", "elite trainer box"})),
+    (CATEGORIE_POKEBOX_TINS, frozenset({"tin", "boite metal", "pokebox", "poke box"})),
+    (CATEGORIE_DISPLAYS, frozenset({"display"})),
+    (CATEGORIE_BOOSTERS_BLISTERS, frozenset({"booster", "blister", "sachet"})),
+    (CATEGORIE_COFFRETS, frozenset({
+        "coffret", "collection", "premium collection", "ultra premium collection",
+        "upc", "duo pack", "triple pack", "starter deck", "deck de demarrage", "bundle",
+        "boite", "box",
+    })),
+)
+
+
+def determiner_categorie_produit(titre: str, description: str = "") -> str:
+    """Classe un produit deja retenu comme candidat (cf.
+    produit_est_candidat_precommande) dans l'une des categories du filtre
+    dashboard PokePrecoms. CATEGORIE_AUTRE si aucun mot-cle ne matche --
+    jamais une exception, jamais une categorie devinee au hasard."""
+    texte_norm = _normaliser(f"{titre} {description}")
+    for categorie, mots_cles in _CATEGORIES_PAR_PRIORITE:
+        if any(_normaliser(mot) in texte_norm for mot in mots_cles):
+            return categorie
+    return CATEGORIE_AUTRE
+
+
 def produit_est_candidat_precommande(titre: str, description: str = "") -> tuple[bool, str]:
     """Applique les 4 conditions au texte d'un produit (titre + description
     optionnelle). Retourne (True, raison) si retenu comme candidat serieux
