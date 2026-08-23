@@ -221,6 +221,20 @@ def test_envoyer_email_appelle_lapi_resend():
     assert kwargs["json"]["subject"] == "titre"
 
 
+def test_envoyer_email_echappe_le_html_du_corps_et_de_lurl():
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    corps = "<script>alert(1)</script> Dracaufeu & Cie"
+    url = 'https://x/1?a="b"&c=<d>'
+    with patch("notifications_saas.requests.post", return_value=reponse) as post_mock:
+        _envoyer_email("re_xxx", "noreply@pokedeals.app", "user@example.com", "titre", corps, url)
+    html_envoye = post_mock.call_args.kwargs["json"]["html"]
+    assert "<script>" not in html_envoye
+    assert "&lt;script&gt;" in html_envoye
+    assert "&amp;" in html_envoye
+    assert 'href="https://x/1?a=&quot;b&quot;&amp;c=&lt;d&gt;"' in html_envoye
+
+
 # ------------------- _envoyer_push -------------------
 
 def test_envoyer_push_appelle_webpush_par_abonnement():
