@@ -132,6 +132,14 @@ def enregistrer_cotes_marche(supabase_url: str, service_role_key: str, cotes: li
     merge-duplicates)."""
     if not cotes or not supabase_url or not service_role_key:
         return
+    # Deduplique par (nom_norm, langue) -- deux entrees de cfg["watchlist"]
+    # (config.yaml et/ou watchlist SaaS) peuvent se normaliser sur la meme
+    # cle. PostgREST/Postgres rejette un upsert avec deux lignes en conflit
+    # DANS LE MEME LOT (erreur 500 "ON CONFLICT DO UPDATE command cannot
+    # affect row a second time"), donc un seul POST par cle -- la derniere
+    # cote calculee ce cycle l'emporte.
+    dedupliquees = {(c["nom_norm"], c["langue"]): c for c in cotes}
+    cotes = list(dedupliquees.values())
     try:
         r = requests.post(
             f"{supabase_url.rstrip('/')}/rest/v1/market_cotes",
