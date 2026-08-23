@@ -77,8 +77,15 @@ if __name__ == "__main__":
     boutiques = sys.argv[1:] if len(sys.argv) > 1 else _boutiques_shopify_actives()
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 
+    pont_precoms_configure = bool(
+        os.environ.get("POKEPRECOMS_SUPABASE_URL") and os.environ.get("POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY")
+    )
+
     print(f"{len(boutiques)} boutique(s) Shopify à scanner (radar précommandes générique)")
-    print(f"Telegram : {'configuré' if token else 'NON configuré (TELEGRAM_BOT_TOKEN absent -- envoi désactivé)'}\n")
+    print(f"Telegram : {'configuré' if token else 'NON configuré (TELEGRAM_BOT_TOKEN absent -- envoi désactivé)'}")
+    print(
+        f"Pont Supabase PokéPrécoms : {'configuré' if pont_precoms_configure else 'NON configuré (POKEPRECOMS_SUPABASE_URL/_SERVICE_ROLE_KEY absents -- écriture désactivée)'}\n"
+    )
 
     memoire = charger_memoire(FICHIER_MEMOIRE)
     resume = scanner_plusieurs_boutiques(boutiques, memoire)
