@@ -23,6 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+from connecteur_supabase_precoms import enregistrer_precommande_alertes, notifier_abonnes_precoms
 from memoire_json import charger_memoire, sauvegarder_memoire
 from radar_precommande_generique import (
     detecter_nouvelles_precommandes_generiques,
@@ -76,8 +77,15 @@ if __name__ == "__main__":
     boutiques = sys.argv[1:] if len(sys.argv) > 1 else _boutiques_shopify_actives()
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 
+    pont_precoms_configure = bool(
+        os.environ.get("POKEPRECOMS_SUPABASE_URL") and os.environ.get("POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY")
+    )
+
     print(f"{len(boutiques)} boutique(s) Shopify à scanner (radar précommandes générique)")
-    print(f"Telegram : {'configuré' if token else 'NON configuré (TELEGRAM_BOT_TOKEN absent -- envoi désactivé)'}\n")
+    print(f"Telegram : {'configuré' if token else 'NON configuré (TELEGRAM_BOT_TOKEN absent -- envoi désactivé)'}")
+    print(
+        f"Pont Supabase PokéPrécoms : {'configuré' if pont_precoms_configure else 'NON configuré (POKEPRECOMS_SUPABASE_URL/_SERVICE_ROLE_KEY absents -- écriture désactivée)'}\n"
+    )
 
     memoire = charger_memoire(FICHIER_MEMOIRE)
     resume = scanner_plusieurs_boutiques(boutiques, memoire)
@@ -88,6 +96,23 @@ if __name__ == "__main__":
     # a echoué (perte définitive de l'événement sinon).
     envoyer_telegram_precommandes_generiques(resume["evenements"], TELEGRAM_CHAT_ID, token, memoire)
     sauvegarder_memoire(memoire, FICHIER_MEMOIRE)
+
+    # Pont PokePrecoms (optionnel/non bloquant, cf. connecteur_supabase_precoms.py) :
+    # independant du succes Telegram ci-dessus -- la dedup se fait cote base
+    # (contrainte unique sur url_produit), pas via `memoire`.
+    secrets = {
+        "POKEPRECOMS_SUPABASE_URL": os.environ.get("POKEPRECOMS_SUPABASE_URL", ""),
+        "POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY": os.environ.get("POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY", ""),
+        "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
+        "VAPID_CLAIM_EMAIL": os.environ.get("VAPID_CLAIM_EMAIL", ""),
+        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY", ""),
+        "RESEND_FROM_EMAIL": os.environ.get("RESEND_FROM_EMAIL", ""),
+    }
+    nouvelles_precommandes = enregistrer_precommande_alertes(
+        secrets["POKEPRECOMS_SUPABASE_URL"], secrets["POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY"],
+        resume["evenements"],
+    )
+    notifier_abonnes_precoms(secrets, nouvelles_precommandes)
 
     print(f"\n{'=' * 70}")
     print("RÉSUMÉ DU CYCLE PRÉCOMMANDES GÉNÉRIQUE")

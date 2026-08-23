@@ -34,7 +34,7 @@ from datetime import datetime, timezone
 
 import requests
 
-from precommande_generique import produit_est_candidat_precommande
+from precommande_generique import determiner_categorie_produit, produit_est_candidat_precommande
 from telegram_utils import echapper_html, echapper_url_html
 
 
@@ -78,6 +78,7 @@ def scanner_shopify_precommandes_generiques(domaine: str, connecteur=None) -> li
             "prix": prix,
             "en_stock": en_stock,
             "raison": raison,
+            "categorie": determiner_categorie_produit(titre, description),
             "horodatage": _horodatage(),
         })
     return candidats
