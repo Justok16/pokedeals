@@ -21,6 +21,7 @@ requete brute via requests, pas de SDK necessaire.
 """
 from __future__ import annotations
 
+import html
 import json
 import logging
 
@@ -160,7 +161,7 @@ def _envoyer_email(resend_api_key: str, resend_from: str, destinataire: str, tit
                 "to": [destinataire],
                 "subject": titre,
                 "text": f"{corps}\n\nVoir l'annonce : {url}",
-                "html": f"<p>{corps}</p><p><a href=\"{url}\">Voir l'annonce</a></p>",
+                "html": f"<p>{html.escape(corps)}</p><p><a href=\"{html.escape(url, quote=True)}\">Voir l'annonce</a></p>",
             },
             timeout=TIMEOUT,
         )
