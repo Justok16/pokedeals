@@ -27,6 +27,16 @@ CHEMIN_CONFIG_DEFAUT = Path(__file__).parent / "config.yaml"
 # "Team Rocket's Mewtwo ex 237 m2a" -> numero 237, PAS m2a.
 CODES_SET_CONNUS = {
     "sv2a", "sv8a", "sv5a", "sv9", "s8b", "s-p", "m2a", "m1l", "m2", "m3", "m4", "m5", "mc",
+    # V-- (23/08/2026) : "151" est le nom populaire du set "Scarlet & Violet:
+    # 151"/"Pokemon Card 151" (code local sv2a, deja ci-dessus) -- ecrit tel
+    # quel par un utilisateur SaaS ("Carapuce (MEW 170) 151 - Squirtle").
+    # Sans cette entree, la logique "dernier token avec un chiffre = numero"
+    # capturait "151" au lieu du VRAI numero "170" (present plus tot dans le
+    # texte) -- bug reel signale par Justok : mauvaise carte alertee. "mew"
+    # est le code de set utilise par les bases de donnees anglophones
+    # (TCGdex/pokemontcg.io) pour ce meme set -- sans lui, "MEW" restait
+    # capture dans le nom de recherche ("Carapuce MEW" au lieu de "Carapuce").
+    "151", "mew",
 }
 # Prefixes en tete de "nom" a ignorer avant de commencer la collecte du nom
 # de recherche (ex: "Team Rocket's Mewtwo ex 237 m2a" -> ne pas capturer "Team").
