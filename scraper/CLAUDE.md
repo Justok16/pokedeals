@@ -70,6 +70,15 @@ Système **indépendant** des scans cartes ci-dessus (nouveaux fichiers, aucune 
 - `radar_precommandes.py` — scanners par plateforme, réutilisent les connecteurs existants sans les modifier. Le préfiltre de slug (`_slug_est_candidat`) exige les deux groupes de mots-clés (édition ET type) avant de charger une page complète — voir pièges ci-dessous pour l'historique de ce choix.
 - `scan_precommandes.py` — orchestrateur CLI (`python scan_precommandes.py {shopify|prestashop|woocommerce} [boutiques...]`), branché comme étape supplémentaire dans les 3 workflows de scan boutiques (pas de workflow séparé). S'arrête de lui-même une fois tous les produits surveillés passés leur date de sortie.
 
+### Radar de précommandes GÉNÉRIQUE (base pour PokéPrécoms, ajouté le 23/08/2026)
+
+Système **indépendant** du radar de précommandes ci-dessus (nouveaux fichiers, aucune modification) — contrairement à `precommandes_watchlist.py` (liste FIXE de produits connus à l'avance), détecte **n'importe quel** produit scellé Pokémon TCG en précommande sur le catalogue d'une boutique, sans le connaître d'avance. Première brique du futur produit séparé PokéPrécoms (dépôt `justok16/pokeprecoms`, pas encore développé) :
+- `precommande_generique.py` — `produit_est_candidat_precommande(titre, description)` : 4 conditions requises (mention explicite "Pokémon", mention explicite "précommande" — français uniquement, aucun anglais "pre-order" —, un mot-clé de type de produit scellé, absence d'une autre franchise TCG). Listes de mots-clés volontairement incomplètes, même limite assumée que `NOMS_SET_QUALIFICATIF_AMBIGU`.
+- `radar_precommande_generique.py` — scanner (**Shopify uniquement pour l'instant**, cf. sa docstring : catalogue complet déjà récupéré en un seul appel, donc gratuit en requêtes réseau — PrestaShop/WooCommerce nécessiteraient une requête par page produit, risque de timeout documenté ci-dessous à ne pas reproduire sans prefiltre serré) + mémoire + alerte Telegram. Contrairement au radar à produits fixes, pas de notion de confiance/date : la première apparition d'un (domaine, slug) est **toujours silencieuse** (même si déjà en stock), seule une transition "pas en stock → en stock" sur un produit déjà connu déclenche une alerte — demande explicite de Justok ("faire en sorte qu'il y ait bien du stock, sinon inutile").
+- `scan_precommandes_generique.py` — orchestrateur CLI (`python scan_precommandes_generique.py [boutiques...]`), mémoire dans `data/precommandes_generiques_shopify.json`.
+- **Workflow SÉPARÉ** (`scan_precommandes_generique.yml`, cron 30 min) plutôt qu'une étape de plus dans `scan_shopify.yml` : ce radar refait un passage complet sur le catalogue de chaque boutique (pas de réutilisation du catalogue déjà récupéré par `scan_boutique.py` dans le même cycle), ce qui aurait significativement entamé la marge déjà tendue de `scan_shopify.yml`. Timeout (25 min) posé par prudence, sans mesure réelle en prod encore — à ajuster une fois des cycles réels observés (cf. règle générale sur les timeouts plus bas).
+- Alertes envoyées sur le Telegram personnel de Justok pour l'instant (comme tous les autres radars) — pas encore de pont vers un Supabase PokéPrécoms (n'existe pas encore).
+
 ### Radar de découverte automatique de boutiques
 
 Système **indépendant** ajouté le 12/08/2026, ne modifie jamais les listes annotées à la main :
@@ -133,6 +142,7 @@ Tournent en parallèle sur le même repo, chacun avec son propre groupe de concu
 | `decouverte_boutiques.yml` | hebdomadaire (lundi 06h UTC) | 20 min | radar de découverte automatique de nouvelles boutiques (AFNIC) |
 | `tendance_prix.yml` | quotidien 8h30 UTC | 10 min | suivi de tendance de prix long terme (3 cartes JP) |
 | `prix_bas_quotidien.yml` | quotidien 9h UTC (~11h Paris) | 40 min | radar de prix bas quotidien (4 cartes × 4 langues, tous sites confondus) |
+| `scan_precommandes_generique.yml` | 30 min | 25 min | radar de précommandes génériques PokéPrécoms (Shopify uniquement) |
 | `tests.yml` | à chaque push/PR | — | suite pytest (cf. section Commandes) |
 
 `scan_woocommerce.yml` est le seul à jobs multiples (nécessaire car son plus gros catalogue à lui seul dépasse le budget d'un run simple) ; les jobs sont **séquentiels**, jamais en parallèle entre eux au sein d'un même run, pour éviter une course d'écriture sur le même fichier mémoire.

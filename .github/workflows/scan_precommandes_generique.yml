@@ -1,0 +1,71 @@
+name: Scan précommandes génériques (PokéPrécoms)
+on:
+  schedule:
+    # Toutes les 30 minutes, comme scan_shopify.yml -- mais WORKFLOW SEPARE
+    # (budget de temps propre) plutot qu'une etape de plus dans ce dernier :
+    # ce radar refait un passage COMPLET sur le catalogue de chaque boutique
+    # Shopify (pas de reutilisation du catalogue deja recupere par
+    # scan_boutique.py dans le meme cycle), ce qui aurait significativement
+    # entame la marge deja tendue de scan_shopify.yml (cf. son commentaire
+    # de timeout : ~20% de marge mesuree le 17/08/2026).
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      boutiques:
+        description: "Domaines à scanner, séparés par des espaces (vide = toutes les boutiques Shopify actives)"
+        required: false
+        default: ""
+permissions:
+  contents: write   # necessaire pour sauvegarder data/precommandes_generiques_shopify.json
+concurrency:
+  group: scan_precommandes_generique
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    # Pas encore de mesure reelle en prod (premier lancement) -- 25 min
+    # choisi par prudence (legerement sous les 30 min de scan_shopify.yml,
+    # qui scanne le meme nombre de boutiques Shopify pour un travail
+    # comparable). A ajuster une fois une marge reelle mesuree sur
+    # plusieurs cycles (cf. CLAUDE.md : ne jamais resserrer/elargir un
+    # timeout a l'aveugle).
+    timeout-minutes: 25
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le radar précommandes générique (Shopify)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PYTHONUNBUFFERED: "1"
+        run: python scan_precommandes_generique.py ${{ github.event.inputs.boutiques }}
+      - name: Sauvegarder la mémoire du radar précommandes générique
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          cp -f data/precommandes_generiques_shopify.json /tmp/precommandes_generiques_shopify.json 2>/dev/null || true
+          git stash || true
+          git pull --rebase || git rebase --abort || true
+          git stash pop || true
+          git stash drop || true
+          cp -f /tmp/precommandes_generiques_shopify.json data/precommandes_generiques_shopify.json 2>/dev/null || true
+          git add data/precommandes_generiques_shopify.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj mémoire radar précommandes génériques [skip ci]"
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f data/precommandes_generiques_shopify.json /tmp/precommandes_generiques_shopify.json 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/precommandes_generiques_shopify.json data/precommandes_generiques_shopify.json 2>/dev/null || true
+            git add data/precommandes_generiques_shopify.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj mémoire radar précommandes génériques [skip ci]"
+            git push
+          }
