@@ -1,0 +1,31 @@
+name: Vérifier des candidats boutique (manuel)
+
+on:
+  workflow_dispatch:
+    inputs:
+      domaines:
+        description: "Domaines à vérifier, séparés par des espaces (ex. boutique1.fr boutique2.com)"
+        required: true
+permissions:
+  contents: read
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    timeout-minutes: 10
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Vérifier les candidats
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python verifier_candidats_manuels.py ${{ github.event.inputs.domaines }}
