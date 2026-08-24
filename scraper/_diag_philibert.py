@@ -1,42 +1,40 @@
-"""Script de diagnostic JETABLE -- inspecte la structure reelle de la
-categorie Pokemon sur philibertnet.com (pagination, disponibilite/mention
-precommande visible sur le listing ou seulement sur la fiche produit,
-JSON-LD). Sera supprime une fois le vrai connecteur cible ecrit."""
+"""Script de diagnostic JETABLE (v2) -- inspecte la sous-categorie
+Precommandes > Jeux de cartes a collectionner de philibertnet.com."""
 import re
 
 import requests
 
 from connecteur_shopify import HEADERS_HTML, TIMEOUT
 
-URL = "https://www.philibertnet.com/fr/212-pokemon"
+URL = "https://www.philibertnet.com/fr/578-precommandes/s-3/categorie-jeux_de_cartes_a_collectionner_et_jeux_de_cartes_evolutifs"
 
 r = requests.get(URL, headers=HEADERS_HTML, timeout=TIMEOUT)
 print("status:", r.status_code, "len:", len(r.text))
-
 html = r.text
 
-# Pagination
-print("\n--- pagination ---")
-for m in re.finditer(r'href="([^"]*page[^"]*)"', html, re.I):
-    print(m.group(1))
+print("\n--- liens contenant 'pokemon' (insensible casse) ---")
+for m in list(set(re.findall(r'href="([^"]*pokemon[^"]*)"', html, re.I)))[:10]:
+    print(m)
 
-# Nombre de produits annonce
-m = re.search(r'([\d\s]+)\s*(?:produits?|résultats?|articles?)', html, re.I)
-print("\nnb produits annonce approx:", m.group(0) if m else None)
+print("\n--- pagination (classe/attribut courants PrestaShop) ---")
+for m in list(set(re.findall(r'href="([^"]*[?&]page=\d+[^"]*)"', html)))[:10]:
+    print(m)
+m2 = re.search(r'class="pagination[^"]*"[^>]*>.{0,600}', html, re.S)
+print(m2.group(0)[:600] if m2 else "aucun bloc pagination trouve")
 
-# Precommande mention sur le listing
-print("\n--- mentions precommande sur le listing ---")
-for m in list(re.finditer(r'.{40}pr[ée]commande.{40}', html, re.I))[:5]:
-    print(repr(m.group(0)))
+print("\n--- exemple de bloc produit (autour du premier 'product-title' ou similaire) ---")
+m3 = re.search(r'(product[-_]?(?:title|name|link|thumb))', html, re.I)
+print("indice trouve:", m3.group(0) if m3 else None)
+if m3:
+    i = m3.start()
+    print(html[max(0, i-300):i+500])
 
-# JSON-LD sur la page listing
-print("\n--- json-ld present ---", "application/ld+json" in html)
+print("\n--- tous les hrefs vers des fiches produit (motif /fr/<chiffres>-...) ---")
+liens = list(set(re.findall(r'href="(https://www\.philibertnet\.com/fr/[0-9]+-[^"]+)"', html)))
+print(f"{len(liens)} liens trouves, 10 premiers:")
+for l in liens[:10]:
+    print(l)
 
-# Un lien produit exemple
-m = re.search(r'href="(https://www\.philibertnet\.com/fr/pokemon/[^"]+)"', html)
-print("\nlien produit exemple:", m.group(1) if m else None)
-
-# Categorie/sous-filtre precommande ?
-print("\n--- sous-liens categorie contenant 'precommande' ---")
-for m in list(re.finditer(r'href="([^"]*precommande[^"]*)"', html, re.I))[:10]:
-    print(m.group(1))
+print("\n--- nombre total de resultats annonce ---")
+m4 = re.search(r'([\d\s]{1,6})\s*résultats?', html, re.I)
+print(m4.group(0) if m4 else None)
