@@ -28,7 +28,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from alerte_stock import charger_memoire, detecter_retours_en_stock, envoyer_telegram_retours_stock, sauvegarder_memoire
 from bonne_affaire_shopify import charger_cotes, charger_regles, detecter_bonnes_affaires, envoyer_telegram_bonnes_affaires
 from connecteur_shopify import ConnecteurShopify
+from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from watchlist_shopify import CarteWatchlist
+
+# Cle de la memoire stock dans la table Supabase scraper_memoire (cf.
+# memoire_supabase.py) -- migration du 24/08/2026, remplace le fichier Git
+# data/stock_boutiques_tcg.json pour ne plus committer cet etat a chaque
+# cycle (30 min). Meme nom que l'ancien fichier, sans l'extension.
+CLE_MEMOIRE_STOCK = "stock_boutiques_tcg"
 
 DELAI_ENTRE_BOUTIQUES = 2.5  # secondes -- politesse a l'echelle de 40 sites d'un coup
 
@@ -143,7 +150,21 @@ if __name__ == "__main__":
     cotes = charger_cotes()
     regles = charger_regles()
 
-    memoire_stock = charger_memoire()  # fichier de PROD : data/stock_boutiques_tcg.json
+    # Memoire stock : Supabase si les secrets sont configures (prod, cf.
+    # memoire_supabase.py -- ne DOIT jamais silencieusement repartir d'une
+    # memoire vide sur une panne reseau), repli sur le fichier local sinon
+    # (dev/test sans secrets).
+    supabase_url = os.environ.get("SUPABASE_URL", "")
+    supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
+    memoire_via_supabase = bool(supabase_url and supabase_key)
+    if memoire_via_supabase:
+        memoire_stock = charger_memoire_supabase(CLE_MEMOIRE_STOCK, supabase_url, supabase_key)
+        if memoire_stock is None:
+            print("[scan_boutique] Supabase injoignable : mémoire stock illisible, "
+                  "cycle ABANDONNÉ (évite de rejouer une alerte pour chaque produit déjà en stock).")
+            sys.exit(1)
+    else:
+        memoire_stock = charger_memoire()  # repli fichier local : data/stock_boutiques_tcg.json
 
     resume = scanner_plusieurs_boutiques(boutiques, cartes, memoire_stock, cotes, regles)
 
@@ -173,7 +194,12 @@ if __name__ == "__main__":
     # la rendant indetectable au cycle suivant (perte definitive).
     envoyer_telegram_retours_stock(resume["evenements_stock"], TELEGRAM_CHAT_ID, token, memoire_stock)
 
-    sauvegarder_memoire(memoire_stock)
+    if memoire_via_supabase:
+        if not sauvegarder_memoire_supabase(memoire_stock, CLE_MEMOIRE_STOCK, supabase_url, supabase_key):
+            print("[scan_boutique] ATTENTION : échec de sauvegarde de la mémoire stock sur Supabase "
+                  "-- l'état de ce cycle est perdu, les transitions détectées ce cycle-ci pourront se rejouer au prochain.")
+    else:
+        sauvegarder_memoire(memoire_stock)
 
     print(f"\n{'=' * 70}")
     print("RESUME DU CYCLE")

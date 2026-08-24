@@ -49,37 +49,6 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
         run: python scan_boutique.py ${{ github.event.inputs.boutiques }}
-      - name: Sauvegarder la mémoire de stock
-        run: |
-          git config user.name "pokedeals-bot"
-          git config user.email "bot@pokedeals.local"
-          # Meme logique de rattrapage que pokedeals.yml : on met de cote notre
-          # fichier de memoire, on recupere la version distante (qui peut avoir
-          # avance entre-temps -- cron parallele toutes les 15 min sur le meme
-          # repo), puis on reimpose notre version fraichement scannee.
-          cp -f data/stock_boutiques_tcg.json /tmp/stock_boutiques_tcg.json 2>/dev/null || true
-          git stash || true
-          git pull --rebase || git rebase --abort || true
-          git stash pop || true
-          git stash drop || true   # si le pop a laisse un conflit (stash "garde en cas de besoin"), on le purge -- notre cp/add/commit juste apres reimpose de toute facon la version fraichement scannee ; un stash oublie ici polluerait l'etape "Sauvegarder" suivante DANS LE MEME JOB (cf. SESSION_NOTES.md, cascade du 15/08/2026 sur scan_prestashop.yml)
-          cp -f /tmp/stock_boutiques_tcg.json data/stock_boutiques_tcg.json 2>/dev/null || true
-          git add data/stock_boutiques_tcg.json 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "maj mémoire stock shopify [skip ci]"
-          # Push avec un rattrapage (comme pokedeals.yml) : si le push echoue
-          # (l'autre cron a pousse entre-temps), on refait un pull --rebase en
-          # preservant notre memoire, puis on re-pousse. Si ca echoue ENCORE,
-          # on laisse le workflow passer au rouge pour que ce soit visible
-          # (sinon la memoire non sauvee = risque de rater/dupliquer une
-          # detection de retour en stock au prochain cycle).
-          git push || {
-            echo "Push refusé, tentative de rattrapage..."
-            cp -f data/stock_boutiques_tcg.json /tmp/stock_boutiques_tcg.json 2>/dev/null || true
-            git pull --rebase || git rebase --abort || true
-            cp -f /tmp/stock_boutiques_tcg.json data/stock_boutiques_tcg.json 2>/dev/null || true
-            git add data/stock_boutiques_tcg.json 2>/dev/null || true
-            git diff --cached --quiet || git commit -m "maj mémoire stock shopify [skip ci]"
-            git push
-          }
       - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
