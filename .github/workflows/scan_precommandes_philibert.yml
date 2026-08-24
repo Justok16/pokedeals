@@ -1,0 +1,70 @@
+name: Scan précommandes philibertnet.com
+
+on:
+  schedule:
+    # Toutes les 2h -- cadence VOLONTAIREMENT plus faible que les autres
+    # radars precommandes (30 min) : ce scan visite individuellement
+    # ~940 pages produit a chaque cycle (contre quelques dizaines pour une
+    # boutique normale), par politesse envers ce site tiers et pour ne pas
+    # multiplier inutilement la charge/le temps de calcul.
+    - cron: "0 */2 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write   # necessaire pour sauvegarder data/precommandes_generique_philibert.json
+concurrency:
+  group: scan_precommandes_philibert
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    # ~940 requetes a ~0.3-1s chacune (delai de politesse + latence reseau
+    # reelle) : pas encore mesure en conditions reelles (premier lancement)
+    # -- 45 min choisi par prudence large. A ajuster une fois une marge
+    # reelle mesuree sur plusieurs cycles (cf. CLAUDE.md : ne jamais
+    # resserrer/elargir un timeout a l'aveugle).
+    timeout-minutes: 45
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le scan précommandes philibertnet.com
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          POKEPRECOMS_SUPABASE_URL: ${{ secrets.POKEPRECOMS_SUPABASE_URL }}
+          POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_CLAIM_EMAIL: ${{ secrets.VAPID_CLAIM_EMAIL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
+          PYTHONUNBUFFERED: "1"
+        run: python scan_precommandes_philibert.py
+      - name: Sauvegarder la mémoire du scan précommandes philibertnet.com
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          cp -f data/precommandes_generique_philibert.json /tmp/precommandes_generique_philibert.json 2>/dev/null || true
+          git stash || true
+          git pull --rebase || git rebase --abort || true
+          git stash pop || true
+          git stash drop || true
+          cp -f /tmp/precommandes_generique_philibert.json data/precommandes_generique_philibert.json 2>/dev/null || true
+          git add data/precommandes_generique_philibert.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "maj mémoire précommandes philibert [skip ci]"
+          git push || {
+            echo "Push refusé, tentative de rattrapage..."
+            cp -f data/precommandes_generique_philibert.json /tmp/precommandes_generique_philibert.json 2>/dev/null || true
+            git pull --rebase || git rebase --abort || true
+            cp -f /tmp/precommandes_generique_philibert.json data/precommandes_generique_philibert.json 2>/dev/null || true
+            git add data/precommandes_generique_philibert.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj mémoire précommandes philibert [skip ci]"
+            git push
+          }
