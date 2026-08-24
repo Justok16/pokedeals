@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from alerte_stock import charger_memoire, detecter_retours_en_stock, envoyer_telegram_retours_stock, sauvegarder_memoire
 from bonne_affaire_shopify import charger_cotes, charger_regles, detecter_bonnes_affaires, envoyer_telegram_bonnes_affaires
 from connecteur_woocommerce import ConnecteurWooCommerce
+from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from watchlist_shopify import CarteWatchlist
 
 DELAI_ENTRE_BOUTIQUES = 2.5  # secondes -- meme politesse que les 2 autres scans
@@ -28,6 +29,12 @@ DELAI_ENTRE_BOUTIQUES = 2.5  # secondes -- meme politesse que les 2 autres scans
 TELEGRAM_CHAT_ID = "1245330032"
 
 FICHIER_MEMOIRE = Path(__file__).parent / "data" / "stock_boutiques_tcg_woocommerce.json"
+# Cle Supabase equivalente (cf. scan_boutique.py / memoire_supabase.py) --
+# migration du 24/08/2026. PARTAGEE entre lot A et lot B (comme l'etait
+# l'ancien fichier) : lot B (job sequentiel "needs: scan_lot_a") lit donc
+# directement l'etat ecrit par lot A via Supabase, sans plus avoir besoin de
+# la dance stash/pull-rebase/push entre les 2 jobs pour ce fichier precis.
+CLE_MEMOIRE_STOCK = "stock_boutiques_tcg_woocommerce"
 
 
 def scanner_boutique_complet(
@@ -143,7 +150,17 @@ if __name__ == "__main__":
     cotes = charger_cotes()
     regles = charger_regles()
 
-    memoire_stock = charger_memoire(FICHIER_MEMOIRE)
+    supabase_url = os.environ.get("SUPABASE_URL", "")
+    supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
+    memoire_via_supabase = bool(supabase_url and supabase_key)
+    if memoire_via_supabase:
+        memoire_stock = charger_memoire_supabase(CLE_MEMOIRE_STOCK, supabase_url, supabase_key)
+        if memoire_stock is None:
+            print("[scan_boutique_woocommerce] Supabase injoignable : mémoire stock illisible, "
+                  "cycle ABANDONNÉ (évite de rejouer une alerte pour chaque produit déjà en stock).")
+            sys.exit(1)
+    else:
+        memoire_stock = charger_memoire(FICHIER_MEMOIRE)
 
     resume = scanner_plusieurs_boutiques(boutiques, cartes, memoire_stock, cotes, regles, boutiques_repli_api_rest)
 
@@ -166,7 +183,12 @@ if __name__ == "__main__":
     # d'envoi -- cf. scan_boutique.py pour le detail complet.
     envoyer_telegram_retours_stock(resume["evenements_stock"], TELEGRAM_CHAT_ID, token, memoire_stock)
 
-    sauvegarder_memoire(memoire_stock, FICHIER_MEMOIRE)
+    if memoire_via_supabase:
+        if not sauvegarder_memoire_supabase(memoire_stock, CLE_MEMOIRE_STOCK, supabase_url, supabase_key):
+            print("[scan_boutique_woocommerce] ATTENTION : échec de sauvegarde de la mémoire stock sur Supabase "
+                  "-- l'état de ce cycle est perdu, les transitions détectées ce cycle-ci pourront se rejouer au prochain.")
+    else:
+        sauvegarder_memoire(memoire_stock, FICHIER_MEMOIRE)
 
     print(f"\n{'=' * 70}")
     print("RESUME DU CYCLE")

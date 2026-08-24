@@ -83,27 +83,6 @@ jobs:
             python -c "from boutiques_woocommerce import LOT_A; print(' '.join(LOT_A))" > /tmp/lot_a.txt
             python scan_boutique_woocommerce.py $(cat /tmp/lot_a.txt)
           fi
-      - name: Sauvegarder la mémoire de stock (lot A)
-        run: |
-          git config user.name "pokedeals-bot"
-          git config user.email "bot@pokedeals.local"
-          cp -f data/stock_boutiques_tcg_woocommerce.json /tmp/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-          git stash -u || true
-          git pull --rebase || git rebase --abort || true
-          git stash pop || true
-          git stash drop || true   # purge defensive d'un stash laisse par un pop en conflit -- un seul appel de sauvegarde dans ce job (runner jete juste apres), donc sans le risque de cascade documente dans CLAUDE.md (scan_prestashop.yml/scan_shopify.yml), mais garde par coherence/prudence
-          cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-          git add data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot A) [skip ci]"
-          git push || {
-            echo "Push refusé, tentative de rattrapage..."
-            cp -f data/stock_boutiques_tcg_woocommerce.json /tmp/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-            git pull --rebase || git rebase --abort || true
-            cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-            git add data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-            git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot A) [skip ci]"
-            git push
-          }
 
   scan_lot_b:
     needs: scan_lot_a   # execution sequentielle -- evite une course sur le meme fichier memoire au sein du run
@@ -146,27 +125,6 @@ jobs:
           # (radar AFNIC) -- greffees au lot B, qui a le plus de marge de temps.
           python -c "from boutiques_woocommerce import LOT_B; from boutiques_decouvertes import BOUTIQUES_WOOCOMMERCE_AUTO; print(' '.join(LOT_B + BOUTIQUES_WOOCOMMERCE_AUTO))" > /tmp/lot_b.txt
           python scan_boutique_woocommerce.py $(cat /tmp/lot_b.txt)
-      - name: Sauvegarder la mémoire de stock (lot B)
-        run: |
-          git config user.name "pokedeals-bot"
-          git config user.email "bot@pokedeals.local"
-          cp -f data/stock_boutiques_tcg_woocommerce.json /tmp/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-          git stash -u || true
-          git pull --rebase || git rebase --abort || true
-          git stash pop || true
-          git stash drop || true   # purge defensive d'un stash laisse par un pop en conflit -- un seul appel de sauvegarde dans ce job (runner jete juste apres), donc sans le risque de cascade documente dans CLAUDE.md (scan_prestashop.yml/scan_shopify.yml), mais garde par coherence/prudence
-          cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-          git add data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot B) [skip ci]"
-          git push || {
-            echo "Push refusé, tentative de rattrapage..."
-            cp -f data/stock_boutiques_tcg_woocommerce.json /tmp/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-            git pull --rebase || git rebase --abort || true
-            cp -f /tmp/stock_boutiques_tcg_woocommerce.json data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-            git add data/stock_boutiques_tcg_woocommerce.json 2>/dev/null || true
-            git diff --cached --quiet || git commit -m "maj mémoire stock woocommerce (lot B) [skip ci]"
-            git push
-          }
 
   scan_precommandes:
     needs: scan_lot_b   # tourne apres les 2 lots du scan cartes existant, jamais en parallele d'eux
