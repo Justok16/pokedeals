@@ -83,6 +83,12 @@ BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT = [
     # echoue silencieusement (catalogue vide, cf. recuperer_tout_le_catalogue)
     # sans casser le scan -- a reverifier au premier vrai cycle en prod.
     "gmcardsandtoys.com",
+    # AJOUTEE le 24/08/2026 -- trouvee par recherche web (limite assumee du
+    # radar decouverte_boutiques.py : ne couvre que les .fr fraichement
+    # crees via AFNIC, jamais une boutique existante), verifiee via
+    # verifier_candidats_manuels.py : 209 produits scelle Pokemon sur 250,
+    # 0 carte a l'unite (nb_singles=0).
+    "monpokestore.fr",
 ]
 
 # Detectees Shopify en priorite 2 (plateforme identifiee mais API non confirmee

@@ -21,6 +21,12 @@ BOUTIQUES_PRESTASHOP_SITEMAP = [
     "figurines-goodies.com",
     "nippontcg.fr",
     "kyseii.fr",
+    # AJOUTEE le 24/08/2026 -- trouvee par recherche web (limite assumee du
+    # radar decouverte_boutiques.py : ne couvre que les .fr fraichement
+    # crees via AFNIC, jamais une boutique existante ni un .com), verifiee
+    # via verifier_candidats_manuels.py : sitemap PrestaShop valide, 313
+    # slugs Pokemon sur 4195 produits au total.
+    "plazatcg.com",
 ]
 
 # Sans sitemap exploitable, couvertes via le repli "recherche HTML"
