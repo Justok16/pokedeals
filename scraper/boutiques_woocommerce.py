@@ -30,6 +30,16 @@ BOUTIQUES_WOOCOMMERCE_SITEMAP = [
     "ecardstore.fr",
     "k-tcg.com",
     "figuyatta.com",
+    # AJOUTEES le 24/08/2026 -- trouvees par recherche web (limite assumee
+    # du radar decouverte_boutiques.py : ne couvre que les .fr fraichement
+    # crees via AFNIC, jamais une boutique existante), verifiees via
+    # verifier_candidats_manuels.py (product-sitemap.xml valide, mots-cles
+    # Pokemon presents dans les slugs -- signal WooCommerce plus grossier
+    # que Shopify, pas de distinction singles/scelle possible sans visiter
+    # chaque page produit, donc placees dans la liste principale plutot que
+    # PRECOMMANDE_SEULEMENT par prudence).
+    "shop-tcg.fr",
+    "golden-poke.fr",
 ]
 
 # Scinde en 2 lots pour le workflow scan_woocommerce.yml (19 min mesurees
@@ -49,6 +59,7 @@ LOT_B = [
     "lecrocodeal.com", "mgs-shop.fr", "hobby-one.net", "fuji-store.fr",
     "pakushop.com", "guizettefamily.com", "pokuji.fr",
     "importpokecoree.com", "pokemoms.fr", "topdecktcg.fr",
+    "shop-tcg.fr", "golden-poke.fr",
     # mymesis.fr : deplacee de LOT_A vers LOT_B le 16/08/2026 (diagnostic
     # flake scan_lot_a, cf. SESSION_NOTES.md) -- repli API REST (pas de
     # sitemap), volume normalement negligeable MAIS observe au moins une
