@@ -9,8 +9,16 @@
       "verdict": "non_boutique"
     },
     "nemee-tcg.fr": {
-      "derniere_verification": "2026-08-17T06:59:17+00:00",
+      "derniere_verification": "2026-08-24T06:42:57+00:00",
       "verdict": "rejete_manuellement"
+    },
+    "levolia.fr": {
+      "derniere_verification": "2026-08-24T06:43:06+00:00",
+      "verdict": "non_boutique"
+    },
+    "tcgcard.fr": {
+      "derniere_verification": "2026-08-24T06:43:08+00:00",
+      "verdict": "non_boutique"
     }
   }
 }
