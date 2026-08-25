@@ -218,6 +218,27 @@ def _offre_depuis_variation(variation: dict) -> dict | None:
     return {"prix": prix, "en_stock": en_stock}
 
 
+def _stock_indisponible_selon_dom(html: str) -> bool:
+    """True si la classe CSS coeur WooCommerce (pas du theme -- rendue cote
+    serveur par le plugin lui-meme, donc stable d'un site a l'autre) annonce
+    explicitement outofstock/onbackorder sur le conteneur produit -- a
+    utiliser pour FORCER en_stock=False meme si le JSON-LD/microdata annonce
+    le contraire (jamais l'inverse : une classe "instock" ou absente ne
+    prouve pas la disponibilite, juste l'absence d'un signal de rupture).
+
+    Extrait le 25/08/2026 (bug reel : golden-poke.fr affichait une liste
+    d'attente "Rejoindre la liste d'attente" -- pas de bouton ajouter au
+    panier -- alors que le JSON-LD annoncait la precommande comme
+    commandable) pour etre reutilisable par radar_precommandes.py, qui
+    n'appliquait jusque-la QUE l'override DOM PrestaShop
+    (_stock_indisponible_selon_dom de connecteur_prestashop_sitemap.py,
+    cible un span id="product-availability" absent de toute page
+    WooCommerce) meme sur les pages WooCommerce -- l'override ne pouvait
+    donc jamais se declencher pour cette plateforme."""
+    m = re.search(r'class="product[^"]*\b(instock|outofstock|onbackorder)\b[^"]*"', html)
+    return bool(m and m.group(1) != "instock")
+
+
 def _extraire_html_woocommerce(html: str) -> dict | None:
     """Repli quand aucun JSON-LD Product n'est trouve : lit directement les
     classes CSS natives de WooCommerce (coeur du plugin, pas du theme).
