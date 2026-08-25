@@ -27,6 +27,33 @@ BOUTIQUES_PRESTASHOP_SITEMAP = [
     # via verifier_candidats_manuels.py : sitemap PrestaShop valide, 313
     # slugs Pokemon sur 4195 produits au total.
     "plazatcg.com",
+    # AJOUTEES le 25/08/2026 -- issues de l'annuaire V2 (candidats fournis
+    # par Justok, extraits de MapTCG/PkmCards : ~123 boutiques physiques
+    # nommees/adressees, cf. data/annuaire_boutiques_candidates.csv),
+    # verifiees une a une via verifier_candidats_manuels.py (sitemap
+    # PrestaShop valide + slugs Pokemon reels dans l'URL -- signal plus
+    # grossier que Shopify, pas de distinction singles/scelle possible sans
+    # visiter chaque page produit, meme limite que shop-tcg.fr/golden-poke.fr
+    # cote WooCommerce) :
+    "atmos-arena.com",     # 1478 produits/610 slugs pokemon -- tres bon signal
+    "curiouspop.com",      # 36 produits/13 slugs pokemon -- petit catalogue mais bon ratio
+    "majestikgames.com",   # 18442 produits/28 slugs pokemon
+    "starplayer.fr",       # 16624 produits/132 slugs pokemon
+    "uchroniesgames.fr",   # 237 produits/6 slugs pokemon -- signal faible mais reel
+    "thevaults.fr",        # 1992 produits/224 slugs pokemon
+    "konobacards.fr",      # 1043 produits/228 slugs pokemon
+    "fantasysphere.net",   # 84014 produits/10214 slugs pokemon -- tres gros volume
+    "gamecash.fr",         # 97448 produits/731 slugs pokemon -- chaine nationale, tres gros volume
+    "bulleenstock.com",    # 197636 produits/453 slugs pokemon -- record absolu de volume
+    "goupiya.com",         # 10127 produits/182 slugs pokemon
+    "tzp.fr",               # 724 produits/18 slugs pokemon
+    "octopusgame.fr",      # 1382 produits/307 slugs pokemon
+    "playmogames.com",     # 43128 produits/845 slugs pokemon -- tres gros volume
+    "ludiworld.com",       # 39593 produits/728 slugs pokemon -- tres gros volume
+    "crique-aux-jeux.fr",  # 19276 produits/175 slugs pokemon
+    "backingame.fr",       # 1886 produits/36 slugs pokemon
+    "kraknplay.com",       # 188 produits/9 slugs pokemon
+    "jeux-comte.fr",       # 1306 produits/48 slugs pokemon
 ]
 
 # Sans sitemap exploitable, couvertes via le repli "recherche HTML"

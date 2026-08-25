@@ -89,6 +89,17 @@ BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT = [
     # verifier_candidats_manuels.py : 209 produits scelle Pokemon sur 250,
     # 0 carte a l'unite (nb_singles=0).
     "monpokestore.fr",
+    # AJOUTEES le 25/08/2026 -- issues de l'annuaire V2 (candidats fournis
+    # par Justok, cf. data/annuaire_boutiques_candidates.csv), verifiees via
+    # verifier_candidats_manuels.py :
+    "manamecha.fr",   # 250 produits/40 scelle pokemon, 0 carte a l'unite trouvee
+    "tcgdirect.fr",   # 250 produits/178 scelle pokemon -- grossiste B2B (displays), pas de detail/singles
+    "apothicarte.com", # 113 produits/40 scelle pokemon, 0 carte a l'unite trouvee
+    # snooop.gg : 250 produits, 4 cartes Pokemon a l'unite confirmees (sur
+    # 51 scelle pokemon) -- signal singles quasi nul, placee ici plutot que
+    # dans BOUTIQUES_SHOPIFY par prudence (memes 4 cartes qui ne justifient
+    # pas d'exposer la boutique au scan cartes complet a chaque cycle).
+    "snooop.gg",
 ]
 
 # Detectees Shopify en priorite 2 (plateforme identifiee mais API non confirmee
