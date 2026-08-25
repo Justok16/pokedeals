@@ -56,6 +56,38 @@ BOUTIQUES_PRESTASHOP_SITEMAP = [
     "jeux-comte.fr",       # 1306 produits/48 slugs pokemon
 ]
 
+# Scinde en 2 lots pour le workflow scan_prestashop.yml -- meme necessite que
+# WooCommerce (cf. LOT_A/LOT_B ci-dessous dans boutiques_woocommerce.py) :
+# l'ajout de 19 boutiques le 25/08/2026 (dont plusieurs tres gros catalogues
+# -- gamecash.fr, bulleenstock.com, fantasysphere.net, playmogames.com,
+# ludiworld.com) a fait deborder le timeout de 30 min du job unique --
+# 13 cycles consecutifs annules entre 05:53 et 14:40 le 25/08/2026, tous
+# pendant l'etape "radar precommandes" qui n'atteignait jamais les
+# boutiques les plus lourdes. Repartition EQUILIBREE PAR DUREE REELLE
+# MESUREE (pas par nombre de boutiques) : bin-packing glouton sur les temps
+# par boutique releves dans les logs du run #489 (25/08/2026 05:00-05:26,
+# seul cycle complet post-fusion avant les annulations), qui donne
+# ~755s (12.6 min) par lot sur ~1510s (25.2 min) au total.
+LOT_A = [
+    "gamecash.fr", "bulleenstock.com", "skydreamer.fr", "playmogames.com",
+    "plazatcg.com", "ludifolie.com", "fungamesnet.fr", "majestikgames.com",
+    "goupiya.com", "jeux-comte.fr", "konobacards.fr", "nippontcg.fr",
+    "curiouspop.com", "backingame.fr", "kyseii.fr", "setdebase.com",
+    "uchroniesgames.fr",
+]
+LOT_B = [
+    "fantasysphere.net", "nin-nin-game.com", "blazingtail.fr",
+    "figurines-goodies.com", "ludiworld.com", "ludum.fr",
+    "crique-aux-jeux.fr", "starplayer.fr", "lesgentlemendujeu.com",
+    "lerepairedudragon.fr", "kraknplay.com", "atmos-arena.com",
+    "ludivers.net", "octopusgame.fr", "thevaults.fr", "tzp.fr",
+    "nordikards.com", "ludocortex.fr",
+    # investcollect.com : seule boutique BOUTIQUES_PRESTASHOP_REPLI_HTML
+    # (pas de sitemap, repli recherche HTML) -- placee ici, LOT_B a un peu
+    # plus de marge (755.6s vs 754.97s pour LOT_A, ecart negligeable).
+    "investcollect.com",
+]
+
 # Sans sitemap exploitable, couvertes via le repli "recherche HTML"
 # (ConnecteurPrestaShopSitemap.rechercher_via_recherche_html, cf.
 # scan_boutique_prestashop.py) -- ajoutees le 10/08/2026 apres correction de

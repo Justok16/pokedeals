@@ -57,7 +57,7 @@ Architecture commune aux 3 plateformes : un connecteur découvre les URLs produi
 
 **Orchestrateurs (un par plateforme, appelés par les workflows) :**
 - `scan_boutique.py` — Shopify, boutiques actives dans `boutiques_shopify.py` (`BOUTIQUES_SHOPIFY`).
-- `scan_boutique_prestashop.py` — PrestaShop, boutiques actives dans `boutiques_prestashop.py` (`BOUTIQUES_PRESTASHOP_SITEMAP` + `BOUTIQUES_PRESTASHOP_REPLI_HTML`).
+- `scan_boutique_prestashop.py` — PrestaShop, boutiques actives dans `boutiques_prestashop.py` (`LOT_A`/`LOT_B` pour la production, comme WooCommerce depuis le 25/08/2026 ; `BOUTIQUES_PRESTASHOP_SITEMAP` + `BOUTIQUES_PRESTASHOP_REPLI_HTML` réunis servent de défaut hors production, ex. `python scan_boutique_prestashop.py` sans argument).
 - `scan_boutique_woocommerce.py` — WooCommerce, boutiques actives dans `boutiques_woocommerce.py` (`LOT_A`/`LOT_B` pour le sitemap, `BOUTIQUES_WOOCOMMERCE_REPLI_API_REST` pour `mymesis.fr`) ; scindé en 2 lots équilibrés par volume d'URLs (pas par nombre de boutiques) pour tenir dans le timeout du workflow.
 
 Chaque fichier `boutiques_*.py` documente aussi, en commentaires, les boutiques diagnostiquées mais **volontairement non intégrées** (catalogue non pertinent, sitemap cassé côté site, rate-limit trop agressif, etc.) — vérifier là avant de ré-investiguer une boutique qui semble manquante.
@@ -151,7 +151,7 @@ Tournent en parallèle sur le même repo, chacun avec son propre groupe de concu
 |---|---|---|---|
 | `pokedeals.yml` | 15 min | 15 min | `main.py` (système historique) |
 | `scan_shopify.yml` | 30 min | 30 min | scan cartes Shopify + radar précommandes Shopify |
-| `scan_prestashop.yml` | 30 min | 30 min | scan cartes PrestaShop + radar précommandes PrestaShop |
+| `scan_prestashop.yml` | 30 min | 18 min (lot A) + 18 min (lot B) + 25 min (précommandes) | 3 jobs séquentiels (`needs:`), même structure que `scan_woocommerce.yml` depuis le 25/08/2026 : scan cartes lot A, lot B, puis radar précommandes (lot A + lot B) |
 | `scan_woocommerce.yml` | 30 min | 22 min (lot A) + 18 min (lot B) + 25 min (précommandes) | 3 jobs séquentiels (`needs:`) : scan cartes lot A, lot B, puis radar précommandes (lot A + lot B) |
 | `decouverte_boutiques.yml` | hebdomadaire (lundi 06h UTC) | 20 min | radar de découverte automatique de nouvelles boutiques (AFNIC) |
 | `tendance_prix.yml` | quotidien 8h30 UTC | 10 min | suivi de tendance de prix long terme (3 cartes JP) |
@@ -160,7 +160,7 @@ Tournent en parallèle sur le même repo, chacun avec son propre groupe de concu
 | `scan_precommandes_philibert.yml` | 2h | 45 min | radar de précommandes génériques PokéPrécoms dédié à philibertnet.com (~940 requêtes/cycle) |
 | `tests.yml` | à chaque push/PR | — | suite pytest (cf. section Commandes) |
 
-`scan_woocommerce.yml` est le seul à jobs multiples (nécessaire car son plus gros catalogue à lui seul dépasse le budget d'un run simple) ; les jobs sont **séquentiels**, jamais en parallèle entre eux au sein d'un même run, pour éviter une course d'écriture sur le même fichier mémoire.
+`scan_woocommerce.yml` et `scan_prestashop.yml` sont à jobs multiples (nécessaire car leur volume total dépasse le budget d'un run simple) ; les jobs sont **séquentiels**, jamais en parallèle entre eux au sein d'un même run, pour éviter une course d'écriture sur le même fichier mémoire.
 
 Avant de changer un timeout ou une composition de lot, vérifier `SESSION_NOTES.md` (section diagnostic du flake `scan_lot_a`) — les marges mesurées en prod y sont documentées, ne pas ajuster à l'aveugle.
 
