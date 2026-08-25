@@ -57,11 +57,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from connecteur_shopify import HEADERS, HEADERS_HTML, TIMEOUT
 from memoire_json import charger_memoire, sauvegarder_memoire
+from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from telegram_utils import echapper_html
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace", line_buffering=True)
 
 FICHIER_MEMOIRE = Path(__file__).parent / "data" / "decouverte_boutiques_memoire.json"
+# Cle Supabase equivalente (cf. memoire_supabase.py) -- migration du 25/08/2026.
+CLE_MEMOIRE = "decouverte_boutiques_memoire"
 FICHIER_BOUTIQUES_DECOUVERTES = Path(__file__).parent / "boutiques_decouvertes.py"
 
 JOURS_AFNIC = 7  # fenetre de disponibilite des fichiers sur le serveur AFNIC
@@ -341,7 +344,17 @@ def main() -> None:
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     chat_id = os.environ.get("TELEGRAM_CHAT_ID", "1245330032").strip()  # meme chat que le reste de PokeDeals
 
-    memoire = charger_memoire(FICHIER_MEMOIRE)
+    supabase_url = os.environ.get("SUPABASE_URL", "")
+    supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
+    memoire_via_supabase = bool(supabase_url and supabase_key)
+    if memoire_via_supabase:
+        memoire = charger_memoire_supabase(CLE_MEMOIRE, supabase_url, supabase_key)
+        if memoire is None:
+            print("[decouverte_boutiques] Supabase injoignable : mémoire illisible, "
+                  "cycle ABANDONNÉ (évite de re-verifier/re-ajouter des domaines déjà connus).")
+            sys.exit(1)
+    else:
+        memoire = charger_memoire(FICHIER_MEMOIRE)
 
     # Synchronise les rejets manuels dans la memoire persistante a CHAQUE
     # cycle -- garantit qu'ils ne sont plus jamais re-proposes, meme si le
@@ -405,7 +418,12 @@ def main() -> None:
     listes = _retirer_domaines_rejetes(listes)
     _ecrire_boutiques_decouvertes(listes)
 
-    sauvegarder_memoire(memoire, FICHIER_MEMOIRE)
+    if memoire_via_supabase:
+        if not sauvegarder_memoire_supabase(memoire, CLE_MEMOIRE, supabase_url, supabase_key):
+            print("[decouverte_boutiques] ATTENTION : échec de sauvegarde de la mémoire sur Supabase "
+                  "-- l'état de ce cycle est perdu.")
+    else:
+        sauvegarder_memoire(memoire, FICHIER_MEMOIRE)
     envoyer_telegram_rapport(ajouts, a_examiner, chat_id, token)
 
     print(f"\nTermine : {len(ajouts)} ajout(s) automatique(s), {len(a_examiner)} a examiner.")
