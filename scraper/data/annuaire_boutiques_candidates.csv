@@ -1,0 +1,17 @@
+nom,ville,departement,site,type,pokemon,one_piece,autres_tcg,rachat_cartes,singles,scelle,ecommerce,plateforme,scraping_possible,priorite,sources,statut,derniere_verification
+Relic TCG,Toulouse,31,relictcg.com,TCG spécialisé,oui,oui,"Magic/YGO/F&B",?,oui,oui,oui,shopify,oui,P1,MapTCG/déjà en prod,deja_scrape,2026-08-25
+Le Coin des Barons,Paris + Bordeaux,75/33,lecoindesbarons.com,TCG spécialisé,oui,oui,"YGO/Magic/Lorcana",?,oui,oui,oui,woocommerce,oui,P1,MapTCG/déjà en prod,deja_scrape,2026-08-25
+Fuji Store,Paris,75,fuji-store.fr,TCG spécialisé,oui,oui,"Magic/YGO/Lorcana",?,oui,oui,oui,woocommerce,oui,P1,TCG.promo/déjà en prod,deja_scrape,2026-08-25
+Cartabaffe,Paris + Caen,75/14,aucun (eBay+Instagram uniquement),Pokémon spécialisé,oui,?,—,?,oui,oui,non,ebay_uniquement,non,P3,WebSearch (kalina-gironde-charentes.fr/osakatoys.fr/ebay.fr),verifie_non_scrapable,2026-08-25
+Cards Hunter,Nice,06,cardshunter.fr,TCG spécialisé,oui,?,?,?,oui,oui,oui,woocommerce,oui,P1,déjà en prod,deja_scrape,2026-08-25
+Playin,"Paris/Annecy/Caen/Marseille",—,play-in.com,TCG spécialisé (chaîne),oui,oui,"Magic/YGO/Lorcana/Altered/F&B",?,oui,oui,oui,custom_non_detecte,non,P3,WebSearch,verifie_non_scrapable,2026-08-25
+Le Temple du Jeu,"Nantes/Limoges/Brest (chaîne)",—,letempledujeu.fr,TCG/jeux (chaîne),oui,?,"Magic/YGO",?,oui,oui,oui,prestashop,a_verifier_manuellement,P2,WebSearch+verifier_candidats_manuels (11465 produits/0 slug pokemon détecté),insuffisant_verifie,2026-08-25
+Sortilèges,Nantes (+ Brest),44/29,sortileges.fr,TCG/jeux,oui,?,"Magic/YGO/Lorcana",?,?,oui,oui,prestashop,oui,P1,WebSearch+verifier_candidats_manuels (2643 produits/27 slugs pokemon),candidat_verifie,2026-08-25
+Hunters Quest,Nice,06,huntersquest.fr,Pokémon spécialisé,oui,oui,Disney,oui,?,oui,oui,shopify,oui,P1,WebSearch+verifier_candidats_manuels (250 produits/184 scellé pokemon),candidat_verifie,2026-08-25
+Fantasy Sphere,Toulouse,31,fantasysphere.net,TCG spécialisé,oui,oui,"Magic/YGO",?,oui,oui,oui,?,a_verifier,P2,WebSearch,a_verifier_plateforme,2026-08-25
+All4Play,Toulouse,31,all4play.fr,TCG/jeux,oui,?,"Magic/Lorcana/Altered",oui,?,oui,oui (e-shop en construction),?,a_verifier,P3,WebSearch,a_verifier_plateforme,2026-08-25
+Troc'N'Troll,Nantes,44,trocntroll.fr,TCG spécialisé,oui,oui,"Magic/YGO",?,?,oui,oui,custom_probable (?action=allCardsStock),non_probable,P3,WebSearch,a_verifier_plateforme,2026-08-25
+TyzefTCG,Brest,29,tyzeftcg.fr,TCG/rachat,oui,oui,Magic,?,?,?,oui,?,a_verifier,P2,WebSearch,a_verifier_plateforme,2026-08-25
+PokeBreizh,Brest,29,pokebreizh.fr,Pokémon spécialisé,oui,?,"YGO/Magic/Lorcana/Altered",?,?,oui,oui,?,a_verifier,P2,WebSearch,a_verifier_plateforme,2026-08-25
+Gwenn Ha Deck,Brest,29,gwennhadeck.fr,TCG spécialisé,oui,oui,"Magic/YGO/Lorcana/SW Unlimited/Riftbound",?,?,oui,oui,?,a_verifier,P2,WebSearch,a_verifier_plateforme,2026-08-25
+Breizh Collect,Brest,29,breizhcollect.bzh,Pokémon spécialisé,oui,?,—,?,oui,?,oui,?,a_verifier,P2,WebSearch,a_verifier_plateforme,2026-08-25
