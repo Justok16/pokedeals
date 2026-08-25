@@ -34,7 +34,13 @@ from datetime import datetime, timezone
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from connecteur_shopify import HEADERS_HTML, TIMEOUT
-from connecteur_prestashop_sitemap import ConnecteurPrestaShopSitemap
+from connecteur_prestashop_sitemap import (
+    ConnecteurPrestaShopSitemap,
+    _analyser_offre,
+    _extraire_jsonld_produit,
+    _extraire_microdata_produit,
+    _stock_indisponible_selon_dom,
+)
 from connecteur_woocommerce import ConnecteurWooCommerce
 from precommandes_watchlist import ProduitSurveille, evaluer_correspondance
 
@@ -141,6 +147,35 @@ def scanner_shopify(domaine: str, produits: list[ProduitSurveille], connecteur=N
 # .session/.nom_affiche, presents sur les deux classes). Fusionnee le
 # 11/08/2026 (etait dupliquee a l'identique entre les deux plateformes).
 
+def _extraire_prix_et_stock(html: str) -> tuple[float | None, bool | None]:
+    """Statut de stock reel de la page, meme strategie que
+    ConnecteurPrestaShopSitemap (JSON-LD -> repli microdata -> override DOM
+    "rupture de stock") -- AVANT ce fix (25/08/2026, signale par
+    l'utilisateur : alerte "precommande detectee" recue pour un produit
+    affichant 0,00€ et "rupture de stock" sur plazatcg.com), cette fonction
+    ne lisait QUE le titre+texte brut de la page, sans jamais determiner le
+    stock reel : `en_stock` restait toujours None ("indetermine"), donc
+    `stock_vient_de_souvrir` (alerte_precommande.py) ne se declenchait
+    jamais et l'alerte partait uniquement sur la confiance "forte" (date de
+    sortie confirmee sur la page) -- meme si le produit n'etait pas
+    reellement commandable. Le signal DOM (rupture explicite) prime
+    toujours sur le signal structure (JSON-LD/microdata) en cas de
+    contradiction, jamais l'inverse -- meme regle que le connecteur
+    PrestaShop principal."""
+    produit_jsonld = _extraire_jsonld_produit(html)
+    if produit_jsonld:
+        offre = _analyser_offre(produit_jsonld)
+        prix, en_stock = offre["prix"], offre["en_stock"]
+    else:
+        microdata = _extraire_microdata_produit(html)
+        prix, en_stock = (microdata["prix"], microdata["en_stock"]) if microdata else (None, None)
+
+    if _stock_indisponible_selon_dom(html):
+        en_stock = False
+
+    return prix, en_stock
+
+
 def _evaluer_page(connecteur, url: str, produits: list[ProduitSurveille]) -> list[dict]:
     try:
         r = connecteur.session.get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
@@ -165,10 +200,11 @@ def _evaluer_page(connecteur, url: str, produits: list[ProduitSurveille]) -> lis
     # equivalente sur body_html -- retiree ici par coherence, le cout de
     # traitement d'un texte de page web complet est negligeable.
     texte = re.sub(r"<[^>]+>", " ", html)
+    prix, en_stock = _extraire_prix_et_stock(html)
 
     candidats = []
     for produit in produits:
-        c = _candidat(connecteur.nom_affiche, produit, titre, texte, url)
+        c = _candidat(connecteur.nom_affiche, produit, titre, texte, url, prix, en_stock)
         if c:
             candidats.append(c)
     return candidats
