@@ -33,6 +33,7 @@ from alerte_precommande import (
     envoyer_telegram_precommandes,
     sauvegarder_memoire,
 )
+from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from precommandes_watchlist import produits_actifs
 from radar_precommandes import (
     scanner_prestashop_repli_html,
@@ -56,6 +57,13 @@ FICHIER_MEMOIRE_PAR_PLATEFORME = {
     "shopify": Path(__file__).parent / "data" / "precommandes_anniversaire_shopify.json",
     "prestashop": Path(__file__).parent / "data" / "precommandes_anniversaire_prestashop.json",
     "woocommerce": Path(__file__).parent / "data" / "precommandes_anniversaire_woocommerce.json",
+}
+# Cles Supabase equivalentes (cf. memoire_supabase.py) -- migration du
+# 25/08/2026, meme principe que stock_boutiques_tcg* pour alerte_stock.py.
+CLE_MEMOIRE_PAR_PLATEFORME = {
+    "shopify": "precommandes_anniversaire_shopify",
+    "prestashop": "precommandes_anniversaire_prestashop",
+    "woocommerce": "precommandes_anniversaire_woocommerce",
 }
 
 
@@ -162,8 +170,19 @@ if __name__ == "__main__":
     print(f"{len(boutiques)} boutique(s) {plateforme} a scanner")
     print(f"Telegram : {'configure' if token else 'NON configure (TELEGRAM_BOT_TOKEN absent -- envoi desactive)'}\n")
 
-    fichier_memoire = FICHIER_MEMOIRE_PAR_PLATEFORME[plateforme]
-    memoire = charger_memoire(fichier_memoire)
+    supabase_url = os.environ.get("SUPABASE_URL", "")
+    supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
+    memoire_via_supabase = bool(supabase_url and supabase_key)
+    cle_memoire = CLE_MEMOIRE_PAR_PLATEFORME[plateforme]
+    if memoire_via_supabase:
+        memoire = charger_memoire_supabase(cle_memoire, supabase_url, supabase_key)
+        if memoire is None:
+            print("[scan_precommandes] Supabase injoignable : mémoire illisible, "
+                  "cycle ABANDONNÉ (évite de rejouer une alerte pour chaque précommande déjà connue).")
+            sys.exit(1)
+    else:
+        memoire = charger_memoire(FICHIER_MEMOIRE_PAR_PLATEFORME[plateforme])
+
     resume = scanner_plusieurs_boutiques(plateforme, boutiques, modes, produits, memoire)
     # V57 (18/08/2026, audit externe) : sauvegarde APRES la tentative
     # d'envoi Telegram (pas avant) -- envoyer_telegram_precommandes()
@@ -173,7 +192,12 @@ if __name__ == "__main__":
     # envoi qui echoue, perdant l'evenement definitivement (plus jamais
     # redetecte au cycle suivant).
     envoyer_telegram_precommandes(resume["evenements"], TELEGRAM_CHAT_ID, token, memoire)
-    sauvegarder_memoire(memoire, fichier_memoire)
+    if memoire_via_supabase:
+        if not sauvegarder_memoire_supabase(memoire, cle_memoire, supabase_url, supabase_key):
+            print("[scan_precommandes] ATTENTION : échec de sauvegarde de la mémoire sur Supabase "
+                  "-- l'état de ce cycle est perdu, les événements détectés ce cycle-ci pourront se rejouer au prochain.")
+    else:
+        sauvegarder_memoire(memoire, FICHIER_MEMOIRE_PAR_PLATEFORME[plateforme])
 
     print(f"\n{'=' * 70}")
     print("RESUME DU CYCLE PRECOMMANDES")

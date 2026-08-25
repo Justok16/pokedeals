@@ -156,6 +156,8 @@ jobs:
       - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta) — lot A
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}   # mémoire du radar (cf. memoire_supabase.py, migration 25/08/2026)
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           PYTHONUNBUFFERED: "1"
         run: |
           python -c "from boutiques_woocommerce import LOT_A; print(' '.join(LOT_A))" > /tmp/lot_a.txt
@@ -163,6 +165,8 @@ jobs:
       - name: Lancer le radar précommandes — lot B
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           PYTHONUNBUFFERED: "1"
         run: |
           # Audit du 18/08/2026 (cf. SESSION_NOTES.md) : ce step concatenait
@@ -182,28 +186,9 @@ jobs:
       - name: Lancer le radar précommandes — boutiques scellé uniquement
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           PYTHONUNBUFFERED: "1"
         run: |
           python -c "from boutiques_woocommerce import BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT; from boutiques_decouvertes import BOUTIQUES_WOOCOMMERCE_AUTO_PRECOMMANDE_SEULEMENT; print(' '.join(BOUTIQUES_WOOCOMMERCE_PRECOMMANDE_SEULEMENT + BOUTIQUES_WOOCOMMERCE_AUTO_PRECOMMANDE_SEULEMENT))" > /tmp/lot_precommande_seulement.txt
           python scan_precommandes.py woocommerce $(cat /tmp/lot_precommande_seulement.txt)
-      - name: Sauvegarder la mémoire du radar précommandes
-        run: |
-          git config user.name "pokedeals-bot"
-          git config user.email "bot@pokedeals.local"
-          cp -f data/precommandes_anniversaire_woocommerce.json /tmp/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
-          git stash -u || true
-          git pull --rebase || git rebase --abort || true
-          git stash pop || true
-          git stash drop || true   # purge defensive d'un stash laisse par un pop en conflit -- un seul appel de sauvegarde dans ce job (runner jete juste apres), donc sans le risque de cascade documente dans CLAUDE.md (scan_prestashop.yml/scan_shopify.yml), mais garde par coherence/prudence
-          cp -f /tmp/precommandes_anniversaire_woocommerce.json data/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
-          git add data/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "maj mémoire radar précommandes woocommerce [skip ci]"
-          git push || {
-            echo "Push refusé, tentative de rattrapage..."
-            cp -f data/precommandes_anniversaire_woocommerce.json /tmp/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
-            git pull --rebase || git rebase --abort || true
-            cp -f /tmp/precommandes_anniversaire_woocommerce.json data/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
-            git add data/precommandes_anniversaire_woocommerce.json 2>/dev/null || true
-            git diff --cached --quiet || git commit -m "maj mémoire radar précommandes woocommerce [skip ci]"
-            git push
-          }

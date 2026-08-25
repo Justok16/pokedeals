@@ -51,26 +51,7 @@ jobs:
       - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}   # mémoire du radar (cf. memoire_supabase.py, migration 25/08/2026)
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           PYTHONUNBUFFERED: "1"
         run: python scan_precommandes.py prestashop
-      - name: Sauvegarder la mémoire du radar précommandes
-        run: |
-          git config user.name "pokedeals-bot"
-          git config user.email "bot@pokedeals.local"
-          cp -f data/precommandes_anniversaire_prestashop.json /tmp/precommandes_anniversaire_prestashop.json 2>/dev/null || true
-          git stash || true
-          git pull --rebase || git rebase --abort || true
-          git stash pop || true
-          git stash drop || true   # meme parade qu'a l'etape precedente -- purge un eventuel stash laisse par un pop en conflit
-          cp -f /tmp/precommandes_anniversaire_prestashop.json data/precommandes_anniversaire_prestashop.json 2>/dev/null || true
-          git add data/precommandes_anniversaire_prestashop.json 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "maj mémoire radar précommandes prestashop [skip ci]"
-          git push || {
-            echo "Push refusé, tentative de rattrapage..."
-            cp -f data/precommandes_anniversaire_prestashop.json /tmp/precommandes_anniversaire_prestashop.json 2>/dev/null || true
-            git pull --rebase || git rebase --abort || true
-            cp -f /tmp/precommandes_anniversaire_prestashop.json data/precommandes_anniversaire_prestashop.json 2>/dev/null || true
-            git add data/precommandes_anniversaire_prestashop.json 2>/dev/null || true
-            git diff --cached --quiet || git commit -m "maj mémoire radar précommandes prestashop [skip ci]"
-            git push
-          }

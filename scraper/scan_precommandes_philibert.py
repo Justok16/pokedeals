@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from connecteur_philibert import scanner_philibert_precommandes_generiques
 from connecteur_supabase_precoms import enregistrer_precommande_alertes, notifier_abonnes_precoms
 from memoire_json import charger_memoire, sauvegarder_memoire
+from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from radar_precommande_generique import (
     detecter_nouvelles_precommandes_generiques,
     envoyer_telegram_precommandes_generiques,
@@ -29,6 +30,8 @@ from radar_precommande_generique import (
 
 TELEGRAM_CHAT_ID = "1245330032"
 FICHIER_MEMOIRE = Path(__file__).parent / "data" / "precommandes_generique_philibert.json"
+# Cle Supabase equivalente (cf. memoire_supabase.py) -- migration du 25/08/2026.
+CLE_MEMOIRE = "precommandes_generique_philibert"
 
 
 if __name__ == "__main__":
@@ -44,7 +47,17 @@ if __name__ == "__main__":
         f"Pont Supabase PokéPrécoms : {'configuré' if pont_precoms_configure else 'NON configuré (POKEPRECOMS_SUPABASE_URL/_SERVICE_ROLE_KEY absents -- écriture désactivée)'}\n"
     )
 
-    memoire = charger_memoire(FICHIER_MEMOIRE)
+    supabase_url = os.environ.get("SUPABASE_URL", "")
+    supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
+    memoire_via_supabase = bool(supabase_url and supabase_key)
+    if memoire_via_supabase:
+        memoire = charger_memoire_supabase(CLE_MEMOIRE, supabase_url, supabase_key)
+        if memoire is None:
+            print("[scan_precommandes_philibert] Supabase injoignable : mémoire illisible, "
+                  "cycle ABANDONNÉ (évite de rejouer une alerte pour chaque précommande déjà connue).")
+            sys.exit(1)
+    else:
+        memoire = charger_memoire(FICHIER_MEMOIRE)
 
     try:
         candidats = scanner_philibert_precommandes_generiques()
@@ -61,7 +74,12 @@ if __name__ == "__main__":
     # succes -- evite de figer "deja alerté" en memoire pour un envoi qui a
     # echoué (perte définitive de l'événement sinon).
     envoyer_telegram_precommandes_generiques(evenements, TELEGRAM_CHAT_ID, token, memoire)
-    sauvegarder_memoire(memoire, FICHIER_MEMOIRE)
+    if memoire_via_supabase:
+        if not sauvegarder_memoire_supabase(memoire, CLE_MEMOIRE, supabase_url, supabase_key):
+            print("[scan_precommandes_philibert] ATTENTION : échec de sauvegarde de la mémoire sur Supabase "
+                  "-- l'état de ce cycle est perdu, les événements détectés ce cycle-ci pourront se rejouer au prochain.")
+    else:
+        sauvegarder_memoire(memoire, FICHIER_MEMOIRE)
 
     # Pont PokePrecoms (optionnel/non bloquant), independant du succes
     # Telegram ci-dessus -- la dedup se fait cote base (contrainte unique

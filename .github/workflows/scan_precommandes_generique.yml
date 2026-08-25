@@ -46,6 +46,8 @@ jobs:
       - name: Lancer le radar précommandes générique (Shopify)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}   # mémoire du radar (cf. memoire_supabase.py, migration 25/08/2026) -- DISTINCT de POKEPRECOMS_SUPABASE_URL ci-dessous
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           POKEPRECOMS_SUPABASE_URL: ${{ secrets.POKEPRECOMS_SUPABASE_URL }}
           POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY }}
           VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
@@ -54,24 +56,3 @@ jobs:
           RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
           PYTHONUNBUFFERED: "1"
         run: python scan_precommandes_generique.py ${{ github.event.inputs.boutiques }}
-      - name: Sauvegarder la mémoire du radar précommandes générique
-        run: |
-          git config user.name "pokedeals-bot"
-          git config user.email "bot@pokedeals.local"
-          cp -f data/precommandes_generiques_shopify.json /tmp/precommandes_generiques_shopify.json 2>/dev/null || true
-          git stash || true
-          git pull --rebase || git rebase --abort || true
-          git stash pop || true
-          git stash drop || true
-          cp -f /tmp/precommandes_generiques_shopify.json data/precommandes_generiques_shopify.json 2>/dev/null || true
-          git add data/precommandes_generiques_shopify.json 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "maj mémoire radar précommandes génériques [skip ci]"
-          git push || {
-            echo "Push refusé, tentative de rattrapage..."
-            cp -f data/precommandes_generiques_shopify.json /tmp/precommandes_generiques_shopify.json 2>/dev/null || true
-            git pull --rebase || git rebase --abort || true
-            cp -f /tmp/precommandes_generiques_shopify.json data/precommandes_generiques_shopify.json 2>/dev/null || true
-            git add data/precommandes_generiques_shopify.json 2>/dev/null || true
-            git diff --cached --quiet || git commit -m "maj mémoire radar précommandes génériques [skip ci]"
-            git push
-          }
