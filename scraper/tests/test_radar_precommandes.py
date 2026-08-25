@@ -159,3 +159,57 @@ def test_evaluer_page_sans_donnees_structurees_renvoie_stock_indetermine():
     with patch("radar_precommandes.time.sleep"):
         candidats = _evaluer_page(connecteur, "https://exemple.fr/produit", [_produit_test()])
     assert candidats[0]["en_stock"] is None
+
+
+# ------------------- _evaluer_page : override DOM WooCommerce (fix du 25/08/2026, 2e bug) -------------------
+# Bug reel signale par l'utilisateur : alerte "precommande detectee" recue
+# pour golden-poke.fr (WooCommerce) avec "En stock / commandable" alors que
+# la page affichait une liste d'attente ("Rejoindre la liste d'attente",
+# aucun bouton ajouter au panier) -- le premier fix (ci-dessus) n'appliquait
+# QUE l'override DOM PrestaShop (span id="product-availability", absent de
+# toute page WooCommerce), donc l'override ne se declenchait jamais sur ces
+# pages : le JSON-LD (souvent errone/en cache sur une precommande) faisait
+# foi sans jamais pouvoir etre corrige par le rendu reel.
+
+def _page_woocommerce(connecteur_nom, html):
+    # Instance REELLE (pas Mock(spec=...)) : session est un attribut
+    # d'instance (cf. __init__), invisible pour spec= qui ne connait que
+    # les attributs de CLASSE -- isinstance(..., ConnecteurWooCommerce) doit
+    # rester vrai pour que _evaluer_page choisisse le bon override DOM.
+    connecteur = ConnecteurWooCommerce("exemple.invalide", nom_affiche=connecteur_nom)
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    reponse.content = html.encode("utf-8")
+    connecteur.session = Mock()
+    connecteur.session.get.return_value = reponse
+    return connecteur
+
+
+def test_evaluer_page_woocommerce_jsonld_instock_mais_classe_outofstock_force_en_stock_false():
+    html = (
+        '<html><title>ETB 30e anniversaire</title><body>'
+        '<script type="application/ld+json">'
+        '{"@type": "Product", "offers": {"price": "42.99", "availability": "https://schema.org/InStock"}}'
+        '</script>'
+        '<div class="product type-product outofstock">Rejoindre la liste d\'attente</div>'
+        '<p>Date de sortie : 16 septembre 2026</p></body></html>'
+    )
+    connecteur = _page_woocommerce("golden-poke.fr", html)
+    with patch("radar_precommandes.time.sleep"):
+        candidats = _evaluer_page(connecteur, "https://golden-poke.fr/produit", [_produit_test()])
+    assert candidats[0]["en_stock"] is False
+
+
+def test_evaluer_page_woocommerce_jsonld_instock_et_classe_instock_reste_en_stock_true():
+    html = (
+        '<html><title>ETB 30e anniversaire</title><body>'
+        '<script type="application/ld+json">'
+        '{"@type": "Product", "offers": {"price": "59.99", "availability": "https://schema.org/InStock"}}'
+        '</script>'
+        '<div class="product type-product instock">Ajouter au panier</div>'
+        '<p>Date de sortie : 16 septembre 2026</p></body></html>'
+    )
+    connecteur = _page_woocommerce("exemple.fr", html)
+    with patch("radar_precommandes.time.sleep"):
+        candidats = _evaluer_page(connecteur, "https://exemple.fr/produit", [_produit_test()])
+    assert candidats[0]["en_stock"] is True
