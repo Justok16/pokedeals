@@ -91,3 +91,71 @@ def test_evaluer_page_trouve_une_date_situee_apres_5000_caracteres():
 
     assert len(candidats) == 1
     assert candidats[0]["confiance"] == "forte"
+
+
+# ------------------- _evaluer_page : statut de stock reel (fix du 25/08/2026) -------------------
+# Bug reel signale par l'utilisateur : une alerte "precommande detectee"
+# recue pour un produit affichant 0,00€ et "rupture de stock" sur
+# plazatcg.com (PrestaShop) -- _evaluer_page ne determinait auparavant
+# JAMAIS le stock reel (toujours None), donc alerte_precommande.py ne
+# pouvait jamais utiliser la regle "alerte seulement si le stock vient
+# de s'ouvrir".
+
+def _page(connecteur_nom, html):
+    connecteur = Mock()
+    connecteur.nom_affiche = connecteur_nom
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    reponse.content = html.encode("utf-8")
+    connecteur.session.get.return_value = reponse
+    return connecteur
+
+
+def _produit_test():
+    return ProduitSurveille(
+        nom="Coffret Test",
+        mots_cles_edition=frozenset({"30e anniversaire"}),
+        mots_cles_type=frozenset({"etb"}),
+        date_sortie=date(2026, 9, 16),
+    )
+
+
+def test_evaluer_page_lit_le_stock_via_jsonld():
+    html = (
+        '<html><title>ETB 30e anniversaire</title><body>'
+        '<script type="application/ld+json">'
+        '{"@type": "Product", "offers": {"price": "59.99", "availability": "https://schema.org/InStock"}}'
+        '</script>'
+        '<p>Date de sortie : 16 septembre 2026</p></body></html>'
+    )
+    connecteur = _page("exemple.fr", html)
+    with patch("radar_precommandes.time.sleep"):
+        candidats = _evaluer_page(connecteur, "https://exemple.fr/produit", [_produit_test()])
+    assert candidats[0]["en_stock"] is True
+    assert candidats[0]["prix"] == 59.99
+
+
+def test_evaluer_page_jsonld_instock_mais_dom_annonce_rupture_force_en_stock_false():
+    # Meme piege deja corrige cote ConnecteurPrestaShopSitemap (cf.
+    # investcollect.com, CLAUDE.md) : le DOM rendu prime toujours sur le
+    # JSON-LD en cas de contradiction.
+    html = (
+        '<html><title>ETB 30e anniversaire</title><body>'
+        '<script type="application/ld+json">'
+        '{"@type": "Product", "offers": {"price": "0.00", "availability": "https://schema.org/InStock"}}'
+        '</script>'
+        '<span id="product-availability">Rupture de stock</span>'
+        '<p>Date de sortie : 16 septembre 2026</p></body></html>'
+    )
+    connecteur = _page("plazatcg.com", html)
+    with patch("radar_precommandes.time.sleep"):
+        candidats = _evaluer_page(connecteur, "https://plazatcg.com/produit", [_produit_test()])
+    assert candidats[0]["en_stock"] is False
+
+
+def test_evaluer_page_sans_donnees_structurees_renvoie_stock_indetermine():
+    html = "<html><title>ETB 30e anniversaire</title><body><p>Date de sortie : 16 septembre 2026</p></body></html>"
+    connecteur = _page("exemple.fr", html)
+    with patch("radar_precommandes.time.sleep"):
+        candidats = _evaluer_page(connecteur, "https://exemple.fr/produit", [_produit_test()])
+    assert candidats[0]["en_stock"] is None
