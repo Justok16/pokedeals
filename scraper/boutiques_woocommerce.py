@@ -40,6 +40,15 @@ BOUTIQUES_WOOCOMMERCE_SITEMAP = [
     # PRECOMMANDE_SEULEMENT par prudence).
     "shop-tcg.fr",
     "golden-poke.fr",
+    # AJOUTEES le 25/08/2026 -- issues de l'annuaire V2 (candidats fournis
+    # par Justok, cf. data/annuaire_boutiques_candidates.csv), verifiees via
+    # verifier_candidats_manuels.py (product-sitemap.xml valide, slugs
+    # Pokemon reels) -- meme prudence que shop-tcg.fr/golden-poke.fr : pas
+    # de distinction singles/scelle possible pour WooCommerce, placees dans
+    # la liste principale plutot que dans un hypothetique PRECOMMANDE_SEULEMENT.
+    "maxireves.fr",   # 1001 produits/102 slugs pokemon
+    "yukistore.fr",   # 1001 produits/27 slugs pokemon
+    "all4play.fr",    # 1001 produits/35 slugs pokemon
 ]
 
 # Scinde en 2 lots pour le workflow scan_woocommerce.yml (19 min mesurees
@@ -60,6 +69,9 @@ LOT_B = [
     "pakushop.com", "guizettefamily.com", "pokuji.fr",
     "importpokecoree.com", "pokemoms.fr", "topdecktcg.fr",
     "shop-tcg.fr", "golden-poke.fr",
+    # AJOUTEES le 25/08/2026 -- meme lot que les autres petits/moyens
+    # catalogues (1001 produits chacun, volume comparable a shop-tcg.fr) :
+    "maxireves.fr", "yukistore.fr", "all4play.fr",
     # mymesis.fr : deplacee de LOT_A vers LOT_B le 16/08/2026 (diagnostic
     # flake scan_lot_a, cf. SESSION_NOTES.md) -- repli API REST (pas de
     # sitemap), volume normalement negligeable MAIS observe au moins une
