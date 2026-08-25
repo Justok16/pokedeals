@@ -1,35 +1,45 @@
 name: Scan PrestaShop
 on:
   schedule:
-    # Toutes les 30 minutes -- independant des deux autres cron (main.py
-    # toutes les 15 min, scan_shopify.yml toutes les 30 min aussi). Les
-    # trois tournent en parallele sur le meme repo ; cf. l'etape de
-    # sauvegarde ci-dessous pour la gestion des collisions Git.
+    # Toutes les 30 minutes -- independant des trois autres cron (main.py
+    # 15 min, scan_shopify.yml et scan_woocommerce.yml 30 min). Tous tournent
+    # en parallele sur le meme repo ; cf. les etapes de sauvegarde ci-dessous
+    # pour la gestion des collisions Git.
     - cron: "*/30 * * * *"
   workflow_dispatch:
     inputs:
       boutiques:
-        description: "Domaines a scanner, separes par des espaces (vide = les 16 boutiques par defaut)"
+        description: "Domaines a scanner (remplace les 2 lots par defaut, ignore le decoupage en 2 jobs)"
         required: false
         default: ""
 permissions:
   contents: write   # necessaire pour sauvegarder data/stock_boutiques_tcg_prestashop.json
 concurrency:
-  group: scan_prestashop   # groupe DEDIE, distinct de "pokedeals" et "scan_shopify"
-  cancel-in-progress: false  # les trois workflows tournent independamment les uns des autres
+  group: scan_prestashop   # groupe DEDIE, distinct des 3 autres workflows
+  cancel-in-progress: false  # les 4 workflows tournent independamment les uns des autres
 jobs:
-  scan:
+  # Scinde en 2 lots le 25/08/2026 : l'ajout de 19 boutiques (PR #60, dont
+  # plusieurs tres gros catalogues -- gamecash.fr, bulleenstock.com,
+  # fantasysphere.net, playmogames.com, ludiworld.com) a fait deborder le
+  # timeout de 30 min du job unique -- 13 cycles consecutifs annules entre
+  # 05:53 et 14:40 le 25/08/2026, tous pendant l'etape "radar precommandes"
+  # qui n'atteignait jamais les boutiques les plus lourdes (jamais le scan
+  # cartes lui-meme, toujours termine avec succes avant la coupure). Meme
+  # remede que scan_woocommerce.yml (deja scinde en LOT_A/LOT_B le 11/08) :
+  # 2 lots EQUILIBRES PAR DUREE REELLE MESUREE (pas par nombre de boutiques,
+  # cf. boutiques_prestashop.py pour le detail du bin-packing), executes
+  # SEQUENTIELLEMENT (job B attend job A via "needs") pour eviter que les
+  # deux jobs n'ecrivent en meme temps sur
+  # data/stock_boutiques_tcg_prestashop.json au sein du MEME run.
+  scan_lot_a:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: scraper
-    # 6.8 min mesurees en local sur les 16 boutiques (avant retrait de
-    # bcd-jeux.fr) -- marge large car 2 sitemaps sont volumineux
-    # (skydreamer.fr ~31 Mo, ludum.fr ~17 Mo) et pourraient ralentir sur le
-    # reseau du runner GitHub Actions. +10 min pour le radar precommandes
-    # ajoute ensuite (relit les memes sitemaps volumineux, cf. etape dediee
-    # plus bas) -- a resserrer/reajuster si la duree mesuree en prod le permet.
-    timeout-minutes: 30
+    # ~755s (12.6 min) mesures pour ce lot sur le run #489 (25/08/2026,
+    # avant le decoupage) -- marge large, a resserrer une fois plusieurs
+    # cycles reels observes en prod avec le decoupage effectif.
+    timeout-minutes: 18
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
@@ -40,18 +50,98 @@ jobs:
           cache: pip
       - name: Installer les dépendances
         run: pip install -r requirements.txt
-      - name: Lancer le scan PrestaShop (16 boutiques par defaut)
+      - name: Lancer le scan PrestaShop (lot A)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optionnel : active la verification photo (cf. verification_photo.py)
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}   # optionnel : ajoute les cartes des watchlists SaaS (cf. watchlist_saas.py)
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          PYTHONUNBUFFERED: "1"   # sans ca, la sortie (progression boutique par boutique) reste bufferisee et n'apparait dans le log que si le job va au bout -- inutile pour diagnostiquer un timeout (cf. run du 15/08/2026, log vide malgre 30 min ecoulees)
-        run: python scan_boutique_prestashop.py ${{ github.event.inputs.boutiques }}
-      - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta)
+          PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
+        run: |
+          if [ -n "${{ github.event.inputs.boutiques }}" ]; then
+            python scan_boutique_prestashop.py ${{ github.event.inputs.boutiques }}
+          else
+            python -c "from boutiques_prestashop import LOT_A; print(' '.join(LOT_A))" > /tmp/lot_a.txt
+            python scan_boutique_prestashop.py $(cat /tmp/lot_a.txt)
+          fi
+
+  scan_lot_b:
+    needs: scan_lot_a   # execution sequentielle -- evite une course sur le meme fichier memoire au sein du run
+    if: ${{ github.event.inputs.boutiques == '' || github.event.inputs.boutiques == null }}  # lot B saute si un scan cible manuel est demande
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    timeout-minutes: 18
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+        with:
+          # IMPORTANT : sans "ref", checkout se cale par defaut sur le
+          # commit qui a declenche le RUN (fige au demarrage), meme si
+          # scan_lot_b demarre APRES que scan_lot_a ait pousse son commit --
+          # cf. scan_woocommerce.yml pour l'incident "add/add" que ca a
+          # cause la-bas avant ce fix. "ref: main" force la resolution
+          # dynamique de la branche AU MOMENT du checkout.
+          ref: main
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le scan PrestaShop (lot B)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python -c "from boutiques_prestashop import LOT_B; print(' '.join(LOT_B))" > /tmp/lot_b.txt
+          python scan_boutique_prestashop.py $(cat /tmp/lot_b.txt)
+
+  scan_precommandes:
+    needs: scan_lot_b   # tourne apres les 2 lots du scan cartes, jamais en parallele d'eux
+    if: ${{ github.event.inputs.boutiques == '' || github.event.inputs.boutiques == null }}  # saute si un scan cible manuel est demande
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    # Le radar est moins couteux par boutique que le scan cartes (pas de
+    # matching sur 210+ criteres -- juste un prefiltre de slug puis quelques
+    # pages ciblees), mais concentre les 2 lots dans un seul job (2 etapes
+    # sequentielles, meme pattern que scan_woocommerce.yml) plutot que de
+    # les re-scinder -- a revoir si la duree mesuree en prod le justifie.
+    timeout-minutes: 25
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta) — lot A
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}   # mémoire du radar (cf. memoire_supabase.py, migration 25/08/2026)
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           PYTHONUNBUFFERED: "1"
-        run: python scan_precommandes.py prestashop
+        run: |
+          python -c "from boutiques_prestashop import LOT_A; print(' '.join(LOT_A))" > /tmp/lot_a.txt
+          python scan_precommandes.py prestashop $(cat /tmp/lot_a.txt)
+      - name: Lancer le radar précommandes — lot B
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python -c "from boutiques_prestashop import LOT_B; print(' '.join(LOT_B))" > /tmp/lot_b.txt
+          python scan_precommandes.py prestashop $(cat /tmp/lot_b.txt)
