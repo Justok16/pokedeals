@@ -44,7 +44,7 @@ jobs:
           RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
         run: python main.py
-      - name: Sauvegarder la mémoire (annonces vues + historique des cotes)
+      - name: Sauvegarder les caches restants (stats, prix Cardtrader/TCGdex/Cardmarket)
         run: |
           git config user.name "pokedeals-bot"
           git config user.email "bot@pokedeals.local"
@@ -66,7 +66,7 @@ jobs:
           # -- juste une mise a jour d'un AUTRE workflow silencieusement
           # annulee, avec un risque concret d'alerte de retour en stock
           # dupliquee au cycle suivant de ce workflow).
-          FICHIERS_MAIN="seen.json cotes.json anciennete_annonces.json stats.json cardtrader.json api_prix.json cardmarket_prix.json"
+          FICHIERS_MAIN="stats.json cardtrader.json api_prix.json cardmarket_prix.json"
           for f in $FICHIERS_MAIN; do
             cp -f "data/$f" "/tmp/$f" 2>/dev/null || true
           done

@@ -232,6 +232,42 @@ def test_sauvegarder_historique_ecrit_le_tag_de_version(tmp_path, monkeypatch):
     assert donnees["Dracaufeu ex 199/165|fr"] == [{"cote": 50.0, "ts": 1}]
 
 
+# ---------------- initialiser_historique/anciennete (migration Supabase, 25/08/2026) ----------------
+# Chemin Supabase de main.py : amorce le cache module depuis un dict deja
+# charge en amont (pas un fichier local) -- meme comportement de purge par
+# version que le chemin fichier existant.
+
+def test_initialiser_historique_garde_les_donnees_a_bonne_version():
+    mc.initialiser_historique({"_purge_version": mc.PURGE_VERSION, "Carte|fr": [{"cote": 10.0, "ts": 1}]})
+    assert mc.historique() == {"Carte|fr": [{"cote": 10.0, "ts": 1}]}
+
+
+def test_initialiser_historique_purge_si_mauvaise_version():
+    mc.initialiser_historique({"_purge_version": mc.PURGE_VERSION - 1, "Carte|fr": [{"cote": 10.0, "ts": 1}]})
+    assert mc.historique() == {}
+
+
+def test_donnees_historique_a_sauvegarder_inclut_le_tag_de_version():
+    mc.initialiser_historique({"_purge_version": mc.PURGE_VERSION, "Carte|fr": [{"cote": 10.0, "ts": 1}]})
+    donnees = mc.donnees_historique_a_sauvegarder()
+    assert donnees["_purge_version"] == mc.PURGE_VERSION
+    assert donnees["Carte|fr"] == [{"cote": 10.0, "ts": 1}]
+
+
+def test_initialiser_anciennete_amorce_le_cache():
+    mc.initialiser_anciennete({"ebay-123": {"premiere_vue": 1000.0}})
+    assert mc.anciennete() == {"ebay-123": {"premiere_vue": 1000.0}}
+
+
+def test_donnees_anciennete_a_sauvegarder_applique_la_retention():
+    maintenant = time.time()
+    ancien = maintenant - (mc.ANCIENNETE_RETENTION_JOURS + 1) * 86400
+    mc.initialiser_anciennete({"recente": {"premiere_vue": maintenant}, "trop_vieille": {"premiere_vue": ancien}})
+    donnees = mc.donnees_anciennete_a_sauvegarder()
+    assert "recente" in donnees
+    assert "trop_vieille" not in donnees
+
+
 # ------------------------- obtenir_cote -------------------------
 
 def test_obtenir_cote_priorite_a_la_cote_manuelle():
