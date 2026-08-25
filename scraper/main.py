@@ -230,11 +230,16 @@ def charger_vues() -> dict:
         return {}
 
 
-def sauvegarder_vues(vues: dict) -> None:
-    # Nettoyage des entrées trop anciennes
+def _vues_a_sauvegarder(vues: dict) -> dict:
+    """Dict pret a etre persiste (retention deja appliquee) -- utilise par
+    sauvegarder_vues() (fichier local) et par main() pour le chemin
+    Supabase (migration du 25/08/2026, cf. memoire_supabase.py)."""
     limite = time.time() - RETENTION_JOURS * 86400
-    vues = {k: v for k, v in vues.items() if v.get("ts", 0) > limite}
-    _ecrire_json_atomique(FICHIER_SEEN, vues, ensure_ascii=False, indent=1)
+    return {k: v for k, v in vues.items() if v.get("ts", 0) > limite}
+
+
+def sauvegarder_vues(vues: dict) -> None:
+    _ecrire_json_atomique(FICHIER_SEEN, _vues_a_sauvegarder(vues), ensure_ascii=False, indent=1)
 
 
 def deja_vue(vues: dict, annonce_id: str) -> bool:
@@ -481,7 +486,12 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
 # cote (cf. import plus bas, juste avant le moteur de cote proprement dit).
 # calculer_cote() n'est jamais appelee directement par main.py (seulement
 # par obtenir_cote(), restee dans moteur_cote.py) : pas reimportee ici.
-from moteur_cote import sauvegarder_anciennete  # noqa: E402
+from moteur_cote import (  # noqa: E402
+    sauvegarder_anciennete,
+    donnees_anciennete_a_sauvegarder,
+    initialiser_anciennete,
+)
+from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase  # noqa: E402
 
 
 # =====================================================================
@@ -821,6 +831,8 @@ from connecteur_leboncoin import (  # noqa: E402
 from moteur_cote import (  # noqa: E402
     historique,
     sauvegarder_historique,
+    donnees_historique_a_sauvegarder,
+    initialiser_historique,
     cote_lissee,
     enregistrer_cote,
     obtenir_cote,
@@ -1302,7 +1314,28 @@ def main() -> int:
                  "présent ✓" if secrets.get("CARDTRADER_TOKEN") else "ABSENT ✗ (secret GitHub manquant)")
     else:
         log.info("Cardtrader : désactivé (api_cotes.actif = false dans config.yaml)")
-    vues = charger_vues()
+    # Memoire "seen"/historique des cotes/anciennete des annonces : Supabase
+    # si les secrets sont configures (migration progressive du 25/08/2026,
+    # etape 3 -- cf. memoire_supabase.py et CLAUDE.md), repli sur les
+    # fichiers locaux sinon (dev/test sans secrets). Contrairement aux
+    # autres ponts Supabase du projet, PAS optionnel/non-bloquant une fois
+    # les secrets presents : une lecture ratee abandonne le cycle plutot
+    # que de repartir d'une memoire vide (qui rejouerait des alertes deja
+    # connues et fausserait le calcul de cote via un historique perdu).
+    memoire_via_supabase = bool(secrets.get("SUPABASE_URL") and secrets.get("SUPABASE_SERVICE_ROLE_KEY"))
+    if memoire_via_supabase:
+        donnees_vues = charger_memoire_supabase("seen", secrets["SUPABASE_URL"], secrets["SUPABASE_SERVICE_ROLE_KEY"])
+        donnees_historique = charger_memoire_supabase("cotes", secrets["SUPABASE_URL"], secrets["SUPABASE_SERVICE_ROLE_KEY"])
+        donnees_anciennete = charger_memoire_supabase("anciennete_annonces", secrets["SUPABASE_URL"], secrets["SUPABASE_SERVICE_ROLE_KEY"])
+        if donnees_vues is None or donnees_historique is None or donnees_anciennete is None:
+            log.error("Supabase injoignable : mémoire illisible, cycle ABANDONNÉ "
+                      "(évite de rejouer des alertes déjà connues / de perdre l'historique des cotes).")
+            return 1
+        vues = donnees_vues
+        initialiser_historique(donnees_historique)
+        initialiser_anciennete(donnees_anciennete)
+    else:
+        vues = charger_vues()
 
     nouveaux_deals: list[dict] = []
     total_annonces = 0
@@ -1807,9 +1840,20 @@ def main() -> int:
     if recap and notif.get("telegram") and "telegram" in cfg:
         envoyer_telegram_texte([recap], cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
 
-    sauvegarder_vues(vues)
-    sauvegarder_historique()
-    sauvegarder_anciennete()
+    if memoire_via_supabase:
+        ok_vues = sauvegarder_memoire_supabase(
+            _vues_a_sauvegarder(vues), "seen", secrets["SUPABASE_URL"], secrets["SUPABASE_SERVICE_ROLE_KEY"])
+        ok_historique = sauvegarder_memoire_supabase(
+            donnees_historique_a_sauvegarder(), "cotes", secrets["SUPABASE_URL"], secrets["SUPABASE_SERVICE_ROLE_KEY"])
+        ok_anciennete = sauvegarder_memoire_supabase(
+            donnees_anciennete_a_sauvegarder(), "anciennete_annonces", secrets["SUPABASE_URL"], secrets["SUPABASE_SERVICE_ROLE_KEY"])
+        if not (ok_vues and ok_historique and ok_anciennete):
+            log.error("ATTENTION : échec de sauvegarde de la mémoire sur Supabase "
+                      "-- l'état de ce cycle est perdu, des alertes déjà connues pourront se rejouer au prochain.")
+    else:
+        sauvegarder_vues(vues)
+        sauvegarder_historique()
+        sauvegarder_anciennete()
     return 0
 
 

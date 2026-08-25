@@ -94,11 +94,26 @@ def anciennete() -> dict:
     return _anciennete
 
 
-def sauvegarder_anciennete() -> None:
+def donnees_anciennete_a_sauvegarder() -> dict:
+    """Dict pret a etre persiste (retention deja appliquee) -- utilise par
+    sauvegarder_anciennete() (fichier local) et par main.py pour le chemin
+    Supabase (migration du 25/08/2026, cf. memoire_supabase.py)."""
     donnees = anciennete()
     limite = time.time() - ANCIENNETE_RETENTION_JOURS * 86400
-    donnees = {k: v for k, v in donnees.items() if v.get("premiere_vue", 0) > limite}
-    ecrire_json_atomique(FICHIER_ANCIENNETE, donnees, ensure_ascii=False, indent=1)
+    return {k: v for k, v in donnees.items() if v.get("premiere_vue", 0) > limite}
+
+
+def sauvegarder_anciennete() -> None:
+    ecrire_json_atomique(FICHIER_ANCIENNETE, donnees_anciennete_a_sauvegarder(), ensure_ascii=False, indent=1)
+
+
+def initialiser_anciennete(donnees: dict) -> None:
+    """Amorce le cache module (anciennete) depuis des donnees deja chargees
+    en amont (Supabase) -- alternative a _charger_anciennete() (fichier
+    local), utilisee par main.py quand SUPABASE_URL/SERVICE_ROLE_KEY sont
+    configures."""
+    global _anciennete
+    _anciennete = donnees if isinstance(donnees, dict) else {}
 
 
 def jours_en_ligne(annonce_id: str) -> float:
@@ -259,12 +274,17 @@ def _charger_historique() -> dict:
     return {nom: entrees for nom, entrees in brut.items() if nom != "_purge_version"}
 
 
-def sauvegarder_historique() -> None:
-    h = historique()
-    # On réécrit le tag de version à chaque sauvegarde.
+def donnees_historique_a_sauvegarder() -> dict:
+    """Dict pret a etre persiste (tag de version inclus) -- utilise par
+    sauvegarder_historique() (fichier local) et par main.py pour le chemin
+    Supabase (migration du 25/08/2026, cf. memoire_supabase.py)."""
     a_ecrire = {"_purge_version": PURGE_VERSION}
-    a_ecrire.update(h)
-    ecrire_json_atomique(FICHIER_COTES, a_ecrire, ensure_ascii=False, indent=1)
+    a_ecrire.update(historique())
+    return a_ecrire
+
+
+def sauvegarder_historique() -> None:
+    ecrire_json_atomique(FICHIER_COTES, donnees_historique_a_sauvegarder(), ensure_ascii=False, indent=1)
 
 
 _historique = None
@@ -275,6 +295,19 @@ def historique() -> dict:
     if _historique is None:
         _historique = _charger_historique()
     return _historique
+
+
+def initialiser_historique(brut: dict) -> None:
+    """Amorce le cache module (historique) depuis des donnees deja chargees
+    en amont (Supabase) -- meme logique de purge par version que
+    _charger_historique() (fichier local), utilisee par main.py quand
+    SUPABASE_URL/SERVICE_ROLE_KEY sont configures."""
+    global _historique
+    if not isinstance(brut, dict) or brut.get("_purge_version") != PURGE_VERSION:
+        log.info("Historique des cotes réinitialisé (purge V%s) : repart propre", PURGE_VERSION)
+        _historique = {}
+    else:
+        _historique = {nom: entrees for nom, entrees in brut.items() if nom != "_purge_version"}
 
 
 # =====================================================================
