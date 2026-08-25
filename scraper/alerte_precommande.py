@@ -174,8 +174,25 @@ def detecter_nouvelles_precommandes(
             "en_stock": c.get("en_stock"),
         }
 
-        if stock_vient_de_souvrir or (
-            not premiere_fois_ambigue and not deja_alerte_a_ce_niveau and not deja_confirme_mieux
+        # Regle ajoutee le 25/08/2026 (demande explicite de Justok, apres
+        # 3 alertes recues sans stock reel sur golden-poke.fr/guizettefamily.com/
+        # fuji-store.fr malgre le fix du 25/08 sur la lecture du stock lui-meme
+        # -- cf. radar_precommandes.py) : AUCUNE alerte ne part plus jamais si
+        # `en_stock` n'est pas explicitement True au moment de l'evaluation,
+        # meme pour une premiere detection a confiance "forte" (regle V53 du
+        # 18/08, qui alertait immediatement des la premiere date confirmee,
+        # stock ou pas). Le compromis choisi le 18/08 (mieux vaut alerter tot
+        # sur une date fiable que la manquer) est explicitement abandonne au
+        # profit de "aucune alerte n'a de valeur si le produit n'est pas
+        # reellement commandable" -- la memoire continue neanmoins d'etre
+        # etablie normalement (silencieuse), donc la transition ulterieure
+        # hors-stock -> en-stock (stock_vient_de_souvrir) alertera bien des
+        # qu'elle survient.
+        peut_alerter = c.get("en_stock") is True
+        if peut_alerter and (
+            stock_vient_de_souvrir or (
+                not premiere_fois_ambigue and not deja_alerte_a_ce_niveau and not deja_confirme_mieux
+            )
         ):
             c["_cle_memoire"] = cle_mem
             c["_nouvel_etat"] = nouvel_etat

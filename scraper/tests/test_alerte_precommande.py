@@ -160,6 +160,48 @@ def test_premiere_fois_moyenne_en_stock_reste_silencieuse():
     assert evenements == []
 
 
+# ------------------- 25/08/2026 : jamais d'alerte sans stock reel -------------------
+# Demande explicite de Justok apres 3 alertes recues sans stock reel malgre
+# le fix du 25/08 sur la lecture du stock (golden-poke.fr/guizettefamily.com/
+# fuji-store.fr, toutes des PREMIERES detections a confiance "forte") --
+# abandonne la regle V53 (alerte immediate des la 1ere date confirmee, quel
+# que soit le stock) au profit de : jamais d'alerte si en_stock n'est pas True.
+
+def test_premiere_fois_confiance_forte_mais_hors_stock_ne_declenche_pas_dalerte():
+    memoire = {}
+    evenements = detecter_nouvelles_precommandes(
+        "golden-poke.fr", [_candidat(confiance="forte", en_stock=False)], memoire)
+    assert evenements == []
+    # La memoire est quand meme etablie normalement (silencieuse), pour que
+    # la transition ulterieure hors-stock -> en-stock puisse etre detectee.
+    assert memoire["golden-poke.fr|ETB 30e Anniversaire"]["confiance"] == "forte"
+    assert memoire["golden-poke.fr|ETB 30e Anniversaire"]["en_stock"] is False
+
+
+def test_premiere_fois_confiance_forte_stock_indetermine_ne_declenche_pas_dalerte():
+    memoire = {}
+    evenements = detecter_nouvelles_precommandes(
+        "exemple.fr", [_candidat(confiance="forte", en_stock=None)], memoire)
+    assert evenements == []
+
+
+def test_produit_deja_connu_hors_stock_reste_hors_stock_ne_re_alerte_toujours_pas():
+    memoire = {"exemple.fr|ETB 30e Anniversaire": {"confiance": "forte", "en_stock": False}}
+    evenements = detecter_nouvelles_precommandes(
+        "exemple.fr", [_candidat(confiance="forte", en_stock=False)], memoire)
+    assert evenements == []
+
+
+def test_produit_deja_connu_hors_stock_passe_en_stock_alerte_bien():
+    # La transition hors-stock -> en-stock (V54) continue de fonctionner
+    # normalement pour un produit dont la premiere detection avait ete
+    # rendue silencieuse par cette nouvelle regle.
+    memoire = {"exemple.fr|ETB 30e Anniversaire": {"confiance": "forte", "en_stock": False}}
+    evenements = detecter_nouvelles_precommandes(
+        "exemple.fr", [_candidat(confiance="forte", en_stock=True)], memoire)
+    assert len(evenements) == 1
+
+
 def test_plusieurs_candidats_independants_meme_boutique():
     memoire = {}
     candidats = [
