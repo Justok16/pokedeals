@@ -56,6 +56,12 @@ BOUTIQUES_SHOPIFY = [
     "kwilytcg.com",       # 39 cartes Pokemon a l'unite confirmees (FR/JP/CN), + grade
     "upcfrance.shop",     # singles + scelle (Coffrets 30e Anniversaire deja en catalogue)
     "wwcg.fr",            # AJOUTEE le 12/08/2026 -- cartes Pokemon a l'unite confirmees (type "carte pokemon" explicite)
+    "vcollect.fr",        # AJOUTEE le 26/08/2026 sur demande de Justok. Plateforme Shopify confirmee
+                          # via l'URL produit fournie (/products/...). Contenu reel du catalogue
+                          # (cartes a l'unite vs scelle uniquement) PAS verifie ici -- sandbox sans
+                          # acces reseau general (proxy bloque vcollect.fr). A confirmer/ajuster
+                          # (deplacement vers BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT si 0 carte a
+                          # l'unite trouvee) au vu des resultats du premier vrai cycle en prod.
 ]
 
 # AJOUTEES le 12/08/2026 : boutiques verifiees Shopify, actives, mais dont
