@@ -213,3 +213,48 @@ def test_evaluer_page_woocommerce_jsonld_instock_et_classe_instock_reste_en_stoc
     with patch("radar_precommandes.time.sleep"):
         candidats = _evaluer_page(connecteur, "https://exemple.fr/produit", [_produit_test()])
     assert candidats[0]["en_stock"] is True
+
+
+# ------------------- _evaluer_page : override DOM WooCommerce "liste d'attente sans bouton" (fix du 26/08/2026, 3e bug) -------------------
+# Bug reel signale par l'utilisateur : alerte "precommande detectee" recue
+# pour golden-poke.fr (WooCommerce, "UPC 30 ans Mentali") avec "En stock /
+# commandable" alors que la page n'affichait qu'un formulaire "Soyez averti
+# des la sortie" (champ email), aucun bouton d'achat -- le fix du 25/08
+# (ci-dessus) ne se declenchait pas ici car la classe CSS native
+# WooCommerce annoncait "instock" (la boutique n'avait pas marque le
+# produit hors stock, simplement publie a l'avance).
+
+def test_evaluer_page_woocommerce_liste_attente_sans_panier_malgre_classe_instock_force_en_stock_false():
+    html = (
+        '<html><title>ETB 30e anniversaire</title><body>'
+        '<script type="application/ld+json">'
+        '{"@type": "Product", "offers": {"price": "0.00", "availability": "https://schema.org/InStock"}}'
+        '</script>'
+        '<div class="product type-product instock"></div>'
+        '<p>Soyez averti des la sortie</p>'
+        '<p>Date de sortie : 16 septembre 2026</p></body></html>'
+    )
+    connecteur = _page_woocommerce("golden-poke.fr", html)
+    with patch("radar_precommandes.time.sleep"):
+        candidats = _evaluer_page(connecteur, "https://golden-poke.fr/produit/upc-30-ans-mentali/", [_produit_test()])
+    assert candidats[0]["en_stock"] is False
+
+
+def test_evaluer_page_woocommerce_liste_attente_avec_bouton_panier_reste_en_stock_true():
+    # Une mention "liste d'attente" a cote d'un vrai bouton d'achat
+    # fonctionnel (ex. widget de reappro secondaire) ne doit PAS forcer
+    # en_stock=False -- seule l'ABSENCE totale de bouton d'achat, combinee
+    # a une phrase de liste d'attente, est un signal fiable.
+    html = (
+        '<html><title>ETB 30e anniversaire</title><body>'
+        '<script type="application/ld+json">'
+        '{"@type": "Product", "offers": {"price": "59.99", "availability": "https://schema.org/InStock"}}'
+        '</script>'
+        '<div class="product type-product instock">Ajouter au panier</div>'
+        '<p>Rejoindre la liste d\'attente pour une autre variante</p>'
+        '<p>Date de sortie : 16 septembre 2026</p></body></html>'
+    )
+    connecteur = _page_woocommerce("exemple.fr", html)
+    with patch("radar_precommandes.time.sleep"):
+        candidats = _evaluer_page(connecteur, "https://exemple.fr/produit", [_produit_test()])
+    assert candidats[0]["en_stock"] is True

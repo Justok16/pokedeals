@@ -239,6 +239,50 @@ def _stock_indisponible_selon_dom(html: str) -> bool:
     return bool(m and m.group(1) != "instock")
 
 
+# Phrases typiques d'un formulaire "prevenez-moi a la sortie" affiche a la
+# place du bouton d'achat sur une fiche produit pas encore lancee -- liste
+# volontairement incomplete (meme limite assumee que NOMS_SET_QUALIFICATIF_AMBIGU/
+# MOTS_ETAT_REFUSE), a enrichir au fil des cas reels rencontres.
+_PHRASES_LISTE_ATTENTE = (
+    "soyez averti",
+    "rejoindre la liste d'attente",
+    "rejoignez la liste d'attente",
+    "prevenez-moi",
+    "me prevenir",
+    "avertissez-moi",
+)
+
+
+def _attente_sans_panier_selon_dom(html: str) -> bool:
+    """True si la page ne contient AUCUN bouton "Ajouter au panier" (texte
+    natif WooCommerce, toutes locales FR) ET affiche une phrase de type
+    "prevenez-moi a la sortie" -- a utiliser, comme
+    _stock_indisponible_selon_dom, pour FORCER en_stock=False meme si la
+    classe CSS native WooCommerce annonce "instock" (jamais l'inverse).
+
+    Complete _stock_indisponible_selon_dom pour un cas DISTINCT : celui-ci
+    se declenche quand le statut de stock natif WooCommerce annonce
+    explicitement une rupture (classe outofstock/onbackorder) ; celui-ci
+    couvre le cas ou la boutique n'a PAS marque le produit hors stock (classe
+    "instock" laissee par defaut, produit publie a l'avance) alors que l'UI
+    reelle ne propose qu'un formulaire de notification par email, sans
+    aucun moyen d'acheter. Ajoute le 26/08/2026 apres un cas reel
+    (golden-poke.fr, "UPC 30 ans Mentali", classe native "instock" mais
+    page affichant uniquement "Soyez averti des la sortie" + un champ
+    email, sans bouton d'achat) -- le fix du 25/08 (ci-dessus) ne couvrait
+    pas ce cas car la classe CSS n'annoncait aucune rupture.
+
+    L'exigence des DEUX signaux (absence du bouton ET presence d'une
+    phrase de liste d'attente) limite le risque de faux positif sur un
+    theme qui utiliserait un libelle de bouton non standard, ou qui
+    afficherait une liste d'attente en widget secondaire a cote d'un vrai
+    bouton d'achat fonctionnel."""
+    html_minuscule = html.lower()
+    if "ajouter au panier" in html_minuscule:
+        return False
+    return any(phrase in html_minuscule for phrase in _PHRASES_LISTE_ATTENTE)
+
+
 def _extraire_html_woocommerce(html: str) -> dict | None:
     """Repli quand aucun JSON-LD Product n'est trouve : lit directement les
     classes CSS natives de WooCommerce (coeur du plugin, pas du theme).

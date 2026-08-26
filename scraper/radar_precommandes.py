@@ -43,6 +43,7 @@ from connecteur_prestashop_sitemap import (
 )
 from connecteur_woocommerce import (
     ConnecteurWooCommerce,
+    _attente_sans_panier_selon_dom,
     _stock_indisponible_selon_dom as _rupture_dom_woocommerce,
 )
 from precommandes_watchlist import ProduitSurveille, evaluer_correspondance
@@ -173,7 +174,16 @@ def _extraire_prix_et_stock(html: str, plateforme: str) -> tuple[float | None, b
     pourtant "commandable"). Le signal DOM (rupture explicite) prime
     toujours sur le signal structure (JSON-LD/microdata) en cas de
     contradiction, jamais l'inverse -- meme regle que les connecteurs
-    principaux."""
+    principaux.
+
+    2e override WooCommerce ajoute le 26/08/2026 (`_attente_sans_panier_selon_dom`,
+    cf. sa docstring) : le premier override ci-dessus ne se declenche que si
+    la boutique a explicitement marque le produit outofstock/onbackorder --
+    inoperant si la classe native reste "instock" par defaut (produit publie
+    a l'avance, stock jamais mis a jour) alors que l'UI reelle n'affiche
+    qu'un formulaire "prevenez-moi", sans bouton d'achat. Meme cas reel
+    (golden-poke.fr) qui a motive le premier override WooCommerce, mais
+    resurgit sous une forme que celui-ci ne couvrait pas."""
     produit_jsonld = _extraire_jsonld_produit(html)
     if produit_jsonld:
         offre = _analyser_offre(produit_jsonld)
@@ -184,6 +194,8 @@ def _extraire_prix_et_stock(html: str, plateforme: str) -> tuple[float | None, b
 
     rupture_dom = _rupture_dom_woocommerce if plateforme == "woocommerce" else _rupture_dom_prestashop
     if rupture_dom(html):
+        en_stock = False
+    if plateforme == "woocommerce" and _attente_sans_panier_selon_dom(html):
         en_stock = False
 
     return prix, en_stock
