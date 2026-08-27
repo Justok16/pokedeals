@@ -1,5 +1,9 @@
 {
-  "_derniers_signaux_notifies": {},
+  "_derniers_signaux_notifies": {
+    "Oricorio ex 111 m2|jp": "stable",
+    "Squirtle 170/165 sv2a|jp": "stable",
+    "Psyduck 199 m2a|jp": "stable"
+  },
   "Oricorio ex 111 m2|jp": [
     {
       "date": "2026-08-12",
@@ -88,6 +92,13 @@
     {
       "date": "2026-08-26",
       "prix_pokemonpricetracker": 26.88,
+      "devise_pokemonpricetracker": "USD",
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": 47.23
+    },
+    {
+      "date": "2026-08-27",
+      "prix_pokemonpricetracker": 26.96,
       "devise_pokemonpricetracker": "USD",
       "prix_gradee_psa10": null,
       "cote_pokedeals": 47.23
@@ -183,6 +194,13 @@
       "devise_pokemonpricetracker": "USD",
       "prix_gradee_psa10": null,
       "cote_pokedeals": 21.89
+    },
+    {
+      "date": "2026-08-27",
+      "prix_pokemonpricetracker": 25.44,
+      "devise_pokemonpricetracker": "USD",
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": 21.89
     }
   ],
   "Psyduck 199 m2a|jp": [
@@ -272,6 +290,13 @@
     {
       "date": "2026-08-26",
       "prix_pokemonpricetracker": 17.6,
+      "devise_pokemonpricetracker": "USD",
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": 15.93
+    },
+    {
+      "date": "2026-08-27",
+      "prix_pokemonpricetracker": 17.57,
       "devise_pokemonpricetracker": "USD",
       "prix_gradee_psa10": null,
       "cote_pokedeals": 15.93
