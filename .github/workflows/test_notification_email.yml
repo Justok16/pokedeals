@@ -1,0 +1,38 @@
+name: Test envoi email (manuel)
+
+# Verification manuelle uniquement -- jamais de cron, jamais declenche
+# automatiquement. Sert a confirmer que RESEND_API_KEY/RESEND_FROM_EMAIL
+# (secrets partages entre PokeDeals et PokePrecoms) fonctionnent vraiment,
+# sans attendre qu'une vraie bonne affaire/precommande soit detectee.
+on:
+  workflow_dispatch:
+    inputs:
+      destinataire:
+        description: "Adresse email de destination du test"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  envoyer_test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    timeout-minutes: 5
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Envoyer l'email de test
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
+        run: python envoyer_email_test.py "${{ github.event.inputs.destinataire }}"
