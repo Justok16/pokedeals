@@ -150,17 +150,19 @@ Tournent en parallèle sur le même repo, chacun avec son propre groupe de concu
 | Workflow | Cadence | Timeout | Contenu |
 |---|---|---|---|
 | `pokedeals.yml` | 15 min | 15 min | `main.py` (système historique) |
-| `scan_shopify.yml` | 30 min | 30 min | scan cartes Shopify + radar précommandes Shopify |
-| `scan_prestashop.yml` | 30 min | 18 min (lot A) + 18 min (lot B) + 25 min (précommandes) | 3 jobs séquentiels (`needs:`), même structure que `scan_woocommerce.yml` depuis le 25/08/2026 : scan cartes lot A, lot B, puis radar précommandes (lot A + lot B) |
-| `scan_woocommerce.yml` | 30 min | 22 min (lot A) + 18 min (lot B) + 25 min (précommandes) | 3 jobs séquentiels (`needs:`) : scan cartes lot A, lot B, puis radar précommandes (lot A + lot B) |
+| `scan_shopify.yml` | 25 min | 30 min | scan cartes Shopify + radar précommandes Shopify |
+| `scan_prestashop.yml` | 30 min | 18 min (lot A) + 18 min (lot B, **en parallèle du lot A**) + 25 min (précommandes) | lot A et lot B tournent en parallèle (28/08/2026), puis radar précommandes (lot A + lot B, `needs: [scan_lot_a, scan_lot_b]`) |
+| `scan_woocommerce.yml` | 30 min | 22 min (lot A) + 18 min (lot B, **en parallèle du lot A**) + 25 min (précommandes) | lot A et lot B tournent en parallèle (28/08/2026), puis radar précommandes (lot A + lot B, `needs: [scan_lot_a, scan_lot_b]`) |
 | `decouverte_boutiques.yml` | hebdomadaire (lundi 06h UTC) | 20 min | radar de découverte automatique de nouvelles boutiques (AFNIC) |
 | `tendance_prix.yml` | quotidien 8h30 UTC | 10 min | suivi de tendance de prix long terme (3 cartes JP) |
 | `prix_bas_quotidien.yml` | quotidien 9h UTC (~11h Paris) | 40 min | radar de prix bas quotidien (4 cartes × 4 langues, tous sites confondus) |
-| `scan_precommandes_generique.yml` | 30 min | 25 min | radar de précommandes génériques PokéPrécoms (Shopify uniquement) |
+| `scan_precommandes_generique.yml` | 15 min | 25 min | radar de précommandes génériques PokéPrécoms (Shopify uniquement) |
 | `scan_precommandes_philibert.yml` | 2h | 45 min | radar de précommandes génériques PokéPrécoms dédié à philibertnet.com (~940 requêtes/cycle) |
 | `tests.yml` | à chaque push/PR | — | suite pytest (cf. section Commandes) |
 
-`scan_woocommerce.yml` et `scan_prestashop.yml` sont à jobs multiples (nécessaire car leur volume total dépasse le budget d'un run simple) ; les jobs sont **séquentiels**, jamais en parallèle entre eux au sein d'un même run, pour éviter une course d'écriture sur le même fichier mémoire.
+**Cadences resserrées le 28/08/2026** (demande de Justok, grosse sortie Pokémon à venir) : mesuré d'abord les durées réelles avant de toucher quoi que ce soit (jamais à l'aveugle, cf. plus bas) — `scan_shopify.yml` (~18-23 min réels pour 30 min de cron, marge confortable) passé à 25 min ; `scan_precommandes_generique.yml` (~12 min réels pour 30 min de cron, grosse marge) passé à 15 min. `scan_prestashop.yml`/`scan_woocommerce.yml` étaient déjà mesurés à 30-40+ min par cycle complet (donc déjà à leur cadence réelle maximale malgré l'affichage à 30 min) — au lieu de resserrer leur cron (aucun gain, juste un risque d'empiler des déclenchements en attente), **lot A et lot B ont été parallélisés** pour réduire la durée réelle du cycle complet.
+
+**Parallélisation lot A / lot B** (`scan_prestashop.yml`, `scan_woocommerce.yml`, 28/08/2026) : jusque-là **séquentiels** (`needs: scan_lot_a` sur le job lot B) pour éviter une course d'écriture sur la même clé mémoire Supabase (`stock_boutiques_tcg_prestashop`/`stock_boutiques_tcg_woocommerce`) — dernier écrivain gagnant, l'autre lot aurait silencieusement perdu ses transitions de stock détectées ce cycle-là. Rendu sûr en donnant à chaque lot sa **propre clé Supabase** : `scan_boutique_prestashop.py`/`scan_boutique_woocommerce.py` lisent `SCAN_LOT_SUFFIXE` (env, ex. `"_lot_a"`/`"_lot_b"`, défini par le workflow) et l'ajoutent à `CLE_MEMOIRE_STOCK` — vide par défaut (invocation manuelle/`workflow_dispatch` sans lot précis), comportement alors inchangé. Lot A et lot B portent sur des boutiques **différentes** : aucune boutique n'est sollicitée plus souvent qu'avant (même nombre de requêtes, même espacement `DELAI_ENTRE_BOUTIQUES`), seul le temps d'attente entre les deux lots disparaît — pas de risque anti-robot supplémentaire. Le job `scan_precommandes` continue lui de dépendre des deux (`needs: [scan_lot_a, scan_lot_b]`) : il tourne toujours APRÈS les deux lots de scan cartes, jamais en parallèle d'eux, pour qu'aucune boutique ne soit jamais sollicitée par deux jobs en même temps.
 
 Avant de changer un timeout ou une composition de lot, vérifier `SESSION_NOTES.md` (section diagnostic du flake `scan_lot_a`) — les marges mesurées en prod y sont documentées, ne pas ajuster à l'aveugle.
 

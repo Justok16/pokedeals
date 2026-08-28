@@ -30,11 +30,16 @@ TELEGRAM_CHAT_ID = "1245330032"
 
 FICHIER_MEMOIRE = Path(__file__).parent / "data" / "stock_boutiques_tcg_woocommerce.json"
 # Cle Supabase equivalente (cf. scan_boutique.py / memoire_supabase.py) --
-# migration du 24/08/2026. PARTAGEE entre lot A et lot B (comme l'etait
-# l'ancien fichier) : lot B (job sequentiel "needs: scan_lot_a") lit donc
-# directement l'etat ecrit par lot A via Supabase, sans plus avoir besoin de
-# la dance stash/pull-rebase/push entre les 2 jobs pour ce fichier precis.
+# migration du 24/08/2026.
 CLE_MEMOIRE_STOCK = "stock_boutiques_tcg_woocommerce"
+# SCAN_LOT_SUFFIXE (28/08/2026) : lot A et lot B tournent desormais en VRAI
+# parallele (plus de "needs:" entre les deux jobs de scan_woocommerce.yml,
+# pour accelerer le cycle complet) -- ils ne doivent donc plus lire/ecrire
+# la MEME cle Supabase (dernier ecrivain gagnerait, l'autre lot perdrait
+# silencieusement ses transitions de stock detectees ce cycle-la). Chaque
+# lot ecrit sa PROPRE cle (suffixe passe par le workflow, ex. "_lot_a"/
+# "_lot_b") -- vide par defaut (invocation manuelle/workflow_dispatch sans
+# lot precis), comportement alors inchange.
 
 
 def scanner_boutique_complet(
@@ -150,11 +155,14 @@ if __name__ == "__main__":
     cotes = charger_cotes()
     regles = charger_regles()
 
+    suffixe_lot = os.environ.get("SCAN_LOT_SUFFIXE", "")
+    cle_memoire_stock = CLE_MEMOIRE_STOCK + suffixe_lot
+
     supabase_url = os.environ.get("SUPABASE_URL", "")
     supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
     memoire_via_supabase = bool(supabase_url and supabase_key)
     if memoire_via_supabase:
-        memoire_stock = charger_memoire_supabase(CLE_MEMOIRE_STOCK, supabase_url, supabase_key)
+        memoire_stock = charger_memoire_supabase(cle_memoire_stock, supabase_url, supabase_key)
         if memoire_stock is None:
             print("[scan_boutique_woocommerce] Supabase injoignable : mémoire stock illisible, "
                   "cycle ABANDONNÉ (évite de rejouer une alerte pour chaque produit déjà en stock).")
@@ -184,7 +192,7 @@ if __name__ == "__main__":
     envoyer_telegram_retours_stock(resume["evenements_stock"], TELEGRAM_CHAT_ID, token, memoire_stock)
 
     if memoire_via_supabase:
-        if not sauvegarder_memoire_supabase(memoire_stock, CLE_MEMOIRE_STOCK, supabase_url, supabase_key):
+        if not sauvegarder_memoire_supabase(memoire_stock, cle_memoire_stock, supabase_url, supabase_key):
             print("[scan_boutique_woocommerce] ATTENTION : échec de sauvegarde de la mémoire stock sur Supabase "
                   "-- l'état de ce cycle est perdu, les transitions détectées ce cycle-ci pourront se rejouer au prochain.")
     else:
