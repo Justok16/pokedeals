@@ -27,10 +27,17 @@ jobs:
   # cartes lui-meme, toujours termine avec succes avant la coupure). Meme
   # remede que scan_woocommerce.yml (deja scinde en LOT_A/LOT_B le 11/08) :
   # 2 lots EQUILIBRES PAR DUREE REELLE MESUREE (pas par nombre de boutiques,
-  # cf. boutiques_prestashop.py pour le detail du bin-packing), executes
-  # SEQUENTIELLEMENT (job B attend job A via "needs") pour eviter que les
-  # deux jobs n'ecrivent en meme temps sur
-  # data/stock_boutiques_tcg_prestashop.json au sein du MEME run.
+  # cf. boutiques_prestashop.py pour le detail du bin-packing).
+  #
+  # Lot A et lot B tournent desormais en VRAI PARALLELE (28/08/2026, demande
+  # de Justok -- grosse sortie Pokemon a venir, cycle complet trop long).
+  # Jusque-la sequentiels ("needs: scan_lot_a") pour eviter une course
+  # d'ecriture sur la meme cle memoire Supabase -- chaque lot ecrit
+  # desormais sa PROPRE cle (SCAN_LOT_SUFFIXE, cf. scan_boutique_prestashop.py),
+  # donc plus aucune collision possible meme en parallele. Lot A et lot B
+  # portent sur des boutiques DIFFERENTES : aucune boutique n'est scannee
+  # plus souvent qu'avant, seul le temps d'attente entre les deux lots
+  # disparait -- pas de risque anti-robot supplementaire.
   scan_lot_a:
     runs-on: ubuntu-latest
     defaults:
@@ -56,7 +63,8 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optionnel : active la verification photo (cf. verification_photo.py)
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}   # optionnel : ajoute les cartes des watchlists SaaS (cf. watchlist_saas.py)
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}   # notifications push des utilisateurs SaaS (cf. notifications_saas.py) -- manquait ici (28/08/2026), notifier_deals_boutique_saas() n'a donc jamais notifie personne depuis ce workflow
+          SCAN_LOT_SUFFIXE: "_lot_a"   # cle Supabase dediee -- evite une course avec lot B qui tourne en parallele
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}   # notifications push des utilisateurs SaaS (cf. notifications_saas.py)
           VAPID_CLAIM_EMAIL: ${{ secrets.VAPID_CLAIM_EMAIL }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}   # notifications email des utilisateurs SaaS (cf. notifications_saas.py)
           RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
@@ -70,7 +78,6 @@ jobs:
           fi
 
   scan_lot_b:
-    needs: scan_lot_a   # execution sequentielle -- evite une course sur le meme fichier memoire au sein du run
     if: ${{ github.event.inputs.boutiques == '' || github.event.inputs.boutiques == null }}  # lot B saute si un scan cible manuel est demande
     runs-on: ubuntu-latest
     defaults:
@@ -80,14 +87,6 @@ jobs:
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
-        with:
-          # IMPORTANT : sans "ref", checkout se cale par defaut sur le
-          # commit qui a declenche le RUN (fige au demarrage), meme si
-          # scan_lot_b demarre APRES que scan_lot_a ait pousse son commit --
-          # cf. scan_woocommerce.yml pour l'incident "add/add" que ca a
-          # cause la-bas avant ce fix. "ref: main" force la resolution
-          # dynamique de la branche AU MOMENT du checkout.
-          ref: main
       - name: Installer Python
         uses: actions/setup-python@v5
         with:
@@ -101,6 +100,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SCAN_LOT_SUFFIXE: "_lot_b"   # cle Supabase dediee -- evite une course avec lot A qui tourne en parallele
           VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
           VAPID_CLAIM_EMAIL: ${{ secrets.VAPID_CLAIM_EMAIL }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
@@ -111,7 +111,7 @@ jobs:
           python scan_boutique_prestashop.py $(cat /tmp/lot_b.txt)
 
   scan_precommandes:
-    needs: scan_lot_b   # tourne apres les 2 lots du scan cartes, jamais en parallele d'eux
+    needs: [scan_lot_a, scan_lot_b]   # tourne apres les 2 lots du scan cartes (desormais paralleles entre eux), jamais en parallele d'eux -- evite qu'une boutique soit sollicitee par 2 jobs en meme temps
     if: ${{ github.event.inputs.boutiques == '' || github.event.inputs.boutiques == null }}  # saute si un scan cible manuel est demande
     runs-on: ubuntu-latest
     defaults:
