@@ -2,11 +2,12 @@
 Pont scraper -> Supabase PokePrecoms (depot separe justok16/pokeprecoms) :
 enregistre les precommandes generiques reellement detectees (transition
 "pas en stock" -> "en stock", cf. radar_precommande_generique.py) dans la
-table `precommande_alerts`, et notifie TOUS les abonnes PokePrecoms actifs
-(modele BROADCAST -- pas de watchlist personnalisee cote PokePrecoms,
-contrairement a connecteur_supabase.py/watchlist_saas.py cote PokeDeals :
-chaque abonne actif recoit TOUTES les alertes, pas de correspondance a
-calculer).
+table `precommande_alerts`, et notifie TOUS les utilisateurs PokePrecoms
+inscrits -- service 100% gratuit et illimite depuis le 28/08/2026 (decision
+de Justok, plus d'abonnement payant du tout), modele BROADCAST (pas de
+watchlist personnalisee cote PokePrecoms, contrairement a
+connecteur_supabase.py/watchlist_saas.py cote PokeDeals : chaque utilisateur
+inscrit recoit TOUTES les alertes, pas de correspondance a calculer).
 
 Systeme optionnel et non bloquant, meme philosophie que connecteur_supabase.py/
 notifications_saas.py : actif uniquement si POKEPRECOMS_SUPABASE_URL/
@@ -82,23 +83,35 @@ def enregistrer_precommande_alertes(
         return []
 
 
-def _lister_abonnes_actifs(supabase_url: str, service_role_key: str) -> list[str]:
-    """user_id de tous les abonnements Stripe actifs (`subscriptions.status`
-    in ('active', 'trialing')) -- modele broadcast, TOUS les abonnes actifs
-    recoivent TOUTES les alertes."""
+def _lister_tous_utilisateurs(supabase_url: str, service_role_key: str) -> list[str]:
+    """user_id de TOUS les comptes inscrits, via l'API Admin Supabase paginee
+    (`auth.users` n'est jamais expose par l'API REST standard). Service
+    100% gratuit et illimite (28/08/2026) -- modele broadcast, chaque
+    utilisateur inscrit recoit TOUTES les alertes, plus de notion
+    d'abonnement actif a filtrer."""
     if not supabase_url or not service_role_key:
         return []
+    user_ids: list[str] = []
+    page = 1
     try:
-        r = requests.get(
-            f"{supabase_url.rstrip('/')}/rest/v1/subscriptions",
-            params={"select": "user_id", "status": "in.(active,trialing)"},
-            headers=_headers(service_role_key),
-            timeout=TIMEOUT,
-        )
-        r.raise_for_status()
-        return [row["user_id"] for row in r.json()]
+        while True:
+            r = requests.get(
+                f"{supabase_url.rstrip('/')}/auth/v1/admin/users",
+                params={"page": page, "per_page": 1000},
+                headers=_headers(service_role_key),
+                timeout=TIMEOUT,
+            )
+            r.raise_for_status()
+            lot = r.json().get("users", [])
+            if not lot:
+                break
+            user_ids.extend(u["id"] for u in lot)
+            if len(lot) < 1000:
+                break
+            page += 1
+        return user_ids
     except requests.RequestException as e:
-        log.warning("Lecture des abonnés actifs échouée (%s) -- ignorée ce cycle", e)
+        log.warning("Lecture des utilisateurs inscrits échouée (%s) -- ignorée ce cycle", e)
         return []
 
 
@@ -235,9 +248,10 @@ def _envoyer_email(resend_api_key: str, resend_from: str, destinataire: str, tit
 def notifier_abonnes_precoms(secrets: dict, nouvelles_precommandes: list[dict]) -> None:
     """Point d'entrée unique, appelé juste après enregistrer_precommande_alertes()
     avec UNIQUEMENT les lignes qu'elle a retournées (les nouvelles, jamais les
-    doublons déjà connus). Notifie TOUS les abonnés PokePrécoms actifs par
-    push (si abonné) et/ou email (si activé, actif par défaut) -- modèle
-    broadcast, pas de correspondance individuelle à calculer."""
+    doublons déjà connus). Notifie TOUS les utilisateurs PokePrécoms inscrits
+    par push (si abonné) et/ou email (si activé, actif par défaut) -- modèle
+    broadcast, pas de correspondance individuelle à calculer, plus de notion
+    d'abonnement payant (service gratuit et illimité depuis le 28/08/2026)."""
     if not nouvelles_precommandes:
         return
 
@@ -256,7 +270,7 @@ def notifier_abonnes_precoms(secrets: dict, nouvelles_precommandes: list[dict]) 
     if not push_actif and not email_actif:
         return
 
-    user_ids = _lister_abonnes_actifs(supabase_url, service_role_key)
+    user_ids = _lister_tous_utilisateurs(supabase_url, service_role_key)
     if not user_ids:
         return
 
