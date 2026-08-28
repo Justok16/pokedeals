@@ -72,10 +72,6 @@ watchlist:
     langue: fr
   - nom: "Salamèche 168/165"
     langue: fr
-  - nom: "Bulbizarre 166/165"
-    langue: fr
-    # cote manuelle (70€, posée le 26/07/2026) retirée le 07/08/2026 : repasse
-    # au calcul automatique (eBay+Cardtrader+Cardmarket, mode "plus_bas").
   - nom: "Carapuce 170/165"
     langue: fr
     prix_max_fixe: 18  # V45 : alerte si prix <=18€ hors port, peu importe la cote
@@ -127,8 +123,6 @@ watchlist:
   # (voir 284/217 ci-dessous). Entrée retirée — dis-moi si tu veux la remettre.
 
   # ----- ME02.5 Héros Transcendants (x/217) -----
-  - nom: "Méga-Dracaufeu Y ex 294/217"  # version dorée (Méga Hyper Rare) — confirmé
-    langue: fr
   - nom: "Méga-Dracolosse ex 290/217"
     langue: fr
   - nom: "Méga-Ectoplasma ex 284/217"   # version SIR (~400€)
@@ -177,10 +171,6 @@ watchlist:
     langue: jp
     alias: "Darkrai"
     api_id: "me05-120"  # V47 : Mega Hyper Rare (doree), ~130-175e
-  - nom: "Mega Darkrai ex 099/081"      # SR full art
-    langue: jp
-    alias: "Darkrai"
-    api_id: "me05-101"  # V47 : Ultra Rare (version de base), ~9-10e
   - nom: "Morpeko ex 115/081"           # SAR (version japonaise Abyss Eye)
     langue: jp
     api_id: "me05-117"  # V47 : Special Illustration Rare, ~63-66e
@@ -246,9 +236,6 @@ watchlist:
   - nom: "Eevee ex 224 sv8a"            # = Evoli ex FR 174 promo (Terastal Festival)
     langue: jp
     alias: "Evoli"
-  - nom: "Melofee ex de Lilie 280/217"  # Alternative — Héros Transcendants
-    langue: fr
-    alias: "Clefairy"
   # Versions japonaises de Mélofée de Lilie (Lillie's Clefairy ex)
   - nom: "Clefairy ex 765 mC"           # = Mélofée de Lilie FR 280/217 (Start Deck 100)
     langue: jp
@@ -265,9 +252,6 @@ watchlist:
   - nom: "Mega Lucario ex 088 m1L"      # Mega Brave (JP) = Méga-Lucario 179 FR
     langue: jp
     alias: "Lucario"
-  - nom: "Mega Charizard X ex 110 m2"   # Inferno X (JP) = Méga-Dracaufeu X 125 FR
-    langue: jp
-    alias: "Dracaufeu"
 
   # ----- Nouvelles paires FR + JP -----
   - nom: "Mega Dracaufeu X ex 130"      # Flammes Fantasmagoriques (PFL) FR
@@ -276,18 +260,12 @@ watchlist:
   - nom: "Mega Charizard X ex 116 m2"   # Inferno X (JP)
     langue: jp
     alias: "Dracaufeu"
-  - nom: "Mega Dracaufeu X ex 023"      # MEP Black Star Promos FR
-    langue: fr
-    alias: "Charizard"
   - nom: "Mega Charizard X ex 223 m2a"  # MEGA Dream ex (JP)
     langue: jp
     alias: "Dracaufeu"
   - nom: "Mega Florizarre ex 177"       # Méga-Évolution (MEG) FR
     langue: fr
     alias: "Venusaur"
-  - nom: "Mega Venusaur ex 087 m1L"     # Mega Brave (JP)
-    langue: jp
-    alias: "Florizarre"
   - nom: "Bulbizarre 133"               # Méga-Évolution (MEG) FR
     langue: fr
     alias: "Bulbasaur"
@@ -427,9 +405,6 @@ watchlist:
   - nom: "Mega Darkrai ex 118/081"
     langue: kr
     alias: "Darkrai"
-  - nom: "Mega Darkrai ex 099/081"
-    langue: kr
-    alias: "Darkrai"
   - nom: "Morpeko ex 115/081"
     langue: kr
   - nom: "Goldeen 084 m5"
@@ -462,18 +437,12 @@ watchlist:
   - nom: "Mega Lucario ex 088 m1L"
     langue: kr
     alias: "Lucario"
-  - nom: "Mega Charizard X ex 110 m2"
-    langue: kr
-    alias: "Dracaufeu"
   - nom: "Mega Charizard X ex 116 m2"
     langue: kr
     alias: "Dracaufeu"
   - nom: "Mega Charizard X ex 223 m2a"
     langue: kr
     alias: "Dracaufeu"
-  - nom: "Mega Venusaur ex 087 m1L"
-    langue: kr
-    alias: "Florizarre"
   - nom: "Bulbasaur 064 m1L"
     langue: kr
     alias: "Bulbizarre"
