@@ -47,6 +47,10 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optionnel : active la verification photo (cf. verification_photo.py)
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}   # optionnel : ajoute les cartes des watchlists SaaS (cf. watchlist_saas.py)
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}   # notifications push des utilisateurs SaaS (cf. notifications_saas.py) -- manquait ici (28/08/2026), notifier_deals_boutique_saas() n'a donc jamais notifie personne depuis ce workflow
+          VAPID_CLAIM_EMAIL: ${{ secrets.VAPID_CLAIM_EMAIL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}   # notifications email des utilisateurs SaaS (cf. notifications_saas.py)
+          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
         run: python scan_boutique.py ${{ github.event.inputs.boutiques }}
       - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta)
