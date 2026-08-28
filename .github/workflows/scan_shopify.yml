@@ -1,10 +1,14 @@
 name: Scan Shopify
 on:
   schedule:
-    # Toutes les 30 minutes -- independant du cron principal (main.py,
-    # toutes les 15 min). Les deux tournent en parallele sur le meme repo ;
-    # cf. l'etape de sauvegarde ci-dessous pour la gestion des collisions Git.
-    - cron: "*/30 * * * *"
+    # Resserre a 25 min le 28/08/2026 (demande de Justok, grosse sortie
+    # Pokemon a venir, ne pas rater les bonnes affaires) -- mesure reelle
+    # sur ~10 cycles consecutifs ce jour-la : 18.4-23.0 min (marge encore
+    # confortable, >=8% a 25 min). Ne PAS descendre plus bas sans nouvelle
+    # mesure : en dessous de la duree reelle, les triggers cron s'empilent
+    # plus vite qu'ils ne se vident (concurrency cancel-in-progress=false),
+    # ce qui degraderait la cadence au lieu de l'ameliorer.
+    - cron: "*/25 * * * *"
   workflow_dispatch:
     inputs:
       boutiques:
