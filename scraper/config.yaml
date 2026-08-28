@@ -252,9 +252,6 @@ watchlist:
   - nom: "Mega Lucario ex 088 m1L"      # Mega Brave (JP) = Méga-Lucario 179 FR
     langue: jp
     alias: "Lucario"
-  - nom: "Mega Charizard X ex 110 m2"   # Inferno X (JP) = Méga-Dracaufeu X 125 FR
-    langue: jp
-    alias: "Dracaufeu"
 
   # ----- Nouvelles paires FR + JP -----
   - nom: "Mega Dracaufeu X ex 130"      # Flammes Fantasmagoriques (PFL) FR
@@ -408,9 +405,6 @@ watchlist:
   - nom: "Mega Darkrai ex 118/081"
     langue: kr
     alias: "Darkrai"
-  - nom: "Mega Darkrai ex 099/081"
-    langue: kr
-    alias: "Darkrai"
   - nom: "Morpeko ex 115/081"
     langue: kr
   - nom: "Goldeen 084 m5"
@@ -449,9 +443,6 @@ watchlist:
   - nom: "Mega Charizard X ex 223 m2a"
     langue: kr
     alias: "Dracaufeu"
-  - nom: "Mega Venusaur ex 087 m1L"
-    langue: kr
-    alias: "Florizarre"
   - nom: "Bulbasaur 064 m1L"
     langue: kr
     alias: "Bulbizarre"
