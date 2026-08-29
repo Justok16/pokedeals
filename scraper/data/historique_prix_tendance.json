@@ -109,6 +109,13 @@
       "devise_pokemonpricetracker": "USD",
       "prix_gradee_psa10": null,
       "cote_pokedeals": 47.23
+    },
+    {
+      "date": "2026-08-29",
+      "prix_pokemonpricetracker": 26.96,
+      "devise_pokemonpricetracker": "USD",
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": 47.23
     }
   ],
   "Squirtle 170/165 sv2a|jp": [
@@ -215,6 +222,13 @@
       "devise_pokemonpricetracker": "USD",
       "prix_gradee_psa10": null,
       "cote_pokedeals": 21.89
+    },
+    {
+      "date": "2026-08-29",
+      "prix_pokemonpricetracker": 25.44,
+      "devise_pokemonpricetracker": "USD",
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": 21.89
     }
   ],
   "Psyduck 199 m2a|jp": [
@@ -317,6 +331,13 @@
     },
     {
       "date": "2026-08-28",
+      "prix_pokemonpricetracker": 17.57,
+      "devise_pokemonpricetracker": "USD",
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": 15.93
+    },
+    {
+      "date": "2026-08-29",
       "prix_pokemonpricetracker": 17.57,
       "devise_pokemonpricetracker": "USD",
       "prix_gradee_psa10": null,
