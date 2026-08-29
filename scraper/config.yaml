@@ -535,6 +535,19 @@ watchlist:
     cote: 4
     cote_date: "2026-08-18"
 
+  # ----- Ajout du 29/08/2026 (demande de Justok, promos JP à potentiel) -----
+  - nom: "Latias ex 032 M-P"            # meilleur rapport prix / stock / tendance
+    langue: jp
+  - nom: "Psyduck 262 SV-P"             # = Psykokwak -- énorme asymétrie pour 5-7€
+    langue: jp
+    alias: "Psykokwak"
+  - nom: "Pikachu 242 SV-P"             # gros potentiel collector, mais plus cher
+    langue: jp
+  - nom: "Pikachu 001 SV-P"             # très bon ratio popularité / prix / tendance
+    langue: jp
+  - nom: "Pikachu 133 M-P"              # meilleur dossier "achat régulier en quantité"
+    langue: jp
+
   # ----- Cartes ÉTRANGÈRES (EN/KR/CN) : RETIRÉES en V17.3 -----
   # Le diagnostic du 16/07 a montré 0 à 1 annonce sur eBay France pour
   # toutes ces versions (marché FR structurellement vide, numéros
