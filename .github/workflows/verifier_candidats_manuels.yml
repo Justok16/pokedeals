@@ -28,4 +28,7 @@ jobs:
       - name: Vérifier les candidats
         env:
           PYTHONUNBUFFERED: "1"
-        run: python verifier_candidats_manuels.py ${{ github.event.inputs.domaines }}
+          # Audit externe du 30/08/2026 : passer par env: + $VAR plutot que
+          # d'injecter ${{ }} directement dans run: (injection shell possible).
+          DOMAINES: ${{ github.event.inputs.domaines }}
+        run: python verifier_candidats_manuels.py $DOMAINES

@@ -35,4 +35,10 @@ jobs:
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
-        run: python envoyer_email_test.py "${{ github.event.inputs.destinataire }}"
+          # Audit externe du 30/08/2026 : mettre l'input entre guillemets dans
+          # run: (comme avant) ne protege PAS de l'injection -- la valeur est
+          # substituee comme texte brut AVANT que le shell ne voie les
+          # guillemets, donc un input contenant un guillemet peut casser hors
+          # de la chaine. Passer par env: + "$VAR" est sur.
+          DESTINATAIRE: ${{ github.event.inputs.destinataire }}
+        run: python envoyer_email_test.py "$DESTINATAIRE"

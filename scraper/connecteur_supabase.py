@@ -30,27 +30,46 @@ log = logging.getLogger("pokedeals.connecteur_supabase")
 TIMEOUT = 10
 
 
+TAILLE_PAGE_WATCHLIST = 1000  # limite par defaut de PostgREST/Supabase par requete
+
+
 def lister_watchlist_items(supabase_url: str, service_role_key: str) -> list[dict]:
-    """Récupère toutes les watchlists de tous les utilisateurs (clé service_role,
+    """Récupère TOUTES les watchlists de tous les utilisateurs (clé service_role,
     contourne volontairement les policies RLS -- c'est le scraper, pas un
-    utilisateur). Retourne [] si les secrets sont absents ou en cas d'erreur."""
+    utilisateur), en paginant par blocs de TAILLE_PAGE_WATCHLIST -- Supabase/
+    PostgREST plafonne une requête a 1000 lignes par defaut (audit externe du
+    30/08/2026) : sans pagination, les utilisateurs au-dela de la 1000e ligne
+    etaient silencieusement absents du scan (jamais d'erreur, juste une liste
+    tronquee). Retourne [] si les secrets sont absents ; une page en erreur
+    reseau arrete la pagination et renvoie ce qui a deja ete recupere (mieux
+    qu'echouer sur tout, cf. philosophie non-bloquante du module)."""
     if not supabase_url or not service_role_key:
         return []
-    try:
-        r = requests.get(
-            f"{supabase_url.rstrip('/')}/rest/v1/watchlist_items",
-            params={"select": "id,user_id,nom_carte,langue,prix_seuil"},
-            headers={
-                "apikey": service_role_key,
-                "Authorization": f"Bearer {service_role_key}",
-            },
-            timeout=TIMEOUT,
-        )
-        r.raise_for_status()
-        return r.json()
-    except requests.RequestException as e:
-        log.warning("Lecture des watchlists Supabase échouée (%s) -- ignorée ce cycle", e)
-        return []
+    items: list[dict] = []
+    offset = 0
+    while True:
+        try:
+            r = requests.get(
+                f"{supabase_url.rstrip('/')}/rest/v1/watchlist_items",
+                params={"select": "id,user_id,nom_carte,langue,prix_seuil"},
+                headers={
+                    "apikey": service_role_key,
+                    "Authorization": f"Bearer {service_role_key}",
+                    "Range": f"{offset}-{offset + TAILLE_PAGE_WATCHLIST - 1}",
+                },
+                timeout=TIMEOUT,
+            )
+            r.raise_for_status()
+            page = r.json()
+        except requests.RequestException as e:
+            log.warning("Lecture des watchlists Supabase échouée (%s) -- %d ligne(s) déjà récupérée(s), le reste ignoré ce cycle",
+                        e, len(items))
+            break
+        items.extend(page)
+        if len(page) < TAILLE_PAGE_WATCHLIST:
+            break
+        offset += TAILLE_PAGE_WATCHLIST
+    return items
 
 
 def trouver_correspondances(deals: list[dict], items: list[dict]) -> list[dict]:

@@ -1,0 +1,18 @@
+version: 2
+updates:
+  # Dependances Python du scraper (scraper/requirements.txt) -- versions
+  # ouvertes (>=), donc jamais bloquees, mais sans surveillance jusqu'ici
+  # (audit externe du 30/08/2026). Une PR par mise a jour laisse tests.yml
+  # (cf. .github/workflows/tests.yml) verifier la non-regression avant tout
+  # merge -- jamais de mise a jour silencieuse sans passage par CI.
+  - package-ecosystem: "pip"
+    directory: "/scraper"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
