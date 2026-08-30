@@ -3,4 +3,4 @@
 # tourne en LOCAL sur ta machine via Claude Code, jamais en CI.
 mcp>=1.28
 requests>=2.34.2
-python-dotenv>=1.0
+python-dotenv>=1.2.3
