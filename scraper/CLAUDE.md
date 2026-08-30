@@ -143,7 +143,7 @@ Ajouté le 14/08/2026, système **totalement indépendant** des 3 fonctions ci-d
 - Voir `mcp_pokedeals/README.md` pour l'installation, la config Claude Code (`.mcp.json` à la racine) et le statut détaillé de chaque source.
 - Piège déjà rencontré : le SDK officiel `mcp` (PyPI) a renommé `mcp.server.fastmcp.FastMCP` en `mcp.server.mcpserver.MCPServer` dans sa v2 — un `pip install mcp` sans version fixée casse tout code écrit pour l'ancienne API (`ModuleNotFoundError`).
 
-## CI/déploiement — 8 workflows GitHub Actions
+## CI/déploiement — 11 workflows GitHub Actions
 
 Tournent en parallèle sur le même repo, chacun avec son propre groupe de concurrence (`concurrency.group`) pour ne jamais se bloquer mutuellement, et une étape de sauvegarde mémoire avec dance stash/pull-rebase/push pour éviter les collisions Git entre crons qui se chevauchent (sauf les workflows sans fichier mémoire, ex. `prix_bas_quotidien.yml`, `permissions: contents: read` seulement).
 
@@ -159,12 +159,23 @@ Tournent en parallèle sur le même repo, chacun avec son propre groupe de concu
 | `scan_precommandes_generique.yml` | 15 min | 25 min | radar de précommandes génériques PokéPrécoms (Shopify uniquement) |
 | `scan_precommandes_philibert.yml` | 2h | 45 min | radar de précommandes génériques PokéPrécoms dédié à philibertnet.com (~940 requêtes/cycle) |
 | `tests.yml` | à chaque push/PR | — | suite pytest (cf. section Commandes) |
+| `watchdog_workflows.yml` | 3h | 5 min | watchdog de santé (30/08/2026, cf. section dédiée ci-dessous) — alerte Telegram si un des 9 scanners échoue 3 fois de suite |
 
 **Cadences resserrées le 28/08/2026** (demande de Justok, grosse sortie Pokémon à venir) : mesuré d'abord les durées réelles avant de toucher quoi que ce soit (jamais à l'aveugle, cf. plus bas) — `scan_shopify.yml` (~18-23 min réels pour 30 min de cron, marge confortable) passé à 25 min ; `scan_precommandes_generique.yml` (~12 min réels pour 30 min de cron, grosse marge) passé à 15 min. `scan_prestashop.yml`/`scan_woocommerce.yml` étaient déjà mesurés à 30-40+ min par cycle complet (donc déjà à leur cadence réelle maximale malgré l'affichage à 30 min) — au lieu de resserrer leur cron (aucun gain, juste un risque d'empiler des déclenchements en attente), **lot A et lot B ont été parallélisés** pour réduire la durée réelle du cycle complet.
 
 **Parallélisation lot A / lot B** (`scan_prestashop.yml`, `scan_woocommerce.yml`, 28/08/2026) : jusque-là **séquentiels** (`needs: scan_lot_a` sur le job lot B) pour éviter une course d'écriture sur la même clé mémoire Supabase (`stock_boutiques_tcg_prestashop`/`stock_boutiques_tcg_woocommerce`) — dernier écrivain gagnant, l'autre lot aurait silencieusement perdu ses transitions de stock détectées ce cycle-là. Rendu sûr en donnant à chaque lot sa **propre clé Supabase** : `scan_boutique_prestashop.py`/`scan_boutique_woocommerce.py` lisent `SCAN_LOT_SUFFIXE` (env, ex. `"_lot_a"`/`"_lot_b"`, défini par le workflow) et l'ajoutent à `CLE_MEMOIRE_STOCK` — vide par défaut (invocation manuelle/`workflow_dispatch` sans lot précis), comportement alors inchangé. Lot A et lot B portent sur des boutiques **différentes** : aucune boutique n'est sollicitée plus souvent qu'avant (même nombre de requêtes, même espacement `DELAI_ENTRE_BOUTIQUES`), seul le temps d'attente entre les deux lots disparaît — pas de risque anti-robot supplémentaire. Le job `scan_precommandes` continue lui de dépendre des deux (`needs: [scan_lot_a, scan_lot_b]`) : il tourne toujours APRÈS les deux lots de scan cartes, jamais en parallèle d'eux, pour qu'aucune boutique ne soit jamais sollicitée par deux jobs en même temps.
 
 Avant de changer un timeout ou une composition de lot, vérifier `SESSION_NOTES.md` (section diagnostic du flake `scan_lot_a`) — les marges mesurées en prod y sont documentées, ne pas ajuster à l'aveugle.
+
+## Watchdog de santé des workflows (`watchdog_workflows.py`, ajouté le 30/08/2026)
+
+Système **indépendant**, ajouté suite à l'audit externe du compte GitHub : jusque-là, un workflow de scan qui échoue silencieusement à chaque cycle (bug de code, secret expiré, API tierce cassée) ne générait AUCUNE alerte — seul un examen manuel de l'onglet Actions du repo l'aurait révélé.
+
+- Interroge l'API GitHub Actions (lecture seule, `GITHUB_TOKEN` standard fourni automatiquement par le workflow, aucun nouveau secret) pour les 9 workflows de scan programmés (`WORKFLOWS_SURVEILLES`, cf. tableau ci-dessus — exclut volontairement `tests.yml` et les workflows manuels/de test).
+- `echecs_consecutifs()` compte les échecs ("failure") consécutifs depuis la plus récente exécution TERMINÉE de chaque workflow, en ignorant les annulations manuelles/timeouts (ni +1 ni remise à zéro, pour ne pas les confondre avec un vrai succès ni les laisser masquer une série d'échecs réels).
+- Alerte Telegram si un workflow atteint `SEUIL_ECHECS_CONSECUTIFS` (3) — pas dès le premier échec, un échec isolé étant déjà toléré par la conception de chaque scanner (ex. une boutique HS ne fait pas échouer tout le job).
+- **Anti-spam** : l'état "déjà alerté" par workflow est persisté dans Supabase (`memoire_supabase.py`, clé `watchdog_workflows_etat`, même projet `pokedeals-saas`) pour ne pas re-notifier à chaque passage tant que le problème n'est pas résolu, et pour envoyer un message de "retour au vert" une fois le workflow de nouveau sain. Contrairement à la mémoire de déduplication stock (étape 1 de la migration Supabase ci-dessous), cet état n'est **pas critique** : une lecture Supabase ratée dégrade au pire vers une alerte en double (repli sur état vide), jamais vers une alerte manquée — pas de `sys.exit(1)` ici.
+- Workflow dédié `watchdog_workflows.yml`, cron toutes les 3h, `permissions: actions: read` (nécessaire pour lire l'historique des autres workflows).
 
 ## Migration progressive "mémoire hors de Git" (Supabase, démarrée le 24/08/2026)
 

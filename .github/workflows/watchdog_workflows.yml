@@ -1,0 +1,40 @@
+name: Watchdog Workflows
+
+on:
+  schedule:
+    # Toutes les 3h : assez frequent pour detecter un scanner casse en
+    # quelques heures, assez espace pour rester tres largement sous les
+    # limites de l'API GitHub Actions (9 workflows x 1 appel par passage).
+    - cron: "0 */3 * * *"
+  workflow_dispatch: {}
+permissions:
+  actions: read     # necessaire pour lire l'historique des executions des autres workflows
+  contents: read
+concurrency:
+  group: watchdog_workflows
+  cancel-in-progress: false
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    timeout-minutes: 5
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Vérifier la santé des workflows programmés
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: python watchdog_workflows.py
