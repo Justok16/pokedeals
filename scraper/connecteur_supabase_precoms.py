@@ -48,8 +48,9 @@ def enregistrer_precommande_alertes(
     fiche produit ne peut jamais generer 2 lignes, meme si ce pont est appele
     deux fois sur le meme evenement). Retourne UNIQUEMENT les lignes
     reellement inserees (return=representation + resolution=ignore-duplicates)
-    -- utilise par notifier_abonnes_precoms() pour ne notifier qu'une fois
-    par alerte reellement nouvelle."""
+    -- ne PAS utiliser cette valeur pour decider quoi diffuser (cf. piege
+    corrige le 30/08/2026, meme bug que watchlist_alerts cote PokeDeals) :
+    appeler lister_precommandes_a_diffuser() juste apres pour ca."""
     if not evenements or not supabase_url or not service_role_key:
         return []
     lignes = [
@@ -81,6 +82,76 @@ def enregistrer_precommande_alertes(
     except requests.RequestException as e:
         log.warning("Écriture precommande_alerts échouée (%s) -- ignorée ce cycle", e)
         return []
+
+
+CHAMPS_PRECOMMANDE_DIFFUSION = "id,titre_produit,boutique,url_produit,push_diffuse,email_diffuse"
+TAILLE_PAGE_DIFFUSION = 1000  # limite par defaut de PostgREST/Supabase par requete
+
+
+def lister_precommandes_a_diffuser(supabase_url: str, service_role_key: str) -> list[dict]:
+    """Retourne TOUTES les precommandes dont AU MOINS UN canal (push/email)
+    n'a pas encore ete diffuse avec succes a tous les abonnes -- pas
+    seulement celles inserees ce cycle. Corrige un bug reel trouve lors d'un
+    audit externe du 30/08/2026 (meme bug que celui deja corrige cote
+    watchlist_alerts/PokeDeals) : si push ET email echouaient tous les deux
+    au meme cycle, la precommande n'etait plus jamais rediffusee. Necessite
+    les colonnes push_diffuse/email_diffuse (cf. migration 0007 du depot
+    pokeprecoms) -- absentes -> la requete echoue proprement (log + liste
+    vide)."""
+    if not supabase_url or not service_role_key:
+        return []
+    precommandes: list[dict] = []
+    offset = 0
+    while True:
+        try:
+            r = requests.get(
+                f"{supabase_url.rstrip('/')}/rest/v1/precommande_alerts",
+                params={
+                    "select": CHAMPS_PRECOMMANDE_DIFFUSION,
+                    "or": "(push_diffuse.eq.false,email_diffuse.eq.false)",
+                },
+                headers={
+                    **_headers(service_role_key),
+                    "Range": f"{offset}-{offset + TAILLE_PAGE_DIFFUSION - 1}",
+                },
+                timeout=TIMEOUT,
+            )
+            r.raise_for_status()
+            page = r.json()
+        except requests.RequestException as e:
+            log.warning("Lecture des précommandes en attente de diffusion échouée (%s) -- %d déjà récupérée(s), le reste ignoré ce cycle",
+                        e, len(precommandes))
+            break
+        precommandes.extend(page)
+        if len(page) < TAILLE_PAGE_DIFFUSION:
+            break
+        offset += TAILLE_PAGE_DIFFUSION
+    return precommandes
+
+
+def marquer_diffusion_terminee(supabase_url: str, service_role_key: str, precommande_id: str, canal: str) -> None:
+    """Marque UN canal ("push" ou "email") comme diffuse avec succes pour une
+    precommande -- appele par notifier_abonnes_precoms() une fois que TOUS
+    les envois de ce canal ont reussi pour ce cycle (modele broadcast, cf.
+    migration 0007). Erreur reseau : loguee et ignoree, la ligne sera
+    simplement retentee au prochain cycle."""
+    if not supabase_url or not service_role_key or canal not in ("push", "email"):
+        return
+    try:
+        r = requests.patch(
+            f"{supabase_url.rstrip('/')}/rest/v1/precommande_alerts",
+            params={"id": f"eq.{precommande_id}"},
+            json={f"{canal}_diffuse": True},
+            headers={
+                **_headers(service_role_key),
+                "Content-Type": "application/json",
+            },
+            timeout=TIMEOUT,
+        )
+        r.raise_for_status()
+    except requests.RequestException as e:
+        log.warning("Marquage de la diffusion %s comme terminée échoué pour la précommande %s (%s) -- retentée au prochain cycle",
+                    canal, precommande_id, e)
 
 
 def _lister_tous_utilisateurs(supabase_url: str, service_role_key: str) -> list[str]:
@@ -197,10 +268,15 @@ def _envoyer_push(
     titre: str,
     corps: str,
     url: str,
-) -> None:
+) -> bool:
+    """Retourne True si AUCUN abonnement n'a echoue pour une raison
+    transitoire (succes et/ou purge d'abonnements expires uniquement) --
+    False si au moins un echec transitoire, pour que l'appelant sache qu'il
+    ne doit pas marquer le canal comme diffuse (cf. marquer_diffusion_terminee)."""
     from pywebpush import WebPushException, webpush
 
     payload = json.dumps({"title": titre, "body": corps, "url": url})
+    echec_transitoire = False
     for sub in abonnements:
         try:
             webpush(
@@ -218,10 +294,13 @@ def _envoyer_push(
             if statut in (404, 410):
                 _supprimer_abonnement_push(supabase_url, service_role_key, sub["endpoint"])
             else:
-                log.warning("Envoi push échoué (%s) -- ignoré ce cycle", e)
+                log.warning("Envoi push échoué (%s) -- retenté au prochain cycle", e)
+                echec_transitoire = True
+    return not echec_transitoire
 
 
-def _envoyer_email(resend_api_key: str, resend_from: str, destinataire: str, titre: str, corps: str, url: str) -> None:
+def _envoyer_email(resend_api_key: str, resend_from: str, destinataire: str, titre: str, corps: str, url: str) -> bool:
+    """Retourne True si l'email a été accepté par Resend, False sinon."""
     from telegram_utils import echapper_html, echapper_url_html
 
     try:
@@ -241,18 +320,27 @@ def _envoyer_email(resend_api_key: str, resend_from: str, destinataire: str, tit
             timeout=TIMEOUT,
         )
         r.raise_for_status()
+        return True
     except requests.RequestException as e:
-        log.warning("Envoi email échoué (%s) -- ignoré ce cycle", e)
+        log.warning("Envoi email échoué (%s) -- retenté au prochain cycle", e)
+        return False
 
 
-def notifier_abonnes_precoms(secrets: dict, nouvelles_precommandes: list[dict]) -> None:
-    """Point d'entrée unique, appelé juste après enregistrer_precommande_alertes()
-    avec UNIQUEMENT les lignes qu'elle a retournées (les nouvelles, jamais les
-    doublons déjà connus). Notifie TOUS les utilisateurs PokePrécoms inscrits
-    par push (si abonné) et/ou email (si activé, actif par défaut) -- modèle
-    broadcast, pas de correspondance individuelle à calculer, plus de notion
-    d'abonnement payant (service gratuit et illimité depuis le 28/08/2026)."""
-    if not nouvelles_precommandes:
+def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict]) -> None:
+    """Point d'entrée unique, appelé avec lister_precommandes_a_diffuser() --
+    TOUTES les précommandes dont au moins un canal n'est pas encore diffusé,
+    pas seulement celles insérées ce cycle (corrige un bug réel trouvé lors
+    d'un audit externe du 30/08/2026, même bug que celui déjà corrigé côté
+    watchlist_alerts/PokéDeals). Notifie TOUS les utilisateurs PokéPrécoms
+    inscrits par push (si abonné) et/ou email (si activé, actif par défaut)
+    -- modèle broadcast, pas de correspondance individuelle à calculer, plus
+    de notion d'abonnement payant (service gratuit et illimité depuis le
+    28/08/2026). Un canal n'est marqué diffusé (via marquer_diffusion_terminee)
+    que si AUCUN envoi de ce canal n'a échoué pour ce cycle -- un seul échec
+    individuel fait retenter tout le canal au prochain cycle (modèle broadcast,
+    cf. docstring de la migration : plus simple qu'un suivi par utilisateur,
+    au prix d'un risque de doublon plutôt que d'une alerte jamais reçue)."""
+    if not precommandes_a_diffuser:
         return
 
     supabase_url = secrets.get("POKEPRECOMS_SUPABASE_URL", "")
@@ -282,23 +370,33 @@ def notifier_abonnes_precoms(secrets: dict, nouvelles_precommandes: list[dict]) 
     prefs_email = _preferences_email(supabase_url, service_role_key, user_ids) if email_actif else {}
     emails_cache: dict[str, str | None] = {}
 
-    for precommande in nouvelles_precommandes:
+    for precommande in precommandes_a_diffuser:
         titre_notif = "Nouvelle précommande Pokémon TCG disponible !"
         corps = precommande.get("titre_produit", "un produit")
         if precommande.get("boutique"):
             corps += f" sur {precommande['boutique']}"
         url = precommande.get("url_produit", "")
 
-        for uid in user_ids:
-            if push_actif and uid in abonnements_par_utilisateur:
-                _envoyer_push(
-                    supabase_url, service_role_key, vapid_private_key, vapid_claim_email,
-                    abonnements_par_utilisateur[uid], titre_notif, corps, url,
-                )
+        if push_actif and not precommande.get("push_diffuse"):
+            echec_push = False
+            for uid in user_ids:
+                if uid in abonnements_par_utilisateur:
+                    if not _envoyer_push(
+                        supabase_url, service_role_key, vapid_private_key, vapid_claim_email,
+                        abonnements_par_utilisateur[uid], titre_notif, corps, url,
+                    ):
+                        echec_push = True
+            if not echec_push:
+                marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "push")
 
-            if email_actif and prefs_email.get(uid, True):
-                if uid not in emails_cache:
-                    emails_cache[uid] = _email_utilisateur(supabase_url, service_role_key, uid)
-                email = emails_cache[uid]
-                if email:
-                    _envoyer_email(resend_api_key, resend_from, email, titre_notif, corps, url)
+        if email_actif and not precommande.get("email_diffuse"):
+            echec_email = False
+            for uid in user_ids:
+                if prefs_email.get(uid, True):
+                    if uid not in emails_cache:
+                        emails_cache[uid] = _email_utilisateur(supabase_url, service_role_key, uid)
+                    email = emails_cache[uid]
+                    if email and not _envoyer_email(resend_api_key, resend_from, email, titre_notif, corps, url):
+                        echec_email = True
+            if not echec_email:
+                marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "email")
