@@ -167,6 +167,24 @@ def test_plusieurs_utilisateurs_meme_carte_donnent_plusieurs_alertes():
     assert {a["user_id"] for a in alertes} == {"u1", "u2"}
 
 
+def test_plusieurs_deals_meme_carte_matchent_tous_le_meme_item():
+    # Regression sur l'indexation par (nom_norm, langue) : chaque deal
+    # partageant la même clé doit retrouver le(s) même(s) item(s) candidat(s),
+    # pas seulement celui du dernier deal traité.
+    deals = [_deal(url="https://x/1", total=30.0), _deal(url="https://x/2", total=45.0)]
+    alertes = trouver_correspondances(deals, [_item()])
+    assert {a["url"] for a in alertes} == {"https://x/1", "https://x/2"}
+    assert all(a["watchlist_item_id"] == "i1" for a in alertes)
+
+
+def test_items_de_cartes_differentes_ne_se_polluent_pas():
+    items = [_item(nom_carte="Dracaufeu ex 199/165", item_id="i1"),
+             _item(nom_carte="Tortank ex 200/165", item_id="i2")]
+    alertes = trouver_correspondances([_deal(carte="Tortank ex 200/165")], items)
+    assert len(alertes) == 1
+    assert alertes[0]["watchlist_item_id"] == "i2"
+
+
 # ------------------- enregistrer_alertes -------------------
 
 def test_enregistrer_liste_vide_ne_declenche_aucun_appel_reseau():
