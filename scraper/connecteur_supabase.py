@@ -113,10 +113,10 @@ def enregistrer_alertes(supabase_url: str, service_role_key: str, alertes: list[
     (watchlist_item_id, url) côté base + `resolution=ignore-duplicates`.
 
     Retourne UNIQUEMENT les lignes réellement insérées (les doublons ignorés
-    n'apparaissent pas dans la réponse `return=representation`) -- utilisé par
-    notifications_saas.py pour ne notifier (push/email) qu'une seule fois par
-    alerte réellement NOUVELLE, jamais à chaque cycle sur les mêmes deals déjà
-    connus."""
+    n'apparaissent pas dans la réponse `return=representation`) -- ne PAS
+    utiliser cette valeur pour decider qui notifier (cf. piege corrige le
+    30/08/2026 ci-dessous) : appeler lister_alertes_a_notifier() juste apres
+    pour ca."""
     if not alertes or not supabase_url or not service_role_key:
         return []
     try:
@@ -139,6 +139,79 @@ def enregistrer_alertes(supabase_url: str, service_role_key: str, alertes: list[
     except requests.RequestException as e:
         log.warning("Écriture des alertes watchlist Supabase échouée (%s) -- ignorée ce cycle", e)
         return []
+
+
+CHAMPS_ALERTE_NOTIFICATION = "id,user_id,titre,prix,url,plateforme,push_envoye,email_envoye"
+
+
+def lister_alertes_a_notifier(supabase_url: str, service_role_key: str) -> list[dict]:
+    """Retourne TOUTES les alertes dont AU MOINS UN canal (push/email) n'a
+    pas encore ete livre avec succes -- pas seulement celles inserees ce
+    cycle. Corrige un bug reel trouve lors d'un audit externe du 30/08/2026 :
+    enregistrer_alertes() ne renvoyait QUE les lignes fraichement inserees
+    (resolution=ignore-duplicates), et notifications_saas.py n'etait appele
+    qu'avec celles-ci -- si push ET email echouaient tous les deux au meme
+    cycle (ex. panne Resend/service Web Push), la ligne restait en base mais
+    n'etait plus JAMAIS retentee (les cycles suivants la voient comme un
+    doublon deja connu). Necessite les colonnes push_envoye/email_envoye
+    (cf. migration 0009 du depot pokedeals-saas) -- absentes -> la requete
+    echoue proprement (log + liste vide), comme tout le reste du module."""
+    if not supabase_url or not service_role_key:
+        return []
+    alertes: list[dict] = []
+    offset = 0
+    while True:
+        try:
+            r = requests.get(
+                f"{supabase_url.rstrip('/')}/rest/v1/watchlist_alerts",
+                params={
+                    "select": CHAMPS_ALERTE_NOTIFICATION,
+                    "or": "(push_envoye.eq.false,email_envoye.eq.false)",
+                },
+                headers={
+                    "apikey": service_role_key,
+                    "Authorization": f"Bearer {service_role_key}",
+                    "Range": f"{offset}-{offset + TAILLE_PAGE_WATCHLIST - 1}",
+                },
+                timeout=TIMEOUT,
+            )
+            r.raise_for_status()
+            page = r.json()
+        except requests.RequestException as e:
+            log.warning("Lecture des alertes en attente de notification échouée (%s) -- %d déjà récupérée(s), le reste ignoré ce cycle",
+                        e, len(alertes))
+            break
+        alertes.extend(page)
+        if len(page) < TAILLE_PAGE_WATCHLIST:
+            break
+        offset += TAILLE_PAGE_WATCHLIST
+    return alertes
+
+
+def marquer_notification_envoyee(supabase_url: str, service_role_key: str, alerte_id: str, canal: str) -> None:
+    """Marque UN canal ("push" ou "email") comme livre avec succes pour une
+    alerte -- appele par notifications_saas.py apres chaque envoi reussi (ou
+    determine sans objet, ex. aucun abonnement push). Erreur reseau : loguee
+    et ignoree, la ligne restera simplement retentee au prochain cycle
+    (comportement sur, jamais pire qu'avant ce correctif)."""
+    if not supabase_url or not service_role_key or canal not in ("push", "email"):
+        return
+    try:
+        r = requests.patch(
+            f"{supabase_url.rstrip('/')}/rest/v1/watchlist_alerts",
+            params={"id": f"eq.{alerte_id}"},
+            json={f"{canal}_envoye": True},
+            headers={
+                "apikey": service_role_key,
+                "Authorization": f"Bearer {service_role_key}",
+                "Content-Type": "application/json",
+            },
+            timeout=TIMEOUT,
+        )
+        r.raise_for_status()
+    except requests.RequestException as e:
+        log.warning("Marquage de la notification %s comme envoyée échoué pour l'alerte %s (%s) -- retentée au prochain cycle",
+                    canal, alerte_id, e)
 
 
 def enregistrer_cotes_marche(supabase_url: str, service_role_key: str, cotes: list[dict]) -> None:

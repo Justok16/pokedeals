@@ -1,7 +1,13 @@
 """Tests de non-regression pour notifications_saas.py -- systeme OPTIONNEL
 et NON BLOQUANT (cf. module docstring) : chaque canal (push, email) est
 independant selon les secrets configures ; erreur reseau -> log + skip,
-jamais une exception qui remonte."""
+jamais une exception qui remonte.
+
+Depuis l'audit externe du 30/08/2026, notifier_alertes_en_attente() prend
+des alertes DEJA en base (avec push_envoye/email_envoye) et ne marque un
+canal comme envoye (via connecteur_supabase.marquer_notification_envoyee)
+qu'apres un succes reel ou une situation "rien a livrer" -- jamais apres un
+echec, pour que le prochain cycle retente."""
 
 from unittest.mock import Mock, patch
 
@@ -13,29 +19,30 @@ from notifications_saas import (
     _envoyer_push,
     _lister_abonnements_push,
     _preferences_email,
-    notifier_nouvelles_alertes,
+    notifier_alertes_en_attente,
 )
 
 
-def _alerte(user_id="u1", watchlist_item_id="i1", titre="Dracaufeu", prix=40.0,
-            url="https://x/1", plateforme="eBay"):
-    return {"user_id": user_id, "watchlist_item_id": watchlist_item_id,
-            "titre": titre, "prix": prix, "url": url, "plateforme": plateforme}
+def _alerte(alerte_id="a1", user_id="u1", titre="Dracaufeu", prix=40.0,
+            url="https://x/1", plateforme="eBay", push_envoye=False, email_envoye=False):
+    return {"id": alerte_id, "user_id": user_id, "titre": titre, "prix": prix,
+            "url": url, "plateforme": plateforme,
+            "push_envoye": push_envoye, "email_envoye": email_envoye}
 
 
-# ------------------- notifier_nouvelles_alertes (orchestration) -------------------
+# ------------------- notifier_alertes_en_attente (orchestration) -------------------
 
 def test_liste_vide_ne_declenche_aucun_appel():
     with patch("notifications_saas._lister_abonnements_push") as push_mock, \
          patch("notifications_saas._preferences_email") as email_mock:
-        notifier_nouvelles_alertes({"SUPABASE_URL": "u", "SUPABASE_SERVICE_ROLE_KEY": "k"}, [])
+        notifier_alertes_en_attente({"SUPABASE_URL": "u", "SUPABASE_SERVICE_ROLE_KEY": "k"}, [])
     push_mock.assert_not_called()
     email_mock.assert_not_called()
 
 
 def test_sans_secrets_supabase_ne_declenche_aucun_appel():
     with patch("notifications_saas._lister_abonnements_push") as push_mock:
-        notifier_nouvelles_alertes({}, [_alerte()])
+        notifier_alertes_en_attente({}, [_alerte()])
     push_mock.assert_not_called()
 
 
@@ -43,56 +50,133 @@ def test_sans_aucun_canal_configure_ne_declenche_aucun_appel():
     secrets = {"SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k"}
     with patch("notifications_saas._lister_abonnements_push") as push_mock, \
          patch("notifications_saas._preferences_email") as email_mock:
-        notifier_nouvelles_alertes(secrets, [_alerte()])
+        notifier_alertes_en_attente(secrets, [_alerte()])
     push_mock.assert_not_called()
     email_mock.assert_not_called()
 
 
-def test_push_actif_seul_notifie_par_push_uniquement():
+def test_push_reussi_marque_le_canal_envoye():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
         "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
     }
     with patch("notifications_saas._lister_abonnements_push",
                return_value=[{"user_id": "u1", "endpoint": "e1", "p256dh": "p", "auth": "a"}]), \
-         patch("notifications_saas._preferences_email", return_value={}) as pref_mock, \
-         patch("notifications_saas._envoyer_push") as push_send_mock, \
-         patch("notifications_saas._envoyer_email") as email_send_mock:
-        notifier_nouvelles_alertes(secrets, [_alerte()])
+         patch("notifications_saas._preferences_email", return_value={}), \
+         patch("notifications_saas._envoyer_push", return_value=True) as push_send_mock, \
+         patch("notifications_saas._envoyer_email") as email_send_mock, \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte()])
     push_send_mock.assert_called_once()
     email_send_mock.assert_not_called()
-    pref_mock.assert_not_called()  # email desactive -> pas besoin des preferences
+    marquer_mock.assert_called_once_with("https://x.supabase.co", "k", "a1", "push")
 
 
-def test_email_actif_seul_notifie_par_email_si_utilisateur_a_un_abonnement():
+def test_push_echoue_ne_marque_pas_le_canal_envoye():
+    # Audit du 30/08/2026 : un echec ne doit JAMAIS marquer le canal comme
+    # envoye, sinon l'alerte ne serait plus jamais retentee -- exactement le
+    # bug corrige.
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
+    }
+    with patch("notifications_saas._lister_abonnements_push",
+               return_value=[{"user_id": "u1", "endpoint": "e1", "p256dh": "p", "auth": "a"}]), \
+         patch("notifications_saas._preferences_email", return_value={}), \
+         patch("notifications_saas._envoyer_push", return_value=False), \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte()])
+    marquer_mock.assert_not_called()
+
+
+def test_push_deja_envoye_nest_pas_retente():
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
+    }
+    with patch("notifications_saas._lister_abonnements_push",
+               return_value=[{"user_id": "u1", "endpoint": "e1", "p256dh": "p", "auth": "a"}]), \
+         patch("notifications_saas._envoyer_push") as push_send_mock, \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte(push_envoye=True)])
+    push_send_mock.assert_not_called()
+    marquer_mock.assert_not_called()
+
+
+def test_utilisateur_sans_abonnement_push_marque_quand_meme_envoye():
+    # Rien a livrer (pas d'abonnement) n'est pas un echec -- ne doit pas
+    # rester "en attente" indefiniment.
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
+    }
+    with patch("notifications_saas._lister_abonnements_push", return_value=[]), \
+         patch("notifications_saas._envoyer_push") as push_send_mock, \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte(user_id="u1")])
+    push_send_mock.assert_not_called()
+    marquer_mock.assert_called_once_with("https://x.supabase.co", "k", "a1", "push")
+
+
+def test_email_reussi_marque_le_canal_envoye():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
         "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
     }
-    with patch("notifications_saas._lister_abonnements_push") as push_list_mock, \
-         patch("notifications_saas._preferences_email", return_value={"u1": True}), \
+    with patch("notifications_saas._preferences_email", return_value={"u1": True}), \
          patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
          patch("notifications_saas._envoyer_push") as push_send_mock, \
-         patch("notifications_saas._envoyer_email") as email_send_mock:
-        notifier_nouvelles_alertes(secrets, [_alerte()])
+         patch("notifications_saas._envoyer_email", return_value=True) as email_send_mock, \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte()])
     push_send_mock.assert_not_called()
     email_send_mock.assert_called_once()
-    push_list_mock.assert_not_called()  # push desactive -> pas besoin des abonnements
     args, _ = email_send_mock.call_args
     assert args[2] == "user@example.com"
+    marquer_mock.assert_called_once_with("https://x.supabase.co", "k", "a1", "email")
 
 
-def test_email_saute_si_preference_desactivee():
+def test_email_echoue_ne_marque_pas_le_canal_envoye():
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+    }
+    with patch("notifications_saas._preferences_email", return_value={"u1": True}), \
+         patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
+         patch("notifications_saas._envoyer_email", return_value=False), \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte(user_id="u1")])
+    marquer_mock.assert_not_called()
+
+
+def test_email_deja_envoye_nest_pas_retente():
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+    }
+    with patch("notifications_saas._preferences_email", return_value={"u1": True}), \
+         patch("notifications_saas._envoyer_email") as email_send_mock, \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte(email_envoye=True)])
+    email_send_mock.assert_not_called()
+    marquer_mock.assert_not_called()
+
+
+def test_email_desactive_marque_quand_meme_envoye():
+    # Choix de l'utilisateur de ne pas recevoir d'email n'est pas un echec
+    # -- ne doit pas rester "en attente" indefiniment.
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
         "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._preferences_email", return_value={"u1": False}), \
          patch("notifications_saas._email_utilisateur") as email_lookup_mock, \
-         patch("notifications_saas._envoyer_email") as email_send_mock:
-        notifier_nouvelles_alertes(secrets, [_alerte(user_id="u1")])
+         patch("notifications_saas._envoyer_email") as email_send_mock, \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte(user_id="u1")])
     email_lookup_mock.assert_not_called()
     email_send_mock.assert_not_called()
+    marquer_mock.assert_called_once_with("https://x.supabase.co", "k", "a1", "email")
 
 
 def test_email_actif_par_defaut_si_aucune_preference_enregistree():
@@ -102,32 +186,24 @@ def test_email_actif_par_defaut_si_aucune_preference_enregistree():
     }
     with patch("notifications_saas._preferences_email", return_value={}), \
          patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
-         patch("notifications_saas._envoyer_email") as email_send_mock:
-        notifier_nouvelles_alertes(secrets, [_alerte(user_id="u1")])
+         patch("notifications_saas._envoyer_email", return_value=True) as email_send_mock, \
+         patch("connecteur_supabase.marquer_notification_envoyee"):
+        notifier_alertes_en_attente(secrets, [_alerte(user_id="u1")])
     email_send_mock.assert_called_once()
 
 
-def test_utilisateur_sans_abonnement_push_nest_pas_notifie_par_push():
-    secrets = {
-        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
-        "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
-    }
-    with patch("notifications_saas._lister_abonnements_push", return_value=[]), \
-         patch("notifications_saas._envoyer_push") as push_send_mock:
-        notifier_nouvelles_alertes(secrets, [_alerte(user_id="u1")])
-    push_send_mock.assert_not_called()
-
-
-def test_email_sans_adresse_trouvee_nenvoie_rien():
+def test_email_sans_adresse_trouvee_nenvoie_rien_et_ne_marque_pas():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
         "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._preferences_email", return_value={}), \
          patch("notifications_saas._email_utilisateur", return_value=None), \
-         patch("notifications_saas._envoyer_email") as email_send_mock:
-        notifier_nouvelles_alertes(secrets, [_alerte(user_id="u1")])
+         patch("notifications_saas._envoyer_email") as email_send_mock, \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte(user_id="u1")])
     email_send_mock.assert_not_called()
+    marquer_mock.assert_not_called()
 
 
 def test_meme_utilisateur_email_recherche_une_seule_fois_pour_plusieurs_alertes():
@@ -135,12 +211,31 @@ def test_meme_utilisateur_email_recherche_une_seule_fois_pour_plusieurs_alertes(
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
         "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
     }
-    alertes = [_alerte(user_id="u1", watchlist_item_id="i1"), _alerte(user_id="u1", watchlist_item_id="i2")]
+    alertes = [_alerte(alerte_id="a1", user_id="u1"), _alerte(alerte_id="a2", user_id="u1")]
     with patch("notifications_saas._preferences_email", return_value={}), \
          patch("notifications_saas._email_utilisateur", return_value="user@example.com") as lookup_mock, \
-         patch("notifications_saas._envoyer_email"):
-        notifier_nouvelles_alertes(secrets, alertes)
+         patch("notifications_saas._envoyer_email", return_value=True), \
+         patch("connecteur_supabase.marquer_notification_envoyee"):
+        notifier_alertes_en_attente(secrets, alertes)
     lookup_mock.assert_called_once()
+
+
+def test_push_et_email_actifs_notifie_les_deux_canaux_independamment():
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
+        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+    }
+    with patch("notifications_saas._lister_abonnements_push",
+               return_value=[{"user_id": "u1", "endpoint": "e1", "p256dh": "p", "auth": "a"}]), \
+         patch("notifications_saas._preferences_email", return_value={"u1": True}), \
+         patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
+         patch("notifications_saas._envoyer_push", return_value=True), \
+         patch("notifications_saas._envoyer_email", return_value=True), \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte()])
+    canaux_marques = {appel.args[3] for appel in marquer_mock.call_args_list}
+    assert canaux_marques == {"push", "email"}
 
 
 # ------------------- _lister_abonnements_push -------------------
@@ -205,16 +300,18 @@ def test_email_utilisateur_succes():
 
 # ------------------- _envoyer_email -------------------
 
-def test_envoyer_email_erreur_reseau_ne_leve_pas_dexception():
+def test_envoyer_email_erreur_reseau_retourne_false():
     with patch("notifications_saas.requests.post", side_effect=requests.RequestException("boom")):
-        _envoyer_email("re_xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+        reussi = _envoyer_email("re_xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+    assert reussi is False
 
 
-def test_envoyer_email_appelle_lapi_resend():
+def test_envoyer_email_appelle_lapi_resend_et_retourne_true():
     reponse = Mock()
     reponse.raise_for_status = Mock()
     with patch("notifications_saas.requests.post", return_value=reponse) as post_mock:
-        _envoyer_email("re_xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+        reussi = _envoyer_email("re_xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+    assert reussi is True
     args, kwargs = post_mock.call_args
     assert args[0] == "https://api.resend.com/emails"
     assert kwargs["json"]["to"] == ["user@example.com"]
@@ -237,17 +334,20 @@ def test_envoyer_email_echappe_le_html_du_corps_et_de_lurl():
 
 # ------------------- _envoyer_push -------------------
 
-def test_envoyer_push_appelle_webpush_par_abonnement():
+def test_envoyer_push_appelle_webpush_par_abonnement_et_retourne_true():
     abonnements = [
         {"user_id": "u1", "endpoint": "e1", "p256dh": "p1", "auth": "a1"},
         {"user_id": "u1", "endpoint": "e2", "p256dh": "p2", "auth": "a2"},
     ]
     with patch("pywebpush.webpush") as webpush_mock:
-        _envoyer_push("https://x.supabase.co", "cle", "priv", "a@b.com", abonnements, "titre", "corps", "https://x/1")
+        reussi = _envoyer_push("https://x.supabase.co", "cle", "priv", "a@b.com", abonnements, "titre", "corps", "https://x/1")
     assert webpush_mock.call_count == 2
+    assert reussi is True
 
 
-def test_envoyer_push_purge_abonnement_expire_sur_410():
+def test_envoyer_push_purge_abonnement_expire_sur_410_et_retourne_true():
+    # Un abonnement expire/revoque est purge, pas retente -- ce n'est pas un
+    # echec transitoire, donc le canal reste marquable comme envoye.
     from pywebpush import WebPushException
 
     reponse_410 = Mock()
@@ -257,11 +357,15 @@ def test_envoyer_push_purge_abonnement_expire_sur_410():
     abonnements = [{"user_id": "u1", "endpoint": "e1", "p256dh": "p1", "auth": "a1"}]
     with patch("pywebpush.webpush", side_effect=exception), \
          patch("notifications_saas._supprimer_abonnement_push") as purge_mock:
-        _envoyer_push("https://x.supabase.co", "cle", "priv", "a@b.com", abonnements, "titre", "corps", "https://x/1")
+        reussi = _envoyer_push("https://x.supabase.co", "cle", "priv", "a@b.com", abonnements, "titre", "corps", "https://x/1")
     purge_mock.assert_called_once_with("https://x.supabase.co", "cle", "e1")
+    assert reussi is True
 
 
-def test_envoyer_push_erreur_reseau_ne_purge_pas():
+def test_envoyer_push_erreur_reseau_ne_purge_pas_et_retourne_false():
+    # Audit du 30/08/2026 : un echec transitoire (pas 404/410) ne doit PAS
+    # etre traite comme un succes, sinon le canal serait marque envoye a
+    # tort et jamais retente.
     from pywebpush import WebPushException
 
     reponse_500 = Mock()
@@ -271,5 +375,6 @@ def test_envoyer_push_erreur_reseau_ne_purge_pas():
     abonnements = [{"user_id": "u1", "endpoint": "e1", "p256dh": "p1", "auth": "a1"}]
     with patch("pywebpush.webpush", side_effect=exception), \
          patch("notifications_saas._supprimer_abonnement_push") as purge_mock:
-        _envoyer_push("https://x.supabase.co", "cle", "priv", "a@b.com", abonnements, "titre", "corps", "https://x/1")
+        reussi = _envoyer_push("https://x.supabase.co", "cle", "priv", "a@b.com", abonnements, "titre", "corps", "https://x/1")
     purge_mock.assert_not_called()
+    assert reussi is False

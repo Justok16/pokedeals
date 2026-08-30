@@ -9,7 +9,9 @@ import requests
 from connecteur_supabase import (
     TAILLE_PAGE_WATCHLIST,
     enregistrer_alertes,
+    lister_alertes_a_notifier,
     lister_watchlist_items,
+    marquer_notification_envoyee,
     trouver_correspondances,
 )
 
@@ -221,3 +223,88 @@ def test_enregistrer_erreur_reseau_retourne_liste_vide():
     with patch("connecteur_supabase.requests.post", side_effect=requests.RequestException("boom")):
         nouvelles = enregistrer_alertes("https://x.supabase.co", "cle-secrete", [{"user_id": "u1"}])
     assert nouvelles == []
+
+
+# ------------------- lister_alertes_a_notifier -------------------
+# Audit externe du 30/08/2026 : une alerte dont push ET email echouaient au
+# meme cycle n'etait auparavant plus jamais retentee (enregistrer_alertes()
+# ne renvoie que les lignes fraichement inserees). Cette fonction est la
+# correction : elle retrouve TOUTES les alertes encore en attente d'au moins
+# un canal, cycle apres cycle, jusqu'a livraison reelle.
+
+def test_lister_a_notifier_sans_secrets_ne_declenche_aucun_appel_reseau():
+    with patch("connecteur_supabase.requests.get") as get_mock:
+        alertes = lister_alertes_a_notifier("", "")
+    assert alertes == []
+    get_mock.assert_not_called()
+
+
+def test_lister_a_notifier_succes_retourne_le_json():
+    reponse = Mock()
+    reponse.json.return_value = [{"id": "a1", "push_envoye": False, "email_envoye": True}]
+    reponse.raise_for_status = Mock()
+    with patch("connecteur_supabase.requests.get", return_value=reponse) as get_mock:
+        alertes = lister_alertes_a_notifier("https://x.supabase.co", "cle-secrete")
+    assert alertes == [{"id": "a1", "push_envoye": False, "email_envoye": True}]
+    args, kwargs = get_mock.call_args
+    assert args[0] == "https://x.supabase.co/rest/v1/watchlist_alerts"
+    assert kwargs["params"]["or"] == "(push_envoye.eq.false,email_envoye.eq.false)"
+
+
+def test_lister_a_notifier_erreur_reseau_retourne_liste_vide():
+    with patch("connecteur_supabase.requests.get", side_effect=requests.RequestException("boom")):
+        alertes = lister_alertes_a_notifier("https://x.supabase.co", "cle-secrete")
+    assert alertes == []
+
+
+def test_lister_a_notifier_pagine_au_dela_de_la_taille_de_page():
+    page_pleine = [{"id": str(i)} for i in range(TAILLE_PAGE_WATCHLIST)]
+    derniere_page = [{"id": "dernier"}]
+    reponse1, reponse2 = Mock(), Mock()
+    reponse1.json.return_value = page_pleine
+    reponse1.raise_for_status = Mock()
+    reponse2.json.return_value = derniere_page
+    reponse2.raise_for_status = Mock()
+    with patch("connecteur_supabase.requests.get", side_effect=[reponse1, reponse2]) as get_mock:
+        alertes = lister_alertes_a_notifier("https://x.supabase.co", "cle-secrete")
+    assert len(alertes) == TAILLE_PAGE_WATCHLIST + 1
+    assert get_mock.call_count == 2
+
+
+# ------------------- marquer_notification_envoyee -------------------
+
+def test_marquer_sans_secrets_ne_declenche_aucun_appel_reseau():
+    with patch("connecteur_supabase.requests.patch") as patch_mock:
+        marquer_notification_envoyee("", "", "a1", "push")
+    patch_mock.assert_not_called()
+
+
+def test_marquer_canal_invalide_ne_declenche_aucun_appel_reseau():
+    with patch("connecteur_supabase.requests.patch") as patch_mock:
+        marquer_notification_envoyee("https://x.supabase.co", "cle-secrete", "a1", "sms")
+    patch_mock.assert_not_called()
+
+
+def test_marquer_push_envoie_bien_la_bonne_colonne():
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    with patch("connecteur_supabase.requests.patch", return_value=reponse) as patch_mock:
+        marquer_notification_envoyee("https://x.supabase.co", "cle-secrete", "a1", "push")
+    args, kwargs = patch_mock.call_args
+    assert args[0] == "https://x.supabase.co/rest/v1/watchlist_alerts"
+    assert kwargs["params"]["id"] == "eq.a1"
+    assert kwargs["json"] == {"push_envoye": True}
+
+
+def test_marquer_email_envoie_bien_la_bonne_colonne():
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    with patch("connecteur_supabase.requests.patch", return_value=reponse) as patch_mock:
+        marquer_notification_envoyee("https://x.supabase.co", "cle-secrete", "a1", "email")
+    args, kwargs = patch_mock.call_args
+    assert kwargs["json"] == {"email_envoye": True}
+
+
+def test_marquer_erreur_reseau_ne_leve_pas_dexception():
+    with patch("connecteur_supabase.requests.patch", side_effect=requests.RequestException("boom")):
+        marquer_notification_envoyee("https://x.supabase.co", "cle-secrete", "a1", "push")  # ne doit pas lever
