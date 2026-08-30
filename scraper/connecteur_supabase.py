@@ -75,10 +75,17 @@ def lister_watchlist_items(supabase_url: str, service_role_key: str) -> list[dic
 def trouver_correspondances(deals: list[dict], items: list[dict]) -> list[dict]:
     """Compare chaque deal déjà validé aux watchlists utilisateur (nom normalisé
     + langue + seuil de prix). Retourne les lignes prêtes à insérer dans
-    watchlist_alerts."""
+    watchlist_alerts.
+
+    Indexé par (nom_norm, langue) -- audit externe du 30/08/2026 : la version
+    précédente comparait chaque item à CHAQUE deal (boucle imbriquée), un coût
+    O(items × deals) qui grossit avec le nombre d'utilisateurs même si le
+    nombre de deals par cycle reste petit. Regrouper les items par clé une
+    seule fois ramène le travail par deal à ses seuls items réellement
+    candidats (même nom + même langue), sans changer aucun résultat."""
     if not deals or not items:
         return []
-    alertes = []
+    items_par_cle: dict[tuple[str, str], list[dict]] = {}
     for item in items:
         nom_norm = normaliser(item.get("nom_carte", ""))
         if not nom_norm:
@@ -88,13 +95,17 @@ def trouver_correspondances(deals: list[dict], items: list[dict]) -> list[dict]:
             seuil = float(item.get("prix_seuil", 0))
         except (TypeError, ValueError):
             continue
-        for deal in deals:
-            if normaliser(deal.get("carte", "")) != nom_norm:
-                continue
-            if (deal.get("langue") or "fr").lower() != langue:
-                continue
-            total = float(deal.get("total", 0))
-            if total > seuil:
+        items_par_cle.setdefault((nom_norm, langue), []).append({**item, "prix_seuil": seuil})
+
+    alertes = []
+    for deal in deals:
+        cle = (normaliser(deal.get("carte", "")), (deal.get("langue") or "fr").lower())
+        candidats = items_par_cle.get(cle)
+        if not candidats:
+            continue
+        total = float(deal.get("total", 0))
+        for item in candidats:
+            if total > item["prix_seuil"]:
                 continue
             alertes.append({
                 "user_id": item["user_id"],
