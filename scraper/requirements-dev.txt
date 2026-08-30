@@ -1,5 +1,8 @@
 # Dependances de developpement uniquement (tests) -- PAS installees en
-# production par les workflows GitHub Actions, qui n'utilisent que
-# requirements.txt.
+# production par les workflows de SCAN, qui n'utilisent que requirements.txt.
+# Ce fichier-ci EST lu par tests.yml (CI, a chaque push/PR) -- meme
+# raisonnement de version figee (==) que requirements.txt, cf. son
+# commentaire : un `pip install` avec ">=" peut faire echouer la CI sur un
+# changement de pytest sans rapport avec le code modifie.
 -r requirements.txt
-pytest>=8.0
+pytest==9.1.1

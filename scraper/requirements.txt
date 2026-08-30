@@ -1,6 +1,14 @@
-requests>=2.34.2
-PyYAML>=6.0
+# Audit du 30/08/2026 : versions FIGEES (==), pas de borne flottante (>=) --
+# ce fichier est lu par "pip install" a CHAQUE execution de 9 workflows
+# programmes (plusieurs fois par heure), donc avec un simple ">=" la prod
+# pouvait recevoir une toute nouvelle version (potentiellement cassante)
+# sans avertissement ni diff de code a inspecter, entre deux passages de
+# Dependabot (qui propose des mises a jour, cf. .github/dependabot.yml,
+# mais ne bloque jamais un `pip install` entre-temps). Dependabot continue
+# de proposer des PR de bump sur ce format `==` normalement.
+requests==2.34.2
+PyYAML==6.0.3
 # Notifications push des utilisateurs SaaS (cf. notifications_saas.py) --
 # seule exception a la convention "pas de SDK" de ce projet : reimplementer
 # a la main le chiffrement Web Push (RFC 8291) serait un risque reel.
-pywebpush>=2.4.0
+pywebpush==2.5.0

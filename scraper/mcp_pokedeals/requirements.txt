@@ -1,6 +1,15 @@
 # Dependances du serveur MCP UNIQUEMENT -- separees du requirements.txt de
 # prod (racine du depot, lu par les workflows GitHub Actions). Le MCP
 # tourne en LOCAL sur ta machine via Claude Code, jamais en CI.
-mcp>=1.28
-requests>=2.34.2
-python-dotenv>=1.0
+#
+# Audit du 30/08/2026 : versions FIGEES (==), meme raisonnement que le
+# requirements.txt de prod. La contrainte "mcp>=1.28" etait en realite
+# FAUSSE : server.py importe deja `mcp.server.mcpserver.MCPServer`, une API
+# qui n'existe que depuis la v2.x du SDK (le "piege deja rencontre" note
+# dans mcp_pokedeals/README.md) -- un `pip install` qui aurait resolu vers
+# 1.28.x (borne minimale techniquement satisfaite) aurait plante a l'import,
+# la contrainte etait juste fausse. Pin exact = plus de risque de ce genre
+# de decalage silencieux entre la borne declaree et l'API reellement utilisee.
+mcp==2.1.1
+requests==2.34.2
+python-dotenv==1.2.3
