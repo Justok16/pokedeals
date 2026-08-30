@@ -56,7 +56,10 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}   # notifications email des utilisateurs SaaS (cf. notifications_saas.py)
           RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
-        run: python scan_boutique.py ${{ github.event.inputs.boutiques }}
+          # Audit externe du 30/08/2026 : passer par env: + "$VAR" plutot que
+          # d'injecter ${{ }} directement dans run: (injection shell possible).
+          BOUTIQUES: ${{ github.event.inputs.boutiques }}
+        run: python scan_boutique.py $BOUTIQUES
       - name: Lancer le radar précommandes (30e Anniversaire / ME06 Règne Delta)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

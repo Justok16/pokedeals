@@ -69,9 +69,13 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}   # notifications email des utilisateurs SaaS (cf. notifications_saas.py)
           RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
+          # Audit externe du 30/08/2026 : passer par env: + "$VAR" plutot que
+          # d'injecter ${{ }} directement dans run: (cf. commentaire similaire
+          # dans scan_precommandes_generique.yml -- injection shell possible).
+          BOUTIQUES: ${{ github.event.inputs.boutiques }}
         run: |
-          if [ -n "${{ github.event.inputs.boutiques }}" ]; then
-            python scan_boutique_prestashop.py ${{ github.event.inputs.boutiques }}
+          if [ -n "$BOUTIQUES" ]; then
+            python scan_boutique_prestashop.py $BOUTIQUES
           else
             python -c "from boutiques_prestashop import LOT_A; print(' '.join(LOT_A))" > /tmp/lot_a.txt
             python scan_boutique_prestashop.py $(cat /tmp/lot_a.txt)

@@ -221,13 +221,20 @@ RETENTION_JOURS = 30
 
 
 def charger_vues() -> dict:
+    """Repli local (dev/test SANS secrets Supabase uniquement -- en prod,
+    main() utilise memoire_supabase.charger_memoire_supabase(), qui distingue
+    deja correctement "vide" de "injoignable", cf. CLAUDE.md). Un seen.json
+    corrompu leve volontairement une exception plutot que de se comporter
+    comme "aucune annonce jamais vue" (audit externe du 30/08/2026) : cette
+    fonction n'est appelee qu'en dev, ou perdre la memoire de dedup et
+    re-alerter sur du contenu deja vu serait trompeur en test comme en prod."""
     if not os.path.exists(FICHIER_SEEN):
         return {}
     try:
         with open(FICHIER_SEEN, "r", encoding="utf-8") as f:
             return json.load(f)
-    except (json.JSONDecodeError, OSError):
-        return {}
+    except json.JSONDecodeError as e:
+        raise RuntimeError(f"{FICHIER_SEEN} illisible (JSON corrompu) -- memoire de dedup abandonnee, corriger/supprimer le fichier avant de relancer : {e}") from e
 
 
 def _vues_a_sauvegarder(vues: dict) -> dict:

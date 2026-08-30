@@ -61,6 +61,19 @@ def requete_avec_retry(methode, url, tentatives: int = 3, **kwargs):
                     # deja tendue sur ce projet).
                     break
                 attente = (2 ** (i + 1)) + random.uniform(0, 2)
+                # Audit externe du 30/08/2026 : un serveur qui repond 429 avec
+                # un header Retry-After (secondes) l'indique explicitement --
+                # l'ignorer et retenter plus tot que demande peut prolonger un
+                # rate-limit au lieu de le respecter. On ne prend QUE la forme
+                # "nombre de secondes" (la forme date HTTP est rarissime sur
+                # les API utilisees ici) ; toute valeur absente/invalide est
+                # ignoree sans faire echouer la tentative.
+                retry_after = getattr(r, "headers", {}).get("Retry-After")
+                if retry_after:
+                    try:
+                        attente = max(attente, float(retry_after))
+                    except ValueError:
+                        pass
                 log.info("%d reçu, pause de %.1fs", r.status_code, attente)
                 time.sleep(attente)
                 continue

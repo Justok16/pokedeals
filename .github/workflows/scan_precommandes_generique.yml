@@ -59,4 +59,11 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
           PYTHONUNBUFFERED: "1"
-        run: python scan_precommandes_generique.py ${{ github.event.inputs.boutiques }}
+          # Audit externe du 30/08/2026 : passer un input workflow_dispatch
+          # directement dans le run: (${{ }}) l'injecte comme texte brut AVANT
+          # que le shell ne le parse -- une valeur contenant des caracteres
+          # shell speciaux casserait la commande, voire en injecterait une
+          # autre. Passer par env: + "$VAR" est sur (le shell traite la
+          # valeur comme une chaine, jamais comme de la syntaxe a reparser).
+          BOUTIQUES: ${{ github.event.inputs.boutiques }}
+        run: python scan_precommandes_generique.py $BOUTIQUES

@@ -94,6 +94,43 @@ def test_requete_avec_retry_ne_dort_pas_apres_lechec_de_la_derniere_tentative_5x
     assert sleep_mock.call_count == 2  # entre les 3 tentatives, jamais apres la derniere
 
 
+def test_requete_avec_retry_respecte_retry_after_plus_long_que_le_backoff():
+    # Audit externe du 30/08/2026 : un serveur qui renvoie 429 + Retry-After
+    # doit etre respecte meme si notre propre backoff calcule est plus court
+    # -- sinon on retente trop tot et on risque de prolonger le rate-limit.
+    reponse_429 = type("R", (), {"status_code": 429, "headers": {"Retry-After": "9999"}})()
+    reponse_ok = type("R", (), {"status_code": 200})()
+    reponses = [reponse_429, reponse_ok]
+    appel = lambda url, **kw: reponses.pop(0)  # noqa: E731
+    with patch("http_utils.time.sleep") as sleep_mock:
+        r = http_utils.requete_avec_retry(appel, "https://x", tentatives=3)
+    assert r.status_code == 200
+    assert sleep_mock.call_args[0][0] >= 9999
+
+
+def test_requete_avec_retry_ignore_un_retry_after_invalide_sans_planter():
+    reponse_429 = type("R", (), {"status_code": 429, "headers": {"Retry-After": "pas-un-nombre"}})()
+    reponse_ok = type("R", (), {"status_code": 200})()
+    reponses = [reponse_429, reponse_ok]
+    appel = lambda url, **kw: reponses.pop(0)  # noqa: E731
+    with patch("http_utils.time.sleep"):
+        r = http_utils.requete_avec_retry(appel, "https://x", tentatives=3)
+    assert r.status_code == 200
+
+
+def test_requete_avec_retry_sans_attribut_headers_ne_plante_pas():
+    # Les fixtures de test ci-dessus utilisent des objets minimalistes SANS
+    # attribut headers -- doit rester robuste (getattr par defaut), pas
+    # seulement une vraie reponse requests.Response.
+    reponse_429 = type("R", (), {"status_code": 429})()
+    reponse_ok = type("R", (), {"status_code": 200})()
+    reponses = [reponse_429, reponse_ok]
+    appel = lambda url, **kw: reponses.pop(0)  # noqa: E731
+    with patch("http_utils.time.sleep"):
+        r = http_utils.requete_avec_retry(appel, "https://x", tentatives=3)
+    assert r.status_code == 200
+
+
 def test_requete_avec_retry_ne_dort_pas_apres_lechec_de_la_derniere_tentative_reseau():
     def appel(url, **kw):
         raise requests.exceptions.ConnectionError("panne")

@@ -6,7 +6,12 @@ from unittest.mock import Mock, patch
 
 import requests
 
-from connecteur_supabase import enregistrer_alertes, lister_watchlist_items, trouver_correspondances
+from connecteur_supabase import (
+    TAILLE_PAGE_WATCHLIST,
+    enregistrer_alertes,
+    lister_watchlist_items,
+    trouver_correspondances,
+)
 
 
 # ------------------- lister_watchlist_items -------------------
@@ -41,6 +46,55 @@ def test_lister_succes_retourne_le_json():
     args, kwargs = get_mock.call_args
     assert args[0] == "https://x.supabase.co/rest/v1/watchlist_items"
     assert kwargs["headers"]["apikey"] == "cle-secrete"
+
+
+def test_lister_pagine_au_dela_de_la_taille_de_page():
+    # Audit externe du 30/08/2026 : Supabase/PostgREST plafonne une requete a
+    # TAILLE_PAGE_WATCHLIST lignes par defaut -- sans pagination, les
+    # utilisateurs au-dela de la 1ere page etaient silencieusement absents.
+    page_pleine = [{"id": str(i)} for i in range(TAILLE_PAGE_WATCHLIST)]
+    derniere_page = [{"id": "dernier"}]
+    reponse1, reponse2 = Mock(), Mock()
+    reponse1.json.return_value = page_pleine
+    reponse1.raise_for_status = Mock()
+    reponse2.json.return_value = derniere_page
+    reponse2.raise_for_status = Mock()
+    with patch("connecteur_supabase.requests.get", side_effect=[reponse1, reponse2]) as get_mock:
+        items = lister_watchlist_items("https://x.supabase.co", "cle-secrete")
+    assert len(items) == TAILLE_PAGE_WATCHLIST + 1
+    assert items[-1] == {"id": "dernier"}
+    assert get_mock.call_count == 2
+    premier_range = get_mock.call_args_list[0].kwargs["headers"]["Range"]
+    second_range = get_mock.call_args_list[1].kwargs["headers"]["Range"]
+    assert premier_range == f"0-{TAILLE_PAGE_WATCHLIST - 1}"
+    assert second_range == f"{TAILLE_PAGE_WATCHLIST}-{2 * TAILLE_PAGE_WATCHLIST - 1}"
+
+
+def test_lister_page_exactement_pleine_puis_page_vide_arrete_la_pagination():
+    # Cas limite : le nombre total de lignes est un multiple exact de
+    # TAILLE_PAGE_WATCHLIST -- il faut quand meme redemander une page de
+    # plus pour verifier qu'il n'y a rien derriere (elle revient vide).
+    page_pleine = [{"id": str(i)} for i in range(TAILLE_PAGE_WATCHLIST)]
+    reponse1, reponse2 = Mock(), Mock()
+    reponse1.json.return_value = page_pleine
+    reponse1.raise_for_status = Mock()
+    reponse2.json.return_value = []
+    reponse2.raise_for_status = Mock()
+    with patch("connecteur_supabase.requests.get", side_effect=[reponse1, reponse2]) as get_mock:
+        items = lister_watchlist_items("https://x.supabase.co", "cle-secrete")
+    assert len(items) == TAILLE_PAGE_WATCHLIST
+    assert get_mock.call_count == 2
+
+
+def test_lister_erreur_reseau_en_cours_de_pagination_garde_les_pages_deja_recuperees():
+    page_pleine = [{"id": str(i)} for i in range(TAILLE_PAGE_WATCHLIST)]
+    reponse1 = Mock()
+    reponse1.json.return_value = page_pleine
+    reponse1.raise_for_status = Mock()
+    with patch("connecteur_supabase.requests.get",
+               side_effect=[reponse1, requests.RequestException("boom")]):
+        items = lister_watchlist_items("https://x.supabase.co", "cle-secrete")
+    assert len(items) == TAILLE_PAGE_WATCHLIST
 
 
 def test_lister_url_avec_slash_final_normalisee():
