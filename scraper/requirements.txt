@@ -1,4 +1,4 @@
-requests>=2.31
+requests>=2.34.2
 PyYAML>=6.0
 # Notifications push des utilisateurs SaaS (cf. notifications_saas.py) --
 # seule exception a la convention "pas de SDK" de ce projet : reimplementer

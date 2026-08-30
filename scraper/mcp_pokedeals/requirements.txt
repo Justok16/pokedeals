@@ -2,5 +2,5 @@
 # prod (racine du depot, lu par les workflows GitHub Actions). Le MCP
 # tourne en LOCAL sur ta machine via Claude Code, jamais en CI.
 mcp>=1.28
-requests>=2.31
+requests>=2.34.2
 python-dotenv>=1.0
