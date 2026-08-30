@@ -23,7 +23,11 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from connecteur_supabase_precoms import enregistrer_precommande_alertes, notifier_abonnes_precoms
+from connecteur_supabase_precoms import (
+    enregistrer_precommande_alertes,
+    lister_precommandes_a_diffuser,
+    notifier_abonnes_precoms,
+)
 from memoire_json import charger_memoire, sauvegarder_memoire
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from radar_precommande_generique import (
@@ -131,11 +135,14 @@ if __name__ == "__main__":
         "RESEND_API_KEY": os.environ.get("RESEND_API_KEY", ""),
         "RESEND_FROM_EMAIL": os.environ.get("RESEND_FROM_EMAIL", ""),
     }
-    nouvelles_precommandes = enregistrer_precommande_alertes(
+    enregistrer_precommande_alertes(
         secrets["POKEPRECOMS_SUPABASE_URL"], secrets["POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY"],
         resume["evenements"],
     )
-    notifier_abonnes_precoms(secrets, nouvelles_precommandes)
+    precommandes_a_diffuser = lister_precommandes_a_diffuser(
+        secrets["POKEPRECOMS_SUPABASE_URL"], secrets["POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY"],
+    )
+    notifier_abonnes_precoms(secrets, precommandes_a_diffuser)
 
     print(f"\n{'=' * 70}")
     print("RÉSUMÉ DU CYCLE PRÉCOMMANDES GÉNÉRIQUE")
