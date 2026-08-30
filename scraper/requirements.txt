@@ -1,5 +1,5 @@
 requests>=2.34.2
-PyYAML>=6.0
+PyYAML>=6.0.3
 # Notifications push des utilisateurs SaaS (cf. notifications_saas.py) --
 # seule exception a la convention "pas de SDK" de ce projet : reimplementer
 # a la main le chiffrement Web Push (RFC 8291) serait un risque reel.
