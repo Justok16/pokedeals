@@ -1756,11 +1756,16 @@ def main() -> int:
         secrets.get("SUPABASE_URL", ""), secrets.get("SUPABASE_SERVICE_ROLE_KEY", ""))
     if _watchlist_items_saas:
         _alertes_saas = connecteur_supabase.trouver_correspondances(nouveaux_deals, _watchlist_items_saas)
-        _nouvelles_alertes_saas = connecteur_supabase.enregistrer_alertes(
+        connecteur_supabase.enregistrer_alertes(
             secrets.get("SUPABASE_URL", ""), secrets.get("SUPABASE_SERVICE_ROLE_KEY", ""), _alertes_saas)
-        # Notifie (push/email) uniquement les alertes REELLEMENT nouvelles
-        # (pas les doublons deja connus) -- cf. notifications_saas.py.
-        notifications_saas.notifier_nouvelles_alertes(secrets, _nouvelles_alertes_saas)
+        # Notifie (push/email) TOUTES les alertes dont au moins un canal
+        # n'est pas encore livre -- pas seulement celles inserees ce cycle
+        # (audit du 30/08/2026, cf. docstring de lister_alertes_a_notifier :
+        # une alerte dont push ET email echouaient au meme cycle n'etait
+        # jamais retentee auparavant).
+        _alertes_a_notifier = connecteur_supabase.lister_alertes_a_notifier(
+            secrets.get("SUPABASE_URL", ""), secrets.get("SUPABASE_SERVICE_ROLE_KEY", ""))
+        notifications_saas.notifier_alertes_en_attente(secrets, _alertes_a_notifier)
 
     # SaaS : expose les cotes calculées ce cycle comme "prix marché" dans
     # le dashboard utilisateur (independant de la presence de watchlists

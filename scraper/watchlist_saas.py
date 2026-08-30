@@ -125,5 +125,15 @@ def notifier_deals_boutique_saas(secrets: dict, deals_boutique: list[dict]) -> N
         for d in deals_boutique
     ]
     alertes = connecteur_supabase.trouver_correspondances(deals_normalises, watchlist_items)
-    nouvelles_alertes = connecteur_supabase.enregistrer_alertes(supabase_url, service_role_key, alertes)
-    notifications_saas.notifier_nouvelles_alertes(secrets, nouvelles_alertes)
+    connecteur_supabase.enregistrer_alertes(supabase_url, service_role_key, alertes)
+    # Notifie TOUTES les alertes en attente d'au moins un canal, pas
+    # seulement celles inserees ce cycle (cf. connecteur_supabase.
+    # lister_alertes_a_notifier, audit du 30/08/2026) -- meme pipeline que
+    # main.py. Ce module et main.py peuvent chacun retenter la meme alerte
+    # en attente lors d'un cycle proche dans le temps (workflows
+    # independants) ; le pire cas est une notification envoyee deux fois de
+    # suite a un utilisateur, jamais une alerte perdue -- compromis
+    # deliberement accepte plutot qu'un verrouillage distribue, hors de
+    # portee de ce correctif.
+    alertes_a_notifier = connecteur_supabase.lister_alertes_a_notifier(supabase_url, service_role_key)
+    notifications_saas.notifier_alertes_en_attente(secrets, alertes_a_notifier)

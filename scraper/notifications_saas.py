@@ -1,7 +1,14 @@
 """
 Notifications personnalisees (push navigateur + email) pour les utilisateurs
-du SaaS (saas/), envoyees quand connecteur_supabase.enregistrer_alertes()
-enregistre une alerte REELLEMENT NOUVELLE (pas un doublon deja connu).
+du SaaS (saas/), envoyees pour toute alerte watchlist_alerts dont au moins
+un canal n'est pas encore marque livre (push_envoye/email_envoye) -- cf.
+connecteur_supabase.lister_alertes_a_notifier(). Chaque canal est marque
+envoye INDIVIDUELLEMENT apres un succes (ou une situation "rien a livrer" :
+pas d'abonnement push, email desactive par l'utilisateur), jamais les deux
+ensemble -- corrige un bug reel trouve lors d'un audit externe du 30/08/2026 :
+avant, seules les alertes fraichement inserees etaient notifiees ; si push
+ET email echouaient tous les deux au meme cycle, l'alerte restait enregistree
+en base mais n'etait plus jamais retentee.
 
 Systeme optionnel et non bloquant, meme philosophie que
 verification_photo.py/connecteur_supabase.py : chaque canal (push, email)
@@ -123,10 +130,16 @@ def _envoyer_push(
     titre: str,
     corps: str,
     url: str,
-) -> None:
+) -> bool:
+    """Retourne True si le push est "termine" pour cet utilisateur (livre
+    avec succes sur tous les abonnements, et/ou abonnements expires purges),
+    False si AU MOINS UN abonnement a echoue pour une raison transitoire --
+    dans ce cas l'appelant ne doit PAS marquer le canal comme envoye, pour
+    que le prochain cycle retente (cf. connecteur_supabase.marquer_notification_envoyee)."""
     from pywebpush import WebPushException, webpush
 
     payload = json.dumps({"title": titre, "body": corps, "url": url})
+    echec_transitoire = False
     for sub in abonnements:
         try:
             webpush(
@@ -146,10 +159,15 @@ def _envoyer_push(
                 # jamais retenté (sinon échec silencieux répété à chaque cycle).
                 _supprimer_abonnement_push(supabase_url, service_role_key, sub["endpoint"])
             else:
-                log.warning("Envoi push échoué (%s) -- ignoré ce cycle", e)
+                log.warning("Envoi push échoué (%s) -- retenté au prochain cycle", e)
+                echec_transitoire = True
+    return not echec_transitoire
 
 
-def _envoyer_email(resend_api_key: str, resend_from: str, destinataire: str, titre: str, corps: str, url: str) -> None:
+def _envoyer_email(resend_api_key: str, resend_from: str, destinataire: str, titre: str, corps: str, url: str) -> bool:
+    """Retourne True si l'email a bien été envoyé (accepté par Resend),
+    False sinon -- l'appelant ne doit alors PAS marquer le canal comme
+    envoyé, pour que le prochain cycle retente."""
     try:
         r = requests.post(
             "https://api.resend.com/emails",
@@ -167,17 +185,24 @@ def _envoyer_email(resend_api_key: str, resend_from: str, destinataire: str, tit
             timeout=TIMEOUT,
         )
         r.raise_for_status()
+        return True
     except requests.RequestException as e:
-        log.warning("Envoi email échoué (%s) -- ignoré ce cycle", e)
+        log.warning("Envoi email échoué (%s) -- retenté au prochain cycle", e)
+        return False
 
 
-def notifier_nouvelles_alertes(secrets: dict, nouvelles_alertes: list[dict]) -> None:
-    """Point d'entrée unique, appelé juste après connecteur_supabase.enregistrer_alertes()
-    avec les lignes qu'elle a retournées (uniquement les NOUVELLES, jamais les
-    doublons déjà connus). Pour chaque alerte, notifie l'utilisateur concerné
-    par push (si abonné) et/ou email (si activé, actif par défaut) -- les
-    deux canaux sont indépendants, chacun no-op si ses secrets sont absents."""
-    if not nouvelles_alertes:
+def notifier_alertes_en_attente(secrets: dict, alertes_en_attente: list[dict]) -> None:
+    """Point d'entrée unique, appelé avec connecteur_supabase.lister_alertes_a_notifier()
+    -- TOUTES les alertes dont au moins un canal n'est pas encore livré, pas
+    seulement celles insérées ce cycle (corrige un bug réel trouvé lors d'un
+    audit externe du 30/08/2026 : si push ET email échouaient tous les deux
+    au même cycle, l'alerte n'était plus jamais retentée, cf. docstring de
+    connecteur_supabase.lister_alertes_a_notifier). Chaque alerte porte
+    `push_envoye`/`email_envoye` : un canal déjà livré est sauté, jamais
+    renvoyé une deuxième fois. Après un envoi réussi (ou déterminé sans
+    objet -- pas d'abonnement push, email désactivé par l'utilisateur), le
+    canal est marqué envoyé via connecteur_supabase.marquer_notification_envoyee()."""
+    if not alertes_en_attente:
         return
 
     supabase_url = secrets.get("SUPABASE_URL", "")
@@ -195,7 +220,12 @@ def notifier_nouvelles_alertes(secrets: dict, nouvelles_alertes: list[dict]) -> 
     if not push_actif and not email_actif:
         return
 
-    user_ids = sorted({a["user_id"] for a in nouvelles_alertes})
+    # Import tardif : connecteur_supabase importe deja notifications_saas
+    # ailleurs dans le pipeline (watchlist_saas.py) -- eviter tout risque
+    # d'import circulaire au chargement du module.
+    from connecteur_supabase import marquer_notification_envoyee
+
+    user_ids = sorted({a["user_id"] for a in alertes_en_attente})
 
     abonnements_par_utilisateur: dict[str, list[dict]] = {}
     if push_actif:
@@ -205,22 +235,32 @@ def notifier_nouvelles_alertes(secrets: dict, nouvelles_alertes: list[dict]) -> 
     prefs_email = _preferences_email(supabase_url, service_role_key, user_ids) if email_actif else {}
     emails_cache: dict[str, str | None] = {}
 
-    for alerte in nouvelles_alertes:
+    for alerte in alertes_en_attente:
         uid = alerte["user_id"]
         titre_notif = f"Bonne affaire PokéDeals : {alerte.get('titre', 'une carte')[:80]}"
         corps = f"{float(alerte['prix']):.2f}€"
         if alerte.get("plateforme"):
             corps += f" sur {alerte['plateforme']}"
 
-        if push_actif and uid in abonnements_par_utilisateur:
-            _envoyer_push(
-                supabase_url, service_role_key, vapid_private_key, vapid_claim_email,
-                abonnements_par_utilisateur[uid], titre_notif, corps, alerte["url"],
-            )
+        if push_actif and not alerte.get("push_envoye"):
+            if uid in abonnements_par_utilisateur:
+                reussi = _envoyer_push(
+                    supabase_url, service_role_key, vapid_private_key, vapid_claim_email,
+                    abonnements_par_utilisateur[uid], titre_notif, corps, alerte["url"],
+                )
+            else:
+                reussi = True  # aucun abonnement push -- rien a livrer, pas un echec
+            if reussi:
+                marquer_notification_envoyee(supabase_url, service_role_key, alerte["id"], "push")
 
-        if email_actif and prefs_email.get(uid, True):
-            if uid not in emails_cache:
-                emails_cache[uid] = _email_utilisateur(supabase_url, service_role_key, uid)
-            email = emails_cache[uid]
-            if email:
-                _envoyer_email(resend_api_key, resend_from, email, titre_notif, corps, alerte["url"])
+        if email_actif and not alerte.get("email_envoye"):
+            if not prefs_email.get(uid, True):
+                # Notifications email desactivees par l'utilisateur -- rien a
+                # livrer par choix de l'utilisateur, pas un echec.
+                marquer_notification_envoyee(supabase_url, service_role_key, alerte["id"], "email")
+            else:
+                if uid not in emails_cache:
+                    emails_cache[uid] = _email_utilisateur(supabase_url, service_role_key, uid)
+                email = emails_cache[uid]
+                if email and _envoyer_email(resend_api_key, resend_from, email, titre_notif, corps, alerte["url"]):
+                    marquer_notification_envoyee(supabase_url, service_role_key, alerte["id"], "email")
