@@ -2,12 +2,17 @@ name: Scan précommandes philibertnet.com
 
 on:
   schedule:
-    # Toutes les 2h -- cadence VOLONTAIREMENT plus faible que les autres
-    # radars precommandes (30 min) : ce scan visite individuellement
-    # ~940 pages produit a chaque cycle (contre quelques dizaines pour une
-    # boutique normale), par politesse envers ce site tiers et pour ne pas
-    # multiplier inutilement la charge/le temps de calcul.
-    - cron: "0 */2 * * *"
+    # Alignee le 30/08/2026 sur la cadence des autres radars precommandes
+    # (30 min) -- decision explicite de Justok, priorite a la reactivite
+    # sur une precommande plutot qu'a la charge envoyee au site tiers.
+    # Anciennement 2h (cf. historique git) par politesse envers ce site
+    # tiers (~940 pages produit visitees a chaque cycle). Duree reelle
+    # mesuree sur les 15 derniers cycles a 2h : ~8-10 min, tres en dessous
+    # du timeout de 45 min ci-dessous -- aucun risque de chevauchement de
+    # cycles a 30 min. A surveiller : si philibert.net se met a bloquer/
+    # limiter les requetes (erreurs HTTP 429/403 en hausse), revenir a une
+    # cadence plus large.
+    - cron: "*/30 * * * *"
   workflow_dispatch: {}
 permissions:
   contents: write   # necessaire pour sauvegarder data/precommandes_generique_philibert.json
