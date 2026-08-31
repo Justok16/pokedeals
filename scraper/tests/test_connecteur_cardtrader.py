@@ -59,6 +59,29 @@ def test_ct_incoherent_entre_langues_ecart_normal_nest_pas_suspect():
     assert suspect is False
 
 
+def test_ct_incoherent_entre_langues_relie_par_alias_meme_si_noms_differents():
+    # Bug reel corrige le 31/08/2026 : deux entrees config.yaml pour la
+    # MEME carte physique dans des langues differentes ont souvent des
+    # `nom` totalement differents (ex. "Plumeline ex 024" FR / "Oricorio
+    # ex 111 m2" JP, liees par alias: "Plumeline") -- le garde-fou doit se
+    # baser sur l'alias, sinon ces deux entrees ne se rencontrent jamais.
+    ct._ct_prix_par_carte.clear()
+    ct._ct_memoriser_prix({"nom": "Oricorio ex 111 m2", "alias": "Plumeline", "langue": "jp"}, 45.0)
+    suspect, motif = ct._ct_incoherent_entre_langues(
+        {"nom": "Plumeline ex 024", "alias": "Plumeline", "langue": "fr"}, 1.08, 5.0)
+    assert suspect is True
+    assert "45.00" in motif
+
+
+def test_ct_incoherent_entre_langues_alias_absent_repli_sur_nom():
+    # Sans alias (cas majoritaire), le comportement historique (cle = nom)
+    # doit rester inchange.
+    ct._ct_prix_par_carte.clear()
+    ct._ct_memoriser_prix({"nom": "Mew ex 208", "langue": "jp"}, 51.0)
+    suspect, _ = ct._ct_incoherent_entre_langues({"nom": "Mew ex 208", "langue": "kr"}, 60.0, 5.0)
+    assert suspect is False
+
+
 def test_calibration_ajoute_seulement_les_rapports_raisonnables():
     ct._calibration_paires.clear()
     ct._calibration_ajouter(100.0, 110.0)   # rapport 1.1 -- garde
