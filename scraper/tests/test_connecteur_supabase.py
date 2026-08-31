@@ -216,6 +216,13 @@ def test_enregistrer_succes_envoie_bien_les_alertes():
     assert kwargs["json"] == alertes
     assert "ignore-duplicates" in kwargs["headers"]["Prefer"]
     assert "return=representation" in kwargs["headers"]["Prefer"]
+    # Bug reel corrige le 31/08/2026 : sans on_conflict nommant la contrainte
+    # unique (watchlist_item_id, url), PostgREST ne sait pas sur quoi
+    # appliquer resolution=ignore-duplicates -- une alerte deja connue (carte
+    # boutique restee sous le seuil sur plusieurs cycles, cas courant) fait
+    # alors echouer TOUTE la requete en 409, y compris les alertes vraiment
+    # nouvelles du meme lot.
+    assert kwargs["params"]["on_conflict"] == "watchlist_item_id,url"
     assert nouvelles == alertes
 
 

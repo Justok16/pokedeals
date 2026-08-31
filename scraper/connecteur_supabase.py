@@ -127,12 +127,28 @@ def enregistrer_alertes(supabase_url: str, service_role_key: str, alertes: list[
     n'apparaissent pas dans la réponse `return=representation`) -- ne PAS
     utiliser cette valeur pour decider qui notifier (cf. piege corrige le
     30/08/2026 ci-dessous) : appeler lister_alertes_a_notifier() juste apres
-    pour ca."""
+    pour ca.
+
+    `on_conflict` est OBLIGATOIRE pour que PostgREST sache sur QUELLE
+    contrainte appliquer `resolution=ignore-duplicates` -- sans lui (bug reel
+    trouve le 31/08/2026, jamais signale par l'audit externe : la contrainte
+    est bien creee cote base, cf. migration 0002_watchlist_alerts.sql du
+    depot pokedeals-saas, mais jamais nommee ici), PostgREST tente une
+    insertion normale et renvoie une vraie 409 Conflict des qu'une alerte
+    deja connue revient (une carte boutique qui reste sous le seuil sur
+    PLUSIEURS cycles consecutifs, cas courant cote boutiques TCG qui n'ont
+    pas de dedup amont equivalente a `vues`/seen.json cote eBay/Vinted) --
+    toute la requete echoue alors (une seule requete HTTP pour tout le lot),
+    entrainant la PERTE des alertes vraiment nouvelles du meme cycle si
+    elles etaient regroupees dans le meme appel. Meme parametre deja present
+    et correct dans connecteur_supabase_precoms.enregistrer_precommande_alertes()
+    -- oubli specifique a cette fonction-ci."""
     if not alertes or not supabase_url or not service_role_key:
         return []
     try:
         r = requests.post(
             f"{supabase_url.rstrip('/')}/rest/v1/watchlist_alerts",
+            params={"on_conflict": "watchlist_item_id,url"},
             json=alertes,
             headers={
                 "apikey": service_role_key,
