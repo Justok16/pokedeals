@@ -19,6 +19,7 @@ Boucle sur plusieurs boutiques (cf. boutiques_shopify.py) :
     s'arreter entierement pour un seul site en panne.
 """
 
+import logging
 import os
 import sys
 import time
@@ -30,6 +31,22 @@ from bonne_affaire_shopify import charger_cotes, charger_regles, detecter_bonnes
 from connecteur_shopify import ConnecteurShopify
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from watchlist_shopify import CarteWatchlist
+
+# Sans ceci, les log.info()/log.warning() emis par les ponts SaaS appeles
+# depuis cet orchestrateur (connecteur_supabase.py, watchlist_saas.py,
+# notifications_saas.py) restaient INVISIBLES dans les logs GitHub Actions
+# -- seul main.py configurait le logger racine jusqu'ici. Trouve le
+# 31/08/2026 en verifiant en conditions reelles le correctif du 409
+# watchlist_alerts (PR #88) : impossible de confirmer la ligne de succes
+# "[Supabase] N alerte(s) watchlist enregistree(s)" dans les logs du run,
+# alors que le code s'executait bien (seuls les log.warning() apparaissaient,
+# via le handler de secours de Python, jamais les log.info()). Meme format
+# que main.py, pour rester coherent entre orchestrateurs.
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    stream=sys.stdout,
+)
 
 # Cle de la memoire stock dans la table Supabase scraper_memoire (cf.
 # memoire_supabase.py) -- migration du 24/08/2026, remplace le fichier Git

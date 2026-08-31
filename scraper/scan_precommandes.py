@@ -20,6 +20,7 @@ surveilles sont perimes, le script se termine immediatement sans rien
 scanner (radar desactive de lui-meme).
 """
 
+import logging
 import os
 import sys
 import time
@@ -35,6 +36,15 @@ from alerte_precommande import (
 )
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from precommandes_watchlist import produits_actifs
+
+# cf. scan_boutique.py pour le detail de ce correctif (31/08/2026) : sans
+# ceci, les log.info()/log.warning() (ex. memoire_supabase.py) restaient
+# invisibles dans les logs GitHub Actions.
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    stream=sys.stdout,
+)
 from radar_precommandes import (
     scanner_prestashop_repli_html,
     scanner_prestashop_sitemap,
