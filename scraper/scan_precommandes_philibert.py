@@ -72,6 +72,38 @@ if __name__ == "__main__":
 
     evenements = detecter_nouvelles_precommandes_generiques(candidats, memoire)
 
+    # Pont PokePrecoms (optionnel/non bloquant, cf. connecteur_supabase_precoms.py) :
+    # appele AVANT l'envoi Telegram (et son commit memoire), pas apres --
+    # corrige un bug reel signale par Justok le 31/08/2026 ("j'ai recu des
+    # alertes Telegram mais rien sur mon Dashboard"), meme correctif que
+    # scan_precommandes_generique.py : si Telegram commitait `memoire` en
+    # premier puis que cette ecriture Supabase echouait sur le MEME cycle,
+    # l'evenement ne pouvait plus jamais etre redetecte (la transition "pas
+    # en stock -> en stock" ne se reproduit qu'une fois) -- perte DEFINITIVE
+    # cote Supabase/Dashboard malgre l'alerte Telegram recue.
+    # `enregistrer_precommande_alertes()` retourne maintenant `None` sur un
+    # echec reel (pas `[]`, reserve au no-op legitime) : on retire alors
+    # `_cle_memoire`/`_nouvel_etat` des evenements concernes AVANT l'appel
+    # Telegram, pour que son commit memoire ne les fige pas -- ils seront
+    # redetectes et retentes (les deux canaux, doublon Telegram accepte) au
+    # prochain cycle plutot que perdus.
+    secrets = {
+        "POKEPRECOMS_SUPABASE_URL": os.environ.get("POKEPRECOMS_SUPABASE_URL", ""),
+        "POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY": os.environ.get("POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY", ""),
+        "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
+        "VAPID_CLAIM_EMAIL": os.environ.get("VAPID_CLAIM_EMAIL", ""),
+        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY", ""),
+        "RESEND_FROM_EMAIL": os.environ.get("RESEND_FROM_EMAIL", ""),
+    }
+    if enregistrer_precommande_alertes(
+        secrets["POKEPRECOMS_SUPABASE_URL"], secrets["POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY"], evenements,
+    ) is None:
+        print("[scan_precommandes_philibert] ATTENTION : échec d'écriture Supabase PokéPrécoms -- "
+              "les événements de ce cycle ne seront pas marqués comme alertés, pour être retentés au prochain cycle.")
+        for e in evenements:
+            e.pop("_cle_memoire", None)
+            e.pop("_nouvel_etat", None)
+
     # Meme raison que scan_precommandes_generique.py (V57) : sauvegarde
     # APRES la tentative d'envoi Telegram, qui commite elle-meme l'etat des
     # evenements alertes dans `memoire` uniquement pour ceux envoyes avec
@@ -85,20 +117,6 @@ if __name__ == "__main__":
     else:
         sauvegarder_memoire(memoire, FICHIER_MEMOIRE)
 
-    # Pont PokePrecoms (optionnel/non bloquant), independant du succes
-    # Telegram ci-dessus -- la dedup se fait cote base (contrainte unique
-    # sur url_produit), pas via `memoire`.
-    secrets = {
-        "POKEPRECOMS_SUPABASE_URL": os.environ.get("POKEPRECOMS_SUPABASE_URL", ""),
-        "POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY": os.environ.get("POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY", ""),
-        "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
-        "VAPID_CLAIM_EMAIL": os.environ.get("VAPID_CLAIM_EMAIL", ""),
-        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY", ""),
-        "RESEND_FROM_EMAIL": os.environ.get("RESEND_FROM_EMAIL", ""),
-    }
-    enregistrer_precommande_alertes(
-        secrets["POKEPRECOMS_SUPABASE_URL"], secrets["POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY"], evenements,
-    )
     precommandes_a_diffuser = lister_precommandes_a_diffuser(
         secrets["POKEPRECOMS_SUPABASE_URL"], secrets["POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY"],
     )

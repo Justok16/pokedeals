@@ -41,7 +41,7 @@ def _headers(service_role_key: str) -> dict:
 
 def enregistrer_precommande_alertes(
     supabase_url: str, service_role_key: str, evenements: list[dict]
-) -> list[dict]:
+) -> list[dict] | None:
     """Insere les evenements de precommande detectes dans `precommande_alerts`.
     Deduplique sur `url_produit` (contrainte unique cote base, cf. migration
     0005_precommande_alerts_unique_url.sql du depot pokeprecoms -- une meme
@@ -50,7 +50,24 @@ def enregistrer_precommande_alertes(
     reellement inserees (return=representation + resolution=ignore-duplicates)
     -- ne PAS utiliser cette valeur pour decider quoi diffuser (cf. piege
     corrige le 30/08/2026, meme bug que watchlist_alerts cote PokeDeals) :
-    appeler lister_precommandes_a_diffuser() juste apres pour ca."""
+    appeler lister_precommandes_a_diffuser() juste apres pour ca.
+
+    Distingue explicitement (meme idiome que memoire_supabase.charger_memoire_supabase)
+    un ECHEC REEL (retourne `None`) d'un NO-OP LEGITIME (`[]` -- secrets absents,
+    aucun evenement a inserer, ou insertion reussie sans aucune ligne nouvelle
+    car tout etait deja connu cote base) : corrige un bug reel trouve le
+    31/08/2026 (signalement direct de Justok, "j'ai recu des alertes Telegram
+    mais rien sur mon Dashboard") ou une erreur reseau ici (retournait `[]`,
+    indistinguable d'un no-op) survenant le MEME cycle qu'un envoi Telegram
+    reussi laissait l'appelant (scan_precommandes_generique.py/
+    scan_precommandes_philibert.py) commiter quand meme l'evenement dans la
+    memoire locale de deduplication (via envoyer_telegram_precommandes_generiques) --
+    empechant alors DEFINITIVEMENT toute nouvelle tentative d'ecriture Supabase
+    pour cet evenement precis (la transition "pas en stock -> en stock" ne se
+    reproduit jamais une 2e fois pour le meme produit). L'appelant doit
+    utiliser `None` pour annuler le commit memoire de Telegram sur les
+    evenements concernes, afin qu'ils soient redetectes et retentes (les deux
+    canaux, doublon Telegram accepte) au prochain cycle."""
     if not evenements or not supabase_url or not service_role_key:
         return []
     lignes = [
@@ -80,8 +97,8 @@ def enregistrer_precommande_alertes(
         log.info("[Supabase PokePrecoms] %d précommande(s) enregistrée(s)", len(nouvelles))
         return nouvelles
     except requests.RequestException as e:
-        log.warning("Écriture precommande_alerts échouée (%s) -- ignorée ce cycle", e)
-        return []
+        log.warning("Écriture precommande_alerts échouée (%s) -- retentée au prochain cycle", e)
+        return None
 
 
 CHAMPS_PRECOMMANDE_DIFFUSION = "id,titre_produit,boutique,url_produit,push_diffuse,email_diffuse"
