@@ -16,6 +16,7 @@ Sans boutique(s) en argument : scanne toutes les boutiques Shopify actives
 (cartes + precommande-seulement + decouvertes automatiquement).
 """
 
+import logging
 import os
 import sys
 import time
@@ -34,6 +35,15 @@ from radar_precommande_generique import (
     detecter_nouvelles_precommandes_generiques,
     envoyer_telegram_precommandes_generiques,
     scanner_shopify_precommandes_generiques,
+)
+
+# cf. scan_boutique.py pour le detail de ce correctif (31/08/2026) : sans
+# ceci, les log.info()/log.warning() du pont PokePrecoms restaient
+# invisibles dans les logs GitHub Actions.
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    stream=sys.stdout,
 )
 
 DELAI_ENTRE_BOUTIQUES = 2.5

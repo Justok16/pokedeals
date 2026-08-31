@@ -14,6 +14,7 @@ Fichier de memoire SEPARE de celui de Shopify (data/stock_boutiques_tcg.json)
 si les deux scans tournent en parallele.
 """
 
+import logging
 import os
 import sys
 import time
@@ -26,6 +27,15 @@ from bonne_affaire_shopify import charger_cotes, charger_regles, detecter_bonnes
 from connecteur_prestashop_sitemap import ConnecteurPrestaShopSitemap
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from watchlist_shopify import CarteWatchlist
+
+# cf. scan_boutique.py pour le detail de ce correctif (31/08/2026) : sans
+# ceci, les log.info()/log.warning() des ponts SaaS restaient invisibles
+# dans les logs GitHub Actions.
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    stream=sys.stdout,
+)
 
 DELAI_ENTRE_BOUTIQUES = 2.5  # secondes -- meme politesse que le scan Shopify
 
