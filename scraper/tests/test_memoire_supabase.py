@@ -30,15 +30,41 @@ def test_charger_cle_connue_renvoie_les_donnees():
 
 
 def test_charger_erreur_reseau_renvoie_none():
-    with patch("memoire_supabase.requests.get", side_effect=requests.RequestException("boom")):
+    with patch("memoire_supabase.requests.get", side_effect=requests.RequestException("boom")), \
+         patch("http_utils.time.sleep"):
         assert charger_memoire_supabase("stock_boutiques_tcg", "https://x.supabase.co", "cle") is None
 
 
 def test_charger_reponse_http_en_erreur_renvoie_none():
-    reponse = Mock(status_code=500)
+    # headers={} (pas un Mock auto-genere) : requete_avec_retry() (cf.
+    # audit du 31/08/2026, memoire_supabase appelle desormais cette
+    # fonction partagee) inspecte r.headers.get("Retry-After") sur tout
+    # 5xx avant meme raise_for_status() -- un Mock non configure y renvoie
+    # un autre Mock (jamais None), qui casse float() plus loin. Un vrai
+    # requests.Response a toujours un .headers reel, ce cas ne se produit
+    # qu'avec un mock mal configure.
+    reponse = Mock(status_code=500, headers={})
     reponse.raise_for_status.side_effect = requests.HTTPError("500")
-    with patch("memoire_supabase.requests.get", return_value=reponse):
+    with patch("memoire_supabase.requests.get", return_value=reponse), \
+         patch("http_utils.time.sleep"):
         assert charger_memoire_supabase("stock_boutiques_tcg", "https://x.supabase.co", "cle") is None
+
+
+def test_charger_timeout_transitoire_puis_succes_ne_perd_plus_le_cycle():
+    # Audit du 31/08/2026 (signale par Justok, cas reel en prod) : un
+    # timeout reseau isole faisait avant abandonner tout le cycle de scan
+    # (charger_memoire_supabase() renvoyait None des le 1er echec). Avec
+    # le retry (requete_avec_retry, meme fonction partagee que pour eBay/
+    # Vinted/Cardtrader), un timeout suivi d'un succes doit maintenant
+    # renvoyer les vraies donnees, pas None.
+    reponse_ok = Mock(status_code=200)
+    reponse_ok.json.return_value = [{"donnees": {"a.fr|Carte 1/1": {"en_stock": True}}}]
+    reponse_ok.raise_for_status.return_value = None
+    with patch("memoire_supabase.requests.get",
+               side_effect=[requests.exceptions.ReadTimeout("boom"), reponse_ok]), \
+         patch("http_utils.time.sleep"):
+        memoire = charger_memoire_supabase("stock_boutiques_tcg", "https://x.supabase.co", "cle")
+    assert memoire == {"a.fr|Carte 1/1": {"en_stock": True}}
 
 
 def test_charger_reponse_json_mal_formee_renvoie_none():
@@ -72,5 +98,18 @@ def test_sauvegarder_succes_renvoie_true_et_upsert_sur_cle():
 
 
 def test_sauvegarder_erreur_reseau_renvoie_false():
-    with patch("memoire_supabase.requests.post", side_effect=requests.RequestException("boom")):
+    with patch("memoire_supabase.requests.post", side_effect=requests.RequestException("boom")), \
+         patch("http_utils.time.sleep"):
         assert sauvegarder_memoire_supabase({}, "stock_boutiques_tcg", "https://x.supabase.co", "cle") is False
+
+
+def test_sauvegarder_timeout_transitoire_puis_succes_reussit():
+    # cf. test_charger_timeout_transitoire_puis_succes_ne_perd_plus_le_cycle
+    # -- meme correctif applique a l'ecriture (audit du 31/08/2026).
+    reponse_ok = Mock(status_code=201)
+    reponse_ok.raise_for_status.return_value = None
+    with patch("memoire_supabase.requests.post",
+               side_effect=[requests.exceptions.ReadTimeout("boom"), reponse_ok]), \
+         patch("http_utils.time.sleep"):
+        ok = sauvegarder_memoire_supabase({}, "stock_boutiques_tcg", "https://x.supabase.co", "cle")
+    assert ok is True
