@@ -54,6 +54,8 @@ from datetime import datetime, timezone
 
 import requests
 
+from http_utils import requete_avec_retry
+
 log = logging.getLogger("pokedeals.memoire_supabase")
 
 TIMEOUT = 20
@@ -67,7 +69,18 @@ def charger_memoire_supabase(cle: str, supabase_url: str, service_role_key: str)
     if not supabase_url or not service_role_key:
         return None
     try:
-        r = requests.get(
+        # Audit du 31/08/2026 (signale par Justok) : un seul essai, aucun
+        # retry -- un simple timeout reseau transitoire (deja observe en
+        # prod, 20s depassees une fois) abandonnait tout le cycle de scan
+        # pour rien (cf. docstring du module : ce module n'est PAS
+        # optionnel, contrairement aux autres ponts Supabase de ce depot).
+        # requete_avec_retry() (http_utils.py, deja utilise pour eBay/
+        # Vinted/Cardtrader) retente jusqu'a 3 fois avec backoff sur toute
+        # erreur reseau (timeout, connexion, 5xx, 429) avant d'abandonner
+        # reellement -- le sys.exit(1) cote appelant ne se declenche
+        # desormais que si la panne persiste sur les 3 tentatives.
+        r = requete_avec_retry(
+            requests.get,
             f"{supabase_url.rstrip('/')}/rest/v1/scraper_memoire",
             params={"select": "donnees", "cle": f"eq.{cle}"},
             headers={"apikey": service_role_key, "Authorization": f"Bearer {service_role_key}"},
@@ -90,7 +103,12 @@ def sauvegarder_memoire_supabase(memoire: dict, cle: str, supabase_url: str, ser
     if not supabase_url or not service_role_key:
         return False
     try:
-        r = requests.post(
+        # Audit du 31/08/2026 : meme retry qu'en lecture (cf. plus haut) --
+        # sans danger ici malgre l'ecriture, puisque c'est un UPSERT
+        # (on_conflict=cle) : retenter le meme envoi ne cree jamais de
+        # doublon, juste une re-ecriture identique de la meme ligne.
+        r = requete_avec_retry(
+            requests.post,
             f"{supabase_url.rstrip('/')}/rest/v1/scraper_memoire",
             params={"on_conflict": "cle"},
             json={
