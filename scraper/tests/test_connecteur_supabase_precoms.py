@@ -56,11 +56,16 @@ def test_enregistrer_sans_secrets_ne_declenche_aucun_appel():
     post_mock.assert_not_called()
 
 
-def test_enregistrer_erreur_reseau_retourne_liste_vide():
+def test_enregistrer_erreur_reseau_retourne_none():
+    # None (pas []) sur un echec reseau reel -- distinct du no-op legitime
+    # ([] pour liste vide/secrets absents ci-dessus), pour que l'appelant
+    # sache qu'il doit annuler le commit memoire de Telegram sur ce cycle
+    # (cf. correctif du 31/08/2026, scan_precommandes_generique.py/
+    # scan_precommandes_philibert.py).
     with patch("connecteur_supabase_precoms.requests.post",
                side_effect=requests.RequestException("boom")):
         result = enregistrer_precommande_alertes("https://x.supabase.co", "cle", [_evenement()])
-    assert result == []
+    assert result is None
 
 
 def test_enregistrer_succes_retourne_les_lignes_inserees_et_dedupe_par_url():
