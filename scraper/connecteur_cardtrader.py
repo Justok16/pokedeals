@@ -451,8 +451,20 @@ _ct_prix_par_carte: dict = {}
 
 
 def _ct_cle_carte(carte: dict) -> str:
-    """Identifiant d'une carte indépendant de sa langue."""
-    return normaliser(str(carte.get("nom", "")))
+    """Identifiant d'une carte indépendant de sa langue.
+
+    Utilise l'ALIAS quand il existe (meme convention que main.py:1562 pour
+    le regroupement des cotes) -- bug reel corrige le 31/08/2026 : deux
+    entrees config.yaml pour la MEME carte physique dans des langues
+    differentes (ex. "Plumeline ex 024" FR et "Oricorio ex 111 m2" JP,
+    lie par `alias: "Plumeline"`) ont des `nom` totalement differents.
+    Avant ce correctif, `_ct_cle_carte` se basait uniquement sur `nom` :
+    les deux entrees ne se rencontraient donc JAMAIS dans
+    `_ct_prix_par_carte`, rendant ce garde-fou totalement inoperant pour
+    exactement le cas qu'il est cense proteger (deduit d'un prix marche
+    affiche a 1.08€ pour Plumeline ex alors que la carte se vend
+    reellement ~30€, signale par Justok)."""
+    return normaliser(str(carte.get("alias") or carte.get("nom", "")))
 
 
 def _ct_incoherent_entre_langues(carte: dict, prix: float, facteur: float) -> tuple[bool, str]:
