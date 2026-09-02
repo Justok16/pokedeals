@@ -39,20 +39,34 @@ jobs:
         run: |
           git config user.name "pokedeals-bot"
           git config user.email "bot@pokedeals.local"
-          cp -f data/historique_prix_tendance.json /tmp/historique_prix_tendance.json 2>/dev/null || true
-          git stash -u || true
-          git pull --rebase || git rebase --abort || true
-          git stash pop || true
-          git stash drop || true   # purge defensive d'un stash laisse par un pop en conflit -- un seul appel de sauvegarde dans ce job (runner jete juste apres), donc sans le risque de cascade documente dans CLAUDE.md (scan_prestashop.yml/scan_shopify.yml), mais garde par coherence/prudence
-          cp -f /tmp/historique_prix_tendance.json data/historique_prix_tendance.json 2>/dev/null || true
-          git add data/historique_prix_tendance.json 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "maj historique tendance prix [skip ci]"
-          git push || {
-            echo "Push refusé, tentative de rattrapage..."
+          sauvegarder_puis_reimposer() {
             cp -f data/historique_prix_tendance.json /tmp/historique_prix_tendance.json 2>/dev/null || true
+            git stash -u || true
             git pull --rebase || git rebase --abort || true
+            git stash pop || true
+            git stash drop || true   # purge defensive d'un stash laisse par un pop en conflit -- un seul appel de sauvegarde dans ce job (runner jete juste apres), donc sans le risque de cascade documente dans CLAUDE.md (scan_prestashop.yml/scan_shopify.yml), mais garde par coherence/prudence
             cp -f /tmp/historique_prix_tendance.json data/historique_prix_tendance.json 2>/dev/null || true
             git add data/historique_prix_tendance.json 2>/dev/null || true
             git diff --cached --quiet || git commit -m "maj historique tendance prix [skip ci]"
-            git push
           }
+
+          sauvegarder_puis_reimposer
+
+          # Push avec plusieurs tentatives de rattrapage -- jusqu'a 3, avec
+          # un delai croissant, pour couvrir aussi bien un vrai conflit
+          # (autre push entre-temps) qu'une erreur transitoire cote GitHub
+          # ("Internal Server Error", cf. le même correctif sur
+          # pokedeals.yml le 02/09/2026 -- rejouer immédiatement retombe
+          # souvent sur la même erreur encore chaude côté serveur).
+          for tentative in 1 2 3; do
+            if git push; then
+              break
+            fi
+            if [ "$tentative" = 3 ]; then
+              echo "Push toujours refusé après 3 tentatives, abandon."
+              exit 1
+            fi
+            echo "Push refusé (tentative $tentative/3), nouvel essai dans $((tentative * 5))s..."
+            sleep $((tentative * 5))
+            sauvegarder_puis_reimposer
+          done
