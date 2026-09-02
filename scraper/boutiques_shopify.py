@@ -7,6 +7,9 @@
 # pour Justok (watchlist FR/JP).
 #   "card-binder.com",
 
+# RETIREE le 02/09/2026 (demande explicite de Justok) : japan2uk.com.
+#   "japan2uk.com",
+
 BOUTIQUES_SHOPIFY = [
     "dracaugames.com",
     "cardlabtcg.com",
@@ -42,7 +45,6 @@ BOUTIQUES_SHOPIFY = [
     "fandom.tokyo",
     "cartespokemon.com",
     "kimstcgstore.com",
-    "japan2uk.com",
     "riotcg.shop",
     "japanresell.fr",
     "lectorshop.com",
