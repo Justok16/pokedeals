@@ -67,36 +67,46 @@ jobs:
           # annulee, avec un risque concret d'alerte de retour en stock
           # dupliquee au cycle suivant de ce workflow).
           FICHIERS_MAIN="stats.json cardtrader.json api_prix.json cardmarket_prix.json"
-          for f in $FICHIERS_MAIN; do
-            cp -f "data/$f" "/tmp/$f" 2>/dev/null || true
-          done
-          cp -f data/deals.csv /tmp/deals.csv 2>/dev/null || true
-          git stash --include-untracked || true
-          git pull --rebase || git rebase --abort || true
-          git stash drop || true
-          for f in $FICHIERS_MAIN; do
-            cp -f "/tmp/$f" "data/$f" 2>/dev/null || true
-          done
-          cp -f /tmp/deals.csv data/deals.csv 2>/dev/null || true
-          git add $(printf 'data/%s ' $FICHIERS_MAIN) data/deals.csv 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "maj mémoire [skip ci]"
-          # Push avec une tentative de rattrapage : si le push échoue (ex. un
-          # autre scan a poussé entre-temps), on refait un pull --rebase en
-          # préservant nos données, puis on re-pousse. Si ça échoue ENCORE, on
-          # laisse le workflow passer au rouge pour que le problème soit visible
-          # (sinon la mémoire non sauvée = risque d'alertes en double).
-          git push || {
-            echo "Push refusé, tentative de rattrapage..."
+
+          sauvegarder_puis_reimposer() {
             for f in $FICHIERS_MAIN; do
               cp -f "data/$f" "/tmp/$f" 2>/dev/null || true
             done
             cp -f data/deals.csv /tmp/deals.csv 2>/dev/null || true
+            git stash --include-untracked || true
             git pull --rebase || git rebase --abort || true
+            git stash drop || true
             for f in $FICHIERS_MAIN; do
               cp -f "/tmp/$f" "data/$f" 2>/dev/null || true
             done
             cp -f /tmp/deals.csv data/deals.csv 2>/dev/null || true
             git add $(printf 'data/%s ' $FICHIERS_MAIN) data/deals.csv 2>/dev/null || true
             git diff --cached --quiet || git commit -m "maj mémoire [skip ci]"
-            git push
           }
+
+          sauvegarder_puis_reimposer
+
+          # Push avec plusieurs tentatives de rattrapage. Deux causes de
+          # refus bien distinctes : (1) un autre scan a poussé entre-temps
+          # -- "pull --rebase" recupere alors une vraie mise a jour distante
+          # ; (2) erreur cote GitHub purement transitoire ("Internal Server
+          # Error", constatee en prod le 02/09/2026 -- deux echecs
+          # consecutifs en l'espace de 2s, "pull --rebase" confirmant a
+          # chaque fois "Already up to date", donc aucun vrai conflit). Le
+          # cas (2) ne se resout pas en rejouant le push aussitot (le
+          # serveur est souvent encore chaud) -- jusqu'a 3 tentatives avec
+          # un delai croissant avant chaque nouvel essai. Si les 3 echouent,
+          # on laisse le workflow passer au rouge pour que ce soit visible
+          # (sinon la mémoire non sauvée = risque d'alertes en double).
+          for tentative in 1 2 3; do
+            if git push; then
+              break
+            fi
+            if [ "$tentative" = 3 ]; then
+              echo "Push toujours refusé après 3 tentatives, abandon."
+              exit 1
+            fi
+            echo "Push refusé (tentative $tentative/3), nouvel essai dans $((tentative * 5))s..."
+            sleep $((tentative * 5))
+            sauvegarder_puis_reimposer
+          done
