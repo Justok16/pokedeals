@@ -143,7 +143,7 @@ Ajouté le 14/08/2026, système **totalement indépendant** des 3 fonctions ci-d
 - Voir `mcp_pokedeals/README.md` pour l'installation, la config Claude Code (`.mcp.json` à la racine) et le statut détaillé de chaque source.
 - Piège déjà rencontré : le SDK officiel `mcp` (PyPI) a renommé `mcp.server.fastmcp.FastMCP` en `mcp.server.mcpserver.MCPServer` dans sa v2 — un `pip install mcp` sans version fixée casse tout code écrit pour l'ancienne API (`ModuleNotFoundError`).
 
-## CI/déploiement — 11 workflows GitHub Actions
+## CI/déploiement — 12 workflows GitHub Actions
 
 Tournent en parallèle sur le même repo, chacun avec son propre groupe de concurrence (`concurrency.group`) pour ne jamais se bloquer mutuellement, et une étape de sauvegarde mémoire avec dance stash/pull-rebase/push pour éviter les collisions Git entre crons qui se chevauchent (sauf les workflows sans fichier mémoire, ex. `prix_bas_quotidien.yml`, `permissions: contents: read` seulement).
 
@@ -158,8 +158,9 @@ Tournent en parallèle sur le même repo, chacun avec son propre groupe de concu
 | `prix_bas_quotidien.yml` | quotidien 9h UTC (~11h Paris) | 40 min | radar de prix bas quotidien (4 cartes × 4 langues, tous sites confondus) |
 | `scan_precommandes_generique.yml` | 15 min | 25 min | radar de précommandes génériques PokéPrécoms (Shopify uniquement) |
 | `scan_precommandes_philibert.yml` | 2h | 45 min | radar de précommandes génériques PokéPrécoms dédié à philibertnet.com (~940 requêtes/cycle) |
+| `verifier_alertes_watchlist.yml` | 30 min | 20 min | vérification périodique de disponibilité/prix des alertes déjà enregistrées dans `watchlist_alerts` (dashboard SaaS), cf. `verification_alertes.py` — notifie l'utilisateur (push/email) sur 2 transitions : carte vendue/retirée, ou prix encore en baisse |
 | `tests.yml` | à chaque push/PR | — | suite pytest (cf. section Commandes) |
-| `watchdog_workflows.yml` | 3h | 5 min | watchdog de santé (30/08/2026, cf. section dédiée ci-dessous) — alerte Telegram si un des 9 scanners échoue 3 fois de suite |
+| `watchdog_workflows.yml` | 3h | 5 min | watchdog de santé (30/08/2026, cf. section dédiée ci-dessous) — alerte Telegram si un des 10 scanners échoue 3 fois de suite |
 
 **Cadences resserrées le 28/08/2026** (demande de Justok, grosse sortie Pokémon à venir) : mesuré d'abord les durées réelles avant de toucher quoi que ce soit (jamais à l'aveugle, cf. plus bas) — `scan_shopify.yml` (~18-23 min réels pour 30 min de cron, marge confortable) passé à 25 min ; `scan_precommandes_generique.yml` (~12 min réels pour 30 min de cron, grosse marge) passé à 15 min. `scan_prestashop.yml`/`scan_woocommerce.yml` étaient déjà mesurés à 30-40+ min par cycle complet (donc déjà à leur cadence réelle maximale malgré l'affichage à 30 min) — au lieu de resserrer leur cron (aucun gain, juste un risque d'empiler des déclenchements en attente), **lot A et lot B ont été parallélisés** pour réduire la durée réelle du cycle complet.
 
@@ -171,7 +172,7 @@ Avant de changer un timeout ou une composition de lot, vérifier `SESSION_NOTES.
 
 Système **indépendant**, ajouté suite à l'audit externe du compte GitHub : jusque-là, un workflow de scan qui échoue silencieusement à chaque cycle (bug de code, secret expiré, API tierce cassée) ne générait AUCUNE alerte — seul un examen manuel de l'onglet Actions du repo l'aurait révélé.
 
-- Interroge l'API GitHub Actions (lecture seule, `GITHUB_TOKEN` standard fourni automatiquement par le workflow, aucun nouveau secret) pour les 9 workflows de scan programmés (`WORKFLOWS_SURVEILLES`, cf. tableau ci-dessus — exclut volontairement `tests.yml` et les workflows manuels/de test).
+- Interroge l'API GitHub Actions (lecture seule, `GITHUB_TOKEN` standard fourni automatiquement par le workflow, aucun nouveau secret) pour les 10 workflows de scan programmés (`WORKFLOWS_SURVEILLES`, cf. tableau ci-dessus — exclut volontairement `tests.yml` et les workflows manuels/de test ; `verifier_alertes_watchlist.yml` y ajouté le 03/09/2026, même jour que sa création).
 - `echecs_consecutifs()` compte les échecs ("failure") consécutifs depuis la plus récente exécution TERMINÉE de chaque workflow, en ignorant les annulations manuelles/timeouts (ni +1 ni remise à zéro, pour ne pas les confondre avec un vrai succès ni les laisser masquer une série d'échecs réels).
 - Alerte Telegram si un workflow atteint `SEUIL_ECHECS_CONSECUTIFS` (3) — pas dès le premier échec, un échec isolé étant déjà toléré par la conception de chaque scanner (ex. une boutique HS ne fait pas échouer tout le job).
 - **Anti-spam** : l'état "déjà alerté" par workflow est persisté dans Supabase (`memoire_supabase.py`, clé `watchdog_workflows_etat`, même projet `pokedeals-saas`) pour ne pas re-notifier à chaque passage tant que le problème n'est pas résolu, et pour envoyer un message de "retour au vert" une fois le workflow de nouveau sain. Contrairement à la mémoire de déduplication stock (étape 1 de la migration Supabase ci-dessous), cet état n'est **pas critique** : une lecture Supabase ratée dégrade au pire vers une alerte en double (repli sur état vide), jamais vers une alerte manquée — pas de `sys.exit(1)` ici.

@@ -1,17 +1,24 @@
 """Tests de non-regression pour watchdog_workflows.py -- watchdog de sante
-des 9 workflows de scan programmes (audit externe du 30/08/2026)."""
+des workflows de scan programmes (audit externe du 30/08/2026 ; liste
+WORKFLOWS_SURVEILLES a 10 entrees depuis le 03/09/2026, ajout de
+verifier_alertes_watchlist.yml). Les tests ci-dessous derivent le nombre
+attendu de WORKFLOWS_SURVEILLES plutot que de le figer en dur, pour ne
+pas se casser a chaque futur ajout dans cette liste."""
 
 from unittest.mock import Mock, patch
 
 import requests
 
 from watchdog_workflows import (
+    WORKFLOWS_SURVEILLES,
     dernieres_conclusions,
     echecs_consecutifs,
     envoyer_telegram,
     main,
     verifier_sante,
 )
+
+NB_WORKFLOWS_SURVEILLES = len(WORKFLOWS_SURVEILLES)
 
 
 # ------------------- echecs_consecutifs -------------------
@@ -93,9 +100,9 @@ def test_envoyer_telegram_succes_retourne_true():
 def test_verifier_sante_interroge_tous_les_workflows_surveilles():
     with patch("watchdog_workflows.dernieres_conclusions", return_value=["failure", "failure", "failure"]) as dc_mock:
         result = verifier_sante("Justok16", "pokedeals", "tok")
-    assert len(result) == 9  # les 9 workflows de scan programmes
+    assert len(result) == NB_WORKFLOWS_SURVEILLES
     assert all(v == 3 for v in result.values())
-    assert dc_mock.call_count == 9
+    assert dc_mock.call_count == NB_WORKFLOWS_SURVEILLES
 
 
 # ------------------- main (orchestration + anti-spam) -------------------
@@ -129,7 +136,7 @@ def test_main_seuil_atteint_alerte_et_persiste_l_etat():
          patch("watchdog_workflows.envoyer_telegram", return_value=True) as tg_mock, \
          patch("watchdog_workflows.sauvegarder_memoire_supabase", return_value=True) as save_mock:
         main()
-    assert tg_mock.call_count == 9  # une alerte par workflow en échec
+    assert tg_mock.call_count == NB_WORKFLOWS_SURVEILLES  # une alerte par workflow en échec
     save_mock.assert_called_once()
     etat_sauve = save_mock.call_args[0][0]
     assert all(v is True for v in etat_sauve.values())
@@ -155,7 +162,7 @@ def test_main_retour_au_vert_envoie_resolution_et_reinitialise_l_etat():
          patch("watchdog_workflows.envoyer_telegram", return_value=True) as tg_mock, \
          patch("watchdog_workflows.sauvegarder_memoire_supabase", return_value=True) as save_mock:
         main()
-    assert tg_mock.call_count == 9
+    assert tg_mock.call_count == NB_WORKFLOWS_SURVEILLES
     etat_sauve = save_mock.call_args[0][0]
     assert all(v is False for v in etat_sauve.values())
 
@@ -178,4 +185,4 @@ def test_main_supabase_injoignable_continue_avec_etat_vide():
          patch("watchdog_workflows.envoyer_telegram", return_value=True) as tg_mock, \
          patch("watchdog_workflows.sauvegarder_memoire_supabase", return_value=True):
         main()
-    assert tg_mock.call_count == 9
+    assert tg_mock.call_count == NB_WORKFLOWS_SURVEILLES

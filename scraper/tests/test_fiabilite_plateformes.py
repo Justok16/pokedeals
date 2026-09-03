@@ -13,6 +13,14 @@ def setup_function():
     # Chaque test repart d'un compteur propre -- _stats_fiabilite est un
     # dict module-level partage, meme risque que tout etat global en test.
     main._reinitialiser_stats_fiabilite()
+    # 03/09/2026 (audit) : idem pour les coupe-circuits Vinted/Leboncoin --
+    # sinon un test d'un AUTRE fichier (ex. test_circuit_vinted_leboncoin.py)
+    # qui laisse le coupe-circuit declenche pourrait fausser
+    # test_vinted_rechercher_compte_les_echecs_reels/
+    # test_lbc_rechercher_403_nest_pas_compte_comme_un_echec ci-dessous (qui
+    # appellent la VRAIE fonction, court-circuitee si le coupe-circuit est
+    # deja ouvert).
+    main._reinitialiser_circuits_vinted_leboncoin()
 
 
 def test_aucune_alerte_sous_le_seuil_minimum_dappels():

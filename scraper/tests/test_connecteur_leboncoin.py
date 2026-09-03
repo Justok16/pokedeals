@@ -11,6 +11,10 @@ import connecteur_leboncoin as lbc
 
 def setup_function():
     lbc._stats_fiabilite.update({"leboncoin_appels": 0, "leboncoin_echecs": 0})
+    # 03/09/2026 (audit) : coupe-circuit Leboncoin -- chaque test repart
+    # d'un etat propre, meme risque de pollution inter-tests que
+    # _stats_fiabilite (cf. son commentaire dans stats_fiabilite.py).
+    lbc._circuit_leboncoin.update({"echecs_consecutifs": 0, "abandonne": False})
 
 
 def test_lbc_rechercher_403_est_ignore_sans_compter_comme_echec():

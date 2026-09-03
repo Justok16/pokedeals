@@ -264,3 +264,54 @@ def notifier_alertes_en_attente(secrets: dict, alertes_en_attente: list[dict]) -
                 email = emails_cache[uid]
                 if email and _envoyer_email(resend_api_key, resend_from, email, titre_notif, corps, alerte["url"]):
                     marquer_notification_envoyee(supabase_url, service_role_key, alerte["id"], "email")
+
+
+def notifier_transition_verification(secrets: dict, user_id: str, titre_notif: str, corps: str, url: str) -> None:
+    """Envoie une notification push+email PONCTUELLE à UN utilisateur, pour
+    un événement de VÉRIFICATION périodique (03/09/2026, cf.
+    verification_alertes.detecter_transition()/verifier_alertes_watchlist.py) --
+    pas une nouvelle bonne affaire (notifier_alertes_en_attente() ci-dessus).
+
+    Différence volontaire avec notifier_alertes_en_attente() : PAS de
+    colonnes `push_envoye`/`email_envoye` équivalentes ici -- watchlist_alerts
+    n'a rien de tel pour cet événement, et n'en a pas besoin : c'est
+    detecter_transition() (comparaison à l'état PRÉCÉDENT de la ligne) qui
+    garantit qu'une même transition n'est détectée qu'une seule fois, pas un
+    mécanisme de retry basé sur une colonne "livré". Un échec d'envoi ici
+    (secret absent, réseau, abonnement expiré...) n'est donc PAS retenté au
+    prochain cycle -- best-effort, jamais bloquant, même philosophie que
+    tout le reste de ce module et de verification_alertes.py (cf. leurs
+    docstrings) : une notification manquée n'empêche jamais le radar de
+    continuer, et ne fait jamais échouer le cycle."""
+    if not user_id:
+        return
+
+    supabase_url = secrets.get("SUPABASE_URL", "")
+    service_role_key = secrets.get("SUPABASE_SERVICE_ROLE_KEY", "")
+    if not supabase_url or not service_role_key:
+        return
+
+    vapid_private_key = secrets.get("VAPID_PRIVATE_KEY", "")
+    vapid_claim_email = secrets.get("VAPID_CLAIM_EMAIL", "")
+    resend_api_key = secrets.get("RESEND_API_KEY", "")
+    resend_from = secrets.get("RESEND_FROM_EMAIL", "")
+
+    push_actif = bool(vapid_private_key and vapid_claim_email)
+    email_actif = bool(resend_api_key and resend_from)
+    if not push_actif and not email_actif:
+        return
+
+    if push_actif:
+        abonnements = _lister_abonnements_push(supabase_url, service_role_key, [user_id])
+        if abonnements:
+            _envoyer_push(
+                supabase_url, service_role_key, vapid_private_key, vapid_claim_email,
+                abonnements, titre_notif, corps, url,
+            )
+
+    if email_actif:
+        prefs = _preferences_email(supabase_url, service_role_key, [user_id])
+        if prefs.get(user_id, True):
+            email = _email_utilisateur(supabase_url, service_role_key, user_id)
+            if email:
+                _envoyer_email(resend_api_key, resend_from, email, titre_notif, corps, url)

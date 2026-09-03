@@ -34,6 +34,34 @@ timeout, JSON-LD absent) laisse l'alerte INCHANGEE pour ce cycle (retentee
 au prochain), jamais un "disponible=False" par exces de confiance sur une
 incertitude technique -- seule une confirmation POSITIVE de rupture/
 suppression (404, stock explicitement a 0/rupture) met `disponible=False`.
+
+**Notification sur transition** (ajoute le 03/09/2026, meme jour que le
+reste de ce module) : jusqu'ici, ce radar ecrivait silencieusement
+disponible/prix_verifie/derniere_verification a chaque cycle, sans jamais
+prevenir l'utilisateur -- il fallait rouvrir le dashboard pour voir qu'une
+carte avait ete vendue ou que son prix avait encore baisse.
+detecter_transition() compare le resultat FRAIS de verifier_une_alerte() a
+l'etat PRECEDENT de la ligne watchlist_alerts (lu par lister_alertes_recentes()
+AVANT l'appel a enregistrer_verification(), qui l'ecrase) pour ne signaler
+QUE deux transitions, jamais un etat deja connu re-signale a chaque cycle
+de 30 min :
+- "vendu" : `disponible` passe de True/None (jamais verifie) a False pour
+  la PREMIERE fois -- un True->False deja vu au cycle precedent ne re-notifie
+  pas.
+- "baisse_prix" : `prix_verifie` devient significativement (>SEUIL_BAISSE_
+  PRIX_SUPPLEMENTAIRE) inferieur au prix D'ORIGINE de l'alerte (`prix`,
+  jamais modifie apres l'insertion initiale) -- comparaison a l'origine,
+  pas cycle-a-cycle, pour capter une baisse progressive sur plusieurs
+  cycles ; mais seulement la PREMIERE fois que ce seuil est franchi (le
+  precedent `prix_verifie` n'etait pas deja sous ce seuil), pas a chaque
+  cycle tant que le prix reste bas.
+L'envoi lui-meme (push/email) est delegue a
+notifications_saas.notifier_transition_verification() -- meme
+infrastructure que les autres notifications SaaS, mais sans le mecanisme
+de retry "push_envoye/email_envoye" des alertes de detection (pas de
+colonne dediee pour cet evenement) : un envoi qui echoue ce cycle n'est
+PAS retente, best-effort, jamais bloquant -- meme philosophie que le reste
+de ce fichier (une erreur reseau/secret n'interrompt jamais le radar).
 """
 from __future__ import annotations
 
@@ -189,6 +217,85 @@ def verifier_une_alerte(url: str) -> dict | None:
     return None
 
 
+# --- Notification sur transition (03/09/2026) ---
+
+# >5% : un simple bruit de re-verification (arrondi, frais de port
+# recalcules...) ne doit pas notifier -- seule une VRAIE baisse
+# supplementaire le doit. Meme ordre de grandeur que les seuils de decote
+# deja utilises ailleurs dans le projet (ex. bonne_affaire_shopify.py,
+# decote >=30%), mais volontairement plus bas ici : ce n'est pas une
+# alerte de "bonne affaire" (deja envoyee a la detection), juste un signal
+# "encore moins cher qu'avant" sur une carte deja repérée par l'utilisateur.
+SEUIL_BAISSE_PRIX_SUPPLEMENTAIRE = 0.05
+
+
+def _prix_deja_signale_bas(prix_origine: float | None, prix_verifie_precedent: float | None) -> bool:
+    """True si `prix_verifie_precedent` était déjà sous le seuil de baisse
+    par rapport à `prix_origine` -- sert à ne notifier "baisse_prix" que la
+    PREMIÈRE fois que ce seuil est franchi, jamais à chaque cycle tant que
+    le prix reste bas."""
+    if prix_verifie_precedent is None or not prix_origine:
+        return False
+    return prix_verifie_precedent <= prix_origine * (1 - SEUIL_BAISSE_PRIX_SUPPLEMENTAIRE)
+
+
+def detecter_transition(alerte: dict, resultat: dict) -> str | None:
+    """Compare le résultat FRAIS d'une vérification (`resultat`, cf.
+    verifier_une_alerte()) à l'état PRÉCÉDENT de la ligne watchlist_alerts
+    (`alerte`, tel que renvoyé par lister_alertes_recentes() -- doit donc
+    être lu AVANT tout appel à enregistrer_verification(), qui écrase cet
+    état). Retourne :
+    - "vendu" : `disponible` passe de True/None (jamais vérifié) à False
+      pour la PREMIÈRE fois -- un True/None->False déjà connu au cycle
+      précédent (donc déjà `disponible: False` en base) ne re-notifie pas.
+    - "baisse_prix" : `prix_verifie` devient significativement
+      (SEUIL_BAISSE_PRIX_SUPPLEMENTAIRE) inférieur au prix D'ORIGINE de
+      l'alerte (`alerte["prix"]`, jamais modifié après l'insertion
+      initiale -- pas le `prix_verifie` du cycle précédent), la PREMIÈRE
+      fois que ce seuil est franchi.
+    - None : aucune transition notable (y compris si `resultat` est None,
+      c-a-d verifier_une_alerte() n'a rien pu conclure ce cycle)."""
+    if not resultat:
+        return None
+
+    if resultat.get("disponible") is False and alerte.get("disponible") is not False:
+        return "vendu"
+
+    prix_verifie = resultat.get("prix")
+    prix_origine = alerte.get("prix")
+    if (prix_verifie is not None and prix_origine
+            and prix_verifie <= prix_origine * (1 - SEUIL_BAISSE_PRIX_SUPPLEMENTAIRE)
+            and not _prix_deja_signale_bas(prix_origine, alerte.get("prix_verifie"))):
+        return "baisse_prix"
+
+    return None
+
+
+def message_transition(alerte: dict, resultat: dict, transition: str) -> tuple[str, str]:
+    """Compose (titre, corps) de la notification pour une transition
+    détectée par detecter_transition() -- fonction pure, séparée pour
+    rester testable sans réseau ni Supabase."""
+    titre_carte = (alerte.get("titre") or "une carte")[:80]
+    if transition == "vendu":
+        titre = f"Vendue/retirée : {titre_carte}"
+        corps = "Cette annonce que tu suivais semble avoir été vendue ou retirée"
+        if alerte.get("plateforme"):
+            corps += f" ({alerte['plateforme']})"
+        corps += " -- plus la peine de la chasser."
+        return titre, corps
+
+    # "baisse_prix"
+    titre = f"Encore moins cher : {titre_carte}"
+    prix_origine = alerte.get("prix")
+    corps = f"{resultat['prix']:.2f}€ maintenant"
+    if prix_origine:
+        corps += f" (contre {float(prix_origine):.2f}€ à l'alerte d'origine)"
+    if alerte.get("plateforme"):
+        corps += f", sur {alerte['plateforme']}"
+    corps += "."
+    return titre, corps
+
+
 # --- Pont Supabase (dashboard pokedeals-saas) ---
 
 def _headers(service_role_key: str) -> dict:
@@ -207,7 +314,15 @@ def lister_alertes_recentes(supabase_url: str, service_role_key: str) -> list[di
         r = requests.get(
             f"{supabase_url.rstrip('/')}/rest/v1/watchlist_alerts",
             params={
-                "select": "id,url",
+                # id/url : necessaires a la verification elle-meme.
+                # user_id/titre/prix/plateforme : necessaires a la
+                # notification de transition (cf. detecter_transition() et
+                # notifications_saas.notifier_transition_verification()).
+                # disponible/prix_verifie : etat PRECEDENT, lu AVANT
+                # d'etre ecrase par enregistrer_verification() -- c'est ce
+                # qui permet de detecter une transition plutot que de
+                # re-signaler un etat deja connu a chaque cycle.
+                "select": "id,url,user_id,titre,prix,plateforme,disponible,prix_verifie",
                 "order": "created_at.desc",
                 "limit": str(TAILLE_PAGE),
             },

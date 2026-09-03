@@ -42,7 +42,7 @@ CLE_MEMOIRE = "watchdog_workflows_etat"
 SEUIL_ECHECS_CONSECUTIFS = 3
 NB_EXECUTIONS_EXAMINEES = 5
 
-# Les 9 workflows de scan programmes (cf. tableau "CI/deploiement" de
+# Les 10 workflows de scan programmes (cf. tableau "CI/deploiement" de
 # CLAUDE.md) -- exclut volontairement tests.yml (pas un scanner, se
 # declenche sur push/PR) et les workflows manuels/de test
 # (verifier_candidats_manuels.yml, test_notification_email.yml,
@@ -57,6 +57,7 @@ WORKFLOWS_SURVEILLES = [
     "prix_bas_quotidien.yml",
     "scan_precommandes_generique.yml",
     "scan_precommandes_philibert.yml",
+    "verifier_alertes_watchlist.yml",  # ajoute le 03/09/2026 (audit), workflow lui-meme cree le 03/09/2026
 ]
 
 
