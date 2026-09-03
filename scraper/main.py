@@ -683,7 +683,7 @@ def _get_vinted_session() -> requests.Session | None:
 # connecteur est CASSÉ (ex. Vinted change son API/ses cookies) avant que ça
 # ne passe inaperçu pendant des jours -- cf. verifier_fiabilite_plateformes()
 # plus bas, appelée une fois par cycle dans main().
-from stats_fiabilite import _stats_fiabilite  # noqa: E402
+from stats_fiabilite import _stats_fiabilite, _circuit_vinted  # noqa: E402
 
 
 def _reinitialiser_stats_fiabilite() -> None:
@@ -691,11 +691,41 @@ def _reinitialiser_stats_fiabilite() -> None:
         _stats_fiabilite[cle] = 0
 
 
+# 03/09/2026 (audit) : coupe-circuit Vinted, même principe que le
+# coupe-circuit 429 eBay (_ebay_circuit, V61 ci-dessus) mais basé sur les
+# mêmes échecs RÉELS déjà comptabilisés dans _stats_fiabilite (exception
+# réseau, jamais un 0 résultat légitime). Contrairement à
+# verifier_fiabilite_plateformes() (alerte a posteriori sur un TAUX
+# d'échec, calculée une fois en fin de cycle), ce coupe-circuit agit
+# immédiatement PENDANT le cycle : après N échecs D'AFFILÉE, on arrête
+# d'appeler Vinted pour le reste du cycle plutôt que de continuer à
+# épuiser du temps/des tentatives sur un connecteur probablement cassé.
+SEUIL_ECHECS_CONSECUTIFS_VINTED = 3
+
+
+def _signaler_echec_vinted() -> None:
+    _circuit_vinted["echecs_consecutifs"] += 1
+    if (not _circuit_vinted["abandonne"]
+            and _circuit_vinted["echecs_consecutifs"] >= SEUIL_ECHECS_CONSECUTIFS_VINTED):
+        _circuit_vinted["abandonne"] = True
+        log.warning("Vinted : %d échec(s) réel(s) consécutif(s) -- coupe-circuit déclenché, "
+                    "Vinted abandonné pour le reste de ce cycle (eBay/Leboncoin/Cardtrader "
+                    "continuent normalement)", _circuit_vinted["echecs_consecutifs"])
+
+
 def vinted_rechercher(nom_carte: str, langue: str, limite: int = 30, prix_plafond: float | None = None) -> list[dict]:
+    """
+    03/09/2026 (audit) : si le coupe-circuit Vinted (cf. _circuit_vinted)
+    est déclenché, renvoie immédiatement [] sans le moindre appel réseau --
+    même logique que le coupe-circuit 429 eBay (V61, ebay_rechercher()).
+    """
+    if _circuit_vinted["abandonne"]:
+        return []
     _stats_fiabilite["vinted_appels"] += 1
     s = _get_vinted_session()
     if s is None:
         _stats_fiabilite["vinted_echecs"] += 1
+        _signaler_echec_vinted()
         return []
     requete = f"carte pokemon {nom_carte}"
     requete += SUFFIXES_LANGUE.get(langue, "")
@@ -722,9 +752,13 @@ def vinted_rechercher(nom_carte: str, langue: str, limite: int = 30, prix_plafon
             r = requete_avec_retry(s.get, VINTED_SEARCH, params=params, timeout=25)
         r.raise_for_status()
         items = r.json().get("items", []) or []
+        # 03/09/2026 : une réponse EXPLOITABLE remet le compteur d'échecs
+        # consécutifs à zéro -- même logique que le coupe-circuit eBay.
+        _circuit_vinted["echecs_consecutifs"] = 0
     except Exception as e:  # noqa: BLE001
         log.warning("Recherche Vinted '%s' échouée : %s", nom_carte, e)
         _stats_fiabilite["vinted_echecs"] += 1
+        _signaler_echec_vinted()
         return []
 
     annonces = []
@@ -826,6 +860,21 @@ from connecteur_leboncoin import (  # noqa: E402
     lbc_rechercher,
     lbc_relever_alertes_email,
 )
+# 03/09/2026 (audit) : etat du coupe-circuit Leboncoin (cf.
+# connecteur_leboncoin._signaler_echec_leboncoin()) -- vit dans
+# stats_fiabilite.py (pas de reimport direct depuis connecteur_leboncoin.py
+# pour eviter toute ambiguite sur la source de verite, meme si le dict lui
+# meme n'est jamais reassigne en bloc).
+from stats_fiabilite import _circuit_leboncoin  # noqa: E402
+
+
+def _reinitialiser_circuits_vinted_leboncoin() -> None:
+    """03/09/2026 (audit) : un cycle frais, des coupe-circuits Vinted/
+    Leboncoin frais -- même principe que _reinitialiser_circuit_ebay()
+    (V61)."""
+    for circuit in (_circuit_vinted, _circuit_leboncoin):
+        circuit["echecs_consecutifs"] = 0
+        circuit["abandonne"] = False
 
 
 # ------------------- Moteur de cote -------------------
@@ -1189,6 +1238,43 @@ def verifier_circuit_ebay(vues: dict) -> list[str]:
     ]
 
 
+def verifier_circuits_vinted_leboncoin(vues: dict) -> list[str]:
+    """Alerte si le coupe-circuit Vinted et/ou Leboncoin (cf.
+    _circuit_vinted/_circuit_leboncoin, 03/09/2026, audit) s'est déclenché
+    sur CE cycle -- même principe que verifier_circuit_ebay() (V61) :
+    signal binaire (déclenché ou pas) sur des échecs RÉELS consécutifs,
+    complémentaire de verifier_fiabilite_plateformes() qui alerte a
+    posteriori sur un TAUX d'échec calculé en fin de cycle -- utile en
+    particulier quand le coupe-circuit se déclenche TÔT dans le cycle
+    (peu d'appels au total, sous SEUIL_MIN_APPELS_FIABILITE, donc
+    l'alerte a posteriori ne se déclencherait pas alors que le connecteur
+    est probablement cassé).
+
+    Même anti-spam que verifier_fiabilite_plateformes()/verifier_circuit_ebay()
+    (DELAI_ANTI_SPAM_FIABILITE, 6h), une clé anti-spam distincte par
+    plateforme pour ne pas mélanger les deux signaux."""
+    alertes = []
+    for plateforme, circuit, cle_anti_spam in (
+        ("Vinted", _circuit_vinted, "fiabilite-vinted"),
+        ("Leboncoin", _circuit_leboncoin, "fiabilite-leboncoin"),
+    ):
+        if not circuit["abandonne"]:
+            continue
+        if not anti_spam(vues, cle_anti_spam, DELAI_ANTI_SPAM_FIABILITE):
+            continue
+        log.warning("Coupe-circuit %s déclenché sur ce cycle (%d échecs réels consécutifs)",
+                    plateforme, circuit["echecs_consecutifs"])
+        autres = [p for p in ("eBay", "Vinted", "Leboncoin") if p != plateforme]
+        alertes.append(
+            f"🚨 <b>{plateforme} semble cassé</b>\n"
+            f"{circuit['echecs_consecutifs']} échec(s) réel(s) consécutif(s) sur ce cycle -- "
+            f"{plateforme} abandonné pour le reste du scan, {'/'.join(autres)}/Cardtrader/cotes "
+            f"en cache ont pris le relais. Vérifie si l'API a changé côté {plateforme} (format "
+            f"de réponse, cookies/session, blocage anti-bot renforcé...)."
+        )
+    return alertes
+
+
 # ------------------------ RÉCAPITULATIF 21H ----------------------------
 
 def recap_du_jour(cfg: dict, vues: dict) -> str | None:
@@ -1293,6 +1379,7 @@ def main() -> int:
     debut = time.time()
     _reinitialiser_stats_fiabilite()  # V50 : un cycle frais, un compteur frais
     _reinitialiser_circuit_ebay()  # V61 : idem pour le coupe-circuit 429 eBay
+    _reinitialiser_circuits_vinted_leboncoin()  # 03/09/2026 : idem pour Vinted/Leboncoin
     cfg = charger_config()
     _ct_charger_cache()  # V22 : cache Cardtrader (blueprints + prix du jour)
     _api_charger_cache()  # V47 : cache TCGdex (repli quand Cardtrader n'a rien)
@@ -1369,6 +1456,11 @@ def main() -> int:
 
         cote, confiance = obtenir_cote(carte, annonces_ebay, cfg)
         cote_avant_correction = cote  # V47 : pour détecter un ajustement Cardtrader/TCGdex ci-dessous
+        # 03/09/2026 (audit) : `confiance` vaut 99 pour une cote MANUELLE
+        # (config.yaml), jamais un vrai décompte d'annonces eBay -- dans ce
+        # cas précis, on ne veut pas persister 99 comme "nombre d'annonces"
+        # dans data/cotes.json (cf. enregistrer_cote() plus bas).
+        nb_annonces_ebay_du_jour = confiance if confiance != 99 else None
         prix_cm_affiche = None  # V46 : prix Cardmarket affiché sur Telegram (info seule, jamais utilisé pour decider)
 
         # V22 : cote Cardtrader (marché européen, prix réels par langue).
@@ -1545,7 +1637,7 @@ def main() -> int:
         # sur cardshunter.fr alors que Cardmarket était à ~145€). On persiste
         # donc la cote FINALEMENT retenue quand elle diffère de la brute.
         if cote and cote != cote_avant_correction:
-            enregistrer_cote(nom, cote, carte.get("langue", "fr"))
+            enregistrer_cote(nom, cote, carte.get("langue", "fr"), nb_annonces_ebay_du_jour)
         if cote:
             log.info("Cote retenue : %.2f€ (confiance : %s annonces) — %d annonces analysées",
                      cote, confiance, len(annonces))
@@ -1846,6 +1938,12 @@ def main() -> int:
     alertes_circuit_ebay = verifier_circuit_ebay(vues)
     if alertes_circuit_ebay and notif.get("telegram") and "telegram" in cfg:
         envoyer_telegram_texte(alertes_circuit_ebay, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
+
+    # 03/09/2026 (audit) : idem pour les coupe-circuits Vinted/Leboncoin
+    # (cf. _circuit_vinted/_circuit_leboncoin / verifier_circuits_vinted_leboncoin).
+    alertes_circuits_vinted_lbc = verifier_circuits_vinted_leboncoin(vues)
+    if alertes_circuits_vinted_lbc and notif.get("telegram") and "telegram" in cfg:
+        envoyer_telegram_texte(alertes_circuits_vinted_lbc, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"])
 
     # --- Récapitulatif quotidien (envoyé une fois, vers 21h heure de Paris) ---
     recap = recap_du_jour(cfg, vues)

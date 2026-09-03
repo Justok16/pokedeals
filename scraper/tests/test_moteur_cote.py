@@ -196,6 +196,54 @@ def test_enregistrer_cote_ajoute_et_plafonne_lhistorique():
     assert entrees[-1]["cote"] == 100.0 + mc.HISTORIQUE_MAX + 2
 
 
+def test_enregistrer_cote_persiste_nb_annonces():
+    # 03/09/2026 (audit) : nb_annonces est desormais persiste a cote de
+    # cote/ts -- purement additif, ne doit rien casser des lecteurs
+    # existants (cf. tests ci-dessus, toujours verts sans ce parametre).
+    mc.enregistrer_cote("Dracaufeu ex 199/165", 150.0, "fr", 12)
+    entrees = mc._historique["Dracaufeu ex 199/165|fr"]
+    assert entrees[-1]["nb_annonces"] == 12
+    assert entrees[-1]["cote"] == 150.0
+
+
+def test_enregistrer_cote_nb_annonces_optionnel():
+    # Un appelant qui ne connait pas de vrai decompte (ex. re-enregistrement
+    # d'une cote corrigee par Cardtrader/TCGdex dans main.py) doit pouvoir
+    # omettre nb_annonces -- stocke alors a None, jamais une valeur inventee.
+    mc.enregistrer_cote("Dracaufeu ex 199/165", 150.0, "fr")
+    entrees = mc._historique["Dracaufeu ex 199/165|fr"]
+    assert entrees[-1]["nb_annonces"] is None
+
+
+def test_derniere_nb_annonces_prend_lentree_la_plus_recente():
+    mc._historique["Dracaufeu ex 199/165|fr"] = [
+        {"cote": 100.0, "ts": 1000, "nb_annonces": 5},
+        {"cote": 120.0, "ts": 2000, "nb_annonces": 9},
+    ]
+    assert mc.derniere_nb_annonces("Dracaufeu ex 199/165", "fr") == 9
+
+
+def test_derniere_nb_annonces_sans_historique_renvoie_none():
+    assert mc.derniere_nb_annonces("Carte inconnue", "fr") is None
+
+
+def test_derniere_nb_annonces_entree_sans_le_champ_renvoie_none():
+    # Compatibilite avec une entree ecrite avant ce changement (pas de cle
+    # "nb_annonces" du tout) -- ne doit jamais lever de KeyError.
+    mc._historique["Dracaufeu ex 199/165|fr"] = [{"cote": 100.0, "ts": 1000}]
+    assert mc.derniere_nb_annonces("Dracaufeu ex 199/165", "fr") is None
+
+
+def test_obtenir_cote_enregistre_le_nb_dannonces_reel(monkeypatch):
+    # obtenir_cote() doit transmettre le vrai nb_pertinentes de
+    # calculer_cote() a enregistrer_cote(), pas le laisser a None.
+    monkeypatch.setattr(mc, "calculer_cote", lambda *a, **k: (42.0, 7))
+    carte = {"nom": "Dracaufeu ex 199/165", "langue": "fr"}
+    mc.obtenir_cote(carte, [], {"cote": {}})
+    entrees = mc._historique["Dracaufeu ex 199/165|fr"]
+    assert entrees[-1]["nb_annonces"] == 7
+
+
 def test_charger_historique_purge_si_mauvaise_version(tmp_path, monkeypatch):
     fichier = tmp_path / "cotes.json"
     fichier.write_text('{"_purge_version": 1, "Dracaufeu ex 199/165|fr": [{"cote": 50.0, "ts": 1}]}',

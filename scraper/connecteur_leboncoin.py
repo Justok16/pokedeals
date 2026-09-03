@@ -31,7 +31,7 @@ import requests
 
 from filtre_annonces import SUFFIXES_LANGUE
 from http_utils import requete_avec_retry, user_agent
-from stats_fiabilite import _stats_fiabilite
+from stats_fiabilite import _stats_fiabilite, _circuit_leboncoin
 
 log = logging.getLogger("pokedeals.connecteur_leboncoin")
 
@@ -46,8 +46,37 @@ LBC_HEADERS = {
     "Referer": "https://www.leboncoin.fr/",
 }
 
+# 03/09/2026 (audit) : coupe-circuit Leboncoin, même principe que le
+# coupe-circuit 429 eBay (_ebay_circuit, main.py, V61) mais basé sur les
+# mêmes échecs RÉELS déjà comptabilisés dans _stats_fiabilite (exception
+# réseau -- jamais un 0 résultat légitime, ni un blocage 403/429 déjà
+# documenté comme un comportement anti-bot ROUTINE, cf. plus bas). Après N
+# échecs D'AFFILÉE, on arrête d'appeler Leboncoin pour le reste du cycle
+# plutôt que de continuer à épuiser du temps sur un connecteur
+# probablement cassé. État partagé dans stats_fiabilite.py (même raison
+# que _stats_fiabilite : pas d'import circulaire possible vers main.py).
+SEUIL_ECHECS_CONSECUTIFS_LEBONCOIN = 3
+
+
+def _signaler_echec_leboncoin() -> None:
+    _circuit_leboncoin["echecs_consecutifs"] += 1
+    if (not _circuit_leboncoin["abandonne"]
+            and _circuit_leboncoin["echecs_consecutifs"] >= SEUIL_ECHECS_CONSECUTIFS_LEBONCOIN):
+        _circuit_leboncoin["abandonne"] = True
+        log.warning("Leboncoin : %d échec(s) réel(s) consécutif(s) -- coupe-circuit déclenché, "
+                    "Leboncoin abandonné pour le reste de ce cycle (eBay/Vinted/Cardtrader "
+                    "continuent normalement)", _circuit_leboncoin["echecs_consecutifs"])
+
 
 def lbc_rechercher(nom_carte: str, langue: str, limite: int = 30) -> list[dict]:
+    """
+    03/09/2026 (audit) : si le coupe-circuit Leboncoin (cf.
+    _circuit_leboncoin) est déclenché, renvoie immédiatement [] sans le
+    moindre appel réseau -- même logique que le coupe-circuit 429 eBay
+    (V61, main.ebay_rechercher()).
+    """
+    if _circuit_leboncoin["abandonne"]:
+        return []
     _stats_fiabilite["leboncoin_appels"] += 1
     requete = f"carte pokemon {nom_carte}"
     requete += SUFFIXES_LANGUE.get(langue, "")
@@ -67,9 +96,13 @@ def lbc_rechercher(nom_carte: str, langue: str, limite: int = 30) -> list[dict]:
             return []
         r.raise_for_status()
         ads = r.json().get("ads", []) or []
+        # 03/09/2026 : une réponse EXPLOITABLE remet le compteur d'échecs
+        # consécutifs à zéro -- même logique que le coupe-circuit eBay.
+        _circuit_leboncoin["echecs_consecutifs"] = 0
     except Exception as e:  # noqa: BLE001
         log.info("Leboncoin indisponible (%s) — on continue sans", e)
         _stats_fiabilite["leboncoin_echecs"] += 1
+        _signaler_echec_leboncoin()
         return []
 
     annonces = []

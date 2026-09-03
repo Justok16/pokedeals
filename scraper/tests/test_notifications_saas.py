@@ -20,6 +20,7 @@ from notifications_saas import (
     _lister_abonnements_push,
     _preferences_email,
     notifier_alertes_en_attente,
+    notifier_transition_verification,
 )
 
 
@@ -360,6 +361,106 @@ def test_envoyer_push_purge_abonnement_expire_sur_410_et_retourne_true():
         reussi = _envoyer_push("https://x.supabase.co", "cle", "priv", "a@b.com", abonnements, "titre", "corps", "https://x/1")
     purge_mock.assert_called_once_with("https://x.supabase.co", "cle", "e1")
     assert reussi is True
+
+
+# ------------------- notifier_transition_verification (03/09/2026) -------------------
+# Notification PONCTUELLE (vendu / encore moins cher, cf. verification_alertes.py) --
+# contrairement a notifier_alertes_en_attente(), pas de colonnes
+# push_envoye/email_envoye a marquer : c'est detecter_transition() (cote
+# appelant) qui garantit qu'une meme transition n'est signalee qu'une fois.
+
+def test_transition_sans_user_id_ne_declenche_aucun_appel():
+    with patch("notifications_saas._lister_abonnements_push") as push_mock:
+        notifier_transition_verification(
+            {"SUPABASE_URL": "u", "SUPABASE_SERVICE_ROLE_KEY": "k"}, "", "titre", "corps", "https://x/1",
+        )
+    push_mock.assert_not_called()
+
+
+def test_transition_sans_secrets_supabase_ne_declenche_aucun_appel():
+    with patch("notifications_saas._lister_abonnements_push") as push_mock:
+        notifier_transition_verification({}, "u1", "titre", "corps", "https://x/1")
+    push_mock.assert_not_called()
+
+
+def test_transition_sans_aucun_canal_configure_ne_declenche_aucun_appel():
+    secrets = {"SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k"}
+    with patch("notifications_saas._lister_abonnements_push") as push_mock, \
+         patch("notifications_saas._preferences_email") as email_mock:
+        notifier_transition_verification(secrets, "u1", "titre", "corps", "https://x/1")
+    push_mock.assert_not_called()
+    email_mock.assert_not_called()
+
+
+def test_transition_push_actif_envoie_aux_abonnements_de_lutilisateur():
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
+    }
+    with patch("notifications_saas._lister_abonnements_push",
+               return_value=[{"user_id": "u1", "endpoint": "e1", "p256dh": "p", "auth": "a"}]) as list_mock, \
+         patch("notifications_saas._envoyer_push", return_value=True) as push_send_mock:
+        notifier_transition_verification(secrets, "u1", "titre", "corps", "https://x/1")
+    list_mock.assert_called_once_with("https://x.supabase.co", "k", ["u1"])
+    push_send_mock.assert_called_once()
+    args, _ = push_send_mock.call_args
+    assert args[5] == "titre"
+    assert args[6] == "corps"
+    assert args[7] == "https://x/1"
+
+
+def test_transition_push_sans_abonnement_ne_declenche_aucun_envoi():
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
+    }
+    with patch("notifications_saas._lister_abonnements_push", return_value=[]), \
+         patch("notifications_saas._envoyer_push") as push_send_mock:
+        notifier_transition_verification(secrets, "u1", "titre", "corps", "https://x/1")
+    push_send_mock.assert_not_called()
+
+
+def test_transition_email_actif_envoie_si_preference_active():
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+    }
+    with patch("notifications_saas._preferences_email", return_value={"u1": True}), \
+         patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
+         patch("notifications_saas._envoyer_email", return_value=True) as email_send_mock:
+        notifier_transition_verification(secrets, "u1", "titre", "corps", "https://x/1")
+    email_send_mock.assert_called_once_with("re_xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+
+
+def test_transition_email_desactive_ne_declenche_aucun_envoi():
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+    }
+    with patch("notifications_saas._preferences_email", return_value={"u1": False}), \
+         patch("notifications_saas._email_utilisateur") as lookup_mock, \
+         patch("notifications_saas._envoyer_email") as email_send_mock:
+        notifier_transition_verification(secrets, "u1", "titre", "corps", "https://x/1")
+    lookup_mock.assert_not_called()
+    email_send_mock.assert_not_called()
+
+
+def test_transition_echec_push_nempeche_pas_lenvoi_email():
+    # Non bloquant : un canal qui echoue n'empeche jamais l'autre de
+    # continuer (meme esprit que notifier_alertes_en_attente()).
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
+        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+    }
+    with patch("notifications_saas._lister_abonnements_push",
+               return_value=[{"user_id": "u1", "endpoint": "e1", "p256dh": "p", "auth": "a"}]), \
+         patch("notifications_saas._envoyer_push", return_value=False), \
+         patch("notifications_saas._preferences_email", return_value={"u1": True}), \
+         patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
+         patch("notifications_saas._envoyer_email", return_value=True) as email_send_mock:
+        notifier_transition_verification(secrets, "u1", "titre", "corps", "https://x/1")
+    email_send_mock.assert_called_once()
 
 
 def test_envoyer_push_erreur_reseau_ne_purge_pas_et_retourne_false():

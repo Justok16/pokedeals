@@ -37,5 +37,13 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          # 03/09/2026 : notification sur transition (vendu / encore moins
+          # cher), cf. verification_alertes.py -- mêmes secrets optionnels
+          # que le reste des notifications SaaS (notifications_saas.py) ;
+          # absents -> ce cycle continue normalement, juste sans notifier.
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_CLAIM_EMAIL: ${{ secrets.VAPID_CLAIM_EMAIL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
           PYTHONUNBUFFERED: "1"
         run: python verifier_alertes_watchlist.py

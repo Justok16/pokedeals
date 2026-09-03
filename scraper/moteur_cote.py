@@ -339,12 +339,38 @@ def cote_lissee(nom_carte: str, langue: str = "fr") -> float | None:
     return round(statistics.median(valeurs), 2)
 
 
-def enregistrer_cote(nom_carte: str, cote: float, langue: str = "fr") -> None:
+def enregistrer_cote(nom_carte: str, cote: float, langue: str = "fr",
+                     nb_annonces: int | None = None) -> None:
+    """Ajoute une entree a l'historique de la carte.
+
+    `nb_annonces` (ajoute le 03/09/2026, audit) est le nombre d'annonces
+    eBay PERTINENTES derriere cette cote (2e valeur retournee par
+    calculer_cote()) -- purement informatif, jamais relu par la logique de
+    cote elle-meme (cote_lissee()/calculer_tendance_cote() ne lisent que
+    "cote"/"ts", donc l'ajout de ce champ est sans risque pour elles).
+    Optionnel : None quand l'appelant n'a pas de vrai decompte a ce moment
+    (ex. re-enregistrement d'une cote CORRIGEE par Cardtrader/TCGdex dans
+    main.py, qui ne recompte pas les annonces eBay -- cf. son appel).
+    Consomme par scoring_rarete.py via derniere_nb_annonces()."""
     h = historique()
     cle = cle_cote(nom_carte, langue)
     entrees = h.get(cle, [])
-    entrees.append({"cote": cote, "ts": time.time()})
+    entrees.append({"cote": cote, "ts": time.time(), "nb_annonces": nb_annonces})
     h[cle] = entrees[-HISTORIQUE_MAX:]
+
+
+def derniere_nb_annonces(nom_carte: str, langue: str = "fr") -> int | None:
+    """Nombre d'annonces eBay derriere la cote la plus RECENTE (par ts) de
+    l'historique d'une carte -- ajoute le 03/09/2026 (audit) en meme temps
+    que la persistance de "nb_annonces" par enregistrer_cote(). None si
+    aucune entree, ou si l'entree la plus recente n'a pas ce champ (cote
+    manuelle jamais enregistree ici, ou entree ecrite avant ce changement,
+    purgee de toute facon des le prochain PURGE_VERSION)."""
+    entrees = historique().get(cle_cote(nom_carte, langue), [])
+    if not entrees:
+        return None
+    plus_recente = max(entrees, key=lambda e: e.get("ts", 0))
+    return plus_recente.get("nb_annonces")
 
 
 def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[float | None, int]:
@@ -363,7 +389,7 @@ def obtenir_cote(carte: dict, annonces_ebay: list[dict], cfg: dict) -> tuple[flo
         annonces_ebay, cfg["cote"], carte["nom"],
         langue, carte.get("alias", ""))
     if cote_instant:
-        enregistrer_cote(carte["nom"], cote_instant, langue)
+        enregistrer_cote(carte["nom"], cote_instant, langue, nb_pertinentes)
 
     # 3) Cote lissée (médiane des derniers passages, MÊME LANGUE uniquement)
     cote = cote_lissee(carte["nom"], langue)

@@ -17,7 +17,7 @@ Format d'une entrée retournée par charger_depuis_pokedeals() :
     "langue": str,                  # "fr" / "jp" / "kr"
     "cote_bas_marche": float | None,       # dernière cote lissée connue (data/cotes.json)
     "nb_annonces_cardtrader": None,        # pas de source : cardtrader_prix() ne renvoie qu'un prix, jamais un nombre d'annonces
-    "nb_annonces_ebay": None,              # pas de source persistée : le nombre d'annonces utilisées par obtenir_cote() n'est calculé qu'en direct pendant un scan, jamais enregistré dans data/cotes.json
+    "nb_annonces_ebay": int | None,        # nombre d'annonces eBay derrière la cote la plus RÉCENTE de data/cotes.json (moteur_cote.derniere_nb_annonces(), champ "nb_annonces" ajouté le 03/09/2026) -- None si jamais enregistré, ou si l'entrée la plus récente est une cote manuelle
     "set": None,                            # pas de source : la watchlist ne stocke pas le set/l'édition séparément du nom
     "rarete": None,                         # pas de source : aucune notion de rareté n'existe dans PokéDeals aujourd'hui
 }
@@ -40,7 +40,10 @@ def charger_depuis_pokedeals() -> list[dict]:
             "langue": carte.langue,
             "cote_bas_marche": moteur_cote.cote_lissee(carte.nom_config, carte.langue),
             "nb_annonces_cardtrader": None,
-            "nb_annonces_ebay": None,
+            # 03/09/2026 (audit) : data/cotes.json enregistre désormais ce
+            # décompte (cf. moteur_cote.enregistrer_cote()) -- ce stub est
+            # donc câblé sur la vraie source au lieu de rester à None.
+            "nb_annonces_ebay": moteur_cote.derniere_nb_annonces(carte.nom_config, carte.langue),
             "set": None,
             "rarete": None,
         })

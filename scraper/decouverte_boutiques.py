@@ -69,7 +69,10 @@ FICHIER_BOUTIQUES_DECOUVERTES = Path(__file__).parent / "boutiques_decouvertes.p
 
 JOURS_AFNIC = 7  # fenetre de disponibilite des fichiers sur le serveur AFNIC
 DELAI_ENTRE_BOUTIQUES = 1.5  # secondes, politesse -- verification, pas un scan complet
-MAX_CANDIDATS_PAR_CYCLE = 60  # garde-fou : ne pas exploser le temps du workflow si un jour AFNIC est trop bruyant
+MAX_CANDIDATS_PAR_CYCLE = 250  # garde-fou : ne pas exploser le temps du workflow si un jour AFNIC est trop bruyant
+# Relevé de 60 à 250 le 03/09/2026 (audit) : decouverte_boutiques.yml (20 min
+# de budget) ne consommait jusqu'ici que quelques secondes par cycle -- large
+# marge inutilisée, ce plafond ne protégeait donc rien en pratique.
 
 # Mots-cles pour filtrer les ~3000 domaines/jour de la liste AFNIC.
 # Volontairement LARGE (le vrai filtre se fait sur le contenu reel a
