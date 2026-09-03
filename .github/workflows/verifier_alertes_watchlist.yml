@@ -1,0 +1,41 @@
+name: Vérifier Alertes Watchlist
+
+on:
+  schedule:
+    # Toutes les 30 minutes -- volume actuel tres faible (quelques dizaines
+    # d'alertes), largement dans les clous meme a cette cadence. Pas de
+    # fichier memoire a sauvegarder (ecriture directe dans Supabase), donc
+    # pas de risque de collision Git entre cycles qui se chevauchent.
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read   # aucune ecriture sur le repo -- tout va dans Supabase
+
+concurrency:
+  group: verifier_alertes_watchlist
+  cancel-in-progress: false
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    timeout-minutes: 20
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+      - name: Installer Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Vérifier la disponibilité des alertes récentes
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: python verifier_alertes_watchlist.py
