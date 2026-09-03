@@ -50,6 +50,19 @@ def test_lister_succes_retourne_le_json():
     assert kwargs["headers"]["apikey"] == "cle-secrete"
 
 
+def test_lister_trie_explicitement_par_created_at_croissant():
+    # 03/09/2026 (signale par Justok) : sans ORDER BY explicite, l'ordre de
+    # retour de PostgREST n'est pas garanti, ce dont watchlist_saas.
+    # _grouper_par_carte() a pourtant besoin pour departager les egalites de
+    # nb_utilisateurs avant d'appliquer MAX_CARTES_SAAS_EBAY.
+    reponse = Mock()
+    reponse.json.return_value = []
+    reponse.raise_for_status = Mock()
+    with patch("connecteur_supabase.requests.get", return_value=reponse) as get_mock:
+        lister_watchlist_items("https://x.supabase.co", "cle-secrete")
+    assert get_mock.call_args.kwargs["params"]["order"] == "created_at.asc"
+
+
 def test_lister_pagine_au_dela_de_la_taille_de_page():
     # Audit externe du 30/08/2026 : Supabase/PostgREST plafonne une requete a
     # TAILLE_PAGE_WATCHLIST lignes par defaut -- sans pagination, les

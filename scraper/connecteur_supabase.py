@@ -42,7 +42,17 @@ def lister_watchlist_items(supabase_url: str, service_role_key: str) -> list[dic
     etaient silencieusement absents du scan (jamais d'erreur, juste une liste
     tronquee). Retourne [] si les secrets sont absents ; une page en erreur
     reseau arrete la pagination et renvoie ce qui a deja ete recupere (mieux
-    qu'echouer sur tout, cf. philosophie non-bloquante du module)."""
+    qu'echouer sur tout, cf. philosophie non-bloquante du module).
+
+    Tri explicite par created_at croissant (03/09/2026, signale par Justok :
+    "je ne recois jamais d'alerte eBay/Vinted pour mes cartes coreennes") --
+    sans ORDER BY, l'ordre de retour de PostgREST n'est PAS garanti, et
+    watchlist_saas._grouper_par_carte() s'appuie sur cet ordre pour
+    departager les egalites (nb_utilisateurs identique) et decider
+    quelles cartes passent le plafond MAX_CARTES_SAAS_EBAY cote eBay/Vinted
+    -- sans tri explicite, quelles cartes tombent sous le plafond aurait pu
+    changer silencieusement d'un cycle a l'autre selon l'ordre de scan
+    physique de Postgres."""
     if not supabase_url or not service_role_key:
         return []
     items: list[dict] = []
@@ -51,7 +61,7 @@ def lister_watchlist_items(supabase_url: str, service_role_key: str) -> list[dic
         try:
             r = requests.get(
                 f"{supabase_url.rstrip('/')}/rest/v1/watchlist_items",
-                params={"select": "id,user_id,nom_carte,langue,prix_seuil"},
+                params={"select": "id,user_id,nom_carte,langue,prix_seuil", "order": "created_at.asc"},
                 headers={
                     "apikey": service_role_key,
                     "Authorization": f"Bearer {service_role_key}",

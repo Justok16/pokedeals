@@ -31,7 +31,15 @@ from connecteur_supabase import lister_watchlist_items
 from filtre_annonces import normaliser
 from watchlist_shopify import CarteWatchlist, extraire_nom_et_numero
 
-MAX_CARTES_SAAS_EBAY = 20
+# Releve de 20 a 30 le 03/09/2026 (signale par Justok) : 24 cartes SaaS
+# existaient deja au moment du releve (tous utilisateurs confondus), 4 d'entre
+# elles (les plus recemment ajoutees, cf. tri par created_at desormais
+# explicite dans connecteur_supabase.lister_watchlist_items) ne passaient
+# jamais le plafond -- jamais recherchees sur eBay/Vinted, silencieusement.
+# 30 laisse une marge sur les 24 actuelles sans faire exploser le budget
+# reseau de main.py (marge mesuree ~2-3x sur son timeout de 15 min, cf.
+# SESSION_NOTES.md).
+MAX_CARTES_SAAS_EBAY = 30
 
 
 def _grouper_par_carte(items: list[dict]) -> list[dict]:
