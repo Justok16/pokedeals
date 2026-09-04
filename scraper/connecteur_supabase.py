@@ -61,7 +61,7 @@ def lister_watchlist_items(supabase_url: str, service_role_key: str) -> list[dic
         try:
             r = requests.get(
                 f"{supabase_url.rstrip('/')}/rest/v1/watchlist_items",
-                params={"select": "id,user_id,nom_carte,langue,prix_seuil", "order": "created_at.asc"},
+                params={"select": "id,user_id,nom_carte,langue,prix_seuil,actif", "order": "created_at.asc"},
                 headers={
                     "apikey": service_role_key,
                     "Authorization": f"Bearer {service_role_key}",

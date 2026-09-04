@@ -12,8 +12,11 @@ from watchlist_saas import (
 )
 
 
-def _item(nom_carte="Dracaufeu ex 199/165", langue="fr", prix_seuil=50.0, item_id="i1"):
-    return {"id": item_id, "user_id": "u1", "nom_carte": nom_carte, "langue": langue, "prix_seuil": prix_seuil}
+def _item(nom_carte="Dracaufeu ex 199/165", langue="fr", prix_seuil=50.0, item_id="i1", actif=None):
+    item = {"id": item_id, "user_id": "u1", "nom_carte": nom_carte, "langue": langue, "prix_seuil": prix_seuil}
+    if actif is not None:
+        item["actif"] = actif
+    return item
 
 
 # ------------------- _grouper_par_carte -------------------
@@ -60,6 +63,35 @@ def test_grouper_seuil_nul_ou_negatif_est_ignore():
 
 def test_grouper_nom_carte_vide_est_ignore():
     assert _grouper_par_carte([_item(nom_carte="")]) == []
+
+
+def test_grouper_carte_en_pause_est_exclue():
+    # Correctif du 04/09/2026 : le bouton "Mettre en pause" du dashboard SaaS
+    # (watchlist_items.actif = false) ne faisait rien cote scraper avant ce
+    # correctif -- la carte continuait d'etre scannee malgre la pause.
+    assert _grouper_par_carte([_item(actif=False)]) == []
+
+
+def test_grouper_carte_active_explicitement_est_incluse():
+    groupes = _grouper_par_carte([_item(actif=True)])
+    assert len(groupes) == 1
+
+
+def test_grouper_carte_sans_colonne_actif_est_traitee_comme_active():
+    # Retro-compatibilite : une ligne qui n'aurait pas la colonne `actif`
+    # (ancien schema) ne doit jamais etre silencieusement exclue par defaut.
+    groupes = _grouper_par_carte([_item()])
+    assert len(groupes) == 1
+
+
+def test_grouper_melange_cartes_actives_et_en_pause():
+    items = [
+        _item(item_id="i1", nom_carte="Dracaufeu ex 199/165", actif=True),
+        _item(item_id="i2", nom_carte="Pikachu vmax 44/185", actif=False),
+    ]
+    groupes = _grouper_par_carte(items)
+    assert len(groupes) == 1
+    assert groupes[0]["nom"] == "Dracaufeu ex 199/165"
 
 
 def test_grouper_trie_par_nombre_dutilisateurs_decroissant():
