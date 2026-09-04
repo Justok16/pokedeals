@@ -16,7 +16,7 @@ from unittest.mock import patch
 
 import pytest
 
-from connecteur_prestashop_sitemap import ConnecteurPrestaShopSitemap
+from connecteur_prestashop_sitemap import ConnecteurPrestaShopSitemap, _stock_indisponible_selon_dom
 
 
 def test_recuperer_urls_leve_si_aucun_sitemap_racine_trouve():
@@ -54,3 +54,38 @@ def test_recuperer_urls_renvoie_les_urls_produits_reellement_trouvees():
          patch.object(c, "_lister_urls_recursif", return_value=urls):
         resultat = c.recuperer_toutes_les_urls_produits()
     assert resultat == ["https://boutique-ok.fr/12-dracaufeu-ex-199-165.html"]
+
+
+# ------------------- _stock_indisponible_selon_dom -------------------
+# Cas reel plazatcg.com (signalement direct de Justok, 04/09/2026) : le
+# span id="product-availability" est rempli en JavaScript cote client sur
+# ce theme -- VIDE dans le HTML brut recupere par requests -- et le
+# JSON-LD annoncait "InStock" alors que la page etait reellement en
+# rupture. Seul le badge <li class="product-flag out_of_stock"> (rendu
+# cote serveur, convention du theme par defaut PrestaShop) revelait la
+# vraie rupture.
+
+def test_stock_indisponible_detecte_le_badge_product_flag_out_of_stock():
+    html = '<span id="product-availability" class="js-product-availability">\n</span>' \
+           '<li class="product-flag out_of_stock">Rupture de stock</li>'
+    assert _stock_indisponible_selon_dom(html) is True
+
+
+def test_stock_disponible_sans_span_ni_badge_de_rupture():
+    html = '<span id="product-availability" class="js-product-availability">\n</span>'
+    assert _stock_indisponible_selon_dom(html) is False
+
+
+def test_stock_indisponible_detecte_toujours_le_span_rempli_cote_serveur():
+    # Non-regression : le signal historique (span rempli cote serveur sur
+    # d'autres themes) doit continuer a fonctionner independamment du
+    # nouveau signal badge.
+    html = '<span id="product-availability">Rupture de stock</span>'
+    assert _stock_indisponible_selon_dom(html) is True
+
+
+def test_stock_disponible_badge_product_flag_dune_autre_nature_nest_pas_confondu():
+    # Un autre flag ("nouveau", "reduction"...) ne doit jamais etre
+    # confondu avec une rupture -- seule la classe out_of_stock compte.
+    html = '<li class="product-flag new">Nouveau</li>'
+    assert _stock_indisponible_selon_dom(html) is False
