@@ -1,0 +1,47 @@
+name: Canari Email
+
+on:
+  schedule:
+    # Toutes les 3h, meme cadence que watchdog_workflows.yml (meme classe de
+    # probleme : detection automatique d'une panne silencieuse) -- tres
+    # largement sous la limite SendGrid gratuite (100 emails/jour, 8 envois/jour ici).
+    - cron: "0 */3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: email_canari
+  cancel-in-progress: false
+
+jobs:
+  canari:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    timeout-minutes: 5
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+      - name: Installer Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Vérifier la livraison email réelle
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
+          # Adresse de test DISTINCTE du compte SendGrid/de Justok -- c'est
+          # justement la vérification qui aurait détecté le bug Resend du
+          # 04/09/2026 (livraison restreinte au seul propriétaire du compte).
+          EMAIL_CANARI_DESTINATAIRE: ${{ secrets.EMAIL_CANARI_DESTINATAIRE }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: python verification_email_canari.py

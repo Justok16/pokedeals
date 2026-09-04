@@ -122,7 +122,7 @@ def test_utilisateur_sans_abonnement_push_marque_quand_meme_envoye():
 def test_email_reussi_marque_le_canal_envoye():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._preferences_email", return_value={"u1": True}), \
          patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
@@ -140,7 +140,7 @@ def test_email_reussi_marque_le_canal_envoye():
 def test_email_echoue_ne_marque_pas_le_canal_envoye():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._preferences_email", return_value={"u1": True}), \
          patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
@@ -153,7 +153,7 @@ def test_email_echoue_ne_marque_pas_le_canal_envoye():
 def test_email_deja_envoye_nest_pas_retente():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._preferences_email", return_value={"u1": True}), \
          patch("notifications_saas._envoyer_email") as email_send_mock, \
@@ -168,7 +168,7 @@ def test_email_desactive_marque_quand_meme_envoye():
     # -- ne doit pas rester "en attente" indefiniment.
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._preferences_email", return_value={"u1": False}), \
          patch("notifications_saas._email_utilisateur") as email_lookup_mock, \
@@ -183,7 +183,7 @@ def test_email_desactive_marque_quand_meme_envoye():
 def test_email_actif_par_defaut_si_aucune_preference_enregistree():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._preferences_email", return_value={}), \
          patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
@@ -196,7 +196,7 @@ def test_email_actif_par_defaut_si_aucune_preference_enregistree():
 def test_email_sans_adresse_trouvee_nenvoie_rien_et_ne_marque_pas():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._preferences_email", return_value={}), \
          patch("notifications_saas._email_utilisateur", return_value=None), \
@@ -210,7 +210,7 @@ def test_email_sans_adresse_trouvee_nenvoie_rien_et_ne_marque_pas():
 def test_meme_utilisateur_email_recherche_une_seule_fois_pour_plusieurs_alertes():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     alertes = [_alerte(alerte_id="a1", user_id="u1"), _alerte(alerte_id="a2", user_id="u1")]
     with patch("notifications_saas._preferences_email", return_value={}), \
@@ -225,7 +225,7 @@ def test_push_et_email_actifs_notifie_les_deux_canaux_independamment():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
         "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._lister_abonnements_push",
                return_value=[{"user_id": "u1", "endpoint": "e1", "p256dh": "p", "auth": "a"}]), \
@@ -303,19 +303,19 @@ def test_email_utilisateur_succes():
 
 def test_envoyer_email_erreur_reseau_retourne_false():
     with patch("notifications_saas.requests.post", side_effect=requests.RequestException("boom")):
-        reussi = _envoyer_email("re_xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+        reussi = _envoyer_email("SG.xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
     assert reussi is False
 
 
-def test_envoyer_email_appelle_lapi_resend_et_retourne_true():
+def test_envoyer_email_appelle_lapi_sendgrid_et_retourne_true():
     reponse = Mock()
     reponse.raise_for_status = Mock()
     with patch("notifications_saas.requests.post", return_value=reponse) as post_mock:
-        reussi = _envoyer_email("re_xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+        reussi = _envoyer_email("SG.xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
     assert reussi is True
     args, kwargs = post_mock.call_args
-    assert args[0] == "https://api.resend.com/emails"
-    assert kwargs["json"]["to"] == ["user@example.com"]
+    assert args[0] == "https://api.sendgrid.com/v3/mail/send"
+    assert kwargs["json"]["personalizations"][0]["to"] == [{"email": "user@example.com"}]
     assert kwargs["json"]["subject"] == "titre"
 
 
@@ -325,8 +325,9 @@ def test_envoyer_email_echappe_le_html_du_corps_et_de_lurl():
     corps = "<script>alert(1)</script> Dracaufeu & Cie"
     url = 'https://x/1?a="b"&c=<d>'
     with patch("notifications_saas.requests.post", return_value=reponse) as post_mock:
-        _envoyer_email("re_xxx", "noreply@pokedeals.app", "user@example.com", "titre", corps, url)
-    html_envoye = post_mock.call_args.kwargs["json"]["html"]
+        _envoyer_email("SG.xxx", "noreply@pokedeals.app", "user@example.com", "titre", corps, url)
+    contenu = post_mock.call_args.kwargs["json"]["content"]
+    html_envoye = next(c["value"] for c in contenu if c["type"] == "text/html")
     assert "<script>" not in html_envoye
     assert "&lt;script&gt;" in html_envoye
     assert "&amp;" in html_envoye
@@ -423,19 +424,19 @@ def test_transition_push_sans_abonnement_ne_declenche_aucun_envoi():
 def test_transition_email_actif_envoie_si_preference_active():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._preferences_email", return_value={"u1": True}), \
          patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
          patch("notifications_saas._envoyer_email", return_value=True) as email_send_mock:
         notifier_transition_verification(secrets, "u1", "titre", "corps", "https://x/1")
-    email_send_mock.assert_called_once_with("re_xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+    email_send_mock.assert_called_once_with("SG.xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
 
 
 def test_transition_email_desactive_ne_declenche_aucun_envoi():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._preferences_email", return_value={"u1": False}), \
          patch("notifications_saas._email_utilisateur") as lookup_mock, \
@@ -451,7 +452,7 @@ def test_transition_echec_push_nempeche_pas_lenvoi_email():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
         "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokedeals.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
     }
     with patch("notifications_saas._lister_abonnements_push",
                return_value=[{"user_id": "u1", "endpoint": "e1", "p256dh": "p", "auth": "a"}]), \

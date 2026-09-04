@@ -73,8 +73,8 @@ jobs:
           SCAN_LOT_SUFFIXE: "_lot_a"   # cle Supabase dediee -- evite une course avec lot B qui tourne en parallele
           VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
           VAPID_CLAIM_EMAIL: ${{ secrets.VAPID_CLAIM_EMAIL }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
           PYTHONUNBUFFERED: "1"   # sans ca, la sortie reste bufferisee et n'apparait dans le log qu'en fin de job -- inutile pour diagnostiquer un timeout
           # Audit externe du 30/08/2026 : passer par env: + "$VAR" plutot que
           # d'injecter ${{ }} directement dans run: (injection shell possible).
@@ -113,8 +113,8 @@ jobs:
           SCAN_LOT_SUFFIXE: "_lot_b"   # cle Supabase dediee -- evite une course avec lot A qui tourne en parallele
           VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
           VAPID_CLAIM_EMAIL: ${{ secrets.VAPID_CLAIM_EMAIL }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDGRID_FROM_EMAIL: ${{ secrets.SENDGRID_FROM_EMAIL }}
           PYTHONUNBUFFERED: "1"
         run: |
           # BOUTIQUES_WOOCOMMERCE_AUTO : boutiques ajoutees par decouverte_boutiques.py

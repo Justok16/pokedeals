@@ -188,7 +188,7 @@ def lister_alertes_a_notifier(supabase_url: str, service_role_key: str) -> list[
     enregistrer_alertes() ne renvoyait QUE les lignes fraichement inserees
     (resolution=ignore-duplicates), et notifications_saas.py n'etait appele
     qu'avec celles-ci -- si push ET email echouaient tous les deux au meme
-    cycle (ex. panne Resend/service Web Push), la ligne restait en base mais
+    cycle (ex. panne SendGrid/service Web Push), la ligne restait en base mais
     n'etait plus JAMAIS retentee (les cycles suivants la voient comme un
     doublon deja connu). Necessite les colonnes push_envoye/email_envoye
     (cf. migration 0009 du depot pokedeals-saas) -- absentes -> la requete
