@@ -23,8 +23,18 @@ les SDK au profit de requests brut, cf. verification_photo.py), reimplementer
 ce chiffrement a la main serait un risque reel (protocole cryptographique,
 erreur facile et silencieuse) -- pywebpush est la bibliotheque de reference,
 largement utilisee, pas une dependance ajoutee a la legere.
-Email : API HTTP Resend (https://resend.com/docs/api-reference/emails/send-email),
-requete brute via requests, pas de SDK necessaire.
+Email : API HTTP SendGrid (https://docs.sendgrid.com/api-reference/mail-send/mail-send),
+requete brute via requests, pas de SDK necessaire. Migre de Resend le
+04/09/2026 : le compte Resend n'avait aucun domaine verifie (aucun nom de
+domaine disponible cote Justok), donc tournait en mode sandbox
+(onboarding@resend.dev) -- Resend restreint alors la livraison au seul email
+du proprietaire du compte, expliquant pourquoi Justok recevait ses propres
+alertes mais aucun autre utilisateur PokeDeals/PokePrecoms ne recevait quoi
+que ce soit (confirme via les logs Resend : 403 Forbidden sur chaque
+destinataire autre que Justok). SendGrid permet une verification "Single
+Sender" gratuite sans domaine, avec une delivrabilite correcte (alignement
+SPF/DKIM plus faible qu'un domaine verifie, mais fonctionnelle) -- solution
+choisie par Justok en attendant un eventuel nom de domaine.
 """
 from __future__ import annotations
 
@@ -164,23 +174,26 @@ def _envoyer_push(
     return not echec_transitoire
 
 
-def _envoyer_email(resend_api_key: str, resend_from: str, destinataire: str, titre: str, corps: str, url: str) -> bool:
-    """Retourne True si l'email a bien été envoyé (accepté par Resend),
-    False sinon -- l'appelant ne doit alors PAS marquer le canal comme
-    envoyé, pour que le prochain cycle retente."""
+def _envoyer_email(sendgrid_api_key: str, sendgrid_from: str, destinataire: str, titre: str, corps: str, url: str) -> bool:
+    """Retourne True si l'email a bien été envoyé (accepté par SendGrid,
+    202 -- pas de corps de réponse, cf. r.raise_for_status() qui ne lève
+    que sur 4xx/5xx), False sinon -- l'appelant ne doit alors PAS marquer
+    le canal comme envoyé, pour que le prochain cycle retente."""
     try:
         r = requests.post(
-            "https://api.resend.com/emails",
+            "https://api.sendgrid.com/v3/mail/send",
             headers={
-                "Authorization": f"Bearer {resend_api_key}",
+                "Authorization": f"Bearer {sendgrid_api_key}",
                 "Content-Type": "application/json",
             },
             json={
-                "from": resend_from,
-                "to": [destinataire],
+                "personalizations": [{"to": [{"email": destinataire}]}],
+                "from": {"email": sendgrid_from},
                 "subject": titre,
-                "text": f"{corps}\n\nVoir l'annonce : {url}",
-                "html": f"<p>{echapper_html(corps)}</p><p><a href=\"{echapper_url_html(url)}\">Voir l'annonce</a></p>",
+                "content": [
+                    {"type": "text/plain", "value": f"{corps}\n\nVoir l'annonce : {url}"},
+                    {"type": "text/html", "value": f"<p>{echapper_html(corps)}</p><p><a href=\"{echapper_url_html(url)}\">Voir l'annonce</a></p>"},
+                ],
             },
             timeout=TIMEOUT,
         )
@@ -212,11 +225,11 @@ def notifier_alertes_en_attente(secrets: dict, alertes_en_attente: list[dict]) -
 
     vapid_private_key = secrets.get("VAPID_PRIVATE_KEY", "")
     vapid_claim_email = secrets.get("VAPID_CLAIM_EMAIL", "")
-    resend_api_key = secrets.get("RESEND_API_KEY", "")
-    resend_from = secrets.get("RESEND_FROM_EMAIL", "")
+    sendgrid_api_key = secrets.get("SENDGRID_API_KEY", "")
+    sendgrid_from = secrets.get("SENDGRID_FROM_EMAIL", "")
 
     push_actif = bool(vapid_private_key and vapid_claim_email)
-    email_actif = bool(resend_api_key and resend_from)
+    email_actif = bool(sendgrid_api_key and sendgrid_from)
     if not push_actif and not email_actif:
         return
 
@@ -262,7 +275,7 @@ def notifier_alertes_en_attente(secrets: dict, alertes_en_attente: list[dict]) -
                 if uid not in emails_cache:
                     emails_cache[uid] = _email_utilisateur(supabase_url, service_role_key, uid)
                 email = emails_cache[uid]
-                if email and _envoyer_email(resend_api_key, resend_from, email, titre_notif, corps, alerte["url"]):
+                if email and _envoyer_email(sendgrid_api_key, sendgrid_from, email, titre_notif, corps, alerte["url"]):
                     marquer_notification_envoyee(supabase_url, service_role_key, alerte["id"], "email")
 
 
@@ -293,11 +306,11 @@ def notifier_transition_verification(secrets: dict, user_id: str, titre_notif: s
 
     vapid_private_key = secrets.get("VAPID_PRIVATE_KEY", "")
     vapid_claim_email = secrets.get("VAPID_CLAIM_EMAIL", "")
-    resend_api_key = secrets.get("RESEND_API_KEY", "")
-    resend_from = secrets.get("RESEND_FROM_EMAIL", "")
+    sendgrid_api_key = secrets.get("SENDGRID_API_KEY", "")
+    sendgrid_from = secrets.get("SENDGRID_FROM_EMAIL", "")
 
     push_actif = bool(vapid_private_key and vapid_claim_email)
-    email_actif = bool(resend_api_key and resend_from)
+    email_actif = bool(sendgrid_api_key and sendgrid_from)
     if not push_actif and not email_actif:
         return
 
@@ -314,4 +327,4 @@ def notifier_transition_verification(secrets: dict, user_id: str, titre_notif: s
         if prefs.get(user_id, True):
             email = _email_utilisateur(supabase_url, service_role_key, user_id)
             if email:
-                _envoyer_email(resend_api_key, resend_from, email, titre_notif, corps, url)
+                _envoyer_email(sendgrid_api_key, sendgrid_from, email, titre_notif, corps, url)

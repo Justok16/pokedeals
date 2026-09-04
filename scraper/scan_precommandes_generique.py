@@ -142,8 +142,8 @@ if __name__ == "__main__":
         "POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY": os.environ.get("POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY", ""),
         "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
         "VAPID_CLAIM_EMAIL": os.environ.get("VAPID_CLAIM_EMAIL", ""),
-        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY", ""),
-        "RESEND_FROM_EMAIL": os.environ.get("RESEND_FROM_EMAIL", ""),
+        "SENDGRID_API_KEY": os.environ.get("SENDGRID_API_KEY", ""),
+        "SENDGRID_FROM_EMAIL": os.environ.get("SENDGRID_FROM_EMAIL", ""),
     }
     if enregistrer_precommande_alertes(
         secrets["POKEPRECOMS_SUPABASE_URL"], secrets["POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY"],

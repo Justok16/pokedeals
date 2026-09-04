@@ -7,7 +7,7 @@ orchestrateurs existants).
 Notification sur transition (03/09/2026) : detecter_transition() est appelee
 AVANT enregistrer_verification() pour chaque alerte (qui ecrase l'etat
 precedent) -- cf. docstring de verification_alertes.py pour le detail des 2
-transitions notifiees. Secrets VAPID_*/RESEND_* optionnels comme partout
+transitions notifiees. Secrets VAPID_*/SENDGRID_* optionnels comme partout
 ailleurs dans le SaaS (notifications_saas.py) : absents -> ce cycle continue
 de mettre a jour disponible/prix_verifie, juste sans notification.
 
@@ -57,8 +57,8 @@ if __name__ == "__main__":
         "SUPABASE_SERVICE_ROLE_KEY": supabase_key,
         "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
         "VAPID_CLAIM_EMAIL": os.environ.get("VAPID_CLAIM_EMAIL", ""),
-        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY", ""),
-        "RESEND_FROM_EMAIL": os.environ.get("RESEND_FROM_EMAIL", ""),
+        "SENDGRID_API_KEY": os.environ.get("SENDGRID_API_KEY", ""),
+        "SENDGRID_FROM_EMAIL": os.environ.get("SENDGRID_FROM_EMAIL", ""),
     }
 
     alertes = lister_alertes_recentes(supabase_url, supabase_key)

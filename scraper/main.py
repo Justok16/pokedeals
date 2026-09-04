@@ -210,8 +210,8 @@ def secrets_env() -> dict:
         # absent -> ce canal est simplement saute, jamais d'erreur.
         "VAPID_PRIVATE_KEY": os.environ.get("VAPID_PRIVATE_KEY", ""),
         "VAPID_CLAIM_EMAIL": os.environ.get("VAPID_CLAIM_EMAIL", ""),
-        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY", ""),
-        "RESEND_FROM_EMAIL": os.environ.get("RESEND_FROM_EMAIL", ""),
+        "SENDGRID_API_KEY": os.environ.get("SENDGRID_API_KEY", ""),
+        "SENDGRID_FROM_EMAIL": os.environ.get("SENDGRID_FROM_EMAIL", ""),
     }
 
 

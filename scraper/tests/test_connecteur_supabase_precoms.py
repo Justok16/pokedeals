@@ -209,7 +209,7 @@ def test_notifier_push_reussi_notifie_les_abonnes_et_marque_le_canal_diffuse():
 def test_notifier_email_reussi_notifie_les_abonnes_et_marque_le_canal_diffuse():
     secrets = {
         "POKEPRECOMS_SUPABASE_URL": "https://x.supabase.co", "POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokeprecoms.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokeprecoms.app",
     }
     with patch("connecteur_supabase_precoms._lister_tous_utilisateurs", return_value=["u1", "u2"]), \
          patch("connecteur_supabase_precoms._lister_abonnements_push") as push_list_mock, \
@@ -228,7 +228,7 @@ def test_notifier_email_reussi_notifie_les_abonnes_et_marque_le_canal_diffuse():
 def test_notifier_deux_precommandes_meme_utilisateur_email_recherche_une_seule_fois():
     secrets = {
         "POKEPRECOMS_SUPABASE_URL": "https://x.supabase.co", "POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY": "k",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokeprecoms.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokeprecoms.app",
     }
     precommandes = [_precommande(id="p1", url_produit="https://x/1"),
                     _precommande(id="p2", url_produit="https://x/2")]
@@ -246,7 +246,7 @@ def test_notifier_ne_retente_pas_un_canal_deja_diffuse():
     secrets = {
         "POKEPRECOMS_SUPABASE_URL": "https://x.supabase.co", "POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY": "k",
         "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
-        "RESEND_API_KEY": "re_xxx", "RESEND_FROM_EMAIL": "noreply@pokeprecoms.app",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokeprecoms.app",
     }
     precommande = _precommande(push_diffuse=True, email_diffuse=False)
     with patch("connecteur_supabase_precoms._lister_tous_utilisateurs", return_value=["u1"]), \
