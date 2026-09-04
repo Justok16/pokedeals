@@ -51,9 +51,21 @@ def _grouper_par_carte(items: list[dict]) -> list[dict]:
     connecteur_supabase.trouver_correspondances() (deja appele plus loin
     dans main.py sur les deals detectes), donc elargir le seuil ici ne cree
     jamais de fausse alerte, seulement une detection plus large en amont.
-    `nb_utilisateurs` sert a prioriser en cas de plafond (MAX_CARTES_SAAS_EBAY)."""
+    `nb_utilisateurs` sert a prioriser en cas de plafond (MAX_CARTES_SAAS_EBAY).
+
+    Correctif du 04/09/2026 (audit externe, confirme par relecture directe du
+    code) : une carte mise en pause par l'utilisateur cote dashboard SaaS
+    (watchlist_items.actif = false, cf. migration 0013 du depot
+    pokedeals-saas) continuait d'etre scannee ici -- le bouton "Mettre en
+    pause" du dashboard ne faisait rien cote scraper, contrairement a ce que
+    l'utilisateur croit. item.get("actif", True) : une ligne SANS la colonne
+    (ancien schema, ou valeur NULL improbable vu le NOT NULL DEFAULT true de
+    la migration) est traitee comme active, jamais comme un rejet silencieux
+    par defaut."""
     groupes: dict[tuple[str, str], dict] = {}
     for item in items:
+        if item.get("actif", True) is False:
+            continue
         nom_carte = (item.get("nom_carte") or "").strip()
         nom_norm = normaliser(nom_carte)
         if not nom_norm:
