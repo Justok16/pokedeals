@@ -137,17 +137,38 @@ MOTS_RUPTURE_DOM = ("rupture", "indisponible", "epuise")
 
 
 def _stock_indisponible_selon_dom(html: str) -> bool:
-    """True si le span d'affichage du stock du theme PrestaShop annonce
-    explicitement une rupture -- a utiliser pour FORCER en_stock=False
-    meme si le microdata/JSON-LD annonce le contraire (jamais l'inverse :
-    un span vide ne prouve pas la disponibilite, juste l'ABSENCE d'un
-    message de rupture affiche)."""
+    """True si le theme PrestaShop annonce explicitement une rupture --
+    a utiliser pour FORCER en_stock=False meme si le microdata/JSON-LD
+    annonce le contraire (jamais l'inverse : une absence de signal ne
+    prouve pas la disponibilite, juste l'ABSENCE d'un message de rupture
+    detecte).
+
+    Deux signaux verifies, independamment :
+    1. Le span id="product-availability" -- rempli cote SERVEUR sur
+       certains themes, mais PEUT ETRE VIDE dans le HTML brut si le theme
+       le peuple en JavaScript cote client (constate sur plazatcg.com,
+       signalement direct de Justok le 04/09/2026 : span vide, JSON-LD
+       perime a "InStock", alors que la page affichait bien "Rupture de
+       stock" -- ni le span ni le JSON-LD n'auraient jamais detecte cette
+       rupture).
+    2. Le badge <li class="product-flag out_of_stock"> -- convention du
+       theme par defaut PrestaShop (classic/1.6), rendu cote SERVEUR de
+       facon conditionnelle (n'apparait dans le HTML que si le produit est
+       reellement en rupture, jamais present-mais-cache pour un produit en
+       stock) -- c'est ce badge qui a revele la rupture sur plazatcg.com."""
+    indisponible = False
+
     m = re.search(r'<span[^>]*id="product-availability"[^>]*>(.*?)</span>', html, re.S)
-    if not m:
-        return False
-    texte = re.sub(r"<[^>]+>", " ", m.group(1))
-    texte_norm = unicodedata.normalize("NFKD", texte).encode("ascii", "ignore").decode("ascii").lower()
-    return any(mot in texte_norm for mot in MOTS_RUPTURE_DOM)
+    if m:
+        texte = re.sub(r"<[^>]+>", " ", m.group(1))
+        texte_norm = unicodedata.normalize("NFKD", texte).encode("ascii", "ignore").decode("ascii").lower()
+        if any(mot in texte_norm for mot in MOTS_RUPTURE_DOM):
+            indisponible = True
+
+    if re.search(r'<li[^>]*class="[^"]*\bout_of_stock\b[^"]*"', html):
+        indisponible = True
+
+    return indisponible
 
 
 def _extraire_microdata_produit(html: str) -> dict | None:
