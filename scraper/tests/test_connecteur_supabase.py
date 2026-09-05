@@ -124,8 +124,9 @@ def test_lister_url_avec_slash_final_normalisee():
 
 # ------------------- trouver_correspondances -------------------
 
-def _item(nom_carte="Dracaufeu ex 199/165", langue="fr", prix_seuil=50.0, user_id="u1", item_id="i1"):
-    return {"id": item_id, "user_id": user_id, "nom_carte": nom_carte, "langue": langue, "prix_seuil": prix_seuil}
+def _item(nom_carte="Dracaufeu ex 199/165", langue="fr", prix_seuil=50.0, user_id="u1", item_id="i1", actif=True):
+    return {"id": item_id, "user_id": user_id, "nom_carte": nom_carte, "langue": langue,
+            "prix_seuil": prix_seuil, "actif": actif}
 
 
 def _deal(carte="Dracaufeu ex 199/165", langue="fr", total=40.0, titre="Belle carte", url="https://x/1"):
@@ -158,6 +159,30 @@ def test_pas_de_correspondance_prix_au_dessus_du_seuil():
 def test_correspondance_nom_insensible_a_la_casse_et_accents():
     alertes = trouver_correspondances(
         [_deal(carte="DRACAUFEU EX 199/165")], [_item(nom_carte="dracaufeu ex 199/165")])
+    assert len(alertes) == 1
+
+
+def test_carte_en_pause_nest_jamais_alertee():
+    # Bug reel corrige le 05/09/2026 (audit externe multi-IA) : trouver_
+    # correspondances() ne filtrait jamais `actif`, contrairement a
+    # watchlist_saas._grouper_par_carte() (scan) -- un utilisateur en pause
+    # sur une carte surveillee activement par quelqu'un d'autre (ou presente
+    # dans config.yaml) continuait a recevoir des alertes pour elle.
+    alertes = trouver_correspondances([_deal()], [_item(actif=False)])
+    assert alertes == []
+
+
+def test_carte_en_pause_nempeche_pas_lalerte_dun_autre_utilisateur_actif():
+    alertes = trouver_correspondances(
+        [_deal()], [_item(user_id="u1", item_id="i1", actif=False), _item(user_id="u2", item_id="i2", actif=True)])
+    assert len(alertes) == 1
+    assert alertes[0]["user_id"] == "u2"
+
+
+def test_item_sans_colonne_actif_est_traite_comme_actif():
+    item_sans_colonne = {"id": "i1", "user_id": "u1", "nom_carte": "Dracaufeu ex 199/165",
+                          "langue": "fr", "prix_seuil": 50.0}
+    alertes = trouver_correspondances([_deal()], [item_sans_colonne])
     assert len(alertes) == 1
 
 
