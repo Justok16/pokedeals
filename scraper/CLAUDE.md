@@ -90,7 +90,7 @@ Stratégie retenue, en 2 étapes :
 
 Coût réseau réel : **~940 requêtes par cycle** (bien plus qu'une boutique normale) — d'où :
 - `scan_precommandes_philibert.py` — orchestrateur CLI dédié, réutilise **telles quelles** `detecter_nouvelles_precommandes_generiques()`/`envoyer_telegram_precommandes_generiques()` de `radar_precommande_generique.py` (le format de candidat produit par `connecteur_philibert.py` est identique) + le pont `connecteur_supabase_precoms.py`. Mémoire dans `data/precommandes_generique_philibert.json` (fichier séparé de `precommandes_generiques_shopify.json`).
-- **Workflow SÉPARÉ** (`scan_precommandes_philibert.yml`) avec une cadence délibérément plus faible (**toutes les 2h**, contre 30 min pour les autres radars précommandes) — par politesse envers ce site tiers vu le volume de requêtes, et timeout large (45 min) posé par prudence sans mesure réelle encore (premier lancement, à ajuster une fois des cycles observés).
+- **Workflow SÉPARÉ** (`scan_precommandes_philibert.yml`) — cadence initialement plus faible (toutes les 2h) par politesse envers ce site tiers vu le volume de requêtes, **alignée sur 30 min le 30/08/2026** (décision explicite de Justok, PR #72 : détecter une précommande plus vite prime sur la charge envoyée au site tiers) une fois la durée réelle mesurée (~8-10 min/cycle, largement sous le timeout de 45 min — aucun risque de chevauchement). À repasser à une cadence plus large si philibert.net se met à limiter/bloquer les requêtes (429/403) — aucun signe de ce genre observé à ce jour.
 
 ### Radar de découverte automatique de boutiques
 
@@ -157,7 +157,7 @@ Tournent en parallèle sur le même repo, chacun avec son propre groupe de concu
 | `tendance_prix.yml` | quotidien 8h30 UTC | 10 min | suivi de tendance de prix long terme (3 cartes JP) |
 | `prix_bas_quotidien.yml` | quotidien 9h UTC (~11h Paris) | 40 min | radar de prix bas quotidien (4 cartes × 4 langues, tous sites confondus) |
 | `scan_precommandes_generique.yml` | 15 min | 25 min | radar de précommandes génériques PokéPrécoms (Shopify uniquement) |
-| `scan_precommandes_philibert.yml` | 2h | 45 min | radar de précommandes génériques PokéPrécoms dédié à philibertnet.com (~940 requêtes/cycle) |
+| `scan_precommandes_philibert.yml` | 30 min (2h à l'origine, resserré le 30/08/2026) | 45 min | radar de précommandes génériques PokéPrécoms dédié à philibertnet.com (~940 requêtes/cycle, ~8-10 min réels) |
 | `verifier_alertes_watchlist.yml` | 30 min | 20 min | vérification périodique de disponibilité/prix des alertes déjà enregistrées dans `watchlist_alerts` (dashboard SaaS), cf. `verification_alertes.py` — notifie l'utilisateur (push/email) sur 2 transitions : carte vendue/retirée, ou prix encore en baisse |
 | `tests.yml` | à chaque push/PR | — | suite pytest (cf. section Commandes) |
 | `watchdog_workflows.yml` | 3h | 5 min | watchdog de santé (30/08/2026, cf. section dédiée ci-dessous) — alerte Telegram si un des 10 scanners échoue 3 fois de suite |
