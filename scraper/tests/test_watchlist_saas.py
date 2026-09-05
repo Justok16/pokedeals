@@ -7,6 +7,7 @@ from watchlist_shopify import CarteWatchlist
 from watchlist_saas import (
     MAX_CARTES_SAAS_EBAY,
     _grouper_par_carte,
+    _selectionner_avec_rotation,
     cartes_watchlist_saas,
     dict_watchlist_saas,
 )
@@ -105,6 +106,94 @@ def test_grouper_trie_par_nombre_dutilisateurs_decroissant():
     assert groupes[1]["nom"] == "Pikachu 173/165"
 
 
+# ------------------- _selectionner_avec_rotation -------------------
+# Bug reel corrige le 05/09/2026 (audit externe multi-IA) : l'ancien tri
+# (nb_utilisateurs decroissant, plafonne) etait un ordre STATIQUE -- une
+# carte moins populaire que les max_cartes autres restait hors rotation
+# pour toujours, sans jamais etre recherchee sur eBay/Vinted, sans aucun
+# signal visible pour l'utilisateur.
+
+def _carte(nom="Dracaufeu ex 199/165", langue="fr", nb_utilisateurs=1):
+    return {"nom": nom, "langue": langue, "prix_max_fixe": 50.0, "nb_utilisateurs": nb_utilisateurs}
+
+
+def test_rotation_memoire_vide_conserve_lordre_de_grouper_par_carte():
+    # Memoire vide -- toutes les cartes sont "jamais scannees", donc l'ordre
+    # de popularite decroissante deja etabli par _grouper_par_carte() (avant
+    # cette fonction) est simplement conserve, comme avant ce correctif.
+    cartes = [_carte(nom="Tres populaire", nb_utilisateurs=5), _carte(nom="Peu populaire", nb_utilisateurs=1)]
+    with patch("watchlist_saas.charger_memoire_supabase", return_value={}), \
+         patch("watchlist_saas.sauvegarder_memoire_supabase", return_value=True):
+        selection = _selectionner_avec_rotation(cartes, 1, "https://x.supabase.co", "cle")
+    assert [c["nom"] for c in selection] == ["Tres populaire"]
+
+
+def test_rotation_carte_jamais_scannee_passe_avant_une_carte_deja_scannee_meme_moins_populaire():
+    populaire_deja_scannee = _carte(nom="Populaire", nb_utilisateurs=10)
+    nouvelle_carte = _carte(nom="Nouvelle carte", nb_utilisateurs=1)
+    memoire = {_cle_test(populaire_deja_scannee): "2026-09-01T00:00:00+00:00"}
+    with patch("watchlist_saas.charger_memoire_supabase", return_value=memoire), \
+         patch("watchlist_saas.sauvegarder_memoire_supabase", return_value=True):
+        selection = _selectionner_avec_rotation(
+            [populaire_deja_scannee, nouvelle_carte], 1, "https://x.supabase.co", "cle")
+    assert selection == [nouvelle_carte]
+
+
+def test_rotation_carte_jamais_exclue_definitivement():
+    # Le coeur du bug corrige : sur 2 cycles avec un plafond de 1, une carte
+    # jamais scannee au cycle precedent doit finir par passer.
+    carte_populaire = _carte(nom="Toujours populaire", nb_utilisateurs=100)
+    carte_ecrasee = _carte(nom="Jamais populaire", nb_utilisateurs=1)
+    memoire_persistee = {}
+
+    def _charger(cle, url, key):
+        return dict(memoire_persistee)
+
+    def _sauvegarder(memoire, cle, url, key):
+        memoire_persistee.clear()
+        memoire_persistee.update(memoire)
+        return True
+
+    with patch("watchlist_saas.charger_memoire_supabase", side_effect=_charger), \
+         patch("watchlist_saas.sauvegarder_memoire_supabase", side_effect=_sauvegarder):
+        cycle_1 = _selectionner_avec_rotation(
+            [carte_populaire, carte_ecrasee], 1, "https://x.supabase.co", "cle")
+        cycle_2 = _selectionner_avec_rotation(
+            [carte_populaire, carte_ecrasee], 1, "https://x.supabase.co", "cle")
+    assert cycle_1 == [carte_populaire]  # jamais scannee, en tete par popularite parmi les jamais-scannees
+    assert cycle_2 == [carte_ecrasee]  # seule carte encore jamais scannee au cycle 2
+
+
+def test_rotation_purge_les_cartes_qui_nexistent_plus():
+    carte_actuelle = _carte(nom="Existe toujours")
+    memoire = {_cle_test(carte_actuelle): "2026-09-01T00:00:00+00:00",
+               "carte-disparue|fr": "2026-08-01T00:00:00+00:00"}
+    sauvegardes = []
+    with patch("watchlist_saas.charger_memoire_supabase", return_value=memoire), \
+         patch("watchlist_saas.sauvegarder_memoire_supabase",
+               side_effect=lambda m, *a: sauvegardes.append(m) or True):
+        _selectionner_avec_rotation([carte_actuelle], 5, "https://x.supabase.co", "cle")
+    assert "carte-disparue|fr" not in sauvegardes[0]
+
+
+def test_rotation_panne_lecture_memoire_degrade_vers_ordre_de_popularite():
+    # Etat non critique (contrairement a la memoire de dedup) -- une panne
+    # ne doit jamais faire echouer le scan, juste revenir au comportement
+    # d'avant ce correctif.
+    carte_populaire = _carte(nom="Populaire", nb_utilisateurs=10)
+    carte_moins_populaire = _carte(nom="Moins populaire", nb_utilisateurs=1)
+    with patch("watchlist_saas.charger_memoire_supabase", return_value=None), \
+         patch("watchlist_saas.sauvegarder_memoire_supabase", return_value=True):
+        selection = _selectionner_avec_rotation(
+            [carte_populaire, carte_moins_populaire], 1, "https://x.supabase.co", "cle")
+    assert selection == [carte_populaire]
+
+
+def _cle_test(carte):
+    from filtre_annonces import normaliser
+    return f"{normaliser(carte['nom'])}|{carte['langue']}"
+
+
 # ------------------- dict_watchlist_saas -------------------
 
 def test_dict_watchlist_saas_format_compatible_config_yaml():
@@ -121,7 +210,9 @@ def test_dict_watchlist_saas_liste_vide_si_pas_de_watchlists():
 
 def test_dict_watchlist_saas_respecte_le_plafond():
     items = [_item(nom_carte=f"Carte {i} 001/165", item_id=str(i)) for i in range(5)]
-    with patch("watchlist_saas.lister_watchlist_items", return_value=items):
+    with patch("watchlist_saas.lister_watchlist_items", return_value=items), \
+         patch("watchlist_saas.charger_memoire_supabase", return_value={}), \
+         patch("watchlist_saas.sauvegarder_memoire_supabase", return_value=True):
         cartes = dict_watchlist_saas("https://x.supabase.co", "cle-secrete", max_cartes=2)
     assert len(cartes) == 2
 

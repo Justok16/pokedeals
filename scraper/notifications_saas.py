@@ -54,9 +54,22 @@ def _headers(service_role_key: str) -> dict:
     return {"apikey": service_role_key, "Authorization": f"Bearer {service_role_key}"}
 
 
-def _lister_abonnements_push(supabase_url: str, service_role_key: str, user_ids: list[str]) -> list[dict]:
+def _lister_abonnements_push(supabase_url: str, service_role_key: str, user_ids: list[str]) -> list[dict] | None:
     """Retourne les abonnements push (endpoint/p256dh/auth) des utilisateurs
-    donnes. [] si aucun user_id, secrets absents, ou erreur reseau."""
+    donnes. [] si aucun user_id, secrets absents, ou lecture reussie mais
+    aucun abonnement -- None si la lecture a reellement echoue (reseau/API).
+
+    Distinction ajoutee le 05/09/2026 (audit externe multi-IA, confirme par
+    relecture directe du code) : avant, une panne reseau renvoyait aussi [],
+    strictement indiscernable d'un "aucun abonnement" legitime cote appelant
+    (notifier_alertes_en_attente() traite alors uid not in abonnements_par_
+    utilisateur comme "rien a livrer, pas un echec" et marque le push comme
+    envoye) -- un utilisateur ayant reellement un abonnement actif au moment
+    d'une panne Supabase se voyait donc son push marque livre a tort, sans
+    qu'aucun envoi n'ait eu lieu, et sans plus jamais etre retente. Meme
+    classe de bug que le canari email Resend (cf. CLAUDE.md, "verification
+    doit avoir un pouvoir de discrimination reel") mais cote lecture au lieu
+    d'envoi."""
     if not user_ids or not supabase_url or not service_role_key:
         return []
     try:
@@ -73,14 +86,19 @@ def _lister_abonnements_push(supabase_url: str, service_role_key: str, user_ids:
         return r.json()
     except requests.RequestException as e:
         log.warning("Lecture des abonnements push échouée (%s) -- ignorée ce cycle", e)
-        return []
+        return None
 
 
-def _preferences_email(supabase_url: str, service_role_key: str, user_ids: list[str]) -> dict[str, bool]:
+def _preferences_email(supabase_url: str, service_role_key: str, user_ids: list[str]) -> dict[str, bool] | None:
     """Retourne {user_id: notif_email actif}. Un utilisateur absent de la
     table (pas encore de préférence enregistrée) est considéré actif par
     défaut -- l'appelant doit donc faire .get(user_id, True), jamais un
-    accès direct qui traiterait une absence comme désactivé."""
+    accès direct qui traiterait une absence comme désactivé. {} si aucun
+    user_id/secrets absents ou lecture reussie sans aucune ligne -- None si
+    la lecture a reellement echoue (meme distinction que
+    _lister_abonnements_push() ci-dessus, meme raison : sans elle, une panne
+    reseau pendant la lecture des préférences fait ignorer un opt-out email
+    reel pour ce cycle)."""
     if not user_ids or not supabase_url or not service_role_key:
         return {}
     try:
@@ -97,7 +115,7 @@ def _preferences_email(supabase_url: str, service_role_key: str, user_ids: list[
         return {row["user_id"]: row["notif_email"] for row in r.json()}
     except requests.RequestException as e:
         log.warning("Lecture des préférences email échouée (%s) -- ignorée ce cycle", e)
-        return {}
+        return None
 
 
 def _email_utilisateur(supabase_url: str, service_role_key: str, user_id: str) -> str | None:
@@ -240,12 +258,31 @@ def notifier_alertes_en_attente(secrets: dict, alertes_en_attente: list[dict]) -
 
     user_ids = sorted({a["user_id"] for a in alertes_en_attente})
 
+    # push_lecture_ok/email_lecture_ok distinguent une lecture reussie (meme
+    # vide) d'une lecture ratee (None, cf. docstrings de _lister_abonnements_
+    # push()/_preferences_email()) -- une lecture ratee desactive le canal
+    # pour ce cycle SANS rien marquer envoye, pour que l'alerte soit retentee
+    # au prochain cycle (cf. lister_alertes_a_notifier) plutot que consideree
+    # a tort comme "rien a livrer".
     abonnements_par_utilisateur: dict[str, list[dict]] = {}
+    push_lecture_ok = True
     if push_actif:
-        for sub in _lister_abonnements_push(supabase_url, service_role_key, user_ids):
-            abonnements_par_utilisateur.setdefault(sub["user_id"], []).append(sub)
+        resultat_push = _lister_abonnements_push(supabase_url, service_role_key, user_ids)
+        if resultat_push is None:
+            push_lecture_ok = False
+        else:
+            for sub in resultat_push:
+                abonnements_par_utilisateur.setdefault(sub["user_id"], []).append(sub)
 
-    prefs_email = _preferences_email(supabase_url, service_role_key, user_ids) if email_actif else {}
+    prefs_email: dict[str, bool] = {}
+    email_lecture_ok = True
+    if email_actif:
+        resultat_prefs = _preferences_email(supabase_url, service_role_key, user_ids)
+        if resultat_prefs is None:
+            email_lecture_ok = False
+        else:
+            prefs_email = resultat_prefs
+
     emails_cache: dict[str, str | None] = {}
 
     for alerte in alertes_en_attente:
@@ -255,7 +292,7 @@ def notifier_alertes_en_attente(secrets: dict, alertes_en_attente: list[dict]) -
         if alerte.get("plateforme"):
             corps += f" sur {alerte['plateforme']}"
 
-        if push_actif and not alerte.get("push_envoye"):
+        if push_actif and push_lecture_ok and not alerte.get("push_envoye"):
             if uid in abonnements_par_utilisateur:
                 reussi = _envoyer_push(
                     supabase_url, service_role_key, vapid_private_key, vapid_claim_email,
@@ -266,7 +303,7 @@ def notifier_alertes_en_attente(secrets: dict, alertes_en_attente: list[dict]) -
             if reussi:
                 marquer_notification_envoyee(supabase_url, service_role_key, alerte["id"], "push")
 
-        if email_actif and not alerte.get("email_envoye"):
+        if email_actif and email_lecture_ok and not alerte.get("email_envoye"):
             if not prefs_email.get(uid, True):
                 # Notifications email desactivees par l'utilisateur -- rien a
                 # livrer par choix de l'utilisateur, pas un echec.
@@ -324,7 +361,7 @@ def notifier_transition_verification(secrets: dict, user_id: str, titre_notif: s
 
     if email_actif:
         prefs = _preferences_email(supabase_url, service_role_key, [user_id])
-        if prefs.get(user_id, True):
+        if (prefs or {}).get(user_id, True):
             email = _email_utilisateur(supabase_url, service_role_key, user_id)
             if email:
                 _envoyer_email(sendgrid_api_key, sendgrid_from, email, titre_notif, corps, url)

@@ -278,6 +278,43 @@ def test_notifier_echec_envoi_ne_marque_pas_le_canal_diffuse():
     marquer_mock.assert_not_called()
 
 
+def test_notifier_panne_lecture_abonnements_push_ne_marque_pas_le_broadcast_diffuse():
+    # Bug reel corrige le 05/09/2026 (audit externe multi-IA) : avant, une
+    # panne de lecture des abonnements ([] au lieu de None) faisait passer
+    # TOUS les utilisateurs pour "sans abonnement push" -- aucun envoi
+    # n'etait meme tente (donc echec_push restait False) et le canal push du
+    # broadcast ENTIER etait quand meme marque diffuse, empechant tout retry
+    # au cycle suivant alors que zero push n'avait ete livre.
+    secrets = {
+        "POKEPRECOMS_SUPABASE_URL": "https://x.supabase.co", "POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY": "k",
+        "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
+    }
+    with patch("connecteur_supabase_precoms._lister_tous_utilisateurs", return_value=["u1", "u2"]), \
+         patch("connecteur_supabase_precoms._lister_abonnements_push", return_value=None), \
+         patch("connecteur_supabase_precoms._envoyer_push") as push_send_mock, \
+         patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
+        notifier_abonnes_precoms(secrets, [_precommande()])
+    push_send_mock.assert_not_called()
+    marquer_mock.assert_not_called()
+
+
+def test_notifier_panne_lecture_preferences_email_ne_marque_pas_le_broadcast_diffuse():
+    # Meme classe de bug que ci-dessus, cote email.
+    secrets = {
+        "POKEPRECOMS_SUPABASE_URL": "https://x.supabase.co", "POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY": "k",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokeprecoms.app",
+    }
+    with patch("connecteur_supabase_precoms._lister_tous_utilisateurs", return_value=["u1", "u2"]), \
+         patch("connecteur_supabase_precoms._preferences_email", return_value=None), \
+         patch("connecteur_supabase_precoms._email_utilisateur") as lookup_mock, \
+         patch("connecteur_supabase_precoms._envoyer_email") as email_send_mock, \
+         patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
+        notifier_abonnes_precoms(secrets, [_precommande()])
+    lookup_mock.assert_not_called()
+    email_send_mock.assert_not_called()
+    marquer_mock.assert_not_called()
+
+
 # ------------------- _lister_tous_utilisateurs -------------------
 
 def test_lister_tous_utilisateurs_sans_secrets_ne_declenche_aucun_appel_reseau():
@@ -328,12 +365,22 @@ def test_lister_abonnements_push_sans_user_ids_ne_declenche_aucun_appel_reseau()
     get_mock.assert_not_called()
 
 
+def test_lister_abonnements_push_erreur_reseau_retourne_none():
+    # Distinct de [] (lecture reussie, aucun abonnement) -- audit du
+    # 05/09/2026, cf. docstring de _lister_abonnements_push().
+    with patch("connecteur_supabase_precoms.requests.get", side_effect=requests.RequestException("boom")):
+        result = _lister_abonnements_push("https://x.supabase.co", "cle", ["u1"])
+    assert result is None
+
+
 # ------------------- _preferences_email -------------------
 
-def test_preferences_email_erreur_reseau_retourne_dict_vide():
+def test_preferences_email_erreur_reseau_retourne_none():
+    # Distinct de {} (lecture reussie, aucune preference enregistree) --
+    # audit du 05/09/2026, cf. docstring de _preferences_email().
     with patch("connecteur_supabase_precoms.requests.get", side_effect=requests.RequestException("boom")):
         result = _preferences_email("https://x.supabase.co", "cle", ["u1"])
-    assert result == {}
+    assert result is None
 
 
 # ------------------- _email_utilisateur -------------------

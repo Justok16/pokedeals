@@ -221,6 +221,46 @@ def test_meme_utilisateur_email_recherche_une_seule_fois_pour_plusieurs_alertes(
     lookup_mock.assert_called_once()
 
 
+def test_panne_lecture_abonnements_push_ne_marque_pas_envoye():
+    # Bug reel corrige le 05/09/2026 (audit externe multi-IA) : avant, une
+    # panne de lecture ([] au lieu de None) etait indiscernable de "aucun
+    # abonnement" -- un utilisateur ayant reellement un abonnement se
+    # voyait son push marque envoye a tort, sans qu'aucun envoi n'ait eu
+    # lieu, et sans plus jamais etre retente.
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com",
+    }
+    with patch("notifications_saas._lister_abonnements_push", return_value=None), \
+         patch("notifications_saas._envoyer_push") as push_send_mock, \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte(user_id="u1")])
+    push_send_mock.assert_not_called()
+    marquer_mock.assert_not_called()
+
+
+def test_panne_lecture_preferences_email_ne_marque_pas_envoye():
+    # Meme classe de bug que ci-dessus, cote email : une panne de lecture des
+    # preferences ({} au lieu de None) etait indiscernable de "aucune
+    # preference enregistree" (actif par defaut), ce qui pouvait a la fois
+    # ignorer un opt-out reel ET, avec l'ancien code, marquer le canal comme
+    # traite si l'envoi echouait pour une autre raison. Le comportement
+    # correct est de sauter entierement le canal ce cycle-ci (ni envoi, ni
+    # marquage) pour qu'il soit retente au prochain cycle.
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
+    }
+    with patch("notifications_saas._preferences_email", return_value=None), \
+         patch("notifications_saas._email_utilisateur") as lookup_mock, \
+         patch("notifications_saas._envoyer_email") as email_send_mock, \
+         patch("connecteur_supabase.marquer_notification_envoyee") as marquer_mock:
+        notifier_alertes_en_attente(secrets, [_alerte(user_id="u1")])
+    lookup_mock.assert_not_called()
+    email_send_mock.assert_not_called()
+    marquer_mock.assert_not_called()
+
+
 def test_push_et_email_actifs_notifie_les_deux_canaux_independamment():
     secrets = {
         "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
@@ -248,10 +288,12 @@ def test_lister_abonnements_sans_user_ids_ne_declenche_aucun_appel_reseau():
     get_mock.assert_not_called()
 
 
-def test_lister_abonnements_erreur_reseau_retourne_liste_vide():
+def test_lister_abonnements_erreur_reseau_retourne_none():
+    # Distinct de [] (lecture reussie, aucun abonnement) -- audit du
+    # 05/09/2026, cf. docstring de _lister_abonnements_push().
     with patch("notifications_saas.requests.get", side_effect=requests.RequestException("boom")):
         result = _lister_abonnements_push("https://x.supabase.co", "cle", ["u1"])
-    assert result == []
+    assert result is None
 
 
 def test_lister_abonnements_succes():
@@ -267,10 +309,12 @@ def test_lister_abonnements_succes():
 
 # ------------------- _preferences_email -------------------
 
-def test_preferences_email_erreur_reseau_retourne_dict_vide():
+def test_preferences_email_erreur_reseau_retourne_none():
+    # Distinct de {} (lecture reussie, aucune preference enregistree) --
+    # audit du 05/09/2026, cf. docstring de _preferences_email().
     with patch("notifications_saas.requests.get", side_effect=requests.RequestException("boom")):
         result = _preferences_email("https://x.supabase.co", "cle", ["u1"])
-    assert result == {}
+    assert result is None
 
 
 def test_preferences_email_succes():
@@ -431,6 +475,26 @@ def test_transition_email_actif_envoie_si_preference_active():
          patch("notifications_saas._envoyer_email", return_value=True) as email_send_mock:
         notifier_transition_verification(secrets, "u1", "titre", "corps", "https://x/1")
     email_send_mock.assert_called_once_with("SG.xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+
+
+def test_transition_email_panne_lecture_preferences_ne_plante_pas():
+    # _preferences_email() peut desormais retourner None (panne reseau,
+    # audit du 05/09/2026). notifier_transition_verification() est
+    # deliberement best-effort (pas de colonne a marquer, pas de retry, cf.
+    # docstring du module) -- une panne de lecture y est donc traitee comme
+    # l'absence de preference (actif par defaut, on tente quand meme),
+    # exactement comme avant ce correctif (qui visait seulement a eviter le
+    # crash sur None.get(...), pas a changer ce comportement fail-open deja
+    # existant pour cette fonction ponctuelle).
+    secrets = {
+        "SUPABASE_URL": "https://x.supabase.co", "SUPABASE_SERVICE_ROLE_KEY": "k",
+        "SENDGRID_API_KEY": "SG.xxx", "SENDGRID_FROM_EMAIL": "noreply@pokedeals.app",
+    }
+    with patch("notifications_saas._preferences_email", return_value=None), \
+         patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
+         patch("notifications_saas._envoyer_email", return_value=True) as email_send_mock:
+        notifier_transition_verification(secrets, "u1", "titre", "corps", "https://x/1")
+    email_send_mock.assert_called_once()
 
 
 def test_transition_email_desactive_ne_declenche_aucun_envoi():

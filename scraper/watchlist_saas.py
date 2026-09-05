@@ -25,10 +25,13 @@ aucun de ces deux usages ne peut donc echouer a cause de ce module.
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 import connecteur_supabase
 import notifications_saas
 from connecteur_supabase import lister_watchlist_items
 from filtre_annonces import normaliser
+from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from watchlist_shopify import CarteWatchlist, extraire_nom_et_numero
 
 # Releve de 20 a 30 le 03/09/2026 (signale par Justok) : 24 cartes SaaS
@@ -40,6 +43,10 @@ from watchlist_shopify import CarteWatchlist, extraire_nom_et_numero
 # reseau de main.py (marge mesuree ~2-3x sur son timeout de 15 min, cf.
 # SESSION_NOTES.md).
 MAX_CARTES_SAAS_EBAY = 30
+
+# Cle de memoire Supabase (scraper_memoire, cf. memoire_supabase.py) pour la
+# rotation ci-dessous -- {"nom_norm|langue": iso_timestamp_dernier_scan}.
+CLE_MEMOIRE_ROTATION = "rotation_marketplace_saas"
 
 
 def _grouper_par_carte(items: list[dict]) -> list[dict]:
@@ -86,18 +93,73 @@ def _grouper_par_carte(items: list[dict]) -> list[dict]:
     return sorted(groupes.values(), key=lambda g: g["nb_utilisateurs"], reverse=True)
 
 
+def _cle_rotation(carte: dict) -> str:
+    return f"{normaliser(carte['nom'])}|{carte['langue']}"
+
+
+def _selectionner_avec_rotation(
+    cartes: list[dict], max_cartes: int, supabase_url: str, service_role_key: str
+) -> list[dict]:
+    """Choisit les `max_cartes` cartes a scanner ce cycle, en garantissant
+    qu'aucune ne reste EXCLUE indefiniment -- audit externe multi-IA du
+    05/09/2026, confirme par relecture directe du code : l'ancien tri (par
+    nb_utilisateurs decroissant, plafonne a MAX_CARTES_SAAS_EBAY) etait un
+    ordre de priorite STATIQUE -- une carte moins populaire que les
+    MAX_CARTES_SAAS_EBAY autres restait alors hors rotation pour TOUJOURS,
+    sans qu'aucun signal ne le montre a l'utilisateur (elle apparait comme
+    "surveillee" sur le dashboard, mais n'est en realite jamais recherchee
+    sur eBay/Vinted/Leboncoin).
+
+    Priorite : les cartes JAMAIS scannees passent TOUJOURS avant celles
+    deja scannees (une carte nouvellement ajoutee doit etre recherchee des
+    que possible, pas attendre son tour) ; parmi les cartes deja scannees,
+    la plus ancienne (last_scanned_at le plus bas) passe en premier -- pure
+    rotation round-robin, garantissant qu'une carte donnee est re-scannee
+    au plus tard tous les ceil(nb_cartes / MAX_CARTES_SAAS_EBAY) cycles.
+    Parmi les cartes jamais scannees entre elles, l'ordre de
+    `_grouper_par_carte` (popularite decroissante) est conserve tel quel --
+    la rotation ne change rien pour un compte avec peu de cartes SaaS
+    (aucune carte jamais exclue), seulement pour les comptes qui depassent
+    le plafond.
+
+    Etat de rotation NON critique (contrairement a la memoire de dedup
+    stock/precommandes, cf. memoire_supabase.py) : une lecture/ecriture
+    ratee degrade simplement vers l'ordre de popularite pur (comportement
+    d'avant ce correctif), jamais vers un abandon du cycle de scan."""
+    memoire = charger_memoire_supabase(CLE_MEMOIRE_ROTATION, supabase_url, service_role_key)
+    if memoire is None:
+        memoire = {}
+
+    jamais_scannees = [c for c in cartes if _cle_rotation(c) not in memoire]
+    deja_scannees = sorted(
+        (c for c in cartes if _cle_rotation(c) in memoire),
+        key=lambda c: memoire[_cle_rotation(c)],
+    )
+    selection = (jamais_scannees + deja_scannees)[:max_cartes]
+
+    cles_valides = {_cle_rotation(c) for c in cartes}
+    nouvelle_memoire = {cle: valeur for cle, valeur in memoire.items() if cle in cles_valides}
+    maintenant = datetime.now(timezone.utc).isoformat()
+    for c in selection:
+        nouvelle_memoire[_cle_rotation(c)] = maintenant
+    if nouvelle_memoire != memoire:
+        sauvegarder_memoire_supabase(nouvelle_memoire, CLE_MEMOIRE_ROTATION, supabase_url, service_role_key)
+
+    return selection
+
+
 def dict_watchlist_saas(
     supabase_url: str, service_role_key: str, max_cartes: int | None = None
 ) -> list[dict]:
     """Cartes SaaS distinctes, au meme format que les entrees de
     cfg["watchlist"] (config.yaml) : [{"nom", "langue", "prix_max_fixe"}, ...].
-    `max_cartes` limite le nombre d'entrees retournees (les plus
-    demandees en premier) -- a utiliser pour main.py, jamais pour les
-    scanners boutiques (cf. docstring du module)."""
+    `max_cartes` limite le nombre d'entrees retournees, par rotation
+    equitable (cf. _selectionner_avec_rotation) -- a utiliser pour main.py,
+    jamais pour les scanners boutiques (cf. docstring du module)."""
     items = lister_watchlist_items(supabase_url, service_role_key)
     cartes = _grouper_par_carte(items)
     if max_cartes is not None:
-        cartes = cartes[:max_cartes]
+        cartes = _selectionner_avec_rotation(cartes, max_cartes, supabase_url, service_role_key)
     return [
         {"nom": c["nom"], "langue": c["langue"], "prix_max_fixe": c["prix_max_fixe"]}
         for c in cartes

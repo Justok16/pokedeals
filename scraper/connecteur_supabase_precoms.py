@@ -206,7 +206,17 @@ def _lister_tous_utilisateurs(supabase_url: str, service_role_key: str) -> list[
         return []
 
 
-def _lister_abonnements_push(supabase_url: str, service_role_key: str, user_ids: list[str]) -> list[dict]:
+def _lister_abonnements_push(supabase_url: str, service_role_key: str, user_ids: list[str]) -> list[dict] | None:
+    """[] si aucun user_id/secrets absents ou lecture reussie sans abonnement
+    -- None si la lecture a reellement echoue (reseau/API). Distinction
+    ajoutee le 05/09/2026 (audit externe multi-IA) : sans elle, une panne au
+    moment de cette lecture faisait passer TOUS les user_ids pour "sans
+    abonnement" dans diffuser_precommande_a_tous() ci-dessous -- aucun push
+    n'etait alors tente pour PERSONNE, mais le canal push du broadcast entier
+    etait quand meme marque diffuse (echec_push jamais mis a True puisque
+    aucun envoi n'etait meme tente), empechant tout retry au cycle suivant.
+    Meme correctif applique en parallele a notifications_saas.py
+    (justok16/pokedeals, meme audit)."""
     if not user_ids or not supabase_url or not service_role_key:
         return []
     try:
@@ -223,13 +233,16 @@ def _lister_abonnements_push(supabase_url: str, service_role_key: str, user_ids:
         return r.json()
     except requests.RequestException as e:
         log.warning("Lecture des abonnements push échouée (%s) -- ignorée ce cycle", e)
-        return []
+        return None
 
 
-def _preferences_email(supabase_url: str, service_role_key: str, user_ids: list[str]) -> dict[str, bool]:
+def _preferences_email(supabase_url: str, service_role_key: str, user_ids: list[str]) -> dict[str, bool] | None:
     """Retourne {user_id: notif_email actif}. Un utilisateur absent de la
     table (pas encore de preference enregistree) est considere actif par
-    defaut -- l'appelant doit donc faire .get(user_id, True)."""
+    defaut -- l'appelant doit donc faire .get(user_id, True). {} si aucun
+    user_id/secrets absents ou lecture reussie sans aucune ligne -- None si
+    la lecture a reellement echoue (meme raison que _lister_abonnements_push()
+    ci-dessus)."""
     if not user_ids or not supabase_url or not service_role_key:
         return {}
     try:
@@ -246,7 +259,7 @@ def _preferences_email(supabase_url: str, service_role_key: str, user_ids: list[
         return {row["user_id"]: row["notif_email"] for row in r.json()}
     except requests.RequestException as e:
         log.warning("Lecture des préférences email échouée (%s) -- ignorée ce cycle", e)
-        return {}
+        return None
 
 
 def _email_utilisateur(supabase_url: str, service_role_key: str, user_id: str) -> str | None:
@@ -385,12 +398,31 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
     if not user_ids:
         return
 
+    # push_lecture_ok/email_lecture_ok distinguent une lecture reussie (meme
+    # vide) d'une lecture ratee (None) -- une lecture ratee desactive le
+    # canal pour ce cycle SANS jamais appeler marquer_diffusion_terminee,
+    # pour que le broadcast entier soit retente au prochain cycle plutot que
+    # declare diffuse a tort (cf. docstrings de _lister_abonnements_push()/
+    # _preferences_email() ci-dessus).
     abonnements_par_utilisateur: dict[str, list[dict]] = {}
+    push_lecture_ok = True
     if push_actif:
-        for sub in _lister_abonnements_push(supabase_url, service_role_key, user_ids):
-            abonnements_par_utilisateur.setdefault(sub["user_id"], []).append(sub)
+        resultat_push = _lister_abonnements_push(supabase_url, service_role_key, user_ids)
+        if resultat_push is None:
+            push_lecture_ok = False
+        else:
+            for sub in resultat_push:
+                abonnements_par_utilisateur.setdefault(sub["user_id"], []).append(sub)
 
-    prefs_email = _preferences_email(supabase_url, service_role_key, user_ids) if email_actif else {}
+    prefs_email: dict[str, bool] = {}
+    email_lecture_ok = True
+    if email_actif:
+        resultat_prefs = _preferences_email(supabase_url, service_role_key, user_ids)
+        if resultat_prefs is None:
+            email_lecture_ok = False
+        else:
+            prefs_email = resultat_prefs
+
     emails_cache: dict[str, str | None] = {}
 
     for precommande in precommandes_a_diffuser:
@@ -400,7 +432,7 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
             corps += f" sur {precommande['boutique']}"
         url = precommande.get("url_produit", "")
 
-        if push_actif and not precommande.get("push_diffuse"):
+        if push_actif and push_lecture_ok and not precommande.get("push_diffuse"):
             echec_push = False
             for uid in user_ids:
                 if uid in abonnements_par_utilisateur:
@@ -412,7 +444,7 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
             if not echec_push:
                 marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "push")
 
-        if email_actif and not precommande.get("email_diffuse"):
+        if email_actif and email_lecture_ok and not precommande.get("email_diffuse"):
             echec_email = False
             for uid in user_ids:
                 if prefs_email.get(uid, True):

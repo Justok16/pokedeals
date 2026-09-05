@@ -92,11 +92,26 @@ def trouver_correspondances(deals: list[dict], items: list[dict]) -> list[dict]:
     O(items × deals) qui grossit avec le nombre d'utilisateurs même si le
     nombre de deals par cycle reste petit. Regrouper les items par clé une
     seule fois ramène le travail par deal à ses seuls items réellement
-    candidats (même nom + même langue), sans changer aucun résultat."""
+    candidats (même nom + même langue), sans changer aucun résultat.
+
+    Ignore les items en pause (`actif=false`) -- audit externe multi-IA du
+    05/09/2026, confirmé par relecture directe du code : watchlist_saas.
+    _grouper_par_carte() respecte déjà `actif` mais UNIQUEMENT pour decider
+    quelles cartes SCANNER (recherche eBay/Vinted, catalogue boutique) --
+    cette fonction-ci, appelée séparément par main.py ET par
+    watchlist_saas.notifier_deals_boutique_saas() pour faire correspondre un
+    deal DÉJÀ détecté à TOUS les watchlist_items (peu importe qui a permis
+    de le détecter), ne filtrait jamais `actif` elle-même. Un utilisateur en
+    pause sur une carte que quelqu'un d'autre surveille activement (ou
+    présente dans config.yaml) continuait donc à recevoir des alertes pour
+    elle -- le bouton "Mettre en pause" du dashboard SaaS ne bloquait le scan
+    que dans certains cas, jamais la notification elle-même."""
     if not deals or not items:
         return []
     items_par_cle: dict[tuple[str, str], list[dict]] = {}
     for item in items:
+        if item.get("actif", True) is False:
+            continue
         nom_norm = normaliser(item.get("nom_carte", ""))
         if not nom_norm:
             continue
