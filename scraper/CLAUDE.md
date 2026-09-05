@@ -187,6 +187,16 @@ Système **indépendant**, complémentaire au watchdog ci-dessus mais couvre un 
 - Même anti-spam que `watchdog_workflows.py` : état persisté dans Supabase (clé `email_canari_etat`), alerte Telegram uniquement au changement d'état (échec → alerte une fois, retour au vert → message de résolution).
 - Workflow dédié `email_canari.yml`, cron toutes les 3h (8 envois/jour, très en dessous de la limite gratuite SendGrid de 100/jour). Secrets absents (`SENDGRID_*`/`EMAIL_CANARI_DESTINATAIRE`) → no-op silencieux, même philosophie que les autres ponts optionnels de ce dépôt.
 
+## Canari de livraison push (`verification_push_canari.py`, ajouté le 05/09/2026)
+
+Symétrique au canari email ci-dessus (angle mort identifié lors d'un audit approfondi demandé par Justok : le push n'avait aucun équivalent). Contrairement au canari email, pas de destinataire "tiers" possible (un abonnement push appartient à UN navigateur précis) — le pouvoir de discrimination ici est temporel : détecter automatiquement une régression (VAPID mal configuré, `pywebpush` cassé après une mise à jour, abonnement canari expiré) sans attendre qu'un vrai utilisateur signale ne rien recevoir, particulièrement utile tant que l'usage réel reste faible (peu d'alertes push générées naturellement).
+
+- Réutilise **littéralement** `notifications_saas._envoyer_push`/`_lister_abonnements_push` (pas de réimplémentation).
+- Secret `PUSH_CANARI_USER_ID` : `user_id` (table `auth.users` du projet Supabase `pokedeals-saas`) dont l'abonnement push sert de canari — doit avoir un abonnement actif en permanence.
+- **Piège géré explicitement** : `_envoyer_push()` retourne `True` aussi bien pour "livré avec succès" que pour "abonnement expiré, purgé" (cf. sa docstring) — sans contrôle supplémentaire, un canari qui se désabonne silencieusement se traduirait par un succès permanent, ne testant plus jamais rien. `verifier_livraison()` vérifie donc D'ABORD qu'un abonnement existe encore pour `PUSH_CANARI_USER_ID` ; son absence est traitée comme un échec.
+- Même anti-spam que le canari email : état persisté dans Supabase (clé `push_canari_etat`).
+- Workflow dédié `push_canari.yml`, cron toutes les 3h (décalé de 20 min par rapport au canari email, simple politesse envers Supabase/Telegram). Secrets absents → no-op silencieux.
+
 ## Migration progressive "mémoire hors de Git" (Supabase, démarrée le 24/08/2026)
 
 Suite à un audit externe signalant la croissance illimitée de l'historique Git comme fragilité structurelle (53 Mo / 4106 commits mesurés ce jour-là, l'écrasante majorité étant des commits automatiques `"maj mémoire ..."` — un cycle de scan toutes les 15-30 min sur ~9 workflows), un chantier **progressif et prudent** (un fichier mémoire à la fois, même principe que le découpage progressif de `main.py`) sort les fichiers mémoire à rotation la plus rapide de Git vers une table Supabase dédiée (`scraper_memoire`, projet `pokedeals-saas` — même projet que `connecteur_supabase.py`, réutilise les mêmes secrets `SUPABASE_URL`/`SUPABASE_SERVICE_ROLE_KEY`, aucun nouveau secret).

@@ -1,0 +1,48 @@
+name: Canari Push
+
+on:
+  schedule:
+    # Meme cadence que le canari email (email_canari.yml) et
+    # watchdog_workflows.yml -- meme classe de probleme : detection
+    # automatique d'une panne silencieuse, sans attendre qu'un vrai
+    # utilisateur signale ne rien recevoir.
+    - cron: "20 */3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: push_canari
+  cancel-in-progress: false
+
+jobs:
+  canari:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    timeout-minutes: 5
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+      - name: Installer Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Vérifier la livraison push réelle
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_CLAIM_EMAIL: ${{ secrets.VAPID_CLAIM_EMAIL }}
+          # Compte dont l'abonnement push sert de canari (doit avoir un
+          # abonnement push actif en permanence, cf. docstring du module
+          # pour le piege "abonnement expire = faux succes" deja gere).
+          PUSH_CANARI_USER_ID: ${{ secrets.PUSH_CANARI_USER_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PYTHONUNBUFFERED: "1"
+        run: python verification_push_canari.py
