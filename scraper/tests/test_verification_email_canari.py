@@ -32,10 +32,13 @@ def test_verifier_livraison_appelle_envoyer_email_de_notifications_saas():
     with patch("verification_email_canari._envoyer_email", return_value=True) as send_mock:
         result = verifier_livraison("SG.xxx", "noreply@pokedeals.app", "canari@example.com")
     assert result is True
-    args, _ = send_mock.call_args
+    args, kwargs = send_mock.call_args
     assert args[0] == "SG.xxx"
     assert args[1] == "noreply@pokedeals.app"
     assert args[2] == "canari@example.com"
+    # Ajoute le 05/09/2026 (webhook SendGrid) : permet de distinguer un
+    # evenement de livraison du canari de ceux des vrais utilisateurs.
+    assert kwargs["custom_args"] == {"produit": "pokedeals", "type_notification": "canari"}
 
 
 def test_verifier_livraison_echec_est_propage():

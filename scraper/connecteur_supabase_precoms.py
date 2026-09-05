@@ -332,11 +332,31 @@ def _envoyer_push(
     return not echec_transitoire
 
 
-def _envoyer_email(sendgrid_api_key: str, sendgrid_from: str, destinataire: str, titre: str, corps: str, url: str) -> bool:
+def _envoyer_email(
+    sendgrid_api_key: str, sendgrid_from: str, destinataire: str, titre: str, corps: str, url: str,
+    custom_args: dict[str, str] | None = None,
+) -> bool:
     """Retourne True si l'email a été accepté par SendGrid (202, pas de
-    corps de réponse), False sinon."""
+    corps de réponse), False sinon.
+
+    `custom_args` (ajouté le 05/09/2026, cf. webhook SendGrid côté
+    pokedeals-saas, même correctif que notifications_saas.py) : échoué tel
+    quel par SendGrid dans chaque événement de livraison -- permet de
+    corréler un événement reçu par le webhook à la précommande précise qui
+    l'a déclenché. Valeurs OBLIGATOIREMENT des chaînes (contrainte SendGrid)."""
     from telegram_utils import echapper_html, echapper_url_html
 
+    payload = {
+        "personalizations": [{"to": [{"email": destinataire}]}],
+        "from": {"email": sendgrid_from},
+        "subject": titre,
+        "content": [
+            {"type": "text/plain", "value": f"{corps}\n\nVoir la fiche produit : {url}"},
+            {"type": "text/html", "value": f"<p>{echapper_html(corps)}</p><p><a href=\"{echapper_url_html(url)}\">Voir la fiche produit</a></p>"},
+        ],
+    }
+    if custom_args:
+        payload["custom_args"] = custom_args
     try:
         r = requests.post(
             "https://api.sendgrid.com/v3/mail/send",
@@ -344,15 +364,7 @@ def _envoyer_email(sendgrid_api_key: str, sendgrid_from: str, destinataire: str,
                 "Authorization": f"Bearer {sendgrid_api_key}",
                 "Content-Type": "application/json",
             },
-            json={
-                "personalizations": [{"to": [{"email": destinataire}]}],
-                "from": {"email": sendgrid_from},
-                "subject": titre,
-                "content": [
-                    {"type": "text/plain", "value": f"{corps}\n\nVoir la fiche produit : {url}"},
-                    {"type": "text/html", "value": f"<p>{echapper_html(corps)}</p><p><a href=\"{echapper_url_html(url)}\">Voir la fiche produit</a></p>"},
-                ],
-            },
+            json=payload,
             timeout=TIMEOUT,
         )
         r.raise_for_status()
@@ -451,7 +463,10 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
                     if uid not in emails_cache:
                         emails_cache[uid] = _email_utilisateur(supabase_url, service_role_key, uid)
                     email = emails_cache[uid]
-                    if email and not _envoyer_email(sendgrid_api_key, sendgrid_from, email, titre_notif, corps, url):
+                    if email and not _envoyer_email(
+                        sendgrid_api_key, sendgrid_from, email, titre_notif, corps, url,
+                        custom_args={"produit": "pokeprecoms", "type_notification": "precommande", "reference_id": str(precommande["id"])},
+                    ):
                         echec_email = True
             if not echec_email:
                 marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "email")
