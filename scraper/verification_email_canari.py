@@ -61,7 +61,10 @@ def verifier_livraison(sendgrid_api_key: str, sendgrid_from: str, destinataire: 
     pour ne jamais alerter à tort quand le système est simplement inactif."""
     if not sendgrid_api_key or not sendgrid_from or not destinataire:
         return None
-    return _envoyer_email(sendgrid_api_key, sendgrid_from, destinataire, TITRE_CANARI, corps_canari(), URL_CANARI)
+    return _envoyer_email(
+        sendgrid_api_key, sendgrid_from, destinataire, TITRE_CANARI, corps_canari(), URL_CANARI,
+        custom_args={"produit": "pokedeals", "type_notification": "canari"},
+    )
 
 
 def main() -> None:

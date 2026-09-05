@@ -16,6 +16,7 @@ import requests
 
 from connecteur_supabase_precoms import (
     _email_utilisateur,
+    _envoyer_email,
     _lister_abonnements_push,
     _lister_tous_utilisateurs,
     _preferences_email,
@@ -222,6 +223,9 @@ def test_notifier_email_reussi_notifie_les_abonnes_et_marque_le_canal_diffuse():
     # u1 a désactivé l'email, seul u2 (actif par défaut) est notifié.
     assert lookup_mock.call_count == 1
     email_send_mock.assert_called_once()
+    assert email_send_mock.call_args.kwargs["custom_args"] == {
+        "produit": "pokeprecoms", "type_notification": "precommande", "reference_id": "p1",
+    }
     marquer_mock.assert_called_once_with("https://x.supabase.co", "k", "p1", "email")
 
 
@@ -381,6 +385,29 @@ def test_preferences_email_erreur_reseau_retourne_none():
     with patch("connecteur_supabase_precoms.requests.get", side_effect=requests.RequestException("boom")):
         result = _preferences_email("https://x.supabase.co", "cle", ["u1"])
     assert result is None
+
+
+# ------------------- _envoyer_email -------------------
+
+def test_envoyer_email_sans_custom_args_ne_les_inclut_pas():
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    with patch("connecteur_supabase_precoms.requests.post", return_value=reponse) as post_mock:
+        _envoyer_email("SG.xxx", "noreply@pokeprecoms.app", "user@example.com", "titre", "corps", "https://x/1")
+    assert "custom_args" not in post_mock.call_args.kwargs["json"]
+
+
+def test_envoyer_email_avec_custom_args_les_transmet_a_sendgrid():
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    with patch("connecteur_supabase_precoms.requests.post", return_value=reponse) as post_mock:
+        _envoyer_email(
+            "SG.xxx", "noreply@pokeprecoms.app", "user@example.com", "titre", "corps", "https://x/1",
+            custom_args={"produit": "pokeprecoms", "type_notification": "precommande", "reference_id": "p1"},
+        )
+    assert post_mock.call_args.kwargs["json"]["custom_args"] == {
+        "produit": "pokeprecoms", "type_notification": "precommande", "reference_id": "p1",
+    }
 
 
 # ------------------- _email_utilisateur -------------------

@@ -192,11 +192,32 @@ def _envoyer_push(
     return not echec_transitoire
 
 
-def _envoyer_email(sendgrid_api_key: str, sendgrid_from: str, destinataire: str, titre: str, corps: str, url: str) -> bool:
+def _envoyer_email(
+    sendgrid_api_key: str, sendgrid_from: str, destinataire: str, titre: str, corps: str, url: str,
+    custom_args: dict[str, str] | None = None,
+) -> bool:
     """Retourne True si l'email a bien été envoyé (accepté par SendGrid,
     202 -- pas de corps de réponse, cf. r.raise_for_status() qui ne lève
     que sur 4xx/5xx), False sinon -- l'appelant ne doit alors PAS marquer
-    le canal comme envoyé, pour que le prochain cycle retente."""
+    le canal comme envoyé, pour que le prochain cycle retente.
+
+    `custom_args` (ajouté le 05/09/2026, cf. webhook SendGrid côté
+    pokedeals-saas) : échoué tel quel par SendGrid dans chaque événement de
+    livraison (delivered/bounce/spamreport/...) -- permet de corréler un
+    événement reçu par le webhook à l'alerte/canari précis qui l'a déclenché,
+    plutôt que de seulement savoir que l'appel API a été accepté. Valeurs
+    OBLIGATOIREMENT des chaînes (contrainte SendGrid)."""
+    payload = {
+        "personalizations": [{"to": [{"email": destinataire}]}],
+        "from": {"email": sendgrid_from},
+        "subject": titre,
+        "content": [
+            {"type": "text/plain", "value": f"{corps}\n\nVoir l'annonce : {url}"},
+            {"type": "text/html", "value": f"<p>{echapper_html(corps)}</p><p><a href=\"{echapper_url_html(url)}\">Voir l'annonce</a></p>"},
+        ],
+    }
+    if custom_args:
+        payload["custom_args"] = custom_args
     try:
         r = requests.post(
             "https://api.sendgrid.com/v3/mail/send",
@@ -204,15 +225,7 @@ def _envoyer_email(sendgrid_api_key: str, sendgrid_from: str, destinataire: str,
                 "Authorization": f"Bearer {sendgrid_api_key}",
                 "Content-Type": "application/json",
             },
-            json={
-                "personalizations": [{"to": [{"email": destinataire}]}],
-                "from": {"email": sendgrid_from},
-                "subject": titre,
-                "content": [
-                    {"type": "text/plain", "value": f"{corps}\n\nVoir l'annonce : {url}"},
-                    {"type": "text/html", "value": f"<p>{echapper_html(corps)}</p><p><a href=\"{echapper_url_html(url)}\">Voir l'annonce</a></p>"},
-                ],
-            },
+            json=payload,
             timeout=TIMEOUT,
         )
         r.raise_for_status()
@@ -312,7 +325,10 @@ def notifier_alertes_en_attente(secrets: dict, alertes_en_attente: list[dict]) -
                 if uid not in emails_cache:
                     emails_cache[uid] = _email_utilisateur(supabase_url, service_role_key, uid)
                 email = emails_cache[uid]
-                if email and _envoyer_email(sendgrid_api_key, sendgrid_from, email, titre_notif, corps, alerte["url"]):
+                if email and _envoyer_email(
+                    sendgrid_api_key, sendgrid_from, email, titre_notif, corps, alerte["url"],
+                    custom_args={"produit": "pokedeals", "type_notification": "alerte", "reference_id": str(alerte["id"])},
+                ):
                     marquer_notification_envoyee(supabase_url, service_role_key, alerte["id"], "email")
 
 
@@ -364,4 +380,7 @@ def notifier_transition_verification(secrets: dict, user_id: str, titre_notif: s
         if (prefs or {}).get(user_id, True):
             email = _email_utilisateur(supabase_url, service_role_key, user_id)
             if email:
-                _envoyer_email(sendgrid_api_key, sendgrid_from, email, titre_notif, corps, url)
+                _envoyer_email(
+                    sendgrid_api_key, sendgrid_from, email, titre_notif, corps, url,
+                    custom_args={"produit": "pokedeals", "type_notification": "verification"},
+                )

@@ -132,8 +132,9 @@ def test_email_reussi_marque_le_canal_envoye():
         notifier_alertes_en_attente(secrets, [_alerte()])
     push_send_mock.assert_not_called()
     email_send_mock.assert_called_once()
-    args, _ = email_send_mock.call_args
+    args, kwargs = email_send_mock.call_args
     assert args[2] == "user@example.com"
+    assert kwargs["custom_args"] == {"produit": "pokedeals", "type_notification": "alerte", "reference_id": "a1"}
     marquer_mock.assert_called_once_with("https://x.supabase.co", "k", "a1", "email")
 
 
@@ -378,6 +379,32 @@ def test_envoyer_email_echappe_le_html_du_corps_et_de_lurl():
     assert 'href="https://x/1?a=&quot;b&quot;&amp;c=&lt;d&gt;"' in html_envoye
 
 
+def test_envoyer_email_sans_custom_args_ne_les_inclut_pas():
+    # Retro-compatibilite : un appel sans custom_args (ancien comportement)
+    # ne doit pas envoyer de cle "custom_args" du tout a SendGrid.
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    with patch("notifications_saas.requests.post", return_value=reponse) as post_mock:
+        _envoyer_email("SG.xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+    assert "custom_args" not in post_mock.call_args.kwargs["json"]
+
+
+def test_envoyer_email_avec_custom_args_les_transmet_a_sendgrid():
+    # Ajoute le 05/09/2026 (webhook SendGrid, pokedeals-saas) : permet de
+    # correler un evenement de livraison recu par le webhook a l'alerte
+    # precise qui l'a declenche.
+    reponse = Mock()
+    reponse.raise_for_status = Mock()
+    with patch("notifications_saas.requests.post", return_value=reponse) as post_mock:
+        _envoyer_email(
+            "SG.xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1",
+            custom_args={"produit": "pokedeals", "type_notification": "alerte", "reference_id": "a1"},
+        )
+    assert post_mock.call_args.kwargs["json"]["custom_args"] == {
+        "produit": "pokedeals", "type_notification": "alerte", "reference_id": "a1",
+    }
+
+
 # ------------------- _envoyer_push -------------------
 
 def test_envoyer_push_appelle_webpush_par_abonnement_et_retourne_true():
@@ -474,7 +501,10 @@ def test_transition_email_actif_envoie_si_preference_active():
          patch("notifications_saas._email_utilisateur", return_value="user@example.com"), \
          patch("notifications_saas._envoyer_email", return_value=True) as email_send_mock:
         notifier_transition_verification(secrets, "u1", "titre", "corps", "https://x/1")
-    email_send_mock.assert_called_once_with("SG.xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1")
+    email_send_mock.assert_called_once_with(
+        "SG.xxx", "noreply@pokedeals.app", "user@example.com", "titre", "corps", "https://x/1",
+        custom_args={"produit": "pokedeals", "type_notification": "verification"},
+    )
 
 
 def test_transition_email_panne_lecture_preferences_ne_plante_pas():
