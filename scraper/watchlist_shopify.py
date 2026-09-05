@@ -43,7 +43,19 @@ CODES_SET_CONNUS = {
 PREFIXES_A_IGNORER = {"team", "rocket's", "rocket"}
 # Mots qui METTENT FIN a la collecte du nom de recherche (tout ce qui suit
 # est un qualificatif -- rarete, forme, promo -- pas le nom du Pokemon).
-MOTS_TERMINATEURS = {"ex", "gx", "v", "vmax", "vstar", "promo", "de", "du", "des"}
+# Inclut les mentions de gradation (audit externe multi-IA du 05/09/2026,
+# signalement direct : un utilisateur SaaS surveillait "Metagross PSA 10 m2a
+# 245/193" -- "psa" n'etant ni un terminateur ni un code de set connu, il
+# etait capture comme faisant partie du NOM de recherche ("Metagross PSA" au
+# lieu de "Metagross"), degradant la recherche eBay/Vinted et boutiques pour
+# rien. Independamment du fait que ce systeme n'alerte de toute facon jamais
+# sur une carte gradee (cf. MOTS_CARTE_GRADEE dans bonne_affaire_shopify.py,
+# pieges connus) -- ceci evite au moins de polluer le nom de recherche pour
+# TOUTE entree qui contiendrait un de ces mots, meme hors contexte gradation.
+MOTS_TERMINATEURS = {
+    "ex", "gx", "v", "vmax", "vstar", "promo", "de", "du", "des",
+    "psa", "pca", "bgs", "cgc", "ccc", "gradee", "graded", "grade",
+}
 # Sous-ensemble de MOTS_TERMINATEURS qui distingue reellement des cartes
 # DIFFERENTES portant le meme nom+numero (contrairement a "promo"/"de"/"du"/
 # "des", qui ne sont pas des mecaniques de jeu). Bug reel corrige : "Plumeline

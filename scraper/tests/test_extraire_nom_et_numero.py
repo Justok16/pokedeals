@@ -36,3 +36,17 @@ def test_set_151_ecrit_apres_le_numero_ne_remplace_pas_le_vrai_numero():
 
 def test_set_151_seul_sans_parentheses():
     assert extraire_nom_et_numero("Dracaufeu ex 006 151") == ("Dracaufeu", "006", "ex")
+
+
+def test_mention_gradation_nest_pas_capturee_dans_le_nom():
+    """Bug reel trouve lors d'un audit externe multi-IA (05/09/2026) sur un
+    vrai compte utilisateur SaaS : "Metagross PSA 10 m2a 245/193" -- le
+    numero (245/193) apparait APRES "PSA 10", donc la boucle de collecte du
+    nom atteignait "psa" (ni terminateur ni code de set connu a l'epoque)
+    avant tout token contenant un chiffre, et le capturait dans le nom de
+    recherche ("Metagross PSA" au lieu de "Metagross"), degradant toute
+    recherche eBay/Vinted/boutiques pour cette carte. "psa"/"cgc"/"bgs"/
+    "ccc"/"gradee"/"graded"/"grade" ajoutes a MOTS_TERMINATEURS."""
+    assert extraire_nom_et_numero("Metagross PSA 10 m2a 245/193") == (
+        "Metagross", "245/193", None
+    )
