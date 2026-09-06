@@ -22,7 +22,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Récupérer le code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Installer Python
         uses: actions/setup-python@v5
         with:
