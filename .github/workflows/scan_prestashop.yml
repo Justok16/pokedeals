@@ -87,7 +87,15 @@ jobs:
     defaults:
       run:
         working-directory: scraper
-    timeout-minutes: 18
+    # Releve de 18 a 25 min le 08/09/2026 (surveillance quotidienne,
+    # mesure reelle) : 7 annulations sur 60 runs (~26h) toutes tuees pile a
+    # 18 min sans avoir termine, alors que les passages reussis de ce lot
+    # prennent normalement 12-14 min -- une boutique occasionnellement
+    # lente/qui traine suffit a depasser la marge. Lot A (meme limite
+    # d'origine) n'a jamais ete annule sur le meme echantillon, laisse
+    # inchange. Les deux lots tournent en parallele (28/08/2026), donc
+    # cette marge supplementaire n'allonge pas le cycle global.
+    timeout-minutes: 25
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v7
