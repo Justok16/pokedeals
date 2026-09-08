@@ -396,3 +396,14 @@ def test_envoyer_telegram_bonnes_affaires_nexclue_pas_les_autres_deals():
         post_mock.return_value.status_code = 200
         envoyer_telegram_bonnes_affaires([deal_exclu, deal_normal], "chat123", "token123")
     post_mock.assert_called_once()  # un seul envoi : le deal exclu, pas l'autre
+
+
+def test_envoyer_telegram_bonnes_affaires_filtre_mega_amphinobi():
+    # Retiree de config.yaml le 08/09/2026, exclue en plus ici au cas ou
+    # elle reviendrait via une watchlist SaaS (cf. commentaire dans
+    # bonne_affaire_shopify.py).
+    deal_exclu = _deal(nom="Méga-Amphinobi ex 116/086", langue="fr")
+    with patch("bonne_affaire_shopify.requests.post") as post_mock:
+        resultat = envoyer_telegram_bonnes_affaires([deal_exclu], "chat123", "token123")
+    post_mock.assert_not_called()
+    assert resultat is True
