@@ -417,6 +417,13 @@ def _texte_bonne_affaire(d: dict, verif_photo: tuple[str | None, str] | None = N
 # nom exact avec une langue differente.
 CARTES_EXCLUES_TELEGRAM_PERSO = {
     ("metagross psa 10 m2a 245/193", "jp"),
+    # "Méga-Amphinobi ex 116/086" : retiree de config.yaml le 08/09/2026
+    # (demande de Justok) -- exclue ICI EN PLUS, au cas ou un utilisateur
+    # SaaS l'ajouterait un jour a sa propre watchlist (cf. watchlist_saas.py,
+    # entierement additif, independant de config.yaml) : elle continuerait
+    # alors a etre scannee et a remonter sur ce Telegram perso sans ce
+    # filtre, malgre son retrait de config.yaml.
+    ("méga-amphinobi ex 116/086", "fr"),
 }
 
 
