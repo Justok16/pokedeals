@@ -340,3 +340,59 @@ def test_est_carte_gradee_negation_accentuee_nempeche_pas_le_faux_rejet():
 
 def test_est_carte_gradee_carte_normale_non_signalee():
     assert _est_carte_gradee("Dracaufeu ex 199/165 - Near Mint") is False
+
+
+# --- Exclusion Telegram perso (08/09/2026, demande de Justok) -------------
+
+
+def _deal(**kwargs) -> dict:
+    base = dict(
+        boutique="exemple.fr",
+        nom="Dracaufeu ex 199/165",
+        titre_produit="Dracaufeu ex 199/165",
+        url_produit="https://exemple.fr/produit",
+        image_url=None,
+        langue="fr",
+        prix=50.0,
+        cote=80.0,
+        decote_pct=37.5,
+        prix_revente_conseille=90.0,
+        profit_net_estime=10.0,
+        confiance=0,
+    )
+    base.update(kwargs)
+    return base
+
+
+def test_envoyer_telegram_bonnes_affaires_filtre_la_carte_exclue():
+    deal_exclu = _deal(nom="Metagross PSA 10 m2a 245/193", langue="jp")
+    with patch("bonne_affaire_shopify.requests.post") as post_mock:
+        resultat = envoyer_telegram_bonnes_affaires([deal_exclu], "chat123", "token123")
+    post_mock.assert_not_called()
+    assert resultat is True
+
+
+def test_envoyer_telegram_bonnes_affaires_filtre_insensible_a_la_casse():
+    deal_exclu = _deal(nom="METAGROSS psa 10 M2A 245/193", langue="jp")
+    with patch("bonne_affaire_shopify.requests.post") as post_mock:
+        envoyer_telegram_bonnes_affaires([deal_exclu], "chat123", "token123")
+    post_mock.assert_not_called()
+
+
+def test_envoyer_telegram_bonnes_affaires_nexclue_pas_une_langue_differente():
+    # Meme nom, langue differente -- ne doit PAS etre exclu (garde-fou
+    # contre un filtre trop large qui bloquerait une autre carte homonyme).
+    deal_autre_langue = _deal(nom="Metagross PSA 10 m2a 245/193", langue="fr")
+    with patch("bonne_affaire_shopify.requests.post") as post_mock:
+        post_mock.return_value.status_code = 200
+        envoyer_telegram_bonnes_affaires([deal_autre_langue], "chat123", "token123")
+    post_mock.assert_called_once()
+
+
+def test_envoyer_telegram_bonnes_affaires_nexclue_pas_les_autres_deals():
+    deal_exclu = _deal(nom="Metagross PSA 10 m2a 245/193", langue="jp")
+    deal_normal = _deal(nom="Dracaufeu ex 199/165", langue="fr")
+    with patch("bonne_affaire_shopify.requests.post") as post_mock:
+        post_mock.return_value.status_code = 200
+        envoyer_telegram_bonnes_affaires([deal_exclu, deal_normal], "chat123", "token123")
+    post_mock.assert_called_once()  # un seul envoi : le deal exclu, pas l'autre

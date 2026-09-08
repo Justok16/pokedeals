@@ -402,10 +402,33 @@ def _texte_bonne_affaire(d: dict, verif_photo: tuple[str | None, str] | None = N
     )
 
 
+# Cartes que Justok ne veut plus voir remonter sur SON Telegram personnel,
+# demande du 08/09/2026. Volontairement LOCAL a cette fonction (pas a
+# detecter_bonnes_affaires) : la carte reste normalement suivie/alertee
+# (push/email) pour l'utilisateur SaaS qui l'a ajoutee a sa propre
+# watchlist -- ce filtre ne retire rien cote SaaS, cf.
+# notifier_deals_boutique_saas() dans watchlist_saas.py, appelee separement
+# avec la liste COMPLETE des deals, avant ce filtrage.
+# "Metagross PSA 10 m2a 245/193" : entree watchlist SaaS d'un autre
+# utilisateur dont le nom (mention de gradation dans le nom, cf. PR #30
+# pokedeals-saas qui bloque desormais ce cas a la creation) matche par
+# erreur des annonces de cartes BRUTES homonymes -- comparee (id, langue)
+# plutot que juste le nom, au cas ou une autre carte partagerait un jour ce
+# nom exact avec une langue differente.
+CARTES_EXCLUES_TELEGRAM_PERSO = {
+    ("metagross psa 10 m2a 245/193", "jp"),
+}
+
+
+def _exclue_du_telegram_perso(deal: dict) -> bool:
+    return (deal.get("nom", "").strip().lower(), deal.get("langue", "")) in CARTES_EXCLUES_TELEGRAM_PERSO
+
+
 def envoyer_telegram_bonnes_affaires(deals: list[dict], chat_id: str, token: str, anthropic_api_key: str = "") -> bool:
     """`anthropic_api_key` (optionnel) : meme mecanisme que
     main.envoyer_telegram -- verification photo juste avant l'envoi, sur les
     deals deja filtres uniquement. Cf. verification_photo.py."""
+    deals = [d for d in deals if not _exclue_du_telegram_perso(d)]
     if not deals:
         return True
     if not token or not chat_id:
