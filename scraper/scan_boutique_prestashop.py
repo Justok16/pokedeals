@@ -25,6 +25,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from alerte_stock import charger_memoire, detecter_retours_en_stock, envoyer_telegram_retours_stock, sauvegarder_memoire
 from bonne_affaire_shopify import charger_cotes, charger_regles, detecter_bonnes_affaires, envoyer_telegram_bonnes_affaires
 from connecteur_prestashop_sitemap import ConnecteurPrestaShopSitemap
+from filtre_annonces import cles_watchlist, deals_config_perso
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from watchlist_shopify import CarteWatchlist
 
@@ -155,6 +156,10 @@ if __name__ == "__main__":
     cle_anthropic = os.environ.get("ANTHROPIC_API_KEY", "")
 
     cartes = charger_watchlist_config()
+    # 09/09/2026 : cles (nom, langue) de la watchlist perso de Justok, AVANT
+    # l'extension SaaS ci-dessous -- cf. filtre_annonces.deals_config_perso,
+    # utilise plus bas pour restreindre le Telegram perso a SES cartes.
+    _cles_config_perso = cles_watchlist(cartes)
     # SaaS (saas/) : ajoute les cartes des watchlists utilisateur, en plus
     # de config.yaml -- GRATUIT ici en requetes HTTP (catalogue entier deja
     # recupere en un seul appel par boutique, cf. watchlist_saas.py),
@@ -204,7 +209,12 @@ if __name__ == "__main__":
 
     # Envoi Telegram REEL. Chaque fonction gere son propre canal/format et
     # ne fait rien si la liste est vide.
-    envoyer_telegram_bonnes_affaires(resume["deals"], TELEGRAM_CHAT_ID, token, cle_anthropic)
+    # 09/09/2026 : le Telegram PERSONNEL de Justok est restreint a SA propre
+    # watchlist (config.yaml) -- notifier_deals_boutique_saas() ci-dessus a
+    # deja recu la liste COMPLETE (non filtree), chaque utilisateur SaaS
+    # reste notifie normalement via son propre push/email.
+    envoyer_telegram_bonnes_affaires(
+        deals_config_perso(resume["deals"], _cles_config_perso), TELEGRAM_CHAT_ID, token, cle_anthropic)
     # V57 (18/08/2026, audit externe) : sauvegarde APRES la tentative
     # d'envoi -- cf. scan_boutique.py pour le detail complet.
     envoyer_telegram_retours_stock(resume["evenements_stock"], TELEGRAM_CHAT_ID, token, memoire_stock)

@@ -546,3 +546,67 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
             return False, "annonce numérotée ≠ version sans numéro (SIR)"
 
     return True, "ok"
+
+
+# ------------------- Restriction watchlist perso (09/09/2026) -------------------
+# Justok : "je reçois les alertes de tout le monde [les utilisateurs
+# PokéDeals SaaS], ce n'est pas logique" -- watchlist_saas.py etend la
+# watchlist SCANNEE (config.yaml + cartes ajoutees par les utilisateurs
+# SaaS, cf. son docstring), mais SES notifications personnelles (Telegram
+# et email du systeme historique main.py, Telegram des scanners boutiques
+# TCG) recevaient jusqu'ici TOUS les deals detectes sur cette watchlist
+# fusionnee -- y compris les cartes qui n'existent que dans la watchlist
+# d'un autre utilisateur SaaS (deja notifie separement via son propre
+# push/email, cf. notifications_saas.py). Meme principe deja applique au
+# cas particulier de "Metagross PSA 10 m2a 245/193" (08/09/2026, cf.
+# bonne_affaire_shopify.CARTES_EXCLUES_TELEGRAM_PERSO), generalise ici a
+# TOUTE carte SaaS-only plutot qu'a une liste d'exclusions posee a la main
+# carte par carte.
+#
+# Perimetre volontairement limite aux alertes de DEAL (🔥 boutiques TCG,
+# 💰 eBay/Vinted historique) : les alertes de retour en stock (📦,
+# alerte_stock.py) ne sont pas concernees par ce correctif -- elles ne sont
+# de toute facon jamais routees vers les utilisateurs SaaS aujourd'hui
+# (aucun equivalent de notifier_deals_boutique_saas() pour les evenements
+# de stock), et leur memoire de deduplication (etat en_stock par carte,
+# sans langue) n'est committee qu'au moment de l'envoi Telegram reussi --
+# les en exclure ici les ferait redetecter indefiniment sans jamais etre
+# notifiees nulle part. A etendre si ce gap est comble un jour.
+
+
+def cles_watchlist(cartes) -> set[tuple[str, str]]:
+    """Ensemble (nom, langue) -- comparaison EXACTE (strip + minuscule, PAS
+    de normaliser() : les deux cotes de la comparaison viennent du MEME
+    champ source une fois separes, pas besoin de tolerance aux accents/
+    tirets ici) -- construit depuis une liste de cartes qui doit provenir
+    UNIQUEMENT de config.yaml, jamais deja etendue par watchlist_saas.py
+    (systeme entierement additif, cf. CLAUDE.md).
+
+    Accepte aussi bien un dict brut ("nom"/"langue", cf. cfg["watchlist"]
+    de main.py) qu'un objet portant les attributs nom_config/langue
+    (CarteWatchlist, cf. watchlist_shopify.py) -- les deux familles de
+    structures de carte du projet.
+    """
+    cles = set()
+    for c in cartes:
+        if isinstance(c, dict):
+            nom, langue = c.get("nom", ""), c.get("langue", "fr")
+        else:
+            nom, langue = c.nom_config, c.langue
+        cles.add((str(nom).strip().lower(), str(langue or "fr").lower()))
+    return cles
+
+
+def deals_config_perso(deals: list[dict], cles_config: set[tuple[str, str]]) -> list[dict]:
+    """Restreint `deals` aux seules cartes presentes dans `cles_config`
+    (cf. cles_watchlist). Le champ portant le nom differe selon
+    l'orchestrateur d'origine : "nom" (bonne_affaire_shopify.evaluer_deal,
+    boutiques TCG) ou "carte" (deals main.py, systeme eBay/Vinted/Leboncoin
+    historique)."""
+    out = []
+    for d in deals:
+        nom = str(d.get("nom") or d.get("carte") or "").strip().lower()
+        langue = str(d.get("langue") or "fr").lower()
+        if nom and (nom, langue) in cles_config:
+            out.append(d)
+    return out

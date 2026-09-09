@@ -4,6 +4,8 @@ les commentaires V15/V17.4/V26/V28/V30/V38/V39 du module."""
 
 from filtre_annonces import (
     annonce_pertinente,
+    cles_watchlist,
+    deals_config_perso,
     extraire_numero,
     extraire_numero_annonce,
     normaliser,
@@ -145,3 +147,48 @@ def test_normaliser_accents_et_tirets():
 def test_preuve_francais_detecte_mot_francais():
     assert preuve_francais("Dracaufeu ex 199/165 carte française neuve") is True
     assert preuve_francais("Dracaufeu ex 199/165 carta italiana") is False
+
+
+# --- cles_watchlist / deals_config_perso (09/09/2026) ---
+# "je recois les alertes de tout le monde" -- Telegram/email PERSONNELS de
+# Justok restreints a config.yaml, sans toucher aux notifications SaaS.
+
+def test_cles_watchlist_depuis_dicts_bruts():
+    cartes = [
+        {"nom": "Dracaufeu ex 199/165", "langue": "fr"},
+        {"nom": "Pikachu AR 173/165", "langue": "jp"},
+    ]
+    assert cles_watchlist(cartes) == {
+        ("dracaufeu ex 199/165", "fr"),
+        ("pikachu ar 173/165", "jp"),
+    }
+
+
+def test_cles_watchlist_depuis_objets_cartewatchlist():
+    from watchlist_shopify import CarteWatchlist
+
+    cartes = [CarteWatchlist(nom_recherche="Dracaufeu", numero="199/165", langue="fr",
+                              nom_config="Dracaufeu ex 199/165")]
+    assert cles_watchlist(cartes) == {("dracaufeu ex 199/165", "fr")}
+
+
+def test_deals_config_perso_garde_uniquement_les_cartes_config():
+    cles_config = {("dracaufeu ex 199/165", "fr")}
+    deals = [
+        {"nom": "Dracaufeu ex 199/165", "langue": "fr", "prix": 10},   # boutiques TCG
+        {"carte": "Dracaufeu ex 199/165", "langue": "fr", "prix": 12},  # main.py (eBay/Vinted)
+        {"nom": "Metagross PSA 10 m2a 245/193", "langue": "jp", "prix": 500},  # SaaS-only
+    ]
+    filtres = deals_config_perso(deals, cles_config)
+    assert len(filtres) == 2
+    assert all(d["prix"] in (10, 12) for d in filtres)
+
+
+def test_deals_config_perso_langue_incoherente_rejetee():
+    cles_config = {("dracaufeu ex 199/165", "fr")}
+    deals = [{"nom": "Dracaufeu ex 199/165", "langue": "jp"}]
+    assert deals_config_perso(deals, cles_config) == []
+
+
+def test_deals_config_perso_liste_vide_si_aucune_carte_config():
+    assert deals_config_perso([{"nom": "X", "langue": "fr"}], set()) == []
