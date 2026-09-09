@@ -80,6 +80,8 @@ from filtre_annonces import (  # noqa: E402
     mots_requis,
     preuve_francais,
     annonce_pertinente,
+    cles_watchlist,
+    deals_config_perso,
 )
 
 
@@ -1385,6 +1387,12 @@ def main() -> int:
     _api_charger_cache()  # V47 : cache TCGdex (repli quand Cardtrader n'a rien)
     secrets = secrets_env()
 
+    # 09/09/2026 : cles (nom, langue) de la watchlist perso de Justok, AVANT
+    # toute extension SaaS ci-dessous -- sert a restreindre SES notifications
+    # Telegram/email (voir plus bas, filtre_annonces.deals_config_perso) aux
+    # seules cartes qu'il suit lui-meme, cf. filtre_annonces.py pour le detail.
+    _cles_config_perso = cles_watchlist(cfg["watchlist"])
+
     # SaaS (saas/) : etend la watchlist eBay/Vinted/Leboncoin avec les
     # cartes ajoutees par les utilisateurs du SaaS, en plus de config.yaml
     # -- plafonnee a MAX_CARTES_SAAS_EBAY (cout reseau REEL par carte ici,
@@ -1886,6 +1894,16 @@ def main() -> int:
 
     notif = cfg.get("notifications", {"telegram": True, "email": True})
     if nouveaux_deals:
+        # 09/09/2026 : Telegram/email PERSONNELS de Justok restreints a SA
+        # propre watchlist (config.yaml) -- un deal detecte uniquement via
+        # une carte ajoutee par un autre utilisateur SaaS ne doit pas
+        # remonter ici (il est deja notifie separement via son propre
+        # push/email SaaS, cf. connecteur_supabase/notifications_saas
+        # au-dessus, appeles avec nouveaux_deals NON filtre). deals_a_marquer
+        # reste base sur nouveaux_deals (liste complete) juste en dessous :
+        # le marquage "vu" sert a la dedup des annonces deja vues, pas a
+        # savoir qui a ete notifie.
+        _deals_perso = deals_config_perso(nouveaux_deals, _cles_config_perso)
         # V39 : on ne marque les deals comme "vus" QUE si au moins une
         # notification est bien partie. Avant, marquer(vues, ...) était
         # appelé dès la détection du deal (voir plus haut), donc un échec
@@ -1893,11 +1911,11 @@ def main() -> int:
         # l'affaire pour toujours, sans jamais avoir prévenu personne.
         notification_reussie = False
         if notif.get("telegram") and "telegram" in cfg:
-            if envoyer_telegram(nouveaux_deals, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"],
+            if envoyer_telegram(_deals_perso, cfg["telegram"], secrets["TELEGRAM_BOT_TOKEN"],
                                 secrets.get("ANTHROPIC_API_KEY", "")):
                 notification_reussie = True
         if notif.get("email") and "email" in cfg:
-            if envoyer_alertes(nouveaux_deals, cfg["email"], secrets["GMAIL_APP_PASSWORD"]):
+            if envoyer_alertes(_deals_perso, cfg["email"], secrets["GMAIL_APP_PASSWORD"]):
                 notification_reussie = True
         if notification_reussie:
             for annonce_id in deals_a_marquer:
