@@ -203,6 +203,50 @@ def envoyer_telegram_retours_stock(evenements: list[dict], chat_id: str, token: 
     return ok
 
 
+# ------------------- Restriction watchlist perso (correction du 10/09/2026) -------------------
+# La restriction du Telegram perso de Justok a SA seule watchlist (cf.
+# filtre_annonces.cles_watchlist/deals_config_perso, 09/09/2026) ne couvrait
+# QUE les alertes de deal (🔥/💰) -- un gap documente et assume a l'epoque,
+# car ecrire memoire[cle] pour un evenement JAMAIS envoye (carte SaaS-only
+# filtree ici) l'aurait laisse redetectable indefiniment sans jamais etre
+# notifie nulle part (aucun canal SaaS n'existe pour les retours en stock).
+# Signale par Justok le 10/09/2026 (alerte 📦 recue pour "Metagross PSA 10
+# m2a 245/193", carte SaaS-only deja exclue du canal deal via
+# bonne_affaire_shopify.CARTES_EXCLUES_TELEGRAM_PERSO mais pas du canal
+# stock) -- corrige en scindant les evenements en amont de l'envoi : ceux
+# hors watchlist perso ne sont jamais envoyes, mais leur etat est quand
+# meme committe en memoire via committer_evenements_sans_envoi() (comme s'ils
+# avaient ete "envoyes avec succes"), pour ne pas les faire redetecter a
+# chaque cycle.
+
+
+def separer_evenements_config_perso(evenements: list[dict], noms_config_perso: set[str]) -> tuple[list[dict], list[dict]]:
+    """Scinde `evenements` (sortie de detecter_retours_en_stock) en
+    (perso, saas_only) selon que `e["nom"]` (en realite nom_config, cf.
+    detecter_retours_en_stock) appartient a la watchlist perso de Justok.
+
+    Comparaison sur le nom SEUL : un evenement stock ne porte pas de champ
+    langue (contrairement a un deal, cf. filtre_annonces.deals_config_perso)
+    -- risque negligeable de collision entre 2 cartes de langues
+    differentes partageant exactement le meme nom_config, tolere ici plutot
+    que de faire porter un champ langue supplementaire jusqu'ici."""
+    perso, saas_only = [], []
+    for e in evenements:
+        nom = str(e.get("nom", "")).strip().lower()
+        (perso if nom in noms_config_perso else saas_only).append(e)
+    return perso, saas_only
+
+
+def committer_evenements_sans_envoi(evenements: list[dict], memoire: dict) -> None:
+    """Committe `_nouvel_etat` de chaque evenement directement dans `memoire`,
+    SANS tentative d'envoi Telegram -- pour les evenements de cartes
+    SaaS-only (cf. separer_evenements_config_perso ci-dessus), qu'aucun
+    canal de notification stock ne couvre aujourd'hui."""
+    for e in evenements:
+        if "_cle_memoire" in e:
+            memoire[e["_cle_memoire"]] = e["_nouvel_etat"]
+
+
 if __name__ == "__main__":
     from watchlist_shopify import ECHANTILLON_CONFIG
 

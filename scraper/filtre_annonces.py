@@ -563,15 +563,22 @@ def annonce_pertinente(titre: str, nom_carte: str, langue: str = "fr", alias: st
 # TOUTE carte SaaS-only plutot qu'a une liste d'exclusions posee a la main
 # carte par carte.
 #
-# Perimetre volontairement limite aux alertes de DEAL (🔥 boutiques TCG,
+# Perimetre a l'origine limite aux alertes de DEAL (🔥 boutiques TCG,
 # 💰 eBay/Vinted historique) : les alertes de retour en stock (📦,
-# alerte_stock.py) ne sont pas concernees par ce correctif -- elles ne sont
-# de toute facon jamais routees vers les utilisateurs SaaS aujourd'hui
-# (aucun equivalent de notifier_deals_boutique_saas() pour les evenements
-# de stock), et leur memoire de deduplication (etat en_stock par carte,
-# sans langue) n'est committee qu'au moment de l'envoi Telegram reussi --
-# les en exclure ici les ferait redetecter indefiniment sans jamais etre
-# notifiees nulle part. A etendre si ce gap est comble un jour.
+# alerte_stock.py) n'etaient PAS concernees par ce correctif -- gap alors
+# assume car leur memoire de deduplication (etat en_stock par carte, sans
+# langue) n'est committee qu'au moment de l'envoi Telegram reussi, et les
+# exclure du canal Telegram perso les aurait fait redetecter indefiniment
+# sans jamais etre notifiees nulle part (aucun equivalent de
+# notifier_deals_boutique_saas() pour le stock).
+#
+# GAP COMBLE le 10/09/2026 (signale par Justok : alerte 📦 recue pour
+# "Metagross PSA 10 m2a 245/193", carte SaaS-only) -- cf.
+# alerte_stock.separer_evenements_config_perso()/committer_evenements_sans_envoi() :
+# les evenements SaaS-only sont desormais committes en memoire SANS
+# tentative d'envoi (au lieu d'etre exclus purement et simplement), ce qui
+# resout le probleme de redetection infinie sans avoir besoin d'un canal
+# de notification pour eux.
 
 
 def cles_watchlist(cartes) -> set[tuple[str, str]]:
