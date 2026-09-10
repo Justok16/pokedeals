@@ -5,7 +5,12 @@ tests/test_bonne_affaire_shopify.py pour le cas reel du 13/08/2026)."""
 from unittest.mock import Mock, patch
 
 from connecteur_shopify import ResultatRecherche
-from alerte_stock import detecter_retours_en_stock, envoyer_telegram_retours_stock
+from alerte_stock import (
+    committer_evenements_sans_envoi,
+    detecter_retours_en_stock,
+    envoyer_telegram_retours_stock,
+    separer_evenements_config_perso,
+)
 from watchlist_shopify import CarteWatchlist
 
 
@@ -112,6 +117,52 @@ def test_pas_de_transition_ecrit_immediatement_comme_avant():
 
     assert evenements == []
     assert memoire["exemple.fr|Dracaufeu ex 199/165"]["en_stock"] is True
+
+
+# ------------------- Restriction watchlist perso (correction du 10/09/2026) -------------------
+# Cas reel signale par Justok : alerte 📦 recue pour "Metagross PSA 10 m2a
+# 245/193" (carte SaaS-only, absente de sa watchlist perso config.yaml).
+
+def test_separer_evenements_config_perso_metagross():
+    noms_config_perso = {"dracaufeu ex 199/165"}
+    evenements = [
+        {"nom": "Dracaufeu ex 199/165", "_cle_memoire": "a|Dracaufeu ex 199/165", "_nouvel_etat": {"en_stock": True}},
+        {"nom": "Metagross PSA 10 m2a 245/193", "_cle_memoire": "b|Metagross PSA 10 m2a 245/193", "_nouvel_etat": {"en_stock": True}},
+    ]
+
+    perso, saas_only = separer_evenements_config_perso(evenements, noms_config_perso)
+
+    assert [e["nom"] for e in perso] == ["Dracaufeu ex 199/165"]
+    assert [e["nom"] for e in saas_only] == ["Metagross PSA 10 m2a 245/193"]
+
+
+def test_committer_evenements_sans_envoi_ecrit_directement_en_memoire():
+    memoire = {}
+    evenements = [{"_cle_memoire": "b|Metagross PSA 10 m2a 245/193", "_nouvel_etat": {"en_stock": True}}]
+
+    committer_evenements_sans_envoi(evenements, memoire)
+
+    assert memoire == {"b|Metagross PSA 10 m2a 245/193": {"en_stock": True}}
+
+
+def test_evenement_saas_only_committe_sans_etre_renvoye_indefiniment():
+    # Bout-en-bout : une carte SaaS-only en transition rupture->stock est
+    # committee en memoire meme si elle n'est jamais envoyee sur Telegram
+    # (aucun destinataire SaaS pour le stock) -- sans ca, elle serait
+    # redetectee a chaque cycle.
+    cartes_par_critere, resultats_par_critere = _carte_et_resultats(en_stock=True)
+    memoire = {"exemple.fr|Dracaufeu ex 199/165": {"en_stock": False, "derniere_verification": "2026-01-01T00:00:00+00:00"}}
+    evenements = detecter_retours_en_stock("exemple.fr", resultats_par_critere, cartes_par_critere, memoire)
+
+    perso, saas_only = separer_evenements_config_perso(evenements, noms_config_perso=set())  # aucune carte perso
+    assert perso == []
+    committer_evenements_sans_envoi(saas_only, memoire)
+
+    assert memoire["exemple.fr|Dracaufeu ex 199/165"]["en_stock"] is True
+
+    # Redetection : plus jamais redetectee au cycle suivant.
+    evenements_2 = detecter_retours_en_stock("exemple.fr", resultats_par_critere, cartes_par_critere, memoire)
+    assert evenements_2 == []
 
 
 def test_retour_en_stock_etat_excellent_ignore():

@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from alerte_stock import charger_memoire, detecter_retours_en_stock, envoyer_telegram_retours_stock, sauvegarder_memoire
+from alerte_stock import charger_memoire, committer_evenements_sans_envoi, detecter_retours_en_stock, envoyer_telegram_retours_stock, sauvegarder_memoire, separer_evenements_config_perso
 from bonne_affaire_shopify import charger_cotes, charger_regles, detecter_bonnes_affaires, envoyer_telegram_bonnes_affaires
 from connecteur_woocommerce import ConnecteurWooCommerce
 from filtre_annonces import cles_watchlist, deals_config_perso
@@ -209,7 +209,12 @@ if __name__ == "__main__":
         deals_config_perso(resume["deals"], _cles_config_perso), TELEGRAM_CHAT_ID, token, cle_anthropic)
     # V57 (18/08/2026, audit externe) : sauvegarde APRES la tentative
     # d'envoi -- cf. scan_boutique.py pour le detail complet.
-    envoyer_telegram_retours_stock(resume["evenements_stock"], TELEGRAM_CHAT_ID, token, memoire_stock)
+    # 10/09/2026 : meme restriction watchlist perso qu'au-dessus, etendue
+    # aux alertes de retour en stock -- cf. scan_boutique.py pour le detail.
+    _evenements_stock_perso, _evenements_stock_saas_only = separer_evenements_config_perso(
+        resume["evenements_stock"], {nom for nom, _ in _cles_config_perso})
+    committer_evenements_sans_envoi(_evenements_stock_saas_only, memoire_stock)
+    envoyer_telegram_retours_stock(_evenements_stock_perso, TELEGRAM_CHAT_ID, token, memoire_stock)
 
     if memoire_via_supabase:
         if not sauvegarder_memoire_supabase(memoire_stock, cle_memoire_stock, supabase_url, supabase_key):
