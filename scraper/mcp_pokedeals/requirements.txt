@@ -10,6 +10,6 @@
 # 1.28.x (borne minimale techniquement satisfaite) aurait plante a l'import,
 # la contrainte etait juste fausse. Pin exact = plus de risque de ce genre
 # de decalage silencieux entre la borne declaree et l'API reellement utilisee.
-mcp==2.1.1
+mcp==2.2.0
 requests==2.34.2
 python-dotenv==1.2.3
