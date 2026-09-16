@@ -3785,3 +3785,62 @@ et sont dus à `pywebpush` non installable dans cet environnement local
 -- module tiers déclaré dans `requirements.txt`, sans rapport avec ce
 changement, déjà fonctionnel en CI GitHub Actions), `pyflakes` propre
 sur `verification_photo.py`.
+
+## V62 : espacement minimal entre appels eBay (16/09/2026)
+
+Suite à l'investigation d'une escalade de coupe-circuits eBay/Vinted
+observée sur plusieurs jours (rapportée par Justok via une alerte
+Telegram "Vinted semble cassé"/"eBay semble bloqué (429)") : logs
+`pokedeals.yml` analysés du 13/09 au 16/09 05h45 UTC.
+
+**Constat** : pas de régression côté code (aucun changement récent sur
+le volume/la cadence des requêtes eBay). Motif temporel net dans les
+logs : cycles propres le 13/09 et en journée (~08h-16h UTC) le 14-15/09,
+puis 429 en rafale dès les 2-3 premières recherches de chaque cycle
+entre **~16h et ~04h UTC**, quasi tous les soirs depuis le 14/09 16h.
+Cohérent avec un quota/rate-limit eBay resserré aux heures de pointe
+US, pas un blocage permanent -- auto-résorbé chaque matin jusqu'ici
+(comme l'épisode du 19-20/08, V61). Vinted présente un motif différent,
+plus constant (se déclenche aussi en journée) -- problème distinct, pas
+traité ici.
+
+**Correctif appliqué** (demande explicite de Justok, "espacer un peu si
+c'est mieux") : `_respecter_delai_ebay()`, appelée juste avant chaque
+requête eBay réelle (recherche principale ET recherche alias, dans
+`_une_recherche()`) -- impose un espacement minimal
+(`DELAI_MIN_ENTRE_APPELS_EBAY = 1.0s`) entre deux appels eBay
+consécutifs, protégé par un verrou (`_ebay_pacing_lock`) puisque
+`_une_recherche` peut être appelée depuis un thread du pool de
+`collecter()`. Jusqu'ici, aucun délai proactif n'existait entre les
+recherches eBay (seul `requete_avec_retry()` réagissait APRÈS un 429
+déjà reçu, via backoff) -- les requêtes partaient donc dos-à-dos,
+plausible facteur aggravant du déclenchement rapide du coupe-circuit
+(3 échecs consécutifs atteints dès les toutes premières recherches du
+cycle dans les logs analysés).
+
+Portée volontairement simple : délai fixe **en tout temps** (pas
+seulement 16h-04h UTC) -- ~117-137 cartes × 1s ajoute au plus ~2-3 min
+à un cycle de 15 min, marge largement suffisante même en cas de scan
+déjà lent, et évite la complexité/le risque d'une logique conditionnelle
+sur l'heure. Pas de garantie que ça élimine l'escalade nocturne (cause
+probablement externe, décision eBay) mais réduit la probabilité de
+déclencher le coupe-circuit dès les premières cartes en lissant le
+débit de requêtes.
+
+2 nouveaux tests (`tests/test_circuit_ebay.py`) : le pacing attend bien
+le délai minimal entre deux appels rapprochés, n'attend pas si le
+dernier appel est déjà ancien. `setup_function()` neutralise le pacing
+réel (`DELAI_MIN_ENTRE_APPELS_EBAY = 0.0`) pour tous les autres tests
+du fichier, sinon les tests enchaînant plusieurs appels (ex. les 3
+D'AFFILÉE pour déclencher le coupe-circuit) auraient dormi pour de vrai,
+cassant l'objectif "sub-seconde" de la suite.
+
+**À surveiller** : vérifier dans les prochains jours (routine de
+surveillance quotidienne) si l'escalade nocturne 16h-04h UTC persiste
+malgré ce lissage -- si oui, la cause est probablement uniquement
+externe (quota eBay) et ce correctif n'y changera rien de fondamental,
+juste un peu de marge avant que le coupe-circuit se déclenche.
+
+**Vérification avant commit** : suite complète `pytest tests/`
+(468/471, les 3 échecs `pywebpush` déjà documentés ci-dessus, sans
+rapport), `pyflakes` propre sur `main.py`.

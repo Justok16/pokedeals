@@ -21,6 +21,12 @@ def setup_function():
     main._reinitialiser_circuit_ebay()
     main._token_cache["token"] = "faux-token"
     main._token_cache["expire"] = time.time() + 9999
+    # V62 : neutralise le pacing entre appels eBay pour ces tests -- sinon
+    # chaque test qui enchaine plusieurs appels (ex. les 3 D'AFFILEE pour
+    # declencher le coupe-circuit) dormirait pour de vrai (DELAI_MIN_ENTRE_APPELS_EBAY),
+    # cassant l'objectif "sub-seconde" de la suite (cf. CLAUDE.md).
+    main.DELAI_MIN_ENTRE_APPELS_EBAY = 0.0
+    main._ebay_pacing["dernier_appel"] = 0.0
 
 
 def _reponse_429():
@@ -95,6 +101,27 @@ def test_reinitialiser_circuit_ebay_remet_tout_a_zero():
     main._ebay_circuit["abandonne"] = True
     main._reinitialiser_circuit_ebay()
     assert main._ebay_circuit == {"echecs_consecutifs": 0, "abandonne": False}
+
+
+# ------------------- pacing entre appels eBay (V62, 16/09/2026) -------------------
+
+def test_respecter_delai_ebay_attend_le_minimum_entre_deux_appels():
+    main.DELAI_MIN_ENTRE_APPELS_EBAY = 0.05
+    main._ebay_pacing["dernier_appel"] = 0.0
+    debut = time.time()
+    main._respecter_delai_ebay()
+    main._respecter_delai_ebay()
+    # Le premier appel ne doit pas attendre (dernier_appel a 0.0, tres loin
+    # dans le passe) ; le second doit attendre environ DELAI_MIN_ENTRE_APPELS_EBAY.
+    assert time.time() - debut >= 0.05
+
+
+def test_respecter_delai_ebay_n_attend_pas_si_deja_assez_espace():
+    main.DELAI_MIN_ENTRE_APPELS_EBAY = 10.0
+    main._ebay_pacing["dernier_appel"] = time.time() - 20  # tres ancien
+    debut = time.time()
+    main._respecter_delai_ebay()
+    assert time.time() - debut < 1.0
 
 
 def test_recherche_reussie_renvoie_bien_les_annonces():

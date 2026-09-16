@@ -46,6 +46,7 @@ import random
 import re
 import statistics
 import sys
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
@@ -297,6 +298,28 @@ _token_cache = {"token": None, "expire": 0}
 SEUIL_ECHECS_CONSECUTIFS_EBAY = 3
 _ebay_circuit = {"echecs_consecutifs": 0, "abandonne": False}
 
+# V62 (16/09/2026) : espacement minimal entre appels eBay -- escalade
+# nocturne observee sur plusieurs jours (14-16/09/2026, cf. SESSION_NOTES.md) :
+# des 429 des les toutes premieres recherches de chaque cycle entre ~16h et
+# ~04h UTC (heures de pointe US probables cote eBay), remis a zero chaque
+# matin. Les recherches partaient jusqu'ici dos-a-dos (aucun delai proactif
+# entre elles, seul le retry/backoff de requete_avec_retry() reagissait
+# APRES un 429 deja recu) -- un espacement minimal, applique AVANT chaque
+# appel, vise a rester sous le seuil de rafale plutot que de le declencher
+# puis reagir. Verrou nécessaire : `_une_recherche` peut être appelée
+# depuis un thread du pool (cf. collecter()).
+DELAI_MIN_ENTRE_APPELS_EBAY = 1.0
+_ebay_pacing = {"dernier_appel": 0.0}
+_ebay_pacing_lock = threading.Lock()
+
+
+def _respecter_delai_ebay() -> None:
+    with _ebay_pacing_lock:
+        attente = _ebay_pacing["dernier_appel"] + DELAI_MIN_ENTRE_APPELS_EBAY - time.time()
+        if attente > 0:
+            time.sleep(attente)
+        _ebay_pacing["dernier_appel"] = time.time()
+
 
 def _reinitialiser_circuit_ebay() -> None:
     _ebay_circuit["echecs_consecutifs"] = 0
@@ -381,6 +404,7 @@ def ebay_rechercher(nom_carte: str, langue: str, secrets: dict, limite: int = 40
         """Interroge eBay pour un terme et renvoie les annonces brutes."""
         requete = f"carte pokemon {terme}{suffixe}"
         try:
+            _respecter_delai_ebay()
             r = requete_avec_retry(
                 requests.get,
                 BROWSE_URL,
