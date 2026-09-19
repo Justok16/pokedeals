@@ -671,9 +671,18 @@ anomalies:
   seuil_hausse: 0.50   # alerte 🚀 si une cote gagne 50% ou plus
 
 # --- Notifications ---
+# 19/09/2026 : ces deux cles sont desormais un vrai interrupteur (cf.
+# notifications_perso.py) -- avant cette date elles n'etaient lues nulle
+# part, pur commentaire documentaire. Coupees a la demande explicite de
+# Justok ("jusqu'a preuve du contraire", periode calme apres les 30 ans
+# de Pokemon) : plus AUCUNE notification perso (Telegram + email), sur
+# TOUS les radars (deals, stock, precommandes, prix bas, tendance,
+# watchdog, canaris...). Remettre a "true" pour tout reactiver -- ne
+# touche jamais aux utilisateurs PokeDeals SaaS / PokePrecoms, qui
+# continuent de recevoir leurs propres notifications normalement.
 notifications:
-  telegram: true    # canal principal (instantané)
-  email: false      # en plus par email (mets "false" si Telegram suffit)
+  telegram: false
+  email: false
 
 telegram:
   chat_id: "1245330032"   # V15 : vérifié via getUpdates le 13/07/2026

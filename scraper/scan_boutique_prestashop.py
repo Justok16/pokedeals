@@ -27,6 +27,7 @@ from bonne_affaire_shopify import charger_cotes, charger_regles, detecter_bonnes
 from connecteur_prestashop_sitemap import ConnecteurPrestaShopSitemap
 from filtre_annonces import cles_watchlist, deals_config_perso
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
+from notifications_perso import token_telegram_perso
 from watchlist_shopify import CarteWatchlist
 
 # cf. scan_boutique.py pour le detail de ce correctif (31/08/2026) : sans
@@ -152,7 +153,9 @@ if __name__ == "__main__":
     boutiques = sys.argv[1:] if len(sys.argv) > 1 else BOUTIQUES_PRESTASHOP_SITEMAP + BOUTIQUES_PRESTASHOP_REPLI_HTML
     boutiques_repli_html = set(boutiques) & set(BOUTIQUES_PRESTASHOP_REPLI_HTML)
 
-    token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    # 19/09/2026 : token vide (no-op silencieux en aval) si Justok a coupe
+    # ses notifications perso -- cf. notifications_perso.py.
+    token = token_telegram_perso()
     cle_anthropic = os.environ.get("ANTHROPIC_API_KEY", "")
 
     cartes = charger_watchlist_config()

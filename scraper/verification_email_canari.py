@@ -35,6 +35,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
+from notifications_perso import token_telegram_perso
 from notifications_saas import _envoyer_email
 from watchdog_workflows import envoyer_telegram
 
@@ -71,7 +72,11 @@ def main() -> None:
     sendgrid_api_key = os.environ.get("SENDGRID_API_KEY", "")
     sendgrid_from = os.environ.get("SENDGRID_FROM_EMAIL", "")
     destinataire = os.environ.get("EMAIL_CANARI_DESTINATAIRE", "")
-    telegram_token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    # 19/09/2026 : coupe uniquement l'ALERTE Telegram vers Justok en cas
+    # d'echec -- le canari lui-meme (test reel de livraison SendGrid via
+    # _envoyer_email ci-dessus) continue de tourner normalement, il ne
+    # depend pas de ce token. Cf. notifications_perso.py.
+    telegram_token = token_telegram_perso()
     telegram_chat_id = os.environ.get("TELEGRAM_CHAT_ID", "1245330032")
     supabase_url = os.environ.get("SUPABASE_URL", "")
     supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")

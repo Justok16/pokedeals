@@ -39,6 +39,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
+from notifications_perso import token_telegram_perso
 from notifications_saas import _envoyer_push, _lister_abonnements_push
 from watchdog_workflows import envoyer_telegram
 
@@ -89,7 +90,11 @@ def main() -> None:
     vapid_private_key = os.environ.get("VAPID_PRIVATE_KEY", "")
     vapid_claim_email = os.environ.get("VAPID_CLAIM_EMAIL", "")
     user_id = os.environ.get("PUSH_CANARI_USER_ID", "")
-    telegram_token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    # 19/09/2026 : coupe uniquement l'ALERTE Telegram vers Justok en cas
+    # d'echec -- le canari lui-meme (test reel de livraison push via
+    # _envoyer_push ci-dessus) continue de tourner normalement, il ne
+    # depend pas de ce token. Cf. notifications_perso.py.
+    telegram_token = token_telegram_perso()
     telegram_chat_id = os.environ.get("TELEGRAM_CHAT_ID", "1245330032")
 
     resultat = verifier_livraison(supabase_url, supabase_key, vapid_private_key, vapid_claim_email, user_id)

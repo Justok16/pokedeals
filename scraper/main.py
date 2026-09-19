@@ -194,12 +194,17 @@ def charger_config(chemin: str | None = None) -> dict:
 
 
 def secrets_env() -> dict:
-    """Secrets injectés par GitHub Actions (jamais écrits dans le code)."""
+    """Secrets injectés par GitHub Actions (jamais écrits dans le code).
+
+    19/09/2026 : TELEGRAM_BOT_TOKEN/GMAIL_APP_PASSWORD passent par
+    notifications_perso (cf. ce module) -- vides si Justok a coupé ses
+    notifications perso dans config.yaml, sans toucher aux secrets
+    réels ni aux canaux SaaS (notifications_saas.py, indépendant)."""
     return {
         "EBAY_CLIENT_ID": os.environ.get("EBAY_CLIENT_ID", ""),
         "EBAY_CLIENT_SECRET": os.environ.get("EBAY_CLIENT_SECRET", ""),
-        "GMAIL_APP_PASSWORD": os.environ.get("GMAIL_APP_PASSWORD", ""),
-        "TELEGRAM_BOT_TOKEN": os.environ.get("TELEGRAM_BOT_TOKEN", ""),
+        "GMAIL_APP_PASSWORD": mdp_email_perso(),
+        "TELEGRAM_BOT_TOKEN": token_telegram_perso(),
         "CARDTRADER_TOKEN": os.environ.get("CARDTRADER_TOKEN", ""),
         # Optionnel : active la verification photo (cf. verification_photo.py).
         # Absent -> comportement inchange (avertissement generique existant).
@@ -935,6 +940,7 @@ from notifications_historique import (  # noqa: E402
 )
 import connecteur_supabase  # noqa: E402
 import notifications_saas  # noqa: E402
+from notifications_perso import mdp_email_perso, token_telegram_perso  # noqa: E402
 from watchlist_saas import dict_watchlist_saas, MAX_CARTES_SAAS_EBAY  # noqa: E402
 
 

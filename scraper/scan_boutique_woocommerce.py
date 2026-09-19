@@ -24,6 +24,7 @@ from bonne_affaire_shopify import charger_cotes, charger_regles, detecter_bonnes
 from connecteur_woocommerce import ConnecteurWooCommerce
 from filtre_annonces import cles_watchlist, deals_config_perso
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
+from notifications_perso import token_telegram_perso
 from watchlist_shopify import CarteWatchlist
 
 # cf. scan_boutique.py pour le detail de ce correctif (31/08/2026) : sans
@@ -146,7 +147,9 @@ if __name__ == "__main__":
                  else BOUTIQUES_WOOCOMMERCE_SITEMAP + BOUTIQUES_WOOCOMMERCE_REPLI_API_REST + BOUTIQUES_WOOCOMMERCE_AUTO)
     boutiques_repli_api_rest = set(boutiques) & set(BOUTIQUES_WOOCOMMERCE_REPLI_API_REST)
 
-    token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    # 19/09/2026 : token vide (no-op silencieux en aval) si Justok a coupe
+    # ses notifications perso -- cf. notifications_perso.py.
+    token = token_telegram_perso()
     cle_anthropic = os.environ.get("ANTHROPIC_API_KEY", "")
 
     cartes = charger_watchlist_config()
