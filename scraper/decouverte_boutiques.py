@@ -58,6 +58,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from connecteur_shopify import HEADERS, HEADERS_HTML, TIMEOUT
 from memoire_json import charger_memoire, sauvegarder_memoire
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
+from notifications_perso import token_telegram_perso
 from telegram_utils import echapper_html
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace", line_buffering=True)
@@ -344,7 +345,9 @@ def main() -> None:
     # .strip() par precaution -- un secret GitHub colle avec un espace/retour
     # a la ligne invisible casserait l'URL Telegram (bot{token}/sendMessage)
     # et donnerait un 404 (token non reconnu), constate le 12/08/2026.
-    token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+    # 19/09/2026 : token vide (no-op silencieux en aval) si Justok a coupe
+    # ses notifications perso -- cf. notifications_perso.py.
+    token = token_telegram_perso().strip()
     chat_id = os.environ.get("TELEGRAM_CHAT_ID", "1245330032").strip()  # meme chat que le reste de PokeDeals
 
     supabase_url = os.environ.get("SUPABASE_URL", "")

@@ -37,6 +37,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from connecteur_shopify import HEADERS, TIMEOUT  # User-Agent + timeout partages
 from memoire_json import charger_memoire, sauvegarder_memoire
+from notifications_perso import token_telegram_perso
 from watchlist_tendance import CARTES_TENDANCE, CarteTendance
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -388,7 +389,9 @@ def envoyer_telegram_tendance(carte: CarteTendance, tendance: dict, chat_id: str
 
 if __name__ == "__main__":
     cle_api_ppt = os.environ.get("POKEMONPRICETRACKER_API_KEY", "")
-    token_tg = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    # 19/09/2026 : token vide (no-op silencieux en aval) si Justok a coupe
+    # ses notifications perso -- cf. notifications_perso.py.
+    token_tg = token_telegram_perso()
     chat_id_tg = os.environ.get("TELEGRAM_CHAT_ID", "1245330032")  # meme chat que le reste de PokeDeals
     print(f"PokemonPriceTracker : {'configure' if cle_api_ppt else 'NON configure (POKEMONPRICETRACKER_API_KEY absent -- prix PokeDeals seul utilise)'}")
     print(f"Telegram : {'configure' if token_tg else 'NON configure'}\n")

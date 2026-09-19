@@ -34,6 +34,7 @@ import requests
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
+from notifications_perso import token_telegram_perso
 
 log = logging.getLogger("pokedeals.watchdog_workflows")
 
@@ -140,7 +141,9 @@ def main() -> None:
     repo_complet = os.environ.get("GITHUB_REPOSITORY", "")
     repo = repo_complet.split("/")[-1] if repo_complet else ""
     github_token = os.environ.get("GITHUB_TOKEN", "")
-    telegram_token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    # 19/09/2026 : token vide (no-op silencieux en aval) si Justok a coupe
+    # ses notifications perso -- cf. notifications_perso.py.
+    telegram_token = token_telegram_perso()
     telegram_chat_id = os.environ.get("TELEGRAM_CHAT_ID", "1245330032")
     supabase_url = os.environ.get("SUPABASE_URL", "")
     supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")

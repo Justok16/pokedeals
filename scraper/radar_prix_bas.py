@@ -49,6 +49,7 @@ from boutiques_woocommerce import (
 from connecteur_prestashop_sitemap import ConnecteurPrestaShopSitemap
 from connecteur_shopify import ConnecteurShopify
 from connecteur_woocommerce import ConnecteurWooCommerce
+from notifications_perso import token_telegram_perso
 from telegram_utils import echapper_html, echapper_url_html
 from watchlist_prix_bas import FAMILLES_PRIX_BAS
 from watchlist_shopify import charger_watchlist_config
@@ -301,7 +302,9 @@ def main() -> int:
             print("  -> aucune annonce fiable trouvée")
         lignes.append(_texte_ligne(famille, meilleur))
 
-    token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    # 19/09/2026 : token vide (no-op silencieux en aval) si Justok a coupe
+    # ses notifications perso -- cf. notifications_perso.py.
+    token = token_telegram_perso()
     envoyer_telegram(lignes, TELEGRAM_CHAT_ID, token)
 
     duree = time.time() - debut

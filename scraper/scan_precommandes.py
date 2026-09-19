@@ -35,6 +35,7 @@ from alerte_precommande import (
     sauvegarder_memoire,
 )
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
+from notifications_perso import token_telegram_perso
 from precommandes_watchlist import produits_actifs
 
 # cf. scan_boutique.py pour le detail de ce correctif (31/08/2026) : sans
@@ -172,7 +173,9 @@ if __name__ == "__main__":
         print("Aucun produit surveille actif (toutes les dates de sortie sont passees) -- rien a scanner.")
         sys.exit(0)
 
-    token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    # 19/09/2026 : token vide (no-op silencieux en aval) si Justok a coupe
+    # ses notifications perso -- cf. notifications_perso.py.
+    token = token_telegram_perso()
 
     print(f"{len(produits)} produit(s) surveille(s) actif(s) :")
     for p in produits:

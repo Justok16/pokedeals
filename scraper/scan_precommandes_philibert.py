@@ -28,6 +28,7 @@ from connecteur_supabase_precoms import (
 )
 from memoire_json import charger_memoire, sauvegarder_memoire
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
+from notifications_perso import token_telegram_perso
 from radar_precommande_generique import (
     detecter_nouvelles_precommandes_generiques,
     envoyer_telegram_precommandes_generiques,
@@ -50,7 +51,9 @@ CLE_MEMOIRE = "precommandes_generique_philibert"
 
 if __name__ == "__main__":
     debut = time.monotonic()
-    token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    # 19/09/2026 : token vide (no-op silencieux en aval) si Justok a coupe
+    # ses notifications perso -- cf. notifications_perso.py.
+    token = token_telegram_perso()
     pont_precoms_configure = bool(
         os.environ.get("POKEPRECOMS_SUPABASE_URL") and os.environ.get("POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY")
     )
