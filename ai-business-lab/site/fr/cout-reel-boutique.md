@@ -1,9 +1,9 @@
 ---
 title: "Combien coûte vraiment une boutique en ligne par mois"
-description: "Sur 50 000 € de chiffre d'affaires, le coût réel est de 1 500 à 2 000 € par an. Et le poste le plus lourd n'est pas l'abonnement. Le calcul complet, poste par poste."
+description: "Sur 50 000 € de chiffre d'affaires, le coût réel est de 1 500 à 2 050 € par an. Et le poste le plus lourd n'est pas l'abonnement. Le calcul complet, poste par poste, vérifié à la source."
 permalink: /fr/cout-reel-boutique/
 lang: fr
-verifie: "21/09/2026 (frais de paiement) — abonnements non revérifiés"
+verifie: "21/09/2026, sur la grille tarifaire de l'éditeur"
 ---
 
 <p class="chapeau">Volume de référence&nbsp;: 50 000 € de chiffre d'affaires,
@@ -20,25 +20,28 @@ Et le poste le plus lourd **n'est pas l'abonnement**.
 
 ### Ce que tout le monde regarde : l'abonnement
 
-> ⚠️ **Chiffres non revérifiés.** Les prix d'abonnement ci-dessous datent du
-> 26/08/2026 et n'ont pas été recontrôlés sur la grille officielle. Les taux de
-> frais de paiement de la section suivante, eux, l'ont été le 21/09/2026.
-
 <div class="tableau" markdown="1">
 
-| Formule | Mensuel | Engagement annuel |
-|---|---:|---:|
-| Basic | 36 €/mois | **25 €/mois** |
-| Grow | 105 €/mois | 66 €/mois |
-| Advanced | 384 €/mois | 289 €/mois |
-
-Une quatrième formule, **Plus**, existe également — destinée aux volumes
-importants, avec un taux de paiement de 1 % + 0,25 € et des frais de
-transaction tiers ramenés à 0,2 %.
+| Formule | Engagement annuel | Pour qui, selon l'éditeur |
+|---|---:|---|
+| Basic | **27 €/mois** | Entrepreneurs individuels |
+| Grow | 79 €/mois | Petites équipes |
+| Advanced | 289 €/mois | Portée mondiale |
+| Plus | à partir de 2 100 €/mois | Entreprises complexes |
 
 </div>
 
-Sur notre boutique de référence : **300 €/an** en Basic annuel.
+Sur notre boutique de référence : **324 €/an** en Basic annuel.
+
+Une **offre d'appel** est affichée au moment où ces prix ont été relevés :
+3 jours d'essai, puis **1 €/mois pendant 3 mois**. Elle ne change rien au coût
+de la deuxième année, qui est celui qui compte.
+
+> **Le prix mensuel sans engagement n'est pas relevé ici.** La grille s'affiche
+> par défaut en paiement annuel, et il faut basculer un bouton pour voir
+> l'autre. Ce n'est pas un hasard de mise en page : l'écart entre les deux est
+> l'un des rares leviers d'économie réellement disponibles, et il est masqué par
+> défaut.
 
 ### Ce que presque personne ne calcule : les frais de paiement
 
@@ -52,8 +55,8 @@ par transaction sur Basic (1,3 % sur Grow, 1,1 % sur Advanced, 1 % sur Plus).
 Frais de paiement annuels   =  952 €
 ```
 
-**952 € contre 300 € d'abonnement.** Les frais de paiement pèsent **trois fois
-plus lourd**, et ils sont proportionnels : ils augmentent avec votre réussite,
+**952 € contre 324 € d'abonnement.** Les frais de paiement pèsent **près de
+trois fois plus lourd**, et ils sont proportionnels : ils augmentent avec votre réussite,
 pas avec votre formule.
 
 ### Le détail que la grille tarifaire ne met pas en avant
@@ -142,15 +145,15 @@ dans la tranche gratuite la première année, puis à 25 €/mois.
 
 | Poste | Coût annuel |
 |---|---:|
-| Abonnement (Basic annuel) | 300 € |
+| Abonnement (Basic annuel) | 324 € |
 | **Frais de paiement** | **952 €** |
 | Applications | 240 à 480 € |
 | Email | 0 à 300 € |
-| **Total** | **1 492 à 2 032 €** |
+| **Total** | **1 516 à 2 056 €** |
 
 </div>
 
-Soit **124 à 169 € par mois**, pour une boutique qui vend 50 000 € par an.
+Soit **126 à 171 € par mois**, pour une boutique qui vend 50 000 € par an.
 C'est **3 à 4 % du chiffre d'affaires** — à comparer à votre marge réelle, pas
 à votre chiffre d'affaires.
 

@@ -283,12 +283,39 @@ Ces cinq éléments ont été intégrés à la page pilier. Le scénario réalis
 à **1 437 €/an**, soit **2,9 % du chiffre d'affaires** — près de cinq fois
 l'abonnement.
 
+**Abonnements — vérifiés le 21/09/2026, et DEUX CHIFFRES SUR TROIS ÉTAIENT FAUX :**
+
+| Formule | Ce qui était écrit | Réel (annuel) | Écart |
+|---|---:|---:|---|
+| Basic | 25 €/mois | **27 €/mois** | +8 % |
+| Grow | 66 €/mois | **79 €/mois** | **+20 %** |
+| Advanced | 289 €/mois | 289 €/mois | exact |
+| Plus | non mentionné | à partir de **2 100 €/mois** | — |
+
+**C'est la justification de toute la règle R3.** Les chiffres venaient de
+sources secondaires concordantes, et ils étaient faux — de 20 % sur Grow. Une
+page de comparateur qui annonce 66 € là où l'éditeur affiche 79 € perd toute
+crédibilité au premier lecteur qui vérifie, et c'est une vérification de trente
+secondes.
+
+**Totaux recalculés** (boutique de référence, Basic annuel) : abonnement
+**324 €**, total **1 516 à 2 056 €/an**, soit **126 à 171 €/mois**, soit
+**3,0 à 4,1 % du chiffre d'affaires**. Le rapport frais de paiement /
+abonnement passe de 3,2× à **2,9×** — la démonstration de la page tient
+toujours.
+
+**Confirmation incidente, et elle est belle** : l'éditeur écrit lui-même
+« Frais de carte **à partir de** 1,5 % + 0,25 € ». Le « à partir de » valide
+noir sur blanc ce que la page affirme désormais — 1,5 % est un plancher, pas une
+moyenne.
+
 **Ce qui reste ouvert :**
-- `[À VÉRIFIER]` **Les trois prix d'abonnement** (36/25, 105/66, 384/289 €).
-  Ils sont en haut de la page tarifs ; les captures transmises couvraient la
-  section « Comparatif des fonctionnalités ». **La page pilier les signale comme
-  non revérifiés tant que ce n'est pas fait.**
+- `[À VÉRIFIER]` **Les prix mensuels sans engagement.** La grille s'affiche par
+  défaut en paiement annuel et il faut basculer un bouton pour les voir. La page
+  le signale explicitement au lecteur plutôt que d'avancer un chiffre non vu.
 - `[À VÉRIFIER]` Mention **HT ou TTC** des tarifs affichés en France.
+- Offre d'appel relevée ce jour : 3 jours d'essai puis **1 €/mois pendant
+  3 mois**. Promotionnelle, donc à ne pas intégrer au calcul de coût récurrent.
 
 ---
 
