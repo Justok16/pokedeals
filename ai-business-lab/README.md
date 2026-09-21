@@ -21,6 +21,8 @@
 | [07 — Automatisation et agents](07-automatisation-agents.md) | Les 15 agents, et ce qui doit rester humain |
 | [08 — Trajectoire 12 mois / 3-5 ans](08-roadmap.md) | Direction stratégique, pas une promesse |
 | [09 — Outils et budget](09-outils-et-budget.md) | Stack 0 € puis règles de réinvestissement |
+| [**`REPRISE.md`**](REPRISE.md) | **État d'avancement durable** — point d'entrée après toute interruption : ce qui est fait, ce qui est en cours, ce qui bloque |
+| [`MIGRATION.md`](MIGRATION.md) | Comment sortir ce dossier dans son propre dépôt |
 | [`outils/`](outils/) | Le moteur de scoring (code + données + tests) |
 | [`modeles/`](modeles/) | Fiche opportunité, fiche de test, prompts d'agents, modèle de tableau de bord |
 | [`lancement/`](lancement/) | **Kit de lancement de la verticale choisie (e-commerçants français)** : démonstration du choix, sources de veille, 4 premiers numéros, plan du comparateur, affiliation récurrente, 30 contenus courts |
