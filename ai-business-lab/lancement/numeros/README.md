@@ -17,10 +17,26 @@ Six numéros rédigés intégralement, dans la structure fixe arrêtée dans
    (domaine + antériorité INPI).
 5. **Dater chaque affirmation réglementaire** dans le texte envoyé.
 
-## Ordre et rythme
+## Ordre et rythme — **révisé le 21/09/2026 après le test 01**
 
-Un numéro par semaine, le mardi matin. Les six couvrent le premier mois et les
-deux semaines suivantes.
+> ⚠️ **La cadence hebdomadaire est abandonnée.** Mis devant le numéro 1, le
+> lecteur a répondu qu'il évitait les newsletters qui « polluent » sa boîte mail.
+> Le reproche visait la **périodicité imposée**, pas le contenu.
+>
+> **Nouveau principe : on envoie quand une échéance tombe, pas parce que c'est
+> mardi.** Le concept retenu est A4b, 1ᵉʳ du classement.
+> Détail : [`../../11-test-01-format.md`](../../11-test-01-format.md).
+>
+> **Ce que ça change concrètement** : les six numéros ne sont plus un calendrier,
+> ils sont un **stock**. On envoie le numéro dont la date arrive — pas le
+> suivant dans la liste. Deux numéros la même semaine si deux échéances
+> tombent ; rien pendant trois semaines s'il ne se passe rien.
+>
+> **Le risque assumé** : au premier envoi après un long silence, les
+> désabonnements montent. Seuil de bascule écrit d'avance — sous **30 %**
+> d'ouverture sur trois envois consécutifs, on revient à une cadence fixe.
+
+Les six numéros couvrent environ sept semaines de matière.
 Le numéro 4 est celui qui monétise le mieux : il est placé en quatrième
 position délibérément, après trois numéros qui n'ont rien vendu.
 

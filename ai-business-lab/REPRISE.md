@@ -23,7 +23,8 @@ temporairement.
 sur le critère posé par l'utilisateur : revenu maximal, marché stable ou
 porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 
-**Forme retenue** : A4 (newsletter de veille) + B2 (comparateur d'outils)
+**Forme retenue** (révisée le 21/09/2026 après le test 01) : **B2 (comparateur
+SEO) en point d'entrée** + **A4b (newsletter sans cadence forcée)** en capture
 + D1 (contenus courts, test jetable), monétisés par **affiliation récurrente**.
 
 ---
@@ -45,6 +46,30 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 - [x] Comparateur : 12 pages rédigées — méthodologie, page pilier, fiches plateformes, comparatifs, protocole IA, pages obligations (`lancement/comparateur/`)
 - [x] Journal des vérifications réglementaires ouvert (`lancement/verifications.md`)
 - [x] Arborescence autonome préparée (`.gitignore`, `.github/workflows/tests.yml`, chemins racine)
+
+---
+
+## TEST 01 — FAIT le 21/09/2026, et il a changé le plan
+
+**Premier test réel du projet.** Le numéro 1 a été mis devant l'utilisateur avec
+une question fermée. Réponse : *« Non, trop ennuyeux, trop juridique et
+personnellement j'évite ce genre de newsletters qui polluent nos boîtes mail. »*
+
+**Ce qui en est sorti** — fiche complète : `11-test-01-format.md`.
+
+1. Un **critère manquant** dans la grille : `tenue_dans_la_duree` (poids 2.0).
+   Dix-huit critères notaient le marché, aucun ne notait ce que le format exige
+   de l'opérateur semaine après semaine.
+2. **Le concept n'est PAS tué** : même en poussant l'aversion au maximum, A4
+   (78.1) reste devant B2 (74.7). Céder ici aurait été flatter contre les
+   chiffres.
+3. **La cadence hebdomadaire est tuée.** Variante **A4b** (envoi quand une
+   échéance tombe) : **79.7, 1ᵉʳ sur 17**.
+4. **Le comparateur devient le point d'entrée**, la newsletter la couche de
+   capture. Aucun contenu rédigé n'est perdu : même recherche, deux sorties.
+
+**Ne pas rouvrir la verticale** : rien dans ce retour n'attaque le marché des
+e-commerçants. Le rouvrir serait une réaction, pas une décision.
 
 ---
 

@@ -70,3 +70,16 @@ criteres:
   revente_actif:
     poids: 1.0
     sens: "5 = actif revendable a un acheteur identifiable (multiple de benefice)"
+  tenue_dans_la_duree:
+    poids: 2.0
+    sens: >-
+      5 = l'actif continue de produire meme si l'operateur s'arrete un mois ;
+      1 = cadence forcee, une interruption detruit l'actif.
+      AJOUTE LE 21/09/2026 apres un test reel : l'utilisateur, mis devant le
+      premier numero, a repondu qu'il evitait ce format. La grille notait le
+      marche et ne notait PAS ce que le format exige de l'operateur, semaine
+      apres semaine. Un actif abandonne au mois 3 vaut zero, quel que soit son
+      potentiel economique. Poids volontairement MODERE : ce critere corrige un
+      angle mort, il ne doit pas devenir un permis de choisir ce qui est
+      agreable — le format le plus agreable du portefeuille (D3) est aussi le
+      plus inutile, et il doit le rester.

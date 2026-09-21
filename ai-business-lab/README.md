@@ -13,7 +13,7 @@
 | Document | Contenu |
 |---|---|
 | [01 — Étude de marché](01-etude-marche.md) | Données 2026 : RPM/CPM par niche, règles de monétisation, affiliation récurrente, SEO programmatique, cadre légal FR |
-| [02 — Portefeuille de concepts](02-portefeuille-concepts.md) | 15 concepts internes + 1 concept externe, notés sur 18 critères, classés par un score reproductible |
+| [02 — Portefeuille de concepts](02-portefeuille-concepts.md) | 16 concepts internes + 1 concept externe, notés sur **19 critères**, classés par un score reproductible |
 | [03 — Plan d'exécution](03-plan-execution.md) | Phases 1 à 10 + plan jour par jour des 90 premiers jours |
 | [04 — Niche Radar](04-niche-radar.md) | Veille permanente d'opportunités (sources gratuites, cadence hebdo) |
 | [05 — Tableau de bord](05-tableau-de-bord.md) | Schéma de mesure, statuts, règle de KILL, règle de SCALE |
@@ -21,7 +21,8 @@
 | [07 — Automatisation et agents](07-automatisation-agents.md) | Les 15 agents, et ce qui doit rester humain |
 | [08 — Trajectoire 12 mois / 3-5 ans](08-roadmap.md) | Direction stratégique, pas une promesse |
 | [09 — Outils et budget](09-outils-et-budget.md) | Stack 0 € puis règles de réinvestissement |
-| [10 — Comparaison ChatGPT](10-comparaison-chatgpt.md) | Le **même prompt maître** soumis à ChatGPT : ce qu'il a fait mieux, ce que son concept donne **dans ce moteur** (42.5, dernier sur 16), et ce que ce dossier lui reprend |
+| [10 — Comparaison ChatGPT](10-comparaison-chatgpt.md) | Le **même prompt maître** soumis à ChatGPT : ce qu'il a fait mieux, ce que son concept donne **dans ce moteur** (42.5, **dernier sur 17**), et ce que ce dossier lui reprend |
+| [**11 — Test 01 : le format**](11-test-01-format.md) | **Le premier test réel du projet.** Le numéro 1 soumis à un lecteur, son refus, le critère manquant qu'il a révélé, et le changement de cadence qui en découle |
 | [**`PREMIER-ENVOI.md`**](PREMIER-ENVOI.md) | **Le chemin le plus court jusqu'à un premier envoi réel.** Commencer ici : tout le reste attend une publication qui n'a jamais eu lieu |
 | [**`REPRISE.md`**](REPRISE.md) | **État d'avancement durable** — point d'entrée après toute interruption : ce qui est fait, ce qui est en cours, ce qui bloque |
 | [`MIGRATION.md`](MIGRATION.md) | Comment sortir ce dossier dans son propre dépôt |
@@ -37,11 +38,19 @@
 **Construire un actif B2B francophone de niche — pas une chaîne de
 divertissement faceless.** Concrètement, le premier lot est :
 
-1. **A4 — une newsletter de veille pour une profession précise** (score 81.4) ;
-2. **A1 — un média d'accompagnement sur la facturation électronique** (78.3),
-   dont l'échéance légale crée une demande contrainte pendant 12 mois ;
-3. **B2 — un comparateur de logiciels** sur la même verticale (73.2), qui
-   monétise l'intention d'achat générée par les deux premiers.
+1. **B2 — un comparateur de logiciels** sur la verticale choisie (74.7). **Il
+   est passé en tête du lot après le test 01** : c'est un actif SEO, il
+   travaille sans cadence imposée et survit à une interruption ;
+2. **A4b — une newsletter de veille SANS cadence forcée** (79.7, 1ᵉʳ du
+   classement), envoyée quand une échéance tombe. Elle capture les lecteurs que
+   le comparateur amène ;
+3. **A1 — un média d'accompagnement sur la facturation électronique** (77.3),
+   dont l'échéance légale crée une demande contrainte pendant 12 mois.
+
+> **Pourquoi cet ordre a changé** : mis devant le premier numéro, un lecteur a
+> répondu qu'il évitait les newsletters qui « polluent » sa boîte mail. Le
+> reproche visait la **cadence**, pas le contenu — et il a révélé un critère
+> absent de la grille. Détail : [`11-test-01-format.md`](11-test-01-format.md).
 
 Ces trois concepts partagent **la même audience et le même travail de veille**.
 Ce n'est pas trois projets : c'est un projet avec trois sorties, donc trois
@@ -108,7 +117,10 @@ chemin est incomparablement plus court, et il ne dépend d'aucun algorithme.
 
 Ce qui n'est **pas** démontré et doit être testé :
 
-- **H1** — Une profession précise s'abonne à une veille hebdomadaire par email.
+- **H1** *(révisée après le test 01)* — Une profession précise s'abonne à une
+  veille **sans périodicité fixe**, envoyée quand une échéance tombe : ≥ 300
+  inscrits en 90 jours et ≥ 45 % d'ouverture. Sous 30 % sur trois envois, on
+  revient à une cadence fixe.
 - **H2** — Cette audience professionnelle paie (produit ou abonnement).
 - **H3** — Des annonceurs (éditeurs de logiciels) achètent une insertion dans
   une newsletter de 1 000 à 2 000 abonnés qualifiés.

@@ -39,6 +39,7 @@ concepts:
       avantage_defendable: 4     # exactitude + exhaustivite de l'annuaire + anteriorite = difficile a copier vite
       vitesse_validation: 4      # intention de recherche mesurable en quelques semaines
       revente_actif: 4
+      tenue_dans_la_duree: 3      # l'annuaire persiste, mais l'angle 'echeance' impose une cadence
 
   - id: A2
     nom: "IA appliquee a UN metier precis (pas 'les outils IA' en general)"
@@ -66,6 +67,7 @@ concepts:
       avantage_defendable: 4     # la specialisation metier est la barriere ; le generaliste n'en a aucune
       vitesse_validation: 4
       revente_actif: 4
+      tenue_dans_la_duree: 4      # contenu de fond, indexe durablement
 
   - id: A3
     nom: "Micro-entreprise / creation d'entreprise en France"
@@ -92,6 +94,7 @@ concepts:
       avantage_defendable: 3
       vitesse_validation: 4
       revente_actif: 4
+      tenue_dans_la_duree: 4      # sujet permanent, contenu evergreen
 
   - id: A4
     nom: "Newsletter de veille pour une profession"
@@ -118,6 +121,46 @@ concepts:
       avantage_defendable: 4     # la regularite et la confiance se construisent, ne se copient pas
       vitesse_validation: 5      # 8 numeros suffisent a savoir
       revente_actif: 5           # une newsletter B2B qualifiee se revend
+      tenue_dans_la_duree: 2      # CADENCE HEBDO FORCEE : trois semaines manquees et la liste meurt
+
+  # -------------------------------------------------------------------------
+  # A4b — VARIANTE issue d'un test reel, 21/09/2026.
+  #
+  # Mis devant le numero 1, l'utilisateur a repondu : "trop ennuyeux, trop
+  # juridique, et j'evite ce genre de newsletters qui polluent nos boites mail".
+  # La derniere partie ne vise pas le sujet, elle vise la CADENCE HEBDOMADAIRE.
+  #
+  # Cette variante supprime la cadence : on envoie quand une echeance tombe.
+  # Elle gagne 2 points de tenue_dans_la_duree et en perd 1 sur
+  # avantage_defendable — l'habitude du rendez-vous est ce qui cree la relation,
+  # et la relation est ce qu'un concurrent ne copie pas. Le solde est POSITIF.
+  # -------------------------------------------------------------------------
+  - id: A4b
+    nom: "Newsletter de veille SANS cadence forcee (envoyee quand une echeance tombe)"
+    cluster: "A — B2B francophone a forte valeur"
+    resume: >-
+      Une synthese hebdomadaire de ce qui change dans un metier (reglementaire,
+      outils, marche), destinee a des professionnels qui n'ont pas le temps de
+      suivre. Monetisee par sponsoring, puis par abonnement.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 3
+      valeur_commerciale: 5      # sponsoring newsletter B2B FR : 150-800 EUR/insertion, CPM 20-80 EUR
+      concurrence_faible: 4      # beaucoup de metiers n'ont aucune veille independante en francais
+      facilite_production: 4
+      cout_faible: 5             # beehiiv gratuit jusqu'a 2500 abonnes
+      affiliation: 3
+      produit_numerique: 4
+      revenu_recurrent: 5
+      international: 2
+      durabilite: 4
+      independance_plateforme: 5 # liste email = actif possede
+      risque_juridique_faible: 3
+      automatisation: 4          # collecte auto, redaction assistee, validation humaine
+      avantage_defendable: 3     # la regularite et la confiance se construisent, ne se copient pas
+      vitesse_validation: 5      # 8 numeros suffisent a savoir
+      revente_actif: 5           # une newsletter B2B qualifiee se revend
+      tenue_dans_la_duree: 4      # CADENCE HEBDO FORCEE : trois semaines manquees et la liste meurt
 
   - id: B1
     nom: "Site programmatique sur donnees publiques ouvertes"
@@ -144,6 +187,7 @@ concepts:
       avantage_defendable: 4     # l'effet de stock (milliers de pages indexees) est une vraie barriere
       vitesse_validation: 2      # l'indexation demande 3 a 6 mois : on sait TARD
       revente_actif: 5           # un site SEO monetise se vend a un multiple de son benefice
+      tenue_dans_la_duree: 5      # les pages tournent seules, sans intervention
 
   - id: B2
     nom: "Annuaire/comparateur de logiciels d'une niche"
@@ -169,6 +213,7 @@ concepts:
       avantage_defendable: 4     # la fraicheur et l'exhaustivite du comparatif se maintiennent difficilement
       vitesse_validation: 3
       revente_actif: 5
+      tenue_dans_la_duree: 5      # actif SEO : une mise a jour trimestrielle suffit a le tenir
 
   - id: B3
     nom: "Outils gratuits en ligne (calculateurs, simulateurs) -> freemium"
@@ -195,6 +240,7 @@ concepts:
       avantage_defendable: 4     # un outil utilise quotidiennement cree une habitude
       vitesse_validation: 3
       revente_actif: 4
+      tenue_dans_la_duree: 5      # un outil en ligne fonctionne sans operateur
 
   - id: C1
     nom: "Produits numeriques pour une profession (modeles, tableurs)"
@@ -220,6 +266,7 @@ concepts:
       avantage_defendable: 2     # un modele se copie en une apres-midi
       vitesse_validation: 5      # on sait en 2 semaines si ca se vend
       revente_actif: 2
+      tenue_dans_la_duree: 5      # produit vendu en boucle, aucune cadence imposee
 
   - id: C2
     nom: "Mini-formation sur une obligation reglementaire"
@@ -245,6 +292,7 @@ concepts:
       avantage_defendable: 3
       vitesse_validation: 4
       revente_actif: 2
+      tenue_dans_la_duree: 4      # vendue en continu, mise a jour occasionnelle
 
   - id: C3
     nom: "Print on demand faceless"
@@ -270,6 +318,7 @@ concepts:
       avantage_defendable: 1     # aucune barriere : c'est le probleme
       vitesse_validation: 4
       revente_actif: 1
+      tenue_dans_la_duree: 4      # catalogue passif une fois en place
 
   - id: D1
     nom: "Chaine faceless education IA/tech en francais"
@@ -295,6 +344,7 @@ concepts:
       avantage_defendable: 2     # tres faible sans angle metier ou test reel
       vitesse_validation: 4
       revente_actif: 2
+      tenue_dans_la_duree: 2      # l'algorithme exige une cadence ; l'arret fait chuter la portee
 
   - id: D2
     nom: "Chaine faceless finance / business en francais"
@@ -320,6 +370,7 @@ concepts:
       avantage_defendable: 2
       vitesse_validation: 4
       revente_actif: 2
+      tenue_dans_la_duree: 2      # meme contrainte de cadence
 
   - id: D3
     nom: "Chaine faceless divertissement (histoires, motivation, musique)"
@@ -344,6 +395,7 @@ concepts:
       avantage_defendable: 1
       vitesse_validation: 4
       revente_actif: 1
+      tenue_dans_la_duree: 2      # meme contrainte de cadence
 
   - id: E1
     nom: "Micro-SaaS no-code B2B (19-49 EUR/mois)"
@@ -369,6 +421,7 @@ concepts:
       avantage_defendable: 4     # une fois installe dans un flux de travail, on ne change pas d'outil
       vitesse_validation: 3      # rentabilite typique atteinte en 6 a 18 mois
       revente_actif: 5           # un micro-SaaS rentable se vend a un multiple de son revenu annuel
+      tenue_dans_la_duree: 3      # tourne seul, mais le support client ne s'arrete jamais
 
   - id: E2
     nom: "Automatisations pretes a l'emploi vendues en self-serve"
@@ -394,6 +447,7 @@ concepts:
       avantage_defendable: 3
       vitesse_validation: 4
       revente_actif: 3
+      tenue_dans_la_duree: 4      # vente self-serve ; la maintenance est episodique
 
   # -------------------------------------------------------------------------
   # F — concept issu d'une SOURCE EXTERNE, ajoute le 21/09/2026.
@@ -432,3 +486,4 @@ concepts:
       avantage_defendable: 1     # critere decisif : un concurrent equipe des memes IA refait ca en une semaine
       vitesse_validation: 3      # les Shorts se mesurent vite EN PRINCIPE, mais ici le goulot est la production, pas la mesure
       revente_actif: 2           # une petite chaine faceless grand public se revend a un faible multiple
+      tenue_dans_la_duree: 2      # double contrainte : cadence YouTube ET suivi d'une plateforme tierce

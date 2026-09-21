@@ -1,7 +1,7 @@
 # 02 — Portefeuille de concepts
 
-15 concepts internes — plus 1 concept externe entré pour comparaison — notés sur
-18 critères pondérés, classés par un **score calculé, pas choisi**. Le calcul
+16 concepts internes — plus 1 concept externe entré pour comparaison — notés sur
+19 critères pondérés, classés par un **score calculé, pas choisi**. Le calcul
 est dans [`outils/`](outils/) et se rejoue par :
 
 ```bash
@@ -18,22 +18,23 @@ validation** — les trois choses qui manquent le plus à un débutant en 2026.
 
 | # | ID | Concept | Score global /100 | Potentiel éco /100 | Faisabilité /100 |
 |---|----|---------|------------------:|-------------------:|-----------------:|
-| 1 | A4 | Newsletter de veille pour une profession | **81.4** | 83.8 | 87.6 |
-| 2 | A2 | IA appliquée à UN métier précis | **78.9** | 87.5 | 70.5 |
-| 3 | A1 | Facture électronique 2026-2027 (média + annuaire + affiliation) | **78.3** | **90.0** | 70.5 |
-| 4 | A3 | Micro-entreprise / création d'entreprise en France | **75.5** | 88.8 | 61.9 |
-| 5 | B2 | Annuaire/comparateur de logiciels d'une niche | **73.2** | 80.0 | 62.9 |
-| 6 | B3 | Outils gratuits en ligne (calculateurs) → freemium | **72.1** | 77.5 | 63.8 |
-| 7 | E1 | Micro-SaaS no-code B2B (19-49 €/mois) | **71.5** | 76.2 | 60.0 |
-| 8 | E2 | Automatisations prêtes à l'emploi en self-serve | **68.7** | 66.2 | 76.2 |
-| 9 | B1 | Site programmatique sur données publiques ouvertes | **67.3** | 67.5 | 67.6 |
-| 10 | D1 | Chaîne faceless éducation IA/tech en français | **67.0** | 71.2 | 66.7 |
-| 11 | C1 | Produits numériques pour une profession | **65.1** | 53.8 | 81.0 |
-| 12 | C2 | Mini-formation sur une obligation réglementaire | **63.4** | 67.5 | 67.6 |
-| 13 | D2 | Chaîne faceless finance / business en français | **61.4** | 72.5 | 54.3 |
-| 14 | C3 | Print on demand faceless | **48.5** | 36.2 | 68.6 |
-| 15 | D3 | Chaîne faceless divertissement (histoires, motivation, musique) | **45.9** | **30.0** | 76.2 |
-| 16 | F1 | *Marge Claire — Shorts + calculateur pour revendeurs Vinted* ⁽¹⁾ | **42.5** | 37.5 | 40.0 |
+| 1 | A4b | Newsletter de veille **sans cadence forcée** (envoyée quand une échéance tombe) | **79.7** | 80.0 | 87.6 |
+| 2 | A4 | Newsletter de veille hebdomadaire pour une profession | **79.2** | 83.8 | 87.6 |
+| 3 | A2 | IA appliquée à UN métier précis | **78.9** | 87.5 | 70.5 |
+| 4 | A1 | Facture électronique 2026-2027 (média + annuaire + affiliation) | **77.3** | 90.0 | 70.5 |
+| 5 | A3 | Micro-entreprise / création d'entreprise en France | **75.7** | 88.8 | 61.9 |
+| 6 | B2 | Annuaire/comparateur de logiciels d'une niche | **74.7** | 80.0 | 62.9 |
+| 7 | B3 | Outils gratuits en ligne (calculateurs) → freemium | **73.6** | 77.5 | 63.8 |
+| 8 | E1 | Micro-SaaS no-code B2B (19-49 €/mois) | **70.9** | 76.2 | 60.0 |
+| 9 | E2 | Automatisations prêtes à l'emploi en self-serve | **69.3** | 66.2 | 76.2 |
+| 10 | B1 | Site programmatique sur données publiques ouvertes | **69.1** | 67.5 | 67.6 |
+| 11 | C1 | Produits numériques pour une profession | **66.9** | 53.8 | 81.0 |
+| 12 | D1 | Chaîne faceless éducation IA/tech en français | **65.6** | 71.2 | 66.7 |
+| 13 | C2 | Mini-formation sur une obligation réglementaire | **64.3** | 67.5 | 67.6 |
+| 14 | D2 | Chaîne faceless finance / business en français | **60.3** | 72.5 | 54.3 |
+| 15 | C3 | Print on demand faceless | **50.1** | 36.2 | 68.6 |
+| 16 | D3 | Chaîne faceless divertissement (histoires, motivation, musique) | **45.6** | 30.0 | 76.2 |
+| 17 | F1 | *Marge Claire — Shorts + calculateur pour revendeurs Vinted* ⁽¹⁾ | **42.4** | 37.5 | 40.0 |
 
 ⁽¹⁾ **Concept externe**, ajouté le 21/09/2026 : c'est la verticale retenue par
 ChatGPT saisi du même prompt maître. Il est noté selon la **même grille**, pour
@@ -46,7 +47,7 @@ robustesse et ce que ce dossier reprend de ce travail :
 1. **Les 8 premiers concepts visent tous une audience professionnelle.** Ce
    n'est pas une préférence esthétique : c'est la conséquence arithmétique des
    RPM, des tarifs de sponsoring et des taux d'affiliation mesurés dans `01`.
-2. **Le concept le plus populaire chez les débutants arrive dernier** (D3, 45.9,
+2. **Le concept le plus populaire chez les débutants arrive dernier** (D3, 45.6,
    avec un potentiel économique de 30/100). Il est facile, gratuit, rapide — et
    c'est précisément pour ça qu'il ne vaut rien : ce qui est accessible à tous
    n'a aucune valeur défendable.
@@ -64,7 +65,7 @@ partie — le rôle des tests de [`03`](03-plan-execution.md) est de dire où.
 
 | Lot | Concepts | Pourquoi ceux-là |
 |---|---|---|
-| **Lot 1 — maintenant** | **A4** + **A1 ou A2** + **B2** | Une seule audience, un seul travail de veille, trois façons de gagner : abonnés (actif possédé), trafic d'intention (comparateur), revenu récurrent (affiliation). |
+| **Lot 1 — maintenant** | **B2** (point d'entrée) + **A4b** + **A1 ou A2** | Une seule audience, un seul travail de veille. **B2 passe devant depuis le test 01** : actif SEO sans cadence, il survit à une pause. A4b capture les lecteurs qu'il amène. |
 | **Lot 1 bis — canal de test** | **D1** en format court | 30 vidéos pour savoir si l'acquisition sociale fonctionne sur un sujet B2B. Jetable sans regret. |
 | **Lot 2 — après validation de H2** | **C1**, **B3** | Ne se justifient que si l'audience a exprimé un problème précis. |
 | **Lot 3 — 6 à 12 mois** | **E1** | Le micro-SaaS est la destination, pas le départ (6-18 mois avant rentabilité). |
@@ -83,7 +84,45 @@ dépendent tous. Méthode de sélection en phase 0 de [`03`](03-plan-execution.m
 
 Chaque fiche suit les 18 points demandés.
 
-### A4 — Newsletter de veille pour une profession · score 81.4 · **rang 1**
+### A4b — Newsletter de veille **sans cadence forcée** · score 79.7 · **rang 1**
+
+**Variante issue du test 01 du 21/09/2026**, seul concept du portefeuille dont
+la note provient d'un **retour de lecteur réel** et non d'une hypothèse.
+
+1. **Concept** — Identique à A4 sur le fond : la veille d'un métier, vérifiée et
+   sourcée. **La différence est la cadence** : on envoie quand une échéance
+   tombe, pas parce que c'est mardi.
+2. **Ce qui a déclenché la variante** — Mis devant le numéro 1, le lecteur a
+   répondu : *« j'évite ce genre de newsletters qui polluent nos boîtes mail »*.
+   Le reproche vise la **périodicité imposée**, pas le contenu.
+3. **Ce qu'elle gagne** — `tenue_dans_la_duree` **2 → 4**. Une interruption de
+   trois semaines ne détruit plus l'actif, parce qu'il n'y avait pas de promesse
+   de rendez-vous à tenir.
+4. **Ce qu'elle coûte, et ce n'est pas rien** — `avantage_defendable` **4 → 3**.
+   L'habitude du rendez-vous est ce qui crée la relation, et la relation est ce
+   qu'un concurrent équipé des mêmes IA ne copie pas. On y renonce en partie.
+5. **Solde** — **+0.5 point**. Marge faible : à traiter comme une hypothèse, pas
+   comme une démonstration.
+6. **Hypothèse à tester (H1 révisée)** — ≥ 300 inscrits en 90 jours (et non 60 :
+   sans cadence, la croissance est plus lente) et **≥ 45 %** d'ouverture moyenne
+   — un envoi rare doit ouvrir *mieux* qu'un envoi hebdomadaire, sinon la
+   variante ne se justifie pas.
+7. **Ce qui la ferait échouer** — L'absence de rythme fait oublier l'expéditeur ;
+   au premier envoi après six semaines de silence, les désabonnements explosent.
+   **C'est le risque principal, et il est réel.**
+8. **Signal de bascule** — Si le taux d'ouverture passe sous 30 % sur trois
+   envois consécutifs, revenir à une cadence fixe (A4). Le seuil est écrit
+   maintenant, avant de commencer.
+
+Détail complet du test : [`11-test-01-format.md`](11-test-01-format.md).
+
+---
+
+### A4 — Newsletter de veille hebdomadaire · score 79.2 · **rang 2**
+
+> ⚠️ **Testé le 21/09/2026 et reformé.** La cadence hebdomadaire a été abandonnée
+> après un retour de lecteur. La variante retenue est **A4b** (sans cadence
+> forcée), 1ᵉʳ du classement. Voir [`11-test-01-format.md`](11-test-01-format.md).
 
 1. **Concept** — Une synthèse hebdomadaire de ce qui change dans un métier :
    réglementaire, outils, marché, aides. Pour des professionnels qui n'ont pas
@@ -128,7 +167,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### A2 — IA appliquée à UN métier précis · score 78.9 · **rang 2**
+### A2 — IA appliquée à UN métier précis · score 78.9 · **rang 3**
 
 1. **Concept** — Non pas « les 10 meilleurs outils IA », mais « comment un
    expert-comptable (ou un artisan, ou un RH) utilise concrètement l'IA cette
@@ -166,7 +205,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### A1 — Facture électronique 2026-2027 · score 78.3 · **rang 3** (meilleur potentiel économique : 90/100)
+### A1 — Facture électronique 2026-2027 · score 77.3 · **rang 4** (meilleur potentiel économique : 90/100)
 
 1. **Concept** — Média d'accompagnement d'une obligation légale : pédagogie,
    échéances, annuaire comparatif des plateformes agréées et des logiciels de
@@ -214,7 +253,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### A3 — Micro-entreprise / création d'entreprise · score 75.5 · **rang 4**
+### A3 — Micro-entreprise / création d'entreprise · score 75.7 · **rang 5**
 
 1. **Concept** — Média sur les statuts, charges, obligations et outils du
    créateur d'entreprise français.
@@ -251,7 +290,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### B2 — Annuaire/comparateur de logiciels d'une niche · score 73.2 · **rang 5**
+### B2 — Annuaire/comparateur de logiciels d'une niche · score 74.7 · **rang 6**
 
 1. **Concept** — Comparer honnêtement les solutions d'un marché précis : prix
    réels, fonctionnalités, limites, cas d'usage.
@@ -285,7 +324,7 @@ Chaque fiche suit les 18 points demandés.
     éditeur, conversions, **revenu récurrent cumulé**.
 
 ---
-### B3 — Outils gratuits en ligne (calculateurs, simulateurs) · score 72.1 · **rang 6**
+### B3 — Outils gratuits en ligne (calculateurs, simulateurs) · score 73.6 · **rang 7**
 
 1. **Concept** — Un outil gratuit qui résout un calcul pénible et récurrent
    (charges, marge, devis, conversion de format), qui capte du trafic et des
@@ -320,7 +359,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### E1 — Micro-SaaS no-code B2B · score 71.5 · **rang 7**
+### E1 — Micro-SaaS no-code B2B · score 70.9 · **rang 8**
 
 1. **Concept** — Un outil qui résout **un** problème répétitif d'une profession,
    construit sans code, facturé dès le premier jour 19-49 €/mois.
@@ -359,7 +398,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### E2 — Automatisations prêtes à l'emploi en self-serve · score 68.7 · **rang 8**
+### E2 — Automatisations prêtes à l'emploi en self-serve · score 69.3 · **rang 9**
 
 1. **Concept** — Vendre des scénarios d'automatisation prêts à installer pour
    une profession (relances de devis, publication, tri de documents).
@@ -390,7 +429,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### B1 — Site programmatique sur données publiques · score 67.3 · **rang 9**
+### B1 — Site programmatique sur données publiques · score 69.1 · **rang 10**
 
 1. **Concept** — Des milliers de pages générées depuis des jeux de données
    publics : une page par commune, par établissement, par métier, chacune
@@ -428,7 +467,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### D1 — Chaîne faceless éducation IA/tech en français · score 67.0 · **rang 10**
+### D1 — Chaîne faceless éducation IA/tech en français · score 65.6 · **rang 12**
 
 1. **Concept** — Format court et long sur l'usage concret de l'IA et des outils
    numériques, en voix de synthèse, sans visage.
@@ -462,7 +501,7 @@ Chaque fiche suit les 18 points demandés.
     attribués** (pas les vues), temps de production par vidéo.
 
 ---
-### C1 — Produits numériques pour une profession · score 65.1 · **rang 11**
+### C1 — Produits numériques pour une profession · score 66.9 · **rang 11**
 
 1. **Concept** — Modèles, tableurs et documents qui font gagner des heures à un
    professionnel précis, vendus 19-39 €.
@@ -499,7 +538,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### C2 — Mini-formation sur une obligation réglementaire · score 63.4 · **rang 12**
+### C2 — Mini-formation sur une obligation réglementaire · score 64.3 · **rang 13**
 
 1. **Concept** — Un cours court et opérationnel pour se mettre en conformité
    avec une obligation datée, vendu 49-149 €.
@@ -531,7 +570,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### D2 — Chaîne faceless finance / business · score 61.4 · **rang 13**
+### D2 — Chaîne faceless finance / business · score 60.3 · **rang 14**
 
 1. **Concept** — Contenu sur l'argent, l'entreprise et l'investissement, sans
    visage.
@@ -561,7 +600,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### C3 — Print on demand faceless · score 48.5 · **rang 14**
+### C3 — Print on demand faceless · score 50.1 · **rang 15**
 
 1. **Concept** — Designs vendus sur objets imprimés à la demande.
 2. **Audience** — Grand public.
@@ -589,7 +628,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### D3 — Chaîne faceless divertissement · score 45.9 · **rang 15**
+### D3 — Chaîne faceless divertissement · score 45.6 · **rang 16**
 
 1. **Concept** — Histoires, motivation, musique relaxante, faits divers : le
    format faceless le plus répandu, et **le plus recommandé sur internet**.
@@ -625,7 +664,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### F1 — Marge Claire (concept externe) · score 42.5 · **rang 16 (dernier)**
+### F1 — Marge Claire (concept externe) · score 42.4 · **rang 17 (dernier)**
 
 **Origine** : verticale retenue par ChatGPT, saisi du **même prompt maître** par
 l'utilisateur le 21/09/2026. Entré ici pour que le désaccord entre les deux

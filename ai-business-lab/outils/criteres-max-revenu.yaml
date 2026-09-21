@@ -67,3 +67,10 @@ criteres:
   revente_actif:
     poids: 3.0
     sens: "5 = actif revendable a un multiple de son benefice -- c'est la ou se cree le patrimoine"
+  tenue_dans_la_duree:
+    poids: 1.0
+    sens: >-
+      Presque neutralise ici, volontairement : cette grille ne regarde que
+      l'argent et la solidite du marche, pas ce que le format coute a celui qui
+      le tient. Le contraste avec la grille de reference est precisement ce qui
+      rend la contre-epreuve informative.
