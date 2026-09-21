@@ -104,6 +104,15 @@ qu'on improvise : historique de factures à reprendre, numérotation à conserve
 paramétrage fiscal à refaire. Échéance d'émission pour les PME, TPE et
 micro-entreprises : **1ᵉʳ septembre 2027**.
 
+**Et surtout — le point que la couverture médiatique manque.** On vous parle de
+« facturation entre entreprises ». Vous vendez à des particuliers, donc vous
+pensez être hors sujet. Sauf que la réforme a un second volet, l'**e-reporting** :
+la transmission à l'administration des données des opérations qui **ne donnent
+pas lieu à une facture électronique** — c'est-à-dire **vos ventes aux
+particuliers**. Même échéance : **1ᵉʳ septembre 2027** pour les PME, TPE et
+micro-entreprises, et passage obligatoire par une plateforme agréée.
+*(Vérifié sur impots.gouv.fr le 21/09/2026.)*
+
 **Et si vous êtes en franchise en base de TVA** — le cas de la plupart des
 micro-entrepreneurs — vous êtes **quand même concerné**. Ne pas être *redevable*
 de la TVA ne veut pas dire ne pas y être *assujetti* : la réforme s'applique à

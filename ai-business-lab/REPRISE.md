@@ -40,6 +40,7 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 - [x] Kit de lancement de la verticale (`lancement/`)
 - [x] Les 4 premiers numéros rédigés intégralement (`lancement/numeros/`)
 - [x] Les 30 scripts de contenus courts rédigés (`lancement/contenus/`)
+- [x] Premier passage du Niche Radar exécuté (`opportunites/`)
 - [x] Comparateur : 12 pages rédigées — méthodologie, page pilier, fiches plateformes, comparatifs, protocole IA, pages obligations (`lancement/comparateur/`)
 - [x] Journal des vérifications réglementaires ouvert (`lancement/verifications.md`)
 - [x] Arborescence autonome préparée (`.gitignore`, `.github/workflows/tests.yml`, chemins racine)
@@ -98,9 +99,14 @@ travail existe.
       **Ne pas reprendre cette tâche automatiquement.**
 - [ ] **DÉPEND DE L'UTILISATEUR** : ouvrir les textes sur Légifrance et EUR-Lex
       (bloqués par le proxy réseau ici) pour clore les `[À CONFIRMER]` restants.
-- [ ] **Prochaine tâche par défaut** : faire tourner le Niche Radar une première
-      fois (`04-niche-radar.md`) et produire 1 à 3 fiches d'opportunité dans
-      `opportunites/`. C'est le seul système décrit qui n'a jamais été exécuté.
+- [x] ~~Faire tourner le Niche Radar une première fois~~ — fait le 21/09/2026,
+      2 fiches dans `opportunites/`, toutes deux classées INTÉGRER.
+- [ ] **Prochaine tâche par défaut** : écrire le numéro 5 consacré à
+      l'e-reporting (cf. `opportunites/2026-09-21-e-reporting-b2c.md`, décision
+      « un numéro entier, pas un bloc ») et la page de comparateur associée.
+- [ ] **DÉPEND DE L'UTILISATEUR** : vérifier l'accessibilité numérique (EAA) en
+      source officielle avant toute publication — les sources divergent sur les
+      sanctions, et EUR-Lex/Légifrance sont bloqués ici.
 - [~] Vérifier chaque fait réglementaire sur sa **source officielle** (règle R3).
       **Commencé le 21/09/2026**, journal dans `lancement/verifications.md` :
       rétractation en ligne, TVA OSS/IOSS et calendrier de facturation

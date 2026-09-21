@@ -185,12 +185,33 @@ rétractation.
 
 ---
 
+## A11 — Vous vendez à des particuliers ? C'est l'e-reporting qui vous concerne
+*(script ajouté le 21/09/2026 à la suite du premier passage du Niche Radar —
+remplace A4 si un seul script doit être coupé)*
+
+**Hook (0-3 s)** : « On vous parle de facturation entre entreprises. Vous vendez
+à des particuliers. Vous pensez être tranquille. »
+
+**Corps** : La réforme a deux volets. Le premier, la facture électronique, vise
+les opérations entre entreprises. Le second, l'**e-reporting**, vise les
+opérations qui **ne donnent pas lieu** à une facture électronique — donc vos
+ventes aux particuliers.
+Même échéance : 1ᵉʳ septembre 2027 pour les PME, TPE et micro-entreprises. Même
+obligation de passer par une plateforme agréée.
+
+**Chute** : « Le volet dont on parle le moins est celui qui vous concerne le
+plus. »
+
+`[SOURCE : impots.gouv.fr]` *(vérifié)*
+
+---
+
 ## Notes de production
 
 - **Aucun de ces dix scripts ne contient de lien d'affiliation.** La mention
   « Publicité » n'est donc pas requise sur ce format. Elle le devient
   immédiatement si vous ajoutez un lien vers un outil rémunérateur.
-- **A8 et A10 sont les deux meilleurs candidats du lot** : un fait vérifié,
+- **A8, A10 et A11 sont les trois meilleurs candidats du lot** : un fait vérifié,
   contre-intuitif, qui contredit une croyance répandue. Si un seul format doit
   être poussé, c'est celui-là.
 - Ne jamais dire « vous risquez une amende de X € » tant que le montant n'est
