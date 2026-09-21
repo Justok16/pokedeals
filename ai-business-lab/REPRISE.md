@@ -38,6 +38,7 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 - [x] Modèles réutilisables (`modeles/`)
 - [x] Moteur de classement + 10 tests, vert en CI (`outils/`)
 - [x] Kit de lancement de la verticale (`lancement/`)
+- [x] Les 4 premiers numéros rédigés intégralement (`lancement/numeros/`)
 - [x] Arborescence autonome préparée (`.gitignore`, `.github/workflows/tests.yml`, chemins racine)
 
 ---
@@ -77,11 +78,11 @@ travail existe.
 
 ## À FAIRE ensuite (ne dépend de personne)
 
-- [ ] Rédiger les 4 premiers numéros de la newsletter **en entier**, prêts à
-      envoyer (structure et sujets déjà arrêtés dans `lancement/02-newsletter.md`).
-      L'utilisateur s'est vu proposer ce travail et n'a pas encore répondu :
-      à faire par défaut s'il n'y a rien d'autre en attente.
+- [x] ~~Rédiger les 4 premiers numéros de la newsletter en entier~~ — fait le
+      21/09/2026, dans `lancement/numeros/`. Prêts à envoyer **après levée des
+      marqueurs `[VÉRIFIER]`** sur source officielle.
 - [ ] Rédiger les 10 premières fiches du comparateur (`lancement/03-comparateur.md`).
+      **C'est la prochaine tâche par défaut** s'il n'y a rien d'autre en attente.
 - [ ] Vérifier chaque fait réglementaire cité sur sa **source officielle** avant
       toute publication (règle R3). Les faits collectés sont en niveau 2/3.
 
