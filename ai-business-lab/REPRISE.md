@@ -231,7 +231,8 @@ travail existe.
 | Artisans du bâtiment écartés | Marché en recul : 13 trimestres de baisse |
 | Chaîne faceless divertissement écartée | Dernière du classement, y compris sous la grille « revenu maximal » |
 | Angle « outils, vrais prix, obligations » | Le créneau e-commerce est saturé de vendeurs de méthodes ; c'est le seul angle défendable |
-| Aucune promesse de revenus | Différenciation **et** protection juridique |
+| Aucune promesse de revenus | Différenciation **et** protection juridique. Vaut aussi **envers l'utilisateur** : voir `12-peut-on-devenir-riche.md`, jamais révisé à la hausse pour encourager |
+| Objectif reformulé | « Devenir riche » n'est pas exploitable. Cible de travail : **1 500 €/mois en 24 mois sans présence quotidienne** |
 | Revendeurs Vinted écartés | Noté F1 dans le moteur : **42,5**, dernier sur 16, robuste à sept corrections favorables |
 | Aucun titre professionnel revendiqué | Règles des plateformes sur les personas IA + protection juridique (`10-comparaison-chatgpt.md` §7) |
 

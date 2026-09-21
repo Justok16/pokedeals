@@ -23,6 +23,7 @@
 | [09 — Outils et budget](09-outils-et-budget.md) | Stack 0 € puis règles de réinvestissement |
 | [10 — Comparaison ChatGPT](10-comparaison-chatgpt.md) | Le **même prompt maître** soumis à ChatGPT : ce qu'il a fait mieux, ce que son concept donne **dans ce moteur** (42.5, **dernier sur 17**), et ce que ce dossier lui reprend |
 | [**11 — Journal des tests**](11-journal-des-tests.md) | **Les deux tests réels du projet.** Test 01 : le numéro 1 refusé → le critère manquant et l'abandon de la cadence. Test 02 : la page pilier acceptée → **le coût passe avant l'obligation** |
+| [**12 — Est-ce que ça va me rendre riche ?**](12-peut-on-devenir-riche.md) | **Non, et voici les chiffres.** Le résultat le plus probable, le bon cas réaliste à 3 ans, pourquoi « riche » ne vient pas par ce chemin, et le seul embranchement qui change l'ordre de grandeur |
 | [**`PREMIER-ENVOI.md`**](PREMIER-ENVOI.md) | **Le chemin le plus court jusqu'à un premier envoi réel.** Commencer ici : tout le reste attend une publication qui n'a jamais eu lieu |
 | [**`REPRISE.md`**](REPRISE.md) | **État d'avancement durable** — point d'entrée après toute interruption : ce qui est fait, ce qui est en cours, ce qui bloque |
 | [`MIGRATION.md`](MIGRATION.md) | Comment sortir ce dossier dans son propre dépôt |
