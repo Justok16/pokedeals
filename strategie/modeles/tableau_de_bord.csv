@@ -1,0 +1,4 @@
+projet,niche,plateforme,contenu_id,date,format,hook,duree,vues,impressions,retention_3s,ctr,abonnements,commentaires,clics_sortants,conversions,revenu,cout,temps_production_min,revenu_estime_par_contenu,statut,decision
+A1,pokemon,tiktok,EXEMPLE-001,2026-09-22,comparaison_prix,"32 EUR ici, 58 EUR ailleurs",48,0,0,0,0,0,0,0,0,0,0,25,0,TEST,
+A2,pokemon,beehiiv,NUM-001,2026-09-27,indice_hebdo,"La cote de la semaine",0,0,0,0,0,0,0,0,0,0,0,40,0,TEST,
+D3,pokemon,site,PAGE-0001,2026-09-23,page_produit,"Prix et disponibilite",0,0,0,0,0,0,0,0,0,0,0,2,0,TEST,

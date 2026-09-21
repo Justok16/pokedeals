@@ -1,0 +1,376 @@
+# Portefeuille de concepts a tester — notes de 0 a 5 par critere.
+#
+# REGLE : une note n'est PAS une verite, c'est une hypothese datee et
+# justifiee. Chaque note discutable porte un commentaire. Les tests reels
+# (cf. 03-plan-execution.md) doivent faire bouger ces notes.
+#
+# Derniere revision : 2026-09-21
+# Prochaine revision obligatoire : apres le premier cycle de tests (J+30)
+
+concepts:
+
+  - id: A1
+    nom: "PokeDeals Media FR"
+    cluster: "A — levier sur l'actif existant"
+    resume: >-
+      Compte faceless (Shorts/TikTok/Reels) alimente par les donnees reelles du
+      scraper : la bonne affaire du jour, l'ecart de prix entre boutiques, la
+      carte qui a le plus monte cette semaine. Le contenu n'est pas "genere par
+      IA a partir de rien" : il est genere a partir d'une base de donnees
+      proprietaire que personne d'autre n'a.
+    notes:
+      potentiel_audience: 4      # ~4 M collectionneurs FR (SRTCG), audience TCG tres active sur short-form
+      croissance_demande: 4      # marche FR des jeux de cartes +12%/an, Pokemon +18% (2024)
+      valeur_commerciale: 3      # panier eleve mais CPM FR divertissement moyen
+      concurrence_faible: 2      # beaucoup de comptes Pokemon FR, peu avec de la DONNEE
+      facilite_production: 4     # script auto depuis data/cotes.json
+      cout_faible: 5
+      affiliation: 3             # eBay ~1-4%, boutiques FR variables, Amazon jeux ~1-3%
+      produit_numerique: 3
+      revenu_recurrent: 3        # via bascule vers le SaaS existant
+      international: 3           # marche EN possible mais concurrence US massive
+      durabilite: 4
+      independance_plateforme: 3 # audience louee, mais redirigeable vers newsletter/SaaS
+      risque_juridique_faible: 3 # images de cartes = droits Nintendo/TPC, usage editorial a encadrer
+      automatisation: 4
+      levier_actif_existant: 5
+      revente_actif: 3
+
+  - id: A2
+    nom: "Newsletter 'La Cote' (indice hebdo Pokemon FR)"
+    cluster: "A — levier sur l'actif existant"
+    resume: >-
+      Newsletter hebdomadaire construite automatiquement depuis data/cotes.json
+      et l'historique de prix : top hausses/baisses de la semaine, alertes
+      precommandes, boutiques les moins cheres. Actif possede, pas loue.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 4
+      valeur_commerciale: 4      # audience acheteuse, sponsoring boutique credible
+      concurrence_faible: 4      # aucune newsletter de cote Pokemon FR data-driven identifiee
+      facilite_production: 4
+      cout_faible: 5             # beehiiv gratuit jusqu'a 2500 abonnes
+      affiliation: 4
+      produit_numerique: 4
+      revenu_recurrent: 4
+      international: 3
+      durabilite: 4
+      independance_plateforme: 5 # liste email = actif possede
+      risque_juridique_faible: 4
+      automatisation: 5
+      levier_actif_existant: 5
+      revente_actif: 4
+
+  - id: A3
+    nom: "API/Cote PokeDeals Pro (micro-SaaS B2B self-serve)"
+    cluster: "A — levier sur l'actif existant"
+    resume: >-
+      Vendre l'acces a la cote FR calculee et a l'historique (API + export CSV)
+      aux vendeurs pros, boutiques et gros revendeurs. Inscription self-serve,
+      zero prospection manuelle.
+    notes:
+      potentiel_audience: 2      # marche etroit : quelques centaines de pros FR
+      croissance_demande: 3
+      valeur_commerciale: 5      # un pro paie 20-100 EUR/mois si ca lui fait gagner de la marge
+      concurrence_faible: 4      # Cardmarket/TCGplayer = US/DE, pas d'API de cote FR simple
+      facilite_production: 3
+      cout_faible: 4
+      affiliation: 1
+      produit_numerique: 4
+      revenu_recurrent: 5
+      international: 4
+      durabilite: 3
+      independance_plateforme: 5
+      risque_juridique_faible: 3 # revente de donnees agregees : a cadrer (sources, CGU)
+      automatisation: 4
+      levier_actif_existant: 5
+      revente_actif: 5
+
+  - id: A4
+    nom: "PokePrecoms (radar de precommandes generique)"
+    cluster: "A — levier sur l'actif existant"
+    resume: >-
+      Deja prevu dans le depot : alerter en premier sur l'ouverture des
+      precommandes de produits scelles. Trafic tres intentionniste, donc
+      affiliation boutique a forte conversion.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 4
+      valeur_commerciale: 5      # panier 50-200 EUR, intention d'achat immediate
+      concurrence_faible: 3
+      facilite_production: 5     # code deja ecrit
+      cout_faible: 5
+      affiliation: 4
+      produit_numerique: 2
+      revenu_recurrent: 3
+      international: 3
+      durabilite: 4
+      independance_plateforme: 4
+      risque_juridique_faible: 4
+      automatisation: 5
+      levier_actif_existant: 5
+      revente_actif: 3
+
+  - id: A5
+    nom: "Site SEO 'cote-pokemon' (pages carte/set generees)"
+    cluster: "A — levier sur l'actif existant"
+    resume: >-
+      Des milliers de pages longue traine ("prix carte X 123/456") generees
+      depuis la base de cotes, avec historique de prix et liens boutiques.
+      Trafic possede, monetise par affiliation + display + bascule SaaS.
+    notes:
+      potentiel_audience: 4
+      croissance_demande: 3      # SEO sous pression des reponses IA (AI Overviews)
+      valeur_commerciale: 4
+      concurrence_faible: 2      # concurrents US/EN etablis, mais peu de FR complet
+      facilite_production: 4
+      cout_faible: 4
+      affiliation: 5
+      produit_numerique: 3
+      revenu_recurrent: 3
+      international: 4
+      durabilite: 3
+      independance_plateforme: 4
+      risque_juridique_faible: 3
+      automatisation: 5
+      levier_actif_existant: 5
+      revente_actif: 5           # un site SEO monetise se revend (multiple de benefice mensuel)
+
+  - id: B1
+    nom: "Extension du moteur a One Piece / Lorcana / Magic FR"
+    cluster: "B — meme technologie, nouvelle audience"
+    resume: >-
+      Le moteur (connecteurs, cote, alertes) est deja generique. Changer la
+      watchlist suffit pour couvrir d'autres TCG en croissance.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 4
+      valeur_commerciale: 4
+      concurrence_faible: 4      # beaucoup moins d'outils FR que sur Pokemon
+      facilite_production: 5
+      cout_faible: 5
+      affiliation: 4
+      produit_numerique: 3
+      revenu_recurrent: 4
+      international: 3
+      durabilite: 3              # Lorcana/One Piece = IP plus jeunes, moins prouvees
+      independance_plateforme: 4
+      risque_juridique_faible: 3
+      automatisation: 5
+      levier_actif_existant: 5
+      revente_actif: 4
+
+  - id: B2
+    nom: "Deal radar hors TCG (retrogaming, LEGO, sneakers)"
+    cluster: "B — meme technologie, nouvelle audience"
+    resume: >-
+      Reutiliser le moteur d'ecart prix/cote sur d'autres marches de collection
+      a forte liquidite.
+    notes:
+      potentiel_audience: 4
+      croissance_demande: 3
+      valeur_commerciale: 4
+      concurrence_faible: 2      # marche des "bons plans" tres occupe (Dealabs...)
+      facilite_production: 3     # cote plus difficile a calculer hors TCG
+      cout_faible: 4
+      affiliation: 4
+      produit_numerique: 2
+      revenu_recurrent: 3
+      international: 3
+      durabilite: 3
+      independance_plateforme: 3
+      risque_juridique_faible: 3
+      automatisation: 4
+      levier_actif_existant: 3
+      revente_actif: 3
+
+  - id: B3
+    nom: "Deal Radar as a Service (moteur en marque blanche)"
+    cluster: "B — meme technologie, nouvelle audience"
+    resume: >-
+      Vendre le moteur de veille de prix comme service configurable a d'autres
+      niches de collection, en self-serve.
+    notes:
+      potentiel_audience: 2
+      croissance_demande: 2
+      valeur_commerciale: 4
+      concurrence_faible: 3
+      facilite_production: 2     # produit generique = gros travail d'industrialisation
+      cout_faible: 3
+      affiliation: 1
+      produit_numerique: 3
+      revenu_recurrent: 5
+      international: 4
+      durabilite: 3
+      independance_plateforme: 5
+      risque_juridique_faible: 3
+      automatisation: 3
+      levier_actif_existant: 4
+      revente_actif: 4
+
+  - id: C1
+    nom: "Media FR 'Outils IA pour independants'"
+    cluster: "C — media hors actif existant"
+    resume: >-
+      Contenu court + newsletter sur les outils IA utiles aux TPE/freelances.
+      Affiliation SaaS (20-30% recurrent chez beaucoup d'editeurs).
+    notes:
+      potentiel_audience: 5
+      croissance_demande: 5
+      valeur_commerciale: 5
+      concurrence_faible: 1      # marche sature, y compris en FR
+      facilite_production: 3
+      cout_faible: 5
+      affiliation: 5
+      produit_numerique: 4
+      revenu_recurrent: 4
+      international: 4
+      durabilite: 2              # rotation des outils tres rapide
+      independance_plateforme: 3
+      risque_juridique_faible: 3
+      automatisation: 3          # fact-checking lourd, le faux coute cher
+      levier_actif_existant: 1
+      revente_actif: 3
+
+  - id: C2
+    nom: "Media FR finance perso / pouvoir d'achat"
+    cluster: "C — media hors actif existant"
+    resume: >-
+      Le CPM le plus eleve du marche FR, mais domaine reglemente (conseil en
+      investissement) et forte concurrence.
+    notes:
+      potentiel_audience: 5
+      croissance_demande: 3
+      valeur_commerciale: 5
+      concurrence_faible: 1
+      facilite_production: 2
+      cout_faible: 5
+      affiliation: 4
+      produit_numerique: 4
+      revenu_recurrent: 3
+      international: 2           # fiscalite/produits non transposables
+      durabilite: 4
+      independance_plateforme: 3
+      risque_juridique_faible: 1 # AMF/ACPR, demarchage, responsabilite du conseil
+      automatisation: 2
+      levier_actif_existant: 1
+      revente_actif: 3
+
+  - id: C3
+    nom: "Media FR droits, aides et demarches administratives"
+    cluster: "C — media hors actif existant"
+    resume: >-
+      Demande stable et enorme, mais monetisation faible et exactitude critique.
+    notes:
+      potentiel_audience: 5
+      croissance_demande: 3
+      valeur_commerciale: 2
+      concurrence_faible: 2
+      facilite_production: 3
+      cout_faible: 5
+      affiliation: 1
+      produit_numerique: 2
+      revenu_recurrent: 2
+      international: 1
+      durabilite: 4
+      independance_plateforme: 3
+      risque_juridique_faible: 2 # information erronee sur des droits = risque reel
+      automatisation: 2
+      levier_actif_existant: 1
+      revente_actif: 2
+
+  - id: C4
+    nom: "YouTube long format documentaire collection/gaming"
+    cluster: "C — media hors actif existant"
+    resume: >-
+      Format long, marque forte, sponsoring possible. Mais production lourde et
+      politique YouTube 2026 tres hostile au contenu IA repetitif.
+    notes:
+      potentiel_audience: 4
+      croissance_demande: 3
+      valeur_commerciale: 4
+      concurrence_faible: 2
+      facilite_production: 1     # 1 video = plusieurs heures meme avec IA
+      cout_faible: 4
+      affiliation: 3
+      produit_numerique: 3
+      revenu_recurrent: 2
+      international: 3
+      durabilite: 4
+      independance_plateforme: 2
+      risque_juridique_faible: 2 # archives/images/musique
+      automatisation: 2
+      levier_actif_existant: 3
+      revente_actif: 3
+
+  - id: D1
+    nom: "Produit numerique 'Investir dans les cartes Pokemon'"
+    cluster: "D — produits derives"
+    resume: >-
+      Guide + tableur de suivi de collection, vendu une fois. Sert surtout de
+      test de solvabilite de l'audience, pas de pilier de revenu.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 4
+      valeur_commerciale: 3
+      concurrence_faible: 3
+      facilite_production: 4
+      cout_faible: 4
+      affiliation: 2
+      produit_numerique: 5
+      revenu_recurrent: 1        # vente unique
+      international: 3
+      durabilite: 2
+      independance_plateforme: 4
+      risque_juridique_faible: 2 # "investir" = attention au discours de promesse de gain
+      automatisation: 4
+      levier_actif_existant: 4
+      revente_actif: 2
+
+  - id: D2
+    nom: "Micro-SaaS vendeurs TCG (fiches d'annonces automatiques)"
+    cluster: "D — produits derives"
+    resume: >-
+      Outil qui transforme une photo de carte en annonce complete (titre, etat,
+      prix conseille depuis la cote) pour Vinted/eBay.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 4
+      valeur_commerciale: 4
+      concurrence_faible: 4
+      facilite_production: 2     # vision + qualite = vrai travail produit
+      cout_faible: 3             # cout d'inference a l'usage
+      affiliation: 1
+      produit_numerique: 4
+      revenu_recurrent: 5
+      international: 4
+      durabilite: 3
+      independance_plateforme: 4
+      risque_juridique_faible: 3
+      automatisation: 3
+      levier_actif_existant: 4
+      revente_actif: 4
+
+  - id: D3
+    nom: "Annuaire/comparateur des boutiques TCG FR"
+    cluster: "D — produits derives"
+    resume: >-
+      83+ boutiques deja identifiees et scannees : comparateur de prix multi-
+      boutiques FR, monetise en affiliation et en mise en avant payante.
+    notes:
+      potentiel_audience: 4
+      croissance_demande: 3
+      valeur_commerciale: 5
+      concurrence_faible: 4
+      facilite_production: 4
+      cout_faible: 4
+      affiliation: 5
+      produit_numerique: 2
+      revenu_recurrent: 4        # mise en avant boutique = abonnement B2B
+      international: 3
+      durabilite: 4
+      independance_plateforme: 4
+      risque_juridique_faible: 3
+      automatisation: 5
+      levier_actif_existant: 5
+      revente_actif: 5

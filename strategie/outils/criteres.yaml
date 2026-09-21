@@ -1,0 +1,62 @@
+# Grille de notation du portefeuille de concepts — AI Business Lab
+#
+# Chaque critere est note de 0 a 5 dans concepts.yaml.
+# "Sens" = ce que veut dire une note haute (toujours "c'est mieux").
+# Les poids traduisent la strategie du proprietaire :
+#   - priorite absolue au revenu RECURRENT et a l'ACTIF revendable,
+#   - forte prime a ce qui REUTILISE un actif deja en production (PokeDeals),
+#   - forte prime a ce qui s'AUTOMATISE sans supervision quotidienne,
+#   - penalite implicite sur la dependance plateforme et le risque juridique.
+#
+# Les poids sont un choix strategique explicite, pas une verite : les changer
+# ici rejoue immediatement tout le classement (python outils/scorer.py).
+
+criteres:
+  potentiel_audience:
+    poids: 2.0
+    sens: "5 = audience francophone potentielle large (>500k personnes concernees)"
+  croissance_demande:
+    poids: 2.0
+    sens: "5 = demande en croissance mesurable (recherches, marche, ventes)"
+  valeur_commerciale:
+    poids: 3.0
+    sens: "5 = audience a fort pouvoir d'achat / panier eleve / CPM eleve"
+  concurrence_faible:
+    poids: 2.0
+    sens: "5 = peu de concurrents serieux sur le marche francophone"
+  facilite_production:
+    poids: 2.0
+    sens: "5 = contenu/produit facile a produire avec les competences actuelles"
+  cout_faible:
+    poids: 1.0
+    sens: "5 = lancable a 0 EUR"
+  affiliation:
+    poids: 2.0
+    sens: "5 = programmes d'affiliation nombreux ET bien remuneres"
+  produit_numerique:
+    poids: 2.0
+    sens: "5 = un produit numerique evident repond a un probleme identifie"
+  revenu_recurrent:
+    poids: 3.0
+    sens: "5 = abonnement / SaaS credible a moyen terme"
+  international:
+    poids: 1.5
+    sens: "5 = duplicable en anglais sans refaire le produit"
+  durabilite:
+    poids: 2.0
+    sens: "5 = demande structurelle, pas une mode de 6 mois"
+  independance_plateforme:
+    poids: 2.0
+    sens: "5 = l'actif survit si une plateforme ferme le robinet demain"
+  risque_juridique_faible:
+    poids: 1.5
+    sens: "5 = aucun domaine reglemente, aucun droit d'auteur sensible"
+  automatisation:
+    poids: 2.5
+    sens: "5 = 90%+ du travail recurrent executable par machine/IA"
+  levier_actif_existant:
+    poids: 3.0
+    sens: "5 = reutilise directement PokeDeals (code, donnees, audience, infra)"
+  revente_actif:
+    poids: 1.0
+    sens: "5 = actif revendable a un acheteur identifiable (multiple de CA)"

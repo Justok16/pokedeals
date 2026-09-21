@@ -61,10 +61,28 @@ développé), réutilisera le radar de précommandes génériques de ce scraper
 (détection de n'importe quel produit scellé Pokémon en précommande, pas
 seulement une liste connue à l'avance) via un pont Supabase dédié.
 
+## `strategie/` — dossier stratégique AI Business Lab
+
+Étude de marché datée, portefeuille de 15 concepts classés par un score
+**calculé** (code + données + tests dans `strategie/outils/`), plan
+d'exécution sur 90 jours, règles de KILL/SCALE, registre des risques et
+architecture d'agents. Point de départ : `strategie/README.md`.
+
+Conclusion principale : le portefeuille se construit **autour de l'actif
+existant** (moteur de veille, base de cotes, 83+ boutiques, infrastructure
+GitHub Actions à 0 €), pas à partir d'une niche choisie de zéro.
+
+```bash
+cd strategie/outils
+python scorer.py            # rejoue le classement du portefeuille
+python -m pytest tests/      # vérifie le moteur de scoring
+```
+
 ## Structure du dépôt
 
 ```
 .
 ├── .github/workflows/   # workflows CI/CD (cron du scraper + tests)
-└── scraper/              # bot Python de veille de prix (production)
+├── scraper/              # bot Python de veille de prix (production)
+└── strategie/            # dossier stratégique (étude, portefeuille, scoring)
 ```
