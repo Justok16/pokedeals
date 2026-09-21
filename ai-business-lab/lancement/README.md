@@ -153,7 +153,7 @@ réexaminer — c'est votre propre critère.
 
 ### Jours 8-30 — publication
 6. **1 numéro par semaine**, sans exception, même à 12 abonnés.
-7. **20 pages de comparateur** : [`03-comparateur.md`](03-comparateur.md).
+7. **Pages du comparateur**, déjà rédigées : [`comparateur/`](comparateur/) — méthode et critères dans [`03-comparateur.md`](03-comparateur.md).
 8. **1 contenu court par jour** : [`05-contenus-courts.md`](05-contenus-courts.md).
 
 ### Seuils écrits à l'avance (J+60)

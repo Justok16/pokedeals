@@ -39,6 +39,7 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 - [x] Moteur de classement + 10 tests, vert en CI (`outils/`)
 - [x] Kit de lancement de la verticale (`lancement/`)
 - [x] Les 4 premiers numéros rédigés intégralement (`lancement/numeros/`)
+- [x] Comparateur : méthodologie, page pilier et fiches plateformes (`lancement/comparateur/`)
 - [x] Arborescence autonome préparée (`.gitignore`, `.github/workflows/tests.yml`, chemins racine)
 
 ---
@@ -81,8 +82,13 @@ travail existe.
 - [x] ~~Rédiger les 4 premiers numéros de la newsletter en entier~~ — fait le
       21/09/2026, dans `lancement/numeros/`. Prêts à envoyer **après levée des
       marqueurs `[VÉRIFIER]`** sur source officielle.
-- [ ] Rédiger les 10 premières fiches du comparateur (`lancement/03-comparateur.md`).
-      **C'est la prochaine tâche par défaut** s'il n'y a rien d'autre en attente.
+- [x] ~~Rédiger les premières pages du comparateur~~ — fait le 21/09/2026, dans
+      `lancement/comparateur/` : méthodologie publiée, page pilier chiffrée
+      (le calcul complet du coût réel d'une boutique), 3 fiches plateformes,
+      et plan détaillé des 6 pages restantes.
+- [ ] Rédiger les 6 pages restantes du comparateur à partir de
+      `lancement/comparateur/03-pages-restantes.md` (tout y est : angle, données,
+      calculs). **Prochaine tâche par défaut.**
 - [ ] Vérifier chaque fait réglementaire cité sur sa **source officielle** avant
       toute publication (règle R3). Les faits collectés sont en niveau 2/3.
 

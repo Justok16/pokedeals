@@ -1,5 +1,9 @@
 # 03 — Le comparateur d'outils e-commerce
 
+> **Les pages sont rédigées** : voir [`comparateur/`](comparateur/) — méthodologie
+> publiée, page pilier chiffrée, fiches plateformes, et plan détaillé des six
+> pages restantes.
+
 ## Ce qu'il est, et ce qu'il n'est pas
 
 **Il est** : un comparatif des outils d'une boutique en ligne avec les **prix
