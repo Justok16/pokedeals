@@ -266,3 +266,58 @@ La page pilier le démontre — elle n'est que chiffres, et la mention
 « Publicité » est en bas, avec la méthode de classement publiée. On garde donc
 **l'angle argent** et **la retenue commerciale**. Ce n'est pas une contradiction,
 mais il faut le tenir volontairement, parce que la pente naturelle est inverse.
+
+---
+
+## Test 03 — La demande existe-t-elle, et sur quels mots ?
+
+**Date :** 21/09/2026
+**Question :** le site vise « le coût réel ». Est-ce que quelqu'un cherche ça ?
+**Méthode :** relevé d'un index de recherche et de la page de résultats en
+direct, marché France, langue française.
+
+### Donnée observée — volumes mensuels, France
+
+| Requête | Volume/mois | Concurrence |
+|---|---:|---|
+| shopify avis | 2 900 | faible |
+| shopify tarifs | 880 | faible |
+| shopify pricing | 720 | faible |
+| shopify abonnement | 260 | faible |
+| forfait shopify | 210 | faible |
+| créer une boutique en ligne | 1 300 | **forte** |
+| budget pour ouvrir une boutique en ligne | 90 | moyenne |
+
+**« Coût réel » n'apparaît nulle part.** La demande se formule autour du nom
+de la plateforme et du mot *tarifs* ou *avis*.
+
+### Donnée observée — page de résultats « shopify tarifs »
+
+Sur les 8 résultats relevés : 3 appartiennent à l'éditeur lui-même, 4 sont des
+blogs d'agences de taille modeste, 1 est une page d'aide. Ce n'est pas une
+forteresse. Le résultat en 7e position porte les bons chiffres (27/79/289).
+
+### Donnée observée — le résumé automatique de Google était faux
+
+Le résumé généré en tête de page annonçait **25 €/mois** pour Basic et
+**66 €/mois** pour Grow, alors que la grille de l'éditeur relevée le même jour
+donne **27 €** et **79 €**. Écart de près de 20 % sur Grow. La source citée
+par le résumé était une page tierce reprenant une grille antérieure.
+
+### Ce que le test change
+
+1. **Le titre de la page pilier a été réécrit** pour porter les mots
+   réellement tapés. L'URL a été renommée pendant qu'elle n'avait encore
+   aucun lien entrant.
+2. **Le relevé du résumé erroné est devenu du contenu de la page.** C'est la
+   démonstration la plus courte de ce que le site apporte : un chiffre de
+   seconde main vieillit sans prévenir.
+3. **« shopify avis » (2 900/mois, concurrence faible) est la plus grosse
+   poche de demande identifiée à ce jour.** Aucune page ne la vise
+   aujourd'hui sur ce site. À traiter, sans promesse de revenu et sans avis
+   de complaisance.
+
+### Ce que le test ne dit pas
+
+Un volume de recherche n'est pas du trafic, et du trafic n'est pas un
+revenu. Aucune de ces données ne prédit une seule inscription.
