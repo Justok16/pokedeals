@@ -363,3 +363,65 @@ beehiiv (Automations, declencheur « Subscriber joins »).
 
 Deux inscriptions faites par l'auteur du site ne prouvent aucune demande.
 Elles prouvent seulement que la plomberie tient.
+
+---
+
+## Test 05 — Combien vaut le passage a l'anglais ?
+
+**Date :** 22/09/2026
+**Question :** le dossier affirme depuis le debut que la langue est le plus
+gros levier deplacable. Personne ne l'avait mesure.
+**Methode :** meme index de recherche, meme grappe de requetes commerciales
+(celles ou l'on compare des prix), marche France contre marche americain.
+
+### Donnee observee — volumes mensuels
+
+| Requete | France | Etats-Unis |
+|---|---:|---:|
+| tarifs / plans | 880 | 4 400 |
+| pricing / pricing plans | 720 | 1 600 |
+| abonnement / basic plan | 260 | 4 400 |
+| forfait / starter plan | 210 | **9 900** |
+| cost | — | 1 900 |
+| **Total** | **≈ 2 200** | **≈ 25 600** |
+
+**Environ 12x le volume.**
+
+### Donnee observee — valeur commerciale du visiteur
+
+Prix qu'un annonceur accepte de payer par clic, indicateur de ce que vaut une
+visite :
+
+| Requete | CPC |
+|---|---:|
+| shopify tarifs (FR) | 3,69 $ |
+| shopify starter plan (US) | **13,90 $** |
+| shopify basic plan (US) | 5,61 $ |
+| woocommerce pricing (US) | 12,69 $ |
+
+### Conclusion
+
+Volume x valeur par visite : **l'anglais vaut de l'ordre de 20 a 30 fois le
+francais, pour le meme travail d'ecriture.**
+
+Le dossier estimait ce levier a « +3,8 a +7,7 points » sur une grille de
+notation. La mesure dit : **un ordre de grandeur.** L'estimation etait juste
+dans sa direction et tres en dessous dans son ampleur.
+
+### Ce que le test ne dit pas, et qui reste a mesurer
+
+**Un volume 12x plus gros est aussi beaucoup plus dispute.** Sur « shopify
+tarifs » en France, la premiere page etait tenue par des blogs d'agences
+modestes — franchissable. L'equivalent americain sera tenu par des sites
+d'affiliation etablis. **Un gros volume n'est pas un volume atteignable.**
+La page de resultats americaine n'a pas encore ete relevee.
+
+### Blocage identifie
+
+Une page anglaise ne peut pas etre une traduction : les tarifs americains ne
+sont pas les tarifs francais (devise, taux de transaction, offres). Publier
+des euros convertis serait exactement la faute que ce site reproche aux
+autres.
+
+Il faut un releve a la source sur https://www.shopify.com/pricing — bloque
+par le proxy de la session, donc a faire par l'utilisateur, sur ordinateur.
