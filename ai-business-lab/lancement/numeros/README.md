@@ -25,7 +25,7 @@ Six numéros rédigés intégralement, dans la structure fixe arrêtée dans
 >
 > **Nouveau principe : on envoie quand une échéance tombe, pas parce que c'est
 > mardi.** Le concept retenu est A4b, 1ᵉʳ du classement.
-> Détail : [`../../11-test-01-format.md`](../../11-test-01-format.md).
+> Détail : [`../../11-journal-des-tests.md`](../../11-journal-des-tests.md).
 >
 > **Ce que ça change concrètement** : les six numéros ne sont plus un calendrier,
 > ils sont un **stock**. On envoie le numéro dont la date arrive — pas le
@@ -37,22 +37,43 @@ Six numéros rédigés intégralement, dans la structure fixe arrêtée dans
 > d'ouverture sur trois envois consécutifs, on revient à une cadence fixe.
 
 Les six numéros couvrent environ sept semaines de matière.
-Le numéro 4 est celui qui monétise le mieux : il est placé en quatrième
-position délibérément, après trois numéros qui n'ont rien vendu.
 
-| Envoi | # | Objet | Ce qu'il fait |
+## Ordre d'envoi — **révisé une seconde fois après le test 02**
+
+> Le test 02 a montré que le même lecteur accepte le **même sujet** dès qu'il
+> est abordé par les **chiffres** plutôt que par le droit : *« c'est déjà plus
+> plaisant et on est dans le concret »*.
+>
+> **Règle adoptée : le coût passe avant l'obligation.** Le titre parle d'argent ;
+> l'obligation arrive en second, comme *cause* du coût, pas comme menace.
+
+| Envoi | # | Objet — **retitré par le coût** | Ce qu'il fait |
 |---|---|---|---|
-| 1 | 1 | Le bouton que votre boutique doit avoir depuis juin | Installe la promesse : on vous évite un problème |
-| 2 | 2 | Le seuil de 10 000 € que beaucoup dépassent sans le savoir | Installe la crédibilité : sujet technique traité simplement |
-| 3 | 3 | Le DSA vous concerne si vous affichez des avis | Installe l'habitude : troisième semaine, même rendez-vous |
-| 4 | 4 | Combien coûte vraiment une boutique en ligne | Monétise : comparatif, liens, appel au comparateur |
-| 5 | **6** | Les trois mots à retirer de vos fiches produit avant dimanche | Issu du Radar. **Daté au 27/09/2026** : il passe devant |
-| 6 | 5 | Vous vendez à des particuliers ? C'est l'autre moitié de la réforme | Issu du Radar. Ne vend rien — c'est ce qui rend le n° 4 crédible |
+| 1 | **4** | Combien coûte vraiment une boutique en ligne | **Passe en tête** : c'est le numéro qui a passé le test 02 |
+| 2 | **6** | Les trois mots qui peuvent vous coûter votre fiche produit | **Daté au 27/09/2026.** Retitré : le coût, pas l'interdiction |
+| 3 | 1 | Le bouton manquant qui vous fait reprendre des colis 12 mois après | Retitré : le vrai coût est le stock qui revient, pas l'amende |
+| 4 | 2 | Le seuil de 10 000 € que beaucoup dépassent sans le savoir | Déjà chiffré dans son titre : inchangé |
+| 5 | 5 | Vous vendez à des particuliers ? L'autre moitié de la facture | Retitré vers la facture, pas la réforme |
+| 6 | 3 | Ce que les avis clients vous coûtent vraiment | Le plus faible du lot : sujet sans dimension financière évidente |
 
-**Pourquoi le 6 passe devant le 5** : l'e-reporting n'a pas de date cette
-semaine, la directive EmpCo si — dimanche 27 septembre. Un numéro daté envoyé
-après sa date ne vaut plus rien ; l'inverse est sans conséquence.
+**Ce que ce réordonnancement coûte, et il faut le tenir** : le numéro 4 est
+aussi celui qui porte les **liens d'affiliation**. La règle d'origine disait de
+ne rien vendre avant trois numéros, pour installer la crédibilité d'abord.
 
-**Si le numéro 6 est envoyé après le 27 septembre**, il reste valable : son
-action — nettoyer les allégations environnementales invérifiables — ne dépend
-d'aucune date. Seul l'objet doit être changé.
+**Résolution** : l'angle peut être l'argent sans que le contenu soit monétisé.
+La page pilier du comparateur le démontre — elle n'est que calculs, et la
+mention « Publicité » est en bas avec la méthode de classement publiée. On garde
+donc **l'angle argent** et **la retenue commerciale**.
+
+> ⚠️ **Conséquence pratique** : si le numéro 4 part en premier, **en retirer les
+> liens d'affiliation** et renvoyer vers la page du comparateur, qui les porte.
+> La pente naturelle est de monétiser tout de suite ; c'est exactement ce qui
+> ferait ressembler le projet à ce qu'il prétend ne pas être.
+
+**Sur le numéro 6** : il garde sa date — dimanche 27 septembre. Envoyé après,
+il reste valable (nettoyer des allégations invérifiables ne dépend d'aucune
+date), mais son objet doit changer.
+
+**Sur le numéro 3** : c'est le seul dont le sujet n'a pas de dimension
+financière directe, et le retitrage est le plus forcé des six. S'il faut en
+sacrifier un, c'est celui-là.

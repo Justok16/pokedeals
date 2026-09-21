@@ -114,7 +114,7 @@ la note provient d'un **retour de lecteur réel** et non d'une hypothèse.
    envois consécutifs, revenir à une cadence fixe (A4). Le seuil est écrit
    maintenant, avant de commencer.
 
-Détail complet du test : [`11-test-01-format.md`](11-test-01-format.md).
+Détail complet du test : [`11-journal-des-tests.md`](11-journal-des-tests.md).
 
 ---
 
@@ -122,7 +122,7 @@ Détail complet du test : [`11-test-01-format.md`](11-test-01-format.md).
 
 > ⚠️ **Testé le 21/09/2026 et reformé.** La cadence hebdomadaire a été abandonnée
 > après un retour de lecteur. La variante retenue est **A4b** (sans cadence
-> forcée), 1ᵉʳ du classement. Voir [`11-test-01-format.md`](11-test-01-format.md).
+> forcée), 1ᵉʳ du classement. Voir [`11-journal-des-tests.md`](11-journal-des-tests.md).
 
 1. **Concept** — Une synthèse hebdomadaire de ce qui change dans un métier :
    réglementaire, outils, marché, aides. Pour des professionnels qui n'ont pas

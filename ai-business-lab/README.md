@@ -22,7 +22,7 @@
 | [08 — Trajectoire 12 mois / 3-5 ans](08-roadmap.md) | Direction stratégique, pas une promesse |
 | [09 — Outils et budget](09-outils-et-budget.md) | Stack 0 € puis règles de réinvestissement |
 | [10 — Comparaison ChatGPT](10-comparaison-chatgpt.md) | Le **même prompt maître** soumis à ChatGPT : ce qu'il a fait mieux, ce que son concept donne **dans ce moteur** (42.5, **dernier sur 17**), et ce que ce dossier lui reprend |
-| [**11 — Test 01 : le format**](11-test-01-format.md) | **Le premier test réel du projet.** Le numéro 1 soumis à un lecteur, son refus, le critère manquant qu'il a révélé, et le changement de cadence qui en découle |
+| [**11 — Journal des tests**](11-journal-des-tests.md) | **Les deux tests réels du projet.** Test 01 : le numéro 1 refusé → le critère manquant et l'abandon de la cadence. Test 02 : la page pilier acceptée → **le coût passe avant l'obligation** |
 | [**`PREMIER-ENVOI.md`**](PREMIER-ENVOI.md) | **Le chemin le plus court jusqu'à un premier envoi réel.** Commencer ici : tout le reste attend une publication qui n'a jamais eu lieu |
 | [**`REPRISE.md`**](REPRISE.md) | **État d'avancement durable** — point d'entrée après toute interruption : ce qui est fait, ce qui est en cours, ce qui bloque |
 | [`MIGRATION.md`](MIGRATION.md) | Comment sortir ce dossier dans son propre dépôt |
@@ -50,7 +50,7 @@ divertissement faceless.** Concrètement, le premier lot est :
 > **Pourquoi cet ordre a changé** : mis devant le premier numéro, un lecteur a
 > répondu qu'il évitait les newsletters qui « polluent » sa boîte mail. Le
 > reproche visait la **cadence**, pas le contenu — et il a révélé un critère
-> absent de la grille. Détail : [`11-test-01-format.md`](11-test-01-format.md).
+> absent de la grille. Détail : [`11-journal-des-tests.md`](11-journal-des-tests.md).
 
 Ces trois concepts partagent **la même audience et le même travail de veille**.
 Ce n'est pas trois projets : c'est un projet avec trois sorties, donc trois

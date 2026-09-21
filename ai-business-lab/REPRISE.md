@@ -55,7 +55,7 @@ SEO) en point d'entrée** + **A4b (newsletter sans cadence forcée)** en capture
 une question fermée. Réponse : *« Non, trop ennuyeux, trop juridique et
 personnellement j'évite ce genre de newsletters qui polluent nos boîtes mail. »*
 
-**Ce qui en est sorti** — fiche complète : `11-test-01-format.md`.
+**Ce qui en est sorti** — fiche complète : `11-journal-des-tests.md`.
 
 1. Un **critère manquant** dans la grille : `tenue_dans_la_duree` (poids 2.0).
    Dix-huit critères notaient le marché, aucun ne notait ce que le format exige
@@ -70,6 +70,32 @@ personnellement j'évite ce genre de newsletters qui polluent nos boîtes mail. 
 
 **Ne pas rouvrir la verticale** : rien dans ce retour n'attaque le marché des
 e-commerçants. Le rouvrir serait une réaction, pas une décision.
+
+## TEST 02 — FAIT le 21/09/2026, il tranche ce que le test 01 laissait ouvert
+
+La page pilier du comparateur a été présentée au **même lecteur**. Réponse :
+*« C'est déjà plus plaisant et on est dans le concret. »*
+
+Le test 01 laissait une alternative non tranchée : le rejet portait-il sur le
+**format** (l'email) ou sur l'**angle** (le droit) ? Si c'était l'angle, il
+fallait rouvrir la verticale entière. **Le test 02 l'écarte** : le même lecteur
+accepte le même sujet dès qu'il est abordé par les chiffres.
+
+**Règle éditoriale adoptée — le coût passe avant l'obligation :**
+
+1. Titre et accroche parlent d'**argent**, jamais d'une obligation.
+2. L'obligation arrive en second, comme **cause du coût**, pas comme menace.
+3. Un **chiffre calculé** dans les trois premières lignes — un calcul que le
+   lecteur peut refaire, pas seulement un fait.
+
+**Conséquence appliquée** : ordre d'envoi révisé et six numéros retitrés
+(`lancement/numeros/README.md`). Le numéro 4 passe en tête — **mais ses liens
+d'affiliation doivent en être retirés** s'il part en premier, et renvoyer vers
+la page du comparateur qui les porte.
+
+**Limite des deux tests, à répéter à chaque reprise** : le lecteur n'est **pas**
+e-commerçant. Deux tests sur un non-client ne font pas une audience. Ce qu'ils
+valident, c'est la tenue de l'opérateur — pas le marché.
 
 ---
 
