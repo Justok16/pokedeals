@@ -118,7 +118,7 @@ heures de maintenance par mois valent 720 €/an** — plus que l'abonnement
 
 <p class="pub"><strong>Publicité</strong> — cette page contient des liens
 d'affiliation&nbsp;: si vous souscrivez, ce site perçoit une commission, sans
-surcoût pour vous. La <a href="/fr/methode/">méthode de classement</a> est
+surcoût pour vous. La <a href="{{ '/fr/methode/' | relative_url }}">méthode de classement</a> est
 publiée et aucune place n'y est achetable.</p>
 
 ## Sources

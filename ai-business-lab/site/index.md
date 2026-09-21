@@ -11,7 +11,7 @@ fois</strong>. DigCost calcule le reste.</p>
 
 ## Commencer ici
 
-**[Combien coûte vraiment une boutique en ligne par mois](/fr/cout-reel-boutique/)**
+**[Combien coûte vraiment une boutique en ligne par mois]({{ '/fr/cout-reel-boutique/' | relative_url }})**
 — le calcul complet, poste par poste, sur un volume de référence explicite. Le
 poste le plus lourd n'est pas celui que vous croyez.
 
@@ -21,7 +21,7 @@ Il compare le coût **total** des outils d'un e-commerçant : abonnement, frais 
 transaction, applications nécessaires, temps de maintenance. Sur un volume de
 référence public, avec le calcul visible.
 
-La [méthode de classement](/fr/methode/) est publiée. **Aucune place n'est
+La [méthode de classement]({{ '/fr/methode/' | relative_url }}) est publiée. **Aucune place n'est
 achetable.**
 
 ## Ce qu'il ne fait pas

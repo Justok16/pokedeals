@@ -14,7 +14,7 @@ of the arithmetic.</p>
 The English edition is being built. The French edition is live and covers the
 same ground:
 
-**[Combien coûte vraiment une boutique en ligne par mois](/fr/cout-reel-boutique/)**
+**[Combien coûte vraiment une boutique en ligne par mois]({{ '/fr/cout-reel-boutique/' | relative_url }})**
 — the full cost breakdown, line by line.
 
 ## What will and won't carry over
@@ -31,5 +31,5 @@ English edition will build its own where the rules differ.
 No get-rich methods. No revenue screenshots. No income promises — to you or to
 anyone.
 
-Ranking [methodology](/fr/methode/) is published and **no placement is for
+Ranking [methodology]({{ '/fr/methode/' | relative_url }}) is published and **no placement is for
 sale**. This site is not a consultancy and gives no legal advice.

@@ -42,30 +42,40 @@ sous un domaine acheté.
 
 ---
 
-## Activer le site (2 minutes, une fois les vérifications faites)
+## Activer le site
 
-1. Dépôt → **Settings** → **Pages** ;
-2. *Source* : **Deploy from a branch** ;
-3. Branche : celle qui porte ce dossier ; répertoire : **`/ai-business-lab/site`**
-   si l'option est proposée, sinon voir « Limite connue » ci-dessous ;
-4. **Save**. Le site est en ligne en 1 à 2 minutes.
+### ⚠️ Contrainte GitHub Pages à connaître d'abord
 
-## ⚠️ Limite connue — les liens internes et le préfixe d'URL
+En mode « Deploy from a branch », GitHub Pages ne sert que **la racine du dépôt**
+ou **`/docs`**. Il n'est **pas** possible de désigner un dossier quelconque comme
+`ai-business-lab/site`.
 
-GitHub Pages sert un dépôt de projet sous `https://<compte>.github.io/<dépôt>/`.
-Les liens internes de ce site sont écrits en **chemins absolus**
-(`/fr/methode/`), donc ils **casseront** sous un tel préfixe.
+Conséquence : ce dossier ne peut pas être publié tel quel depuis `pokedeals`.
+Il doit vivre **à la racine de son propre dépôt** — ce qui est de toute façon sa
+destination.
 
-Deux solutions, au choix :
+### La marche à suivre
 
-| Situation | Ce qu'il faut faire |
+1. Créer sur github.com un dépôt **vide** nommé **`digcost`** — sans README,
+   sans `.gitignore`, sans licence.
+2. Y pousser **le contenu de ce dossier à la racine** (pas le dossier lui-même).
+3. Dépôt → **Settings** → **Pages** → *Source* : **Deploy from a branch**,
+   branche `main`, répertoire **`/ (root)`** → **Save**.
+4. Renseigner `baseurl: "/digcost"` dans `_config.yml`.
+5. En ligne sous `https://<compte>.github.io/digcost/` en 1 à 2 minutes.
+
+### Le préfixe d'URL est géré, il n'y a rien à réécrire
+
+Tous les liens internes passent par le filtre Jekyll **`relative_url`**. Changer
+la seule ligne `baseurl` dans `_config.yml` suffit à déplacer le site :
+
+| Où le site est servi | `baseurl` |
 |---|---|
-| **Domaine propre** (`digcost.fr`) ou dépôt servi à la racine | Rien. Les liens fonctionnent tels quels |
-| Adresse `github.io/<dépôt>/` | Ajouter `baseurl: "/<dépôt>"` dans `_config.yml` **et** préfixer les liens internes des fichiers Markdown |
+| `digcost.fr` (domaine propre) | `""` |
+| `<compte>.github.io` (dépôt nommé `<compte>.github.io`) | `""` |
+| `<compte>.github.io/digcost/` | `"/digcost"` |
 
-Le site a été écrit pour vivre **à la racine d'un domaine** — c'est sa
-destination. La forme `github.io/<dépôt>/` est un moyen de le voir en ligne
-gratuitement, pas la version finale.
+Aucun lien Markdown n'est à toucher dans aucun de ces cas.
 
 ---
 
