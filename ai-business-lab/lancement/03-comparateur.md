@@ -1,77 +1,68 @@
-# 03 — Le comparateur de logiciels
+# 03 — Le comparateur d'outils e-commerce
 
 ## Ce qu'il est, et ce qu'il n'est pas
 
-**Il est** : un comparatif honnête des logiciels de devis/facturation pour
-artisans, avec les **prix réels** (pas les prix d'appel), ce que chaque outil
-fait mal, et la date de dernière vérification affichée.
+**Il est** : un comparatif des outils d'une boutique en ligne avec les **prix
+réels, tout compris** — abonnement, frais de transaction, applications
+indispensables, options qui doublent la facture — et la date de dernière
+vérification affichée.
 
-**Il n'est pas** : un classement vendu au plus offrant. L'indépendance **est**
-l'actif : le jour où un éditeur achète sa place, le comparateur ne vaut plus
-rien, et c'est le seul risque capable de tuer les deux concepts d'un coup
-(risque R10).
+**Il n'est pas** : un classement vendu au plus offrant. Dans un créneau saturé de
+recommandations rémunérées déguisées en conseils, **l'indépendance est le seul
+actif défendable**. Le jour où un éditeur achète sa place, il ne reste rien.
 
-## Méthodologie publiée (page à écrire en premier)
+## L'angle qui différencie
 
-Une page publique qui énonce :
-1. comment les outils sont sélectionnés (tous ceux qui s'adressent aux artisans
-   du bâtiment en France, sans exception payante) ;
-2. quels critères sont comparés et comment ils sont mesurés ;
-3. que certains liens sont des liens d'affiliation, **et que cela ne modifie ni
-   le classement ni la note** ;
-4. la date de dernière vérification de chaque fiche.
-
-C'est la page la moins lue du site et la plus importante : c'est elle qu'on
-oppose au premier éditeur qui demandera un traitement de faveur.
+Tout le monde publie « les 10 meilleurs outils e-commerce ». Presque personne ne
+publie **le coût total réel au bout d'un an**, frais de transaction et
+applications incluses. C'est la donnée que l'audience cherche et ne trouve pas,
+et c'est celle qui déclenche un clic d'affiliation — parce qu'elle arrive au
+moment précis de la décision.
 
 ## Critères comparés (identiques pour tous)
 
 | Critère | Comment on le mesure |
 |---|---|
-| Prix réel mensuel | Tarif public, engagement annuel **et** mensuel, frais de mise en service, modules en option |
-| Documents illimités ou non | Ce qui double la facture en pratique |
-| Engagement | Mensuel résiliable ou annuel |
-| Catalogue fournisseurs | Intégration des catalogues (ex. négoces) |
-| Chiffrage / bibliothèque d'ouvrages | Présence et taille |
-| Facturation électronique | Conformité annoncée, plateforme agréée utilisée |
-| Mobile / chantier | Utilisable sur téléphone, hors ligne |
-| Export comptable | Formats, compatibilité |
-| Support | Téléphone, délai annoncé |
-| Ce qu'il fait mal | **Obligatoire** : une fiche sans faiblesse identifiée n'est pas crédible |
+| Prix affiché | Mensuel et annuel |
+| **Frais de transaction** | Le poste le plus souvent oublié, et parfois le plus lourd |
+| **Applications indispensables** | Ce qu'il faut ajouter pour que ce soit utilisable |
+| **Coût total à 12 mois** | La colonne qui fait la valeur du comparateur |
+| Facilité de démarrage | Temps réel avant la première vente possible |
+| Conformité FR | TVA, mentions, rétractation en ligne, facturation électronique |
+| Export / réversibilité | Peut-on partir avec ses données |
+| Support en français | Existe ou non, délai annoncé |
+| Ce qu'il fait mal | **Obligatoire** : une fiche sans faiblesse n'est pas crédible |
 
 ## Les 20 premières pages
 
-**Fiches produit (10)** — une par éditeur : Tolteck, Obat, Batappli, Artoche,
-Axonaut, plus les 5 autres solutions les plus présentes à l'issue du
-recensement.
+**Fiches outil (10)** — plateformes (Shopify, WooCommerce, PrestaShop,
+Wix/Squarespace…), email (Brevo…), plus les satellites les plus utilisés
+(logistique, comptabilité, avis clients, IA produit).
 
 **Pages comparatives (6)** — celles qui captent l'intention d'achat :
-1. Logiciel de devis et facturation pour artisan : le comparatif des prix réels
-2. Le moins cher pour un artisan seul (0 salarié)
-3. Les solutions prêtes pour la facturation électronique 2027
-4. Avec ou sans engagement : ce que ça change vraiment
-5. Logiciel de chiffrage : lesquels ont une vraie bibliothèque d'ouvrages
-6. Les solutions utilisables sur chantier depuis un téléphone
+1. Combien coûte vraiment une boutique en ligne par mois, tout compris
+2. Shopify ou WooCommerce quand on démarre : le coût réel à 12 mois
+3. Les outils gratuits qui suffisent sous 100 000 € de CA
+4. Frais de transaction : ce que vous payez sans le voir
+5. Les outils d'email marketing : le vrai prix à 5 000 contacts
+6. Les outils d'IA utiles pour une boutique — et ceux qui ne servent à rien
 
-**Pages « échéance » (4)** — celles qui captent la recherche contrainte :
-7. Facturation électronique : ce qu'un artisan doit avoir fait avant le
-   01/09/2027
-8. Plateformes agréées : comment en choisir une
-9. RGE : ce que le décret du 23/06/2026 change
-10. MaPrimeRénov' : ce qui reste finançable
+**Pages « obligation » (4)** — celles qui captent la recherche contrainte :
+7. Rétractation en ligne : ce que votre boutique doit afficher depuis le
+   19/06/2026
+8. TVA et seuil de 10 000 € : qui doit passer à l'OSS
+9. DSA : ce qu'un site avec des avis clients doit faire
+10. Facturation électronique : le calendrier qui concerne votre boutique
 
 ## Règles de publication
 
-1. **Aucune page sans donnée propre** : un prix relevé par vous, une limite
-   testée, un tableau que personne d'autre n'a. Google désindexe le reste
-   (risque R11).
-2. **Date de dernière vérification** affichée sur chaque fiche, et revue
-   trimestrielle inscrite au calendrier (risque R9).
-3. **Mention « Publicité »** partout où un lien d'affiliation figure, de façon
-   visible — pas en bas de page en petit (risque R4).
-4. **Publication progressive** : 5 pages par semaine, pas 200 d'un coup. Une
-   mise en ligne massive de pages neuves sur un domaine sans historique est le
-   meilleur moyen de ne jamais être indexé.
+1. **Aucune page sans donnée propre** : un prix relevé par vous, un coût total
+   calculé, une limite testée. Google désindexe le reste (risque R11).
+2. **Date de dernière vérification** sur chaque fiche ; revue trimestrielle
+   inscrite au calendrier (risque R9). Les tarifs des plateformes bougent
+   plusieurs fois par an : un comparateur périmé est pire que pas de comparateur.
+3. **Mention « Publicité »** visible partout où figure un lien d'affiliation.
+4. **Publication progressive** : 5 pages/semaine, jamais 200 d'un coup.
 
 ## Mesure
 
@@ -79,8 +70,8 @@ recensement.
 |---|---|---|
 | Pages indexées / publiées | Search Console | > 80 % |
 | Impressions | Search Console | ≥ 1 000/jour |
-| Clics sortants vers les éditeurs | suivi des liens | ≥ 3 % des visiteurs |
+| Clics sortants | suivi des liens | ≥ 3 % des visiteurs |
 | Conversions d'affiliation | tableaux de bord des programmes | ≥ 1 |
 
-Si « pages indexées / publiées » descend sous 80 %, **arrêter de publier** et
-corriger la qualité avant d'ajouter quoi que ce soit.
+Sous 80 % d'indexation : **arrêter de publier** et corriger la qualité avant
+d'ajouter quoi que ce soit.

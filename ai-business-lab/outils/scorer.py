@@ -173,10 +173,19 @@ def rendu_detail(concept: Concept, criteres: list[Critere]) -> str:
 def main() -> None:
     analyseur = argparse.ArgumentParser(description=__doc__)
     analyseur.add_argument("--format", choices=["markdown", "csv"], default="markdown")
+    analyseur.add_argument(
+        "--criteres",
+        default=str(FICHIER_CRITERES),
+        help=(
+            "Grille de poids a utiliser. Sert a rejouer le classement sous une "
+            "autre strategie (ex. criteres-max-revenu.yaml) sans toucher a la "
+            "grille de reference."
+        ),
+    )
     analyseur.add_argument("--detail", help="ID d'un concept (ex. A2) pour voir le detail des points")
     arguments = analyseur.parse_args()
 
-    criteres = charger_criteres()
+    criteres = charger_criteres(Path(arguments.criteres))
     concepts = charger_concepts()
 
     if arguments.detail:

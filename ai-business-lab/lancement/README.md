@@ -1,93 +1,128 @@
-# Lancement — verticale choisie : **artisans du bâtiment**
+# Lancement — verticale choisie : **les e-commerçants français**
 
-> Décision prise le 21/09/2026. Vous n'aviez pas d'affinité particulière pour une
-> profession : le choix s'est donc fait **uniquement sur les données**, avec les
-> 3 questions filtrantes de la phase 0. Voici la démonstration, chiffres à
-> l'appui, puis le plan de 30 jours.
-
----
-
-## Les 3 filtres, vérifiés
-
-### Filtre 1 — Ce métier achète-t-il déjà des logiciels ? **OUI, massivement**
-
-**[DONNÉE]** Le marché des logiciels de devis/facturation pour artisans est mûr
-et payant : **25 à 60 €/mois** pour la plupart des solutions.
-
-| Éditeur | Prix constaté (2026) | Programme partenaire |
-|---|---|---|
-| Tolteck | **19 € HT/mois** (annuel), 25 €/mois (mensuel) | Parrainage (offre boostée observée août-sept. 2026) |
-| Artoche | 20 €/mois | à vérifier |
-| Batappli | à partir de 35 €/mois (engagement annuel) | à vérifier |
-| Obat | à partir de 39 €/mois | **Programme d'affiliation explicite** (commission par inscription validée et par démo) |
-| Axonaut (généraliste) | selon offre | Programme partenaires / parrainage |
-
-**Ce que ça prouve** : il y a un budget, **et** il y a des annonceurs. Les deux
-conditions de la monétisation sont réunies avant d'avoir écrit une ligne.
-
-### Filtre 2 — Son actualité bouge-t-elle ? **OUI, très fort, et daté**
-
-**[DONNÉE]** Sur les 12 derniers mois et les 12 prochains :
-- **MaPrimeRénov'** : guichet rouvert le 23/02/2026 ; enveloppe 2026 de
-  **3,6 Md€** + 500 M€ de CEE ; un projet de décret de juillet 2026 supprimerait
-  la plupart des aides « par geste » (isolation des combles, fenêtres, VMC,
-  chauffe-eau thermodynamique, poêles à granulés) **à partir du 01/09/2026** ;
-  exclusion des logements conservant un chauffage au gaz sur le parcours
-  accompagné.
-- **RGE** : décret du **23/06/2026** modifiant l'accès à la qualification, la
-  qualification par chantier, les contrôles et l'information du client.
-- **Sous-traitance** : depuis le **01/01/2026**, chaîne limitée à **deux
-  niveaux** sur tout chantier aidé (MaPrimeRénov', éco-PTZ, CEE).
-- **2027** : l'entreprise **signataire** devra elle-même être RGE.
-- **France Rénov'** : consultation obligatoire avant dépôt de dossier ; à partir
-  du **01/10/2026**, les sites et publicités de rénovation énergétique devront
-  inciter à consulter un conseiller.
-- **Facturation électronique** : réception obligatoire depuis le **01/09/2026**,
-  **émission obligatoire pour les TPE au 01/09/2027**.
-
-**Ce que ça prouve** : il y a **matière à une veille hebdomadaire pendant au
-moins 18 mois**, sans avoir à inventer de sujets. C'est exactement ce qui manque
-à la plupart des niches.
-
-### Filtre 3 — Peut-on lire ce que ces gens disent ? **OUI**
-
-Groupes Facebook professionnels très actifs par corps de métier, forums,
-commentaires sous les publications de la presse spécialisée, communications des
-organisations professionnelles. Source de problèmes réels, gratuite et continue.
-
-### Taille du marché
-
-**[DONNÉE]** **621 803 entreprises artisanales du bâtiment** en France, soit
-97 % des entreprises du bâtiment. **97 % emploient moins de 20 salariés** ;
-523 498 établissements ont **0 à 9 salariés**. Ces TPE génèrent 47 % du chiffre
-d'affaires du bâtiment et emploient 541 000 salariés.
-
-**[OPINION]** C'est le profil idéal pour ce projet : des entreprises **sans
-service administratif**, donc sans personne pour faire la veille à leur place,
-qui subissent de plein fouet chaque changement réglementaire.
+> Décision prise le 21/09/2026, sur le critère que vous avez fixé : **maximiser
+> le revenu, à condition que le marché soit stable ou porteur**, sans exclure
+> aucun secteur pour une autre raison.
+>
+> Votre refus des artisans est d'ailleurs cohérent avec ce critère et je l'ai
+> intégré : ce marché est **en recul** (13 trimestres consécutifs de baisse,
+> 3 619 défaillances au T2 2026). Il ne passait pas votre condition.
 
 ---
 
-## Le signal négatif, qui doit être dit
+## Ce que dit le calcul, avant de parler d'intuition
 
-**[DONNÉE]** Le secteur va mal : **13 trimestres consécutifs de baisse** selon
-la CAPEB, et **3 619 défaillances d'entreprises artisanales au 2ᵉ trimestre
-2026**.
+J'ai rejoué le classement des 15 concepts avec une grille pondérée **presque
+uniquement sur l'argent et la solidité du marché** (valeur commerciale 5,
+revenu récurrent 5, durabilité 5, affiliation 4, croissance 4, revente 3) :
 
-**[OPINION]** Deux lectures opposées, et il faut tenir les deux :
+```bash
+cd ai-business-lab/outils
+python scorer.py --criteres criteres-max-revenu.yaml
+```
 
-- **Contre** : une audience sous pression financière achète moins volontiers un
-  nouvel abonnement logiciel. Le taux de conversion de l'affiliation en souffrira
-  probablement. C'est le principal risque de cette verticale, et il est réel.
-- **Pour** : c'est précisément quand le marché se contracte que l'information sur
-  **les aides, les marchés et les obligations** devient vitale. Un artisan qui
-  rate la bascule MaPrimeRénov' ou qui perd sa qualification RGE perd des
-  chantiers. La valeur de la veille **augmente** quand le secteur souffre.
+| Grille de référence | Grille « revenu maximal » |
+|---|---|
+| 1. A4 Newsletter de veille (81.4) | 1. **A2 IA appliquée à un métier (82.3)** |
+| 2. A2 IA appliquée à un métier (78.9) | 2. A3 Création d'entreprise (82.0) |
+| 3. A1 Facture électronique (78.3) | 3. A4 Newsletter de veille (81.4) |
+| … | … |
+| 13. D2 Chaîne finance (61.4) | **11. D2 Chaîne finance (64.5)** |
 
-**Conséquence sur l'angle** : la promesse n'est pas « travaillez mieux », c'est
-**« ne ratez rien de ce qui peut vous coûter un chantier »**. Et la monétisation
-s'appuie d'abord sur le **sponsoring** (l'éditeur paie, pas l'artisan) avant
-l'affiliation.
+**Le résultat le plus utile est celui qui ne bouge pas.** Même en optimisant
+presque exclusivement l'argent, la chaîne finance — qui a pourtant **le meilleur
+RPM mesuré du marché français (8-15 €)** — reste 11ᵉ sur 15. Parce qu'un RPM
+élevé ne compense pas une concurrence maximale et un cadre juridique strict.
+Autrement dit : **il n'existe pas de raccourci que le classement cacherait.**
+
+La forme retenue est donc **A2 + A4 + B2** : un média d'expertise sur les outils
+d'un métier, diffusé par une newsletter, monétisé par un comparateur.
+
+Reste à choisir le métier. Il doit être : solvable, équipé en logiciels
+d'abonnement, sur un marché **en croissance**, et accessible en ligne.
+
+---
+
+## Le métier retenu : e-commerçants français
+
+### Le marché est stable et en croissance — votre condition
+
+**[DONNÉE]** FEVAD, chiffres 2026 :
+- **196,4 milliards d'euros** de ventes en ligne, **+7 % sur un an** ;
+- **158 200 sites e-commerce actifs**, **+7 % sur un an** ;
+- 50,1 Md€ au T1 2026, **+4,7 %** sur un an ;
+- panier moyen 62 €, la croissance venant désormais de la **fréquence d'achat**
+  plus que du panier.
+
+**[DONNÉE]** Marché du numérique français : **74,3 Md€ en 2026, +4,3 %**, l'IA
+en étant le principal moteur. **22 % des petites entreprises françaises
+utilisent déjà l'IA générative**, et la grande majorité manque d'accompagnement.
+
+**[OPINION]** C'est exactement la configuration recherchée : un marché qui
+grossit, une population qui grossit **plus vite que le marché lui-même** (158 200
+sites, +7 %), et un besoin déclaré et non servi.
+
+### L'audience achète des logiciels par abonnement — donc l'affiliation est récurrente
+
+**[DONNÉE]** Programme partenaire Shopify : **20 % de commission récurrente** sur
+l'abonnement mensuel des marchands référés, avec des revenus récurrents sur
+4 ans — là où l'affiliation simple plafonne à 150 $ par recommandation.
+Brevo : récompense par client référé, versements mensuels automatisés via
+PartnerStack, **cookie de 90 jours** ; tarifs à partir de 25 €/mois pour
+5 000 contacts.
+
+**[ESTIMATION]** Sur un abonnement Shopify à ~30 €/mois, 20 % récurrents = **6 €
+par mois et par marchand**. **100 marchands actifs ≈ 600 €/mois récurrents**, qui
+continuent de tomber sans publier davantage. Ajoutez les outils satellites
+(email, logistique, comptabilité, IA) et le même lecteur rapporte deux à quatre
+fois plus.
+
+### Il y a une vraie matière de veille hebdomadaire
+
+**[DONNÉE]** Ce qui bouge pour un e-commerçant français :
+- **TVA** : seuil de 10 000 € pour les ventes B2C dans l'UE, guichets OSS/IOSS,
+  responsabilité des marketplaces, cas du dropshipping importé ;
+- **Droit de rétractation** : depuis le **19/06/2026**, obligation de fournir un
+  mécanisme simplifié permettant au consommateur d'exercer sa rétractation
+  **directement en ligne** (bouton dédié) ;
+- **DSA** : applicable depuis le 17/02/2024 à tout fournisseur de service
+  intermédiaire — y compris un site qui publie des avis clients ;
+- **Facturation électronique** : plateformes agréées, calendrier 2026-2027 ;
+- **Outils et IA** : le fil le plus régulier, et celui qui porte la monétisation.
+
+### La valeur commerciale est élevée
+
+**[DONNÉE]** RPM France : **5-12 €** en business/entrepreneuriat, **5-10 €** en
+tech/logiciel (6-12 € en B2B) — contre 2-5 € en divertissement. Sponsoring de
+newsletter B2B : **150 à 800 € l'insertion**. Les éditeurs d'outils e-commerce
+sont nombreux, solvables et habitués à payer pour de l'acquisition.
+
+---
+
+## Les deux signaux négatifs, écrits noir sur blanc
+
+**1. La masse des e-commerçants a peu de budget.**
+**[DONNÉE]** 1 % des acteurs génèrent **78 %** du chiffre d'affaires du secteur ;
+**69 % des sites réalisent moins de 100 000 € de CA annuel**.
+→ *Conséquence assumée* : la cible n'est pas « les gros ». C'est justement cette
+masse de petites boutiques, pour qui un outil à 30 €/mois est une décision
+réfléchie — donc quelqu'un qui **cherche activement un comparatif avant
+d'acheter**. C'est une bonne nouvelle pour le comparateur, une mauvaise pour le
+produit cher.
+
+**2. Le créneau est saturé de vendeurs de formations.**
+« E-commerce » et « dropshipping » sont parmi les sujets les plus exploités du
+web francophone, souvent par des gens qui gagnent leur vie en vendant la méthode
+plutôt qu'en vendant des produits.
+→ *Conséquence assumée* : **l'angle n'est pas « gagner de l'argent en ligne ».**
+C'est **« les outils, les vrais prix, les obligations »** : tests réels, tarifs
+constatés, échéances légales. C'est précisément ce que les vendeurs de formation
+ne font pas, et c'est ce qui rend la position défendable.
+
+**3. La croissance ralentit** : +4,7 % au T1 2026 contre +8,3 % au T1 2025. Le
+marché reste porteur, mais il n'accélère plus. À surveiller trimestriellement ;
+si la croissance passe sous zéro deux trimestres de suite, la verticale est à
+réexaminer — c'est votre propre critère.
 
 ---
 
@@ -95,64 +130,74 @@ l'affiliation.
 
 | Élément | Décision |
 |---|---|
-| **Verticale** | Artisans du bâtiment, TPE de 0 à 9 salariés |
-| **Concept principal** | A4 — newsletter de veille hebdomadaire |
-| **Concept de monétisation** | B2 — comparateur de logiciels devis/facturation |
-| **Concept d'acquisition (test)** | D1 — 30 contenus courts, jetables |
-| **Angle** | Ne rien rater de ce qui peut coûter un chantier : aides, RGE, obligations, outils |
-| **Promesse** | 5 minutes par semaine pour rester à jour |
-| **Ton** | Direct, sans jargon administratif, orienté « ce que vous devez faire » |
-| **Nom provisoire** | *Le Point Chantier* — **à vérifier** (disponibilité du nom de domaine et recherche d'antériorité INPI avant toute communication) |
+| **Verticale** | E-commerçants français, en priorité les sites de moins de 100 k€ de CA |
+| **Concept principal** | A4 — newsletter hebdomadaire |
+| **Monétisation n°1** | Affiliation **récurrente** sur les outils (Shopify 20 % récurrent, Brevo, satellites) |
+| **Monétisation n°2** | B2 — comparateur d'outils avec prix réels |
+| **Acquisition (test)** | D1 — 30 contenus courts, jetables |
+| **Angle** | Les outils, les vrais prix, les obligations. **Jamais** « comment devenir riche en ligne » |
+| **Promesse** | 5 minutes par semaine pour ne rien rater et ne pas payer trop cher |
+| **Nom provisoire** | *La Fiche Produit* — **à vérifier** (domaine + antériorité INPI) avant toute communication |
 
 ---
 
 ## Plan des 30 premiers jours
 
 ### Jours 1-7 — préparation, rien de public
-1. Créer le compte beehiiv, publier **la page d'inscription seule**.
-2. Mettre en place les sources de veille : [`01-sources-de-veille.md`](01-sources-de-veille.md).
-3. Écrire les **4 premiers numéros** : [`02-newsletter.md`](02-newsletter.md).
-4. Demander l'accès aux programmes d'affiliation : [`04-affiliation.md`](04-affiliation.md).
-5. Vérifier le nom (domaine + INPI) et rédiger les mentions légales.
+1. Compte beehiiv + **page d'inscription seule** en ligne.
+2. S'inscrire au **programme partenaire Shopify** et aux programmes satellites :
+   [`04-affiliation.md`](04-affiliation.md).
+3. Mettre en place la veille : [`01-sources-de-veille.md`](01-sources-de-veille.md).
+4. Écrire les **4 premiers numéros** : [`02-newsletter.md`](02-newsletter.md).
+5. Vérifier le nom (domaine + INPI), rédiger les mentions légales.
 
 ### Jours 8-30 — publication
 6. **1 numéro par semaine**, sans exception, même à 12 abonnés.
 7. **20 pages de comparateur** : [`03-comparateur.md`](03-comparateur.md).
 8. **1 contenu court par jour** : [`05-contenus-courts.md`](05-contenus-courts.md).
-9. Acquisition : groupes professionnels (en apportant de l'information, jamais en
-   plaçant un lien de façon promotionnelle), LinkedIn, SEO.
 
-### Seuils de décision à J+60 (écrits maintenant)
-- **H1** : ≥ 300 inscrits et ≥ 40 % d'ouverture → sinon, changer de profession,
-  pas de méthode.
-- **H3** : ≥ 1 éditeur accepte une insertion payante → sinon, le sponsoring
-  attend 1 000 abonnés.
-- **H4** : ≥ 3 vidéos > 10 000 vues et ≥ 100 inscrits attribués → sinon, on
-  arrête le format court et tout passe en SEO + LinkedIn.
+### Seuils écrits à l'avance (J+60)
+- **H1** : ≥ 300 inscrits et ≥ 40 % d'ouverture.
+- **H5** : ≥ 3 % de clics sortants et ≥ 1 conversion d'affiliation payante.
+- **H4** : ≥ 3 vidéos > 10 000 vues et ≥ 100 inscrits attribués.
+En dessous : on applique la règle de KILL, le jour même.
+
+---
+
+## Une chose à dire clairement sur l'objectif
+
+Vous avez répondu trois fois « ce qui rapporte le plus, je veux devenir riche ».
+C'est un objectif légitime, et il oriente réellement les choix ci-dessus — c'est
+pour ça que la grille « revenu maximal » existe désormais dans le dépôt.
+
+Mais aucun de ces concepts ne produit de la richesse en 12 mois, et je ne vous
+promets aucun rendement. Ce qu'ils peuvent produire, dans le meilleur des cas :
+**un actif à revenu récurrent**. La richesse éventuelle vient ensuite de deux
+mécanismes, pas des vues : la **récurrence qui s'empile** (100 marchands référés
+qui paient tous les mois sans travail supplémentaire) et la **revente de l'actif**
+à un multiple de son bénéfice, à 3-5 ans. C'est exactement ce que pondère la
+grille — `revenu_recurrent` et `revente_actif` — et c'est pourquoi elle écarte
+les formats faceless les plus « faciles », qui ne produisent ni l'un ni l'autre.
 
 ---
 
 ## Sources
 
-- [CAPEB — Chiffres de l'artisanat du bâtiment](https://www.capeb.fr/actualites/chiffres-de-lartisanat-du-batiment)
-- [artisan-assure — L'artisanat du bâtiment en France : chiffres clés 2026](https://artisan-assure.fr/statistiques/artisanat-batiment-france/)
-- [monimmeuble — La CAPEB sonne l'alarme après 13 trimestres de baisse](https://monimmeuble.com/actualite/crise-du-batiment-la-capeb-sonne-lalarme-apres-13-trimestres-de-baisse)
-- [KRYVA — Prix logiciel facturation artisan 2026](https://kryva.fr/docs/prix-logiciel-facturation-artisan-comparatif)
-- [independant.io — Top 11 des logiciels devis-factures du bâtiment en 2026](https://independant.io/logiciel-devis-facture-batiment/)
-- [Obat — Programme d'affiliation](https://partenariats.obat.fr/affiliation)
-- [Axonaut — Affiliation](https://axonaut.com/affiliation)
-- [Tolteck — Offre de parrainage](http://help.tolteck.com/fr/articles/4733340-offre-de-parrainage-booste-tolteck)
-- [Hellio — MaPrimeRénov' 2026 : quels changements](https://particulier.hellio.com/blog/financement/maprimerenov-2026)
-- [HomeServe — MaPrimeRénov' par geste, ce qui change le 1er septembre 2026](https://www.homeserve.fr/conseils-actualites/renovation-energetique/aides-maprimerenov-geste-travaux-exclus-septembre-2026)
-- [turquoise67 — RGE 2026 : ce qui change pour les artisans](https://www.turquoise67.fr/post/rge-2026-ce-qui-change-pour-les-artisans-et-leurs-clients)
-- [briker — RGE : l'entreprise signataire devra être RGE dès 2027](https://www.briker.fr/aktu-tuto/rge-entreprise-signataire-sous-traitance-decret-2026-774)
-- [siteartisan — Aides bâtiment 2026 : MaPrimeRénov', RGE et contrôles](https://www.siteartisan.fr/aides-batiment-maprimerenov-rge)
-- [Urssaf — Facturation électronique obligatoire au 1ᵉʳ septembre 2026](https://www.urssaf.fr/accueil/actualites/facturation-electronique.html)
+- [FEVAD — Chiffres clés e-commerce 2026](https://www.fevad.com/chiffres-cles-ecommerce-2026/)
+- [FEVAD — E-commerce au 1ᵉʳ trimestre 2026](https://www.fevad.com/e-commerce-au-1er-trimestre-2026-croissance-globalement-preservee-malgre-un-environnement-incertain/)
+- [ecommerce-nation — Bilan FEVAD : marché à 196,4 milliards d'euros](https://www.ecommerce-nation.fr/chiffres-cles-ecommerce-france-2026-fevad/)
+- [Bpifrance — 7 secteurs porteurs en 2026](https://bigmedia.bpifrance.fr/nos-dossiers/7-secteurs-porteurs-en-2026-pour-la-creation-de-son-entreprise-ou-investir-et-innover)
+- [Speed Ecom — Shopify Partner 2026 : guide du programme partenaire](https://speed-ecom.eu/blog/devenir-partenaire-shopify-avantages-collaboration-et-guide-complet-pour-rejoindre-programme/)
+- [AffyList — Brevo affiliate program 2026](https://affylist.com/products/brevo)
+- [Haas Avocats — E-commerce & plateformes : les obligations juridiques en 2026](https://www.haas-avocats.com/e-commerce-plateformes-les-obligations-juridiques-en-2026/)
+- [PrestaShop — 2026 : quelles évolutions réglementaires pour le e-commerce](https://prestashop.com/blog/legal/2026-what-regulatory-changes-are-coming-for-ecommerce/)
+- [Keobiz — TVA e-commerce 2026 : règles et obligations](https://www.keobiz.fr/le-mag/tva-e-commerce/)
+- [donneespersonnelles.fr — DSA : obligations des plateformes en ligne](https://www.donneespersonnelles.fr/dsa-obligations-plateformes)
+- [fluxnote — YouTube CPM France 2026](https://fluxnote.io/guides/youtube-cpm-france-2026)
+- [Nénuphar Studio — Sponsoring de newsletter : combien facturer](https://www.nenuphar-studio.com/le-sponsoring-de-newsletter-combien-facturer-selon-la-taille-de-sa-liste)
 
-> **Avertissement de méthode** : les faits réglementaires ci-dessus proviennent
-> de sources secondaires spécialisées. **Avant publication**, chacun doit être
+> **Avertissement de méthode** : les faits réglementaires cités proviennent de
+> sources secondaires spécialisées. Avant publication, chacun doit être
 > revérifié sur sa source officielle (Légifrance, service-public.fr,
-> economie.gouv.fr, France Rénov'). Un projet de décret n'est pas un décret ; une
-> date annoncée peut être reportée. C'est la règle R3 du registre des risques, et
-> c'est non négociable : publier une échéance fausse à des artisans qui en
-> dépendent détruirait l'actif dès le premier numéro.
+> impots.gouv.fr, Commission européenne). C'est la règle R3 du registre des
+> risques.

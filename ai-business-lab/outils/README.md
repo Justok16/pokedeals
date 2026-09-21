@@ -12,7 +12,8 @@ explicite appliquée à des notes explicites. Contester la stratégie revient do
 
 | Fichier | Rôle |
 |---|---|
-| `criteres.yaml` | Les 18 critères, leur poids et le sens d'une note haute |
+| `criteres.yaml` | Les 18 critères, leur poids et le sens d'une note haute (grille de référence) |
+| `criteres-max-revenu.yaml` | Grille alternative : « revenu maximal, marché stable » — pour voir ce que devient le classement quand on ne regarde presque que l'argent |
 | `concepts.yaml` | Les 15 concepts et leurs notes (0-5), avec les justifications en commentaire |
 | `scorer.py` | Le calcul et les rendus (Markdown, CSV, détail) |
 | `tests/test_scorer.py` | Garantit que le calcul est juste et qu'une donnée fausse casse |
@@ -21,6 +22,7 @@ explicite appliquée à des notes explicites. Contester la stratégie revient do
 
 ```bash
 python scorer.py                 # classement Markdown (celui du document 02)
+python scorer.py --criteres criteres-max-revenu.yaml   # la même chose, grille "revenu maximal"
 python scorer.py --format csv    # pour le tableau de bord
 python scorer.py --detail A2     # le détail des points d'un concept
 python -m pytest tests/ -v       # vérifier le moteur

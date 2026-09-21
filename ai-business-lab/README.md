@@ -23,7 +23,7 @@
 | [09 — Outils et budget](09-outils-et-budget.md) | Stack 0 € puis règles de réinvestissement |
 | [`outils/`](outils/) | Le moteur de scoring (code + données + tests) |
 | [`modeles/`](modeles/) | Fiche opportunité, fiche de test, prompts d'agents, modèle de tableau de bord |
-| [`lancement/`](lancement/) | **Kit de lancement de la verticale choisie (artisans du bâtiment)** : validation des filtres, sources de veille, 4 premiers numéros, plan du comparateur, affiliation, 30 contenus courts |
+| [`lancement/`](lancement/) | **Kit de lancement de la verticale choisie (e-commerçants français)** : démonstration du choix, sources de veille, 4 premiers numéros, plan du comparateur, affiliation récurrente, 30 contenus courts |
 
 ---
 
@@ -154,9 +154,11 @@ production. Schéma complet dans [`05-tableau-de-bord.md`](05-tableau-de-bord.md
 
 ## PROCHAINE ÉTAPE
 
-**La profession cible est choisie : les artisans du bâtiment** (décision du
-21/09/2026, prise sur les données faute d'affinité déclarée, et vérifiée sur les
-3 filtres). La démonstration, les risques et le plan de 30 jours sont dans
+**La verticale est choisie : les e-commerçants français** (décision du
+21/09/2026, sur le critère posé par le propriétaire — revenu maximal, marché
+stable ou porteur). Les artisans du bâtiment ont été écartés parce que leur
+marché est en recul (13 trimestres de baisse), ce qui ne passe pas ce critère.
+La démonstration, les signaux négatifs et le plan de 30 jours sont dans
 [`lancement/`](lancement/).
 
 Il n'y a donc plus de décision bloquante. La prochaine action concrète est

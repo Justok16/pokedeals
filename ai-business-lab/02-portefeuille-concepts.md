@@ -636,3 +636,43 @@ Chaque fiche suit les 18 points demandés.
    qui doit apprendre vite, c'est rédhibitoire.
 5. **Le classement est révisable par construction** : changez les poids, il
    change. Ce qui n'est pas négociable, c'est de le confronter aux tests.
+
+---
+
+## Contre-épreuve : et si on ne regardait QUE l'argent ?
+
+Objection légitime : cette grille pondère la défendabilité et la vitesse de
+validation, pas seulement le revenu. Que devient le classement si l'on
+optimise presque exclusivement l'argent et la solidité du marché ?
+
+La grille [`outils/criteres-max-revenu.yaml`](outils/criteres-max-revenu.yaml)
+fait exactement ça — valeur commerciale 5, revenu récurrent 5, durabilité 5,
+affiliation 4, croissance 4, revente 3, et presque plus rien sur la facilité, le
+coût ou la vitesse :
+
+```bash
+cd ai-business-lab/outils && python scorer.py --criteres criteres-max-revenu.yaml
+```
+
+| Rang | Grille de référence | Grille « revenu maximal » |
+|---|---|---|
+| 1 | A4 Newsletter de veille (81.4) | **A2 IA appliquée à un métier (82.3)** |
+| 2 | A2 IA appliquée à un métier (78.9) | A3 Création d'entreprise (82.0) |
+| 3 | A1 Facture électronique (78.3) | A4 Newsletter de veille (81.4) |
+| 4 | A3 Création d'entreprise (75.5) | A1 Facture électronique (80.7) |
+| 5 | B2 Comparateur de logiciels (73.2) | B2 Comparateur de logiciels (79.1) |
+| … | … | … |
+| — | D2 Chaîne finance : **13ᵉ** (61.4) | D2 Chaîne finance : **11ᵉ** (64.5) |
+| — | D3 Chaîne divertissement : **15ᵉ** (45.9) | D3 Chaîne divertissement : **15ᵉ** (36.8) |
+
+**Ce qui est instructif, c'est ce qui ne bouge pas.** Les quatre premiers sont
+les mêmes, dans un ordre légèrement différent. Et surtout : la chaîne finance,
+qui dispose du **meilleur RPM mesuré du marché français (8-15 €)**, reste 11ᵉ
+sur 15 même quand on pondère l'argent au maximum — parce qu'un RPM élevé ne
+compense ni une concurrence maximale, ni un cadre juridique strict, ni l'absence
+de récurrence.
+
+**Conclusion** : il n'existe pas, dans ce portefeuille, de raccourci que la
+grille de référence dissimulerait. Optimiser pour l'argent seul donne
+pratiquement la même réponse — ce qui est le meilleur argument possible en
+faveur de cette réponse.

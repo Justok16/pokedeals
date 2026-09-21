@@ -1,66 +1,84 @@
-# 04 — Affiliation : ce qu'il faut vérifier avant de compter dessus
+# 04 — Affiliation : le pilier du revenu
 
-## Programmes repérés (21/09/2026)
+## Pourquoi cette verticale a été retenue
 
-**[DONNÉE]** Trois éditeurs du secteur ont un programme public :
+Parce que la question décisive — **la commission est-elle récurrente ?** — a une
+bonne réponse ici, ce qui n'est pas le cas partout.
 
-| Éditeur | Programme | Ce qui est annoncé | Ce qu'il faut vérifier |
-|---|---|---|---|
-| **Obat** | Affiliation | Commission par inscription validée **et par démonstration réalisée** via le lien | Le taux, la durée de cookie, et si la commission est **unique ou récurrente** |
-| **Axonaut** | Partenaires / parrainage | Lien ou code de parrainage, commission par nouvel abonné ; taux variables selon accords | Taux réel, récurrence, conditions de reversement |
-| **Tolteck** | Parrainage | Offre de parrainage (opération boostée observée du 24/08 au 30/09/2026) | S'il s'agit d'un parrainage entre clients (souvent plafonné) ou d'un vrai programme d'affiliation |
+**[DONNÉE]** Programme partenaire **Shopify** : **20 % de commission récurrente**
+sur l'abonnement mensuel des marchands référés, avec des revenus récurrents sur
+**4 ans**, là où l'affiliation simple plafonne à **150 $** par recommandation.
+Le programme a été mis à jour le 26/08/2026 ; une opération de bonus à **500 $
+par marchand référé** (plafonnée à dix, soit 5 000 $) a été annoncée sur une
+période limitée — **à vérifier avant de compter dessus**.
 
-## Le seul chiffre qui compte : récurrent ou pas ?
+**[DONNÉE]** **Brevo** : récompense fixe par nouveau client référé qui souscrit,
+versements mensuels automatisés via PartnerStack, **cookie de 90 jours**, suivi
+des commissions en temps réel. Tarifs Brevo : gratuit jusqu'à 300 contacts,
+25 €/mois pour 5 000 contacts, 50 €/mois pour 10 000.
 
-**[ESTIMATION]** Sur un abonnement à 40 €/mois :
+## Ce que ça fait, en euros
 
-| Type de commission | 1 client | 40 clients actifs |
+**[ESTIMATION]** Sur un abonnement plateforme à ~30 €/mois, 20 % récurrents :
+
+| Marchands référés actifs | Revenu mensuel récurrent | Au bout de 12 mois |
 |---|---|---|
-| Unique à 30 % | 12 € une fois | 480 € une fois |
-| **Récurrente à 30 %** | **12 €/mois** | **480 €/mois, tous les mois** |
-| Récurrente à 60 % (constaté ailleurs dans le SaaS francophone) | 24 €/mois | **960 €/mois** |
+| 10 | ~60 € | ~720 € cumulés |
+| 50 | ~300 € | ~3 600 € cumulés |
+| **100** | **~600 €** | **~7 200 € cumulés** |
+| 300 | ~1 800 € | ~21 600 € cumulés |
 
-**[OPINION]** C'est la question à poser en premier à chaque éditeur, avant même
-de s'inscrire. Un programme à commission unique n'est pas un modèle économique :
-il faut recommencer chaque mois. Un programme récurrent transforme le travail
-passé en revenu présent. **Si aucun éditeur du secteur n'offre de récurrence,
-le pilier de monétisation devient le sponsoring, pas l'affiliation** — et le
-plan de `06-monetisation-risques.md` doit être relu dans ce sens.
+Et ce sont des estimations **sur la plateforme seule**. Un même lecteur équipe
+aussi son email, sa logistique, sa comptabilité, ses outils d'IA : le revenu par
+lecteur converti est en pratique **deux à quatre fois** ce tableau.
+
+**Le point important** : ces montants **tombent tous les mois sans publier
+davantage**. C'est toute la différence avec la publicité de plateforme, où il
+faut refaire le volume de vues chaque mois pour toucher la même somme.
 
 ## Procédure (jours 1-7)
 
-1. S'inscrire aux trois programmes ci-dessus.
-2. Pour chacun, **noter par écrit** : taux, récurrence oui/non, durée du cookie,
+1. S'inscrire au **programme partenaire Shopify** (le pilier).
+2. S'inscrire à **Brevo** via PartnerStack.
+3. Recenser les 10 outils satellites les plus utilisés par les petites boutiques
+   FR et vérifier, pour chacun : programme existant ? taux ? **récurrent ?**
+4. **Noter par écrit pour chaque programme** : taux, récurrence, durée du cookie,
    seuil de paiement, délai de reversement, conditions d'exclusion.
-3. Recenser les autres éditeurs du secteur et vérifier s'ils ont un programme
-   (beaucoup n'en affichent pas et en ont un sur demande).
-4. Ne mettre en avant **aucun** outil uniquement parce qu'il rémunère mieux. Le
-   classement suit la méthodologie publiée, point. Si le mieux-disant
-   commercialement est aussi le moins bon produit, il est présenté comme tel.
+5. Vérifier les conditions réelles des opérations promotionnelles annoncées
+   (dates, plafonds, éligibilité géographique) avant de bâtir un plan dessus.
 
 ## Tableau de suivi à tenir
 
-| Éditeur | Programme | Taux | Récurrent | Cookie | Clics | Inscriptions | Conversions | Revenu cumulé | Dernière vérif. |
+| Outil | Programme | Taux | Récurrent | Cookie | Clics | Inscriptions | Conversions | Revenu récurrent cumulé | Dernière vérif. |
 |---|---|---|---|---|---|---|---|---|---|
-| Obat | | | | | | | | | |
-| Axonaut | | | | | | | | | |
-| Tolteck | | | | | | | | | |
+| Shopify | Partner | 20 % | **oui (4 ans)** | | | | | | |
+| Brevo | PartnerStack | fixe | à vérifier | 90 j | | | | | |
+| … | | | | | | | | | |
+
+**La colonne qui pilote tout est « Revenu récurrent cumulé ».** C'est le seul
+chiffre qui dit si un actif se construit ou si l'on court après le mois suivant.
+
+## Règle d'indépendance
+
+Aucun outil n'est mis en avant parce qu'il rémunère mieux. Le classement suit la
+méthodologie publiée du comparateur. Si le mieux-disant commercialement est le
+moins bon produit, il est présenté comme tel — sinon le comparateur perd la seule
+chose qui lui donne de la valeur, et le revenu avec.
 
 ## Obligations légales (non négociables)
 
 - **Mention « Publicité » ou « Collaboration commerciale »**, claire, lisible,
-  identifiable, **pendant toute la durée de la promotion et quel que soit le
-  format** (loi n° 2023-451 du 9 juin 2023). L'absence de mention est une
-  pratique commerciale trompeuse par omission, passible de 2 ans
-  d'emprisonnement et 300 000 € d'amende. Contrôle DGCCRF.
-- **La mention est insérée par le modèle de production**, jamais ajoutée à la
-  main : c'est la seule façon de ne jamais l'oublier.
-- **Mentions légales** identifiant l'éditeur sur le site, même sous pseudonyme.
-- **Micro-entreprise** dès le premier revenu régulier.
+  identifiable, pendant toute la durée de la promotion et quel que soit le format
+  (loi n° 2023-451 du 9 juin 2023). Omission = pratique commerciale trompeuse,
+  jusqu'à 2 ans d'emprisonnement et 300 000 € d'amende. Contrôle DGCCRF.
+- **Mention insérée par le modèle de production**, jamais à la main.
+- **Mentions légales** identifiant l'éditeur, même sous pseudonyme.
+- **Micro-entreprise** dès le premier revenu régulier. Les commissions
+  d'affiliation sont un revenu imposable.
 
 ## Sources
 
-- [Obat — Programme d'affiliation](https://partenariats.obat.fr/affiliation)
-- [Axonaut — Affiliation](https://axonaut.com/affiliation)
-- [Tolteck — Offre de parrainage](http://help.tolteck.com/fr/articles/4733340-offre-de-parrainage-booste-tolteck)
+- [Speed Ecom — Shopify Partner 2026](https://speed-ecom.eu/blog/devenir-partenaire-shopify-avantages-collaboration-et-guide-complet-pour-rejoindre-programme/)
+- [AffyList — Brevo affiliate program 2026](https://affylist.com/products/brevo)
+- [independant.io — Brevo : tarifs 2026](https://independant.io/avis/brevo/)
 - [Légifrance — LOI n° 2023-451 du 9 juin 2023](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000047663185)
