@@ -23,6 +23,16 @@
   taper une fois sur place.
 - Faire **absolument tout** ce qui est à portée, ne revenir vers lui que si
   c'est absolument nécessaire.
+- **Économiser les tokens — ils lui coûtent de l'argent.** Trois règles, posées
+  le 21/09/2026 après une refonte visuelle faite en trois passes :
+  1. **Sur un sujet subjectif** (design, ton, nom), poser **une** question de
+     direction avant de produire. Une question coûte cent fois moins que trois
+     itérations.
+  2. **Messages de commit courts.** Le raisonnement va dans les fichiers du
+     dossier, qui sont durables et relus ; le dupliquer dans l'historique git
+     est un pur gaspillage.
+  3. **Réponses courtes.** Livrer le résultat et le lien, pas le récit du
+     travail. Il voit les fichiers.
 
 ---
 
