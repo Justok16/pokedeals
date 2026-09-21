@@ -12,7 +12,7 @@
 
 ## Ce que dit le calcul, avant de parler d'intuition
 
-J'ai rejoué le classement des 15 concepts avec une grille pondérée **presque
+J'ai rejoué le classement des concepts avec une grille pondérée **presque
 uniquement sur l'argent et la solidité du marché** (valeur commerciale 5,
 revenu récurrent 5, durabilité 5, affiliation 4, croissance 4, revente 3) :
 
@@ -31,7 +31,7 @@ python scorer.py --criteres criteres-max-revenu.yaml
 
 **Le résultat le plus utile est celui qui ne bouge pas.** Même en optimisant
 presque exclusivement l'argent, la chaîne finance — qui a pourtant **le meilleur
-RPM mesuré du marché français (8-15 €)** — reste 11ᵉ sur 15. Parce qu'un RPM
+RPM mesuré du marché français (8-15 €)** — reste 11ᵉ sur 16. Parce qu'un RPM
 élevé ne compense pas une concurrence maximale et un cadre juridique strict.
 Autrement dit : **il n'existe pas de raccourci que le classement cacherait.**
 

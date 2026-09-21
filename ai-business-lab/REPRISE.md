@@ -31,7 +31,7 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 ## Ce qui est fait
 
 - [x] Étude de marché datée et sourcée (`01-etude-marche.md`)
-- [x] Portefeuille de 15 concepts noté et classé (`02-portefeuille-concepts.md`)
+- [x] Portefeuille de 15 concepts noté et classé, + 1 concept externe (F1) entré pour comparaison (`02-portefeuille-concepts.md`)
 - [x] Contre-épreuve sous grille « revenu maximal » (`outils/criteres-max-revenu.yaml`)
 - [x] Plan d'exécution et plan des 90 jours (`03-plan-execution.md`)
 - [x] Niche Radar, tableau de bord, monétisation/risques, agents, roadmap, budget (`04` à `09`)
@@ -39,12 +39,35 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 - [x] Moteur de classement + 10 tests, vert en CI (`outils/`)
 - [x] Kit de lancement de la verticale (`lancement/`)
 - [x] Les 6 premiers numéros rédigés intégralement (`lancement/numeros/`)
-- [x] Les 30 scripts de contenus courts rédigés (`lancement/contenus/`)
+- [x] Les 31 scripts de contenus courts rédigés (`lancement/contenus/`)
 - [x] Deux passages du Niche Radar exécutés (`opportunites/`) — le second a sorti
       la directive EmpCo, applicable au 27/09/2026
 - [x] Comparateur : 12 pages rédigées — méthodologie, page pilier, fiches plateformes, comparatifs, protocole IA, pages obligations (`lancement/comparateur/`)
 - [x] Journal des vérifications réglementaires ouvert (`lancement/verifications.md`)
 - [x] Arborescence autonome préparée (`.gitignore`, `.github/workflows/tests.yml`, chemins racine)
+
+---
+
+## PRIORITÉ N° 1 — faire juger le produit, pas l'administratif
+
+**Ajouté le 21/09/2026, après comparaison avec une exécution externe du même
+prompt.** Le reproche est fondé et il est consigné ici pour ne pas être oublié :
+ce dossier a produit 7 400 lignes et **n'a obtenu aucun signal de la réalité**,
+pendant que l'exécution concurrente faisait réagir l'utilisateur en quelques
+heures sur un livrable concret.
+
+Ce qui a été demandé à l'utilisateur jusqu'ici était **administratif** (créer un
+dépôt). Ce qu'il fallait lui demander, c'est de **juger le produit**.
+
+**Donc, avant toute autre demande** : lui faire lire
+`lancement/numeros/numero-01.md` — trois minutes, aucun compte, aucun outil — et
+répondre à *« est-ce que je m'abonnerais à ça ? »*.
+
+Le chemin complet jusqu'au premier envoi est dans **`PREMIER-ENVOI.md`**.
+
+**Règle de conduite pour les reprises suivantes** : ne pas produire de contenu
+supplémentaire. Le stock couvre sept semaines. Tant que rien n'est publié, écrire
+un huitième numéro a une valeur **nulle**, et cette phrase est arithmétique.
 
 ---
 
@@ -122,11 +145,14 @@ travail existe.
       sources sont **bloquées par le proxy réseau** ici — y compris
       economie.gouv.fr, senat.fr et assemblee-nationale.fr. Détail dans
       `opportunites/2026-09-21-directive-empco-2024-825.md`.
-- [ ] **EN ATTENTE DE L'UTILISATEUR** : il a partagé un lien ChatGPT
-      (conversation menée en parallèle sur la même demande) pour comparaison.
-      **chatgpt.com est bloqué par le proxy réseau** — le contenu doit être
-      collé dans la conversation. Tant qu'il ne l'est pas, aucune comparaison
-      n'est possible : ne pas supposer ce qu'il contient.
+- [x] ~~Comparaison avec l'exécution ChatGPT du même prompt~~ — faite le
+      21/09/2026, dans `10-comparaison-chatgpt.md`. Son concept (« Marge
+      Claire », Vinted) a été noté dans le moteur sous l'id **F1** : **42,5**,
+      dernier sur 16, et il ne remonte pas dans la première moitié même avec
+      sept corrections favorables. **Ne pas rouvrir ce point sans donnée
+      nouvelle.** Trois apports de son travail ont été intégrés : règles R-A,
+      R-B et R-C du Niche Radar, et la règle éditoriale « persona et sujets
+      sensibles ».
 - [ ] **DÉPEND DE L'UTILISATEUR** : vérifier l'accessibilité numérique (EAA) en
       source officielle avant toute publication — les sources divergent sur les
       sanctions, et EUR-Lex/Légifrance sont bloqués ici.
@@ -155,6 +181,8 @@ travail existe.
 | Chaîne faceless divertissement écartée | Dernière du classement, y compris sous la grille « revenu maximal » |
 | Angle « outils, vrais prix, obligations » | Le créneau e-commerce est saturé de vendeurs de méthodes ; c'est le seul angle défendable |
 | Aucune promesse de revenus | Différenciation **et** protection juridique |
+| Revendeurs Vinted écartés | Noté F1 dans le moteur : **42,5**, dernier sur 16, robuste à sept corrections favorables |
+| Aucun titre professionnel revendiqué | Règles des plateformes sur les personas IA + protection juridique (`10-comparaison-chatgpt.md` §7) |
 
 ---
 

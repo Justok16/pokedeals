@@ -182,6 +182,19 @@ Sources :
 **Reste ouvert** : `[À CONFIRMER à la date d'envoi]` la liste des plateformes
 agréées, qui évolue.
 
+**✅✅ Double vérification indépendante — 21/09/2026.** L'utilisateur a soumis le
+même prompt maître à ChatGPT, qui a vérifié ce calendrier de son côté, sur
+impots.gouv.fr, et aboutit **aux mêmes dates** : réception à partir de septembre
+2026, émission à partir de septembre 2027 pour les PME et micro-entreprises.
+
+Deux vérifications indépendantes, par deux modèles différents, sur la même source
+officielle, avec le même résultat. **C'est le fait le mieux établi du dossier** —
+et c'est celui sur lequel reposent les numéros 1 (bloc 5) et 5 en entier.
+
+Cela ne lève pas les autres marqueurs : la concordance ne vaut que pour les
+dates du calendrier, pas pour la liste des plateformes agréées ni pour le volet
+e-reporting.
+
 ---
 
 ## ⚠️ Partiellement vérifié — Directive (UE) 2024/825 « EmpCo » (numéro 6)

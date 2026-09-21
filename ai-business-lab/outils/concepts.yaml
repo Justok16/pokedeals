@@ -394,3 +394,41 @@ concepts:
       avantage_defendable: 3
       vitesse_validation: 4
       revente_actif: 3
+
+  # -------------------------------------------------------------------------
+  # F — concept issu d'une SOURCE EXTERNE, ajoute le 21/09/2026.
+  #
+  # Origine : ChatGPT, saisi du meme prompt maitre par l'utilisateur, a retenu
+  # cette verticale la ou ce dossier a retenu les e-commercants. Le concept est
+  # note ici selon la MEME grille, pour que la comparaison soit calculee et non
+  # asserted. Les notes s'appuient en grande partie sur les constats de ChatGPT
+  # lui-meme, cites dans 10-comparaison-chatgpt.md.
+  # -------------------------------------------------------------------------
+
+  - id: F1
+    nom: "Marge Claire — Shorts faceless + calculateur de marge pour revendeurs Vinted"
+    cluster: "F — concept externe (ChatGPT)"
+    resume: >-
+      Chaine YouTube Shorts faceless sur la revente Vinted (article reel ->
+      notification de vente -> emballage -> frais -> argent restant), adossee a
+      un calculateur de marge, monetisee par affiliation d'outils de gestion de
+      revente. Deux videos produites et rejetees par l'utilisateur les 20 et
+      21/09/2026 (esthetique et voix de synthese jugees inacceptables).
+    notes:
+      potentiel_audience: 4      # Vinted FR est massif ; les revendeurs REGULIERS sont un sous-ensemble
+      croissance_demande: 3      # revente structurellement en hausse, mais AUCUN declencheur date
+      valeur_commerciale: 1      # audience = particuliers revendant des vetements : pouvoir d'achat et RPM au plus bas du marche
+      concurrence_faible: 1      # constat de ChatGPT : "Concurrence : forte, y compris sur les outils gratuits et les guides"
+      facilite_production: 1     # DEMONTRE par la conversation elle-meme : 2 versions rejetees, la barre est le montage et la voix
+      cout_faible: 3             # 0 EUR revendique, mais la voix gratuite a ete ECARTEE par l'utilisateur : la qualite exigee a un cout
+      affiliation: 2             # Vinteer 20 %, seuil 50 EUR, "conditions de maintien apres l'essai restent a clarifier" (ChatGPT)
+      produit_numerique: 2       # un calculateur de marge existe deja GRATUITEMENT chez VintedCRM ; ChatGPT invalide lui-meme le tableur payant
+      revenu_recurrent: 2        # commissions ponctuelles de faible montant, aucune logique d'abonnement
+      international: 3           # Vinted opere dans plusieurs pays de l'UE : duplicable
+      durabilite: 3              # la revente est structurelle, mais l'angle depend de l'ecosysteme d'UNE plateforme
+      independance_plateforme: 1 # DOUBLE dependance : l'algorithme YouTube ET Vinted. Le pire cas possible
+      risque_juridique_faible: 4 # faible, sous reserve des regles YouTube sur les personas IA et les contenus produits en masse
+      automatisation: 2          # la video de qualite acceptable est la tache la MOINS automatisable ; demontre par les 2 rejets
+      avantage_defendable: 1     # critere decisif : un concurrent equipe des memes IA refait ca en une semaine
+      vitesse_validation: 3      # les Shorts se mesurent vite EN PRINCIPE, mais ici le goulot est la production, pas la mesure
+      revente_actif: 2           # une petite chaine faceless grand public se revend a un faible multiple

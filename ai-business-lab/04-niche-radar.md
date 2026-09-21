@@ -79,6 +79,51 @@ Une fiche ne devient un test que si elle remplit les **trois** conditions :
 Sinon la fiche est **archivée, pas supprimée**. Une opportunité écartée en
 septembre peut devenir évidente en mars : ce qui change, c'est le contexte.
 
+## Trois règles ajoutées le 21/09/2026
+
+Les deux premiers passages et la comparaison avec une exécution externe du même
+prompt (cf. [`10-comparaison-chatgpt.md`](10-comparaison-chatgpt.md)) ont mis en
+évidence trois manques. Ils sont corrigés ici.
+
+### R-A — Balayer les échéances **UE avant** les échéances FR
+
+Le premier passage ne regardait que les échéances françaises. Le second, en
+élargissant à l'Europe, a sorti en une requête la directive EmpCo — applicable
+**six jours plus tard**, et absente des cinq numéros déjà rédigés.
+
+Une obligation européenne précède **toujours** le texte français qui la
+transpose. La regarder en second, c'est la découvrir en retard. Six jours de
+marge cette fois ; il n'y en aura pas toujours.
+
+### R-B — Séparer **annonce datée** et **offre simplement revérifiée**
+
+Emprunté à la veille de ChatGPT, qui le fait mieux que ce Radar ne le faisait.
+Chaque élément d'une fiche est désormais étiqueté :
+
+| Étiquette | Sens |
+|---|---|
+| **Annonce datée** | Un fait nouveau, avec sa date de publication |
+| **Offre revérifiée** | Une offre qui existait déjà, simplement recontrôlée ce jour |
+| **Non mesuré** | Ce que la veille n'a **pas** regardé — à écrire explicitement |
+
+La troisième ligne est la plus importante : une veille qui ne dit pas ce qu'elle
+n'a pas mesuré laisse croire qu'elle a tout mesuré.
+
+### R-C — Le test du **concurrent gratuit**
+
+Avant qu'une fiche ne devienne un test, une question supplémentaire :
+**qui le fait déjà gratuitement, et depuis combien de temps ?**
+
+Origine du signal : une exécution externe du prompt a bâti un calculateur de
+marge payant pour revendeurs, avant de constater qu'un acteur du marché offrait
+déjà la fonction **gratuitement** — et publiait en plus les guides pédagogiques
+censés attirer l'audience.
+
+Un concurrent gratuit et installé ne tue pas seulement le prix : il tue aussi
+l'angle éditorial, parce qu'il produit le même contenu pour vendre son outil.
+
+**Cette question vient avant les trois conditions d'arbitrage**, pas après.
+
 ## Ce que le Radar ne fera pas
 
 - Il ne donnera **pas** de liste de « niches rentables ». Une niche n'est pas

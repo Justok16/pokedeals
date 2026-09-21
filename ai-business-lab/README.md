@@ -13,7 +13,7 @@
 | Document | Contenu |
 |---|---|
 | [01 — Étude de marché](01-etude-marche.md) | Données 2026 : RPM/CPM par niche, règles de monétisation, affiliation récurrente, SEO programmatique, cadre légal FR |
-| [02 — Portefeuille de concepts](02-portefeuille-concepts.md) | 15 concepts notés sur 18 critères, classés par un score reproductible |
+| [02 — Portefeuille de concepts](02-portefeuille-concepts.md) | 15 concepts internes + 1 concept externe, notés sur 18 critères, classés par un score reproductible |
 | [03 — Plan d'exécution](03-plan-execution.md) | Phases 1 à 10 + plan jour par jour des 90 premiers jours |
 | [04 — Niche Radar](04-niche-radar.md) | Veille permanente d'opportunités (sources gratuites, cadence hebdo) |
 | [05 — Tableau de bord](05-tableau-de-bord.md) | Schéma de mesure, statuts, règle de KILL, règle de SCALE |
@@ -21,11 +21,14 @@
 | [07 — Automatisation et agents](07-automatisation-agents.md) | Les 15 agents, et ce qui doit rester humain |
 | [08 — Trajectoire 12 mois / 3-5 ans](08-roadmap.md) | Direction stratégique, pas une promesse |
 | [09 — Outils et budget](09-outils-et-budget.md) | Stack 0 € puis règles de réinvestissement |
+| [10 — Comparaison ChatGPT](10-comparaison-chatgpt.md) | Le **même prompt maître** soumis à ChatGPT : ce qu'il a fait mieux, ce que son concept donne **dans ce moteur** (42.5, dernier sur 16), et ce que ce dossier lui reprend |
+| [**`PREMIER-ENVOI.md`**](PREMIER-ENVOI.md) | **Le chemin le plus court jusqu'à un premier envoi réel.** Commencer ici : tout le reste attend une publication qui n'a jamais eu lieu |
 | [**`REPRISE.md`**](REPRISE.md) | **État d'avancement durable** — point d'entrée après toute interruption : ce qui est fait, ce qui est en cours, ce qui bloque |
 | [`MIGRATION.md`](MIGRATION.md) | Comment sortir ce dossier dans son propre dépôt |
 | [`outils/`](outils/) | Le moteur de scoring (code + données + tests) |
 | [`modeles/`](modeles/) | Fiche opportunité, fiche de test, prompts d'agents, modèle de tableau de bord |
-| [`lancement/`](lancement/) | **Kit de lancement de la verticale choisie (e-commerçants français)** : démonstration du choix, sources de veille, 4 premiers numéros, plan du comparateur, affiliation récurrente, 30 contenus courts |
+| [`lancement/`](lancement/) | **Kit de lancement de la verticale choisie (e-commerçants français)** : démonstration du choix, sources de veille, **6 numéros rédigés**, 13 pages de comparateur, affiliation récurrente, 31 contenus courts |
+| [`opportunites/`](opportunites/) | Sorties du Niche Radar : 3 fiches, 3 décisions |
 
 ---
 

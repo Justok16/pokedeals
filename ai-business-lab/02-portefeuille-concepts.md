@@ -1,7 +1,8 @@
 # 02 — Portefeuille de concepts
 
-15 concepts, notés sur 18 critères pondérés, classés par un **score calculé,
-pas choisi**. Le calcul est dans [`outils/`](outils/) et se rejoue par :
+15 concepts internes — plus 1 concept externe entré pour comparaison — notés sur
+18 critères pondérés, classés par un **score calculé, pas choisi**. Le calcul
+est dans [`outils/`](outils/) et se rejoue par :
 
 ```bash
 cd ai-business-lab/outils && python scorer.py   # classement
@@ -32,6 +33,13 @@ validation** — les trois choses qui manquent le plus à un débutant en 2026.
 | 13 | D2 | Chaîne faceless finance / business en français | **61.4** | 72.5 | 54.3 |
 | 14 | C3 | Print on demand faceless | **48.5** | 36.2 | 68.6 |
 | 15 | D3 | Chaîne faceless divertissement (histoires, motivation, musique) | **45.9** | **30.0** | 76.2 |
+| 16 | F1 | *Marge Claire — Shorts + calculateur pour revendeurs Vinted* ⁽¹⁾ | **42.5** | 37.5 | 40.0 |
+
+⁽¹⁾ **Concept externe**, ajouté le 21/09/2026 : c'est la verticale retenue par
+ChatGPT saisi du même prompt maître. Il est noté selon la **même grille**, pour
+que la comparaison soit calculée plutôt qu'affirmée. Analyse complète, test de
+robustesse et ce que ce dossier reprend de ce travail :
+[`10-comparaison-chatgpt.md`](10-comparaison-chatgpt.md).
 
 **Ce que ce tableau dit, et qu'une liste d'idées ne dirait pas :**
 
@@ -581,7 +589,7 @@ Chaque fiche suit les 18 points demandés.
 
 ---
 
-### D3 — Chaîne faceless divertissement · score 45.9 · **rang 15 (dernier)**
+### D3 — Chaîne faceless divertissement · score 45.9 · **rang 15**
 
 1. **Concept** — Histoires, motivation, musique relaxante, faits divers : le
    format faceless le plus répandu, et **le plus recommandé sur internet**.
@@ -614,6 +622,45 @@ Chaque fiche suit les 18 points demandés.
 17. **Ce qui pourrait faire échouer l'idée** — Tout : l'économie, les règles de
     plateforme, et l'absence de barrière.
 18. **Métriques à surveiller** — Sans objet.
+
+---
+
+### F1 — Marge Claire (concept externe) · score 42.5 · **rang 16 (dernier)**
+
+**Origine** : verticale retenue par ChatGPT, saisi du **même prompt maître** par
+l'utilisateur le 21/09/2026. Entré ici pour que le désaccord entre les deux
+sorties soit **calculé** et non asséné. Les notes s'appuient largement sur les
+constats de ChatGPT lui-même.
+
+1. **Concept** — Chaîne Shorts faceless sur la revente Vinted (article →
+   notification de vente → emballage → frais → argent restant), adossée à un
+   calculateur de marge.
+2. **Audience** — Large (4/5). Vinted FR est massif ; les revendeurs
+   **réguliers**, seuls concernés par une marge, sont un sous-ensemble.
+3. **Potentiel économique** — **37.5/100.** Audience de particuliers revendant
+   des vêtements : `valeur_commerciale` **1/5**, le plancher du portefeuille.
+4. **Concurrence** — **1/5.** Constat de ChatGPT : *« Concurrence : forte, y
+   compris sur les outils gratuits et les guides. »* Un acteur offre **déjà
+   gratuitement** la fonction du produit envisagé, et publie les guides censés
+   attirer l'audience.
+5. **Difficulté de production** — **1/5, démontrée.** Deux vidéos produites, deux
+   rejets de l'utilisateur les 20 et 21/09 : esthétique et voix de synthèse.
+   Profil déclaré : **2/5 en vidéo, 0 €**.
+6. **Dépendance plateforme** — **1/5, le pire cas du portefeuille** : double
+   dépendance à l'algorithme YouTube **et** à l'écosystème Vinted.
+7. **Avantage défendable** — **1/5.** ChatGPT écrit lui-même : *« le tableur
+   générique payant n'a toujours pas de différenciation démontrée »*.
+8. **Ce qu'il a pour lui** — La vitesse de validation théorique des Shorts, et
+   une duplicabilité européenne (Vinted opère dans plusieurs pays).
+9. **Test de robustesse** — Rejoué avec **sept corrections favorables**, dont
+   `vitesse_validation` à 5/5 : il plafonne à **61.7**, sous E2 (68.7) qui n'est
+   que 8ᵉ. Le verdict ne dépend donc pas de la sévérité de la notation.
+10. **Décision** — **Écarté.** Non pas parce qu'il ne ferait pas de vues : une
+    chaîne Vinted peut très bien trouver son audience. Parce qu'il convertit mal
+    une audience en **revenu récurrent**, ce qui est le critère posé.
+
+Détail complet, ce que cette comparaison reproche à ce dossier, et les trois
+règles reprises de ChatGPT : [`10-comparaison-chatgpt.md`](10-comparaison-chatgpt.md).
 
 ---
 
@@ -663,14 +710,21 @@ cd ai-business-lab/outils && python scorer.py --criteres criteres-max-revenu.yam
 | 5 | B2 Comparateur de logiciels (73.2) | B2 Comparateur de logiciels (79.1) |
 | … | … | … |
 | — | D2 Chaîne finance : **13ᵉ** (61.4) | D2 Chaîne finance : **11ᵉ** (64.5) |
-| — | D3 Chaîne divertissement : **15ᵉ** (45.9) | D3 Chaîne divertissement : **15ᵉ** (36.8) |
+| — | D3 Chaîne divertissement : **15ᵉ** (45.9) | D3 Chaîne divertissement : **16ᵉ** (36.8) |
+| — | **F1 Marge Claire (externe) : 16ᵉ** (42.5) | **F1 Marge Claire (externe) : 14ᵉ** (42.5) |
 
 **Ce qui est instructif, c'est ce qui ne bouge pas.** Les quatre premiers sont
 les mêmes, dans un ordre légèrement différent. Et surtout : la chaîne finance,
 qui dispose du **meilleur RPM mesuré du marché français (8-15 €)**, reste 11ᵉ
-sur 15 même quand on pondère l'argent au maximum — parce qu'un RPM élevé ne
+sur 16 même quand on pondère l'argent au maximum — parce qu'un RPM élevé ne
 compense ni une concurrence maximale, ni un cadre juridique strict, ni l'absence
 de récurrence.
+
+Le concept externe **F1** est le seul dont le score est **identique sous les deux
+grilles (42.5)**. Ce n'est pas une coïncidence utile : il ne gagne rien à ce
+qu'on optimise l'argent, parce que ses points faibles — valeur commerciale,
+concurrence, défendabilité — sont précisément ceux que la grille « revenu
+maximal » pondère le **plus** lourdement.
 
 **Conclusion** : il n'existe pas, dans ce portefeuille, de raccourci que la
 grille de référence dissimulerait. Optimiser pour l'argent seul donne
