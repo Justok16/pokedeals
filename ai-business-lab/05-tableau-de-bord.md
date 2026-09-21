@@ -15,11 +15,11 @@ Deux tables. Rien de plus tant qu'il n'y a pas de revenu.
 | Champ | Type | Note |
 |---|---|---|
 | `projet` | texte | ID du concept (A1, A2, D3…) |
-| `niche` | texte | Pokémon, Lorcana… |
+| `niche` | texte | la profession / verticale ciblée |
 | `plateforme` | texte | TikTok, Shorts, beehiiv, site |
 | `contenu_id` | texte | URL ou identifiant |
 | `date` | date | |
-| `format` | texte | comparaison prix / variation cote / alerte / page produit |
+| `format` | texte | numéro de veille / fiche comparateur / vidéo courte / page |
 | `hook` | texte | les 3 premières secondes ou le titre — **c'est la variable la plus prédictive** |
 | `duree` | entier | secondes |
 | `vues` | entier | |
@@ -103,7 +103,7 @@ chose**. Ordre d'amplification, du moins cher au plus cher :
 4. **Récupérer l'audience** : tout pousser vers la newsletter (actif possédé).
 5. **Brancher l'affiliation** sur les contenus les plus cliqués.
 6. **Ajouter un format long** (page SEO, vidéo longue) sur le sujet gagnant.
-7. **Dupliquer sur un 2ᵉ marché** (autre TCG) avec le même moteur.
+7. **Dupliquer sur une 2ᵉ profession** avec la même méthode de veille.
 8. **Passer à l'anglais** (cf. `08`) une fois le concept FR stabilisé.
 9. **Créer le produit** seulement quand l'audience a exprimé le problème.
 10. **Automatiser** ce qui est devenu répétitif — et pas avant.

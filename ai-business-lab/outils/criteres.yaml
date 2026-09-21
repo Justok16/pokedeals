@@ -1,0 +1,72 @@
+# Grille de notation du portefeuille — AI Business Lab
+#
+# Profil reel pris en compte : demarrage a ZERO. Aucun actif, aucune audience,
+# aucun revenu en ligne, 0 EUR de budget, 4 h/jour, travail sous pseudonyme,
+# francophone, pas de prospection commerciale manuelle.
+#
+# Chaque critere est note de 0 a 5 dans concepts.yaml. Une note haute veut
+# toujours dire "c'est mieux". Les poids traduisent la strategie :
+#   - priorite au revenu RECURRENT (le seul qui transforme un travail en actif),
+#   - priorite a l'AVANTAGE DEFENDABLE (ce que 1000 concurrents equipes d'IA ne
+#     peuvent pas copier en une semaine) : c'est le critere decisif en 2026,
+#   - priorite a la VITESSE DE VALIDATION (savoir vite qu'on se trompe),
+#   - forte prime a l'automatisation, penalite sur la dependance plateforme.
+#
+# Les poids sont un choix strategique explicite, pas une verite : les changer
+# ici rejoue immediatement tout le classement (python outils/scorer.py).
+
+criteres:
+  potentiel_audience:
+    poids: 2.0
+    sens: "5 = audience francophone potentielle large (>500k personnes concernees)"
+  croissance_demande:
+    poids: 2.0
+    sens: "5 = demande en croissance mesurable, ou declenchee par un evenement date"
+  valeur_commerciale:
+    poids: 3.0
+    sens: "5 = audience a fort pouvoir d'achat, CPM/RPM eleve, panier eleve"
+  concurrence_faible:
+    poids: 2.0
+    sens: "5 = peu de concurrents serieux sur le marche francophone"
+  facilite_production:
+    poids: 2.0
+    sens: "5 = productible par un debutant seul, avec l'IA, en moins de 2 h/jour"
+  cout_faible:
+    poids: 1.5
+    sens: "5 = lancable et tenable a 0 EUR"
+  affiliation:
+    poids: 2.0
+    sens: "5 = programmes nombreux, bien remuneres, idealement RECURRENTS"
+  produit_numerique:
+    poids: 2.0
+    sens: "5 = un produit numerique evident repond a un probleme deja exprime"
+  revenu_recurrent:
+    poids: 3.0
+    sens: "5 = abonnement / SaaS / affiliation recurrente credible"
+  international:
+    poids: 1.5
+    sens: "5 = duplicable en anglais sans refaire le produit"
+  durabilite:
+    poids: 2.0
+    sens: "5 = demande structurelle ; 1 = fenetre qui se referme ou mode courte"
+  independance_plateforme:
+    poids: 2.0
+    sens: "5 = l'actif survit si une plateforme ferme le robinet demain"
+  risque_juridique_faible:
+    poids: 1.5
+    sens: "5 = aucun domaine reglemente, aucun droit d'auteur sensible"
+  automatisation:
+    poids: 2.5
+    sens: "5 = 90%+ du travail recurrent executable par machine/IA sans risque"
+  avantage_defendable:
+    poids: 3.0
+    sens: >-
+      5 = un concurrent equipe des memes IA ne peut PAS copier en une semaine
+      (donnee propre, expertise verifiee, relation d'audience, effet de stock).
+      1 = reproductible par n'importe qui avec un prompt.
+  vitesse_validation:
+    poids: 2.5
+    sens: "5 = on sait en moins de 30 jours, a moins de 20 h investies, si ca marche"
+  revente_actif:
+    poids: 1.0
+    sens: "5 = actif revendable a un acheteur identifiable (multiple de benefice)"

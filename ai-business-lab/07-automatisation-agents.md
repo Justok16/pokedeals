@@ -15,7 +15,7 @@ risque**, jamais sur « c'est techniquement possible ». La plupart des projets
 ### AUTOMATISABLE — exécution complète par machine, sans relecture
 
 - Collecte des prix, stocks et précommandes (**déjà en production**).
-- Calcul de la cote et de l'historique (**déjà en production**).
+- Mise en forme et publication des pages du comparateur.
 - Génération des pages du comparateur.
 - Génération du brouillon de newsletter.
 - Génération des scripts vidéo à partir des deals du jour.
@@ -38,7 +38,7 @@ risque**, jamais sur « c'est techniquement possible ». La plupart des projets
 
 - **Les décisions KILL et SCALE.** Une machine qui décide seule d'arrêter ou
   d'amplifier optimise la métrique qu'on lui a donnée, pas la stratégie.
-- **Les accords avec les boutiques** et toute relation commerciale.
+- **Les accords de sponsoring** et toute relation commerciale.
 - **La ligne éditoriale** et ce qu'on refuse de publier.
 - **Les engagements juridiques et fiscaux.**
 - **Le support client payant** (A3) — et c'est précisément pourquoi A3 ne doit
@@ -46,12 +46,12 @@ risque**, jamais sur « c'est techniquement possible ». La plupart des projets
 
 ### À RISQUE — validation humaine systématique, sans exception
 
-- Toute **affirmation chiffrée publiée** (une cote fausse détruit la confiance
-  et l'actif : R9).
+- Toute **affirmation réglementaire ou chiffrée publiée** (une information
+  fausse sur une obligation légale détruit la confiance et l'actif : R3).
 - Tout contenu contenant un **lien d'affiliation** (mention obligatoire : R5).
 - Tout contenu utilisant des **visuels de cartes** (R3).
 - Tout vocabulaire touchant au **placement ou au rendement** (R7).
-- Toute **communication de crise** (erreur publiée, réclamation d'une boutique).
+- Toute **communication de crise** (erreur publiée, réclamation d'un éditeur).
 
 ## Les 15 agents
 
@@ -106,7 +106,7 @@ Les prompts des agents 1, 2, 4, 5, 6, 11 et 14 sont dans
 | Horizon | Temps humain quotidien | Ce qui l'occupe |
 |---|---|---|
 | Mois 1-3 | 4 h | Construction, tests, mesure |
-| Mois 4-6 | 2 h | Validation, décisions, relation boutiques |
+| Mois 4-6 | 2 h | Validation, décisions, relations annonceurs |
 | Mois 7-12 | 1-2 h | Revue, arbitrages, développement des actifs gagnants |
 
 La cible de 1-2 h/jour est atteignable **parce que** l'infrastructure de

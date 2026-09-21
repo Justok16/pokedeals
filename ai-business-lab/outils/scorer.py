@@ -121,12 +121,13 @@ AXE_VALEUR = [
     "produit_numerique",
     "revente_actif",
     "potentiel_audience",
+    "avantage_defendable",
 ]
 AXE_FAISABILITE = [
     "facilite_production",
     "cout_faible",
     "automatisation",
-    "levier_actif_existant",
+    "vitesse_validation",
     "concurrence_faible",
 ]
 

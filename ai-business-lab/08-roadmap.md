@@ -22,13 +22,13 @@ c'est un travail mal payé avec plus de risque.
 
 | Trimestre | Objectif | Signal de réussite | Signal d'échec (→ KILL) |
 |---|---|---|---|
-| **T1** (M1-3) | Mesurer. 3 concepts testés, 1 actif possédé amorcé | ≥ 300 inscrits newsletter, ≥ 3 accords boutiques, premiers euros | Aucun seuil atteint sur H1/H3/H4 → tout arrêter et repartir du Radar |
+| **T1** (M1-3) | Mesurer. 3 concepts testés, 1 actif possédé amorcé | ≥ 300 inscrits newsletter, ≥ 1 accord de sponsoring, premières conversions d'affiliation | Aucun seuil atteint sur H1/H3/H4 → tout arrêter et repartir du Radar |
 | **T2** (M4-6) | Concentrer. 1-2 concepts vivants, monétisation activée | ≥ 1 000 inscrits, ≥ 300 €/mois, marge > 80 % | Revenu nul à M6 malgré une audience → le problème est l'offre, pas l'audience |
 | **T3** (M7-9) | Rendre récurrent. Offre premium et/ou A3 | ≥ 30 % du revenu en récurrent | 0 abonné payant → H2 fausse, pivot vers B2B/affiliation |
 | **T4** (M10-12) | Dupliquer. 2ᵉ marché (B1) et/ou version anglophone | 2ᵉ source de revenu ≥ 20 % du total | Duplication qui divise l'attention sans revenu → revenir à un seul actif |
 
 **Cible de fin d'année (direction, pas promesse)** : une newsletter FR vivante,
-un comparateur indexé, 2 TCG couverts, 3 sources de revenus dont une récurrente,
+un comparateur indexé, une profession bien servie, 3 sources de revenus dont une récurrente,
 un tableau de bord économique automatique, un Niche Radar hebdomadaire, et
 **moins de 2 h de supervision par jour**.
 
@@ -44,13 +44,14 @@ Méthode, dans cet ordre :
    l'étape que tout le monde saute, et c'est celle qui détermine le résultat ;
 4. adapter le concept (pas seulement la langue) ;
 5. réécrire en anglais naturel, pas traduire ;
-6. adapter les références (boutiques, devises, habitudes d'achat) ;
+6. adapter les références (acteurs locaux, devises, cadre légal) ;
 7. mesurer **séparément** : compte séparé, tableau séparé, décision séparée.
 
-**Avertissement** : la cote FR est un avantage **parce qu'elle est française**.
-En anglais, on affronte des acteurs établis (TCGplayer, Collectr…) sans cet
-avantage. Conclusion : exporter **le moteur et la méthode** vers un marché
-anglophone mal servi, pas le même produit vers le marché le plus concurrentiel.
+**Avertissement** : une bonne part de l'avantage visé ici est **française par
+nature** — une réglementation, un marché de logiciels, une langue mal servie.
+En anglais, cet avantage disparaît et l'on affronte des acteurs installés.
+Conclusion : exporter **la méthode** vers un marché anglophone mal servi, pas le
+même contenu vers le marché le plus concurrentiel.
 
 ## Horizon 3-5 ans
 
@@ -59,12 +60,12 @@ propriétaire d'actifs.**
 
 | Étape | Ce qui change |
 |---|---|
-| **Portefeuille de médias de niche** | Plusieurs marchés de collection servis par le même moteur, chacun avec sa newsletter et son comparateur |
+| **Portefeuille de médias de niche** | Plusieurs professions servies par la même méthode, chacune avec sa newsletter et son comparateur |
 | **Portefeuille de produits** | Offres récurrentes adossées à chaque audience, jamais créées avant le problème |
 | **Portefeuille de logiciels** | A3 étendu ; éventuellement D2 si la demande a été prouvée |
 | **Acquisitions** | Racheter un petit site ou une newsletter de niche déjà monétisée coûte souvent moins cher que la construire — à envisager **uniquement** avec du cash-flow existant |
 | **Internationalisation** | Marchés anglophones mal servis, pas les plus concurrentiels |
-| **Équipe minimale** | 1 à 2 personnes en soutien (support, relation boutiques) — jamais pour produire du contenu |
+| **Équipe minimale** | 1 à 2 personnes en soutien (support, relations annonceurs) — jamais pour produire du contenu |
 | **Actifs revendables** | Un site SEO, une newsletter et un SaaS se cèdent ; une chaîne faceless générique, beaucoup plus difficilement |
 
 ## Règles de réinvestissement
@@ -87,8 +88,8 @@ quelles heures économisées, en combien de temps ?** Si la réponse est
 
 | Scénario | Probabilité [OPINION] | Ce que ça veut dire | Réaction prévue |
 |---|---|---|---|
-| **Échec complet** (aucun seuil atteint) | ~25 % | L'audience TCG FR ne se monétise pas comme prévu | Arrêter, garder le moteur, repartir du Radar sur un autre marché |
-| **Revenu modeste** (100-500 €/mois) | ~45 % | Le modèle fonctionne mais l'audience est trop petite | Dupliquer sur d'autres TCG (B1) plutôt que d'exploiter davantage la même |
+| **Échec complet** (aucun seuil atteint) | ~25 % | La profession choisie ne se monétise pas comme prévu | Changer de profession avant d'abandonner la méthode ; repartir du Radar |
+| **Revenu modeste** (100-500 €/mois) | ~45 % | Le modèle fonctionne mais l'audience est trop petite | Dupliquer sur une 2ᵉ profession plutôt que de sur-exploiter la première |
 | **Traction réelle** (500-2 000 €/mois, dont récurrent) | ~25 % | Le cœur de la thèse est validé | Amplifier : A3 + international + 2ᵉ marché |
 | **Forte traction** (> 2 000 €/mois) | ~5 % | Un actif est né | Structurer (société, soutien humain), et commencer à penser revente ou acquisition |
 

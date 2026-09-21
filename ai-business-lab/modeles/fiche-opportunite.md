@@ -47,8 +47,12 @@ En euros et **en heures humaines par semaine**.
 ## DIFFICULTÉ D'AUTOMATISATION
 Quelle part est automatisable, semi-automatisable, humaine, à risque ?
 
-## LEVIER SUR L'EXISTANT
-Que réutilise-t-on de ce qui tourne déjà ? (Si « rien » : la barre monte.)
+## AVANTAGE DÉFENDABLE
+Qu'est-ce qu'un concurrent équipé des mêmes IA ne peut PAS copier en une
+semaine ? (Si la réponse est « rien » : archiver, quel que soit le potentiel.)
+
+## VITESSE DE VALIDATION
+En combien de temps, et pour combien d'heures, saura-t-on qu'on se trompe ?
 
 ## COÛT D'OPPORTUNITÉ
 Qu'arrête-t-on pour prendre ça ?

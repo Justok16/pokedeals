@@ -61,20 +61,24 @@ développé), réutilisera le radar de précommandes génériques de ce scraper
 (détection de n'importe quel produit scellé Pokémon en précommande, pas
 seulement une liste connue à l'avance) via un pont Supabase dédié.
 
-## `strategie/` — dossier stratégique AI Business Lab
+## `ai-business-lab/` — dossier stratégique (projet indépendant)
 
-Étude de marché datée, portefeuille de 15 concepts classés par un score
-**calculé** (code + données + tests dans `strategie/outils/`), plan
-d'exécution sur 90 jours, règles de KILL/SCALE, registre des risques et
-architecture d'agents. Point de départ : `strategie/README.md`.
+**Sans rapport avec PokéDeals.** Dossier stratégique d'un projet distinct :
+construire, en partant de zéro et à budget nul, un portefeuille de business
+numériques automatisés par IA sur le marché francophone.
 
-Conclusion principale : le portefeuille se construit **autour de l'actif
-existant** (moteur de veille, base de cotes, 83+ boutiques, infrastructure
-GitHub Actions à 0 €), pas à partir d'une niche choisie de zéro.
+Il contient une étude de marché datée et sourcée, un portefeuille de 15
+concepts classés par un score **calculé** (code, données et tests dans
+`ai-business-lab/outils/`), un plan d'exécution sur 90 jours, des règles de
+décision (KILL/SCALE), un registre des risques et une architecture d'agents.
+Point de départ : `ai-business-lab/README.md`.
+
+Il est hébergé ici faute d'un dépôt dédié ; le dossier est autonome et peut
+être déplacé tel quel dans son propre dépôt.
 
 ```bash
-cd strategie/outils
-python scorer.py            # rejoue le classement du portefeuille
+cd ai-business-lab/outils
+python scorer.py             # rejoue le classement du portefeuille
 python -m pytest tests/      # vérifie le moteur de scoring
 ```
 
@@ -84,5 +88,5 @@ python -m pytest tests/      # vérifie le moteur de scoring
 .
 ├── .github/workflows/   # workflows CI/CD (cron du scraper + tests)
 ├── scraper/              # bot Python de veille de prix (production)
-└── strategie/            # dossier stratégique (étude, portefeuille, scoring)
+└── ai-business-lab/      # dossier stratégique d'un projet indépendant
 ```
