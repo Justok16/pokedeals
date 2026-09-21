@@ -53,6 +53,26 @@ vaut mieux qu'aucun message d'accueil.
 
 ---
 
+## À reprendre — email de bienvenue (22/09/2026, 1h10)
+
+Le brouillon d'automatisation existe dans beehiiv, avec le bon déclencheur
+(« Signed up »). **Il lui manque l'étape « Send email »**, et l'éditeur
+n'affiche pas son bouton d'ajout d'étape sur téléphone : le brouillon se crée,
+mais il ne peut pas se terminer depuis un mobile.
+
+**À finir sur ordinateur**, où l'éditeur est complet :
+
+1. https://app.beehiiv.com/automations → ouvrir le brouillon
+2. Sous « Conditions » (à laisser vide), ajouter une étape → **Send email**
+3. Coller l'objet et le corps depuis `lancement/email-de-bienvenue.md`
+4. **Publish** — une automatisation enregistrée mais non publiée ne se
+   déclenche jamais
+5. Tester avec `justokseize+test2@gmail.com`
+
+Tant que ce n'est pas fait, un nouvel inscrit ne reçoit rien.
+
+---
+
 ## Les vérifications récurrentes
 
 | Quoi | Quand | Pourquoi |
