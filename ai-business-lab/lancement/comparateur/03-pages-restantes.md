@@ -1,7 +1,13 @@
-# Les pages restantes du premier lot
+# Les pages restantes du premier lot — plan d'origine
 
-> Six pages, rédigées en plan détaillé avec leurs données et leur angle. Chacune
-> se rédige en 30 à 60 minutes à partir d'ici.
+> **Ces pages sont désormais rédigées.** Ce document reste comme trace de
+> l'angle et des données retenus pour chacune :
+> - pages 4 à 7 → [`04-comparatifs.md`](04-comparatifs.md)
+> - page 8 (outils IA) → [`05-outils-ia-protocole.md`](05-outils-ia-protocole.md),
+>   volontairement sous forme de **protocole de test** : elle ne peut pas être
+>   écrite sans avoir essayé les outils
+> - pages 9 à 12 (obligations) → [`06-pages-obligations.md`](06-pages-obligations.md),
+>   avec les faits désormais **vérifiés**
 >
 > Elles complètent la page pilier
 > ([`01-cout-reel-boutique.md`](01-cout-reel-boutique.md)) et les fiches

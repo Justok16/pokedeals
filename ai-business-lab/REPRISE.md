@@ -39,7 +39,7 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 - [x] Moteur de classement + 10 tests, vert en CI (`outils/`)
 - [x] Kit de lancement de la verticale (`lancement/`)
 - [x] Les 4 premiers numéros rédigés intégralement (`lancement/numeros/`)
-- [x] Comparateur : méthodologie, page pilier et fiches plateformes (`lancement/comparateur/`)
+- [x] Comparateur : 12 pages rédigées — méthodologie, page pilier, fiches plateformes, comparatifs, protocole IA, pages obligations (`lancement/comparateur/`)
 - [x] Journal des vérifications réglementaires ouvert (`lancement/verifications.md`)
 - [x] Arborescence autonome préparée (`.gitignore`, `.github/workflows/tests.yml`, chemins racine)
 
@@ -87,9 +87,14 @@ travail existe.
       `lancement/comparateur/` : méthodologie publiée, page pilier chiffrée
       (le calcul complet du coût réel d'une boutique), 3 fiches plateformes,
       et plan détaillé des 6 pages restantes.
-- [ ] Rédiger les 6 pages restantes du comparateur à partir de
-      `lancement/comparateur/03-pages-restantes.md` (tout y est : angle, données,
-      calculs). **Prochaine tâche par défaut.**
+- [x] ~~Rédiger les pages restantes du comparateur~~ — fait le 21/09/2026.
+      Douze pages au total dans `lancement/comparateur/`.
+- [ ] **Prochaine tâche par défaut** : exécuter le protocole de test des outils
+      d'IA (`lancement/comparateur/05-outils-ia-protocole.md`) — c'est la seule
+      page qui ne peut pas être écrite sans essayer réellement les outils, et
+      c'est la plus difficile à copier pour un concurrent.
+- [ ] Ouvrir manuellement les textes sur Légifrance et EUR-Lex (bloqués depuis
+      cet environnement) pour clore les `[À CONFIRMER]` restants.
 - [~] Vérifier chaque fait réglementaire sur sa **source officielle** (règle R3).
       **Commencé le 21/09/2026**, journal dans `lancement/verifications.md` :
       rétractation en ligne, TVA OSS/IOSS et calendrier de facturation
