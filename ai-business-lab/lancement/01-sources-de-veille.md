@@ -13,7 +13,8 @@ Trois niveaux, et **seul le niveau 1 peut être publié comme un fait** :
   sujet, jamais pour l'affirmer.
 
 **Procédure obligatoire** : tout fait repéré en niveau 2 ou 3 doit être retrouvé
-en niveau 1 avant d'entrer dans un numéro. Sinon on écrit « annoncé par X, non
+en niveau 1 avant d'entrer dans un numéro. Le résultat de chaque contrôle est
+consigné dans [`verifications.md`](verifications.md). Sinon on écrit « annoncé par X, non
 confirmé à ce jour au JO », avec la date.
 
 ## Sources à suivre

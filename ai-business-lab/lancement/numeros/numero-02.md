@@ -15,10 +15,11 @@ européenne.
 
 ## 1. Ce qui change
 
-Il existe un **seuil de 10 000 €** pour les ventes à distance B2C réalisées vers
-l'ensemble des autres pays de l'UE. En dessous, vous appliquez en principe la
-TVA française. Au-dessus, la règle bascule : c'est la TVA **du pays du client**
-qui s'applique. `[VÉRIFIER : formulation exacte et modalités d'option]`
+Il existe un **seuil de 10 000 €** pour les ventes à distance intracommunautaires
+de biens à des consommateurs. En dessous — régime dit des petits opérateurs — la
+vente reste soumise à la **TVA française**. Au-dessus, la règle bascule : c'est
+la TVA **du pays du client** qui s'applique.
+*(Vérifié le 21/09/2026 sur impots.gouv.fr — cf. [`../verifications.md`](../verifications.md).)*
 
 Deux pièges reviennent constamment :
 
@@ -29,8 +30,13 @@ Deux pièges reviennent constamment :
    On s'en aperçoit souvent bien après.
 
 Pour éviter de s'immatriculer dans chaque pays, il existe un guichet unique —
-l'**OSS** — qui permet de tout déclarer depuis la France. Pour les biens importés
-de faible valeur, c'est l'**IOSS**. `[VÉRIFIER : conditions et seuils en vigueur]`
+l'**OSS** — qui permet de déclarer et payer en une seule déclaration, depuis
+votre espace professionnel, la TVA due dans les autres pays de l'UE. Pour les
+biens **importés** de pays tiers d'une **valeur intrinsèque inférieure à
+150 €**, c'est l'**IOSS**.
+
+Le guichet concerne tous les assujettis, **quel que soit leur régime
+d'imposition à la TVA**. *(Vérifié le 21/09/2026 sur impots.gouv.fr.)*
 
 **Ce que vous avez à faire cette semaine** : additionner vos ventes UE hors
 France sur les 12 derniers mois. C'est un export de commandes et une somme.

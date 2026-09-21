@@ -40,6 +40,7 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 - [x] Kit de lancement de la verticale (`lancement/`)
 - [x] Les 4 premiers numéros rédigés intégralement (`lancement/numeros/`)
 - [x] Comparateur : méthodologie, page pilier et fiches plateformes (`lancement/comparateur/`)
+- [x] Journal des vérifications réglementaires ouvert (`lancement/verifications.md`)
 - [x] Arborescence autonome préparée (`.gitignore`, `.github/workflows/tests.yml`, chemins racine)
 
 ---
@@ -89,8 +90,12 @@ travail existe.
 - [ ] Rédiger les 6 pages restantes du comparateur à partir de
       `lancement/comparateur/03-pages-restantes.md` (tout y est : angle, données,
       calculs). **Prochaine tâche par défaut.**
-- [ ] Vérifier chaque fait réglementaire cité sur sa **source officielle** avant
-      toute publication (règle R3). Les faits collectés sont en niveau 2/3.
+- [~] Vérifier chaque fait réglementaire sur sa **source officielle** (règle R3).
+      **Commencé le 21/09/2026**, journal dans `lancement/verifications.md` :
+      rétractation en ligne et TVA OSS/IOSS vérifiées ; DSA et calendrier de
+      facturation électronique encore ouverts. Légifrance et EUR-Lex sont
+      **bloqués par le proxy réseau** de cet environnement : les textes doivent
+      être ouverts manuellement avant publication.
 
 ---
 

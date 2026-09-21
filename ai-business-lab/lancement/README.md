@@ -143,6 +143,9 @@ réexaminer — c'est votre propre critère.
 
 ## Plan des 30 premiers jours
 
+> **Avant tout envoi** : lever les marqueurs `[VÉRIFIER]`. L'état des
+> vérifications est tenu à jour dans [`verifications.md`](verifications.md).
+
 ### Jours 1-7 — préparation, rien de public
 1. Compte beehiiv + **page d'inscription seule** en ligne.
 2. S'inscrire au **programme partenaire Shopify** et aux programmes satellites :

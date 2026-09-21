@@ -51,6 +51,7 @@ n'apprend rien.
 
 **Format B — L'obligation (11-20)**
 11. Depuis le 19/06/2026, la rétractation doit pouvoir se faire en ligne
+    *(vérifié — art. L221-21 c. consom. ; s'applique à toute boutique, sans seuil de CA)*
 12. Le seuil de TVA à 10 000 € pour les ventes dans l'UE
 13. OSS, IOSS : lequel vous concerne
 14. Dropshipping importé : qui paie la TVA

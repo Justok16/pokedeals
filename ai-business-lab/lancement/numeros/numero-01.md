@@ -18,19 +18,32 @@ Des faits, leurs sources, et ce que vous avez à faire.
 
 ## 1. Ce qui change
 
-Depuis le **19 juin 2026**, les sites de vente en ligne doivent proposer un
-**mécanisme simplifié permettant au client d'exercer son droit de rétractation
-directement en ligne** — concrètement, un bouton ou une fonction dédiée, et non
-plus seulement une adresse email ou un formulaire papier à renvoyer.
-`[VÉRIFIER : texte exact, périmètre des sites concernés, sanctions prévues]`
+Depuis le **19 juin 2026**, tout professionnel qui conclut des contrats à
+distance avec des consommateurs **via une interface en ligne** doit mettre à
+disposition une **fonction de rétractation** dédiée, **gratuite**, visible,
+directement accessible, et disponible **pendant toute la durée du délai de
+rétractation**. Le libellé attendu est « renoncer au contrat ici » ou une
+formule équivalente sans ambiguïté.
 
-**Ce que vous avez à faire** : ouvrir votre boutique comme un client, et
-chercher comment vous feriez pour annuler une commande. Si la réponse est
-« écrire à contact@ », vous n'êtes probablement pas à jour.
+Base légale : **article L221-21 du code de la consommation**, issu de
+l'**ordonnance n° 2026-2** et du **décret n° 2026-3 du 5 janvier 2026**, qui
+transposent la **directive (UE) 2023/2673** (nouvel article 11 bis de la
+directive 2011/83/UE).
 
-La plupart des plateformes proposent désormais un module ou une page dédiée.
-Sur certaines, l'activation n'est pas automatique : elle a été ajoutée, mais
-reste désactivée par défaut.
+**Le détail que presque personne ne relève** : cette directive porte sur les
+**services financiers** à distance. Beaucoup en ont conclu que leur boutique
+n'était pas concernée. C'est faux : l'article qu'elle insère a une portée plus
+large et vise **tous les contrats à distance conclus via une interface en
+ligne** ouvrant droit à rétractation. Si un seul produit de votre catalogue
+ouvre ce droit, la fonction devient obligatoire.
+
+**Ce que vous avez à faire** : ouvrir votre boutique comme un client et chercher
+comment vous feriez pour annuler une commande. Si la réponse est « écrire à
+contact@ », vous n'êtes pas à jour.
+
+Sanctions rapportées : amende administrative pouvant aller jusqu'à **75 000 €**,
+et **délai de rétractation prolongé à 12 mois** en l'absence de dispositif.
+`[VÉRIFIER : montant et mécanisme exacts de la sanction]`
 
 `[LIEN vers la source officielle]`
 
@@ -75,7 +88,11 @@ Deux situations différentes. Sur la marketplace, c'est en général l'opérateu
 qui porte l'interface de rétractation. Sur **votre propre site**, c'est vous,
 même si votre volume principal passe ailleurs. Beaucoup de vendeurs mixtes sont
 à jour côté marketplace et pas du tout côté boutique.
-`[VÉRIFIER : répartition exacte des responsabilités]`
+`[VÉRIFIER : répartition exacte des responsabilités entre vendeur et opérateur
+de place de marché]`
+
+À noter : l'obligation s'applique **sans seuil de chiffre d'affaires**. Une
+boutique qui vend 3 000 € par an est concernée au même titre qu'une autre.
 
 ---
 
@@ -108,6 +125,13 @@ est non, ce n'est pas urgent cette semaine — mais ça le deviendra.
 - Le bloc 2 cite Shopify sans lien : c'est une observation de marché, pas une
   recommandation. Le passage au lien d'affiliation se fera dans le numéro 4,
   une fois la crédibilité installée.
-- Trois marqueurs `[VÉRIFIER]` portent sur du réglementaire : **bloquants**.
-  Si le texte du 19/06/2026 ne se retrouve pas en source officielle, le bloc 1
-  est remplacé, pas nuancé — et le numéro 2 passe en première position.
+- **Bloc 1 vérifié le 21/09/2026** (cf. [`../verifications.md`](../verifications.md)) :
+  base légale confirmée, champ d'application confirmé, y compris la nuance sur
+  la portée au-delà des services financiers — c'est l'élément le plus
+  différenciant du numéro, parce que c'est exactement là que la concurrence se
+  trompe. Restent à confirmer : le montant de la sanction et la répartition des
+  responsabilités en place de marché.
+- Ne pas publier les 75 000 € tant qu'ils ne sont pas confirmés en source
+  officielle. Si le doute persiste, écrire « des sanctions administratives sont
+  prévues » sans chiffre : une sanction surévaluée dans un premier numéro
+  décrédibilise tout le reste.
