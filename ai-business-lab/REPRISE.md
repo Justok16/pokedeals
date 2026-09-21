@@ -39,6 +39,7 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 - [x] Moteur de classement + 10 tests, vert en CI (`outils/`)
 - [x] Kit de lancement de la verticale (`lancement/`)
 - [x] Les 4 premiers numéros rédigés intégralement (`lancement/numeros/`)
+- [x] Les 30 scripts de contenus courts rédigés (`lancement/contenus/`)
 - [x] Comparateur : 12 pages rédigées — méthodologie, page pilier, fiches plateformes, comparatifs, protocole IA, pages obligations (`lancement/comparateur/`)
 - [x] Journal des vérifications réglementaires ouvert (`lancement/verifications.md`)
 - [x] Arborescence autonome préparée (`.gitignore`, `.github/workflows/tests.yml`, chemins racine)
@@ -89,12 +90,17 @@ travail existe.
       et plan détaillé des 6 pages restantes.
 - [x] ~~Rédiger les pages restantes du comparateur~~ — fait le 21/09/2026.
       Douze pages au total dans `lancement/comparateur/`.
-- [ ] **Prochaine tâche par défaut** : exécuter le protocole de test des outils
-      d'IA (`lancement/comparateur/05-outils-ia-protocole.md`) — c'est la seule
-      page qui ne peut pas être écrite sans essayer réellement les outils, et
-      c'est la plus difficile à copier pour un concurrent.
-- [ ] Ouvrir manuellement les textes sur Légifrance et EUR-Lex (bloqués depuis
-      cet environnement) pour clore les `[À CONFIRMER]` restants.
+- [ ] **DÉPEND DE L'UTILISATEUR** : exécuter le protocole de test des outils d'IA
+      (`lancement/comparateur/05-outils-ia-protocole.md`). Il exige un **vrai
+      catalogue produit** et l'usage réel des outils — une session Claude ne peut
+      pas le faire à sa place, et surtout ne doit pas l'inventer : toute la valeur
+      de cette page tient au fait que les résultats sont réels.
+      **Ne pas reprendre cette tâche automatiquement.**
+- [ ] **DÉPEND DE L'UTILISATEUR** : ouvrir les textes sur Légifrance et EUR-Lex
+      (bloqués par le proxy réseau ici) pour clore les `[À CONFIRMER]` restants.
+- [ ] **Prochaine tâche par défaut** : faire tourner le Niche Radar une première
+      fois (`04-niche-radar.md`) et produire 1 à 3 fiches d'opportunité dans
+      `opportunites/`. C'est le seul système décrit qui n'a jamais été exécuté.
 - [~] Vérifier chaque fait réglementaire sur sa **source officielle** (règle R3).
       **Commencé le 21/09/2026**, journal dans `lancement/verifications.md` :
       rétractation en ligne, TVA OSS/IOSS et calendrier de facturation

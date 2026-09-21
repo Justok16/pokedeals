@@ -1,5 +1,8 @@
 # 05 — Les 30 contenus courts (test H4)
 
+> **Les 30 scripts sont rédigés** : [`contenus/`](contenus/) — un fichier par
+> format, hook, corps, chute et carton de source pour chacun.
+
 ## Ce qu'on teste, exactement
 
 **H4** : un sujet B2B concret (coûts, obligations, outils) peut-il acquérir une
