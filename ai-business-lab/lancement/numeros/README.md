@@ -13,8 +13,10 @@ Six numéros rédigés intégralement, dans la structure fixe arrêtée dans
 3. **Garder la mention « Publicité »** partout où figure un lien d'affiliation.
    Elle est déjà écrite dans les modèles : ne jamais la supprimer, même si le
    bloc paraît informatif (loi n° 2023-451 : jusqu'à 2 ans et 300 000 €).
-4. **Remplacer `[NOM]`** par le nom retenu une fois sa disponibilité vérifiée
-   (domaine + antériorité INPI).
+4. **Le nom est arrêté : `DigCost`** (21/09/2026). Il est déjà en place dans les
+   six numéros. Reste à confirmer, avant mise en ligne : disponibilité réelle du
+   domaine chez un registrar, et absence d'antériorité INPI en classes 35/41 —
+   ni l'une ni l'autre n'a pu être vérifiée depuis l'environnement de travail.
 5. **Dater chaque affirmation réglementaire** dans le texte envoyé.
 
 ## Ordre et rythme — **révisé le 21/09/2026 après le test 01**

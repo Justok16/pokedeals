@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+<meta name="description" content="{{ page.description | default: site.description }}">
+<link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+{% if page.canonical %}<link rel="canonical" href="{{ page.canonical }}">{% endif %}
+</head>
+<body>
+<header class="bandeau">
+  <a class="marque" href="{{ '/' | relative_url }}">DigCost</a>
+  <nav>
+    <a href="{{ '/fr/cout-reel-boutique/' | relative_url }}">Le coût réel</a>
+    <a href="{{ '/fr/methode/' | relative_url }}">Méthode</a>
+    <a href="{{ '/en/' | relative_url }}" hreflang="en">EN</a>
+  </nav>
+</header>
+
+<main>
+  {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
+  {% if page.verifie %}<p class="fraicheur">Dernière vérification&nbsp;: <strong>{{ page.verifie }}</strong></p>{% endif %}
+  {{ content }}
+</main>
+
+<footer>
+  <p><strong>DigCost</strong> — le coût réel des outils e-commerce, calculé et sourcé.</p>
+  <p class="petit">Aucune place dans les comparatifs n'est achetable. La méthode de
+  classement est <a href="{{ '/fr/methode/' | relative_url }}">publiée</a>.
+  Ce site n'est pas un cabinet de conseil et ne donne aucun avis juridique.</p>
+</footer>
+</body>
+</html>

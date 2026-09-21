@@ -136,6 +136,42 @@ reste **zéro**. `12-peut-on-devenir-riche.md` n'est **pas** révisé.
 
 ---
 
+## NOM ARRÊTÉ ET SITE CONSTRUIT — 21/09/2026
+
+**Nom retenu : `DigCost`.** En place dans tous les fichiers (13 occurrences
+remplacées). « Dig » seul avait été proposé puis écarté : `dig.com`, `dig.fr`,
+`dig.io`, `getdig.com` et `usedig.com` résolvent tous, et surtout « Dig » seul
+est **inchercheable** — or depuis le virage patrimoine le SEO est toute
+l'acquisition.
+
+**Site construit** dans `site/` : GitHub Pages, **aucune étape de build**, 0 €.
+Page pilier (le coût réel), méthode de classement, accueil FR, structure
+anglophone en place. Détail et procédure : `site/README.md`.
+
+### ⛔ DEUX VÉRIFICATIONS AVANT D'ACTIVER PAGES — dépendent de l'utilisateur
+
+1. **Les tarifs de la page pilier.** Relevés le 26/08/2026 sur sources
+   secondaires ; les grilles changent plusieurs fois par an. Un tarif faux se
+   vérifie en trente secondes par un lecteur — c'est le seul type d'erreur dont
+   ce site ne se remettrait pas.
+2. **La disponibilité de `digcost.com` / `.fr`** chez un registrar, plus
+   l'antériorité INPI en classes 35/41. Le DNS ne résout pas, mais **un domaine
+   peut être déposé sans être hébergé** : ce n'est pas une preuve.
+
+### Limite connue, écrite pour ne pas être redécouverte
+
+Les liens internes sont en chemins **absolus** (`/fr/methode/`). Ils cassent si
+le site est servi sous `github.io/<dépôt>/`. Correctif dans `site/README.md` :
+soit un domaine propre, soit `baseurl` + préfixage des liens. Le site est écrit
+pour vivre **à la racine d'un domaine**.
+
+### Ne pas porter les 13 pages du comparateur maintenant
+
+La page pilier et la méthode suffisent à tester si le trafic vient. Les
+suivantes s'ajoutent quand on sait que le site a des lecteurs.
+
+---
+
 ## PRIORITÉ N° 1 — faire juger le produit, pas l'administratif
 
 **Ajouté le 21/09/2026, après comparaison avec une exécution externe du même

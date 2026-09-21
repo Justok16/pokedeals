@@ -129,7 +129,7 @@ semaine.
 ---
 
 À mardi prochain,
-**[NOM]**
+**DigCost**
 
 *Vous recevez cet email parce que vous vous êtes inscrit sur [SITE].*
 *[Se désinscrire] — un clic, sans justification.*

@@ -60,7 +60,7 @@ continuer à occuper une place dans votre quota. Nettoyer sa liste fait parfois
 baisser la facture d'une tranche entière, sans perdre un seul client réel.
 
 *Publicité — ce paragraphe contient un lien d'affiliation : si vous souscrivez
-via ce lien, [NOM] perçoit une commission, sans surcoût pour vous. Cela ne
+via ce lien, DigCost perçoit une commission, sans surcoût pour vous. Cela ne
 change ni le classement ni les réserves émises.* `[LIEN]`
 
 ---
@@ -102,7 +102,7 @@ franchi le seuil et opté pour le guichet, la prochaine échéance vous concerne
 ---
 
 À mardi prochain,
-**[NOM]**
+**DigCost**
 
 *[Se désinscrire] — un clic, sans justification.*
 

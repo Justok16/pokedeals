@@ -1,0 +1,23 @@
+# DigCost — site statique, rendu par GitHub Pages sans etape de build.
+title: DigCost
+description: >-
+  Le cout reel des outils e-commerce, calcule et source. Pas de methode pour
+  devenir riche, pas de capture d'ecran de chiffre d'affaires.
+lang: fr
+
+# Laisser vide tant que le site est servi depuis github.io/<depot>.
+# GitHub Pages renseigne baseurl automatiquement pour un depot de projet.
+url: ""
+
+# Kramdown + le theme minimal : aucune dependance a installer.
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+exclude:
+  - README.md
+
+defaults:
+  - scope: { path: "" }
+    values: { layout: "default" }

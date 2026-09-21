@@ -31,6 +31,7 @@
 | [`outils/`](outils/) | Le moteur de scoring (code + données + tests) |
 | [`modeles/`](modeles/) | Fiche opportunité, fiche de test, prompts d'agents, modèle de tableau de bord |
 | [`lancement/`](lancement/) | **Kit de lancement de la verticale choisie (e-commerçants français)** : démonstration du choix, sources de veille, **6 numéros rédigés**, 13 pages de comparateur, affiliation récurrente, 31 contenus courts |
+| [**`site/`**](site/) | **Le site DigCost**, prêt à mettre en ligne sur GitHub Pages (0 €) : page pilier, méthode, structure `/fr/` + `/en/`. Deux vérifications à faire avant d'activer — voir son README |
 | [`opportunites/`](opportunites/) | Sorties du Niche Radar : 3 fiches, 3 décisions |
 
 ---

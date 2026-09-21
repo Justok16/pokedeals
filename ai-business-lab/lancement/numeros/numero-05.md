@@ -113,7 +113,7 @@ Onze mois. Trois étapes, dans cet ordre :
 ---
 
 À mardi prochain,
-**[NOM]**
+**DigCost**
 
 *[Se désinscrire] — un clic, sans justification.*
 

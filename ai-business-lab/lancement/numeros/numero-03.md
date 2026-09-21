@@ -66,7 +66,7 @@ Trois choses à regarder avant d'en installer une, dans cet ordre :
 Le troisième point est celui qu'on regarde le moins et qui coûte le plus cher
 à long terme.
 
-*Publicité — ce paragraphe contient un lien d'affiliation : [NOM] perçoit une
+*Publicité — ce paragraphe contient un lien d'affiliation : DigCost perçoit une
 commission si vous souscrivez, sans surcoût pour vous. Les réserves ci-dessus
 s'appliquent à cet outil comme aux autres.* `[LIEN]`
 
@@ -125,7 +125,7 @@ La deuxième est celle qui coûte cher si on la découvre en août 2027.
 ---
 
 À mardi prochain,
-**[NOM]**
+**DigCost**
 
 *[Se désinscrire] — un clic, sans justification.*
 

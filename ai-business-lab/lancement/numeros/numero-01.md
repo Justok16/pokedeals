@@ -7,7 +7,7 @@
 
 Bonjour,
 
-Vous recevez le premier numéro de **[NOM]**. Le principe tient en une ligne :
+Vous recevez le premier numéro de **DigCost**. Le principe tient en une ligne :
 chaque mardi, cinq minutes pour ne rien rater de ce qui change pour votre
 boutique — et ne pas payer vos outils plus cher que nécessaire.
 
@@ -115,7 +115,7 @@ est non, ce n'est pas urgent cette semaine — mais ça le deviendra.
 ---
 
 À mardi prochain,
-**[NOM]**
+**DigCost**
 
 *Vous recevez cet email parce que vous vous êtes inscrit sur [SITE].*
 *[Se désinscrire] — un clic, sans justification.*

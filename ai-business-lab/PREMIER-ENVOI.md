@@ -26,20 +26,27 @@ Une seule question : **est-ce que je m'abonnerais à ça ?**
 
 ---
 
-## Étape 1 — le nom (15 min)
+## Étape 1 — le nom : **fait le 21/09/2026**
 
-Le projet s'appelle `[NOM]` partout dans les fichiers. Il en faut un vrai.
+Le nom retenu est **DigCost**. Il est déjà en place dans tous les fichiers.
 
-**Contraintes** : prononçable, pas de promesse de revenu dans le nom, disponible
-en `.fr` ou `.com`, et **aucune antériorité INPI** sur les classes 35/41.
+**Pourquoi celui-là** : « Dig » seul était indisponible — `dig.com`, `dig.fr`,
+`dig.io`, `getdig.com` et `usedig.com` résolvent tous. Plus grave, « Dig » seul
+est **inchercheable** : la requête renvoie du jardinage, de l'archéologie et la
+commande DNS. Or depuis le virage patrimoine, le SEO **est** toute
+l'acquisition. `DigCost` garde la métaphore (creuser le vrai prix), dit ce que
+fait le site, et se prononce en anglais comme en français — ce qui compte pour
+la version anglophone du mois 6.
 
-**À vérifier**, dans cet ordre :
-1. `nom.fr` et `nom.com` libres — n'importe quel registrar ;
-2. base **INPI** (recherche de marques, gratuite) ;
-3. la chaîne exacte dans un moteur de recherche.
+**Deux vérifications restent à faire, et elles n'ont pas pu l'être ici :**
+1. **Disponibilité réelle** chez un registrar. `digcost.com` et `digcost.fr` ne
+   résolvent pas, mais **un domaine peut être déposé sans être hébergé** — ce
+   n'est donc pas une preuve.
+2. **Antériorité INPI**, classes 35 et 41 (base de recherche gratuite).
 
-Quand c'est arrêté : remplacer `[NOM]` dans les six numéros. C'est un
-rechercher-remplacer.
+**Vous n'avez pas besoin d'acheter le domaine pour démarrer** : GitHub Pages
+fournit une adresse gratuite. Le domaine s'achète quand il y a du trafic à
+protéger.
 
 ---
 

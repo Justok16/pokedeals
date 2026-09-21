@@ -53,7 +53,7 @@ le classement selon que vous faites 20 000 € ou 90 000 € de chiffre d'affair
 J'ai mis le calcul complet, poste par poste et outil par outil, dans un
 comparatif à part : `[LIEN vers le comparateur]`
 
-*Publicité — ce comparatif contient des liens d'affiliation. [NOM] perçoit une
+*Publicité — ce comparatif contient des liens d'affiliation. DigCost perçoit une
 commission si vous souscrivez, sans surcoût pour vous. La méthode de
 classement est publiée sur la page, et aucune place n'y est achetable.*
 
@@ -126,7 +126,7 @@ information.
 ---
 
 À mardi prochain,
-**[NOM]**
+**DigCost**
 
 *[Se désinscrire] — un clic, sans justification.*
 
