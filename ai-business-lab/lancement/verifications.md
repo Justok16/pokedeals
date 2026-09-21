@@ -248,6 +248,50 @@ Sources consultées : voir la fiche radar
 
 ---
 
+## ✅ Vérifié — Frais de paiement Shopify France (page pilier)
+
+**Vérifié le 21/09/2026, sur `shopify.com/fr/tarifs` — SOURCE OFFICIELLE.**
+
+Première vérification du dossier menée sur la source primaire de l'éditeur, par
+captures d'écran de l'utilisateur (le domaine est bloqué par le proxy réseau de
+l'environnement de travail).
+
+**Confirmé, et conforme à ce qui avait été écrit :**
+
+| | Basic | Grow | Advanced | Plus |
+|---|---|---|---|---|
+| Cartes standard en ligne | **1,5 % + 0,25 €** | 1,3 % + 0,25 € | 1,1 % + 0,25 € | 1 % + 0,25 € |
+| **Frais de transaction tiers** | **2 %** | 1 % | 0,6 % | 0,2 % |
+
+Les deux chiffres qui portent toute la démonstration de la page pilier sont donc
+**exacts**. C'est le premier fait du dossier vérifié en source primaire.
+
+**Découvert à cette occasion, et absent de la page initiale :**
+
+- **Amex et cartes internationales : 2,7 % + 0,25 €** sur Basic — soit **1,8 fois**
+  le taux standard. Le « 1,5 % » est donc un **plancher**, pas une moyenne.
+- **PayPal** : à partir de 2,9 % + 0,35 €. **Klarna : 4,99 % + 0,35 €** (× 3,3).
+  **iDEAL : 0 % + 0,29 €**.
+- **Synchronisation des places de marché** : gratuite jusqu'à 50 commandes/mois,
+  puis **1 % plafonné à 99 $/mois**. La boutique de référence (67 commandes/mois)
+  franchit ce seuil.
+- **POS Pro : 79 €/mois et par emplacement.**
+- Une quatrième formule **Plus** existe.
+
+Ces cinq éléments ont été intégrés à la page pilier. Le scénario réaliste
+« 60 % standard / 20 % international / 20 % Klarna » porte les frais de paiement
+à **1 437 €/an**, soit **2,9 % du chiffre d'affaires** — près de cinq fois
+l'abonnement.
+
+**Ce qui reste ouvert :**
+- `[À VÉRIFIER]` **Les trois prix d'abonnement** (36/25, 105/66, 384/289 €).
+  Ils sont en haut de la page tarifs ; les captures transmises couvraient la
+  section « Comparatif des fonctionnalités ». **La page pilier les signale comme
+  non revérifiés tant que ce n'est pas fait.**
+- `[À VÉRIFIER]` Mention **HT ou TTC** des tarifs affichés en France.
+
+---
+
 ## Règle de publication
 
 | État | Ce qu'on fait |

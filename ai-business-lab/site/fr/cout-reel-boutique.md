@@ -3,7 +3,7 @@ title: "Combien coûte vraiment une boutique en ligne par mois"
 description: "Sur 50 000 € de chiffre d'affaires, le coût réel est de 1 500 à 2 000 € par an. Et le poste le plus lourd n'est pas l'abonnement. Le calcul complet, poste par poste."
 permalink: /fr/cout-reel-boutique/
 lang: fr
-verifie: "21/09/2026"
+verifie: "21/09/2026 (frais de paiement) — abonnements non revérifiés"
 ---
 
 <p class="chapeau">Volume de référence&nbsp;: 50 000 € de chiffre d'affaires,
@@ -20,6 +20,10 @@ Et le poste le plus lourd **n'est pas l'abonnement**.
 
 ### Ce que tout le monde regarde : l'abonnement
 
+> ⚠️ **Chiffres non revérifiés.** Les prix d'abonnement ci-dessous datent du
+> 26/08/2026 et n'ont pas été recontrôlés sur la grille officielle. Les taux de
+> frais de paiement de la section suivante, eux, l'ont été le 21/09/2026.
+
 <div class="tableau" markdown="1">
 
 | Formule | Mensuel | Engagement annuel |
@@ -28,18 +32,18 @@ Et le poste le plus lourd **n'est pas l'abonnement**.
 | Grow | 105 €/mois | 66 €/mois |
 | Advanced | 384 €/mois | 289 €/mois |
 
+Une quatrième formule, **Plus**, existe également — destinée aux volumes
+importants, avec un taux de paiement de 1 % + 0,25 € et des frais de
+transaction tiers ramenés à 0,2 %.
+
 </div>
 
 Sur notre boutique de référence : **300 €/an** en Basic annuel.
 
 ### Ce que presque personne ne calcule : les frais de paiement
 
-Avec la solution de paiement intégrée, les frais démarrent à **1,5 % + 0,25 €**
-par transaction sur Basic (1,3 % sur Grow, 1,1 % sur Advanced).
-
-**Sans** elle, la plateforme facture en plus des frais de **2 % sur Basic**
-(1 % sur Grow, 0,6 % sur Advanced) — qui **s'ajoutent** aux frais de votre
-prestataire de paiement.
+Avec la solution de paiement intégrée, le taux affiché est de **1,5 % + 0,25 €**
+par transaction sur Basic (1,3 % sur Grow, 1,1 % sur Advanced, 1 % sur Plus).
 
 ```
 50 000 € × 1,5 %            =  750 €
@@ -52,8 +56,62 @@ Frais de paiement annuels   =  952 €
 plus lourd**, et ils sont proportionnels : ils augmentent avec votre réussite,
 pas avec votre formule.
 
-Sans la solution intégrée, ajoutez **2 % de 50 000 €, soit 1 000 € par an**.
-C'est la ligne qui transforme une boutique rentable en boutique à l'équilibre.
+### Le détail que la grille tarifaire ne met pas en avant
+
+**1,5 % est un plancher, pas une moyenne.** Le taux dépend du moyen de paiement,
+et l'écart est important :
+
+<div class="tableau" markdown="1">
+
+| Moyen de paiement | Taux sur Basic | Rapport au taux standard |
+|---|---:|---:|
+| Carte standard en ligne | 1,5 % + 0,25 € | — |
+| **Amex et cartes internationales** | **2,7 % + 0,25 €** | **× 1,8** |
+| PayPal | à partir de 2,9 % + 0,35 € | × 1,9 |
+| **Klarna** | **4,99 % + 0,35 €** | **× 3,3** |
+| iDEAL | 0 % + 0,29 € | — |
+
+</div>
+
+Ce que ça change sur notre boutique de référence :
+
+<div class="tableau" markdown="1">
+
+| Répartition réelle des encaissements | Frais annuels |
+|---|---:|
+| 100 % cartes standard | 952 € |
+| 80 % standard, 20 % Amex ou international | **1 072 €** |
+| 70 % / 30 % | **1 132 €** |
+| 60 % standard, 20 % international, 20 % Klarna | **1 437 €** |
+
+</div>
+
+**Dans le dernier cas, les frais de paiement dépassent 2,8 % du chiffre
+d'affaires** — près de cinq fois l'abonnement. Proposer le paiement en plusieurs
+fois est une décision commerciale légitime ; elle a simplement un prix, et ce
+prix ne figure sur aucune page de comparaison.
+
+### Le piège du prestataire externe
+
+Si vous n'utilisez **pas** la solution de paiement intégrée, la plateforme
+facture des **frais de transaction tiers** qui **s'ajoutent** à ceux de votre
+prestataire :
+
+<div class="tableau" markdown="1">
+
+| Formule | Frais de transaction tiers |
+|---|---:|
+| Basic | **2 %** |
+| Grow | 1 % |
+| Advanced | 0,6 % |
+| Plus | 0,2 % |
+
+</div>
+
+Sur 50 000 € en Basic, cela fait **1 000 € par an**, en plus de ce que vous
+payez déjà à votre prestataire. C'est la ligne qui transforme une boutique
+rentable en boutique à l'équilibre — et elle se décide en trois clics à
+l'installation.
 
 ### Ce qui s'accumule sans qu'on le voie : les applications
 
@@ -61,6 +119,16 @@ Chacune coûte « seulement » 5 à 15 € par mois. Le total descend rarement s
 **20 à 40 €/mois**, soit **240 à 480 €/an**, dès qu'on ajoute les trois ou
 quatre briques qui deviennent vite nécessaires : avis clients, relance de
 panier, facturation conforme, expédition.
+
+### Deux lignes qui n'apparaissent nulle part dans les comparatifs
+
+**La synchronisation des places de marché.** Gratuite jusqu'à **50 commandes par
+mois**, puis **1 % du montant, plafonné à 99 $ par mois**. Une boutique qui fait
+67 commandes mensuelles, comme la nôtre, passe donc le seuil — et paie.
+
+**Le point de vente physique.** **79 € par mois et par emplacement** pour la
+version Pro. Si vous vendez aussi en boutique ou sur des marchés, ce poste seul
+dépasse largement votre abonnement en ligne.
 
 ### L'email
 
