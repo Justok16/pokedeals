@@ -99,6 +99,43 @@ valident, c'est la tenue de l'opérateur — pas le marché.
 
 ---
 
+## CHANGEMENT DE CAP DU 21/09/2026 — objectif patrimoine
+
+L'utilisateur a confirmé que **devenir riche était sa seule vraie volonté**. La
+fonction objectif change : on optimise désormais la **valeur patrimoniale de
+l'actif**, pas le revenu. Troisième grille : `outils/criteres-patrimoine.yaml`.
+Analyse complète : `13-strategie-patrimoine.md`.
+
+**Le constat central, et il faut le garder en tête à chaque reprise** : aucun
+des 17 concepts ne dépasse **85/100** même en supposant tout son potentiel
+réalisé. **Le choix du concept n'est pas le levier.** Ne pas perdre de temps à
+rouvrir le classement.
+
+**Les trois leviers réels, mesurés :**
+
+1. **La langue.** Le français seul coûte **+3.8 à +7.7 points** à chaque concept
+   du haut de tableau. C'est le facteur le plus déplaçable du dossier, et il ne
+   coûte rien tant que rien n'est publié. **L'anglais passe au mois 6**, et le
+   site est structuré pour l'accueillir dès la première page (`/fr/`, `/en/`).
+2. **La destination.** E1 micro-SaaS passe 8ᵉ → 4ᵉ sous cette grille. Un
+   logiciel B2B se revend 3-5× son revenu **annuel**, un site de contenu 30-45×
+   son revenu **mensuel** — facteur ~10. Le média devient le **canal**, pas le
+   produit. Journal des questions de lecteurs à tenir dès le premier contact :
+   c'est lui qui désignera le SaaS.
+3. **Le temps passé dans le jeu.** Aucune grille ne le mesure, et c'est le plus
+   déterminant. Le test 01 a déjà signalé le risque ici.
+
+**Enseignement tombé en écrivant la grille** : l'affiliation est une bonne
+source de revenu et un **mauvais actif patrimonial** (dépendance à un tiers,
+aucune relation contractuelle avec le client final, forte décote à la revente).
+Elle finance la phase 1, elle ne construit pas le patrimoine. Poids 1.5.
+
+**Ce que ce cap coûte, et c'est écrit** : premier euro plus tard, probabilité
+d'échec plus élevée, horizon 4-5 ans au lieu de 24 mois. Le résultat médian
+reste **zéro**. `12-peut-on-devenir-riche.md` n'est **pas** révisé.
+
+---
+
 ## PRIORITÉ N° 1 — faire juger le produit, pas l'administratif
 
 **Ajouté le 21/09/2026, après comparaison avec une exécution externe du même
