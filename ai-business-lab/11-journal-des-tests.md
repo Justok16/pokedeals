@@ -321,3 +321,45 @@ par le résumé était une page tierce reprenant une grille antérieure.
 
 Un volume de recherche n'est pas du trafic, et du trafic n'est pas un
 revenu. Aucune de ces données ne prédit une seule inscription.
+
+---
+
+## Test 04 — La chaine d'inscription fonctionne-t-elle vraiment ?
+
+**Date :** 22/09/2026
+**Question :** un visiteur qui laisse son adresse est-il reellement enregistre ?
+**Methode :** parcours complet depuis le site, sur telephone, navigateur Brave
+avec bouclier actif — soit les conditions les plus defavorables disponibles.
+
+### Donnee observee
+
+Deux adresses enregistrees, statut **Active** toutes les deux, dans la liste
+des abonnes beehiiv.
+
+### Trois choses apprises, dont deux inattendues
+
+1. **Le repli sert.** Le bouclier Brave a bloque le script beehiiv dans la
+   page. Sans le lien de secours ajoute le 21/09, le visiteur aurait vu un
+   trou blanc et serait parti. **Le repli n'etait pas une precaution
+   theorique.**
+2. **Ce qui ressemblait a une panne n'en etait pas une.** L'utilisateur
+   signalait une boucle de connexion avec code SMS. Il etait en realite deja
+   inscrit a chaque tentative : beehiiv proposait ensuite de se connecter
+   pour gerer l'abonnement. Un ecran de confort pris pour un echec.
+   **Diagnostiquer par les donnees, pas par la description du symptome.**
+3. **beehiiv ne neutralise pas les alias `+` de Gmail.** Les deux adresses
+   sont comptees separement. Utile pour tester sans polluer la liste.
+
+### Ce que le test a revele en creux
+
+**L'abonne ne recoit rien.** Il laisse son adresse et le silence retombe
+jusqu'au premier numero, qui arrivera alors comme un message non sollicite.
+Une faute de frappe dans une adresse ne se verrait jamais non plus.
+
+Correction redigee : `lancement/email-de-bienvenue.md`, a installer dans
+beehiiv (Automations, declencheur « Subscriber joins »).
+
+### Ce que le test ne dit pas
+
+Deux inscriptions faites par l'auteur du site ne prouvent aucune demande.
+Elles prouvent seulement que la plomberie tient.
