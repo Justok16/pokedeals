@@ -186,6 +186,28 @@ ce qui n'est PAS vérifié, et ça n'a pas à être public.
    de `digcost.com`/`.fr` et l'antériorité **INPI** (classes 35/41) restent à
    confirmer **avant tout achat de domaine**, pas avant publication.
 
+### Design validé le 21/09/2026 — ne pas le refaire sans raison
+
+Trois itérations ont été nécessaires. Les deux premières ne corrigeaient que des
+détails ; **le problème était structurel**, et le retour de l'utilisateur était
+juste : colonne unique de 46 rem, tout au même poids, du blanc du haut en bas.
+
+**Ce qui a débloqué** : bannière sombre sur deux colonnes (sombre dans les
+**deux** thèmes), bandeau de chiffres pleine largeur, **passage de la page à
+74 rem** en gardant le texte à 44 rem, et panneaux de données sombres insérés
+dans le contenu clair. C'est l'élargissement et le contraste entre plans qui ont
+fait l'essentiel — pas la couleur.
+
+**Leçon de méthode** : quand un retour dit « pas assez moderne », chercher
+d'abord la **structure** (largeur, hiérarchie, contraste de plans) avant la
+couleur ou la typographie. J'ai perdu deux allers-retours à faire l'inverse.
+
+**Palette validée par script**, jamais à l'œil (guide dataviz) : `#0f8f62`
+clair, `#2bbd8a` sombre, `#3fd6a4` et `#9aa8a2` sur la surface de bannière
+`#0a0f0d`. **La bannière est une surface distincte du thème sombre** et a son
+propre contrôle de contraste. Le vert vif `#1baf7a` a été **écarté** à 2,74:1,
+sous le seuil de 3:1.
+
 ### Limite connue, écrite pour ne pas être redécouverte
 
 Les liens internes sont en chemins **absolus** (`/fr/methode/`). Ils cassent si
