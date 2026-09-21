@@ -1,6 +1,6 @@
-# Les 4 premiers numéros — prêts à envoyer
+# Les 5 premiers numéros — prêts à envoyer
 
-Quatre numéros rédigés intégralement, dans la structure fixe arrêtée dans
+Cinq numéros rédigés intégralement, dans la structure fixe arrêtée dans
 [`../02-newsletter.md`](../02-newsletter.md) : objet, préheader, cinq blocs,
 400-600 mots.
 
@@ -19,7 +19,8 @@ Quatre numéros rédigés intégralement, dans la structure fixe arrêtée dans
 
 ## Ordre et rythme
 
-Un numéro par semaine, le mardi matin. Les quatre couvrent le premier mois.
+Un numéro par semaine, le mardi matin. Les cinq couvrent le premier mois et la
+première semaine du suivant.
 Le numéro 4 est celui qui monétise le mieux : il est placé en quatrième
 position délibérément, après trois numéros qui n'ont rien vendu.
 
@@ -29,3 +30,4 @@ position délibérément, après trois numéros qui n'ont rien vendu.
 | 2 | Le seuil de 10 000 € que beaucoup dépassent sans le savoir | Installe la crédibilité : sujet technique traité simplement |
 | 3 | Le DSA vous concerne si vous affichez des avis | Installe l'habitude : troisième semaine, même rendez-vous |
 | 4 | Combien coûte vraiment une boutique en ligne | Monétise : comparatif, liens, appel au comparateur |
+| 5 | Vous vendez à des particuliers ? C'est l'autre moitié de la réforme | Issu du Niche Radar. Ne vend rien — c'est ce qui rend le n° 4 crédible |

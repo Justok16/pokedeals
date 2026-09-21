@@ -1,4 +1,4 @@
-# Pages « obligations » 9 à 12
+# Pages « obligations » 9 à 13
 
 > Quatre pages qui captent une recherche **contrainte** : quelqu'un qui cherche
 > parce qu'il doit se mettre en conformité, pas parce qu'il a envie de lire.
@@ -183,8 +183,52 @@ passé — d'où la date de vérification affichée en tête de page.
 
 ---
 
+# Page 13 — E-reporting : ce que doit faire une boutique qui vend aux particuliers
+
+**Vérifié le 21/09/2026 sur impots.gouv.fr.**
+*(Page issue du premier passage du Niche Radar —
+[fiche](../../opportunites/2026-09-21-e-reporting-b2c.md).)*
+
+## Pourquoi cette page existe
+
+Parce que toutes les autres pages sur la réforme parlent de **factures entre
+entreprises**, et qu'un e-commerçant vend à des **particuliers**. Il en conclut
+qu'il est peu concerné. C'est l'erreur que cette page corrige.
+
+## Les deux volets de la réforme
+
+| Volet | Ce qu'il vise | Vous concerne si… |
+|---|---|---|
+| **Facture électronique** | Opérations entre entreprises assujetties établies en France | Vous facturez des professionnels — et, en réception, toujours |
+| **E-reporting** | Opérations **ne donnant pas lieu** à facture électronique : ventes aux **particuliers**, ventes à l'étranger | **Vous vendez en B2C. Donc oui.** |
+
+## Le calendrier
+
+- **1ᵉʳ septembre 2027** : micro-entreprises, TPE et PME vendeuses ou
+  prestataires soumises à l'obligation d'**e-reporting**.
+- **Anticipation possible dès le 1ᵉʳ septembre 2026** pour celles qui le
+  souhaitent.
+- La transmission des données d'e-reporting passe, elle aussi, par une
+  **plateforme agréée**.
+
+## Les trois étapes, dans l'ordre
+
+1. **Interroger son outil actuel** : gère-t-il l'e-reporting, via quelle
+   plateforme agréée ? (dix minutes)
+2. **Décider** : compatible, ou changement nécessaire.
+3. **Migrer et tester** au printemps — pas en août 2027.
+
+## Ce qui reste à confirmer
+
+`[À CONFIRMER à chaque mise à jour]` La liste des plateformes agréées et leurs
+tarifs. Et le calendrier lui-même : cette réforme a déjà été modifiée.
+
+---
+
 ## Sources
 
+- [impots.gouv.fr — Je découvre la facturation électronique](https://www.impots.gouv.fr/professionnel/je-decouvre-la-facturation-electronique)
+- [impots.gouv.fr — Fiche 7 : transmission des données de transaction, TPE (PDF)](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiche-7_tpe_transmission-des-donnees-de-transaction.pdf)
 - [economie.gouv.fr — Tout savoir sur la facturation électronique](https://www.economie.gouv.fr/tout-savoir-sur-la-facturation-electronique-pour-les-entreprises)
 - [impots.gouv.fr — À partir de quand suis-je concerné ?](https://www.impots.gouv.fr/professionnel/questions/partir-de-quand-suis-je-concerne-par-la-reforme-de-la-facturation)
 - [Urssaf — Facturation électronique obligatoire au 1ᵉʳ septembre 2026](https://www.urssaf.fr/accueil/actualites/facturation-electronique.html)

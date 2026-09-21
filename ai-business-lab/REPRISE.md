@@ -38,7 +38,7 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 - [x] Modèles réutilisables (`modeles/`)
 - [x] Moteur de classement + 10 tests, vert en CI (`outils/`)
 - [x] Kit de lancement de la verticale (`lancement/`)
-- [x] Les 4 premiers numéros rédigés intégralement (`lancement/numeros/`)
+- [x] Les 5 premiers numéros rédigés intégralement (`lancement/numeros/`)
 - [x] Les 30 scripts de contenus courts rédigés (`lancement/contenus/`)
 - [x] Premier passage du Niche Radar exécuté (`opportunites/`)
 - [x] Comparateur : 12 pages rédigées — méthodologie, page pilier, fiches plateformes, comparatifs, protocole IA, pages obligations (`lancement/comparateur/`)
@@ -101,9 +101,15 @@ travail existe.
       (bloqués par le proxy réseau ici) pour clore les `[À CONFIRMER]` restants.
 - [x] ~~Faire tourner le Niche Radar une première fois~~ — fait le 21/09/2026,
       2 fiches dans `opportunites/`, toutes deux classées INTÉGRER.
-- [ ] **Prochaine tâche par défaut** : écrire le numéro 5 consacré à
-      l'e-reporting (cf. `opportunites/2026-09-21-e-reporting-b2c.md`, décision
-      « un numéro entier, pas un bloc ») et la page de comparateur associée.
+- [x] ~~Numéro 5 (e-reporting) et sa page de comparateur~~ — fait le 21/09/2026.
+- [ ] **Prochaine tâche par défaut** : il n'en reste plus d'évidente. Tout ce
+      qui peut être produit sans l'utilisateur l'a été (étude, portefeuille,
+      plan, 5 numéros, 13 pages de comparateur, 31 scripts, radar exécuté).
+      Le travail restant dépend de lui : créer le dépôt, ouvrir les textes sur
+      Légifrance, exécuter le protocole de test IA, puis **publier**.
+      À la prochaine reprise : refaire un passage de Niche Radar plutôt que de
+      produire du contenu supplémentaire — le stock est suffisant pour six
+      semaines de publication.
 - [ ] **DÉPEND DE L'UTILISATEUR** : vérifier l'accessibilité numérique (EAA) en
       source officielle avant toute publication — les sources divergent sur les
       sanctions, et EUR-Lex/Légifrance sont bloqués ici.
