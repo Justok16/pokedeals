@@ -12,6 +12,20 @@
 
 ---
 
+## Consignes de travail de l'utilisateur
+
+- **Reprendre le travail dès que possible** après toute interruption, sans
+  attendre qu'il relance.
+- **Toujours donner le lien DIRECT de la page** quand on lui demande d'aller
+  quelque part — jamais la page d'accueil d'un site à charge pour lui de
+  chercher. Quand un lien direct n'existe pas (recherche INPI, recherche de
+  domaine chez un registrar), le dire explicitement et indiquer exactement quoi
+  taper une fois sur place.
+- Faire **absolument tout** ce qui est à portée, ne revenir vers lui que si
+  c'est absolument nécessaire.
+
+---
+
 ## Où en est le projet
 
 **Projet** : AI Business Lab — construire à partir de zéro, à budget nul, un
