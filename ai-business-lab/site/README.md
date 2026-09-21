@@ -1,112 +1,43 @@
-# Site DigCost — comment le mettre en ligne
+# Le site a déménagé — il vit maintenant dans son propre dépôt
 
-Site statique rendu par **GitHub Pages**, sans aucune étape de build : ni npm,
-ni générateur à installer. GitHub lit les fichiers Markdown et produit le HTML.
+**Dépôt : [`Justok16/digcost`](https://github.com/Justok16/digcost)**
+**En ligne : https://justok16.github.io/digcost/**
 
-**Coût : 0 €.**
+Le 21/09/2026, le site a été poussé à la racine d'un dépôt dédié. C'était
+obligatoire : GitHub Pages ne sert que **la racine d'un dépôt** ou **`/docs`**,
+jamais un sous-dossier arbitraire comme `ai-business-lab/site`.
 
----
+## Pourquoi ce dossier ne contient plus les fichiers
 
-## ⛔ Ne pas activer Pages tout de suite
+Parce que **deux copies d'un même site finissent toujours par diverger**. Une
+correction faite ici et pas là-bas, et les chiffres publiés ne correspondent
+plus à ce que le dossier dit.
 
-Deux vérifications doivent être faites **avant** la mise en ligne. Elles ne
-prennent pas dix minutes, mais publier sans elles décrédibiliserait le site dès
-sa première page.
+Le dépôt `digcost` est donc la **seule source de vérité** du site. Toute
+modification se fait là-bas.
 
-### 1. Les tarifs de la page pilier
+## Ce que ce dossier-ci reste
 
-Toute la valeur de `fr/cout-reel-boutique.md` tient à l'exactitude de ses
-chiffres. Ils ont été relevés le **26/08/2026** sur des sources secondaires, et
-**les grilles changent plusieurs fois par an**.
+La **matière première** du site, et elle ne bouge pas :
 
-À recontrôler sur les pages tarifaires officielles des éditeurs :
-
-- les trois paliers d'abonnement ;
-- le taux de frais de transaction **avec** la solution de paiement intégrée ;
-- le taux de frais de plateforme **sans** elle (le « 2 % sur Basic »).
-
-Un tarif faux se vérifie en trente secondes par un lecteur. C'est le seul type
-d'erreur dont ce site ne se remettrait pas.
-
-### 2. La disponibilité du nom
-
-`digcost.com` et `digcost.fr` **ne résolvent pas** en DNS — mais un domaine peut
-être déposé sans être hébergé. Ce n'est donc **pas** une preuve de
-disponibilité.
-
-À confirmer chez un registrar, plus l'absence d'antériorité **INPI** en classes
-35 et 41.
-
-**Tant que ce n'est pas confirmé**, publier sous l'adresse gratuite GitHub, pas
-sous un domaine acheté.
-
----
-
-## Activer le site
-
-### ⚠️ Contrainte GitHub Pages à connaître d'abord
-
-En mode « Deploy from a branch », GitHub Pages ne sert que **la racine du dépôt**
-ou **`/docs`**. Il n'est **pas** possible de désigner un dossier quelconque comme
-`ai-business-lab/site`.
-
-Conséquence : ce dossier ne peut pas être publié tel quel depuis `pokedeals`.
-Il doit vivre **à la racine de son propre dépôt** — ce qui est de toute façon sa
-destination.
-
-### La marche à suivre
-
-1. Créer sur github.com un dépôt **vide** nommé **`digcost`** — sans README,
-   sans `.gitignore`, sans licence.
-2. Y pousser **le contenu de ce dossier à la racine** (pas le dossier lui-même).
-3. Dépôt → **Settings** → **Pages** → *Source* : **Deploy from a branch**,
-   branche `main`, répertoire **`/ (root)`** → **Save**.
-4. Renseigner `baseurl: "/digcost"` dans `_config.yml`.
-5. En ligne sous `https://<compte>.github.io/digcost/` en 1 à 2 minutes.
-
-### Le préfixe d'URL est géré, il n'y a rien à réécrire
-
-Tous les liens internes passent par le filtre Jekyll **`relative_url`**. Changer
-la seule ligne `baseurl` dans `_config.yml` suffit à déplacer le site :
-
-| Où le site est servi | `baseurl` |
+| Ici | Ce que ça devient sur le site |
 |---|---|
-| `digcost.fr` (domaine propre) | `""` |
-| `<compte>.github.io` (dépôt nommé `<compte>.github.io`) | `""` |
-| `<compte>.github.io/digcost/` | `"/digcost"` |
+| [`../lancement/comparateur/`](../lancement/comparateur/) | Les pages du comparateur (13 rédigées, 2 publiées) |
+| [`../lancement/numeros/`](../lancement/numeros/) | Les numéros de la newsletter |
+| [`../lancement/verifications.md`](../lancement/verifications.md) | **Le journal des vérifications** — ce qui autorise ou non une publication |
 
-Aucun lien Markdown n'est à toucher dans aucun de ces cas.
+Le journal des vérifications reste **ici**, pas dans le dépôt du site. C'est
+volontaire : il contient ce qui n'est **pas** vérifié, et cette information n'a
+pas à être publique.
 
----
+## Ce qui est publié à ce jour
 
-## Ce que contient le site aujourd'hui
+- l'accueil français ;
+- la page pilier — le calcul du coût réel d'une boutique, **chiffres vérifiés à
+  la source le 21/09/2026** ;
+- la méthode de classement ;
+- la structure anglophone, vide, prête pour le mois 6.
 
-| Fichier | Page |
-|---|---|
-| `index.md` | Accueil FR |
-| `fr/cout-reel-boutique.md` | **Page pilier** — le calcul du coût réel |
-| `fr/methode.md` | Méthode de classement (publiée avant les fiches, délibérément) |
-| `en/index.md` | Structure anglophone en place, contenu à venir au mois 6 |
-| `_layouts/default.html` | Gabarit unique |
-| `assets/style.css` | Feuille de style, thème clair et sombre |
-
-## Pourquoi `/fr/` et `/en/` dès maintenant
-
-Décision du 21/09/2026 (voir [`../13-strategie-patrimoine.md`](../13-strategie-patrimoine.md)) :
-la contrainte francophone coûte **+3,8 à +7,7 points** à chaque concept du haut
-de tableau sous la grille patrimoine. C'est le facteur le plus déplaçable du
-dossier — et il ne coûte rien à préparer **tant que rien n'est publié**.
-
-Restructurer les URL d'un site déjà indexé coûte cher en référencement. Le faire
-avant la première page ne coûte rien. D'où ces deux dossiers, aujourd'hui.
-
-## Les 13 pages restantes
-
-Elles sont rédigées dans [`../lancement/comparateur/`](../lancement/comparateur/)
-et se portent ici au même format : un en-tête `---` avec `title`, `description`,
-`permalink`, `lang` et `verifie`, puis le corps en Markdown.
-
-**Ne pas toutes les porter d'un coup.** La page pilier et la méthode suffisent à
-tester si le trafic vient. Les suivantes s'ajoutent une fois qu'on sait que ce
-site a des lecteurs — sinon c'est du travail sans valeur, exactement ce que
-`../REPRISE.md` interdit.
+**Onze pages de comparateur restent à porter** — et il ne faut pas les porter
+tout de suite. La page pilier et la méthode suffisent à savoir si le trafic
+vient. Les suivantes s'ajoutent quand le site aura des lecteurs.
