@@ -162,15 +162,29 @@ l'acquisition.
 Page pilier (le coût réel), méthode de classement, accueil FR, structure
 anglophone en place. Détail et procédure : `site/README.md`.
 
-### ⛔ DEUX VÉRIFICATIONS AVANT D'ACTIVER PAGES — dépendent de l'utilisateur
+### ✅ SITE EN LIGNE — dépôt créé et rempli le 21/09/2026
 
-1. **Les tarifs de la page pilier.** Relevés le 26/08/2026 sur sources
-   secondaires ; les grilles changent plusieurs fois par an. Un tarif faux se
-   vérifie en trente secondes par un lecteur — c'est le seul type d'erreur dont
-   ce site ne se remettrait pas.
-2. **La disponibilité de `digcost.com` / `.fr`** chez un registrar, plus
-   l'antériorité INPI en classes 35/41. Le DNS ne résout pas, mais **un domaine
-   peut être déposé sans être hébergé** : ce n'est pas une preuve.
+**Dépôt : `Justok16/digcost`**, site à la racine, `baseurl: "/digcost"`.
+**Adresse : https://justok16.github.io/digcost/** dès activation de Pages par
+l'utilisateur (Settings → Pages → Deploy from a branch → `main` + `/ (root)`).
+
+`ai-business-lab/site/` ne contient **plus les fichiers**, seulement un pointeur :
+deux copies d'un même site divergent toujours. **`digcost` est la seule source
+de vérité du site.** Le journal des vérifications, lui, reste ici — il contient
+ce qui n'est PAS vérifié, et ça n'a pas à être public.
+
+### ✅ LES DEUX VÉRIFICATIONS SONT LEVÉES
+
+1. **Les tarifs** — **FAIT le 21/09/2026**, sur la grille officielle de
+   l'éditeur, par captures d'écran de l'utilisateur. **Deux chiffres sur trois
+   étaient faux** (Basic 25 → 27 €, Grow 66 → **79 €**, soit 20 % d'écart).
+   Sans cette étape, la première page publiée du projet aurait été fausse.
+   C'est la justification rétrospective de toute la règle R3.
+   Reste mineur : prix **mensuels** sans engagement, et mention **HT/TTC**.
+2. **Le nom** — le site est publié sous l'adresse **gratuite GitHub**, donc
+   aucun domaine n'a été acheté et aucun risque n'a été pris. La disponibilité
+   de `digcost.com`/`.fr` et l'antériorité **INPI** (classes 35/41) restent à
+   confirmer **avant tout achat de domaine**, pas avant publication.
 
 ### Limite connue, écrite pour ne pas être redécouverte
 
