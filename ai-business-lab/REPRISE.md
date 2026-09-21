@@ -387,3 +387,52 @@ travail existe.
   lit ce fichier, reprend ce qui peut l'être, et **reste silencieuse** si tout
   est bloqué côté utilisateur.
 - **Abonnement aux événements de la PR #118** : CI et commentaires de revue.
+
+---
+
+## Chaine de publication du site — etat au 21/09/2026
+
+**Le site `digcost` est rendu par GitHub Pages avec le paquet `github-pages`,
+qui fige Jekyll 3.10 et une liste precise de greffons.** Ce n'est pas le
+Jekyll le plus recent. Construire en local avec une version plus recente
+donne un apercu qui valide du code que la production refuse — c'est pire
+qu'aucun apercu, parce qu'il inspire une confiance injustifiee.
+
+**Toujours verifier avec `./apercu.sh` a la racine du depot `digcost`.**
+Il construit avec les versions de production, sous le vrai prefixe d'URL, et
+liste les pages publiees.
+
+### Deux pannes reelles, le meme jour, la meme cause
+
+1. **Le site a ete gele pendant deux commits.** Un filtre
+   `where_exp: "p", "p.permalink and p.sitemap != false"` dans `sitemap.xml`
+   est refuse par Jekyll 3 (`and` n'y est pas supporte). Le build de
+   production echouait ; le site restait servi par la derniere version
+   valide, donc **rien ne semblait casse cote visiteur**. Detecte seulement
+   parce que GitHub a envoye un courriel d'echec.
+2. **Une note technique interne etait publiee comme page du site.** Le
+   greffon `jekyll-readme-index`, actif en production et absent en local,
+   transformait `assets/logo/README.md` en page publique, inscrite au
+   sitemap. Corrige par `readme_index: enabled: false`.
+
+### Regle retenue
+
+**Un build vert en local ne prouve rien si l'outillage differe de la
+production.** C'est exactement ce que DigCost reproche aux comparatifs : un
+chiffre — ou une version — repris de seconde main vieillit sans prevenir, et
+personne ne s'en apercoit.
+
+### Etat du site au 21/09/2026, 22h40
+
+| Page | Adresse |
+|---|---|
+| Accueil | `/` |
+| Calculateur de cout reel | `/fr/calculateur/` |
+| Page pilier | `/fr/prix-shopify-cout-reel/` |
+| Methode | `/fr/methode/` |
+| Anglais | `/en/` |
+
+L'ancienne adresse `/fr/cout-reel-boutique/` redirige. Le formulaire beehiiv
+est integre sur trois pages via `_includes/capture.html`, avec repli si le
+script tiers est bloque. `sitemap.xml`, `robots.txt` et le fichier de
+validation Search Console sont en ligne.
