@@ -70,11 +70,14 @@ de personne.
 prête ?*
 
 Bonne question, et elle mérite une réponse honnête plutôt qu'un titre alarmiste.
-La transposition française passe par le projet de loi **DDADUE** (articles 20 et
-21). Et la Commission européenne a mis en demeure, le **28 mai 2026**, **vingt
-États membres dont la France** pour ne pas avoir communiqué leurs mesures de
-transposition.
-`[VÉRIFIER avant envoi : état d'avancement du DDADUE au jour de l'envoi]`
+La transposition française passe par le projet de loi **DDADUE**, et il **n'est
+pas adopté**. Le dossier législatif de l'Assemblée nationale le montre :
+adopté au Sénat, puis en première lecture à l'Assemblée depuis le 20 février,
+toujours au stade de l'examen en commission.
+
+La Commission européenne a d'ailleurs mis en demeure, le **28 mai 2026**,
+**vingt États membres dont la France** pour ne pas avoir communiqué leurs
+mesures de transposition.
 
 Deux conclusions circulent, et elles sont fausses toutes les deux.
 
@@ -156,7 +159,11 @@ semaine.
 - **Le bloc 3 est le cœur du numéro.** C'est le seul endroit du créneau où
   quelqu'un explique pourquoi les deux discours dominants sont faux. Si un seul
   bloc doit survivre à une relecture, c'est celui-là.
-- **Si le DDADUE a été adopté entre-temps**, le bloc 3 ne tombe pas : il se
-  réécrit en deux phrases (« c'est désormais dans le code de la consommation »),
-  et le bloc 2 reste identique mot pour mot. Le numéro est construit pour
-  résister à ce changement.
+- **État du DDADUE vérifié le 21/09/2026** sur le dossier législatif de
+  l'Assemblée (source primaire) : **non adopté**, bloqué en commission depuis
+  février. Le bloc 3 est donc publiable tel quel.
+  **Recontrôler le jour de l'envoi** : le dossier n'affichait aucune activité
+  après le 17/03/2026, et une absence d'activité affichée n'est pas une preuve.
+- **S'il a été adopté entre-temps**, le bloc 3 ne tombe pas : il se réécrit en
+  deux phrases (« c'est désormais dans le code de la consommation »), et le
+  bloc 2 reste identique mot pour mot.

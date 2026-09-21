@@ -222,9 +222,17 @@ concordantes citant les références exactes) :
   transposition.
 
 **Ce qui n'est PAS établi — ne pas affirmer :**
-- `[NON TRANCHÉ]` **État exact de la procédure législative française au jour de
-  l'envoi.** Les sources se contredisent et plusieurs confondent ce texte avec
-  les DDADUE antérieurs. **C'est le point à vérifier en premier.**
+- ✅ **LEVÉ le 21/09/2026, en source primaire** — dossier législatif de
+  l'Assemblée nationale (DLR5L17N53140), consulté par l'utilisateur :
+  procédure accélérée engagée le **10/11/2025**, dépôt et **texte adopté au
+  Sénat**, puis **première lecture à l'Assemblée depuis le 20/02/2026**,
+  arrêtée au stade **« examen en commission »** — cinq commissions saisies,
+  mention **« travaux à venir »**. Dossier mis en ligne le **17/03/2026**.
+  **Le DDADUE n'est donc pas adopté**, ce que corrobore la mise en demeure de
+  la Commission européenne du 28/05/2026.
+  *Réserve de méthode* : le dossier n'affiche aucune activité postérieure au
+  17/03/2026 ; l'absence d'activité affichée n'est pas une preuve d'absence
+  d'activité. À recontrôler le jour de l'envoi.
 - `[NON TRANCHÉ]` Nombre exact de pratiques ajoutées à la liste noire (12 ou 13
   selon les sources). **Aucun chiffre n'est publié dans le numéro 6.**
 - `[NON TRANCHÉ]` Régime de sanction français applicable — il dépend du texte de
