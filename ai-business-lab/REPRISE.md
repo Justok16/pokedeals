@@ -118,9 +118,12 @@ travail existe.
       rétractation en ligne, TVA OSS/IOSS et calendrier de facturation
       électronique **vérifiés** ; DSA **partiellement** — la qualification d'une
       boutique affichant des avis n'a pas pu être établie, le numéro 3 a donc
-      été réécrit pour n'affirmer aucune obligation. Légifrance et EUR-Lex sont
-      **bloqués par le proxy réseau** de cet environnement : ces textes-là
-      doivent être ouverts manuellement avant publication.
+      été réécrit pour n'affirmer aucune obligation. **Sanction de la fonction
+      de rétractation levée le 21/09/2026** : art. L242-13 c. consom., 15 000 €
+      (personne physique) / 75 000 € (personne morale) + prolongation du délai
+      de 12 mois. Légifrance et EUR-Lex restent **bloqués par le proxy réseau**
+      de cet environnement : ces textes-là doivent être ouverts manuellement
+      avant publication.
 
 ---
 

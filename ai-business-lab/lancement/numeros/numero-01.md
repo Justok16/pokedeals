@@ -41,9 +41,14 @@ ouvre ce droit, la fonction devient obligatoire.
 comment vous feriez pour annuler une commande. Si la réponse est « écrire à
 contact@ », vous n'êtes pas à jour.
 
-Sanctions rapportées : amende administrative pouvant aller jusqu'à **75 000 €**,
-et **délai de rétractation prolongé à 12 mois** en l'absence de dispositif.
-`[VÉRIFIER : montant et mécanisme exacts de la sanction]`
+**Ce que vous risquez**, et le chiffre qui circule est tronqué : l'article
+**L242-13 du code de la consommation** prévoit une amende administrative de
+**15 000 € maximum pour une personne physique** et **75 000 € pour une personne
+morale**. Beaucoup ne retiennent que le second.
+
+Mais le vrai coût est ailleurs : faute d'information conforme sur le droit de
+rétractation, le **délai est prolongé de 12 mois**. Concrètement, un client peut
+vous renvoyer un produit plus d'un an après l'avoir reçu.
 
 `[LIEN vers la source officielle]`
 
@@ -131,7 +136,9 @@ est non, ce n'est pas urgent cette semaine — mais ça le deviendra.
   différenciant du numéro, parce que c'est exactement là que la concurrence se
   trompe. Restent à confirmer : le montant de la sanction et la répartition des
   responsabilités en place de marché.
-- Ne pas publier les 75 000 € tant qu'ils ne sont pas confirmés en source
-  officielle. Si le doute persiste, écrire « des sanctions administratives sont
-  prévues » sans chiffre : une sanction surévaluée dans un premier numéro
-  décrédibilise tout le reste.
+- **Sanction vérifiée le 21/09/2026** : article L242-13 du code de la
+  consommation, 15 000 € (personne physique) / 75 000 € (personne morale), plus
+  la prolongation du délai de 12 mois. Le chiffre est désormais publiable —
+  **mais toujours avec les deux plafonds**. Ne jamais écrire « 75 000 € » seul :
+  une large part de l'audience est en entreprise individuelle, et l'information
+  serait fausse pour elle.

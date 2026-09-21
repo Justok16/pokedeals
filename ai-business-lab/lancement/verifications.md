@@ -35,10 +35,27 @@ commettre**, et c'est aussi l'angle le plus différenciant du numéro 1 — la
 plupart des contenus disponibles sur le sujet s'arrêtent au titre de la
 directive.
 
+**Sanction — vérifiée le 21/09/2026, et plus précise que ce qui circule :**
+
+La base légale est l'**article L242-13 du code de la consommation**. Tout
+manquement aux dispositions des articles **L221-18, L221-21** et L221-23 à
+L221-27 — donc bien la fonction de rétractation — est passible d'une **amende
+administrative** de :
+
+- **15 000 € maximum pour une personne physique** ;
+- **75 000 € maximum pour une personne morale**.
+
+Second effet, souvent plus coûteux que l'amende : lorsque le professionnel n'a
+pas fourni l'information sur le droit de rétractation dans les conditions
+prévues, le **délai de rétractation est prolongé de 12 mois** (soit 12 mois et
+14 jours à compter de la livraison).
+
+**Le « 75 000 € » qui circule est donc exact mais tronqué** : c'est le plafond
+pour une personne morale, et il existe un plafond distinct pour une personne
+physique. Publier le chiffre sans cette distinction serait inexact pour un
+lecteur en entreprise individuelle — c'est-à-dire une large part de l'audience.
+
 **Ce qui reste ouvert :**
-- `[À CONFIRMER]` Montant exact de la sanction (75 000 € d'amende administrative
-  et prolongation du délai à 12 mois, rapportés par des sources secondaires
-  concordantes mais non retrouvés en source officielle).
 - `[À CONFIRMER]` Répartition exacte des responsabilités entre vendeur tiers et
   opérateur de place de marché.
 
@@ -50,6 +67,8 @@ textes doivent être ouverts directement sur Légifrance** — c'est une lecture
 cinq minutes, et elle est obligatoire.
 
 Sources consultées :
+- [Lexbase — Article L242-13 du code de la consommation](https://www.lexbase.fr/texte-de-loi/art-L242-13-Code%20de%20la%20consommation/L1278MAL.html)
+- [Pappers Justice — Article L242-13 du code de la consommation](https://justice.pappers.fr/loi/LEGITEXT000006069565/article/LEGIARTI000044563232)
 - [village-justice — La fonction de rétractation en ligne entre en vigueur le 19 juin 2026](https://www.village-justice.com/articles/fonction-retractation-ligne-entre-vigueur-juin-2026-que-change-ordonnance-2026,57910.html)
 - [HLC — Transposition en droit français de la fonction de rétractation obligatoire](https://www.hlc.com/fr/publications/transposition-under-french-law-of-the-eu-mandatory-withdrawal-button-for-online-sales)
 - [Racine — Entrée en vigueur des nouvelles règles relatives au droit de rétractation](https://www.racine.eu/entree-en-vigueur-des-nouvelles-regles-relatives-au-droit-de-retractation-pour-les-contrats-conclus-a-distance/)

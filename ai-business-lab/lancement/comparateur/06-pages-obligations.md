@@ -53,15 +53,31 @@ titre de la directive. C'est ce qui rend cette page utile.
    seulement juste après la commande.
 4. Vérifier le **libellé** : une formule ambiguë ne remplit pas la condition.
 
+## Les sanctions (vérifiées le 21/09/2026)
+
+**Base légale : article L242-13 du code de la consommation.** Tout manquement
+aux articles L221-18, **L221-21** et L221-23 à L221-27 est passible d'une
+**amende administrative** :
+
+| Qui | Plafond |
+|---|---|
+| Personne physique | **15 000 €** |
+| Personne morale | **75 000 €** |
+
+**Et surtout** : faute d'information conforme sur le droit de rétractation, le
+**délai est prolongé de 12 mois** (12 mois et 14 jours à compter de la
+livraison). Sur une boutique qui vend des produits retournables, c'est
+généralement plus coûteux que l'amende.
+
+> **Précision qui manque partout ailleurs** : le chiffre de 75 000 € circule
+> seul. C'est le plafond **personne morale**. Une entreprise individuelle relève
+> du plafond de 15 000 €. Publier le premier sans le second est inexact pour une
+> large part des e-commerçants.
+
 ## Ce qui reste à confirmer
 
-`[À CONFIRMER]` Le montant exact de la sanction (des sources concordantes
-évoquent une amende administrative pouvant atteindre 75 000 € et une
-prolongation du délai de rétractation à 12 mois) et la répartition des
-responsabilités entre vendeur tiers et opérateur de place de marché.
-
-**Tant que ce n'est pas confirmé**, la page écrit « des sanctions
-administratives sont prévues » sans chiffre.
+`[À CONFIRMER]` La répartition des responsabilités entre vendeur tiers et
+opérateur de place de marché.
 
 ---
 

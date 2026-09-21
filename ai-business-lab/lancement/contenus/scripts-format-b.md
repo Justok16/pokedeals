@@ -31,17 +31,18 @@ c'est trop tard. »
 **Hook** : « Pas de fonction de rétractation en ligne ? Le délai de votre client
 ne s'arrête pas forcément à 14 jours. »
 
-**Corps** : L'absence de dispositif conforme expose à des sanctions
-administratives, et des sources concordantes évoquent une prolongation du délai
-de rétractation bien au-delà des 14 jours habituels.
-Un client peut alors renvoyer un produit des mois après l'achat.
+**Corps** : Faute d'information conforme sur le droit de rétractation, le délai
+n'est plus de 14 jours. Il passe à **12 mois**.
+Un client peut donc vous renvoyer un produit plus d'un an après l'avoir reçu.
+Et l'amende administrative, elle, va jusqu'à 15 000 € pour une personne
+physique, 75 000 € pour une société.
 
-**Chute** : « Le coût, ce n'est pas l'amende. C'est le stock qui revient quand
-vous ne l'attendez plus. »
+**Chute** : « Le vrai coût, ce n'est pas l'amende. C'est le stock qui revient
+quand vous ne l'attendez plus. »
 
-`[SOURCE : article L221-21 du code de la consommation]`
-> ⚠️ Ne pas chiffrer la sanction tant qu'elle n'est pas confirmée en source
-> officielle. Dire « des sanctions sont prévues », point.
+`[SOURCE : articles L221-21 et L242-13 du code de la consommation]` *(vérifié)*
+> ⚠️ Toujours donner **les deux plafonds**. « 75 000 € » seul est faux pour une
+> entreprise individuelle — et une bonne partie de l'audience en est une.
 
 ---
 
