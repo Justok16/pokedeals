@@ -38,9 +38,10 @@ porteur). Les artisans du bâtiment ont été écartés — marché en recul.
 - [x] Modèles réutilisables (`modeles/`)
 - [x] Moteur de classement + 10 tests, vert en CI (`outils/`)
 - [x] Kit de lancement de la verticale (`lancement/`)
-- [x] Les 5 premiers numéros rédigés intégralement (`lancement/numeros/`)
+- [x] Les 6 premiers numéros rédigés intégralement (`lancement/numeros/`)
 - [x] Les 30 scripts de contenus courts rédigés (`lancement/contenus/`)
-- [x] Premier passage du Niche Radar exécuté (`opportunites/`)
+- [x] Deux passages du Niche Radar exécutés (`opportunites/`) — le second a sorti
+      la directive EmpCo, applicable au 27/09/2026
 - [x] Comparateur : 12 pages rédigées — méthodologie, page pilier, fiches plateformes, comparatifs, protocole IA, pages obligations (`lancement/comparateur/`)
 - [x] Journal des vérifications réglementaires ouvert (`lancement/verifications.md`)
 - [x] Arborescence autonome préparée (`.gitignore`, `.github/workflows/tests.yml`, chemins racine)
@@ -102,14 +103,30 @@ travail existe.
 - [x] ~~Faire tourner le Niche Radar une première fois~~ — fait le 21/09/2026,
       2 fiches dans `opportunites/`, toutes deux classées INTÉGRER.
 - [x] ~~Numéro 5 (e-reporting) et sa page de comparateur~~ — fait le 21/09/2026.
-- [ ] **Prochaine tâche par défaut** : il n'en reste plus d'évidente. Tout ce
-      qui peut être produit sans l'utilisateur l'a été (étude, portefeuille,
-      plan, 5 numéros, 13 pages de comparateur, 31 scripts, radar exécuté).
-      Le travail restant dépend de lui : créer le dépôt, ouvrir les textes sur
-      Légifrance, exécuter le protocole de test IA, puis **publier**.
-      À la prochaine reprise : refaire un passage de Niche Radar plutôt que de
-      produire du contenu supplémentaire — le stock est suffisant pour six
-      semaines de publication.
+- [x] ~~Deuxième passage de Niche Radar~~ — fait le 21/09/2026. **Il a sorti le
+      signal le plus urgent du projet** : la directive (UE) 2024/825 « EmpCo »,
+      applicable le **27/09/2026**, qu'aucun des cinq numéros ne couvrait.
+      Numéro 6 rédigé, il passe devant le numéro 5 dans l'ordre d'envoi.
+      Correction de méthode consignée : **balayer les échéances UE avant les
+      échéances FR** à chaque passage.
+- [ ] **Prochaine tâche par défaut** : refaire un passage de Niche Radar, en
+      commençant par les échéances **européennes**. Le stock de contenu est
+      suffisant pour sept semaines de publication — produire davantage n'a pas
+      de valeur tant que rien n'est publié. Le travail restant dépend de
+      l'utilisateur : créer le dépôt, ouvrir les textes officiels, exécuter le
+      protocole de test IA, puis **publier**.
+- [ ] **DÉPEND DE L'UTILISATEUR — URGENT, échéance 27/09/2026** : vérifier la
+      directive **EmpCo (UE) 2024/825** avant d'envoyer le **numéro 6**. Trois
+      lectures, dix minutes : dossier législatif DDADUE (état d'avancement),
+      fiche DGCCRF sur l'écoblanchiment, directive sur EUR-Lex. Ces trois
+      sources sont **bloquées par le proxy réseau** ici — y compris
+      economie.gouv.fr, senat.fr et assemblee-nationale.fr. Détail dans
+      `opportunites/2026-09-21-directive-empco-2024-825.md`.
+- [ ] **EN ATTENTE DE L'UTILISATEUR** : il a partagé un lien ChatGPT
+      (conversation menée en parallèle sur la même demande) pour comparaison.
+      **chatgpt.com est bloqué par le proxy réseau** — le contenu doit être
+      collé dans la conversation. Tant qu'il ne l'est pas, aucune comparaison
+      n'est possible : ne pas supposer ce qu'il contient.
 - [ ] **DÉPEND DE L'UTILISATEUR** : vérifier l'accessibilité numérique (EAA) en
       source officielle avant toute publication — les sources divergent sur les
       sanctions, et EUR-Lex/Légifrance sont bloqués ici.

@@ -15,9 +15,10 @@ Une fiche reçoit l'une de ces trois décisions, et elle est écrite dans la fic
 
 ## Journal des passages
 
-| Date | Signaux examinés | Retenus | Décisions |
-|---|---|---|---|
-| 21/09/2026 | Échéances réglementaires FR, obligations e-commerce | 2 | 2 × INTÉGRER |
+| Date | Passage | Signaux examinés | Retenus | Décisions |
+|---|---|---|---|---|
+| 21/09/2026 | 1ᵉʳ | Échéances réglementaires FR, obligations e-commerce | 2 | 2 × INTÉGRER |
+| 21/09/2026 | 2ᵉ | Échéances réglementaires UE à court terme | 1 | 1 × INTÉGRER (priorité maximale) |
 
 ## Ce que ce premier passage a appris sur le Radar lui-même
 
@@ -29,3 +30,16 @@ concurrencée par les plateformes internationales**.
 
 Enseignement pour les passages suivants : commencer systématiquement par là,
 avant les tendances et les outils.
+
+## Ce que le deuxième passage a appris
+
+Le premier passage n'avait regardé que les échéances **françaises**. Le
+deuxième, en élargissant aux échéances **européennes**, a sorti en une requête
+le signal le plus urgent du projet — la directive EmpCo, applicable six jours
+plus tard — que les cinq numéros déjà rédigés ne couvraient pas du tout.
+
+**Correction de méthode, à appliquer à chaque passage** : balayer les échéances
+**UE** avant les échéances FR. Une obligation européenne arrive toujours avant
+le texte français qui la transpose ; la regarder en second, c'est la découvrir
+en retard. Ici, six jours de marge : le prochain angle mort de ce type pourrait
+être découvert après sa date.

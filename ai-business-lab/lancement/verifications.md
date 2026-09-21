@@ -184,6 +184,57 @@ agréées, qui évolue.
 
 ---
 
+## ⚠️ Partiellement vérifié — Directive (UE) 2024/825 « EmpCo » (numéro 6)
+
+**Examiné le 21/09/2026. Applicable le 27/09/2026 — dans six jours.**
+
+**Ce qui est établi** (sources professionnelles et institutionnelles
+concordantes citant les références exactes) :
+- **Directive (UE) 2024/825 du 28 février 2024**, modifiant les directives
+  **2005/29/CE** et **2011/83/UE**. Transposition due le **27 mars 2026**,
+  application le **27 septembre 2026**.
+- Ajout de pratiques à la **liste noire** de 2005/29/CE — **réputées trompeuses
+  en toutes circonstances**, sans démonstration d'altération du comportement.
+- Exigence d'**étayage** des allégations environnementales et des labels de
+  durabilité : éléments reconnus, démontrables, mesurables, vérifiables.
+- Nouvelles informations précontractuelles : **notice harmonisée** de garantie
+  légale de conformité, **étiquette harmonisée** de garantie commerciale de
+  durabilité (cas du producteur offrant gratuitement plus de deux ans sur
+  l'ensemble du bien), mises à jour logicielles, livraison.
+- Vecteur français : **projet de loi DDADUE**, articles **20** (code de la
+  consommation) et **21** (code de l'environnement) ; décrets attendus sur
+  **L111-1** et **L221-5** du code de la consommation.
+- **Mise en demeure de la Commission européenne du 28 mai 2026** visant
+  **20 États membres dont la France** pour non-communication des mesures de
+  transposition.
+
+**Ce qui n'est PAS établi — ne pas affirmer :**
+- `[NON TRANCHÉ]` **État exact de la procédure législative française au jour de
+  l'envoi.** Les sources se contredisent et plusieurs confondent ce texte avec
+  les DDADUE antérieurs. **C'est le point à vérifier en premier.**
+- `[NON TRANCHÉ]` Nombre exact de pratiques ajoutées à la liste noire (12 ou 13
+  selon les sources). **Aucun chiffre n'est publié dans le numéro 6.**
+- `[NON TRANCHÉ]` Régime de sanction français applicable — il dépend du texte de
+  transposition. **Aucun montant n'est cité.**
+- `[À CONFIRMER auprès d'un avocat]` L'absence d'effet direct horizontal d'une
+  directive non transposée, affirmée au bloc 3 du numéro 6.
+
+**Décision éditoriale (règle R3)** : le numéro 6 ne cite **aucun chiffre de
+sanction** et ne promet aucune date d'application en droit français. Il repose
+sur la seule conclusion qui tient quelle que soit l'issue du calendrier
+parlementaire : *une allégation environnementale invérifiable expose déjà.*
+
+**Limite de méthode** : EUR-Lex, Légifrance, **economie.gouv.fr, senat.fr et
+assemblee-nationale.fr** sont tous **bloqués par le proxy réseau** de cet
+environnement. Aucune source officielle n'a pu être ouverte pour ce signal.
+**Trois lectures obligatoires avant envoi** : dossier législatif DDADUE, fiche
+DGCCRF sur l'écoblanchiment, directive 2024/825 sur EUR-Lex.
+
+Sources consultées : voir la fiche radar
+[`../opportunites/2026-09-21-directive-empco-2024-825.md`](../opportunites/2026-09-21-directive-empco-2024-825.md).
+
+---
+
 ## Règle de publication
 
 | État | Ce qu'on fait |
