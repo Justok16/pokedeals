@@ -92,10 +92,12 @@ travail existe.
       calculs). **Prochaine tâche par défaut.**
 - [~] Vérifier chaque fait réglementaire sur sa **source officielle** (règle R3).
       **Commencé le 21/09/2026**, journal dans `lancement/verifications.md` :
-      rétractation en ligne et TVA OSS/IOSS vérifiées ; DSA et calendrier de
-      facturation électronique encore ouverts. Légifrance et EUR-Lex sont
-      **bloqués par le proxy réseau** de cet environnement : les textes doivent
-      être ouverts manuellement avant publication.
+      rétractation en ligne, TVA OSS/IOSS et calendrier de facturation
+      électronique **vérifiés** ; DSA **partiellement** — la qualification d'une
+      boutique affichant des avis n'a pas pu être établie, le numéro 3 a donc
+      été réécrit pour n'affirmer aucune obligation. Légifrance et EUR-Lex sont
+      **bloqués par le proxy réseau** de cet environnement : ces textes-là
+      doivent être ouverts manuellement avant publication.
 
 ---
 

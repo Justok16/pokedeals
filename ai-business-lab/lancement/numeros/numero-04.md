@@ -101,7 +101,14 @@ entier sur le sujet.
 Si votre outil de facturation actuel ne transite pas par une **plateforme
 agréée**, un changement d'outil sera nécessaire. Ce n'est pas un basculement
 qu'on improvise : historique de factures à reprendre, numérotation à conserver,
-paramétrage fiscal à refaire. `[VÉRIFIER : calendrier applicable]`
+paramétrage fiscal à refaire. Échéance d'émission pour les PME, TPE et
+micro-entreprises : **1ᵉʳ septembre 2027**.
+
+**Et si vous êtes en franchise en base de TVA** — le cas de la plupart des
+micro-entrepreneurs — vous êtes **quand même concerné**. Ne pas être *redevable*
+de la TVA ne veut pas dire ne pas y être *assujetti* : la réforme s'applique à
+vous, en réception comme en émission. C'est la confusion la plus répandue sur
+le sujet. *(Vérifié sur economie.gouv.fr et impots.gouv.fr le 21/09/2026.)*
 
 Commencez par la question la moins coûteuse : **poser la question à votre
 éditeur actuel.** S'il n'a pas de réponse claire aujourd'hui, c'est déjà une

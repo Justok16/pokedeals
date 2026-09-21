@@ -15,23 +15,35 @@ trois personnes.
 
 ## 1. Ce qui change
 
-Le **DSA** (règlement sur les services numériques) s'applique depuis le
-**17 février 2024**. Son périmètre est plus large que ce que son surnom de
-« loi sur les géants du numérique » laisse croire : il vise **tout fournisseur
-de service intermédiaire**, ce qui peut inclure un site e-commerce qui
-**héberge des contenus déposés par ses utilisateurs** — au premier rang
-desquels les **avis clients**. `[VÉRIFIER : qualification exacte, seuils,
-obligations applicables selon la taille]`
+Le **DSA** (règlement sur les services numériques) vise **tout fournisseur de
+service intermédiaire**, et pas seulement les géants. Il distingue trois
+catégories : simple transport, mise en cache et **hébergement** — un service
+d'hébergement étant un service qui **stocke des contenus fournis par des tiers
+à leur demande**. Une **plateforme en ligne** est un service d'hébergement qui
+**stocke et diffuse au public** ces contenus.
 
-Les obligations ne sont pas les mêmes pour une boutique de quartier et pour une
-très grande plateforme : le règlement est gradué, et l'essentiel des contraintes
-lourdes vise les très grandes plateformes. Mais « gradué » ne veut pas dire
-« zéro ». `[VÉRIFIER : liste des obligations de base]`
+Un site qui affiche des avis clients stocke bien des contenus déposés par des
+tiers. **La question de sa qualification exacte se pose donc** — et je ne vais
+pas y répondre à votre place, parce qu'elle dépend d'une analyse que seul un
+avocat peut mener sur votre cas.
 
-**Ce que vous avez à faire cette semaine** : regarder si votre site héberge des
-contenus déposés par des tiers — avis, photos clients, questions-réponses,
-commentaires. Si oui, la question se pose. Si non, vous êtes probablement hors
-périmètre sur ce point précis.
+**En revanche, voici l'information utile, et elle est rassurante** : les
+**micro et petites entreprises** — moins de 50 salariés **et** chiffre
+d'affaires ou total de bilan n'excédant pas **10 millions d'euros** — sont
+**exemptées de la plupart des obligations** du règlement, celles qui ont été
+écrites pour les grandes plateformes. Ce qui vous concerne encore : des
+**conditions générales claires** et un **point de contact** identifiable pour
+les autorités.
+
+Autrement dit : si vous avez une boutique de trois personnes avec des avis
+clients, vous n'êtes très probablement pas soumis à l'arsenal dont parle la
+presse — mais vous n'êtes pas à zéro obligation non plus.
+
+**La question à poser à votre conseil**, formulée précisément pour ne pas perdre
+de temps : *« Mon site, qui affiche des avis clients déposés par mes
+acheteurs, est-il qualifié de service d'hébergement ou de plateforme en ligne
+au sens du DSA, et quelles obligations me restent compte tenu de l'exemption
+micro/petite entreprise ? »*
 
 `[LIEN vers la source officielle]`
 
@@ -94,16 +106,21 @@ avis négatifs**, qui peut s'analyser comme une pratique commerciale trompeuse.
 
 ## 5. L'échéance
 
-**Facturation électronique**, deuxième rappel. La réception est obligatoire
-depuis le **1ᵉʳ septembre 2026** ; l'émission suit selon un calendrier par taille
-d'entreprise. `[VÉRIFIER : calendrier applicable]`
+**Facturation électronique**, deuxième rappel, avec le calendrier confirmé :
+
+- **depuis le 1ᵉʳ septembre 2026** : *toutes* les entreprises doivent être en
+  capacité de **recevoir** des factures électroniques ;
+- **1ᵉʳ septembre 2027** : les **PME, TPE et micro-entreprises** doivent
+  **émettre** au format électronique.
+
+*(Vérifié sur economie.gouv.fr et impots.gouv.fr le 21/09/2026.)*
 
 Deux questions à se poser dès maintenant, dans l'ordre :
 **par quelle plateforme agréée vos factures transiteront-elles ?**, puis
 **votre outil de facturation actuel sait-il le faire, ou faudra-t-il en
 changer ?**
 
-La deuxième question est celle qui coûte cher si on la découvre en août.
+La deuxième est celle qui coûte cher si on la découvre en août 2027.
 
 ---
 
@@ -116,10 +133,15 @@ La deuxième question est celle qui coûte cher si on la découvre en août.
 
 ## Notes de production (à retirer avant envoi)
 
-- Le bloc 1 est **le plus risqué du mois** : le périmètre du DSA pour une
-  petite boutique demande une lecture juridique sérieuse. Si la vérification ne
-  permet pas d'être affirmatif, reformuler en « voici la question à poser à
-  votre conseil » plutôt que d'affirmer une obligation.
+- **Bloc 1 vérifié le 21/09/2026, et la vérification a conduit à le réécrire.**
+  La qualification exacte d'une boutique affichant des avis clients n'a **pas**
+  pu être établie : le bloc n'affirme donc aucune obligation. Il expose ce qui
+  est établi — dont l'exemption des micro et petites entreprises, qui est
+  l'information réellement utile — et fournit la question à poser à un conseil.
+  C'est l'application directe de la règle : *si on ne peut pas être affirmatif,
+  on reformule*. Détail dans [`../verifications.md`](../verifications.md).
+- Ne pas céder à la tentation de trancher pour faire un titre plus fort. Une
+  obligation inventée dans une newsletter B2B est une faute qui ne se répare pas.
 - Le bloc 4 touche au droit : on explique le principe, on ne tranche pas un cas.
 - Troisième numéro = fin du premier test de régularité. Vérifier le taux
   d'ouverture cumulé avant d'écrire le numéro 4.

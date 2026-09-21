@@ -58,9 +58,14 @@ n'apprend rien.
 15. Le DSA s'applique à vous si vous affichez des avis clients
 16. Supprimer un avis négatif : ce que dit le droit
 17. Facturation électronique : le calendrier qui vous concerne
+    *(vérifié — réception 01/09/2026 pour tous, émission 01/09/2027 pour les
+    PME/TPE/micro)*
 18. Les mentions obligatoires qu'il manque sur 9 boutiques sur 10
 19. Cookies et consentement : ce que la CNIL sanctionne réellement
-20. Vendre dans un autre pays de l'UE : ce qui change
+20. **En franchise en base de TVA ? Vous êtes quand même concerné par la
+    facturation électronique** *(vérifié — non redevable ≠ non assujetti ;
+    **le meilleur sujet identifié à ce jour** : un fait vérifié,
+    contre-intuitif, qui touche une population nombreuse)*
 
 **Format C — L'outil testé (21-30)**
 21. J'ai fait écrire une fiche produit par une IA : le résultat brut

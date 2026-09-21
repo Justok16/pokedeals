@@ -88,35 +88,80 @@ Sources :
 
 ---
 
-## ⏳ À vérifier — DSA et avis clients (numéro 3)
+## ⚠️ Partiellement vérifié — DSA et avis clients (numéro 3)
 
-Le point le plus délicat du premier mois. Ce qu'il faut établir avant de
-publier quoi que ce soit :
+**Vérifié le 21/09/2026. Conclusion : on ne peut PAS affirmer d'obligation
+précise. Le numéro 3 est reformulé en conséquence.**
 
-1. Une boutique hébergeant des avis clients est-elle qualifiée de **service
-   intermédiaire** au sens du DSA, et à quelles conditions ?
-2. Quelles obligations s'appliquent réellement à une **micro ou petite
-   entreprise** — le règlement étant gradué, plusieurs obligations lourdes ne
-   visent que les très grandes plateformes.
-3. Quel régime pour la suppression d'un avis, et quelle procédure de
-   signalement.
+**Ce qui est établi :**
+- Le DSA couvre trois catégories de **services intermédiaires** : simple
+  transport, mise en cache, **hébergement**. Un service d'hébergement stocke des
+  données fournies par un tiers à sa demande.
+- Une **plateforme en ligne** est un service d'hébergement qui **stocke et
+  diffuse au public** des informations à la demande d'un utilisateur.
+- **Les micro et petites entreprises** — moins de 50 salariés **et** chiffre
+  d'affaires ou total de bilan n'excédant pas 10 M€ — sont **exemptées de la
+  plupart des obligations** du règlement, celles conçues pour les grands acteurs.
+- Il leur reste néanmoins des obligations de base : **conditions générales
+  claires** et **point de contact** pour les autorités.
 
-**Si la réponse ne peut pas être affirmative**, reformuler le numéro 3 en
-« voici la question à poser à votre conseil » plutôt qu'affirmer une obligation.
-Une obligation inventée dans une newsletter B2B est une faute qui ne se répare
-pas.
+**Ce qui n'est PAS établi, et qu'il ne faut donc pas affirmer :**
+- `[NON TRANCHÉ]` Le fait qu'une boutique affichant des avis clients soit
+  qualifiée de **plateforme en ligne** — la question dépend du critère de
+  diffusion au public et du caractère éventuellement accessoire de la
+  fonctionnalité par rapport au service principal. Cette analyse relève d'un
+  avocat, pas d'une newsletter.
+- `[NON TRANCHÉ]` Le régime exact de la suppression d'un avis et la procédure de
+  signalement applicable à une petite boutique.
+
+**Décision éditoriale, en application de la règle R3** : le numéro 3 **n'affirme
+aucune obligation**. Il expose ce qui est établi — dont l'exemption des micro et
+petites entreprises, qui est la vraie information utile et rassurante pour 99 %
+des lecteurs — et formule la question à poser à un conseil. C'est exactement le
+cas prévu : *« si la réponse ne peut pas être affirmative, reformuler plutôt
+qu'affirmer »*.
+
+Sources consultées :
+- [Commission européenne — Digital Services Act: Questions and Answers](https://digital-strategy.ec.europa.eu/en/faqs/digital-services-act-questions-and-answers)
+- [DSA Library — Exclusion for micro and small enterprises](https://dsa-library.com/article/29/)
+- [consentmanager — Le DSA pour les plateformes en ligne](https://www.consentmanager.net/en/legal/dsa-for-online-platforms/)
 
 ---
 
-## ⏳ À vérifier — Facturation électronique (numéros 1, 3, 4)
+## ✅ Vérifié — Facturation électronique
 
-À confirmer : le **calendrier exact applicable par taille d'entreprise** et la
-liste des **plateformes agréées** à la date d'envoi. La réforme a déjà été
-modifiée par le passé ; toute date publiée doit porter sa date de vérification.
+**Vérifié le 21/09/2026, sur economie.gouv.fr, impots.gouv.fr et Urssaf
+(sources officielles).**
 
-Sources de départ : [Urssaf](https://www.urssaf.fr/accueil/actualites/facturation-electronique.html),
-[economie.gouv.fr](https://www.economie.gouv.fr/tout-savoir-sur-la-facturation-electronique-pour-les-entreprises),
-[service-public](https://entreprendre.service-public.gouv.fr/actualites/A18953).
+**Calendrier confirmé :**
+
+| Date | Qui | Quoi |
+|---|---|---|
+| **01/09/2026** | **Toutes** les entreprises | Doivent être en capacité de **recevoir** des factures électroniques |
+| **01/09/2026** | Grandes entreprises et ETI | Doivent aussi **émettre** au format électronique |
+| **01/09/2027** | **PME, TPE et micro-entreprises** | Doivent **émettre** au format électronique |
+
+- Dès le **01/09/2026**, les factures doivent transiter par une **plateforme
+  agréée par l'État**, directement ou via une solution compatible.
+
+**Le point qui mérite un numéro à lui seul :** les entreprises bénéficiant de la
+**franchise en base de TVA** — la plupart des micro-entrepreneurs — ne sont pas
+*redevables* de la TVA, **mais restent assujetties**. Elles sont donc **bien
+soumises à la facturation électronique, en réception comme en émission**.
+
+C'est une confusion très répandue (« je ne facture pas la TVA, donc je ne suis
+pas concerné ») et elle est fausse. C'est le meilleur sujet identifié à ce jour
+pour un contenu court : un fait vérifié, contre-intuitif, qui concerne une
+population nombreuse.
+
+Sources :
+- [economie.gouv.fr — Tout savoir sur la facturation électronique](https://www.economie.gouv.fr/tout-savoir-sur-la-facturation-electronique-pour-les-entreprises)
+- [impots.gouv.fr — À partir de quand suis-je concerné ?](https://www.impots.gouv.fr/professionnel/questions/partir-de-quand-suis-je-concerne-par-la-reforme-de-la-facturation)
+- [impots.gouv.fr — Guide pratique de démarrage au 1ᵉʳ septembre 2026 (PDF)](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/guide_pratique_facturation_electronique.pdf)
+- [Urssaf — La facturation électronique obligatoire au 1ᵉʳ septembre 2026](https://www.urssaf.fr/accueil/actualites/facturation-electronique.html)
+
+**Reste ouvert** : `[À CONFIRMER à la date d'envoi]` la liste des plateformes
+agréées, qui évolue.
 
 ---
 

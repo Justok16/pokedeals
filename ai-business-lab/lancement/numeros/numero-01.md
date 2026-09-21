@@ -98,10 +98,10 @@ boutique qui vend 3 000 € par an est concernée au même titre qu'une autre.
 
 ## 5. L'échéance
 
-**Facturation électronique.** La réception de factures électroniques est déjà
-obligatoire depuis le **1ᵉʳ septembre 2026** pour les entreprises assujetties à
-la TVA. L'obligation d'**émission** arrive ensuite, avec un calendrier par
-taille d'entreprise. `[VÉRIFIER : calendrier applicable à votre cas]`
+**Facturation électronique.** Depuis le **1ᵉʳ septembre 2026**, *toutes* les
+entreprises doivent être en capacité de **recevoir** des factures électroniques.
+L'obligation d'**émettre** arrive le **1ᵉʳ septembre 2027** pour les PME, TPE et
+micro-entreprises. *(Vérifié sur economie.gouv.fr et impots.gouv.fr.)*
 
 On y consacrera un numéro entier. En attendant, une seule question utile :
 **savez-vous par quelle plateforme vos factures transiteront ?** Si la réponse
