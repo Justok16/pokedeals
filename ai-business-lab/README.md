@@ -23,6 +23,7 @@
 | [09 — Outils et budget](09-outils-et-budget.md) | Stack 0 € puis règles de réinvestissement |
 | [`outils/`](outils/) | Le moteur de scoring (code + données + tests) |
 | [`modeles/`](modeles/) | Fiche opportunité, fiche de test, prompts d'agents, modèle de tableau de bord |
+| [`lancement/`](lancement/) | **Kit de lancement de la verticale choisie (artisans du bâtiment)** : validation des filtres, sources de veille, 4 premiers numéros, plan du comparateur, affiliation, 30 contenus courts |
 
 ---
 
@@ -153,6 +154,11 @@ production. Schéma complet dans [`05-tableau-de-bord.md`](05-tableau-de-bord.md
 
 ## PROCHAINE ÉTAPE
 
-Choisir la profession cible (action 1). Tant que ce choix n'est pas fait, aucune
-production ne doit commencer — et c'est la seule chose qui bloque réellement le
-démarrage aujourd'hui.
+**La profession cible est choisie : les artisans du bâtiment** (décision du
+21/09/2026, prise sur les données faute d'affinité déclarée, et vérifiée sur les
+3 filtres). La démonstration, les risques et le plan de 30 jours sont dans
+[`lancement/`](lancement/).
+
+Il n'y a donc plus de décision bloquante. La prochaine action concrète est
+l'ouverture du compte beehiiv et la mise en ligne de la page d'inscription,
+avant tout contenu.
