@@ -122,6 +122,12 @@ abonnée, pour recevoir chaque envoi comme un lecteur et servir de contrôle.
 **Vrais inscrits = total affiché par beehiiv − 1.** L'adresse n'est pas
 écrite ici : aucune raison de lier le pseudonyme à une adresse dans un dépôt.
 
+**Point de départ relevé le 22/09/2026 à 20h15 : 0 vrai inscrit** (total
+affiché 1, soit le propriétaire). Filtre utilisé pour voir tout le monde :
+`Signup date: is after` 01/09/2026 — le filtre par défaut de beehiiv sur
+mobile n'affiche que le jour même, et les dates futures ne sont pas
+sélectionnables.
+
 **Ce qui reste non vérifié** : que l'email natif survive à la fin de
 l'essai. L'absence de bandeau est un indice, pas une preuve. À constater
 vers le 02/10.
