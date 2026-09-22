@@ -35,9 +35,10 @@ automatique vers le plan gratuit, ou prélèvement sur une carte enregistrée ?
 
 ### Risque 2 — la panne silencieuse, et c'est la plus dangereuse
 
-L'email de bienvenue est construit avec les **Automations** (déclencheur
-« Signed up »). Si cette fonction est réservée au plan payant, elle
-**s'arrêtera sans alerte** à la fin de l'essai.
+**Mis à jour le 22/09, 20h00 :** l'email de bienvenue ne passe plus par les
+Automations (payantes) mais par la fonction native `Welcome email`, qui
+n'affiche aucun bandeau payant. Le risque est réduit, **pas éliminé** : rien
+ne prouve qu'elle reste active après l'essai.
 
 Personne ne sera prévenu. Les nouveaux inscrits cesseront simplement de
 recevoir le message d'accueil, et le premier signe visible sera une
@@ -138,7 +139,7 @@ Décision prise quand même de publier : entre « rien » et « quelque chose qu
 fonctionne dix jours et qu'on réévalue », le second est strictement meilleur
 — coût nul, et il valide la chaîne de bout en bout.
 
-### Adresse postale du pied de page — à trancher avant le premier vrai numéro
+### Adresse postale du pied de page — ✅ TRANCHÉE le 22/09 (voir plus haut)
 
 Le pied de page inséré par beehiiv porte :
 
