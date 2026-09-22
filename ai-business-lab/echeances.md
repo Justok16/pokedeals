@@ -114,6 +114,8 @@ Procédure suivie, dans cet ordre pour ne jamais avoir zéro ni deux emails :
 `justokseize+…@gmail.com`. La règle de kill se juge sur le nombre d'inscrits
 (seuil : 15 au 20/12) — des adresses de test dans ce total fausseraient la
 seule mesure qui décide de la suite du projet.
+**Supprimées le 22/09 au soir.** Le compteur d'inscrits de beehiiv ne
+reflète plus que de vraies personnes à partir de cette date.
 
 **Ce qui reste non vérifié** : que l'email natif survive à la fin de
 l'essai. L'absence de bandeau est un indice, pas une preuve. À constater
