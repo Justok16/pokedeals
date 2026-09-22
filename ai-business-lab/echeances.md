@@ -93,8 +93,30 @@ ordinateur :
   recadre le logo en carré centré, la bannière horizontale y perdait tout
   sauf « DigC ».
 
-**Rappel : cette automatisation dépend de l'essai Max, qui finit vers le
-02/10.** Ce qu'il advient ensuite n'est pas vérifié (voir plus bas).
+### Bascule vers l'email de bienvenue natif — 22/09/2026, 19h55
+
+L'automatisation dépend de l'essai Max. En cherchant l'adresse postale dans
+les réglages de la publication, une fonction **native** est apparue :
+`Settings → Emails → Preset emails → Welcome email`. **Aucun bandeau payant**
+sur son éditeur, contrairement aux automatisations.
+
+Procédure suivie, dans cet ordre pour ne jamais avoir zéro ni deux emails :
+
+1. Email natif rempli, publié
+2. Test `+test3` : **deux emails reçus**, confirmé par le compteur de
+   l'automatisation (`Enrolled 2`). L'email natif se reconnaît à ce qu'il
+   commence par « Bonjour, », sans répéter l'objet en tête du corps.
+3. Automatisation **désactivée** (pas supprimée)
+4. Test `+test4` : doit recevoir **un seul** email — ⏳ à confirmer
+
+**Ce qui reste non vérifié** : que l'email natif survive à la fin de
+l'essai. L'absence de bandeau est un indice, pas une preuve. À constater
+vers le 02/10.
+
+L'adresse postale est tranchée dans la même séance : le champ `Address` de
+la publication est **vide** (`No Address Set`). L'adresse new-yorkaise est
+donc celle que beehiiv injecte par défaut. On laisse vide : y mettre une
+adresse personnelle serait une fuite d'anonymat définitive.
 
 ### Contrainte de forfait, relevée le 22/09 sur l'écran des automatisations
 
