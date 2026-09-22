@@ -107,7 +107,12 @@ Procédure suivie, dans cet ordre pour ne jamais avoir zéro ni deux emails :
    l'automatisation (`Enrolled 2`). L'email natif se reconnaît à ce qu'il
    commence par « Bonjour, », sans répéter l'objet en tête du corps.
 3. Automatisation **désactivée** (pas supprimée)
-4. Test `+test4` : doit recevoir **un seul** email — ⏳ à confirmer
+4. Test `+test4` : email natif reçu à 19h59, boîte de réception ✅
+
+**Adresses de test à exclure de tout comptage** : toutes les adresses
+`justokseize+…@gmail.com`. La règle de kill se juge sur le nombre d'inscrits
+(seuil : 15 au 20/12) — des adresses de test dans ce total fausseraient la
+seule mesure qui décide de la suite du projet.
 
 **Ce qui reste non vérifié** : que l'email natif survive à la fin de
 l'essai. L'absence de bandeau est un indice, pas une preuve. À constater
