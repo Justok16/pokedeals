@@ -391,3 +391,79 @@ avant d'avoir été lu à la source.
 - https://www.shopify.com/blog/best-affiliate-programs
 - https://affiliatebay.net/shopify-affiliate-program-review/
 - https://digiexe.com/blog/shopify-affiliate-program-review/
+
+---
+
+## Directive (UE) 2024/825 « EmpCo » — état des lieux au 22/09/2026
+
+**Échéance : applicable le 27/09/2026, dans cinq jours.** Le numéro 6 de la
+newsletter porte sur ce texte, et son état n'avait jamais été tranché.
+
+**Niveau de preuve : SOURCES SECONDAIRES.** EUR-Lex, `economie.gouv.fr`,
+`senat.fr` et `assemblee-nationale.fr` sont bloqués par le proxy de la
+session. Les pages officielles apparaissent dans les résultats de recherche
+mais n'ont pas pu être ouvertes. **Rien de ce qui suit ne doit être publié
+avant lecture directe de ces pages.**
+
+### Calendrier rapporté
+
+| Étape | Date |
+|---|---|
+| Adoption de la directive | 28/02/2024 |
+| Entrée en vigueur | 26/03/2024 |
+| **Délai de transposition par les États membres** | **27/03/2026** |
+| **Application** | **27/09/2026** |
+
+### Le fait nouveau, et il change l'angle du numéro 6
+
+**La France n'a pas transposé dans le délai.** Selon les sources
+consultées, la Commission européenne a adressé à la France une mise en
+demeure le **28 mai**, après l'expiration du délai du 27 mars — alors que
+les dispositions de la directive s'appliquent à partir du 27 septembre.
+
+Le projet de loi DDADUE (articles 20 et 21) a été examiné au Sénat, examen
+achevé en février 2026, et devait passer à l'Assemblée nationale en
+septembre.
+
+### Conséquence éditoriale
+
+L'angle prévu — « voici une nouvelle obligation » — **n'est plus le bon**.
+La situation réelle est plus intéressante et plus utile au lecteur :
+
+> **Un texte européen devient applicable samedi, et le droit français
+> n'a pas encore été mis à jour.**
+
+### Ce qui ne doit surtout PAS être écrit
+
+**Aucune analyse des effets juridiques de la non-transposition.** Ce que
+devient une directive applicable mais non transposée, ce qu'un professionnel
+doit faire dans l'intervalle, ce qu'un juge en ferait : ce sont des
+questions de droit. Ce projet n'est pas un cabinet de conseil et ne donne
+aucun avis juridique.
+
+Restent également exclus, comme décidé précédemment : **aucun montant de
+sanction, aucun nombre de pratiques en liste noire.**
+
+Ce qui peut être écrit : le calendrier, l'état de la procédure, les dates,
+et les liens vers les sources officielles pour que le lecteur aille voir
+lui-même.
+
+### À faire avant tout envoi — par l'utilisateur, sur ordinateur
+
+Ouvrir ces trois pages et confirmer l'état exact au jour de l'envoi :
+
+1. La fiche pratique DGCCRF
+   https://www.economie.gouv.fr/dgccrf/les-fiches-pratiques/larsenal-juridique-de-la-lutte-contre-lecoblanchiment-bientot-complete
+2. Le texte de la directive
+   https://eur-lex.europa.eu/eli/dir/2024/825/oj?locale=fr
+3. L'état du projet de loi DDADUE à l'Assemblée nationale
+
+**Si l'état a changé entre aujourd'hui et l'envoi, le numéro est faux.**
+C'est exactement le risque que ce projet existe pour éviter.
+
+### Sources secondaires consultées
+
+- https://www.nomosparis.com/lutte-contre-le-greenwashing-ce-que-va-changer-lentree-en-vigueur-de-la-directive-europeenne-empco-2024-825-a-partir-du-27-septembre-2026/
+- https://projetcelsius.com/blog/empco-calendrier-application/
+- https://alliancecommerce.org/directive-empco-regles-entreprises/
+- https://www.degaullefleurance.com/actualites/lutte-contre-le-greenwashing-une-evolution-du-cadre-juridique/
