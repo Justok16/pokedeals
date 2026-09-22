@@ -425,3 +425,63 @@ autres.
 
 Il faut un releve a la source sur https://www.shopify.com/pricing — bloque
 par le proxy de la session, donc a faire par l'utilisateur, sur ordinateur.
+
+---
+
+## Test 06 — Le volume anglais est-il ATTEIGNABLE ?
+
+**Date :** 22/09/2026
+**Question :** le test 05 a mesure 12x le volume et une valeur par visite 2 a
+4x superieure. Mais un gros volume n'est pas un volume atteignable. Qui tient
+reellement la premiere page aux Etats-Unis ?
+**Methode :** releve en direct de la page de resultats « shopify cost »
+(1 900 recherches/mois, CPC 5,39 $), marche americain.
+
+### Donnee observee — les 9 resultats
+
+| Position | Domaine | Nature |
+|---:|---|---|
+| 1 | shopify.com | l'editeur |
+| 2 | **reddit.com** | fil de discussion |
+| 3 | commerce-ui.com | petit site independant |
+| 4 | help.shopify.com | l'editeur |
+| 5 | **nerdwallet.com** | grand site d'autorite |
+| 6 | 20northmarketing.com | petite agence |
+| 7 | rigbyjs.com | petite agence |
+| 8 | ecorn.agency | petite agence |
+| 9 | stylefactoryproductions.com | petit blog specialise |
+
+**Cinq des neuf resultats sont des petits sites independants.** Un seul
+grand site d'autorite. Ce n'est pas la forteresse d'affiliation attendue.
+
+### Conclusion
+
+**La page de resultats americaine ressemble beaucoup a la francaise.** Les
+memes types d'acteurs y figurent, avec le meme type de page. L'hypothese
+« gros volume donc inatteignable » **n'est pas confirmee** sur cette requete.
+
+Le levier anglais mesure au test 05 reste donc credible : ~12x le volume,
+2 a 4x la valeur par visite, sur une page de resultats de difficulte
+comparable.
+
+### Deux observations annexes
+
+1. **Le resume automatique de Google y est ancre sur Reddit.** Le champ
+   d'occupation de la fonction indique `reddit.com` : la reponse de Google a
+   « combien coute Shopify » s'appuie principalement sur un fil de discussion.
+   Ses autres sources citees sont des videos YouTube et des blogs tiers —
+   **pas la page de tarifs de l'editeur.** Meme faiblesse structurelle qu'en
+   France.
+2. **Une des sources citees est la page de tarifs indienne**
+   (`shopify.com/in/pricing`) pour une requete americaine.
+
+### Ce que le test ne dit pas
+
+Une seule requete relevee. Les requetes a plus fort volume
+(« shopify starter plan », 9 900/mois) n'ont pas ete relevees et peuvent
+etre plus disputees.
+
+**Et les tarifs americains restent non verifies a la source** : le resume
+annonce 39 $/29 $, 105 $/79 $, 399 $/299 $ et 2,9 % + 30 c par transaction —
+soit un taux de transaction tres different du taux francais (1,5 % + 0,25 c).
+Rien de tout cela n'entrera sur le site avant un releve chez l'editeur.
