@@ -62,14 +62,55 @@ mais il ne peut pas se terminer depuis un mobile.
 
 **À finir sur ordinateur**, où l'éditeur est complet :
 
-1. https://app.beehiiv.com/automations → ouvrir le brouillon
-2. Sous « Conditions » (à laisser vide), ajouter une étape → **Send email**
+1. ~~https://app.beehiiv.com/automations → ouvrir le brouillon~~ **fait le 22/09**
+2. ~~Ajouter une étape → **Send email**~~ **fait le 22/09.** L'automatisation
+   est renommée « Bienvenue — inscription ». `Conditions` laissé vide à
+   dessein : une condition **exclurait** des inscrits (« Others will exit »).
+   `A/B test` laissé désactivé : tester deux variantes sur zéro abonné ne
+   produit aucune information.
 3. Coller l'objet et le corps depuis `lancement/email-de-bienvenue.md`
-4. **Publish** — une automatisation enregistrée mais non publiée ne se
+4. Onglet **`Details`** : vérifier qu'un champ `Subject line` distinct existe
+   et n'est pas vide
+5. **Publish** — une automatisation enregistrée mais non publiée ne se
    déclenche jamais
-5. Tester avec `justokseize+test2@gmail.com`
+6. Tester avec `justokseize+test2@gmail.com`
 
 Tant que ce n'est pas fait, un nouvel inscrit ne reçoit rien.
+
+### Contrainte de forfait, relevée le 22/09 sur l'écran des automatisations
+
+> *You can explore automations, but you'll need to upgrade to the Scale or
+> Max plan to publish and activate them.* — **Included in your free trial.**
+
+Les automatisations sont une fonction payante. Elles sont disponibles
+**pendant l'essai Max**, qui se termine vers le **02/10**.
+
+**Non vérifié, et à ne pas affirmer** : si l'automatisation est désactivée à
+la fin de l'essai ou si elle continue de tourner. À constater le jour venu.
+
+Décision prise quand même de publier : entre « rien » et « quelque chose qui
+fonctionne dix jours et qu'on réévalue », le second est strictement meilleur
+— coût nul, et il valide la chaîne de bout en bout.
+
+### Adresse postale du pied de page — à trancher avant le premier vrai numéro
+
+Le pied de page inséré par beehiiv porte :
+
+```
+228 Park Ave S, #29976, New York, New York 10003, United States
+```
+
+Elle apparaîtra **au bas de chaque email signé DigCost**.
+
+**Ce qui est su** : une adresse postale d'expéditeur est exigée par les règles
+anti-spam, et beehiiv en inscrit une par défaut.
+**Ce qui n'est pas su, et n'est pas atténué** : s'il s'agit d'une adresse de
+réexpédition que beehiiv met légitimement à disposition, ou d'un simple
+remplissage à remplacer.
+
+Non bloquant pour un test vers sa propre adresse. Bloquant avant un envoi
+réel : une adresse d'expéditeur fausse au bas d'un email qui traite de
+conformité décrédibilise tout le reste.
 
 ---
 
