@@ -1,11 +1,16 @@
 name: Canari Email
 
+# Cron DESACTIVE le 22/09/2026 a la demande de Justok : EMAIL_CANARI_DESTINATAIRE
+# pointe vers un alias (+canari) de sa propre boite, donc chaque envoi de test
+# (8/jour) lui arrivait directement -- pas de boite de rechange disponible pour
+# l'instant. workflow_dispatch reste actif : le canari peut toujours etre lance
+# a la main (bouton "Run workflow" dans l'onglet Actions) si besoin de verifier
+# ponctuellement la livraison email. Pour reactiver la surveillance automatique :
+# decommenter le bloc "schedule" ci-dessous (et idealement reconfigurer
+# EMAIL_CANARI_DESTINATAIRE vers une boite que Justok ne consulte pas au quotidien).
 on:
-  schedule:
-    # Toutes les 3h, meme cadence que watchdog_workflows.yml (meme classe de
-    # probleme : detection automatique d'une panne silencieuse) -- tres
-    # largement sous la limite SendGrid gratuite (100 emails/jour, 8 envois/jour ici).
-    - cron: "0 */3 * * *"
+  # schedule:
+  #   - cron: "0 */3 * * *"
   workflow_dispatch: {}
 
 permissions:
