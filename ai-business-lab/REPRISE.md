@@ -8,7 +8,7 @@
 > Il est versionné, donc il survit à la mort du conteneur — contrairement à
 > tout ce qui n'est que dans `/home/user`.
 >
-> **Dernière mise à jour : 21/09/2026**
+> **Dernière mise à jour : 22/09/2026, 22h30**
 
 ---
 
@@ -37,6 +37,28 @@
 ---
 
 ## Où en est le projet
+
+### Instantané du 22/09/2026, soir — lire ceci en premier
+
+| Élément | État |
+|---|---|
+| Site | En ligne, build vert (`18a1cb1`). 4 URL en indexation prioritaire, sitemap accepté. |
+| Bloc d'inscription | Réécrit pour le marchand **déjà installé** (contre-expertise, faille n° 1). |
+| Email de bienvenue | ✅ **Fonction native** beehiiv (`Settings → Emails → Welcome email`), testé de bout en bout. L'automatisation payante est **désactivée**, pas supprimée. |
+| Logo beehiiv | ✅ Carré (`digcost/assets/logo/digcost-carre-email.png`) : beehiiv recadre en carré centré. |
+| Adresse du pied de page | ✅ Tranchée : champ vide côté publication, adresse = celle de beehiiv. On laisse vide (anonymat). |
+| **Inscrits** | **0 vrai inscrit** au 22/09, 20h15. Règle : **total affiché − 1** (le propriétaire reste abonné comme copie de contrôle). Filtre pour tout voir : `Signup date: is after 01/09/2026`. |
+
+**Prochaine action de l'utilisateur (prévue le 23/09, sur PC)** : captures
+complètes, notes de bas de page comprises, de https://www.shopify.com/fr/pricing
+et https://www.shopify.com/pricing. Débloque **HT/TTC** (écart possible de 20 %
+sur le calculateur) et les **frais fixes Grow/Advanced**. À réception :
+corriger le calculateur, ajouter les relevés dans `digcost/_data/`
+(on ajoute, on n'écrase jamais), compléter l'entrée US du 22/09 dans
+`resumes_automatiques.yml`.
+
+**Échéances** : 27/09 EmpCo (dimanche) · ~02/10 fin de l'essai beehiiv —
+vérifier que l'email natif part toujours · 12/10 J+21.
 
 **Projet** : AI Business Lab — construire à partir de zéro, à budget nul, un
 portefeuille de business numériques automatisés par IA sur le marché
