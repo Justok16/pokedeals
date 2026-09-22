@@ -68,14 +68,33 @@ mais il ne peut pas se terminer depuis un mobile.
    dessein : une condition **exclurait** des inscrits (« Others will exit »).
    `A/B test` laissé désactivé : tester deux variantes sur zéro abonné ne
    produit aucune information.
-3. Coller l'objet et le corps depuis `lancement/email-de-bienvenue.md`
-4. Onglet **`Details`** : vérifier qu'un champ `Subject line` distinct existe
-   et n'est pas vide
-5. **Publish** — une automatisation enregistrée mais non publiée ne se
-   déclenche jamais
-6. Tester avec `justokseize+test2@gmail.com`
+3. ~~Coller l'objet et le corps~~ **fait le 22/09**
+4. ~~Onglet `Details` : `Subject line` et `Preview text`~~ **fait le 22/09.**
+   Les deux champs sont obligatoires chez beehiiv, le titre du corps ne les
+   remplit pas tout seul.
+5. ~~**Publish**~~ **fait le 22/09**
+6. ~~Tester avec `justokseize+test2@gmail.com`~~ **fait le 22/09, 18h43**
 
-Tant que ce n'est pas fait, un nouvel inscrit ne reçoit rien.
+## ✅ FAIT — 22/09/2026, 18h43
+
+**L'email de bienvenue est en ligne et il arrive.** Reçu en boîte de
+réception, pas en indésirables, expéditeur « DigCost ».
+
+C'est la première fois que ce projet exécute une chaîne complète sans
+intervention : formulaire du site → beehiiv → automatisation → délivrabilité.
+
+Deux corrections faites en route, toutes deux invisibles depuis un
+ordinateur :
+
+- **Les retours à la ligne durs.** Le texte du fichier était formaté à 72
+  colonnes. Collé tel quel, il produisait des lignes orphelines de trois
+  mots sur téléphone. Recollé en paragraphes d'une seule ligne.
+- **Le logo tronqué.** Voir `digcost/assets/logo/README.md` : beehiiv
+  recadre le logo en carré centré, la bannière horizontale y perdait tout
+  sauf « DigC ».
+
+**Rappel : cette automatisation dépend de l'essai Max, qui finit vers le
+02/10.** Ce qu'il advient ensuite n'est pas vérifié (voir plus bas).
 
 ### Contrainte de forfait, relevée le 22/09 sur l'écran des automatisations
 
