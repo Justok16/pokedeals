@@ -334,3 +334,60 @@ moyenne.
 | ✅ Vérifié en source officielle | On publie, avec le lien et la date |
 | ⏳ Sources concordantes, source officielle non consultée | On publie **si** on peut citer la référence exacte du texte, et on ouvre le texte avant envoi |
 | ❌ Non retrouvé | **On retire.** On ne nuance pas, on ne « prudence » pas : on retire |
+
+---
+
+## Programme d'affiliation Shopify — vérifié le 22/09/2026
+
+**Pourquoi cette vérification :** la contre-expertise du 22/09 a relevé que
+toute la thèse de revenu du projet reposait sur un programme d'affiliation
+**dont l'existence et les conditions n'avaient jamais été vérifiées.**
+
+**Niveau de preuve : SOURCES SECONDAIRES.** La page des conditions du
+programme (`shopify.com/affiliates`) est **bloquée par le proxy de la
+session** — testée en requête directe et via l'outil de récupération de
+page, refusée deux fois. Ce qui suit provient de recherches et de sources
+tierces, dont le blog de l'éditeur. **À confirmer sur la page officielle
+avant toute décision engageante.**
+
+### Ce qui ressort
+
+| Point | Ce qui est rapporté |
+|---|---|
+| Coût d'adhésion | gratuit |
+| Condition principale | une **présence en ligne établie** — blog, chaîne vidéo, audience sociale ou plateforme éducative |
+| Pertinence | le contenu et l'audience doivent être en rapport |
+| Profils cités comme soutenus | créateurs de contenu, formateurs, influenceurs, **sites de comparaison** |
+| Stratégie de promotion | à démontrer dans la candidature. Les approches par le contenu — **avis, comparatifs, tutoriels** — seraient acceptées plus facilement que la publicité générique |
+| Paiement | **compte PayPal vérifié obligatoire**, seul moyen de versement |
+| Délai de traitement | environ 5 jours ouvrés |
+| Audience minimale | **non publiée** |
+
+### Conséquences pour DigCost
+
+**La thèse de revenu n'est pas creuse.** Le programme existe, il est gratuit,
+et le type de contenu de DigCost — comparatifs et calculs — est précisément
+celui décrit comme le plus facilement accepté.
+
+**Mais deux obstacles concrets :**
+
+1. **« Présence en ligne établie ».** Candidater aujourd'hui, avec 2 inscrits
+   et zéro trafic, c'est candidater trop tôt. Le moment juste est **après
+   J+45**, quand Search Console montrera des impressions réelles. Un refus
+   n'est pas définitif, mais il coûte du temps et un dossier affaibli.
+2. **Compte PayPal vérifié.** À régler avant de candidater. Le site est
+   pseudonyme, le compte de paiement sera nominatif — ce n'est pas
+   contradictoire, mais il faut le savoir avant, pas au moment du versement.
+
+### Ce que ça ne dit pas
+
+Le taux de commission, la durée d'attribution et les exclusions
+géographiques **n'ont pas été relevés** : ils figurent sur la page officielle,
+inaccessible depuis la session. Aucun montant ne sera écrit dans ce dossier
+avant d'avoir été lu à la source.
+
+### Sources
+
+- https://www.shopify.com/blog/best-affiliate-programs
+- https://affiliatebay.net/shopify-affiliate-program-review/
+- https://digiexe.com/blog/shopify-affiliate-program-review/
