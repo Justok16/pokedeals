@@ -62,8 +62,12 @@ https://justok16.github.io/digcost/fr/prix-shopify-cout-reel/
 
 UNE QUESTION, SI VOUS AVEZ TRENTE SECONDES
 
-Répondez simplement à cet email : quelle ligne de vos frais vous paraît
-la plus opaque ? C'est ce qui décidera de la prochaine page écrite.
+Répondez simplement à cet email, en deux lignes :
+
+- vous vendez déjà en ligne, ou vous préparez votre boutique ?
+- quelle ligne de vos frais vous paraît la plus opaque ?
+
+C'est ce qui décidera de la prochaine page écrite.
 
 Se désinscrire : le lien est en bas de chaque message, en un clic.
 
@@ -80,6 +84,7 @@ Ce site n'est pas un cabinet de conseil et ne donne aucun avis juridique.
 | Ce qu'il ne recevra jamais | C'est la promesse différenciante du projet. Elle doit être dite au premier contact, pas au dixième. |
 | Les deux liens | Donne une raison de revenir sur le site tout de suite, tant que l'intérêt est chaud. |
 | La question ouverte | **C'est la partie la plus précieuse.** Chaque réponse est une donnée sur un vrai e-commerçant — la seule chose que le dossier n'a pas encore. |
+| « Vous vendez déjà, ou vous préparez ? » | Ajoutée le 22/09 après la contre-expertise. Elle mesure la seule chose qui décide de la valeur de la liste : un abonné qui vend déjà a un problème qui revient, donc une raison de rester. Un abonné qui prépare sa boutique décide une fois et s'en va. **Quinze inscrits ne valent pas la même chose selon la réponse.** |
 
 ## Limite
 

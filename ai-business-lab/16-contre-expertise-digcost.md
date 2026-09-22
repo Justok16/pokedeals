@@ -134,6 +134,51 @@ quelle que soit la qualité du travail.
 
 ---
 
+## Suites données — 22/09/2026, le jour même
+
+Une contre-expertise qui ne change rien n'est qu'un exercice de style. Les
+trois points du verdict ont été traités dans la journée.
+
+| Ce qui changeait | Fait | Où |
+|---|---|---|
+| Conserver l'historique des relevés | ✅ | `_data/releves_tarifs.yml` et `_data/resumes_automatiques.yml` — commit `44929da` |
+| Vérifier qu'un programme d'affiliation accepte ce site | ⚠️ partiel | Vérifié en source secondaire seulement (`bf8b891`). Reste à confirmer à la source, et un compte PayPal vérifié est requis. |
+| La newsletter doit s'adresser aux marchands installés | ✅ | Bloc d'inscription réécrit — commit `b2b1c20` |
+| Mesurer si le résumé automatique absorbe le clic | ⏳ | Impossible avant les premières données de Search Console. Le site a moins de 48 h. |
+
+### Ce que la réécriture du bloc d'inscription change concrètement
+
+Le bloc parlait de « recevoir les prochains calculs ». Il s'adressait, sans
+le vouloir, à celui qui n'a plus besoin du site dès qu'il a choisi.
+
+Il s'adresse maintenant au marchand déjà en ligne, et il s'appuie sur le
+seul relevé daté que nous possédions : le 21/09, le résumé automatique de
+Google annonçait 66 €/mois pour la formule Grow quand la grille de
+l'éditeur affichait 79 € — **156 € sur une année, pour qui se fiait au
+chiffre le plus visible.**
+
+C'est le seul argument du site qu'un concurrent ne peut pas écrire : il
+faut l'avoir relevé ce jour-là.
+
+Le calculateur a gagné une ligne de sensibilité calculée sur le volume du
+lecteur — deux dixièmes de point de plus sur le taux standard, et voilà le
+surcoût annuel. Elle arrive à l'instant précis où il vient d'obtenir son
+total. Elle dit explicitement qu'aucune hausse n'est annoncée : c'est un
+ordre de grandeur, pas une prévision.
+
+### Ce qui reste non résolu, et il faut le dire
+
+Le risque n° 4 — **le résumé automatique répond à la place du site** — n'est
+pas traité par cette modification. Il ne peut pas l'être par l'écriture :
+il se mesure. Si les impressions montent et que les clics ne suivent pas,
+le positionnement « donner un chiffre » est mort, et aucune qualité
+rédactionnelle n'y changera quoi que ce soit.
+
+La réécriture du bloc d'inscription ne fait qu'une chose : **elle rend
+l'abonné utile s'il vient.** Elle ne le fait pas venir.
+
+---
+
 ## Note sur l'exercice
 
 Cette contre-expertise a produit **deux failles réelles non vues en six
