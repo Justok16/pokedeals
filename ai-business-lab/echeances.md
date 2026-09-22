@@ -117,6 +117,11 @@ seule mesure qui décide de la suite du projet.
 **Supprimées le 22/09 au soir.** Le compteur d'inscrits de beehiiv ne
 reflète plus que de vraies personnes à partir de cette date.
 
+**Exception volontaire :** l'adresse du propriétaire (pseudonyme) reste
+abonnée, pour recevoir chaque envoi comme un lecteur et servir de contrôle.
+**Vrais inscrits = total affiché par beehiiv − 1.** L'adresse n'est pas
+écrite ici : aucune raison de lier le pseudonyme à une adresse dans un dépôt.
+
 **Ce qui reste non vérifié** : que l'email natif survive à la fin de
 l'essai. L'absence de bandeau est un indice, pas une preuve. À constater
 vers le 02/10.
