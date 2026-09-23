@@ -49,16 +49,16 @@ CE QUE VOUS NE RECEVREZ JAMAIS
 Aucune promesse de revenu. Aucune méthode à vendre. Aucune place dans un
 comparatif n'est achetable, et la méthode de classement est publiée avant
 la première fiche :
-https://justok16.github.io/digcost/fr/methode/
+https://digcost.github.io/fr/methode/
 
 EN ATTENDANT, DEUX CHOSES UTILES
 
 Le calculateur de coût réel — votre chiffre d'affaires, votre panier
 moyen, et le total poste par poste. Rien n'est envoyé ni enregistré :
-https://justok16.github.io/digcost/fr/calculateur/
+https://digcost.github.io/fr/calculateur/
 
 Le calcul détaillé, tarifs relevés à la source et datés :
-https://justok16.github.io/digcost/fr/prix-shopify-cout-reel/
+https://digcost.github.io/fr/prix-shopify-cout-reel/
 
 UNE QUESTION, SI VOUS AVEZ TRENTE SECONDES
 
