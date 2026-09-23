@@ -1,5 +1,11 @@
 # Déménagement de DigCost vers un compte séparé
 
+> ✅ **TERMINÉ le 23/09/2026.** Site en ligne sur **https://digcost.github.io/**,
+> publié par le compte `digcost` (dépôt `digcost/digcost.github.io`) ; source
+> `Justok16/digcost` **privée** ; publication vérifiée après passage en privé
+> (Publication #2, succès). Clé : lecture seule, dépôt `digcost` seul, sans
+> expiration.
+
 **Décidé le 23/09/2026 par l'utilisateur**, après les audits externes.
 
 ## Pourquoi
@@ -27,12 +33,12 @@ désactiver les tâches planifiées d'un dépôt inactif.
 ## Étapes (utilisateur, ~1 h)
 
 1. ✅ Compte créé le 23/09 : **`digcost`** → site futur **https://digcost.github.io/**
-2. ⏳ Sur `Justok16` : créer une clé à grain fin, lecture seule, limitée à `digcost`
-3. Sur le nouveau compte : créer le dépôt `<compte>.github.io`
-4. Y coller `publication.yml` dans `.github/workflows/`
-5. Ajouter les secrets `SOURCE_REPO` et `SOURCE_TOKEN`, régler Pages sur « GitHub Actions »
-6. Lancer la publication, vérifier le site
-7. Passer `Justok16/digcost` en privé ; refaire Search Console sur la nouvelle adresse
+2. ✅ Sur `Justok16` : créer une clé à grain fin, lecture seule, limitée à `digcost`
+✅ 3. Sur le nouveau compte : créer le dépôt `<compte>.github.io`
+✅ 4. Y coller `publication.yml` dans `.github/workflows/`
+✅ 5. Ajouter les secrets `SOURCE_REPO` et `SOURCE_TOKEN`, régler Pages sur « GitHub Actions »
+✅ 6. Lancer la publication, vérifier le site
+7. ✅ `Justok16/digcost` passé en privé. ⏳ Search Console sur la nouvelle adresse, liens de l'email de bienvenue beehiiv
 
 ## Côté Claude
 
@@ -53,3 +59,13 @@ Liste d'origine :
 Ce qui a déjà été vu, archivé, ou envoyé aux IA auditrices (le prompt d'audit
 contenait les liens). Le dossier stratégique reste dans `pokedeals` jusqu'à sa
 propre migration (`MIGRATION.md`).
+
+## Conséquences pour la maintenance
+
+- **Pousser sur `main` de `Justok16/digcost` suffit** : la publication récupère
+  la source chaque heure (minute 17). Délai de mise en ligne : jusqu'à 1 h.
+- Le suivi des builds ne passe plus par `Justok16/digcost` (Pages y est
+  désactivé, dépôt privé) mais par les exécutions « Publication » du compte
+  `digcost`, que la session Claude ne voit pas forcément : **en cas de doute,
+  demander une capture à l'utilisateur.**
+- L'ancienne adresse `justok16.github.io/digcost` ne répond plus.

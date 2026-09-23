@@ -46,8 +46,10 @@ Verdict unanime : MODIFIER.
 **Décisions de l'utilisateur (23/09)** : distribution publique acceptée
 (30-45 min/jour, 7 jours) ; identité donnée en privé aux organismes qui
 paient ; ~10 €/an de domaine dès le premier euro ; **déménagement de DigCost
-vers un compte GitHub séparé** — en cours, voir `migration-digcost/README.md`.
-⏳ Étape 1 : l'utilisateur doit créer le compte et donner son nom.
+vers un compte GitHub séparé** — ✅ **FAIT le 23/09** : site sur
+**https://digcost.github.io/**, source privée. Voir `migration-digcost/README.md`.
+⏳ Restent : liens de l'email de bienvenue beehiiv (pointent vers l'ancienne
+adresse, morte), Search Console sur la nouvelle adresse.
 
 **Règle d'arrêt révisée** (`14-regle-de-kill.md`) : décision avancée au
 **06/10** sur trois signaux (distribution, affiliation, retours marchands).
