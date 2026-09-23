@@ -1,3 +1,10 @@
+> **⚠️ CONTESTÉ le 23/09/2026 par un audit externe (Grok, `audit-externe/03-grok.md`).**
+> Ce fichier confond probablement deux programmes Shopify : l'**affiliation**
+> (prime unique, 150 USD par nouveau marchand français à plein tarif, selon la
+> page officielle lue par l'auditeur) et le **programme Partenaires**
+> (20 % + 0,1 % du volume sur 4 ans, pour qui crée ou transfère des
+> boutiques). **À vérifier à la source avant toute projection de revenu.**
+
 # 04 — Affiliation : le pilier du revenu
 
 ## Pourquoi cette verticale a été retenue
