@@ -8,7 +8,7 @@
 > Il est versionné, donc il survit à la mort du conteneur — contrairement à
 > tout ce qui n'est que dans `/home/user`.
 >
-> **Dernière mise à jour : 23/09/2026, 02h40**
+> **Dernière mise à jour : 23/09/2026, 06h40**
 
 ---
 
@@ -38,7 +38,29 @@
 
 ## Où en est le projet
 
-### Instantané du 23/09/2026, nuit — lire ceci EN PREMIER
+### Instantané du 23/09/2026, matin — lire ceci EN PREMIER
+
+**Cinq audits reçus et contre-lus** (`audit-externe/00-synthese.md` d'abord).
+Verdict unanime : MODIFIER.
+
+**Décisions de l'utilisateur (23/09)** : distribution publique acceptée
+(30-45 min/jour, 7 jours) ; identité donnée en privé aux organismes qui
+paient ; ~10 €/an de domaine dès le premier euro ; **déménagement de DigCost
+vers un compte GitHub séparé** — en cours, voir `migration-digcost/README.md`.
+⏳ Étape 1 : l'utilisateur doit créer le compte et donner son nom.
+
+**Règle d'arrêt révisée** (`14-regle-de-kill.md`) : décision avancée au
+**06/10** sur trois signaux (distribution, affiliation, retours marchands).
+
+**Recommandation retirée** : ne jamais rendre `pokedeals` privé (quota
+Actions, PokéDeals s'arrêterait).
+
+**Restent à faire** : captures Shopify (grille /fr/tarifs, conditions 5.5,
+5.6, 15.2, page affiliation) ; calculateur étendu à Grow/Advanced avec seuil
+de changement de formule ; candidature affiliation ; brouillons de réponses
+publiques pour la distribution ; mentions légales et confidentialité.
+
+### Instantané du 23/09/2026, nuit
 
 **Trois audits externes reçus** (DeepSeek, Grok, ChatGPT), contre-lus dans
 `audit-externe/02` à `04`. Verdict unanime : **MODIFIER**. Mistral : partie 1

@@ -1,0 +1,63 @@
+name: Publication
+
+# Recupere le contenu du site depuis une source privee et le publie.
+# La source et la cle d'acces sont des secrets du depot : elles
+# n'apparaissent ni dans ce fichier, ni dans les journaux d'execution.
+
+on:
+  schedule:
+    - cron: "17 * * * *"   # toutes les heures
+  workflow_dispatch: {}      # lancement manuel possible
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  construire:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recuperer la source
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.SOURCE_REPO }}
+          token: ${{ secrets.SOURCE_TOKEN }}
+      - uses: actions/configure-pages@v5
+      - name: Construire le site
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - uses: actions/upload-pages-artifact@v3
+
+  publier:
+    needs: construire
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - id: deploiement
+        uses: actions/deploy-pages@v4
+
+  # GitHub desactive les taches planifiees d'un depot public sans activite
+  # pendant 60 jours. Un commit mensuel, sans contenu personnel, l'en empeche.
+  maintien:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Signe de vie mensuel
+        run: |
+          if [ "$(date -u +%d%H)" = "0103" ]; then
+            date -u +%Y-%m-%d > .derniere-publication
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add .derniere-publication
+            git commit -m "Signe de vie mensuel" && git push
+          fi
