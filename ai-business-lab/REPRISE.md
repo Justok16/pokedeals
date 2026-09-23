@@ -14,6 +14,16 @@
 
 ## Consignes de travail de l'utilisateur
 
+- **RÈGLE N° 1 depuis le 23/09/2026 — vérifier l'argent AVANT de construire.**
+  DigCost a été construit avant que son modèle de revenu soit vérifié ; la
+  vérification (prime unique de 150 USD, rien de récurrent) est arrivée après
+  deux jours de travail. Critique de l'utilisateur, fondée. Désormais, aucune
+  ligne de code ni aucune page pour une nouvelle idée tant que ces trois
+  points ne sont pas établis **à la source** : (1) qui paie, combien, à quelle
+  fréquence ; (2) la preuve qu'une demande existe et n'est pas satisfaite ;
+  (3) la concurrence, gratuite comprise. Une idée « évidente » (déduite d'un
+  texte de loi, d'une tendance) est présumée déjà prise jusqu'à preuve du
+  contraire.
 - **Reprendre le travail dès que possible** après toute interruption, sans
   attendre qu'il relance.
 - **Toujours donner le lien DIRECT de la page** quand on lui demande d'aller
