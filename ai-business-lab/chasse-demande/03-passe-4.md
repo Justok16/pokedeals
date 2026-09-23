@@ -47,3 +47,23 @@ eudr-navigator.com, eudr.live.
   méthode reste retenue.
 
 Sources : gapquery.com (via moteur de recherche).
+
+---
+
+## Réveil 22:34 UTC — extensions WordPress fermées ou abandonnées
+
+- Faits (secondaires) : 31 extensions « Essential Plugin » (> 400 000
+  installations cumulées) fermées le 07/04/2026 après une porte dérobée ;
+  83 extensions WPFactory fermées ; ~59 % des extensions du répertoire
+  considérées comme abandonnées.
+- Deux produits possibles : (a) remplaçant payant d'une extension fermée,
+  (b) surveillance des extensions abandonnées sur un site.
+- Grille : (a) échoue au **point 5** — les utilisateurs d'extensions gratuites
+  migrent vers une autre gratuite ; (b) échoue au **point 8** — Wordfence,
+  Patchstack, SmartWP, InstaRenewal couvrent déjà l'audit, souvent
+  gratuitement. **Écarté.**
+- Méthode à garder : une **fermeture brutale** crée une demande ponctuelle ;
+  utile seulement si l'outil fermé était **payant** (utilisateurs habitués à
+  payer).
+
+Sources : wordpress.org (forum), smartwp.com, dreamhost.com, dev.to.
