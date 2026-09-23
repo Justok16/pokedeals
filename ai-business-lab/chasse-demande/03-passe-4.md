@@ -31,3 +31,19 @@ subventions-ia.fr, mesaidespubliques.infogreffe.fr.
 
 Sources : trade.ec.europa.eu, europarl.europa.eu, coolset.com,
 eudr-navigator.com, eudr.live.
+
+---
+
+## Réveil 21:34 UTC — méthode « offre rare, demande forte » (GapQuery)
+
+- GapQuery (secondaire, 20/04/2026) : 6 catégories Shopify ont < 100 apps et
+  > 250 avis par app (moyenne 92). Seule nommée dans les extraits : **impression
+  à la demande** (24 apps, 581 avis/app).
+- Grille : l'impression à la demande exige une **logistique physique**
+  (ateliers, stocks, expéditions) — hors de portée (points 16, 20) ; le ratio
+  élevé reflète la domination de Printful/Printify, pas un manque. **Écarté.**
+- Les 5 autres catégories ne sont pas lisibles : gapquery.com est **bloqué par
+  le proxy** de l'environnement. À demander en capture à l'utilisateur si la
+  méthode reste retenue.
+
+Sources : gapquery.com (via moteur de recherche).
