@@ -359,7 +359,7 @@ avant toute décision engageante.**
 | Pertinence | le contenu et l'audience doivent être en rapport |
 | Profils cités comme soutenus | créateurs de contenu, formateurs, influenceurs, **sites de comparaison** |
 | Stratégie de promotion | à démontrer dans la candidature. Les approches par le contenu — **avis, comparatifs, tutoriels** — seraient acceptées plus facilement que la publicité générique |
-| Paiement | **compte PayPal vérifié obligatoire**, seul moyen de versement |
+| Paiement | ~~compte PayPal vérifié obligatoire, seul moyen de versement~~ **Contesté le 23/09** : selon la page officielle lue par un audit externe (ChatGPT), le virement bancaire est aussi prévu. À confirmer. |
 | Délai de traitement | environ 5 jours ouvrés |
 | Audience minimale | **non publiée** |
 
@@ -416,7 +416,12 @@ avant lecture directe de ces pages.**
 
 ### Le fait nouveau, et il change l'angle du numéro 6
 
-**La France n'a pas transposé dans le délai.** Selon les sources
+> **Nuancé le 23/09/2026** (audit ChatGPT) : la fiche EUR-Lex des mesures nationales
+> recense **trois mesures françaises notifiées**, renvoyant à des dispositions
+> existantes. On ne peut donc pas écrire qu'aucune mesure n'a été notifiée ; on
+> peut seulement écrire que la **transposition complète n'est pas établie**.
+
+~~La France n'a pas transposé dans le délai.~~ Selon les sources
 consultées, la Commission européenne a adressé à la France une mise en
 demeure le **28 mai**, après l'expiration du délai du 27 mars — alors que
 les dispositions de la directive s'appliquent à partir du 27 septembre.

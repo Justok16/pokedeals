@@ -12,8 +12,8 @@ passer.
 
 | Date | Quoi | Conséquence si c'est raté |
 |---|---|---|
-| **27/09/2026** | Directive (UE) 2024/825 « EmpCo » applicable | Le numéro 6 de la newsletter porte dessus. Vérifier l'état du texte **le jour même** avant d'envoyer quoi que ce soit. Rien ne doit être affirmé sans source officielle relevée ce jour-là. |
-| **~02/10/2026** | **Fin de l'essai Max beehiiv** (démarré le 21/09, 14 jours) | Deux risques distincts, voir ci-dessous. |
+| ~~**27/09/2026**~~ | ~~Directive (UE) 2024/825 « EmpCo » applicable~~ **Déclassée le 23/09** : trois audits externes convergent, elle porte sur les allégations environnementales et la durabilité, que le site ne fait pas, et avec 0 abonné le numéro 6 n'a personne à qui partir. | Le numéro 6 de la newsletter porte dessus. Vérifier l'état du texte **le jour même** avant d'envoyer quoi que ce soit. Rien ne doit être affirmé sans source officielle relevée ce jour-là. |
+| **~05/10/2026** | **Fin de l'essai Max beehiiv** (démarré le 21/09, 14 jours → 05/10 ; l'ancienne date du 02/10 était un calcul erroné, relevé par l'audit ChatGPT — la date réelle se lit dans le tableau de bord) | Deux risques distincts, voir ci-dessous. |
 | **12/10/2026** | J+21 — indexation | Décision : continuer ou corriger la plomberie. Aucun arrêt légitime à cette date. |
 | **05/11/2026** | J+45 — arrivée | Décision : augmenter, modifier, ou réviser les seuils avec les données. |
 | **20/12/2026** | J+90 — actif | **Seule date où « arrêter » est une décision possible.** Seuil : moins de 15 inscrits. |
@@ -45,7 +45,7 @@ recevoir le message d'accueil, et le premier signe visible sera une
 délivrabilité dégradée plusieurs semaines plus tard, sans cause apparente.
 
 **Vérification à faire le jour J :** s'inscrire avec une adresse de test
-(`justokseize+verif@gmail.com`) et confirmer que l'email de bienvenue
+(`<adresse-perso>+verif`) et confirmer que l'email de bienvenue
 arrive toujours.
 
 **Si la fonction est perdue :** replier le message d'accueil sur ce que le
@@ -74,7 +74,7 @@ mais il ne peut pas se terminer depuis un mobile.
    Les deux champs sont obligatoires chez beehiiv, le titre du corps ne les
    remplit pas tout seul.
 5. ~~**Publish**~~ **fait le 22/09**
-6. ~~Tester avec `justokseize+test2@gmail.com`~~ **fait le 22/09, 18h43**
+6. ~~Tester avec `<adresse-perso>+test2`~~ **fait le 22/09, 18h43**
 
 ## ✅ FAIT — 22/09/2026, 18h43
 
@@ -111,7 +111,7 @@ Procédure suivie, dans cet ordre pour ne jamais avoir zéro ni deux emails :
 4. Test `+test4` : email natif reçu à 19h59, boîte de réception ✅
 
 **Adresses de test à exclure de tout comptage** : toutes les adresses
-`justokseize+…@gmail.com`. La règle de kill se juge sur le nombre d'inscrits
+`<adresse-perso>+…`. La règle de kill se juge sur le nombre d'inscrits
 (seuil : 15 au 20/12) — des adresses de test dans ce total fausseraient la
 seule mesure qui décide de la suite du projet.
 **Supprimées le 22/09 au soir.** Le compteur d'inscrits de beehiiv ne
@@ -130,7 +130,8 @@ sélectionnables.
 
 **Ce qui reste non vérifié** : que l'email natif survive à la fin de
 l'essai. L'absence de bandeau est un indice, pas une preuve. À constater
-vers le 02/10.
+vers le 05/10. **Indice supplémentaire (23/09)** : selon l'audit ChatGPT, la
+documentation beehiiv place l'email de bienvenue natif dans l'offre gratuite.
 
 L'adresse postale est tranchée dans la même séance : le champ `Address` de
 la publication est **vide** (`No Address Set`). L'adresse new-yorkaise est
@@ -143,7 +144,7 @@ adresse personnelle serait une fuite d'anonymat définitive.
 > Max plan to publish and activate them.* — **Included in your free trial.**
 
 Les automatisations sont une fonction payante. Elles sont disponibles
-**pendant l'essai Max**, qui se termine vers le **02/10**.
+**pendant l'essai Max**, qui se termine vers le **05/10**.
 
 **Non vérifié, et à ne pas affirmer** : si l'automatisation est désactivée à
 la fin de l'essai ou si elle continue de tourner. À constater le jour venu.

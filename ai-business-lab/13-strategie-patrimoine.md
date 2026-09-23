@@ -109,7 +109,15 @@ elles restent un actif local.
 E1 passe 8ᵉ → 4ᵉ dès qu'on note la valeur patrimoniale. La raison est
 arithmétique et figure dans [`12`](12-peut-on-devenir-riche.md) : un logiciel
 B2B se revend **3 à 5 fois son revenu annuel**, un site de contenu **30 à 45
-fois son revenu mensuel**. À revenu égal, un facteur proche de **10**.
+fois son revenu mensuel**. ~~À revenu égal, un facteur proche de **10**.~~
+
+> **❌ ERREUR DE CALCUL, relevée le 23/09/2026 par un audit externe (ChatGPT,
+> `audit-externe/04-chatgpt.md`).** 3 à 5 fois le revenu annuel, c'est 36 à
+> 60 fois le revenu mensuel. Face à 30 à 45 fois pour un site de contenu,
+> l'écart à revenu égal est de **0,8 à 2**, pas de 10. Le levier 2 reste
+> défendable sur d'autres motifs (récurrence, relation contractuelle), mais
+> **pas sur celui-ci**, et la grille `criteres-patrimoine.yaml` a été pondérée
+> en le croyant. À réexaminer avant toute décision qui s'appuie dessus.
 
 **Conséquence adoptée** : le comparateur et la newsletter cessent d'être le but.
 Ils deviennent le **canal d'acquisition et l'instrument de découverte** du
