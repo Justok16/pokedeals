@@ -52,8 +52,9 @@ vers un compte GitHub séparé** — ✅ **FAIT le 23/09** : site sur
 propriété `https://digcost.github.io/` validée, sitemap envoyé (23/09).
 Indexation demandée pour les 4 pages le 23/09 au soir, après un premier refus
 passager de Google ; test en ligne : « La page peut être indexée ».
-⏳ Liens depuis le compte `digcost` (profil + Website du dépôt) : le site n'a
-plus aucun lien entrant depuis que `Justok16/digcost` est privé.
+✅ Liens depuis le compte `digcost` (profil + Website du dépôt), 23/09.
+Sitemap : relu « Impossible de récupérer » puis renvoyé ; rappel programmé le
+24/09 à 18h pour vérifier.
 
 **Règle d'arrêt révisée** (`14-regle-de-kill.md`) : décision avancée au
 **06/10** sur trois signaux (distribution, affiliation, retours marchands).
