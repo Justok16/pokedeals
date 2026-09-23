@@ -92,3 +92,26 @@ rester en ligne à 0 €) et le dossier réexamine A2 ou un autre concept.
    possible**, quel que soit le projet.
 4. Budget : 0 € strict, ou 0 € + ~10 €/an pour un nom de domaine le jour où un
    premier euro rentre ?
+
+---
+
+## Décisions de l'utilisateur — 23/09/2026
+
+| Question | Décision |
+|---|---|
+| Répondre publiquement, sous pseudonyme, sans message privé | **Accepté**, 30 à 45 min par jour pendant 7 jours |
+| Identité donnée en privé aux organismes qui paient, jamais sur le site | **Accepté** |
+| Budget | **0 € aujourd'hui, ~10 €/an de domaine dès le premier euro encaissé** |
+| Rendre privés les dépôts autres que `digcost` | Accepté, puis **recommandation retirée par Claude le jour même** (voir ci-dessous) |
+
+### Pourquoi la recommandation « rendre privés les dépôts » est retirée
+
+Vérifié après coup sur `pokedeals` : **plus de 400 exécutions automatiques
+par jour** (scanners toutes les 15 à 30 minutes). Un dépôt public dispose de
+minutes GitHub Actions illimitées ; un dépôt privé gratuit n'en a que
+**2 000 par mois**. Rendre `pokedeals` privé épuiserait ce quota en quelques
+jours et **arrêterait PokéDeals**. Même risque pour tout autre dépôt doté de
+tâches planifiées. La recommandation avait été faite sans cette vérification.
+
+La coupure d'anonymat doit donc se faire **de l'autre côté** : sortir DigCost
+du compte `Justok16`, pas cacher les autres projets.

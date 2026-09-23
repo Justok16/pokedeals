@@ -96,3 +96,37 @@ l'entêtement.**
 
 Elle ne remplace pas non plus `12-peut-on-devenir-riche.md`, dont la réponse
 reste « non » et ne sera pas révisée à la hausse.
+
+---
+
+## Révision du 23/09/2026, après quatre audits externes
+
+Adoptée avec l'accord de l'utilisateur (tests de distribution acceptés).
+**Elle s'ajoute aux dates ci-dessus, elle ne les remplace pas.**
+
+### Point de décision avancé : 06/10/2026
+
+Trois signaux, relevés ce jour-là :
+
+1. **Distribution** — visiteurs venus des réponses publiques (7 jours de test).
+2. **Affiliation** — candidature Shopify acceptée, refusée ou sans réponse.
+3. **Marchands réels** — nombre de retours d'e-commerçants en activité.
+
+**Si les trois sont nuls**, DigCost cesse d'être un véhicule d'argent. Le site
+reste en ligne (0 €), et le dossier réexamine un autre concept. Pas de
+« encore 45 jours pour voir ».
+
+### Mesurer une chaîne, pas un compteur
+
+Exposition qualifiée → usage du calculateur → inscription → réponse d'un
+marchand. Un nombre d'inscrits sans dénominateur ne dit rien.
+
+### Seuil chiffré du zéro clic
+
+**CTR < 1 % avec au moins 500 impressions** sur les requêtes de prix, analysé
+par requête et par position avant d'accuser le résumé automatique.
+
+### Correction
+
+Zéro page indexée à J+21 ne prouve pas une publication cassée : Google ne
+garantit pas l'indexation. C'est un signal à examiner, pas un diagnostic.
