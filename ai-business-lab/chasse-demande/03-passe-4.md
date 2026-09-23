@@ -15,3 +15,19 @@ annuaires professionnels) et vérifier l'absence d'outil.
 
 Sources : remporte.fr, maitre-ao.fr, odecia.fr, lyon-entreprises.com,
 subventions-ia.fr, mesaidespubliques.infogreffe.fr.
+
+---
+
+## Réveil 20:34 UTC — règlement européen déforestation (EUDR)
+
+- Échéance à venir : 30/12/2026 (grands opérateurs), **30/06/2027** (micro et
+  petites entreprises) ; café, cacao, bois, caoutchouc, soja, bovins, huile de
+  palme. Source secondaire : Access2Markets (Commission), Parlement européen.
+- Grille : **échoue au point 3** (la simplification de 2026 réduit l'obligation
+  des micro et petits producteurs à une **déclaration unique**, donc pas
+  d'abonnement) et **au point 8** (Coolset, EUDR Navigator, EUDR.live, PSQR,
+  déjà présents avec guides pour PME).
+- **Écarté.**
+
+Sources : trade.ec.europa.eu, europarl.europa.eu, coolset.com,
+eudr-navigator.com, eudr.live.
