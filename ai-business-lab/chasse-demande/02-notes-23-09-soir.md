@@ -33,3 +33,21 @@ en quelques semaines. Pour un nouvel entrant sans budget, l'événement doit
 
 Sources : propulsebyca.fr, abby.fr, superindep.fr, shapo.io, reviewx.io,
 levelaccess.com, aeldata.com, deque.com, LetsMetrix (LinkedIn).
+
+---
+
+## Passe 3 (23/09, fin de soirée)
+
+| Piste | Constat | Verdict |
+|---|---|---|
+| Déclaration d'accessibilité RGAA / EAA | Générateurs **gratuits** : l'État (betagouv), DeclareAccess, RGAA-Checker | **Écarté** |
+| Facturation électronique TPE-PME au 01/09/2027 (~4 millions d'entreprises, e-reporting inclus, 50 € par facture et 500 € par défaut d'e-reporting, plafonnés à 15 000 €/an) | Échéance à venir, mais plateformes agréées déjà en place (Pennylane, Cegid, Kolecto…) et offres gratuites | **Écarté** (confirme la décision du 23/09) |
+
+**Leçon** : la conformité réglementaire française est couverte d'avance par les
+éditeurs et par l'État. Passe 4 : quitter la conformité et chercher des
+**problèmes coûteux sans échéance légale**, là où des gens paient déjà cher un
+service humain que l'IA peut automatiser (critère : prix du service humain
+connu, clients identifiables, aucune offre automatisée francophone).
+
+Sources : kolecto.fr, ma-facture-electronique.org, pennylane.com,
+accessibilite.numerique.gouv.fr, declareaccess.com, rgaa-checker.com.
