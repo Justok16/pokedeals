@@ -38,7 +38,7 @@ désactiver les tâches planifiées d'un dépôt inactif.
 ✅ 4. Y coller `publication.yml` dans `.github/workflows/`
 ✅ 5. Ajouter les secrets `SOURCE_REPO` et `SOURCE_TOKEN`, régler Pages sur « GitHub Actions »
 ✅ 6. Lancer la publication, vérifier le site
-7. ✅ `Justok16/digcost` passé en privé. ⏳ Search Console sur la nouvelle adresse, liens de l'email de bienvenue beehiiv
+7. ✅ `Justok16/digcost` passé en privé. ✅ Search Console (propriété validée, sitemap envoyé) et liens de l'email de bienvenue beehiiv corrigés
 
 ## Côté Claude
 

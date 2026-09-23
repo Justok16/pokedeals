@@ -48,8 +48,10 @@ Verdict unanime : MODIFIER.
 paient ; ~10 €/an de domaine dès le premier euro ; **déménagement de DigCost
 vers un compte GitHub séparé** — ✅ **FAIT le 23/09** : site sur
 **https://digcost.github.io/**, source privée. Voir `migration-digcost/README.md`.
-✅ Liens de l'email de bienvenue beehiiv corrigés (23/09). ⏳ Reste : Search
-Console sur la nouvelle adresse.
+✅ Liens de l'email de bienvenue beehiiv corrigés (23/09). ✅ Search Console :
+propriété `https://digcost.github.io/` validée, sitemap envoyé (23/09).
+Demande d'indexation refusée par Google (« erreur, réessayez ») : même
+incident que le 22/09, à retenter plus tard, non bloquant.
 
 **Règle d'arrêt révisée** (`14-regle-de-kill.md`) : décision avancée au
 **06/10** sur trois signaux (distribution, affiliation, retours marchands).
