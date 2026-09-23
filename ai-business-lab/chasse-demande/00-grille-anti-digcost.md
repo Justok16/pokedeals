@@ -42,6 +42,28 @@ Une piste qui échoue à un seul point **éliminatoire** (★) n'est pas présen
 |---|---|---|
 | 13 ★ | **Chaque fait étiqueté** : source primaire, secondaire, ou hypothèse. Un fait non vérifié est retiré, pas adouci | Affirmations non sourcées relevées par les audits externes |
 
+## F. Au-delà de DigCost : causes d'échec connues ailleurs
+
+Sources secondaires : CB Insights (111 puis 431 start-up fermées) — pas de
+besoin de marché 42 %, trésorerie épuisée 29 % (souvent symptôme), équipe
+23 %, concurrence 19 % ; étude 2024 : mauvaise adéquation produit-marché 43 %,
+mauvais moment 29 %, économie unitaire intenable 19 %.
+
+| # | Question | Risque visé |
+|---|---|---|
+| 14 ★ | **Un modèle d'IA généraliste (ChatGPT, Claude, Gemini) ou l'éditeur de la plateforme peut-il rendre le produit inutile par une simple mise à jour ?** | « Surcouche » absorbée (le cas Shopify qui livre lui-même la fonction) |
+| 15 ★ | **Dépendance à une seule plateforme** (une place de marché, un moteur, une API) qui peut changer ses règles, ses prix ou nous exclure ? Plan B chiffré | Judge.me quittant WooCommerce ; résumés IA de Google qui captent le clic |
+| 16 ★ | **Économie unitaire** : coût par client (API IA, hébergement, paiement, remboursements, support) < 30 % du prix ; coût d'acquisition récupéré en moins de 3 mois | Marge dévorée par les appels d'IA ou la publicité |
+| 17 | **Désabonnement** : pourquoi le client paierait-il encore au 6e mois ? Besoin répété, données accumulées, habitude | Achat unique déguisé en abonnement |
+| 18 | **Timing** : trop tôt (marché pas prêt), trop tard (place prise), fenêtre courte (échéance passée) ? | Mauvais moment : 29 % des fermetures |
+| 19 ★ | **Secteur à risque** : santé, finance, droit, enfants, données sensibles, jeux d'argent, contenu adulte, crypto — responsabilité, profession réglementée, refus des prestataires de paiement | Compte Stripe ou PayPal gelé, poursuites |
+| 20 | **Support** : combien d'heures par semaine pour 100 clients ? Compatible avec 1 à 2 h/jour ? | Produit qui dévore le temps de l'utilisateur |
+| 21 | **Confiance** : un inconnu sans visage peut-il vendre ce produit ? (le client confie-t-il son argent, ses données, sa réputation ?) | Produits qui exigent une caution humaine visible |
+| 22 | **Réputation et éthique** : le produit peut-il nuire, tromper, spammer, ou être perçu comme tel ? | Bannissement, mauvaise presse |
+| 23 | **Revente possible** : actif transférable (code, clients, marque) sans l'utilisateur ? | Objectif « se faire racheter » |
+| 24 | **Taille du marché** : assez grand pour 10 000 €/mois, assez petit pour être ignoré des gros ? | Niche trop étroite ou océan de requins |
+| 25 | **Test de destruction** : écrire la meilleure raison pour laquelle ce projet échouera ; si elle est convaincante, écarter | Biais de confirmation de Claude lui-même |
+
 ## Ordre de travail imposé
 
 1. Grille A et B **avant** toute ligne de code ou page.

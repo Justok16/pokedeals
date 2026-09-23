@@ -24,7 +24,7 @@
   (3) la concurrence, gratuite comprise. Une idée « évidente » (déduite d'un
   texte de loi, d'une tendance) est présumée déjà prise jusqu'à preuve du
   contraire. **Toute piste passe la grille `chasse-demande/00-grille-anti-digcost.md`
-  (13 points) avant d'être présentée ou construite.**
+  (25 points) avant d'être présentée ou construite.**
 - **Reprendre le travail dès que possible** après toute interruption, sans
   attendre qu'il relance.
 - **Toujours donner le lien DIRECT de la page** quand on lui demande d'aller
