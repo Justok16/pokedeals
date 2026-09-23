@@ -26,16 +26,22 @@ désactiver les tâches planifiées d'un dépôt inactif.
 
 ## Étapes (utilisateur, ~1 h)
 
-1. Créer le compte GitHub avec l'adresse du pseudonyme (celle de beehiiv),
-   **jamais l'adresse personnelle**. ⏳ en attente du nom d'utilisateur
-2. Sur `Justok16` : créer une clé à grain fin, lecture seule, limitée à `digcost`
+1. ✅ Compte créé le 23/09 : **`digcost`** → site futur **https://digcost.github.io/**
+2. ⏳ Sur `Justok16` : créer une clé à grain fin, lecture seule, limitée à `digcost`
 3. Sur le nouveau compte : créer le dépôt `<compte>.github.io`
 4. Y coller `publication.yml` dans `.github/workflows/`
 5. Ajouter les secrets `SOURCE_REPO` et `SOURCE_TOKEN`, régler Pages sur « GitHub Actions »
 6. Lancer la publication, vérifier le site
 7. Passer `Justok16/digcost` en privé ; refaire Search Console sur la nouvelle adresse
 
-## Côté Claude, une fois le nom connu
+## Côté Claude
+
+✅ Préparé sur la branche `nouvelle-adresse` de `Justok16/digcost` (non
+fusionnée : sur `main`, elle casserait l'adresse actuelle). **À fusionner dans
+`main` au moment de l'étape 6**, pas avant. Build vérifié : aucune trace de
+`justok16` dans le site publié, robots.txt désormais à la racine.
+
+Liste d'origine :
 
 - `_config.yml` : `url` et `baseurl` (une ligne chacune)
 - `README.md` du site : ne plus nommer l'ancienne adresse ni le compte
