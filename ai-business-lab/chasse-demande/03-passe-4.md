@@ -67,3 +67,27 @@ Sources : gapquery.com (via moteur de recherche).
   payer).
 
 Sources : wordpress.org (forum), smartwp.com, dreamhost.com, dev.to.
+
+---
+
+## Réveil 23:34 UTC — outils payants qui ferment (fenêtre de migration)
+
+- Méthode déjà outillée par d'autres : SunsetProof (32 fermetures suivies,
+  guides de migration), MicroGaps, endoflife.date. SunsetProof est **bloqué
+  par le proxy** ; lu via moteur de recherche.
+- Candidats vus : Delighted (enquêtes NPS, fermé le 30/06/2026 — passé) ;
+  QuickBooks Desktop 2023 (31/05/2026 — passé) ; Firebase Studio (22/03/2027,
+  outil de développeur gratuit) ; Varonis sur site (grands comptes) ;
+  **OpsGenie** (alertes d'astreinte d'Atlassian, payant, **05/04/2027**).
+- OpsGenie à la grille : clients payants et besoin récurrent (points 1, 3, 5 ✓),
+  mais **point 8** — PagerDuty, incident.io, Better Stack, Rootly, Squadcast,
+  Zenduty publient déjà des pages « alternative à OpsGenie » ; **point 21** —
+  personne ne confie ses alertes de production à un éditeur anonyme débutant.
+  **Écarté.**
+- Leçon : les fermetures **visibles** sont chassées par des concurrents
+  outillés ; il faudrait une fermeture **de niche** (outil payant d'un petit
+  éditeur, clientèle non technique), ce que les traqueurs publics ne
+  couvrent pas.
+
+Sources : sunsetproof.com (via moteur), zonkafeedback.com,
+firebase.google.com, netwrix.com.
