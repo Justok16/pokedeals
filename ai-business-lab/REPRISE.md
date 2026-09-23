@@ -8,7 +8,7 @@
 > Il est versionné, donc il survit à la mort du conteneur — contrairement à
 > tout ce qui n'est que dans `/home/user`.
 >
-> **Dernière mise à jour : 22/09/2026, 22h30**
+> **Dernière mise à jour : 23/09/2026, 02h40**
 
 ---
 
@@ -38,7 +38,37 @@
 
 ## Où en est le projet
 
-### Instantané du 22/09/2026, soir — lire ceci en premier
+### Instantané du 23/09/2026, nuit — lire ceci EN PREMIER
+
+**Trois audits externes reçus** (DeepSeek, Grok, ChatGPT), contre-lus dans
+`audit-externe/02` à `04`. Verdict unanime : **MODIFIER**. Mistral : partie 1
+reçue seulement, en attente de la partie 2. **Synthèse et décisions à faire
+quand tous les retours sont là.**
+
+Corrigé le 23/09 : affirmations non sourcées du site, bug du calculateur
+(double comptage en mode prestataire externe), incohérence 952/1 012 €,
+balises canoniques, erreur de calcul du levier patrimoine (0,8 à 2, pas 10),
+alias d'adresse de test exposés, fin d'essai beehiiv = ~05/10. **EmpCo
+déclassée** (hors sujet pour le site, 0 abonné).
+
+**Le constat central** : Shopify prévient ses marchands 30 jours avant de
+changer ses frais, et son affiliation ne paie qu'une prime unique pour un
+**nouveau** marchand. Le lecteur que le site retient n'a pas besoin de
+l'alerte et ne rapporte rien. **Modèle pris en tenaille.**
+
+**Décisions qui appartiennent à l'utilisateur** : anonymat (le compte GitHub
+relie publiquement tous ses projets ; rendre privés les dépôts autres que
+`digcost`), mentions légales vs pseudonyme, test de distribution (poster le
+calculateur dans des espaces publics sans message privé), cible et modèle
+d'argent, et la question « pourquoi A4b et pas A2 » face à l'objectif
+« maximum d'argent ».
+
+**Captures attendues** : https://www.shopify.com/fr/tarifs ,
+https://www.shopify.com/legal/terms (sections 5.5, 5.6, 15.2),
+https://help.shopify.com/en/affiliates/earnings — pour confirmer la grille
+Grow/Advanced et le HT déjà enregistrés « à confirmer » dans `_data/`.
+
+### Instantané du 22/09/2026, soir
 
 | Élément | État |
 |---|---|
