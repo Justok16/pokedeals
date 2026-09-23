@@ -1,3 +1,22 @@
+> **✅ TRANCHÉ le 23/09/2026 à la source** (help.shopify.com/en/affiliates/earnings,
+> captures de l'utilisateur). Le « contesté » ci-dessous est levé, dans le sens
+> des audits Grok et ChatGPT :
+>
+> - **Prime unique** par parrainage, selon le pays du marchand : **150 USD pour
+>   la France** (même montant : États-Unis, Royaume-Uni, Allemagne, reste de
+>   l'Europe…), 25 USD pour l'Afrique, l'Inde, l'Amérique latine, le reste de
+>   l'Asie. **Rien de récurrent.**
+> - Formules éligibles : **Basic, Grow, Advanced**. **Plus, Enterprise et
+>   Retail : non éligibles.**
+> - Condition : le marchand parrainé doit payer sa formule **au plein tarif
+>   pendant au moins un mois après l'essai** (3 jours gratuits + 3 mois à 1 €).
+>   Commission annulable en cas de fraude ou de boutique remboursée.
+> - Délai : verrouillage le 21 du mois suivant le premier paiement plein tarif,
+>   versement le 22 sur le compte Impact. Exemple de l'éditeur : inscription le
+>   1er janvier → commission versée le **22 mai**. **Environ 4 à 5 mois.**
+> - Conséquence : **un marchand déjà installé ne rapporte rien** via ce
+>   programme, et un changement de formule non plus.
+
 > **⚠️ CONTESTÉ le 23/09/2026 par un audit externe (Grok, `audit-externe/03-grok.md`).**
 > Ce fichier confond probablement deux programmes Shopify : l'**affiliation**
 > (prime unique, 150 USD par nouveau marchand français à plein tarif, selon la
