@@ -56,6 +56,14 @@ passager de Google ; test en ligne : « La page peut être indexée ».
 Sitemap : relu « Impossible de récupérer » puis renvoyé ; rappel programmé le
 24/09 à 18h pour vérifier.
 
+**Soir du 23/09** : grille Shopify complète relevée par captures (4 entrées
+dans `digcost/_data/releves_tarifs.yml`) ; calculateur étendu à Grow et
+Advanced avec seuil de changement de formule (`digcost` `6cede95`) ; **HT
+tranché** (conditions de service, art. 5.5, `431f180`) ; **affiliation
+tranchée** : prime unique de 150 USD par nouveau marchand FR, rien de
+récurrent, ~4-5 mois de délai (`lancement/04-affiliation.md`). Prochaine
+étape : brouillons de réponses pour la distribution publique.
+
 **Règle d'arrêt révisée** (`14-regle-de-kill.md`) : décision avancée au
 **06/10** sur trois signaux (distribution, affiliation, retours marchands).
 
