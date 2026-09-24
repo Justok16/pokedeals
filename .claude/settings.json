@@ -1,13 +1,20 @@
 {
+  "enabledPlugins": {
+    "small-business@knowledge-work-plugins": true,
+    "superpowers@superpowers-marketplace": true
+  },
   "extraKnownMarketplaces": {
     "knowledge-work-plugins": {
       "source": {
         "source": "github",
         "repo": "anthropics/knowledge-work-plugins"
       }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
     }
-  },
-  "enabledPlugins": {
-    "small-business@knowledge-work-plugins": true
   }
 }
