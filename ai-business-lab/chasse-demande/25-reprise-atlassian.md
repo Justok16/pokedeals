@@ -256,3 +256,25 @@ Lecture : les éditeurs **actifs** (qui répondent en quelques minutes)
 refusent — ils comptent migrer eux-mêmes ou garder l'app. Les meilleures
 chances restent chez les éditeurs silencieux (aucune app migrée). Ne pas
 relancer les refus.
+
+## Vague 5 — envoyée par Claude le 24/09 (~21:35 UTC), vers les adresses email standard des portails
+
+Éditeurs qui n'affichent qu'un portail : envoi à l'adresse « support@ »
+de leur portail Atlassian (format constaté chez Actonic et Caelor, qui a
+fonctionné) ou de leur Zendesk. Adresses devinées : un rejet du serveur
+est possible et sera noté.
+
+Addteq (Excellentable), Creativas (Smart Courses), gesesoft (Outlook
+Connector), Realigned Technologies (Advanced Story Maps), Polymetis
+(Project Labels), TeamOps FACTORY (Sketch Image Editor), Methoda (RTL for
+Confluence), Presago (Icons for Confluence), RaleyApps (Intake Forms),
+**Bilith** (Google Drive, OneDrive, Asana, Box — 4 comptes, ~9 900
+installations), CollabSoft (Version & Component Sync), WISOFT (Slack
+Connector, Gantt Cloud), StreamlineSoft (CQL Search, Bulk Action Tools,
+Render Markdown).
+
+Total : **37 éditeurs contactés** en une soirée. Non contactés : UGUBI
+(portail fermé au public), Shim Technologies (GitHub seulement), Soyatec,
+Apps+, KontextWork (pas de canal email trouvé), Dutch Beginners/Stepashka
+(éditeur actif qui migre), grands éditeurs (SmartBear, resolution,
+miniOrange, SmartDraw).
