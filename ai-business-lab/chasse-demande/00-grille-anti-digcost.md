@@ -78,3 +78,10 @@ mauvais moment 29 %, économie unitaire intenable 19 %.
 **propose spontanément**, sans attendre qu'on le lui demande. Seules
 restent à l'utilisateur les actions impossibles pour Claude (captcha,
 signature, identité, paiement) et les décisions qui l'engagent.
+
+**Autonomie maximale** (confirmé par l'utilisateur, 24/09) : automatiser
+tout ce qui peut l'être et utiliser tous les outils disponibles **sans
+demander d'autorisation**. Limites qui restent : ce qui engage
+l'utilisateur (prix, pourcentage, signature, dépense > 0 €, identité) lui
+est soumis ; aucune règle de la liste ci-dessus n'est levée (pas de
+démarchage de clients, rien d'invérifié publié, etc.).
