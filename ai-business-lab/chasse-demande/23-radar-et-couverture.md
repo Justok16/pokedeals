@@ -61,3 +61,12 @@ Nouveautés par rapport au relevé du matin :
   migré seront visibles par leur retrait.
 - monday.com (migration des automatisations au 30/04/2026) et Freshworks
   (plateforme v2.3, 30/05) : échéances passées.
+
+## Outil noté pour plus tard : Jev (TypeSafe AI) — 24/09
+
+Modèle de « décisions typées » (classification, routage), accès anticipé,
+42 $ par milliard de tokens d'entrée (typesafe.ai, source primaire ; pas
+d'offre gratuite mentionnée). Pas utile aujourd'hui (ne change pas le
+modèle de la session, ne réduit pas le coût dominant = longueur de
+conversation). À envisager seulement comme brique d'un futur produit qui
+classe des volumes importants (avis, tickets, réponses).
