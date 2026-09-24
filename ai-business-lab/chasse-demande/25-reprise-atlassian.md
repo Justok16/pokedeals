@@ -103,7 +103,7 @@ visionneuses Swagger/Mermaid/JSON, portage simple, peu d'alternatives).
 | 24/09/2026 | Tech Labs | portail d'assistance | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
 | 24/09/2026 | EliteSoft | portail d'assistance (portal/10) | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
 | 24/09/2026 | Colined (vague 2) | portail d'assistance, « Other questions » | **envoyé** par l'utilisateur |
-| — | Cenote Labs (vague 2) | portail d'assistance | à envoyer |
+| 24/09/2026 | Cenote Labs (vague 2) | portail d'assistance, « General questions » | **envoyé** par l'utilisateur |
 | — | Magic Apps (vague 2) | portail d'assistance | à envoyer |
 | — | AELBOX (vague 2) | portail d'assistance | à envoyer |
 
