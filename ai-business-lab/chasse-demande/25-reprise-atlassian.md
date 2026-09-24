@@ -182,3 +182,8 @@ Réserves : Teamlead, Bloompeak et Addteq ont migré d'autres apps (éditeurs
 actifs : l'abandon est peut-être volontaire, donc la cession plus facile,
 ou ils migreront tard) ; GoEdit et Behave Pro sont techniquement plus
 lourds à porter.
+
+_24/09 : Sourcesprout injoignable (portail d'assistance en erreur, domaine
+sourcesprout.com hors ligne). Le transfert exigeant l'accord de l'éditeur,
+Simple PDF Export est retiré des cibles. Signal utile : ses clients payants
+(202 installations) resteront sans app au 31/01/2027._
