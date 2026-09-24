@@ -54,10 +54,13 @@ def avis_ios(app_id, pays, pages=3):
             entrees = lire_json(url)["feed"].get("entry", [])
         except Exception:
             return
+        if isinstance(entrees, dict):
+            entrees = [entrees]
         for e in entrees:
-            if "im:rating" not in e:
+            try:
+                yield int(e["im:rating"]["label"]), e["content"]["label"]
+            except (KeyError, TypeError, ValueError):
                 continue
-            yield int(e["im:rating"]["label"]), e["content"]["label"]
         time.sleep(0.5)
 
 
