@@ -94,3 +94,11 @@ pas de page lisible par l'API ; à identifier plus tard.)
 
 Priorité d'envoi : Toshihiro Sato → Tech Labs → EliteSoft (les trois ont des
 visionneuses Swagger/Mermaid/JSON, portage simple, peu d'alternatives).
+
+## Journal des envois
+
+| Date | Éditeur | Canal | Statut |
+|---|---|---|---|
+| 24/09/2026 | Toshihiro Sato | portail d'assistance, « Other questions » | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
+| 24/09/2026 | Tech Labs | portail d'assistance | message transmis à l'utilisateur |
+| — | EliteSoft | portail d'assistance | en attente |
