@@ -96,3 +96,19 @@ avant toute action en série, vérifier qu'elle ne déclenche pas une
 validation par action chez l'utilisateur ; si oui, lui faire régler la
 permission (claude.ai → Connecteurs → outil → « Toujours autoriser »)
 AVANT de lancer, pas après.
+
+## Conditions révisées par l'utilisateur (24/09, 23:20) — remplacent les précédentes sur ces points
+
+- **Budget : toujours 0 €.**
+- **Démarchage B2B par email : autorisé** (entreprises, pas particuliers).
+  Cadre légal à respecter (France/UE, CNIL) : message en rapport avec
+  l'activité professionnelle du destinataire, expéditeur identifiable,
+  lien ou moyen simple de désinscription, pas d'envoi massif non ciblé.
+  **À vérifier** avant la première campagne : si l'identification sous
+  pseudonyme suffit, ou s'il faut la raison sociale de la micro-entreprise.
+- **Domaines : absolument tout** ce qui est légal (services, rachat de
+  business payé sur les revenus futurs faute de budget, contenu/audience,
+  logiciel…). Placements à risque (trading, crypto) : évaluables, mais
+  sans argent réel engagé tant que le budget est à 0 €.
+- **Identité : pseudonyme seulement** (« Dig ») ; nom réel donné
+  uniquement aux organismes officiels et partenaires qui paient.

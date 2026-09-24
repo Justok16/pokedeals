@@ -30,8 +30,11 @@
   source est marqué « à vérifier » ou retiré (leçon Kitwise).
 - **Budget 0 €** tant que rien ne rapporte. Ne jamais acheter de crédits
   (par ex. Vercel AI Gateway : 5 $ offerts/mois, perdus après un achat).
-- **Pas de démarchage de clients.** Contacter des éditeurs pour une reprise
-  est permis (un message chacun, une seule relance).
+- **Démarchage B2B par email autorisé** (révision du 24/09) dans le cadre
+  légal CNIL : ciblé, en rapport avec l'activité du destinataire,
+  expéditeur identifiable, désinscription simple. Pas de particuliers.
+- **Tous les domaines légaux sont ouverts** ; identité : pseudonyme « Dig »
+  seulement. Détails : fin de `00-grille-anti-digcost.md`.
 - **Aucune adresse email, clé ou jeton dans le dépôt** (dépôt public). Les
   clés vont dans les variables d'environnement (`TYPESAFE_API_KEY`,
   `TYPESAFE_BASE_URL`). Ne jamais demander de coller une clé dans la
