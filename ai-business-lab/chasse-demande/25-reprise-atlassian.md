@@ -283,3 +283,15 @@ _Suivi vague 5 (21:35 UTC) : reçus par Presago (PRESHELP-820),
 StreamlineSoft (Zendesk n° 647), WISOFT (Zendesk n° 1594). Methoda :
 adresse refusée (« request couldn't be created ») — éditeur actif (autres
 apps migrées), non relancé par un autre canal._
+
+### Réponses reçues (mise à jour 24/09, 21:45 UTC)
+
+| Éditeur | Réponse |
+|---|---|
+| Werkstack (Gantt-Chart for Jira) | **refus** : entreprise vendue en juillet 2026 ; le nouveau propriétaire a déjà un prototype Forge. Remerciement envoyé. |
+| Actonic (Fast Inline Table Editing) | **refus** : version Forge presque terminée, sortie « dans quelques semaines ». Remerciement envoyé. |
+
+Bilan provisoire : 4 refus (Cenote, Released, Werkstack, Actonic), tous
+d'éditeurs actifs qui migrent eux-mêmes. Boîte du pseudonyme rangée : fils
+archivés sous l'étiquette « Reprise Atlassian » (rien supprimé : les fils
+servent à la relance du 08/10).
