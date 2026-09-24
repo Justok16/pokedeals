@@ -85,3 +85,8 @@ demander d'autorisation**. Limites qui restent : ce qui engage
 l'utilisateur (prix, pourcentage, signature, dépense > 0 €, identité) lui
 est soumis ; aucune règle de la liste ci-dessus n'est levée (pas de
 démarchage de clients, rien d'invérifié publié, etc.).
+
+**Feu vert général** (24/09, 21:40) : « je t'autorise TOUT ». Claude agit
+sans demander ; ne restent soumis à l'utilisateur que la dépense d'argent,
+l'engagement de son identité (signature, création d'entreprise) et
+l'acceptation d'un prix ou d'un pourcentage.
