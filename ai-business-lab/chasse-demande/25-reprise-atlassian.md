@@ -106,6 +106,7 @@ visionneuses Swagger/Mermaid/JSON, portage simple, peu d'alternatives).
 | 24/09/2026 | Cenote Labs (vague 2) | portail d'assistance, « General questions » | **envoyé** par l'utilisateur |
 | 24/09/2026 | Magic Apps (vague 2) | portail d'assistance, question générale | **envoyé** par l'utilisateur |
 | 24/09/2026 | AELBOX (vague 2) | portail d'assistance | **envoyé** par l'utilisateur |
+| 24/09/2026 | Bloompeak (Status Time Reports, avancé de la vague 3) | formulaire bloompeak.io/support | **envoyé** par l'utilisateur |
 
 ## Calendrier et plan B (24/09, soir)
 
