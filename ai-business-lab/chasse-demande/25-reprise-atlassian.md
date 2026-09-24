@@ -22,8 +22,8 @@ revenus **sans rien faire**. Commission Atlassian sur Forge : 0 % jusqu'à
 | **Toshihiro Sato** (vendeur 1215814, individuel) | Open API (Swagger) Integration 2 897 ; Mermaid Integration 591 ; Flowchart & PlantUML 544 ; Figma Viewer ; JSON Viewer ; OpenAPI pour Jira ; CSS ; Page Redirect — 10 apps, **aucune migrée** | portail d'assistance `toshihiro.atlassian.net/servicedesk/customer/portal/1` |
 | **Tech Labs** (vendeur 1216949) | Swagger UI for Confluence 659 ; Mermaid for Confluence 791 ; Figma File Integration ; HTML Content Macro — 4 apps, **aucune migrée** | portail d'assistance `technologylabs.atlassian.net/servicedesk/customer/portal/3` |
 
-(Le 3e éditeur envisagé — Open API Editor, Q&A, JSON Viewer, 15 apps — n'a
-pas de page lisible par l'API ; à identifier plus tard.)
+(Le 3e éditeur envisagé — Open API Editor, Q&A, JSON Viewer, 15 apps — a été
+identifié : **EliteSoft**, voir cibles de second rang ci-dessous.)
 
 ## Proposition (partage de revenu, sans achat)
 
@@ -100,5 +100,5 @@ visionneuses Swagger/Mermaid/JSON, portage simple, peu d'alternatives).
 | Date | Éditeur | Canal | Statut |
 |---|---|---|---|
 | 24/09/2026 | Toshihiro Sato | portail d'assistance, « Other questions » | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
-| 24/09/2026 | Tech Labs | portail d'assistance | message transmis à l'utilisateur |
-| — | EliteSoft | portail d'assistance | en attente |
+| 24/09/2026 | Tech Labs | portail d'assistance | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
+| 24/09/2026 | EliteSoft | portail d'assistance (portal/10) | message transmis à l'utilisateur ; envoi à confirmer |
