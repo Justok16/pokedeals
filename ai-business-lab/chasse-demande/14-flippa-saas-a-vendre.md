@@ -32,3 +32,18 @@ vérifiés par Flippa).
    (74 000+ apps mesurées, aucune place vide payante). Le modèle qui marche
    réellement est **un outil précis pour un métier précis, vendu par un
    canal précis**, même face à des concurrents.
+
+## Annonces distribuées par une place de marché (titres des vendeurs)
+
+- Shopify : fusion des commandes d'un même client (Mergify, 5 ans) ;
+  import de produits par IA (~500 $/mois).
+- Chrome : envoi d'emails récurrents depuis Gmail avec extension (prix
+  demandé 350 K$) ; extension avec 65 abonnés et 1,1 K$/mois.
+- WordPress : portefeuille de 50+ extensions (~8 K$/an) ; micro-SaaS de
+  13 ans « comblant un manque permanent » (détail non public).
+- Revente : automatisation Depop / Vinted / Etsy / eBay par IA (« #1 ») —
+  confirme la saturation vue en passe 4.
+
+Lecture : les places de marché (Shopify, Chrome) servent bien de canal sans
+démarchage pour des outils précis ; les revenus y restent modestes sauf
+exception (Mergify). Aucune annonce ne désigne un marché vide.
