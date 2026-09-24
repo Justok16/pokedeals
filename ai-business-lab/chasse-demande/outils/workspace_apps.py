@@ -14,7 +14,7 @@ w.writerow(["categorie", "nom", "editeur", "description", "note", "installations
 vus = set()
 for c in cats:
     s = lire(c)
-    t = html.unescape(re.sub(r"<[^>]+>", "|", re.sub(r"<script.*?</script>|<style.*?</style>", "", s, flags=re.S)))
+    t = html.unescape(re.sub(r"<[^>]+>", "|", re.sub(r"<(script|style)\b.*?</\1\s*>", "", s, flags=re.S | re.I)))
     t = re.sub(r"\|+", "|", t)
     n = 0
     for nom, ed, desc, note, inst in motif.findall(t):
