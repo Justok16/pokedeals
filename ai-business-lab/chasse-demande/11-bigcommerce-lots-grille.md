@@ -64,3 +64,20 @@ Le point 5 se tranche par un test, avant toute construction.
 À faire par l'utilisateur (le reste par Claude) : valider le nom et le
 prix ; créer le formulaire d'inscription (outil gratuit, à choisir) ;
 publier les réponses sur le forum.
+
+## Mise à jour 24/09 — point 7 vérifié à la source : piste fortement affaiblie
+
+Avant publication de la page de test, vérification de l'argument central
+(« le contournement natif ne déduit pas le stock des composants ») :
+**faux.** Le modificateur « Pick List » de BigCommerce propose l'option
+« ajuster le stock des articles ajoutés » (anchorgroup.tech ; documentation
+BigCommerce « PickListProductModifier » ; secondaire concordant). Le
+contournement gratuit couvre donc prix du lot **et** déduction du stock.
+
+Ce qui resterait à vendre (lots « au choix » dans une collection, remises de
+lot) est probablement couvert par le moteur de promotions natif de
+BigCommerce — non vérifié, donc non affirmable.
+
+**Décision : test non lancé, page retirée avant publication.** La piste B
+passe de « à tester » à « écartée sauf preuve nouvelle ». La règle n° 1 a
+fonctionné : l'erreur a été trouvée avant d'être publiée, pas après.
