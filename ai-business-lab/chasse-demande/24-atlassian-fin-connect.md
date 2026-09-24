@@ -51,3 +51,40 @@ Distribution : la boutique Atlassian elle-même (point 10 ✓).
    identité).
 5. Variante à étudier : **reprendre** une app abandonnée (transfert de fiche
    autorisé par la boutique) plutôt que la recréer.
+
+## Vérifications faites le 24/09 au soir
+
+**Hypothèse 1 — tranchée empiriquement** : aucune des 188 apps « Connect »
+n'a de version postérieure au 31/03/2026 (date du gel), alors que 742 des 833
+apps migrées en ont publié une. Le drapeau désigne bien des apps **figées,
+non migrées**.
+
+**Hypothèse 3 — alternatives migrées bien notées (≥ 4★, ≥ 10 avis)** pour
+les apps payantes figées : planning poker 9, temps par statut 9, Gantt 12,
+Slack 4, gestion d'utilisateurs 4, Outlook 3, CRM 5, Mermaid 2 — **déjà
+couverts**. Deux trous : **Swagger / OpenAPI** et **restauration de tickets
+supprimés** (0 alternative migrée bien notée).
+
+### Le cas Swagger / OpenAPI (documentation d'API dans Confluence et Jira)
+
+- Apps payantes figées : Open API (Swagger) Integration 2 897 installations
+  (4,4) ; Visualize OpenAPI 1 213 (4,35) ; Swagger UI for Confluence 659
+  (4,53) ; Open API Editor 615 (4,58) — **≈ 5 400 installations payantes qui
+  cesseront peut-être de fonctionner après le 31/01/2027**.
+- Alternatives migrées : « PlantUML, Swagger, drawio… » 3,96 (3 221, payant) ;
+  Open API Documentation for Confluence 3,68 (1 829, payant) ; OpenAPI
+  (Swagger) for Confluence (gratuit, 5,0 sur 3 avis, 380) ; ZenUML Lite
+  (gratuit) ; Swagger UI+ Embed (payant, 0 avis). Concurrence présente mais
+  moyenne.
+- **Prix constatés** (API officielle de tarification) : les apps figées
+  coûtent ~**1 $ par utilisateur et par an** (10 utilisateurs : 10 $/an ;
+  100 : 100 $/an ; 300 : ~200 $/an). Le concurrent migré le plus installé est
+  plus cher (100 utilisateurs : 250 $/an).
+- **Chiffrage honnête** : ~5 400 installations × quelques dollars par mois ≈
+  un marché total de l'ordre de **10 à 20 000 $/mois** pour les apps figées ;
+  en capter 20 % donnerait **~2 000 à 4 000 $/mois**. Réel, daté, faisable
+  techniquement (afficher une spécification OpenAPI dans une macro Forge),
+  mais **pas un projet en or**.
+
+**Statut** : meilleure piste concrète et datée à ce jour ; à compléter par
+les points 2, 4 et 5 avant toute décision.
