@@ -46,3 +46,18 @@ Nouveautés par rapport au relevé du matin :
 - Une date « 17/05/2027, complete your migration » sans produit identifiable
   dans la ligne : à relire à la source au prochain relevé avant toute
   conclusion.
+
+## Échéances éditeurs 2027 relevées le 24/09 (nuit)
+
+- **HubSpot** (developers.hubspot.com, « Legacy APIs and Apps: What's Going
+  Unsupported and When », 15/09/2026) : apps publiques créées avant le
+  23/06/2026 (ancienne architecture) « non supportées » dès le 15/09/2026,
+  **application en septembre 2027** : app « éligible au retrait » de la
+  boutique ; API v1-v3 non supportées (septembre 2027), v4 le 30/03/2027.
+  Limite pour nous : la boutique HubSpot n'indique ni la date de dernière
+  mise à jour ni l'architecture des apps, et la facturation passe par
+  l'éditeur (pas de transfert de fiche avec clients comme chez
+  Atlassian). À réexaminer au printemps 2027 : les apps qui n'auront pas
+  migré seront visibles par leur retrait.
+- monday.com (migration des automatisations au 30/04/2026) et Freshworks
+  (plateforme v2.3, 30/05) : échéances passées.
