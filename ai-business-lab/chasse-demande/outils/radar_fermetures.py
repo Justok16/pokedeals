@@ -20,6 +20,14 @@ SOURCES = {
     "Square": "https://developer.squareup.com/docs/changelog/connect",
     "Stripe": "https://stripe.com/docs/changelog",
     "eBay": "https://developer.ebay.com/develop/apis/api-deprecation-status",
+    "Atlassian": "https://developer.atlassian.com/changelog/",
+    "Google Ads": "https://developers.google.com/google-ads/api/docs/sunset-dates",
+    "Amazon SP-API": "https://developer-docs.amazon.com/sp-api/changelog",
+    "Mailchimp": "https://mailchimp.com/developer/release-notes/",
+    "Klaviyo": "https://developers.klaviyo.com/en/docs/changelog_",
+    "Notion": "https://developers.notion.com/page/changelog",
+    "Airtable": "https://airtable.com/developers/web/api/changelog",
+    "Microsoft (fin de support 2027)": "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027",
 }
 MOTS = re.compile(r"deprecat|sunset|retir|end[- ]of[- ]life|decommission|no longer (be )?(available|supported)|will be removed|shut ?down", re.I)
 MOIS = "January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec"
@@ -54,7 +62,10 @@ def main():
             cle = phrase[:120]
             if cle not in vus:
                 vus.add(cle)
-                trouves.append(phrase.strip())
+                # [clients] : pas de jargon de développeur, donc peut toucher des
+                # utilisateurs non techniques (le cas qui a fait Invoice Stack).
+                dev = re.search(r"\b(API|SDK|endpoint|scope|CLI|webhook|v\d+(\.\d+)?)\b", phrase)
+                trouves.append(("" if dev else "[clients] ") + phrase.strip())
         lignes.append(f"\n## {nom} ({len(trouves)})\n\nSource : {url}\n")
         lignes += [f"- {p}" for p in trouves[:25]]
     open("radar.md", "w", encoding="utf-8").write("\n".join(lignes) + "\n")
