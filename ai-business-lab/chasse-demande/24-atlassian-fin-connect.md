@@ -88,3 +88,23 @@ supprimés** (0 alternative migrée bien notée).
 
 **Statut** : meilleure piste concrète et datée à ce jour ; à compléter par
 les points 2, 4 et 5 avant toute décision.
+
+## Point 4 — conditions éditeur (vérifié le 24/09)
+
+- **Commission Atlassian sur les apps Forge : 0 % jusqu'à 1 M$ de revenus
+  cumulés** (depuis le 01/01/2026), puis 17 % ; Connect : 25 % depuis le
+  01/07/2026 (atlassian.com, « Updates to Marketplace Revenue Share: 2026 »,
+  source primaire). Hébergement Forge fourni par Atlassian.
+- **Identité** : vérification « Partner Verification » obligatoire avant de
+  publier. Témoignages contradictoires sur le forum officiel des développeurs
+  (community.developer.atlassian.com) : réponse relayée « entité enregistrée
+  requise » ; mais un **travailleur indépendant (Portugal) validé en
+  août 2026** pour une app payante. Équivalent français : **micro-entreprise**
+  (création gratuite en ligne). Conforme à la décision de l'utilisateur du
+  23/09 : identité donnée aux organismes qui paient, jamais sur le site.
+- **Profil public** : au nom de la personne ou de l'entreprise — à vérifier
+  si un nom commercial suffit (anonymat public).
+- **Adresse email à nom de domaine privé** exigée pour l'accès au portail
+  partenaire (pas de Gmail) : ~10 €/an de domaine, cohérent avec le budget
+  accepté le 23/09 (« dès le premier euro » — ici avant : décision à
+  demander le moment venu).
