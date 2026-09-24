@@ -131,3 +131,41 @@ un partage de revenu plutôt qu'un prix d'achat. Ce n'est **pas** de la
 prospection de clients : un seul message à deux éditeurs, qui perdront tout
 au 31/01/2027 sinon. **À valider avec l'utilisateur** (identité, micro-
 entreprise, un message à envoyer) avant toute démarche.
+
+## Élargissement : tous les éditeurs figés (24/09, soir)
+
+Pour les 78 apps payantes encore sur Connect : éditeur, puis état de TOUT
+son catalogue (données : `outils/editeurs-connect-2026-09-24.json`).
+
+- **24 éditeurs n'ont migré aucune app** depuis le gel : ils détiennent
+  **27 371 installations payantes** (sur 47 830).
+- Les plus gros : Google Drive & Docs pour Confluence/Jira + agenda (4 523) ;
+  Linh Technology — Open API, Mermaid, PlantUML, Figma… (4 444) ; Slack
+  Connector + Gantt Cloud (2 303) ; éditeur d'Open API Editor, Q&A, JSON
+  (1 722) ; OneDrive & SharePoint (1 496) ; Swagger UI + Mermaid (1 450) ;
+  Magic Estimations (1 443) ; Excellentable (1 312) ; Pivot Report +
+  Worklogs (1 306) ; Asana (1 081).
+- **Prix** (API officielle) : gratuit jusqu'à 10 utilisateurs, puis
+  ~300 $/an pour 50 utilisateurs et ~600 $/an pour 100 (Google Drive,
+  OneDrive) ; Slack Connector 450 $/an pour 50 ; GoEdit 950 $/an pour 50.
+  Une part importante des installations est donc gratuite (≤ 10
+  utilisateurs) ; le chiffre d'affaires réel par installation payante est de
+  l'ordre de **quelques centaines de dollars par an**.
+- **Alternatives migrées bien notées** : Google Drive 3, OneDrive/SharePoint
+  5, tableurs 40, Slack 4, planning poker 9, pièces jointes 14, Asana 1
+  (4,94/359). Les clients qui chercheront un remplaçant iront d'abord vers
+  ces acteurs installés.
+
+## Lecture stratégique
+
+1. **Recréer une app** pour capter ces clients : faible avantage (les
+   alternatives existent), sauf Swagger/OpenAPI et Asana.
+2. **Reprendre les apps abandonnées** (transfert de fiche + portage Forge) :
+   c'est le seul moyen de garder **les clients payants déjà installés** sans
+   qu'ils aient à nous trouver. Commission Atlassian : 0 % jusqu'à 1 M$.
+   Limites : il faut l'accord de l'éditeur ; les connecteurs Google/Microsoft
+   exigent des applications OAuth vérifiées (lourd) ; les visionneuses
+   (Swagger, Mermaid, JSON, PlantUML) sont techniquement les plus simples.
+3. Décision qui appartient à l'utilisateur : micro-entreprise + identité
+   auprès d'Atlassian ; un message à 2-3 éditeurs choisis. Aucun démarchage de
+   clients.
