@@ -108,3 +108,26 @@ les points 2, 4 et 5 avant toute décision.
   partenaire (pas de Gmail) : ~10 €/an de domaine, cohérent avec le budget
   accepté le 23/09 (« dès le premier euro » — ici avant : décision à
   demander le moment venu).
+
+## Point 2 — les éditeurs vont-ils migrer ? (vérifié le 24/09, API publique)
+
+| Éditeur (id boutique) | App Swagger figée | Autres apps de l'éditeur | Lecture |
+|---|---|---|---|
+| Linh Technology (1215814) | Open API (Swagger) Integration — 2 897 inst. | Mermaid Integration (2024-12, Connect), Flowchart & PlantUML (2022-01, Connect), Figma Viewer, JSON Viewer, OpenAPI pour Jira… | **tout le catalogue figé sur Connect** → abandon probable |
+| « tech.labs » (1216949) | Swagger UI for Confluence — 659 | Mermaid (791, 2024-12), Figma (2023), HTML Macro (2023) : tous Connect | **tout figé** → abandon probable |
+| Stepashka (1216364) | Visualize OpenAPI — 1 213 | Simple PlantUML **migré le 23/09/2026**, Round Robin migré | **éditeur actif** → migrera sans doute |
+
+Conséquence : ~3 500 installations payantes Swagger (plus leurs apps Mermaid,
+Figma, PlantUML, HTML) appartiennent à des éditeurs qui semblent avoir
+abandonné. Leurs clients devront changer d'outil avant le 31/01/2027.
+
+## Point 5 — variante « reprise » (idée à instruire)
+
+Plutôt que recréer une app et attendre que les clients la trouvent :
+**proposer aux éditeurs qui abandonnent de reprendre leurs fiches** (la
+boutique permet le transfert d'une app entre partenaires), de les porter sur
+Forge avec l'IA, et de garder leurs clients payants. Budget 0 € : proposer
+un partage de revenu plutôt qu'un prix d'achat. Ce n'est **pas** de la
+prospection de clients : un seul message à deux éditeurs, qui perdront tout
+au 31/01/2027 sinon. **À valider avec l'utilisateur** (identité, micro-
+entreprise, un message à envoyer) avant toute démarche.
