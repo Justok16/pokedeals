@@ -90,3 +90,9 @@ démarchage de clients, rien d'invérifié publié, etc.).
 sans demander ; ne restent soumis à l'utilisateur que la dépense d'argent,
 l'engagement de son identité (signature, création d'entreprise) et
 l'acceptation d'un prix ou d'un pourcentage.
+
+**Anticiper les frictions** (leçon du 24/09 : 56 validations manuelles) :
+avant toute action en série, vérifier qu'elle ne déclenche pas une
+validation par action chez l'utilisateur ; si oui, lui faire régler la
+permission (claude.ai → Connecteurs → outil → « Toujours autoriser »)
+AVANT de lancer, pas après.
