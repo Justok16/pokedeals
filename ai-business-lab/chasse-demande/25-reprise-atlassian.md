@@ -213,3 +213,33 @@ recopiées ici).
 Sans adresse email publique trouvée (portail seulement, à faire par
 l'utilisateur si besoin) : KontextWork (GoEdit), Addteq (Excellentable),
 gesesoft (Outlook Connector), Creativas (Smart Courses).
+
+## Vague 4 — envoyée par Claude le 24/09 (~21:25 UTC), par email
+
+Tous les éditeurs restants d'une app Connect payante figée (≥ 100
+installations) ayant une adresse de contact publique adaptée (support,
+ventes, contact ; pas d'adresse « confidentialité »). Exclus : grands
+éditeurs qui migreront eux-mêmes (SmartBear, resolution, miniOrange),
+SmartDraw et Phase Locked (seulement des adresses de confidentialité).
+
+| Éditeur | App(s) figée(s) (installations) |
+|---|---|
+| SaaSJet Studios | Email&Tasks (691), Boomerang (202), Business Process Manager (212) |
+| Released Software | Released Hub (890, 4,97) |
+| Narva Software Labs | Table Exporter (636), Multiple Excerpts (208) |
+| QC Analytics | QC Read and Understood (328), QC Documents (278) |
+| SolDevelo | Team Planner (275), Time Assistant (213) |
+| Werkstack | Gantt-Chart for Jira (483) |
+| Skylab Ventures | PowerPlantUML (440) |
+| Top Shelf Solutions | Simple Tasklists (336) |
+| David Simpson Apps | Google Analytics in Confluence (319) |
+| CraftCoders | mailto.wiki (316) |
+| Actonic | Fast Inline Table Editing (311) |
+| Caelor | Trophies (236) |
+| GLiNTECH | Calendar Sync for Jira (221) |
+
+Total contacté au 24/09 : **24 éditeurs** (8 par portail, 16 par email).
+Restent sans adresse publique (portail seulement) : Bilith (4 comptes),
+WISOFT, StreamlineSoft, Apps+, Addteq, Dutch Beginners, Creativas,
+KontextWork, gesesoft, UGUBI, Shim Technologies, CollabSoft, Realigned,
+Polymetis, TeamOps FACTORY, Methoda, Soyatec, Presago, RaleyApps.
