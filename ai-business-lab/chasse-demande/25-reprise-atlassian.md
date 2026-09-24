@@ -102,3 +102,21 @@ visionneuses Swagger/Mermaid/JSON, portage simple, peu d'alternatives).
 | 24/09/2026 | Toshihiro Sato | portail d'assistance, « Other questions » | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
 | 24/09/2026 | Tech Labs | portail d'assistance | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
 | 24/09/2026 | EliteSoft | portail d'assistance (portal/10) | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
+
+## Calendrier et plan B (24/09, soir)
+
+- **Délai de réponse accordé : jusqu'au 08/10/2026** (2 semaines). Pas de
+  relance multiple : une seule relance polie le 08/10 si silence.
+- **Plan B si aucun éditeur n'accepte** : publier notre propre visionneuse
+  OpenAPI/Swagger sur Forge (le seul trou sans alternative migrée bien notée,
+  voir `24-atlassian-fin-connect.md`). Moins bon que la reprise (les clients
+  devront nous trouver), mais daté : les ~5 400 installations figées devront
+  changer d'outil avant le 31/01/2027. À repasser dans la grille avant de
+  coder : les éditeurs actifs (Stepashka) et les concurrents migrés peuvent
+  capter ces clients avant nous.
+- **Portage technique** (reprise ou plan B) : macro Confluence Forge (UI
+  Kit ou Custom UI) qui affiche une spécification OpenAPI collée ou
+  jointe ; pas de serveur externe (hébergement Atlassian, 0 €) ; modules
+  récents uniquement (les modules `jira:dashboardGadget` disparaissent le
+  17/05/2027). Aucun code écrit tant qu'aucun éditeur n'a répondu ou que le
+  plan B n'est pas décidé (règle n° 1).
