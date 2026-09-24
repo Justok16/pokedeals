@@ -32,3 +32,17 @@ eux-mêmes. L'occasion de type Invoice Stack apparaît quand un retrait
 supprime une **fonction utilisée par des clients non techniques** sans
 remplaçant officiel. Aucune de ces annonces ne le fait clairement aujourd'hui ;
 le radar sert à la repérer dès qu'elle paraît.
+
+## Relevé du 24/09 au soir (`radar-2026-09-24-soir.md`)
+
+Nouveautés par rapport au relevé du matin :
+- **Forge : modules `jira:dashboardGadget` et `jira:dashboardBackgroundScript`
+  retirés le 17/05/2027** (remplacés par `dashboards:widget`). Conséquence
+  pratique : tout portage Forge doit utiliser les nouveaux modules. Ce n'est
+  pas une opportunité : les éditeurs actifs migreront eux-mêmes.
+- **Azure AI Content Moderator retiré le 31/03/2027** : Microsoft fournit
+  son propre remplaçant (Azure AI Content Safety) → absorption (point 14),
+  écarté.
+- Une date « 17/05/2027, complete your migration » sans produit identifiable
+  dans la ligne : à relire à la source au prochain relevé avant toute
+  conclusion.

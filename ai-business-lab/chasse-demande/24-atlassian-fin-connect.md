@@ -113,7 +113,7 @@ les points 2, 4 et 5 avant toute décision.
 
 | Éditeur (id boutique) | App Swagger figée | Autres apps de l'éditeur | Lecture |
 |---|---|---|---|
-| Linh Technology (1215814) | Open API (Swagger) Integration — 2 897 inst. | Mermaid Integration (2024-12, Connect), Flowchart & PlantUML (2022-01, Connect), Figma Viewer, JSON Viewer, OpenAPI pour Jira… | **tout le catalogue figé sur Connect** → abandon probable |
+| Toshihiro Sato (1215814) | Open API (Swagger) Integration — 2 897 inst. | Mermaid Integration (2024-12, Connect), Flowchart & PlantUML (2022-01, Connect), Figma Viewer, JSON Viewer, OpenAPI pour Jira… | **tout le catalogue figé sur Connect** → abandon probable |
 | « tech.labs » (1216949) | Swagger UI for Confluence — 659 | Mermaid (791, 2024-12), Figma (2023), HTML Macro (2023) : tous Connect | **tout figé** → abandon probable |
 | Stepashka (1216364) | Visualize OpenAPI — 1 213 | Simple PlantUML **migré le 23/09/2026**, Round Robin migré | **éditeur actif** → migrera sans doute |
 
@@ -140,8 +140,8 @@ son catalogue (données : `outils/editeurs-connect-2026-09-24.json`).
 - **24 éditeurs n'ont migré aucune app** depuis le gel : ils détiennent
   **27 371 installations payantes** (sur 47 830).
 - Les plus gros : Google Drive & Docs pour Confluence/Jira + agenda (4 523) ;
-  Linh Technology — Open API, Mermaid, PlantUML, Figma… (4 444) ; Slack
-  Connector + Gantt Cloud (2 303) ; éditeur d'Open API Editor, Q&A, JSON
+  Toshihiro Sato — Open API, Mermaid, PlantUML, Figma… (4 444) ; Slack
+  Connector + Gantt Cloud (2 303) ; EliteSoft — Open API Editor, Q&A, JSON
   (1 722) ; OneDrive & SharePoint (1 496) ; Swagger UI + Mermaid (1 450) ;
   Magic Estimations (1 443) ; Excellentable (1 312) ; Pivot Report +
   Worklogs (1 306) ; Asana (1 081).
@@ -169,3 +169,7 @@ son catalogue (données : `outils/editeurs-connect-2026-09-24.json`).
 3. Décision qui appartient à l'utilisateur : micro-entreprise + identité
    auprès d'Atlassian ; un message à 2-3 éditeurs choisis. Aucun démarchage de
    clients.
+
+_Correction du 24/09 (soir) : l'éditeur 1215814 s'appelle **Toshihiro Sato**
+(API officielle, champ `vendor.name`) et non « Linh Technology » ; le nom
+erroné venait d'une lecture antérieure non revérifiée._
