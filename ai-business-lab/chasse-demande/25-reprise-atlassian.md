@@ -163,3 +163,22 @@ Faisabilité Forge (à confirmer au premier « oui ») : Pivot Report
 Estimations / Scrumpy (vote d'estimation : interface Custom UI + stockage
 Forge) sont portables ; Lockpoint (verrouillage de pièces jointes) dépend
 des événements Forge disponibles — à vérifier avant de s'engager.
+
+## Vague 3 — prête, à n'envoyer que si les vagues 1-2 restent sans réponse au 08/10
+
+| App(s) figée(s) | Éditeur | Installations | Prix/an 50 util. | Contact (lien « support » de la fiche) |
+|---|---|---|---|---|
+| GoEdit | KontextWork (1 app) | 827 (4,77 ; 102 avis) | 950 $ | helpdesk.goedit.io |
+| Behave Pro | Hindsight Software (1 app) | 277 (4,44) | 1 875 $ | hindsightsoftware.com/support |
+| Smart Courses for Confluence | Creativas | 1 076 (4,51) | 550 $ | creativas.atlassian.net/servicedesk/customer/portal/10 |
+| CRM for Jira, Calendar for Jira, Reminder for Jira | Teamlead (1 app migrée sur 8) | 646 + 1 009 + 1 217 | 900 $ / 300 $ / 175 $ | teamlead.atlassian.net/servicedesk/customer/portal/3 |
+| Status Time Reports | Bloompeak | 1 331 (4,79) | 450 $ | bloompeak.io/support |
+| Excellentable | Addteq | 1 312 (3,44) | 350 $ | addteq-software.atlassian.net/servicedesk/customer/portal/13/group/42 |
+| Outlook Connector for Jira | gesesoft (1 app) | 736 (4,07) | 375 $ | gesesoft.atlassian.net/servicedesk/customer/portal/1 |
+| Simple PDF Export for Jira | Sourcesprout (1 app) | 202 (4,06) | 1 245 $ | sourcesprout.atlassian.net/servicedesk/customer/portals |
+| Flower BPMN | Bauer IT | 229 (4,71) | 1 400 $ | bauer-it.atlassian.net/servicedesk/customer/portal/7 |
+
+Réserves : Teamlead, Bloompeak et Addteq ont migré d'autres apps (éditeurs
+actifs : l'abandon est peut-être volontaire, donc la cession plus facile,
+ou ils migreront tard) ; GoEdit et Behave Pro sont techniquement plus
+lourds à porter.
