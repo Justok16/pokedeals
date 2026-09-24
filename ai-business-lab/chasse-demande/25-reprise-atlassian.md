@@ -79,3 +79,18 @@ pas de page lisible par l'API ; à identifier plus tard.)
   de revenu et la porte de sortie proposée.
 - Point 25 (destruction) : **les éditeurs ne répondent pas**, ou migrent
   eux-mêmes au dernier moment. Coût d'un échec : deux messages.
+
+## Cibles de second rang (éditeurs sans AUCUNE app migrée, relevé du 24/09 18:40 UTC)
+
+| Éditeur | Apps figées (installations) | Contact public | Remarque |
+|---|---|---|---|
+| **EliteSoft** | Open API (Swagger) Editor 615 ; Questions & Answers 657 ; JSON Viewer & Editor 450 (15 apps) | `elitesoftware.atlassian.net/servicedesk/customer/portal/10` | visionneuses/éditeurs simples → **3e cible naturelle** |
+| Colined | Pivot Report 914 ; Worklogs Report 392 | `colined.atlassian.net/servicedesk/customer/portal/1` | rapports Jira, alternatives nombreuses |
+| Sourcesprout | Simple PDF Export for Jira 202 | portail Sourcesprout | petit |
+| Bilith (4 comptes) | Google Drive & Docs 4 132 ; OneDrive & SharePoint 1 496 ; Asana 1 081 ; Box 253 | portail Bilith | **gros volume**, mais connecteurs OAuth Google/Microsoft lourds ; vérifier d'abord si Bilith a publié des versions Forge sous un autre compte |
+| WISOFT | Slack Connector 1 379 ; Gantt Cloud 924 | wisoft.zendesk.com | Slack : 4 alternatives migrées bien notées |
+| Addteq | Excellentable 1 312 | portail Addteq | tableurs : 40 alternatives |
+| Magic Apps | Magic Estimations 1 443 | portail Magic Apps | planning poker : 9 alternatives |
+
+Priorité d'envoi : Toshihiro Sato → Tech Labs → EliteSoft (les trois ont des
+visionneuses Swagger/Mermaid/JSON, portage simple, peu d'alternatives).
