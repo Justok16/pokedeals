@@ -91,3 +91,19 @@ Sources : wordpress.org (forum), smartwp.com, dreamhost.com, dev.to.
 
 Sources : sunsetproof.com (via moteur), zonkafeedback.com,
 firebase.google.com, netwrix.com.
+
+---
+
+## Réveil 00:34 UTC (24/09) — outils pour revendeurs Vinted
+
+- Demande prouvée : les revendeurs paient des outils de publication multiple
+  (abonnements mensuels ; Vinted revendique 100 M+ acheteurs et 0 frais
+  vendeur).
+- Grille : **point 8** — Crosslist, List Perfectly, FLUF Connect, Resylr,
+  ZeeDrop, Vendoo, ResaleOS et d'autres couvrent déjà Vinted, y compris la
+  rédaction d'annonces par IA ; **point 15** — dépendance totale à Vinted, qui
+  n'offre pas d'API publique aux vendeurs et peut bloquer l'automatisation.
+  **Écarté.**
+
+Sources : crosslist.com, listperfectly.com, fluf.io, reclaimstuff.com,
+resylr.com, resaleos.co.
