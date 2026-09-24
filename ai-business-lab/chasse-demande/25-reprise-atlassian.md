@@ -243,3 +243,16 @@ Restent sans adresse publique (portail seulement) : Bilith (4 comptes),
 WISOFT, StreamlineSoft, Apps+, Addteq, Dutch Beginners, Creativas,
 KontextWork, gesesoft, UGUBI, Shim Technologies, CollabSoft, Realigned,
 Polymetis, TeamOps FACTORY, Methoda, Soyatec, Presago, RaleyApps.
+
+### Réponses reçues (mise à jour 24/09, 21:30 UTC)
+
+| Éditeur | Ticket | Réponse |
+|---|---|---|
+| Cenote Labs | CLS-947 | refus implicite (clos « Canceled » sans commentaire) |
+| Released Software | SUPPORT-744 | **refus explicite** : « Not interested, thanks » (deux responsables), dans l'heure |
+| SaaSJet, Actonic, Caelor, GLiNTECH, Top Shelf | SPRT-10196, PSUP-2426, SUPPORT-15943, GS-2472, DESK-941 | accusé de réception automatique |
+
+Lecture : les éditeurs **actifs** (qui répondent en quelques minutes)
+refusent — ils comptent migrer eux-mêmes ou garder l'app. Les meilleures
+chances restent chez les éditeurs silencieux (aucune app migrée). Ne pas
+relancer les refus.
