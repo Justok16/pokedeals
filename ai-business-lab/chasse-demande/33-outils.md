@@ -12,6 +12,7 @@ quand un revenu le justifie (budget 0 €).
 | Jev — TypeSafe AI (skill `.claude/skills/typesafe-ai`, outil `outils/jev_trier_reponses.py`) | Aiguilleur des réponses : catégories fermées, repli Claude puis humain | 5 $/mois offerts via Vercel AI Gateway | skill installé ; **clé à ajouter** (inscription TypeSafe fermée → Vercel) |
 | Similarweb, Crunchbase | Trafic des sites, fermetures de startups | payants (Similarweb 338 €/mois) | écartés tant que rien ne rapporte |
 | Stripe | Encaisser un produit vendu en direct | commission | inutile pour Atlassian (Atlassian encaisse) |
+| Plugin « Small Business » (Anthropic, 44 skills) | Contrats, propositions, factures, trésorerie, impôts | gratuit | **installé** dans le projet (.claude/settings.json) le 24/09 |
 | Higgsfield | Vidéos IA de démonstration d'un produit | freemium | **à activer quand on aura un produit à promouvoir** |
 | Outils de développement Shopify pour Claude Code (vidéo AI LABS, 24/09) | Créer apps/thèmes Shopify | gratuit (à vérifier) | en réserve : seulement si une piste Shopify se confirme (aucune à ce jour, voir 07 et 19) |
 
