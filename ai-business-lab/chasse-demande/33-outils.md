@@ -14,3 +14,17 @@ quand un revenu le justifie (budget 0 €).
 | Stripe | Encaisser un produit vendu en direct | commission | inutile pour Atlassian (Atlassian encaisse) |
 | Higgsfield | Vidéos IA de démonstration d'un produit | freemium | **à activer quand on aura un produit à promouvoir** |
 | Outils de développement Shopify pour Claude Code (vidéo AI LABS, 24/09) | Créer apps/thèmes Shopify | gratuit (à vérifier) | en réserve : seulement si une piste Shopify se confirme (aucune à ce jour, voir 07 et 19) |
+
+## Sources envoyées par l'utilisateur (24/09, nuit) et suite donnée
+
+| Vidéo (auteur) | Suite |
+|---|---|
+| Claude pour les petites entreprises, 44 skills (Tony Lotis) | plugin officiel « Small Business » proposé à l'installation |
+| Jev will 10x your Claude Code ; résumés NotebookLM sur Jev | skill installé + aiguilleur ; clé via Vercel à ajouter |
+| 12 New Rules for Prompting Opus 5.5 (RoboNuggets) | `.claude/CLAUDE.md` créé (contexte permanent) |
+| 7 Free GitHub Repos That Make Claude So Good… (AI Edge) | **noms des dépôts à obtenir** (description de la vidéo), puis vérifier/installer |
+| Shopify Claude Code workflow (AI LABS) | en réserve |
+| JARVIS avec Claude Code (Thomas Berton) | écarté : déjà couvert (session cloud + routine) |
+| Trading bots Jev/MCP (Miles Deutscher, Saleh) | écartés : secteur à risque (point 19) |
+| 1 Person Business (Nate Herk), 9-5 en 90 jours (Shane Hummus), Opus 5.5 (Alex Finn), gagner de l'argent (Amadou Fall) | pas d'outil ; confirme l'organisation actuelle |
+| Formation Claude Code gratuite (Ben BK, playlist) ; vidéo wEEi2bCuZGQ (inaccessible) | rien à installer |
