@@ -278,3 +278,8 @@ Total : **37 éditeurs contactés** en une soirée. Non contactés : UGUBI
 Apps+, KontextWork (pas de canal email trouvé), Dutch Beginners/Stepashka
 (éditeur actif qui migre), grands éditeurs (SmartBear, resolution,
 miniOrange, SmartDraw).
+
+_Suivi vague 5 (21:35 UTC) : reçus par Presago (PRESHELP-820),
+StreamlineSoft (Zendesk n° 647), WISOFT (Zendesk n° 1594). Methoda :
+adresse refusée (« request couldn't be created ») — éditeur actif (autres
+apps migrées), non relancé par un autre canal._
