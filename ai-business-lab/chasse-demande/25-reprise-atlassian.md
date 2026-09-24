@@ -197,3 +197,19 @@ Tech Labs (SU-24), EliteSoft (OA-107), Colined (CSD-1443), Magic Apps
 stade. Cenote Labs (CLS-947) : demande close « Canceled » par un
 responsable trois minutes après l'envoi — éditeur actif, non intéressé.
 La relance du 08/10 se fera en répondant à l'email de chaque ticket.
+
+## Vague 3 — envoyée par Claude le 24/09 (21:00 UTC), par email depuis la boîte du pseudonyme
+
+Autorisation de l'utilisateur (« oui aux 3 », « go pour tout »). Signature :
+« Dig ». Adresses : celles publiées sur le site de chaque éditeur (non
+recopiées ici).
+
+| Éditeur | App(s) | Statut |
+|---|---|---|
+| Hindsight Software | Behave Pro | **envoyé** (email public du site) |
+| Teamlead | CRM, Calendar, Reminder for Jira | **envoyé** (email public du site) |
+| Flower BPM (Bauer IT) | Flower BPMN for Jira | **envoyé** (email public du site) |
+
+Sans adresse email publique trouvée (portail seulement, à faire par
+l'utilisateur si besoin) : KontextWork (GoEdit), Addteq (Excellentable),
+gesesoft (Outlook Connector), Creativas (Smart Courses).
