@@ -120,3 +120,42 @@ visionneuses Swagger/Mermaid/JSON, portage simple, peu d'alternatives).
   récents uniquement (les modules `jira:dashboardGadget` disparaissent le
   17/05/2027). Aucun code écrit tant qu'aucun éditeur n'a répondu ou que le
   plan B n'est pas décidé (règle n° 1).
+
+## Vague 2 — apps figées à prix élevé (24/09, nuit)
+
+Découverte : en croisant les apps Connect figées avec leur **grille de prix
+officielle** (API `/pricing/cloud/live`), certaines coûtent 10 à 20 fois
+plus cher que les visionneuses Swagger (≈ 50 $/an pour 50 utilisateurs).
+
+| App (éditeur) | Installations | Note (avis) | Prix/an 50 util. | Prix/an 100 util. | Autres apps de l'éditeur migrées |
+|---|---|---|---|---|---|
+| **Pivot Report** + Worklogs Report (Colined) | 914 + 392 | **4,98 (80)** | 900 $ | 1 800 $ | aucune |
+| **Cenote Lockpoint** (Cenote Labs, 1 seule app) | 783 | 4,87 (29) | 1 060 $ | 2 120 $ | — |
+| **Magic Estimations** (Magic Apps) | 1 443 (+ 594 version gratuite) | 4,56 (37) | 500 $ | 1 000 $ | aucune |
+| **Scrumpy Planning Poker** (AELBOX) | 744 + 124 | 4,03 (22) | 500 $ | 1 000 $ | aucune |
+| GoEdit (KontextWork, 1 seule app) | 827 | 4,77 (102) | 950 $ | 1 900 $ | — (portage plus difficile : édition locale de fichiers) |
+
+**Ordre de grandeur, non vérifiable de l'extérieur** : les installations
+comptent aussi les instances gratuites (≤ 10 utilisateurs) et les essais.
+Si seulement 30 % des installations de Pivot Report payaient en moyenne
+600 $/an, cela ferait ~165 000 $/an ; même calcul pour Magic
+Estimations : ~260 000 $/an. Ce sont des hypothèses, pas des faits : la
+seule donnée sûre viendra de l'éditeur (rapport de ventes de la boutique).
+
+Contacts officiels (liens « support » des fiches, API publique) :
+- Colined : `colined.atlassian.net/servicedesk/customer/portal/1`
+- Cenote Labs : `cenote.atlassian.net/servicedesk/customer/portal/1`
+  (« General questions and inquiries »)
+- Magic Apps : `magicapps.atlassian.net/servicedesk/customer/portals`
+- AELBOX (Scrumpy) : `scrumpypoker.atlassian.net/servicedesk/customer/portal/2`
+
+Même proposition que la vague 1 (30 % du revenu net pendant 24 mois, pas
+d'achat, retrait si l'éditeur migre lui-même). Si un éditeur préfère une
+vente, noter le prix demandé : pas de budget, mais un prix payable sur les
+revenus futurs peut se négocier.
+
+Faisabilité Forge (à confirmer au premier « oui ») : Pivot Report
+(rapports sur les données Jira, API REST + tâches asynchrones) et Magic
+Estimations / Scrumpy (vote d'estimation : interface Custom UI + stockage
+Forge) sont portables ; Lockpoint (verrouillage de pièces jointes) dépend
+des événements Forge disponibles — à vérifier avant de s'engager.
