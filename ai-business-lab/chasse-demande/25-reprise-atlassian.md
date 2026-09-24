@@ -103,7 +103,7 @@ visionneuses Swagger/Mermaid/JSON, portage simple, peu d'alternatives).
 | 24/09/2026 | Tech Labs | portail d'assistance | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
 | 24/09/2026 | EliteSoft | portail d'assistance (portal/10) | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
 | 24/09/2026 | Colined (vague 2) | portail d'assistance, « Other questions » | **envoyé** par l'utilisateur |
-| 24/09/2026 | Cenote Labs (vague 2) | portail d'assistance, « General questions » | **envoyé** par l'utilisateur |
+| 24/09/2026 | Cenote Labs (vague 2) | portail d'assistance, « General questions » (CLS-947) | **clos « Canceled » 3 min après, sans réponse écrite** → refus implicite ; ne pas relancer |
 | 24/09/2026 | Magic Apps (vague 2) | portail d'assistance, question générale | **envoyé** par l'utilisateur |
 | 24/09/2026 | AELBOX (vague 2) | portail d'assistance | **envoyé** par l'utilisateur |
 | 24/09/2026 | Bloompeak (Status Time Reports, avancé de la vague 3) | formulaire bloompeak.io/support | **envoyé** par l'utilisateur |
@@ -188,3 +188,12 @@ _24/09 : Sourcesprout injoignable (portail d'assistance en erreur, domaine
 sourcesprout.com hors ligne). Le transfert exigeant l'accord de l'éditeur,
 Simple PDF Export est retiré des cibles. Signal utile : ses clients payants
 (202 installations) resteront sans app au 31/01/2027._
+
+## Suivi des accusés de réception (24/09, 20:50 UTC, boîte du pseudonyme lue via le connecteur Gmail)
+
+Accusé de réception automatique reçu pour : Toshihiro Sato (OASI-504),
+Tech Labs (SU-24), EliteSoft (OA-107), Colined (CSD-1443), Magic Apps
+(MAG-334), AELBOX (SPP-95), Bloompeak (ST-9763). Aucune réponse écrite à ce
+stade. Cenote Labs (CLS-947) : demande close « Canceled » par un
+responsable trois minutes après l'envoi — éditeur actif, non intéressé.
+La relance du 08/10 se fera en répondant à l'email de chaque ticket.
