@@ -13,3 +13,4 @@ quand un revenu le justifie (budget 0 €).
 | Similarweb, Crunchbase | Trafic des sites, fermetures de startups | payants (Similarweb 338 €/mois) | écartés tant que rien ne rapporte |
 | Stripe | Encaisser un produit vendu en direct | commission | inutile pour Atlassian (Atlassian encaisse) |
 | Higgsfield | Vidéos IA de démonstration d'un produit | freemium | **à activer quand on aura un produit à promouvoir** |
+| Outils de développement Shopify pour Claude Code (vidéo AI LABS, 24/09) | Créer apps/thèmes Shopify | gratuit (à vérifier) | en réserve : seulement si une piste Shopify se confirme (aucune à ce jour, voir 07 et 19) |
