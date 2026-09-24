@@ -21,3 +21,11 @@ qu'elles nomment sont pourvues dès qu'elles sont publiées. Seule une analyse
 Sources : capterra.com, softwareadvice.com, zutobi.com (via moteur),
 rentable.com, ddiy.co, meetergo.com, verifplace.fr, ornikar.com,
 bigideasdb.com.
+
+| Logiciels pour copropriétés autogérées (HOA aux États-Unis) | PayHOA (gratuit jusqu'à 30 logements, 49 $/mois), Condo Control, Buildium (62 $), Solume, EffortlessHOA, AffordableHOA | 8 | Écarté |
+| Syndic bénévole (France) | Matera, Coprolib (700 clients), Copriciel, Copromatic, GestSynd et Diacamma (gratuits), LogicielSyndic (99 €/an, IA incluse), Coprolab | 8 | Écarté |
+
+**Bilan passe 5 : 6 niches, 6 saturées.** La recherche par mots-clés est
+épuisée comme méthode : tout ce qu'un moteur trouve a déjà ses comparatifs,
+donc ses concurrents. Prochaine étape utile : l'analyse brute d'avis (réseau
+à ouvrir).
