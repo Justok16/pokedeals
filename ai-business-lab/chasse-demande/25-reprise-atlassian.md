@@ -102,6 +102,10 @@ visionneuses Swagger/Mermaid/JSON, portage simple, peu d'alternatives).
 | 24/09/2026 | Toshihiro Sato | portail d'assistance, « Other questions » | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
 | 24/09/2026 | Tech Labs | portail d'assistance | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
 | 24/09/2026 | EliteSoft | portail d'assistance (portal/10) | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
+| 24/09/2026 | Colined (vague 2) | portail d'assistance, « Other questions » | **envoyé** par l'utilisateur |
+| — | Cenote Labs (vague 2) | portail d'assistance | à envoyer |
+| — | Magic Apps (vague 2) | portail d'assistance | à envoyer |
+| — | AELBOX (vague 2) | portail d'assistance | à envoyer |
 
 ## Calendrier et plan B (24/09, soir)
 
