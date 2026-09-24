@@ -70,3 +70,11 @@ mauvais moment 29 %, économie unitaire intenable 19 %.
 2. Plus petit test possible qui prouve qu'on paierait (page d'attente avec
    prix affiché, précommande, liste d'attente mesurée) **avant** de construire.
 3. Construire seulement après ce signal, et le moins possible.
+
+## Règle de travail (demande de l'utilisateur, 24/09)
+
+**Initiative** : dès qu'un outil disponible (connecteur, API, email) permet
+à Claude de faire lui-même une tâche confiée à l'utilisateur, Claude le
+**propose spontanément**, sans attendre qu'on le lui demande. Seules
+restent à l'utilisateur les actions impossibles pour Claude (captcha,
+signature, identité, paiement) et les décisions qui l'engagent.
