@@ -26,3 +26,9 @@ des remplaçants gratuits connus (point 5 : utilisateurs non payants).
 
 Même constat que Shopify, Atlassian et Apify : **les places payantes sont
 prises, les titulaires faibles sont gratuits et officiels.** Écarté.
+
+## Plugins « adopt-me » (24/09, soir)
+
+API officielle (`request[tag]=adopt-me`) : 18 plugins proposés à
+l'adoption ; le plus gros a 1 000 installations actives. Trop petit :
+écarté.

@@ -173,3 +173,14 @@ son catalogue (données : `outils/editeurs-connect-2026-09-24.json`).
 _Correction du 24/09 (soir) : l'éditeur 1215814 s'appelle **Toshihiro Sato**
 (API officielle, champ `vendor.name`) et non « Linh Technology » ; le nom
 erroné venait d'une lecture antérieure non revérifiée._
+
+## Second trou « restauration de tickets supprimés » — revérifié le 24/09 (soir)
+
+- App figée : Restore Deleted Issues (Bloompeak Labs), 922 installations,
+  dernière version 18/02/2024, Connect.
+- Mais l'éditeur **a migré 4 de ses 7 apps** : il est actif et peut
+  migrer celle-ci.
+- Alternatives Forge désormais présentes : Who Deleted My Issues? (242
+  installations, 4,94 sur 22 avis), Restorify (138), Recycle Bin for Jira
+  (64), User Activity Audit Log (227).
+- **Trou refermé** : ce n'est plus une cible.
