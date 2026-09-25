@@ -44,6 +44,7 @@
 - **Si création d'entreprise** : tout doit être juridiquement parfait et
   la fiscalité optimisée (demande forte de l'utilisateur, 25/09). Suivre la
   section 2 bis de `31-kit-en-cas-de-oui.md` ; nom commercial « Dig » validé.
+  Chercher **toutes** les aides, financières et en nature (`36-aides-creation.md`).
   Situation sociale personnelle : ne jamais l'écrire dans le dépôt public.
 - Économiser le quota hebdomadaire : garder de la réserve pour le jour où
   un éditeur répond « oui ».
