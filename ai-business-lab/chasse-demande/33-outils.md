@@ -64,3 +64,8 @@ crédits). YouTube bloque par ailleurs toute lecture directe depuis le cloud
 (miroirs Invidious/Piped et youtubetranscript testés : bloqués).
 Alternative sans carte : clé Gemini gratuite (Google AI Studio) — vidéos
 seulement, création par l'utilisateur.
+
+**Mise à jour 25/09, 22:40 UTC : fonctionne.** Carte enregistrée par
+l'utilisateur ; Gemini résume les vidéos YouTube, Jev répond (coût facturé
+0 $ au test). Accès : lien temporaire (23 h) créé à chaque passage avec
+l'outil Vercel `get_access_to_vercel_url`, jamais écrit dans le dépôt.

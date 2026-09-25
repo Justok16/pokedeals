@@ -9,7 +9,11 @@ engagement. Le code applique ensuite un aiguillage à trois voies
   claude : confiance moyenne → un modèle classique (Claude) relit et décide
   humain : confiance faible, OU catégorie qui engage → l'utilisateur
 
-Clé : variable d'environnement TYPESAFE_API_KEY (jamais dans le dépôt).
+Accès à Jev, au choix :
+  - relais Vercel (sans clé, jeton OIDC) : variable JEV_COOKIES = chemin d'un
+    fichier de cookies obtenu avec l'outil get_access_to_vercel_url du
+    connecteur Vercel (lien valable 23 h) ;
+  - ou clé : variable d'environnement TYPESAFE_API_KEY (jamais dans le dépôt).
 Sans clé ou si l'API échoue : repli sur des règles simples, toujours
 aiguillées vers « claude » (jamais d'action automatique sans Jev).
 
@@ -25,6 +29,7 @@ import sys
 import urllib.request
 
 API = os.environ.get("TYPESAFE_BASE_URL", "https://api.typesafe.ai") + "/v1/systemone"
+RELAIS = "https://relais-dig-justok1.vercel.app/api/jev"
 
 # --- Tout ce qu'un humain doit relire est ici : catégories, actions, seuils ---
 
@@ -32,9 +37,9 @@ CATEGORIES = {
     "accuse_reception": "Automatic acknowledgement that a support ticket or email was received; no human wrote it",
     "rejet_adresse": "Delivery failure or the request could not be created (bounce, invalid address)",
     "absence": "Out-of-office or vacation auto-reply",
-    "refus": "A person declines: not interested, or they will migrate or keep the app themselves",
+    "refus": "A person declines or thanks without accepting: not interested, or they say they will do the migration themselves (even 'soon'), or keep or sell the app",
     "question": "A person asks who we are, for details or clarification, without accepting or declining",
-    "interet": "A person is open to it: wants to talk, asks for terms, a call, or next steps",
+    "interet": "A person is open to handing over the app: wants to talk, asks for terms, a call, or next steps about the takeover",
     "hors_sujet": "Unrelated to our offer (marketing, spam, other topic)",
 }
 
@@ -78,11 +83,21 @@ def aiguiller(categorie, confiance):
 
 
 def jev(texte, cle):
-    corps = json.dumps({"state": texte[:20000], "model": "jev-latest",
+    corps = json.dumps({"state": texte[:6000], "model": "jev-latest",
                         "questions": QUESTIONS}).encode()
-    req = urllib.request.Request(API, data=corps, headers={
-        "Authorization": f"Bearer {cle}", "Content-Type": "application/json"})
-    c = json.load(urllib.request.urlopen(req, timeout=30))["answers"]["categorie"]
+    if cle:
+        req = urllib.request.Request(API, data=corps, headers={
+            "Authorization": f"Bearer {cle}", "Content-Type": "application/json"})
+        reponse = urllib.request.urlopen(req, timeout=30)
+    else:
+        import base64
+        import http.cookiejar
+        pot = http.cookiejar.MozillaCookieJar(os.environ["JEV_COOKIES"])
+        pot.load(ignore_discard=True, ignore_expires=True)
+        ouvreur = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(pot))
+        q = base64.urlsafe_b64encode(corps).decode().rstrip("=")
+        reponse = ouvreur.open(f"{RELAIS}?q={q}", timeout=60)
+    c = json.load(reponse)["answers"]["categorie"]
     return c["choice"], round(c["confidence"], 2), "jev"
 
 
@@ -102,11 +117,12 @@ def regles(texte):
 
 def main():
     cle = os.environ.get("TYPESAFE_API_KEY")
+    jev_dispo = bool(cle or os.environ.get("JEV_COOKIES"))
     for chemin in sys.argv[1:] or ["-"]:
         texte = sys.stdin.read() if chemin == "-" else open(chemin, encoding="utf-8").read()
         erreur = None
         try:
-            cat, conf, moteur = jev(texte, cle) if cle else regles(texte)
+            cat, conf, moteur = jev(texte, cle) if jev_dispo else regles(texte)
         except Exception as e:  # réseau, quota : repli sans bloquer
             cat, conf, moteur = regles(texte)
             erreur = str(e)[:120]
