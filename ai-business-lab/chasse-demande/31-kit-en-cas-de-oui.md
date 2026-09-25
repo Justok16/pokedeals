@@ -38,6 +38,37 @@ Date butoir absolue : **31/01/2027** (fin de support de Connect).
   d'affaires **[à vérifier]** ; en ouvrir un gratuit dès le départ est
   plus simple.
 
+## 2 bis. Création parfaite et fiscalité optimisée (exigence de l'utilisateur, 25/09)
+
+Claude prépare **tout** (choix, formulaires pré-remplis, calendrier des
+déclarations, calculs) ; l'utilisateur valide et signe (identité). Chaque
+point est vérifié à la source officielle **au moment d'agir**, puis
+confirmé gratuitement auprès de l'URSSAF, de la CCI ou des impôts ; les
+effets sur les aides sont simulés avec la CPAM (36 46) et la CAF **avant**
+la création.
+
+Points à trancher, dans l'ordre :
+1. Statut le plus avantageux compte tenu des aides perçues (micro-entreprise
+   ou autre) : comparer le **gain net** après baisse éventuelle des aides.
+2. Nature d'activité (BIC ou BNC) et code APE : ils fixent le taux de
+   cotisations et l'abattement fiscal **[à vérifier]**.
+3. ACRE (cotisations réduites la première année) : éligibilité **[à vérifier]**.
+4. Versement libératoire de l'impôt : utile ou non selon le revenu fiscal
+   du foyer **[à vérifier]** — souvent défavorable aux revenus modestes.
+5. TVA : franchise en base ; ventes de services à des entreprises de l'UE
+   ou hors UE (autoliquidation, numéro de TVA intracommunautaire) **[à vérifier]**.
+6. CFE (cotisation foncière des entreprises) : exonération la première
+   année, puis montant selon la commune **[à vérifier]**.
+7. Domiciliation (ne pas publier l'adresse personnelle) et option de
+   non-diffusion au répertoire SIRENE.
+8. Compte bancaire dédié, livre des recettes, factures conformes.
+9. Calendrier : déclaration URSSAF (mensuelle ou trimestrielle), déclaration
+   trimestrielle de ressources à la CPAM pour l'ASI, mise à jour CAF,
+   déclaration de revenus annuelle (formulaire 2042-C-PRO).
+
+Claude tient ce calendrier dans une routine de rappels et prépare chaque
+déclaration à l'avance.
+
 ## 3. Modèle d'accord de partage de revenu (anglais, à faire relire)
 
 > **App Transfer and Revenue Share Agreement**
