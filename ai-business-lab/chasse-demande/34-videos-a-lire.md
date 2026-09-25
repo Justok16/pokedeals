@@ -21,3 +21,20 @@ que la passerelle transmet bien un lien YouTube à Gemini.
 - https://youtu.be/wEEi2bCuZGQ — (inaccessible sans connexion)
 - https://youtube.com/playlist?list=PLBV4f2pTYexpAIQ3focAHX_dpBo90YNQH — Formation Claude Code (Ben BK)
 - Trading (écartées, secteur à risque) : https://youtu.be/Pk7W7BKMwqo , https://youtu.be/hopcesPukiA
+
+## Playlist PLBV4f2pTYexpAIQ3focAHX_dpBo90YNQH — liste obtenue le 25/09 (45 vidéos)
+
+Obtenue via le relais Vercel (`/api/playlist`), YouTube bloquant le cloud.
+**Non encore résumées** : 13 vidéos ont consommé environ 3,7 millions de
+jetons Gemini ; 45 de plus risqueraient de dépasser les 5 $ gratuits du mois.
+Plan : trier d'abord par titre (gratuit), puis résumer seulement les vidéos
+utiles, en basse résolution, en vérifiant la consommation entre deux lots.
+
+AyajkwP_flU WLrv0__fz5k 9T3H1LEZPpE lVEG0j4qg9Y rD6MdTtGFGI PKbLy4ilJ5I
+_t6M2Vyzx6Q A-JrflKsoqA mud5dcy3qyk bgBf4OfeYjM d-fjRhbwPZI xz7U6w9lArQ
+eExVGcoKKhU xRTDWqduz8A Fxw2DLO2pLQ 6fk0KN-uOv4 7nRIEzU6eTw S50_Jqsw41M
+gKkLB7YItCo bSQKXPXAdR0 Y1Yin4Fhwd8 a4IiWxtjyUY xEpvKWp-WEQ a7aI7lHx6vY
+_jJaH7uIXb0 cu6w1i12gbg z6rlSGjpkG8 uSeE_1-zVDQ V9SaDPjTncs SpKn6fpg5lM
+Yfe5Z4EhkfM Fzso17l7FSs RM4tfeIZjBY oW7WtzgEa54 ZUiT4gwQEyw KEXyVg4ac58
+mxtB9z7Ztt8 CZc6LTHuG1o LI2xps4xSUw 4yeVRaugkNI WcZEyKxq_5E SOoMvrGdNyU
+9_O9Fmkc8yM Bge_XJu7fzg oHQkpV2Sgnk
