@@ -309,3 +309,15 @@ Actonic, GLiNTECH, Addteq, SaaSJet), tous des éditeurs actifs.
 Leçon : les éditeurs qui répondent vite sont ceux qui migrent eux-mêmes ;
 les chances restent chez les silencieux. Le classement « spam » par SaaSJet
 rappelle d'espacer les envois et de ne jamais relancer un refus.
+
+### Réponses du 25/09 (lues à 12:35 UTC)
+
+| Éditeur | Réponse |
+|---|---|
+| Creativas (Smart Courses for Confluence) | **refus** : « We are migrating the app to Forge » ; demande close. |
+| gesesoft (Outlook Connector for Jira) | **refus** : « I will do the migration soon ». |
+| Teamlead (CRM, Calendar, Reminder) | pas de réponse écrite : ticket passé « In Progress » (lu par une personne). À suivre. |
+
+Bilan au 25/09 midi : **9 refus sur 37** (+ Creativas, gesesoft), 1 ticket
+en cours (Teamlead), 27 sans réponse. Pas de remerciement envoyé sur les
+tickets déjà clos (une réponse les rouvrirait inutilement).
