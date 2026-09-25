@@ -20,6 +20,13 @@
   plusieurs reprises. Faire soi-même tout ce que les outils permettent, et
   proposer spontanément de le faire plutôt que de lui donner des tâches.
   Anticiper les blocages (permissions, quotas) **avant** d'agir en série.
+- **Creuser avant de conclure** (demande du 25/09) : ne jamais répondre
+  « impossible » ni confier une tâche à l'utilisateur avant d'avoir épuisé
+  les voies possibles — connecteurs disponibles (Vercel, GitHub, Gmail…),
+  déploiement d'un petit programme, jeton OIDC, services alternatifs,
+  documentation officielle. Exemple : les vidéos et Jev semblaient exiger
+  une clé ; un relais Vercel sans clé a suffi. Si un blocage reste réel,
+  dire précisément lequel et ce qui a été essayé.
 - **Ne soumettre à l'utilisateur que** ce qui l'engage : dépense d'argent,
   son identité (signature, création d'entreprise), un prix ou un
   pourcentage accepté avec un tiers.
