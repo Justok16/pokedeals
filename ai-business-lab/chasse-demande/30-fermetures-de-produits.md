@@ -32,3 +32,11 @@ Scripts figés depuis le 15/04/2026 et arrêtés définitivement le 30/06/2026
 marchands ont migré ou perdu leurs règles ; le marché du portage est
 occupé par les agences depuis 2024. **Écartée.**
 Source : https://www.flatlineagency.com/blog/shopify-scripts-are-deprecated/
+
+## Trello Power-Ups (vérifié le 25/09/2026, 18:35 UTC)
+
+Aucune fin de support générale des Power-Ups annoncée (journal des
+changements développeurs Trello : seulement des retraits d'endpoints
+ponctuels, 2025). Pas d'échéance qui figerait des Power-Ups payants.
+**Écartée pour l'instant** ; à revoir si le radar signale une annonce.
+Source : https://developer.atlassian.com/cloud/trello/changelog/
