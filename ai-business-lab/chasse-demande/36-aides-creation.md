@@ -77,28 +77,35 @@ Source : [Bpifrance Création](https://bpifrance-creation.fr/encyclopedie/differ
 - **[à vérifier : sort des sommes facturées pendant le Cape dans les
   déclarations de ressources (ASI, CAF) ; frais éventuels de la couveuse]**
 
-## 5. Prêts d'honneur à 0 % (sans garantie)
+## 5. Prêts d'honneur à 0 % (vérifié sur les pages officielles, 25/09/2026)
 
-Sources : [Initiative France](https://www.initiative-france.fr/nos-solutions/financement-le-pret-d-honneur.html),
-[Bpifrance Création](https://bpifrance-creation.fr/encyclopedie/financements/financement-fonds-propres/pret-dhonneur).
+**a) Prêt d'honneur Initiative France** —
+[page officielle](https://www.initiative-france.fr/nos-solutions/financement-le-pret-d-honneur.html)
+- « montant compris entre 3 000 et 50 000 € », moyenne 10 000 € ; « taux 0 » ;
+  « sans garantie demandée » ; prêt **personnel** au créateur.
+- Durée et différé : non précisés sur cette page (dépendent de l'association locale).
 
-- Prêt **personnel** au créateur, **taux 0**, **sans garantie**, 1 à 7 ans,
-  différé de remboursement possible jusqu'à 24 mois.
-- En général de 3 000 à 50 000 € (moyenne 10 000 €) ; les montants varient
-  selon l'association locale.
-- Micro-entreprises acceptées.
-- Utile pour atteindre le projet de 7 500 € exigé par l'Agefiph.
-- C'est un **prêt** (à rembourser) : décision de l'utilisateur.
+**b) Prêt d'honneur Création-Reprise (Bpifrance, distribué par Initiative
+France et Réseau Entreprendre)** —
+[Bpifrance Création, publié en août 2026](https://bpifrance-creation.fr/encyclopedie/financements/financement-fonds-propres/pret-dhonneur-creation-reprise)
+- « entre 1 000 et 80 000 euros » ; « taux zéro » ; « entre 1 et 7 ans avec un
+  différé d'amortissement modulable entre 0 et 24 mois ».
+- Conditions : accompagnement par un opérateur ; les prêts d'honneur ne
+  peuvent dépasser **1/3** du total des financements ;
+  **« Assurance décès et PTIA exigée »** **[à vérifier : conditions
+  d'assurabilité selon la situation de santé]**.
 
-## 6. Adie — microcrédit et accompagnement gratuit
+C'est un **prêt** (à rembourser) : décision de l'utilisateur.
 
-Sources : [Adie](https://www.adie.org/pour-creer-ou-developper-mon-entreprise/),
-[Bpifrance Création](https://bpifrance-creation.fr/encyclopedie/financements/lemprunt/microcredit-professionnel).
+## 6. Adie — microcrédit (vérifié sur la page officielle, 25/09/2026)
 
-- Microcrédit jusqu'à 12 000 à 15 000 € (6 à 48 mois), pour les personnes
-  qui n'obtiennent pas de prêt bancaire ; **un proche doit se porter garant
-  pour 50 %**.
-- **Accompagnement gratuit** avant, pendant et après le lancement.
+[Page officielle Adie](https://www.adie.org/pour-creer-ou-developper-mon-entreprise/)
+- « de 300 € à 15 000 € », « jusqu'à 48 mois ».
+- **Ce n'est PAS un prêt à 0 %** : « à partir de 8,4 % (taux fixe au 6 juillet 2026) ».
+- Un proche doit se porter garant pour « 50 % du montant emprunté ».
+- Accompagnement gratuit avant, pendant et après le lancement.
+- (Plafond légal du microcrédit professionnel : 17 000 € depuis le
+  01/01/2025 — [Bpifrance Création](https://bpifrance-creation.fr/encyclopedie/financements/lemprunt/microcredit-professionnel).)
 
 ## 7. Effets sur les aides sociales — le point le plus important
 

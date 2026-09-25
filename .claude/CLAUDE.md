@@ -35,6 +35,10 @@
   venaient de constructions sans demande prouvée).
 - **Rien d'invérifié n'est publié ni affirmé** : un fait non vérifié à la
   source est marqué « à vérifier » ou retiré (leçon Kitwise).
+- **Chiffres** : uniquement tirés de la page officielle **datée**, lue
+  directement (jamais d'un résumé de moteur de recherche), avec la citation
+  exacte et la date. Leçon du 25/09 : aide Agefiph annoncée à 6 300 € (article
+  de 2022) au lieu de 3 000 € ; taux de l'Adie (8,4 %) oublié.
 - **Budget 0 €** tant que rien ne rapporte. Ne jamais acheter de crédits
   (par ex. Vercel AI Gateway : 5 $ offerts/mois, perdus après un achat).
 - **Démarchage B2B par email autorisé** (révision du 24/09) dans le cadre
