@@ -295,3 +295,17 @@ Bilan provisoire : 4 refus (Cenote, Released, Werkstack, Actonic), tous
 d'éditeurs actifs qui migrent eux-mêmes. Boîte du pseudonyme rangée : fils
 archivés sous l'étiquette « Reprise Atlassian » (rien supprimé : les fils
 servent à la relance du 08/10).
+
+### Réponses de la nuit (25/09, lues à 09:35 UTC)
+
+| Éditeur | Réponse |
+|---|---|
+| GLiNTECH (Calendar Sync) | **refus** : « Calendar Sync is on Forge » selon l'éditeur. Note : la boutique affiche encore une dernière version Connect (1.0.18-AC, 19/01/2026) — soit une migration en cours non publiée, soit un faux positif de notre détection. |
+| Addteq (Excellentable) | **refus** : « migration vers Forge en cours ». |
+| SaaSJet (Email&Tasks, Boomerang, BPM) | **refus** : demande close comme « Spam ». |
+
+Bilan au 25/09 matin : 7 refus sur 37 (Cenote, Released, Werkstack,
+Actonic, GLiNTECH, Addteq, SaaSJet), tous des éditeurs actifs.
+Leçon : les éditeurs qui répondent vite sont ceux qui migrent eux-mêmes ;
+les chances restent chez les silencieux. Le classement « spam » par SaaSJet
+rappelle d'espacer les envois et de ne jamais relancer un refus.
