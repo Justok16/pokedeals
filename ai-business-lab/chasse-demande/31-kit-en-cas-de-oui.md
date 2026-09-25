@@ -10,7 +10,7 @@ et le sera au moment d'agir (les règles et montants changent).
 |---|---|---|---|
 | 1 | Répondre à l'éditeur : remerciement, demande du rapport de ventes des 12 derniers mois (disponible dans son espace partenaire) et du code source | Claude rédige, l'utilisateur valide | jour 0 |
 | 2 | Vérifier les chiffres réels (installations payantes, revenu) avant tout engagement | Claude | 1-2 jours |
-| 3 | Créer la micro-entreprise | l'utilisateur (en ligne, gratuit) | 1 à 3 semaines pour le numéro SIRET [à vérifier] |
+| 3 | Appeler le 36 46 (CPAM) pour une simulation personnalisée, puis créer la micro-entreprise, nom commercial « Dig » (validé le 25/09) | l'utilisateur (en ligne, gratuit) | 1 à 3 semaines pour le numéro SIRET [à vérifier] |
 | 4 | Acheter un nom de domaine + adresse email professionnelle (exigée par le portail partenaire Atlassian) | l'utilisateur paie ~10 €/an ; Claude guide | 1 heure |
 | 5 | Créer le compte partenaire Atlassian (« Marketplace Partner ») et passer la vérification (« Partner Verification ») | l'utilisateur (identité) ; Claude prépare les réponses | quelques jours [à vérifier] |
 | 6 | Signer l'accord de partage de revenu (modèle §3) | l'utilisateur + l'éditeur | jour ~7 |

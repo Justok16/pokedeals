@@ -47,3 +47,20 @@ contournement. Contenu retrouvé par recherche web quand c'est possible.
 - Pour les autres vidéos : obtenir leur contenu via NotebookLM
   (l'utilisateur) → export dans Google Drive → lecture par le connecteur
   Google Drive.
+
+## Relais Vercel « relais-dig » (25/09, 22:30 UTC)
+
+Petit programme déployé sur le compte Vercel de l'utilisateur
+(`outils/relais-vercel/`) : `/api/video?id=…` (résumé d'une vidéo YouTube
+par Gemini) et `/api/jev?q=…` (Jev). Aucune clé : authentification par le
+jeton OIDC du déploiement. Accès uniquement par l'adresse protégée
+`relais-dig-justok1.vercel.app` via le connecteur Vercel ; l'adresse
+publique renvoie 403.
+
+État : l'appel atteint bien l'AI Gateway, qui répond « a valid credit card
+on file is required to unlock your free credits ». **Bloqué tant qu'aucune
+carte n'est enregistrée** (décision de l'utilisateur ; ne jamais acheter de
+crédits). YouTube bloque par ailleurs toute lecture directe depuis le cloud
+(miroirs Invidious/Piped et youtubetranscript testés : bloqués).
+Alternative sans carte : clé Gemini gratuite (Google AI Studio) — vidéos
+seulement, création par l'utilisateur.
