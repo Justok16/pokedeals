@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier Verrier Menuiserie — démonstration</title>
+<meta name="description" content="Site de démonstration réalisé par Dig : menuisier fictif, fenêtres, portes et agencement sur mesure.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#faf7f2;--surface:#ffffff;--encre:#1f1b16;--doux:#5b544b;--trait:#e7e0d5;
+  --bois:#9a5b2e;--bois-fonce:#6f3f1d;--vert:#2f6b4f;--ombre:0 10px 30px rgba(31,27,22,.08);
+}
+@media (prefers-color-scheme:dark){:root{
+  --fond:#15130f;--surface:#1f1c17;--encre:#f3eee6;--doux:#b9b0a3;--trait:#332e27;
+  --bois:#d08a55;--bois-fonce:#e6a577;--vert:#6fbf95;--ombre:0 10px 30px rgba(0,0,0,.35);
+}}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--fond);color:var(--encre);line-height:1.6}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15}
+a{color:inherit}
+.bandeau{background:var(--vert);color:#fff;text-align:center;font-size:.85rem;padding:.45rem 1rem}
+.cadre{max-width:1100px;margin:0 auto;padding:0 16px}
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--fond) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--trait)}
+header .cadre{display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+.logo{font-family:Fraunces,serif;font-weight:700;font-size:1.2rem;text-decoration:none}
+.logo span{color:var(--bois)}
+nav a{text-decoration:none;color:var(--doux);margin-left:1.2rem;font-weight:500}
+nav a:hover{color:var(--encre)}
+.btn{display:inline-block;background:var(--bois);color:#fff;text-decoration:none;font-weight:600;padding:.8rem 1.3rem;border-radius:10px;border:0;cursor:pointer;font:inherit;font-weight:600}
+.btn:hover{background:var(--bois-fonce)}
+.btn.clair{background:transparent;color:var(--encre);border:1.5px solid var(--trait)}
+.hero{padding:72px 0 56px}
+.hero .cadre{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.1rem,4.5vw,3.4rem)}
+.hero p.accroche{font-size:1.15rem;color:var(--doux);margin:1.1rem 0 1.6rem;max-width:34rem}
+.hero .actions{display:flex;gap:.8rem;flex-wrap:wrap}
+.preuves{display:flex;gap:1.6rem;margin-top:2rem;flex-wrap:wrap;color:var(--doux);font-size:.95rem}
+.preuves b{display:block;font-size:1.5rem;color:var(--encre);font-family:Fraunces,serif}
+.visuel{aspect-ratio:4/5;border-radius:22px;box-shadow:var(--ombre);position:relative;overflow:hidden;
+  background:repeating-linear-gradient(100deg,#b77a47 0 14px,#a86a39 14px 22px,#c2885a 22px 40px,#9b5f30 40px 46px)}
+.visuel::after{content:"";position:absolute;inset:18% 16%;border:10px solid rgba(255,255,255,.85);border-radius:6px;
+  background:linear-gradient(160deg,rgba(190,225,240,.85),rgba(120,170,200,.6))}
+.visuel .etiquette{position:absolute;left:16px;bottom:16px;z-index:2;background:var(--surface);color:var(--encre);padding:.6rem .9rem;border-radius:12px;font-size:.9rem;box-shadow:var(--ombre)}
+section{padding:64px 0}
+.titre-section{max-width:40rem;margin-bottom:2rem}
+.titre-section h2{font-size:clamp(1.7rem,3vw,2.3rem)}
+.titre-section p{color:var(--doux);margin-top:.6rem}
+.grille{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.carte{background:var(--surface);border:1px solid var(--trait);border-radius:16px;padding:24px}
+.carte h3{font-size:1.2rem;margin:.6rem 0 .4rem}
+.carte p{color:var(--doux)}
+.icone{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--bois) 15%,transparent);color:var(--bois);font-size:1.3rem}
+.realisations .grille div{aspect-ratio:1;border-radius:14px;position:relative;overflow:hidden}
+.realisations .grille div span{position:absolute;left:10px;bottom:10px;background:var(--surface);padding:.3rem .6rem;border-radius:8px;font-size:.85rem}
+.r1{background:linear-gradient(135deg,#8c5a35,#c89b6d)}.r2{background:linear-gradient(135deg,#3f5d4c,#8fb39c)}
+.r3{background:linear-gradient(135deg,#6b4a2f,#e0c49f)}.r4{background:linear-gradient(135deg,#40464f,#a9b4c2)}
+.r5{background:linear-gradient(135deg,#7b3f22,#d9a27a)}.r6{background:linear-gradient(135deg,#55493b,#cbb89c)}
+.etapes{counter-reset:e}
+.etapes .carte::before{counter-increment:e;content:counter(e);font-family:Fraunces,serif;font-size:2rem;color:var(--bois)}
+.avis blockquote{font-size:1.02rem}
+.avis cite{display:block;margin-top:.8rem;color:var(--doux);font-style:normal;font-size:.9rem}
+.zone{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.zone ul{padding-left:1.1rem;color:var(--doux)}
+details{background:var(--surface);border:1px solid var(--trait);border-radius:12px;padding:1rem 1.2rem;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600}
+details p{color:var(--doux);margin-top:.6rem}
+form{display:grid;gap:12px}
+label{font-weight:500;font-size:.95rem}
+input,textarea,select{width:100%;font:inherit;padding:.75rem .9rem;border-radius:10px;border:1px solid var(--trait);background:var(--fond);color:var(--encre)}
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px}
+.note{font-size:.85rem;color:var(--doux)}
+footer{border-top:1px solid var(--trait);padding:32px 0;color:var(--doux);font-size:.9rem}
+footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.appel-mobile{display:none}
+@media (max-width:820px){
+  nav{display:none}
+  .hero .cadre,.zone,.contact{grid-template-columns:1fr}
+  .visuel{aspect-ratio:16/10}
+  .grille{grid-template-columns:1fr 1fr}
+  .appel-mobile{display:flex;position:fixed;bottom:12px;left:16px;right:16px;z-index:20;justify-content:center;box-shadow:var(--ombre)}
+  footer{padding-bottom:84px}
+}
+@media (max-width:520px){.grille{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bandeau">Site de démonstration réalisé par Dig — entreprise, avis et coordonnées <b>fictifs</b>.</div>
+<header><div class="cadre">
+  <a class="logo" href="#">Atelier <span>Verrier</span></a>
+  <nav><a href="#services">Services</a><a href="#realisations">Réalisations</a><a href="#avis">Avis</a><a href="#faq">Questions</a></nav>
+  <a class="btn" href="#contact">Devis gratuit</a>
+</div></header>
+
+<main>
+<section class="hero"><div class="cadre">
+  <div>
+    <h1>Fenêtres, portes et agencements en bois, faits pour durer.</h1>
+    <p class="accroche">Menuisier depuis 18 ans. Nous fabriquons dans notre atelier et posons nous-mêmes, avec un seul interlocuteur du devis à la finition.</p>
+    <div class="actions"><a class="btn" href="#contact">Demander un devis sous 48 h</a><a class="btn clair" href="tel:0199000000">01 99 00 00 00</a></div>
+    <div class="preuves"><div><b>4,9/5</b>112 avis clients</div><div><b>600+</b>chantiers réalisés</div><div><b>10 ans</b>garantie décennale</div></div>
+  </div>
+  <div class="visuel" role="img" aria-label="Illustration d'une fenêtre en bois"><div class="etiquette">Fabrication locale · bois certifié</div></div>
+</div></section>
+
+<section id="services"><div class="cadre">
+  <div class="titre-section"><h2>Ce que nous faisons</h2><p>Du simple remplacement de fenêtre à l'aménagement complet d'une pièce.</p></div>
+  <div class="grille">
+    <div class="carte"><div class="icone">▢</div><h3>Fenêtres &amp; baies</h3><p>Bois, bois-alu ou PVC. Double ou triple vitrage, pose en rénovation sans gros travaux.</p></div>
+    <div class="carte"><div class="icone">⌂</div><h3>Portes d'entrée</h3><p>Sur mesure, isolantes et sécurisées (serrure 3 points), dans le style de votre maison.</p></div>
+    <div class="carte"><div class="icone">▤</div><h3>Placards &amp; dressings</h3><p>Rangements pensés au centimètre près, même sous les combles ou les escaliers.</p></div>
+    <div class="carte"><div class="icone">◧</div><h3>Escaliers</h3><p>Création ou rénovation, en chêne, hêtre ou frêne, droits ou tournants.</p></div>
+    <div class="carte"><div class="icone">☀</div><h3>Volets &amp; stores</h3><p>Battants, roulants ou motorisés, avec pilotage depuis votre téléphone.</p></div>
+    <div class="carte"><div class="icone">€</div><h3>Aides à la rénovation</h3><p>Nous vous indiquons les aides possibles pour vos travaux d'isolation et les démarches.</p></div>
+  </div>
+</div></section>
+
+<section id="realisations" class="realisations"><div class="cadre">
+  <div class="titre-section"><h2>Quelques réalisations</h2><p>Chaque projet est unique. Voici un aperçu de nos derniers chantiers.</p></div>
+  <div class="grille">
+    <div class="r1"><span>Porte en chêne massif</span></div><div class="r2"><span>Baie vitrée 3 vantaux</span></div>
+    <div class="r3"><span>Dressing sous combles</span></div><div class="r4"><span>Fenêtres bois-alu</span></div>
+    <div class="r5"><span>Escalier quart tournant</span></div><div class="r6"><span>Bibliothèque murale</span></div>
+  </div>
+</div></section>
+
+<section><div class="cadre">
+  <div class="titre-section"><h2>Comment ça se passe</h2></div>
+  <div class="grille etapes">
+    <div class="carte"><h3>Visite et conseil</h3><p>Nous venons prendre les mesures et comprendre votre besoin. Gratuit et sans engagement.</p></div>
+    <div class="carte"><h3>Devis clair sous 48 h</h3><p>Un prix détaillé, ligne par ligne, avec le délai de fabrication.</p></div>
+    <div class="carte"><h3>Fabrication et pose</h3><p>Pose propre, chantier nettoyé, finitions vérifiées ensemble.</p></div>
+  </div>
+</div></section>
+
+<section id="avis" class="avis"><div class="cadre">
+  <div class="titre-section"><h2>Ils nous ont fait confiance</h2><p>(Avis fictifs, pour la démonstration.)</p></div>
+  <div class="grille">
+    <div class="carte"><blockquote>« Devis reçu en deux jours, pose des six fenêtres en une journée. Maison beaucoup plus silencieuse. »</blockquote><cite>Client A. · fenêtres</cite></div>
+    <div class="carte"><blockquote>« Un dressing parfaitement adapté à notre chambre mansardée. Travail soigné et très bons conseils. »</blockquote><cite>Client B. · dressing</cite></div>
+    <div class="carte"><blockquote>« Ponctuels, propres et à l'écoute. Notre porte d'entrée est magnifique. »</blockquote><cite>Client C. · porte d'entrée</cite></div>
+  </div>
+</div></section>
+
+<section><div class="cadre zone">
+  <div class="carte"><h3>Zone d'intervention</h3><p>Nous intervenons dans un rayon de 40 km autour de l'atelier :</p><ul><li>Ville principale et agglomération</li><li>Communes voisines</li><li>Déplacement offert pour la visite</li></ul></div>
+  <div class="carte"><h3>Horaires</h3><p>Lundi au vendredi : 8 h – 18 h<br>Samedi : 9 h – 12 h (sur rendez-vous)</p><p style="margin-top:.6rem">Atelier ouvert à la visite sur rendez-vous.</p></div>
+</div></section>
+
+<section id="faq"><div class="cadre">
+  <div class="titre-section"><h2>Questions fréquentes</h2></div>
+  <details><summary>Le devis est-il vraiment gratuit ?</summary><p>Oui, la visite et le devis sont gratuits et sans engagement.</p></details>
+  <details><summary>Quel délai pour une fenêtre sur mesure ?</summary><p>En général 4 à 6 semaines entre la commande et la pose.</p></details>
+  <details><summary>Êtes-vous assurés ?</summary><p>Oui : responsabilité civile professionnelle et garantie décennale, attestations sur demande.</p></details>
+  <details><summary>Puis-je obtenir des aides pour mes fenêtres ?</summary><p>Selon votre situation et le type de travaux, des aides peuvent exister. Nous vous orientons vers les démarches officielles.</p></details>
+</div></section>
+
+<section id="contact"><div class="cadre contact">
+  <div>
+    <div class="titre-section"><h2>Parlons de votre projet</h2><p>Décrivez votre besoin en deux lignes : nous vous rappelons sous 24 h ouvrées.</p></div>
+    <p><b>Téléphone :</b> 01 99 00 00 00 (numéro fictif)</p>
+    <p><b>Adresse :</b> atelier fictif</p>
+  </div>
+  <form class="carte" onsubmit="event.preventDefault();this.querySelector('.note').textContent='Démonstration : aucun message n’est envoyé.'">
+    <label>Votre nom<input required autocomplete="name"></label>
+    <label>Téléphone ou email<input required></label>
+    <label>Type de projet<select><option>Fenêtres</option><option>Porte</option><option>Placard / dressing</option><option>Escalier</option><option>Autre</option></select></label>
+    <label>Votre message<textarea rows="4"></textarea></label>
+    <button class="btn" type="submit">Envoyer ma demande</button>
+    <p class="note">Vos données servent uniquement à répondre à votre demande.</p>
+  </form>
+</div></section>
+</main>
+
+<a class="btn appel-mobile" href="tel:0199000000">📞 Appeler l'atelier</a>
+
+<footer><div class="cadre">
+  <span>© Atelier Verrier — entreprise fictive</span>
+  <span>Site réalisé par Dig · démonstration · <a href="#">Mentions légales</a></span>
+</div></footer>
+</body>
+</html>

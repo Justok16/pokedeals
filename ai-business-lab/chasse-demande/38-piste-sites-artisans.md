@@ -12,13 +12,13 @@ pas seulement les artisans (ex. trouvé : un centre de radiologie).
   financière validée en juillet 2024 (reprise par Ycor).
   ([communiqué T1 2026](https://www.webdisclosure.com/press-release/solocal-epa-local-solocal-activite-du-premier-trimestre-2026-83zA0L2gofd),
   [Wikipédia](https://fr.wikipedia.org/wiki/Solocal))
-- **Offre et contrat** (selon des guides de 2026, **[à vérifier sur les
-  conditions générales SoLocal]**) : site à partir d'environ 29 € HT/mois,
-  engagement de 12 mois (parfois 24), préavis de 4 mois, reconduction tacite ;
-  **le site est hébergé chez SoLocal et disparaît à la résiliation** (le
-  client n'en est pas propriétaire).
-  ([guide Digitori](https://www.digitori.fr/blog/avis-solocal-2026-guide-pme),
-  [guide WebTensor](https://webtensor.fr/blog/comment-resilier-solocal-pages-jaunes))
+- **Offre et contrat** — **corrigé le 25/09 d'après les pages officielles**
+  (détail et citations : `39-business-plan-sites.md`, section 2.1) : site à
+  partir de **64 €/mois** (Initiale), 114 € (Confort), 209 € (Performance) ;
+  MyConnect 49 €/mois pour 48 mois d'engagement ; préavis de **2 mois** avant
+  reconduction (4 mois pour certains clients). Le « 29 € HT/mois » des guides
+  tiers était faux. Sort du site à la résiliation : non récupérable selon
+  les agences concurrentes **[à vérifier dans les CGV SoLocal « site »]**.
 - **Les sites SoLocal sont publics et repérables** : adresses du type
   `nom.site-solocal.com`, indexées par Google (ex. artisandelafenetre,
   jlartisan). Outil sous-jacent **probablement Duda** (ressources
