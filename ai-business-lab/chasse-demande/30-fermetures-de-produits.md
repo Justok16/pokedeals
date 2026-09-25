@@ -24,3 +24,11 @@ reprise** (transfert de fiche, comme chez Atlassian), soit repérer la
 fermeture **avant** qu'elle soit publique (petits éditeurs qui abandonnent
 sans rien annoncer : c'est ce que détecte la mesure « aucune version depuis
 le gel » sur Atlassian).
+
+## Shopify Scripts → Functions (vérifié le 25/09/2026)
+
+Scripts figés depuis le 15/04/2026 et arrêtés définitivement le 30/06/2026
+(dernier report, annoncé comme final). Échéance **déjà passée** : les
+marchands ont migré ou perdu leurs règles ; le marché du portage est
+occupé par les agences depuis 2024. **Écartée.**
+Source : https://www.flatlineagency.com/blog/shopify-scripts-are-deprecated/
