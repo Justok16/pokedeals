@@ -47,7 +47,12 @@
 ## Outils en place
 
 - Boîte du pseudonyme via le connecteur **Gmail** (signature : « Dig ») ;
-  fils rangés sous l'étiquette « Reprise Atlassian ».
+  fils rangés sous l'étiquette « Reprise Atlassian ». **Archiver chaque
+  fil après traitement** (demande du 25/09) : étiquette + retrait de la
+  boîte de réception et du « non lu » ; ne jamais supprimer ; ne laisser
+  en boîte de réception que ce qui attend une décision de l'utilisateur.
+- Démarchage B2B : pas de campagne en série sous le seul pseudonyme (voir
+  `35-demarchage-cadre-legal.md`).
 - **Jev** (TypeSafe AI) : skill dans `.claude/skills/typesafe-ai`,
   aiguilleur `outils/jev_trier_reponses.py` (catégories fermées ; auto /
   Claude / humain selon la confiance).
