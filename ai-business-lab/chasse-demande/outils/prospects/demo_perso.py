@@ -37,7 +37,7 @@ nav.plein{background:rgba(246,241,233,.95);backdrop-filter:blur(10px);color:var(
 .marque{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(1.7rem,2.4vw,2.1rem);letter-spacing:.01em;line-height:1.05;display:block}
 .marque small{display:block;font-family:Jost;font-weight:500;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;opacity:.85;margin-top:.45rem}
 .liens{display:flex;gap:2rem;align-items:center;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
-.cta{border:1px solid currentColor;padding:.55rem 1.1rem;white-space:nowrap}
+.cta{border:1px solid currentColor;padding:calc(.6rem + 1px) calc(1.1rem - .14em) calc(.6rem - 1px) 1.1rem;line-height:1;white-space:nowrap;display:inline-flex;align-items:center}
 .heros{min-height:100svh;display:grid;grid-template-columns:minmax(380px,44%%) 1fr;background:var(--nuit);color:#f4efe6}
 .heros .texte{display:flex;flex-direction:column;justify-content:center;padding:130px clamp(24px,5vw,80px) 90px;animation:monte 1.1s .15s both;position:relative}
 .heros .texte::before{content:"";display:block;width:56px;height:2px;background:var(--acc);margin-bottom:1.3rem}
@@ -51,7 +51,7 @@ nav.plein{background:rgba(246,241,233,.95);backdrop-filter:blur(10px);color:var(
 .heros h1 em{font-style:italic;color:var(--acc)}
 .heros p{font-size:1.12rem;max-width:520px;color:#ddd5c8;font-weight:400}
 .boutons{display:flex;gap:.8rem;margin-top:2rem;flex-wrap:wrap}
-.b{display:inline-block;padding:1rem 1.6rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.b{display:inline-flex;align-items:center;justify-content:center;line-height:1;padding:1.05rem calc(1.6rem - .14em) 1.05rem 1.6rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
 .b.plein{background:var(--acc);color:#fff}.b.vide{border:1.5px solid rgba(255,255,255,.75);color:#fff}
 .fleche{display:none}
 section{padding:clamp(76px,11vw,150px) clamp(18px,6vw,96px)}
@@ -88,14 +88,14 @@ section{padding:clamp(76px,11vw,150px) clamp(18px,6vw,96px)}
 .contact h2{font-size:clamp(2.2rem,4vw,3.2rem)}.contact p{color:var(--doux);margin-top:1rem}
 .ligne{display:flex;justify-content:space-between;border-bottom:1px solid #d9cfbf;padding:.9rem 0;font-size:.95rem}.ligne span:first-child{color:var(--doux)}
 form{display:grid;gap:1rem}input,textarea,select{width:100%%;font:inherit;background:transparent;border:0;border-bottom:1px solid #bfb3a0;padding:.8rem 0;color:var(--encre)}
-form button{margin-top:.6rem;background:var(--encre);color:#fff;border:0;padding:1.05rem;font:inherit;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+form button{line-height:1;text-indent:.2em;margin-top:.6rem;background:var(--encre);color:#fff;border:0;padding:1.05rem;font:inherit;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
 footer{background:var(--nuit);color:#8f887b;padding:40px clamp(18px,6vw,96px) 70px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.85rem}
 footer .marque{color:#efe9df}
 .appel{display:none}
 .rv{opacity:0;transform:translateY(28px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.vu{opacity:1;transform:none}
 @media (max-width:860px){.heros{grid-template-columns:1fr;min-height:auto}.heros .fond{order:-1;height:56svh;min-height:340px}.heros .texte{padding:44px 22px 110px}.heros .fond .etiq{right:14px;bottom:14px;font-size:.7rem}.liens a:not(.cta){display:none}.intro,.contact{grid-template-columns:1fr}.services .grille{grid-template-columns:1fr 1fr}
 .galerie{grid-template-columns:1fr 1fr;grid-template-rows:230px 170px}.galerie figure:first-child{grid-column:span 2;grid-row:auto}
-.etapes{grid-template-columns:1fr}.appel{display:flex;align-items:center;justify-content:center;text-align:center;gap:.5rem;position:fixed;left:50%%;transform:translateX(-50%%);width:calc(100%% - 28px);bottom:34px;z-index:55;background:var(--acc);color:#fff;padding:1rem .5rem 1rem calc(.5rem + .16em);font-size:.82rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.25)}}
+.etapes{grid-template-columns:1fr}.appel{display:flex;align-items:center;justify-content:center;text-align:center;gap:.5rem;position:fixed;left:50%%;transform:translateX(-50%%);width:calc(100%% - 28px);bottom:34px;z-index:55;background:var(--acc);color:#fff;padding:1.05rem .5rem;line-height:1;font-size:.82rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.25)}.appel span{margin-right:-.16em}.appel svg{flex:none}}
 @media (max-width:520px){.services .grille{grid-template-columns:1fr}}
 '''
 JS='''<script>const n=document.querySelector('nav');addEventListener('scroll',()=>n.classList.toggle('plein',scrollY>60));
@@ -125,7 +125,7 @@ def page(p):
 <div style="margin-top:1.6rem"><div class="ligne"><span>Téléphone</span><a href="tel:{num}">{e(p['tel'])}</a></div><div class="ligne"><span>Secteur</span><span>{e(p['commune'])} et alentours</span></div></div></div>
 <form class="rv" onsubmit="event.preventDefault()"><input placeholder="Votre nom"><input placeholder="Téléphone ou email"><textarea rows="3" placeholder="{'Date, heure, nombre de personnes' if resto else 'Votre projet en quelques mots'}"></textarea><button type="button">Envoyer</button></form></section>
 <footer><div class="marque">{nom}<small>{e(p['commune'])}</small></div><div>© {nom} · Mentions légales</div></footer>
-<a class="appel" href="tel:{num}">📞 {'Réserver' if resto else 'Appeler'} · {e(p['tel'])}</a>
+<a class="appel" href="tel:{num}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span>{'Réserver' if resto else 'Appeler'} · {e(p['tel'])}</span></a>
 <div class="maq">Maquette préparée par Dig pour {nom} — non publiée · photos d’illustration libres de droits</div>{JS}</body></html>'''
 P=json.load(open('prospects.json'))
 for p in P: open(p['id']+'.html','w').write(page(p))
