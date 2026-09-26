@@ -41,7 +41,7 @@ S=[
 ("Contenu et fonctionnement",[
 ("Qui écrit les textes ?","Moi, à partir d'un entretien de 45 minutes avec vous. Vous relisez et validez tout avant la mise en ligne."),
 ("Et les photos ?","Les vôtres de préférence : vos chantiers, votre équipe. Si besoin, des photos d'illustration libres de droits en attendant."),
-("En combien de temps c'est prêt ?","Une fois vos photos et informations reçues, comptez environ deux semaines. [Délai à confirmer selon la charge]."),
+("En combien de temps c'est prêt ?","En ligne en 7 jours une fois vos photos et informations reçues."),
 ("Je peux modifier moi-même ?","Vous n'avez pas besoin : vous m'envoyez un message ou une photo et je m'en occupe (selon la formule, 1 à 3 modifications par mois)."),
 ("Ça marche sur téléphone ?","Il est d'abord pensé pour le téléphone, avec un bouton pour vous appeler directement. C'est là que vos clients vous cherchent."),
 ("Je peux recevoir des demandes de devis avec photos ?","Oui, le formulaire peut accepter des photos du chantier : vous arrivez chez le client en sachant déjà quoi faire."),

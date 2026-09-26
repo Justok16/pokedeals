@@ -85,3 +85,9 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
   Canva (vérifié : il ouvre la démo).
 - À compléter après création : téléphone, email, prénom et nom, SIREN,
   adresse ; lien du QR vers la démo définitive.
+
+
+## Correction du 26/09 (soir)
+
+- L'ancien QR code menait à `dig-demo-menuisier.vercel.app`, projet Vercel supprimé : il ne fonctionnait plus.
+- Remplacé dans Canva (design « DAHWQH2QKK8 ») par un QR vers **https://digsite.pages.dev/** (`site-dig/qr-digsite.png`) ; vérifié en décodant l'export 1748 × 2480 px. PNG et PDF du flyer mis à jour dans `supports/`.
