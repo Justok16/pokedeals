@@ -1,53 +1,131 @@
-# Génère une maquette de page d'accueil personnalisée (privée) par prospect.
-# Entrée : prospects.json (liste de {id, nom, type, commune, tel, preuves, h1?, acc?}) — fichier PRIVÉ, jamais dans le dépôt.
-# Types : menuiserie, chauffage, electricite, couverture, peinture, restaurant. Style repris de site-dig/demos/menuisier.
+# Maquette premium personnalisée (privée) par prospect.
+# Entrée : prospects.json (PRIVÉ, jamais dans le dépôt) ; photos : dossier DIG_PHOTOS (défaut ./photos/),
+# photos CC0 StockSnap trouvées via l'API Openverse (source=stocksnap), nommées <métier>_<n>.jpg.
 # N'afficher que des faits vérifiés (RGE via l'annuaire ADEME, dates du registre) ; pas de faux avis.
-import html,re,json,os
-M=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','site-dig','demos','menuisier','index.html')).read()
-CSS=M[M.index('<style>')+7:M.index('</style>')]
+import html,re,json,os,base64
+PH=os.environ.get('DIG_PHOTOS','photos/')
+def img(n): return 'data:image/jpeg;base64,'+base64.b64encode(open(PH+n+'.jpg','rb').read()).decode()
 T={
-'menuiserie':dict(c=('#9a5b2e','#6f3f1d'),v='repeating-linear-gradient(100deg,#b77a47 0 14px,#a86a39 14px 22px,#c2885a 22px 40px,#9b5f30 40px 46px)',
-  h1='Menuiseries sur mesure, posées avec soin.',acc='Fenêtres, portes, volets et agencements : un seul interlocuteur du devis à la pose.',
-  s=[('▢','Fenêtres & baies','Bois, alu ou PVC, double ou triple vitrage, pose en rénovation.'),('⌂',"Portes d'entrée",'Isolantes et sécurisées, dans le style de votre maison.'),('☀','Volets & portails','Battants, roulants ou motorisés.'),('▤','Agencement','Placards, dressings, escaliers sur mesure.'),('◧','Isolation','Amélioration du confort thermique de votre logement.'),('€','Aides à la rénovation','Nous vous orientons vers les aides possibles et les démarches.')],opt=['Fenêtres','Porte','Volets / portail','Agencement','Autre']),
-'chauffage':dict(c=('#c2410c','#9a3412'),v='radial-gradient(circle at 30% 70%,#fb923c 0,#ea580c 25%,#7c2d12 60%,#1c1917 100%)',
-  h1='Chauffage et confort, installés et entretenus près de chez vous.',acc="Pompes à chaleur, chaudières, poêles, plomberie : conseil, installation et dépannage.",
-  s=[('♨','Pompes à chaleur','Air/eau, air/air : étude et installation.'),('🔥','Chaudières & poêles','Gaz, granulés, bois : installation et remplacement.'),('💧','Plomberie & sanitaire','Salle de bain, chauffe-eau, dépannage.'),('🛠','Entretien annuel','Contrat d’entretien et dépannage rapide.'),('☀','Énergies renouvelables','Solaire thermique, solutions économes.'),('€','Aides à la rénovation','Nous vous orientons vers les aides possibles et les démarches.')],opt=['Pompe à chaleur','Chaudière / poêle','Plomberie','Entretien / dépannage','Autre']),
-'electricite':dict(c=('#1d4ed8','#1e3a8a'),v='linear-gradient(135deg,#0f172a 0,#1e3a8a 50%,#3b82f6 100%)',
-  h1='Électricité et chauffage, en toute sécurité.',acc='Installation, rénovation, mise aux normes et dépannage pour particuliers et professionnels.',
-  s=[('⚡','Installation électrique','Neuf et rénovation, tableaux, mises aux normes.'),('♨','Chauffage','Radiateurs, pompes à chaleur, chauffe-eau.'),('💡','Éclairage','Intérieur, extérieur, LED.'),('🔌','Bornes & domotique','Recharge de véhicule, pilotage à distance.'),('🛠','Dépannage','Intervention rapide sur panne.'),('€','Aides à la rénovation','Nous vous orientons vers les démarches.')],opt=['Installation','Mise aux normes','Chauffage','Dépannage','Autre']),
-'couverture':dict(c=('#b45309','#78350f'),v='repeating-linear-gradient(170deg,#9a3412 0 18px,#7c2d12 18px 22px,#b45309 22px 40px,#7c2d12 40px 44px)',
-  h1='Votre toiture entre de bonnes mains.',acc='Couverture tuiles et ardoises, charpente, zinguerie et isolation.',
-  s=[('⌂','Couverture','Tuiles, ardoises, réfection complète ou partielle.'),('⟋','Charpente','Création et renforcement.'),('〰','Zinguerie','Gouttières, descentes, habillages.'),('▣','Fenêtres de toit','Pose et remplacement.'),('◧','Isolation','Isolation des combles et de la toiture.'),('🛠','Réparations','Fuites, tuiles cassées, après tempête.')],opt=['Couverture','Charpente','Zinguerie','Isolation','Réparation']),
-'peinture':dict(c=('#0f766e','#115e59'),v='linear-gradient(120deg,#f5f5f4 0 30%,#99f6e4 30% 55%,#0f766e 55% 80%,#134e4a 80%)',
-  h1='Peinture, façades et isolation : un intérieur neuf, une maison mieux isolée.',acc='Peinture intérieure, ravalement de façade et isolation thermique par l’extérieur.',
-  s=[('🖌','Peinture intérieure','Murs, plafonds, boiseries, finitions soignées.'),('▦','Ravalement de façade','Nettoyage, réparation, peinture.'),('◧','Isolation extérieure','Moins de pertes de chaleur, façade rénovée.'),('▤','Revêtements','Sols et murs.'),('✦','Décoration','Conseil couleurs et matières.'),('€','Aides à la rénovation','Nous vous orientons vers les aides possibles et les démarches.')],opt=['Peinture intérieure','Façade','Isolation extérieure','Autre']),
-'restaurant':dict(c=('#be123c','#881337'),v='radial-gradient(circle at 70% 30%,#fde68a 0,#f59e0b 20%,#9f1239 60%,#1c1917 100%)',
-  h1='Une table au bord de l’eau.',acc='Cuisine de saison, produits frais et vins locaux.',
-  s=[('🍽','La carte','Plats de saison, spécialités de la région.'),('🍷','Les vins','Une sélection de vins locaux.'),('☀','Terrasse','Profitez des beaux jours.'),('🎉','Groupes & événements','Anniversaires, repas de famille.'),('🛏','Chambres','Nuit sur place (selon disponibilités).'),('📅','Réservation','En ligne ou par téléphone.')],opt=['Réservation','Groupe / événement','Question']),
+'menuiserie':dict(acc='#b07a4a',hero='bois_0',g=['bois_1','bois_16','bois_28','bois_2'],sur='Menuiserie · Agencement',
+  h1='Le bois, <em>travaillé</em> pour durer.',intro='Fenêtres, portes, volets, escaliers : chaque ouvrage est pensé, fabriqué et posé avec l’exigence d’un artisan.',
+  s=[('Fenêtres & baies','Bois, alu ou PVC, double ou triple vitrage, pose en rénovation sans gros travaux.'),('Portes d’entrée','Isolantes, sécurisées, dessinées pour le caractère de votre maison.'),('Volets & portails','Battants, roulants ou motorisés, pilotables depuis votre téléphone.'),('Agencement sur mesure','Escaliers, placards, dressings : ajustés au centimètre.')],gl=['Le geste juste','Portes de caractère','Lumière naturelle','Mesure au dixième']),
+'chauffage':dict(acc='#d9774b',hero='chauf_8',g=['chauf_2','chauf_14','chauf_26','chauf_0'],sur='Chauffage · Plomberie · Énergies',
+  h1='La chaleur, <em>maîtrisée</em>.',intro='Pompes à chaleur, chaudières, poêles, plomberie : un confort durable et des factures qui baissent.',
+  s=[('Pompes à chaleur','Étude, installation et mise en service, air/eau ou air/air.'),('Chaudières & poêles','Gaz, granulés ou bois : le bon équipement pour votre maison.'),('Salle de bain & plomberie','Rénovation complète, chauffe-eau, dépannage.'),('Entretien & dépannage','Contrat annuel et intervention rapide.')],gl=['Chaleur du bois','Salle de bain','Solaire thermique','Confort toute l’année']),
+'electricite':dict(acc='#e0a458',hero='elec_18',g=['elec_1','elec_10','elec_13','elec_20'],sur='Électricité · Chauffage',
+  h1='Votre maison, <em>en pleine lumière</em>.',intro='Installation, rénovation et mise aux normes, avec la rigueur qu’exige la sécurité de votre foyer.',
+  s=[('Installation & rénovation','Neuf et ancien, tableaux, mises aux normes.'),('Chauffage électrique','Radiateurs à inertie, chauffe-eau, pompes à chaleur.'),('Éclairage','Intérieur et extérieur, mises en valeur LED.'),('Dépannage','Diagnostic et intervention rapide.')],gl=['Intervention soignée','Tableaux aux normes','Éclairage d’ambiance','Mise en valeur']),
+'couverture':dict(acc='#c0754a',hero='toit_4',g=['toit_1','toit_12','toit_0','toit_2'],sur='Couverture · Charpente · Zinguerie',
+  h1='Un toit <em>solide</em>, une maison sereine.',intro='Tuiles, ardoises, charpente, zinguerie et isolation : votre toiture confiée à des spécialistes.',
+  s=[('Couverture','Réfection complète ou partielle, tuiles et ardoises.'),('Charpente','Création, traitement et renforcement.'),('Zinguerie','Gouttières, descentes, habillages.'),('Isolation & fenêtres de toit','Combles isolés, lumière naturelle.')],gl=['Tuiles posées au cordeau','Tuiles anciennes','Architecture contemporaine','Finitions précises']),
+'peinture':dict(acc='#c9a45c',hero='peint_12',g=['peint_15','peint_28','peint_21','peint_23'],sur='Peinture · Façades · Isolation',
+  h1='Des murs qui <em>changent</em> tout.',intro='Peinture intérieure, ravalement et isolation par l’extérieur : des finitions impeccables, un logement transformé.',
+  s=[('Peinture intérieure','Murs, plafonds, boiseries, finitions soignées.'),('Ravalement de façade','Nettoyage, réparation et mise en peinture.'),('Isolation extérieure','Moins de pertes de chaleur, façade rénovée.'),('Conseil déco','Couleurs et matières choisies avec vous.')],gl=['Intérieurs lumineux','Entrées de caractère','Couleurs apaisantes','Volumes révélés']),
+'restaurant':dict(acc='#c8a26b',hero='resto_11',g=['resto_25','resto_29','resto_19','resto_9'],sur='Restaurant · Chambres d’hôtes',
+  h1='Une table <em>au bord de l’eau</em>.',intro='Cuisine de saison, produits frais et vins de la région, dans un cadre où l’on prend le temps.',
+  s=[('La carte','Plats de saison et spécialités de la région.'),('Les vins','Une sélection de vins locaux.'),('Groupes & fêtes','Repas de famille, anniversaires, événements.'),('Chambres','Prolongez le moment : nuit sur place.')],gl=['Dans l’assiette','Produits de saison','Au fil de l’eau','Autour de la table']),
 }
+CSS='''
+:root{--creme:#f6f1e9;--encre:#1f1c18;--doux:#6b645a;--nuit:#12100d;--acc:%s}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:Jost,system-ui,sans-serif;font-weight:300;background:var(--creme);color:var(--encre);line-height:1.7;overflow-x:hidden}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;line-height:1.08}
+a{color:inherit;text-decoration:none}img{display:block;width:100%%;height:100%%;object-fit:cover}
+.maq{position:fixed;bottom:0;left:0;right:0;z-index:60;background:var(--nuit);color:#cfc6b6;text-align:center;font-size:.72rem;padding:.35rem 1rem;letter-spacing:.04em}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.2rem clamp(18px,4vw,56px);color:#fff;transition:.4s}
+nav.plein{background:rgba(246,241,233,.95);backdrop-filter:blur(10px);color:var(--encre);padding:.75rem clamp(18px,4vw,56px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.marque{font-family:"Cormorant Garamond",serif;font-size:1.45rem;letter-spacing:.03em;line-height:1.1}
+.marque small{display:block;font-family:Jost;font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;opacity:.8}
+.liens{display:flex;gap:2rem;align-items:center;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+.cta{border:1px solid currentColor;padding:.55rem 1.1rem;white-space:nowrap}
+.heros{height:100svh;min-height:600px;position:relative;overflow:hidden;color:#fff}
+.heros .fond{position:absolute;inset:0}.heros .fond img{transform:scale(1.1);animation:zoom 16s ease-out forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.heros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%%,rgba(0,0,0,.1) 40%%,rgba(0,0,0,.7) 100%%)}
+.heros .texte{position:absolute;z-index:2;left:clamp(18px,6vw,96px);right:18px;bottom:15vh;max-width:780px;animation:monte 1.2s .2s both}
+@keyframes monte{from{opacity:0;transform:translateY(24px)}}
+.sur{font-size:.72rem;letter-spacing:.38em;text-transform:uppercase;opacity:.9}
+.heros h1{font-size:clamp(3rem,8vw,6.4rem);font-weight:400;margin:.5rem 0 1rem}
+.heros h1 em{font-style:italic;color:var(--acc)}
+.heros p{font-size:1.08rem;max-width:520px;opacity:.92}
+.boutons{display:flex;gap:.8rem;margin-top:1.8rem;flex-wrap:wrap}
+.b{display:inline-block;padding:.95rem 1.6rem;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:400}
+.b.plein{background:var(--acc);color:#fff}.b.vide{border:1px solid rgba(255,255,255,.7)}
+.fleche{position:absolute;z-index:2;left:50%%;bottom:5vh;width:1px;height:52px;background:rgba(255,255,255,.4);overflow:hidden}
+.fleche::after{content:"";position:absolute;left:0;top:-52px;width:1px;height:52px;background:#fff;animation:tombe 2.2s infinite}@keyframes tombe{to{top:52px}}
+section{padding:clamp(76px,11vw,150px) clamp(18px,6vw,96px)}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px);align-items:center}
+.intro h2{font-size:clamp(2.3rem,4.5vw,3.6rem)}.intro h2 em{color:var(--acc)}
+.intro p{color:var(--doux);margin-top:1.3rem;max-width:480px}
+.chiffres{display:flex;gap:2.6rem;margin-top:2.2rem;flex-wrap:wrap}
+.chiffres b{display:block;font-family:"Cormorant Garamond";font-size:2.5rem;font-weight:500;color:var(--acc);line-height:1}
+.chiffres span{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--doux)}
+.intro .photo{aspect-ratio:4/5;overflow:hidden}
+.titre{text-align:center;max-width:660px;margin:0 auto clamp(40px,6vw,72px)}
+.titre .sur{color:var(--acc)}.titre h2{font-size:clamp(2.3rem,4.5vw,3.4rem);margin-top:.6rem}
+.services{background:var(--nuit);color:#efe9df}
+.services .grille{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.services .carte{background:var(--nuit);padding:2.4rem 1.8rem}
+.services .n{font-family:"Cormorant Garamond";font-size:1rem;color:var(--acc);letter-spacing:.2em}
+.services h3{font-size:1.7rem;margin:.8rem 0 .6rem}.services p{color:#a9a193;font-size:.95rem}
+.galerie{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:280px 280px;gap:12px}
+.galerie figure{position:relative;overflow:hidden}.galerie figure:first-child{grid-row:span 2}
+.galerie img{transition:transform 1.2s}.galerie figure:hover img{transform:scale(1.06)}
+.galerie figcaption{position:absolute;left:14px;bottom:12px;color:#fff;font-family:"Cormorant Garamond";font-size:1.25rem;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,56px);counter-reset:e}
+.etapes div{border-top:1px solid #d9cfbf;padding-top:1.4rem}
+.etapes div::before{counter-increment:e;content:"0" counter(e);font-family:"Cormorant Garamond";font-size:2.6rem;color:var(--acc)}
+.etapes h3{font-size:1.5rem;margin:.3rem 0 .4rem}.etapes p{color:var(--doux)}
+.avis{background:#ece4d7;text-align:center}
+.etoiles{color:var(--acc);letter-spacing:.3em;font-size:1.3rem}
+.avis blockquote{font-family:"Cormorant Garamond";font-size:clamp(1.6rem,3vw,2.3rem);font-style:italic;max-width:760px;margin:1.2rem auto}
+.avis cite{font-style:normal;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--doux)}
+.bande{position:relative;color:#fff;text-align:center;padding:clamp(96px,14vw,180px) 18px;overflow:hidden}
+.bande img{position:absolute;inset:0}.bande::after{content:"";position:absolute;inset:0;background:rgba(12,10,8,.62)}
+.bande>div{position:relative;z-index:2}.bande h2{font-size:clamp(2.4rem,5vw,4rem)}.bande h2 em{color:var(--acc)}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px)}
+.contact h2{font-size:clamp(2.2rem,4vw,3.2rem)}.contact p{color:var(--doux);margin-top:1rem}
+.ligne{display:flex;justify-content:space-between;border-bottom:1px solid #d9cfbf;padding:.9rem 0;font-size:.95rem}.ligne span:first-child{color:var(--doux)}
+form{display:grid;gap:1rem}input,textarea,select{width:100%%;font:inherit;background:transparent;border:0;border-bottom:1px solid #bfb3a0;padding:.8rem 0;color:var(--encre)}
+form button{margin-top:.6rem;background:var(--encre);color:#fff;border:0;padding:1.05rem;font:inherit;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+footer{background:var(--nuit);color:#8f887b;padding:40px clamp(18px,6vw,96px) 70px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.85rem}
+footer .marque{color:#efe9df}
+.appel{display:none}
+.rv{opacity:0;transform:translateY(28px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.vu{opacity:1;transform:none}
+@media (max-width:860px){.liens a:not(.cta){display:none}.intro,.contact{grid-template-columns:1fr}.services .grille{grid-template-columns:1fr 1fr}
+.galerie{grid-template-columns:1fr 1fr;grid-template-rows:230px 170px}.heros .texte{bottom:19vh}.galerie figure:first-child{grid-column:span 2;grid-row:auto}
+.etapes{grid-template-columns:1fr}.appel{display:flex;justify-content:center;gap:.5rem;position:fixed;left:14px;right:14px;bottom:34px;z-index:55;background:var(--acc);color:#fff;padding:1rem;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.25)}}
+@media (max-width:520px){.services .grille{grid-template-columns:1fr}}
+'''
+JS='''<script>const n=document.querySelector('nav');addEventListener('scroll',()=>n.classList.toggle('plein',scrollY>60));
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('.rv').forEach(e=>io.observe(e));</script>'''
 def page(p):
-    t=T[p['type']];nom=html.escape(p['nom']);tel=p['tel'];num=re.sub(r'\D','',tel)
-    css=(CSS+'.btn{white-space:nowrap}header .btn{padding:.6rem 1rem}.logo{line-height:1.2}').replace('--bois:#9a5b2e;--bois-fonce:#6f3f1d',f"--bois:{t['c'][0]};--bois-fonce:{t['c'][1]}")
-    css=re.sub(r'\.visuel\{aspect-ratio:4/5;([^}]*)background:[^}]*\}',lambda m:'.visuel{aspect-ratio:4/5;'+m.group(1)+'background:'+t['v']+'}',css)
-    css=css.replace('.visuel::after{','.visuel::after{display:none;')
-    preuves=''.join(f'<div><b>{html.escape(a)}</b>{html.escape(b)}</div>' for a,b in p.get('preuves',[]))
-    srv=''.join(f'<div class="carte"><div class="icone">{i}</div><h3>{html.escape(h)}</h3><p>{html.escape(x)}</p></div>' for i,h,x in t['s'])
-    opts=''.join(f'<option>{o}</option>' for o in t['opt'])
-    h1=html.escape(p.get('h1',t['h1']));acc=html.escape(p.get('acc',t['acc']))
-    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{nom} — maquette</title><meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><style>{css}</style></head><body>
-<div class="bandeau">Maquette préparée par Dig pour {nom} — proposition non publiée</div>
-<header><div class="cadre"><a class="logo" href="#">{nom}</a><nav><a href="#services">Services</a><a href="#avis">Avis</a><a href="#contact">Contact</a></nav><a class="btn" href="#contact">{html.escape(p.get('cta','Devis gratuit'))}</a></div></header>
-<main><section class="hero"><div class="cadre"><div><h1>{h1}</h1><p class="accroche">{acc}</p>
-<div class="actions"><a class="btn" href="#contact">{html.escape(p.get('cta2','Demander un devis'))}</a><a class="btn clair" href="tel:{num}">{html.escape(tel)}</a></div>
-<div class="preuves">{preuves}</div></div>
-<div class="visuel" role="img" aria-label="Illustration"><div class="etiquette">{html.escape(p['commune'])} et alentours</div></div></div></section>
-<section id="services"><div class="cadre"><div class="titre-section"><h2>Nos services</h2><p>{html.escape(p.get('sous','Particuliers et professionnels, devis gratuit.'))}</p></div><div class="grille">{srv}</div></div></section>
-<section id="avis" class="avis"><div class="cadre"><div class="titre-section"><h2>Vos avis clients</h2><p>Ici s’afficheront automatiquement vos avis Google, pour rassurer chaque visiteur.</p></div></div></section>
-<section id="contact"><div class="cadre contact"><div><div class="titre-section"><h2>Contact</h2><p>Réponse rapide, devis gratuit.</p></div><p><b>Téléphone :</b> {html.escape(tel)}</p><p><b>Secteur :</b> {html.escape(p['commune'])} et alentours</p></div>
-<form class="carte" onsubmit="event.preventDefault()"><label>Votre nom<input></label><label>Téléphone ou email<input></label><label>Votre demande<select>{opts}</select></label><label>Message<textarea rows="3"></textarea></label><button class="btn" type="button">Envoyer</button></form></div></section></main>
-<a class="btn appel-mobile" href="tel:{num}">📞 Appeler</a><footer><div class="cadre"><span>© {nom}</span><span>Maquette Dig</span></div></footer></body></html>'''
+    t=T[p['type']];e=html.escape;nom=e(p['nom']);num=re.sub(r'\D','',p['tel'])
+    g=[img(x) for x in t['g']];h1=p.get('h1p',t['h1']);intro=e(p.get('acc',t['intro']))
+    ch=''.join(f'<div><b>{e(a)}</b><span>{e(b)}</span></div>' for a,b in p.get('preuves',[]))
+    sv=''.join(f'<div class="carte rv"><div class="n">0{i+1}</div><h3>{e(a)}</h3><p>{e(b)}</p></div>' for i,(a,b) in enumerate(t['s']))
+    gal=''.join(f'<figure class="rv"><img src="{g[i]}" alt=""><figcaption>{e(t["gl"][i])}</figcaption></figure>' for i in range(3))
+    resto=p['type']=='restaurant'
+    cta='Réserver' if resto else 'Devis gratuit'
+    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>{nom}</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet"><style>{CSS%t['acc']}</style></head><body>
+<nav><a class="marque" href="#">{nom}<small>{e(p['commune'])}</small></a><div class="liens"><a href="#savoir">{'La maison' if resto else 'Savoir-faire'}</a><a href="#services">{'La carte' if resto else 'Services'}</a><a href="#realisations">{'Galerie' if resto else 'Réalisations'}</a><a class="cta" href="#contact">{cta}</a></div></nav>
+<header class="heros"><div class="fond"><img src="{img(t['hero'])}" alt=""></div><div class="texte"><div class="sur">{e(t['sur'])} — {e(p['commune'])}</div><h1>{h1}</h1><p>{intro}</p>
+<div class="boutons"><a class="b plein" href="#contact">{'Réserver une table' if resto else 'Demander un devis'}</a><a class="b vide" href="tel:{num}">{e(p['tel'])}</a></div></div><div class="fleche"></div></header>
+<section id="savoir" class="intro"><div class="rv"><div class="sur" style="color:var(--acc)">{'La maison' if resto else 'Notre savoir-faire'}</div><h2>{e(p.get('titre2','Un travail soigné,')).replace('<','')} <em>{e(p.get('titre2b','du premier conseil à la finition.'))}</em></h2>
+<p>{e(p.get('texte2',intro))}</p><div class="chiffres">{ch}</div></div><div class="photo rv"><img src="{g[3]}" alt=""></div></section>
+<section id="services" class="services"><div class="titre rv"><div class="sur">{'À découvrir' if resto else 'Ce que nous faisons'}</div><h2>{'Le plaisir de la table' if resto else 'Des prestations complètes'}</h2></div><div class="grille">{sv}</div></section>
+<section id="realisations"><div class="titre rv"><div class="sur">{'En images' if resto else 'Réalisations'}</div><h2>{'Un lieu à vivre' if resto else 'L’exigence, dans chaque détail'}</h2></div><div class="galerie">{gal}</div></section>
+<section style="padding-top:0"><div class="titre rv"><div class="sur">{'Venir nous voir' if resto else 'Comment ça se passe'}</div><h2>{'Simple et chaleureux' if resto else 'Trois étapes, zéro surprise'}</h2></div><div class="etapes rv">
+{'<div><h3>Réservez</h3><p>Par téléphone ou en ligne, en quelques secondes.</p></div><div><h3>Installez-vous</h3><p>En salle ou en terrasse, au calme.</p></div><div><h3>Restez</h3><p>Une chambre vous attend pour prolonger la soirée.</p></div>' if resto else '<div><h3>Visite & conseil</h3><p>Nous venons voir votre projet et vous conseillons, gratuitement.</p></div><div><h3>Devis détaillé</h3><p>Un prix clair, ligne par ligne, avec les délais.</p></div><div><h3>Réalisation</h3><p>Chantier propre, finitions vérifiées ensemble.</p></div>'}</div></section>
+<section class="avis"><div class="rv"><div class="etoiles">★★★★★</div><blockquote>Vos avis Google s’afficheront ici, automatiquement.</blockquote><cite>Emplacement réservé aux avis de vos clients</cite></div></section>
+<div class="bande"><img src="{g[1]}" alt=""><div class="rv"><div class="sur">{e(p['commune'])} et alentours</div><h2>{'Une envie de' if resto else 'Un projet ?'} <em>{'bonne table ?' if resto else 'Parlons-en.'}</em></h2><div class="boutons" style="justify-content:center"><a class="b plein" href="tel:{num}">{e(p['tel'])}</a></div></div></div>
+<section id="contact" class="contact"><div class="rv"><div class="sur" style="color:var(--acc)">Contact</div><h2>{'Réserver' if resto else 'Demander un devis'}</h2><p>{'Nous vous confirmons votre table rapidement.' if resto else 'Réponse rapide, devis gratuit et sans engagement.'}</p>
+<div style="margin-top:1.6rem"><div class="ligne"><span>Téléphone</span><a href="tel:{num}">{e(p['tel'])}</a></div><div class="ligne"><span>Secteur</span><span>{e(p['commune'])} et alentours</span></div></div></div>
+<form class="rv" onsubmit="event.preventDefault()"><input placeholder="Votre nom"><input placeholder="Téléphone ou email"><textarea rows="3" placeholder="{'Date, heure, nombre de personnes' if resto else 'Votre projet en quelques mots'}"></textarea><button type="button">Envoyer</button></form></section>
+<footer><div class="marque">{nom}<small>{e(p['commune'])}</small></div><div>© {nom} · Mentions légales</div></footer>
+<a class="appel" href="tel:{num}">📞 {'Réserver' if resto else 'Appeler'} · {e(p['tel'])}</a>
+<div class="maq">Maquette préparée par Dig pour {nom} — non publiée · photos d’illustration libres de droits</div>{JS}</body></html>'''
 P=json.load(open('prospects.json'))
-for p in P:
-    open(f"{p['id']}.html",'w').write(page(p))
+for p in P: open(p['id']+'.html','w').write(page(p))
 print(len(P))
