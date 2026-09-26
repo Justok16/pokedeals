@@ -24,6 +24,13 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
 - [ ] Contraste et lisibilité : texte lisible sur photo, taille suffisante sur téléphone.
 - [ ] Liens et QR codes testés (QR décodé sur l'export, lien qui répond 200).
 - [ ] Polices chargées, images affichées, pas de débordement horizontal.
+- [ ] PDF : chaque page regardée en entier (planche de toutes les pages) ; aucun
+      titre seul en bas de page, aucune page presque vide, aucun numéro de
+      téléphone ou mot composé coupé en fin de ligne, pas de mot seul sur la
+      dernière ligne d'un grand titre.
+- [ ] Pas de texte en dégradé (« background-clip:text ») dans un PDF : Chromium
+      peut dessiner un cadre parasite autour ; utiliser une couleur pleine.
+- [ ] Pas deux démos avec la même photo principale dans un même livret.
 
 ## Outils
 - Démos : `outils/prospects/verif_maquettes.py`, `qa_maquettes.py`, captures d'écran relues une par une.

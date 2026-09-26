@@ -15,7 +15,7 @@ T={
 'electricite':dict(acc='#e0a458',hero='elec_18',g=['elec_1','elec_10','elec_13','elec_20'],sur='Électricité · Chauffage',
   h1='Votre maison, <em>en pleine lumière</em>.',intro='Installation, rénovation et mise aux normes, avec la rigueur qu’exige la sécurité de votre foyer.',
   s=[('Installation & rénovation','Neuf et ancien, tableaux, mises aux normes.'),('Chauffage électrique','Radiateurs à inertie, chauffe-eau, pompes à chaleur.'),('Éclairage','Intérieur et extérieur, mises en valeur LED.'),('Dépannage','Diagnostic et intervention rapide.')],gl=['Intervention soignée','Tableaux aux normes','Éclairage d’ambiance','Mise en valeur']),
-'couverture':dict(acc='#c0754a',hero='toit_4',g=['toit_1','toit_12','toit_0','toit_2'],sur='Couverture · Charpente · Zinguerie',
+'couverture':dict(acc='#c0754a',hero='toit_4',g=['toit_1','toit_12','toit_0','toit_8'],sur='Couverture · Charpente · Zinguerie',
   h1='Un toit <em>solide</em>, une maison sereine.',intro='Tuiles, ardoises, charpente, zinguerie et isolation : votre toiture confiée à des spécialistes.',
   s=[('Couverture','Réfection complète ou partielle, tuiles et ardoises.'),('Charpente','Création, traitement et renforcement.'),('Zinguerie','Gouttières, descentes, habillages.'),('Isolation & fenêtres de toit','Combles isolés, lumière naturelle.')],gl=['Tuiles posées au cordeau','Tuiles anciennes','Architecture contemporaine','Finitions précises']),
 'peinture':dict(acc='#c9a45c',hero='peint_12',g=['peint_15','peint_28','peint_21','peint_23'],sur='Peinture · Façades · Isolation',
@@ -25,13 +25,14 @@ T={
   h1='Une table <em>au bord de l’eau</em>.',intro='Cuisine de saison, produits frais et vins de la région, dans un cadre où l’on prend le temps.',
   s=[('La carte','Plats de saison et spécialités de la région.'),('Les vins','Une sélection de vins locaux.'),('Groupes & fêtes','Repas de famille, anniversaires, événements.'),('Chambres','Prolongez le moment : nuit sur place.')],gl=['Dans l’assiette','Produits de saison','Au fil de l’eau','Autour de la table']),
 }
+X={"menuiserie": ["Des ouvrages sur mesure,", "pensés pour durer.", "Chaque projet commence par une visite et des mesures précises. Nous vous conseillons sur les matériaux, l’isolation et les aides possibles, puis nous posons avec soin et laissons le chantier propre."], "chauffage": ["Le bon équipement,", "bien installé.", "Nous étudions votre logement avant de vous conseiller : puissance adaptée, consommation, aides possibles. L’installation est faite proprement, puis nous assurons l’entretien et le dépannage."], "electricite": ["La sécurité d’abord,", "le confort ensuite.", "Diagnostic, conseil, installation : nous travaillons dans le respect des normes et vous expliquons chaque étape, pour une installation fiable et durable."], "couverture": ["Votre toiture,", "entre des mains expertes.", "Diagnostic de la toiture, devis détaillé, travaux réalisés en sécurité : nous protégeons votre maison des intempéries pour longtemps."], "peinture": ["Des finitions impeccables,", "un logement transformé.", "Préparation soignée des supports, peintures de qualité, protection de votre mobilier : nous vous rendons un intérieur ou une façade comme neufs, dans les délais annoncés."], "restaurant": ["Une cuisine sincère,", "au fil des saisons.", "Des produits frais, des recettes de la région et le temps de bien faire. Au bord de l’eau, on vient pour un déjeuner, on reste pour la soirée."]}
 CSS='''
 :root{--creme:#f6f1e9;--encre:#1f1c18;--doux:#57504a;--nuit:#12100d;--acc:%s}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
 body{font-family:Jost,system-ui,sans-serif;font-weight:400;font-size:17px;background:var(--creme);color:var(--encre);line-height:1.7;overflow-x:hidden}
 h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.08}
 a{color:inherit;text-decoration:none}img{display:block;width:100%%;height:100%%;object-fit:cover}
-.basbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-direction:column}.maq{background:var(--nuit);color:#cfc6b6;text-align:center;font-size:.72rem;line-height:1.4;padding:.4rem 1rem calc(.4rem + env(safe-area-inset-bottom));letter-spacing:.04em}
+.basbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}.maq{flex-basis:100%%;color:#8f887b;font-size:.78rem;border-top:1px solid rgba(255,255,255,.08);padding-top:14px}
 nav{background:linear-gradient(180deg,rgba(18,16,13,.75),rgba(18,16,13,0));position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.2rem clamp(18px,4vw,56px);color:#fff;transition:.4s}
 nav.plein{background:rgba(246,241,233,.95);backdrop-filter:blur(10px);color:var(--encre);padding:.75rem clamp(18px,4vw,56px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
 .marque{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(1.7rem,2.4vw,2.1rem);letter-spacing:.01em;line-height:1.05;display:block}
@@ -89,17 +90,19 @@ section{padding:clamp(76px,11vw,150px) clamp(18px,6vw,96px)}
 .ligne{display:flex;justify-content:space-between;border-bottom:1px solid #d9cfbf;padding:.9rem 0;font-size:.95rem}.ligne span:first-child{color:var(--doux)}
 form{display:grid;gap:1rem}input,textarea,select{width:100%%;font:inherit;background:transparent;border:0;border-bottom:1px solid #bfb3a0;padding:.8rem 0;color:var(--encre)}
 form button{line-height:1;text-indent:.2em;margin-top:.6rem;background:var(--encre);color:#fff;border:0;padding:1.05rem;font:inherit;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
-footer{background:var(--nuit);color:#8f887b;padding:40px clamp(18px,6vw,96px) 150px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.85rem}
+footer{background:var(--nuit);color:#8f887b;padding:40px clamp(18px,6vw,96px) 110px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.85rem}
 footer .marque{color:#efe9df}
 .appel{display:none}
 .rv{opacity:0;transform:translateY(28px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.vu{opacity:1;transform:none}
-@media (max-width:860px){.heros{grid-template-columns:1fr;min-height:auto}.heros .fond{order:-1;height:56svh;min-height:340px}.heros .texte{padding:44px 22px 110px}.heros .fond .etiq{right:14px;bottom:14px;font-size:.7rem}.liens a:not(.cta){display:none}.intro,.contact{grid-template-columns:1fr}.services .grille{grid-template-columns:1fr 1fr}
+@media (max-width:860px){.liens{display:none}.marque{font-size:clamp(1.85rem,7.4vw,2.3rem);max-width:none}.marque small{font-size:.66rem;margin-top:.4rem}.heros{grid-template-columns:1fr;min-height:auto}.heros .fond{order:-1;height:56svh;min-height:340px}.heros .texte{padding:44px 22px 110px}.heros .fond .etiq{right:14px;bottom:14px;font-size:.7rem}.liens a:not(.cta){display:none}.intro,.contact{grid-template-columns:1fr}.services .grille{grid-template-columns:1fr 1fr}
 .galerie{grid-template-columns:1fr 1fr;grid-template-rows:230px 170px}.galerie figure:first-child{grid-column:span 2;grid-row:auto}
-.etapes{grid-template-columns:1fr}.appel{display:flex;align-items:center;justify-content:center;gap:.55rem;margin:0 14px 10px;min-height:52px;background:var(--acc);color:#fff;font-size:.84rem;font-weight:500;line-height:1;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.25)}.appel span{margin-right:-.16em}.appel svg{flex:none}}
-@media (max-width:520px){nav{padding:.9rem 16px;gap:10px}.marque{font-size:1.32rem;max-width:58vw}.marque small{margin-top:.3rem;font-size:.56rem}.liens{gap:0}.cta{font-size:.68rem;letter-spacing:.1em;padding:calc(.55rem + 1px) calc(.8rem - .1em) calc(.55rem - 1px) .8rem}.services .grille{grid-template-columns:1fr}}
+.etapes{grid-template-columns:1fr}.appel{display:flex;align-items:center;justify-content:center;gap:.55rem;margin:0 14px 10px;min-height:52px;background:var(--acc);color:#fff;font-size:.84rem;font-weight:500;line-height:1;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.25);transform:translateY(calc(100%% + 24px));opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .3s}.appel.on{transform:none;opacity:1;pointer-events:auto}.appel span{margin-right:-.16em}.appel svg{flex:none}}
+@media (max-width:520px){nav{padding:1rem 18px}.services .grille{grid-template-columns:1fr}}
 '''
 JS='''<script>const n=document.querySelector('nav');addEventListener('scroll',()=>n.classList.toggle('plein',scrollY>60));
-const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('.rv').forEach(e=>io.observe(e));</script>'''
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+const ap=document.querySelector('.appel'),hb=document.querySelector('.heros .boutons'),ct=document.querySelector('#contact');let vh=true,vc=false;const maj=()=>ap&&ap.classList.toggle('on',!vh&&!vc);
+if(ap&&hb)new IntersectionObserver(e=>{vh=e[0].isIntersecting;maj()},{rootMargin:'0px 0px 110px 0px'}).observe(hb);if(ap&&ct)new IntersectionObserver(e=>{vc=e[0].isIntersecting;maj()},{threshold:.15}).observe(ct);</script>'''
 def page(p):
     t=T[p['type']];e=html.escape;nom=e(p['nom']);num=re.sub(r'\D','',p['tel'])
     g=[img(x) for x in t['g']];h1=p.get('h1p',t['h1']);intro=e(p.get('acc',t['intro']))
@@ -113,8 +116,8 @@ def page(p):
 <nav><a class="marque" href="#">{nom}<small>{e(p['commune'])}</small></a><div class="liens"><a href="#savoir">{'La maison' if resto else 'Savoir-faire'}</a><a href="#services">{'La carte' if resto else 'Services'}</a><a href="#realisations">{'Galerie' if resto else 'Réalisations'}</a><a class="cta" href="#contact">{cta}</a></div></nav>
 <header class="heros"><div class="texte"><div class="sur">{e(t['sur'])}</div><h1>{h1}</h1><p>{intro}</p>
 <div class="boutons"><a class="b plein" href="#contact">{'Réserver une table' if resto else 'Demander un devis'}</a><a class="b vide" href="tel:{num}">{e(p['tel'])}</a></div></div><div class="fond"><img src="{img(p.get('hero',t['hero']))}" alt=""><div class="etiq">{e(p['commune'])}</div></div></header>
-<section id="savoir" class="intro"><div class="rv"><div class="sur" style="color:var(--acc)">{'La maison' if resto else 'Notre savoir-faire'}</div><h2>{e(p.get('titre2','Un travail soigné,')).replace('<','')} <em>{e(p.get('titre2b','du premier conseil à la finition.'))}</em></h2>
-<p>{e(p.get('texte2',intro))}</p><div class="chiffres">{ch}</div></div><div class="photo rv"><img src="{g[3]}" alt=""></div></section>
+<section id="savoir" class="intro"><div class="rv"><div class="sur" style="color:var(--acc)">{'La maison' if resto else 'Notre savoir-faire'}</div><h2>{e(p.get('titre2',X[p['type']][0]))} <em>{e(p.get('titre2b',X[p['type']][1]))}</em></h2>
+<p>{e(p.get('texte2',X[p['type']][2]))}</p><div class="chiffres">{ch}</div></div><div class="photo rv"><img src="{g[3]}" alt=""></div></section>
 <section id="services" class="services"><div class="titre rv"><div class="sur">{'À découvrir' if resto else 'Ce que nous faisons'}</div><h2>{'Le plaisir de la table' if resto else 'Des prestations complètes'}</h2></div><div class="grille">{sv}</div></section>
 <section id="realisations"><div class="titre rv"><div class="sur">{'En images' if resto else 'Réalisations'}</div><h2>{'Un lieu à vivre' if resto else 'L’exigence, dans chaque détail'}</h2></div><div class="galerie">{gal}</div></section>
 <section style="padding-top:0"><div class="titre rv"><div class="sur">{'Venir nous voir' if resto else 'Comment ça se passe'}</div><h2>{'Simple et chaleureux' if resto else 'Trois étapes, zéro surprise'}</h2></div><div class="etapes rv">
@@ -124,9 +127,11 @@ def page(p):
 <section id="contact" class="contact"><div class="rv"><div class="sur" style="color:var(--acc)">Contact</div><h2>{'Réserver' if resto else 'Demander un devis'}</h2><p>{'Nous vous confirmons votre table rapidement.' if resto else 'Réponse rapide, devis gratuit et sans engagement.'}</p>
 <div style="margin-top:1.6rem"><div class="ligne"><span>Téléphone</span><a href="tel:{num}">{e(p['tel'])}</a></div><div class="ligne"><span>Secteur</span><span>{e(p['commune'])} et alentours</span></div></div></div>
 <form class="rv" onsubmit="event.preventDefault()"><input placeholder="Votre nom"><input placeholder="Téléphone ou email"><textarea rows="3" placeholder="{'Date, heure, nombre de personnes' if resto else 'Votre projet en quelques mots'}"></textarea><button type="button">Envoyer</button></form></section>
-<footer><div class="marque">{nom}<small>{e(p['commune'])}</small></div><div>© {nom} · Mentions légales</div></footer>
-<div class="basbar"><a class="appel" href="tel:{num}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span>{'Réserver' if resto else 'Appeler'} · {e(p['tel'])}</span></a>
-<div class="maq">Maquette Dig pour {nom} · non publiée</div></div>{JS}</body></html>'''
+<footer><div class="marque">{nom}<small>{e(p['commune'])}</small></div><div>© {nom} · Mentions légales</div><div class="maq">Maquette préparée par Dig pour {nom} · non publiée · photos d’illustration libres de droits</div></footer>
+<div class="basbar"><a class="appel" href="tel:{num}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span>{'Réserver' if resto else 'Appeler'} · {e(p['tel'])}</span></a></div>{JS}</body></html>'''
 P=json.load(open('prospects.json'))
-for p in P: open(p['id']+'.html','w').write(page(p))
+import sys
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),'..'))
+from typo_fr import fix as typo_fr
+for p in P: open(p['id']+'.html','w').write(typo_fr(page(p)))
 print(len(P))
