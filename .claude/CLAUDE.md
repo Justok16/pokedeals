@@ -57,6 +57,10 @@
   section 2 bis de `31-kit-en-cas-de-oui.md` ; nom commercial « Dig » validé.
   Chercher **toutes** les aides, financières et en nature (`36-aides-creation.md`).
   Situation sociale personnelle : ne jamais l'écrire dans le dépôt public.
+- **Tout enregistrer** (demande du 26/09) : chaque document, démo, visuel ou
+  prompt créé est sauvegardé. Public (sans données personnelles ni région de
+  l'utilisateur) → ce dépôt. Privé (listes de prospects, données clients,
+  région) → dossier « Dig » du Google Drive de l'utilisateur, jamais ici.
 - Économiser le quota hebdomadaire : garder de la réserve pour le jour où
   un éditeur répond « oui ».
 
