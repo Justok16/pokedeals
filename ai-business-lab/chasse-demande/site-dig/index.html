@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dig — Sites internet pour artisans, commerçants et indépendants</title>
+<meta name="description" content="Un site moderne, rapide, qui vous appartient. Votre page d'accueil refaite gratuitement avant de décider. Dès 29 €/mois, 0 € de création, sans engagement après 6 mois.">
+<meta name="theme-color" content="#0d1330">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --nuit:#0d1330;--nuit2:#151c44;--encre:#f4f1ea;--doux:#b9c0dc;--ligne:rgba(255,255,255,.12);
+ --orange:#ff8a3d;--rose:#ff6f91;--violet:#7b5cff;--vert:#16c79a;--creme:#faf7f2;--texte:#1d1a17;--gris:#5d5a66;
+ --r:18px;--ombre:0 20px 50px rgba(5,8,25,.35)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--nuit);color:var(--encre);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;line-height:1.1;font-weight:800}
+a{color:inherit}
+img{max-width:100%;display:block}
+.cadre{max-width:1180px;margin:0 auto;padding:0 20px}
+.degrade{background:linear-gradient(90deg,var(--orange),var(--rose) 55%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pastille{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:600;letter-spacing:.04em;padding:.45rem .9rem;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid var(--ligne)}
+.point{width:8px;height:8px;border-radius:50%;background:var(--vert);box-shadow:0 0 0 4px rgba(22,199,154,.2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;text-decoration:none;border:0;cursor:pointer;font:inherit;font-weight:700;padding:1rem 1.5rem;border-radius:14px;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.principal{background:linear-gradient(135deg,var(--orange),var(--rose));color:#fff;box-shadow:0 12px 30px rgba(255,111,145,.35)}
+.btn.second{background:rgba(255,255,255,.08);border:1px solid var(--ligne);color:var(--encre)}
+/* navigation */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:.3s}
+nav.plein{background:rgba(13,19,48,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--ligne)}
+nav .cadre{display:flex;align-items:center;justify-content:space-between;height:72px;gap:1rem}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo i{font-style:normal;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-family:Fraunces;font-weight:800;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,var(--orange),var(--violet))}
+.logo b{font-family:Fraunces;font-size:1.5rem}
+.logo small{display:block;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--doux);margin-top:-2px}
+.liens{display:flex;gap:1.6rem;align-items:center;font-size:.92rem}
+.liens a{text-decoration:none;color:var(--doux)}.liens a:hover{color:#fff}
+.liens .btn{padding:.65rem 1.1rem;color:#fff}
+/* héros */
+.heros{position:relative;padding:140px 0 90px;overflow:hidden}
+.heros::before{content:"";position:absolute;inset:0;background:
+ radial-gradient(600px 400px at 85% 10%,rgba(255,138,61,.35),transparent 70%),
+ radial-gradient(700px 500px at 0% 70%,rgba(123,92,255,.35),transparent 70%),
+ radial-gradient(500px 400px at 90% 100%,rgba(22,199,154,.25),transparent 70%)}
+.heros .cadre{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.heros h1{font-size:clamp(2.4rem,5.2vw,4.3rem);margin:1.2rem 0}
+.heros p.accroche{font-size:1.18rem;color:var(--doux);max-width:36rem}
+.heros .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+.confiance{display:flex;gap:1.6rem;flex-wrap:wrap;margin-top:2.2rem;color:var(--doux);font-size:.9rem}
+.confiance b{color:#fff}
+.tel{position:relative;justify-self:center;width:min(300px,78vw);aspect-ratio:9/19;border-radius:44px;background:#05070f;padding:12px;box-shadow:var(--ombre),0 0 0 2px #2b3566;transform:rotate(4deg)}
+.tel img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:34px}
+.notif{position:absolute;left:-40px;bottom:18%;background:#fff;color:var(--texte);border-radius:16px;padding:.8rem 1rem;box-shadow:var(--ombre);display:flex;gap:.7rem;align-items:center;font-size:.85rem;transform:rotate(-4deg);animation:flotte 4s ease-in-out infinite}
+.notif span{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--vert);color:#fff;font-size:1rem}
+@keyframes flotte{50%{transform:rotate(-4deg) translateY(-8px)}}
+/* sections */
+section{padding:100px 0}
+.clair{background:var(--creme);color:var(--texte)}
+.clair .doux{color:var(--gris)}
+.titre{max-width:760px;margin:0 auto 56px;text-align:center}
+.titre .sur{font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange)}
+.titre h2{font-size:clamp(2rem,4vw,3rem);margin:.6rem 0 1rem}
+.titre p{color:var(--doux);font-size:1.08rem}
+.clair .titre p{color:var(--gris)}
+.grille{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.carte{background:rgba(255,255,255,.06);border:1px solid var(--ligne);border-radius:var(--r);padding:28px}
+.clair .carte{background:#fff;border:1px solid #ece6dc;box-shadow:0 8px 24px rgba(30,20,10,.05)}
+.ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:1rem;color:#fff}
+.i1{background:linear-gradient(135deg,var(--orange),var(--rose))}.i2{background:linear-gradient(135deg,var(--violet),#4fa3ff)}
+.i3{background:linear-gradient(135deg,var(--vert),#0ea5a4)}.i4{background:linear-gradient(135deg,#ffcf5c,var(--orange))}
+.carte h3{font-size:1.3rem;margin-bottom:.5rem}
+.carte p{color:var(--doux)}.clair .carte p{color:var(--gris)}
+/* étapes */
+.etape{position:relative;padding-top:56px}
+.etape .n{position:absolute;top:0;left:28px;font-family:Fraunces;font-size:3rem;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+/* prix */
+.prix{grid-template-columns:repeat(4,1fr);align-items:stretch}
+.formule{display:flex;flex-direction:column;position:relative}
+.formule .nom{font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
+.formule .montant{font-family:Fraunces;font-size:2.7rem;font-weight:800;margin:.4rem 0 .2rem}
+.formule .montant small{font-family:Inter;font-size:1rem;font-weight:500;color:var(--gris)}
+.formule .pour{font-size:.92rem;color:var(--gris);min-height:2.8em}
+.formule ul{list-style:none;margin:1.2rem 0 1.5rem;display:grid;gap:.55rem;font-size:.94rem}
+.formule li::before{content:"✓";color:var(--vert);font-weight:800;margin-right:.55rem}
+.formule .btn{margin-top:auto}
+.formule.vedette{background:var(--nuit);color:var(--encre);border:0;transform:scale(1.03);box-shadow:var(--ombre)}
+.formule.vedette .pour,.formule.vedette .montant small{color:var(--doux)}
+.badge{position:absolute;top:-13px;right:20px;background:linear-gradient(135deg,var(--orange),var(--rose));color:#fff;font-size:.75rem;font-weight:700;padding:.35rem .8rem;border-radius:99px}
+.prestige{margin-top:26px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;background:linear-gradient(120deg,#1a1440,#2b1a4f 60%,#3a1d3f);color:var(--encre);border-radius:var(--r);padding:34px}
+.prestige p{color:var(--doux)}
+.note{font-size:.85rem;color:var(--gris);margin-top:18px;text-align:center}
+.options{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.options span{background:#fff;border:1px solid #ece6dc;border-radius:99px;padding:.5rem 1rem;font-size:.9rem}
+/* conseiller */
+.conseil{max-width:760px;margin:0 auto}
+.q{margin-bottom:22px}
+.q p{font-weight:600;margin-bottom:.7rem}
+.choix{display:flex;gap:10px;flex-wrap:wrap}
+.choix button{font:inherit;background:rgba(255,255,255,.06);border:1px solid var(--ligne);color:var(--encre);padding:.7rem 1.1rem;border-radius:12px;cursor:pointer}
+.choix button.actif{background:linear-gradient(135deg,var(--orange),var(--rose));border-color:transparent;font-weight:600}
+.resultat{margin-top:26px;padding:24px;border-radius:var(--r);background:rgba(22,199,154,.12);border:1px solid rgba(22,199,154,.4);display:none}
+.resultat.vu{display:block}
+.resultat b{font-family:Fraunces;font-size:1.6rem}
+/* démos */
+.demo{overflow:hidden;padding:0}
+.demo img{aspect-ratio:16/10;object-fit:cover;object-position:top;transition:transform .8s}
+.demo:hover img{transform:scale(1.04)}
+.demo div{padding:22px 24px}
+.demo a{font-weight:700;color:var(--orange);text-decoration:none}
+/* garanties */
+.garanties .carte{text-align:center}
+.garanties b{display:block;font-family:Fraunces;font-size:1.5rem;margin-bottom:.3rem}
+/* FAQ */
+.faq{max-width:860px;margin:0 auto}
+.faq h3{font-size:1.2rem;margin:34px 0 12px;color:var(--orange)}
+details{background:#fff;border:1px solid #ece6dc;border-radius:14px;margin-bottom:10px;padding:0 20px}
+summary{cursor:pointer;list-style:none;padding:18px 32px 18px 0;font-weight:600;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:14px;font-size:1.4rem;color:var(--orange);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details div{padding:0 0 18px;color:var(--gris)}
+details div p+p{margin-top:.6rem}
+/* contact */
+.contact .cadre{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.coord{display:grid;gap:14px;margin-top:1.6rem}
+.coord>a,.coord>div{display:flex;gap:.9rem;align-items:center;text-decoration:none;background:rgba(255,255,255,.06);border:1px solid var(--ligne);border-radius:14px;padding:14px 18px}
+.coord span{font-size:1.3rem}
+.coord small{display:block;color:var(--doux);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em}
+form{display:grid;gap:14px}
+label{font-size:.9rem;font-weight:600;display:grid;gap:.4rem}
+input,select,textarea{font:inherit;padding:.85rem 1rem;border-radius:12px;border:1px solid var(--ligne);background:rgba(255,255,255,.06);color:var(--encre)}
+select option{color:#111}
+.rgpd{font-size:.8rem;color:var(--doux)}
+.msg{font-size:.9rem;color:var(--vert);min-height:1.2em}
+footer{border-top:1px solid var(--ligne);padding:40px 0 100px;color:var(--doux);font-size:.88rem}
+footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.mobile-cta{display:none}
+/* apparition */
+.apparait{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.apparait.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.apparait{opacity:1;transform:none}}
+@media (max-width:1000px){.prix{grid-template-columns:1fr 1fr}.g4{grid-template-columns:1fr 1fr}.formule.vedette{transform:none}}
+@media (max-width:820px){
+ .liens a:not(.btn){display:none}
+ .heros{padding-top:110px}
+ .heros .cadre,.contact .cadre,.g2,.g3,.prestige{grid-template-columns:1fr}
+ .notif{left:-10px}
+ section{padding:72px 0}
+ .mobile-cta{display:flex;position:fixed;left:14px;right:14px;bottom:14px;z-index:60;gap:10px}
+ .mobile-cta .btn{flex:1;padding:.9rem}
+}
+@media (max-width:560px){.prix,.g4{grid-template-columns:1fr}.confiance{gap:1rem}}
+</style>
+</head>
+<body>
+
+<nav id="nav"><div class="cadre">
+ <a href="#" class="logo" aria-label="Dig, accueil"><i>D</i><span><b>Dig</b><small>Sites internet</small></span></a>
+ <div class="liens">
+  <a href="#offres">Offres</a><a href="#methode">Méthode</a><a href="#demos">Démos</a><a href="#faq">Questions</a>
+  <a href="#contact" class="btn principal">Ma démo gratuite</a>
+ </div>
+</div></nav>
+
+<header class="heros"><div class="cadre">
+ <div>
+  <span class="pastille"><span class="point"></span>Artisans · commerçants · indépendants</span>
+  <h1>Vos clients vous cherchent sur leur téléphone. <span class="degrade">Ils vous trouvent&nbsp;?</span></h1>
+  <p class="accroche">Un site moderne, rapide, <b>qui vous appartient</b>. Fait près de chez vous, sans contrat qui vous enferme. Et avant de décider quoi que ce soit, <b>on refait votre page d'accueil gratuitement</b>.</p>
+  <div class="actions">
+   <a href="#contact" class="btn principal">Recevoir ma démo gratuite →</a>
+   <a href="#offres" class="btn second">Voir les prix</a>
+  </div>
+  <div class="confiance"><div><b>0 €</b> de création</div><div><b>7 jours</b> pour être en ligne</div><div><b>100 %</b> à votre nom</div></div>
+ </div>
+ <div class="tel" aria-hidden="true">
+  <img src="img/demo-prestige-tel.jpg" alt="">
+  <div class="notif"><span>🔔</span><div><b>Nouvelle demande de devis&nbsp;!</b><br>il y a 2 minutes</div></div>
+ </div>
+</div></header>
+
+<main>
+<section class="clair"><div class="cadre">
+ <div class="titre apparait"><div class="sur">Pourquoi un site ?</div><h2>Aujourd'hui, tout commence par une recherche</h2><p>Avant d'appeler un artisan ou de pousser la porte d'un commerce, vos futurs clients regardent sur leur téléphone. S'ils ne vous trouvent pas, ou s'ils tombent sur un site daté, ils appellent quelqu'un d'autre.</p></div>
+ <div class="grille g4">
+  <div class="carte apparait"><div class="ic i1">📞</div><h3>Plus d'appels et de devis</h3><p>Un site pensé d'abord pour le téléphone, avec votre numéro toujours à portée de pouce.</p></div>
+  <div class="carte apparait"><div class="ic i2">🔑</div><h3>Votre site vous appartient</h3><p>Site et nom de domaine à votre nom. Vous partez quand vous voulez, avec votre site.</p></div>
+  <div class="carte apparait"><div class="ic i3">⚡</div><h3>En ligne en 7 jours</h3><p>20 minutes ensemble pour vos textes et vos photos. Je m'occupe de tout le reste.</p></div>
+  <div class="carte apparait"><div class="ic i4">🤝</div><h3>Suivi chaque mois</h3><p>Modifications sous 48 h, et un petit bilan mensuel : combien de personnes vous ont trouvé.</p></div>
+ </div>
+</div></section>
+
+<section id="methode"><div class="cadre">
+ <div class="titre apparait"><div class="sur">La méthode</div><h2>Simple, du premier appel à la mise en ligne</h2><p>Vous jugez sur pièce, avant de vous engager.</p></div>
+ <div class="grille g4">
+  <div class="carte etape apparait"><div class="n">1</div><h3>Votre démo offerte</h3><p>Je refais gratuitement la page d'accueil de votre entreprise. Vous la regardez sur votre téléphone.</p></div>
+  <div class="carte etape apparait"><div class="n">2</div><h3>20 minutes ensemble</h3><p>Chez vous ou au téléphone : vos services, vos photos, votre zone. Je vous conseille la bonne formule.</p></div>
+  <div class="carte etape apparait"><div class="n">3</div><h3>En ligne en 7 jours</h3><p>Textes rédigés, mentions légales, tests sur téléphone et ordinateur. Vous validez, on publie.</p></div>
+  <div class="carte etape apparait"><div class="n">4</div><h3>Je reste à vos côtés</h3><p>Modifications, horaires, photos, promotions : un email suffit. Bilan chaque mois.</p></div>
+ </div>
+</div></section>
+
+<section id="offres" class="clair"><div class="cadre">
+ <div class="titre apparait"><div class="sur">Les offres</div><h2>Des prix clairs, sans surprise</h2><p><b>0 € de création</b> sur toutes les formules mensuelles. 6 mois minimum, puis sans engagement : vous restez parce que vous êtes content.</p></div>
+ <div class="grille prix">
+  <div class="carte formule apparait"><div class="nom">Présence</div><div class="montant">29&nbsp;€<small> /mois</small></div><p class="pour">Pour être trouvé, avec un petit budget.</p>
+   <ul><li>Site d'une page sur mesure</li><li>Adapté téléphone et ordinateur</li><li>Fiche Google créée</li><li>1 modification tous les 3 mois</li><li>Hébergement et sécurité</li></ul><a href="#contact" class="btn second" style="color:var(--texte);border-color:#ddd">Choisir Présence</a></div>
+  <div class="carte formule apparait"><div class="nom">Essentiel</div><div class="montant">49&nbsp;€<small> /mois</small></div><p class="pour">Le site complet de la plupart des artisans.</p>
+   <ul><li>Site 5 pages sur mesure</li><li>Galerie de réalisations</li><li>Formulaire de demande de devis</li><li>1 modification par mois</li><li>Rapport mensuel</li></ul><a href="#contact" class="btn second" style="color:var(--texte);border-color:#ddd">Choisir Essentiel</a></div>
+  <div class="carte formule vedette apparait"><span class="badge">Le plus choisi</span><div class="nom">Visibilité</div><div class="montant">79&nbsp;€<small> /mois</small></div><p class="pour">Pour recevoir plus de demandes.</p>
+   <ul><li>Tout l'Essentiel</li><li>Fiche Google suivie chaque mois</li><li>Demandes d'avis clients</li><li>Pages par commune</li><li>3 modifications par mois</li></ul><a href="#contact" class="btn principal">Choisir Visibilité</a></div>
+  <div class="carte formule apparait"><div class="nom">Achat</div><div class="montant">690&nbsp;€<small> une fois</small></div><p class="pour">Vous préférez payer une seule fois.</p>
+   <ul><li>Site 5 pages livré</li><li>À vous pour toujours</li><li>Hébergement et suivi : 15 €/mois, facultatif</li><li>Fichiers remis sur demande</li></ul><a href="#contact" class="btn second" style="color:var(--texte);border-color:#ddd">Choisir Achat</a></div>
+ </div>
+ <div class="options apparait"><span>📅 Prise de rendez-vous ou réservation : +10 €/mois</span><span>🇬🇧 Version anglaise : +10 €/mois</span><span>🔄 Changement de prestataire sans coupure : offert</span></div>
+ <div class="prestige apparait"><div><div class="sur" style="color:var(--orange);font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase">Prestige</div><h3 class="serif" style="font-size:1.9rem;margin:.4rem 0">Pour les maisons d'exception</h3><p>Hôtels, restaurants, domaines, artisans d'art : design entièrement sur mesure, animations, galerie plein écran, multilingue, réservation. Sur devis.</p></div><a href="#demos" class="btn principal">Voir la démo Prestige</a></div>
+ <p class="note">Prix nets : TVA non applicable, art. 293 B du CGI. Nom de domaine au nom du client, à sa charge (environ 10 € par an). Les formules mensuelles comportent un engagement minimal de 6 mois.</p>
+</div></section>
+
+<section id="conseil"><div class="cadre">
+ <div class="titre apparait"><div class="sur">Le bon choix en 20 secondes</div><h2>Quelle formule pour vous ?</h2><p>Répondez à trois questions, je vous recommande la formule adaptée.</p></div>
+ <div class="conseil apparait">
+  <div class="q"><p>1. Aujourd'hui, avez-vous un site ?</p><div class="choix" data-q="site"><button data-v="non">Non</button><button data-v="vieux">Oui, mais il est daté</button><button data-v="loue">Oui, loué avec un contrat</button></div></div>
+  <div class="q"><p>2. Votre priorité ?</p><div class="choix" data-q="but"><button data-v="trouve">Être trouvé, simplement</button><button data-v="clients">Recevoir plus de demandes</button><button data-v="image">Une image haut de gamme</button></div></div>
+  <div class="q"><p>3. Vous préférez payer…</p><div class="choix" data-q="paie"><button data-v="mois">Chaque mois</button><button data-v="fois">Une seule fois</button></div></div>
+  <div class="resultat" id="resultat"></div>
+ </div>
+</div></section>
+
+<section id="demos" class="clair"><div class="cadre">
+ <div class="titre apparait"><div class="sur">Démonstrations</div><h2>Jugez sur pièce</h2><p>Deux exemples réalisés pour des entreprises fictives. Ouvrez-les sur votre téléphone.</p></div>
+ <div class="grille g2">
+  <div class="carte demo apparait"><img src="img/demo-menuisier.jpg" alt="Démo : site d'un menuisier" loading="lazy"><div><h3>Menuiserie — formule Essentiel</h3><p class="doux">Services, réalisations, étapes, avis, zone d'intervention et demande de devis.</p><a href="https://dig-demo-menuisier.vercel.app" target="_blank" rel="noopener">Voir la démo →</a></div></div>
+  <div class="carte demo apparait"><img src="img/demo-prestige.jpg" alt="Démo : site d'une maison d'hôtes" loading="lazy"><div><h3>Maison d'hôtes — formule Prestige</h3><p class="doux">Animations, photos plein écran, version anglaise et réservation.</p><a href="#contact">Demander le lien de la démo →</a></div></div>
+ </div>
+</div></section>
+
+<section class="garanties"><div class="cadre">
+ <div class="titre apparait"><div class="sur">Mes engagements</div><h2>Sans piège, par écrit</h2></div>
+ <div class="grille g4">
+  <div class="carte apparait"><b>100 % à vous</b><p>Site et nom de domaine à votre nom, dès le départ.</p></div>
+  <div class="carte apparait"><b>6 mois, puis libre</b><p>Ensuite sans engagement, résiliation simple.</p></div>
+  <div class="carte apparait"><b>14 jours</b><p>pour changer d'avis après la signature, et rien n'est prélevé avant 8 jours.</p></div>
+  <div class="carte apparait"><b>48 h</b><p>pour vos demandes de modification, jours ouvrés.</p></div>
+ </div>
+</div></section>
+
+<section id="faq" class="clair"><div class="cadre faq">
+ <div class="titre apparait"><div class="sur">Questions fréquentes</div><h2>Toutes les réponses, sans détour</h2></div>
+
+ <h3>La démo gratuite</h3>
+ <details><summary>La démo est-elle vraiment gratuite et sans engagement ?</summary><div><p>Oui. Je refais la page d'accueil de votre entreprise à partir des informations publiques, je vous l'envoie, et vous décidez. Si elle ne vous plaît pas, on en reste là et elle est supprimée.</p></div></details>
+ <details><summary>Qu'est-ce que je dois fournir ?</summary><div><p>Pour la démo : rien. Pour le vrai site : 20 minutes d'échange, vos photos si vous en avez (sinon on trouve une solution), et vos informations (services, zone, horaires).</p></div></details>
+
+ <h3>Prix et engagement</h3>
+ <details><summary>Y a-t-il des frais cachés ?</summary><div><p>Non. 0 € de création sur les formules mensuelles. Seule dépense en plus : votre nom de domaine (environ 10 € par an), à votre nom et à votre charge, pour qu'il vous appartienne vraiment.</p></div></details>
+ <details><summary>Pourquoi 6 mois minimum ?</summary><div><p>Parce que la création est offerte : les 6 premiers mois couvrent ce travail. Ensuite, vous êtes libre de partir à tout moment, sans préavis compliqué.</p></div></details>
+ <details><summary>Et la TVA ?</summary><div><p>Les prix sont nets : TVA non applicable (article 293 B du Code général des impôts). Vous payez exactement le prix affiché.</p></div></details>
+ <details><summary>Comment je paie ? Est-ce que je reçois une facture ?</summary><div><p>Par prélèvement automatique mensuel, sécurisé. Vous recevez une facture chaque mois, conforme aux obligations en vigueur (y compris la facturation électronique entre professionnels).</p></div></details>
+ <details><summary>Puis-je changer de formule ?</summary><div><p>Oui, à tout moment vers une formule supérieure, et vers une formule inférieure après les 6 premiers mois.</p></div></details>
+ <details><summary>Puis-je changer d'avis après avoir signé ?</summary><div><p>Oui : vous disposez de 14 jours pour vous rétracter, et aucun paiement n'est demandé avant 8 jours. C'est une obligation légale pour les contrats signés chez vous, et je l'applique à tout le monde.</p></div></details>
+
+ <h3>Mon site, mes droits</h3>
+ <details><summary>Le site m'appartient-il vraiment ?</summary><div><p>Oui. Le nom de domaine est enregistré à votre nom, et le site (textes, photos, fichiers) est à vous. Avec la formule Achat, il est à vous immédiatement ; avec les formules mensuelles, vous pouvez le récupérer en partant, après les 6 premiers mois.</p></div></details>
+ <details><summary>Que se passe-t-il si j'arrête ?</summary><div><p>Votre nom de domaine reste à vous. Je vous remets les fichiers du site, ou je vous aide à le transférer chez l'hébergeur de votre choix. Vous ne perdez ni votre adresse internet ni votre travail.</p></div></details>
+ <details><summary>J'ai déjà un site avec un contrat ailleurs. Comment faire ?</summary><div><p>Je vous aide à retrouver la date de fin et le préavis de votre contrat. On prépare le nouveau site à l'avance, et on bascule le jour J : vous ne disparaissez jamais d'internet. Cette aide est offerte.</p></div></details>
+
+ <h3>Le site lui-même</h3>
+ <details><summary>Le site marche-t-il sur téléphone et sur ordinateur ?</summary><div><p>Oui, toujours. Chaque site est conçu d'abord pour le téléphone, puis testé sur ordinateur, tablette et téléphone avant la mise en ligne.</p></div></details>
+ <details><summary>Serai-je bien placé sur Google ?</summary><div><p>Chaque site est rapide, bien structuré et rédigé pour votre métier et votre secteur. Avec la formule Visibilité, j'optimise aussi votre fiche Google et j'ajoute des pages pour les communes où vous travaillez. Personne ne peut honnêtement promettre une première place : je vous montre les résultats chaque mois.</p></div></details>
+ <details><summary>Et ma fiche Google (Google Business Profile) ?</summary><div><p>Je la crée ou l'améliore. Google exige une vérification par vous (en général un appel, une vidéo ou un courrier). Ensuite je m'occupe de la tenir à jour avec vous.</p></div></details>
+ <details><summary>Je n'ai pas de photos. C'est un problème ?</summary><div><p>Non. Quelques photos prises avec votre téléphone suffisent souvent ; je vous explique comment faire. Je n'utilise jamais de fausses réalisations : vos clients doivent voir votre vrai travail.</p></div></details>
+ <details><summary>Qui écrit les textes ?</summary><div><p>Moi, à partir de notre échange. Vous relisez et validez tout avant la mise en ligne.</p></div></details>
+ <details><summary>Comment demander une modification ?</summary><div><p>Un email ou un appel suffit : nouveaux horaires, photo, promotion, congés… C'est fait sous 48 heures ouvrées, dans la limite prévue par votre formule.</p></div></details>
+ <details><summary>Et le « rapport mensuel » ?</summary><div><p>Chaque mois, un résumé simple : nombre de visites, demandes de devis reçues, points d'amélioration. Sans jargon.</p></div></details>
+ <details><summary>Les mentions légales et la protection des données ?</summary><div><p>Incluses et vérifiées : mentions légales, informations sur les données personnelles, formulaire conforme. Pas de traceurs publicitaires : vos visiteurs ne sont pas pistés.</p></div></details>
+
+ <h3>Votre métier</h3>
+ <details><summary>Vous travaillez avec tous les métiers ?</summary><div><p>Artisans du bâtiment, garages, commerces, coiffure et beauté, restaurants, hébergements, services… Pour les professions réglementées (santé, pharmacie, droit, immobilier…), je respecte les règles propres à votre profession : pas de témoignages ni de comparaisons pour les professions de santé, par exemple.</p></div></details>
+ <details><summary>Qui êtes-vous ?</summary><div><p>Dig est une entreprise individuelle de création de sites internet, installée localement. Un seul interlocuteur, joignable directement, du premier appel au suivi mensuel.</p></div></details>
+ <details><summary>Vous vous déplacez ?</summary><div><p>Oui, dans le secteur, pour le rendez-vous de 20 minutes. Tout le reste se fait à distance, pour ne pas vous faire perdre de temps.</p></div></details>
+</div></section>
+
+<section id="contact" class="contact"><div class="cadre">
+ <div class="apparait">
+  <div class="titre" style="text-align:left;margin:0"><div class="sur">Votre démo gratuite</div><h2>Voyons ce que votre site pourrait être</h2><p>Laissez-moi vos coordonnées : je prépare votre page d'accueil et je vous l'envoie sous 48 heures. Sans engagement.</p></div>
+  <div class="coord">
+   <a href="tel:[TELEPHONE]"><span>📞</span><div><small>Téléphone</small>[Téléphone]</div></a>
+   <a href="mailto:[EMAIL]"><span>✉️</span><div><small>Email</small>[email]</div></a>
+   <div><span>🕘</span><div><small>Horaires</small>Du lundi au samedi</div></div>
+  </div>
+ </div>
+ <form class="carte apparait" id="form">
+  <label>Votre nom<input name="nom" required autocomplete="name"></label>
+  <label>Entreprise et métier<input name="entreprise" required></label>
+  <label>Commune<input name="commune" required></label>
+  <label>Téléphone ou email<input name="contact" required></label>
+  <label>Vous avez déjà un site ?<select name="site"><option>Non</option><option>Oui, mais il est daté</option><option>Oui, loué avec un contrat</option></select></label>
+  <label>Un message (facultatif)<textarea name="message" rows="3"></textarea></label>
+  <button class="btn principal" type="submit">Recevoir ma démo gratuite</button>
+  <p class="rgpd">Vos informations servent uniquement à préparer votre démo et à vous recontacter à ce sujet. Elles ne sont jamais revendues. Vous pouvez demander leur suppression à tout moment.</p>
+  <p class="msg" id="msg"></p>
+ </form>
+</div></section>
+</main>
+
+<div class="mobile-cta"><a href="tel:[TELEPHONE]" class="btn second">📞 Appeler</a><a href="#contact" class="btn principal">Démo gratuite</a></div>
+
+<footer><div class="cadre">
+ <div><b style="color:#fff">Dig</b> — sites internet pour artisans, commerçants et indépendants.</div>
+ <div><a href="mentions-legales.html">Mentions légales et confidentialité</a></div>
+</div></footer>
+
+<script>
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('plein',scrollY>30),{passive:true});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');obs.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll('.apparait').forEach(el=>obs.observe(el));
+// conseiller de formule
+const rep={};
+document.querySelectorAll('.choix').forEach(g=>g.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ g.querySelectorAll('button').forEach(x=>x.classList.remove('actif'));b.classList.add('actif');rep[g.dataset.q]=b.dataset.v;
+ if(Object.keys(rep).length<3)return;
+ let f,why;
+ if(rep.but==='image'){f='Prestige (sur devis)';why='Une image haut de gamme demande un design entièrement sur mesure.'}
+ else if(rep.paie==='fois'){f='Achat — 690 €';why='Vous payez une fois, le site est à vous pour toujours.'}
+ else if(rep.but==='clients'){f='Visibilité — 79 €/mois';why='Fiche Google suivie, avis clients et pages par commune : tout est fait pour recevoir plus de demandes.'}
+ else if(rep.site==='non'){f='Présence — 29 €/mois';why='Le plus simple pour être trouvé rapidement, à petit prix.'}
+ else {f='Essentiel — 49 €/mois';why='Un site complet et moderne pour remplacer l’existant.'}
+ const extra=rep.site==='loue'?'<br><br>🔄 Et comme vous avez un contrat en cours, je vous aide gratuitement à en sortir, sans coupure.':'';
+ const r=document.getElementById('resultat');r.innerHTML=`Ma recommandation : <b>${f}</b><br>${why}${extra}<br><br><a href="#contact" class="btn principal" style="margin-top:.4rem">Recevoir ma démo gratuite</a>`;r.classList.add('vu');
+}));
+// formulaire (branchement à l'envoi d'email prévu à la mise en ligne)
+document.getElementById('form').onsubmit=e=>{e.preventDefault();document.getElementById('msg').textContent='Merci ! Votre demande est bien notée. (Version de présentation : l’envoi sera activé à la mise en ligne.)'};
+</script>
+</body>
+</html>
