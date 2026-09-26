@@ -1,5 +1,8 @@
-// Résume une vidéo YouTube avec Gemini via Vercel AI Gateway.
-// Authentification : jeton OIDC du déploiement (aucune clé stockée).
+// Résume une vidéo YouTube avec Gemini.
+// 1) Si la variable d'environnement GEMINI_API_KEY existe (clé gratuite Google AI Studio,
+//    saisie par l'utilisateur dans les réglages Vercel, jamais dans le dépôt) : appel direct
+//    à l'API Gemini (offre gratuite : 8 h de vidéo YouTube par jour).
+// 2) Sinon : Vercel AI Gateway (jeton OIDC, crédit gratuit mensuel).
 // Déploiement protégé (Vercel Authentication) : appel via le connecteur Vercel.
 import { generateText } from 'ai';
 
@@ -23,6 +26,38 @@ export async function GET(request) {
   const id = new URL(request.url).searchParams.get('id') || '';
   if (!/^[A-Za-z0-9_-]{11}$/.test(id)) {
     return Response.json({ erreur: 'identifiant vidéo invalide' }, { status: 400 });
+  }
+  const cle = process.env.GEMINI_API_KEY;
+  if (cle) {
+    const url = `https://www.youtube.com/watch?v=${id}`;
+    const erreurs = [];
+    // API « interactions » (documentation Google, septembre 2026)
+    for (const modele of [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-2.5-flash'].filter(Boolean)) {
+      try {
+        const rep = await fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
+          method: 'POST',
+          headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ model: modele, input: [{ type: 'text', text: CONSIGNE }, { type: 'video', uri: url }] }),
+        });
+        const j = await rep.json();
+        const texte = j.output_text || (j.outputs || []).map(o => o.text || '').join('').trim();
+        if (rep.ok && texte) return Response.json({ id, resume: texte, modele, voie: 'interactions' });
+        erreurs.push(`${modele} interactions ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
+      } catch (e) { erreurs.push(`${modele} interactions ${String(e).slice(0, 120)}`); }
+      // API classique generateContent
+      try {
+        const rep = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent`, {
+          method: 'POST',
+          headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ file_data: { file_uri: url } }, { text: CONSIGNE }] }] }),
+        });
+        const j = await rep.json();
+        const texte = ((j.candidates || [])[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
+        if (rep.ok && texte) return Response.json({ id, resume: texte, modele, voie: 'generateContent' });
+        erreurs.push(`${modele} generateContent ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
+      } catch (e) { erreurs.push(`${modele} generateContent ${String(e).slice(0, 120)}`); }
+    }
+    return Response.json({ id, erreur: erreurs.join(' | ').slice(0, 1500) }, { status: 502 });
   }
   try {
     const r = await generateText({
