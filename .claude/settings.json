@@ -1,0 +1,35 @@
+{
+  "enabledPlugins": {
+    "small-business@knowledge-work-plugins": true,
+    "superpowers@superpowers-marketplace": true
+  },
+  "extraKnownMarketplaces": {
+    "knowledge-work-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/knowledge-work-plugins"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    }
+  },
+  "permissions": {
+    "allow": [
+      "mcp__Canva",
+      "mcp__Canva__*",
+      "mcp__Google_Drive",
+      "mcp__Google_Drive__*",
+      "mcp__Vercel",
+      "mcp__Vercel__*",
+      "mcp__Gmail",
+      "mcp__Gmail__*",
+      "mcp__github",
+      "mcp__OpenRush",
+      "mcp__Resend"
+    ]
+  }
+}

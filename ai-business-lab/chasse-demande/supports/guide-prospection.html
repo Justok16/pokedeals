@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Dig — Guide de prospection</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:0}
+:root{--nuit:#0d1330;--orange:#ff8a3d;--rose:#ff6f91;--violet:#7b5cff;--vert:#16c79a;--texte:#1d1a17;--gris:#5d5a66;--fond:#faf7f2;--ligne:#e8e1d6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--texte);font-size:10.4pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;padding:16mm 16mm 14mm;position:relative;page-break-after:always;overflow:hidden;background:#fff}
+.page:last-child{page-break-after:auto}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.1}
+h2{font-size:21pt;margin-bottom:3mm}
+h2 small{display:block;font-family:Inter;font-size:8pt;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:2mm;font-weight:700}
+h3{font-size:12.5pt;margin:4.5mm 0 1.8mm}
+p{margin:1.4mm 0}
+.intro{color:var(--gris);margin-bottom:3mm}
+.pied{position:absolute;bottom:7mm;left:16mm;right:16mm;display:flex;justify-content:space-between;font-size:7.5pt;color:#9a93a6;border-top:1px solid var(--ligne);padding-top:2mm}
+.dit{background:var(--fond);border-left:4px solid var(--orange);border-radius:0 10px 10px 0;padding:2.6mm 4mm;margin:2mm 0;font-size:10.4pt}
+.dit b{color:#b44d0f}
+.dit.v{border-color:var(--violet)}.dit.g{border-color:var(--vert)}
+.qui{font-size:7.5pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-top:3mm}
+.note{font-size:9pt;color:var(--gris);font-style:italic}
+.grille{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm}
+.carte{border:1px solid var(--ligne);border-radius:12px;padding:3mm 4mm;background:#fff}
+.carte h3{margin-top:0}
+.carte .dit{font-size:9.6pt;padding:2mm 3mm}
+table{width:100%;border-collapse:collapse;font-size:9.6pt;margin-top:2mm}
+td,th{border-bottom:1px solid var(--ligne);padding:2mm 2.2mm;vertical-align:top;text-align:left}
+th{font-size:8pt;letter-spacing:.08em;text-transform:uppercase;color:var(--gris)}
+td:first-child{font-weight:600;width:34%}
+.num{display:inline-grid;place-items:center;width:6mm;height:6mm;border-radius:50%;background:var(--nuit);color:#fff;font-size:8pt;font-weight:700;margin-right:2mm}
+.etape{display:flex;gap:3mm;margin:2.2mm 0}.etape>div{flex:1}
+ul{padding-left:5mm}li{margin:.8mm 0}
+.alerte{background:#fff4ec;border:1px solid #ffd2b5;border-radius:12px;padding:3mm 4mm;margin-top:3mm;font-size:9.4pt}
+/* couverture */
+.couv{background:var(--nuit);color:#f4f1ea;display:flex;flex-direction:column;justify-content:space-between}
+.couv::before{content:"";position:absolute;inset:0;background:radial-gradient(90mm 70mm at 90% 8%,rgba(255,138,61,.45),transparent 70%),radial-gradient(110mm 90mm at 0% 75%,rgba(123,92,255,.45),transparent 70%),radial-gradient(80mm 60mm at 95% 100%,rgba(22,199,154,.3),transparent 70%)}
+.couv>*{position:relative}
+.logo{display:flex;align-items:center;gap:3mm;font-family:Fraunces;font-size:18pt;font-weight:800}
+.logo i{font-style:normal;width:12mm;height:12mm;border-radius:3.5mm;display:grid;place-items:center;background:linear-gradient(135deg,var(--orange),var(--violet));color:#fff}
+.couv h1{font-size:40pt;margin:6mm 0}
+.degrade{background:linear-gradient(90deg,var(--orange),var(--rose) 55%,#a58bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.couv p{color:#c6cbe4;font-size:12pt;max-width:150mm}
+.sommaire{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 8mm;font-size:10.5pt;color:#e7e4f2}
+.sommaire div{border-top:1px solid rgba(255,255,255,.18);padding-top:2mm}
+.sommaire b{color:var(--orange);margin-right:2mm}
+/* antisèche */
+.anti{background:var(--nuit);color:#f4f1ea}
+.anti h2{color:#fff}
+.anti .carte{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:#e7e4f2}
+.anti .carte h3{color:var(--orange)}
+.anti .pied{color:#8c93b8;border-color:rgba(255,255,255,.15)}
+</style>
+</head>
+<body>
+
+<!-- 1. COUVERTURE -->
+<section class="page couv">
+ <div class="logo"><i>D</i>Dig</div>
+ <div>
+  <p style="font-size:9pt;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);font-weight:700">Guide de prospection</p>
+  <h1>Décrocher des rendez-vous,<br><span class="degrade">au téléphone comme en face.</span></h1>
+  <p>Les textes à dire, mot pour mot, pour transformer un inconnu en client : au téléphone, en visite, face aux objections, et après la signature. Tout est conforme à la loi et au Code de la consommation.</p>
+ </div>
+ <div class="sommaire">
+  <div><b>1</b>Les 7 règles d'or</div>
+  <div><b>2</b>Le script d'appel (2 minutes)</div>
+  <div><b>3</b>Secrétaire, conjoint, répondeur, SMS</div>
+  <div><b>4</b>La visite (20 minutes)</div>
+  <div><b>5</b>Accroches par métier</div>
+  <div><b>6</b>Répondre aux objections</div>
+  <div><b>7</b>Conclure, puis faire recommander</div>
+  <div><b>8</b>L'antisèche à garder près du téléphone</div>
+ </div>
+</section>
+
+<!-- 2. RÈGLES D'OR -->
+<section class="page">
+ <h2><small>Partie 1</small>Les 7 règles d'or</h2>
+ <p class="intro">On ne vend pas « un site internet ». On vend <b>des appels et des clients en plus</b>, sans effort pour l'artisan. Tout le reste découle de là.</p>
+ <div class="etape"><span class="num">1</span><div><b>Offrir avant de demander.</b> Chaque prospect reçoit sa page d'accueil refaite gratuitement : il juge sur pièce, sans risque. C'est notre arme principale.</div></div>
+ <div class="etape"><span class="num">2</span><div><b>Au téléphone, on ne vend pas : on obtient un « oui » pour la démo.</b> Le seul objectif d'un appel est d'envoyer la démo et de fixer un rendez-vous de 20 minutes.</div></div>
+ <div class="etape"><span class="num">3</span><div><b>Le client parle 70 % du temps.</b> Poser une question, puis se taire. Noter ses mots exacts : on les lui resservira pour conclure.</div></div>
+ <div class="etape"><span class="num">4</span><div><b>Une seule recommandation, pas un catalogue.</b> Après les questions, on conseille UNE formule, avec la raison tirée de ses réponses.</div></div>
+ <div class="etape"><span class="num">5</span><div><b>Parler de lui, jamais contre les autres.</b> On ne critique jamais un concurrent ni son prestataire actuel : on constate des faits (« dernière mise à jour en 2024 »), sans jugement.</div></div>
+ <div class="etape"><span class="num">6</span><div><b>Un « non » est une réponse respectée.</b> On remercie, on demande s'il préfère ne plus être contacté, on note, on ne rappelle jamais.</div></div>
+ <div class="etape"><span class="num">7</span><div><b>Chaque appel se termine par une date.</b> Démo envoyée → rappel fixé. Rendez-vous → jour et heure. « Je réfléchis » → date de rappel convenue ensemble.</div></div>
+ <div class="alerte"><b>Le cadre légal en 30 secondes.</b> On appelle uniquement des professionnels, au sujet de leur activité (intérêt légitime, règles CNIL du démarchage B2B). On se présente clairement : prénom, « Dig », la raison de l'appel. En cas de signature sur place ou hors de nos locaux avec une entreprise de 5 salariés au plus : contrat écrit, <b>formulaire de rétractation remis, 14 jours pour changer d'avis</b>, et aucun paiement demandé pendant 7 jours (Code de la consommation, articles L221-3, L221-10 et L221-18). Chez Dig, on applique ces protections à tout le monde.</div>
+ <h3>Les meilleurs moments pour appeler <span class="note">(conseils d'expérience, à ajuster selon vos résultats)</span></h3>
+ <table>
+  <tr><th>Métier</th><th>Plutôt</th><th>Éviter</th></tr>
+  <tr><td>Artisans du bâtiment</td><td>7 h 45 – 8 h 30, ou 17 h 30 – 19 h (hors chantier)</td><td>Milieu de journée</td></tr>
+  <tr><td>Restaurants, bars</td><td>14 h 30 – 17 h 30</td><td>Services de midi et du soir</td></tr>
+  <tr><td>Coiffure, beauté</td><td>Début d'après-midi en semaine, ou un rendez-vous en visite</td><td>Samedi, fin de journée</td></tr>
+  <tr><td>Garages, commerces</td><td>10 h – 11 h 30, 14 h – 16 h</td><td>Ouverture et fermeture</td></tr>
+  <tr><td>Gîtes, chambres d'hôtes</td><td>Hors saison ; en saison 10 h – 12 h</td><td>Heures d'arrivée des clients</td></tr>
+ </table>
+ <div class="pied"><span>Dig — Guide de prospection</span><span>2</span></div>
+</section>
+
+<!-- 3. SCRIPT D'APPEL -->
+<section class="page">
+ <h2><small>Partie 2</small>Le script d'appel (2 minutes)</h2>
+ <p class="intro">Debout, souriant, la fiche du prospect sous les yeux. On parle lentement : les 15 premières secondes décident de tout.</p>
+ <p class="qui">① Ouverture — 15 secondes : identité, raison, permission</p>
+ <div class="dit">« Bonjour Monsieur [Nom], [Prénom], de <b>Dig</b>. Je crée des sites internet pour les artisans et commerçants du secteur. Je vous appelle parce que <b>j'ai préparé quelque chose pour votre entreprise</b>. Vous avez deux minutes, ou je vous rappelle à un meilleur moment ? »</div>
+ <p class="note">S'il est occupé : « Pas de souci. Plutôt demain matin ou en fin de journée ? » → noter l'heure et rappeler exactement à cette heure-là.</p>
+ <p class="qui">② L'accroche — le cadeau (choisir la phrase qui correspond à sa situation)</p>
+ <div class="dit"><b>Sans site :</b> « En cherchant un [métier] à [commune] sur mon téléphone, je suis tombé sur votre entreprise… mais sans site. Vos clients vous cherchent pourtant sur Google avant d'appeler. <b>Alors j'ai déjà préparé votre page d'accueil</b>, gratuitement, pour que vous voyiez à quoi ça ressemblerait. »</div>
+ <div class="dit"><b>Site ancien ou pas à jour :</b> « J'ai vu votre site : il n'a pas bougé depuis [2024], les photos et les horaires ne sont plus à jour, et sur téléphone il s'affiche mal. J'ai refait votre page d'accueil pour vous montrer la différence. »</div>
+ <div class="dit"><b>Seulement Facebook ou une page d'annuaire :</b> « Vous avez une page Facebook, c'est bien. Mais un client qui tape "[métier] [commune]" sur Google tombe d'abord sur des sites. J'ai préparé le vôtre, pour voir. »</div>
+ <div class="dit"><b>Entreprise récente :</b> « Vous vous êtes installé il y a peu : c'est le moment où un site rapporte le plus, parce que personne ne vous connaît encore. J'ai préparé votre page d'accueil. »</div>
+ <p class="qui">③ La question qui ouvre la conversation</p>
+ <div class="dit v">« Aujourd'hui, vos nouveaux clients vous trouvent plutôt comment ? »</div>
+ <p class="note">Laisser parler. Puis 2 ou 3 questions au choix : « Quels travaux aimeriez-vous faire plus souvent ? » — « Sur quelle zone voulez-vous travailler ? » — « Combien de nouvelles demandes par mois vous faudrait-il ? »</p>
+ <p class="qui">④ Le rendez-vous (jamais de vente au téléphone)</p>
+ <div class="dit g">« Je vous envoie la démo tout de suite par SMS : ça se regarde en 30 secondes. <b>Si elle vous plaît</b>, je passe 20 minutes à votre [atelier / boutique] pour l'adapter avec vous. <b>Mardi en fin de journée ou jeudi matin</b>, qu'est-ce qui vous arrange ? »</div>
+ <p class="qui">⑤ La sortie</p>
+ <div class="dit">« Parfait : [jour] à [heure], à [adresse]. Je vous envoie le lien depuis ce numéro. Bonne journée, Monsieur [Nom] ! »</div>
+ <p class="note">Toujours proposer deux créneaux précis (« mardi ou jeudi ? ») plutôt que « quand êtes-vous disponible ? ».</p>
+ <div class="pied"><span>Dig — Guide de prospection</span><span>3</span></div>
+</section>
+
+<!-- 4. BARRAGES / RÉPONDEUR / SMS -->
+<section class="page">
+ <h2><small>Partie 3</small>Secrétaire, conjoint, répondeur, SMS</h2>
+ <h3>Quand quelqu'un d'autre décroche</h3>
+ <div class="dit">« Bonjour, [Prénom], de Dig. J'ai préparé un projet de site internet pour l'entreprise et j'aimerais le montrer à Monsieur [Nom]. <b>Quel est le meilleur moment pour le joindre ?</b> »</div>
+ <p class="note">Si c'est le conjoint qui gère l'administratif (fréquent chez les artisans) : c'est souvent la bonne personne. « C'est peut-être vous qui vous occupez de ça ? Je peux vous l'envoyer directement. »</p>
+ <h3>Message sur le répondeur (20 secondes maximum)</h3>
+ <div class="dit">« Bonjour Monsieur [Nom], [Prénom], de Dig. J'ai préparé gratuitement une page d'accueil pour [entreprise], pour vous montrer ce qu'un site pourrait vous apporter. Je vous l'envoie par SMS à ce numéro. Vous pouvez me joindre au [téléphone]. Bonne journée ! »</div>
+ <p class="note">Un seul message. Si pas de retour : un nouvel appel 3 jours plus tard, à un autre moment de la journée.</p>
+ <h3>SMS juste après l'appel (ou après le répondeur)</h3>
+ <div class="dit g">« Bonjour M. [Nom], comme promis, voici la page d'accueil préparée pour [entreprise] : [lien]. À regarder sur votre téléphone, 30 secondes suffisent. À [jour] [heure] comme convenu. [Prénom] — Dig, [téléphone]. Répondez STOP pour ne plus être contacté. »</div>
+ <h3>Email d'accompagnement (si le prospect préfère l'email)</h3>
+ <div class="dit">Objet : <b>Votre nouvelle page d'accueil, [Entreprise]</b><br>Bonjour Monsieur [Nom],<br>Comme convenu, voici la page d'accueil que j'ai préparée pour vous : [lien]. Elle s'affiche parfaitement sur téléphone, là où vos clients vous cherchent.<br>Si elle vous plaît, je passe 20 minutes pour l'adapter avec vous. Votre site reste à votre nom, sans engagement de longue durée.<br>Bonne journée,<br>[Prénom], Dig — [SIREN] — [téléphone]<br><span class="note">Vous ne souhaitez plus recevoir de message de ma part ? Répondez simplement « stop ».</span></div>
+ <h3>Le suivi, sans harceler</h3>
+ <table>
+  <tr><th>Quand</th><th>Quoi</th></tr>
+  <tr><td>Jour 0</td><td>Démo envoyée (SMS ou email)</td></tr>
+  <tr><td>Jour 3</td><td>Appel court : « Vous avez pu regarder ? Qu'en avez-vous pensé ? »</td></tr>
+  <tr><td>Jour 10</td><td>Dernier message court, puis on arrête définitivement</td></tr>
+  <tr><td>Refus</td><td>Noté, jamais recontacté ; la démo est supprimée</td></tr>
+ </table>
+ <div class="pied"><span>Dig — Guide de prospection</span><span>4</span></div>
+</section>
+
+<!-- 5. VISITE -->
+<section class="page">
+ <h2><small>Partie 4</small>La visite (20 minutes)</h2>
+ <p class="intro">Tenue soignée, téléphone chargé avec la démo prête, fiche du prospect, contrat et formulaire de rétractation dans la pochette.</p>
+ <h3>Sans rendez-vous : les 10 premières secondes (visite spontanée d'un commerce)</h3>
+ <div class="dit">« Bonjour ! [Prénom], de Dig. Je ne vous prends que 30 secondes : je fais les sites internet des commerces du coin, et <b>j'ai préparé la page d'accueil de [enseigne]</b>. Je peux vous la montrer sur votre téléphone ? »</div>
+ <p class="note">Jamais pendant un client ou un rush. S'il est occupé : « Je repasse à quelle heure ? » — et repasser exactement à cette heure.</p>
+ <h3>Le rendez-vous, dans l'ordre</h3>
+ <div class="etape"><span class="num">1</span><div><b>Un compliment sincère</b> sur l'atelier, la vitrine, une réalisation (1 min).</div></div>
+ <div class="etape"><span class="num">2</span><div><b>La démo sur SON téléphone</b>, pas le vôtre : « Voilà ce que voit un client qui vous cherche le soir, sur son canapé. » Puis se taire 30 secondes.</div></div>
+ <div class="etape"><span class="num">3</span><div><b>Les questions</b> (8 à 10 minutes) : ses travaux préférés, sa zone, comment les clients le trouvent, ce qui l'a déçu avant, ce qu'il attend. Noter ses mots.</div></div>
+ <div class="etape"><span class="num">4</span><div><b>Reformuler avec ses mots</b> : « Si je résume : vous voulez [plus de demandes en rénovation], sans y passer de temps, et sans être bloqué par un contrat. C'est bien ça ? »</div></div>
+ <div class="etape"><span class="num">5</span><div><b>Recommander UNE formule</b> : « Pour vous, je conseille <b>Visibilité</b>, parce que [raison tirée de ses réponses]. »</div></div>
+ <div class="etape"><span class="num">6</span><div><b>Les trois garanties</b> : « Votre site et votre nom de domaine sont à votre nom. Six mois d'engagement, puis vous restez seulement si vous êtes content. Et chaque mois, un bilan : combien de personnes vous ont trouvé grâce au site. »</div></div>
+ <div class="etape"><span class="num">7</span><div><b>La question de décision</b> : « On le met en ligne pour le [date dans 7 jours] ? » — puis se taire.</div></div>
+ <div class="etape"><span class="num">8</span><div><b>S'il dit oui</b> : contrat, formulaire de rétractation remis, et le dire : « Vous avez 14 jours pour changer d'avis, et je ne prélève rien avant 8 jours. »</div></div>
+ <div class="etape"><span class="num">9</span><div><b>S'il hésite</b> : « Qu'est-ce qui vous fait hésiter ? » Écouter, répondre (partie 6), puis fixer une date de rappel ensemble.</div></div>
+ <div class="pied"><span>Dig — Guide de prospection</span><span>5</span></div>
+</section>
+
+<section class="page">
+ <h2><small>Partie 4 (suite)</small>Recommander la bonne formule</h2>
+ <p class="intro">On écoute d'abord, on recommande ensuite : UNE formule, avec la raison tirée de ses propres mots.</p>
+ <table>
+  <tr><th>Ce qu'il dit</th><th>Ce qu'on recommande</th></tr>
+  <tr><td>Petit budget, veut juste être trouvé</td><td>Présence — 29 €/mois</td></tr>
+  <tr><td>Pas de site ou vieux site, bouche-à-oreille correct</td><td>Essentiel — 49 €/mois</td></tr>
+  <tr><td>Veut plus de demandes, concurrence active</td><td>Visibilité — 79 €/mois ⭐</td></tr>
+  <tr><td>Préfère payer une fois</td><td>Achat — 690 € (+ 15 €/mois de suivi facultatif)</td></tr>
+  <tr><td>Image haut de gamme (hôtel, restaurant, domaine)</td><td>Prestige — sur devis</td></tr>
+  <tr><td>Rendez-vous ou réservation en ligne ; version anglaise</td><td>+ 10 €/mois par option</td></tr>
+ </table>
+ <p class="note">0 € de création sur les formules mensuelles. Nom de domaine au nom du client, à sa charge (environ 10 € par an). TVA non applicable (art. 293 B du CGI).</p>
+
+ <h3>Les questions qui révèlent le besoin</h3>
+ <ul>
+  <li>« Quels travaux ou produits vous rapportent le plus ? Et ceux que vous aimeriez faire plus souvent ? »</li>
+  <li>« Sur quelle zone voulez-vous travailler ? »</li>
+  <li>« Combien de nouvelles demandes par mois ? Combien en voudriez-vous ? »</li>
+  <li>« Qu'est-ce que vos clients vous demandent le plus souvent au téléphone ? » <span class="note">(→ la FAQ du site)</span></li>
+  <li>« Avez-vous déjà un site ? Qui est propriétaire du nom de domaine ? Un contrat en cours, avec quel préavis ? »</li>
+  <li>« Qu'est-ce qui vous a déçu dans ce que vous avez eu avant ? »</li>
+  <li>« Si le site marche bien dans 6 mois, qu'est-ce qui aura changé pour vous ? »</li>
+  <li>« Aujourd'hui, combien mettez-vous par mois pour vous faire connaître ? »</li>
+ </ul>
+ <h3>La pochette du rendez-vous</h3>
+ <div class="grille">
+  <div class="carte">✔ Téléphone chargé, démo ouverte<br>✔ Fiche du prospect (métier, site actuel, fiche Google)<br>✔ Grille des prix imprimée</div>
+  <div class="carte">✔ 2 contrats + conditions générales<br>✔ 2 formulaires de rétractation<br>✔ Cartes de visite ou flyers</div>
+ </div>
+ <div class="pied"><span>Dig — Guide de prospection</span><span>6</span></div>
+</section>
+
+<!-- 6. ACCROCHES PAR MÉTIER -->
+<section class="page">
+ <h2><small>Partie 5</small>Accroches par métier</h2>
+ <p class="intro">Une phrase qui parle de SON quotidien vaut mieux que dix arguments techniques.</p>
+ <div class="grille">
+  <div class="carte"><h3>Artisans du bâtiment</h3><div class="dit">« Vos clients vous demandent souvent des photos de chantiers ? Sur votre site, elles travaillent pour vous jour et nuit : avant/après, zone d'intervention, demande de devis en un clic. »</div><p class="note">Si RGE : « Vos clients cherchent un artisan RGE pour leurs aides : il faut qu'ils vous trouvent. »</p></div>
+  <div class="carte"><h3>Restaurants</h3><div class="dit">« Le soir, les gens choisissent leur restaurant sur leur téléphone : ils veulent voir la carte, les photos et réserver. Aujourd'hui, ils trouvent tout ça chez les autres. »</div><p class="note">Option réservation ; carte modifiable en un SMS.</p></div>
+  <div class="carte"><h3>Coiffure, beauté</h3><div class="dit">« Vos clientes réservent de plus en plus à 22&nbsp;h, sur leur téléphone. Avec la prise de rendez-vous sur votre site, votre agenda se remplit pendant que vous dormez. »</div></div>
+  <div class="carte"><h3>Garages, carrosseries</h3><div class="dit">« Quand une voiture tombe en panne, on cherche "garage [commune]" sur Google, tout de suite. Le premier qui inspire confiance reçoit l'appel. »</div></div>
+  <div class="carte"><h3>Gîtes, chambres d'hôtes</h3><div class="dit">« Chaque réservation directe par votre site, c'est une réservation sans commission de plateforme. Et avec la version anglaise, vous touchez aussi la clientèle étrangère. »</div><p class="note">Formule Prestige conseillée pour les belles maisons.</p></div>
+  <div class="carte"><h3>Boulangeries, commerces</h3><div class="dit">« Horaires, jours d'ouverture, commandes pour les fêtes : ce sont les questions qu'on vous pose tous les jours. Votre site y répond à votre place. »</div></div>
+  <div class="carte"><h3>Paysagistes</h3><div class="dit">« Un beau jardin, ça se montre : une galerie de vos réalisations, par saison, et les demandes de devis arrivent avec les photos du terrain. »</div></div>
+  <div class="carte"><h3>Déjà un site chez un prestataire</h3><div class="dit">« Je ne vous demande pas de changer : regardez seulement la démo. Si elle ne fait pas mieux, je ne vous dérange plus. Et si vous changez un jour, je m'occupe du départ sans coupure, gratuitement. »</div><p class="note">Faits uniquement, jamais de critique du prestataire.</p></div>
+ </div>
+ <div class="alerte"><b>Secteurs à règles particulières</b> : professions de santé (pas de témoignages ni de comparaisons), bars (publicité sur l'alcool très encadrée, pas de publicité pour le tabac), professions réglementées. En cas de doute, voir la fiche « Cadre légal » avant de proposer quoi que ce soit.</div>
+ <div class="pied"><span>Dig — Guide de prospection</span><span>7</span></div>
+</section>
+
+<!-- 7. OBJECTIONS -->
+<section class="page">
+ <h2><small>Partie 6</small>Répondre aux objections</h2>
+ <p class="intro">Une objection n'est pas un refus : c'est une question. On écoute jusqu'au bout, on reconnaît (« Je comprends »), on répond court, puis on repose une question.</p>
+ <table>
+  <tr><th>Il dit…</th><th>Vous répondez…</th></tr>
+  <tr><td>« J'ai assez de travail. »</td><td>« Tant mieux, c'est bon signe ! Le site sert alors à <b>choisir</b> vos chantiers : plus de demandes, et vous gardez les plus intéressants, près de chez vous. »</td></tr>
+  <tr><td>« Le bouche-à-oreille me suffit. »</td><td>« C'est la meilleure publicité. Et justement : avant d'appeler, la personne qu'on vous a recommandée vérifie sur Google. Le site confirme ce qu'on lui a dit de vous. »</td></tr>
+  <tr><td>« C'est trop cher. »</td><td>« Je comprends. Un seul chantier, ou quelques clients de plus dans l'année, paient l'abonnement. Et vous pouvez arrêter après 6 mois. On commence par Présence à 29 € ? »</td></tr>
+  <tr><td>« Je n'ai pas le temps. »</td><td>« C'est pour ça que je m'occupe de tout. Il me faut 20 minutes avec vous, une seule fois. Les textes, les photos, la mise en ligne : c'est moi. »</td></tr>
+  <tr><td>« J'ai déjà un site. »</td><td>« Je l'ai vu. Est-ce qu'il vous apporte des appels ? Regardez la démo : si elle ne fait pas mieux, je ne vous dérange plus. »</td></tr>
+  <tr><td>« Je suis engagé avec un autre prestataire. »</td><td>« Pas de problème. Je vous aide à retrouver la date de fin et le préavis, et on prépare le nouveau site avant, pour que vous ne soyez jamais invisible. »</td></tr>
+  <tr><td>« Ma page Facebook suffit. »</td><td>« Facebook, c'est très bien pour ceux qui vous connaissent déjà. Le site, c'est pour ceux qui ne vous connaissent pas encore et qui cherchent sur Google. Les deux se complètent. »</td></tr>
+  <tr><td>« J'ai une fiche Google. »</td><td>« Parfait, c'est la première étape. Avec un site relié à la fiche, Google vous fait davantage confiance, et le client trouve vos photos, vos services et le formulaire de devis. »</td></tr>
+  <tr><td>« Mon neveu fait des sites. »</td><td>« C'est super d'avoir quelqu'un. La différence, c'est le suivi : modifications sous 48 h, bilan chaque mois, et quelqu'un qui répond quand votre neveu est occupé. »</td></tr>
+  <tr><td>« Envoyez-moi une documentation. »</td><td>« Je vous envoie mieux : votre démo. Je vous rappelle jeudi pour avoir votre avis ? »</td></tr>
+  <tr><td>« Je vais réfléchir. »</td><td>« Bien sûr. Qu'est-ce qui vous fait hésiter : le prix, le temps, ou autre chose ? » Puis fixer une date de rappel.</td></tr>
+  <tr><td>« Rappelez-moi plus tard. »</td><td>« Avec plaisir : plutôt la semaine prochaine, ou dans un mois ? Et à quel moment de la journée ? »</td></tr>
+  <tr><td>« Je ne suis pas intéressé. »</td><td>« Je comprends, merci de m'avoir répondu. Préférez-vous que je ne vous rappelle plus ? » Noter, ne jamais insister.</td></tr>
+ </table>
+ <div class="pied"><span>Dig — Guide de prospection</span><span>8</span></div>
+</section>
+
+<!-- 8. CONCLURE + RECOMMANDATIONS -->
+<section class="page">
+ <h2><small>Partie 7</small>Conclure, puis faire recommander</h2>
+ <h3>Les phrases qui font avancer</h3>
+ <div class="dit g">« On le met en ligne pour le [date] ? »</div>
+ <div class="dit g">« Vous préférez commencer par Essentiel, ou directement Visibilité pour avoir plus de demandes ? »</div>
+ <div class="dit g">« Il vous manque quoi pour dire oui aujourd'hui ? »</div>
+ <p class="note">Après la question : silence. Le premier qui parle perd l'avantage.</p>
+ <h3>Après la signature : la confiance</h3>
+ <ul>
+  <li>Le jour même : un SMS de remerciement et le planning (textes, photos, mise en ligne à J+7).</li>
+  <li>À la mise en ligne : l'appeler pour la lui faire découvrir, sur son téléphone.</li>
+  <li>Chaque mois : un bilan court et clair (visites, appels, demandes de devis).</li>
+  <li>Toute demande de modification traitée sous 48 h ouvrées.</li>
+ </ul>
+ <h3>Faire recommander : le vrai moteur de la croissance</h3>
+ <p>Un client content devient un ambassadeur. On lui demande, simplement, au bon moment : <b>quand il vient de recevoir un bon bilan mensuel</b> ou un compliment sur son site.</p>
+ <div class="dit v">« Je suis content que ça marche pour vous. Vous connaissez un ou deux artisans ou commerçants qui auraient besoin de la même chose ? Je leur prépare leur démo gratuitement, en disant que ça vient de vous. »</div>
+ <div class="dit v">« Et si vous êtes satisfait, un avis sur Google m'aiderait beaucoup. Je vous envoie le lien direct ? »</div>
+ <p class="note">Idée à valider au lancement : un mois offert au client dont la recommandation devient client (à écrire dans les conditions générales avant de le proposer).</p>
+ <h3>Vos chiffres de la semaine</h3>
+ <table>
+  <tr><th>Indicateur</th><th>Objectif de départ</th></tr>
+  <tr><td>Appels passés</td><td>50 par semaine (10 par jour)</td></tr>
+  <tr><td>Démos envoyées</td><td>à mesurer</td></tr>
+  <tr><td>Rendez-vous obtenus</td><td>à mesurer</td></tr>
+  <tr><td>Signatures</td><td>à mesurer</td></tr>
+ </table>
+ <p class="note">Les taux réels se mesurent après 2 semaines d'appels. Ensuite, on améliore l'étape la plus faible (l'accroche, la démo ou la conclusion).</p>
+ <div class="pied"><span>Dig — Guide de prospection</span><span>9</span></div>
+</section>
+
+<!-- 9. ANTISÈCHE -->
+<section class="page anti">
+ <h2><small style="color:var(--orange)">Partie 8</small>L'antisèche à garder près du téléphone</h2>
+ <div class="grille">
+  <div class="carte"><h3>1. Ouvrir</h3>« Bonjour M. [Nom], [Prénom] de Dig. J'ai préparé quelque chose pour votre entreprise. Vous avez deux minutes ? »</div>
+  <div class="carte"><h3>2. Offrir</h3>« J'ai déjà refait votre page d'accueil, gratuitement, pour que vous voyiez la différence. »</div>
+  <div class="carte"><h3>3. Questionner</h3>« Aujourd'hui, vos nouveaux clients vous trouvent plutôt comment ? » … puis se taire.</div>
+  <div class="carte"><h3>4. Fixer</h3>« Je vous l'envoie par SMS. Je passe 20 minutes mardi ou jeudi ? »</div>
+  <div class="carte"><h3>Prix</h3>Présence 29 € · Essentiel 49 € · <b>Visibilité 79 €</b> · Achat 690 € · Prestige sur devis · Options +10 €/mois. 0 € de création. 6 mois puis libre.</div>
+  <div class="carte"><h3>Garanties</h3>Site et domaine à son nom · Modifications sous 48 h · Bilan mensuel · 14 jours de rétractation · Rien prélevé avant 8 jours.</div>
+  <div class="carte"><h3>Objections express</h3>Trop cher → un chantier paie l'année. Pas le temps → 20 min, je fais tout. Déjà un site → regardez la démo. Je réfléchis → qu'est-ce qui vous fait hésiter ?</div>
+  <div class="carte"><h3>Toujours</h3>Se présenter · Demander la permission · Respecter le « non » · Ne jamais critiquer un concurrent · Finir par une date.</div>
+ </div>
+ <div class="pied"><span>Dig — Guide de prospection</span><span>10</span></div>
+</section>
+
+</body>
+</html>

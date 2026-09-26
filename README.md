@@ -61,10 +61,32 @@ développé), réutilisera le radar de précommandes génériques de ce scraper
 (détection de n'importe quel produit scellé Pokémon en précommande, pas
 seulement une liste connue à l'avance) via un pont Supabase dédié.
 
+## `ai-business-lab/` — dossier stratégique (projet indépendant)
+
+**Sans rapport avec PokéDeals.** Dossier stratégique d'un projet distinct :
+construire, en partant de zéro et à budget nul, un portefeuille de business
+numériques automatisés par IA sur le marché francophone.
+
+Il contient une étude de marché datée et sourcée, un portefeuille de 15
+concepts classés par un score **calculé** (code, données et tests dans
+`ai-business-lab/outils/`), un plan d'exécution sur 90 jours, des règles de
+décision (KILL/SCALE), un registre des risques et une architecture d'agents.
+Point de départ : `ai-business-lab/README.md`.
+
+Il est hébergé ici faute d'un dépôt dédié ; le dossier est autonome et peut
+être déplacé tel quel dans son propre dépôt.
+
+```bash
+cd ai-business-lab/outils
+python scorer.py             # rejoue le classement du portefeuille
+python -m pytest tests/      # vérifie le moteur de scoring
+```
+
 ## Structure du dépôt
 
 ```
 .
 ├── .github/workflows/   # workflows CI/CD (cron du scraper + tests)
-└── scraper/              # bot Python de veille de prix (production)
+├── scraper/              # bot Python de veille de prix (production)
+└── ai-business-lab/      # dossier stratégique d'un projet indépendant
 ```

@@ -34,3 +34,23 @@ jobs:
         run: pip install -r requirements-dev.txt
       - name: Lancer les tests
         run: python -m pytest tests/ -v
+
+  # Le moteur de classement du portefeuille strategique (ai-business-lab/outils) a
+  # ses propres tests : job separe pour ne rien changer au job du scraper.
+  scoring_strategie:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ai-business-lab/outils
+    timeout-minutes: 5
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+      - name: Installer Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Installer les dépendances
+        run: pip install pytest pyyaml
+      - name: Lancer les tests
+        run: python -m pytest tests/ -v

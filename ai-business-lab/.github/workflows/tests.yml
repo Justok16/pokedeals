@@ -1,0 +1,33 @@
+name: Tests
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+# Ce workflow n'a besoin que de lire le code (checkout + pytest).
+permissions:
+  contents: read
+
+jobs:
+  scoring:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: outils
+    timeout-minutes: 5
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Installer les dépendances
+        run: pip install pytest pyyaml
+      - name: Lancer les tests
+        run: python -m pytest tests/ -v
