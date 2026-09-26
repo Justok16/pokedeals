@@ -62,8 +62,10 @@ on file is required to unlock your free credits ». **Bloqué tant qu'aucune
 carte n'est enregistrée** (décision de l'utilisateur ; ne jamais acheter de
 crédits). YouTube bloque par ailleurs toute lecture directe depuis le cloud
 (miroirs Invidious/Piped et youtubetranscript testés : bloqués).
-Alternative sans carte : clé Gemini gratuite (Google AI Studio) — vidéos
-seulement, création par l'utilisateur.
+Depuis le 26/09 au soir : **clé Gemini gratuite** créée par l'utilisateur et
+enregistrée dans Vercel (`GEMINI_API_KEY`, jamais dans le dépôt). `/api/video`
+l'utilise en priorité (offre gratuite : 8 h de vidéo YouTube par jour, et une
+limite de débit : espacer les vidéos d'environ 75 s).
 
 **Mise à jour 25/09, 22:40 UTC : fonctionne.** Carte enregistrée par
 l'utilisateur ; Gemini résume les vidéos YouTube, Jev répond (coût facturé

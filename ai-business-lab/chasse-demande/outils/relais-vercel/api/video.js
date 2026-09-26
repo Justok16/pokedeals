@@ -40,7 +40,15 @@ export async function GET(request) {
           body: JSON.stringify({ model: modele, input: [{ type: 'text', text: CONSIGNE }, { type: 'video', uri: url }] }),
         });
         const j = await rep.json();
-        const texte = j.output_text || (j.outputs || []).map(o => o.text || '').join('').trim();
+        // Le texte peut être dans output_text ou dans outputs[] (objets imbriqués) : on le cherche partout.
+        const morceaux = [];
+        const parcourir = (v, cle) => {
+          if (typeof v === 'string') { if (cle === 'text' || cle === 'output_text') morceaux.push(v); }
+          else if (Array.isArray(v)) v.forEach((x) => parcourir(x, cle));
+          else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) if (k !== 'input' && k !== 'usage') parcourir(x, k);
+        };
+        parcourir({ output_text: j.output_text, outputs: j.outputs, output: j.output }, '');
+        const texte = [...new Set(morceaux)].join('\n').trim();
         if (rep.ok && texte) return Response.json({ id, resume: texte, modele, voie: 'interactions' });
         erreurs.push(`${modele} interactions ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
       } catch (e) { erreurs.push(`${modele} interactions ${String(e).slice(0, 120)}`); }

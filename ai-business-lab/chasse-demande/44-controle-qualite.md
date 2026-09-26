@@ -31,6 +31,10 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
 - [ ] Pas de texte en dégradé (« background-clip:text ») dans un PDF : Chromium
       peut dessiner un cadre parasite autour ; utiliser une couleur pleine.
 - [ ] Pas deux démos avec la même photo principale dans un même livret.
+- [ ] Photos nettes : taille au moins égale à la surface affichée × 2 (écrans haute
+      définition) ; photo de fond en version haute pour téléphone et large pour
+      ordinateur ; vérifiées en gros plan, pas seulement en miniature.
+- [ ] Animations : vérifiées à 0, 25, 50, 75 et 100 % de leur durée.
 
 ## Outils
 - Démos : `outils/prospects/verif_maquettes.py`, `qa_maquettes.py`, captures d'écran relues une par une.
