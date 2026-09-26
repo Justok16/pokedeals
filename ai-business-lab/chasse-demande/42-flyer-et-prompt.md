@@ -57,3 +57,18 @@ Voir le texte exact dans la réponse du 26/09 ; version de référence :
 - 26/09, v3.1 après validation des prix : « dès 29 € », « trouvent ? »,
   « EI » (Canva avait écrit « El »), mention « nom de domaine à la charge
   du client » ; modifications enregistrées dans le design Canva.
+
+## Comparaison avec les autres IA (26/09) — fichiers dans `supports/concurrence/`
+
+| IA | Bonnes idées | Défauts relevés |
+|---|---|---|
+| Grok | Logo en pastille « D », étiquette de cible, avantages avec phrase, bloc offre à pastilles | QR décoratif illisible ; « contact@dig.fr » (domaine déjà pris par un tiers) ; entreprise fictive dans une vraie ville ; faux numéro ; 49 € |
+| ChatGPT | Vrai site d'artisan dans le téléphone ; « Simple, humain, sans vous compliquer la vie » | Logo qui chevauche le texte ; bloc offre coupé par le téléphone ; grand vide ; QR = texte, pas de lien |
+| Mistral | Pastilles « Fait près de chez vous » et « Offre découverte » ; « appelez ou scannez, la démo est gratuite » | Logo qui chevauche ; QR factice ; icônes cassées ; écran vide |
+| Gemini | Bandeau « Spécial artisans… ruraux » ; bloc contact étiqueté ; 3 variantes de titre | Fond coupé net à mi-hauteur ; écran presque vide ; faux avis « 4,9/5 – 38 avis » et faux numéro dans la maquette ; QR illisible ; 49 € |
+| Claude (Canva) | Photo réaliste, seul QR fonctionnel, prix et mentions à jour | Moins d'explications sous les avantages, pas de logo |
+
+Variantes de titre retenues (Gemini) : « Artisan, commerçant : vos clients cherchent
+sur internet. Êtes-vous visible ? » ; « Transformez les recherches sur smartphone
+en vrais devis et chantiers locaux. » Écartée : « Marre des sites payés une
+fortune ou bloqués ? » (dénigrement implicite des concurrents).
