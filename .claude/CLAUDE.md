@@ -61,6 +61,10 @@
   prompt créé est sauvegardé. Public (sans données personnelles ni région de
   l'utilisateur) → ce dépôt. Privé (listes de prospects, données clients,
   région) → dossier « Dig » du Google Drive de l'utilisateur, jamais ici.
+- **PDF toujours à jour** (demande du 26/09) : à chaque modification d'une
+  liste ou d'un document déjà remis (prospect retiré, vérifié, ajouté…),
+  régénérer le PDF correspondant et le renvoyer à l'utilisateur, en gardant
+  les mêmes numéros de prospects.
 - Économiser le quota hebdomadaire : garder de la réserve pour le jour où
   un éditeur répond « oui ».
 
