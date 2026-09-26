@@ -65,6 +65,12 @@
   liste ou d'un document déjà remis (prospect retiré, vérifié, ajouté…),
   régénérer le PDF correspondant et le renvoyer à l'utilisateur, en gardant
   les mêmes numéros de prospects.
+- **Documents irréprochables, fond ET forme** (exigence ferme du 26/09,
+  répétée plusieurs fois) : AUCUN document, visuel, démo ou PDF n'est
+  envoyé avant le contrôle complet de `ai-business-lab/chasse-demande/44-controle-qualite.md`
+  (mesures au pixel, alignements, chevauchements, liens et QR testés,
+  cohérence des chiffres entre documents, orthographe, rendu téléphone
+  et ordinateur). Ne jamais envoyer une version « à moitié finie ».
 - Économiser le quota hebdomadaire : garder de la réserve pour le jour où
   un éditeur répond « oui ».
 
