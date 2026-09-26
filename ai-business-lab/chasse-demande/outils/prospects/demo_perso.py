@@ -26,37 +26,37 @@ T={
   s=[('La carte','Plats de saison et spécialités de la région.'),('Les vins','Une sélection de vins locaux.'),('Groupes & fêtes','Repas de famille, anniversaires, événements.'),('Chambres','Prolongez le moment : nuit sur place.')],gl=['Dans l’assiette','Produits de saison','Au fil de l’eau','Autour de la table']),
 }
 CSS='''
-:root{--creme:#f6f1e9;--encre:#1f1c18;--doux:#6b645a;--nuit:#12100d;--acc:%s}
+:root{--creme:#f6f1e9;--encre:#1f1c18;--doux:#57504a;--nuit:#12100d;--acc:%s}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{font-family:Jost,system-ui,sans-serif;font-weight:300;background:var(--creme);color:var(--encre);line-height:1.7;overflow-x:hidden}
-h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;line-height:1.08}
+body{font-family:Jost,system-ui,sans-serif;font-weight:400;font-size:17px;background:var(--creme);color:var(--encre);line-height:1.7;overflow-x:hidden}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.08}
 a{color:inherit;text-decoration:none}img{display:block;width:100%%;height:100%%;object-fit:cover}
 .maq{position:fixed;bottom:0;left:0;right:0;z-index:60;background:var(--nuit);color:#cfc6b6;text-align:center;font-size:.72rem;padding:.35rem 1rem;letter-spacing:.04em}
-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.2rem clamp(18px,4vw,56px);color:#fff;transition:.4s}
-nav.plein{background:rgba(246,241,233,.95);backdrop-filter:blur(10px);color:var(--encre);padding:.75rem clamp(18px,4vw,56px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
-.marque{font-family:"Cormorant Garamond",serif;font-size:1.45rem;letter-spacing:.03em;line-height:1.1}
+nav{text-shadow:0 1px 8px rgba(0,0,0,.5);position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.2rem clamp(18px,4vw,56px);color:#fff;transition:.4s}
+nav.plein{text-shadow:none;background:rgba(246,241,233,.95);backdrop-filter:blur(10px);color:var(--encre);padding:.75rem clamp(18px,4vw,56px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.marque{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:1.5rem;letter-spacing:.03em;line-height:1.1}
 .marque small{display:block;font-family:Jost;font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;opacity:.8}
-.liens{display:flex;gap:2rem;align-items:center;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+.liens{display:flex;gap:2rem;align-items:center;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
 .cta{border:1px solid currentColor;padding:.55rem 1.1rem;white-space:nowrap}
 .heros{height:100svh;min-height:600px;position:relative;overflow:hidden;color:#fff}
-.heros .fond{position:absolute;inset:0}.heros .fond img{transform:scale(1.1);animation:zoom 16s ease-out forwards}
+.heros .fond{position:absolute;inset:0}.heros .fond img{filter:brightness(.5) saturate(.85);transform:scale(1.1);animation:zoom 16s ease-out forwards}
 @keyframes zoom{to{transform:scale(1)}}
-.heros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%%,rgba(0,0,0,.1) 40%%,rgba(0,0,0,.7) 100%%)}
-.heros .texte{position:absolute;z-index:2;left:clamp(18px,6vw,96px);right:18px;bottom:15vh;max-width:780px;animation:monte 1.2s .2s both}
+.heros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%%,rgba(0,0,0,.25) 35%%,rgba(0,0,0,.85) 100%%),linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,0) 75%%)}
+.heros .texte{text-shadow:0 1px 10px rgba(0,0,0,.5);position:absolute;z-index:2;left:clamp(18px,6vw,96px);right:18px;bottom:15vh;max-width:780px;animation:monte 1.2s .2s both}
 @keyframes monte{from{opacity:0;transform:translateY(24px)}}
-.sur{font-size:.72rem;letter-spacing:.38em;text-transform:uppercase;opacity:.9}
-.heros h1{font-size:clamp(3rem,8vw,6.4rem);font-weight:400;margin:.5rem 0 1rem}
-.heros h1 em{font-style:italic;color:var(--acc)}
-.heros p{font-size:1.08rem;max-width:520px;opacity:.92}
+.sur{font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500}
+.heros h1{font-size:clamp(3rem,8vw,6.4rem);font-weight:600;margin:.5rem 0 1rem;text-shadow:0 2px 24px rgba(0,0,0,.6)}
+.heros h1 em{font-style:italic;color:color-mix(in srgb,var(--acc) 55%%,#fff)}
+.heros p{font-size:1.12rem;max-width:540px;font-weight:400;text-shadow:0 1px 12px rgba(0,0,0,.7)}
 .boutons{display:flex;gap:.8rem;margin-top:1.8rem;flex-wrap:wrap}
-.b{display:inline-block;padding:.95rem 1.6rem;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:400}
-.b.plein{background:var(--acc);color:#fff}.b.vide{border:1px solid rgba(255,255,255,.7)}
+.b{display:inline-block;padding:1rem 1.6rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;text-shadow:none}
+.b.plein{background:var(--acc);color:#fff}.b.vide{border:1.5px solid #fff;background:rgba(0,0,0,.35)}
 .fleche{position:absolute;z-index:2;left:50%%;bottom:5vh;width:1px;height:52px;background:rgba(255,255,255,.4);overflow:hidden}
 .fleche::after{content:"";position:absolute;left:0;top:-52px;width:1px;height:52px;background:#fff;animation:tombe 2.2s infinite}@keyframes tombe{to{top:52px}}
 section{padding:clamp(76px,11vw,150px) clamp(18px,6vw,96px)}
 .intro{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px);align-items:center}
 .intro h2{font-size:clamp(2.3rem,4.5vw,3.6rem)}.intro h2 em{color:var(--acc)}
-.intro p{color:var(--doux);margin-top:1.3rem;max-width:480px}
+.intro p{color:#4a443c;margin-top:1.3rem;max-width:480px}
 .chiffres{display:flex;gap:2.6rem;margin-top:2.2rem;flex-wrap:wrap}
 .chiffres b{display:block;font-family:"Cormorant Garamond";font-size:2.5rem;font-weight:500;color:var(--acc);line-height:1}
 .chiffres span{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--doux)}
@@ -67,11 +67,11 @@ section{padding:clamp(76px,11vw,150px) clamp(18px,6vw,96px)}
 .services .grille{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
 .services .carte{background:var(--nuit);padding:2.4rem 1.8rem}
 .services .n{font-family:"Cormorant Garamond";font-size:1rem;color:var(--acc);letter-spacing:.2em}
-.services h3{font-size:1.7rem;margin:.8rem 0 .6rem}.services p{color:#a9a193;font-size:.95rem}
+.services h3{font-size:1.7rem;margin:.8rem 0 .6rem}.services p{color:#d4ccbf;font-size:1rem}
 .galerie{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:280px 280px;gap:12px}
 .galerie figure{position:relative;overflow:hidden}.galerie figure:first-child{grid-row:span 2}
 .galerie img{transition:transform 1.2s}.galerie figure:hover img{transform:scale(1.06)}
-.galerie figcaption{position:absolute;left:14px;bottom:12px;color:#fff;font-family:"Cormorant Garamond";font-size:1.25rem;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.galerie figure::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent 55%%)}.galerie figcaption{position:absolute;z-index:2;left:14px;bottom:12px;color:#fff;font-family:"Cormorant Garamond";font-weight:600;font-size:1.35rem}
 .etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,56px);counter-reset:e}
 .etapes div{border-top:1px solid #d9cfbf;padding-top:1.4rem}
 .etapes div::before{counter-increment:e;content:"0" counter(e);font-family:"Cormorant Garamond";font-size:2.6rem;color:var(--acc)}
@@ -81,8 +81,8 @@ section{padding:clamp(76px,11vw,150px) clamp(18px,6vw,96px)}
 .avis blockquote{font-family:"Cormorant Garamond";font-size:clamp(1.6rem,3vw,2.3rem);font-style:italic;max-width:760px;margin:1.2rem auto}
 .avis cite{font-style:normal;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--doux)}
 .bande{position:relative;color:#fff;text-align:center;padding:clamp(96px,14vw,180px) 18px;overflow:hidden}
-.bande img{position:absolute;inset:0}.bande::after{content:"";position:absolute;inset:0;background:rgba(12,10,8,.62)}
-.bande>div{position:relative;z-index:2}.bande h2{font-size:clamp(2.4rem,5vw,4rem)}.bande h2 em{color:var(--acc)}
+.bande img{position:absolute;inset:0}.bande::after{content:"";position:absolute;inset:0;background:rgba(12,10,8,.75)}
+.bande>div{position:relative;z-index:2}.bande h2{font-size:clamp(2.4rem,5vw,4rem);font-weight:600;text-shadow:0 2px 20px rgba(0,0,0,.6)}.bande h2 em{color:var(--acc)}
 .contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px)}
 .contact h2{font-size:clamp(2.2rem,4vw,3.2rem)}.contact p{color:var(--doux);margin-top:1rem}
 .ligne{display:flex;justify-content:space-between;border-bottom:1px solid #d9cfbf;padding:.9rem 0;font-size:.95rem}.ligne span:first-child{color:var(--doux)}
@@ -108,7 +108,7 @@ def page(p):
     resto=p['type']=='restaurant'
     cta='Réserver' if resto else 'Devis gratuit'
     return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>{nom}</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet"><style>{CSS%t['acc']}</style></head><body>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@400;500&display=swap" rel="stylesheet"><style>{CSS%t['acc']}</style></head><body>
 <nav><a class="marque" href="#">{nom}<small>{e(p['commune'])}</small></a><div class="liens"><a href="#savoir">{'La maison' if resto else 'Savoir-faire'}</a><a href="#services">{'La carte' if resto else 'Services'}</a><a href="#realisations">{'Galerie' if resto else 'Réalisations'}</a><a class="cta" href="#contact">{cta}</a></div></nav>
 <header class="heros"><div class="fond"><img src="{img(t['hero'])}" alt=""></div><div class="texte"><div class="sur">{e(t['sur'])} — {e(p['commune'])}</div><h1>{h1}</h1><p>{intro}</p>
 <div class="boutons"><a class="b plein" href="#contact">{'Réserver une table' if resto else 'Demander un devis'}</a><a class="b vide" href="tel:{num}">{e(p['tel'])}</a></div></div><div class="fleche"></div></header>
