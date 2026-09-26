@@ -166,7 +166,8 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 
 /* page Prestige */
 .pheros{position:relative;min-height:92vh;display:flex;align-items:flex-end;padding:140px 0 72px;background:#0b0a14}
-.pheros::before{content:"";position:absolute;inset:0;background:url(demos/prestige/photo-maison.jpg) center/cover;opacity:.8}
+.pheros::before{content:"";position:absolute;inset:0;background:url(demos/prestige/maison-large.jpg) center 35%/cover;opacity:.8}
+@media (max-aspect-ratio:4/5){.pheros::before{background-image:url(demos/prestige/maison-haute.jpg)}}
 .pheros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,20,.25) 0%,rgba(11,10,20,.45) 40%,rgba(11,10,20,.92) 85%,#0b0a14 100%)}
 .pheros .cadre{position:relative;z-index:1}
 .pheros h1{font-size:clamp(2.5rem,6.2vw,4.8rem);max-width:17ch;text-wrap:balance;margin:1.1rem 0 1.2rem}

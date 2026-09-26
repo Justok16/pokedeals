@@ -27,12 +27,13 @@ nav.plein{background:rgba(246,241,233,.94);backdrop-filter:blur(10px);color:var(
 .resa{border:1px solid currentColor;padding:.6rem 1.2rem}
 .langue{cursor:pointer;background:none;border:0;color:inherit;font:inherit;letter-spacing:.14em;opacity:.85}
 /* héros */
+nav:not(.plein) a,nav:not(.plein) .marque,nav:not(.plein) .langue,.heros .texte{text-shadow:0 1px 14px rgba(0,0,0,.5)}
 .heros{height:100svh;min-height:560px;position:relative;overflow:hidden;color:#fff}
 .heros .fond{position:absolute;inset:-6% 0 0;will-change:transform}
 .heros .fond picture{display:block;width:100%;height:100%}
 .heros .fond img{transform:scale(1.08);animation:zoom 18s ease-out forwards}
 @keyframes zoom{to{transform:scale(1)}}
-.heros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,10,8,.5) 0%,rgba(12,10,8,.08) 26%,rgba(12,10,8,.12) 42%,rgba(12,10,8,.62) 68%,rgba(12,10,8,.82) 100%)}
+.heros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,10,8,.58) 0%,rgba(12,10,8,.18) 20%,rgba(12,10,8,.14) 38%,rgba(12,10,8,.64) 64%,rgba(12,10,8,.84) 100%)}
 .heros .texte{position:absolute;z-index:2;left:clamp(16px,6vw,96px);bottom:14vh;max-width:760px}
 .sur{font-size:.78rem;letter-spacing:.4em;text-transform:uppercase;opacity:.9}
 .heros h1{font-size:clamp(2.8rem,7vw,6rem);font-weight:400;margin:.6rem 0 1rem}
@@ -126,7 +127,7 @@ footer{background:var(--nuit);color:#8d8474;border-top:1px solid rgba(255,255,25
 </nav>
 
 <header class="heros">
- <div class="fond" id="fond"><picture><source media="(max-aspect-ratio: 4/5)" srcset="maison-haute.jpg"><img src="maison-large.jpg" alt="Façade d’une demeure en pierre blonde, fenêtres cintrées et jardin de lavandes" fetchpriority="high"></picture></div>
+ <div class="fond" id="fond"><picture><source media="(max-aspect-ratio: 4/5)" srcset="maison-haute.jpg"><img src="maison-large.jpg" alt="Demeure en pierre blonde sous les grands arbres du parc" fetchpriority="high"></picture></div>
  <div class="texte">
   <div class="sur" data-fr="Maison d’hôtes de&nbsp;charme&nbsp;·&nbsp;5&nbsp;chambres" data-en="Boutique guest house · 5 rooms">Maison d’hôtes de&nbsp;charme&nbsp;·&nbsp;5&nbsp;chambres</div>
   <h1 data-fr="Le temps d’une <em>parenthèse</em>" data-en="Time for a <em>pause</em>">Le temps d’une <em>parenthèse</em></h1>
@@ -139,7 +140,7 @@ footer{background:var(--nuit);color:#8d8474;border-top:1px solid rgba(255,255,25
 <section id="maison" class="intro">
  <div class="apparait">
   <div class="sur" style="color:var(--sauge)" data-fr="La maison" data-en="The house">La maison</div>
-  <h2 data-fr="Pierre blonde, volets bleus et roses anciennes" data-en="Pale stone, blue shutters and old roses">Pierre blonde, volets bleus et roses anciennes</h2>
+  <h2 data-fr="Pierre blonde, fenêtres cintrées et lavandes" data-en="Pale stone, arched windows and lavender">Pierre blonde, fenêtres cintrées et lavandes</h2>
   <p data-fr="Restaurée avec patience, la demeure a gardé ses poutres, ses tomettes et son jardin de tilleuls centenaires. Ici, on prend le petit-déjeuner à l’ombre, on se baigne face aux champs, et l’on repart reposé." data-en="Patiently restored, the manor has kept its beams, terracotta floors and century-old linden garden. Breakfast in the shade, a swim facing the fields, and you leave rested.">Restaurée avec patience, la demeure a gardé ses poutres, ses tomettes et son jardin de tilleuls centenaires. Ici, on prend le petit-déjeuner à l’ombre, on se baigne face aux champs, et l’on repart reposé.</p>
   <div class="chiffres">
    <div><b>5</b><span data-fr="chambres" data-en="rooms">chambres</span></div>
@@ -147,7 +148,7 @@ footer{background:var(--nuit);color:#8d8474;border-top:1px solid rgba(255,255,25
    <div><b>1768</b><span data-fr="construite" data-en="built">construite</span></div>
   </div>
  </div>
- <div class="photo apparait"><img src="photo-chambre.jpg" alt="Chambre en pierre apparente, lit blanc, lumière du matin" loading="lazy"></div>
+ <div class="photo apparait"><img src="maison-detail.jpg" alt="Fenêtre cintrée et ferronnerie sur une façade en pierre blonde" loading="lazy"></div>
 </section>
 
 <section id="chambres" class="chambres">
@@ -157,19 +158,19 @@ footer{background:var(--nuit);color:#8d8474;border-top:1px solid rgba(255,255,25
   <p data-fr="Literie haut de gamme, linge de lin, salle de bains en pierre, vue sur le parc." data-en="Premium bedding, linen sheets, stone bathrooms, views over the grounds.">Literie haut de gamme, linge de lin, salle de bains en pierre, vue sur le parc.</p>
  </div>
  <div class="grille">
-  <article class="chambre apparait"><div class="photo"><img src="photo-chambre.jpg" alt="Chambre Tilleul" loading="lazy"></div><h3 data-fr="Chambre Tilleul" data-en="Linden Room">Chambre Tilleul</h3><div class="info"><span data-fr="2 personnes · 24 m²" data-en="2 guests · 24 m²">2 personnes · 24 m²</span><span data-fr="dès <b>145 €</b>" data-en="from <b>€145</b>">dès <b>145 €</b></span></div></article>
-  <article class="chambre apparait"><div class="photo"><img src="photo-table.jpg" alt="Suite Jardin" loading="lazy" style="object-position:30% 50%"></div><h3 data-fr="Suite Jardin" data-en="Garden Suite">Suite Jardin</h3><div class="info"><span data-fr="2 à 3 personnes · 38 m²" data-en="2–3 guests · 38 m²">2 à 3 personnes · 38 m²</span><span data-fr="dès <b>210 €</b>" data-en="from <b>€210</b>">dès <b>210 €</b></span></div></article>
-  <article class="chambre apparait"><div class="photo"><img src="photo-riviere.jpg" alt="Chambre Rivière" loading="lazy"></div><h3 data-fr="Chambre Rivière" data-en="River Room">Chambre Rivière</h3><div class="info"><span data-fr="2 personnes · 22 m²" data-en="2 guests · 22 m²">2 personnes · 22 m²</span><span data-fr="dès <b>130 €</b>" data-en="from <b>€130</b>">dès <b>130 €</b></span></div></article>
+  <article class="chambre apparait"><div class="photo"><img src="chambre-tilleul.jpg" alt="Chambre Tilleul : lit en bois, linge de lin vert sauge" loading="lazy"></div><h3 data-fr="Chambre Tilleul" data-en="Linden Room">Chambre Tilleul</h3><div class="info"><span data-fr="2 personnes · 24 m²" data-en="2 guests · 24 m²">2 personnes · 24 m²</span><span data-fr="dès <b>145 €</b>" data-en="from <b>€145</b>">dès <b>145 €</b></span></div></article>
+  <article class="chambre apparait"><div class="photo"><img src="chambre-jardin.jpg" alt="Suite Jardin : lit en lin, grande fenêtre sur les arbres" loading="lazy"></div><h3 data-fr="Suite Jardin" data-en="Garden Suite">Suite Jardin</h3><div class="info"><span data-fr="2 à 3 personnes · 38 m²" data-en="2–3 guests · 38 m²">2 à 3 personnes · 38 m²</span><span data-fr="dès <b>210 €</b>" data-en="from <b>€210</b>">dès <b>210 €</b></span></div></article>
+  <article class="chambre apparait"><div class="photo"><img src="chambre-riviere.jpg" alt="Chambre Rivière : lit en laiton sous les combles, fenêtre sur le jardin" loading="lazy"></div><h3 data-fr="Chambre Rivière" data-en="River Room">Chambre Rivière</h3><div class="info"><span data-fr="2 personnes · 22 m²" data-en="2 guests · 22 m²">2 personnes · 22 m²</span><span data-fr="dès <b>130 €</b>" data-en="from <b>€130</b>">dès <b>130 €</b></span></div></article>
  </div>
 </section>
 
 <section class="bande" aria-label="Avis">
- <img src="photo-riviere.jpg" alt="" id="bande">
+ <picture><source media="(max-aspect-ratio: 1/1)" srcset="bande-lavandes-haute.jpg"><img src="bande-lavandes.jpg" alt="" id="bande"></picture>
  <blockquote class="apparait" data-fr="« Nous sommes venus pour deux nuits, nous sommes restés cinq. »<cite>Avis fictif — démonstration</cite>" data-en="“We came for two nights and stayed five.”<cite>Fictional review — demo</cite>">« Nous sommes venus pour deux nuits, nous sommes restés cinq. »<cite>Avis fictif — démonstration</cite></blockquote>
 </section>
 
 <section id="sejour" class="experiences">
- <div class="photo apparait"><img src="photo-table.jpg" alt="Petit-déjeuner servi sous un tilleul" loading="lazy"></div>
+ <div class="photo apparait"><img src="sejour-petitdej.jpg" alt="Petit-déjeuner servi dans le jardin : gaufres, myrtilles, fleurs de saison" loading="lazy"></div>
  <div class="apparait">
   <div class="sur" style="color:var(--sauge)" data-fr="Votre séjour" data-en="Your stay">Votre séjour</div>
   <h2 style="font-size:clamp(2.2rem,4.5vw,3.4rem)" data-fr="Les petits riens qui font les grands séjours" data-en="The small things that make a great stay">Les petits riens qui font les grands séjours</h2>
@@ -200,6 +201,7 @@ footer{background:var(--nuit);color:#8d8474;border-top:1px solid rgba(255,255,25
 <footer>
  <span>© Le Clos des Tilleuls — <span data-fr="établissement fictif" data-en="fictional establishment">établissement fictif</span></span>
  <span data-fr="Site réalisé par Dig · démonstration Prestige" data-en="Website by Dig · Prestige demo">Site réalisé par Dig · démonstration Prestige</span>
+ <span data-fr="Photos d’illustration : Unsplash" data-en="Illustrative photos: Unsplash">Photos d’illustration&nbsp;: Unsplash</span>
 </footer>
 
 <script>
