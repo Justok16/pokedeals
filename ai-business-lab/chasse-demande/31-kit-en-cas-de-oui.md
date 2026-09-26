@@ -38,6 +38,13 @@ Date butoir absolue : **31/01/2027** (fin de support de Connect).
   d'affaires **[à vérifier]** ; en ouvrir un gratuit dès le départ est
   plus simple.
 
+### Rappel à faire à l'utilisateur juste après la création (demande du 26/09)
+
+- Compléter le **flyer Canva** (design « DAHWQBvgVuI ») : téléphone, email,
+  prénom et nom, SIREN, adresse ; remplacer le lien du QR code par la
+  démo définitive (`42-flyer-et-prompt.md`).
+- Même chose pour les textes et l'email de `41-prospection-questionnaire-et-textes.md`.
+
 ## 2 bis. Création parfaite et fiscalité optimisée (exigence de l'utilisateur, 25/09)
 
 Claude prépare **tout** (choix, formulaires pré-remplis, calendrier des
