@@ -74,6 +74,16 @@
 - Économiser le quota hebdomadaire : garder de la réserve pour le jour où
   un éditeur répond « oui ».
 
+## Rappels promis à l'utilisateur
+
+- **Paiement client (promis le 26/09)** : dès que l'utilisateur prépare un
+  appel ou un rendez-vous client, dit « souffleur », signe un premier client
+  ou crée l'entreprise, lui rappeler de fixer les 2 réponses entre crochets
+  de l'antisèche (`supports/antiseche-reponses.html`, n° 12 et 15) :
+  **TVA** (franchise en base ou non, selon le statut choisi) et **mode de
+  paiement** (virement ou prélèvement). Proposer la réponse recommandée,
+  puis mettre à jour l'antisèche et renvoyer le PDF.
+
 ## Outils en place
 
 - Boîte du pseudonyme via le connecteur **Gmail** (signature : « Dig ») ;
