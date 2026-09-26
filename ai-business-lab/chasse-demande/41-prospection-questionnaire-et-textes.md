@@ -137,20 +137,22 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
 
 ---
 
-## 5. Grille : quelle formule recommander
+## 5. Grille : quelle formule recommander (prix validés le 26/09)
 
 | Réponses | Formule |
 |---|---|
-| Pas de site, bouche-à-oreille suffit presque, petit budget | **Essentiel** (49 €/mois) |
-| Veut plus de demandes, a des concurrents actifs sur Google, zone large | **Visibilité** (79 €/mois) |
+| Très petit budget, auto-entrepreneur, besoin d'être « trouvable » | **Présence** (29 €/mois) |
+| Pas de site ou vieux site, bouche-à-oreille suffit presque | **Essentiel** (49 €/mois) |
+| Veut plus de demandes, concurrents actifs sur Google, zone large | **Visibilité** ⭐ (79 €/mois) |
 | Préfère payer une fois, a déjà quelqu'un pour la mise à jour | **Achat** (690 € + 15 €/mois facultatif) |
+| Image haut de gamme essentielle (hôtel, restaurant, domaine, art) | **Prestige** (sur devis) |
 | Contrat en cours ailleurs | + option **Départ sans coupure** (offerte) |
-| Rendez-vous, menu, réservations, anglais | Options **[prix à fixer]** |
-| Profession de santé | Essentiel uniquement, sans témoignages ni référencement payant (`40` section C) |
+| Rendez-vous, réservations | + **10 €/mois** |
+| Clientèle étrangère | Version anglaise **+10 €/mois** |
+| Profession de santé | Présence ou Essentiel, sans témoignages ni référencement payant (`40` section C) |
 
-*(Prix proposés, à valider par l'utilisateur — `39` section 3.2.)*
-
----
+Rappels à dire au client : nom de domaine à son nom, payé par lui
+(environ 10 €/an) ; vérification de sa fiche Google par lui-même.
 
 ## 6. Réponses aux objections
 

@@ -26,7 +26,7 @@ Voir le texte exact dans la réponse du 26/09 ; version de référence :
 > suivi chaque mois, mises à jour sous 48 h) ; un visuel fort : un
 > smartphone qui affiche un beau site d'artisan avec une notification
 > « Nouvelle demande de devis ! » ; un encadré offre très visible « Votre
-> page d'accueil refaite gratuitement, avant de décider », « dès 49 €/mois
+> page d'accueil refaite gratuitement, avant de décider », « dès 29 €/mois
 > · 0 € de création · 6 mois puis sans engagement », avec un QR code et
 > [téléphone] · [email].
 > Style : premium, coloré et vivant (dégradés profonds bleu nuit, violet,
@@ -54,3 +54,6 @@ Voir le texte exact dans la réponse du 26/09 ; version de référence :
   démo), export 300 dpi (1748 × 2480 px).
 - Reste à faire dans Canva : téléphone, email, nom, SIREN ; remplacer le
   lien du QR code par la démo définitive.
+- 26/09, v3.1 après validation des prix : « dès 29 € », « trouvent ? »,
+  « EI » (Canva avait écrit « El »), mention « nom de domaine à la charge
+  du client » ; modifications enregistrées dans le design Canva.

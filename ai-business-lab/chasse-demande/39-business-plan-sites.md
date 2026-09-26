@@ -78,19 +78,48 @@ avant le contact** (le prospect voit *son* site refait), et un prix
 - **Promesse** : « Votre nouveau site en 7 jours, à vous pour toujours,
   sans engagement long. »
 
-### 3.2 Formules proposées **(prix à valider par l'utilisateur)**
+### 3.2 Formules (grille **validée par l'utilisateur le 26/09/2026**)
 
-| Formule | Prix proposé | Contenu |
-|---|---|---|
-| **Essentiel** | 0 € de création + **49 €/mois**, 6 mois minimum puis sans engagement | Site 5 pages sur mesure, nom de domaine au nom du client, hébergement, sécurité, mentions légales, 1 modification/mois, rapport mensuel |
-| **Visibilité** | 0 € + **79 €/mois**, 6 mois minimum | Essentiel + fiche Google optimisée, demandes d'avis clients, pages par ville, 3 modifications/mois |
-| **Achat** | **690 €** une fois + 15 €/mois (hébergement, facultatif) | Le site est livré et cédé ; le client peut partir avec |
-| Option « Départ SoLocal » | offerte | Calcul du préavis, courrier type, bascule sans coupure |
+| Formule | Prix | Pour qui | Contenu |
+|---|---|---|---|
+| **Présence** | **29 €/mois** | Petit budget, auto-entrepreneur | Site d'une page, fiche Google créée, 1 modification tous les 3 mois |
+| **Essentiel** | **49 €/mois** | La plupart des artisans | Site 5 pages sur mesure, hébergement, sécurité, mentions légales, 1 modification/mois, rapport mensuel |
+| **Visibilité** ⭐ | **79 €/mois** | Veut plus de clients | Essentiel + fiche Google suivie, demandes d'avis, pages par commune, 3 modifications/mois |
+| **Achat** | **690 €** une fois + 15 €/mois (facultatif) | Veut payer une seule fois | Site 5 pages livré, à lui pour toujours |
+| **Prestige** | **sur devis** (proposition : à partir de 1 490 € ou 149 €/mois **[à valider]**) | Hyper premium : hôtels, restaurants, domaines, artisans d'art | Voir 3.2 bis |
 
-Pourquoi ces prix : sous l'entrée de gamme SoLocal (64 €/mois) et
-WebTensor (99 € HT/mois), au niveau d'Artisites, mais **sans frais de
-création** et avec un engagement de 6 mois au lieu de 12 à 48.
-Toutes formules : **le site appartient au client** à la fin des 6 mois.
+Conditions communes aux formules mensuelles : **0 € de création**, 6 mois
+minimum puis sans engagement ; site et nom de domaine au nom du client ;
+**nom de domaine payé par le client** (environ 10 €/an) ; pour la fiche
+Google, **vérification faite par le client** (exigence de Google).
+
+Options : prise de rendez-vous ou réservation en ligne **+10 €/mois** ;
+version anglaise **+10 €/mois** ; « Départ sans coupure » (contrat en cours
+ailleurs) **offerte**. Lancement : **1er mois offert aux 10 premiers
+clients** contre un avis et un avant/après publiable.
+
+Pourquoi ces prix : Présence = prix d'entrée d'Artisites sans leurs 290 €
+de création ; Essentiel = 588 €/an contre 768 € pour l'offre SoLocal la moins
+chère et 1 188 € chez WebTensor ; Visibilité, mise en avant, reste sous
+WebTensor et SoLocal Confort. Prix nets sans TVA (franchise) : environ 20 %
+moins cher pour un client qui ne récupère pas la TVA.
+
+### 3.2 bis Prestige (hyper premium, demande de l'utilisateur du 26/09)
+
+Exigence : « un travail irréprochable » et « de l'hyper premium si besoin ».
+Ce que Claude sait livrer pour Prestige, avec des outils gratuits :
+- design sur mesure : typographies, animations au défilement, effets
+  « cinématiques », galerie plein écran, vidéo d'arrière-plan fournie par
+  le client ;
+- visuels générés avec Canva (décoratifs uniquement, jamais de fausses
+  réalisations) ; photos professionnelles du client mises en valeur ;
+- multilingue, réservation ou prise de rendez-vous, carte, menu, boutique
+  simple **[paiement en ligne : frais Stripe]** ;
+- rédaction soignée, référencement local complet, données structurées ;
+- note de performance et d'accessibilité mesurée avant livraison.
+Limite honnête : un shooting photo ou une vidéo professionnelle ne se fait
+pas avec Claude ; si le client le veut, un photographe local (payé par le
+client) est la bonne réponse.
 
 ### 3.3 Coûts de fabrication par client
 - Hébergement : **Cloudflare Pages**, gratuit (100 projets, 500
