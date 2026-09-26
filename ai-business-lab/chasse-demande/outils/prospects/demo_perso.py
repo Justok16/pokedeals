@@ -31,7 +31,7 @@ CSS='''
 body{font-family:Jost,system-ui,sans-serif;font-weight:400;font-size:17px;background:var(--creme);color:var(--encre);line-height:1.7;overflow-x:hidden}
 h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.08}
 a{color:inherit;text-decoration:none}img{display:block;width:100%%;height:100%%;object-fit:cover}
-.maq{position:fixed;bottom:0;left:0;right:0;z-index:60;background:var(--nuit);color:#cfc6b6;text-align:center;font-size:.72rem;padding:.35rem 1rem;letter-spacing:.04em}
+.basbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-direction:column}.maq{background:var(--nuit);color:#cfc6b6;text-align:center;font-size:.72rem;line-height:1.4;padding:.4rem 1rem calc(.4rem + env(safe-area-inset-bottom));letter-spacing:.04em}
 nav{background:linear-gradient(180deg,rgba(18,16,13,.75),rgba(18,16,13,0));position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.2rem clamp(18px,4vw,56px);color:#fff;transition:.4s}
 nav.plein{background:rgba(246,241,233,.95);backdrop-filter:blur(10px);color:var(--encre);padding:.75rem clamp(18px,4vw,56px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
 .marque{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(1.7rem,2.4vw,2.1rem);letter-spacing:.01em;line-height:1.05;display:block}
@@ -89,14 +89,14 @@ section{padding:clamp(76px,11vw,150px) clamp(18px,6vw,96px)}
 .ligne{display:flex;justify-content:space-between;border-bottom:1px solid #d9cfbf;padding:.9rem 0;font-size:.95rem}.ligne span:first-child{color:var(--doux)}
 form{display:grid;gap:1rem}input,textarea,select{width:100%%;font:inherit;background:transparent;border:0;border-bottom:1px solid #bfb3a0;padding:.8rem 0;color:var(--encre)}
 form button{line-height:1;text-indent:.2em;margin-top:.6rem;background:var(--encre);color:#fff;border:0;padding:1.05rem;font:inherit;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
-footer{background:var(--nuit);color:#8f887b;padding:40px clamp(18px,6vw,96px) 70px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.85rem}
+footer{background:var(--nuit);color:#8f887b;padding:40px clamp(18px,6vw,96px) 150px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.85rem}
 footer .marque{color:#efe9df}
 .appel{display:none}
 .rv{opacity:0;transform:translateY(28px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.vu{opacity:1;transform:none}
 @media (max-width:860px){.heros{grid-template-columns:1fr;min-height:auto}.heros .fond{order:-1;height:56svh;min-height:340px}.heros .texte{padding:44px 22px 110px}.heros .fond .etiq{right:14px;bottom:14px;font-size:.7rem}.liens a:not(.cta){display:none}.intro,.contact{grid-template-columns:1fr}.services .grille{grid-template-columns:1fr 1fr}
 .galerie{grid-template-columns:1fr 1fr;grid-template-rows:230px 170px}.galerie figure:first-child{grid-column:span 2;grid-row:auto}
-.etapes{grid-template-columns:1fr}.appel{display:flex;align-items:center;justify-content:center;text-align:center;gap:.5rem;position:fixed;left:50%%;transform:translateX(-50%%);width:calc(100%% - 28px);bottom:34px;z-index:55;background:var(--acc);color:#fff;padding:1.05rem .5rem;line-height:1;font-size:.82rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.25)}.appel span{margin-right:-.16em}.appel svg{flex:none}}
-@media (max-width:520px){.services .grille{grid-template-columns:1fr}}
+.etapes{grid-template-columns:1fr}.appel{display:flex;align-items:center;justify-content:center;gap:.55rem;margin:0 14px 10px;min-height:52px;background:var(--acc);color:#fff;font-size:.84rem;font-weight:500;line-height:1;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.25)}.appel span{margin-right:-.16em}.appel svg{flex:none}}
+@media (max-width:520px){nav{padding:.9rem 16px;gap:10px}.marque{font-size:1.32rem;max-width:58vw}.marque small{margin-top:.3rem;font-size:.56rem}.liens{gap:0}.cta{font-size:.68rem;letter-spacing:.1em;padding:calc(.55rem + 1px) calc(.8rem - .1em) calc(.55rem - 1px) .8rem}.services .grille{grid-template-columns:1fr}}
 '''
 JS='''<script>const n=document.querySelector('nav');addEventListener('scroll',()=>n.classList.toggle('plein',scrollY>60));
 const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('.rv').forEach(e=>io.observe(e));</script>'''
@@ -112,7 +112,7 @@ def page(p):
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@400;500&display=swap" rel="stylesheet"><style>{CSS%t['acc']}</style></head><body>
 <nav><a class="marque" href="#">{nom}<small>{e(p['commune'])}</small></a><div class="liens"><a href="#savoir">{'La maison' if resto else 'Savoir-faire'}</a><a href="#services">{'La carte' if resto else 'Services'}</a><a href="#realisations">{'Galerie' if resto else 'Réalisations'}</a><a class="cta" href="#contact">{cta}</a></div></nav>
 <header class="heros"><div class="texte"><div class="sur">{e(t['sur'])}</div><h1>{h1}</h1><p>{intro}</p>
-<div class="boutons"><a class="b plein" href="#contact">{'Réserver une table' if resto else 'Demander un devis'}</a><a class="b vide" href="tel:{num}">{e(p['tel'])}</a></div></div><div class="fond"><img src="{img(t['hero'])}" alt=""><div class="etiq">{e(p['commune'])}</div></div></header>
+<div class="boutons"><a class="b plein" href="#contact">{'Réserver une table' if resto else 'Demander un devis'}</a><a class="b vide" href="tel:{num}">{e(p['tel'])}</a></div></div><div class="fond"><img src="{img(p.get('hero',t['hero']))}" alt=""><div class="etiq">{e(p['commune'])}</div></div></header>
 <section id="savoir" class="intro"><div class="rv"><div class="sur" style="color:var(--acc)">{'La maison' if resto else 'Notre savoir-faire'}</div><h2>{e(p.get('titre2','Un travail soigné,')).replace('<','')} <em>{e(p.get('titre2b','du premier conseil à la finition.'))}</em></h2>
 <p>{e(p.get('texte2',intro))}</p><div class="chiffres">{ch}</div></div><div class="photo rv"><img src="{g[3]}" alt=""></div></section>
 <section id="services" class="services"><div class="titre rv"><div class="sur">{'À découvrir' if resto else 'Ce que nous faisons'}</div><h2>{'Le plaisir de la table' if resto else 'Des prestations complètes'}</h2></div><div class="grille">{sv}</div></section>
@@ -125,8 +125,8 @@ def page(p):
 <div style="margin-top:1.6rem"><div class="ligne"><span>Téléphone</span><a href="tel:{num}">{e(p['tel'])}</a></div><div class="ligne"><span>Secteur</span><span>{e(p['commune'])} et alentours</span></div></div></div>
 <form class="rv" onsubmit="event.preventDefault()"><input placeholder="Votre nom"><input placeholder="Téléphone ou email"><textarea rows="3" placeholder="{'Date, heure, nombre de personnes' if resto else 'Votre projet en quelques mots'}"></textarea><button type="button">Envoyer</button></form></section>
 <footer><div class="marque">{nom}<small>{e(p['commune'])}</small></div><div>© {nom} · Mentions légales</div></footer>
-<a class="appel" href="tel:{num}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span>{'Réserver' if resto else 'Appeler'} · {e(p['tel'])}</span></a>
-<div class="maq">Maquette préparée par Dig pour {nom} — non publiée · photos d’illustration libres de droits</div>{JS}</body></html>'''
+<div class="basbar"><a class="appel" href="tel:{num}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span>{'Réserver' if resto else 'Appeler'} · {e(p['tel'])}</span></a>
+<div class="maq">Maquette Dig pour {nom} · non publiée</div></div>{JS}</body></html>'''
 P=json.load(open('prospects.json'))
 for p in P: open(p['id']+'.html','w').write(page(p))
 print(len(P))
