@@ -44,6 +44,13 @@ Date butoir absolue : **31/01/2027** (fin de support de Connect).
   prénom et nom, SIREN, adresse ; remplacer le lien du QR code par la
   démo définitive (`42-flyer-et-prompt.md`).
 - Même chose pour les textes et l'email de `41-prospection-questionnaire-et-textes.md`.
+- **Nom de domaine choisi : `digsite.fr`** (email `contact@digsite.fr`),
+  accord de principe du 26/09, **achat seulement après la création de
+  l'entreprise** (validation de l'utilisateur). Libre le 26/09 d'après
+  l'AFNIC (RDAP 404) : revérifier juste avant l'achat. Option : `dig-site.fr`
+  en redirection. Ensuite : site vitrine sur Cloudflare Pages, email par
+  Cloudflare Email Routing, QR du flyer (design Canva v4 « DAHWQH2QKK8 »)
+  vers `digsite.fr`, et compléter `site-dig/` (placeholders).
 
 ## 2 bis. Création parfaite et fiscalité optimisée (exigence de l'utilisateur, 25/09)
 
