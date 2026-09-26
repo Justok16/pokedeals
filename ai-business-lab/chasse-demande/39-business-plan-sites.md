@@ -86,15 +86,16 @@ avant le contact** (le prospect voit *son* site refait), et un prix
 | **Essentiel** | **49 €/mois** | La plupart des artisans | Site 5 pages sur mesure, hébergement, sécurité, mentions légales, 1 modification/mois, rapport mensuel |
 | **Visibilité** ⭐ | **79 €/mois** | Veut plus de clients | Essentiel + fiche Google suivie, demandes d'avis, pages par commune, 3 modifications/mois |
 | **Achat** | **690 €** une fois + 15 €/mois (facultatif) | Veut payer une seule fois | Site 5 pages livré, à lui pour toujours |
-| **Prestige** | **sur devis** (proposition : à partir de 1 490 € ou 149 €/mois **[à valider]**) | Hyper premium : hôtels, restaurants, domaines, artisans d'art | Voir 3.2 bis |
+| **Prestige** | **1 990 €** une fois (+ suivi 29 €/mois facultatif) **ou 199 €/mois**, 0 € de création, 12 mois minimum (**validé le 26/09** ; suivi à 29 € et 12 mois : proposition à confirmer) | Hyper premium : hôtels, restaurants, domaines, artisans d'art | Voir 3.2 bis |
 
 Conditions communes aux formules mensuelles : **0 € de création**, 6 mois
 minimum puis sans engagement ; site et nom de domaine au nom du client ;
 **nom de domaine payé par le client** (environ 10 €/an) ; pour la fiche
 Google, **vérification faite par le client** (exigence de Google).
 
-Options : prise de rendez-vous ou réservation en ligne **+10 €/mois** ;
-version anglaise **+10 €/mois** ; « Départ sans coupure » (contrat en cours
+Prise de rendez-vous ou réservation en ligne **incluse dans toutes les
+formules** (décision du 26/09 : outil d'agenda gratuit, aucun coût pour Dig) ;
+version anglaise **+5 €/mois**, incluse dans Prestige (décision du 26/09) ; « Départ sans coupure » (contrat en cours
 ailleurs) **offerte**. Lancement : **1er mois offert aux 10 premiers
 clients** contre un avis et un avant/après publiable.
 

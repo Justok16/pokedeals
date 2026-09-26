@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prestige — Dig, sites internet d’exception</title>
+<meta name="description" content="Formule Prestige : un site entièrement sur mesure pour hôtels, restaurants, domaines et artisans d’art. 1 990 € une fois ou 199 €/mois, version anglaise et réservation incluses.">
+<meta name="theme-color" content="#0d1330">
+<!-- Avant le lancement officiel : ne pas indexer (retirer à la création de l’entreprise) -->
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --nuit:#0d1330;--nuit2:#151c44;--encre:#f4f1ea;--doux:#b9c0dc;--ligne:rgba(255,255,255,.12);
+ --orange:#ff8a3d;--rose:#ff6f91;--violet:#7b5cff;--vert:#16c79a;--creme:#faf7f2;--texte:#1d1a17;--gris:#5d5a66;
+ --r:18px;--ombre:0 20px 50px rgba(5,8,25,.35)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--nuit);color:var(--encre);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;line-height:1.1;font-weight:800}
+a{color:inherit}
+img{max-width:100%;display:block}
+.cadre{max-width:1180px;margin:0 auto;padding:0 20px}
+.degrade{background:linear-gradient(90deg,var(--orange),var(--rose) 55%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pastille{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:600;letter-spacing:.04em;padding:.45rem .9rem;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid var(--ligne)}
+.point{width:8px;height:8px;border-radius:50%;background:var(--vert);box-shadow:0 0 0 4px rgba(22,199,154,.2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;text-decoration:none;border:0;cursor:pointer;font:inherit;font-weight:700;padding:1rem 1.5rem;border-radius:14px;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.principal{background:linear-gradient(135deg,var(--orange),var(--rose));color:#fff;box-shadow:0 12px 30px rgba(255,111,145,.35)}
+.btn.second{background:rgba(255,255,255,.08);border:1px solid var(--ligne);color:var(--encre)}
+/* barre d'appel mobile : boutons pleins, lisibles sur fond clair comme sombre */
+.mobile-cta .btn{box-shadow:0 10px 28px rgba(5,8,25,.28)}
+.mobile-cta .btn.second{background:var(--nuit);color:#fff;border:1px solid rgba(255,255,255,.22);backdrop-filter:none}
+/* tant qu'aucun numéro / email n'est renseigné, les liens d'appel et d'email restent masqués */
+a[href^="tel:["],a[href^="mailto:["]{display:none!important}
+/* navigation */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:.3s}
+nav.plein{background:rgba(13,19,48,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--ligne)}
+nav .cadre{display:flex;align-items:center;justify-content:space-between;height:72px;gap:1rem}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo i{font-style:normal;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-family:Fraunces;font-weight:800;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,var(--orange),var(--violet))}
+.logo b{font-family:Fraunces;font-size:1.5rem}
+.logo small{display:block;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--doux);margin-top:-2px}
+.liens{display:flex;gap:1.6rem;align-items:center;font-size:.92rem}
+.liens a{text-decoration:none;color:var(--doux)}.liens a:hover{color:#fff}
+.liens .btn{padding:.65rem 1.1rem;color:#fff}
+/* héros */
+.heros{position:relative;padding:140px 0 90px;overflow:hidden}
+.heros::before{content:"";position:absolute;inset:0;background:
+ radial-gradient(600px 400px at 85% 10%,rgba(255,138,61,.35),transparent 70%),
+ radial-gradient(700px 500px at 0% 70%,rgba(123,92,255,.35),transparent 70%),
+ radial-gradient(500px 400px at 90% 100%,rgba(22,199,154,.25),transparent 70%)}
+.heros .cadre{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.heros h1{font-size:clamp(2.4rem,5.2vw,4.3rem);margin:1.2rem 0}
+.heros p.accroche{font-size:1.18rem;color:var(--doux);max-width:36rem}
+.heros .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+.confiance{display:flex;gap:1.6rem;flex-wrap:wrap;margin-top:2.2rem;color:var(--doux);font-size:.9rem}
+.confiance b{color:#fff}
+.tel{position:relative;justify-self:center;width:min(300px,78vw);aspect-ratio:9/19;border-radius:44px;background:#05070f;padding:12px;box-shadow:var(--ombre),0 0 0 2px #2b3566;transform:rotate(4deg)}
+.tel img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:34px}
+.notif{position:absolute;left:-40px;bottom:18%;background:#fff;color:var(--texte);border-radius:16px;padding:.8rem 1rem;box-shadow:var(--ombre);display:flex;gap:.7rem;align-items:center;font-size:.85rem;transform:rotate(-4deg);animation:flotte 4s ease-in-out infinite}
+.notif span{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--vert);color:#fff;font-size:1rem}
+@keyframes flotte{50%{transform:rotate(-4deg) translateY(-8px)}}
+/* sections */
+section{padding:100px 0}
+.clair{background:var(--creme);color:var(--texte)}
+.clair .doux{color:var(--gris)}
+.titre{max-width:760px;margin:0 auto 56px;text-align:center}
+.titre .sur{font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange)}
+.titre h2{font-size:clamp(2rem,4vw,3rem);margin:.6rem 0 1rem}
+.titre p{color:var(--doux);font-size:1.08rem}
+.clair .titre p{color:var(--gris)}
+.grille{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.carte{background:rgba(255,255,255,.06);border:1px solid var(--ligne);border-radius:var(--r);padding:28px}
+.clair .carte{background:#fff;border:1px solid #ece6dc;box-shadow:0 8px 24px rgba(30,20,10,.05)}
+.ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:1rem;color:#fff}
+.i1{background:linear-gradient(135deg,var(--orange),var(--rose))}.i2{background:linear-gradient(135deg,var(--violet),#4fa3ff)}
+.i3{background:linear-gradient(135deg,var(--vert),#0ea5a4)}.i4{background:linear-gradient(135deg,#ffcf5c,var(--orange))}
+.carte h3{font-size:1.3rem;margin-bottom:.5rem}
+.carte p{color:var(--doux)}.clair .carte p{color:var(--gris)}
+/* étapes */
+.etape{position:relative;padding-top:56px}
+.etape .n{position:absolute;top:0;left:28px;font-family:Fraunces;font-size:3rem;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+/* prix */
+.prix{grid-template-columns:repeat(4,1fr);align-items:stretch}
+.formule{display:flex;flex-direction:column;position:relative}
+.formule .nom{font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
+.formule .montant{font-family:Fraunces;font-size:2.7rem;font-weight:800;margin:.4rem 0 .2rem}
+.formule .montant small{font-family:Inter;font-size:1rem;font-weight:500;color:var(--gris)}
+.formule .pour{font-size:.92rem;color:var(--gris);min-height:2.8em}
+.formule ul{list-style:none;margin:1.2rem 0 1.5rem;display:grid;gap:.55rem;font-size:.94rem}
+.formule li::before{content:"✓";color:var(--vert);font-weight:800;margin-right:.55rem}
+.formule .btn{margin-top:auto}
+.formule.vedette{background:var(--nuit);color:var(--encre);border:0;transform:scale(1.03);box-shadow:var(--ombre)}
+.formule.vedette .pour,.formule.vedette .montant small{color:var(--doux)}
+.badge{position:absolute;top:-13px;right:20px;background:linear-gradient(135deg,var(--orange),var(--rose));color:#fff;font-size:.75rem;font-weight:700;padding:.35rem .8rem;border-radius:99px}
+.prestige{margin-top:26px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;background:linear-gradient(120deg,#1a1440,#2b1a4f 60%,#3a1d3f);color:var(--encre);border-radius:var(--r);padding:34px}
+.prestige p{color:var(--doux)}
+.note{font-size:.85rem;color:var(--gris);margin-top:18px;text-align:center}
+.options{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.options span{background:#fff;border:1px solid #ece6dc;border-radius:99px;padding:.5rem 1rem;font-size:.9rem}
+/* conseiller */
+.conseil{max-width:760px;margin:0 auto}
+.q{margin-bottom:22px}
+.q p{font-weight:600;margin-bottom:.7rem}
+.choix{display:flex;gap:10px;flex-wrap:wrap}
+.choix button{font:inherit;background:rgba(255,255,255,.06);border:1px solid var(--ligne);color:var(--encre);padding:.7rem 1.1rem;border-radius:12px;cursor:pointer}
+.choix button.actif{background:linear-gradient(135deg,var(--orange),var(--rose));border-color:transparent;font-weight:600}
+.resultat{margin-top:26px;padding:24px;border-radius:var(--r);background:rgba(22,199,154,.12);border:1px solid rgba(22,199,154,.4);display:none}
+.resultat.vu{display:block}
+.resultat b{font-family:Fraunces;font-size:1.6rem}
+/* démos */
+.demo{overflow:hidden;padding:0}
+.demo img{aspect-ratio:16/10;object-fit:cover;object-position:top;transition:transform .8s}
+.demo:hover img{transform:scale(1.04)}
+.demo div{padding:22px 24px}
+.demo a{font-weight:700;color:var(--orange);text-decoration:none}
+/* garanties */
+.garanties .carte{text-align:center}
+.garanties b{display:block;font-family:Fraunces;font-size:1.5rem;margin-bottom:.3rem}
+/* FAQ */
+.faq{max-width:860px;margin:0 auto}
+.faq h3{font-size:1.2rem;margin:34px 0 12px;color:var(--orange)}
+details{background:#fff;border:1px solid #ece6dc;border-radius:14px;margin-bottom:10px;padding:0 20px}
+summary{cursor:pointer;list-style:none;padding:18px 32px 18px 0;font-weight:600;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:14px;font-size:1.4rem;color:var(--orange);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details div{padding:0 0 18px;color:var(--gris)}
+details div p+p{margin-top:.6rem}
+/* contact */
+.contact .cadre{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:44px;align-items:start}
+.coord{display:grid;gap:14px;margin-top:1.6rem}
+.coord>a,.coord>div{display:flex;gap:.9rem;align-items:center;text-decoration:none;background:rgba(255,255,255,.06);border:1px solid var(--ligne);border-radius:14px;padding:14px 18px}
+.coord span{font-size:1.3rem}
+.coord small{display:block;color:var(--doux);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em}
+form{display:grid;gap:14px}
+label{font-size:.9rem;font-weight:600;display:grid;gap:.4rem}
+input,select,textarea{width:100%;min-width:0;font:inherit;padding:.85rem 1rem;border-radius:12px;border:1px solid var(--ligne);background:rgba(255,255,255,.06);color:var(--encre)}
+select option{color:#111}
+.rgpd{font-size:.8rem;color:var(--doux)}
+.msg{font-size:.9rem;color:var(--vert);min-height:1.2em}
+footer{border-top:1px solid var(--ligne);padding:40px 0 100px;color:var(--doux);font-size:.88rem}
+footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.mobile-cta{display:none}
+/* apparition */
+.apparait{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.apparait.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.apparait{opacity:1;transform:none}}
+@media (max-width:1000px){.prix{grid-template-columns:1fr 1fr}.g4{grid-template-columns:1fr 1fr}.formule.vedette{transform:none}}
+@media (max-width:820px){
+ .liens a:not(.btn){display:none}
+ .heros{padding-top:110px}
+ .heros .cadre,.contact .cadre,.g2,.g3,.prestige{grid-template-columns:minmax(0,1fr)}
+ .notif{left:-10px}
+ section{padding:72px 0}
+ .mobile-cta{display:flex;position:fixed;left:14px;right:14px;bottom:14px;z-index:60;gap:10px}
+ .mobile-cta .btn{flex:1;padding:.9rem}
+ .mobile-cta{transition:opacity .25s,transform .25s}
+ .mobile-cta.cache{opacity:0;transform:translateY(24px);pointer-events:none}
+}
+@media (max-width:560px){.prix,.g4{grid-template-columns:1fr}.confiance{gap:1rem}}
+
+/* page Prestige */
+.pheros{position:relative;min-height:92vh;display:flex;align-items:flex-end;padding:140px 0 72px;background:#0b0a14}
+.pheros::before{content:"";position:absolute;inset:0;background:url(demos/prestige/photo-maison.jpg) center/cover;opacity:.8}
+.pheros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,20,.25) 0%,rgba(11,10,20,.45) 40%,rgba(11,10,20,.92) 85%,#0b0a14 100%)}
+.pheros .cadre{position:relative;z-index:1}
+.pheros h1{font-size:clamp(2.5rem,6.2vw,4.8rem);max-width:17ch;text-wrap:balance;margin:1.1rem 0 1.2rem}
+.pheros p.chapo{font-size:clamp(1.05rem,1.6vw,1.25rem);color:#dcd8e8;max-width:40rem}
+.pheros .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:1.8rem}
+.or{color:#e6b877}
+.tarifs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:960px;margin:0 auto}
+.tarif{position:relative}
+.tarif .nom{font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
+.tarif .montant{font-family:Fraunces,Georgia,serif;font-size:3rem;font-weight:800;margin:.5rem 0 .2rem;line-height:1.05}
+.tarif .montant small{font-family:Inter,sans-serif;font-size:1rem;font-weight:500;color:var(--gris)}
+.tarif .pour{color:var(--gris);margin-bottom:1rem}
+.tarif ul{list-style:none;display:grid;gap:.55rem;margin:1rem 0 1.6rem}
+.tarif li::before{content:"✓";color:var(--vert);font-weight:800;margin-right:.55rem}
+.tarif .btn{width:100%}
+.tarif.vedette{border:2px solid var(--orange)!important}
+.inclus{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.inclus .carte h3{font-size:1.15rem;margin:.9rem 0 .4rem}
+.inclus .ic{background:linear-gradient(135deg,#c9974f,#8a5a2b)}
+.etapes4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.etapes4 .num{font-family:Fraunces,Georgia,serif;font-size:2.6rem;font-weight:800;color:#e6b877;line-height:1}
+.etapes4 h3{font-size:1.1rem;margin:.6rem 0 .3rem}
+.comparatif{width:100%;border-collapse:collapse;max-width:960px;margin:0 auto;font-size:.98rem;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 8px 24px rgba(30,20,10,.05)}
+.comparatif th,.comparatif td{padding:14px 18px;border-bottom:1px solid #ece6dc;text-align:left;vertical-align:top}
+.comparatif th{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);background:#faf7f2}
+.comparatif td:nth-child(2),.comparatif td:nth-child(3),.comparatif th:nth-child(2),.comparatif th:nth-child(3){text-align:center;width:24%}
+.comparatif td:nth-child(3){font-weight:600;background:#fffaf3}
+.defile{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.vitrine{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:center}
+.vitrine img{border-radius:var(--r);box-shadow:var(--ombre)}
+.honnete{max-width:760px;margin:0 auto;text-align:center}
+.pfin{text-align:center}
+.pfin h2{font-size:clamp(2rem,4vw,3rem);margin:.6rem 0 1rem}
+@media (max-width:900px){.inclus{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.etapes4{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.vitrine{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.tarifs,.inclus,.etapes4{grid-template-columns:minmax(0,1fr)}.pheros{min-height:auto;padding-top:120px}.comparatif{font-size:.9rem}.comparatif th,.comparatif td{padding:11px 10px}}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="cadre">
+ <a href="index.html" class="logo" aria-label="Dig, accueil"><i>D</i><span><b>Dig</b><small>Sites internet</small></span></a>
+ <div class="liens">
+  <a href="index.html#offres">Offres</a><a href="prestige.html" aria-current="page">Prestige</a><a href="index.html#demos">Démos</a><a href="index.html#faq">Questions</a>
+  <a href="index.html#contact" class="btn principal">Ma démo gratuite</a>
+ </div>
+</div></nav>
+<main>
+<header class="pheros"><div class="cadre">
+ <span class="pastille"><span class="point"></span>Hôtels · restaurants · domaines</span>
+ <h1>Prestige&nbsp;: un site à la hauteur de <span class="or">votre maison</span>.</h1>
+ <p class="chapo">Pour les établissements dont l’image fait vendre. Un site dessiné entièrement pour vous, en français et en anglais, avec réservation en ligne, pour que vos clients réservent chez vous plutôt que sur une plateforme à commission.</p>
+ <div class="actions"><a href="#tarifs" class="btn principal">Voir les tarifs</a><a href="demos/prestige/" class="btn second">Voir la démo Prestige</a></div>
+</div></header>
+
+<section class="clair" id="tarifs"><div class="cadre">
+ <div class="titre apparait"><div class="sur">Tarifs Prestige</div><h2>Deux façons de payer, un seul niveau d’exigence</h2><p>Le site est exactement le même dans les deux cas. Seule la façon de le régler change.</p></div>
+ <div class="tarifs">
+  <div class="carte tarif vedette apparait"><div class="nom">Abonnement</div><div class="montant">199&nbsp;€<small> /mois</small></div><p class="pour">0&nbsp;€ de création. Tout est compris, vous n’avez rien à gérer.</p>
+   <ul><li>Création complète sur mesure, sans frais au départ</li><li>Hébergement, sécurité et sauvegardes</li><li>Modifications incluses chaque mois (textes, photos, menus, tarifs, saisons)</li><li>Fiche Google suivie et demandes d’avis</li><li>Rapport mensuel&nbsp;: visites, réservations, demandes</li><li>12 mois minimum, puis sans engagement</li></ul>
+   <a href="index.html#contact" class="btn principal">Choisir l’abonnement</a></div>
+  <div class="carte tarif apparait"><div class="nom">Achat</div><div class="montant">1&nbsp;990&nbsp;€<small> une fois</small></div><p class="pour">Vous payez une seule fois, le site est à vous pour toujours.</p>
+   <ul><li>Création complète sur mesure</li><li>Site livré et à votre nom</li><li>Fichiers du site remis sur demande</li><li>Hébergement, sécurité et modifications&nbsp;: 29&nbsp;€/mois, facultatif</li><li>Sans suivi, vous restez libre de le confier à qui vous voulez</li></ul>
+   <a href="index.html#contact" class="btn second" style="color:var(--texte);border-color:#ddd">Choisir l’achat</a></div>
+ </div>
+ <p class="note">Dans les deux cas&nbsp;: version anglaise et réservation en ligne incluses, nom de domaine à votre nom (à votre charge, environ 10&nbsp;€ par an). Prix nets&nbsp;: TVA non applicable, art. 293 B du CGI.</p>
+</div></section>
+
+<section><div class="cadre">
+ <div class="titre apparait"><div class="sur">Ce qui est inclus</div><h2>Tout ce qu’un établissement d’exception attend de son site</h2></div>
+ <div class="inclus">
+  <div class="carte apparait"><div class="ic">✦</div><h3>Design entièrement sur mesure</h3><p>Pas de modèle&nbsp;: typographies, couleurs et mise en page dessinées pour votre maison.</p></div>
+  <div class="carte apparait"><div class="ic">🖼️</div><h3>Photos plein écran</h3><p>Galeries immersives et animations douces au défilement, qui mettent vos lieux en valeur.</p></div>
+  <div class="carte apparait"><div class="ic">📅</div><h3>Réservation en ligne</h3><p>Vos clients choisissent une date ou un créneau libre et reçoivent une confirmation automatique.</p></div>
+  <div class="carte apparait"><div class="ic">🇬🇧</div><h3>Version anglaise</h3><p>Tout le site en anglais, pour accueillir la clientèle étrangère.</p></div>
+  <div class="carte apparait"><div class="ic">🍷</div><h3>Carte, menus, chambres</h3><p>Vos offres présentées clairement et faciles à mettre à jour, saison après saison.</p></div>
+  <div class="carte apparait"><div class="ic">🔎</div><h3>Référencement local complet</h3><p>Pages optimisées, informations structurées pour Google et fiche Google suivie.</p></div>
+ </div>
+</div></section>
+
+<section class="clair"><div class="cadre">
+ <div class="titre apparait"><div class="sur">Comparer</div><h2>Prestige ou Essentiel&nbsp;?</h2><p>Essentiel convient à la plupart des artisans. Prestige est fait pour les lieux où l’image décide de tout.</p></div>
+ <div class="defile apparait"><table class="comparatif">
+  <tr><th></th><th>Essentiel</th><th>Prestige</th></tr>
+  <tr><td>Prix</td><td>49&nbsp;€/mois</td><td>199&nbsp;€/mois ou 1&nbsp;990&nbsp;€</td></tr>
+  <tr><td>Design</td><td>Sur mesure, sobre et efficace</td><td>Haut de gamme, dessiné pour votre lieu</td></tr>
+  <tr><td>Pages</td><td>5</td><td>Jusqu’à 12</td></tr>
+  <tr><td>Photos plein écran et animations</td><td>—</td><td>✓</td></tr>
+  <tr><td>Réservation en ligne</td><td>✓</td><td>✓</td></tr>
+  <tr><td>Version anglaise</td><td>+5&nbsp;€/mois</td><td>✓ incluse</td></tr>
+  <tr><td>Fiche Google suivie, avis</td><td>—</td><td>✓</td></tr>
+  <tr><td>Mise en ligne</td><td>7 jours</td><td>3 semaines</td></tr>
+  <tr><td>Engagement</td><td>6 mois</td><td>12 mois (abonnement)</td></tr>
+ </table></div>
+</div></section>
+
+<section><div class="cadre">
+ <div class="titre apparait"><div class="sur">La méthode</div><h2>De la première rencontre à la mise en ligne</h2></div>
+ <div class="etapes4">
+  <div class="carte apparait"><div class="num">1</div><h3>Rencontre</h3><p>Chez vous, pour sentir le lieu, comprendre votre clientèle et vos objectifs.</p></div>
+  <div class="carte apparait"><div class="num">2</div><h3>Maquette offerte</h3><p>Je dessine votre page d’accueil. Vous la regardez avant de vous engager.</p></div>
+  <div class="carte apparait"><div class="num">3</div><h3>Création</h3><p>Textes en français et en anglais, photos, réservation&nbsp;: vous validez chaque étape.</p></div>
+  <div class="carte apparait"><div class="num">4</div><h3>Mise en ligne</h3><p>En 3 semaines environ, testé sur téléphone et ordinateur, puis suivi dans la durée.</p></div>
+ </div>
+</div></section>
+
+<section class="clair" id="demo"><div class="cadre vitrine">
+ <img src="img/demo-prestige.jpg" alt="Démonstration Prestige : site d’une maison d’hôtes fictive" class="apparait">
+ <div class="apparait"><div class="titre" style="text-align:left;margin:0"><div class="sur">Démonstration</div><h2>Jugez sur pièce</h2><p>Une maison d’hôtes fictive, réalisée avec la formule Prestige. Ouvrez-la sur votre téléphone&nbsp;: c’est là que vos clients vous découvrent.</p></div>
+ <a href="demos/prestige/" class="btn principal" style="margin-top:1.4rem">Ouvrir la démo Prestige</a></div>
+</div></section>
+
+<section><div class="cadre honnete apparait">
+ <div class="titre" style="margin-bottom:0"><div class="sur">En toute transparence</div><h2>Les photos font la moitié du résultat</h2><p>Je mets vos photos en valeur, mais je ne réalise pas de reportage photo ou vidéo. Si les vôtres ne suffisent pas, je vous conseille un photographe local, choisi et payé par vous. Aucune fausse photo de réalisation, aucun faux avis.</p></div>
+</div></section>
+
+<section class="clair"><div class="cadre pfin apparait">
+ <div class="titre" style="margin-bottom:28px"><div class="sur">Votre maquette offerte</div><h2>Voyons ce que votre site pourrait être</h2><p>Je dessine gratuitement votre page d’accueil Prestige. Vous décidez ensuite, sans engagement.</p></div>
+ <a href="index.html#contact" class="btn principal">Recevoir ma maquette gratuite</a>
+</div></section>
+</main>
+
+<footer><div class="cadre">
+ <div><b style="color:#fff">Dig</b> — sites internet pour artisans, commerçants et indépendants.</div>
+ <div><a href="mentions-legales.html">Mentions légales et confidentialité</a></div>
+</div></footer>
+<script>
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('plein',scrollY>30),{passive:true});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');obs.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll('.apparait').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

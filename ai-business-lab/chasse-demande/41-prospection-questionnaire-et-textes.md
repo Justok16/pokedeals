@@ -145,10 +145,10 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
 | Pas de site ou vieux site, bouche-à-oreille suffit presque | **Essentiel** (49 €/mois) |
 | Veut plus de demandes, concurrents actifs sur Google, zone large | **Visibilité** ⭐ (79 €/mois) |
 | Préfère payer une fois, a déjà quelqu'un pour la mise à jour | **Achat** (690 € + 15 €/mois facultatif) |
-| Image haut de gamme essentielle (hôtel, restaurant, domaine, art) | **Prestige** (sur devis) |
+| Image haut de gamme essentielle (hôtel, restaurant, domaine, art) | **Prestige** (1 990 € ou 199 €/mois) |
 | Contrat en cours ailleurs | + option **Départ sans coupure** (offerte) |
-| Rendez-vous, réservations | + **10 €/mois** |
-| Clientèle étrangère | Version anglaise **+10 €/mois** |
+| Rendez-vous, réservations | **inclus** dans toutes les formules |
+| Clientèle étrangère | Version anglaise **+5 €/mois** (incluse en Prestige) |
 | Profession de santé | Présence ou Essentiel, sans témoignages ni référencement payant (`40` section C) |
 
 Rappels à dire au client : nom de domaine à son nom, payé par lui

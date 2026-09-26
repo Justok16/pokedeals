@@ -4,6 +4,7 @@ import re,sys
 R=[('« ','« '),(' »',' »'),(' :',' :'),(' ;',' ;'),(' ?',' ?'),(' !',' !')]
 def fix_text(t):
     for a,b in R: t=t.replace(a,b)
+    t=re.sub(r"(?<=\w)'(?=\w)",'\u2019',t)  # apostrophe typographique
     t=re.sub(r'(\d) (?=(?:€|%|h\b|min\b|minutes|mois|jours?|ans?|km|semaines?|questions|réponses|prospects|salariés|pages|€/mois|x\b))','\\1\u00a0',t)
     return t
 def fix(h):
