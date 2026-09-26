@@ -72,3 +72,16 @@ Variantes de titre retenues (Gemini) : « Artisan, commerçant : vos clients che
 sur internet. Êtes-vous visible ? » ; « Transformez les recherches sur smartphone
 en vrais devis et chantiers locaux. » Écartée : « Marre des sites payés une
 fortune ou bloqués ? » (dénigrement implicite des concurrents).
+
+## Version 4 (26/09) — la synthèse, validée par l'utilisateur (« vas-y pour la v4 »)
+
+- Design Canva « DAHWQH2QKK8 » (modifiable par l'utilisateur) ; fichiers
+  `supports/flyer-dig-a5-v4.pdf` et `.png` (1748 × 2480 px, 300 dpi).
+- Reprend : mise en page et logo « D » (Grok), textes et bloc contact
+  (Gemini), site dans le téléphone (ChatGPT), pastilles « Fait près de chez
+  vous » et « Offre découverte » + « Appelez ou scannez » (Mistral), photo,
+  prix 29 € et mentions (Claude).
+- Corrigé après génération : « E1 » → « EI » ; QR code réel envoyé dans
+  Canva (vérifié : il ouvre la démo).
+- À compléter après création : téléphone, email, prénom et nom, SIREN,
+  adresse ; lien du QR vers la démo définitive.
