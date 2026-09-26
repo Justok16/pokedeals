@@ -42,3 +42,15 @@ Voir le texte exact dans la réponse du 26/09 ; version de référence :
 > chiffrés inventés.
 > Livre : le flyer en PDF ou image haute définition (300 dpi, 3 mm de fond
 > perdu), puis 3 variantes de titre.
+
+## Version 3 (26/09) : Canva
+
+- Essai 1 avec l'ancien outil Canva (`generate-design`) : 4 propositions
+  inutilisables (textes incompréhensibles, fausses dates, format paysage).
+- Essai 2 avec `create-design`, format « Flyer (Portrait A5) » et textes
+  imposés : **réussi** (photo réaliste, icônes, textes corrects). Design
+  dans le compte Canva de l'utilisateur (« DAHWQBvgVuI »), modifiable.
+- QR code ajouté par Claude dans le cadre vide (vérifié : il mène à la
+  démo), export 300 dpi (1748 × 2480 px).
+- Reste à faire dans Canva : téléphone, email, nom, SIREN ; remplacer le
+  lien du QR code par la démo définitive.
