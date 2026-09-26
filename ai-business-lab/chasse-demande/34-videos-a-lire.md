@@ -38,3 +38,8 @@ _jJaH7uIXb0 cu6w1i12gbg z6rlSGjpkG8 uSeE_1-zVDQ V9SaDPjTncs SpKn6fpg5lM
 Yfe5Z4EhkfM Fzso17l7FSs RM4tfeIZjBY oW7WtzgEa54 ZUiT4gwQEyw KEXyVg4ac58
 mxtB9z7Ztt8 CZc6LTHuG1o LI2xps4xSUw 4yeVRaugkNI WcZEyKxq_5E SOoMvrGdNyU
 9_O9Fmkc8yM Bge_XJu7fzg oHQkpV2Sgnk
+
+## Lot du 26/09 (19 vidéos, prospection et sites premium)
+
+Résumés et enseignements : `43-videos-26-09.md` (18 résumées ;
+`ENxnTvialB0` en attente du renouvellement du crédit gratuit mensuel).
