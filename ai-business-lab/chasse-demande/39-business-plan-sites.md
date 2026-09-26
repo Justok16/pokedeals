@@ -179,9 +179,9 @@ client) est la bonne réponse.
 - **La démo est la publicité** : chaque prospect voit son propre site
   refait ; aucun concurrent ne le fait à grande échelle.
 - **Vitrine Dig** : démo publique
-  ([dig-demo-menuisier.vercel.app](https://dig-demo-menuisier.vercel.app),
-  entreprise fictive) ; à déplacer sur Cloudflare dès la création
-  de l'activité (règle Vercel ci-dessus).
+  ([digsite.pages.dev/demos/menuisier](https://digsite.pages.dev/demos/menuisier/),
+  entreprise fictive) et démo Prestige
+  ([…/demos/prestige](https://digsite.pages.dev/demos/prestige/)), hébergées sur Cloudflare Pages.
 - **Cas clients** : avec l'accord écrit du client, avant/après publié.
 - **Parrainage** : 1 mois offert au client et au filleul.
 - **Référencement** : pages « site internet pour [métier] à [ville] » sur
