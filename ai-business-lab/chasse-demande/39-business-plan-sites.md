@@ -198,8 +198,10 @@ client) est la bonne réponse.
 3. **Signature électronique** (DocuSeal, connecteur disponible) et
    **mandat de prélèvement** SEPA en ligne.
 4. **Fabrication en 7 jours** : textes, photos du client, validation.
-5. **Contrôles qualité** avant mise en ligne : affichage mobile, vitesse,
-   liens, mentions légales, formulaire, accessibilité (vidéo bBMp5tLxShQ).
+5. **Contrôles qualité** avant mise en ligne : **optimisé ordinateur ET
+   téléphone** (exigence de l'utilisateur du 26/09 : tests en 1366 px et
+   390 px, aucun défilement horizontal, boutons d'appel au pouce),
+   vitesse, liens, mentions légales, formulaire, accessibilité (vidéo bBMp5tLxShQ).
 6. **Bascule** du nom de domaine le jour J, sans coupure.
 7. **Suivi** : rapport mensuel automatique (visites, appels, demandes de
    devis), modification sous 48 h ouvrées.
@@ -344,3 +346,22 @@ l'utilisateur) ; code des sites dans un dépôt **privé** séparé.
 **Ce qu'il faudra ouvrir le moment venu (gratuit)** : compte Cloudflare,
 compte Stripe, plateforme de facturation agréée — au nom de la
 micro-entreprise, donc **après** sa création.
+
+---
+
+## 12. Méthode de repérage des prospects (testée le 26/09, reproductible partout)
+
+1. Registre officiel : API Recherche d'entreprises, par code postal (relais Vercel).
+2. Filtre des métiers qui ont besoin d'un site (bâtiment, auto, beauté,
+   restauration, hébergement, commerce…), hors sociétés civiles et chaînes.
+3. Adresses devinées (nom.fr / nom.com) puis recherche web automatique
+   (Perplexity « sonar » via le relais, 5 requêtes/min) et manuelle.
+4. Vérification de chaque site trouvé : bonne entreprise, outil (WordPress,
+   Wix, SoLocal…), date de dernière mise à jour (plan du site).
+5. **Sites SoLocal** : adresses `nom.site-solocal.com` devinées à partir du
+   nom (5 028 variantes testées pour un code postal) + repérage des sites
+   SoLocal sur adresse propre (fichiers `solocal-runtime` / « Réalisé par
+   Solocal »).
+6. Contre-vérification manuelle des meilleurs « sans site » : environ
+   **1 sur 5 avait en fait un site** → toujours vérifier avant d'appeler.
+Résultats : privés (Google Drive de l'utilisateur, dossier « Dig »), jamais ici.
