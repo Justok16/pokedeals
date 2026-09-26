@@ -24,6 +24,14 @@ export async function GET(request) {
       if (p.get(cle) !== null) q.set(cle, p.get(cle));
     }
     cible = `https://web.archive.org/cdx/search/cdx?${q}`;
+  } else if (chemin === 'entreprises') {
+    // API publique « Recherche d'entreprises » (État), registre SIRENE.
+    const q = new URLSearchParams();
+    for (const [cle, val] of p) if (cle !== 'chemin') q.set(cle, val);
+    cible = `https://recherche-entreprises.api.gouv.fr/search?${q}`;
+  } else if (chemin === 'overpass') {
+    // OpenStreetMap (Overpass), requête passée dans ?data=
+    cible = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(p.get('data') || '')}`;
   } else if (/^CC-MAIN-\d{4}-\d{2}-index$/.test(chemin)) {
     const q = new URLSearchParams();
     for (const cle of ['url', 'output', 'fl', 'page', 'showNumPages', 'filter', 'collapse']) {

@@ -282,3 +282,36 @@ Impôt sur le revenu et effets sur les aides : **à calculer dans le kit
 | Semaine 3 | Site vitrine Dig sur Cloudflare ; paiement SEPA ; plateforme de factures | Claude |
 | Semaine 4 | 20 premières démos envoyées ; mesure | Claude + appels utilisateur |
 | Mois 2-3 | Ajuster le message ; viser 10 clients | Les deux |
+
+---
+
+## 11. Le système Dig, du premier contact à la mise à jour continue
+
+Demande de l'utilisateur (26/09) : « quelque chose d'exceptionnel, du
+départ à la prospection jusqu'à la facturation, le suivi et la mise à jour
+continue des sites ». Règle : Claude fait tout ce qui est répétitif,
+l'utilisateur garde la relation humaine (appels, visites, signature).
+
+| Étape | Ce qui se passe | Outil (gratuit sauf mention) | Qui |
+|---|---|---|---|
+| 1. Repérage | Registre officiel des entreprises + sites SoLocal publics + recherche web : liste « sans site » et « site ancien » par commune | API Recherche d'entreprises, index publics, relais Vercel | Claude, chaque mois |
+| 2. Qualification | Score de priorité : métier, taille, âge du site, avis Google, concurrents | Script Claude | Claude |
+| 3. Démo | Page d'accueil refaite pour chaque prospect prioritaire, lien privé | Générateur de sites Claude | Claude |
+| 4. Contact | Appel ou visite avec la fiche prospect et le texte (`41`) | Téléphone | **Utilisateur** |
+| 5. Suivi prospect | Relances J+3 / J+10, refus notés et respectés | Tableau prospects (Airtable ou Google Sheets, privé) | Claude |
+| 6. Devis et contrat | Devis d'une page, CGV, formulaire de rétractation, signature électronique | DocuSeal (connecté) | Claude prépare, **utilisateur signe** |
+| 7. Paiement | Mandat SEPA, premier prélèvement **au plus tôt J+8** (`40` A1) | Stripe (0,35 € + 0,7 %) | Automatique |
+| 8. Fabrication | Site en 7 jours : textes, photos du client, mentions légales, contrôles qualité | Claude + dépôt privé du code | Claude |
+| 9. Mise en ligne | Nom de domaine au nom du client, hébergement, bascule sans coupure | Cloudflare Pages | Claude (+ client pour son domaine) |
+| 10. Facturation | Facture mensuelle, mention TVA, livre des recettes ; facture électronique obligatoire au 01/09/2027 | Plateforme agréée **[à choisir]** | Automatique |
+| 11. Suivi mensuel | Le site répond ? Pages cassées ? Vitesse ? Avis Google nouveaux ? Rapport « demandes reçues » envoyé au client | Routine Claude mensuelle | Claude |
+| 12. Mise à jour continue | Horaires, photos, promotions, pages saisonnières ; demande du client traitée sous 48 h | Email → Claude | Claude |
+| 13. Fidélisation | Bilan à 5 mois, proposition d'amélioration, demande d'avis, parrainage | Routine | Claude + utilisateur |
+| 14. Déclarations | Chiffre d'affaires URSSAF, rappels (kit section 2 bis) | Rappels automatiques | Claude prépare, **utilisateur valide** |
+
+**Données clients** : jamais dans le dépôt public. Tableau privé (compte de
+l'utilisateur) ; code des sites dans un dépôt **privé** séparé.
+
+**Ce qu'il faudra ouvrir le moment venu (gratuit)** : compte Cloudflare,
+compte Stripe, plateforme de facturation agréée — au nom de la
+micro-entreprise, donc **après** sa création.
