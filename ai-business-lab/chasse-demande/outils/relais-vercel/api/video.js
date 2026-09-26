@@ -56,12 +56,15 @@ export async function GET(request) {
         const parcourir = (v, cle) => {
           if (typeof v === 'string') { if (cle === 'text' || cle === 'output_text') morceaux.push(v); }
           else if (Array.isArray(v)) v.forEach((x) => parcourir(x, cle));
-          else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) if (k !== 'input' && k !== 'usage') parcourir(x, k);
+          else if (v && typeof v === 'object') {
+            if (/thought|reason|user|input/i.test(String(v.type || '') + String(v.role || ''))) return; // ni la réflexion interne ni la consigne
+            for (const [k, x] of Object.entries(v)) if (!['input', 'usage', 'signature'].includes(k)) parcourir(x, k);
+          }
         };
-        parcourir({ output_text: j.output_text, outputs: j.outputs, output: j.output }, '');
+        parcourir({ output_text: j.output_text, outputs: j.outputs, output: j.output, steps: j.steps }, '');
         const texte = [...new Set(morceaux)].join('\n').trim();
         if (rep.ok && texte) return Response.json({ id, resume: texte, modele, voie: 'interactions' });
-        if (debug) { const { usage, ...reste } = j; return Response.json({ id, debug: JSON.stringify(reste).slice(0, 4000) }); }
+        if (debug) { const { usage, ...reste } = j; return Response.json({ id, debug: JSON.stringify(reste, (k, v) => (k === 'signature' ? '…' : v)).slice(0, 4000) }); }
         erreurs.push(`${modele} interactions ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
       } catch (e) { erreurs.push(`${modele} interactions ${String(e).slice(0, 120)}`); }
       // API classique generateContent

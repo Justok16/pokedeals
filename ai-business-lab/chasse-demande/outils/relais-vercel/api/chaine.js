@@ -18,6 +18,14 @@ function extraire(obj, videos, suite) {
     const duree = (v.lengthText && (v.lengthText.simpleText || (v.lengthText.runs || []).map((r) => r.text).join(''))) || v.lengthSeconds || '';
     videos.push({ id: v.videoId, titre, duree });
   }
+  const l = obj.lockupViewModel;
+  if (l && l.contentId && /VIDEO/.test(l.contentType || '')) {
+    const md = (l.metadata && l.metadata.lockupMetadataViewModel) || {};
+    const titre = (md.title && md.title.content) || '';
+    const txt = JSON.stringify(l.contentImage || {});
+    const duree = (txt.match(/"text":"(\d{1,2}(?::\d{2}){1,2})"/) || [])[1] || '';
+    videos.push({ id: l.contentId, titre, duree });
+  }
   if (obj.continuationCommand && obj.continuationCommand.token) suite.push(obj.continuationCommand.token);
   for (const x of Object.values(obj)) extraire(x, videos, suite);
 }
@@ -36,6 +44,9 @@ export async function GET(request) {
   const m = html.match(/var ytInitialData = (\{.*?\});<\/script>/s);
   const videos = []; let suite = [];
   if (m) extraire(JSON.parse(m[1]), videos, suite);
+  if (new URL(request.url).searchParams.get('debug') === '1') {
+    const i = html.indexOf('videoId'); return Response.json({ trouve: !!m, taille: html.length, extrait: html.slice(Math.max(0, i - 600), i + 600), suite: suite.length });
+  }
   let tours = 0;
   while (suite.length && tours < 60 && cleApi) {
     const jeton = suite.shift(); tours++;
