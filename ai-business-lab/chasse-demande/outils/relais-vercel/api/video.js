@@ -6,6 +6,14 @@
 // Déploiement protégé (Vercel Authentication) : appel via le connecteur Vercel.
 import { generateText } from 'ai';
 
+const CONSIGNES = {};
+CONSIGNES.finance =
+  "Résume cette vidéo en français, comme une fiche de connaissances en finances personnelles. Donne : " +
+  "1) le sujet et la thèse principale ; 2) les notions expliquées (définitions simples) ; 3) les chiffres, " +
+  "taux, plafonds et règles fiscales cités, avec l'année ou la date si elle est dite (marque « à vérifier " +
+  "à la source officielle » pour toute règle fiscale ou légale) ; 4) les conseils concrets et leurs limites " +
+  "ou risques ; 5) les produits, applications ou entreprises cités, en signalant s'il s'agit de publicité " +
+  "ou de produits de l'auteur. N'invente rien : si un détail n'est pas clair, écris « non précisé ».";
 const CONSIGNE =
   "Résume cette vidéo en français, pour quelqu'un qui cherche à gagner de l'argent " +
   "légalement avec l'IA et Claude Code. Donne : 1) l'idée principale ; 2) chaque outil, " +
@@ -27,6 +35,9 @@ export async function GET(request) {
   if (!/^[A-Za-z0-9_-]{11}$/.test(id)) {
     return Response.json({ erreur: 'identifiant vidéo invalide' }, { status: 400 });
   }
+  const mode = new URL(request.url).searchParams.get('mode') || '';
+  const consigne = CONSIGNES[mode] || CONSIGNE;
+  const debug = new URL(request.url).searchParams.get('debug') === '1';
   const cle = process.env.GEMINI_API_KEY;
   if (cle) {
     const url = `https://www.youtube.com/watch?v=${id}`;
@@ -37,7 +48,7 @@ export async function GET(request) {
         const rep = await fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
           method: 'POST',
           headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ model: modele, input: [{ type: 'text', text: CONSIGNE }, { type: 'video', uri: url }] }),
+          body: JSON.stringify({ model: modele, input: [{ type: 'text', text: consigne }, { type: 'video', uri: url }] }),
         });
         const j = await rep.json();
         // Le texte peut être dans output_text ou dans outputs[] (objets imbriqués) : on le cherche partout.
@@ -50,6 +61,7 @@ export async function GET(request) {
         parcourir({ output_text: j.output_text, outputs: j.outputs, output: j.output }, '');
         const texte = [...new Set(morceaux)].join('\n').trim();
         if (rep.ok && texte) return Response.json({ id, resume: texte, modele, voie: 'interactions' });
+        if (debug) { const { usage, ...reste } = j; return Response.json({ id, debug: JSON.stringify(reste).slice(0, 4000) }); }
         erreurs.push(`${modele} interactions ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
       } catch (e) { erreurs.push(`${modele} interactions ${String(e).slice(0, 120)}`); }
       // API classique generateContent
@@ -57,7 +69,7 @@ export async function GET(request) {
         const rep = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent`, {
           method: 'POST',
           headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ file_data: { file_uri: url } }, { text: CONSIGNE }] }] }),
+          body: JSON.stringify({ contents: [{ parts: [{ file_data: { file_uri: url } }, { text: consigne }] }] }),
         });
         const j = await rep.json();
         const texte = ((j.candidates || [])[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
@@ -74,7 +86,7 @@ export async function GET(request) {
         role: 'user',
         content: [
           { type: 'file', data: new URL(`https://www.youtube.com/watch?v=${id}`), mediaType: 'video/mp4' },
-          { type: 'text', text: CONSIGNE },
+          { type: 'text', text: consigne },
         ],
       }],
     });

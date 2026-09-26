@@ -35,6 +35,10 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
       définition) ; photo de fond en version haute pour téléphone et large pour
       ordinateur ; vérifiées en gros plan, pas seulement en miniature.
 - [ ] Animations : vérifiées à 0, 25, 50, 75 et 100 % de leur durée.
+- [ ] Lisibilité mesurée (`outils/lisibilite.py`) : aucun texte sous 13 px ni en
+      graisse fine (< 400) ; contraste ≥ 4,5 (≥ 3 au-delà de 24 px) ; ombre portée
+      sous tout texte posé sur une photo. Menu vérifié sur une seule ligne de
+      320 à 1 440 px.
 
 ## Outils
 - Démos : `outils/prospects/verif_maquettes.py`, `qa_maquettes.py`, captures d'écran relues une par une.

@@ -7,12 +7,12 @@
 <meta name="description" content="Démonstration Dig « Prestige » : maison d'hôtes de charme fictive.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--creme:#f6f1e9;--pierre:#e9e0d2;--encre:#26231f;--doux:#6b645a;--sauge:#6f7f68;--or:#b08d57;--nuit:#15130f}
+:root{--creme:#f6f1e9;--pierre:#e9e0d2;--encre:#26231f;--doux:#595349;--sauge:#566650;--or:#b08d57;--nuit:#15130f}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Jost,system-ui,sans-serif;font-weight:300;background:var(--creme);color:var(--encre);line-height:1.7;overflow-x:hidden}
+body{font-family:Jost,system-ui,sans-serif;font-weight:400;font-size:1.0625rem;background:var(--creme);color:var(--encre);line-height:1.7;overflow-x:hidden}
 h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;line-height:1.1}
 a{color:inherit;text-decoration:none}
 img{display:block;width:100%;height:100%;object-fit:cover}
@@ -110,6 +110,34 @@ footer{background:var(--nuit);color:#8d8474;border-top:1px solid rgba(255,255,25
  .heros .texte{bottom:calc(9vh + 44px)}
  .fleche{display:none}
 }
+
+/* lisibilité (révision du 26/09) : textes plus épais, plus grands, mieux contrastés */
+.bandeau{font-size:.85rem;font-weight:500;color:#efe6d6;padding:.5rem 1rem}
+.marque{font-weight:600}
+.marque small{font-size:.84rem;font-weight:500;letter-spacing:.22em;opacity:1}
+.liste .n{color:#86652f}
+.liens{font-size:.88rem;font-weight:500;letter-spacing:.12em}
+.sur{font-size:.85rem;font-weight:500;letter-spacing:.26em;opacity:1}
+.heros h1{font-weight:500}
+.heros p{font-size:1.2rem;font-weight:400;opacity:1}
+.heros .texte{text-shadow:0 1px 2px rgba(0,0,0,.35),0 2px 18px rgba(0,0,0,.55)}
+nav:not(.plein){text-shadow:0 1px 2px rgba(0,0,0,.4),0 2px 16px rgba(0,0,0,.5)}
+.intro p,.titre p{font-size:1.08rem}
+.chiffres span{font-size:.82rem;font-weight:500}
+.chambre .info{font-size:.98rem}
+.bande blockquote{font-weight:500;text-shadow:0 2px 18px rgba(0,0,0,.45)}
+.bande cite{font-size:.85rem;font-weight:500;opacity:1}
+.liste p{font-size:1rem}
+label{font-size:.85rem;font-weight:500;color:#d8cdb9}
+button{font-size:.88rem;font-weight:600}
+.note{font-size:.92rem}
+footer{font-size:.9rem;color:#b3a996}
+@media (max-width:560px){
+ .heros .sur{font-size:.85rem;letter-spacing:.1em}
+ .heros p{font-size:1.08rem}
+ .marque small{font-size:.82rem;letter-spacing:.14em;white-space:nowrap}
+}
+@media (max-width:370px),(max-height:700px){.marque small{font-size:.82rem;letter-spacing:.08em}.heros p{font-size:1.02rem}}
 </style>
 </head>
 <body>
