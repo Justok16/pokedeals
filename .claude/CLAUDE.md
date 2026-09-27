@@ -82,6 +82,13 @@
   avec le site et le plan). Si le statut choisi à la création sort de la
   franchise, revoir la n° 12 et renvoyer le PDF.
 
+- **Impayés (promis le 27/09)** : à chaque signature, vérifier le client
+  (annuaire officiel + BODACC, `outils/verif_entreprises.py`) avant qu'il
+  signe ; dès qu'un paiement est en retard, rappeler à l'utilisateur la
+  procédure de `45-impayes-se-proteger.md` (relance, mise en demeure,
+  40 € + pénalités, injonction de payer). Mentions de pénalités à mettre
+  dans les CGV et les modèles de facture.
+
 ## Outils en place
 
 - Boîte du pseudonyme via le connecteur **Gmail** (signature : « Dig ») ;
