@@ -26,6 +26,7 @@ videos = json.load(open(liste))['videos']
 # Longues d'abord (>= 3 min), de la plus récente à la plus ancienne ; les courtes ensuite.
 videos = [v for v in videos if secondes(v['duree']) >= 180] + [v for v in videos if secondes(v['duree']) < 180]
 fait = 0
+illisibles = 0  # réponses vides d'affilée (relais expiré ou vidéo trop longue pour le délai)
 for v in videos:
     f = os.path.join(sortie, v['id'] + '.md')
     if os.path.exists(f):
@@ -49,8 +50,12 @@ for v in videos:
         print('tous les modèles ont épuisé leur quota du jour'); break
     if 'resume' not in j:
         print('échec', v['id'], str(j.get('erreur', ''))[:300], flush=True)
-        if j.get('erreur') == 'illisible': break
+        if j.get('erreur') == 'illisible':
+            illisibles += 1
+            if illisibles >= 3:
+                print('3 réponses vides d’affilée : relais à revérifier (lien de partage expiré ?)'); break
         time.sleep(80); continue
+    illisibles = 0
     date = datetime.date.today().isoformat()
     open(f, 'w').write(f"# {v['titre']}\n\nVidéo : https://youtu.be/{v['id']} · durée {v['duree']} · résumé Gemini ({j.get('modele', '?')}) du {date}\n"
                        f"(connaissances générales, non vérifiées : toute règle fiscale ou chiffre est à contrôler à la source officielle)\n\n{j['resume'].strip()}\n")
