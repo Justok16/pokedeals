@@ -321,3 +321,12 @@ rappelle d'espacer les envois et de ne jamais relancer un refus.
 Bilan au 25/09 midi : **9 refus sur 37** (+ Creativas, gesesoft), 1 ticket
 en cours (Teamlead), 27 sans réponse. Pas de remerciement envoyé sur les
 tickets déjà clos (une réponse les rouvrirait inutilement).
+
+### Réponse du 27/09
+
+| Éditeur | Réponse |
+|---|---|
+| Caelor (Trophies – Gamification for Jira) | **refus courtois** (27/09) : « We already have a plan and a clear direction for the app, so a transfer or sale won't be possible » ; ticket SUPPORT-15943 passé « Resolved ». Pas de réponse (le ticket est clos). |
+
+Bilan au 27/09 : **10 refus sur 37**, 1 ticket en cours (Teamlead),
+26 sans réponse. Relance courte prévue le 08/10 pour les fils silencieux.
