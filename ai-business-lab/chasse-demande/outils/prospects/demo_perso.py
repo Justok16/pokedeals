@@ -18,9 +18,9 @@ T={
 'couverture':dict(acc='#c0754a',hero='toit_4',g=['toit_1','toit_12','toit_0','toit_8'],sur='Couverture · Charpente · Zinguerie',
   h1='Un toit <em>solide</em>, une maison sereine.',intro='Tuiles, ardoises, charpente, zinguerie et isolation : votre toiture confiée à des spécialistes.',
   s=[('Couverture','Réfection complète ou partielle, tuiles et ardoises.'),('Charpente','Création, traitement et renforcement.'),('Zinguerie','Gouttières, descentes, habillages.'),('Isolation & fenêtres de toit','Combles isolés, lumière naturelle.')],gl=['Tuiles posées au cordeau','Tuiles anciennes','Architecture contemporaine','Finitions précises']),
-'peinture':dict(acc='#c9a45c',hero='peint_12',g=['peint_15','peint_28','peint_21','peint_23'],sur='Peinture · Façades · Isolation',
+'peinture':dict(acc='#c9a45c',hero='hpeint_0',bande='hpeint_b',g=['hpeint_1','hpeint_2','hpeint_3','hpeint_4'],sur='Peinture · Façades · Isolation',
   h1='Des murs qui <em>changent</em> tout.',intro='Peinture intérieure, ravalement et isolation par l’extérieur : des finitions impeccables, un logement transformé.',
-  s=[('Peinture intérieure','Murs, plafonds, boiseries, finitions soignées.'),('Ravalement de façade','Nettoyage, réparation et mise en peinture.'),('Isolation extérieure','Moins de pertes de chaleur, façade rénovée.'),('Conseil déco','Couleurs et matières choisies avec vous.')],gl=['Intérieurs lumineux','Entrées de caractère','Couleurs apaisantes','Volumes révélés']),
+  s=[('Peinture intérieure','Murs, plafonds, boiseries, finitions soignées.'),('Ravalement de façade','Nettoyage, réparation et mise en peinture.'),('Isolation extérieure','Moins de pertes de chaleur, façade rénovée.'),('Conseil déco','Couleurs et matières choisies avec vous.')],gl=['Couleurs franches','Façades bois','Le geste précis','Travail en hauteur']),
 'restaurant':dict(acc='#c8a26b',hero='hresto_0',bande='hresto_b',g=['hresto_1','hresto_2','hresto_3','hresto_4'],sur='Restaurant · Chambres d’hôtes',
   h1='Une table <em>au bord de l’eau</em>.',intro='Cuisine de saison, produits frais et vins de la région, dans un cadre où l’on prend le temps.',
   s=[('La carte','Plats de saison et spécialités de la région.'),('Les vins','Une sélection de vins locaux.'),('Groupes & fêtes','Repas de famille, anniversaires, événements.'),('Chambres','Prolongez le moment : nuit sur place.')],gl=['Dans l’assiette','Produits de saison','En terrasse','Autour de la table']),
@@ -123,7 +123,7 @@ const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target
 const ap=document.querySelector('.appel'),hb=document.querySelector('.heros .boutons'),ct=document.querySelector('#contact');let vh=true,vc=false;const maj=()=>ap&&ap.classList.toggle('on',!vh&&!vc);
 if(ap&&hb)new IntersectionObserver(e=>{vh=e[0].isIntersecting;maj()},{rootMargin:'0px 0px 110px 0px'}).observe(hb);if(ap&&ct)new IntersectionObserver(e=>{vc=e[0].isIntersecting;maj()},{threshold:.15}).observe(ct);</script>'''
 def page(p):
-    t=T[p['type']];e=html.escape;nom=e(p['nom']);num=re.sub(r'\D','',p['tel'])
+    t=dict(T[p['type']],**{k:p[k] for k in ('s','sur','gl') if k in p});e=html.escape;nom=e(p['nom']);num=re.sub(r'\D','',p['tel'])
     g=[img(x) for x in t['g']];h1=p.get('h1p',t['h1']);intro=e(p.get('acc',t['intro']))
     ch=''.join(f'<div><b>{e(a)}</b><span>{e(b)}</span></div>' for a,b in p.get('preuves',[]))
     sv=''.join(f'<div class="carte rv"><div class="n">0{i+1}</div><h3>{e(a)}</h3><p>{e(b)}</p></div>' for i,(a,b) in enumerate(t['s']))
