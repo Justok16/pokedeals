@@ -18,7 +18,7 @@ S=[
 ("La TVA ?","Mes prix sont nets : je suis en franchise de TVA, donc pas de TVA en plus. C'est écrit sur chaque facture : « TVA non applicable, article 293 B du CGI »."),
 ("C'est plus cher / moins cher que X ?","Je ne compare pas les autres. Chez moi : pas de frais de création, 6 mois puis libre, site à votre nom. Regardez la démo et jugez."),
 ("Vous faites une remise ?","Mon prix est déjà serré. Par contre, si vous me recommandez un collègue qui signe, vous gagnez un mois offert."),
-("Comment je paie ?","Chaque mois, avec une facture envoyée par email. [Mode de paiement à confirmer : prélèvement ou virement]."),
+("Comment je paie ?","Par prélèvement automatique mensuel, avec une facture chaque mois par email. Le premier prélèvement a lieu au plus tôt 8 jours après la signature."),
 ]),
 ("Propriété et sécurité",[
 ("Le site est à qui ?","À vous. Le nom de domaine est à votre nom dès le premier jour. Si on arrête, je vous remets les fichiers."),

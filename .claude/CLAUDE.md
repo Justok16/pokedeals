@@ -76,13 +76,11 @@
 
 ## Rappels promis à l'utilisateur
 
-- **Paiement client (promis le 26/09)** : dès que l'utilisateur prépare un
-  appel ou un rendez-vous client, dit « souffleur », signe un premier client
-  ou crée l'entreprise, lui rappeler de fixer les 2 réponses entre crochets
-  de l'antisèche (`supports/antiseche-reponses.html`, n° 12 et 15) :
-  **TVA** (franchise en base ou non, selon le statut choisi) et **mode de
-  paiement** (virement ou prélèvement). Proposer la réponse recommandée,
-  puis mettre à jour l'antisèche et renvoyer le PDF.
+- **Paiement client : FAIT le 27/09.** Antisèche n° 12 : franchise en base
+  (« TVA non applicable, article 293 B du CGI », vérifié sur Service Public) ;
+  n° 15 : prélèvement automatique mensuel (choix de l'utilisateur, cohérent
+  avec le site et le plan). Si le statut choisi à la création sort de la
+  franchise, revoir la n° 12 et renvoyer le PDF.
 
 ## Outils en place
 
