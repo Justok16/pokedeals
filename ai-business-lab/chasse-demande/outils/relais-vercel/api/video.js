@@ -1,7 +1,7 @@
 // Résume une vidéo YouTube avec Gemini.
 // 1) Si la variable d'environnement GEMINI_API_KEY existe (clé gratuite Google AI Studio,
 //    saisie par l'utilisateur dans les réglages Vercel, jamais dans le dépôt) : appel direct
-//    à l'API Gemini (offre gratuite : 8 h de vidéo YouTube par jour).
+//    à l'API Gemini (offre gratuite : environ 20 requêtes par jour et par modèle, constaté le 26/09).
 // 2) Sinon : Vercel AI Gateway (jeton OIDC, crédit gratuit mensuel).
 // Déploiement protégé (Vercel Authentication) : appel via le connecteur Vercel.
 import { generateText } from 'ai';
@@ -31,7 +31,14 @@ function adresseProtegee(request) {
 
 export async function GET(request) {
   if (!adresseProtegee(request)) return new Response('Accès refusé', { status: 403 });
-  const id = new URL(request.url).searchParams.get('id') || '';
+  const params = new URL(request.url).searchParams;
+  if (params.get('liste') === '1' && process.env.GEMINI_API_KEY) {
+    // Liste des modèles disponibles pour cette clé (sans la clé dans la réponse)
+    const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200', { headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY } });
+    const j = await r.json();
+    return Response.json((j.models || []).map((m) => ({ nom: m.name, methodes: m.supportedGenerationMethods })));
+  }
+  const id = params.get('id') || '';
   if (!/^[A-Za-z0-9_-]{11}$/.test(id)) {
     return Response.json({ erreur: 'identifiant vidéo invalide' }, { status: 400 });
   }
@@ -43,7 +50,8 @@ export async function GET(request) {
     const url = `https://www.youtube.com/watch?v=${id}`;
     const erreurs = [];
     // API « interactions » (documentation Google, septembre 2026)
-    for (const modele of [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-2.5-flash'].filter(Boolean)) {
+    const choisis = (params.get('modeles') || '').split(',').filter((m) => /^[a-z0-9.-]{3,60}$/.test(m));
+    for (const modele of (choisis.length ? choisis : [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-2.5-flash'].filter(Boolean))) {
       try {
         const rep = await fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
           method: 'POST',
