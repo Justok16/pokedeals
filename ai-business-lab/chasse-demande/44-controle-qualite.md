@@ -31,8 +31,8 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
 - [ ] Pas de texte en dégradé (« background-clip:text ») dans un PDF : Chromium
       peut dessiner un cadre parasite autour ; utiliser une couleur pleine.
 - [ ] Pas deux démos avec la même photo principale dans un même livret.
-- [ ] Photos nettes : taille au moins égale à la surface affichée × 2 (écrans haute
-      définition) ; photo de fond en version haute pour téléphone et large pour
+- [ ] Photos nettes, mesurées avec `outils/nettete.py` : taille au moins égale à la
+      surface affichée × densité de l'écran (jusqu'à ×3 sur téléphone) ; photo de fond en version haute pour téléphone et large pour
       ordinateur ; vérifiées en gros plan, pas seulement en miniature.
 - [ ] Animations : vérifiées à 0, 25, 50, 75 et 100 % de leur durée.
 - [ ] Lisibilité mesurée (`outils/lisibilite.py`) : aucun texte sous 13 px ni en

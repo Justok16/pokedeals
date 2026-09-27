@@ -101,7 +101,7 @@
 - Liste des outils : `33-outils.md`.
 - **Base de connaissances vidéo** (demande du 26/09) : résumés Gemini des
   vidéos YouTube dans `connaissances/` (chaîne Finary : finances
-  personnelles, 965 vidéos, traitées par lots de ~8 h/jour avec
-  `outils/resumer_chaine.py`). À consulter avant de répondre sur ces sujets ;
+  personnelles, 965 vidéos, traitées avec `outils/resumer_chaine.py` qui
+  alterne 7 modèles Gemini gratuits : ~20 vidéos/jour/modèle, soit ~1 semaine). À consulter avant de répondre sur ces sujets ;
   toute règle fiscale ou chiffre qui en est tiré est revérifié à la source
   officielle avant d'être affirmé.

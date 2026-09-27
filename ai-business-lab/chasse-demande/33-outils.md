@@ -66,6 +66,15 @@ Depuis le 26/09 au soir : **clé Gemini gratuite** créée par l'utilisateur et
 enregistrée dans Vercel (`GEMINI_API_KEY`, jamais dans le dépôt). `/api/video`
 l'utilise en priorité (offre gratuite : 8 h de vidéo YouTube par jour, et une
 limite de débit : espacer les vidéos d'environ 75 s).
+Correction du 27/09 : la vraie limite gratuite est d'environ **20 requêtes par jour
+et par modèle** ; 7 modèles savent lire une vidéo (gemini-3.8/3.7/3.6/3.5-flash,
+3-flash-preview, 3.5-flash-lite, 3.1-flash-lite) — `/api/video?modeles=…` choisit le
+modèle, `/api/video?liste=1` liste les modèles de la clé, `/api/chaine?chaine=@nom`
+liste toutes les vidéos d'une chaîne.
+**Déploiement du relais depuis GitHub** (27/09) : `create_deployment` avec
+`gitSource` (Justok16/pokedeals, branche de travail) et `rootDirectory`
+`ai-business-lab/chasse-demande/outils/relais-vercel` — plus besoin de coller
+les fichiers : committer, pousser, puis redéployer.
 
 **Mise à jour 25/09, 22:40 UTC : fonctionne.** Carte enregistrée par
 l'utilisateur ; Gemini résume les vidéos YouTube, Jev répond (coût facturé
