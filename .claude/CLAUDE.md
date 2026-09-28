@@ -93,6 +93,11 @@
 
 ## Apprentissage continu (demande forte du 28/09)
 
+- **Consigne du 28/09 (nuit)** : prendre des initiatives, continuer d'apprendre (connaissances,
+  compétences, skills), ajouter connecteurs et MCP dès qu'ils sont utiles (vérifier l'offre
+  gratuite à la source ; sinon chercher l'équivalent gratuit), et **aller au bout des recherches
+  par tous les moyens** avant de conclure.
+
 - **Chaque vidéo YouTube envoyée par l'utilisateur** (et chaque nouvelle vidéo Finary/Fintales)
   est résumée, triée et **appliquée** sans attendre qu'il le demande : marche à suivre et
   registre dans `46-apprentissage-continu.md` (liste « À faire » reprise à chaque point

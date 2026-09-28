@@ -140,6 +140,28 @@ Premier audit (28/09) :
 - À faire au lancement : anti-spam et limite d'envois sur le vrai formulaire ; paiement
   uniquement par un prestataire (prix fixés côté serveur, jamais dans la page).
 
+## Diagnostic « visibilité Google » d'un prospect (gratuit, trouvé le 28/09/2026)
+
+Besoin : montrer à un artisan, preuve à l'appui, s'il apparaît ou non quand un client cherche
+« son métier + sa commune ». Outil payant du marché : **Local Falcon** (100 crédits offerts une
+fois, soit 4 scans de 25 points ; page tarifs lue le 28/09 : « +100 Free Credits on sign up »,
+« No credit card needed »). **Équivalent gratuit déjà branché : OpenRush `inspect_serp`**
+(requête « plombier <commune> », langue French, lieu « <Commune>,<Région>,France ») : renvoie
+en direct le **trio Google Maps** (nom, note, nombre d'avis) et les **10 premiers résultats**.
+Test du 28/09 sur « plombier Bordeaux » : le trio Maps est pris par 3 artisans (4,9★/180 avis,
+5★/518 avis, 4,9★/31 avis) ; dans les 10 résultats, **8 sont des annuaires ou plateformes**
+(travaux.com, bilik, allovoisins, depanneo, mappy, PagesJaunes…) et 1 seul artisan a son propre site.
+Leçons pour Dig :
+- l'artisan se bat surtout pour le **trio Maps** : fiche Google soignée + avis = cœur de la
+  formule Visibilité ; son site sert à confirmer et à convertir ;
+- avant une visite, lancer la recherche sur son métier et sa commune et noter sa position
+  (dans la fiche privée du prospect, Drive « Dig », jamais ici) : argument concret et vérifiable.
+Connecteurs vus et **non retenus** (28/09) : Local Falcon (doublon payant d'OpenRush),
+Jotform (5 formulaires, 100 envois/mois gratuits, mais données stockées chez un tiers américain ;
+le formulaire du site sera fait avec Cloudflare + Resend, déjà branchés), Vibe Prospecting
+(200 crédits/mois gratuits, « 1 credit Find a business », « 5 credits » un téléphone ; couverture
+des petits artisans français à vérifier ; l'annuaire officiel reste la source principale).
+
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
 | Blocage | Solution gratuite qui marche |
 |---|---|
