@@ -1,4 +1,4 @@
-# 47 — Offre de parrainage Dig (préparée le 28/09/2026, à valider par l'utilisateur)
+# 47 — Offre de parrainage Dig (variante A validée par l'utilisateur le 28/09/2026)
 
 Idée tirée de la vidéo vKat0aTuEbo (l'auteur vend surtout grâce aux recommandations de ses
 clients). Les prix et récompenses engagent l'utilisateur : **rien n'est publié avant son choix.**
@@ -74,7 +74,9 @@ Un client trouvé par recommandation ne demande ni démarchage, ni appels, ni vi
 
 ## 6. Ce qu'il reste à faire après le choix de l'utilisateur
 
-1. Ajouter l'article aux CGV et le bloc sur le site (contrôle qualité complet avant mise en ligne).
-2. Ajouter au guide de prospection : demander une recommandation après chaque mois réussi.
+1. **Fait le 28/09** : bloc et conditions sur le site (contrôle qualité : 0 défaut) ; guide de
+   prospection et son PDF mis à jour (partie 7). L'article du paragraphe 5 entrera dans les
+   conditions générales de vente rédigées à la création de l'entreprise.
+2. **Fait** : demander une recommandation après chaque bilan mensuel réussi (guide, partie 7).
 3. Suivre les parrainages (qui a recommandé qui, remise appliquée ou non) dans la fiche client
    (dossier privé Drive « Dig »).

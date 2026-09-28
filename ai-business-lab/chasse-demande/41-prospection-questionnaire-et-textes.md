@@ -149,6 +149,7 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
 | Contrat en cours ailleurs | + option **Départ sans coupure** (offerte) |
 | Rendez-vous, réservations | **inclus** dans toutes les formules |
 | Clientèle étrangère | Version anglaise **+5 €/mois** (incluse en Prestige) |
+| Vient de la part d'un client (parrainage) | Premier mois **offert** ; un mois offert au client qui l'a recommandé (`47-parrainage.md`) |
 | Profession de santé | Présence ou Essentiel, sans témoignages ni référencement payant (`40` section C) |
 
 Rappels à dire au client : nom de domaine à son nom, payé par lui

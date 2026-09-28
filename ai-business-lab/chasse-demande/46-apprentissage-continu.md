@@ -35,7 +35,7 @@
 
 | Sujet | Source | Question |
 |---|---|---|
-| **Parrainage client** | vKat0aTuEbo | Offre préparée le 28/09 (`47-parrainage.md`) : variante A, B ou C à choisir |
+| **Parrainage client** | vKat0aTuEbo | **Validé (variante A) et appliqué le 28/09** : site, guide, `47-parrainage.md` |
 | Connecteurs **Firecrawl** et **Similarweb** | HOXrLsVqinY, inventaire du 28/09 | À brancher sur claude.ai (voir `33-outils.md`) |
 
 ## Registre de toutes les vidéos envoyées
