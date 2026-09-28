@@ -9,9 +9,9 @@ S=[
 ("Pourquoi vous m'appelez moi ?","J'ai vu que [votre site date un peu / on ne vous trouve pas sur Google]. J'ai préparé votre page d'accueil pour vous montrer la différence."),
 ]),
 ("Prix et engagement",[
-("Combien ça coûte ?","À partir de 29 € par mois, 0 € de création. La formule la plus choisie est à 49 €, et 79 € si vous voulez plus de demandes via Google. Pour un hôtel, un restaurant ou un domaine qui veut un site d’exception : Prestige, 1 990 € ou 199 € par mois."),
+("Combien ça coûte ?","49 € par mois, 0 € de création : le site complet. 79 € avec le suivi de votre fiche Google et des demandes d'avis. Le premier mois se règle avant la mise en ligne. Pour un hôtel, un restaurant ou un domaine qui veut un site d’exception : Prestige, 1 990 € ou 199 € par mois."),
 ("Pourquoi un abonnement ?","Parce qu'un site doit vivre : hébergement, sécurité, modifications, suivi Google. Tout est compris, vous n'avez rien à gérer."),
-("Je préfère payer une fois.","C'est possible : 690 € une fois, le site est à vous. Le suivi à 15 € par mois est facultatif."),
+("Je préfère payer une fois.","Les sites se règlent au mois, sans frais de création : pas de grosse somme à avancer, et vous êtes libre après 6 mois. Pour un site d'exception, Prestige existe en paiement unique (1 990 €)."),
 ("Je suis engagé combien de temps ?","6 mois minimum, puis vous êtes libre, sans engagement. Si vous restez, c'est parce que vous êtes content."),
 ("Comment j'arrête ?","Par un simple email. Le site et le nom de domaine sont à votre nom : vous partez avec."),
 ("Il y a des frais cachés ?","Non. Seul le nom de domaine, environ 10 € par an, est payé par vous directement : comme ça il vous appartient."),
@@ -29,7 +29,7 @@ S=[
 ("J'aurai une adresse email pro ?","Oui, du type contact@votre-nom.fr, qui arrive dans votre boîte actuelle. Rien à changer à vos habitudes."),
 ]),
 ("Google et visibilité",[
-("Je serai premier sur Google ?","Personne d'honnête ne peut le garantir. Ce que je garantis : un site construit dans les règles de Google, avec une page par service et par secteur, et une fiche Google soignée."),
+("Je serai premier sur Google ?","Personne d'honnête ne peut le garantir. Ce que je garantis : un site construit dans les règles de Google, avec une page par service, et une fiche Google soignée."),
 ("Combien de temps pour être visible ?","La fiche Google agit vite. Le site progresse sur quelques semaines à quelques mois, selon votre métier et votre concurrence."),
 ("C'est quoi la fiche Google ?","C'est la fiche qui apparaît sur Google Maps avec vos horaires, vos avis, vos photos. C'est souvent le premier contact avec un client."),
 ("Vous faites de la pub Google ?","Ce n'est pas inclus : je travaille le référencement naturel, qui ne coûte rien par clic. La pub peut s'ajouter plus tard si besoin."),

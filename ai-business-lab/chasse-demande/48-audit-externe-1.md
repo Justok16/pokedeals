@@ -154,3 +154,17 @@ Audit n° 4 : créer la micro-entreprise **avant tout appel** commercial (identi
 L34-5 CPCE pour les messages électroniques, L121-2). Audits n° 1 et 3 : appels ou visites de
 test d'abord, sans vente. La création est gratuite ; ses effets sur la situation personnelle
 de l'utilisateur ne regardent que lui (vérification prévue dans le kit, section 2 bis).
+
+---
+
+# Décisions de l'utilisateur (28/09/2026)
+
+1. **Micro-entreprise créée avant les appels** (avec calcul préalable du revenu le plus
+   judicieux ; données personnelles hors dépôt).
+2. **3 formules** : Essentiel, Visibilité, Prestige (appliqué : site, guide, antisèche, 39, 41, 47).
+3. **Vidéos Finary et Fintales : continuer.**
+4. **Atlassian** : relance du 08/10 (formulation corrigée), puis arrêt si aucun « oui ».
+5. **Premier mois réglé avant la mise en ligne** (appliqué).
+6. **Pages par commune retirées** (appliqué).
+Reste : flyer (« dès 29 € » à passer à « dès 49 € » ; « Plus d'appels et de devis » = promesse de
+résultat à reformuler) — à refaire avant toute distribution.

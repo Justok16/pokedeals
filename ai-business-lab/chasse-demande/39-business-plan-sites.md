@@ -78,7 +78,20 @@ avant le contact** (le prospect voit *son* site refait), et un prix
 - **Promesse** : « Votre nouveau site en 7 jours, à vous pour toujours,
   sans engagement long. »
 
-### 3.2 Formules (grille **validée par l'utilisateur le 26/09/2026**)
+### 3.2 bis — Décisions du 28/09/2026 (après 4 audits externes, `48`)
+
+- **Offre publique réduite à 3 formules : Essentiel 49 €/mois, Visibilité 79 €/mois, Prestige**
+  (1 990 € ou 199 €/mois). Présence (29 €) et Achat (690 €) retirés du site et des supports.
+- **Premier mois réglé avant la mise en ligne** (jamais avant J+8 après une signature hors
+  établissement, article L221-10, voir `40`).
+- **Pas de « pages par commune »** (risque de pages satellites, règles anti-spam de Google) ;
+  une page locale seulement pour un vrai chantier à montrer.
+- **Micro-entreprise créée avant les premiers appels** ; calcul préalable du revenu le plus
+  judicieux au regard de la situation personnelle (données privées, hors dépôt).
+- Attention franchise de TVA : 37 500 € par an en services (Service Public F21746, vérifié le
+  01/01/2026) ; les scénarios à 60 et 100 clients ci-dessous la dépassent.
+
+### 3.2 Formules (grille **validée par l'utilisateur le 26/09/2026**) — *remplacée en partie par 3.2 bis*
 
 | Formule | Prix | Pour qui | Contenu |
 |---|---|---|---|

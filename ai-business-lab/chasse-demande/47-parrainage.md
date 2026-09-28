@@ -18,7 +18,6 @@ signer tout de suite. Les programmes « double récompense » sont les plus cour
 
 | Formule du filleul | Revenu de sa 1ʳᵉ année | Coût du parrainage (2 mois offerts) | Reste |
 |---|---|---|---|
-| Présence 29 €/mois | 348 € | 58 € | 290 € |
 | Essentiel 49 €/mois | 588 € | 98 € | 490 € |
 | Visibilité 79 €/mois | 948 € | 158 € | 790 € |
 
@@ -26,8 +25,6 @@ Hypothèse de calcul : le parrain a la même formule que le filleul et le filleu
 Un client trouvé par recommandation ne demande ni démarchage, ni appels, ni visites.
 
 **Cas particuliers :**
-- Client « Achat » (690 €, sans abonnement) : 3 mois d'hébergement offerts (3 × 15 €), ou
-  50 € de remise sur une prochaine prestation.
 - Prestige : 1 mois offert (199 €), ou 100 € de remise sur le paiement en une fois.
 
 ## 3. Variantes possibles (choix de l'utilisateur)
@@ -80,3 +77,6 @@ Un client trouvé par recommandation ne demande ni démarchage, ni appels, ni vi
 2. **Fait** : demander une recommandation après chaque bilan mensuel réussi (guide, partie 7).
 3. Suivre les parrainages (qui a recommandé qui, remise appliquée ou non) dans la fiche client
    (dossier privé Drive « Dig »).
+
+> Mise à jour du 28/09 : offre réduite à Essentiel, Visibilité et Prestige (voir `39`, 3.2 bis) ;
+> le premier mois payant du filleul est réglé avant la mise en ligne.

@@ -141,16 +141,16 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
 
 | Réponses | Formule |
 |---|---|
-| Très petit budget, auto-entrepreneur, besoin d'être « trouvable » | **Présence** (29 €/mois) |
+| Très petit budget, auto-entrepreneur, besoin d'être « trouvable » | **Essentiel** (49 €/mois, 0 € de création) |
 | Pas de site ou vieux site, bouche-à-oreille suffit presque | **Essentiel** (49 €/mois) |
 | Veut plus de demandes, concurrents actifs sur Google, zone large | **Visibilité** ⭐ (79 €/mois) |
-| Préfère payer une fois, a déjà quelqu'un pour la mise à jour | **Achat** (690 € + 15 €/mois facultatif) |
+| Préfère payer une fois | **Essentiel au mois** (rien à avancer) ; Prestige seulement pour un site haut de gamme |
 | Image haut de gamme essentielle (hôtel, restaurant, domaine, art) | **Prestige** (1 990 € ou 199 €/mois) |
 | Contrat en cours ailleurs | + option **Départ sans coupure** (offerte) |
 | Rendez-vous, réservations | **inclus** dans toutes les formules |
 | Clientèle étrangère | Version anglaise **+5 €/mois** (incluse en Prestige) |
 | Vient de la part d'un client (parrainage) | Premier mois **offert** ; un mois offert au client qui l'a recommandé (`47-parrainage.md`) |
-| Profession de santé | Présence ou Essentiel, sans témoignages ni référencement payant (`40` section C) |
+| Profession de santé | Essentiel, sans témoignages ni référencement payant (`40` section C) |
 
 Rappels à dire au client : nom de domaine à son nom, payé par lui
 (environ 10 €/an) ; vérification de sa fiche Google par lui-même.
