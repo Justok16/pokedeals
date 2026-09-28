@@ -53,6 +53,20 @@ emails, skills, belles interfaces, sites, outils gratuits). Fiches : `connaissan
 et `connaissances/mreflow/`. Élargissement proposé à l'utilisateur une fois ces 30 vidéos
 triées et appliquées.
 
+## Veille quotidienne sur les sources de l'utilisateur (depuis le 28/09/2026)
+
+`outils/veille_sources.py` (lancé une fois par jour par le point automatique) :
+- **Chaînes YouTube** (`connaissances/*/liste-videos.json`) : Finary, Fintales, Melvynx,
+  Matt Wolfe. Nouvelles vidéos en tête de liste ; pour Melvynx et Matt Wolfe, seules celles
+  dont le titre touche au projet (filtre dans `liste-videos.json`) vont dans `prio.json`.
+- **Annuaires d'outils** : nosignups.net (268), futuretools.io (environ 4 300), free-for.dev
+  (1 367 offres gratuites), mrfreetools.com (1 913). Mémoire cumulée dans `veille/etat/`.
+- **Rapport** : `veille/<date>.md`. Chaque nouveauté utile est évaluée (offre gratuite vérifiée à
+  la source, légalité, utilité pour Dig ou pour la chasse aux pistes), puis appliquée ou écartée
+  ici, avec la raison.
+- **Limite** : les pages Facebook (reels de « gabzermp4 ») exigent une connexion pour lister leurs
+  vidéos ; seuls les liens envoyés un par un sont lisibles (voir `33-outils.md`).
+
 ## Registre de toutes les vidéos envoyées
 
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`

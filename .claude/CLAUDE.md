@@ -98,6 +98,12 @@
   gratuite à la source ; sinon chercher l'équivalent gratuit), et **aller au bout des recherches
   par tous les moyens** avant de conclure.
 
+- **Veille sur toutes les sources ajoutées par l'utilisateur** (demande du 28/09 : « vérifier dès
+  qu'il y a du nouveau et l'apprendre pour t'améliorer au fur et à mesure ») : une fois par jour,
+  `python3 outils/veille_sources.py /tmp/cj.txt` (chaînes YouTube de `connaissances/`, annuaires
+  nosignups, futuretools, free-for.dev, mrfreetools) ; lire `veille/<date>.md`, trier et
+  appliquer les nouveautés selon `46-apprentissage-continu.md`. Toute nouvelle source envoyée
+  par l'utilisateur est ajoutée à cette veille si elle a une liste lisible automatiquement.
 - **Chaque vidéo YouTube envoyée par l'utilisateur** (et chaque nouvelle vidéo Finary/Fintales)
   est résumée, triée et **appliquée** sans attendre qu'il le demande : marche à suivre et
   registre dans `46-apprentissage-continu.md` (liste « À faire » reprise à chaque point
