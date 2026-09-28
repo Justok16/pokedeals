@@ -113,3 +113,18 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
 - Reste avant impression : prénom, nom, SIREN, adresse, téléphone et email (après immatriculation).
 
 - 28/09 (soir) : PDF refait à partir d'une image 300 ppp (1 748 × 2 480 px, A5 exact) après une capture de l'utilisateur montrant des rectangles sombres et un titre tronqué dans sa visionneuse ; contrôlé avec pdfium et MuPDF, QR décodé.
+
+## Flyer de référence : Canva (28/09/2026, soir) — choix de l'utilisateur (« bien plus beau »)
+
+- Design Canva DAHWQH2QKK8, exports `supports/Dig-Flyer-A5.pdf` (A5 exact) et `.png` (300 ppp).
+- Corrections : « dès 49 € » ; « Facile à appeler / Pensé d’abord pour le téléphone » (plus de
+  promesse de résultat) ; « Modifications sous 48 h, bilan mensuel » ; « Premier mois offert »
+  (parrainage) ; mentions légales avec « premier mois réglé avant la mise en ligne » ;
+  apostrophes typographiques ; titres des cartes harmonisés (même taille, une ligne) ;
+  coupures de lignes volontaires ; encadré de l'offre ajusté.
+- Contrôle : texte extrait (aucune trace de 29 €, promesse, note fictive), QR décodé depuis le
+  PDF à 300 et 72 ppp → https://digsite.pages.dev/, rendu identique pdfium / MuPDF, marges :
+  3,2 mm en bas, 6,3 mm à gauche et à droite (zone de sécurité d'imprimeur ≈ 3 mm).
+- Le flyer HTML (`flyer-dig-a5.html`, v5) reste une solution de secours.
+- Avant impression : prénom, nom, SIREN, adresse, téléphone, email (après immatriculation) ;
+  demander à l'imprimeur s'il veut un fond perdu (Canva : « Fond perdu » à l'export).
