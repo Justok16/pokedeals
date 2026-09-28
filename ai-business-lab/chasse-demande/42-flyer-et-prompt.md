@@ -91,3 +91,10 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
 
 - L'ancien QR code menait à `dig-demo-menuisier.vercel.app`, projet Vercel supprimé : il ne fonctionnait plus.
 - Remplacé dans Canva (design « DAHWQH2QKK8 ») par un QR vers **https://digsite.pages.dev/** (`site-dig/qr-digsite.png`) ; vérifié en décodant l'export 1748 × 2480 px. PNG et PDF du flyer mis à jour dans `supports/`.
+
+## Parrainage (28/09)
+
+- Ajout validé par l'utilisateur (« ok flyer ») : « Recommandé par un client ? 1er mois offert. »
+  sous « Appelez ou scannez », dans l'élément texte d'origine (même police), 10 pt, interligne 1,05.
+- Contrôle : QR décodé → https://digsite.pages.dev/ ; écart mesuré entre la dernière ligne et le
+  bord du bloc ≈ 1,7 mm, aucun chevauchement avec l'icône email. PNG 1748 × 2480 et PDF A5 mis à jour.
