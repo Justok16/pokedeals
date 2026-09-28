@@ -59,7 +59,7 @@ livrables 8, risques 4, potentiel 6 (1 500 à 3 000 €/mois de revenu récurren
 | Atlassian exige vérification et double authentification pour devenir partenaire | **Exact** : « Marketplace Partner enrollment completed (agreement, due diligence, 2SV) » | developer.atlassian.com, « Register as an Atlassian Marketplace Partner » |
 | SOC 2 / ISO 27001 / bug bounty payant obligatoires | **Exagéré** : exigés seulement pour les niveaux Silver, Gold et Platinum du programme (« Platinum… SOC II Type 2 or ISO 27001:2022 », « Gold… audits scheduled », « Silver… Bug Bounty… the most installs »), pas pour entrer sur la Marketplace | developer.atlassian.com, « Marketplace Partner Program » |
 | « Un particulier ne peut pas franchir ces barrières » | **Contredit** : plusieurs éditeurs ciblés sont des vendeurs individuels (ex. le vendeur 1215814, « individuel »). Mais la vérification (due diligence) suppose une identité et, pour nous, une entreprise créée avant tout transfert | 25-reprise-atlassian.md |
-| « Plus de 95 % des utilisateurs payants déjà migrés vers Forge » | **Non sourcé** ; à vérifier | — |
+| « Plus de 95 % des utilisateurs payants déjà migrés vers Forge » | **Correction** : notre propre fichier `24-atlassian-fin-connect.md` note déjà qu'« Atlassian affirme que plus de 95 % des postes payants ont migré ». Le marché résiduel est donc petit | 24 (blog officiel Atlassian) |
 | Démos publiques avec logos et coordonnées de vrais artisans | **Faux** : les démos en ligne sont fictives (mentions légales, section 3) ; les démos personnalisées restent privées | site-dig |
 | Signer des contrats « sous condition suspensive d'immatriculation » avant la création | **Déconseillé** : non vérifié juridiquement ; règle maintenue : aucune signature ni aucun paiement avant l'immatriculation | L8221-3 |
 | 0 € de création = risque d'impayé et marge initiale négative | **Juste** : décision de prix pour l'utilisateur (frais de mise en service ou premier mois payé d'avance) ; procédure d'impayés dans `45` | 45-impayes-se-proteger.md |
@@ -71,3 +71,45 @@ livrables 8, risques 4, potentiel 6 (1 500 à 3 000 €/mois de revenu récurren
 - Offre : ajouter des frais de mise en service ou faire payer le premier mois d'avance, pour
   couvrir le travail de départ et limiter les impayés.
 - Assurance RC professionnelle : devis à demander au moment de la création (déjà prévu dans 39).
+
+---
+
+# Audit externe n° 3 (reçu le 28/09/2026)
+
+Même prompt, troisième IA, sans accès au site ni au dépôt. Le plus prudent des trois : continuer
+Dig 30 jours comme **test commercial limité** ; suspendre Atlassian sauf la relance du 08/10.
+Notes : 4, 1, 3, 3, 3, 2, 2, 4, 3, 2. Canal conseillé en premier : **l'appel professionnel ciblé**
+(40 appels), démo privée seulement si l'artisan est intéressé, visite ensuite. Scénarios à 12 mois
+sans probabilité : 0 à 18 clients (0 à 1 170 €/mois bruts).
+
+## Erreurs de notre dossier relevées par l'audit n° 3 (vérifiées)
+
+1. **Atlassian — les clients ne perdent pas l'accès.** Blog officiel Atlassian « Announcing
+   Connect End of Support » (17/03/2025) : « Customers who have Connect apps installed won't lose
+   access to the app, but this is an undesired state for customers due to lack of support ».
+   Blog du 06/08/2025 : « Connect will no longer receive security updates or feature updates.
+   Over time, some Connect features may stop working ». Notre message aux éditeurs disait
+   « your customers may lose these apps » : **formulation trop forte**. La relance du 08/10 doit
+   dire « plus de mises à jour de sécurité, fonctions qui peuvent cesser de marcher avec le
+   temps » (correction reportée dans `25-reprise-atlassian.md`).
+2. **Le prompt d'audit sous-estimait les refus** : il disait « au moins 2 refus » alors que le
+   dossier en compte **10 sur 37** au 27/09 (1 ticket en cours, 26 silences). Erreur de Claude,
+   corrigée dans `supports/prompt-audit-externe.md`.
+
+## Autres points vérifiés
+
+| Affirmation | Verdict | Source lue (28/09/2026) |
+|---|---|---|
+| Les « pages par commune » peuvent être des pages satellites | **Exact, risque réel** : Google cite parmi les abus « Having multiple domain names or pages targeted at specific regions or cities that funnel users to one page ». Chaque page locale doit avoir un contenu propre et utile (chantiers réels, horaires, accès), sinon ne pas en faire | Google Search Central, « Spam policies for Google web Search » |
+| Fiche Google gérée par un tiers : accord du client, propriété, transparence | **Exact** : « all end customers must retain ownership or co-ownership of their Business Profile at all times » ; « If you charge a management fee, you must let end customers know that Business Profile is a service provided at no extra cost » ; changements sans accord interdits | Google, « Business Profile third-party policies » |
+| Prélèvement SEPA : pré-notification du montant et de la date (14 jours sauf délai convenu) | **À vérifier** dans les règles SEPA et dans le fonctionnement de Stripe ; à écrire dans le mandat et les CGV | — |
+| Franchise TVA, facturation électronique, rétractation hors établissement | Exact (déjà vérifié : audits 1 et 2 ; fichier 40) | — |
+| Revenu « net » de 1 400 €/mois pour 30 clients | Le calcul (39, section 7) retire cotisations 25,6 % et frais, **pas** l'impôt ni le temps passé : dire « après cotisations et frais », pas « net » | 39 |
+
+## À appliquer (sans décision de prix)
+
+- Mesurer le **temps réel** de fabrication d'une démo et d'un site livré (question commune aux
+  3 audits) ; noter la propriété du code, du domaine et des accès en fin de contrat (déjà : « le
+  site vous appartient »), à écrire noir sur blanc dans les CGV.
+- Mention à ajouter dans l'offre et les CGV le jour de la création : « la fiche Google est un
+  service gratuit de Google ; le client en reste propriétaire ».

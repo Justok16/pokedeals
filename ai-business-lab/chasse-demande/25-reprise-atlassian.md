@@ -330,3 +330,12 @@ tickets déjà clos (une réponse les rouvrirait inutilement).
 
 Bilan au 27/09 : **10 refus sur 37**, 1 ticket en cours (Teamlead),
 26 sans réponse. Relance courte prévue le 08/10 pour les fils silencieux.
+
+## Correction du 28/09 (audit externe n° 3, vérifiée sur le blog officiel Atlassian)
+
+Atlassian écrit : « Customers who have Connect apps installed won't lose access to the app, but
+this is an undesired state for customers due to lack of support » (17/03/2025) et « Over time,
+some Connect features may stop working » (06/08/2025). La phrase de notre message « your
+customers may lose these apps » est **trop forte**. Pour la relance du 08/10, écrire plutôt :
+« after 31 January 2027 these apps will get no more security or feature updates, and some
+features may stop working over time ». Bilan à reporter fidèlement : 10 refus sur 37 au 27/09.

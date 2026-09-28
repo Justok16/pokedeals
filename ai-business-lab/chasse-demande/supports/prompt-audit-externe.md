@@ -34,14 +34,14 @@ extensions Chrome), SaaS à vendre, échéances réglementaires européennes, fe
 produits (un « radar » automatique surveille 30 sources). Deux pistes ont été retenues.
 
 ### 2.2 Piste A — Reprise d'apps Atlassian « Connect » abandonnées
-- Constat : Atlassian ne supporte plus les apps « Connect » après le **31/01/2027**. Certains
-  éditeurs n'ont migré aucune app vers la nouvelle plateforme « Forge ». Leurs clients payants
-  vont perdre l'app.
+- Constat : Atlassian ne supporte plus les apps « Connect » après le **31/01/2027** (plus de
+  mises à jour de sécurité ; certaines fonctions peuvent cesser de marcher avec le temps ; les
+  clients gardent l'accès). Certains éditeurs n'ont migré aucune app vers « Forge ».
 - Proposition faite aux éditeurs : transfert officiel de la fiche Marketplace, portage vers
   Forge fait par nous, et **30 % du revenu reversé à l'éditeur pendant 24 mois**, sans achat.
 - Réalisé : **37 éditeurs contactés** entre le 24 et le 25/09 (portails d'assistance et
-  emails), par vagues. Résultat au 28/09 : **au moins 2 refus** (dont un « Not interested, thanks »
-  dans l'heure), des accusés de réception automatiques, aucun « oui ». Relance prévue le
+  emails), par vagues. Résultat au 27/09 : **10 refus sur 37** (surtout des éditeurs qui migrent
+  eux-mêmes), 1 demande en cours, 26 sans réponse, aucun « oui ». Relance prévue le
   08/10. Un kit « en cas de oui » est prêt : contrat, portage, statut juridique.
 - Mon interrogation : je n'ai ni entreprise, ni historique, ni code Forge déjà publié.
 
