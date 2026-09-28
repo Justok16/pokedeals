@@ -41,3 +41,33 @@ marché, cadre légal soigné — et zéro contact humain ; 30 jours 100 % terra
    (Gemini gratuit, fiches groupées) et ne prend pas de temps à l'utilisateur ; décision de
    l'utilisateur : continuer, ralentir ou arrêter.
 4. Réponses aux questions de l'auditeur (temps disponible par jour, etc.).
+
+---
+
+# Audit externe n° 2 (PDF reçu le 28/09/2026, 9 pages)
+
+Même prompt, autre IA. Verdict plus dur : **abandon immédiat de la piste Atlassian**, 100 % du
+temps sur Dig, arrêt des vidéos et du point automatique, 100 appels et 20 visites en 10 jours.
+Notes : pistes 4, demande 2, offre 7, acquisition 6, juridique 5, Atlassian 1, temps 3,
+livrables 8, risques 4, potentiel 6 (1 500 à 3 000 €/mois de revenu récurrent visé).
+
+## Vérifications à la source (28/09/2026)
+
+| Affirmation | Verdict | Source lue |
+|---|---|---|
+| Contrat hors établissement entre professionnels (≤ 5 salariés, hors activité principale) : rétractation de 14 jours et formulaire obligatoires (L221-3) | **Exact, et déjà traité** dans `40-cadre-legal-sites.md` (L221-3, L221-18, L221-10) et dans le parcours de vente de `41` | 40 (vérifié le 25/09 sur Légifrance) |
+| Atlassian exige vérification et double authentification pour devenir partenaire | **Exact** : « Marketplace Partner enrollment completed (agreement, due diligence, 2SV) » | developer.atlassian.com, « Register as an Atlassian Marketplace Partner » |
+| SOC 2 / ISO 27001 / bug bounty payant obligatoires | **Exagéré** : exigés seulement pour les niveaux Silver, Gold et Platinum du programme (« Platinum… SOC II Type 2 or ISO 27001:2022 », « Gold… audits scheduled », « Silver… Bug Bounty… the most installs »), pas pour entrer sur la Marketplace | developer.atlassian.com, « Marketplace Partner Program » |
+| « Un particulier ne peut pas franchir ces barrières » | **Contredit** : plusieurs éditeurs ciblés sont des vendeurs individuels (ex. le vendeur 1215814, « individuel »). Mais la vérification (due diligence) suppose une identité et, pour nous, une entreprise créée avant tout transfert | 25-reprise-atlassian.md |
+| « Plus de 95 % des utilisateurs payants déjà migrés vers Forge » | **Non sourcé** ; à vérifier | — |
+| Démos publiques avec logos et coordonnées de vrais artisans | **Faux** : les démos en ligne sont fictives (mentions légales, section 3) ; les démos personnalisées restent privées | site-dig |
+| Signer des contrats « sous condition suspensive d'immatriculation » avant la création | **Déconseillé** : non vérifié juridiquement ; règle maintenue : aucune signature ni aucun paiement avant l'immatriculation | L8221-3 |
+| 0 € de création = risque d'impayé et marge initiale négative | **Juste** : décision de prix pour l'utilisateur (frais de mise en service ou premier mois payé d'avance) ; procédure d'impayés dans `45` | 45-impayes-se-proteger.md |
+
+## Nouvelles décisions pour l'utilisateur
+
+- Piste Atlassian : l'audit n° 1 dit « relance du 08/10 seulement », l'audit n° 2 dit « abandon
+  immédiat ». Avis de Claude : la relance coûte presque 0 ; la garder, sans aucun autre travail.
+- Offre : ajouter des frais de mise en service ou faire payer le premier mois d'avance, pour
+  couvrir le travail de départ et limiter les impayés.
+- Assurance RC professionnelle : devis à demander au moment de la création (déjà prévu dans 39).
