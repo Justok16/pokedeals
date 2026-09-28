@@ -46,3 +46,5 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
 - Démos : `outils/prospects/verif_maquettes.py`, `qa_maquettes.py`, captures d'écran relues une par une.
 - Flyer / visuels Canva : export 1748 × 2480 px, mesure des marges et décodage du QR
   (`outils/prospects/controle_flyer.py`).
+
+- Démos personnalisées de prospects (depuis le 28/09, audit externe n° 1) : **jamais publiées en ligne** sans accord écrit du prospect ; montrées sur écran ou en PDF privé, supprimées en cas de refus. Les démos publiques du site utilisent uniquement des entreprises fictives.
