@@ -102,9 +102,23 @@ avant l'immatriculation).
   Unsplash, 1 crédit la page). À utiliser pour les photos, les annuaires et la vérification des prospects.
 - **Similarweb : branché le 28/09 mais inutilisable gratuitement** (« plan has reached its credit
   limit » dès le premier appel). Ne pas prendre d'abonnement (budget 0 €).
+  **Équivalents gratuits trouvés (28/09)** :
+  - trafic estimé, mots-clés, pages et concurrents d'un site → **OpenRush** `inspect_domain`
+    (testé sur pagesjaunes.fr : ~84,6 M visites Google/mois estimées, concurrents mappy.com, 118712.fr…) ;
+  - fiche d'entreprise (SIREN, état, adresse) → annuaire officiel via le relais `/api/entreprise` + BODACC ;
+  - téléphone, activité, présence en ligne → Firecrawl (pages des annuaires) et recherche web.
 Seulement le jour où c'est utile :
 - **Atlassian Rovo** (connexion inachevée) : si un éditeur accepte la reprise (portage Forge).
 - **Stripe** (connexion inachevée) ou **Qonto** : encaissement et prélèvement SEPA, après la
   création de l'entreprise.
 - **Brevo** (emails B2B conformes CNIL) : pour une campagne, une fois la structure légale créée.
 Je ne peux pas connecter moi-même : chaque connexion demande l'identifiant de l'utilisateur.
+
+## Blocages et solutions de rechange (tenir à jour à chaque blocage)
+| Blocage | Solution gratuite qui marche |
+|---|---|
+| Sous-titres YouTube bloqués (conteneur, Vercel, Invidious, Piped) | Gemini lit la vidéo ; secours vidIQ (transcription) |
+| Recherche Unsplash bloquée (défi anti-robots) | Firecrawl `firecrawl_scrape` (1 crédit la page) |
+| Similarweb sans crédit | OpenRush `inspect_domain` |
+| Annuaire officiel bloqué depuis le conteneur | Relais Vercel `/api/entreprise` |
+| Crédit Vercel AI Gateway épuisé | 9 modèles de la clé Gemini gratuite |

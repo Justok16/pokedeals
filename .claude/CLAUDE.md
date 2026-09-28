@@ -26,7 +26,9 @@
   déploiement d'un petit programme, jeton OIDC, services alternatifs,
   documentation officielle. Exemple : les vidéos et Jev semblaient exiger
   une clé ; un relais Vercel sans clé a suffi. Si un blocage reste réel,
-  dire précisément lequel et ce qui a été essayé.
+  dire précisément lequel et ce qui a été essayé. **Réflexe (demande du 28/09)** : outil payant ou
+  bloqué → chercher tout de suite un équivalent gratuit (ex. Similarweb → OpenRush) ; tableau
+  « Blocages et solutions de rechange » en fin de `33-outils.md`.
 - **Ne soumettre à l'utilisateur que** ce qui l'engage : dépense d'argent,
   son identité (signature, création d'entreprise), un prix ou un
   pourcentage accepté avec un tiers.
