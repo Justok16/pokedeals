@@ -5,11 +5,12 @@ Usage : python3 resumer_chaine.py <liste.json> <dossier_sortie> <cookies.txt> [m
 - liste.json : sortie de /api/chaine (id, titre, durée)
 - minutes_max : durée cumulée de vidéo à traiter pendant ce lot (défaut 60)
 Limites de l'offre gratuite (constatées le 27/09) : environ 20 vidéos par jour et PAR MODÈLE ;
-on alterne donc entre les modèles Gemini capables de lire une vidéo (les plus puissants d'abord),
+on alterne donc entre les 9 modèles Gemini capables de lire une vidéo (les plus puissants d'abord),
 et on passe au suivant dès qu'un modèle a épuisé son quota. Pause de 80 s entre deux vidéos.
 """
 MODELES = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-3.5-flash',
-           'gemini-3-flash-preview', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite']
+           'gemini-3-flash-preview', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite',
+           'gemini-3.1-flash-lite-preview', 'gemini-flash-lite-latest']  # 2 ajoutés le 28/09 (testés : lisent les vidéos)
 import json, os, sys, time, subprocess, datetime
 
 def secondes(d):
