@@ -104,6 +104,8 @@ section.services .sur,section.services .titre .sur,section.services .n{color:var
 .bande img{position:absolute;inset:0}.bande::after{display:none}
 .bande>div{position:relative;z-index:2;display:inline-block;background:rgba(18,16,13,.93);padding:clamp(28px,5vw,56px) clamp(24px,6vw,72px);max-width:680px}.bande h2{font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:600;margin:.4rem 0 .4rem}.bande h2 em{color:var(--acc)}
 .bande .sur{color:#eadbc8!important}
+.ligne a{display:inline-block;padding:11px 0}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1!important;transform:none!important}}
 .contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px)}
 .contact h2{font-size:clamp(2.2rem,4vw,3.2rem)}.contact p{color:var(--doux);margin-top:1rem}
 .ligne{display:flex;justify-content:space-between;border-bottom:1px solid #d9cfbf;padding:.9rem 0;font-size:.95rem}.ligne span:first-child{color:var(--doux)}
@@ -145,7 +147,7 @@ def page(p):
 <div class="bande"><img src="{img(t['bande']) if 'bande' in t else g[1]}" alt=""><div class="rv"><div class="sur">{e(p['commune'])} et alentours</div><h2>{'Une envie de' if resto else 'Un projet ?'} <em>{'bonne table ?' if resto else 'Parlons-en.'}</em></h2><div class="boutons" style="justify-content:center"><a class="b plein" href="tel:{num}">{e(p['tel'])}</a></div></div></div>
 <section id="contact" class="contact"><div class="rv"><div class="sur" style="color:var(--acct)">Contact</div><h2>{'Réserver' if resto else 'Demander un devis'}</h2><p>{'Nous vous confirmons votre table rapidement.' if resto else 'Réponse rapide, devis gratuit et sans engagement.'}</p>
 <div style="margin-top:1.6rem"><div class="ligne"><span>Téléphone</span><a href="tel:{num}">{e(p['tel'])}</a></div><div class="ligne"><span>Secteur</span><span>{e(p['commune'])} et alentours</span></div></div></div>
-<form class="rv" onsubmit="event.preventDefault()"><input placeholder="Votre nom"><input placeholder="Téléphone ou email"><textarea rows="3" placeholder="{'Date, heure, nombre de personnes' if resto else 'Votre projet en quelques mots'}"></textarea><button type="button">Envoyer</button></form></section>
+<form class="rv" onsubmit="event.preventDefault()"><input aria-label="Votre nom" placeholder="Votre nom"><input aria-label="Téléphone ou email" placeholder="Téléphone ou email"><textarea rows="3" aria-label="Votre message" placeholder="{'Date, heure, nombre de personnes' if resto else 'Votre projet en quelques mots'}"></textarea><button type="button">Envoyer</button></form></section>
 <footer><div class="marque">{nom}<small>{e(p['commune'])}</small></div><div>© {nom} · Mentions légales</div><div class="maq">{e(p.get("maq","")) or f"Maquette préparée par Dig pour {nom} · non publiée · photos d’illustration libres de droits"}</div></footer>
 <div class="basbar"><a class="appel" href="tel:{num}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span>{'Réserver' if resto else 'Appeler'} · {e(p['tel'])}</span></a></div>{JS}</body></html>'''
 P=json.load(open(os.environ.get('DIG_PROSPECTS','prospects.json')))

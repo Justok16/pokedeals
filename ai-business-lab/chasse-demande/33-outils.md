@@ -98,10 +98,10 @@ Health Data Avatar, Zacks, Anthropic Economic Index, Perspective AI, AdWhispr (p
 avant l'immatriculation).
 
 À connecter par l'utilisateur (claude.ai → Réglages → Connecteurs), avec son accord :
-- **Firecrawl** (recherche et lecture de pages web, offre gratuite limitée — *à vérifier*) :
-  pages qui bloquent nos serveurs (annuaires, banques de photos), vérification des prospects.
-- **Similarweb** (connexion commencée, inachevée) : trafic des sites des prospects et des
-  concurrents ; étendue de l'offre gratuite *à vérifier*.
+- **Firecrawl : branché le 28/09.** Testé : lit les pages qui bloquent nos serveurs (ex. recherche
+  Unsplash, 1 crédit la page). À utiliser pour les photos, les annuaires et la vérification des prospects.
+- **Similarweb : branché le 28/09 mais inutilisable gratuitement** (« plan has reached its credit
+  limit » dès le premier appel). Ne pas prendre d'abonnement (budget 0 €).
 Seulement le jour où c'est utile :
 - **Atlassian Rovo** (connexion inachevée) : si un éditeur accepte la reprise (portage Forge).
 - **Stripe** (connexion inachevée) ou **Qonto** : encaissement et prélèvement SEPA, après la
