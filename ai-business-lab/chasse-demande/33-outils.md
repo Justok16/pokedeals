@@ -109,9 +109,18 @@ avant l'immatriculation).
   - téléphone, activité, présence en ligne → Firecrawl (pages des annuaires) et recherche web.
 Seulement le jour où c'est utile :
 - **Atlassian Rovo** (connexion inachevée) : si un éditeur accepte la reprise (portage Forge).
-- **Stripe** (connexion inachevée) ou **Qonto** : encaissement et prélèvement SEPA, après la
-  création de l'entreprise.
+- **Stripe : branché le 28/09**, en **mode test** (« environnement de test Dig ») : sert à préparer
+  et tester l'encaissement et le prélèvement SEPA sans argent réel ; mode réel seulement après la
+  création de l'entreprise (accord de l'utilisateur). **Qonto** reste une option pour la banque.
 - **Brevo** (emails B2B conformes CNIL) : pour une campagne, une fois la structure légale créée.
+**Branchés aussi le 28/09** (testés en lecture seule, rien créé) : **PayPal** (factures, liens de
+paiement ; 0 facture), **Wix** (0 site ; utile pour reprendre un client déjà sur Wix),
+**Docusign** (signature électronique ; DocuSeal reste l'outil gratuit par défaut).
+**HubSpot et Trello : connexion impossible (28/09)** → pas nécessaires. Équivalents déjà branchés et
+gratuits : suivi des prospects et clients (CRM) → **Airtable** ou **Notion** (données privées :
+jamais dans ce dépôt) ; tableau de tâches → **Notion** (vue tableau) ou la liste « À faire » du dépôt.
+Les connecteurs « small-business » qui demandent encore une autorisation (HubSpot, Trello,
+Zoho, Xero…) sont des doublons du module complémentaire : à ignorer.
 Je ne peux pas connecter moi-même : chaque connexion demande l'identifiant de l'utilisateur.
 
 ## Skill « vibe-security » (installé le 28/09/2026, accord de l'utilisateur)
