@@ -10,6 +10,9 @@ avec `mode=finance` pour une fiche de connaissances).
   Limite gratuite constatée le 27/09 : ~20 vidéos par jour et par modèle ; l'outil
   alterne 7 modèles (≈ 140 vidéos/jour, soit environ une semaine pour tout) :
   `python3 outils/resumer_chaine.py connaissances/finary/liste-videos.json connaissances/finary cookies.txt 3000 finance`
+- `fintales/` : chaîne YouTube Fintales (@fintales_media, finance et marchés),
+  demandée le 28/09/2026 — 152 vidéos au 28/09/2026. À traiter **après** Finary,
+  avec la même commande (dossier `connaissances/fintales`).
 
 Règles : ce sont des connaissances générales **non vérifiées** ; toute règle
 fiscale, tout plafond ou tout taux est revérifié sur la source officielle

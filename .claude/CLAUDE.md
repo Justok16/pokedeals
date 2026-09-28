@@ -107,6 +107,6 @@
 - **Base de connaissances vidéo** (demande du 26/09) : résumés Gemini des
   vidéos YouTube dans `connaissances/` (chaîne Finary : finances
   personnelles, 965 vidéos, traitées avec `outils/resumer_chaine.py` qui
-  alterne 7 modèles Gemini gratuits : ~20 vidéos/jour/modèle, soit ~1 semaine). À consulter avant de répondre sur ces sujets ;
+  alterne 7 modèles Gemini gratuits : ~20 vidéos/jour/modèle, soit ~1 semaine). **Ensuite** (demande du 28/09) : chaîne Fintales (`connaissances/fintales/`, 152 vidéos), même outil. À consulter avant de répondre sur ces sujets ;
   toute règle fiscale ou chiffre qui en est tiré est revérifié à la source
   officielle avant d'être affirmé.
