@@ -1,6 +1,8 @@
 # Maquette premium personnalisée (privée) par prospect.
 # Entrée : prospects.json (PRIVÉ, jamais dans le dépôt) ; photos : dossier DIG_PHOTOS (défaut ./photos/),
 # photos : StockSnap (CC0, via l'API Openverse) nommées <métier>_<n>.jpg, et Unsplash HD (h<métier>_<n>.jpg, sources dans supports/).
+# Surcharges possibles par prospect : s, sur, gl, g, bande, hero, h1p, acc, preuves, titre2/titre2b/texte2,
+# etapes, cta_resto, cta2, contact_txt, placeholder. Photos Wikimedia Commons (CC0 / domaine public) : w<nom>.jpg.
 # N'afficher que des faits vérifiés (RGE via l'annuaire ADEME, dates du registre) ; pas de faux avis.
 import html,re,json,os,base64
 PH=os.environ.get('DIG_PHOTOS','photos/')
@@ -124,32 +126,36 @@ JS='''<script>const n=document.querySelector('nav');addEventListener('scroll',()
 const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('.rv').forEach(e=>io.observe(e));
 const ap=document.querySelector('.appel'),hb=document.querySelector('.heros .boutons'),ct=document.querySelector('#contact');let vh=true,vc=false;const maj=()=>ap&&ap.classList.toggle('on',!vh&&!vc);
 if(ap&&hb)new IntersectionObserver(e=>{vh=e[0].isIntersecting;maj()},{rootMargin:'0px 0px 110px 0px'}).observe(hb);if(ap&&ct)new IntersectionObserver(e=>{vc=e[0].isIntersecting;maj()},{threshold:.15}).observe(ct);</script>'''
+def etapes_html(p,resto):
+    e=html.escape
+    if p.get('etapes'): return ''.join(f'<div><h3>{e(a)}</h3><p>{e(b)}</p></div>' for a,b in p['etapes'])
+    return '<div><h3>Réservez</h3><p>Par téléphone ou en ligne, en quelques secondes.</p></div><div><h3>Installez-vous</h3><p>En salle ou en terrasse, au calme.</p></div><div><h3>Restez</h3><p>Une chambre vous attend pour prolonger la soirée.</p></div>' if resto else '<div><h3>Visite & conseil</h3><p>Nous venons voir votre projet et vous conseillons, gratuitement.</p></div><div><h3>Devis détaillé</h3><p>Un prix clair, ligne par ligne, avec les délais.</p></div><div><h3>Réalisation</h3><p>Chantier propre, finitions vérifiées ensemble.</p></div>'
 def page(p):
-    t=dict(T[p['type']],**{k:p[k] for k in ('s','sur','gl') if k in p});e=html.escape;nom=e(p['nom']);num=re.sub(r'\D','',p['tel'])
+    t=dict(T[p['type']],**{k:p[k] for k in ('s','sur','gl','g','bande') if k in p});e=html.escape;nom=e(p['nom']);num=re.sub(r'\D','',p['tel'])
     g=[img(x) for x in t['g']];h1=p.get('h1p',t['h1']);intro=e(p.get('acc',t['intro']))
     ch=''.join(f'<div><b>{e(a)}</b><span>{e(b)}</span></div>' for a,b in p.get('preuves',[]))
     sv=''.join(f'<div class="carte rv"><div class="n">0{i+1}</div><h3>{e(a)}</h3><p>{e(b)}</p></div>' for i,(a,b) in enumerate(t['s']))
     gal=''.join(f'<figure class="rv"><img src="{g[i]}" alt=""><figcaption>{e(t["gl"][i])}</figcaption></figure>' for i in range(3))
     resto=p['type']=='restaurant'
-    cta='Réserver' if resto else 'Devis gratuit'
+    R=p.get('cta_resto','Réserver');cta=R if resto else 'Devis gratuit'
     return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>{nom}</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@400;500&display=swap" rel="stylesheet"><style>{CSS%(t['acc'],fonce(t['acc']))}</style></head><body>
 <nav><a class="marque" href="#">{nom}<small>{e(p['commune'])}</small></a><div class="liens"><a href="#savoir">{'La maison' if resto else 'Savoir-faire'}</a><a href="#services">{'La carte' if resto else 'Services'}</a><a href="#realisations">{'Galerie' if resto else 'Réalisations'}</a><a class="cta" href="#contact">{cta}</a></div></nav>
 <header class="heros"><div class="texte"><div class="sur">{e(t['sur'])}</div><h1>{h1}</h1><p>{intro}</p>
-<div class="boutons"><a class="b plein" href="#contact">{'Réserver une table' if resto else 'Demander un devis'}</a><a class="b vide" href="tel:{num}">{e(p['tel'])}</a></div></div><div class="fond"><img src="{img(p.get('hero',t['hero']))}" alt=""><div class="etiq">{e(p['commune'])}</div></div></header>
+<div class="boutons"><a class="b plein" href="#contact">{p.get('cta2',R+' une table') if resto else 'Demander un devis'}</a><a class="b vide" href="tel:{num}">{e(p['tel'])}</a></div></div><div class="fond"><img src="{img(p.get('hero',t['hero']))}" alt=""><div class="etiq">{e(p['commune'])}</div></div></header>
 <section id="savoir" class="intro"><div class="rv"><div class="sur" style="color:var(--acct)">{'La maison' if resto else 'Notre savoir-faire'}</div><h2>{e(p.get('titre2',X[p['type']][0]))} <em>{e(p.get('titre2b',X[p['type']][1]))}</em></h2>
 <p>{e(p.get('texte2',X[p['type']][2]))}</p><div class="chiffres">{ch}</div></div><div class="photo rv"><img src="{g[3]}" alt=""></div></section>
 <section id="services" class="services"><div class="titre rv"><div class="sur">{'À découvrir' if resto else 'Ce que nous faisons'}</div><h2>{'Le plaisir de la table' if resto else 'Des prestations complètes'}</h2></div><div class="grille">{sv}</div></section>
 <section id="realisations"><div class="titre rv"><div class="sur">{'En images' if resto else 'Réalisations'}</div><h2>{'Un lieu à vivre' if resto else 'L’exigence, dans chaque détail'}</h2></div><div class="galerie">{gal}</div></section>
 <section style="padding-top:0"><div class="titre rv"><div class="sur">{'Venir nous voir' if resto else 'Comment ça se passe'}</div><h2>{'Simple et chaleureux' if resto else 'Trois étapes, zéro surprise'}</h2></div><div class="etapes rv">
-{'<div><h3>Réservez</h3><p>Par téléphone ou en ligne, en quelques secondes.</p></div><div><h3>Installez-vous</h3><p>En salle ou en terrasse, au calme.</p></div><div><h3>Restez</h3><p>Une chambre vous attend pour prolonger la soirée.</p></div>' if resto else '<div><h3>Visite & conseil</h3><p>Nous venons voir votre projet et vous conseillons, gratuitement.</p></div><div><h3>Devis détaillé</h3><p>Un prix clair, ligne par ligne, avec les délais.</p></div><div><h3>Réalisation</h3><p>Chantier propre, finitions vérifiées ensemble.</p></div>'}</div></section>
+{etapes_html(p,resto)}</div></section>
 <section class="avis"><div class="rv"><div class="etoiles">★★★★★</div><blockquote>Vos avis Google s’afficheront ici, automatiquement.</blockquote><cite>Emplacement réservé aux avis de vos clients</cite></div></section>
 <div class="bande"><img src="{img(t['bande']) if 'bande' in t else g[1]}" alt=""><div class="rv"><div class="sur">{e(p['commune'])} et alentours</div><h2>{'Une envie de' if resto else 'Un projet ?'} <em>{'bonne table ?' if resto else 'Parlons-en.'}</em></h2><div class="boutons" style="justify-content:center"><a class="b plein" href="tel:{num}">{e(p['tel'])}</a></div></div></div>
-<section id="contact" class="contact"><div class="rv"><div class="sur" style="color:var(--acct)">Contact</div><h2>{'Réserver' if resto else 'Demander un devis'}</h2><p>{'Nous vous confirmons votre table rapidement.' if resto else 'Réponse rapide, devis gratuit et sans engagement.'}</p>
+<section id="contact" class="contact"><div class="rv"><div class="sur" style="color:var(--acct)">Contact</div><h2>{R if resto else 'Demander un devis'}</h2><p>{p.get('contact_txt','Nous vous confirmons votre table rapidement.') if resto else 'Réponse rapide, devis gratuit et sans engagement.'}</p>
 <div style="margin-top:1.6rem"><div class="ligne"><span>Téléphone</span><a href="tel:{num}">{e(p['tel'])}</a></div><div class="ligne"><span>Secteur</span><span>{e(p['commune'])} et alentours</span></div></div></div>
-<form class="rv" onsubmit="event.preventDefault()"><input aria-label="Votre nom" placeholder="Votre nom"><input aria-label="Téléphone ou email" placeholder="Téléphone ou email"><textarea rows="3" aria-label="Votre message" placeholder="{'Date, heure, nombre de personnes' if resto else 'Votre projet en quelques mots'}"></textarea><button type="button">Envoyer</button></form></section>
+<form class="rv" onsubmit="event.preventDefault()"><input aria-label="Votre nom" placeholder="Votre nom"><input aria-label="Téléphone ou email" placeholder="Téléphone ou email"><textarea rows="3" aria-label="Votre message" placeholder="{p.get('placeholder','Date, heure, nombre de personnes') if resto else 'Votre projet en quelques mots'}"></textarea><button type="button">Envoyer</button></form></section>
 <footer><div class="marque">{nom}<small>{e(p['commune'])}</small></div><div>© {nom} · Mentions légales</div><div class="maq">{e(p.get("maq","")) or f"Maquette préparée par Dig pour {nom} · non publiée · photos d’illustration libres de droits"}</div></footer>
-<div class="basbar"><a class="appel" href="tel:{num}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span>{'Réserver' if resto else 'Appeler'} · {e(p['tel'])}</span></a></div>{JS}</body></html>'''
+<div class="basbar"><a class="appel" href="tel:{num}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span>{R if resto else 'Appeler'} · {e(p['tel'])}</span></a></div>{JS}</body></html>'''
 P=json.load(open(os.environ.get('DIG_PROSPECTS','prospects.json')))
 import sys
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),'..'))
