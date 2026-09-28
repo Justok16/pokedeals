@@ -64,8 +64,9 @@ triées et appliquées.
 - **Rapport** : `veille/<date>.md`. Chaque nouveauté utile est évaluée (offre gratuite vérifiée à
   la source, légalité, utilité pour Dig ou pour la chasse aux pistes), puis appliquée ou écartée
   ici, avec la raison.
-- **Limite** : les pages Facebook (reels de « gabzermp4 ») exigent une connexion pour lister leurs
-  vidéos ; seuls les liens envoyés un par un sont lisibles (voir `33-outils.md`).
+- **Facebook** : une page Facebook ne se liste pas sans connexion ; **réflexe** : chercher la chaîne
+  YouTube du même créateur. Reels « gabzermp4 » = YouTube **@gabzer.mp4** (547 vidéos courtes,
+  246 retenues sur leur titre), ajoutée à la veille (`connaissances/gabzer/`).
 
 ## Registre de toutes les vidéos envoyées
 

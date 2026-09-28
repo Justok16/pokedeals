@@ -119,7 +119,7 @@ def veille_chaines(cookies, rapport):
             json.dump(liste, open(chemin, 'w'), ensure_ascii=False, separators=(',', ':'))
         ligne = f'- **{nom}** : {len(nouvelles)} nouvelle(s) vidéo(s)'
         if liste.get('filtre') and nouvelles:
-            retenues = [v for v in nouvelles if secondes(v['duree']) >= 180
+            retenues = [v for v in nouvelles if secondes(v['duree']) >= liste.get('duree_min', 180)
                         and re.search(liste['filtre'], v['titre'], re.I)]
             p = os.path.join(CONNAISSANCES, nom, 'prio.json')
             prio = json.load(open(p)) if os.path.exists(p) else {'videos': []}
@@ -138,9 +138,9 @@ def main():
     veille_chaines(cookies, rapport)
     rapport += ['', "## Annuaires d'outils", '']
     veille_outils(rapport)
-    rapport += ['', 'Sources non surveillables automatiquement : pages Facebook (connexion '
-                'obligatoire pour lister les vidéos) ; les liens envoyés par l\'utilisateur sont '
-                'traités à la main.']
+    rapport += ['', 'Pages Facebook : connexion obligatoire pour lister les vidéos ; on surveille à la '
+                'place la chaîne YouTube du même créateur quand elle existe (ex. reels « gabzermp4 » = '
+                'YouTube @gabzer.mp4) ; un lien Facebook isolé se lit via m.facebook.com + /api/avis.']
     os.makedirs(VEILLE, exist_ok=True)
     open(os.path.join(VEILLE, jour + '.md'), 'w').write('\n'.join(rapport) + '\n')
     print('\n'.join(rapport))
