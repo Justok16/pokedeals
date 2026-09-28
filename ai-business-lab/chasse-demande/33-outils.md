@@ -211,3 +211,4 @@ télécharger la vidéo depuis m.facebook.com, puis l'envoyer en base64, 4,5 Mo 
 | Firecrawl en erreur (« Invalid content from server », 28/09) | Outil WebFetch, ou curl direct sur la page |
 | Reels Facebook (connexion demandée) | Version mobile m.facebook.com : fichier vidéo lisible, puis images (imageio-ffmpeg) ou Gemini `/api/avis` |
 | Outil payant sans équivalent connu | Chercher dans free-for.dev, nosignups.net, futuretools.io (filtre Free / Open Source) |
+| Site « hors ligne » d'après curl (code 000) alors que le DNS répond (28/09) | Faux négatif possible : le relais réseau du conteneur refuse certaines connexions. Confirmer avec Firecrawl `firecrawl_scrape` (ou WebFetch) avant de conclure ; seul un domaine NXDOMAIN (cloudflare-dns.com) ou une vraie page 404/500 prouve qu'un site est mort |
