@@ -98,3 +98,16 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
   sous « Appelez ou scannez », dans l'élément texte d'origine (même police), 10 pt, interligne 1,05.
 - Contrôle : QR décodé → https://digsite.pages.dev/ ; écart mesuré entre la dernière ligne et le
   bord du bloc ≈ 1,7 mm, aucun chevauchement avec l'icône email. PNG 1748 × 2480 et PDF A5 mis à jour.
+
+## Version 5 (28/09/2026, après l'audit externe)
+
+- Fichier de référence : `supports/flyer-dig-a5.html` → `supports/flyer-dig-a5-v5.pdf` et `.png`.
+- « Plus d'appels et de devis » (promesse de résultat) remplacé par « Facile à appeler » ; note
+  fictive « 4,9/5 » retirée de l'image d'exemple ; « premier mois réglé avant la mise en ligne »
+  ajouté aux mentions ; prix « dès 49 €/mois ».
+- **QR code refait** : la source HTML menait encore à l'ancienne démo supprimée (erreur 404).
+  Nouveau QR vers https://digsite.pages.dev/, décodé depuis le PDF lui-même, y compris à basse
+  résolution. Contrôle ajouté : tous les QR et liens des PDF et du site testés (35 liens).
+- Anciennes versions retirées du dossier (v4 : « dès 29 € » ; export Canva : QR mort). Le
+  design Canva DAHWQH2QKK8 n'est plus la référence.
+- Reste avant impression : prénom, nom, SIREN, adresse, téléphone et email (après immatriculation).

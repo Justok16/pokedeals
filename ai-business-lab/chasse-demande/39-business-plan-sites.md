@@ -95,10 +95,10 @@ avant le contact** (le prospect voit *son* site refait), et un prix
 
 | Formule | Prix | Pour qui | Contenu |
 |---|---|---|---|
-| **Présence** | **29 €/mois** | Petit budget, auto-entrepreneur | Site d'une page, fiche Google créée, 1 modification tous les 3 mois |
+| ~~Présence~~ (retirée le 28/09) | ~~29 €/mois~~ | Petit budget, auto-entrepreneur | Site d'une page, fiche Google créée, 1 modification tous les 3 mois |
 | **Essentiel** | **49 €/mois** | La plupart des artisans | Site 5 pages sur mesure, hébergement, sécurité, mentions légales, 1 modification/mois, rapport mensuel |
-| **Visibilité** ⭐ | **79 €/mois** | Veut plus de clients | Essentiel + fiche Google suivie, demandes d'avis, pages par commune, 3 modifications/mois |
-| **Achat** | **690 €** une fois + 15 €/mois (facultatif) | Veut payer une seule fois | Site 5 pages livré, à lui pour toujours |
+| **Visibilité** ⭐ | **79 €/mois** | Veut plus de clients | Essentiel + fiche Google suivie, demandes d'avis, 3 modifications/mois (pages par commune retirées le 28/09) |
+| ~~Achat~~ (retirée le 28/09) | ~~690 € une fois + 15 €/mois~~ | Veut payer une seule fois | Site 5 pages livré, à lui pour toujours |
 | **Prestige** | **1 990 €** une fois (+ suivi 29 €/mois facultatif) **ou 199 €/mois**, 0 € de création, 12 mois minimum (**validé le 26/09** ; suivi à 29 € et 12 mois : proposition à confirmer) | Hyper premium : hôtels, restaurants, domaines, artisans d'art | Voir 3.2 bis |
 
 Conditions communes aux formules mensuelles : **0 € de création**, 6 mois
@@ -198,8 +198,8 @@ client) est la bonne réponse.
   ([…/demos/prestige](https://digsite.pages.dev/demos/prestige/)), hébergées sur Cloudflare Pages.
 - **Cas clients** : avec l'accord écrit du client, avant/après publié.
 - **Parrainage** : 1 mois offert au client et au filleul.
-- **Référencement** : pages « site internet pour [métier] à [ville] » sur
-  le site Dig.
+- **Référencement** : une page par vraie réalisation (cas client publié avec accord), jamais de
+  pages « [métier] à [ville] » en série (pages satellites interdites par Google, décision du 28/09).
 
 ---
 
