@@ -80,3 +80,11 @@ les fichiers : committer, pousser, puis redéployer.
 l'utilisateur ; Gemini résume les vidéos YouTube, Jev répond (coût facturé
 0 $ au test). Accès : lien temporaire (23 h) créé à chaque passage avec
 l'outil Vercel `get_access_to_vercel_url`, jamais écrit dans le dépôt.
+
+## vidIQ (connecteur, ajouté le 28/09/2026)
+- Compte gratuit de l'utilisateur : **150 crédits par mois** (renouvelés le 28 de chaque mois).
+- `vidiq_video_transcript` (5 crédits) donne la transcription d'une vidéo YouTube, même quand
+  YouTube bloque nos serveurs. Usage retenu : **secours** pour les vidéos que Gemini n'arrive pas
+  à lire (≈ 30 par mois au maximum) ; la fiche est alors rédigée à partir de la transcription.
+- Testé le 28/09 : les sous-titres YouTube sont bloqués depuis le conteneur, Vercel,
+  youtubetranscript.com, Invidious et Piped ; seul vidIQ passe.
