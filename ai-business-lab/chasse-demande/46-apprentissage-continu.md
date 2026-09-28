@@ -24,7 +24,7 @@
 
 | # | Action | Source | État |
 |---|---|---|---|
-| 1 | Lire puis installer, s'ils sont sûrs, les skills **Impeccable** (contrôle visuel des marges, alignements, couleurs) et **vibe-security** (failles de sécurité) | LCwT00LrPZg, _SVU3oC4JX8 | **fait autrement** : Impeccable télécharge et lance un programme tiers, donc non installé ; ses règles d'audit sont reprises dans `outils/audit_acces.py` (site et 12 démos corrigés, 0 défaut). vibe-security : à relire |
+| 1 | Lire puis installer, s'ils sont sûrs, les skills **Impeccable** (contrôle visuel des marges, alignements, couleurs) et **vibe-security** (failles de sécurité) | LCwT00LrPZg, _SVU3oC4JX8 | **fait autrement** : Impeccable télécharge et lance un programme tiers, donc non installé ; ses règles d'audit sont reprises dans `outils/audit_acces.py` (site et 12 démos corrigés, 0 défaut). **vibe-security installé le 28/09** (lu en entier : texte seul, licence MIT) et passé sur tout le projet : aucune faille grave ; en-têtes de sécurité ajoutés au site, règle `.env` ajoutée |
 | 2 | Tester le skill `motion-graphics` pour une vidéo de lancement de Dig (après relecture du dépôt) | 6Ij9-f2T2Ck | à faire |
 | 3 | Contrôle qualité : toute animation vérifiée à 0, 25, 50, 75 et 100 % de sa durée | HOXrLsVqinY | **fait** (ligne déjà présente dans `44-controle-qualite.md`) |
 | 4 | Chercher avec vidIQ les questions les plus demandées sur les sites d'artisans (vidéos « outliers ») : preuve de demande, idées de contenus | MROM3p3CPZU | à faire |

@@ -48,3 +48,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+
+# Secrets locaux, partout dans le dépôt (audit vibe-security du 28/09/2026)
+.env
+.env.*
+!.env.example
+!**/.env.example

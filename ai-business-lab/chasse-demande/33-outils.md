@@ -114,6 +114,23 @@ Seulement le jour où c'est utile :
 - **Brevo** (emails B2B conformes CNIL) : pour une campagne, une fois la structure légale créée.
 Je ne peux pas connecter moi-même : chaque connexion demande l'identifiant de l'utilisateur.
 
+## Skill « vibe-security » (installé le 28/09/2026, accord de l'utilisateur)
+
+Source : github.com/raroque/vibe-security-skill (licence MIT), lu en entier avant installation :
+uniquement du texte, aucun programme. Rangé dans `.claude/skills/vibe-security`.
+Premier audit (28/09) :
+- **Relais Vercel** : bon. L'adresse publique est refusée (403) et les adresses protégées
+  demandent la connexion Vercel (302), même avec un en-tête d'hôte falsifié. Les paramètres
+  sont filtrés, et le crédit de la passerelle IA est protégé par un garde-fou de solde.
+- **Secrets** : aucune clé ni jeton dans tout l'historique Git (recherche des formats connus :
+  Stripe, AWS, GitHub, Google, clés privées, liens de partage Vercel). Règle `.env` ajoutée au
+  `.gitignore` pour tout le dépôt.
+- **Site** : pas de dossier `.git` exposé ; `innerHTML` seulement avec des textes fixes ;
+  formulaires sans envoi pour l'instant. Ajouté : `site-dig/_headers` (CSP, HSTS, anti-iframe,
+  permissions), testé sur les 5 pages : 0 blocage.
+- À faire au lancement : anti-spam et limite d'envois sur le vrai formulaire ; paiement
+  uniquement par un prestataire (prix fixés côté serveur, jamais dans la page).
+
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
 | Blocage | Solution gratuite qui marche |
 |---|---|

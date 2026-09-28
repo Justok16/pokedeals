@@ -42,6 +42,7 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
 
 ## Outils
 - Accessibilité et ergonomie (depuis le 28/09) : `outils/audit_acces.py page.html …` doit afficher « problèmes : 0 » (boutons et liens d'au moins 44 px sur téléphone, champs de formulaire avec étiquette, titres dans l'ordre, variante « réduire les animations », attribut lang, images avec alt).
+- Sécurité (depuis le 28/09) : skill `vibe-security` (`.claude/skills/vibe-security`) passé sur tout code nouveau (relais, formulaires, paiement) ; aucune clé, jeton ou adresse personnelle dans le dépôt ; en-têtes de sécurité du site dans `site-dig/_headers` (tester qu'aucune page n'est bloquée). Le jour où un formulaire envoie vraiment des données : limite d'envois (anti-spam) et vérification côté serveur.
 - Démos : `outils/prospects/verif_maquettes.py`, `qa_maquettes.py`, captures d'écran relues une par une.
 - Flyer / visuels Canva : export 1748 × 2480 px, mesure des marges et décodage du QR
   (`outils/prospects/controle_flyer.py`).
