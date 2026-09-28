@@ -111,3 +111,5 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
 - Anciennes versions retirées du dossier (v4 : « dès 29 € » ; export Canva : QR mort). Le
   design Canva DAHWQH2QKK8 n'est plus la référence.
 - Reste avant impression : prénom, nom, SIREN, adresse, téléphone et email (après immatriculation).
+
+- 28/09 (soir) : PDF refait à partir d'une image 300 ppp (1 748 × 2 480 px, A5 exact) après une capture de l'utilisateur montrant des rectangles sombres et un titre tronqué dans sa visionneuse ; contrôlé avec pdfium et MuPDF, QR décodé.
