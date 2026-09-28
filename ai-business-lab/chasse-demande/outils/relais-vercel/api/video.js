@@ -99,6 +99,7 @@ export async function GET(request) {
           if (rep.ok && texte) return Response.json({ id, resume: texte, modele, voie: 'generateContent-basse' });
           erreurs.push(`${modele} generateContent-basse ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
           if (rep.status === 429) continue; // quota épuisé : inutile d'essayer l'autre API
+          if (params.get('voie') === 'basse') return Response.json({ id, erreur: erreurs.join(' | ') }, { status: 502 }); // diagnostic
         } catch (e) { erreurs.push(`${modele} generateContent-basse ${String(e).slice(0, 120)}`); }
       }
       try {
