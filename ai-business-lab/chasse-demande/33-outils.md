@@ -162,6 +162,44 @@ le formulaire du site sera fait avec Cloudflare + Resend, déjà branchés), Vib
 (200 crédits/mois gratuits, « 1 credit Find a business », « 5 credits » un téléphone ; couverture
 des petits artisans français à vérifier ; l'annuaire officiel reste la source principale).
 
+## Annuaires et sites envoyés par l'utilisateur le 28/09/2026 (soir)
+
+Ce sont des **sites web**, pas des connecteurs : on s'en sert dans le navigateur, on ne peut pas
+les « brancher ». Aucun n'a de connecteur dans le catalogue de Claude (recherche du 28/09).
+
+- **nosignups.net** (ex-FckSignups) : 268 outils libres, sans compte, qui tournent dans le
+  navigateur ; liste complète lue à la source (`tools.json` du dépôt GitHub BraveOPotato/FckSignups).
+  Retenus pour Dig : Squoosh et Tiny Image (alléger les photos des sites), Screenshot Studio
+  (présenter une démo dans un cadre de téléphone), BentoPDF et PaperKnife (PDF sans envoi à un
+  tiers), ShadeStudio (palette de couleurs), Metadata Remover (idée reprise en local :
+  `outils/verif_metadonnees.py`), free-for.dev (liste des offres gratuites des services en ligne :
+  première source pour trouver un équivalent gratuit).
+- **futuretools.io** : annuaire de plus de 4 500 outils d'IA, filtrable par prix (Free,
+  Freemium, Paid, Open Source) ; lettre d'information gratuite qui donne accès à une « AI Income
+  Database » (idées de revenus, à passer à la grille `00` comme toute piste).
+- **mrfreetools.com** (vu dans un reel) : annuaire de logiciels gratuits par catégorie.
+- **fingerprint.to** et **discoverprofile.com** : recherche de comptes publics à partir d'un
+  pseudo, d'un email ou d'un téléphone (OSINT). **Usage limité** : vérifier si une *entreprise*
+  a une page Facebook ou Instagram, ou ce qu'Internet montre du pseudonyme « Dig ». Jamais pour
+  profiler un particulier (RGPD : pas de base légale, pas d'information de la personne).
+- **topview.ai** (vidéos, avatars), **atoms.dev** (création d'applis par agents IA),
+  **buzzy.now** (vidéo IA, connecteur MCP `https://mcp.buzzy.now/mcp`) : **non retenus**,
+  fonctionnement à crédits payants (Topview dès 16 $/mois en annuel ; Atoms : « 15 per day / 25
+  per month » gratuits ; Buzzy : 2 crédits puis 10 à l'inscription), pages lues le 28/09/2026.
+  Équivalents gratuits déjà en place : Canva, Gemini, skill `motion-graphics` (à tester).
+- **DeepL** : connecteur disponible dans le catalogue. Utile seulement si un éditeur répond dans
+  une autre langue que l'anglais ; à brancher par l'utilisateur le moment venu.
+
+## Second avis gratuit : `/api/avis` du relais (ajouté le 28/09/2026)
+Idée des vidéos ucer2chlfM8 et _9ZGlLWr6UE (faire chercher les failles par une autre IA, sans
+rien réécrire), refaite gratuitement avec la clé Gemini. Appel POST JSON `{texte, consigne?,
+media_base64?, media_type?, modeles?}` avec le cookie de partage. Sert à : relire un document
+avant envoi (en plus du contrôle `44`), et lire une courte vidéo ou un audio (reels Facebook :
+télécharger la vidéo depuis m.facebook.com, puis l'envoyer en base64, 4,5 Mo maximum).
+**Déploiement** : toujours préciser `projectSettings.rootDirectory` =
+`ai-business-lab/chasse-demande/outils/relais-vercel`, sinon tout le relais répond 404
+(erreur du 28/09, corrigée en 10 minutes). Chaque déploiement invalide le cookie : le renouveler.
+
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
 | Blocage | Solution gratuite qui marche |
 |---|---|
@@ -170,3 +208,6 @@ des petits artisans français à vérifier ; l'annuaire officiel reste la source
 | Similarweb sans crédit | OpenRush `inspect_domain` |
 | Annuaire officiel bloqué depuis le conteneur | Relais Vercel `/api/entreprise` |
 | Crédit Vercel AI Gateway épuisé | 9 modèles de la clé Gemini gratuite |
+| Firecrawl en erreur (« Invalid content from server », 28/09) | Outil WebFetch, ou curl direct sur la page |
+| Reels Facebook (connexion demandée) | Version mobile m.facebook.com : fichier vidéo lisible, puis images (imageio-ffmpeg) ou Gemini `/api/avis` |
+| Outil payant sans équivalent connu | Chercher dans free-for.dev, nosignups.net, futuretools.io (filtre Free / Open Source) |
