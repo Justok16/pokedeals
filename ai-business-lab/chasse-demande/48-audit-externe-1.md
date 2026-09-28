@@ -113,3 +113,44 @@ sans probabilité : 0 à 18 clients (0 à 1 170 €/mois bruts).
   site vous appartient »), à écrire noir sur blanc dans les CGV.
 - Mention à ajouter dans l'offre et les CGV le jour de la création : « la fiche Google est un
   service gratuit de Google ; le client en reste propriétaire ».
+
+---
+
+# Audit externe n° 4 (reçu le 28/09/2026) — le plus complet (a lu le site et le dépôt)
+
+Verdict : « pivoter la méthode, pas le métier » ; moyenne 3,9/10 ; « une agence de papier ».
+Potentiel central à 12 mois : 10 à 20 clients, 600 à 1 200 €/mois bruts ; « beaucoup »
+(5 000 €/mois net) demanderait 80 à 100 clients : ce n'est plus ce projet.
+
+## Corrigé immédiatement (28/09, sans décision de prix)
+
+Le site affirmait des choses pas encore vraies (risque de pratique trompeuse, article L121-2 du
+Code de la consommation, cité par l'audit ; texte **à relire sur Légifrance**) :
+- « Dig est une entreprise individuelle […] installée localement » → « projet en cours de
+  lancement ; l'entreprise sera immatriculée avant toute signature » ;
+- « Prix nets : TVA non applicable, art. 293 B » → « franchise en base prévue dès
+  l'immatriculation » (accueil, FAQ, page Prestige) ;
+- « Fiche Google créée » → « mise en place avec vous, à votre nom » (règles Google vérifiées,
+  audit n° 3). Contrôles : qa_site 0 problème, audit_acces 0 problème.
+
+## Points justes, notés
+
+- **Critère 10 ★ de notre grille** (canal sans prospection directe) : Dig ne le remplit pas.
+  L'utilisateur a autorisé le démarchage B2B le 24/09, mais la grille n'a jamais été mise à jour :
+  incohérence reconnue.
+- **Franchise de TVA** : 60 clients × 65 € × 12 = 46 800 €, au-dessus de 37 500 € ; les
+  scénarios à 60 ou 100 clients du fichier 39 sortent de la franchise (à signaler dans 39).
+- **Premier cercle** : commencer par une dizaine de personnes qui connaissent l'utilisateur
+  (commerces fréquentés, voisins, famille) avant les 200 fiches du registre.
+- **Démo personnalisée = outil de conclusion**, montrée seulement après un « oui, montrez-moi ».
+- Promesses de résultats (« plus d'appels », « plus de clients ») à éviter : dire « on met en place ».
+- Offre recentrée proposée : Essentiel 59-69 €/mois avec 3 mois minimum, ou Achat 690 € ;
+  Présence 29 € et Prestige retirés du site public (décision de prix : utilisateur).
+- Atlassian : relance unique le 08/10 puis piste fermée si pas de « oui » net.
+
+## Point en désaccord entre audits, à trancher par l'utilisateur
+
+Audit n° 4 : créer la micro-entreprise **avant tout appel** commercial (identité claire,
+L34-5 CPCE pour les messages électroniques, L121-2). Audits n° 1 et 3 : appels ou visites de
+test d'abord, sans vente. La création est gratuite ; ses effets sur la situation personnelle
+de l'utilisateur ne regardent que lui (vérification prévue dans le kit, section 2 bis).
