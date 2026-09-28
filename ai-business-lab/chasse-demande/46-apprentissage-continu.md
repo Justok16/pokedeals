@@ -40,6 +40,19 @@
 | **Parrainage client** | vKat0aTuEbo | **Validé (variante A) et appliqué le 28/09** : site, guide, `47-parrainage.md` |
 | Connecteurs **Firecrawl** et **Similarweb** | HOXrLsVqinY, inventaire du 28/09 | À brancher sur claude.ai (voir `33-outils.md`) |
 
+### Chaînes YouTube envoyées le 28/09 (soir)
+
+- **@melvynxdev** (Melvynx, 1 027 vidéos, français : Claude Code, Codex, skills, création et
+  vente de SaaS, série « Lumail to 10k MRR » sur le marketing et la prospection à froid).
+- **@mreflow** (Matt Wolfe, 800 vidéos, créateur de futuretools.io : outils d'IA gratuits,
+  actualités).
+
+Tout résumer prendrait des semaines de quota gratuit (partagé avec Finary). Première sélection :
+**15 vidéos par chaîne**, choisies sur le titre pour ce qui sert Dig (vente, prospection à froid,
+emails, skills, belles interfaces, sites, outils gratuits). Fiches : `connaissances/melvynx/`
+et `connaissances/mreflow/`. Élargissement proposé à l'utilisateur une fois ces 30 vidéos
+triées et appliquées.
+
 ## Registre de toutes les vidéos envoyées
 
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
