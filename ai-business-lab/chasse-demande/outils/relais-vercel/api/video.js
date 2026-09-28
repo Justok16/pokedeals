@@ -50,14 +50,15 @@ export async function GET(request) {
   // (accord de l'utilisateur du 28/09 : « sans jamais dépasser afin de ne rien payer »).
   // Garde-fou : on lit le solde avant chaque appel et on refuse sous 1 $ de marge.
   if (params.get('voie') === 'passerelle') {
-    const jeton = process.env.VERCEL_OIDC_TOKEN || process.env.AI_GATEWAY_API_KEY;
-    let solde = null;
+    const jeton = request.headers.get('x-vercel-oidc-token') || process.env.VERCEL_OIDC_TOKEN || process.env.AI_GATEWAY_API_KEY;
+    let solde = null, statut = null;
     try {
       const rc = await fetch('https://ai-gateway.vercel.sh/v1/credits', { headers: { Authorization: `Bearer ${jeton}` } });
+      statut = rc.status;
       const jc = await rc.json();
       solde = parseFloat(jc.balance);
     } catch (e) { /* solde illisible : on refuse par prudence */ }
-    if (!(solde >= 1)) return Response.json({ id, erreur: `passerelle refusée : solde gratuit ${solde} $ (marge 1 $)`, solde }, { status: 402 });
+    if (!(solde >= 1)) return Response.json({ id, erreur: `passerelle refusée : solde gratuit ${solde} $ (marge 1 $)`, solde, statut, jeton: Boolean(jeton) }, { status: 402 });
     if (params.get('solde') === '1') return Response.json({ solde });
     const modele = /^google\/[a-z0-9.-]{3,60}$/.test(params.get('modele') || '') ? params.get('modele') : 'google/gemini-3.5-flash-lite';
     try {
