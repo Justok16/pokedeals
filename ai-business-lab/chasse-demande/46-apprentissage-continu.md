@@ -35,7 +35,7 @@
 
 | Sujet | Source | Question |
 |---|---|---|
-| **Parrainage client** (ex. un mois offert par artisan recommandé) | vKat0aTuEbo | Quelle récompense ? (engage les prix) |
+| **Parrainage client** | vKat0aTuEbo | Offre préparée le 28/09 (`47-parrainage.md`) : variante A, B ou C à choisir |
 | Connecteurs **Firecrawl** et **Similarweb** | HOXrLsVqinY, inventaire du 28/09 | À brancher sur claude.ai (voir `33-outils.md`) |
 
 ## Registre de toutes les vidéos envoyées
