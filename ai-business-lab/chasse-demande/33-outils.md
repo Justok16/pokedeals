@@ -88,3 +88,23 @@ l'outil Vercel `get_access_to_vercel_url`, jamais écrit dans le dépôt.
   à lire (≈ 30 par mois au maximum) ; la fiche est alors rédigée à partir de la transcription.
 - Testé le 28/09 : les sous-titres YouTube sont bloqués depuis le conteneur, Vercel,
   youtubetranscript.com, Invidious et Piped ; seul vidIQ passe.
+
+## Inventaire des connecteurs (28/09/2026, demande de l'utilisateur)
+Branchés et utilisés : Gmail, Google Drive, Google Agenda, Vercel (relais), Canva, OpenRush,
+vidIQ, Cloudflare, Supabase, Notion, Airtable, Make, Zapier, Resend, DocuSeal (signature),
+PDF.net, Figma, Excalidraw, Webflow, TinyPages, B12, Slack.
+Inutiles pour le projet (laissés tels quels) : AccuWeather, Trivago, Uber, Uber Eats,
+Health Data Avatar, Zacks, Anthropic Economic Index, Perspective AI, AdWhispr (pas de publicité
+avant l'immatriculation).
+
+À connecter par l'utilisateur (claude.ai → Réglages → Connecteurs), avec son accord :
+- **Firecrawl** (recherche et lecture de pages web, offre gratuite limitée — *à vérifier*) :
+  pages qui bloquent nos serveurs (annuaires, banques de photos), vérification des prospects.
+- **Similarweb** (connexion commencée, inachevée) : trafic des sites des prospects et des
+  concurrents ; étendue de l'offre gratuite *à vérifier*.
+Seulement le jour où c'est utile :
+- **Atlassian Rovo** (connexion inachevée) : si un éditeur accepte la reprise (portage Forge).
+- **Stripe** (connexion inachevée) ou **Qonto** : encaissement et prélèvement SEPA, après la
+  création de l'entreprise.
+- **Brevo** (emails B2B conformes CNIL) : pour une campagne, une fois la structure légale créée.
+Je ne peux pas connecter moi-même : chaque connexion demande l'identifiant de l'utilisateur.
