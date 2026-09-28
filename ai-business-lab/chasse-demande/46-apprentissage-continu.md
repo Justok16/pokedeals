@@ -30,7 +30,7 @@
 | 4 | Chercher avec vidIQ les questions les plus demandées sur les sites d'artisans (vidéos « outliers ») : preuve de demande, idées de contenus | MROM3p3CPZU | à faire |
 | 5 | Ressources gratuites de design (polices Fontshare, icônes, composants) pour les démos | _SVU3oC4JX8 | à évaluer |
 | 6 | Page d'arrivée alignée mot pour mot sur le message de prospection | oBw_BDIZIqc | à appliquer aux prochains messages |
-| 7 | Passer chaque document important dans `/api/avis` (second avis) avant de l'envoyer | _9ZGlLWr6UE | outil prêt le 28/09 ; à utiliser au prochain document |
+| 7 | Passer chaque document important dans `/api/avis` (second avis) avant de l'envoyer | _9ZGlLWr6UE | **appliqué le 28/09** sur les textes des 7 démos du lot 2 (gemini-3.5-flash-lite) : 4 corrections retenues (phrase répétée non vérifiée, « petits prix », « à la minute ») ; suggestions juridiques non fondées écartées après vérification |
 | 8 | Vérifier les photos fournies par les clients avec `outils/verif_metadonnees.py` (position GPS) | nosignups.net | **fait** (outil prêt ; 22 images du site : propres) |
 
 ## Décisions qui appartiennent à l'utilisateur
