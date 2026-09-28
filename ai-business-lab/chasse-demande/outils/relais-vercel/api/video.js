@@ -82,6 +82,25 @@ export async function GET(request) {
     // API « interactions » (documentation Google, septembre 2026)
     const choisis = (params.get('modeles') || '').split(',').filter((m) => /^[a-z0-9.-]{3,60}$/.test(m));
     for (const modele of (choisis.length ? choisis : [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-2.5-flash'].filter(Boolean))) {
+      // 1er essai (28/09) : generateContent en BASSE résolution vidéo (environ 4 fois moins de
+      // jetons par image, donc bien plus rapide quand Gemini est surchargé ; suffisant pour un résumé)
+      if (params.get('resolution') !== 'normale') {
+        try {
+          const rep = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent`, {
+            method: 'POST',
+            headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ file_data: { file_uri: url } }, { text: consigne }] }],
+              generationConfig: { mediaResolution: 'MEDIA_RESOLUTION_LOW' },
+            }),
+          });
+          const j = await rep.json();
+          const texte = ((j.candidates || [])[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
+          if (rep.ok && texte) return Response.json({ id, resume: texte, modele, voie: 'generateContent-basse' });
+          erreurs.push(`${modele} generateContent-basse ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
+          if (rep.status === 429) continue; // quota épuisé : inutile d'essayer l'autre API
+        } catch (e) { erreurs.push(`${modele} generateContent-basse ${String(e).slice(0, 120)}`); }
+      }
       try {
         const rep = await fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
           method: 'POST',
@@ -105,18 +124,6 @@ export async function GET(request) {
         if (debug) { const { usage, ...reste } = j; return Response.json({ id, debug: JSON.stringify(reste, (k, v) => (k === 'signature' ? '…' : v)).slice(0, 4000) }); }
         erreurs.push(`${modele} interactions ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
       } catch (e) { erreurs.push(`${modele} interactions ${String(e).slice(0, 120)}`); }
-      // API classique generateContent
-      try {
-        const rep = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent`, {
-          method: 'POST',
-          headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ file_data: { file_uri: url } }, { text: consigne }] }] }),
-        });
-        const j = await rep.json();
-        const texte = ((j.candidates || [])[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
-        if (rep.ok && texte) return Response.json({ id, resume: texte, modele, voie: 'generateContent' });
-        erreurs.push(`${modele} generateContent ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
-      } catch (e) { erreurs.push(`${modele} generateContent ${String(e).slice(0, 120)}`); }
     }
     return Response.json({ id, erreur: erreurs.join(' | ').slice(0, 1500) }, { status: 502 });
   }
