@@ -89,6 +89,14 @@
   40 € + pénalités, injonction de payer). Mentions de pénalités à mettre
   dans les CGV et les modèles de facture.
 
+## Apprentissage continu (demande forte du 28/09)
+
+- **Chaque vidéo YouTube envoyée par l'utilisateur** (et chaque nouvelle vidéo Finary/Fintales)
+  est résumée, triée et **appliquée** sans attendre qu'il le demande : marche à suivre et
+  registre dans `46-apprentissage-continu.md` (liste « À faire » reprise à chaque point
+  automatique). Outils gratuits et sûrs : installés après lecture complète ; connecteurs
+  utiles : proposés à l'utilisateur (lui seul peut les brancher, voir `33-outils.md`).
+
 ## Outils en place
 
 - Boîte du pseudonyme via le connecteur **Gmail** (signature : « Dig ») ;
