@@ -107,6 +107,6 @@
 - **Base de connaissances vidéo** (demande du 26/09) : résumés Gemini des
   vidéos YouTube dans `connaissances/` (chaîne Finary : finances
   personnelles, 965 vidéos, traitées avec `outils/resumer_chaine.py` qui
-  alterne 7 modèles Gemini gratuits : ~20 vidéos/jour/modèle, soit ~1 semaine). **Ensuite** (demande du 28/09) : chaîne Fintales (`connaissances/fintales/`, 152 vidéos), même outil. À consulter avant de répondre sur ces sujets ;
+  alterne 7 modèles Gemini gratuits : ~20 vidéos/jour/modèle, soit ~1 semaine). **Ensuite** (demande du 28/09) : chaîne Fintales (`connaissances/fintales/`, 152 vidéos), même outil. **Nouvelles vidéos** (demande du 28/09) : une fois par jour, `python3 outils/maj_chaines.py /tmp/cj.txt` ajoute en tête de liste les nouvelles vidéos Finary et Fintales, résumées en priorité. Vidéos que Gemini ne lit pas : secours vidIQ (transcription, 5 crédits sur 150/mois). À consulter avant de répondre sur ces sujets ;
   toute règle fiscale ou chiffre qui en est tiré est revérifié à la source
   officielle avant d'être affirmé.
