@@ -39,6 +39,10 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
       graisse fine (< 400) ; contraste ≥ 4,5 (≥ 3 au-delà de 24 px) ; ombre portée
       sous tout texte posé sur une photo. Menu vérifié sur une seule ligne de
       320 à 1 440 px.
+- [ ] Pas de look « fait par IA » (`outils/anti_generique.py`, règles tirées de Taste Skill) :
+      pas de numéros de section décoratifs, d'étapes « Étape 1 », d'invitation à défiler, de verbes
+      creux, de noms bidon, d'images de remplissage ; « attention » à examiner (3 colonnes égales,
+      chiffres trop ronds, noir pur).
 
 ## Outils
 - Accessibilité et ergonomie (depuis le 28/09) : `outils/audit_acces.py page.html …` doit afficher « problèmes : 0 » (boutons et liens d'au moins 44 px sur téléphone, champs de formulaire avec étiquette, titres dans l'ordre, variante « réduire les animations », attribut lang, images avec alt).
