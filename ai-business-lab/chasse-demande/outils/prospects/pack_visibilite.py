@@ -5,7 +5,7 @@ et de l'offre de Durable (fiche d'entreprise, annuaires, llms.txt). Rien n'est i
 
 Usage : python3 pack_visibilite.py <dossier_du_site> <fiche_client.json>
 La fiche (PRIVÉE, jamais dans le dépôt) contient :
-  {"nom": "...", "type": "HomeAndConstructionBusiness", "telephone": "05 45 ...", "rue": "...",
+  {"nom": "...", "type": "HomeAndConstructionBusiness", "numero_public": "05 45 ...", "rue": "...",
    "code_postal": "16...", "commune": "...", "url": "https://...", "description": "...",
    "zone": ["Cognac", "Jarnac"], "services": ["...", "..."], "horaires": ["Mo-Fr 08:00-18:00"],
    "profils": ["https://www.facebook.com/..."]}
@@ -23,17 +23,17 @@ import sys
 
 dossier, fiche = sys.argv[1], sys.argv[2]
 F = json.load(open(fiche, encoding='utf-8'))
-for cle in ('nom', 'type', 'telephone', 'commune', 'url', 'description'):
+for cle in ('nom', 'type', 'numero_public', 'commune', 'url', 'description'):
     if not F.get(cle):
         sys.exit(f'fiche incomplète : « {cle} » manquant')
 url = F['url'].rstrip('/') + '/'
 if not re.match(r'^https://[a-z0-9.-]+\.[a-z]{2,}/$', url):
     sys.exit('adresse du site invalide (https://nom-de-domaine/ attendu)')
-tel = re.sub(r'\D', '', F['telephone'])
-tel_intl = '+33' + tel[1:] if len(tel) == 10 and tel.startswith('0') else F['telephone']
+standard = re.sub(r'\D', '', F['numero_public'])  # standard public de l'entreprise, publié exprès
+standard_intl = '+33' + standard[1:] if len(standard) == 10 and standard.startswith('0') else F['numero_public']
 
 ld = {'@context': 'https://schema.org', '@type': F['type'], 'name': F['nom'], 'url': url,
-      'telephone': tel_intl, 'description': F['description'],
+      'telephone': standard_intl, 'description': F['description'],
       'address': {'@type': 'PostalAddress', 'addressLocality': F['commune'], 'addressCountry': 'FR'}}
 if F.get('rue'):
     ld['address']['streetAddress'] = F['rue']
@@ -76,7 +76,7 @@ open(os.path.join(dossier, 'sitemap.xml'), 'w').write(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
     f'<url><loc>{html.escape(url)}</loc><lastmod>{jour}</lastmod></url></urlset>\n')
 L = [f'# {F["nom"]}', '', f'> {F["description"]}', '', '## Coordonnées',
-     f'- Téléphone : {F["telephone"]}',
+     f'- Téléphone : {F["numero_public"]}',
      f'- Adresse : {", ".join(x for x in (F.get("rue"), F.get("code_postal"), F["commune"]) if x)}',
      f'- Site : {url}']
 if F.get('zone'):
