@@ -94,5 +94,6 @@ Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-vid
 | _9ZGlLWr6UE | Claude Code + Codex (délégation, relecture croisée en lecture seule) | Codex payant : écarté ; **appliqué** en gratuit : `/api/avis` (second avis Gemini) |
 | 05ody6JKf1Y | Podcast : IA générale, emploi, « zone de génie » | Réflexion générale ; vente en direct sans intermédiaire = déjà le modèle de Dig |
 | 5 reels Facebook | Sites gratuits, Manychat, annuaire, Klap, LightPDF | Détail : `videos-resumes/reels-facebook-28-09.md` ; Klap **écarté** (contrefaçon) |
+| Second avis Gemini (lot 4 de démos, 29/09) | Légende « Façades bois » héritée du modèle peinture, fausse pour 6 artisans | **Appliqué** : légendes et textes surchargés par prospect ; règle : relire chaque texte hérité d'un modèle contre le métier réel |
 | rWbVgBdl-0I (Melvynx) | Marketing d'un SaaS en public (Lumail, annuaire mcpservers.org, affiliation) | Hors piste Dig pour l'instant ; idée gardée : se faire lister dans les annuaires gratuits de son secteur |
 | 5QMtCBkjvkY, JmNfV3GhVUU (gabzer) | Pubs vidéo et boutique générées par IA (Atoms, Higgsfield, bibliothèque de pubs Meta) | Bibliothèque de pubs Meta (gratuite) utile pour voir ce que font les concurrents d'un prospect ; copier la pub d'un autre : **écarté** (contrefaçon) ; outils payants non retenus |
