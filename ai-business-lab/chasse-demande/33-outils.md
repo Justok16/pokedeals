@@ -212,11 +212,25 @@ télécharger la vidéo depuis m.facebook.com, puis l'envoyer en base64, 4,5 Mo 
   29/09/2026 comme « un service gratuit ». Sert à confirmer qu'une entreprise est active et à
   retrouver le SIREN d'un exploitant (utile quand recherche-entreprises.api.gouv.fr sature).
 
+## Connecteurs ajoutés par l'utilisateur le 29/09/2026 (tri)
+- **Unsplash** (`search_photos`) : photos jusqu'à 5 472 px pour les démos. Licence lue sur
+  unsplash.com/license le 29/09/2026 : « download, copy, modify, distribute, perform, and use
+  images from Unsplash for free, including for commercial purposes, without permission from or
+  attributing the photographer or Unsplash » ; interdit de compiler les images pour refaire un
+  service concurrent. Ne prendre que les résultats `premium: false` (les images Unsplash+ sont
+  payantes). Noter l'identifiant de chaque photo utilisée dans `supports/sources-photos-wikimedia.md`.
+- **OpenSEO** : fiches Google Business (note, avis, site, téléphone) et recherche d'entreprises
+  locales, utiles pour la prospection, mais le compte affiche 0 crédit (`whoami`, 29/09/2026) :
+  inutilisable sans achat, donc non utilisé (budget 0 €).
+- Autres connecteurs (Gamma, WordPress.com, Webflow, Wix, Metricool, beehiiv, Supermetrics…) :
+  pas utiles tant qu'aucun client n'a signé ; à réexaminer pour l'hébergement ou la
+  présentation des sites clients.
+
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
 | Blocage | Solution gratuite qui marche |
 |---|---|
 | Sous-titres YouTube bloqués (conteneur, Vercel, Invidious, Piped) | Gemini lit la vidéo ; secours vidIQ (transcription) |
-| Recherche Unsplash bloquée (défi anti-robots) | Firecrawl `firecrawl_scrape` (1 crédit la page) |
+| Recherche Unsplash bloquée (défi anti-robots) | Connecteur Unsplash `search_photos` (29/09) ; sinon Firecrawl `firecrawl_scrape` (1 crédit la page) |
 | Similarweb sans crédit | OpenRush `inspect_domain` |
 | Annuaire officiel bloqué depuis le conteneur | Relais Vercel `/api/entreprise` |
 | Crédit Vercel AI Gateway épuisé | 9 modèles de la clé Gemini gratuite |
