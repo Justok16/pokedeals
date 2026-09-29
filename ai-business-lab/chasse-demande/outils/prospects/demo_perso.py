@@ -100,7 +100,7 @@ nav.plein{background:rgba(246,241,233,.95);backdrop-filter:blur(10px);color:var(
 .heros .fond .etiq{position:absolute;z-index:2;right:24px;bottom:24px;background:rgba(246,241,233,.94);color:var(--encre);padding:.7rem 1rem;font-size:.86rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
 .sur{font-size:.84rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;color:var(--acct)}
 .heros .sur{color:var(--acc)}
-.heros h1{font-size:clamp(2.9rem,5.4vw,5.6rem);font-weight:600;margin:.7rem 0 1.1rem;color:#fbf8f2}
+.heros h1,h2,h3{text-wrap:balance}p,figcaption,blockquote{text-wrap:pretty}h1{font-size:clamp(2.9rem,5.4vw,5.6rem);font-weight:600;margin:.7rem 0 1.1rem;color:#fbf8f2}
 .heros h1 em{font-style:italic;color:var(--acc)}
 .heros p{font-size:1.12rem;max-width:520px;color:#ddd5c8;font-weight:400}
 .boutons{display:flex;gap:.8rem;margin-top:2rem;flex-wrap:wrap}

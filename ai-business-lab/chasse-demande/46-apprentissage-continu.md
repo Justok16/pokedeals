@@ -34,6 +34,7 @@
 | 8 | Vérifier les photos fournies par les clients avec `outils/verif_metadonnees.py` (position GPS) | nosignups.net | **fait** (outil prêt ; 22 images du site : propres) |
 | 9 | Skills de design gratuits pour des démos moins « génériques » : Taste Skill, Impeccable, Awesome DESIGN.md (et Humanizer pour les textes) ; lire tout le code avant installation | reels DcRIZ_5DSCd, vidéo 3fdb_giOrLo | **fait le 29/09** : Taste Skill (MIT) et Impeccable (Apache 2.0) récupérés et examinés. Taste Skill vise React et les installations de paquets et utilise des images de remplissage : pas installé tel quel ; ses règles « anti-IA » sont devenues `outils/anti_generique.py` (46 démos contrôlées : aucun défaut bloquant ; la rangée de 3 étapes égales du générateur est passée en escalier pour les prochaines démos). Impeccable contient un programme de 13 500 lignes : pas installé ; ses grilles de critique en texte restent à lire (`reference/critique.md`, `audit.md`). Humanizer : à examiner |
 | 10 | Référencement des clients : OpenSEO (gratuit ?), GEO Optimizer, fichier `llms.txt`, fiche Google ; vérifier l'offre gratuite à la source, puis chiffrer avec l'utilisateur | reel Ddr5n7-OOcm, tarifs Durable | **fait le 29/09** : OpenSEO écarté (logiciel gratuit mais données DataForSEO payantes à l'usage ; OpenRush gratuit suffit). GEO Optimizer (MIT, 58 000 lignes : pas installé) : sa grille « préparation aux IA » est devenue `outils/prospects/pack_visibilite.py` (données structurées « entreprise locale », partage, `robots.txt` ouvert aux assistants IA, `sitemap.xml`, `llms.txt`, uniquement à partir de la fiche client vérifiée), à lancer sur chaque site client publié. À proposer dans l'offre (chiffrage avec l'utilisateur) |
+| 11 | Petit outil gratuit sans inscription sur le site de Dig (« votre entreprise est-elle trouvable sur Google et dans les IA ? »), pour attirer des artisans et prouver le savoir-faire (« engineering as marketing ») ; à passer à la grille avant de construire | Melvynx HLCurWw88bM | à évaluer |
 
 ## Décisions qui appartiennent à l'utilisateur
 
@@ -41,6 +42,16 @@
 |---|---|---|
 | **Parrainage client** | vKat0aTuEbo | **Validé (variante A) et appliqué le 28/09** : site, guide, `47-parrainage.md` |
 | Connecteurs **Firecrawl** et **Similarweb** | HOXrLsVqinY, inventaire du 28/09 | À brancher sur claude.ai (voir `33-outils.md`) |
+
+### Tri Melvynx du 29/09 (26 fiches lues sur 1 027)
+
+| Idée ou outil | Verdict |
+|---|---|
+| Kit de skills de design `jakubkrehel/skills` (MIT, texte seul, relu le 29/09) | Non installé (des consignes de relecture, pas un outil). Ses règles mesurables ont été contrôlées sur les démos : champs de formulaire ≥ 16 px sur téléphone (17 px), lignes de 60 à 75 caractères (64-65), interlignes (1,7 pour le texte, 1,1 pour les titres) : conformes. Seul manque corrigé : retour à la ligne équilibré des titres et sans mot isolé en fin de paragraphe (`text-wrap`), ajouté au générateur pour les prochaines démos |
+| Envoi d'e-mails : sous-domaine dédié pour protéger le domaine principal, test de délivrabilité gratuit (SPF, DKIM, DMARC) avant tout envoi | À appliquer le jour où Dig aura son domaine et enverra des e-mails de prospection |
+| Consignes courtes pour les skills (le modèle sait déjà faire) | Déjà le cas pour nos skills |
+| Tarif « forfait + usage » ; ne pas miser sur le SEO au démarrage d'un logiciel | Pas pour Dig aujourd'hui (offre de sites à prix fixe) |
+| Tests de modèles d'IA (Gemini, GPT, Grok…) | Information générale, rien à appliquer |
 
 ### Chaînes YouTube envoyées le 28/09 (soir)
 
