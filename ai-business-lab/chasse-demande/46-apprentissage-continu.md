@@ -72,6 +72,21 @@ triées et appliquées.
 | e2EgglFl7MQ | 30 jours de publications en 60 minutes | Idée d'offre gardée de côté : publications mensuelles pour les artisans clients (à passer à la grille avant tout) |
 | HCZ3-Scx704 | 7 conseils de consignes (effort adapté, tâche entière, langage simple, « ne pas toucher », éditer sans tout réécrire) | Déjà appliqués pour l'essentiel ; rappel : phrases courtes et simples pour l'utilisateur |
 
+### Tri TikTok du 29/09 (Unefille.ia et IA Boss)
+
+Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourne). Synthèse des outils cités : `connaissances/tri-tiktok-29-09.md` (affirmations des créateurs, non vérifiées).
+
+| Outil ou idée | Verdict |
+|---|---|
+| Générateurs de sites par IA (Durable, Emergent, Lovable, DeepSite, Qwen) | Concurrents ou doublons de notre générateur ; rien à installer. `same.dev` (copie d'interfaces existantes) **écarté** : risque de contrefaçon |
+| n8n (automatisation) | Version « Community » gratuite en auto-hébergement (docs.n8n.io, lu le 29/09 : « Without a license key, n8n runs as the free Community edition ») mais il faut un serveur ; nos scripts Python + la routine couvrent déjà le besoin. Gardé de côté |
+| IA en local (Ollama, LM Studio) | Pas de carte graphique ici ; Gemini gratuit via le relais suffit |
+| Visuels par IA (Nano Banana, Krea, Recraft, Ideogram, Napkin, Canva en masse) | Pas pour les démos : photos réelles libres de droits, plus honnêtes. Napkin (schémas) et Recraft (logos) : à évaluer seulement si un client en demande |
+| Wappalyzer (technologie d'un site) | Déjà couvert par notre détection de sites pour la prospection |
+| NotebookLM, Perplexity, Gamma | Utiles à l'utilisateur, rien à installer ici |
+| openalternative.co, OpenSourceAlternative.com (alternatives gratuites) | À ajouter à la veille si leur liste se lit automatiquement (réflexe « outil payant → équivalent gratuit ») |
+| Textes par métier pour le contenu des sites clients | Déjà fait dans le générateur (thèmes par métier, textes neutres et vrais) |
+
 ## Veille quotidienne sur les sources de l'utilisateur (depuis le 28/09/2026)
 
 `outils/veille_sources.py` (lancé une fois par jour par le point automatique) :

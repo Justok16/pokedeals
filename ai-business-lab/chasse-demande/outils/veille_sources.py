@@ -70,8 +70,12 @@ def mrfreetools():
     return outils
 
 
+def openalternative():
+    return {u: u for u in re.findall(r'<loc>([^<]+)</loc>', telecharger('https://openalternative.co/sitemap/tools.xml'))}
+
+
 SOURCES = {'nosignups': nosignups, 'futuretools': futuretools, 'free-for-dev': free_for_dev,
-           'mrfreetools': mrfreetools}
+           'mrfreetools': mrfreetools, 'openalternative': openalternative}
 
 
 def veille_outils(rapport):
