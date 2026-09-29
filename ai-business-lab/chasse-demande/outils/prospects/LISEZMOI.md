@@ -20,6 +20,13 @@ jamais dans ce dépôt.
 6. **Vérification une par une** (recherche web) avant toute mise en liste
    d'appels : sur un échantillon du 26/09/2026, environ **1 entreprise
    « sans site » sur 2** avait en réalité un site sous un autre nom.
+   **Téléphones** (leçon du 29/09/2026) : un numéro venant de l'annuaire RGE
+   ou d'OpenStreetMap est rapproché par adresse et peut appartenir à une
+   autre entreprise (même bâtiment, même zone). Chaque numéro est vérifié à
+   la source (PagesJaunes, page Facebook, site de la commune) avant la mise
+   en liste. Pour repérer les doublons avec les listes déjà remises, comparer
+   les numéros sur leurs 9 derniers chiffres (« +33 5 45… » = « 05 45… »),
+   et vérifier aussi les procédures collectives au BODACC.
 7. Classement : métier (bâtiment, auto, restauration, beauté, gîtes…),
    salariés, ancienneté, RGE, entreprise récente ; pénalité pour les
    grandes entreprises (souvent déjà une agence) ; exclusion des
