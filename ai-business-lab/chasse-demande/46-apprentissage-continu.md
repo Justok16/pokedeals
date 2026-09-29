@@ -53,6 +53,15 @@ emails, skills, belles interfaces, sites, outils gratuits). Fiches : `connaissan
 et `connaissances/mreflow/`. Élargissement proposé à l'utilisateur une fois ces 30 vidéos
 triées et appliquées.
 
+### Envois du 29/09 (nuit)
+
+| Vidéo ou source | Sujet | Verdict |
+|---|---|---|
+| Capture « Les outils IA qui te rendent inarrêtable » (reel Instagram) | 36 outils d'IA | Détail : `videos-resumes/outils-ia-instagram-29-09.md`. **Durable** est un concurrent direct (site gratuit, puis 25 $/mois) : on garde ses bonnes idées gratuites (fiche Google, annuaires locaux, demandes d'avis, `llms.txt`). **DoNotPay** écarté (sanction de la FTC en 2025). Les autres outils sont payants ou sans usage pour Dig. |
+| 6 reels Instagram | Illisibles sans connexion (page intégrée, Firecrawl et recherche web essayés) | Demander une capture ou le nom du créateur |
+| @melvynxdev : **toute la chaîne** (demande du 29/09) | 1 027 vidéos | Lecture complète lancée ; elle passe **avant** la suite de Finary (demande la plus récente). Environ 150 vidéos par jour avec le quota gratuit : 7 à 10 jours. Fiches : `connaissances/melvynx/` |
+| 12 vidéos YouTube | Voir `videos-resumes/` | 2 déjà traitées (kYNwdRnb4ks, Uh9A_E4ik-0), 10 en cours de résumé |
+
 ## Veille quotidienne sur les sources de l'utilisateur (depuis le 28/09/2026)
 
 `outils/veille_sources.py` (lancé une fois par jour par le point automatique) :
