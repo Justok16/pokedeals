@@ -200,6 +200,18 @@ télécharger la vidéo depuis m.facebook.com, puis l'envoyer en base64, 4,5 Mo 
 `ai-business-lab/chasse-demande/outils/relais-vercel`, sinon tout le relais répond 404
 (erreur du 28/09, corrigée en 10 minutes). Chaque déploiement invalide le cookie : le renouveler.
 
+## Recherche web Tavily et registre « infosociétés » (connecteurs ajoutés, 29/09/2026)
+- **Tavily** (`tavily_search`) : moteur de recherche pour agents. Offre gratuite lue sur
+  tavily.com/pricing le 29/09/2026 : « 1,000 API credits / month », « No credit card required »,
+  crédits remis à zéro le 1er de chaque mois ; les requêtes s'arrêtent une fois le quota épuisé
+  (pas de facturation automatique). Utilisé pour vérifier les prospects (site propre ? numéro
+  publié ?) quand Firecrawl répond 429. Limite constatée : un numéro seul entre guillemets
+  n'est pas cherché tel quel ; chercher plutôt le nom de l'entreprise et la commune.
+- **infosociétés by Contract-Factory** (`search_company`, `get_company`) : registre national
+  des entreprises (RNE/INPI et Sirene), présenté sur contract-factory.com/infosocietes le
+  29/09/2026 comme « un service gratuit ». Sert à confirmer qu'une entreprise est active et à
+  retrouver le SIREN d'un exploitant (utile quand recherche-entreprises.api.gouv.fr sature).
+
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
 | Blocage | Solution gratuite qui marche |
 |---|---|
@@ -208,6 +220,8 @@ télécharger la vidéo depuis m.facebook.com, puis l'envoyer en base64, 4,5 Mo 
 | Similarweb sans crédit | OpenRush `inspect_domain` |
 | Annuaire officiel bloqué depuis le conteneur | Relais Vercel `/api/entreprise` |
 | Crédit Vercel AI Gateway épuisé | 9 modèles de la clé Gemini gratuite |
+| Firecrawl en 429 (trop de recherches rapprochées) (29/09) | Tavily `tavily_search` (1 000 crédits gratuits par mois) |
+| Annuaire officiel saturé (29/09) | infosociétés `search_company` (gratuit) |
 | Firecrawl en erreur (« Invalid content from server », 28/09) | Outil WebFetch, ou curl direct sur la page |
 | Reels Facebook (connexion demandée) | Version mobile m.facebook.com : fichier vidéo lisible, puis images (imageio-ffmpeg) ou Gemini `/api/avis` |
 | Outil payant sans équivalent connu | Chercher dans free-for.dev, nosignups.net, futuretools.io (filtre Free / Open Source) |
