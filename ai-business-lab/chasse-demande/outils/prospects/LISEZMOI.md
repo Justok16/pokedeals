@@ -27,6 +27,14 @@ jamais dans ce dépôt.
    en liste. Pour repérer les doublons avec les listes déjà remises, comparer
    les numéros sur leurs 9 derniers chiffres (« +33 5 45… » = « 05 45… »),
    et vérifier aussi les procédures collectives au BODACC.
+   Quand l'entreprise a un site (même ancien), méthode gratuite et la plus
+   sûre : chercher le numéro sur ce site (accueil puis pages contact et
+   mentions légales), en essayant aussi `http://` car beaucoup de vieux
+   sites n'ont pas de certificat. Sur 65 fiches revérifiées ainsi le
+   29/09/2026 : 61 confirmées, 3 numéros remplacés par celui du site,
+   1 fiche retirée (site en fait tenu à jour). Attention aux faux positifs :
+   une suite de chiffres dans le code d'une page (identifiant de police
+   Wix, par exemple) n'est pas un numéro affiché.
 7. Classement : métier (bâtiment, auto, restauration, beauté, gîtes…),
    salariés, ancienneté, RGE, entreprise récente ; pénalité pour les
    grandes entreprises (souvent déjà une agence) ; exclusion des
