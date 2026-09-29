@@ -64,6 +64,13 @@ triées et appliquées.
 | 12 vidéos YouTube | Voir `videos-resumes/` | 2 déjà traitées (kYNwdRnb4ks, Uh9A_E4ik-0), 10 en cours de résumé |
 | 6 reels Instagram (enfin lus le 29/09 : yt-dlp + ffmpeg + Gemini) | Fiches `videos-resumes/reel-*.md` | **Design des démos** : Taste Skill, Impeccable, Awesome DESIGN.md (gratuits et libres selon les vidéos) : à évaluer, avec lecture complète du code avant toute installation (action n° 9). **SEO pour les clients** : OpenSEO (présenté comme une alternative gratuite à Semrush), GEO Optimizer (être recommandé par les assistants IA), GSC MCP (Search Console) : à évaluer pour l'offre (action n° 10). **Écartés** : OmniRoute (fait tourner les quotas gratuits de 200 fournisseurs : conditions d'utilisation à risque), Headroom et Task Observer (inutiles ici), Perplexity (payant). Claude Mem : notre mémoire (`.claude/CLAUDE.md`) suffit. Le 7e reel (DVolgosjH7u) est freiné par Instagram (429) : nouvel essai plus tard |
 | Pages Facebook **IA Boss** (@iabossai) et **Unefille.ia** : toutes les vidéos (demande du 29/09) | Retrouvées sur TikTok : @ia.boss (688 vidéos) et @unefille.ia (630 vidéos) | Collecte des légendes et sous-titres lancée (texte privé, hors dépôt), puis fiches par lots de 15 dans `connaissances/iaboss/` et `connaissances/unefille/` |
+| 5gifZmpc99g | Appli mobile pour les pubs LinkedIn | Écarté : pas de publicité payante (budget 0 €) |
+| dw4rYWy8nLw | 15 créations faites avec Opus 5.5 | Déjà appliqué : nos démos tiennent en un seul fichier HTML, sans bibliothèque externe |
+| 2jZBhsLpe1o | 1 TikTok par jour pendant 30 jours (programme de rémunération TikTok, 10 000 abonnés requis selon la vidéo) | Hors piste pour l'instant (visage et audience nécessaires) ; gardé de côté |
+| Juhkw0tL-L0 | Montage automatique de vidéos courtes (FFmpeg, HyperFrames) | Plus tard, pour une vidéo de présentation de Dig ; FFmpeg est déjà disponible gratuitement (imageio-ffmpeg) |
+| s7QXxRvylrs, aBPAmYi1FfU | Sortie de Sonnet 5.5 (moins cher qu'Opus selon les vidéos) | Information générale ; rien à appliquer (pas d'API payante) |
+| e2EgglFl7MQ | 30 jours de publications en 60 minutes | Idée d'offre gardée de côté : publications mensuelles pour les artisans clients (à passer à la grille avant tout) |
+| HCZ3-Scx704 | 7 conseils de consignes (effort adapté, tâche entière, langage simple, « ne pas toucher », éditer sans tout réécrire) | Déjà appliqués pour l'essentiel ; rappel : phrases courtes et simples pour l'utilisateur |
 
 ## Veille quotidienne sur les sources de l'utilisateur (depuis le 28/09/2026)
 
