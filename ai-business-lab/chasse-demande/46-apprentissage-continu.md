@@ -32,6 +32,8 @@
 | 6 | Page d'arrivée alignée mot pour mot sur le message de prospection | oBw_BDIZIqc | à appliquer aux prochains messages |
 | 7 | Passer chaque document important dans `/api/avis` (second avis) avant de l'envoyer | _9ZGlLWr6UE | **appliqué le 28/09** sur les textes des 7 démos du lot 2 (gemini-3.5-flash-lite) : 4 corrections retenues (phrase répétée non vérifiée, « petits prix », « à la minute ») ; suggestions juridiques non fondées écartées après vérification |
 | 8 | Vérifier les photos fournies par les clients avec `outils/verif_metadonnees.py` (position GPS) | nosignups.net | **fait** (outil prêt ; 22 images du site : propres) |
+| 9 | Skills de design gratuits pour des démos moins « génériques » : Taste Skill, Impeccable, Awesome DESIGN.md (et Humanizer pour les textes) ; lire tout le code avant installation | reels DcRIZ_5DSCd, vidéo 3fdb_giOrLo | à évaluer |
+| 10 | Référencement des clients : OpenSEO (gratuit ?), GEO Optimizer, fichier `llms.txt`, fiche Google ; vérifier l'offre gratuite à la source, puis chiffrer avec l'utilisateur | reel Ddr5n7-OOcm, tarifs Durable | à évaluer |
 
 ## Décisions qui appartiennent à l'utilisateur
 
@@ -58,9 +60,10 @@ triées et appliquées.
 | Vidéo ou source | Sujet | Verdict |
 |---|---|---|
 | Capture « Les outils IA qui te rendent inarrêtable » (reel Instagram) | 36 outils d'IA | Détail : `videos-resumes/outils-ia-instagram-29-09.md`. **Durable** est un concurrent direct (site gratuit, puis 25 $/mois) : on garde ses bonnes idées gratuites (fiche Google, annuaires locaux, demandes d'avis, `llms.txt`). **DoNotPay** écarté (sanction de la FTC en 2025). Les autres outils sont payants ou sans usage pour Dig. |
-| 6 reels Instagram | Illisibles sans connexion (page intégrée, Firecrawl et recherche web essayés) | Demander une capture ou le nom du créateur |
 | @melvynxdev : **toute la chaîne** (demande du 29/09) | 1 027 vidéos | Lecture complète lancée ; elle passe **avant** la suite de Finary (demande la plus récente). Environ 150 vidéos par jour avec le quota gratuit : 7 à 10 jours. Fiches : `connaissances/melvynx/` |
 | 12 vidéos YouTube | Voir `videos-resumes/` | 2 déjà traitées (kYNwdRnb4ks, Uh9A_E4ik-0), 10 en cours de résumé |
+| 6 reels Instagram (enfin lus le 29/09 : yt-dlp + ffmpeg + Gemini) | Fiches `videos-resumes/reel-*.md` | **Design des démos** : Taste Skill, Impeccable, Awesome DESIGN.md (gratuits et libres selon les vidéos) : à évaluer, avec lecture complète du code avant toute installation (action n° 9). **SEO pour les clients** : OpenSEO (présenté comme une alternative gratuite à Semrush), GEO Optimizer (être recommandé par les assistants IA), GSC MCP (Search Console) : à évaluer pour l'offre (action n° 10). **Écartés** : OmniRoute (fait tourner les quotas gratuits de 200 fournisseurs : conditions d'utilisation à risque), Headroom et Task Observer (inutiles ici), Perplexity (payant). Claude Mem : notre mémoire (`.claude/CLAUDE.md`) suffit. Le 7e reel (DVolgosjH7u) est freiné par Instagram (429) : nouvel essai plus tard |
+| Pages Facebook **IA Boss** (@iabossai) et **Unefille.ia** : toutes les vidéos (demande du 29/09) | Retrouvées sur TikTok : @ia.boss (688 vidéos) et @unefille.ia (630 vidéos) | Collecte des légendes et sous-titres lancée (texte privé, hors dépôt), puis fiches par lots de 15 dans `connaissances/iaboss/` et `connaissances/unefille/` |
 
 ## Veille quotidienne sur les sources de l'utilisateur (depuis le 28/09/2026)
 
