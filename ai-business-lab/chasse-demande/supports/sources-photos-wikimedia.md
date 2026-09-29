@@ -26,3 +26,16 @@ Toutes en CC0 ou domaine public (licence relue sur la page de chaque fichier via
 | uqui_b.jpg | https://commons.wikimedia.org/wiki/File:Home_Renovations_(Unsplash).jpg | CC0 |
 | uqui_1.jpg | https://commons.wikimedia.org/wiki/File:Jay_Wennington_2014-10-28_(Unsplash_OLIcAFggdZE).jpg | CC0 |
 | uqui_4.jpg | https://commons.wikimedia.org/wiki/File:Craft_project_(Unsplash).jpg | CC0 |
+
+## Modèle « maçonnerie » (29/09/2026) : Flickr, CC0 ou marque du domaine public
+
+Trouvées via l’API Openverse (Wikimedia était saturé), licence relue sur la page Flickr de chaque photo, fichier original téléchargé puis recadré. Aucune marque, aucun visage, aucun filigrane.
+
+| Fichier | Page Flickr | Licence |
+|---|---|---|
+| umac_h.jpg (recadrée) | https://www.flickr.com/photos/89918055@N05/51483166867 | Domaine public (marque) |
+| umac_b.jpg (recadrée) | https://www.flickr.com/photos/126064386@N03/33639644612 | CC0 |
+| umac_1.jpg | https://www.flickr.com/photos/126064386@N03/32952759904 | CC0 |
+| umac_2.jpg | https://www.flickr.com/photos/11234074@N05/28360192233 | CC0 |
+| umac_3.jpg | https://www.flickr.com/photos/126064386@N03/32952698584 | CC0 |
+| umac_4.jpg (recadrée) | https://www.flickr.com/photos/140641142@N05/28473214077 | CC0 |

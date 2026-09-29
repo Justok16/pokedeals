@@ -3,7 +3,7 @@
 # photos : StockSnap (CC0, via l'API Openverse) nommées <métier>_<n>.jpg, et Unsplash HD (h<métier>_<n>.jpg, sources dans supports/).
 # Surcharges possibles par prospect : s, sur, gl, g, bande, hero, h1p, acc, preuves, titre2/titre2b/texte2,
 # etapes, cta_resto, cta2, contact_txt, placeholder, lib (libellés : boutons, titres de sections).
-# Métiers : menuiserie, chauffage, electricite, couverture, peinture, restaurant, garage, coiffure, boulangerie, quincaillerie. Photos Wikimedia Commons (CC0 / domaine public) : w<nom>.jpg.
+# Métiers : menuiserie, chauffage, electricite, couverture, peinture, restaurant, garage, coiffure, boulangerie, quincaillerie, maconnerie. Photos Wikimedia Commons (CC0 / domaine public) : w<nom>.jpg.
 # N'afficher que des faits vérifiés (RGE via l'annuaire ADEME, dates du registre) ; pas de faux avis.
 import html,re,json,os,base64
 PH=os.environ.get('DIG_PHOTOS','photos/')
@@ -56,6 +56,11 @@ X.update({"garage":["Un garage de proximité,","à votre écoute.","Entretien co
 "coiffure":["Un salon chaleureux,","des conseils sur mesure.","Nous prenons le temps d’écouter vos envies avant chaque prestation, pour une coupe et une couleur qui vous ressemblent."],
 "boulangerie":["Le goût de l’artisanat,","au quotidien.","Pains, viennoiseries et pâtisseries : un savoir-faire de boulanger, pour le petit-déjeuner comme pour vos grandes occasions."],
 "quincaillerie":["Les bons produits,","les bons conseils.","Un magasin de proximité où l’on vous conseille vraiment, pour la maison, le jardin et l’atelier."]})
+T['maconnerie']=dict(acc='#b08d5b',hero='umac_h',bande='umac_b',g=['umac_1','umac_2','umac_3','umac_4'],sur='Maçonnerie · Rénovation · Extensions',
+  h1='Bâtir <em>solide</em>, rénover avec soin.',intro='Construction, extensions, rénovation de murs anciens et façades : un savoir-faire de maçon pour votre maison.',
+  s=[('Construction & extensions','Maisons, agrandissements, garages : des fondations aux murs.'),('Rénovation','Reprise de murs anciens, création d’ouvertures, joints à la chaux.'),('Façades','Enduits, ravalement et remise en état.'),('Aménagements extérieurs','Murets, terrasses, clôtures et dallages.')],gl=['Pierre sèche','Pierre et bois','Murs de pierre','La maison'],
+  lib=dict(nav1='L’entreprise',nav3='Galerie',sur_savoir='L’entreprise',sur_gal='En images',h2_gal='La pierre, travaillée avec soin',bande_a='Un projet de travaux ?',bande_b='Parlons-en.'))
+X['maconnerie']=["Des ouvrages solides,","faits pour durer.","Chaque chantier commence par une visite et un devis détaillé. Nous choisissons des matériaux adaptés à votre maison, ancienne ou neuve, et vous tenons informé à chaque étape."]
 
 def _lum(h):
     r,g,b=[int(h[i:i+2],16)/255 for i in (1,3,5)]
