@@ -6,7 +6,7 @@ Usage : python3 resumer_lots_tiktok.py <dossier_textes> <dossier_fiches> <cookie
 - dossier_fiches : fiches lot-001.md, lot-002.md… (nos synthèses, publiables ; pas de texte brut des créateurs)
 Reprend là où il s'est arrêté. Pause de 20 s entre deux lots.
 """
-import json, os, sys, glob, subprocess, time, datetime
+import json, os, sys, glob, subprocess, time, datetime, re
 textes, fiches, cookies = sys.argv[1], sys.argv[2], sys.argv[3]
 taille = int(sys.argv[4]) if len(sys.argv) > 4 else 15
 os.makedirs(fiches, exist_ok=True)
@@ -16,6 +16,10 @@ C = ("Voici les légendes et sous-titres de courtes vidéos d'un créateur sur l
      "à quoi il sert, gratuit ou payant SELON LA VIDÉO) ; astuce concrète réutilisable. Garde le numéro [n] et le lien de chaque vidéo. "
      "Termine par un tableau récapitulatif des outils (outil | usage | gratuit/payant selon la vidéo | vidéos). "
      "N'invente rien ; si un nom est incertain, écris « à vérifier ». Ne recopie pas les textes : résume. Réponds en français.")
+def propre(t):  # aucune adresse e-mail dans le dépôt public
+    return re.sub(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', '[adresse e-mail retirée]', t)
+
+
 MOD = 'gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-flash-lite-latest,gemini-3-flash-preview'
 for k in range(0, len(V), taille):
     lot = V[k:k + taille]; n = k // taille + 1
@@ -37,6 +41,6 @@ for k in range(0, len(V), taille):
     d = [v.get('date') or '?' for v in lot]
     open(f, 'w').write(f"# Lot {n} : vidéos {k+1} à {k+len(lot)} (du {d[-1]} au {d[0]})\n\n"
                        f"Résumé Gemini ({j.get('modele')}) du {datetime.date.today().isoformat()}, à partir des légendes et "
-                       f"sous-titres. Affirmations des créateurs non vérifiées : offre gratuite et légalité à contrôler à la source avant tout usage.\n\n{j['avis'].strip()}\n")
+                       f"sous-titres. Affirmations des créateurs non vérifiées : offre gratuite et légalité à contrôler à la source avant tout usage.\n\n{propre(j['avis'].strip())}\n")
     print('ok lot', n, flush=True)
     time.sleep(20)

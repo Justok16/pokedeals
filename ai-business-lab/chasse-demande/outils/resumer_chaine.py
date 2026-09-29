@@ -11,7 +11,12 @@ et on passe au suivant dès qu'un modèle a épuisé son quota. Pause de 80 s en
 MODELES = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-3.5-flash',
            'gemini-3-flash-preview', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite',
            'gemini-3.1-flash-lite-preview', 'gemini-flash-lite-latest']  # 2 ajoutés le 28/09 (testés : lisent les vidéos)
-import json, os, sys, time, subprocess, datetime
+import json, os, sys, time, subprocess, datetime, re
+
+
+def sans_email(t):  # aucune adresse e-mail dans le dépôt public
+    return re.sub(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', '[adresse e-mail retirée]', t)
+
 
 def secondes(d):
     t = 0
@@ -59,7 +64,7 @@ for v in videos:
     illisibles = 0
     date = datetime.date.today().isoformat()
     open(f, 'w').write(f"# {v['titre']}\n\nVidéo : https://youtu.be/{v['id']} · durée {v['duree']} · résumé Gemini ({j.get('modele', '?')}) du {date}\n"
-                       f"(connaissances générales, non vérifiées : toute règle fiscale ou chiffre est à contrôler à la source officielle)\n\n{j['resume'].strip()}\n")
+                       f"(connaissances générales, non vérifiées : toute règle fiscale ou chiffre est à contrôler à la source officielle)\n\n{sans_email(j['resume'].strip())}\n")
     fait += d
     print('ok', v['id'], v['duree'], v['titre'][:60], flush=True)
     time.sleep(80)

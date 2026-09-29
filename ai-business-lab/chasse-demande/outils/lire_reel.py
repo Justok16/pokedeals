@@ -5,7 +5,12 @@ Pré-requis (hors dépôt) : python3 -m venv /tmp/ytdlp/v && /tmp/ytdlp/v/bin/pi
 Usage : python3 lire_reel.py <cookies.txt> <dossier_sortie> <url> [<url> ...]
 Solution trouvée le 29/09/2026 : Firecrawl refuse Instagram et la page intégrée exige une connexion.
 """
-import sys, os, json, base64, subprocess, glob, datetime
+import sys, os, json, base64, subprocess, glob, datetime, re
+
+
+def sans_email(t):  # aucune adresse e-mail dans le dépôt public
+    return re.sub(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', '[adresse e-mail retirée]', t)
+
 Y = '/tmp/ytdlp/v/bin/yt-dlp'
 FF = subprocess.run(['/tmp/ytdlp/v/bin/python', '-c', 'import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())'],
                     capture_output=True, text=True).stdout.strip()
@@ -40,7 +45,7 @@ for url in sys.argv[3:]:
     if 'avis' not in j:
         print('échec', url, r[:200]); continue
     open(f, 'w').write(f"# Reel de {info.get('uploader') or '?'} (@{info.get('channel') or '?'})\n\n{url} · résumé Gemini "
-                       f"({j.get('modele')}) du {datetime.date.today().isoformat()} (affirmations non vérifiées)\n\n{j['avis'].strip()}\n")
+                       f"({j.get('modele')}) du {datetime.date.today().isoformat()} (affirmations non vérifiées)\n\n{sans_email(j['avis'].strip())}\n")
     for x in glob.glob(b + '*'):
         os.remove(x)
     print('ok', url)
