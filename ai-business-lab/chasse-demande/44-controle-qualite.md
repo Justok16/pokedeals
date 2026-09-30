@@ -55,3 +55,14 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
   (`outils/prospects/controle_flyer.py`).
 
 - Démos personnalisées de prospects (depuis le 28/09, audit externe n° 1) : **jamais publiées en ligne** sans accord écrit du prospect ; montrées sur écran ou en PDF privé, supprimées en cas de refus. Les démos publiques du site utilisent uniquement des entreprises fictives.
+
+## Doublons entre listes de prospects (leçon du 30/09/2026)
+
+Erreur constatée : les ajouts n°12 et 13 reprenaient 23 artisans déjà présents dans les ajouts
+n°4 et 5, car le registre anti-doublons avait été construit sans ces deux listes. Règles depuis :
+1. Le registre des prospects est **reconstruit à partir de toutes les listes publiées** (fichiers
+   HTML) avant chaque nouvel ajout, jamais tenu à la main.
+2. Contrôle sur **chaque** numéro d'une fiche (une fiche peut en avoir deux) **et** sur le nom
+   normalisé (sans points, accents, « SARL », « SAS »…) : « E.E.C.E » = « SARL E.E.C.E ».
+3. Un doublon garde son **premier** numéro ; il est retiré de la liste récente, avec une note
+   « n° X = n° Y », et les copies Drive périmées sont renommées « ANCIENNE VERSION ».
