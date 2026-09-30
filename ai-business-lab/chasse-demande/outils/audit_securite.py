@@ -141,11 +141,12 @@ def audit(url, proprietaire=False):
 
     # 5. Contenu de la page
     mixte = sorted(set(re.findall(r'(?:src|href|action)=["\'](http://[^"\']+)', html, re.I)))
-    mixte = [x for x in mixte if not x.startswith('http://www.w3.org')]
+    mixte = [x for x in mixte if urlparse(x).hostname != 'www.w3.org']  # espaces de noms XML/SVG, pas des ressources
     note('moyen' if mixte else 'ok', 'Contenu mixte (http:// dans une page https)',
          f'{len(mixte)} ressource(s), ex. {mixte[0][:70]}' if mixte else 'aucun')
     scripts_ext = re.findall(r'<script[^>]+src=["\'](https?://[^"\']+)["\'][^>]*>', html, re.I)
-    tiers = [s for s in scripts_ext if urlparse(s).hostname and not urlparse(s).hostname.endswith(hote)]
+    meme_site = lambda h_: h_ == hote or h_.endswith('.' + hote)
+    tiers = [s for s in scripts_ext if urlparse(s).hostname and not meme_site(urlparse(s).hostname)]
     sans_sri = [s for s in tiers if not re.search(r'<script[^>]+src=["\']' + re.escape(s) + r'["\'][^>]*integrity=', html, re.I)]
     note('faible' if sans_sri else 'ok', 'Scripts tiers sans empreinte (SRI)',
          f'{len(sans_sri)} sur {len(tiers)} (ex. {urlparse(sans_sri[0]).hostname})' if sans_sri else f'{len(tiers)} script(s) tiers')
