@@ -199,6 +199,17 @@ télécharger la vidéo depuis m.facebook.com, puis l'envoyer en base64, 4,5 Mo 
 **Déploiement** : toujours préciser `projectSettings.rootDirectory` =
 `ai-business-lab/chasse-demande/outils/relais-vercel`, sinon tout le relais répond 404
 (erreur du 28/09, corrigée en 10 minutes). Chaque déploiement invalide le cookie : le renouveler.
+**Renouveler le cookie après un déploiement (leçon du 30/09)** : le lien de partage demandé sur
+l'adresse fixe (`relais-dig-justok1.vercel.app`) peut être « régénéré » mais périmé (renvoi vers la
+connexion Vercel). Demander le lien avec `get_access_to_vercel_url` sur l'**adresse du nouveau
+déploiement** (`relais-xxxx-justok1.vercel.app`), puis utiliser son jeton sur l'adresse fixe :
+`curl -s -o /dev/null -c /tmp/cj.txt "https://relais-dig-justok1.vercel.app/api/video?_vercel_share=<jeton>"`
+(sans `-L`). Tester avec `/api/video?liste=1`. Cookie valable 7 jours.
+**Vidéos de plus de 3 h** (30/09) : `/api/video?…&debut=<s>&fin=<s>` ne lit qu'un extrait ;
+`outils/resumer_video_longue.py <id> <h:mm:ss> /tmp/cj.txt <sortie.md> [titre]` découpe en
+morceaux de 20 min, **un par minute** (l'offre gratuite limite aussi les jetons par minute :
+5 morceaux en parallèle → refus 429 sur tous les modèles), garde les morceaux réussis en cache
+et termine par une synthèse via `/api/avis`.
 
 ## Recherche web Tavily et registre « infosociétés » (connecteurs ajoutés, 29/09/2026)
 - **Tavily** (`tavily_search`) : moteur de recherche pour agents. Offre gratuite lue sur
