@@ -47,3 +47,15 @@ jamais dans ce dépôt.
    n'apparaissez pas ». Donnée d'estimation (confiance 0,7 selon l'outil) :
    toujours dire « environ », jamais un chiffre exact. Ce chiffre va dans la
    fiche privée, pas dans ce dépôt.
+
+## Améliorations du 30/09/2026 (skill « prospecting », guide local-prospecting, licence MIT)
+
+1. **Encadré « Les 3 à appeler en premier »** en tête de chaque nouvelle liste : une phrase par
+   prospect qui nomme le manque et le signal (ex. « aucun site (vérifié par nom exact + commune) ;
+   RGE valable ; 10 à 19 salariés »).
+2. **Degré de confiance** par fiche : élevé (2 sources ou plus concordantes), moyen (1 source +
+   indices cohérents), faible (à confirmer au premier appel).
+3. **Ne pas viser que les plus grosses entreprises** : celles de 2 à 5 salariés sont souvent moins
+   démarchées. Le classement par taille reste, mais l'encadré des 3 premiers mélange les tailles.
+Rappels déjà en place et confirmés par ce guide : pas d'extraction en masse de Google Maps
+(conditions d'utilisation), recherche du nom exact avant de conclure « sans site », doublons exclus.
