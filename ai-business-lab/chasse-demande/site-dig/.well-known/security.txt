@@ -1,0 +1,5 @@
+# Signaler une faille de sécurité sur le site de Dig (norme RFC 9116).
+Contact: https://digsite.pages.dev/#contact
+Expires: 2027-09-30T00:00:00.000Z
+Preferred-Languages: fr, en
+Canonical: https://digsite.pages.dev/.well-known/security.txt

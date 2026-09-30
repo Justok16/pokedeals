@@ -253,6 +253,12 @@ sans compte ni installation ; équivalent du skill « Find Skills » de Vercel L
   redémarrage du conteneur. Ne jamais y faire passer de données privées (prospects). Mot de passe admin par défaut faible :
   en définir un fort dans /root/.omniroute/.env et n'écouter que 127.0.0.1.
 
+## Audit de sécurité des sites (30/09/2026)
+`python3 outils/audit_securite.py https://site` (passif, légal sur tout site) ; `--proprietaire` sur nos sites et
+ceux des clients (avec accord écrit) ; `--json` pour les rapports. Règles : `44-controle-qualite.md`.
+Premiers résultats : site de Dig 100/100 (après ajout de security.txt) ; concurrent Artizo 74/100 (CSP, anti-clickjacking,
+nosniff, Referrer-Policy, Permissions-Policy absents).
+
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
 | Blocage | Solution gratuite qui marche |
 |---|---|

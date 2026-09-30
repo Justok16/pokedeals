@@ -66,3 +66,25 @@ n°4 et 5, car le registre anti-doublons avait été construit sans ces deux lis
    normalisé (sans points, accents, « SARL », « SAS »…) : « E.E.C.E » = « SARL E.E.C.E ».
 3. Un doublon garde son **premier** numéro ; il est retiré de la liste récente, avec une note
    « n° X = n° Y », et les copies Drive périmées sont renommées « ANCIENNE VERSION ».
+
+## Sécurité irréprochable (exigence de l'utilisateur du 30/09/2026)
+
+Tout site livré (Dig ou client) et toute démo publiée passent, **avant livraison et après chaque
+mise en ligne** :
+1. `outils/audit_securite.py https://site --proprietaire` → **100/100 exigé** (HTTPS et redirection,
+   certificat, HSTS, CSP, anti-clickjacking, nosniff, Referrer-Policy, Permissions-Policy, aucune
+   version de logiciel affichée, cookies sécurisés, pas de contenu mixte, scripts tiers avec
+   empreinte SRI, formulaires chiffrés, consentement si traceurs, mentions légales, aucun fichier
+   sensible exposé, security.txt).
+2. Le skill **vibe-security** sur tout code écrit (clés, accès, formulaires, paiements).
+3. `outils/audit_acces.py` (accessibilité et règles d'interface) → 0 défaut.
+4. Aucune clé ni adresse email dans le code publié ; secrets uniquement dans les réglages de l'hébergeur.
+
+**Audits de concurrents : mode PASSIF uniquement** (`audit_securite.py https://site`, sans
+`--proprietaire`) : une lecture de la page d'accueil publique, comme n'importe quel visiteur.
+Jamais de test d'intrusion, d'URL cachée essayée ni de formulaire envoyé sur un site sans l'accord
+écrit de son propriétaire : accéder ou se maintenir frauduleusement dans un système informatique est
+puni de 3 ans d'emprisonnement et 100 000 € d'amende (Code pénal, art. 323-1, version en vigueur
+depuis le 26/01/2023, lu sur Légifrance le 30/09/2026). Résultats d'audits de concurrents : jamais
+publiés ni utilisés pour dénigrer ; seulement pour montrer au prospect, factuellement, ce que Dig
+fait mieux.
