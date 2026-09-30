@@ -29,12 +29,12 @@ td:first-child{white-space:nowrap;font-weight:600;padding-right:12px}
 </head>
 <body><main>
 <h1>Jarvis sur ton ordinateur, en français</h1>
-<p class="sous">Assistant vocal gratuit (projet libre « Jarvis », licence MIT). Il écoute « Jarvis », répond à voix haute et agit avec Claude Code. Voix gratuite du navigateur : pas de Fish Audio, pas de clé, pas d’abonnement en plus.</p>
+<p class="sous">Assistant vocal gratuit (projet libre « Jarvis », licence MIT). Il écoute « Jarvis », répond à voix haute et agit avec Claude Code. Voix française naturelle et gratuite : les voix « Natural » de Microsoft Edge (Henri, Rémy, Denise, Vivienne, Éloïse), classées de très haute qualité.</p>
 
 <h2>Ce qu’il faut</h2>
 <ol>
 <li>Un ordinateur <b>Mac ou Windows</b> avec micro et haut-parleurs (un téléphone ne suffit pas).</li>
-<li>Le navigateur <b>Google Chrome</b> (ou Microsoft Edge).</li>
+<li>Le navigateur <b>Microsoft Edge</b> : déjà installé sur Windows, gratuit sur Mac (microsoft.com/edge). C’est lui qui contient les voix françaises les plus naturelles.</li>
 <li>Ton compte Claude habituel (le même que pour cette conversation).</li>
 </ol>
 
@@ -53,41 +53,45 @@ td:first-child{white-space:nowrap;font-weight:600;padding-right:12px}
 <li>Tape <code>claude</code>, appuie sur Entrée, et connecte-toi avec ton compte Claude quand on te le demande.</li>
 </ol>
 
-<h2>Étape 3 — Tout le reste, en un seul copier-coller</h2>
-<p>Dans Claude Code (fenêtre de l’étape 2), colle ce texte et appuie sur Entrée. Claude installe Jarvis, le passe en français et le lance.</p>
+<div class="bloc bloc3"><h2>Étape 3 — Tout le reste, en un seul copier-coller</h2>
+<p>Dans Claude Code (fenêtre de l’étape 2), colle ce texte et appuie sur Entrée. Claude installe Jarvis, le passe entièrement en français (écoute, voix et réponses) et le lance.</p>
 <pre>Installe le projet https://github.com/adewaskar/jarvis dans mon dossier Documents (télécharge-le, puis lance npm install et npm run setup, et corrige ce que setup signale).
-Puis passe-le en français :
+Puis passe-le entièrement en français :
 1) dans src/lib/voice.ts, remplace rec.lang = 'en-GB' par rec.lang = 'fr-FR' ;
-2) dans src/lib/tts.ts, remplace le 'en-GB' par défaut par 'fr-FR' ;
+2) dans src/lib/tts.ts : fais choisir uniquement des voix françaises (lang commençant par fr au lieu de en, dans candidateVoices et dans pickVoice), classe en premier les voix dont le nom contient « Online (Natural) », avec cet ordre de préférence : Henri, Remy, Denise, Vivienne, Eloise ; remplace aussi le 'en-GB' par défaut par 'fr-FR' ;
 3) dans bridge/server.mjs, ajoute au début de SYSTEM_PROMPT : « Réponds toujours en français, en deux phrases maximum. Appelle-moi Monsieur. »
 Ne donne jamais l’autorisation d’écriture (ne règle pas JARVIS_ALLOW_WRITES).
-Lance-le avec la variable JARVIS_MODEL réglée sur le modèle Sonnet le plus récent (par exemple claude-sonnet-5-5, plus économe que le modèle par défaut) en utilisant npm start, puis donne-moi l’adresse à ouvrir dans Chrome.</pre>
+Lance-le avec la variable JARVIS_MODEL réglée sur le modèle Sonnet le plus récent (par exemple claude-sonnet-5-5, plus économe que le modèle par défaut) en utilisant npm start, puis donne-moi l’adresse à ouvrir dans Microsoft Edge.</pre></div>
 
 <div class="bloc"><h2>Étape 4 — Parler à Jarvis</h2>
 <ol>
-<li>Ouvre l’adresse donnée (en général <b>http://localhost:5173</b>) dans une vraie fenêtre <b>Chrome</b>.</li>
+<li>Ouvre l’adresse donnée (en général <b>http://localhost:5173</b>) dans une vraie fenêtre <b>Microsoft Edge</b>.</li>
 <li>Clique sur <b>INITIALISE</b>, puis <b>autorise le micro</b>.</li>
 <li>Dis <b>« Jarvis »</b> suivi de ta question.</li>
 </ol></div>
 <table>
 <tr><td>Espace</td><td>parler sans dire « Jarvis »</td></tr>
-<tr><td>V</td><td>changer de voix (choisis une voix française)</td></tr>
+<tr><td>V</td><td>changer de voix : Henri, Rémy (voix d’homme), Denise, Vivienne, Éloïse (voix de femme)</td></tr>
 <tr><td>Échap</td><td>mettre Jarvis en veille</td></tr>
 <tr><td>Ctrl + C</td><td>dans le Terminal : arrêter Jarvis</td></tr>
 </table>
 <p>Les fois suivantes : ouvre le Terminal, tape <code>claude</code> puis « Relance Jarvis en français avec le modèle Sonnet le plus récent ».</p>
 
+<div class="carte">
+<p><b>Encore plus naturel (facultatif) : ElevenLabs</b></p>
+<p>Jarvis sait aussi utiliser ElevenLabs, une voix de synthèse haut de gamme qui parle français. Offre gratuite : 10 000 crédits par mois (page tarifs lue le 30/09/2026). Il faut créer un compte (ta décision) et une clé : la clé se met dans les réglages de l’ordinateur (variable ELEVENLABS_API_KEY) et une voix française choisie dans leur bibliothèque (variable JARVIS_VOICE_ID). <b>Ne colle jamais la clé dans une conversation.</b> Demande simplement à Claude Code sur ton ordinateur : « Configure ElevenLabs pour Jarvis avec une voix française ; je vais saisir la clé moi-même. »</p>
+</div>
 <div class="carte alerte">
 <p><b>À savoir avant de l’utiliser</b></p>
 <ol>
 <li><b>Il consomme ton quota Claude</b> (le même que pour notre travail). Garde de la réserve pour le jour où un éditeur répondra « oui ».</li>
-<li>Il fonctionne seulement quand l’ordinateur est allumé et Chrome ouvert.</li>
+<li>Il fonctionne seulement quand l’ordinateur est allumé et Edge ouvert.</li>
 <li>La reconnaissance du mot « Jarvis » peut parfois rater en français : la touche Espace marche toujours.</li>
 <li>N’installe Jarvis <b>que depuis le lien officiel</b> du guide (des copies modifiées circulent). Comme tout programme, il s’exécute sur ton ordinateur : ne lui donne jamais l’autorisation d’écriture.</li>
 <li>Il ne voit pas les connecteurs de ton compte claude.ai (Gmail, Drive…), seulement les outils installés sur l’ordinateur.</li>
 </ol>
 </div>
 
-<p class="pied">Vérifié le 30/09/2026 sur le dépôt officiel github.com/adewaskar/jarvis (notice et code : le réglage anglais « en-GB » est écrit en dur, d’où l’étape de passage en français ; contrôle des connexions et autorisations par défaut en place). Fish Audio écarté : accès API réservé aux abonnés payants, offre gratuite non commerciale (page tarifs lue le 30/09/2026).</p>
+<p class="pied">Vérifié le 30/09/2026 : dépôt officiel github.com/adewaskar/jarvis (le code n’accepte d’origine que l’anglais et des voix anglaises, d’où les modifications de l’étape 3) ; voix françaises Microsoft Edge « Online (Natural) » classées de très haute qualité et préchargées dans Edge (liste de référence Readium, mise à jour le 24/09/2026) ; ElevenLabs : offre gratuite de 10 000 crédits par mois, modèle Flash v2.5 utilisé par Jarvis : 32 langues (documentation officielle). Fish Audio écarté : API réservée aux abonnés payants, offre gratuite non commerciale.</p>
 </main></body>
 </html>
