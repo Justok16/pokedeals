@@ -31,5 +31,8 @@
       "mcp__OpenRush",
       "mcp__Resend"
     ]
+  },
+  "env": {
+    "MCP_TIMEOUT": "120000"
   }
 }
