@@ -39,3 +39,11 @@ jamais dans ce dépôt.
    salariés, ancienneté, RGE, entreprise récente ; pénalité pour les
    grandes entreprises (souvent déjà une agence) ; exclusion des
    entreprises en procédure collective.
+8. **Chiffre de demande** (depuis le 30/09/2026) : pour chaque prospect retenu,
+   OpenRush `research_keywords` (graine « <métier> <commune> », pays France,
+   langue French, mode `suggestions`) donne le nombre de recherches Google
+   mensuelles et le coût d'un clic publicitaire. Argument d'appel : « chaque
+   mois, environ N personnes cherchent <métier> à <commune> ; sans site, vous
+   n'apparaissez pas ». Donnée d'estimation (confiance 0,7 selon l'outil) :
+   toujours dire « environ », jamais un chiffre exact. Ce chiffre va dans la
+   fiche privée, pas dans ce dépôt.
