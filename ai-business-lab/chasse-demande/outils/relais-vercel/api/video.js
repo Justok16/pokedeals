@@ -79,6 +79,11 @@ export async function GET(request) {
   if (cle) {
     const url = `https://www.youtube.com/watch?v=${id}`;
     const erreurs = [];
+    // Vidéos trop longues (> ~3 h en basse résolution, limite de 1 048 576 jetons) : debut=…&fin=…
+    // (en secondes) ne fait lire qu'un extrait ; on résume alors la vidéo morceau par morceau (30/09).
+    const debut = params.get('debut'), fin = params.get('fin');
+    const extrait = /^\d{1,6}$/.test(debut || '') && /^\d{1,6}$/.test(fin || '') && +fin > +debut
+      ? { start_offset: `${+debut}s`, end_offset: `${+fin}s` } : null;
     // API « interactions » (documentation Google, septembre 2026)
     const choisis = (params.get('modeles') || '').split(',').filter((m) => /^[a-z0-9.-]{3,60}$/.test(m));
     for (const modele of (choisis.length ? choisis : [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-2.5-flash'].filter(Boolean))) {
@@ -90,7 +95,7 @@ export async function GET(request) {
             method: 'POST',
             headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              contents: [{ parts: [{ file_data: { file_uri: url } }, { text: consigne }] }],
+              contents: [{ parts: [{ file_data: { file_uri: url }, ...(extrait ? { video_metadata: extrait } : {}) }, { text: consigne }] }],
               generationConfig: { mediaResolution: 'MEDIA_RESOLUTION_LOW' },
             }),
           });
