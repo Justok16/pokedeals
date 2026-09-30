@@ -226,6 +226,19 @@ télécharger la vidéo depuis m.facebook.com, puis l'envoyer en base64, 4,5 Mo 
   pas utiles tant qu'aucun client n'a signé ; à réexaminer pour l'hébergement ou la
   présentation des sites clients.
 
+## Liste « public-apis » (envoyée le 30/09/2026) : ce qui sert à Dig
+
+Source : github.com/public-apis/public-apis (1 970 API ; ajoutée à la veille quotidienne `veille_sources.py`).
+Tri : l'essentiel vise les États-Unis ou n'a pas de rapport. Retenu, vérifié le 30/09/2026 :
+
+| API | Usage pour Dig | Vérifié |
+|---|---|---|
+| **BOAMP** (annonces officielles des marchés publics, via data.gouv / opendatasoft, sans clé) | Preuve de demande payante : 86 marchés « site internet / site web » publiés en France du 01/06 au 30/09/2026, dont Ville de Poitiers (refonte, 23/08) et STGA Grand Angoulême (refonte stga.fr, 16/06). **Gardé de côté** : il faut une entreprise déclarée, des références et une assurance ; à reprendre après la création (surveiller aussi les petites communes) | Requête faite le 30/09 |
+| **PVGIS** (Commission européenne, estimation de production solaire) | Idée de « plus » pour les sites d'installateurs photovoltaïques (ex. n° 347 Atout Étage) : simulateur de production sur leur site. Test : 3 kWc à Angoulême ≈ 3 170 kWh/an. Page officielle lue le 30/09 : pas de clé, 30 appels/seconde, **appels depuis le navigateur interdits** → passer par notre relais. **Ne rien construire avant qu'un client le demande** (règle n° 1) | Oui |
+| **adresse.data.gouv.fr / geo.api.gouv.fr** (État, sans clé) | Normaliser les communes, calculer des distances pour organiser des tournées de visite de prospects | À utiliser au besoin |
+| Email Spam Tester, AGPC Domain Check (sans clé, services privés) | Tester la délivrabilité avant tout envoi d'email et vérifier SPF/DKIM/DMARC du futur domaine de Dig | À vérifier avant usage |
+| Neotimo (miroir de l'annuaire DGFiP des plateformes de facturation électronique) | Rappel : la **facturation électronique** concernera Dig à la création de l'entreprise → vérifier les obligations et dates sur impots.gouv.fr **avant** de facturer (à vérifier, non affirmé ici) | Non |
+
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
 | Blocage | Solution gratuite qui marche |
 |---|---|

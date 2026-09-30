@@ -61,6 +61,13 @@ def free_for_dev():
     return {l[:160]: l[:300] for l in lignes}
 
 
+def public_apis():
+    # Liste d'API gratuites envoyée par l'utilisateur le 30/09/2026 (une ligne de tableau par API).
+    texte = telecharger('https://raw.githubusercontent.com/public-apis/public-apis/master/README.md')
+    lignes = [l.strip() for l in texte.splitlines() if l.startswith('| [')]
+    return {l[:160]: l[:300] for l in lignes}
+
+
 def mrfreetools():
     index = telecharger('https://mrfreetools.com/sitemap.xml')
     outils = {}
@@ -75,7 +82,8 @@ def openalternative():
 
 
 SOURCES = {'nosignups': nosignups, 'futuretools': futuretools, 'free-for-dev': free_for_dev,
-           'mrfreetools': mrfreetools, 'openalternative': openalternative}
+           'mrfreetools': mrfreetools, 'openalternative': openalternative,
+           'public-apis': public_apis}
 
 
 def veille_outils(rapport):
