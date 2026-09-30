@@ -21,7 +21,7 @@ html{scroll-behavior:smooth}
 body{font-family:Inter,system-ui,sans-serif;background:var(--nuit);color:var(--encre);line-height:1.6;overflow-x:hidden}
 h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;line-height:1.1;font-weight:800}
 a{color:inherit}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 .cadre{max-width:1180px;margin:0 auto;padding:0 20px}
 .degrade{background:linear-gradient(90deg,var(--orange),var(--rose) 55%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
 .pastille{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:600;letter-spacing:.04em;padding:.45rem .9rem;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid var(--ligne)}
@@ -139,7 +139,7 @@ details div p+p{margin-top:.6rem}
 .coord small{display:block;color:var(--doux);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em}
 form{display:grid;gap:14px}
 label{font-size:.9rem;font-weight:600;display:grid;gap:.4rem}
-input,select,textarea{width:100%;min-width:0;font:inherit;padding:.85rem 1rem;border-radius:12px;border:1px solid var(--ligne);background:rgba(255,255,255,.06);color:var(--encre)}
+input,select,textarea{width:100%;min-width:0;font:inherit;font-size:max(16px,1em);padding:.85rem 1rem;border-radius:12px;border:1px solid var(--ligne);background:rgba(255,255,255,.06);color:var(--encre)}
 select option{color:#111}
 .rgpd{font-size:.8rem;color:var(--doux)}
 .msg{font-size:.9rem;color:var(--vert);min-height:1.2em}
@@ -205,7 +205,7 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
   <div class="confiance"><div><b>0 €</b> de création</div><div><b>7 jours</b> pour être en ligne</div><div><b>100 %</b> à votre nom</div></div>
  </div>
  <div class="tel" aria-hidden="true">
-  <img src="img/demo-prestige-tel.jpg" alt="">
+  <img width="1170" height="2532" src="img/demo-prestige-tel.jpg" alt="">
   <div class="notif"><span>🔔</span><div><b>Nouvelle demande de devis&nbsp;!</b><br>il y a 2 minutes</div></div>
  </div>
 </div></header>
@@ -257,8 +257,8 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 <section id="demos" class="clair"><div class="cadre">
  <div class="titre apparait"><div class="sur">Démonstrations</div><h2>Jugez sur pièce</h2><p>Deux exemples réalisés pour des entreprises fictives. Ouvrez-les sur votre téléphone.</p></div>
  <div class="grille g2">
-  <div class="carte demo apparait"><img src="img/demo-menuisier.jpg" alt="Démo : site d'un menuisier" loading="lazy"><div><h3>Menuiserie — formule Essentiel</h3><p class="doux">Services, réalisations, étapes, avis, zone d’intervention et demande de devis.</p><a href="demos/menuisier/" target="_blank" rel="noopener">Voir la démo →</a></div></div>
-  <div class="carte demo apparait"><img src="img/demo-prestige.jpg" alt="Démo : site d'une maison d'hôtes" loading="lazy"><div><h3>Maison d’hôtes — formule Prestige</h3><p class="doux">Animations, photos plein écran, version anglaise et réservation.</p><a href="demos/prestige/" target="_blank" rel="noopener">Voir la démo →</a></div></div>
+  <div class="carte demo apparait"><img width="1600" height="1007" src="img/demo-menuisier.jpg" alt="Démo : site d'un menuisier" loading="lazy"><div><h3>Menuiserie — formule Essentiel</h3><p class="doux">Services, réalisations, étapes, avis, zone d’intervention et demande de devis.</p><a href="demos/menuisier/" target="_blank" rel="noopener">Voir la démo →</a></div></div>
+  <div class="carte demo apparait"><img width="1600" height="1007" src="img/demo-prestige.jpg" alt="Démo : site d'une maison d'hôtes" loading="lazy"><div><h3>Maison d’hôtes — formule Prestige</h3><p class="doux">Animations, photos plein écran, version anglaise et réservation.</p><a href="demos/prestige/" target="_blank" rel="noopener">Voir la démo →</a></div></div>
  </div>
 </div></section>
 

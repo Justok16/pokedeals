@@ -8,6 +8,11 @@ Contrôles (téléphone 390 px et ordinateur 1440 px) :
 - champs de formulaire sans étiquette (un simple texte indicatif ne suffit pas) ;
 - titres qui sautent un niveau (h1 → h3) ou page sans h1 unique ;
 - attribut lang absent ; animations sans variante « prefers-reduced-motion ».
+Ajouts du 30/09/2026 (Web Interface Guidelines de Vercel, vercel.com/design/guidelines, lue le 30/09) :
+- zoom bloqué (user-scalable=no ou maximum-scale=1) ; champs en police < 16 px sur téléphone (zoom iOS) ;
+- « transition: all » ; images sans largeur/hauteur (décalage à l'affichage) ; meta theme-color absente ;
+- bouton ou lien à icône seule sans nom accessible ; « ... » au lieu de « … » ; navigation faite
+  avec onclick sur un div ou un bouton au lieu d'un vrai lien.
 """
 import os, sys
 from playwright.sync_api import sync_playwright
@@ -41,8 +46,26 @@ JS = """() => {
       }
     });
   }
+  const vp = (document.querySelector('meta[name=viewport]') || {}).content || '';
+  if (/user-scalable\s*=\s*(no|0)|maximum-scale\s*=\s*1(\.0)?\b/.test(vp)) pb.push('zoom du navigateur bloqué (viewport)');
+  if (!document.querySelector('meta[name=theme-color]')) pb.push('meta theme-color absente');
+  if (w < 700) document.querySelectorAll('input,textarea,select').forEach(c => {
+    if (c.type !== 'hidden' && parseFloat(getComputedStyle(c).fontSize) < 16) pb.push(`champ en police < 16 px (zoom iOS) : ${c.name || c.id || c.tagName}`);
+  });
+  document.querySelectorAll('img').forEach(i => {
+    if (!(i.getAttribute('width') && i.getAttribute('height')) && !getComputedStyle(i).aspectRatio.includes('/')) pb.push('image sans largeur/hauteur : ' + (i.src || '').slice(-40));
+  });
+  document.querySelectorAll('a,button').forEach(e => {
+    const nom = (e.textContent || '').trim() || e.getAttribute('aria-label') || e.getAttribute('title') || [...e.querySelectorAll('img')].map(i => i.alt).join('');
+    if (!nom) pb.push(`${e.tagName.toLowerCase()} sans nom accessible (icône seule ?)`);
+  });
+  document.querySelectorAll('div[onclick],span[onclick],button[onclick]').forEach(e => {
+    if (/location|href/.test(e.getAttribute('onclick'))) pb.push("navigation par onclick au lieu d’un lien : " + e.tagName.toLowerCase());
+  });
+  if (/\.\.\./.test(document.body.innerText)) pb.push('« ... » au lieu de « … »');
   const css = [...document.styleSheets].map(s => { try { return [...s.cssRules].map(r => r.cssText).join(' '); } catch (e) { return ''; } }).join(' ');
   if (/animation|transition/.test(css) && !/prefers-reduced-motion/.test(css)) pb.push('animations sans variante prefers-reduced-motion');
+  if (/transition:\s*all\b/.test(css)) pb.push('« transition: all » (lister les propriétés animées)');
   return [...new Set(pb)];
 }"""
 
