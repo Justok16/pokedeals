@@ -73,3 +73,13 @@ Publicité payante exclue (budget 0 €). Voies gratuites :
 3. Claude construit **une démo** (un site d'artisan fictif, beau et rapide)
    pour montrer la qualité — hébergée gratuitement.
 4. Décision : lancer ou non, selon l'étape 1 et le gain net (aides).
+
+## Concurrent repéré le 30/09/2026 : Artizo
+
+Constaté en vérifiant un prospect : **artizo.fr** crée d'office des mini-sites d'artisans à partir
+des données publiques, avec la mention « Vous êtes le propriétaire ? Réclamez ce site pour
+4,90 €/mois » (page lue le 30/09/2026). Conséquences pour Dig : (1) une page Artizo n'est pas
+un site propre (le prospect reste « sans site ») ; (2) argument d'appel : « cette page a été
+créée sans vous et ne vous appartient pas ; votre site à vous porte votre nom de domaine et
+vos vraies photos » ; (3) la concurrence à bas prix existe : Dig se vend sur le sur-mesure,
+l'accompagnement local et la visibilité Google, pas sur le prix.

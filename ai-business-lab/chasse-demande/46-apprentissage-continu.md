@@ -41,6 +41,7 @@
 | Sujet | Source | Question |
 |---|---|---|
 | **Parrainage client** | vKat0aTuEbo | **Validé (variante A) et appliqué le 28/09** : site, guide, `47-parrainage.md` |
+| Skills **UI UX Pro Max** et **agent-skills** (code externe relu, licence MIT) | image du 30/09 | Installation bloquée par la sécurité automatique : autoriser ou non |
 | Connecteurs **Firecrawl** et **Similarweb** | HOXrLsVqinY, inventaire du 28/09 | À brancher sur claude.ai (voir `33-outils.md`) |
 
 ### Tri Melvynx du 29/09 (26 fiches lues sur 1 027)
@@ -97,6 +98,13 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 | NotebookLM, Perplexity, Gamma | Utiles à l'utilisateur, rien à installer ici |
 | openalternative.co, OpenSourceAlternative.com (alternatives gratuites) | À ajouter à la veille si leur liste se lit automatiquement (réflexe « outil payant → équivalent gratuit ») |
 | Textes par métier pour le contenu des sites clients | Déjà fait dans le générateur (thèmes par métier, textes neutres et vrais) |
+
+### Envois du 30/09 (soir) : 3 images
+| Source | Contenu | Tri et application |
+|---|---|---|
+| Image « Les outils IA qui te rendent inarrêtable » (35 outils) | Liste d'outils IA grand public (Ideogram, Midjourney, Runway, Durable, Gamma, Claude Artifacts…) | Aucune offre gratuite affirmée sans vérification à la source. Déjà couverts : Gamma et Canva (connecteurs), Claude Artifacts, Playwright pour les vidéos de démo. **Durable AI** = concurrent direct (site en quelques secondes) : déjà noté (tarifs Durable). DoNotPay : service américain, sans objet en France. Rien à ajouter tant qu'un besoin précis n'apparaît pas |
+| Image « Top 10 skill repos » (classement par étoiles, chiffres non vérifiés) | Superpowers, UI UX Pro Max, Impeccable, Caveman, agent-skills d'Addy Osmani… | Superpowers : **déjà actif**. Impeccable : déjà écarté le 29/09 (programme tiers téléchargé au lancement). UI UX Pro Max (MIT, script Python local sans réseau, relu) et agent-skills (MIT) : installation **bloquée par la sécurité automatique** (code externe) → **décision de l'utilisateur**. Caveman (réponses télégraphiques) : contraire à la consigne « français simple », écarté |
+| Image « prompt équipe d'agents IA » | Méthode pour concevoir une petite équipe d'agents avec rôles, relais et validations humaines | **Appliqué** : `prompts/equipe-agents-ia.md` (prompt recopié + équipe de Dig décrite) ; manque repéré : mesurer le résultat des appels → colonne « Résultat de l'appel » proposée |
 
 ## Veille quotidienne sur les sources de l'utilisateur (depuis le 28/09/2026)
 
