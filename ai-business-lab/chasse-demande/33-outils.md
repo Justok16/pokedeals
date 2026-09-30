@@ -244,3 +244,15 @@ télécharger la vidéo depuis m.facebook.com, puis l'envoyer en base64, 4,5 Mo 
 | Wikimedia Commons répond 429 (trop de requêtes) depuis le conteneur (29/09) | Attendre au moins 1 h, puis une requête toutes les 10-20 s ; vignettes de taille standard seulement (1920 ou 3840 px) ; ne pas contourner la limite par d’autres serveurs. En attendant : rawpixel et StockSnap via Openverse (CC0, mais environ 1 000 px, donc seulement pour les petites vignettes) |
 | Reels Instagram (connexion demandée ; Firecrawl refuse le site) (29/09) | **yt-dlp** (libre et gratuit) lit le reel et sa légende, **imageio-ffmpeg** le réduit en 360p (< 1 Mo), puis Gemini le regarde via `/api/avis` : `outils/lire_reel.py`. Si Instagram répond 429, attendre et réessayer plus tard, sans contourner |
 | Pages Facebook de créateurs (liste des vidéos illisible sans connexion) (29/09) | Chercher le même créateur sur TikTok ou YouTube. yt-dlp liste toutes les vidéos TikTok (`--flat-playlist`) et récupère légende et sous-titres (option `--impersonate chrome`, avec `curl_cffi`) ; résumé par lots de 15 en texte, qui coûte très peu de quota : `outils/resumer_lots_tiktok.py` |
+
+## Playwright (MCP) et Perplexity — demande de l'utilisateur du 30/09/2026
+
+- **Playwright MCP** (serveur officiel de Microsoft, `@playwright/mcp`, licence Apache-2.0,
+  version figée 0.0.83) : ajouté dans `.mcp.json` à la racine du dépôt, en mode sans
+  fenêtre et sans profil conservé, avec le Chromium déjà installé. Testé le 30/09 :
+  25 outils (ouvrir une page, cliquer, remplir, capture d'écran…). Actif à partir de la
+  session suivante. Gratuit (logiciel libre, tourne dans le conteneur).
+- **Perplexity** : **non ajouté**. Son MCP officiel demande une clé d'API payante
+  (page officielle lue le 30/09/2026 : « Search API $5.00 » pour 1 000 requêtes, pas
+  d'offre gratuite indiquée). Équivalents gratuits déjà en place : Tavily (1 000 crédits
+  par mois), Firecrawl, recherche web intégrée.
