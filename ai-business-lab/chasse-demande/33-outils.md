@@ -239,6 +239,11 @@ Tri : l'essentiel vise les États-Unis ou n'a pas de rapport. Retenu, vérifié 
 | Email Spam Tester, AGPC Domain Check (sans clé, services privés) | Tester la délivrabilité avant tout envoi d'email et vérifier SPF/DKIM/DMARC du futur domaine de Dig | À vérifier avant usage |
 | Neotimo (miroir de l'annuaire DGFiP des plateformes de facturation électronique) | Rappel : la **facturation électronique** concernera Dig à la création de l'entreprise → vérifier les obligations et dates sur impots.gouv.fr **avant** de facturer (à vérifier, non affirmé ici) | Non |
 
+## Recherche de skills : annuaire skills.sh (30/09/2026)
+`python3 outils/chercher_skills.py "seo local" "cold email"` interroge la recherche publique de skills.sh (lecture seule,
+sans compte ni installation ; équivalent du skill « Find Skills » de Vercel Labs). Présélection pour Dig : voir
+`46-apprentissage-continu.md` (envois du 30/09). Aucune installation sans lecture complète et accord de l'utilisateur.
+
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
 | Blocage | Solution gratuite qui marche |
 |---|---|
