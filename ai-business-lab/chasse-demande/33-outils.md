@@ -244,6 +244,15 @@ Tri : l'essentiel vise les États-Unis ou n'a pas de rapport. Retenu, vérifié 
 sans compte ni installation ; équivalent du skill « Find Skills » de Vercel Labs). Présélection pour Dig : voir
 `46-apprentissage-continu.md` (envois du 30/09). Aucune installation sans lecture complète et accord de l'utilisateur.
 
+## OmniRoute (demandé par l'utilisateur le 30/09/2026)
+- Dépôt officiel vérifié : github.com/diegosouzapw/OmniRoute (MIT). **Copie au nom proche à éviter** : brwarashidpour/omniroute.
+- Paquet npm `omniroute` : même auteur et même dépôt (vérifié par `npm view`) ; **3.8.51 installé** le 30/09 (`npm install -g`).
+  Contrôles : script d'installation = recompilation d'un composant natif seulement ; télémétrie désactivée par défaut (README).
+- **Démarrage du serveur refusé par la sécurité de Claude Code** (« redirection de trafic ») → l'utilisateur doit l'autoriser
+  lui-même (/permissions). Même démarré, Claude Code de cette session reste sur Claude ; l'installation disparaît à chaque
+  redémarrage du conteneur. Ne jamais y faire passer de données privées (prospects). Mot de passe admin par défaut faible :
+  en définir un fort dans /root/.omniroute/.env et n'écouter que 127.0.0.1.
+
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
 | Blocage | Solution gratuite qui marche |
 |---|---|
