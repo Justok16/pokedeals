@@ -123,6 +123,16 @@ Les connecteurs « small-business » qui demandent encore une autorisation (HubS
 Zoho, Xero…) sont des doublons du module complémentaire : à ignorer.
 Je ne peux pas connecter moi-même : chaque connexion demande l'identifiant de l'utilisateur.
 
+## Skill « motion-broll » (installé le 01/10/2026)
+
+Source : github.com/Barty-Bart/motion-graphics (MIT ; polices Geist, licence OFL), lu en entier avant
+installation : moteur d'animation en JavaScript pur, rendu local par Playwright et ffmpeg, aucun appel
+réseau. Rangé dans `.claude/skills/motion-broll`. Produit des animations « une forme qui se transforme »
+(pastille → carte → curseur), calées sur les mots d'une voix. Prérequis en place dans le conteneur :
+Chromium (/opt/pw-browsers), module Node `playwright` (NODE_PATH=/opt/node22/lib/node_modules),
+ffmpeg 6.1.1 (paquet Ubuntu). Rendu testé le 01/10 : 6,2 s en 53 s. À utiliser pour de courtes
+animations de démo ; jamais de chiffre inventé (règle du skill, identique à la nôtre).
+
 ## Skill « humanizer » (installé le 01/10/2026)
 
 Source : github.com/blader/humanizer, version 3.1.0, licence MIT, lu en entier avant installation :
