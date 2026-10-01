@@ -38,12 +38,19 @@ export async function GET(request) {
     const j = await r.json();
     return Response.json((j.models || []).map((m) => ({ nom: m.name, methodes: m.supportedGenerationMethods })));
   }
-  const id = params.get('id') || '';
+  // Lot de vidéos (01/10) : ids=a,b,c (10 au plus, documentation Gemini « video understanding » :
+  // « Gemini 2.5 and later models, you can upload a maximum of 10 videos per request »). Le quota gratuit
+  // se compte en requêtes : regrouper les vidéos courtes multiplie le nombre de vidéos résumées par jour.
+  const lot = (params.get('ids') || '').split(',').filter((x) => /^[A-Za-z0-9_-]{11}$/.test(x)).slice(0, 10);
+  const id = lot.length ? lot[0] : (params.get('id') || '');
   if (!/^[A-Za-z0-9_-]{11}$/.test(id)) {
     return Response.json({ erreur: 'identifiant vidéo invalide' }, { status: 400 });
   }
   const mode = new URL(request.url).searchParams.get('mode') || '';
-  const consigne = CONSIGNES[mode] || CONSIGNE;
+  const consigne = (CONSIGNES[mode] || CONSIGNE) + (lot.length > 1
+    ? ` Tu reçois ${lot.length} vidéos distinctes, chacune précédée de son identifiant. Fais un résumé SÉPARÉ pour ` +
+      'chacune, dans le même ordre, en commençant chaque résumé par une ligne seule « === VIDEO <identifiant> === ». ' +
+      'Ne mélange jamais le contenu de deux vidéos.' : '');
   const debug = new URL(request.url).searchParams.get('debug') === '1';
   const cle = process.env.GEMINI_API_KEY;
   // voie=passerelle : Vercel AI Gateway, UNIQUEMENT sur le crédit gratuit mensuel offert par Vercel
@@ -95,13 +102,16 @@ export async function GET(request) {
             method: 'POST',
             headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              contents: [{ parts: [{ file_data: { file_uri: url }, ...(extrait ? { video_metadata: extrait } : {}) }, { text: consigne }] }],
+              contents: [{ parts: lot.length > 1
+                ? [...lot.flatMap((v) => [{ text: `Vidéo ${v} :` }, { file_data: { file_uri: `https://www.youtube.com/watch?v=${v}` } }]), { text: consigne }]
+                : [{ file_data: { file_uri: url }, ...(extrait ? { video_metadata: extrait } : {}) }, { text: consigne }] }],
               generationConfig: { mediaResolution: 'MEDIA_RESOLUTION_LOW' },
             }),
           });
           const j = await rep.json();
           const texte = ((j.candidates || [])[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
-          if (rep.ok && texte) return Response.json({ id, resume: texte, modele, voie: 'generateContent-basse' });
+          if (rep.ok && texte) return Response.json({ id, ...(lot.length > 1 ? { ids: lot } : {}), resume: texte, modele, voie: 'generateContent-basse' });
+          if (lot.length > 1 && rep.status !== 429) { erreurs.push(`${modele} lot ${rep.status} ${JSON.stringify(j).slice(0, 200)}`); continue; } // lot : pas d'autre API
           erreurs.push(`${modele} generateContent-basse ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
           if (rep.status === 429) continue; // quota épuisé : inutile d'essayer l'autre API
           if (params.get('voie') === 'basse') return Response.json({ id, erreur: erreurs.join(' | ') }, { status: 502 }); // diagnostic
