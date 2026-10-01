@@ -210,6 +210,13 @@ déploiement** (`relais-xxxx-justok1.vercel.app`), puis utiliser son jeton sur l
 morceaux de 20 min, **un par minute** (l'offre gratuite limite aussi les jetons par minute :
 5 morceaux en parallèle → refus 429 sur tous les modèles), garde les morceaux réussis en cache
 et termine par une synthèse via `/api/avis`.
+**Tâches de fond qui « meurent » (constat du 01/10)** : le conteneur de la session est **éteint
+quand la conversation est inactive** et redémarré au réveil suivant (`uptime -s` = heure du
+réveil) ; `/tmp` est conservé, mais tous les programmes en cours sont arrêtés. Une attente en
+arrière-plan (`attendre_et_lancer.sh`) ne peut donc pas tenir jusqu'au lendemain. Solution : le
+**point automatique** (routine) passe à 01 h 34, 04 h 34, **07 h 34** (juste après le retour du
+quota Gemini, 07 h 00 UTC)… et lance lui-même le lot du jour en tâche de fond suivie
+(`run_in_background`), avant toute autre tâche ; les rappels ponctuels passent par `send_later`.
 
 ## Recherche web Tavily et registre « infosociétés » (connecteurs ajoutés, 29/09/2026)
 - **Tavily** (`tavily_search`) : moteur de recherche pour agents. Offre gratuite lue sur
