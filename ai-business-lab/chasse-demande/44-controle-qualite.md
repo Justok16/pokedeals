@@ -83,6 +83,13 @@ Compléments du réaudit du 01/10 (56 fiches contrôlées, 1 retirée) :
   un site : la tester avec plusieurs noms de domaine probables (nom court, avec ou sans article, .com et .fr).
 - Un **domaine en maintenance ou « en construction »** (page d'attente d'hébergeur) n'est pas un
   site : la fiche le précise, c'est même un argument d'appel.
+- Avant les recherches web, lancer `outils/prospects/sonder_domaines.py` (noms de domaine probables :
+  avec ou sans tiret, .fr/.com, suffixe 16) ; vérifier ensuite l'identité de tout site trouvé
+  (adresse, téléphone, mentions légales) : un homonyme d'une autre région n'est pas « son » site.
+- Un site sur un outil de création (Wix, Hostinger, WordPress…) compte comme un site, même gratuit ;
+  un site gratuit abandonné depuis des années reste un prospect « refonte ».
+- Une page générée automatiquement par un concurrent sans l'accord de l'artisan (ex. Artizo,
+  « réclamez votre site ») n'est pas son site.
 - **Page dans le site d'un groupe** ou **même dirigeant qu'une entreprise qui a un site** : la fiche
   le précise, et l'accroche ne dit jamais « vous n'avez aucun site ».
 
