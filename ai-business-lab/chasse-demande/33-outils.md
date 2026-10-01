@@ -115,7 +115,7 @@ Seulement le jour où c'est utile :
 - **Brevo** (emails B2B conformes CNIL) : pour une campagne, une fois la structure légale créée.
 **Branchés aussi le 28/09** (testés en lecture seule, rien créé) : **PayPal** (factures, liens de
 paiement ; 0 facture), **Wix** (0 site ; utile pour reprendre un client déjà sur Wix),
-**Docusign** (signature électronique ; DocuSeal reste l'outil gratuit par défaut).
+**Docusign** (signature électronique ; DocuSeal reste l'outil gratuit par défaut). **Offre gratuite DocuSeal vérifiée le 01/10/2026** (docuseal.com/pricing) : 0 $, « Legally-binding eSignature », « Unlimited signature requests », mais « 10 request emails per month » (au-delà, envoyer soi-même le lien de signature), API incluse.
 **HubSpot et Trello : connexion impossible (28/09)** → pas nécessaires. Équivalents déjà branchés et
 gratuits : suivi des prospects et clients (CRM) → **Airtable** ou **Notion** (données privées :
 jamais dans ce dépôt) ; tableau de tâches → **Notion** (vue tableau) ou la liste « À faire » du dépôt.

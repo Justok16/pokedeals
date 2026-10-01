@@ -81,9 +81,14 @@ def openalternative():
     return {u: u for u in re.findall(r'<loc>([^<]+)</loc>', telecharger('https://openalternative.co/sitemap/tools.xml'))}
 
 
+def gratos():
+    # Alternatives gratuites et libres + prompt d'installation (guide envoyé le 01/10/2026).
+    return {u: u for u in re.findall(r'<loc>(https://gratos\.app/outils/[^<]+)</loc>', telecharger('https://gratos.app/sitemap.xml'))}
+
+
 SOURCES = {'nosignups': nosignups, 'futuretools': futuretools, 'free-for-dev': free_for_dev,
            'mrfreetools': mrfreetools, 'openalternative': openalternative,
-           'public-apis': public_apis}
+           'public-apis': public_apis, 'gratos': gratos}
 
 
 def veille_outils(rapport):
