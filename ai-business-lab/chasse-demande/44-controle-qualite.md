@@ -106,7 +106,7 @@ déborde. Puis regarder l'image de chaque page modifiée.
 Sur 13 candidats RGE annoncés « aucun site » par la détection automatique, **13 avaient en réalité un
 site ou étaient à écarter**. Deux erreurs n'auraient été vues ni par le sondage des domaines ni par la
 recherche « nom + commune » :
-1. **Rechercher le numéro de téléphone sur le web** (entre guillemets) : c'est ce qui a révélé
+1. **Rechercher le numéro de téléphone sur le web** (entre guillemets, **avec le nom ou la commune** : le numéro seul ne donne rien) : c'est ce qui a révélé
    `sorc16.fr` (sigle de l'entreprise) et `adigenieclimatique.com` (enseigne différente du nom
    légal). Obligatoire avant de déclarer un prospect « sans site ».
 2. **Lire la fiche Pappers** : si elle affiche « s'est opposée à l'utilisation de ses données à des
