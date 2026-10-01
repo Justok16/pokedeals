@@ -108,6 +108,13 @@ insécables) puis `python3 outils/orthographe.py <fichier>` (LanguageTool hors l
 remarque est relue à la main : l'outil se trompe parfois (accord d'un participe avec un COD placé
 avant, noms propres) ; on ne corrige que les vraies fautes.
 
+Améliorations du 01/10 (soir) : le texte des pages HTML est lu **tel que le navigateur l'affiche**
+(un mot coupé par une balise n'est plus signalé) ; code, commandes et adresses web sont remplacés par
+« Truc » ; les mots à majuscule, chiffre ou « _ » (marques, prénoms, termes techniques) sont écartés.
+Ajouter `--noms` pour les voir quand même, et les vérifier à la source. Bilan du premier passage
+complet (site Dig, démos, 9 supports) : de 90 à une vingtaine de remarques, aucune vraie faute ;
+le reste, ce sont des conseils de style ou des citations en anglais.
+
 ## Listes, feuilles et registre : contrôle croisé obligatoire (leçon du 01/10/2026)
 
 La feuille de suivi Drive avait été construite par une lecture des fiches qui, quand une fiche
