@@ -158,6 +158,12 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
 
+### Vidéo du 01/10 (soir) : standardiste téléphonique IA
+
+| Vidéo | Sujet | Verdict |
+|---|---|---|
+| 96G4KDnEFyI (Anthony Shoosh) | Claude Code + Retell AI : créer en quelques minutes un standardiste téléphonique IA pour un client, avec une « formule » en 6 blocs (identité, connexion, lecture de la doc de la plateforme, étude du métier du client, construction, validation) | **Piste d'option à valider, pas à construire.** Vérifié le 01/10 : Retell (retellai.com/pricing) offre 10 $ de crédits gratuits, puis environ 0,07 à 0,31 $/minute (exemple : 0,055 infra + 0,015 voix + 0,008 modèle Gemini 3.1 Flash Lite + 0,015 téléphonie France ≈ 0,09 $/min) et 2 $/mois par numéro. Concurrent français vu à la source : Livoxia dès 199 €/mois + minutes (livoxia.fr). Demande : « permanence téléphonique » 480 recherches/mois en France, clic payant ≈ 12 $ (OpenRush, 01/10) : besoin réel mais surtout vendu par démarchage. Obligation légale : informer l'appelant qu'il parle à une IA (règlement européen sur l'IA, art. 50, texte lu sur EUR-Lex ; date d'application de cet article à revérifier avant toute vente). **Prochaine étape (grille anti-DigCost)** : poser aux artisans appelés la question « Combien d'appels manquez-vous par semaine quand vous êtes sur un chantier ? » ; ne rien construire avant 3 réponses « oui, ça m'intéresse » |
+
 ### Vidéos du 28/09
 
 | Vidéo | Sujet | Verdict |
