@@ -99,7 +99,7 @@ visionneuses Swagger/Mermaid/JSON, portage simple, peu d'alternatives).
 
 | Date | Éditeur | Canal | Statut |
 |---|---|---|---|
-| 24/09/2026 | Toshihiro Sato | portail d'assistance, « Other questions » | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
+| 24/09/2026 | Toshihiro Sato | portail d'assistance, « Other questions » (OASI-504) | **refus poli le 28/09** (« already working on migrating our Cloud apps from Atlassian Connect to Forge ») ; ticket clos « Resolved » le 01/10 → ne pas relancer |
 | 24/09/2026 | Tech Labs | portail d'assistance | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
 | 24/09/2026 | EliteSoft | portail d'assistance (portal/10) | **envoyé** par l'utilisateur ; réponse attendue sur l'email du pseudonyme |
 | 24/09/2026 | Colined (vague 2) | portail d'assistance, « Other questions » | **envoyé** par l'utilisateur |
