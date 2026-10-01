@@ -67,6 +67,15 @@ n°4 et 5, car le registre anti-doublons avait été construit sans ces deux lis
 3. Un doublon garde son **premier** numéro ; il est retiré de la liste récente, avec une note
    « n° X = n° Y », et les copies Drive périmées sont renommées « ANCIENNE VERSION ».
 
+## « Sans site » : jamais sur la seule détection automatique (leçon du 01/10/2026)
+
+La détection automatique (recherche du nom légal) rate les sites dont le nom de domaine diffère du
+nom de l'entreprise (ex. Chape Seize → chape16.com, Abella & Co → abellamaconnerie-16.com) : sur 12
+artisans avec salariés marqués « sans site », 9 en avaient un. Règle : chaque prospect est vérifié
+par une recherche web « nom + commune » AVANT d'entrer dans une liste ; un domaine trouvé est testé
+(il répond ? page réelle et non « domaine à vendre » ?) ; un site mort ou abandonné depuis des années
+reste un bon prospect (à noter sur la fiche : « site abandonné »).
+
 ## Sécurité irréprochable (exigence de l'utilisateur du 30/09/2026)
 
 Tout site livré (Dig ou client) et toute démo publiée passent, **avant livraison et après chaque
