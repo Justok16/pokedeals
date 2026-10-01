@@ -210,6 +210,20 @@ déploiement** (`relais-xxxx-justok1.vercel.app`), puis utiliser son jeton sur l
 morceaux de 20 min, **un par minute** (l'offre gratuite limite aussi les jetons par minute :
 5 morceaux en parallèle → refus 429 sur tous les modèles), garde les morceaux réussis en cache
 et termine par une synthèse via `/api/avis`.
+**Accélération : plusieurs vidéos par requête** (01/10, demande de l'utilisateur). Le quota gratuit
+Gemini se compte en **requêtes** (≈ 20 par jour et par modèle), pas en vidéos ; la documentation officielle
+(ai.google.dev, « Video understanding », lue le 01/10/2026) indique : « For Gemini 2.5 and later models, you
+can upload a maximum of 10 videos per request ». Le relais accepte donc `/api/video?ids=a,b,c…` (10 au plus) et
+demande un résumé séparé par vidéo, chacun ouvert par `=== VIDEO <id> ===`. `outils/resumer_chaine.py` groupe
+les vidéos de 7 min au plus par **lots de 8** (15 min cumulées au plus), découpe la réponse, refait plus tard
+toute vidéo absente du lot, relance 2 fois après une coupure réseau et passe au modèle suivant si l'un est
+surchargé (503). Test du 01/10 : 8 vidéos résumées en 68 s par une seule requête, résumés conformes aux titres.
+Il reste 1 714 vidéos de moins de 3 min sur 3 126 : leur traitement passe d'environ 1 714 requêtes à ~215.
+Pistes écartées le même jour : sous-titres YouTube (refusés depuis Vercel et depuis le conteneur :
+« LOGIN_REQUIRED », adresses de centres de données bloquées) ; modèles `gemini-3.5-transcribe` (ignore la
+vidéo par adresse YouTube), `gemma-4-31b-it` (refuse l'audio), `gemini-omni-*` et `gemini-3.1-pro-preview`
+(quota gratuit nul ou épuisé) ; plusieurs clés Google pour multiplier le quota (contournement des limites,
+contraire aux conditions d'utilisation : non).
 **Vidéos et reels Facebook** (01/10) : `outils/resumer_reel_facebook.py <lien> videos-resumes /tmp/cj.txt`.
 Sans compte : le lien de partage redirige (robot `facebookexternalhit`) vers `/reel/<id>`, et le lecteur
 intégrable public `facebook.com/plugins/video.php?href=…` contient l'adresse du fichier (`sd_src`, domaine

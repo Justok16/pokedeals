@@ -6,7 +6,9 @@ Usage : python3 resumer_chaine.py <liste.json> <dossier_sortie> <cookies.txt> [m
 - minutes_max : durée cumulée de vidéo à traiter pendant ce lot (défaut 60)
 Limites de l'offre gratuite (constatées le 27/09) : environ 20 vidéos par jour et PAR MODÈLE ;
 on alterne donc entre les 9 modèles Gemini capables de lire une vidéo (les plus puissants d'abord),
-et on passe au suivant dès qu'un modèle a épuisé son quota. Pause de 80 s entre deux vidéos.
+et on passe au suivant dès qu'un modèle a épuisé son quota. Pause de 30 s entre deux requêtes (80 s avant le 01/10 ; les relances réseau et le changement de modèle suffisent).
+Depuis le 01/10 : les vidéos de 7 min au plus partent par lots de 8 (15 min cumulées au plus) dans UNE requête (relais ids=…),
+ce qui multiplie le nombre de vidéos résumées par jour avec le même quota.
 """
 MODELES = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-3.5-flash',
            'gemini-3-flash-preview', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite',
@@ -33,39 +35,72 @@ videos = json.load(open(liste))['videos']
 videos = [v for v in videos if secondes(v['duree']) >= 180] + [v for v in videos if secondes(v['duree']) < 180]
 fait = 0
 illisibles = 0  # réponses vides d'affilée (relais expiré ou vidéo trop longue pour le délai)
-for v in videos:
-    f = os.path.join(sortie, v['id'] + '.md')
-    if os.path.exists(f):
-        continue
-    d = secondes(v['duree'])
-    if fait and fait + d > maxi * 60:
-        break
-    j = {}
+LOT_MAX, LOT_DUREE, COURTE = 8, 15 * 60, 420  # 01/10 : jusqu'à 8 vidéos de 7 min au plus (15 min cumulées) par requête
+
+def appeler(ids):
+    """Une requête au relais, en changeant de modèle si quota épuisé (429) ou surcharge (503)."""
+    essais = 0
     while MODELES:
-        url = f"https://relais-dig-justok1.vercel.app/api/video?id={v['id']}&mode={mode}&modeles={MODELES[0]}"
-        r = subprocess.run(['curl', '-s', '-m', '295', '-b', cookies, url], capture_output=True, text=True).stdout
+        cle = 'ids' if len(ids) > 1 else 'id'
+        url = f"https://relais-dig-justok1.vercel.app/api/video?{cle}={','.join(ids)}&mode={mode}&modeles={MODELES[0]}"
+        for essai in range(3):  # coupure réseau passagère (tunnel fermé, constaté le 01/10) : on relance 2 fois
+            r = subprocess.run(['curl', '-s', '-m', '295', '-b', cookies, url], capture_output=True, text=True).stdout
+            if r.startswith('{'):
+                break
+            time.sleep(20)
         try:
             j = json.loads(r)
         except Exception:
-            print('réponse illisible', v['id'], r[:120]); j = {'erreur': 'illisible'}; break
+            print('réponse illisible', ids[0], r[:120]); return {'erreur': 'illisible'}
         err = str(j.get('erreur', ''))
         if 'resume' not in j and ('429' in err or 'quota' in err.lower()):
             print('quota épuisé :', MODELES.pop(0), flush=True); continue
+        if 'resume' not in j and ' 503 ' in err and essais < len(MODELES) - 1:
+            essais += 1; MODELES.append(MODELES.pop(0)); continue  # modèle surchargé : le suivant, sans le perdre
+        return j
+    return {}
+
+def ecrire(v, texte, modele):
+    date = datetime.date.today().isoformat()
+    open(os.path.join(sortie, v['id'] + '.md'), 'w').write(
+        f"# {v['titre']}\n\nVidéo : https://youtu.be/{v['id']} · durée {v['duree']} · résumé Gemini ({modele}) du {date}\n"
+        f"(connaissances générales, non vérifiées : toute règle fiscale ou chiffre est à contrôler à la source officielle)\n\n{sans_email(texte.strip())}\n")
+    print('ok', v['id'], v['duree'], v['titre'][:60], flush=True)
+
+a_faire = [v for v in videos if not os.path.exists(os.path.join(sortie, v['id'] + '.md'))]
+while a_faire and MODELES:
+    v = a_faire.pop(0)
+    lot = [v]
+    if secondes(v['duree']) <= COURTE:  # complète le lot avec d'autres vidéos courtes de la liste, dans l'ordre
+        for x in list(a_faire):
+            if len(lot) >= LOT_MAX:
+                break
+            if secondes(x['duree']) <= COURTE and sum(secondes(y['duree']) for y in lot) + secondes(x['duree']) <= LOT_DUREE:
+                lot.append(x); a_faire.remove(x)
+    d = sum(secondes(x['duree']) for x in lot)
+    if fait and fait + d > maxi * 60:
         break
+    j = appeler([x['id'] for x in lot])
     if not MODELES:
         print('tous les modèles ont épuisé leur quota du jour'); break
     if 'resume' not in j:
-        print('échec', v['id'], str(j.get('erreur', ''))[:300], flush=True)
+        print('échec', ','.join(x['id'] for x in lot), str(j.get('erreur', ''))[:300], flush=True)
         if j.get('erreur') == 'illisible':
             illisibles += 1
             if illisibles >= 3:
                 print('3 réponses vides d’affilée : relais à revérifier (lien de partage expiré ?)'); break
-        time.sleep(80); continue
+        time.sleep(30); continue
     illisibles = 0
-    date = datetime.date.today().isoformat()
-    open(f, 'w').write(f"# {v['titre']}\n\nVidéo : https://youtu.be/{v['id']} · durée {v['duree']} · résumé Gemini ({j.get('modele', '?')}) du {date}\n"
-                       f"(connaissances générales, non vérifiées : toute règle fiscale ou chiffre est à contrôler à la source officielle)\n\n{sans_email(j['resume'].strip())}\n")
+    if len(lot) == 1:
+        ecrire(v, j['resume'], j.get('modele', '?'))
+    else:  # découpe la réponse sur les lignes « === VIDEO <id> === » ; une vidéo absente sera refaite plus tard
+        morceaux = re.split(r'^[#*\s]*=+\s*VID[EÉ]O\s+([A-Za-z0-9_-]{11})\s*=+[*\s]*$', j['resume'], flags=re.M | re.I)
+        recus = {morceaux[i]: morceaux[i + 1] for i in range(1, len(morceaux) - 1, 2) if morceaux[i + 1].strip()}
+        for x in lot:
+            if x['id'] in recus:
+                ecrire(x, recus[x['id']], j.get('modele', '?') + f', lot de {len(lot)}')
+            else:
+                print('absente du lot', x['id'], flush=True)
     fait += d
-    print('ok', v['id'], v['duree'], v['titre'][:60], flush=True)
-    time.sleep(80)
+    time.sleep(30)
 print('minutes traitées', round(fait / 60), '; restantes', sum(1 for v in videos if not os.path.exists(os.path.join(sortie, v['id'] + '.md'))))
