@@ -133,6 +133,17 @@ Chromium (/opt/pw-browsers), module Node `playwright` (NODE_PATH=/opt/node22/lib
 ffmpeg 6.1.1 (paquet Ubuntu). Rendu testé le 01/10 : 6,2 s en 53 s. À utiliser pour de courtes
 animations de démo ; jamais de chiffre inventé (règle du skill, identique à la nôtre).
 
+## Skill « diagram-design » (installé le 02/10/2026, texte seul)
+
+Source : `cathrynlavery/diagram-design` (MIT, 43 k étoiles le 02/10), trouvé via une page Notion envoyée par
+l'utilisateur (`videos-resumes/x-notion-5-repos-agents-ia.md`). 42 types de schémas éditoriaux (architecture,
+flux, frise, parcours client, organigramme, entonnoir, Gantt…) en HTML + SVG autonomes, sans dépendance, avec
+règles de lisibilité (pas d'ombres, un seul accent, budget de complexité). Installé dans
+`.claude/skills/diagram-design/` : `SKILL.md` + `references/` seulement ; exemples HTML et scripts Python
+(imports draw.io/Mermaid/Excalidraw, export PNG) non repris (voir `NOTE-INSTALLATION.md`). Première utilisation :
+personnaliser `references/style-guide.md` aux couleurs Dig et enregistrer le profil. Usage prévu : schémas
+« comment ça marche » des supports et du site Dig ; polices Google Fonts à remplacer pour un PDF hors ligne.
+
 ## Skill « humanizer » (installé le 01/10/2026)
 
 Source : github.com/blader/humanizer, version 3.1.0, licence MIT, lu en entier avant installation :

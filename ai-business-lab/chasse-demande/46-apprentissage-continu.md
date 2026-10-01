@@ -183,6 +183,12 @@ Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-vid
 | 6W3E3ia-fK0 (EDteam, 40 min) | Gemini Notebook (NotebookLM) : un carnet par projet, sources centralisées, livrables générés (rapports, infographies, cartes mentales), citations | **Noté, rien à construire.** Notre base de connaissances est déjà en fichiers Markdown dans le dépôt, lisibles par Claude ; pas besoin d'un outil de plus. Résumé : `videos-resumes/6W3E3ia-fK0.md` |
 | vqMhGnep1H0 (Jornada Digital, 10 min), 1hkTJ8wg9bY (Adrián Sáenz, 1 h 37), golzvOVmXB4 (Coben, direct de 3 h 17) | « 100 vidéos par jour gratuites (TAAFT) », podcast viralité/réseaux sociaux, modélisation 3D par IA | *(résumés en cours : relais saturé par les trois files, reprise au passage de 07:34)* |
 
+### Page Notion « 5 repos GitHub pour créer des agents IA plus vite » (envoi du 02/10)
+
+| Source | Sujet | Verdict |
+|---|---|---|
+| Page Notion d'ExplorIA (Henri), lue le 02/10 ; chaque dépôt vérifié sur GitHub | 5 dépôts : agent-browser (Vercel), claude-mem (mémoire persistante), skills scientifiques (165), diagram-design (42 schémas HTML/SVG), « Anthropic Cybersecurity Skills » (818 skills, communautaire, pas officiel) | **1 installé, 4 écartés.** Installé : `diagram-design` (MIT) en texte seul dans `.claude/skills/diagram-design/` — schémas propres pour les supports et le site. Écartés : agent-browser (Playwright fait déjà le travail ici), claude-mem (service permanent + base vectorielle, option cloud payante ; notre mémoire est le dépôt), skills scientifiques (hors sujet), skills cybersécurité (trop large ; nos audits couvrent le besoin — à revoir si un client demande un audit formel). Détail : `videos-resumes/x-notion-5-repos-agents-ia.md`, `33` |
+
 ### Image « Payant vs Gratuit : les meilleurs outils IA 2026 » (envoi du 01/10, soir)
 
 Tri pour Dig (budget 0 €) ; la colonne « gratuit » de l'image n'est pas une preuve : chaque offre est vérifiée avant usage.
