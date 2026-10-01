@@ -113,6 +113,12 @@ recherche « nom + commune » :
    fins de prospection », on n'appelle pas (respect du choix de l'entreprise, cadre `35`).
 `sonder_domaines.py` teste désormais aussi le sigle et le nom sans mots répétés.
 
+**Troisième contrôle, à faire en premier (leçon de la nuit du 01/10)** : chercher chaque candidat dans la
+feuille de suivi existante (même téléphone, puis même nom ou enseigne) **avant** toute vérification.
+Sur 20 candidats du vivier « score 16 », 6 étaient déjà dans la liste (venus d'autres viviers) et une
+reprise de garage partageait le numéro d'un prospect existant : 7 vérifications complètes évitées.
+Un vivier n'est « hors listes » qu'au moment où il a été construit ; les ajouts suivants le périment.
+
 ## Orthographe et grammaire (outil ajouté le 01/10/2026)
 
 Avant tout envoi d'un document ou d'une page : `python3 outils/typo_fr.py <fichier>` (espaces
