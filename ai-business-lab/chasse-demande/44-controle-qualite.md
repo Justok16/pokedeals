@@ -70,7 +70,7 @@ n°4 et 5, car le registre anti-doublons avait été construit sans ces deux lis
 ## « Sans site » : jamais sur la seule détection automatique (leçon du 01/10/2026)
 
 La détection automatique (recherche du nom légal) rate les sites dont le nom de domaine diffère du
-nom de l'entreprise (ex. Chape Seize → chape16.com, Abella & Co → abellamaconnerie-16.com) : sur 12
+nom de l'entreprise (ex. un nom commercial abrégé, un numéro de département ou le métier dans l'adresse) : sur 12
 artisans avec salariés marqués « sans site », 9 en avaient un. Règle : chaque prospect est vérifié
 par une recherche web « nom + commune » AVANT d'entrer dans une liste ; un domaine trouvé est testé
 (il répond ? page réelle et non « domaine à vendre » ?) ; un site mort ou abandonné depuis des années
@@ -78,9 +78,9 @@ reste un bon prospect (à noter sur la fiche : « site abandonné »).
 
 Compléments du réaudit du 01/10 (56 fiches contrôlées, 1 retirée) :
 - Chercher aussi **l'adresse e-mail** de l'entreprise : un e-mail sur un domaine propre
-  (ex. `…@egso-sas.fr`) révèle un domaine à tester, même si aucune recherche ne montre de site.
+  révèle un domaine à tester, même si aucune recherche ne montre de site.
 - Une **grosse structure** (hébergement, plus de 10 salariés, lieu de réception) a presque toujours
-  un site : la tester avec plusieurs noms de domaine probables (ex. longeveau.com).
+  un site : la tester avec plusieurs noms de domaine probables (nom court, avec ou sans article, .com et .fr).
 - Un **domaine en maintenance ou « en construction »** (page d'attente d'hébergeur) n'est pas un
   site : la fiche le précise, c'est même un argument d'appel.
 - **Page dans le site d'un groupe** ou **même dirigeant qu'une entreprise qui a un site** : la fiche
@@ -90,7 +90,7 @@ Compléments du réaudit du 01/10 (56 fiches contrôlées, 1 retirée) :
 
 La feuille de suivi Drive avait été construite par une lecture des fiches qui, quand une fiche
 n'avait pas de lien téléphone, prenait le numéro de la fiche **suivante** et la fusionnait :
-4 artisans « sans numéro » affichaient le numéro d'un autre prospect, et 4 prospects (dont COGEA,
+4 artisans « sans numéro » affichaient le numéro d'un autre prospect, et 4 prospects (dont une PME de
 20 à 49 salariés) manquaient dans la feuille et dans le registre des doublons. Règle : après toute
 création ou modification d'une liste, d'une feuille ou du registre, lancer le contrôle croisé
 (script `verifier_tout.py` du dossier de travail privé) et n'envoyer qu'à **0 problème** :
