@@ -57,10 +57,25 @@ def morceau(bornes):
 bornes = [(d, min(d + MORCEAU, total)) for d in range(0, total, MORCEAU)]
 # Un morceau à la fois, 65 s d'écart : l'offre gratuite limite aussi les jetons PAR MINUTE
 # (30/09 : 5 morceaux envoyés en parallèle → 429 sur tous les modèles).
+# Morceau refusé par tous les modèles (429 « quota » même sur 20 min, constaté le 01/10 alors que
+# 1 min passait) : on le recoupe en deux moitiés, jusqu'à 5 min minimum.
+def avec_decoupe(b):
+    deja = os.path.exists(f'{CACHE}/{b[0]}-{b[1]}.json')
+    r = morceau(b)
+    if r[3] or b[1] - b[0] <= 300:
+        return [r], deja
+    milieu = (b[0] + b[1]) // 2
+    sous = []
+    for moitie in ((b[0], milieu), (milieu, b[1])):
+        time.sleep(65)
+        sous += avec_decoupe(moitie)[0]
+    return sous, False
+
+
 parts = []
 for i, b in enumerate(bornes):
-    deja = os.path.exists(f'{CACHE}/{b[0]}-{b[1]}.json')
-    parts.append(morceau(b))
+    res, deja = avec_decoupe(b)
+    parts += res
     if not deja and i < len(bornes) - 1:
         time.sleep(65)
 manquants = [f'{hms(d)}–{hms(f)}' for d, f, m, t in parts if not t]
@@ -83,7 +98,7 @@ modeles = ', '.join(sorted({m for d, f, m, t in parts}))
 date = datetime.date.today().strftime('%d/%m/%Y')
 open(sortie, 'w').write(
     f'# {titre} (vidéo YouTube {vid})\n\nSource : https://youtu.be/{vid} · durée {duree} · résumé Gemini ({modeles}) du {date}, '
-    f'en {len(parts)} parties de 20 min puis synthèse. Affirmations de l\'auteur, non vérifiées.\n\n'
+    f'en {len(parts)} parties de 20 min ou moins, puis synthèse. Affirmations de l\'auteur, non vérifiées.\n\n'
     + (f'# Synthèse\n\n{sans_email(synthese)}\n\n' if synthese else '')
     + f'# Détail par partie\n\n{sans_email(texte)}\n')
 print('ok', sortie, len(parts), 'parties', 'synthèse' if synthese else 'SANS synthèse')
