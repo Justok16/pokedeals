@@ -164,6 +164,20 @@ Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-vid
 |---|---|---|
 | 96G4KDnEFyI (Anthony Shoosh) | Claude Code + Retell AI : créer en quelques minutes un standardiste téléphonique IA pour un client, avec une « formule » en 6 blocs (identité, connexion, lecture de la doc de la plateforme, étude du métier du client, construction, validation) | **Piste d'option à valider, pas à construire.** Vérifié le 01/10 : Retell (retellai.com/pricing) offre 10 $ de crédits gratuits, puis environ 0,07 à 0,31 $/minute (exemple : 0,055 infra + 0,015 voix + 0,008 modèle Gemini 3.1 Flash Lite + 0,015 téléphonie France ≈ 0,09 $/min) et 2 $/mois par numéro. Concurrent français vu à la source : Livoxia dès 199 €/mois + minutes (livoxia.fr). Demande : « permanence téléphonique » 480 recherches/mois en France, clic payant ≈ 12 $ (OpenRush, 01/10) : besoin réel mais surtout vendu par démarchage. Obligation légale : informer l'appelant qu'il parle à une IA (règlement européen sur l'IA, art. 50, texte lu sur EUR-Lex ; date d'application de cet article à revérifier avant toute vente). **Prochaine étape (grille anti-DigCost)** : poser aux artisans appelés la question « Combien d'appels manquez-vous par semaine quand vous êtes sur un chantier ? » ; ne rien construire avant 3 réponses « oui, ça m'intéresse » |
 
+### Image « Payant vs Gratuit : les meilleurs outils IA 2026 » (envoi du 01/10, soir)
+
+Tri pour Dig (budget 0 €) ; la colonne « gratuit » de l'image n'est pas une preuve : chaque offre est vérifiée avant usage.
+
+| Outil | Verdict |
+|---|---|
+| **LanguageTool** | **Installé le 01/10** : correcteur libre (LGPL) **hors ligne**, bibliothèques téléchargées depuis Maven Central avec empreintes vérifiées ; l'API publique en ligne est écartée car sa page officielle dit « Do not send automated requests » (dev.languagetool.org, lue le 01/10). Outil : `outils/orthographe.py` (+ `outils/orthographe/installer.sh`), ajouté au contrôle qualité |
+| Claude Code, Gemini, MiniMax | Déjà en place (Claude Code, relais Gemini, guide MiniMax H3) |
+| Nano Banana (images Gemini) | Possible pour des visuels neutres avec la mention « image générée par IA », jamais pour de fausses réalisations ; offre gratuite à vérifier avant usage |
+| Open Code, Cline | Inutiles : Claude Code fait déjà ce travail |
+| n8n, Obsidian, Google Meet | Inutiles pour l'instant : nos routines et le dépôt couvrent le besoin |
+| Hedra, Hailuo, Vista, Ideogram, Open Design | Pas de besoin immédiat ; offres gratuites non vérifiées, à revoir si une vidéo ou un visuel Dig est décidé |
+| Colonne « payant » (Midjourney, HeyGen, Cursor, ElevenLabs, Canva Pro…) | Écartée : budget 0 € |
+
 ### Concurrent repéré le 01/10 (soir) : Artizo
 
 Artizo (artizo.fr, page d'accueil lue le 01/10/2026) : « Votre site web professionnel pour 4.90€/mois », nom de domaine

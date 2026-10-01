@@ -93,6 +93,13 @@ Compléments du réaudit du 01/10 (56 fiches contrôlées, 1 retirée) :
 - **Page dans le site d'un groupe** ou **même dirigeant qu'une entreprise qui a un site** : la fiche
   le précise, et l'accroche ne dit jamais « vous n'avez aucun site ».
 
+## Orthographe et grammaire (outil ajouté le 01/10/2026)
+
+Avant tout envoi d'un document ou d'une page : `python3 outils/typo_fr.py <fichier>` (espaces
+insécables) puis `python3 outils/orthographe.py <fichier>` (LanguageTool hors ligne). Chaque
+remarque est relue à la main : l'outil se trompe parfois (accord d'un participe avec un COD placé
+avant, noms propres) ; on ne corrige que les vraies fautes.
+
 ## Listes, feuilles et registre : contrôle croisé obligatoire (leçon du 01/10/2026)
 
 La feuille de suivi Drive avait été construite par une lecture des fiches qui, quand une fiche
