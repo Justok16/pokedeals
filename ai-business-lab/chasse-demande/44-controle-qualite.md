@@ -76,6 +76,32 @@ par une recherche web « nom + commune » AVANT d'entrer dans une liste ; un dom
 (il répond ? page réelle et non « domaine à vendre » ?) ; un site mort ou abandonné depuis des années
 reste un bon prospect (à noter sur la fiche : « site abandonné »).
 
+Compléments du réaudit du 01/10 (56 fiches contrôlées, 1 retirée) :
+- Chercher aussi **l'adresse e-mail** de l'entreprise : un e-mail sur un domaine propre
+  (ex. `…@egso-sas.fr`) révèle un domaine à tester, même si aucune recherche ne montre de site.
+- Une **grosse structure** (hébergement, plus de 10 salariés, lieu de réception) a presque toujours
+  un site : la tester avec plusieurs noms de domaine probables (ex. longeveau.com).
+- Un **domaine en maintenance ou « en construction »** (page d'attente d'hébergeur) n'est pas un
+  site : la fiche le précise, c'est même un argument d'appel.
+- **Page dans le site d'un groupe** ou **même dirigeant qu'une entreprise qui a un site** : la fiche
+  le précise, et l'accroche ne dit jamais « vous n'avez aucun site ».
+
+## Listes, feuilles et registre : contrôle croisé obligatoire (leçon du 01/10/2026)
+
+La feuille de suivi Drive avait été construite par une lecture des fiches qui, quand une fiche
+n'avait pas de lien téléphone, prenait le numéro de la fiche **suivante** et la fusionnait :
+4 artisans « sans numéro » affichaient le numéro d'un autre prospect, et 4 prospects (dont COGEA,
+20 à 49 salariés) manquaient dans la feuille et dans le registre des doublons. Règle : après toute
+création ou modification d'une liste, d'une feuille ou du registre, lancer le contrôle croisé
+(script `verifier_tout.py` du dossier de travail privé) et n'envoyer qu'à **0 problème** :
+- fiches ↔ feuille dans les deux sens : numéro, nom, commune, liste, téléphone ;
+- doublons entre listes (même téléphone, même nom) ;
+- chaque PDF contient toutes les fiches de sa liste et n'est pas plus ancien qu'elle ;
+- chaque fiche figure au registre des doublons ;
+- toute copie envoyée sur Drive est retéléchargée et comparée ligne à ligne au fichier contrôlé.
+La lecture des fiches se fait **fiche par fiche** (découpage sur le début de chaque fiche), jamais
+par une expression qui peut déborder d'une fiche sur la suivante.
+
 ## Sécurité irréprochable (exigence de l'utilisateur du 30/09/2026)
 
 Tout site livré (Dig ou client) et toute démo publiée passent, **avant livraison et après chaque
