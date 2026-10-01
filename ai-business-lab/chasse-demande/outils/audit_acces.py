@@ -1,7 +1,7 @@
 """Audit d'accessibilité et d'ergonomie d'une page (inspiré de la grille « audit » du skill
 Impeccable, pbakaus/impeccable, licence Apache-2.0 — règles reprises, aucun programme tiers lancé).
 
-Usage : python3 audit_acces.py page.html [page2.html …]
+Usage : python3 audit_acces.py page.html|https://site/page [page2 …]
 Contrôles (téléphone 390 px et ordinateur 1440 px) :
 - cibles tactiles (liens, boutons, champs) d'au moins 44 × 44 px sur téléphone ;
 - images sans attribut alt (alt="" accepté pour une image décorative) ;
@@ -75,7 +75,7 @@ with sync_playwright() as p:
     for f in sys.argv[1:]:
         for w in (390, 1440):
             pg = b.new_page(viewport={'width': w, 'height': 900})
-            pg.goto('file://' + os.path.abspath(f)); pg.wait_for_timeout(800)
+            pg.goto(f if f.startswith(('https://', 'http://')) else 'file://' + os.path.abspath(f)); pg.wait_for_timeout(800)  # page en ligne acceptée (01/10)
             pb = pg.evaluate(JS); pg.close()
             total += len(pb)
             for x in pb:
