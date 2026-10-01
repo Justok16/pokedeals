@@ -24,23 +24,35 @@ def main(lien, dossier, cookies='/tmp/cj.txt'):
     u = re.search(r'(https:[^"]*?\.mp4\?[^"]*?)\\+"', page[i:i + 3000]) if i >= 0 else None
     if not u: sys.exit(f'{code} : vidéo introuvable (reel privé ou supprimé ?)')
     url = re.sub(r'\\+u0025', '%', re.sub(r'\\+/', '/', u[1])).replace('\\', '')
-    brut, petit = os.path.join(dossier, code + '.mp4'), os.path.join(dossier, code + '-petit.mp4')
+    brut = f'/tmp/reel-{code}.mp4'   # vidéos hors du dépôt public (droits d'auteur, taille)
     subprocess.run(['curl', '-s', '-f', '-m', '120', '-o', brut, url], check=True)
+    resumer_fichier(brut, code, legende, dossier, cookies, 'reel Instagram')
+
+
+def resumer_fichier(brut, code, legende, dossier, cookies='/tmp/cj.txt', origine='reel'):
+    """Réduit une vidéo locale (~2,6 Mo, limite du relais Vercel ~4,5 Mo), la fait lire par Gemini et écrit
+    <dossier>/<code>.md. Partagé avec resumer_reel_facebook.py."""
     ff = imageio_ffmpeg.get_ffmpeg_exe()
-    dur = float(re.search(r'Duration: (\d+):(\d+):([\d.]+)', subprocess.run([ff, '-i', brut], capture_output=True, text=True).stderr)
-                .groups()[2]) + 60 * float(re.search(r'Duration: (\d+):(\d+)', subprocess.run([ff, '-i', brut], capture_output=True, text=True).stderr)[2])
+    info = subprocess.run([ff, '-i', brut], capture_output=True, text=True).stderr
+    h, mi, se = re.search(r'Duration: (\d+):(\d+):([\d.]+)', info).groups()
+    dur = 3600 * int(h) + 60 * int(mi) + float(se)
+    petit = f'/tmp/reel-{code}-petit.mp4'
     debit = max(120, min(600, int(2.6e6 * 8 / 1000 / max(dur, 1)) - 40))   # vise ~2,6 Mo au total
     subprocess.run([ff, '-loglevel', 'error', '-y', '-i', brut, '-vf', 'scale=-2:640', '-c:v', 'libx264', '-b:v', f'{debit}k',
                     '-c:a', 'aac', '-b:a', '32k', '-ac', '1', petit], check=True)
-    corps = os.path.join(dossier, 'corps.json')
-    json.dump({'texte': 'Légende du reel : ' + (legende or '(aucune)'), 'consigne': CONSIGNE,
+    corps = f'/tmp/reel-{code}-corps.json'
+    json.dump({'texte': f'Légende ({origine}) : ' + (legende or '(aucune)'), 'consigne': CONSIGNE.replace('reel Instagram', origine),
                'media_base64': base64.b64encode(open(petit, 'rb').read()).decode(), 'media_type': 'video/mp4'}, open(corps, 'w'))
     r = subprocess.run(['curl', '-s', '-m', '280', '-b', cookies, '-H', 'content-type: application/json',
                         '--data-binary', '@' + corps, RELAIS], capture_output=True, text=True).stdout
-    os.remove(corps)
+    for f in (corps, petit, brut):
+        os.remove(f)
     avis = json.loads(r).get('avis', '') if r.startswith('{') else ''
-    open(os.path.join(dossier, code + '.md'), 'w').write(f'Légende : {legende}\nDurée : {dur:.0f} s\n\n{avis}')
+    if avis:
+        open(os.path.join(dossier, code + '.md'), 'w').write(f'Légende : {legende}\nDurée : {dur:.0f} s\n\n{avis}')
     print(code, round(dur), 's', 'ok' if avis else 'ÉCHEC ' + r[:120])
+    return bool(avis)
+
 
 if __name__ == '__main__':
     main(*sys.argv[1:4])

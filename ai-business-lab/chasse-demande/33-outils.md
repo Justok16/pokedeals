@@ -210,6 +210,14 @@ déploiement** (`relais-xxxx-justok1.vercel.app`), puis utiliser son jeton sur l
 morceaux de 20 min, **un par minute** (l'offre gratuite limite aussi les jetons par minute :
 5 morceaux en parallèle → refus 429 sur tous les modèles), garde les morceaux réussis en cache
 et termine par une synthèse via `/api/avis`.
+**Vidéos et reels Facebook** (01/10) : `outils/resumer_reel_facebook.py <lien> videos-resumes /tmp/cj.txt`.
+Sans compte : le lien de partage redirige (robot `facebookexternalhit`) vers `/reel/<id>`, et le lecteur
+intégrable public `facebook.com/plugins/video.php?href=…` contient l'adresse du fichier (`sd_src`, domaine
+`fbcdn.net` vérifié). Même chaîne que les reels Instagram ; les vidéos sont écrites dans `/tmp` puis
+effacées (jamais dans le dépôt public).
+**Skills de design** (01/10) : `taste-design`, `taste-redesign`, `impeccable` (texte seul) en plus de
+`ui-ux-pro-max` : à passer sur chaque démo et site client avant le contrôle `44`.
+
 **CodeRabbit** (relecture automatique du code, proposé le 01/10) : gratuit sans limite de durée
 pour les dépôts publics (« receive free reviews forever for public repositories », coderabbit.ai/pricing,
 lu le 01/10/2026). S'installe comme application GitHub sur le dépôt : **action de l'utilisateur**
