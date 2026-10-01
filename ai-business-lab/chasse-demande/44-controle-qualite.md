@@ -79,6 +79,12 @@ mise en ligne** :
 2. Le skill **vibe-security** sur tout code écrit (clés, accès, formulaires, paiements).
 3. `outils/audit_acces.py` (accessibilité et règles d'interface) → 0 défaut.
 4. Aucune clé ni adresse email dans le code publié ; secrets uniquement dans les réglages de l'hébergeur.
+5. **Paiement en ligne ou webhook** (ajout du 01/10, vidéo pZgw2WNOcHE) : tests d'abord en mode
+   *sandbox* du prestataire ; **signature de chaque webhook vérifiée côté serveur** (secret dans les
+   réglages de l'hébergeur, jamais dans le code) ; fichier `.env.local` exclu de Git ; limite de
+   fréquence sur toute fonction qui appelle une IA payante (sinon facture qui explose).
+6. Intégration d'un service tiers (paiement, authentification, suivi d'erreurs) : partir de la
+   **documentation officielle lue directement**, jamais de mémoire.
 
 **Audits de concurrents : mode PASSIF uniquement** (`audit_securite.py https://site`, sans
 `--proprietaire`) : une lecture de la page d'accueil publique, comme n'importe quel visiteur.

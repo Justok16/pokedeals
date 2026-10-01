@@ -210,6 +210,11 @@ déploiement** (`relais-xxxx-justok1.vercel.app`), puis utiliser son jeton sur l
 morceaux de 20 min, **un par minute** (l'offre gratuite limite aussi les jetons par minute :
 5 morceaux en parallèle → refus 429 sur tous les modèles), garde les morceaux réussis en cache
 et termine par une synthèse via `/api/avis`.
+**CodeRabbit** (relecture automatique du code, proposé le 01/10) : gratuit sans limite de durée
+pour les dépôts publics (« receive free reviews forever for public repositories », coderabbit.ai/pricing,
+lu le 01/10/2026). S'installe comme application GitHub sur le dépôt : **action de l'utilisateur**
+(son compte GitHub). Relirait chaque modification de la PR #118 (sécurité, bugs). Non installé.
+
 **Tâches de fond qui « meurent » (constat du 01/10)** : le conteneur de la session est **éteint
 quand la conversation est inactive** et redémarré au réveil suivant (`uptime -s` = heure du
 réveil) ; `/tmp` est conservé, mais tous les programmes en cours sont arrêtés. Une attente en
