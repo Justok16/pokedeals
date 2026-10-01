@@ -229,6 +229,15 @@ déploiement** (`relais-xxxx-justok1.vercel.app`), puis utiliser son jeton sur l
 morceaux de 20 min, **un par minute** (l'offre gratuite limite aussi les jetons par minute :
 5 morceaux en parallèle → refus 429 sur tous les modèles), garde les morceaux réussis en cache
 et termine par une synthèse via `/api/avis`.
+**Accélération n° 2 (01/10, soir) : trois files en parallèle.** Les quotas gratuits de Gemini sont comptés
+par modèle (requêtes par jour et par minute). `resumer_chaine.py` accepte donc la variable `MODELES=a,b,c`,
+et `chaines_ia.sh` (dossier de travail) lance trois files simultanées aux modèles disjoints : A (IA :
+Melvynx puis Matt Wolfe) = 3.8-flash, 3.7-flash, 3.6-flash ; B (finances : Finary) = 3.5-flash,
+3-flash-preview, 3.5-flash-lite, flash-latest ; C (Fintales puis Gabzer) = 3.1-flash-lite, 3.1-flash-lite-preview,
+flash-lite-latest. Les lots passent à 8 vidéos de 10 min au plus (20 min cumulées ; 15 min = 68 s au relais,
+limite 295 s). Testés et écartés le 01/10 : gemini-2.5-flash et 2.5-flash-lite (« no longer available to new
+users ») ; la passerelle Vercel (crédit gratuit à −0,20 $, garde-fou 1 $) est inutilisable ce mois-ci.
+
 **Accélération : plusieurs vidéos par requête** (01/10, demande de l'utilisateur). Le quota gratuit
 Gemini se compte en **requêtes** (≈ 20 par jour et par modèle), pas en vidéos ; la documentation officielle
 (ai.google.dev, « Video understanding », lue le 01/10/2026) indique : « For Gemini 2.5 and later models, you
