@@ -93,6 +93,14 @@ Compléments du réaudit du 01/10 (56 fiches contrôlées, 1 retirée) :
 - **Page dans le site d'un groupe** ou **même dirigeant qu'une entreprise qui a un site** : la fiche
   le précise, et l'accroche ne dit jamais « vous n'avez aucun site ».
 
+## Supports à pages A4 fixes : débordement (outil ajouté le 01/10/2026)
+
+Le contrôle pymupdf « texte sur le pied de page » n'a pas vu un tableau qui passait **sous** le pied de
+page de la page 8 du guide (le texte coupé n'est plus dans le PDF). Désormais, tout PDF d'un support à
+`<section class="page">` est produit par `python3 outils/pdf_pages.py <html> <pdf>` : il mesure, page par
+page, le bas de chaque bloc par rapport au haut du pied de page et **refuse d'écrire le PDF** si une page
+déborde. Puis regarder l'image de chaque page modifiée.
+
 ## Orthographe et grammaire (outil ajouté le 01/10/2026)
 
 Avant tout envoi d'un document ou d'une page : `python3 outils/typo_fr.py <fichier>` (espaces
