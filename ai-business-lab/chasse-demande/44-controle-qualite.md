@@ -101,6 +101,18 @@ page de la page 8 du guide (le texte coupé n'est plus dans le PDF). Désormais,
 page, le bas de chaque bloc par rapport au haut du pied de page et **refuse d'écrire le PDF** si une page
 déborde. Puis regarder l'image de chaque page modifiée.
 
+## Prospects « sans site » : deux contrôles de plus (leçon du 01/10/2026, soir)
+
+Sur 13 candidats RGE annoncés « aucun site » par la détection automatique, **13 avaient en réalité un
+site ou étaient à écarter**. Deux erreurs n'auraient été vues ni par le sondage des domaines ni par la
+recherche « nom + commune » :
+1. **Rechercher le numéro de téléphone sur le web** (entre guillemets) : c'est ce qui a révélé
+   `sorc16.fr` (sigle de l'entreprise) et `adigenieclimatique.com` (enseigne différente du nom
+   légal). Obligatoire avant de déclarer un prospect « sans site ».
+2. **Lire la fiche Pappers** : si elle affiche « s'est opposée à l'utilisation de ses données à des
+   fins de prospection », on n'appelle pas (respect du choix de l'entreprise, cadre `35`).
+`sonder_domaines.py` teste désormais aussi le sigle et le nom sans mots répétés.
+
 ## Orthographe et grammaire (outil ajouté le 01/10/2026)
 
 Avant tout envoi d'un document ou d'une page : `python3 outils/typo_fr.py <fichier>` (espaces

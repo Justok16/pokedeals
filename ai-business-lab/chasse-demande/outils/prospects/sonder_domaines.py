@@ -10,6 +10,13 @@ def candidats(nom):
     tous = slug(nom)
     bases = {''.join(m), '-'.join(m), ''.join(tous), '-'.join(tous)}
     if len(m) > 1: bases |= {m[0] + m[-1], m[-1] + m[0], m[0]}
+    # Sigles (leçon du 01/10 : « Sud Ouest Rénovations Constructions » = sorc16.fr) et nom sans le sigle
+    # répété (« ADI Froid ADI Génie Climatique ADI » = adigenieclimatique.com)
+    if len(m) >= 3: bases.add(''.join(w[0] for w in m))
+    vus, sans_rep = set(), []
+    for w in m:
+        if w not in vus: vus.add(w); sans_rep.append(w)
+    if len(sans_rep) >= 2: bases |= {''.join(sans_rep), '-'.join(sans_rep), ''.join(sans_rep[:3]), '-'.join(sans_rep[:3])}
     out = set()
     for b in bases:
         if len(b) < 4: continue
