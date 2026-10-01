@@ -14,6 +14,10 @@ MODELES = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-3
            'gemini-3-flash-preview', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite',
            'gemini-3.1-flash-lite-preview', 'gemini-flash-lite-latest']  # 2 ajoutés le 28/09 (testés : lisent les vidéos)
 import json, os, sys, time, subprocess, datetime, re
+# 01/10 (soir) : plusieurs files en parallèle, chacune avec SES modèles (variable MODELES=a,b,c) : les quotas
+# par minute sont par modèle, donc des files aux modèles disjoints ne se gênent pas et multiplient le débit.
+if os.environ.get('MODELES'):
+    MODELES = [m for m in os.environ['MODELES'].split(',') if m]
 
 
 def sans_email(t):  # aucune adresse e-mail dans le dépôt public
@@ -35,7 +39,7 @@ videos = json.load(open(liste))['videos']
 videos = [v for v in videos if secondes(v['duree']) >= 180] + [v for v in videos if secondes(v['duree']) < 180]
 fait = 0
 illisibles = 0  # réponses vides d'affilée (relais expiré ou vidéo trop longue pour le délai)
-LOT_MAX, LOT_DUREE, COURTE = 8, 15 * 60, 420  # 01/10 : jusqu'à 8 vidéos de 7 min au plus (15 min cumulées) par requête
+LOT_MAX, LOT_DUREE, COURTE = 8, 20 * 60, 600  # 01/10 : jusqu'à 8 vidéos de 10 min au plus (20 min cumulées) par requête (15 min = 68 s au relais, marge jusqu'à 295 s)
 
 def appeler(ids):
     """Une requête au relais, en changeant de modèle si quota épuisé (429) ou surcharge (503)."""
