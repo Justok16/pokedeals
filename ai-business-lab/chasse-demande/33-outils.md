@@ -123,6 +123,15 @@ Les connecteurs « small-business » qui demandent encore une autorisation (HubS
 Zoho, Xero…) sont des doublons du module complémentaire : à ignorer.
 Je ne peux pas connecter moi-même : chaque connexion demande l'identifiant de l'utilisateur.
 
+## Skill « humanizer » (installé le 01/10/2026)
+
+Source : github.com/blader/humanizer, version 3.1.0, licence MIT, lu en entier avant installation :
+un seul fichier texte (SKILL.md) ; le script joint ne fait que contrôler ses propres fichiers, sans
+réseau, et n'est pas copié. Rangé dans `.claude/skills/humanizer`. Il relit un texte et retire les
+26 signes d'écriture « IA » répertoriés par Wikipédia (« Signs of AI writing ») sans changer le fond
+ni rien inventer. À passer sur chaque texte de démo, de site client et d'e-mail de prospection avant
+envoi, après `orthographe.py` et avant le contrôle `44`.
+
 ## Skill « vibe-security » (installé le 28/09/2026, accord de l'utilisateur)
 
 Source : github.com/raroque/vibe-security-skill (licence MIT), lu en entier avant installation :
