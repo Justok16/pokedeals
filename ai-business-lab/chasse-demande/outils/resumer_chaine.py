@@ -44,9 +44,10 @@ def appeler(ids):
         cle = 'ids' if len(ids) > 1 else 'id'
         url = f"https://relais-dig-justok1.vercel.app/api/video?{cle}={','.join(ids)}&mode={mode}&modeles={MODELES[0]}"
         for essai in range(3):  # coupure réseau passagère (tunnel fermé, constaté le 01/10) : on relance 2 fois
+            t0 = time.time()
             r = subprocess.run(['curl', '-s', '-m', '295', '-b', cookies, url], capture_output=True, text=True).stdout
-            if r.startswith('{'):
-                break
+            if r.startswith('{') or time.time() - t0 > 240:
+                break  # réponse reçue, ou délai du relais dépassé (vidéo trop lourde) : relancer ne servirait à rien
             time.sleep(20)
         try:
             j = json.loads(r)
@@ -67,7 +68,12 @@ def ecrire(v, texte, modele):
         f"(connaissances générales, non vérifiées : toute règle fiscale ou chiffre est à contrôler à la source officielle)\n\n{sans_email(texte.strip())}\n")
     print('ok', v['id'], v['duree'], v['titre'][:60], flush=True)
 
+# Vidéos déjà en échec 2 fois (délai du relais dépassé, vidéo illisible…) : en fin de file, pour ne pas
+# bloquer chaque lancement sur elles (constaté le 01/10 : 5 min perdues à chaque passage sur une même vidéo).
+f_echecs = os.path.join(sortie, '.echecs.json')
+echecs = json.load(open(f_echecs)) if os.path.exists(f_echecs) else {}
 a_faire = [v for v in videos if not os.path.exists(os.path.join(sortie, v['id'] + '.md'))]
+a_faire = [v for v in a_faire if echecs.get(v['id'], 0) < 2] + [v for v in a_faire if echecs.get(v['id'], 0) >= 2]
 while a_faire and MODELES:
     v = a_faire.pop(0)
     lot = [v]
@@ -85,6 +91,9 @@ while a_faire and MODELES:
         print('tous les modèles ont épuisé leur quota du jour'); break
     if 'resume' not in j:
         print('échec', ','.join(x['id'] for x in lot), str(j.get('erreur', ''))[:300], flush=True)
+        if len(lot) == 1:
+            echecs[v['id']] = echecs.get(v['id'], 0) + 1
+            json.dump(echecs, open(f_echecs, 'w'))
         if j.get('erreur') == 'illisible':
             illisibles += 1
             if illisibles >= 3:
