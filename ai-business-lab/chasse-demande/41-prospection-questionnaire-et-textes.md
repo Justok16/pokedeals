@@ -135,6 +135,13 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
 19. Galerie avant/après ? (bâtiment, paysage)
 20. Site en anglais ? (clientèle étrangère)
 
+**Chiffrer ce que ça lui coûte aujourd'hui** (ajout du 01/10 : vendre un résultat mesurable,
+pas « un site » — leçon de la vidéo « FDE » de Greg Isenberg, `46`)
+21. Combien d'appels manquez-vous par semaine quand vous êtes sur un chantier ou en
+    service ? (→ option standardiste IA, à ne construire qu'après 3 « oui », voir `46`)
+22. Combien d'heures par semaine passent dans les devis, les relances et les réponses aux
+    messages ? (→ l'argument se chiffre : « X heures par semaine, Y demandes perdues »)
+
 ---
 
 ## 5. Grille : quelle formule recommander (prix validés le 26/09)

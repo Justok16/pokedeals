@@ -11,6 +11,8 @@ RELAIS = 'https://relais-dig-justok1.vercel.app'
 MODELES = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3-flash-preview',
            'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-3.1-flash-lite-preview',
            'gemini-flash-lite-latest']  # les 9 modèles qui lisent une vidéo (2 ajoutés le 01/10, comme resumer_chaine.py)
+if os.environ.get('MODELES'):  # 01/10 : liste de modèles imposée (files parallèles aux modèles disjoints)
+    MODELES = [m for m in os.environ['MODELES'].split(',') if m]
 MORCEAU = 1200  # secondes (20 min, environ 120 000 jetons : 50 min dépassait la limite gratuite par minute, 30/09)
 
 vid, duree, cookies, sortie = sys.argv[1:5]
