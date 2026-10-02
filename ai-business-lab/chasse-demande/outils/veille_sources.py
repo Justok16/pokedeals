@@ -86,9 +86,17 @@ def gratos():
     return {u: u for u in re.findall(r'<loc>(https://gratos\.app/outils/[^<]+)</loc>', telecharger('https://gratos.app/sitemap.xml'))}
 
 
+def deviensdev():
+    # Guides gratuits Claude Code / hébergement / freelance (site envoyé le 02/10/2026).
+    # Clé = adresse + date de mise à jour : un guide modifié réapparaît comme nouveauté.
+    plan = telecharger('https://deviensdev.fr/sitemap-0.xml')
+    return {u + '#' + d: f'{u} (mis à jour le {d[:10]})'
+            for u, d in re.findall(r'<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>', plan)}
+
+
 SOURCES = {'nosignups': nosignups, 'futuretools': futuretools, 'free-for-dev': free_for_dev,
            'mrfreetools': mrfreetools, 'openalternative': openalternative,
-           'public-apis': public_apis, 'gratos': gratos}
+           'public-apis': public_apis, 'gratos': gratos, 'deviensdev': deviensdev}
 
 
 def veille_outils(rapport):

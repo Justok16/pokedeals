@@ -57,10 +57,30 @@ Sources : [Urssaf](https://www.urssaf.fr/accueil/actualites/acre-nouvelles-regle
   18-25 ans ; handicapés de moins de 30 ans ; titulaires d'un **contrat
   Cape** ; création en quartier prioritaire (QPV) ; repreneurs d'entreprise
   en difficulté.
+- Micro-entreprise : l'exonération « **passe de 50 à 25 %** pour les
+  micro-entreprises créées ou reprises **à compter du 1er juillet 2026** »
+  ([Service Public A18795, publié le 11/02/2026, lu le 02/10/2026](https://entreprendre.service-public.gouv.fr/actualites/A18795)).
 - Demande à l'Urssaf **dans les 60 jours** suivant le début d'activité.
 - Voies possibles à étudier : contrat Cape (§ 4), QPV selon l'adresse de
   l'entreprise, inscription à France Travail **[à vérifier : effets de
   l'inscription sur les aides perçues]**.
+
+## 3 bis. Allocation chômage (ARE) et création — la date compte
+
+Source : [France Travail, « Je crée, je reprends une entreprise »](https://www.francetravail.fr/candidat/mes-droits-aux-aides-et-allocati/a-chaque-situation-son-allocatio/quelle-est-ma-situation-professi/je-reprends-une-activite-ou-une/je-cree-je-reprends-une-entrepri.html)
+(modifiée le 18/09/2025, lue le 02/10/2026). Règle générale, à vérifier pour
+chaque situation avec le conseiller **avant** d'immatriculer :
+
+- **Création après la fin du contrat**, avec l'ARE : choisir soit l'**ARCE**
+  (versée en deux fois), soit le **cumul** chaque mois : « Montant de votre ARE
+  mensuelle – 70 % de vos rémunérations », dans la limite de « 60 % de vos
+  droits restants » (fins de contrat depuis le 01/04/2025).
+- ARCE : « ne créez pas votre entreprise AVANT de vous inscrire ».
+- **Activité déjà exercée avant la fin du contrat** (« activité conservée ») :
+  cumul de « l'intégralité des rémunérations […] avec votre allocation ARE »,
+  mais pas d'ARCE.
+- Repéré grâce au guide deviensdev.fr/freelance (02/10/2026) ; chiffres relus
+  sur la page officielle ci-dessus.
 
 ## 4. Couveuse d'entreprises et contrat Cape (en nature)
 

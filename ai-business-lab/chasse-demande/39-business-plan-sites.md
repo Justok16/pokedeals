@@ -139,6 +139,8 @@ client) est la bonne réponse.
 - Hébergement : **Cloudflare Pages**, gratuit (100 projets, 500
   constructions/mois, 100 domaines par projet —
   [limites officielles](https://developers.cloudflare.com/pages/platform/limits/)).
+  Fichiers statiques : « Requests to static assets are free and unlimited »
+  ([Cloudflare, mis à jour le 23/04/2026, lu le 02/10/2026](https://developers.cloudflare.com/workers/static-assets/billing-and-limitations/)).
   Usage commercial : autorisé selon le forum Cloudflare
   **[à confirmer dans les conditions générales]**.
 - **Pas Vercel gratuit pour les clients** : « Hobby teams are restricted to

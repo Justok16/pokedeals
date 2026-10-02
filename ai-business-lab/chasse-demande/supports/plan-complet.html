@@ -12,7 +12,7 @@ code{background:#f1e7da;padding:0 3px;border-radius:3px;word-break:break-all}
 a{color:#1f3b2d;word-break:break-all} del{color:#8a8176}
 section{page-break-before:always} .cover{text-align:center;padding-top:60mm}
 .cover h1{border:0;font-size:30pt}
-</style></head><body><div class=cover><h1>Dig — Plan complet</h1><p>Sites internet pour artisans, commerçants et indépendants</p><p>Version du 28/09/2026 (régénérée depuis les fichiers du dossier)</p><ol style="text-align:left;display:inline-block"><li>Business plan</li><li>Cadre légal</li><li>Questionnaire et textes d'appel</li><li>Flyer et prompts</li><li>Aides à la création</li></ol><p style="margin-top:30mm;color:#6b645a">Les listes de prospects et toute donnée personnelle sont dans des documents privés séparés.</p></div><section><h1>Business plan « Dig — sites pour professionnels » (25-26/09/2026)</h1>
+</style></head><body><div class=cover><h1>Dig — Plan complet</h1><p>Sites internet pour artisans, commerçants et indépendants</p><p>Version du 02/10/2026 (régénérée depuis les fichiers du dossier)</p><ol style="text-align:left;display:inline-block"><li>Business plan</li><li>Cadre légal</li><li>Questionnaire et textes d'appel</li><li>Flyer et prompts</li><li>Aides à la création</li></ol><p style="margin-top:30mm;color:#6b645a">Les listes de prospects et toute donnée personnelle sont dans des documents privés séparés.</p></div><section><h1>Business plan « Dig — sites pour professionnels » (25-26/09/2026)</h1>
 <p>Demande de l'utilisateur (25/09) : un plan complet et moderne pour démarcher,
 convertir, satisfaire, facturer et suivre des clients professionnels, en
 visant d'abord les clients SoLocal. Règles : sources sûres uniquement, chaque
@@ -238,6 +238,8 @@ client) est la bonne réponse.</p>
 <li>Hébergement : <strong>Cloudflare Pages</strong>, gratuit (100 projets, 500
   constructions/mois, 100 domaines par projet —
   <a href="https://developers.cloudflare.com/pages/platform/limits/">limites officielles</a>).
+  Fichiers statiques : « Requests to static assets are free and unlimited »
+  (<a href="https://developers.cloudflare.com/workers/static-assets/billing-and-limitations/">Cloudflare, mis à jour le 23/04/2026, lu le 02/10/2026</a>).
   Usage commercial : autorisé selon le forum Cloudflare
   <strong>[à confirmer dans les conditions générales]</strong>.</li>
 <li><strong>Pas Vercel gratuit pour les clients</strong> : « Hobby teams are restricted to
@@ -897,6 +899,8 @@ avant 8 jours. »
 </ol>
 <hr />
 <h2>4. Questionnaire de découverte (choisir 6 à 10 questions)</h2>
+<p>Support imprimable (2 pages A4, lignes de réponse) : <code>supports/Dig-Questionnaire-decouverte.pdf</code>
+(source <code>supports/questionnaire-decouverte.html</code>, PDF via <code>outils/pdf_pages.py</code>). Version du 02/10/2026.</p>
 <p><strong>Son activité</strong>
 1. Quels sont les travaux/produits qui vous rapportent le plus ?
 2. Et ceux que vous aimeriez faire plus souvent ?
@@ -930,6 +934,12 @@ avant 8 jours. »
 18. Disponibilités et réservation ? (gîtes, chambres d'hôtes)
 19. Galerie avant/après ? (bâtiment, paysage)
 20. Site en anglais ? (clientèle étrangère)</p>
+<p><strong>Chiffrer ce que ça lui coûte aujourd'hui</strong> (ajout du 01/10 : vendre un résultat mesurable,
+pas « un site » — leçon de la vidéo « FDE » de Greg Isenberg, <code>46</code>)
+21. Combien d'appels manquez-vous par semaine quand vous êtes sur un chantier ou en
+    service ? (→ option standardiste IA, à ne construire qu'après 3 « oui », voir <code>46</code>)
+22. Combien d'heures par semaine passent dans les devis, les relances et les réponses aux
+    messages ? (→ l'argument se chiffre : « X heures par semaine, Y demandes perdues »)</p>
 <hr />
 <h2>5. Grille : quelle formule recommander (prix validés le 26/09)</h2>
 <table>
@@ -1198,6 +1208,39 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).</p>
   sous « Appelez ou scannez », dans l'élément texte d'origine (même police), 10 pt, interligne 1,05.</li>
 <li>Contrôle : QR décodé → https://digsite.pages.dev/ ; écart mesuré entre la dernière ligne et le
   bord du bloc ≈ 1,7 mm, aucun chevauchement avec l'icône email. PNG 1748 × 2480 et PDF A5 mis à jour.</li>
+</ul>
+<h2>Version 5 (28/09/2026, après l'audit externe)</h2>
+<ul>
+<li>Fichier de référence : <code>supports/flyer-dig-a5.html</code> → <code>supports/flyer-dig-a5-v5.pdf</code> et <code>.png</code>.</li>
+<li>« Plus d'appels et de devis » (promesse de résultat) remplacé par « Facile à appeler » ; note
+  fictive « 4,9/5 » retirée de l'image d'exemple ; « premier mois réglé avant la mise en ligne »
+  ajouté aux mentions ; prix « dès 49 €/mois ».</li>
+<li><strong>QR code refait</strong> : la source HTML menait encore à l'ancienne démo supprimée (erreur 404).
+  Nouveau QR vers https://digsite.pages.dev/, décodé depuis le PDF lui-même, y compris à basse
+  résolution. Contrôle ajouté : tous les QR et liens des PDF et du site testés (35 liens).</li>
+<li>Anciennes versions retirées du dossier (v4 : « dès 29 € » ; export Canva : QR mort). Le
+  design Canva DAHWQH2QKK8 n'est plus la référence.</li>
+<li>
+<p>Reste avant impression : prénom, nom, SIREN, adresse, téléphone et email (après immatriculation).</p>
+</li>
+<li>
+<p>28/09 (soir) : PDF refait à partir d'une image 300 ppp (1 748 × 2 480 px, A5 exact) après une capture de l'utilisateur montrant des rectangles sombres et un titre tronqué dans sa visionneuse ; contrôlé avec pdfium et MuPDF, QR décodé.</p>
+</li>
+</ul>
+<h2>Flyer de référence : Canva (28/09/2026, soir) — choix de l'utilisateur (« bien plus beau »)</h2>
+<ul>
+<li>Design Canva DAHWQH2QKK8, exports <code>supports/Dig-Flyer-A5.pdf</code> (A5 exact) et <code>.png</code> (300 ppp).</li>
+<li>Corrections : « dès 49 € » ; « Facile à appeler / Pensé d’abord pour le téléphone » (plus de
+  promesse de résultat) ; « Modifications sous 48 h, bilan mensuel » ; « Premier mois offert »
+  (parrainage) ; mentions légales avec « premier mois réglé avant la mise en ligne » ;
+  apostrophes typographiques ; titres des cartes harmonisés (même taille, une ligne) ;
+  coupures de lignes volontaires ; encadré de l'offre ajusté.</li>
+<li>Contrôle : texte extrait (aucune trace de 29 €, promesse, note fictive), QR décodé depuis le
+  PDF à 300 et 72 ppp → https://digsite.pages.dev/, rendu identique pdfium / MuPDF, marges :
+  3,2 mm en bas, 6,3 mm à gauche et à droite (zone de sécurité d'imprimeur ≈ 3 mm).</li>
+<li>Le flyer HTML (<code>flyer-dig-a5.html</code>, v5) reste une solution de secours.</li>
+<li>Avant impression : prénom, nom, SIREN, adresse, téléphone, email (après immatriculation) ;
+  demander à l'imprimeur s'il veut un fond perdu (Canva : « Fond perdu » à l'export).</li>
 </ul></section><section><h1>Aides à la création d'entreprise — financières et en nature (vérifié le 25/09/2026)</h1>
 <p>Demande de l'utilisateur : tout creuser et <strong>tout maîtriser</strong> avant une
 éventuelle création. L'éligibilité dépend de son profil personnel, qui n'est
@@ -1253,10 +1296,29 @@ officielle datée, jamais un résumé.</p>
   18-25 ans ; handicapés de moins de 30 ans ; titulaires d'un <strong>contrat
   Cape</strong> ; création en quartier prioritaire (QPV) ; repreneurs d'entreprise
   en difficulté.</li>
+<li>Micro-entreprise : l'exonération « <strong>passe de 50 à 25 %</strong> pour les
+  micro-entreprises créées ou reprises <strong>à compter du 1er juillet 2026</strong> »
+  (<a href="https://entreprendre.service-public.gouv.fr/actualites/A18795">Service Public A18795, publié le 11/02/2026, lu le 02/10/2026</a>).</li>
 <li>Demande à l'Urssaf <strong>dans les 60 jours</strong> suivant le début d'activité.</li>
 <li>Voies possibles à étudier : contrat Cape (§ 4), QPV selon l'adresse de
   l'entreprise, inscription à France Travail <strong>[à vérifier : effets de
   l'inscription sur les aides perçues]</strong>.</li>
+</ul>
+<h2>3 bis. Allocation chômage (ARE) et création — la date compte</h2>
+<p>Source : <a href="https://www.francetravail.fr/candidat/mes-droits-aux-aides-et-allocati/a-chaque-situation-son-allocatio/quelle-est-ma-situation-professi/je-reprends-une-activite-ou-une/je-cree-je-reprends-une-entrepri.html">France Travail, « Je crée, je reprends une entreprise »</a>
+(modifiée le 18/09/2025, lue le 02/10/2026). Règle générale, à vérifier pour
+chaque situation avec le conseiller <strong>avant</strong> d'immatriculer :</p>
+<ul>
+<li><strong>Création après la fin du contrat</strong>, avec l'ARE : choisir soit l'<strong>ARCE</strong>
+  (versée en deux fois), soit le <strong>cumul</strong> chaque mois : « Montant de votre ARE
+  mensuelle – 70 % de vos rémunérations », dans la limite de « 60 % de vos
+  droits restants » (fins de contrat depuis le 01/04/2025).</li>
+<li>ARCE : « ne créez pas votre entreprise AVANT de vous inscrire ».</li>
+<li><strong>Activité déjà exercée avant la fin du contrat</strong> (« activité conservée ») :
+  cumul de « l'intégralité des rémunérations […] avec votre allocation ARE »,
+  mais pas d'ARCE.</li>
+<li>Repéré grâce au guide deviensdev.fr/freelance (02/10/2026) ; chiffres relus
+  sur la page officielle ci-dessus.</li>
 </ul>
 <h2>4. Couveuse d'entreprises et contrat Cape (en nature)</h2>
 <p>Source : <a href="https://bpifrance-creation.fr/encyclopedie/differentes-facons-dentreprendre/entreprendre-autrement/cape">Bpifrance Création</a>,

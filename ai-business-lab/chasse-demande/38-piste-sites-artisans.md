@@ -51,7 +51,7 @@ pas seulement les artisans (ex. trouvé : un centre de radiologie).
 | Qui paie ? | Professionnels de tous métiers (artisans, santé, commerces…) mécontents de leur site, ou qui veulent posséder leur site. |
 | Preuve de demande ? | Indirecte : avis négatifs nombreux, agences concurrentes qui ciblent déjà ces clients. **À prouver par un test.** |
 | Combien ? | Prix du marché des sites pour artisans **[à mesurer]** ; SoLocal facture environ 29 € HT/mois et plus. |
-| Coût pour démarrer ? | Proche de 0 € : Claude fait les sites, hébergement gratuit possible (Vercel). |
+| Coût pour démarrer ? | Proche de 0 € : Claude fait les sites, hébergement gratuit possible (Cloudflare ; pas Vercel gratuit, réservé à l'usage personnel non commercial, voir `39-business-plan-sites.md` § 3.3). |
 | Point faible | Vente de service un par un (pas automatique) ; concurrence ; nécessite la micro-entreprise. |
 | Avantage | Connaissance du secteur par l'utilisateur ; démo gratuite faite avant le contact. |
 
