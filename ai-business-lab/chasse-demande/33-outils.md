@@ -376,3 +376,10 @@ nosniff, Referrer-Policy, Permissions-Policy absents).
   (page officielle lue le 30/09/2026 : « Search API $5.00 » pour 1 000 requêtes, pas
   d'offre gratuite indiquée). Équivalents gratuits déjà en place : Tavily (1 000 crédits
   par mois), Firecrawl, recherche web intégrée.
+
+## Guide « 5 skills Claude autonome » (Loucash, évalué le 02/10/2026)
+
+Superpowers et Impeccable : déjà en place. Skills CLI (`npx skills`), Claude Mem et Task Observer : non installés,
+raisons et conditions de réexamen dans `videos-resumes/x-loucash-5-skills-claude.md` (Task Observer = méta-skill
+d'amélioration continue, CC BY 4.0, lu en entier ; trop lourd pour un passage automatique toutes les 3 h tant que
+la bibliothèque de skills reste petite).
