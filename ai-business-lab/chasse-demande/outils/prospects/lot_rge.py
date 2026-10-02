@@ -99,9 +99,13 @@ def main():
         # Domaine probable retenu seulement si son titre cite un mot distinctif du nom ou la commune
         # (sinon « nicolas.fr », « patrice.fr »… sont des homonymes sans rapport)
         mots = [w for w in re.sub(r'[^a-z0-9 ]', ' ', unicodedata.normalize('NFKD', e['nom'] + ' ' + e['commune']).encode('ascii', 'ignore').decode().lower()).split() if len(w) >= 4 and w not in ('sarl', 'eurl', 'entreprise', 'etablissements', 'fils', 'pere', 'saint', 'sainte', 'charente')]
+        # Un seul mot commun ne suffit que s'il vient de l'enseigne (entre parenthèses) ou de la commune :
+        # « emilie.fr » pour « EMILIE NARFIT (AU SALON D'ELONA) » est un prénom homonyme, pas un site (02/10)
+        ens = ' '.join(re.findall(r'\(([^)]*)\)', e['nom'])) or e['nom']
+        forts = [w for w in re.sub(r'[^a-z0-9 ]', ' ', unicodedata.normalize('NFKD', ens + ' ' + e['commune']).encode('ascii', 'ignore').decode().lower()).split() if w in mots]
         def plausible(x):
             t = unicodedata.normalize('NFKD', x.get('titre', '')).encode('ascii', 'ignore').decode().lower()
-            return any(w in t for w in mots) or sum(w in x['domaine'] for w in mots) >= 2
+            return any(w in t for w in forts) or sum(w in t for w in mots) >= 2 or sum(w in x['domaine'] for w in mots) >= 2
         d['domaines_vivants'] = [x for x in sondes.get(n, []) if x.get('code') == '200' and not x.get('vide_ou_parking') and plausible(x)]
         d['pappers'] = pappers(e['siret'][:9], os.path.join(app, f'pappers{lot}', f'{i}.html')); time.sleep(4)
         # pré-verdict
