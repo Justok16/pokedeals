@@ -1,10 +1,8 @@
-# Étape 0 (02/10) : doublons d'un lot de candidats contre la feuille de suivi.
-# Usage : python3 etape0_doublons.py <debut> <fin> <sortie.json> <dossier_de_travail>
-# Le dossier de travail contient appels/suivi_appels.csv et verif8/cands.json (données privées, hors dépôt).
-# Drapeaux (<sortie>_drapeaux.json) : numéro du registre partagé avec un prospect existant ou avec d'autres entreprises du vivier.
+# Étape 0 (02/10) : doublons d'un lot de candidats contre suivi_appels.csv (téléphone 9 derniers chiffres, puis nom/enseigne normalisés)
 import json, csv, re, sys, unicodedata
-S=sys.argv[4] if len(sys.argv)>4 else '.'
+S='/tmp/claude-0/-home-user-pokedeals/444b8073-9084-510a-bb75-4fe03b0350df/scratchpad'
 def norm(s):
+    s=(s or '').replace('\u2019',"'").replace("'",' ')
     s=unicodedata.normalize('NFKD',s or '').encode('ascii','ignore').decode().lower()
     s=re.sub(r'\b(sarl|sas|eurl|sasu|sa|snc|ei|le|la|les|l|du|de|des|d|et)\b',' ',s)
     return re.sub(r'[^a-z0-9]+','',s)
@@ -22,13 +20,13 @@ for r in rows:
             n=norm(r[k]); 
             if len(n)>=5: noms.setdefault(n,r)
 a,b=int(sys.argv[1]),int(sys.argv[2])
-cands=json.load(open(S+'/verif8/cands.json'))
+cands=json.load(open(sys.argv[5] if len(sys.argv)>5 else S+'/verif8/cands.json'))  # 5e argument facultatif : fichier du vivier
 out={}; dup=[]; flags={}
 import collections
 vv=collections.Counter(tel9(x.get('telephone','')) for x in cands)
 for i in range(a,b+1):
     c=cands[i]; t9=tel9(c.get('telephone',''))
-    names=[c['nom']]+re.findall(r'\(([^)]+)\)',c['nom'])+([c['enseigne']] if c.get('enseigne') else [])
+    names=[c['nom'],re.sub(r'\s*\([^)]*\)','',c['nom'])]+re.findall(r'\(([^)]+)\)',c['nom'])+([c['enseigne']] if c.get('enseigne') else [])
     hit=None
     nhit=None
     for n in names:
