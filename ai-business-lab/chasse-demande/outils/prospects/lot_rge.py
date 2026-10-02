@@ -47,13 +47,13 @@ def site(url):
     # (02/10 : afleurdepotangouleme.fr et sbm-auto16.fr étaient vus « morts » alors qu'ils répondaient).
     hote = u.split('//', 1)[-1]
     nu = hote[4:] if hote.startswith('www.') else hote
-    variantes = [u] + [v for v in (f'https://{nu}', f'https://www.{nu}', f'http://www.{nu}', f'http://{nu}') if v != u]
-    for k, essai in enumerate(variantes):
-        r = subprocess.run(['curl', '-sL', '-m', '20' if k == 0 else '30', '-A', UA[0], '-o', '-', '-w', '\n%{http_code} %{url_effective}', essai],
-                           capture_output=True, text=True, errors='ignore').stdout
-        corps, _, fin = r.rpartition('\n')
+    variantes = [u] + [v for v in (f'https://www.{nu}', f'http://www.{nu}') if v != u]
+    for essai in variantes:
+        pr = subprocess.run(['curl', '-sL', '-m', '20', '-A', UA[0], '-o', '-', '-w', '\n%{http_code} %{url_effective}', essai],
+                            capture_output=True, text=True, errors='ignore')
+        corps, _, fin = pr.stdout.rpartition('\n')
         code = fin.split(' ')[0] if fin else '000'
-        if code not in ('000', ''):
+        if code not in ('000', '') or pr.returncode == 6:  # 6 = nom de domaine introuvable : inutile d'essayer les variantes
             break
     titre = re.search(r'<title[^>]*>(.*?)</title>', corps, re.S | re.I)
     titre = re.sub(r'\s+', ' ', titre[1]).strip()[:80] if titre else ''
