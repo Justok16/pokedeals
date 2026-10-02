@@ -50,6 +50,9 @@ def appeler(ids):
         for essai in range(3):  # coupure réseau passagère (tunnel fermé, constaté le 01/10) : on relance 2 fois
             t0 = time.time()
             r = subprocess.run(['curl', '-s', '-m', '295', '-b', cookies, url], capture_output=True, text=True).stdout
+            if 'Protected by Vercel Authentication' in r:
+                print('cookie du relais Vercel expiré : renouveler /tmp/cj.txt (33-outils.md) puis relancer', flush=True)
+                sys.exit(3)
             if r.startswith('{') or time.time() - t0 > 240:
                 break  # réponse reçue, ou délai du relais dépassé (vidéo trop lourde) : relancer ne servirait à rien
             time.sleep(20)

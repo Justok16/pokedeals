@@ -234,7 +234,7 @@ l'adresse fixe (`relais-dig-justok1.vercel.app`) peut être « régénéré » m
 connexion Vercel). Demander le lien avec `get_access_to_vercel_url` sur l'**adresse du nouveau
 déploiement** (`relais-xxxx-justok1.vercel.app`), puis utiliser son jeton sur l'adresse fixe :
 `curl -s -o /dev/null -c /tmp/cj.txt "https://relais-dig-justok1.vercel.app/api/video?_vercel_share=<jeton>"`
-(sans `-L`). Tester avec `/api/video?liste=1`. Cookie valable 7 jours.
+(sans `-L`). Tester avec `/api/video?liste=1`. **Cookie valable 23 h, pas 7 jours** (constaté le 02/10 : posé le 01/10 à 18:56, refusé le 02/10 vers 18:00 ; le lien de partage Vercel expire en 23 h et le cookie avec lui). Le renouveler chaque jour avant l'heure d'expiration ; `verif_entreprises.py` et `resumer_chaine.py` s'arrêtent désormais avec un message clair (« cookie du relais Vercel expiré ») au lieu de tourner à vide.
 **Vidéos de plus de 3 h** (30/09) : `/api/video?…&debut=<s>&fin=<s>` ne lit qu'un extrait ;
 `outils/resumer_video_longue.py <id> <h:mm:ss> /tmp/cj.txt <sortie.md> [titre]` découpe en
 morceaux de 20 min, **un par minute** (l'offre gratuite limite aussi les jetons par minute :

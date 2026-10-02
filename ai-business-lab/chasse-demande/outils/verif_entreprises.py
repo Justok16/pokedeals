@@ -24,6 +24,8 @@ def curl(url, cookies=None):
     cmd = ['curl', '-s', '-m', '40', url] + (['-b', cookies] if cookies else [])
     for essai in range(3):
         out = subprocess.run(cmd, capture_output=True, text=True).stdout
+        if 'Protected by Vercel Authentication' in out:
+            sys.exit('cookie du relais Vercel expiré : renouveler /tmp/cj.txt (33-outils.md) puis relancer')
         try:
             return json.loads(out)
         except Exception:
