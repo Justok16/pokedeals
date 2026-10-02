@@ -1,6 +1,7 @@
 # Étape 0 (02/10) : doublons d'un lot de candidats contre la feuille de suivi.
 # Usage : python3 etape0_doublons.py <debut> <fin> <sortie.json> <dossier_de_travail>
 # Le dossier de travail contient appels/suivi_appels.csv et verif8/cands.json (données privées, hors dépôt).
+# Drapeaux (<sortie>_drapeaux.json) : numéro du registre partagé avec un prospect existant ou avec d'autres entreprises du vivier.
 import json, csv, re, sys, unicodedata
 S=sys.argv[4] if len(sys.argv)>4 else '.'
 def norm(s):
@@ -17,12 +18,14 @@ for r in rows:
                 t9=tel9(t)
                 if t9: tels.setdefault(t9,r)
     for k in r:
-        if any(x in k.lower() for x in ('nom','enseigne','prospect')):
+        if any(x in k.lower() for x in ('nom','enseigne','prospect','entreprise')):
             n=norm(r[k]); 
             if len(n)>=5: noms.setdefault(n,r)
 a,b=int(sys.argv[1]),int(sys.argv[2])
 cands=json.load(open(S+'/verif8/cands.json'))
 out={}; dup=[]; flags={}
+import collections
+vv=collections.Counter(tel9(x.get('telephone','')) for x in cands)
 for i in range(a,b+1):
     c=cands[i]; t9=tel9(c.get('telephone',''))
     names=[c['nom']]+re.findall(r'\(([^)]+)\)',c['nom'])+([c['enseigne']] if c.get('enseigne') else [])
@@ -37,6 +40,7 @@ for i in range(a,b+1):
         same=any(norm(n) and (norm(n) in rn or rn in norm(n)) for n in names)
         if same: hit=('tel',r)
         else: flags[str(i)]='téléphone du registre partagé avec n° %s (%s) : non fiable, à confirmer par un annuaire public'%(next((r[k] for k in r if k.lower().startswith('n')),'?'),r.get('Entreprise',''))
+    if not hit and t9 and vv[t9]>1 and str(i) not in flags: flags[str(i)]='téléphone partagé dans le vivier par %d entreprises : non fiable, à confirmer par un annuaire public'%vv[t9]
     if hit:
         r=hit[1]; num=next((r[k] for k in r if k.lower().startswith('n')),'?')
         dup.append((i,c['nom'],c['commune'],hit[0],num)); continue
