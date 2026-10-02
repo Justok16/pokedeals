@@ -14,7 +14,7 @@ Rien de ce que produit cet outil n'entre dans le dépôt public (données de pro
 """
 import sys, os, json, re, html, time, subprocess, unicodedata, urllib.request, urllib.parse
 
-VIDE = r'(domaine|domain).{0,40}(vente|sale|parked|parking)|site en construction|en maintenance|coming soon|index of /|default web site page|welcome to nginx|page par d[ée]faut|is for sale|dovendi'
+VIDE = r'(domaine|domain).{0,40}(vente|sale|parked|parking)|site en construction|en maintenance|coming soon|launching soon|site en cours de cr[ée]ation|bient[ôo]t en ligne|index of /|default web site page|welcome to nginx|page par d[ée]faut|is for sale|dovendi'
 UA = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36',
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15']
 
@@ -43,10 +43,18 @@ def site(url):
         return {'url': url, 'etat': 'page de réseau social (pas un site)'}
     if not re.search(r'\.[a-z]{2,}(/|$)', u.split('//', 1)[-1]):
         return {'url': url, 'etat': 'adresse invalide'}
-    r = subprocess.run(['curl', '-sL', '-m', '20', '-A', UA[0], '-o', '-', '-w', '\n%{http_code} %{url_effective}', u],
-                       capture_output=True, text=True, errors='ignore').stdout
-    corps, _, fin = r.rpartition('\n')
-    code = fin.split(' ')[0] if fin else '000'
+    # Un domaine qui ne répond pas sur la première forme est retesté en www. et en http(s)://
+    # (02/10 : afleurdepotangouleme.fr et sbm-auto16.fr étaient vus « morts » alors qu'ils répondaient).
+    hote = u.split('//', 1)[-1]
+    nu = hote[4:] if hote.startswith('www.') else hote
+    variantes = [u] + [v for v in (f'https://{nu}', f'https://www.{nu}', f'http://www.{nu}', f'http://{nu}') if v != u]
+    for k, essai in enumerate(variantes):
+        r = subprocess.run(['curl', '-sL', '-m', '20' if k == 0 else '30', '-A', UA[0], '-o', '-', '-w', '\n%{http_code} %{url_effective}', essai],
+                           capture_output=True, text=True, errors='ignore').stdout
+        corps, _, fin = r.rpartition('\n')
+        code = fin.split(' ')[0] if fin else '000'
+        if code not in ('000', ''):
+            break
     titre = re.search(r'<title[^>]*>(.*?)</title>', corps, re.S | re.I)
     titre = re.sub(r'\s+', ' ', titre[1]).strip()[:80] if titre else ''
     if code in ('000', '') : etat = 'mort (ne répond pas)'
