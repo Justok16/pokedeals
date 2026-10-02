@@ -17,8 +17,10 @@ for r in rows:
                 if t9: tels.setdefault(t9,r)
     for k in r:
         if any(x in k.lower() for x in ('nom','enseigne','prospect','entreprise')):
-            n=norm(r[k]); 
-            if len(n)>=5: noms.setdefault(n,r)
+            # nom complet, nom sans parenthèse et contenu des parenthèses (ex. « RD Bois (Renaud Dussagne) »)
+            for v in [r[k], re.sub(r'\s*\([^)]*\)','',r[k])]+re.findall(r'\(([^)]+)\)',r[k]):
+                n=norm(v)
+                if len(n)>=5: noms.setdefault(n,r)
 a,b=int(sys.argv[1]),int(sys.argv[2])
 cands=json.load(open(sys.argv[5] if len(sys.argv)>5 else S+'/verif8/cands.json'))  # 5e argument facultatif : fichier du vivier
 out={}; dup=[]; flags={}

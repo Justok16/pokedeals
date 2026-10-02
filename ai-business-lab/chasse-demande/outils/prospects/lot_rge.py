@@ -12,7 +12,7 @@ Usage :
 Résultats : <scratchpad>/appels/lot<numero>.json et lot<numero>.md ; pages Pappers dans appels/pappers<numero>/.
 Rien de ce que produit cet outil n'entre dans le dépôt public (données de prospects = Drive « Dig »).
 """
-import sys, os, json, re, html, time, subprocess, urllib.request, urllib.parse
+import sys, os, json, re, html, time, subprocess, unicodedata, urllib.request, urllib.parse
 
 VIDE = r'(domaine|domain).{0,40}(vente|sale|parked|parking)|site en construction|en maintenance|coming soon|index of /|default web site page|welcome to nginx|page par d[ée]faut|is for sale|dovendi'
 UA = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36',
@@ -39,6 +39,8 @@ def ademe(siret):
 def site(url):
     """Teste un site déclaré : vivant / vide ou parking / mort."""
     u = url if url.startswith('http') else 'http://' + url
+    if re.search(r'(facebook|instagram|linkedin)\.com', u):
+        return {'url': url, 'etat': 'page de réseau social (pas un site)'}
     if not re.search(r'\.[a-z]{2,}(/|$)', u.split('//', 1)[-1]):
         return {'url': url, 'etat': 'adresse invalide'}
     r = subprocess.run(['curl', '-sL', '-m', '20', '-A', UA[0], '-o', '-', '-w', '\n%{http_code} %{url_effective}', u],
@@ -61,7 +63,7 @@ def pappers(siren, dest):
         time.sleep(20)
     tt = texte(open(dest, errors='ignore').read())
     g = lambda rx: (re.search(rx, tt) or [None, None])[1]
-    return {'http': code, 'opposition': "opposée à l" in tt, 'radie': bool(re.search(r'RADI[ÉE]', tt)),
+    return {'http': code, 'opposition': "opposée à l" in tt, 'radie': bool(re.search(r'Inscription au RCS\s*:\s*RADI[ÉE]', tt)) and not re.search(r'Inscription au RNE\s*:\s*INSCRIT', tt),  # pas les statuts ORIAS (MIA, MOBSP…) ni l'artisan radié du RCS mais inscrit au RNE
             'effectif': (g(r'Effectif\s*:\s*([^(]{0,30})') or '').strip() or None,
             'dirigeants': (g(r'Dirigeants?\s*:\s*(.{0,90}?) (?:Voir|Informations)') or '').strip() or None,
             'creation': g(r'Date de création\s*:\s*(\d\d/\d\d/\d{4})'),
@@ -94,7 +96,13 @@ def main():
              'drapeau': drapeaux.get(n), 'registre': reg.get(n, {}).get('etat'), 'bodacc': reg.get(n, {}).get('bodacc', [])}
         d['ademe'] = ademe(e['siret']); time.sleep(1)
         d['sites_declares'] = [site(u) for u in d['ademe'].get('sites', [])]
-        d['domaines_vivants'] = [x for x in sondes.get(n, []) if x.get('code') == '200' and not x.get('vide_ou_parking')]
+        # Domaine probable retenu seulement si son titre cite un mot distinctif du nom ou la commune
+        # (sinon « nicolas.fr », « patrice.fr »… sont des homonymes sans rapport)
+        mots = [w for w in re.sub(r'[^a-z0-9 ]', ' ', unicodedata.normalize('NFKD', e['nom'] + ' ' + e['commune']).encode('ascii', 'ignore').decode().lower()).split() if len(w) >= 4 and w not in ('sarl', 'eurl', 'entreprise', 'etablissements', 'fils', 'pere', 'saint', 'sainte', 'charente')]
+        def plausible(x):
+            t = unicodedata.normalize('NFKD', x.get('titre', '')).encode('ascii', 'ignore').decode().lower()
+            return any(w in t for w in mots) or sum(w in x['domaine'] for w in mots) >= 2
+        d['domaines_vivants'] = [x for x in sondes.get(n, []) if x.get('code') == '200' and not x.get('vide_ou_parking') and plausible(x)]
         d['pappers'] = pappers(e['siret'][:9], os.path.join(app, f'pappers{lot}', f'{i}.html')); time.sleep(4)
         # pré-verdict
         p = d['pappers']
