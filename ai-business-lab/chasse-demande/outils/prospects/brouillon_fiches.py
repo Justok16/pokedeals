@@ -97,7 +97,7 @@ def main():
         tel = ''
         if e.get('ademe', {}).get('tels'):
             tel = e['ademe']['tels'][0]
-        elif (e.get('mappy') or {}).get('fiche', {}).get('tels'):
+        elif ((e.get('mappy') or {}).get('fiche') or {}).get('tels'):
             tel = e['mappy']['fiche']['tels'][0]
         annee = (p.get('creation') or '')[-4:]
         act = (p.get('activite') or '').split('Code NAF')[0].split('Autres activités')[0].strip().rstrip('.')
