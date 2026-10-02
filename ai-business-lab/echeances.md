@@ -133,6 +133,20 @@ l'essai. L'absence de bandeau est un indice, pas une preuve. À constater
 vers le 05/10. **Indice supplémentaire (23/09)** : selon l'audit ChatGPT, la
 documentation beehiiv place l'email de bienvenue natif dans l'offre gratuite.
 
+**Vérifié à la source le 02/10/2026** (rappel automatique du 22/09) :
+- Article officiel « Welcome email vs. welcome automation: Which should you use? »
+  (beehiiv.com/support/article/38813477234071) : « Available on all plans, including
+  the free Launch plan. » pour l'email de bienvenue ; « Automations are available on
+  Scale plans and above. They are not included in the free Launch plan. »
+- Article officiel « What's available during a free trial »
+  (beehiiv.com/support/article/22101553752471) : aucune carte bancaire n'est demandée
+  pour l'essai ; sans mise à niveau, le compte reste sur le plan gratuit avec
+  contenu, abonnés et fonctions principales ; les automations, pages personnalisées,
+  webhooks et API d'envoi s'éteignent.
+- Conclusion : sans carte enregistrée, aucun prélèvement possible ; l'email natif
+  doit survivre. Reste à confirmer le jour J par le test d'inscription (seule preuve
+  réelle), et à vérifier sur la page de facturation qu'aucune carte n'a été ajoutée.
+
 L'adresse postale est tranchée dans la même séance : le champ `Address` de
 la publication est **vide** (`No Address Set`). L'adresse new-yorkaise est
 donc celle que beehiiv injecte par défaut. On laisse vide : y mettre une
