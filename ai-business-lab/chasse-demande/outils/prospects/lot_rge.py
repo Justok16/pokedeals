@@ -124,6 +124,9 @@ def main():
         for n, d in out.items():
             f.write(f"| {n} | {d['nom']} | {d['commune']} | {d['pre_verdict']} | {', '.join(d['ademe'].get('tels', []))} | {d['ademe'].get('fin')} | {d['pappers']['effectif']} | {d['pappers']['dirigeants']} | {d['pappers']['creation']} | {d['adresse']} |\n")
     print('candidats :', sum(1 for d in out.values() if d['pre_verdict'].startswith('candidat')), '| à vérifier :', sum(1 for d in out.values() if d['pre_verdict'].startswith('à vérifier')))
+    # Non-RGE : téléphones et sites liés via Mappy (outil mappy_lot.py), qui met à jour lot<N>.json
+    r = subprocess.run(['python3', os.path.join(ici, 'mappy_lot.py'), S, lot], capture_output=True, text=True)
+    print(r.stdout.strip()[-3000:])
 
 if __name__ == '__main__':
     main()
