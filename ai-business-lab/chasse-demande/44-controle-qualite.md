@@ -119,6 +119,12 @@ Sur 20 candidats du vivier « score 16 », 6 étaient déjà dans la liste (venu
 reprise de garage partageait le numéro d'un prospect existant : 7 vérifications complètes évitées.
 Un vivier n'est « hors listes » qu'au moment où il a été construit ; les ajouts suivants le périment.
 
+**Téléphone partagé (leçon du 02/10)** : le registre attribue parfois le même numéro à plusieurs
+entreprises différentes (trois peintres d'Angoulême sur un seul 06, trois poseurs sur un autre). Ce
+n'est pas un doublon : c'est une donnée fausse. Le numéro est écarté, et le candidat n'est retenu que si
+un annuaire public (Pages Jaunes, Kompass, guide local) donne son propre numéro ; sinon il est écarté.
+Le contrôle de doublons (`etape0.py`) marque ces cas d'un drapeau au lieu de les rejeter.
+
 ## Orthographe et grammaire (outil ajouté le 01/10/2026)
 
 Avant tout envoi d'un document ou d'une page : `python3 outils/typo_fr.py <fichier>` (espaces
