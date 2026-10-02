@@ -186,6 +186,13 @@ Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-vid
 | vqMhGnep1H0 (Jornada Digital, 10 min, en portugais) | Générateur vidéo gratuit du répertoire There's An AI For That : clips de 8 s avec son, « 100 par jour », sans filigrane, usage commercial annoncé ; rehaussement 480p → 2x gratuit sur ArtPlayer ; SJinn (payant, 6 à 60 $/mois) pour de fausses vidéos UGC de produits | **Noté, à vérifier à la source avant usage** (quota et licence affichés sur theresanaiforthat.com le jour J) ; piste pour de courts visuels animés des démos Dig, sans achat. Fiche : videos-resumes/vqMhGnep1H0.md |
 | golzvOVmXB4 (Coben, direct de 3 h 17 animé par Jean Philamand ; Gemini ne lisait pas la vidéo → transcription vidIQ, 5 crédits, résumée en 2 parties) | Modélisation 3D pilotée par IA : FreeCAD + son interpréteur Python, CadQuery, ForgeCAD, Tripo, connecteurs MCP depuis ChatGPT et Claude ; abonnements cités de 20 à 500 €/mois | **Hors piste (impression 3D), rien à construire.** Deux astuces reprises : finir chaque prompt technique par « pose-moi tes questions avant de commencer et n'invente rien » ; envoyer une capture d'écran de l'erreur plutôt que la décrire. Fiche : videos-resumes/golzvOVmXB4.md |
 
+### Tutoriels « site avec Claude Code » (repérés par vidIQ le 01/10, résumés le 02/10)
+
+| Vidéo | Sujet | Verdict |
+|---|---|---|
+| gwKurw7tk7g (9 min) « Claude Opus 5 m'a créé un site à 10.000€ en un prompt ! » | Donner à Claude Code des compétences de design avant le prompt : dépôts UI UX Pro Max et Impeccable, composants animés Magic UI via MCP, déploiement par le connecteur Hostinger (hébergement payant, 3,79 €/mois annoncé), prompt « animations au scroll GSAP, flou au chargement, charte inspirée d'Apple » | **Déjà appliqué pour l'essentiel** : les skills ui-ux-pro-max et impeccable sont installés et imposés sur chaque démo (routine, point 5). Magic UI est une bibliothèque React : inutile pour nos démos en HTML statique. Hostinger : payant, hors budget 0 € (Cloudflare Pages gratuit fait le travail). Astuce retenue : demander explicitement les effets (scroll, flou au chargement) et une référence de charte dans le prompt. Fiche : videos-resumes/gwKurw7tk7g.md |
+| A9E7gUrO5YQ, GgDhVLK6VbM | Deux autres tutoriels du même lot | Gemini renvoie des réponses vides (2 essais chacun) ; même sujet que la vidéo ci-dessus : non repris, sauf si un besoin précis apparaît (alors vidIQ, 5 crédits chacun) |
+
 ### Page Notion « 5 repos GitHub pour créer des agents IA plus vite » (envoi du 02/10)
 
 | Source | Sujet | Verdict |
