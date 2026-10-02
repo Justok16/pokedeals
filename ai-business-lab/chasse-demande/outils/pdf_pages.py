@@ -35,6 +35,8 @@ def main(html, pdf):
         pg.goto('file://' + __import__('os').path.abspath(html))
         pg.emulate_media(media='print')
         pg.wait_for_timeout(500)
+        pg.evaluate('document.fonts.ready')  # polices web chargées avant la mesure et le PDF (02/10 : titres rendus en police de secours)
+        pg.wait_for_timeout(300)
         res = pg.evaluate(MESURE)
         fautes = [r for r in res if r['depasse_px'] > 0 or r['scroll'] > 1]
         for r in fautes:

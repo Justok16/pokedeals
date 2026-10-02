@@ -97,6 +97,9 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
 
 ## 4. Questionnaire de découverte (choisir 6 à 10 questions)
 
+Support imprimable (2 pages A4, lignes de réponse) : `supports/Dig-Questionnaire-decouverte.pdf`
+(source `supports/questionnaire-decouverte.html`, PDF via `outils/pdf_pages.py`). Version du 02/10/2026.
+
 **Son activité**
 1. Quels sont les travaux/produits qui vous rapportent le plus ?
 2. Et ceux que vous aimeriez faire plus souvent ?

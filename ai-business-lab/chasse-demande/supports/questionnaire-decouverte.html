@@ -1,0 +1,106 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Dig — Questionnaire de découverte</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+@page{size:A4;margin:0}
+:root{--nuit:#0d1330;--orange:#ff8a3d;--rose:#ff6f91;--violet:#7b5cff;--vert:#16c79a;--texte:#1d1a17;--gris:#5d5a66;--fond:#faf7f2;--ligne:#e8e1d6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--texte);font-size:10.4pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;padding:12mm 15mm 12mm;position:relative;page-break-after:always;overflow:hidden;background:#fff}
+.page:last-child{page-break-after:auto}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.1}
+h2{font-size:21pt;margin-bottom:3mm}
+h2 small{display:block;font-family:Inter;font-size:8pt;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:2mm;font-weight:700}
+h3{font-size:12.5pt;margin:4.5mm 0 1.8mm}
+p{margin:1.4mm 0}
+.intro{color:var(--gris);margin-bottom:3mm}
+.pied{position:absolute;bottom:5mm;left:16mm;right:16mm;display:flex;justify-content:space-between;font-size:7.5pt;color:#9a93a6;border-top:1px solid var(--ligne);padding-top:2mm}
+.dit{background:var(--fond);border-left:4px solid var(--orange);border-radius:0 10px 10px 0;padding:2.6mm 4mm;margin:2mm 0;font-size:10.4pt}
+.dit b{color:#b44d0f}
+.dit.v{border-color:var(--violet)}.dit.g{border-color:var(--vert)}
+.qui{font-size:7.5pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-top:3mm}
+.note{font-size:9pt;color:var(--gris);font-style:italic}
+.grille{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm}
+.carte{border:1px solid var(--ligne);border-radius:12px;padding:3mm 4mm;background:#fff}
+.carte h3{margin-top:0}
+.carte .dit{font-size:9.6pt;padding:2mm 3mm}
+table{width:100%;border-collapse:collapse;font-size:9.6pt;margin-top:2mm}
+td,th{border-bottom:1px solid var(--ligne);padding:2mm 2.2mm;vertical-align:top;text-align:left}
+th{font-size:8pt;letter-spacing:.08em;text-transform:uppercase;color:var(--gris)}
+td:first-child{font-weight:600;width:34%}
+table.serre{font-size:9.1pt}table.serre td{padding:1.5mm 2mm}
+.num{display:inline-grid;place-items:center;width:6mm;height:6mm;border-radius:50%;background:var(--nuit);color:#fff;font-size:8pt;font-weight:700;margin-right:2mm}
+.etape{display:flex;gap:3mm;margin:2.2mm 0}.etape>div{flex:1}
+ul{padding-left:5mm}li{margin:.8mm 0}
+.alerte{background:#fff4ec;border:1px solid #ffd2b5;border-radius:12px;padding:3mm 4mm;margin-top:3mm;font-size:9.4pt}
+/* couverture */
+.couv{background:var(--nuit);color:#f4f1ea;display:flex;flex-direction:column;justify-content:space-between}
+.couv::before{content:"";position:absolute;inset:0;background:radial-gradient(90mm 70mm at 90% 8%,rgba(255,138,61,.45),transparent 70%),radial-gradient(110mm 90mm at 0% 75%,rgba(123,92,255,.45),transparent 70%),radial-gradient(80mm 60mm at 95% 100%,rgba(22,199,154,.3),transparent 70%);background-repeat:no-repeat}
+.couv>*{position:relative}
+.logo{display:flex;align-items:center;gap:3mm;font-family:Fraunces;font-size:18pt;font-weight:800}
+.logo i{font-style:normal;width:12mm;height:12mm;border-radius:3.5mm;display:grid;place-items:center;background:linear-gradient(135deg,var(--orange),var(--violet));color:#fff}
+.couv h1{font-size:40pt;margin:6mm 0}
+.degrade{color:#ff7d5a}
+.couv p{color:#c6cbe4;font-size:12pt;max-width:150mm}
+.sommaire{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 8mm;font-size:10.5pt;color:#e7e4f2}
+.sommaire div{border-top:1px solid rgba(255,255,255,.18);padding-top:2mm}
+.sommaire b{color:var(--orange);margin-right:2mm}
+/* antisèche */
+.anti{background:var(--nuit);color:#f4f1ea}
+.anti h2{color:#fff}
+.anti .carte{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:#e7e4f2}
+.anti .carte h3{color:var(--orange)}
+.anti .pied{color:#8c93b8;border-color:rgba(255,255,255,.15)}
+
+.q{display:flex;gap:2.5mm;align-items:flex-start;margin:.7mm 0;break-inside:avoid}
+.q .n{flex:0 0 6mm;height:6mm;border-radius:50%;background:var(--nuit);color:#fff;font-size:8pt;font-weight:700;display:grid;place-items:center;margin-top:.5mm}
+.q .t{flex:1}.q .t b{display:block;font-size:10pt}.q .t .fl{color:var(--gris);font-size:8.6pt;font-style:italic}
+.ln{border-bottom:1px solid #c9c2b6;height:5mm}
+.theme{font-family:Fraunces,Georgia,serif;font-size:12pt;margin:2.4mm 0 .8mm;color:var(--nuit);display:flex;align-items:center;gap:2.5mm}
+.theme small{font-family:Inter;font-size:8pt;color:var(--orange);letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.entete{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3mm 6mm;margin:1mm 0 2mm}.entete div{border-bottom:1px solid #999;padding-top:4mm;font-size:8.5pt;color:var(--gris)}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.carte table.serre td:first-child{width:52%}
+</style></head><body><section class="page">
+<h2><small>Dig — rendez-vous de 20 minutes</small>Questionnaire de découverte</h2>
+<p class="intro">22 questions, en choisir 6 à 10 selon le client. Le client parle 70 % du temps : noter ses mots exacts, ils serviront au site et à l’argument. Les questions 21 et 22 donnent le chiffre à répéter en fin de rendez-vous.</p>
+<div class="entete"><div>Entreprise</div><div>Date</div><div>Interlocuteur</div></div>
+<div class="theme"><small>1</small>Son activité</div>
+<div class="q"><div class="n">1</div><div class="t"><b>Quels sont les travaux ou produits qui vous rapportent le plus ?</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">2</div><div class="t"><b>Et ceux que vous aimeriez faire plus souvent ?</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">3</div><div class="t"><b>Sur quelle zone voulez-vous travailler ? (communes, km)</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">4</div><div class="t"><b>Vos clients sont plutôt des particuliers, des professionnels, des touristes ?</b><div class="ln"></div></div></div>
+<div class="theme"><small>2</small>Comment les clients le trouvent</div>
+<div class="q"><div class="n">5</div><div class="t"><b>Aujourd&#x27;hui, comment vos nouveaux clients vous trouvent-ils ?</b><div class="fl">Bouche-à-oreille, Google, Pages Jaunes, Facebook, passage devant la vitrine</div><div class="ln"></div></div></div>
+<div class="q"><div class="n">6</div><div class="t"><b>Combien de nouvelles demandes par mois ? Combien en voudriez-vous ?</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">7</div><div class="t"><b>Qu&#x27;est-ce que vos clients vous demandent le plus souvent au téléphone ?</b><div class="fl">→ ce seront les questions-réponses du site</div><div class="ln"></div></div></div>
+<div class="theme"><small>3</small>Sa présence actuelle</div>
+<div class="q"><div class="n">8</div><div class="t"><b>Avez-vous un site ? Qui l&#x27;a fait, depuis quand, combien par mois ? Qui est propriétaire du nom de domaine ?</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">9</div><div class="t"><b>Avez-vous un contrat en cours ? Date de fin, préavis ?</b><div class="fl">→ option « Départ sans coupure », offerte</div><div class="ln"></div></div></div>
+<div class="q"><div class="n">10</div><div class="t"><b>Avez-vous une fiche Google ? Qui la gère ? Répondez-vous aux avis ?</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">11</div><div class="t"><b>Des photos de vos réalisations ? Un logo ?</b><div class="ln"></div></div></div>
+<div class="theme"><small>4</small>Ses attentes et ses limites</div>
+<div class="q"><div class="n">12</div><div class="t"><b>Qu&#x27;est-ce qui vous a déçu dans ce que vous avez eu avant ?</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">13</div><div class="t"><b>Si le site marche bien dans 6 mois, qu&#x27;est-ce qui aura changé pour vous ?</b><div class="fl">→ à reprendre mot pour mot dans la reformulation</div><div class="ln"></div></div></div>
+<div class="q"><div class="n">14</div><div class="t"><b>Combien de temps pouvez-vous y consacrer ?</b><div class="fl">Réponse attendue : « aucun » → « on s&#x27;occupe de tout »</div><div class="ln"></div></div></div>
+<div class="q"><div class="n">15</div><div class="t"><b>Aujourd&#x27;hui, combien mettez-vous par mois pour vous faire connaître ?</b><div class="ln"></div></div></div>
+<div class="pied"><span>Dig — Questionnaire de découverte · version du 02/10/2026</span><span>1 / 2</span></div>
+</section><section class="page">
+<div class="theme"><small>5</small>Besoins spéciaux (déclenchent des options)</div>
+<div class="q"><div class="n">16</div><div class="t"><b>Prise de rendez-vous en ligne ? (coiffure, beauté, garage)</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">17</div><div class="t"><b>Menu, carte, réservations ? (restaurants)</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">18</div><div class="t"><b>Disponibilités et réservation ? (gîtes, chambres d&#x27;hôtes)</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">19</div><div class="t"><b>Galerie avant/après ? (bâtiment, paysage)</b><div class="ln"></div></div></div>
+<div class="q"><div class="n">20</div><div class="t"><b>Site en anglais ? (clientèle étrangère)</b><div class="fl">+5 €/mois, inclus en Prestige</div><div class="ln"></div></div></div>
+<div class="theme"><small>6</small>Chiffrer ce que ça lui coûte aujourd’hui</div>
+<div class="q"><div class="n">21</div><div class="t"><b>Combien d&#x27;appels manquez-vous par semaine quand vous êtes sur un chantier ou en service ? Que se passe-t-il ensuite ?</b><div class="fl">Noter le chiffre tel quel : « X appels perdus par semaine »</div><div class="ln"></div></div></div>
+<div class="q"><div class="n">22</div><div class="t"><b>Combien d&#x27;heures par semaine passent dans les devis, les relances et les réponses aux messages ?</b><div class="fl">« Y heures par semaine »</div><div class="ln"></div></div></div>
+<div class="deux" style="margin-top:3mm">
+<div class="carte"><h3>Reformuler avec ses mots</h3><p class="note">« Si je résume : vous voulez [sa réponse à la question 13], sans y passer de temps, et sans être bloqué par un contrat. C’est bien ça ? »</p><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+<div class="carte"><h3>UNE formule recommandée</h3><table class="serre">
+<tr><td>Petit budget, bouche-à-oreille correct</td><td>Essentiel — 49 €/mois</td></tr>
+<tr><td>Veut plus de demandes, concurrence sur Google</td><td>Visibilité — 79 €/mois ⭐</td></tr>
+<tr><td>Image haut de gamme</td><td>Prestige — 1 990 € ou 199 €/mois</td></tr>
+<tr><td>Contrat en cours ailleurs</td><td>+ Départ sans coupure (offert)</td></tr>
+</table></div>
+</div>
+<div class="alerte"><b>Fin du rendez-vous :</b> trois garanties (site et nom de domaine à son nom ; 6 mois d’engagement, pas 12 ; bilan mensuel des appels reçus), puis la question de décision : « On le met en ligne pour le [date dans 7 jours] ? ». Si oui : contrat et formulaire de rétractation remis, rien n’est prélevé avant 8 jours. Si « je réfléchis » : fixer la date de rappel tout de suite.</div>
+<div class="pied"><span>Dig — Questionnaire de découverte · version du 02/10/2026</span><span>2 / 2</span></div>
+</section></body></html>
