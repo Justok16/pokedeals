@@ -108,7 +108,8 @@ def main():
         else: v = 'candidat (recherche web à faire)'
         d['pre_verdict'] = v
         out[n] = d
-        print(f"{n} {e['nom'][:34]:34} | {v[:60]:60} | tel {','.join(d['ademe'].get('tels', []))} | RGE {d['ademe'].get('fin')} | {p['effectif']} | {p['dirigeants']} | {p['creation']}")
+        # Console : verdict seulement (téléphones et noms de personnes restent dans les fichiers du scratchpad)
+        print(f"{n} {e['nom'][:34]:34} | {v[:70]:70} | RGE {d['ademe'].get('fin')} | {p['effectif']} | {p['creation']}")
     json.dump(out, open(os.path.join(app, f'lot{lot}.json'), 'w'), ensure_ascii=False, indent=1)
     with open(os.path.join(app, f'lot{lot}.md'), 'w') as f:
         f.write(f"# Lot {lot} : index {a} à {b} (pré-verdicts automatiques, {time.strftime('%d/%m/%Y %H:%M')})\n\n| idx | Entreprise | Commune | Pré-verdict | Tél. ADEME | RGE jusqu'au | Effectif | Dirigeants | Création | Adresse |\n|---|---|---|---|---|---|---|---|---|---|\n")
