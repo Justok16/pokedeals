@@ -364,6 +364,7 @@ nosniff, Referrer-Policy, Permissions-Policy absents).
 | Wikimedia Commons répond 429 (trop de requêtes) depuis le conteneur (29/09) | Attendre au moins 1 h, puis une requête toutes les 10-20 s ; vignettes de taille standard seulement (1920 ou 3840 px) ; ne pas contourner la limite par d’autres serveurs. En attendant : rawpixel et StockSnap via Openverse (CC0, mais environ 1 000 px, donc seulement pour les petites vignettes) |
 | Reels Instagram (connexion demandée ; Firecrawl refuse le site) (29/09) | **yt-dlp** (libre et gratuit) lit le reel et sa légende, **imageio-ffmpeg** le réduit en 360p (< 1 Mo), puis Gemini le regarde via `/api/avis` : `outils/lire_reel.py`. Si Instagram répond 429, attendre et réessayer plus tard, sans contourner |
 | Pages Facebook de créateurs (liste des vidéos illisible sans connexion) (29/09) | Chercher le même créateur sur TikTok ou YouTube. yt-dlp liste toutes les vidéos TikTok (`--flat-playlist`) et récupère légende et sous-titres (option `--impersonate chrome`, avec `curl_cffi`) ; résumé par lots de 15 en texte, qui coûte très peu de quota : `outils/resumer_lots_tiktok.py` |
+| Téléchargements GitHub Releases bloqués depuis le conteneur (gitleaks, 03/10) | Paquet PyPI équivalent : **detect-secrets** (Yelp, Apache 2.0) pour la recherche de secrets |
 
 ## Playwright (MCP) et Perplexity — demande de l'utilisateur du 30/09/2026
 
@@ -383,3 +384,14 @@ Superpowers et Impeccable : déjà en place. Skills CLI (`npx skills`), Claude M
 raisons et conditions de réexamen dans `videos-resumes/x-loucash-5-skills-claude.md` (Task Observer = méta-skill
 d'amélioration continue, CC BY 4.0, lu en entier ; trop lourd pour un passage automatique toutes les 3 h tant que
 la bibliothèque de skills reste petite).
+
+
+## Contrôles automatiques de Claude Code (hooks, installés le 03/10/2026)
+
+Après lecture des listes d'outils envoyées par l'utilisateur le 03/10 (MCP, skills, hooks, dépôts GitHub gratuits) : on garde ce qui comble un vrai manque, sans encombrer le contexte.
+
+- **Recherche de secrets avant chaque commit** (`.claude/hooks/secrets_avant_commit.sh`, hook PreToolUse sur Bash) : `detect-secrets` (Yelp) examine les fichiers préparés ; un secret nouveau bloque le commit et le message revient à Claude. Base de référence `.secrets.baseline` : 11 fichiers déjà signalés relus le 03/10, tous factices (valeurs de tests « sk-ant-xxx », « SG.xxx ») ou faux positifs. Testé : un faux jeton GitHub bloque bien le commit.
+- **Erreurs Python graves après chaque écriture** (`.claude/hooks/python_syntaxe.sh`, hook PostToolUse sur Write|Edit) : `ruff check --select E9,F63,F7,F82` (syntaxe, nom inconnu) ; l'erreur revient à Claude pour correction immédiate. Testé.
+- **Démarrage de session** : installe `detect-secrets` s'il manque (conteneur neuf).
+- Déjà en place : Superpowers (plugin), Playwright (Python et MCP), GitHub (connecteur), skills de design et de sécurité.
+- Non retenus pour l'instant : Context7 (peu de code de bibliothèque chez nous), Serena et LSP (petits scripts), Task Master, gros paquets type ECC (≈ 40 000 jetons de contexte en permanence), formatage automatique (diffs énormes sur les scripts existants).
