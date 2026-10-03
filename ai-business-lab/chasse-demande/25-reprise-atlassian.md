@@ -301,7 +301,7 @@ servent à la relance du 08/10).
 | Éditeur | Réponse |
 |---|---|
 | GLiNTECH (Calendar Sync) | **refus** : « Calendar Sync is on Forge » selon l'éditeur. Note : la boutique affiche encore une dernière version Connect (1.0.18-AC, 19/01/2026) — soit une migration en cours non publiée, soit un faux positif de notre détection. |
-| Addteq (Excellentable) | **refus** : « migration vers Forge en cours ». |
+| Addteq (Excellentable) | **refus** : « migration vers Forge en cours ». Ticket ADD-973 clos automatiquement (« Done ») le 03/10/2026, sans nouveau message. |
 | SaaSJet (Email&Tasks, Boomerang, BPM) | **refus** : demande close comme « Spam ». |
 
 Bilan au 25/09 matin : 7 refus sur 37 (Cenote, Released, Werkstack,
