@@ -1,0 +1,201 @@
+# Maquette premium personnalisée (privée) par prospect.
+# Entrée : prospects.json (PRIVÉ, jamais dans le dépôt) ; photos : dossier DIG_PHOTOS (défaut ./photos/),
+# photos : StockSnap (CC0, via l'API Openverse) nommées <métier>_<n>.jpg, et Unsplash HD (h<métier>_<n>.jpg, sources dans supports/).
+# Surcharges possibles par prospect : s, sur, gl, g, bande, hero, h1p, acc, preuves, titre2/titre2b/texte2,
+# etapes, cta_resto, cta2, contact_txt, placeholder, lib (libellés : boutons, titres de sections).
+# Métiers : menuiserie, chauffage, electricite, couverture, peinture, restaurant, garage, coiffure, boulangerie, quincaillerie, maconnerie. Photos Wikimedia Commons (CC0 / domaine public) : w<nom>.jpg.
+# N'afficher que des faits vérifiés (RGE via l'annuaire ADEME, dates du registre) ; pas de faux avis.
+import html,re,json,os,base64
+PH=os.environ.get('DIG_PHOTOS','photos/')
+def img(n): return 'data:image/jpeg;base64,'+base64.b64encode(open(PH+n+'.jpg','rb').read()).decode()
+T={
+'menuiserie':dict(acc='#b07a4a',hero='hbois_0',bande='hbois_2',g=['hbois_6','hbois_12','hbois_13','hbois_9'],sur='Menuiserie · Agencement',
+  h1='Le bois, <em>travaillé</em> pour durer.',intro='Fenêtres, portes, volets, escaliers : chaque ouvrage est pensé, fabriqué et posé avec l’exigence d’un artisan.',
+  s=[('Fenêtres & baies','Bois, alu ou PVC, double ou triple vitrage, pose en rénovation sans gros travaux.'),('Portes d’entrée','Isolantes, sécurisées, dessinées pour le caractère de votre maison.'),('Volets & portails','Battants, roulants ou motorisés, pilotables depuis votre téléphone.'),('Agencement sur mesure','Escaliers, placards, dressings : ajustés au centimètre.')],gl=['Le geste juste','Assemblé à l’atelier','Finitions précises','Bois sélectionné']),
+'chauffage':dict(acc='#d9774b',hero='hchauf_0',bande='hchauf_b',g=['hchauf_1','hchauf_2','hchauf_3','hchauf_4'],sur='Chauffage · Plomberie · Énergies',
+  h1='La chaleur, <em>maîtrisée</em>.',intro='Pompes à chaleur, chaudières, poêles, plomberie : un confort durable et des factures qui baissent.',
+  s=[('Pompes à chaleur','Étude, installation et mise en service, air/eau ou air/air.'),('Chaudières & poêles','Gaz, granulés ou bois : le bon équipement pour votre maison.'),('Salle de bain & plomberie','Rénovation complète, chauffe-eau, dépannage.'),('Entretien & dépannage','Contrat annuel et intervention rapide.')],gl=['Chaleur du bois','Pompes à chaleur','Confort toute l’année','Pose soignée']),
+'electricite':dict(acc='#e0a458',hero='helec_0',bande='helec_b',g=['helec_1','helec_2','helec_3','helec_4'],sur='Électricité · Chauffage',
+  h1='Votre maison, <em>en pleine lumière</em>.',intro='Installation, rénovation et mise aux normes, avec la rigueur qu’exige la sécurité de votre foyer.',
+  s=[('Installation & rénovation','Neuf et ancien, tableaux, mises aux normes.'),('Chauffage électrique','Radiateurs à inertie, chauffe-eau, pompes à chaleur.'),('Éclairage','Intérieur et extérieur, mises en valeur LED.'),('Dépannage','Diagnostic et intervention rapide.')],gl=['Tableaux aux normes','Chaque circuit protégé','Intervention soignée','Le bon câblage']),
+'couverture':dict(acc='#c0754a',hero='htoit_0',bande='htoit_b',g=['htoit_1','htoit_2','htoit_3','htoit_4'],sur='Couverture · Charpente · Zinguerie',
+  h1='Un toit <em>solide</em>, une maison sereine.',intro='Tuiles, ardoises, charpente, zinguerie et isolation : votre toiture confiée à des spécialistes.',
+  s=[('Couverture','Réfection complète ou partielle, tuiles et ardoises.'),('Charpente','Création, traitement et renforcement.'),('Zinguerie','Gouttières, descentes, habillages.'),('Isolation & fenêtres de toit','Combles isolés, lumière naturelle.')],gl=['Tuiles posées au cordeau','Sur le chantier','Matériaux choisis','Vue sur les toits']),
+'peinture':dict(acc='#c9a45c',hero='hpeint_0',bande='hpeint_b',g=['hpeint_1','hpeint_2','hpeint_3','hpeint_4'],sur='Peinture · Façades · Isolation',
+  h1='Des murs qui <em>changent</em> tout.',intro='Peinture intérieure, ravalement et isolation par l’extérieur : des finitions impeccables, un logement transformé.',
+  s=[('Peinture intérieure','Murs, plafonds, boiseries, finitions soignées.'),('Ravalement de façade','Nettoyage, réparation et mise en peinture.'),('Isolation extérieure','Moins de pertes de chaleur, façade rénovée.'),('Conseil déco','Couleurs et matières choisies avec vous.')],gl=['Couleurs franches','Façades bois','Le geste précis','Travail en hauteur']),
+'restaurant':dict(acc='#c8a26b',hero='hresto_0',bande='hresto_b',g=['hresto_1','hresto_2','hresto_3','hresto_4'],sur='Restaurant · Chambres d’hôtes',
+  h1='Une table <em>au bord de l’eau</em>.',intro='Cuisine de saison, produits frais et vins de la région, dans un cadre où l’on prend le temps.',
+  s=[('La carte','Plats de saison et spécialités de la région.'),('Les vins','Une sélection de vins locaux.'),('Groupes & fêtes','Repas de famille, anniversaires, événements.'),('Chambres','Prolongez le moment : nuit sur place.')],gl=['Dans l’assiette','Produits de saison','En terrasse','Autour de la table']),
+}
+X={"menuiserie": ["Des ouvrages sur mesure,", "pensés pour durer.", "Chaque projet commence par une visite et des mesures précises. Nous vous conseillons sur les matériaux, l’isolation et les aides possibles, puis nous posons avec soin et laissons le chantier propre."], "chauffage": ["Le bon équipement,", "bien installé.", "Nous étudions votre logement avant de vous conseiller : puissance adaptée, consommation, aides possibles. L’installation est faite proprement, puis nous assurons l’entretien et le dépannage."], "electricite": ["La sécurité d’abord,", "le confort ensuite.", "Diagnostic, conseil, installation : nous travaillons dans le respect des normes et vous expliquons chaque étape, pour une installation fiable et durable."], "couverture": ["Votre toiture,", "entre des mains expertes.", "Diagnostic de la toiture, devis détaillé, travaux réalisés en sécurité : nous protégeons votre maison des intempéries pour longtemps."], "peinture": ["Des finitions impeccables,", "un logement transformé.", "Préparation soignée des supports, peintures de qualité, protection de votre mobilier : nous vous rendons un intérieur ou une façade comme neufs, dans les délais annoncés."], "restaurant": ["Une cuisine sincère,", "au fil des saisons.", "Des produits frais, des recettes de la région et le temps de bien faire. Au bord de l’eau, on vient pour un déjeuner, on reste pour la soirée."]}
+
+T.update({
+'garage':dict(acc='#d0873f',hero='ugar_h',bande='ugar_b',g=['ugar_1','ugar_2','ugar_3','ugar_4'],sur='Garage · Entretien · Réparation',
+  h1='Votre voiture, <em>entre de bonnes mains</em>.',intro='Entretien, freinage, climatisation, distribution : un garage de proximité pour prendre soin de votre véhicule.',
+  s=[('Entretien & révision','Vidange, filtres, contrôles avant la route.'),('Freinage','Plaquettes, disques et contrôle du circuit.'),('Climatisation','Recharge et recherche de fuites.'),('Distribution','Remplacement du kit dans les règles.')],gl=['À l’atelier','Sous le capot','La mécanique','Prête à rouler'],
+  lib=dict(nav1='Le garage',nav2='Services',nav3='Atelier',cta_nav='Rendez-vous',cta_hero='Prendre rendez-vous',sur_savoir='Le garage',sur_gal='L’atelier',h2_gal='Le soin du détail',bande_a='Une révision ?',bande_b='Appelez-nous.',contact_h2='Prendre rendez-vous',contact_txt='Nous vous rappelons pour fixer un créneau.',placeholder='Votre véhicule et l’intervention souhaitée'),
+  etapes=[('Prenez rendez-vous','Par téléphone, au créneau qui vous arrange.'),('Diagnostic','Nous examinons votre véhicule et vous expliquons.'),('Reprenez la route','Votre voiture est prête.')]),
+'coiffure':dict(acc='#c98f7d',hero='ucoi_h',bande='ucoi_b',g=['ucoi_1','ucoi_2','ucoi_3','ucoi_4'],sur='Salon de coiffure',commerce=True,
+  h1='Votre coiffure, <em>tout simplement</em>.',intro='Coupes, couleurs, mèches et coiffages, avec des conseils pour une coupe qui vous ressemble.',
+  s=[('Coupe & coiffage','Pour femmes, hommes et enfants.'),('Couleur','Couleurs et nuances sur mesure.'),('Mèches & balayage','Pour illuminer vos cheveux.'),('Soins','Pour des cheveux en pleine forme.')],gl=['Le geste précis','Couleur','Au salon','Coiffage'],
+  lib=dict(nav1='Le salon',nav2='Prestations',nav3='Galerie',cta_nav='Rendez-vous',cta_hero='Prendre rendez-vous',sur_savoir='Le salon',sur_serv='Nos prestations',h2_serv='Pour toutes les envies',sur_gal='En images',h2_gal='Le salon',sur_et='Venir au salon',h2_et='Simple et agréable',bande_a='Envie de changement ?',bande_b='Prenez rendez-vous.',contact_h2='Prendre rendez-vous',contact_txt='Nous vous rappelons pour confirmer votre créneau.',placeholder='Prestation souhaitée, jour et heure',appel='Appeler'),
+  etapes=[('Réservez','Par téléphone, en quelques secondes.'),('Installez-vous','Le temps d’un conseil personnalisé.'),('Repartez','Bien dans vos cheveux.')]),
+'boulangerie':dict(acc='#c28a45',hero='ubou_h',bande='ubou_b',g=['ubou_1','ubou_2','ubou_3','ubou_4'],sur='Boulangerie · Pâtisserie',commerce=True,
+  h1='Le bon pain, <em>chaque matin</em>.',intro='Pains, viennoiseries et pâtisseries : le goût de l’artisanat, du petit-déjeuner aux grandes occasions.',
+  s=[('Les pains','Baguettes et pains spéciaux.'),('Viennoiseries','Croissants, pains au chocolat, brioches.'),('Pâtisseries','Gâteaux et douceurs.'),('Commandes','Des gâteaux pour vos occasions.')],gl=['Sortie du four','Nos pains','Le pétrissage','Le pain du jour'],
+  lib=dict(nav1='La boulangerie',nav2='Nos produits',nav3='Galerie',cta_nav='Commander',cta_hero='Commander un gâteau',sur_savoir='La boulangerie',sur_serv='Nos produits',h2_serv='Du fournil à votre table',sur_gal='En images',h2_gal='Fait avec soin',sur_et='Commander',h2_et='Simple et rapide',bande_a='Une occasion à fêter ?',bande_b='Commandez votre gâteau.',contact_h2='Commander',contact_txt='Nous vous rappelons pour confirmer votre commande.',placeholder='Votre commande et la date souhaitée',appel='Appeler'),
+  etapes=[('Appelez','Dites-nous ce qui vous ferait plaisir.'),('Nous préparons','Votre commande, pour la date choisie.'),('Passez la chercher','En boutique, au moment convenu.')]),
+'quincaillerie':dict(acc='#6d9a78',hero='uqui_h',bande='uqui_b',g=['uqui_1','uqui_2','uqui_3','uqui_4'],sur='Quincaillerie · Électroménager · Jardin',commerce=True,
+  h1='Tout pour la maison <em>et le jardin</em>.',intro='Quincaillerie, outillage, électroménager et motoculture : les bons produits et les bons conseils, près de chez vous.',
+  s=[('Quincaillerie & outillage','Tout pour bricoler et réparer.'),('Électroménager','Gros et petit électroménager.'),('Motoculture','Tondeuses, motoculteurs et entretien.'),('Chauffage','Poêles et solutions pour l’hiver.')],gl=['Quincaillerie','Outillage','Bricolage','Conseil'],
+  lib=dict(nav1='Le magasin',nav2='Rayons',nav3='Galerie',cta_nav='Nous contacter',cta_hero='Demander un devis',sur_savoir='Le magasin',sur_serv='Nos rayons',h2_serv='Tout sous le même toit',sur_gal='En images',h2_gal='Le magasin',sur_et='Comment ça se passe',h2_et='Simple et pratique',bande_a='Un projet ?',bande_b='Passez nous voir.',contact_h2='Nous contacter',contact_txt='Réponse rapide à toutes vos questions.',placeholder='Votre demande en quelques mots',appel='Appeler'),
+  etapes=[('Venez en magasin','Ou appelez-nous pour un conseil.'),('Choisissez','Avec l’aide de l’équipe.'),('Profitez','Chez vous, en toute tranquillité.')]),
+})
+X.update({"garage":["Un garage de proximité,","à votre écoute.","Entretien courant, réparations et diagnostics : nous prenons soin de votre véhicule, avec des explications claires à chaque étape."],
+"coiffure":["Un salon chaleureux,","des conseils sur mesure.","Nous prenons le temps d’écouter vos envies avant chaque prestation, pour une coupe et une couleur qui vous ressemblent."],
+"boulangerie":["Le goût de l’artisanat,","au quotidien.","Pains, viennoiseries et pâtisseries : un savoir-faire de boulanger, pour le petit-déjeuner comme pour vos grandes occasions."],
+"quincaillerie":["Les bons produits,","les bons conseils.","Un magasin de proximité où l’on vous conseille vraiment, pour la maison, le jardin et l’atelier."]})
+T['maconnerie']=dict(acc='#b08d5b',hero='umac_h',bande='umac_b',g=['umac_1','umac_2','umac_3','umac_4'],sur='Maçonnerie · Rénovation · Extensions',
+  h1='Bâtir <em>solide</em>, rénover avec soin.',intro='Construction, extensions, rénovation de murs anciens et façades : un savoir-faire de maçon pour votre maison.',
+  s=[('Construction & extensions','Maisons, agrandissements, garages : des fondations aux murs.'),('Rénovation','Reprise de murs anciens, création d’ouvertures, joints à la chaux.'),('Façades','Enduits, ravalement et remise en état.'),('Aménagements extérieurs','Murets, terrasses, clôtures et dallages.')],gl=['Pierre sèche','Pierre et bois','Murs de pierre','La maison'],
+  lib=dict(nav1='L’entreprise',nav3='Galerie',sur_savoir='L’entreprise',sur_gal='En images',h2_gal='La pierre, travaillée avec soin',bande_a='Un projet de travaux ?',bande_b='Parlons-en.'))
+X['maconnerie']=["Des ouvrages solides,","faits pour durer.","Chaque chantier commence par une visite et un devis détaillé. Nous choisissons des matériaux adaptés à votre maison, ancienne ou neuve, et vous tenons informé à chaque étape."]
+
+def _lum(h):
+    r,g,b=[int(h[i:i+2],16)/255 for i in (1,3,5)]
+    f=lambda v:v/12.92 if v<=0.03928 else ((v+0.055)/1.055)**2.4
+    return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b)
+def _contraste(a,b):
+    x,y=_lum(a),_lum(b);return (max(x,y)+0.05)/(min(x,y)+0.05)
+def fonce(h,fond='#ece4d7',cible=4.8):
+    """Même teinte, assombrie jusqu'à un contraste lisible sur fond clair (et avec du texte blanc)."""
+    r,g,b=[int(h[i:i+2],16) for i in (1,3,5)];k=1.0
+    while k>0.2:
+        c='#%02x%02x%02x'%(int(r*k),int(g*k),int(b*k))
+        if _contraste(c,fond)>=cible and _contraste(c,'#ffffff')>=cible: return c
+        k-=0.02
+    return c
+CSS='''
+:root{--creme:#f6f1e9;--encre:#1f1c18;--doux:#57504a;--nuit:#12100d;--acc:%s;--acct:%s}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:Jost,system-ui,sans-serif;font-weight:400;font-size:17px;background:var(--creme);color:var(--encre);line-height:1.7;overflow-x:hidden}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.08}
+a{color:inherit;text-decoration:none}img{display:block;width:100%%;height:100%%;object-fit:cover}
+.basbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}.maq{flex-basis:100%%;color:#b5ad9f;font-size:.84rem;border-top:1px solid rgba(255,255,255,.08);padding-top:14px}
+nav{background:linear-gradient(180deg,rgba(18,16,13,.75),rgba(18,16,13,0));position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.2rem clamp(18px,4vw,56px);color:#fff;transition:.4s}
+nav:not(.plein) .marque,nav:not(.plein) .liens a{text-shadow:0 1px 3px rgba(0,0,0,.55)}
+nav.plein{background:rgba(246,241,233,.95);backdrop-filter:blur(10px);color:var(--encre);padding:.75rem clamp(18px,4vw,56px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.marque{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(1.7rem,2.4vw,2.1rem);letter-spacing:.01em;line-height:1.05;display:block}
+.marque small{display:block;font-family:Jost;font-weight:500;font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;opacity:.85;margin-top:.45rem}
+.liens{display:flex;gap:2rem;align-items:center;font-size:.86rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.cta{border:1px solid currentColor;padding:calc(.6rem + 1px) calc(1.1rem - .14em) calc(.6rem - 1px) 1.1rem;line-height:1;white-space:nowrap;display:inline-flex;align-items:center}
+.heros{min-height:100svh;display:grid;grid-template-columns:minmax(380px,44%%) 1fr;background:var(--nuit);color:#f4efe6}
+.heros .texte{display:flex;flex-direction:column;justify-content:center;padding:130px clamp(24px,5vw,80px) 90px;animation:monte 1.1s .15s both;position:relative}
+.heros .texte::before{content:"";display:block;width:56px;height:2px;background:var(--acc);margin-bottom:1.3rem}
+@keyframes monte{from{opacity:0;transform:translateY(24px)}}
+.heros .fond{position:relative;overflow:hidden}.heros .fond img{position:absolute;inset:0;transform:scale(1.08);animation:zoom 16s ease-out forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.heros .fond::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,16,13,.35),rgba(18,16,13,0) 30%%)}
+.heros .fond .etiq{position:absolute;z-index:2;right:24px;bottom:24px;background:rgba(246,241,233,.94);color:var(--encre);padding:.7rem 1rem;font-size:.86rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.sur{font-size:.84rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;color:var(--acct)}
+.heros .sur{color:var(--acc)}
+.heros h1,h2,h3{text-wrap:balance}p,figcaption,blockquote{text-wrap:pretty}h1{font-size:clamp(2.9rem,5.4vw,5.6rem);font-weight:600;margin:.7rem 0 1.1rem;color:#fbf8f2}
+.heros h1 em{font-style:italic;color:var(--acc)}
+.heros p{font-size:1.12rem;max-width:520px;color:#ddd5c8;font-weight:400}
+.boutons{display:flex;gap:.8rem;margin-top:2rem;flex-wrap:wrap}
+.b{display:inline-flex;align-items:center;justify-content:center;line-height:1;padding:1.05rem calc(1.6rem - .14em) 1.05rem 1.6rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.b.plein{background:var(--acct);color:#fff}.b.vide{border:1.5px solid rgba(255,255,255,.75);color:#fff}
+.fleche{display:none}
+section{padding:clamp(76px,11vw,150px) clamp(18px,6vw,96px)}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px);align-items:center}
+.intro h2{font-size:clamp(2.3rem,4.5vw,3.6rem)}.intro h2 em{color:var(--acct)}
+.intro p{color:#4a443c;margin-top:1.3rem;max-width:480px}
+.chiffres{display:flex;gap:2.6rem;margin-top:2.2rem;flex-wrap:wrap}
+.chiffres b{display:block;font-family:"Cormorant Garamond";font-size:2.5rem;font-weight:500;color:var(--acct);line-height:1}
+.chiffres span{font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--doux)}
+.intro .photo{aspect-ratio:4/5;overflow:hidden}
+.titre{text-align:center;max-width:660px;margin:0 auto clamp(40px,6vw,72px)}
+.titre .sur{color:var(--acct)}
+section.services .sur,section.services .titre .sur,section.services .n{color:var(--acc)}.titre h2{font-size:clamp(2.3rem,4.5vw,3.4rem);margin-top:.6rem}
+.services{background:var(--nuit);color:#efe9df}
+.services .grille{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.services .carte{background:var(--nuit);padding:2.4rem 1.8rem}
+.services .n{font-family:"Cormorant Garamond";font-size:1.05rem;color:var(--acct);letter-spacing:.2em}
+.services h3{font-size:1.7rem;margin:.8rem 0 .6rem}.services p{color:#d4ccbf;font-size:1rem}
+.galerie{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:280px 280px;gap:12px}
+.galerie figure{position:relative;overflow:hidden}.galerie figure:first-child{grid-row:span 2}
+.galerie img{transition:transform 1.2s}.galerie figure:hover img{transform:scale(1.06)}
+.galerie figure::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent 55%%)}.galerie figcaption{position:absolute;z-index:2;left:14px;bottom:12px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);font-family:"Cormorant Garamond";font-weight:600;font-size:1.35rem}
+.etapes{display:grid;grid-template-columns:1.15fr 1fr .85fr;gap:clamp(24px,4vw,56px);counter-reset:e;align-items:start}.etapes div:nth-child(2){margin-top:2.6rem}.etapes div:nth-child(3){margin-top:5.2rem}
+.etapes div{border-top:1px solid #d9cfbf;padding-top:1.4rem}
+.etapes div::before{counter-increment:e;content:counter(e);font-family:"Cormorant Garamond";font-size:2.6rem;color:var(--acct);font-variant-numeric:lining-nums;display:block;line-height:1.1}
+.etapes h3{font-size:1.5rem;margin:.3rem 0 .4rem}.etapes p{color:var(--doux)}
+.avis{background:#ece4d7;text-align:center}
+.etoiles{color:var(--acct);letter-spacing:.3em;font-size:1.3rem}
+.avis blockquote{font-family:"Cormorant Garamond";font-size:clamp(1.6rem,3vw,2.3rem);font-style:italic;max-width:760px;margin:1.2rem auto}
+.avis cite{font-style:normal;font-size:.84rem;letter-spacing:.2em;text-transform:uppercase;color:var(--doux)}
+.bande{position:relative;color:#fff;text-align:center;padding:clamp(96px,14vw,180px) 18px;overflow:hidden}
+.bande img{position:absolute;inset:0}.bande::after{display:none}
+.bande>div{position:relative;z-index:2;display:inline-block;background:rgba(18,16,13,.93);padding:clamp(28px,5vw,56px) clamp(24px,6vw,72px);max-width:680px}.bande h2{font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:600;margin:.4rem 0 .4rem}.bande h2 em{color:var(--acc)}
+.bande .sur{color:#eadbc8!important}
+.ligne a{display:inline-block;padding:11px 0}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1!important;transform:none!important}}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px)}
+.contact h2{font-size:clamp(2.2rem,4vw,3.2rem)}.contact p{color:var(--doux);margin-top:1rem}
+.ligne{display:flex;justify-content:space-between;border-bottom:1px solid #d9cfbf;padding:.9rem 0;font-size:.95rem}.ligne span:first-child{color:var(--doux)}
+form{display:grid;gap:1rem}input,textarea,select{width:100%%;font:inherit;background:transparent;border:0;border-bottom:1px solid #bfb3a0;padding:.8rem 0;color:var(--encre)}
+form button{line-height:1;text-indent:.2em;margin-top:.6rem;background:var(--encre);color:#fff;border:0;padding:1.05rem;font:inherit;font-size:.86rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+footer{background:var(--nuit);color:#8f887b;padding:40px clamp(18px,6vw,96px) 110px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.85rem}
+footer .marque{color:#efe9df}
+.appel{display:none}
+.rv{opacity:0;transform:translateY(28px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.vu{opacity:1;transform:none}
+@media (max-width:860px){.liens{display:none}.marque{font-size:clamp(1.85rem,7.4vw,2.3rem);max-width:none}.marque small{font-size:.82rem;margin-top:.4rem}.heros{grid-template-columns:1fr;min-height:auto}.heros .fond{order:-1;height:56svh;min-height:340px}.heros .texte{padding:44px 22px 110px}.heros .fond .etiq{right:14px;bottom:14px;font-size:.84rem}.liens a:not(.cta){display:none}.intro,.contact{grid-template-columns:1fr}.services .grille{grid-template-columns:1fr 1fr}
+.galerie{grid-template-columns:1fr 1fr;grid-template-rows:230px 170px}.galerie figure:first-child{grid-column:span 2;grid-row:auto}
+.etapes{grid-template-columns:1fr}.etapes div:nth-child(n){margin-top:0}.appel{display:flex;align-items:center;justify-content:center;gap:.55rem;margin:0 14px 10px;min-height:52px;background:var(--acct);color:#fff;font-size:.92rem;font-weight:500;line-height:1;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.25);transform:translateY(calc(100%% + 24px));opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .3s}.appel.on{transform:none;opacity:1;pointer-events:auto}.appel span{margin-right:-.16em}.appel svg{flex:none}}
+@media (max-width:520px){nav{padding:1rem 18px}.services .grille{grid-template-columns:1fr}}
+'''
+JS='''<script>const n=document.querySelector('nav');addEventListener('scroll',()=>n.classList.toggle('plein',scrollY>60));
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+const ap=document.querySelector('.appel'),hb=document.querySelector('.heros .boutons'),ct=document.querySelector('#contact');let vh=true,vc=false;const maj=()=>ap&&ap.classList.toggle('on',!vh&&!vc);
+if(ap&&hb)new IntersectionObserver(e=>{vh=e[0].isIntersecting;maj()},{rootMargin:'0px 0px 110px 0px'}).observe(hb);if(ap&&ct)new IntersectionObserver(e=>{vc=e[0].isIntersecting;maj()},{threshold:.15}).observe(ct);</script>'''
+def etapes_html(p,resto):
+    e=html.escape
+    if p.get('etapes'): return ''.join(f'<div><h3>{e(a)}</h3><p>{e(b)}</p></div>' for a,b in p['etapes'])
+    return '<div><h3>Réservez</h3><p>Par téléphone ou en ligne, en quelques secondes.</p></div><div><h3>Installez-vous</h3><p>En salle ou en terrasse, au calme.</p></div><div><h3>Restez</h3><p>Une chambre vous attend pour prolonger la soirée.</p></div>' if resto else '<div><h3>Visite & conseil</h3><p>Nous venons voir votre projet et vous conseillons, gratuitement.</p></div><div><h3>Devis détaillé</h3><p>Un prix clair, ligne par ligne, avec les délais.</p></div><div><h3>Réalisation</h3><p>Chantier propre, finitions vérifiées ensemble.</p></div>'
+def page(p):
+    t=dict(T[p['type']],**{k:p[k] for k in ('s','sur','gl','g','bande') if k in p});e=html.escape;nom=e(p['nom']);num=re.sub(r'\D','',p['tel'])
+    g=[img(x) for x in t['g']];h1=p.get('h1p',t['h1']);intro=e(p.get('acc',t['intro']))
+    ch=''.join(f'<div><b>{e(a)}</b><span>{e(b)}</span></div>' for a,b in p.get('preuves',[]))
+    sv=''.join(f'<div class="carte rv"><div class="n">0{i+1}</div><h3>{e(a)}</h3><p>{e(b)}</p></div>' for i,(a,b) in enumerate(t['s']))
+    gal=''.join(f'<figure class="rv"><img src="{g[i]}" alt=""><figcaption>{e(t["gl"][i])}</figcaption></figure>' for i in range(3))
+    resto=p['type']=='restaurant' or T[p['type']].get('commerce',False)
+    R=p.get('cta_resto','Réserver')
+    L=dict(nav1='La maison',nav2='La carte',nav3='Galerie',cta_nav=R,cta_hero=p.get('cta2',R+' une table'),sur_savoir='La maison',sur_serv='À découvrir',h2_serv='Le plaisir de la table',sur_gal='En images',h2_gal='Un lieu à vivre',sur_et='Venir nous voir',h2_et='Simple et chaleureux',bande_a='Une envie de',bande_b='bonne table ?',contact_h2=R,contact_txt=p.get('contact_txt','Nous vous confirmons votre table rapidement.'),placeholder=p.get('placeholder','Date, heure, nombre de personnes'),appel=R) if resto else dict(nav1='Savoir-faire',nav2='Services',nav3='Réalisations',cta_nav='Devis gratuit',cta_hero='Demander un devis',sur_savoir='Notre savoir-faire',sur_serv='Ce que nous faisons',h2_serv='Des prestations complètes',sur_gal='Réalisations',h2_gal='L’exigence, dans chaque détail',sur_et='Comment ça se passe',h2_et='Trois étapes, zéro surprise',bande_a='Un projet ?',bande_b='Parlons-en.',contact_h2='Demander un devis',contact_txt='Réponse rapide, devis gratuit et sans engagement.',placeholder='Votre projet en quelques mots',appel='Appeler')
+    L.update(t.get('lib',{}));L.update(p.get('lib',{}))
+    if 'etapes' in t and 'etapes' not in p: p=dict(p,etapes=t['etapes'])
+    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>{nom}</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@400;500&display=swap" rel="stylesheet"><style>{CSS%(t['acc'],fonce(t['acc']))}</style></head><body>
+<nav><a class="marque" href="#">{nom}<small>{e(p['commune'])}</small></a><div class="liens"><a href="#savoir">{L['nav1']}</a><a href="#services">{L['nav2']}</a><a href="#realisations">{L['nav3']}</a><a class="cta" href="#contact">{L['cta_nav']}</a></div></nav>
+<header class="heros"><div class="texte"><div class="sur">{e(t['sur'])}</div><h1>{h1}</h1><p>{intro}</p>
+<div class="boutons"><a class="b plein" href="#contact">{L['cta_hero']}</a><a class="b vide" href="tel:{num}">{e(p['tel'])}</a></div></div><div class="fond"><img src="{img(p.get('hero',t['hero']))}" alt=""><div class="etiq">{e(p['commune'])}</div></div></header>
+<section id="savoir" class="intro"><div class="rv"><div class="sur" style="color:var(--acct)">{L['sur_savoir']}</div><h2>{e(p.get('titre2',X[p['type']][0]))} <em>{e(p.get('titre2b',X[p['type']][1]))}</em></h2>
+<p>{e(p.get('texte2',X[p['type']][2]))}</p><div class="chiffres">{ch}</div></div><div class="photo rv"><img src="{g[3]}" alt=""></div></section>
+<section id="services" class="services"><div class="titre rv"><div class="sur">{L['sur_serv']}</div><h2>{L['h2_serv']}</h2></div><div class="grille">{sv}</div></section>
+<section id="realisations"><div class="titre rv"><div class="sur">{L['sur_gal']}</div><h2>{L['h2_gal']}</h2></div><div class="galerie">{gal}</div></section>
+<section style="padding-top:0"><div class="titre rv"><div class="sur">{L['sur_et']}</div><h2>{L['h2_et']}</h2></div><div class="etapes rv">
+{etapes_html(p,resto)}</div></section>
+<section class="avis"><div class="rv"><div class="etoiles">★★★★★</div><blockquote>Vos avis Google s’afficheront ici, automatiquement.</blockquote><cite>Emplacement réservé aux avis de vos clients</cite></div></section>
+<div class="bande"><img src="{img(t['bande']) if 'bande' in t else g[1]}" alt=""><div class="rv"><div class="sur">{e(p['commune'])} et alentours</div><h2>{L['bande_a']} <em>{L['bande_b']}</em></h2><div class="boutons" style="justify-content:center"><a class="b plein" href="tel:{num}">{e(p['tel'])}</a></div></div></div>
+<section id="contact" class="contact"><div class="rv"><div class="sur" style="color:var(--acct)">Contact</div><h2>{L['contact_h2']}</h2><p>{L['contact_txt']}</p>
+<div style="margin-top:1.6rem"><div class="ligne"><span>Téléphone</span><a href="tel:{num}">{e(p['tel'])}</a></div><div class="ligne"><span>Secteur</span><span>{e(p['commune'])} et alentours</span></div></div></div>
+<form class="rv" onsubmit="event.preventDefault()"><input aria-label="Votre nom" placeholder="Votre nom"><input aria-label="Téléphone ou email" placeholder="Téléphone ou email"><textarea rows="3" aria-label="Votre message" placeholder="{L['placeholder']}"></textarea><button type="button">Envoyer</button></form></section>
+<footer><div class="marque">{nom}<small>{e(p['commune'])}</small></div><div>© {nom} · Mentions légales</div><div class="maq">{e(p.get("maq","")) or f"Maquette préparée par Dig pour {nom} · non publiée · photos d’illustration libres de droits"}</div></footer>
+<div class="basbar"><a class="appel" href="tel:{num}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span>{L['appel']} · {e(p['tel'])}</span></a></div>{JS}</body></html>'''
+P=json.load(open(os.environ.get('DIG_PROSPECTS','prospects.json')))
+import sys
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),'..'))
+from typo_fr import fix as typo_fr
+SORTIE=os.environ.get('DIG_SORTIE','')
+for p in P: open(os.path.join(SORTIE,p['id']+'.html') if SORTIE else p['id']+'.html','w').write(typo_fr(page(p)))
+print(len(P))
