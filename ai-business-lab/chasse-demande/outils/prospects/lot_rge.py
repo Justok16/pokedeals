@@ -57,7 +57,7 @@ def site(url):
             break
     titre = re.search(r'<title[^>]*>(.*?)</title>', corps, re.S | re.I)
     titre = re.sub(r'\s+', ' ', titre[1]).strip()[:80] if titre else ''
-    if code in ('000', '') : etat = 'mort (ne répond pas)'
+    if code in ('000', '') : etat = 'muet (ne répond pas au relais : à confirmer par Firecrawl, peut être un site vivant)'
     elif code.startswith('4') or code.startswith('5'): etat = f'erreur HTTP {code}'
     elif re.search(VIDE, (titre + corps[:3000]).lower()) or len(corps) < 800: etat = 'vide ou parking'
     else: etat = 'vivant'

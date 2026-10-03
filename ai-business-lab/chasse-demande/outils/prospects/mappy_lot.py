@@ -104,7 +104,7 @@ def classer_site(url, e):
     if re.search(r'booking\.com|bstatic\.com|airbnb|tripadvisor|pagesjaunes\.fr|118712|118000|annuaire|mappy|google\.', url): return {'url': url, 'etat': 'annuaire ou plateforme (ne compte pas)'}
     r = subprocess.run(['curl', '-sL', '-m', '20', '-A', UA, '-o', '-', '-w', '\n%{http_code}', url], capture_output=True, text=True, errors='ignore').stdout
     corps, _, code = r.rpartition('\n')
-    if code in ('', '000'): return {'url': url, 'etat': 'mort (ne répond pas)'}
+    if code in ('', '000'): return {'url': url, 'etat': 'muet (ne répond pas au relais : à confirmer par Firecrawl, peut être un site vivant)'}
     if code[0] in '45': return {'url': url, 'etat': f'erreur HTTP {code}'}
     t = re.search(r'<title[^>]*>(.*?)</title>', corps, re.S | re.I); titre = re.sub(r'\s+', ' ', html.unescape(t[1])).strip()[:90] if t else ''
     texte = norm(re.sub(r'<[^>]+>', ' ', re.sub(r'<(script|style)[^>]*>.*?</\1>', ' ', corps, flags=re.S))[:40000])
