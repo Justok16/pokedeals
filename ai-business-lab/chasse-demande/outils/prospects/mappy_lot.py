@@ -16,6 +16,15 @@ import sys, os, re, json, time, html, subprocess, unicodedata
 
 UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
 RESEAU = r'planity\.com|dylentab\.fr|lamaisonofficielle\.fr|tiktok\.com|facebook\.com|instagram\.com|linkedin\.com|treatwell|lafourchette|thefork|ubereats|deliveroo'
+# Page DÉDIÉE d'un réseau, d'une enseigne ou d'un constructeur (vérifié à la main lots 54 à 66) : le commerce
+# a déjà une page à son nom dans un réseau → écarté. Une page de recherche générale (ad.fr/...recherche-garage?...)
+# n'en est pas une.
+DEDIE = (r'eurorepar\.fr/garage-|ad\.fr/garage-auto/(?!recherche|ville)|autoprimo\.com/(magasin|storelocator)|motrio\.fr/garage|'
+         r'top-truck\.fr/distributeur|reseau\.garage-premier\.fr/\d|distinxion\.fr/distributeur|autofit|proximeca\.fr|'
+         r'g-truck\.fr/.+/details|groupauto\.fr/.+/details|concessions\.(peugeot|citroen|renault)\.fr/|agents\.(peugeot|renault)\.fr/|'
+         r'alombredesmarques\.fr/c/|komilfo\.fr/magasins/|artisansfleuristesdefrance\.com/(module|livraison)|casino\.fr/fr/stores/|'
+         r'salon\.dessange\.com|jeanlouisdavid|franckprovost|saint-algue|feuvert\.fr|midas\.fr|speedy\.fr|norauto\.fr|vulco\.fr')
+ENSEIGNE = r'\b(eurorepar|motrio|autoprimo|ad (garage|carrosserie|expert)|peugeot|renault|citro[eë]n|dessange|jean[- ]louis david|franck provost|top carrosserie|autofit|distinxion)\b'
 GENERE = r'edan\.io|lany\.io|eatbu\.com|wixsite\.com|site-solocal\.com|business\.site|frmaps\.xyz|metro\.rest'
 VIDES = ('sarl', 'sas', 'sasu', 'eurl', 'snc', 'sci', 'entreprise', 'ets', 'etablissements', 'societe', 'les', 'des', 'du', 'de', 'la', 'le', 'et', 'en', 'sur', 'saint', 'sainte', 'charente', 'coiffure', 'coiff', 'beaute', 'institut', 'garage', 'auto', 'boulangerie', 'restaurant', 'bar', 'salon')
 
@@ -81,6 +90,7 @@ def fiche(id_):
 
 def classer_site(url, e):
     """Un site lié à une fiche : réseau/réservation, page générée, site vivant plausible, site d'un voisin, mort."""
+    if re.search(DEDIE, url, re.I): return {'url': url, 'etat': "page dédiée d'un réseau (écarté)"}
     if re.search(RESEAU, url):
         tel = ''
         if re.search(r'planity|dylentab|lamaisonofficielle|treatwell', url):
@@ -133,7 +143,11 @@ def main():
         e['mappy'] = m
         vivants = [x for x in m['sites'] if x['etat'] == 'site vivant à son nom']
         douteux = [x for x in m['sites'] if x['etat'].startswith('site vivant à vérifier')]
+        reseaux = [x for x in m['sites'] if x['etat'].startswith('page dédiée')]
+        ens = re.search(ENSEIGNE, norm(m['fiche']['nom_fiche'])) if m['fiche'] else None
         if vivants: nv = 'écarté : site lié sur Mappy ' + ', '.join(x['url'] for x in vivants)
+        elif reseaux: nv = 'écarté : page dédiée d\'un réseau ' + ', '.join(x['url'] for x in reseaux)
+        elif ens and sc >= 2: nv = 'écarté : enseigne de réseau sur la fiche Mappy (« ' + m['fiche']['nom_fiche'] + ' »)'
         elif not meilleurs: nv = 'à vérifier : introuvable sur Mappy (' + str(len(L)) + ' fiches dans la commune) — recherche web'
         elif douteux: nv = 'à vérifier : site lié ' + ', '.join(x['url'] for x in douteux)
         elif m['fiche']['refus']: nv = 'écarté : refus du démarchage (PagesJaunes)'
