@@ -79,6 +79,10 @@ def score(jeu, cand):
 def fiche(id_):
     h = curl(f'https://fr.mappy.com/poi/{id_}')
     i = h.find(f'"id":"{id_}"'); seg = h[i:i + 6000] if i >= 0 else ''
+    # La page liste aussi les fiches voisines : on coupe au début de la fiche suivante,
+    # sinon leurs numéros et sites seraient attribués à tort à cette fiche.
+    suiv = re.search(r'"id":"[0-9a-f]{24}"', seg[10:])
+    if suiv: seg = seg[:10 + suiv.start()]
     tels = re.findall(r'"phone":\{"number":"([^"]+)","againstDirectMarketing":(true|false)', seg)
     webs = [w for w in re.findall(r'"(?:website|webSite|siteWeb|url)":"(https?://[^"]+)"', seg)
             if not re.search(r'pagesjaunes\.fr/media|mappy|partoo|qualit-enr|qualibat|pano\.mappy', w)]
