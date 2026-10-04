@@ -1,0 +1,76 @@
+name: Decouverte Annuaires (boutiques verifiees)
+on:
+  schedule:
+    # Hebdomadaire (mercredi 06h00 UTC), decale de la decouverte AFNIC
+    # (lundi) pour ne jamais commiter en meme temps.
+    - cron: "0 6 * * 3"
+  workflow_dispatch: {}
+permissions:
+  contents: write   # necessaire pour sauvegarder boutiques_complement.py
+concurrency:
+  group: decouverte_annuaires
+  cancel-in-progress: false
+jobs:
+  decouverte:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    timeout-minutes: 30
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+      - name: Installer Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Mettre a jour les boutiques verifiees (annuaire Pokescam + listes d'arnaques)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PYTHONUNBUFFERED: "1"
+        run: python decouverte_annuaires.py
+      # crt.sh (certificats HTTPS, toutes extensions) est un service
+      # communautaire instable : une panne ne doit jamais bloquer la
+      # sauvegarde des resultats de l'annuaire (continue-on-error).
+      - name: Découvrir des boutiques par certificats HTTPS (crt.sh)
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: python decouverte_certificats.py
+      - name: Sauvegarder boutiques_complement.py et boutiques_complement_ct.py
+        run: |
+          git config user.name "pokedeals-bot"
+          git config user.email "bot@pokedeals.local"
+          sauvegarder_puis_reimposer() {
+            cp -f boutiques_complement.py /tmp/boutiques_complement.py 2>/dev/null || true
+            cp -f boutiques_complement_ct.py /tmp/boutiques_complement_ct.py 2>/dev/null || true
+            git stash -u || true
+            git pull --rebase || git rebase --abort || true
+            git stash pop || true
+            git stash drop || true
+            cp -f /tmp/boutiques_complement.py boutiques_complement.py 2>/dev/null || true
+            cp -f /tmp/boutiques_complement_ct.py boutiques_complement_ct.py 2>/dev/null || true
+            git add boutiques_complement.py boutiques_complement_ct.py 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "maj boutiques complement (annuaire verifie + certificats) [skip ci]"
+          }
+
+          sauvegarder_puis_reimposer
+
+          for tentative in 1 2 3; do
+            if git push; then
+              break
+            fi
+            if [ "$tentative" = 3 ]; then
+              echo "Push toujours refusé après 3 tentatives, abandon."
+              exit 1
+            fi
+            echo "Push refusé (tentative $tentative/3), nouvel essai dans $((tentative * 5))s..."
+            sleep $((tentative * 5))
+            sauvegarder_puis_reimposer
+          done

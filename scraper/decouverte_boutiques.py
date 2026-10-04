@@ -56,6 +56,7 @@ import requests
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from connecteur_shopify import HEADERS, HEADERS_HTML, TIMEOUT
+from legitimite import charger_liste_noire, est_legitime, verifier_legitimite
 from memoire_json import charger_memoire, sauvegarder_memoire
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from notifications_perso import token_telegram_perso
@@ -325,7 +326,8 @@ def envoyer_telegram_rapport(ajouts: list[dict], a_examiner: list[dict], chat_id
     if a_examiner:
         lignes.append(f"<b>{len(a_examiner)} candidat(s) ambigu(s), a verifier a la main :</b>")
         for c in a_examiner[:15]:
-            lignes.append(f"❓ {echapper_html(c['domaine'])} ({c['plateforme'] or 'plateforme inconnue'})")
+            raison = f" -- {echapper_html(c['raison'])}" if c.get("raison") else ""
+            lignes.append(f"❓ {echapper_html(c['domaine'])} ({c['plateforme'] or 'plateforme inconnue'}){raison}")
         if len(a_examiner) > 15:
             lignes.append(f"... et {len(a_examiner) - 15} de plus (cf. logs du workflow)")
     texte = "\n".join(lignes)
@@ -385,9 +387,31 @@ def main() -> None:
     ajouts: list[dict] = []
     a_examiner: list[dict] = []
 
+    # 04/10/2026 (demande de Justok : boutiques "fiables, legitimes et
+    # securisees") : un domaine .fr cree il y a moins d'une semaine ne peut
+    # PAS avoir d'anciennete -- avant ce garde-fou, un faux site avec un
+    # catalogue Pokemon plausible etait ajoute tel quel au scan (et aux
+    # alertes d'achat Telegram). Desormais, un ajout automatique exige en
+    # plus : domaine absent des listes d'arnaques (Pokescam/PokeGourou),
+    # HTTPS valide, page mentions legales avec SIRET/SIREN (cf.
+    # legitimite.py). Sinon : rapporte "a examiner" avec la raison, re-verifie
+    # chaque semaine (le site peut completer ses mentions legales).
+    liste_noire = charger_liste_noire()
+    liste_noire_ok = len(liste_noire) >= 50
+
     for i, domaine in enumerate(candidats):
         rapport = verifier_candidat(domaine)
-        print(f"[{i + 1}/{len(candidats)}] {domaine} : {rapport['verdict']}")
+        if rapport["verdict"] in ("singles", "scelle"):
+            if domaine in liste_noire:
+                rapport = {"domaine": domaine, "plateforme": rapport["plateforme"], "verdict": "arnaque_signalee"}
+            elif not liste_noire_ok:
+                rapport = {**rapport, "verdict": "insuffisant", "raison": "listes d'arnaques indisponibles ce cycle"}
+            else:
+                legit = verifier_legitimite(domaine)
+                if not est_legitime(legit):
+                    rapport = {**rapport, "verdict": "insuffisant", "raison": legit["raison"] or "legitimite non prouvee"}
+        print(f"[{i + 1}/{len(candidats)}] {domaine} : {rapport['verdict']}"
+              + (f" ({rapport['raison']})" if rapport.get("raison") else ""))
 
         if rapport["verdict"] in ("singles", "scelle"):
             ajouts.append(rapport)

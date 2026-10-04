@@ -80,10 +80,40 @@ CLE_MEMOIRE_PAR_PLATEFORME = {
 }
 
 
-def _boutiques_et_replis(plateforme: str) -> tuple[list[str], dict[str, str]]:
+# Perimetre COMPLEMENT (04/10/2026) : boutiques de boutiques_complement.py,
+# scannees par leur propre workflow avec leur propre memoire (suffixe
+# ci-dessous) -- jamais en meme temps que le perimetre principal, dont la
+# memoire Supabase est partagee par plateforme (risque d'ecrasement mutuel
+# si deux workflows ecrivaient la meme cle).
+SUFFIXE_MEMOIRE_COMPLEMENT = "_complement"
+
+
+def _boutiques_et_replis_complement(plateforme: str) -> tuple[list[str], dict[str, str]]:
+    # Annuaire verifie (boutiques_complement.py) + certificats HTTPS
+    # (boutiques_complement_ct.py), dedoublonnes en gardant l'ordre.
+    import boutiques_complement as bc
+    import boutiques_complement_ct as ct
+
+    def union(*listes):
+        return list(dict.fromkeys(d for liste in listes for d in liste))
+
+    if plateforme == "shopify":
+        return union(bc.BOUTIQUES_COMPLEMENT_SHOPIFY, ct.BOUTIQUES_COMPLEMENT_CT_SHOPIFY), {}
+    if plateforme == "prestashop":
+        repli = union(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_REPLI_HTML, ct.BOUTIQUES_COMPLEMENT_CT_PRESTASHOP_REPLI_HTML)
+        sitemap = union(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_PRESTASHOP_SITEMAP)
+        return union(sitemap, repli), {d: "html" for d in repli}
+    if plateforme == "woocommerce":
+        return union(bc.BOUTIQUES_COMPLEMENT_WOOCOMMERCE_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_WOOCOMMERCE_SITEMAP), {}
+    raise ValueError(f"Plateforme inconnue : {plateforme!r} (attendu: shopify/prestashop/woocommerce)")
+
+
+def _boutiques_et_replis(plateforme: str, complement: bool = False) -> tuple[list[str], dict[str, str]]:
     """Retourne (liste des boutiques actives, {domaine: mode_repli}) pour
     la plateforme donnee -- mode_repli vaut "html", "api_rest", ou absent
     du dict pour les boutiques en sitemap standard."""
+    if complement:
+        return _boutiques_et_replis_complement(plateforme)
     if plateforme == "shopify":
         from boutiques_decouvertes import BOUTIQUES_SHOPIFY_AUTO, BOUTIQUES_SHOPIFY_AUTO_PRECOMMANDE_SEULEMENT
         from boutiques_shopify import BOUTIQUES_SHOPIFY, BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT
@@ -171,7 +201,8 @@ if __name__ == "__main__":
         sys.exit(1)
 
     plateforme = sys.argv[1]
-    boutiques_defaut, modes = _boutiques_et_replis(plateforme)
+    complement = os.environ.get("RADAR_PERIMETRE", "") == "complement"
+    boutiques_defaut, modes = _boutiques_et_replis(plateforme, complement)
     boutiques = sys.argv[2:] if len(sys.argv) > 2 else boutiques_defaut
 
     produits = produits_actifs()
@@ -187,13 +218,16 @@ if __name__ == "__main__":
     for p in produits:
         sortie = p.date_sortie.isoformat() if p.date_sortie else "date inconnue/reportee"
         print(f"  - {p.nom} (sortie {sortie})")
-    print(f"{len(boutiques)} boutique(s) {plateforme} a scanner")
+    print(f"{len(boutiques)} boutique(s) {plateforme} a scanner" + (" (perimetre COMPLEMENT)" if complement else ""))
     print(f"Telegram : {'configure' if token else 'NON configure (TELEGRAM_BOT_TOKEN absent -- envoi desactive)'}\n")
 
     supabase_url = os.environ.get("SUPABASE_URL", "")
     supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
     memoire_via_supabase = bool(supabase_url and supabase_key)
-    cle_memoire = CLE_MEMOIRE_PAR_PLATEFORME[plateforme]
+    cle_memoire = CLE_MEMOIRE_PAR_PLATEFORME[plateforme] + (SUFFIXE_MEMOIRE_COMPLEMENT if complement else "")
+    fichier_memoire = FICHIER_MEMOIRE_PAR_PLATEFORME[plateforme]
+    if complement:
+        fichier_memoire = fichier_memoire.with_name(fichier_memoire.stem + SUFFIXE_MEMOIRE_COMPLEMENT + ".json")
     if memoire_via_supabase:
         memoire = charger_memoire_supabase(cle_memoire, supabase_url, supabase_key)
         if memoire is None:
@@ -201,7 +235,7 @@ if __name__ == "__main__":
                   "cycle ABANDONNÉ (évite de rejouer une alerte pour chaque précommande déjà connue).")
             sys.exit(1)
     else:
-        memoire = charger_memoire(FICHIER_MEMOIRE_PAR_PLATEFORME[plateforme])
+        memoire = charger_memoire(fichier_memoire)
 
     resume = scanner_plusieurs_boutiques(plateforme, boutiques, modes, produits, memoire)
     # V57 (18/08/2026, audit externe) : sauvegarde APRES la tentative
@@ -228,7 +262,7 @@ if __name__ == "__main__":
             print("[scan_precommandes] ATTENTION : échec de sauvegarde de la mémoire sur Supabase "
                   "-- l'état de ce cycle est perdu, les événements détectés ce cycle-ci pourront se rejouer au prochain.")
     else:
-        sauvegarder_memoire(memoire, FICHIER_MEMOIRE_PAR_PLATEFORME[plateforme])
+        sauvegarder_memoire(memoire, fichier_memoire)
 
     print(f"\n{'=' * 70}")
     print("RESUME DU CYCLE PRECOMMANDES")
