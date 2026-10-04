@@ -1,10 +1,13 @@
 import json,re,unicodedata,socket,urllib.request,concurrent.futures as cf,html,sys
 # Usage : python3 devine_sites.py <département> — devine le domaine (.fr/.com) de chaque entreprise et vérifie la commune.
 DEP=sys.argv[1]
+import os
+SUFFIXE=os.environ.get('SUFFIXE','')  # 04/10 : fichiers reg<dép><suffixe>.json / devine<dép><suffixe>.json
+NATURES=os.environ.get('NATURES','15')  # premiers chiffres des formes juridiques retenues (6 = sociétés civiles agricoles : EARL, GAEC…)
 UA='Mozilla/5.0 (DigEtudeMarche)'
 STOP={'sarl','sas','sasu','eurl','earl','gaec','sa','sci','et','de','du','des','la','le','les','l','d','monsieur','madame','ets','etablissements','entreprise','societe','scea','snc','selarl','selas','m','mme','mr'}
 def norm(s): return unicodedata.normalize('NFD',(s or '').lower()).encode('ascii','ignore').decode()
-d=[r for r in json.load(open(f'reg{DEP}.json')) if r['categorie'] not in ('ETI','GE') and (r['nature'] or '')[:1] in ('1','5')]
+d=[r for r in json.load(open(f'reg{DEP}{SUFFIXE}.json')) if r['categorie'] not in ('ETI','GE') and (r['nature'] or '')[:1] in tuple(NATURES)]
 print('cibles',len(d),flush=True)
 def cands(r):
     noms=[r['nom']]+(r['enseignes'] or [])+([r['nom_commercial']] if r.get('nom_commercial') else [])+re.findall(r'\(([^)]+)\)',r['nom'])
@@ -45,5 +48,5 @@ with cf.ThreadPoolExecutor(40) as ex:
     for i,x in enumerate(ex.map(un,d)):
         out.append(x)
         if i%1000==0: print(i,flush=True)
-json.dump(out,open(f'devine{DEP}.json','w'),ensure_ascii=False)
+json.dump(out,open(f'devine{DEP}{SUFFIXE}.json','w'),ensure_ascii=False)
 print('confirmés',sum(1 for r in out if any(s['lieu_ok'] for s in r['sites'])),'domaine répond',sum(1 for r in out if r['sites']))

@@ -24,7 +24,10 @@ if a.suivi:
 # secteurs visés (préfixe NAF) et leur libellé ; les holdings, l'immobilier, l'agriculture et les particuliers sont exclus
 SECT={'43':'Bâtiment','41':'Construction','33':'Réparation industrielle','45':'Garage / auto','47':'Commerce','56':'Restauration',
       '96':'Coiffure / beauté / services','10':'Alimentation artisanale','81':'Paysagiste','95':'Réparation','71':'Bureau d\'études',
-      '74':'Services spécialisés','49':'Transport','55':'Hébergement','31':'Ameublement','25':'Métallerie','32':'Fabrication','85':'Formation','86':'Santé','90':'Création'}
+      '74':'Services spécialisés','49':'Transport','55':'Hébergement','31':'Ameublement','25':'Métallerie','32':'Fabrication','85':'Formation','86':'Santé','90':'Création',
+      # 04/10 : élargissement (viticulteurs et distilleries, commerces, enseignement de loisirs, couture, nettoyage, événementiel)
+      '01':'Viticulture','11':'Distillerie / chai','13':'Textile','14':'Couture','23':'Pierre','77':'Location loisirs','79':'Tourisme',
+      '80':'Sécurité','82':'Événementiel','93':'Loisirs'}
 EFF={'00':0,'NN':0,'01':1,'02':3,'03':6,'11':10,'12':20,'21':50,'22':100}
 auj=datetime.date.today()
 out=[]

@@ -1,4 +1,4 @@
-import json,subprocess,time,sys
+import json,subprocess,time,sys,os
 # Usage : python3 registre.py <département>  (ex. 79). Passe par le relais Vercel (cookie cj.txt).
 DEP=sys.argv[1]
 B="https://relais-dig-justok1.vercel.app/api/cc"
@@ -6,6 +6,9 @@ NAF="""41.20A 41.20B 43.11Z 43.12A 43.12B 43.21A 43.22A 43.22B 43.29A 43.29B 43.
 45.11Z 45.20A 45.20B 45.32Z 45.40Z 55.10Z 55.20Z 55.30Z 56.10A 56.10B 56.10C 56.21Z 56.30Z 96.02A 96.02B 96.04Z 96.09Z 96.01B
 10.13B 10.71C 10.71D 47.22Z 47.76Z 47.24Z 81.30Z 81.29A 74.20Z 49.32Z 95.11Z 95.12Z 95.21Z 95.22Z 95.23Z 95.24Z 95.25Z 95.29Z 33.12Z
 16.23Z 25.11Z 25.12Z 31.09B 77.39Z 93.13Z 85.53Z 96.03Z 47.78C 47.71Z 47.52A 47.30Z 01.30Z 71.12B 49.41B 38.11Z 43.13Z 32.12Z 18.12Z 80.20Z""".split()
+# 04/10 : liste de codes NAF et suffixe du fichier de sortie modifiables (élargissement à d'autres métiers)
+if os.environ.get('NAF'): NAF=os.environ['NAF'].split()
+SUFFIXE=os.environ.get('SUFFIXE','')
 out=[];vu=set()
 def get(url):
     for t in range(5):
@@ -32,5 +35,5 @@ for naf in NAF:
         if p>=d.get('total_pages',1) or p>=400: break
         p+=1; time.sleep(0.25)
     print(naf,len(out),flush=True)
-json.dump(out,open(f'reg{DEP}.json','w'),ensure_ascii=False)
+json.dump(out,open(f'reg{DEP}{SUFFIXE}.json','w'),ensure_ascii=False)
 print('TOTAL',len(out))
