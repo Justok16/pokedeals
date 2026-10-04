@@ -51,6 +51,9 @@ jobs:
                       loc = (r.get('locations') or [{}])[0].get('physicalLocation', {})
                       print('::error::', r.get('ruleId'), loc.get('artifactLocation', {}).get('uri'),
                             loc.get('region', {}).get('startLine'), r.get('message', {}).get('text', '')[:200])
+                      for rl in r.get('relatedLocations', []):  # origine de la donnée signalée
+                          p = rl.get('physicalLocation', {})
+                          print('   source :', p.get('artifactLocation', {}).get('uri'), p.get('region', {}).get('startLine'))
           print(n, 'problème(s) signalé(s) par CodeQL')
           sys.exit(1 if n else 0)
           PY
