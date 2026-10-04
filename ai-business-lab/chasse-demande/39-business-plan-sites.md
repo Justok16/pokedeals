@@ -51,6 +51,9 @@ chaque page d'accueil en respectant robots.txt.
 | Agence web | 3 000 à 20 000 € + 600 à 3 000 €/an | idem |
 | Refonte Up | 490 € HT/mois pendant 6 mois, puis 0 € ; site à vous | [refonte-up.fr](https://refonte-up.fr/alternative-solocal/) |
 | Wix / Squarespace (fait soi-même) | 200 à 430 €/an | [SK Web](https://sk-web.fr/article/cout-creation-site-web-artisan-2026) |
+| Artizo (Charente) | 4,90 €/mois sans engagement, ou « Formule Autonome 199 € une fois » ; domaine .fr offert | [artizo.fr](https://artizo.fr) (lu le 04/10/2026) |
+
+Revérifié le 04/10/2026 sur les pages officielles : SoLocal 64 / 114 / 209 €/mois (inchangé), WebTensor 99 € HT/mois (inchangé).
 
 **Bonnes idées reprises de la concurrence :**
 1. « **Votre site vous appartient** » : code, contenu et nom de domaine au
