@@ -39,7 +39,30 @@ class ProduitSurveille:
         eviter les faux positifs sur un simple "anniversaire" isole.
     date_sortie : date de sortie officielle FR -- sert à CONFIRMER un match
         trouve (si une date est detectable sur la page) et a desactiver
-        automatiquement la detection une fois passee.
+        automatiquement la detection une fois passee. None = date inconnue
+        ou reportee : aucune validation de date (une page n'est jamais
+        rejetee pour sa date), match toujours a confiance "moyenne".
+    surveiller_jusqu_au : fin de la fenetre de detection si differente de
+        date_sortie (defaut : date_sortie). Permet de continuer a detecter
+        les RESTOCKS apres la sortie, sans toucher a la date servant a
+        valider les pages (ex: ETB sorti le 16/09 mais suivi jusqu'a fin
+        d'annee). Si date_sortie ET surveiller_jusqu_au sont None, le
+        produit reste actif indefiniment.
+    mots_cles_supplementaires : groupes de mots-cles ADDITIONNELS, dont
+        chacun doit aussi avoir au moins un terme present (en plus des
+        groupes edition et type) -- sert a distinguer un coffret d'une
+        carte a l'unite du meme personnage (ex: tin Nymphali vs carte
+        Nymphali ex isolee de la meme extension).
+    alerte_disponibilite : suivi de DISPONIBILITE demande explicitement
+        par Justok (04/10/2026, produits des 30 ans). Trois effets :
+        (1) alerte des qu'une page devient commandable (rupture ->
+        stock) OU apparait deja commandable sur une boutique deja
+        balayee au moins une fois pour ce produit (premier balayage d'une
+        boutique = reference silencieuse, cf. alerte_precommande) ;
+        (2) message "Disponible" au lieu de "Precommande detectee" ;
+        (3) alerte Telegram envoyee MEME si l'interrupteur global
+        notifications.telegram (config.yaml) est coupe -- cet interrupteur
+        reste actif pour tout le reste (cf. scan_precommandes.py).
     prioritaire : marque un produit auquel Justok tient particulierement --
         purement cosmetique (ajoute un ⭐ dans l'alerte Telegram, cf.
         alerte_precommande._texte_precommande), n'affecte AUCUNE logique de
@@ -49,8 +72,11 @@ class ProduitSurveille:
     nom: str
     mots_cles_edition: frozenset[str]
     mots_cles_type: frozenset[str]
-    date_sortie: date
+    date_sortie: date | None
     prioritaire: bool = False
+    surveiller_jusqu_au: date | None = None
+    mots_cles_supplementaires: tuple[frozenset[str], ...] = ()
+    alerte_disponibilite: bool = False
 
 
 PRODUITS_SURVEILLES: list[ProduitSurveille] = [
@@ -116,6 +142,8 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             "mentali", "espeon",
         }),
         date_sortie=date(2026, 11, 6),
+        surveiller_jusqu_au=date(2026, 12, 31),
+        alerte_disponibilite=True,
     ),
     ProduitSurveille(
         nom="Collection Ultra-Premium — Umbreon (Noctali) 30e Anniversaire FR",
@@ -128,6 +156,89 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         }),
         date_sortie=date(2026, 11, 6),
         prioritaire=True,  # celle qui interesse le plus Justok (18/08/2026)
+        surveiller_jusqu_au=date(2026, 12, 31),
+        alerte_disponibilite=True,
+    ),
+    # --- Suivi de DISPONIBILITE des produits des 30 ans (demande de Justok,
+    # 04/10/2026 : "prevenez-moi des qu'il y aura du restock" / "des qu'il
+    # sera possible de precommander et/ou du stock"). L'entree ETB
+    # d'origine (ci-dessus, sortie 16/09) a expire automatiquement : cette
+    # nouvelle entree la remplace pour le SUIVI DES RESTOCKS. Le nom
+    # differe VOLONTAIREMENT de l'ancienne (cle memoire = domaine|nom) :
+    # les anciens etats memorises (periode precommande, alertes jamais
+    # envoyees pendant la coupure Telegram du 19/09) auraient sinon
+    # declenche une rafale d'alertes "stock" pour des ETB en vente depuis
+    # des semaines. Fenetre : fin 2026 (a rallonger si les restocks
+    # continuent).
+    ProduitSurveille(
+        nom="Coffret Dresseur d'Élite — 30e Anniversaire FR (suivi restock)",
+        mots_cles_edition=frozenset({
+            # Meme liste que l'entree d'origine (cf. son commentaire sur
+            # "celebration" seul -- ne PAS ajouter "30 ans" ici : texte
+            # marketing generique present sur d'autres ETB de 2026, ex.
+            # ME06 Regne Delta, ce serait un faux positif).
+            "30e anniversaire", "30eme anniversaire", "30th anniversary",
+            "30th celebration",
+        }),
+        mots_cles_type=frozenset({
+            "dresseur d'elite", "dresseur elite", "etb", "elite trainer box",
+        }),
+        date_sortie=date(2026, 9, 16),
+        surveiller_jusqu_au=date(2026, 12, 31),
+        alerte_disponibilite=True,
+    ),
+    # Booster Bundle et Mini Tin : sortie initialement prevue le 02/10/2026
+    # puis REPORTEE par les distributeurs (date non confirmee au
+    # 04/10/2026) -> date_sortie=None, aucune validation de date (une page
+    # affichant la nouvelle date ne doit pas etre rejetee).
+    ProduitSurveille(
+        nom="Booster Bundle — 30e Anniversaire (30th Celebration) FR",
+        mots_cles_edition=frozenset({
+            "30e anniversaire", "30eme anniversaire", "30th anniversary",
+            "30th celebration",
+        }),
+        mots_cles_type=frozenset({
+            "booster bundle", "bundle", "paquet de boosters", "paquet de booster",
+        }),
+        date_sortie=None,
+        surveiller_jusqu_au=date(2026, 12, 31),
+        alerte_disponibilite=True,
+    ),
+    ProduitSurveille(
+        nom="Mini Tin — 30e Anniversaire (30th Celebration) FR",
+        mots_cles_edition=frozenset({
+            "30e anniversaire", "30eme anniversaire", "30th anniversary",
+            "30th celebration",
+        }),
+        mots_cles_type=frozenset({
+            "mini tin", "mini boite", "mini coffret metal",
+        }),
+        date_sortie=None,
+        surveiller_jusqu_au=date(2026, 12, 31),
+        alerte_disponibilite=True,
+    ),
+    # Pokebox / Tin 30e Anniversaire Nymphali-ex (Sylveon ex Tin, 4
+    # boosters + promo + carte oversize) : sortie annoncee le 04/12/2026
+    # cote US, date FR non confirmee -> date_sortie=None. Mots-cles
+    # volontairement stricts (pas de "tin" seul : sous-chaine de "destinees",
+    # "tintin"...) pour ne PAS matcher les cartes Nymphali ex a l'unite de la
+    # meme extension (faux positifs en rafale sur les boutiques de
+    # singles) : le groupe supplementaire impose le personnage, le groupe
+    # type impose un format coffret/boite.
+    ProduitSurveille(
+        nom="Pokébox / Tin — Nymphali ex (Sylveon ex Tin) 30e Anniversaire FR",
+        mots_cles_edition=frozenset({
+            "30e anniversaire", "30eme anniversaire", "30th anniversary",
+            "30th celebration", "30 ans",
+        }),
+        mots_cles_type=frozenset({
+            "pokebox", "poke box", "ex tin", "tin nymphali", "tin sylveon",
+            "ex box", "pokemon ex box", "coffret pokemon ex",
+        }),
+        mots_cles_supplementaires=(frozenset({"nymphali", "sylveon"}),),
+        date_sortie=None,
+        surveiller_jusqu_au=date(2027, 1, 31),
+        alerte_disponibilite=True,
     ),
 ]
 
@@ -154,10 +265,17 @@ def _normaliser(texte: str) -> str:
 
 
 def produits_actifs(aujourdhui: date | None = None) -> list[ProduitSurveille]:
-    """Produits dont la date de sortie n'est pas encore passee -- arret
-    automatique de la detection au-dela (cf. docstring du module)."""
+    """Produits dont la fenetre de surveillance n'est pas terminee (fin =
+    surveiller_jusqu_au, a defaut date_sortie ; aucune des deux = actif
+    sans limite) -- arret automatique de la detection au-dela (cf.
+    docstring du module)."""
     aujourdhui = aujourdhui or date.today()
-    return [p for p in PRODUITS_SURVEILLES if p.date_sortie >= aujourdhui]
+    actifs = []
+    for p in PRODUITS_SURVEILLES:
+        fin = p.surveiller_jusqu_au or p.date_sortie
+        if fin is None or fin >= aujourdhui:
+            actifs.append(p)
+    return actifs
 
 
 # --- Detection de mots-cles ---
@@ -177,7 +295,11 @@ def titre_correspond_produit(texte: str, produit: ProduitSurveille) -> bool:
     texte_norm = _normaliser(texte)
     a_edition = any(_normaliser(mot) in texte_norm for mot in produit.mots_cles_edition)
     a_type = any(_normaliser(mot) in texte_norm for mot in produit.mots_cles_type)
-    return a_edition and a_type
+    a_supplementaires = all(
+        any(_normaliser(mot) in texte_norm for mot in groupe)
+        for groupe in produit.mots_cles_supplementaires
+    )
+    return a_edition and a_type and a_supplementaires
 
 
 # --- Extraction et validation de date sur la page produit ---
@@ -270,6 +392,9 @@ def evaluer_correspondance(
 
     if not titre_correspond_produit(texte_complet, produit):
         return None, "mots-cles absents (edition et/ou type de produit)"
+
+    if produit.date_sortie is None:
+        return "moyenne", "mots-cles presents (date de sortie inconnue ou reportee : pas de validation de date)"
 
     dates_trouvees = extraire_dates_page(texte_complet)
     if not dates_trouvees:

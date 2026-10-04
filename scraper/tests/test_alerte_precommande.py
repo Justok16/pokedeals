@@ -326,3 +326,77 @@ def test_sans_memoire_fournie_fonctionne_toujours_comme_avant():
     with patch("alerte_precommande.requests.post", return_value=_reponse(200)):
         ok = envoyer_telegram_precommandes([evenement], "123", "token")
     assert ok is True
+
+
+# ------------- 04/10/2026 : suivi de disponibilite (alerte_disponibilite) -------------
+
+from alerte_precommande import marquer_boutique_balayee
+
+NOM_SUIVI = "Mini Tin 30e Anniversaire"
+
+
+def _dispo(**kw):
+    return _candidat(nom_produit=NOM_SUIVI, alerte_disponibilite=True, **kw)
+
+
+def test_dispo_premier_balayage_de_la_boutique_est_silencieux():
+    # Reference initiale : page deja commandable sur une boutique jamais
+    # balayee pour ce produit -> memoire etablie, aucune alerte (meme "forte").
+    memoire = {}
+    evenements = detecter_nouvelles_precommandes("exemple.fr", [_dispo(confiance="forte")], memoire)
+    assert evenements == []
+    assert memoire[f"exemple.fr|{NOM_SUIVI}"]["en_stock"] is True
+
+
+def test_dispo_page_nouvelle_commandable_sur_boutique_deja_balayee_alerte():
+    memoire = {}
+    marquer_boutique_balayee("exemple.fr", [NOM_SUIVI], memoire)
+    evenements = detecter_nouvelles_precommandes("exemple.fr", [_dispo(confiance="moyenne")], memoire)
+    assert len(evenements) == 1
+
+
+def test_dispo_page_nouvelle_hors_stock_sur_boutique_balayee_est_silencieuse_puis_alerte_au_restock():
+    memoire = {}
+    marquer_boutique_balayee("exemple.fr", [NOM_SUIVI], memoire)
+    assert detecter_nouvelles_precommandes("exemple.fr", [_dispo(en_stock=False)], memoire) == []
+    evenements = detecter_nouvelles_precommandes("exemple.fr", [_dispo(en_stock=True)], memoire)
+    assert len(evenements) == 1
+
+
+def test_dispo_page_deja_commandable_ne_realerte_pas_a_chaque_cycle():
+    memoire = {f"exemple.fr|{NOM_SUIVI}": {"confiance": "moyenne", "en_stock": True}}
+    assert detecter_nouvelles_precommandes("exemple.fr", [_dispo(confiance="moyenne")], memoire) == []
+
+
+def test_dispo_changement_de_confiance_sans_changement_de_stock_nalerte_pas():
+    # Contrairement au mode precommande (V53 : "confirmation de date"), un
+    # changement de texte de page ne doit pas declencher d'alerte ici.
+    memoire = {f"exemple.fr|{NOM_SUIVI}": {"confiance": "moyenne", "en_stock": True}}
+    assert detecter_nouvelles_precommandes("exemple.fr", [_dispo(confiance="forte")], memoire) == []
+
+
+def test_dispo_restock_apres_rupture_alerte():
+    memoire = {f"exemple.fr|{NOM_SUIVI}": {"confiance": "moyenne", "en_stock": False}}
+    evenements = detecter_nouvelles_precommandes("exemple.fr", [_dispo()], memoire)
+    assert len(evenements) == 1
+
+
+def test_marqueur_de_balayage_est_par_boutique_et_par_produit():
+    memoire = {}
+    marquer_boutique_balayee("a.fr", [NOM_SUIVI], memoire)
+    assert detecter_nouvelles_precommandes("b.fr", [_dispo()], memoire) == []          # autre boutique
+    assert detecter_nouvelles_precommandes(
+        "a.fr", [_candidat(nom_produit="Autre produit", alerte_disponibilite=True)], memoire) == []  # autre produit
+
+
+def test_mode_precommande_inchange_sans_le_flag():
+    memoire = {}
+    marquer_boutique_balayee("exemple.fr", [NOM_SUIVI], memoire)
+    # moyenne + premiere fois : toujours silencieux sans le flag, balayee ou non
+    assert detecter_nouvelles_precommandes(
+        "exemple.fr", [_candidat(nom_produit=NOM_SUIVI, confiance="moyenne")], memoire) == []
+
+
+def test_texte_disponibilite_vs_precommande():
+    assert "Disponible" in _texte_precommande({**_dispo(), "domaine": "exemple.fr"})
+    assert "Précommande détectée" in _texte_precommande({**_candidat(), "domaine": "exemple.fr"})

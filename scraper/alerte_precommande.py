@@ -23,6 +23,23 @@ def _cle_memoire(domaine: str, nom_produit: str) -> str:
     return f"{domaine}|{nom_produit}"
 
 
+def _cle_balayage(domaine: str, nom_produit: str) -> str:
+    return f"__balayage__|{domaine}|{nom_produit}"
+
+
+def marquer_boutique_balayee(domaine: str, noms_produits, memoire: dict, horodatage: str = "") -> None:
+    """Memorise qu'une boutique a ete scannee avec succes pour ces produits
+    (appelee APRES detecter_nouvelles_precommandes pour la meme boutique).
+    Sert au suivi de disponibilite (ProduitSurveille.alerte_disponibilite) :
+    une page qui apparait deja commandable sur une boutique DEJA balayee
+    est une vraie nouveaute a signaler ; sur une boutique jamais balayee
+    pour ce produit, c'est juste la reference initiale (silencieuse) --
+    evite la rafale d'alertes au premier cycle apres l'ajout d'un produit,
+    sans dependre du decoupage des boutiques en plusieurs lots/executions."""
+    for nom in noms_produits:
+        memoire.setdefault(_cle_balayage(domaine, nom), {"depuis": horodatage})
+
+
 # Pas de valeur par defaut pour `chemin` : un fichier memoire PAR PLATEFORME
 # existe (precommandes_anniversaire_{shopify,prestashop,woocommerce}.json),
 # scan_precommandes.py passe toujours le chemin explicite -- un defaut
@@ -189,11 +206,22 @@ def detecter_nouvelles_precommandes(
         # hors-stock -> en-stock (stock_vient_de_souvrir) alertera bien des
         # qu'elle survient.
         peut_alerter = c.get("en_stock") is True
-        if peut_alerter and (
-            stock_vient_de_souvrir or (
+        if c.get("alerte_disponibilite"):
+            # Suivi de disponibilite (04/10/2026, demande de Justok) : seules
+            # comptent (a) la transition hors-stock -> commandable d'une
+            # page deja connue, (b) une page NOUVELLE deja commandable sur
+            # une boutique deja balayee (reference silencieuse sinon, cf.
+            # marquer_boutique_balayee). Les regles de confiance
+            # ("confirmation de date" etc.) ne s'appliquent pas ici : un
+            # changement de texte de page ne doit pas generer d'alerte.
+            doit_alerter = stock_vient_de_souvrir or (
+                premiere_fois and _cle_balayage(domaine, c["nom_produit"]) in memoire
+            )
+        else:
+            doit_alerter = stock_vient_de_souvrir or (
                 not premiere_fois_ambigue and not deja_alerte_a_ce_niveau and not deja_confirme_mieux
             )
-        ):
+        if peut_alerter and doit_alerter:
             c["_cle_memoire"] = cle_mem
             c["_nouvel_etat"] = nouvel_etat
             evenements.append(c)
@@ -229,8 +257,9 @@ def _texte_precommande(e: dict) -> str:
     titre_ligne = f"🎁 <b>{_echapper_html(e['nom_produit'])}</b>"
     if e.get("prioritaire"):
         titre_ligne = f"⭐ {titre_ligne}"
+    entete = "🔔 <b>Disponible !</b>" if e.get("alerte_disponibilite") else "🎉 <b>Précommande détectée !</b>"
     return (
-        f"🎉 <b>Précommande détectée !</b>\n"
+        f"{entete}\n"
         f"{titre_ligne}\n"
         f"🏪 {_echapper_html(e['domaine'])}\n"
         f"🔎 Confiance : {niveau}\n"
