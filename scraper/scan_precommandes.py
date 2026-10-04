@@ -89,14 +89,22 @@ SUFFIXE_MEMOIRE_COMPLEMENT = "_complement"
 
 
 def _boutiques_et_replis_complement(plateforme: str) -> tuple[list[str], dict[str, str]]:
+    # Annuaire verifie (boutiques_complement.py) + certificats HTTPS
+    # (boutiques_complement_ct.py), dedoublonnes en gardant l'ordre.
     import boutiques_complement as bc
+    import boutiques_complement_ct as ct
+
+    def union(*listes):
+        return list(dict.fromkeys(d for liste in listes for d in liste))
+
     if plateforme == "shopify":
-        return list(bc.BOUTIQUES_COMPLEMENT_SHOPIFY), {}
+        return union(bc.BOUTIQUES_COMPLEMENT_SHOPIFY, ct.BOUTIQUES_COMPLEMENT_CT_SHOPIFY), {}
     if plateforme == "prestashop":
-        boutiques = list(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_SITEMAP) + list(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_REPLI_HTML)
-        return boutiques, {d: "html" for d in bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_REPLI_HTML}
+        repli = union(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_REPLI_HTML, ct.BOUTIQUES_COMPLEMENT_CT_PRESTASHOP_REPLI_HTML)
+        sitemap = union(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_PRESTASHOP_SITEMAP)
+        return union(sitemap, repli), {d: "html" for d in repli}
     if plateforme == "woocommerce":
-        return list(bc.BOUTIQUES_COMPLEMENT_WOOCOMMERCE_SITEMAP), {}
+        return union(bc.BOUTIQUES_COMPLEMENT_WOOCOMMERCE_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_WOOCOMMERCE_SITEMAP), {}
     raise ValueError(f"Plateforme inconnue : {plateforme!r} (attendu: shopify/prestashop/woocommerce)")
 
 

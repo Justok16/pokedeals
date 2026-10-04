@@ -148,7 +148,12 @@ def domaines_deja_scannes() -> set[str]:
     import boutiques_shopify as bs
     import boutiques_woocommerce as bw
     connus: set[str] = set()
-    for module in (bs, bp, bw, bd):
+    try:
+        import boutiques_complement_ct as ct  # boutiques trouvees par certificats : jamais en double
+        modules_ct = (ct,)
+    except ImportError:
+        modules_ct = ()
+    for module in (bs, bp, bw, bd) + modules_ct:
         for nom, valeur in vars(module).items():
             if nom.isupper() and isinstance(valeur, (list, tuple, set, dict)):
                 for d in (valeur.keys() if isinstance(valeur, dict) else valeur):
