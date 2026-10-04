@@ -137,3 +137,62 @@ def test_tin_nymphali_matche_le_coffret_mais_pas_la_carte_a_lunite():
         "Nymphali ex - 30e Anniversaire - Rivalités Destinées carte rare", tin) is False
     # pokebox d'un autre personnage de la meme extension
     assert titre_correspond_produit("Pokébox 30e Anniversaire Amphinobi-ex", tin) is False
+
+
+# ------------- 04/10/2026 : faux positifs reels recus sur Telegram -------------
+
+def test_lot_revendeur_kwily_nest_pas_un_booster_bundle():
+    bundle = _produit("Booster Bundle")
+    conf, raison = evaluer_correspondance(
+        "Lot/bundle 30 ans - 30e anniversaire - Pokémon français officiel",
+        "Envoi à partir du 20 septembre 2026 !! Pack/bundle Pokémon Célébration 30th Contenu : 1 Coffret poster "
+        "Célébration 30th 1 Bundle ME05 nuit noire 1 Tripack ME04 chaos ascendant", bundle)
+    assert conf is None and "lot" in raison
+
+
+def test_lot_duopack_kwily_nest_ni_un_mini_tin_ni_un_booster_bundle():
+    mini, bundle = _produit("Mini Tin"), _produit("Booster Bundle")
+    titre = "Lot duopack 30 ans - 30e anniversaire - Pokémon français officiel"
+    desc = "Contenu : 1 Duopack 30e anniversaire 1 Tripack ME04 1 mini tin Illumis Date de sortie : Septembre 2026"
+    assert evaluer_correspondance(titre, desc, mini)[0] is None
+    assert evaluer_correspondance(titre, "1 ETB (Elite Trainer Box) ME04 1 Duopack Célébration 30th", bundle)[0] is None
+
+
+def test_mini_tin_ensky_japonais_nest_pas_le_mini_tin_tcg_fr():
+    mini = _produit("Mini Tin")
+    conf, raison = evaluer_correspondance(
+        "Pokémon: 30th Anniversary Mini Tin Case Collection Vol.1 (10 Pack Box) [Ensky] - Nin-Nin-Game.com",
+        "Édition Originale Japonaise, Articles de Collection d'Anime & Jeux Vidéo", mini)
+    assert conf is None and "import" in raison
+
+
+def test_vrais_produits_restent_detectes_malgre_les_exclusions():
+    bundle, mini, etb = _produit("Booster Bundle"), _produit("Mini Tin"), _produit("suivi restock")
+    assert evaluer_correspondance("Pokémon · 30e Anniversaire - Bundle 6 Boosters - FR", "", bundle)[0] == "moyenne"
+    assert evaluer_correspondance("Pokémon · 30e Anniversaire - Mini Tin - FR", "", mini)[0] == "moyenne"
+    assert evaluer_correspondance("Pokémon · 30e Anniversaire - Coffret Dresseur d'Élite - FR", "", etb)[0] is not None
+
+
+def test_exclusion_en_mot_entier_seulement():
+    from precommandes_watchlist import _mot_exclu
+    assert _mot_exclu("Pilote ballotin", frozenset({"lot"})) is None
+    assert _mot_exclu("Lot/bundle 30 ans", frozenset({"lot"})) == "lot"
+
+
+def test_pack_generique_de_revendeur_ne_matche_aucun_produit_via_sa_description():
+    # kwilytcg.com, 2e vague de faux positifs du 04/10/2026
+    produits = [_produit(f) for f in ("Booster Bundle", "Mini Tin", "suivi restock", "Nymphali ex (Sylveon ex Tin)")]
+    for titre, desc in (
+        ("Pack coffret 30 ans - 30e anniversaire - Pokemon français officiel",
+         "Contenu : 1 ETB, 1 Bundle 6 boosters, 1 Mini Tin, 1 Coffret Dresseur d'Élite 30e anniversaire"),
+        ("Gros pack 30ans + ME03/04 - 30e anniversaire - Pokémon français officiel",
+         "Pokébox Nymphali ex 30e anniversaire + ETB"),
+    ):
+        for p in produits:
+            assert evaluer_correspondance(titre, desc, p)[0] is None, (titre, p.nom)
+
+
+def test_le_type_dans_le_titre_est_exige_pour_les_produits_en_suivi():
+    mini = _produit("Mini Tin")
+    conf, raison = evaluer_correspondance("Pokémon 30e Anniversaire - FR", "Mini Tin 30e anniversaire", mini)
+    assert conf is None and "titre" in raison
