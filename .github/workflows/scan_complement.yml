@@ -1,0 +1,56 @@
+name: Scan Complement (boutiques verifiees)
+on:
+  schedule:
+    # Radar de disponibilite/precommandes sur les boutiques COMPLEMENTAIRES
+    # (boutiques_complement.py), independant des 3 workflows de scan
+    # principaux dont la marge de temps est deja serree. Mesure locale
+    # 04/10/2026 : ~1.5 min pour les 12 boutiques initiales (Shopify 41s +
+    # WooCommerce 13s + PrestaShop 43s).
+    - cron: "*/20 * * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: read   # memoire du radar dans Supabase, aucune ecriture sur le repo
+concurrency:
+  group: scan_complement   # groupe DEDIE
+  cancel-in-progress: false
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    timeout-minutes: 20
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      PYTHONUNBUFFERED: "1"
+      RADAR_PERIMETRE: complement   # memoire Supabase DISTINCTE (suffixe _complement), cf. scan_precommandes.py
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+      - name: Installer Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      # Les 3 plateformes en sequence (memoires distinctes) ; une etape en
+      # echec n'empeche pas les suivantes (continue-on-error), le job reste
+      # rouge pour etre vu par le watchdog.
+      - name: Radar Shopify (complement)
+        id: shopify
+        continue-on-error: true
+        run: python scan_precommandes.py shopify
+      - name: Radar WooCommerce (complement)
+        id: woocommerce
+        continue-on-error: true
+        run: python scan_precommandes.py woocommerce
+      - name: Radar PrestaShop (complement)
+        id: prestashop
+        continue-on-error: true
+        run: python scan_precommandes.py prestashop
+      - name: Échec si une plateforme a échoué
+        if: steps.shopify.outcome == 'failure' || steps.woocommerce.outcome == 'failure' || steps.prestashop.outcome == 'failure'
+        run: exit 1

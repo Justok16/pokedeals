@@ -59,6 +59,8 @@ WORKFLOWS_SURVEILLES = [
     "scan_precommandes_generique.yml",
     "scan_precommandes_philibert.yml",
     "verifier_alertes_watchlist.yml",  # ajoute le 03/09/2026 (audit), workflow lui-meme cree le 03/09/2026
+    "scan_complement.yml",             # ajoute le 04/10/2026 (radar des boutiques verifiees complementaires)
+    "decouverte_annuaires.yml",        # ajoute le 04/10/2026 (annuaire boutiques verifiees)
 ]
 
 
