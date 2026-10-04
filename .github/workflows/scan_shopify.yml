@@ -17,6 +17,7 @@ on:
         default: ""
 permissions:
   contents: write   # necessaire pour sauvegarder data/stock_boutiques_tcg.json
+  actions: write    # necessaire pour declencher scan_complement.yml (derniere etape)
 concurrency:
   group: scan_shopify   # groupe DEDIE, distinct de "pokedeals" (main.py) :
   cancel-in-progress: false  # les deux workflows tournent independamment l'un de l'autre
@@ -67,3 +68,16 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           PYTHONUNBUFFERED: "1"
         run: python scan_precommandes.py shopify
+      # 04/10/2026 : le declencheur `schedule` natif de scan_complement.yml est
+      # tres irregulier (3 runs en 12 h au lieu d'un toutes les 20 min : meme
+      # defaut du scheduler GitHub qui a motive les cronjobs cron-job.org).
+      # Ce workflow-ci, lui, est declenche de facon fiable toutes les 25 min :
+      # on lui fait lancer le radar des boutiques verifiees en derniere etape
+      # (~1 s, workflow_dispatch par GITHUB_TOKEN autorise). continue-on-error
+      # et `if: always()` : un echec ici ne change jamais le resultat du scan.
+      - name: Déclencher le radar complément (boutiques vérifiées)
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run scan_complement.yml --ref main
