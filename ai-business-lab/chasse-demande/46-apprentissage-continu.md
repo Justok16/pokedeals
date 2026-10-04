@@ -237,6 +237,8 @@ Constat : les fiches affirmaient « j'ai préparé une page à votre nom » alor
 - **Fiches** : bouton « 🖥️ Démo » quand la démo existe ; sinon l'accroche propose la démo au lieu de l'affirmer.
   192 PDF régénérés (mêmes numéros), classement 16230 et guide de prospection mis à jour ; automatique pour les
   prochains ajouts.
+- **Bouton « 📩 SMS »** (demande de l'utilisateur, même soir) à côté de chaque « 🖥️ Démo » : ouvre la messagerie avec le
+  texte et le lien déjà écrits ; il ne reste qu'à taper le portable du prospect (les fixes en 05 ne reçoivent pas de SMS).
 
 ### Concurrent repéré le 01/10 (soir) : Artizo
 
