@@ -67,3 +67,73 @@ def test_noctali_est_marque_prioritaire():
 def test_mentali_nest_pas_marque_prioritaire_par_defaut():
     mentali = _produit("Espeon (Mentali)")
     assert mentali.prioritaire is False
+
+
+# ------------- 04/10/2026 : suivi de disponibilite des produits des 30 ans -------------
+
+from datetime import date
+
+from precommandes_watchlist import evaluer_correspondance, produits_actifs
+
+
+def test_etb_30e_suivi_restock_actif_apres_la_date_de_sortie():
+    # L'entree d'origine (sortie 16/09) a expire ; l'entree "suivi restock"
+    # reste active jusqu'a fin 2026.
+    etb = _produit("suivi restock")
+    assert etb in produits_actifs(date(2026, 10, 4))
+    assert etb not in produits_actifs(date(2027, 1, 1))
+    anciens = [p for p in PRODUITS_SURVEILLES
+               if "30e Anniversaire" in p.nom and "Coffret Dresseur" in p.nom and p is not etb]
+    assert anciens and all(p not in produits_actifs(date(2026, 10, 4)) for p in anciens)
+
+
+def test_produit_sans_date_ni_fenetre_reste_actif_indefiniment():
+    from precommandes_watchlist import ProduitSurveille
+    p = ProduitSurveille("x", frozenset({"a"}), frozenset({"b"}), date_sortie=None)
+    from unittest.mock import patch
+    with patch("precommandes_watchlist.PRODUITS_SURVEILLES", [p]):
+        assert produits_actifs(date(2030, 1, 1)) == [p]
+
+
+def test_tous_les_produits_des_30_ans_sont_en_suivi_de_disponibilite():
+    for fragment in ("suivi restock", "Booster Bundle", "Mini Tin", "Nymphali ex (Sylveon ex Tin)",
+                     "Espeon (Mentali)", "Umbreon (Noctali)"):
+        assert _produit(fragment).alerte_disponibilite is True
+
+
+def test_bundle_et_mini_tin_ne_valident_pas_la_date():
+    # Sortie reportee : une page affichant une date quelconque ne doit pas
+    # etre rejetee pour incompatibilite de date.
+    bundle = _produit("Booster Bundle")
+    conf, _ = evaluer_correspondance("Booster Bundle 30th Celebration", "Sortie le 20/11/2026", bundle)
+    assert conf == "moyenne"
+
+
+def test_titres_bundle_et_mini_tin():
+    bundle = _produit("Booster Bundle")
+    mini = _produit("Mini Tin")
+    assert titre_correspond_produit("Pokémon - Booster Bundle 30th Celebration - FR", bundle) is True
+    assert titre_correspond_produit("Bundle 6 boosters 30e Anniversaire", bundle) is True
+    assert titre_correspond_produit("Mini Tin 30e Anniversaire Pokémon (Mentali)", mini) is True
+    assert titre_correspond_produit("Mini Tin 30e Anniversaire Pokémon", bundle) is False
+    assert titre_correspond_produit("Booster Bundle Règne Delta ME06", bundle) is False
+
+
+def test_titre_etb_30e_ne_matche_pas_un_etb_dun_autre_set():
+    etb = _produit("suivi restock")
+    assert titre_correspond_produit("Coffret Dresseur d'Élite 30e Anniversaire FR", etb) is True
+    assert titre_correspond_produit("ETB ME06 Règne Delta, Pokémon fête ses 30 ans", etb) is False
+
+
+def test_tin_nymphali_matche_le_coffret_mais_pas_la_carte_a_lunite():
+    tin = _produit("Nymphali ex (Sylveon ex Tin)")
+    assert titre_correspond_produit("Pokébox 30e Anniversaire Nymphali-ex", tin) is True
+    assert titre_correspond_produit("30th Celebration ex Tin [Sylveon ex]", tin) is True
+    assert titre_correspond_produit("Tin Nymphali ex - 30 ans Pokémon", tin) is True
+    # carte isolee de la meme extension, avec "destinees" dans la description
+    assert titre_correspond_produit(
+        "Nymphali ex 018/030 - 30th Celebration", tin) is False
+    assert titre_correspond_produit(
+        "Nymphali ex - 30e Anniversaire - Rivalités Destinées carte rare", tin) is False
+    # pokebox d'un autre personnage de la meme extension
+    assert titre_correspond_produit("Pokébox 30e Anniversaire Amphinobi-ex", tin) is False

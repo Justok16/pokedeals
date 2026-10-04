@@ -24,6 +24,7 @@ import logging
 import os
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -32,6 +33,7 @@ from alerte_precommande import (
     charger_memoire,
     detecter_nouvelles_precommandes,
     envoyer_telegram_precommandes,
+    marquer_boutique_balayee,
     sauvegarder_memoire,
 )
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
@@ -140,6 +142,10 @@ def scanner_plusieurs_boutiques(plateforme: str, boutiques: list[str], modes: di
             candidats = scanner_une_boutique(plateforme, domaine, modes.get(domaine), produits)
             evenements = detecter_nouvelles_precommandes(domaine, candidats, memoire)
             tous_les_evenements.extend(evenements)
+            marquer_boutique_balayee(
+                domaine, [p.nom for p in produits if p.alerte_disponibilite], memoire,
+                datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            )
             boutiques_ok.append(domaine)
             print(f"[{i + 1}/{len(boutiques)}] {domaine} : OK — {len(candidats)} candidat(s), {len(evenements)} nouvelle(s) alerte(s)")
         except Exception as e:  # noqa: BLE001 -- une boutique en echec ne doit jamais arreter le cycle
@@ -179,7 +185,8 @@ if __name__ == "__main__":
 
     print(f"{len(produits)} produit(s) surveille(s) actif(s) :")
     for p in produits:
-        print(f"  - {p.nom} (sortie {p.date_sortie.isoformat()})")
+        sortie = p.date_sortie.isoformat() if p.date_sortie else "date inconnue/reportee"
+        print(f"  - {p.nom} (sortie {sortie})")
     print(f"{len(boutiques)} boutique(s) {plateforme} a scanner")
     print(f"Telegram : {'configure' if token else 'NON configure (TELEGRAM_BOT_TOKEN absent -- envoi desactive)'}\n")
 
@@ -204,7 +211,18 @@ if __name__ == "__main__":
     # Sauvegarder avant aurait fige "deja alerte" en memoire meme pour un
     # envoi qui echoue, perdant l'evenement definitivement (plus jamais
     # redetecte au cycle suivant).
-    envoyer_telegram_precommandes(resume["evenements"], TELEGRAM_CHAT_ID, token, memoire)
+    # 04/10/2026 (demande explicite de Justok : alertes Telegram pour le
+    # suivi des produits des 30 ans) : les evenements des produits en suivi
+    # de disponibilite partent MEME si notifications.telegram est coupe dans
+    # config.yaml (19/09/2026) -- cet interrupteur reste actif pour tout le
+    # reste (autres produits du radar, deals, stock, prix bas...). Pour
+    # couper aussi ces alertes : retirer alerte_disponibilite=True des
+    # produits concernes dans precommandes_watchlist.py.
+    evenements_dispo = [e for e in resume["evenements"] if e.get("alerte_disponibilite")]
+    autres_evenements = [e for e in resume["evenements"] if not e.get("alerte_disponibilite")]
+    envoyer_telegram_precommandes(autres_evenements, TELEGRAM_CHAT_ID, token, memoire)
+    envoyer_telegram_precommandes(
+        evenements_dispo, TELEGRAM_CHAT_ID, os.environ.get("TELEGRAM_BOT_TOKEN", ""), memoire)
     if memoire_via_supabase:
         if not sauvegarder_memoire_supabase(memoire, cle_memoire, supabase_url, supabase_key):
             print("[scan_precommandes] ATTENTION : échec de sauvegarde de la mémoire sur Supabase "

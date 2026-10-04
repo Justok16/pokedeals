@@ -109,6 +109,7 @@ def _candidat(domaine, produit, titre, texte_desc, url, prix=None, en_stock=None
         "prix": prix,
         "en_stock": en_stock,
         "prioritaire": produit.prioritaire,
+        "alerte_disponibilite": produit.alerte_disponibilite,
         "horodatage": _horodatage(),
     }
 
