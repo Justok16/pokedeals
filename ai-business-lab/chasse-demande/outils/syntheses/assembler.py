@@ -40,7 +40,8 @@ code { font-family: inherit; }
 def md2html(t):
     return markdown.markdown(t, extensions=['tables', 'sane_lists'])
 def demote(t):  # les synthèses Gemini utilisent ## et ### : on les garde sous le titre du thème
-    t = re.sub(r'<!--.*?-->\n?', '', t)
+    if t.startswith('<!-- modèle'):  # première ligne technique ajoutée par lancer.py
+        t = t.split('\n', 1)[1] if '\n' in t else ''
     t = re.sub(r'^(Voici|Pour conclure|Cette synthèse)[^\n]*\n', '', t.strip(), count=1)
     return t
 for ch, themes in ORDRE.items():
