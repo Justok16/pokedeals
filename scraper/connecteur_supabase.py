@@ -263,7 +263,7 @@ def marquer_notification_envoyee(supabase_url: str, service_role_key: str, alert
         r.raise_for_status()
     except requests.RequestException as e:
         log.warning("Marquage de la notification %s comme envoyée échoué pour l'alerte %s (%s) -- retentée au prochain cycle",
-                    canal, alerte_id, e)
+                    canal, alerte_id, type(e).__name__)  # le type seulement : le message peut citer la clé
 
 
 def enregistrer_cotes_marche(supabase_url: str, service_role_key: str, cotes: list[dict]) -> None:

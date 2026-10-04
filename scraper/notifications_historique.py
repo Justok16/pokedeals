@@ -234,7 +234,7 @@ def envoyer_telegram(deals: list[dict], cfg_tg: dict, token: str, anthropic_api_
                 timeout=20,
             )
             if r.status_code != 200:
-                log.error("Telegram a refusé le message (%s) : %s", r.status_code, r.text[:200])
+                log.error("Telegram a refusé le message (%s)", r.status_code)  # pas le corps : la réponse peut citer le jeton du bot
                 ok = False
         except Exception as e:  # noqa: BLE001
             log.error("Échec envoi Telegram : %s", e)
