@@ -56,7 +56,7 @@ def test_domaine_recent_mis_en_observation_sans_requete_reseau():
 
 
 def test_site_non_francophone_rejete():
-    assert _evaluer(francais=lambda d: False)[2] == "site non francophone"
+    assert _evaluer(francais=lambda d: False)[2] == "aucun produit en francais"
 
 
 def test_plateforme_non_supportee_rejetee():
@@ -93,3 +93,26 @@ def test_ecriture_puis_relecture(tmp_path, monkeypatch):
     listes["woocommerce_sitemap"] = ["b.com", "a.com"]
     C.ecrire_listes_ct(listes)
     assert C.charger_listes_ct()["woocommerce_sitemap"] == ["a.com", "b.com"]
+
+
+def test_site_etranger_vendant_des_produits_francais_accepte():
+    s = Mock()
+    ok = Mock(status_code=200)
+    ok.json.return_value = {"products": [
+        {"title": "Pokémon - Coffret Dresseur d'Élite 30e Anniversaire - FR"},
+        {"title": "Booster Bundle 30e Anniversaire"},
+        {"title": "Display 36 boosters français"},
+        {"title": "Playmat"},
+    ]}
+    s.get.return_value = ok
+    assert C.vend_des_produits_francais("shop-etranger.com", s) is True
+    assert C.site_en_francais("shop-etranger.com", s) is True
+
+
+def test_site_etranger_sans_produits_francais_refuse():
+    s = Mock()
+    r = Mock(status_code=200, text="<html lang='en'>")
+    r.json.return_value = {"products": [{"title": "Pokemon TCG Elite Trainer Box"}, {"title": "Sleeves"}]}
+    s.get.return_value = r
+    assert C.vend_des_produits_francais("us-shop.com", s) is False
+    assert C.site_en_francais("us-shop.com", s) is False
