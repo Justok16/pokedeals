@@ -15,7 +15,7 @@ qu'un paiement est en retard** (procédure). Sources officielles lues le
 
 ## 2. Ce que le modèle Dig protège déjà
 
-- **Abonnement mensuel** : un impayé coûte un mois (29 à 79 €). Les conditions
+- **Abonnement mensuel** : un impayé coûte un mois (49 à 79 €). Les conditions
   de vente prévoient la **mise en pause du site** jusqu'au paiement.
 - **Gros montants** (achat 690 €, Prestige 1 990 €) : **acompte de 30 à 50 %
   avant de commencer**, solde avant la mise en ligne définitive.

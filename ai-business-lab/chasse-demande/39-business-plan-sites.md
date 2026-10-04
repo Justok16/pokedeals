@@ -82,6 +82,9 @@ avant le contact** (le prospect voit *son* site refait), et un prix
 
 - **Offre publique réduite à 3 formules : Essentiel 49 €/mois, Visibilité 79 €/mois, Prestige**
   (1 990 € ou 199 €/mois). Présence (29 €) et Achat (690 €) retirés du site et des supports.
+- **04/10 (décision de l'utilisateur)** : **Achat rétabli** (690 € une fois, hébergement et suivi 15 €/mois
+  en option) et **12 mois payés d'avance avec 1 mois offert** (Essentiel 539 €, Visibilité 869 €). Même règle
+  d'encaissement : rien avant J+8 après une signature hors établissement (voir `40`).
 - **Premier mois réglé avant la mise en ligne** (jamais avant J+8 après une signature hors
   établissement, article L221-10, voir `40`).
 - **Pas de « pages par commune »** (risque de pages satellites, règles anti-spam de Google) ;
@@ -98,8 +101,12 @@ avant le contact** (le prospect voit *son* site refait), et un prix
 | ~~Présence~~ (retirée le 28/09) | ~~29 €/mois~~ | Petit budget, auto-entrepreneur | Site d'une page, fiche Google créée, 1 modification tous les 3 mois |
 | **Essentiel** | **49 €/mois** | La plupart des artisans | Site 5 pages sur mesure, hébergement, sécurité, mentions légales, 1 modification/mois, rapport mensuel |
 | **Visibilité** ⭐ | **79 €/mois** | Veut plus de clients | Essentiel + fiche Google suivie, demandes d'avis, 3 modifications/mois (pages par commune retirées le 28/09) |
-| ~~Achat~~ (retirée le 28/09) | ~~690 € une fois + 15 €/mois~~ | Veut payer une seule fois | Site 5 pages livré, à lui pour toujours |
+| **Achat** (retirée le 28/09, **rétablie le 04/10** par l'utilisateur) | **690 € une fois** + hébergement et suivi **15 €/mois en option** | Veut payer une seule fois | Site 5 pages livré, à lui pour toujours ; fichiers remis sur demande |
 | **Prestige** | **1 990 €** une fois (+ suivi 29 €/mois facultatif) **ou 199 €/mois**, 0 € de création, 12 mois minimum (**validé le 26/09** ; suivi à 29 € et 12 mois : proposition à confirmer) | Hyper premium : hôtels, restaurants, domaines, artisans d'art | Voir 3.2 bis |
+
+**Paiement de 12 mois d'avance (décision de l'utilisateur du 04/10)** : 1 mois offert, soit
+**Essentiel 539 €** (au lieu de 588 €) et **Visibilité 869 €** (au lieu de 948 €) ; engagement
+de 12 mois ; trésorerie encaissée d'avance.
 
 Conditions communes aux formules mensuelles : **0 € de création**, 6 mois
 minimum puis sans engagement ; site et nom de domaine au nom du client ;

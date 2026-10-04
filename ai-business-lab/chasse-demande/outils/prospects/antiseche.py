@@ -11,7 +11,7 @@ S=[
 ("Prix et engagement",[
 ("Combien ça coûte ?","49 € par mois, 0 € de création : le site complet. 79 € avec le suivi de votre fiche Google et des demandes d'avis. Le premier mois se règle avant la mise en ligne. Pour un hôtel, un restaurant ou un domaine qui veut un site d’exception : Prestige, 1 990 € ou 199 € par mois."),
 ("Pourquoi un abonnement ?","Parce qu'un site doit vivre : hébergement, sécurité, modifications, suivi Google. Tout est compris, vous n'avez rien à gérer."),
-("Je préfère payer une fois.","Les sites se règlent au mois, sans frais de création : pas de grosse somme à avancer, et vous êtes libre après 6 mois. Pour un site d'exception, Prestige existe en paiement unique (1 990 €)."),
+("Je préfère payer une fois.","C'est possible : formule Achat, 690 € une fois, votre site de 5 pages est à vous. L'hébergement et le suivi sont en option, à 15 € par mois. Vous pouvez aussi régler 12 mois d'avance avec 1 mois offert : 539 € (Essentiel) ou 869 € (Visibilité). Pour un site d'exception : Prestige, 1 990 €."),
 ("Je suis engagé combien de temps ?","6 mois minimum, puis vous êtes libre, sans engagement. Si vous restez, c'est parce que vous êtes content."),
 ("Comment j'arrête ?","Par un simple email. Le site et le nom de domaine sont à votre nom : vous partez avec."),
 ("Il y a des frais cachés ?","Non. Seul le nom de domaine, environ 10 € par an, est payé par vous directement : comme ça il vous appartient."),

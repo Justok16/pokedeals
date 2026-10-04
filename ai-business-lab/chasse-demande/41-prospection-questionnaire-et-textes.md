@@ -154,6 +154,7 @@ pas « un site » — leçon de la vidéo « FDE » de Greg Isenberg, `46`)
 | Très petit budget, auto-entrepreneur, besoin d'être « trouvable » | **Essentiel** (49 €/mois, 0 € de création) |
 | Pas de site ou vieux site, bouche-à-oreille suffit presque | **Essentiel** (49 €/mois) |
 | Veut plus de demandes, concurrents actifs sur Google, zone large | **Visibilité** ⭐ (79 €/mois) |
+| Préfère payer une fois | **Achat** (690 € une fois, suivi 15 €/mois en option) ; ou 12 mois d'avance avec 1 mois offert (539 € / 869 €) |
 | Préfère payer une fois | **Essentiel au mois** (rien à avancer) ; Prestige seulement pour un site haut de gamme |
 | Image haut de gamme essentielle (hôtel, restaurant, domaine, art) | **Prestige** (1 990 € ou 199 €/mois) |
 | Contrat en cours ailleurs | + option **Départ sans coupure** (offerte) |

@@ -223,6 +223,14 @@ Tri pour Dig (budget 0 €) ; la colonne « gratuit » de l'image n'est pas une 
 | Hedra, Hailuo, Vista, Ideogram, Open Design | Pas de besoin immédiat ; offres gratuites non vérifiées, à revoir si une vidéo ou un visuel Dig est décidé |
 | Colonne « payant » (Midjourney, HeyGen, Cursor, ElevenLabs, Canva Pro…) | Écartée : budget 0 € |
 
+### Prix : formule Achat rétablie et 12 mois d'avance (04/10, décision de l'utilisateur)
+
+Question : « quel est le prix si on veut payer en une fois ? ». Choix de l'utilisateur appliqué partout (site,
+page Prestige, guide, antisèche, questionnaire, 39, 41, 44, 45, plan complet) : **Achat 690 € une fois**
+(hébergement et suivi 15 €/mois en option) et **12 mois payés d'avance = 1 mois offert** (Essentiel 539 €,
+Visibilité 869 €). Le « paiement unique » de Prestige (1 990 €) est renommé ainsi pour ne pas se confondre
+avec la formule Achat. Conseiller de formule du site : « payer une seule fois » propose désormais Achat.
+
 ### Démos : hébergement et accroches vraies (04/10, question de l'utilisateur)
 
 Question : « je leur montre sur quel hébergeur ? Je ne vais pas acheter un nom de domaine pour une page temporaire ».

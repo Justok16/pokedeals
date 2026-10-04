@@ -6,7 +6,7 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
 
 ## Fond
 - [ ] Chaque fait, chiffre, prix, délai est vérifié à la source (ou marqué « à vérifier »).
-- [ ] Cohérence entre documents : prix (29/49/79 €, 690 €), « en ligne en 7 jours »,
+- [ ] Cohérence entre documents : prix (49/79 €, Achat 690 € + 15 €/mois, 12 mois d'avance 539/869 €, Prestige 1 990 € ou 199 €/mois), « en ligne en 7 jours »,
       « 6 mois puis sans engagement », « mises à jour sous 48 h », nom de domaine
       à la charge du client, adresse du site (https://digsite.pages.dev/).
 - [ ] Aucun faux avis, aucune promesse de résultat Google, aucune donnée privée

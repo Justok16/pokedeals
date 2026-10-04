@@ -95,7 +95,7 @@ section{padding:100px 0}
 .etape{position:relative;padding-top:56px}
 .etape .n{position:absolute;top:0;left:28px;font-family:Fraunces;font-size:3rem;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
 /* prix */
-.prix{grid-template-columns:repeat(2,1fr);align-items:stretch;max-width:820px;margin:0 auto}
+.prix{grid-template-columns:repeat(3,1fr);align-items:stretch;max-width:1120px;margin:0 auto}
 .formule{display:flex;flex-direction:column;position:relative}
 .formule .nom{font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
 .formule .montant{font-family:Fraunces;font-size:2.7rem;font-weight:800;margin:.4rem 0 .2rem}
@@ -160,7 +160,7 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 .apparait{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
 .apparait.vu{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.apparait{opacity:1;transform:none}}
-@media (max-width:1000px){.prix{grid-template-columns:1fr 1fr}.g4{grid-template-columns:1fr 1fr}.formule.vedette{transform:none}}
+@media (max-width:1000px){.prix{grid-template-columns:1fr;max-width:540px}.g4{grid-template-columns:1fr 1fr}.formule.vedette{transform:none}}
 @media (max-width:820px){
  .liens a:not(.btn){display:none}
  .heros{padding-top:110px}
@@ -248,10 +248,12 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
    <ul><li>Site 5 pages sur mesure</li><li>Galerie de réalisations</li><li>Formulaire de demande de devis</li><li>1 modification par mois</li><li>Rapport mensuel</li></ul><a href="#contact" class="btn second" style="color:var(--texte);border-color:#ddd">Choisir Essentiel</a></div>
   <div class="carte formule vedette apparait"><span class="badge">Le plus choisi</span><div class="nom">Visibilité</div><div class="montant">79&nbsp;€<small> /mois</small></div><p class="pour">Pour être plus visible sur Google.</p>
    <ul><li>Tout l’Essentiel</li><li>Fiche Google suivie chaque mois</li><li>Demandes d’avis clients</li><li>3 modifications par mois</li></ul><a href="#contact" class="btn principal">Choisir Visibilité</a></div>
+  <div class="carte formule apparait"><div class="nom">Achat</div><div class="montant">690&nbsp;€<small> une fois</small></div><p class="pour">Vous préférez payer une seule fois.</p>
+   <ul><li>Site 5 pages livré</li><li>À vous pour toujours</li><li>Suivi en option&nbsp;: 15&nbsp;€/mois</li><li>Fichiers remis sur demande</li></ul><a href="#contact" class="btn second" style="color:var(--texte);border-color:#ddd">Choisir Achat</a></div>
  </div>
- <div class="options apparait"><span>📅 <b>Réservation en ligne incluse</b>&nbsp;: vos clients réservent un créneau directement sur votre site</span><span>🇬🇧 <b>Version anglaise</b>&nbsp;: +5&nbsp;€/mois</span><span>🔄 <b>Vous changez de prestataire&nbsp;?</b> Je m’occupe du transfert, sans coupure&nbsp;: offert</span><span>🤝 <b>Parrainage</b>&nbsp;: un professionnel recommandé = un mois offert pour vous, et son premier mois offert pour lui</span></div>
+ <div class="options apparait"><span>📅 <b>Réservation en ligne incluse</b>&nbsp;: vos clients réservent un créneau directement sur votre site</span><span>📆 <b>12 mois payés d’avance</b>&nbsp;: 1 mois offert (Essentiel 539&nbsp;€, Visibilité 869&nbsp;€)</span><span>🇬🇧 <b>Version anglaise</b>&nbsp;: +5&nbsp;€/mois</span><span>🔄 <b>Vous changez de prestataire&nbsp;?</b> Je m’occupe du transfert, sans coupure&nbsp;: offert</span><span>🤝 <b>Parrainage</b>&nbsp;: un professionnel recommandé = un mois offert pour vous, et son premier mois offert pour lui</span></div>
  <div class="prestige apparait"><div><div class="sur" style="color:var(--orange);font-size:.86rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase">Prestige</div><h3 class="serif" style="font-size:1.9rem;margin:.4rem 0">Pour les maisons d’exception</h3><p>Hôtels, restaurants, domaines, artisans d’art&nbsp;: un site entièrement sur mesure, photos plein écran, version anglaise et réservation incluses. <b style="color:#fff">1&nbsp;990&nbsp;€ une fois, ou 199&nbsp;€/mois sans frais de création.</b></p></div><a href="prestige.html" class="btn principal">Découvrir Prestige</a></div>
- <p class="note">Prix sans TVA : franchise en base prévue (art. 293 B du CGI) dès l’immatriculation de l’entreprise. Nom de domaine au nom du client, à sa charge (environ 10 € par an). Les formules mensuelles comportent un engagement minimal de 6 mois (12 mois pour Prestige). Parrainage : le mois offert au client qui recommande est appliqué en remise sur sa facture, une fois les deux premiers mois du nouveau client réglés, dans la limite de 6 mois offerts par an.</p>
+ <p class="note">Prix sans TVA : franchise en base prévue (art. 293 B du CGI) dès l’immatriculation de l’entreprise. Nom de domaine au nom du client, à sa charge (environ 10 € par an). Les formules mensuelles comportent un engagement minimal de 6 mois (12 mois pour Prestige, et pour 12 mois payés d’avance). Formule Achat&nbsp;: sans l’hébergement et le suivi facultatifs, les fichiers du site vous sont remis. Parrainage : le mois offert au client qui recommande est appliqué en remise sur sa facture, une fois les deux premiers mois du nouveau client réglés, dans la limite de 6 mois offerts par an.</p>
 </div></section>
 
 <section id="conseil"><div class="cadre">
@@ -360,9 +362,10 @@ document.querySelectorAll('.choix').forEach(g=>g.addEventListener('click',e=>{
  if(Object.keys(rep).length<3)return;
  let f,why;
  if(rep.but==='image'){f='Prestige — 1 990 € ou 199 €/mois';why='Une image haut de gamme demande un design entièrement sur mesure.'}
+  else if(rep.paie==='fois'){f='Achat — 690 € une fois';why='Vous payez une fois, le site de 5 pages est à vous. Hébergement et suivi : 15 €/mois, facultatifs.'+(rep.but==='clients'?'<br><br>📈 Pour le suivi de votre fiche Google, Visibilité reste conseillée : 79 €/mois, ou 869 € pour 12 mois payés d’avance (1 mois offert).':'')}
   else if(rep.but==='clients'){f='Visibilité — 79 €/mois';why='Fiche Google suivie chaque mois et demandes d’avis clients : pour être plus visible sur Google.'}
   else {f='Essentiel — 49 €/mois';why=rep.site==='non'?'Un site complet et moderne, 0 € de création.':'Un site complet et moderne pour remplacer l’existant.'}
- const extraFois=rep.paie==='fois'&&rep.but!=='image'?'<br><br>💶 Les sites se règlent au mois, sans frais de création : pas de grosse somme à avancer.':'';
+ const extraFois='';
  const extra=rep.site==='loue'?'<br><br>🔄 Et comme vous avez un contrat en cours, je vous aide gratuitement à en sortir, sans coupure.':'';
  const r=document.getElementById('resultat');r.innerHTML=`Ma recommandation : <b>${f}</b><br>${why}${extraFois}${extra}<br><br><a href="#contact" class="btn principal" style="margin-top:.4rem">Recevoir ma démo gratuite</a>`;r.classList.add('vu');
 }));
