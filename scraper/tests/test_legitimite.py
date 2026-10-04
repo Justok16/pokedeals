@@ -79,3 +79,21 @@ def test_verifier_legitimite_certificat_invalide():
     session.get.side_effect = requests.exceptions.SSLError()
     r = L.verifier_legitimite("boutique.fr", session)
     assert r["https_ok"] is False and "certificat" in r["raison"]
+
+
+# ---- 04/10/2026 : boutiques etrangeres vendant des produits francais ----
+
+def test_identifiants_societe_etrangers():
+    assert L.extraire_identifiant_societe("N° TVA : BE 0123.456.789") == "BE0123456789"
+    assert L.extraire_identifiant_societe("VAT number DE123456789") == "DE123456789"
+    assert L.extraire_identifiant_societe("BCE 0123.456.789") == "0123456789"
+    assert L.extraire_identifiant_societe("Handelsregister HRB 123456") == "123456"
+    assert L.extraire_identifiant_societe("SIRET 934 557 091 00012") == "93455709100012"
+    assert L.extraire_identifiant_societe("aucun identifiant ici") is None
+
+
+def test_boutique_etrangere_avec_tva_est_legitime():
+    session = Mock()
+    session.get.side_effect = [_reponse('<a href="/legal-notice">Legal</a>'), _reponse("Company: X BV, VAT NL123456789B01")]
+    r = L.verifier_legitimite("boutique.nl", session)
+    assert L.est_legitime(r) and r["siret"] == "NL123456789B01"

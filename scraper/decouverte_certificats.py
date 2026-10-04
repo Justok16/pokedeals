@@ -13,7 +13,8 @@ SOURCE NON VERIFIEE -> garde-fous STRICTS (cf. legitimite.py), tous requis :
   1. domaine absent des listes d'arnaques (Pokescam + PokeGourou) ;
   2. anciennete : premier certificat vu il y a >= 60 jours (un faux site
      fraichement cree est ecarte, re-evalue chaque semaine) ;
-  3. marche francais : .fr/.be ou page d'accueil en francais ;
+  3. produits FRANCAIS : .fr/.be/.ch/.lu, page d'accueil en francais, ou >= 3 produits
+     du catalogue en francais (un site etranger vendant du francais est accepte) ;
   4. plateforme exploitable (Shopify/WooCommerce/PrestaShop) ET catalogue
      Pokemon net (memes seuils que decouverte_boutiques.verifier_candidat) ;
   5. HTTPS valide + mentions legales avec SIRET/SIREN.
@@ -127,8 +128,32 @@ def candidats_depuis_entrees(entrees: list[dict], mot: str) -> dict[str, datetim
     return premiers
 
 
+MARQUEURS_PRODUIT_FRANCAIS = ("francais", "français", "anniversaire", "coffret", "dresseur", "booster", "display")
+
+
+def vend_des_produits_francais(domaine: str, session=None) -> bool:
+    """Un site etranger (.com, .ch, .de...) est accepte s'il vend des
+    produits en FRANCAIS : au moins 3 titres de son catalogue Shopify avec un
+    marqueur francais (Justok, 04/10/2026 : "des produits francais sur des
+    sites etrangers" -- le critere porte sur le PRODUIT, plus sur la
+    nationalite du site). Catalogue non lisible -> repli sur la langue de la
+    page d'accueil."""
+    s = session or requests
+    try:
+        r = s.get(f"https://{domaine}/products.json?limit=250", headers=HEADERS_HTML, timeout=TIMEOUT)
+        if r.status_code == 200:
+            titres = [str(p.get("title", "")).lower() for p in r.json().get("products", [])]
+            if sum(any(m in t for m in MARQUEURS_PRODUIT_FRANCAIS) for t in titres) >= 3:
+                return True
+    except (requests.exceptions.RequestException, ValueError, AttributeError):
+        pass
+    return False
+
+
 def site_en_francais(domaine: str, session=None) -> bool:
-    if domaine.endswith((".fr", ".be")):
+    if domaine.endswith((".fr", ".be", ".ch", ".lu")):
+        return True
+    if vend_des_produits_francais(domaine, session):
         return True
     s = session or requests
     try:
@@ -148,7 +173,7 @@ def evaluer_candidat(domaine: str, premier_certificat: datetime, liste_noire: se
     if maintenant - premier_certificat < timedelta(days=AGE_MIN_JOURS):
         return "observation", None, f"premier certificat il y a moins de {AGE_MIN_JOURS} jours"
     if not francais(domaine):
-        return "rejet", None, "site non francophone"
+        return "rejet", None, "aucun produit en francais"
     plateforme = classer(domaine)
     if plateforme is None:
         return "rejet", None, "plateforme non supportee"
@@ -178,7 +203,7 @@ def ecrire_listes_ct(listes: dict[str, list[str]]) -> None:
         '"""\nBoutiques COMPLEMENTAIRES trouvees par les certificats HTTPS (crt.sh), scannees par\n'
         "scan_complement.yml au meme titre que boutiques_complement.py.\n\n"
         "FICHIER AUTO-GENERE par decouverte_certificats.py (garde-fous stricts : liste noire,\n"
-        "anciennete, marche francais, catalogue Pokemon, HTTPS + SIRET) -- ne pas editer a la main.\n\n"
+        "anciennete, marche francais, catalogue Pokemon, HTTPS + SIRET/TVA) -- ne pas editer a la main.\n\n"
         f"Derniere mise a jour : {jour}\n" '"""\n\n'
     )
     tmp = FICHIER_CT.with_suffix(".py.tmp")

@@ -82,6 +82,30 @@ def charger_liste_noire(session: requests.Session | None = None) -> set[str]:
     return noire
 
 
+# Identifiants d'entreprise etrangers (boutiques hors France vendant des
+# produits FRANCAIS, ex. Belgique/Suisse/Allemagne -- Justok, 04/10/2026) :
+# numero de TVA intracommunautaire, BCE/KBO belge, HRB allemand, KvK
+# neerlandais. Meme principe que le SIRET : une obligation legale que les
+# faux sites omettent.
+_RE_TVA = re.compile(
+    r"\b(?:tva|vat|btw|mwst|ust-?idnr|n°\s*tva)\b[^0-9]{0,25}?([A-Z]{2}[\s.]?\d[\d\s.]{7,14}\d(?:B\d{2})?)", re.IGNORECASE)
+_RE_BCE = re.compile(r"\b(?:bce|kbo|crossroads)\b[^0-9]{0,25}(0?\d{3}[. ]?\d{3}[. ]?\d{3})", re.IGNORECASE)
+_RE_HRB_KVK = re.compile(r"\b(?:hrb|kvk|handelsregister)\b[^0-9]{0,20}(\d{5,9})", re.IGNORECASE)
+
+
+def extraire_identifiant_societe(texte: str) -> str | None:
+    """SIRET/SIREN, sinon numero de TVA / BCE / HRB / KvK plausible."""
+    siret = extraire_siret(texte)
+    if siret:
+        return siret
+    brut = re.sub(r"<[^>]+>", " ", texte)
+    for motif in (_RE_TVA, _RE_BCE, _RE_HRB_KVK):
+        m = motif.search(brut)
+        if m:
+            return re.sub(r"[\s.]", "", m.group(1)).upper()
+    return None
+
+
 def extraire_siret(texte: str) -> str | None:
     """Premier numero SIRET (14 chiffres) ou SIREN (9 chiffres) plausible."""
     for m in _RE_SIRET.finditer(re.sub(r"<[^>]+>", " ", texte)):
@@ -110,7 +134,7 @@ def verifier_legitimite(domaine: str, session: requests.Session | None = None) -
         return resultat
     resultat["https_ok"] = True
 
-    siret = extraire_siret(accueil.text)
+    siret = extraire_identifiant_societe(accueil.text)
     liens = []
     for href in _RE_LIEN_LEGAL.findall(accueil.text):
         url = urljoin(base, href)
@@ -125,13 +149,13 @@ def verifier_legitimite(domaine: str, session: requests.Session | None = None) -
         except requests.exceptions.RequestException:
             continue
         if page.status_code == 200:
-            siret = extraire_siret(page.text)
+            siret = extraire_identifiant_societe(page.text)
         time.sleep(0.5)
     resultat["siret"] = siret
     if not resultat["mentions_legales"]:
         resultat["raison"] = "aucune page mentions legales/CGV trouvee"
     elif not siret:
-        resultat["raison"] = "aucun SIRET/SIREN trouve dans les mentions legales"
+        resultat["raison"] = "aucun SIRET/SIREN/TVA/BCE trouve dans les mentions legales"
     return resultat
 
 
