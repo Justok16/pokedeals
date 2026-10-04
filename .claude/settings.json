@@ -30,6 +30,25 @@
       "mcp__github",
       "mcp__OpenRush",
       "mcp__Resend"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(git rebase*)",
+      "Bash(git filter-branch*)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~*)",
+      "Bash(pkill -f*)",
+      "Bash(pgrep -f*)",
+      "Bash(sudo *)",
+      "Bash(chmod 777*)",
+      "Bash(chmod -R 777*)",
+      "Bash(ssh *)",
+      "Bash(dd *of=/dev/*)"
     ]
   },
   "env": {
@@ -65,7 +84,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "command -v detect-secrets-hook >/dev/null 2>&1 || pip install -q detect-secrets >/dev/null 2>&1 || true",
+            "command": "command -v detect-secrets-hook >/dev/null 2>&1 || pip install -q detect-secrets==1.5.0 2>&1 | tail -n 3 || true",
             "timeout": 120
           }
         ]
