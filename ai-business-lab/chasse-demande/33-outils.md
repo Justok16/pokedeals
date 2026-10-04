@@ -346,7 +346,7 @@ nosniff, Referrer-Policy, Permissions-Policy absents).
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
 | Blocage | Solution gratuite qui marche |
 |---|---|
-| Sous-titres YouTube bloqués (conteneur, Vercel, Invidious, Piped) | Gemini lit la vidéo ; secours vidIQ (transcription) |
+| Sous-titres YouTube bloqués (conteneur, Vercel, Invidious, Piped ; revérifié le 04/10 avec youtube-transcript-api : « IpBlocked », adresse de serveur) | Gemini lit la vidéo ; secours vidIQ (transcription, 5 crédits ; rien pour un film sans paroles) |
 | Recherche Unsplash bloquée (défi anti-robots) | Connecteur Unsplash `search_photos` (29/09) ; sinon Firecrawl `firecrawl_scrape` (1 crédit la page) |
 | Similarweb sans crédit | OpenRush `inspect_domain` |
 | Annuaire officiel bloqué depuis le conteneur | Relais Vercel `/api/entreprise` |

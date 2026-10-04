@@ -1,6 +1,6 @@
 # Fintales — index des fiches (synthèse du dimanche 04/10/2026)
 
-149 vidéos résumées sur 155. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+155 vidéos traitées sur 155 (149 résumées par Gemini, 1 par Claude d’après la transcription vidIQ, 5 sans paroles ou trop courtes : fiche « non résumée »). Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[#Bitcoin #Crypto il fait x15 et ne vend pas fin 2021… « il n’y a pas eu de bullrun »](je7rn8AkgLc.md)** — Gestion psychologique du portefeuille. La thèse est qu'il ne faut pas se comparer aux autres investisseurs, car la situation financière de chacun est différente et peut mener à de mauvaises décisions.
