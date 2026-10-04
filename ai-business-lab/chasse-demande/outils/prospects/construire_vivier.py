@@ -38,6 +38,7 @@ for x in reg:
     if naf in ('70.10Z','68.20B','68.20A','68.31Z','55.20Z') : continue   # holdings, immobilier, meublés de particuliers
     d=dev.get(x['siret'],{})
     if d.get('site'): continue
+    if any(z.get('lieu_ok') for z in d.get('sites') or []): continue   # 04/10 : site confirmé (commune ou code postal sur la page) par devine_sites.py
     nom=x.get('nom') or ''; ens=x.get('enseignes') or x.get('nom_commercial') or ''
     cles=[nom]+re.findall(r'\(([^)]+)\)',nom)+([ens] if isinstance(ens,str) else list(ens or []))
     if any(len(norm(n))>=5 and norm(n) in noms for n in cles): continue
