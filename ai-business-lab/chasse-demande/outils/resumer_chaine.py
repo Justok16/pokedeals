@@ -81,14 +81,15 @@ f_echecs = os.path.join(sortie, '.echecs.json')
 echecs = json.load(open(f_echecs)) if os.path.exists(f_echecs) else {}
 a_faire = [v for v in videos if not os.path.exists(os.path.join(sortie, v['id'] + '.md'))]
 a_faire = [v for v in a_faire if echecs.get(v['id'], 0) < 2] + [v for v in a_faire if echecs.get(v['id'], 0) >= 2]
+seules = set()  # 04/10 : vidéos d'un lot refusé, renvoyées une par une (une seule vidéo privée faisait échouer tout le lot)
 while a_faire and MODELES:
     v = a_faire.pop(0)
     lot = [v]
-    if secondes(v['duree']) <= COURTE:  # complète le lot avec d'autres vidéos courtes de la liste, dans l'ordre
+    if secondes(v['duree']) <= COURTE and v['id'] not in seules:  # complète le lot avec d'autres vidéos courtes de la liste, dans l'ordre
         for x in list(a_faire):
             if len(lot) >= LOT_MAX:
                 break
-            if secondes(x['duree']) <= COURTE and sum(secondes(y['duree']) for y in lot) + secondes(x['duree']) <= LOT_DUREE:
+            if x['id'] not in seules and secondes(x['duree']) <= COURTE and sum(secondes(y['duree']) for y in lot) + secondes(x['duree']) <= LOT_DUREE:
                 lot.append(x); a_faire.remove(x)
     d = sum(secondes(x['duree']) for x in lot)
     if fait and fait + d > maxi * 60:
@@ -101,6 +102,9 @@ while a_faire and MODELES:
         if len(lot) == 1:
             echecs[v['id']] = echecs.get(v['id'], 0) + 1
             json.dump(echecs, open(f_echecs, 'w'))
+        else:  # lot refusé : chaque vidéo repasse seule, pour isoler la fautive sans perdre les autres
+            seules.update(x['id'] for x in lot)
+            a_faire[:0] = lot
         if j.get('erreur') == 'illisible':
             illisibles += 1
             if illisibles >= 3:
