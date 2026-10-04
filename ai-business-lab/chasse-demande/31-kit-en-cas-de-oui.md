@@ -77,7 +77,7 @@ Points à trancher, dans l'ordre :
    non-diffusion au répertoire SIRENE.
 8. Compte bancaire dédié, livre des recettes, factures conformes.
 9. Calendrier : déclaration URSSAF (mensuelle ou trimestrielle), déclaration
-   trimestrielle de ressources à la CPAM pour l'ASI, mise à jour CAF,
+   de ressources éventuelles (CPAM, CAF : voir le document privé du Drive),
    déclaration de revenus annuelle (formulaire 2042-C-PRO).
 
 Claude tient ce calendrier dans une routine de rappels et prépare chaque

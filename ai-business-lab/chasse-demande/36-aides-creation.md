@@ -95,7 +95,7 @@ Source : [Bpifrance Création](https://bpifrance-creation.fr/encyclopedie/differ
   et ses droits aux aides sociales.
 - Ouvre droit à l'**Acre** à la création.
 - **[à vérifier : sort des sommes facturées pendant le Cape dans les
-  déclarations de ressources (ASI, CAF) ; frais éventuels de la couveuse]**
+  déclarations de ressources ; frais éventuels de la couveuse]**
 
 ## 5. Prêts d'honneur à 0 % (vérifié sur les pages officielles, 25/09/2026)
 
@@ -129,13 +129,10 @@ C'est un **prêt** (à rembourser) : décision de l'utilisateur.
 
 ## 7. Effets sur les aides sociales — le point le plus important
 
-- **ASI** : toutes les ressources comptent sauf celles expressément exclues ;
-  les prestations CAF et certaines aides exceptionnelles sont exclues.
-  **[à vérifier auprès de la CPAM (36 46) : une subvention Agefiph ou un
-  prêt d'honneur comptent-ils comme ressources pour l'ASI ?]**
-  ([ameli](https://www.ameli.fr/assure/droits-demarches/invalidite-handicap/invalidite/allocation-supplementaire-invalidite-asi))
-- **Pension d'invalidité** : voir le seuil de cumul (section 2 bis du kit).
-- **CAF (APL)** : **[à vérifier]**.
+Toute création peut modifier les aides sociales perçues : effet à **simuler
+avant la création** auprès des organismes concernés (CPAM au 36 46, CAF).
+Le détail propre à la situation de l'utilisateur est dans un document
+**privé** (dossier « Dig » de son Google Drive), jamais dans ce dépôt public.
 
 ## 8. Reste à explorer
 
@@ -147,12 +144,11 @@ C'est un **prêt** (à rembourser) : décision de l'utilisateur.
 
 ## Ordre des démarches (si création un jour)
 
-1. **Appeler le 36 46** : simulation de l'effet sur la pension et l'ASI.
-2. **Conseiller Cap emploi ou France Travail** → expert Agefiph gratuit
-   (étude du projet, avis de viabilité).
-3. Étudier la couveuse et le contrat Cape (tester sans créer, ouvre l'Acre).
-4. Monter le plan de financement : apport, aide Agefiph de 3 000 €, prêt
-   d'honneur.
-5. Déposer la demande Agefiph **avant** l'immatriculation.
-6. Immatriculer (section 2 bis du kit), puis demander l'Acre sous 60 jours
-   si l'utilisateur y a droit.
+L'ordre détaillé, qui dépend de la situation de l'utilisateur, est dans le
+document privé du dossier « Dig » (Google Drive). Principe général :
+1. Faire simuler l'effet de la création sur les aides perçues (CPAM, CAF).
+2. Rencontrer le conseiller France Travail (ou l'organisme compétent) pour
+   l'accompagnement gratuit et les aides possibles.
+3. Étudier la couveuse et le contrat Cape (tester sans créer).
+4. Déposer les demandes d'aides **avant** l'immatriculation quand elles l'exigent.
+5. Immatriculer (section 2 bis du kit), puis demander l'Acre sous 60 jours si éligible.

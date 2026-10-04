@@ -252,7 +252,7 @@ client) est la bonne réponse.
 Micro-entreprise, nom commercial « Dig » (validé), selon
 `31-kit-en-cas-de-oui.md` section 2 bis (création parfaite, fiscalité
 optimisée) et `36-aides-creation.md` (aides à demander **avant** la
-création, notamment Agefiph).
+création ; détail propre à l'utilisateur dans le document privé du Drive).
 
 Activité probable : prestation intellectuelle (création de sites) → régime
 **BNC, profession libérale non réglementée** **[à confirmer au guichet
