@@ -87,6 +87,9 @@ class ProduitSurveille:
     # description enumere ETB/bundle/mini tin ne doit pas matcher chacun de
     # ces produits.
     type_dans_titre: bool = False
+    # True : uniquement la VERSION FRANCAISE (demande de Justok, 04/10/2026 :
+    # "aucune autre langue") -- cf. langue_non_francaise().
+    francais_uniquement: bool = False
 
 
 # 04/10/2026, faux positifs reels recus sur Telegram (kwilytcg.com, nin-nin-game.com) :
@@ -103,6 +106,41 @@ MOTS_IMPORTS_TEXTE = frozenset({
     "ensky", "case collection", "10 pack box", "japonaise", "japonais", "japanese",
     "edition japonaise", "japan version",
 })
+# --- Langue : uniquement le FRANCAIS (Justok, 04/10/2026) ---
+# Une page est rejetee si son titre porte un marqueur de langue non francaise
+# explicite, OU si ni son titre ni sa description ne contiennent aucun indice
+# de francais (preuve POSITIVE exigee : un titre sans marqueur de langue,
+# ex. "30th Celebration Booster Bundle", n'est pas assez pour affirmer FR).
+# Limite assumee : une fiche FR au titre 100% anglais et sans le moindre mot
+# francais dans le titre/la description serait ratee.
+_RE_CODE_LANGUE_PONCTUE = re.compile(
+    r"[-–—|(\[/]\s*(?:en|eng|jp|jap|kr|de|it|es|pt|cn|zh|th|ru|pl|nl)\s*(?:[)\]|/]|$)", re.IGNORECASE)
+_RE_CODE_LANGUE_FIN_MAJ = re.compile(r"\s(?:EN|ENG|JP|KR|DE|IT|ES|PT|CN|TH)$")
+MOTS_LANGUES_TITRE = frozenset({
+    "english", "anglais", "anglaise", "japanese", "japonais", "japonaise", "korean", "coreen", "coreenne",
+    "chinese", "chinois", "chinoise", "german", "allemand", "allemande", "deutsch", "italian", "italien",
+    "italienne", "spanish", "espagnol", "espagnole", "portuguese", "portugais", "thai", "thailandais",
+    "international version", "us version", "uk version", "english version", "version anglaise",
+    "version japonaise", "version allemande",
+})
+MOTS_INDICE_FRANCAIS = frozenset({
+    "fr", "francais", "francaise", "anniversaire", "coffret", "dresseur", "paquet", "boite", "precommande",
+    "nymphali", "mentali", "noctali", "pokebox",
+})
+
+
+def langue_non_francaise(titre: str, description: str) -> str | None:
+    """Raison du rejet si la page n'est pas clairement francaise, sinon None."""
+    if _RE_CODE_LANGUE_PONCTUE.search(titre) or _RE_CODE_LANGUE_FIN_MAJ.search(titre):
+        return "code de langue non francais dans le titre"
+    mot = _mot_exclu(titre, MOTS_LANGUES_TITRE)
+    if mot:
+        return f"langue non francaise dans le titre ('{mot}')"
+    if not _mot_exclu(f"{titre} {description}", MOTS_INDICE_FRANCAIS):
+        return "aucun indice de francais (titre/description)"
+    return None
+
+
 # Suite du meme jour : "Pack coffret 30 ans" et "Gros pack 30ans + ME03/04"
 # (kwilytcg.com) matchaient encore ETB, Bundle, Mini Tin et Pokebox via leur
 # description -> le type de produit doit etre dans le TITRE.
@@ -110,6 +148,7 @@ EXCLUSIONS_LOTS_ET_IMPORTS = {
     "mots_exclus_titre": MOTS_LOTS_TITRE | {"pack", "gros pack", "pack coffret"},
     "mots_exclus_texte": MOTS_IMPORTS_TEXTE,
     "type_dans_titre": True,
+    "francais_uniquement": True,
 }
 
 
@@ -448,6 +487,11 @@ def evaluer_correspondance(
 
     if not titre_correspond_produit(texte_complet, produit):
         return None, "mots-cles absents (edition et/ou type de produit)"
+
+    if produit.francais_uniquement:
+        raison_langue = langue_non_francaise(titre, texte_description)
+        if raison_langue:
+            return None, f"version non francaise : {raison_langue}"
 
     if produit.type_dans_titre:
         titre_norm = _normaliser(titre)

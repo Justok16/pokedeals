@@ -105,7 +105,7 @@ def test_bundle_et_mini_tin_ne_valident_pas_la_date():
     # Sortie reportee : une page affichant une date quelconque ne doit pas
     # etre rejetee pour incompatibilite de date.
     bundle = _produit("Booster Bundle")
-    conf, _ = evaluer_correspondance("Booster Bundle 30th Celebration", "Sortie le 20/11/2026", bundle)
+    conf, _ = evaluer_correspondance("Booster Bundle 30e Anniversaire - FR", "Sortie le 20/11/2026", bundle)
     assert conf == "moyenne"
 
 
@@ -196,3 +196,49 @@ def test_le_type_dans_le_titre_est_exige_pour_les_produits_en_suivi():
     mini = _produit("Mini Tin")
     conf, raison = evaluer_correspondance("Pokémon 30e Anniversaire - FR", "Mini Tin 30e anniversaire", mini)
     assert conf is None and "titre" in raison
+
+
+# ------------- 04/10/2026 : uniquement les versions FRANCAISES -------------
+
+def test_versions_anglaises_rejetees_cas_reels_outpost_brussels():
+    for fragment, titre in (
+        ("Umbreon (Noctali)", "Pokémon · 30th Celebration - Umbreon ex Ultra-Premium Collection - EN"),
+        ("Espeon (Mentali)", "Pokémon · 30th Celebration - Espeon ex Ultra-Premium Collection - EN"),
+        ("Nymphali ex (Sylveon ex Tin)", "Pokémon · 30th Celebration - Sylveon ex Box - EN"),
+    ):
+        conf, raison = evaluer_correspondance(titre, "", _produit(fragment))
+        assert conf is None and "non francais" in raison, (titre, raison)
+
+
+def test_autres_langues_rejetees():
+    etb = _produit("suivi restock")
+    for titre in (
+        "30th Celebration Elite Trainer Box (International Version)",
+        "Pokémon 30e Anniversaire ETB Coffret Dresseur d'Élite - JP",
+        "Pokémon 30e Anniversaire ETB Coffret Dresseur d'Élite [DE]",
+        "Pokémon 30e Anniversaire ETB Coffret Dresseur d'Élite version anglaise",
+        "Pokémon 30th Anniversary Elite Trainer Box Japanese",
+        "Pokémon 30e Anniversaire ETB Coffret Dresseur d'Élite EN",
+    ):
+        assert evaluer_correspondance(titre, "", etb)[0] is None, titre
+
+
+def test_versions_francaises_acceptees():
+    bundle, mini, etb, tin, upc = (_produit(f) for f in
+        ("Booster Bundle", "Mini Tin", "suivi restock", "Nymphali ex (Sylveon ex Tin)", "Umbreon (Noctali)"))
+    assert evaluer_correspondance("Pokémon · 30e Anniversaire - Bundle 6 Boosters - FR", "", bundle)[0] == "moyenne"
+    assert evaluer_correspondance("Pokémon · 30e Anniversaire - Mini Tin - FR", "", mini)[0] == "moyenne"
+    assert evaluer_correspondance("Coffret Dresseur d'Élite 30e Anniversaire en français", "", etb)[0] is not None
+    assert evaluer_correspondance("POKÉBOX | Nymphali EX (30 ANS POKÉMON)", "", tin)[0] == "moyenne"
+    assert evaluer_correspondance("Collection Ultra-Premium Noctali ex - 30e anniversaire", "", upc)[0] is not None
+
+
+def test_en_francais_nest_pas_pris_pour_le_code_en():
+    etb = _produit("suivi restock")
+    assert evaluer_correspondance("ETB Coffret Dresseur d'Élite 30e Anniversaire en stock", "", etb)[0] is not None
+
+
+def test_titre_sans_aucun_indice_de_francais_rejete():
+    bundle = _produit("Booster Bundle")
+    conf, raison = evaluer_correspondance("30th Celebration Booster Bundle", "", bundle)
+    assert conf is None and "indice" in raison
