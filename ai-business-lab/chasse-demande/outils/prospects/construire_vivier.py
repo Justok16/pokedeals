@@ -28,6 +28,9 @@ SECT={'43':'Bâtiment','41':'Construction','33':'Réparation industrielle','45':
       # 04/10 : élargissement (viticulteurs et distilleries, commerces, enseignement de loisirs, couture, nettoyage, événementiel)
       '01':'Viticulture','11':'Distillerie / chai','13':'Textile','14':'Couture','23':'Pierre','77':'Location loisirs','79':'Tourisme',
       '80':'Sécurité','82':'Événementiel','93':'Loisirs'}
+REGLEMENTES={'01.21Z','11.01Z','11.02A','11.02B','11.03Z','11.05Z','11.06Z','47.25Z','47.26Z','56.30Z','47.73Z','47.74Z','68.31Z','92.00Z'}
+RX_REGL=re.compile(r'\b(tabac\w*|buraliste|armurer\w*|armes|munitions?|bar|pub|caves?|caviste|vins?|spiritueux|pineau|distill\w*|bieres?|pmu|casino|cbd|vapot\w*|pharmac\w*)\b')  # « cognac » exclu de la liste : c'est aussi le nom de la ville
+norm_txt=lambda t: unicodedata.normalize('NFKD',t or '').encode('ascii','ignore').decode().lower()
 EFF={'00':0,'NN':0,'01':1,'02':3,'03':6,'11':10,'12':20,'21':50,'22':100}
 auj=datetime.date.today()
 out=[]
@@ -36,6 +39,10 @@ for x in reg:
     naf=x.get('naf') or ''; sect=SECT.get(naf[:2])
     if not sect: continue
     if naf in ('70.10Z','68.20B','68.20A','68.31Z','55.20Z') : continue   # holdings, immobilier, meublés de particuliers
+    # 04/10 (demande de l'utilisateur) : jamais de secteurs aux règles de publicité strictes (alcool, tabac, jeux, armes, santé,
+    # professions réglementées, immobilier, assurance, crédit)
+    if naf in REGLEMENTES or naf[:2] in ('86','75','69','66','64','92') : continue
+    if RX_REGL.search(norm_txt((x.get('nom') or '')+' '+' '.join(x.get('enseignes') or [])+' '+(x.get('nom_commercial') or ''))) : continue
     d=dev.get(x['siret'],{})
     if d.get('site'): continue
     if any(z.get('lieu_ok') for z in d.get('sites') or []): continue   # 04/10 : site confirmé (commune ou code postal sur la page) par devine_sites.py

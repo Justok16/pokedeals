@@ -43,6 +43,10 @@
   de 2022) au lieu de 3 000 € ; taux de l'Adie (8,4 %) oublié.
 - **Budget 0 €** tant que rien ne rapporte. Ne jamais acheter de crédits
   (par ex. Vercel AI Gateway : 5 $ offerts/mois, perdus après un achat).
+- **Secteurs exclus des listes de prospects** (demande du 04/10) : jamais de métiers aux règles de
+  publicité strictes : bars et débits de boissons, tabac, jeux (PMU), armurerie, alcool (caves,
+  viticulteurs, distilleries), pharmacie et santé, professions réglementées (avocats, notaires,
+  experts-comptables), immobilier, assurance, crédit, CBD. Les restaurants et hôtels restent.
 - **Démarchage B2B par email autorisé** (révision du 24/09) dans le cadre
   légal CNIL : ciblé, en rapport avec l'activité du destinataire,
   expéditeur identifiable, désinscription simple. Pas de particuliers.
