@@ -77,6 +77,40 @@ class ProduitSurveille:
     surveiller_jusqu_au: date | None = None
     mots_cles_supplementaires: tuple[frozenset[str], ...] = ()
     alerte_disponibilite: bool = False
+    # Mots (mots ENTIERS, accents/casse/ponctuation ignores) dont la presence
+    # dans le TITRE rejette la page, et dans le TITRE OU la description pour
+    # `mots_exclus_texte` -- cf. EXCLUSIONS_LOTS_ET_IMPORTS.
+    mots_exclus_titre: frozenset[str] = frozenset()
+    mots_exclus_texte: frozenset[str] = frozenset()
+    # True : au moins un mot-cle TYPE doit figurer dans le TITRE (pas seulement
+    # dans la description) -- un "Pack coffret 30 ans" de revendeur dont la
+    # description enumere ETB/bundle/mini tin ne doit pas matcher chacun de
+    # ces produits.
+    type_dans_titre: bool = False
+
+
+# 04/10/2026, faux positifs reels recus sur Telegram (kwilytcg.com, nin-nin-game.com) :
+#   - "Lot/bundle 30 ans", "Lot duopack 30 ans" : lots de revendeur melangeant
+#     plusieurs produits (poster collection, tripack, ETB d'une autre extension,
+#     "mini tin Illumis"...) -- la description contient "bundle"/"mini tin"/"ETB"
+#     sans que la page vende le produit suivi ;
+#   - "30th Anniversary Mini Tin Case Collection Vol.1 (10 Pack Box) [Ensky]" :
+#     produit derive japonais (edition originale japonaise), pas le Mini Tin TCG FR.
+# Un vrai produit suivi n'est jamais un "lot" dans son titre, ni une edition
+# japonaise/importee (les produits suivis sont les produits FRANCAIS).
+MOTS_LOTS_TITRE = frozenset({"lot", "lots", "duopack", "tripack", "duo pack", "tri pack"})
+MOTS_IMPORTS_TEXTE = frozenset({
+    "ensky", "case collection", "10 pack box", "japonaise", "japonais", "japanese",
+    "edition japonaise", "japan version",
+})
+# Suite du meme jour : "Pack coffret 30 ans" et "Gros pack 30ans + ME03/04"
+# (kwilytcg.com) matchaient encore ETB, Bundle, Mini Tin et Pokebox via leur
+# description -> le type de produit doit etre dans le TITRE.
+EXCLUSIONS_LOTS_ET_IMPORTS = {
+    "mots_exclus_titre": MOTS_LOTS_TITRE | {"pack", "gros pack", "pack coffret"},
+    "mots_exclus_texte": MOTS_IMPORTS_TEXTE,
+    "type_dans_titre": True,
+}
 
 
 PRODUITS_SURVEILLES: list[ProduitSurveille] = [
@@ -144,6 +178,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         date_sortie=date(2026, 11, 6),
         surveiller_jusqu_au=date(2026, 12, 31),
         alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS_ET_IMPORTS,
     ),
     ProduitSurveille(
         nom="Collection Ultra-Premium — Umbreon (Noctali) 30e Anniversaire FR",
@@ -158,6 +193,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         prioritaire=True,  # celle qui interesse le plus Justok (18/08/2026)
         surveiller_jusqu_au=date(2026, 12, 31),
         alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS_ET_IMPORTS,
     ),
     # --- Suivi de DISPONIBILITE des produits des 30 ans (demande de Justok,
     # 04/10/2026 : "prevenez-moi des qu'il y aura du restock" / "des qu'il
@@ -186,6 +222,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         date_sortie=date(2026, 9, 16),
         surveiller_jusqu_au=date(2026, 12, 31),
         alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS_ET_IMPORTS,
     ),
     # Booster Bundle et Mini Tin : sortie initialement prevue le 02/10/2026
     # puis REPORTEE par les distributeurs (date non confirmee au
@@ -203,6 +240,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         date_sortie=None,
         surveiller_jusqu_au=date(2026, 12, 31),
         alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS_ET_IMPORTS,
     ),
     ProduitSurveille(
         nom="Mini Tin — 30e Anniversaire (30th Celebration) FR",
@@ -216,6 +254,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         date_sortie=None,
         surveiller_jusqu_au=date(2026, 12, 31),
         alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS_ET_IMPORTS,
     ),
     # Pokebox / Tin 30e Anniversaire Nymphali-ex (Sylveon ex Tin, 4
     # boosters + promo + carte oversize) : sortie annoncee le 04/12/2026
@@ -239,6 +278,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         date_sortie=None,
         surveiller_jusqu_au=date(2027, 1, 31),
         alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS_ET_IMPORTS,
     ),
 ]
 
@@ -370,6 +410,18 @@ def extraire_dates_page(texte: str) -> list[date]:
     return dates_trouvees
 
 
+def _mot_exclu(texte: str, mots: frozenset[str]) -> str | None:
+    """Premier mot/expression de `mots` present en MOT ENTIER dans `texte`
+    (normalise) -- "lot" ne matche pas "pilote" ni "ballotin"."""
+    if not mots:
+        return None
+    norm = f" {_normaliser(texte)} "
+    for mot in sorted(mots):
+        if f" {_normaliser(mot).strip()} " in norm:
+            return mot
+    return None
+
+
 def evaluer_correspondance(
     titre: str, texte_description: str, produit: ProduitSurveille
 ) -> tuple[str, str] | tuple[None, str]:
@@ -390,8 +442,17 @@ def evaluer_correspondance(
         scrapable a ce stade)."""
     texte_complet = f"{titre} {texte_description}"
 
+    exclu = _mot_exclu(titre, produit.mots_exclus_titre) or _mot_exclu(texte_complet, produit.mots_exclus_texte)
+    if exclu:
+        return None, f"exclu : lot ou edition importee ('{exclu}')"
+
     if not titre_correspond_produit(texte_complet, produit):
         return None, "mots-cles absents (edition et/ou type de produit)"
+
+    if produit.type_dans_titre:
+        titre_norm = _normaliser(titre)
+        if not any(_normaliser(mot) in titre_norm for mot in produit.mots_cles_type):
+            return None, "type de produit absent du titre (page generique ou lot)"
 
     if produit.date_sortie is None:
         return "moyenne", "mots-cles presents (date de sortie inconnue ou reportee : pas de validation de date)"
