@@ -47,6 +47,10 @@
   publicité strictes : bars et débits de boissons, tabac, jeux (PMU), armurerie, alcool (caves,
   viticulteurs, distilleries), pharmacie et santé, professions réglementées (avocats, notaires,
   experts-comptables), immobilier, assurance, crédit, CBD. Les restaurants et hôtels restent.
+- **Prospects : seulement les plus probables** (demande du 05/10) : la liste est assez fournie ; n'ajouter
+  que des prospects de priorité 1 (score ≥ 55 du barème du classement 16230 : site payant laissé à
+  l'abandon, site mort ou jamais terminé, page gratuite, salariés, métier cherché sur Google…). Plus
+  d'ajout « annuaire seulement » sans autre signal.
 - **Démarchage B2B par email autorisé** (révision du 24/09) dans le cadre
   légal CNIL : ciblé, en rapport avec l'activité du destinataire,
   expéditeur identifiable, désinscription simple. Pas de particuliers.

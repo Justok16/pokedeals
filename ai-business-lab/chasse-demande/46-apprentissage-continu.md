@@ -223,6 +223,14 @@ Tri pour Dig (budget 0 €) ; la colonne « gratuit » de l'image n'est pas une 
 | Hedra, Hailuo, Vista, Ideogram, Open Design | Pas de besoin immédiat ; offres gratuites non vérifiées, à revoir si une vidéo ou un visuel Dig est décidé |
 | Colonne « payant » (Midjourney, HeyGen, Cursor, ElevenLabs, Canva Pro…) | Écartée : budget 0 € |
 
+### Prospects : seulement les plus probables (05/10, décision de l'utilisateur)
+
+« Je ne veux plus que des prospects les plus probablement futurs clients ; j'ai déjà une liste fournie. »
+Appliqué : barème du classement 16230 généralisé (état du site, salariés, métier cherché sur Google,
+entreprise récente, marque ou réseau, numéro public) ; seuls les prospects de priorité 1 (score ≥ 55) sont
+désormais ajoutés. Toute la liste actuelle a été notée : 113 en priorité 1, 526 en priorité 2, 851 en
+priorité 3. Règle inscrite dans `.claude/CLAUDE.md`.
+
 ### Prix : formule Achat rétablie et 12 mois d'avance (04/10, décision de l'utilisateur)
 
 Question : « quel est le prix si on veut payer en une fois ? ». Choix de l'utilisateur appliqué partout (site,
