@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><title>Maquette Dig</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px/1.5 system-ui,sans-serif;background:#f6f1e9;color:#1f1c18;text-align:center;padding:24px}</style>
+</head><body><p id="msg">Chargement de la maquette…</p>
+<script>
+/* Lecteur de maquettes privées Dig (04/10/2026).
+   Chaque maquette est chiffrée (AES-GCM) dans /m/x/<id>.bin ; la clé n'est que dans le lien remis au
+   professionnel (après le « # », jamais envoyé au serveur). Sans le lien complet, rien n'est lisible. */
+(async function(){
+  var msg=document.getElementById('msg');
+  function b64(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+  var h=location.hash.slice(1);
+  if(!/^[a-z0-9]{8}\.[A-Za-z0-9_-]{22}$/.test(h)){try{h=sessionStorage.getItem('dig-m')||''}catch(e){h=''}}
+  var m=/^([a-z0-9]{8})\.([A-Za-z0-9_-]{22})$/.exec(h);
+  if(!m){msg.textContent='Lien incomplet : ouvrez le lien exact reçu par SMS ou par e-mail.';return}
+  try{
+    var r=await fetch('/m/x/'+m[1]+'.bin',{cache:'no-store'});
+    if(!r.ok){msg.textContent='Cette maquette n’est plus disponible.';return}
+    var d=new Uint8Array(await r.arrayBuffer());
+    var k=await crypto.subtle.importKey('raw',b64(m[2]),'AES-GCM',false,['decrypt']);
+    var t=await crypto.subtle.decrypt({name:'AES-GCM',iv:d.slice(0,12)},k,d.slice(12));
+    try{sessionStorage.setItem('dig-m',h)}catch(e){}
+    var html=new TextDecoder().decode(t);
+    document.open();document.write(html);document.close();
+  }catch(e){msg.textContent='Impossible d’ouvrir la maquette : vérifiez que le lien est complet.'}
+})();
+</script></body></html>

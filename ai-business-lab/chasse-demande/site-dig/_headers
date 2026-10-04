@@ -7,3 +7,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+# Maquettes privées chiffrées (04/10/2026) : jamais indexées, aucune adresse d'origine transmise.
+/m/*
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer
