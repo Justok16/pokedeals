@@ -223,6 +223,21 @@ Tri pour Dig (budget 0 €) ; la colonne « gratuit » de l'image n'est pas une 
 | Hedra, Hailuo, Vista, Ideogram, Open Design | Pas de besoin immédiat ; offres gratuites non vérifiées, à revoir si une vidéo ou un visuel Dig est décidé |
 | Colonne « payant » (Midjourney, HeyGen, Cursor, ElevenLabs, Canva Pro…) | Écartée : budget 0 € |
 
+### Démos : hébergement et accroches vraies (04/10, question de l'utilisateur)
+
+Question : « je leur montre sur quel hébergeur ? Je ne vais pas acheter un nom de domaine pour une page temporaire ».
+Constat : les fiches affirmaient « j'ai préparé une page à votre nom » alors que la plupart des démos n'existaient pas
+(règle « rien d'invérifié n'est affirmé »). Appliqué :
+- **Hébergement gratuit et privé** des démos sur le site de Dig (`site-dig/m/`), chiffrées en AES-GCM ; clé seulement
+  dans le lien remis au professionnel ; pages en noindex et sans référent. Vercel écarté (adresses protégées par
+  connexion, et chaque page aurait dû être recopiée à la main). Photos génériques servies depuis `site-dig/img/d/`
+  (source et licence de chaque photo dans `LISEZMOI.md` ; 4 photos à la source non retrouvée remplacées).
+- **64 démos en ligne** : les 10 prospects de priorité 1 de la zone 16230 (nouveaux modèles fleuriste et paysagiste)
+  et 54 démos déjà préparées (2 retirées : prospects sortis des listes).
+- **Fiches** : bouton « 🖥️ Démo » quand la démo existe ; sinon l'accroche propose la démo au lieu de l'affirmer.
+  192 PDF régénérés (mêmes numéros), classement 16230 et guide de prospection mis à jour ; automatique pour les
+  prochains ajouts.
+
 ### Concurrent repéré le 01/10 (soir) : Artizo
 
 Artizo (artizo.fr, page d'accueil lue le 01/10/2026) : « Votre site web professionnel pour 4.90€/mois », nom de domaine

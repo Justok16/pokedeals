@@ -181,6 +181,12 @@ client) est la bonne réponse.
 3. **Démo personnalisée** : Claude refait la page d'accueil à partir des
    informations publiques du professionnel. Démo **privée** (lien non
    référencé, « noindex »), montrée à lui seul, supprimée s'il refuse.
+   **Hébergement (04/10/2026)** : gratuit, sur le site de Dig, sans nom de
+   domaine à acheter. Chaque démo est chiffrée (`outils/prospects/publier_maquettes.py`) :
+   le dépôt public ne contient ni nom ni contenu lisible ; seul le lien remis au
+   professionnel (`digsite.pages.dev/m/#…`) l'ouvre. Le vrai nom de domaine ne
+   s'achète qu'à la signature, au nom du client. Sur les fiches d'appel, un bouton
+   « 🖥️ Démo » signale une démo prête ; sans bouton, l'accroche la propose.
 4. **Premier contact** (dans l'ordre d'efficacité) :
    - **Courrier postal** avec capture de la démo et QR code (le plus
      remarqué, coûte un timbre — **dépense à valider**) ;
