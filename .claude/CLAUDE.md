@@ -50,7 +50,9 @@
 - **Prospects : seulement les plus probables** (demande du 05/10) : la liste est assez fournie ; n'ajouter
   que des prospects de priorité 1 (score ≥ 55 du barème du classement 16230 : site payant laissé à
   l'abandon, site mort ou jamais terminé, page gratuite, salariés, métier cherché sur Google…). Plus
-  d'ajout « annuaire seulement » sans autre signal.
+  d'ajout « annuaire seulement » sans autre signal. **Photos et logo trouvés = critère de priorité** (demande du 05/10) :
+  +10 pour au moins 3 photos à lui, +5 pour 1 ou 2, +5 si son logo est dans sa démo (`build_top.py`) ; pas de bonus pour
+  des photos écartées au tri à l'œil.
 - **Démos : photos du prospect d'abord** (demande du 05/10) : pour chaque démo, chercher d'abord les photos de son
   site, de ses pages (Planity, Eatbu, Facebook…) et de son ancien site archivé (`outils/prospects/photos_archives.py`) ;
   photos d'illustration seulement pour compléter. Ces photos restent dans la démo chiffrée, jamais sur le site public ;
