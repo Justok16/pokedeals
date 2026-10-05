@@ -36,6 +36,8 @@ qu'un paiement est en retard** (procédure). Sources officielles lues le
    - pénalités de retard : taux BCE + 10 points, soit **12,40 %** au
      2ᵉ semestre 2026 (minimum légal : 3 fois le taux d'intérêt légal) ;
    - ces deux mentions **doivent figurer dans les CGV et sur les factures**.
+     **Fait le 05/10** : `supports/Dig-CGV.pdf`, `Dig-Modele-devis.pdf`, `Dig-Modele-facture.pdf`
+     (générés par `outils/documents_commerciaux.py` ; mentions de facture vérifiées sur F31808, 11/08/2026).
 4. Injonction de payer au tribunal de commerce (Service Public,
    <https://entreprendre.service-public.gouv.fr/vosdroits/F38156>) : requête
    en ligne, sans avocat, frais de greffe **33,47 €** ; pas d'audience ; le

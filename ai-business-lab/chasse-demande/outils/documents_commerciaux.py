@@ -1,0 +1,102 @@
+# Documents commerciaux de Dig (05/10/2026) : CGV, modèle de devis-bon de commande, modèle de facture.
+# Sources lues le 05/10/2026 :
+#  - mentions obligatoires d'une facture : Service Public Entreprendre F31808 (« Vérifié le 11 août 2026 ») ;
+#  - pénalités de retard et indemnité de 40 € : F23211 (vérifié le 07/08/2026, voir 45-impayes-se-proteger.md) ;
+#  - franchise en base : mention « TVA non applicable, art. 293 B du code général des impôts » (F31808) ;
+#  - compte bancaire dédié et mention « EI » : F35991 (« Vérifié le 28 mai 2026 »).
+# Les promesses (engagement, rétractation, propriété du site, délais) reprennent mot pour mot le site de Dig.
+# Les champs entre crochets se remplissent à l'immatriculation : aucune donnée personnelle dans ce dépôt.
+# Usage : python3 outils/documents_commerciaux.py   (écrit supports/*.html et supports/Dig-*.pdf)
+import os
+ICI = os.path.dirname(os.path.abspath(__file__))
+SUP = os.path.normpath(os.path.join(ICI, '..', 'supports'))
+CHROME = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
+
+EMETTEUR = '[Prénom Nom] EI — « Dig »<br>[Adresse]<br>SIREN [numéro à l’immatriculation]'
+CSS = '''@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}
+body{font-family:Inter,sans-serif;font-size:9.4pt;color:#1d1a17;line-height:1.45;margin:0}
+.couv{background:#0d1330;color:#f4f1ea;border-radius:12px;padding:6mm 8mm;margin-bottom:4mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.couv h1{font-family:Fraunces,serif;font-size:20pt;margin:1mm 0}.couv p{color:#c6cbe4;margin:.5mm 0}
+.k{color:#ff8a3d;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:7.8pt}
+h2{font-family:Fraunces,serif;font-size:11.5pt;margin:4mm 0 1mm;break-after:avoid}
+p,li{margin:.8mm 0}ul{padding-left:5mm;margin:1mm 0}
+table{width:100%;border-collapse:collapse;margin:2mm 0;font-size:9pt}th,td{border:1px solid #d8d0c3;padding:1.6mm 2mm;text-align:left;vertical-align:top}
+th{background:#f4efe6;-webkit-print-color-adjust:exact;print-color-adjust:exact}td.n{text-align:right;white-space:nowrap}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin:2mm 0}.cadre{border:1px solid #d8d0c3;border-radius:8px;padding:3mm 4mm}
+.champ{border-bottom:1px solid #999;height:6mm;margin:1mm 0}.petit{color:#5d5a66;font-size:8.2pt}
+.sign{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:4mm}.sign div{border:1px solid #d8d0c3;border-radius:8px;height:26mm;padding:2mm 3mm;font-size:8.4pt;color:#5d5a66}
+.cgv{columns:2;column-gap:7mm;font-size:8.8pt;line-height:1.4}.cgv h2{font-size:10pt;margin:2.4mm 0 .6mm}.cgv p{margin:.5mm 0;text-align:justify}'''
+TETE = ('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>{t}</title>'
+        '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;600&display=swap" rel="stylesheet">'
+        '<style>' + CSS + '</style></head><body>')
+
+PENALITES = ('En cas de retard de paiement, des pénalités sont dues de plein droit, sans rappel préalable, au taux '
+             'appliqué par la Banque centrale européenne à son opération de refinancement la plus récente, majoré de '
+             '10 points, ainsi qu’une indemnité forfaitaire pour frais de recouvrement de 40 € par facture.')
+
+CGV = f'''<div class="couv"><div class="k">Dig — création et suivi de sites internet</div><h1>Conditions générales de vente</h1>
+<p>Applicables à toute commande passée par un professionnel. Version du [date de l’immatriculation].</p></div>
+<div class="cgv">
+<h2>1. Prestataire</h2><p>{EMETTEUR.replace('<br>', ', ')}. TVA non applicable, art. 293 B du code général des impôts.</p>
+<h2>2. Objet</h2><p>Dig crée, héberge et suit des sites internet pour les professionnels (entreprises, artisans, commerçants). Les présentes conditions s’appliquent à toute commande ; elles prévalent sur tout autre document, sauf accord écrit contraire.</p>
+<h2>3. Formules et prix</h2><p>Les formules et leurs prix sont ceux du devis signé : Essentiel 49 € par mois, Visibilité 79 € par mois, Prestige 1 990 € une fois ou 199 € par mois, Achat 690 € une fois (hébergement et suivi en option à 15 € par mois). Douze mois payés d’avance : un mois offert (Essentiel 539 €, Visibilité 869 €). Les prix sont nets : TVA non applicable. Le nom de domaine est enregistré au nom du client et à sa charge (environ 10 € par an).</p>
+<h2>4. Commande</h2><p>La commande est formée par la signature du devis-bon de commande. Pour les formules mensuelles, la création du site est offerte ; le premier mois est réglé avant la mise en ligne.</p>
+<h2>5. Droit de changer d’avis</h2><p>Le client dispose de 14 jours à compter de la signature pour se rétracter, sans motif ni frais, par simple email ou courrier. Aucun paiement n’est demandé avant 8 jours. Ce droit, prévu par la loi pour les contrats signés hors des locaux de Dig, est appliqué à tous les clients.</p>
+<h2>6. Durée et résiliation</h2><p>Les formules mensuelles comportent un engagement minimal de 6 mois (12 mois pour Prestige en paiement mensuel et pour les 12 mois payés d’avance), qui couvre la création offerte. Ensuite, le contrat se poursuit sans engagement : le client peut y mettre fin à tout moment, par email, avec effet à la fin du mois en cours. Le client peut passer à tout moment à une formule supérieure, et à une formule inférieure après les 6 premiers mois.</p>
+<h2>7. Paiement</h2><p>Formules mensuelles : prélèvement automatique mensuel, une facture chaque mois. Formules payées en une fois : à réception de la facture, au plus tard dans les 30 jours. Escompte pour paiement anticipé : néant. {PENALITES}</p>
+<h2>8. Réalisation et modifications</h2><p>Dig rédige les textes à partir de l’échange avec le client, qui relit et valide tout avant la mise en ligne. Le client fournit des informations exactes et des photos dont il détient les droits. Les demandes de modification sont traitées sous 48 heures ouvrées, dans la limite prévue par la formule (Essentiel : 1 par mois ; Visibilité : 3 par mois).</p>
+<h2>9. Propriété</h2><p>Le nom de domaine est enregistré au nom du client. Le site (textes, photos, fichiers) appartient au client : il peut le récupérer en partant, après les 6 premiers mois, et Dig l’aide à le transférer chez l’hébergeur de son choix. Formule Achat : les fichiers sont remis sur demande.</p>
+<h2>10. Hébergement et disponibilité</h2><p>Dig fait ses meilleurs efforts pour que le site reste accessible et sécurisé ; une interruption ponctuelle pour maintenance ou du fait de l’hébergeur peut survenir. Dig ne promet pas de position dans les résultats de Google.</p>
+<h2>11. Données personnelles</h2><p>Dig traite les données du client et de ses visiteurs uniquement pour réaliser et suivre le site, conformément au RGPD. Chaque site comprend ses mentions légales et ses informations sur les données ; aucun traceur publicitaire n’est installé.</p>
+<h2>12. Responsabilité</h2><p>Le client reste responsable du contenu qu’il fournit ou valide. La responsabilité de Dig est limitée aux sommes payées au titre des 12 derniers mois.</p>
+<h2>13. Litiges</h2><p>Les parties cherchent d’abord une solution amiable. À défaut, le litige est porté devant le tribunal compétent du ressort du siège de Dig. Droit français applicable.</p>
+</div>'''
+
+DEVIS = f'''<div class="couv"><div class="k">Dig — création et suivi de sites internet</div><h1>Devis et bon de commande</h1>
+<p>N° [AAAA-NNN] · Date : [jj/mm/aaaa] · Valable 30 jours</p></div>
+<div class="deux"><div class="cadre"><b>Prestataire</b><br>{EMETTEUR}<br>TVA non applicable, art. 293 B du CGI</div>
+<div class="cadre"><b>Client</b><div class="champ"></div><div class="champ"></div><span class="petit">Nom de l’entreprise, adresse, SIREN</span></div></div>
+<table><tr><th>Formule (cocher)</th><th>Contenu</th><th>Prix</th></tr>
+<tr><td>☐ Essentiel</td><td>Site 5 pages sur mesure, hébergement, sécurité, mentions légales, 1 modification par mois, rapport mensuel</td><td class="n">49 €/mois</td></tr>
+<tr><td>☐ Visibilité</td><td>Essentiel + fiche Google suivie, demandes d’avis, 3 modifications par mois</td><td class="n">79 €/mois</td></tr>
+<tr><td>☐ Prestige</td><td>Site haut de gamme, voir le détail joint</td><td class="n">1 990 € ou 199 €/mois</td></tr>
+<tr><td>☐ Achat</td><td>Site 5 pages livré, à vous pour toujours ; ☐ hébergement et suivi en option</td><td class="n">690 € · option 15 €/mois</td></tr>
+<tr><td>☐ 12 mois d’avance</td><td>Un mois offert : ☐ Essentiel 539 € · ☐ Visibilité 869 €</td><td class="n">une fois</td></tr></table>
+<p><b>Création offerte</b> sur les formules mensuelles ; le premier mois est réglé avant la mise en ligne. Nom de domaine au nom du client, à sa charge (environ 10 € par an).</p>
+<p><b>Engagement</b> : 6 mois minimum (12 mois pour Prestige en mensuel et pour 12 mois d’avance), puis sans engagement. <b>14 jours pour changer d’avis</b> après la signature ; aucun paiement avant 8 jours.</p>
+<p><b>Paiement</b> : prélèvement automatique mensuel, ou à réception de facture pour un paiement en une fois. Escompte pour paiement anticipé : néant. {PENALITES}</p>
+<p class="petit">Signer ce devis vaut commande et acceptation des conditions générales de vente jointes.</p>
+<div class="sign"><div>Date, signature et cachet du client<br>précédés de « Bon pour accord »</div><div>Pour Dig<br>(date et signature)</div></div>'''
+
+FACTURE = f'''<div class="couv"><div class="k">Dig — création et suivi de sites internet</div><h1>Facture</h1>
+<p>N° [AAAA-NNN] (numérotation continue) · Date d’émission : [jj/mm/aaaa] · Date de la prestation : [période ou jj/mm/aaaa]</p></div>
+<div class="deux"><div class="cadre"><b>Prestataire</b><br>{EMETTEUR}</div>
+<div class="cadre"><b>Client</b><br>[Nom de l’entreprise]<br>[Adresse]<br>SIREN [numéro du client]<br><span class="petit">N° de bon de commande : [si le client en a établi un]</span></div></div>
+<p><b>Nature de l’opération</b> : prestation de services.</p>
+<table><tr><th>Désignation</th><th>Quantité</th><th>Prix unitaire HT</th><th>Total HT</th></tr>
+<tr><td>[Formule Essentiel — abonnement du mois de …]</td><td class="n">1</td><td class="n">[49,00 €]</td><td class="n">[49,00 €]</td></tr>
+<tr><td>[Autre ligne si besoin]</td><td class="n"></td><td class="n"></td><td class="n"></td></tr>
+<tr><td colspan="3"><b>Total HT</b> · réduction de prix : [néant ou montant]</td><td class="n"><b>[49,00 €]</b></td></tr>
+<tr><td colspan="3"><b>Total à payer (TVA non applicable)</b></td><td class="n"><b>[49,00 €]</b></td></tr></table>
+<p><b>TVA non applicable, art. 293 B du code général des impôts.</b></p>
+<p><b>Date de règlement</b> : [jj/mm/aaaa] · Mode : [prélèvement / virement]. Escompte pour paiement anticipé : néant.</p>
+<p>{PENALITES}</p>
+<p class="petit">Mentions vérifiées sur Service Public Entreprendre (fiche F31808, vérifiée le 11 août 2026). Facture électronique obligatoire pour les micro-entreprises à partir du 1er septembre 2027 : il faudra alors aussi le SIREN du client, la nature de l’opération (déjà indiquée ici) et, le cas échéant, l’adresse de livraison.</p>'''
+
+def ecrire():
+    docs = [('cgv-dig.html', 'Dig — Conditions générales de vente', CGV, 'Dig-CGV.pdf'),
+            ('modele-devis.html', 'Dig — Devis et bon de commande', DEVIS, 'Dig-Modele-devis.pdf'),
+            ('modele-facture.html', 'Dig — Modèle de facture', FACTURE, 'Dig-Modele-facture.pdf')]
+    for f, t, corps, _ in docs:
+        open(os.path.join(SUP, f), 'w').write(TETE.replace('{t}', t) + corps + '</body></html>')
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        b = p.chromium.launch(executable_path=CHROME); pg = b.new_page()
+        for f, _, _, pdf in docs:
+            pg.goto('file://' + os.path.join(SUP, f)); pg.wait_for_timeout(800)
+            pg.pdf(path=os.path.join(SUP, pdf), format='A4', print_background=True, prefer_css_page_size=True)
+        b.close()
+    return docs
+
+if __name__ == '__main__':
+    for d in ecrire(): print(d[0], '->', d[3])
