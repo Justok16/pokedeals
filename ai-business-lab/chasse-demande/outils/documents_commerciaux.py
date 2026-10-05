@@ -4,6 +4,9 @@
 #  - pénalités de retard et indemnité de 40 € : F23211 (vérifié le 07/08/2026, voir 45-impayes-se-proteger.md) ;
 #  - franchise en base : mention « TVA non applicable, art. 293 B du code général des impôts » (F31808) ;
 #  - compte bancaire dédié et mention « EI » : F35991 (« Vérifié le 28 mai 2026 »).
+#  - rétractation : informations-type (annexe à l'article R221-3 du code de la consommation, version du 19/06/2026)
+#    et modèle de formulaire (annexe à l'article R221-1, version du 28/05/2022), lus sur Légifrance le 05/10/2026 ;
+#    applicables aux contrats hors établissement avec un client de 5 salariés au plus (L221-3), cf. 40-cadre-legal-sites.md.
 # Les promesses (engagement, rétractation, propriété du site, délais) reprennent mot pour mot le site de DIG16.
 # Les champs entre crochets se remplissent à l'immatriculation : aucune donnée personnelle dans ce dépôt.
 # Usage : python3 outils/documents_commerciaux.py   (écrit supports/*.html et supports/Dig-*.pdf)
@@ -66,7 +69,28 @@ DEVIS = f'''<div class="couv"><div class="k">DIG16 — création et suivi de sit
 <p><b>Engagement</b> : 6 mois minimum (12 mois pour Prestige en mensuel et pour 12 mois d’avance), puis sans engagement. <b>14 jours pour changer d’avis</b> après la signature ; aucun paiement avant 8 jours.</p>
 <p><b>Paiement</b> : prélèvement automatique mensuel, ou à réception de facture pour un paiement en une fois. Escompte pour paiement anticipé : néant. {PENALITES}</p>
 <p class="petit">Signer ce devis vaut commande et acceptation des conditions générales de vente jointes.</p>
-<div class="sign"><div>Date, signature et cachet du client<br>précédés de « Bon pour accord »</div><div>Pour DIG16<br>(date et signature)</div></div>'''
+<div class="sign"><div>Date, signature et cachet du client<br>précédés de « Bon pour accord »</div><div>Pour DIG16<br>(date et signature)</div></div>
+<div style="break-before:page"></div>
+<h2>Informations concernant l’exercice du droit de rétractation</h2>
+<p><b>Droit de rétractation.</b> Vous avez le droit de vous rétracter du présent contrat sans donner de motif dans un délai de quatorze jours. Le délai de rétractation expire quatorze jours après le jour de la conclusion du contrat.</p>
+<p>Pour exercer le droit de rétractation, vous devez nous notifier ([Prénom Nom] EI — « DIG16 », [Adresse], [téléphone], contact@dig16.fr) votre décision de rétractation du présent contrat au moyen d’une déclaration dénuée d’ambiguïté (par exemple, lettre envoyée par la poste ou courrier électronique). Vous pouvez utiliser le modèle de formulaire de rétractation ci-dessous mais ce n’est pas obligatoire.</p>
+<p>Pour que le délai de rétractation soit respecté, il suffit que vous transmettiez votre communication relative à l’exercice du droit de rétractation avant l’expiration du délai de rétractation.</p>
+<p><b>Effets de rétractation.</b> En cas de rétractation de votre part du présent contrat, nous vous rembourserons tous les paiements reçus de vous sans retard excessif et, en tout état de cause, au plus tard quatorze jours à compter du jour où nous sommes informés de votre décision de rétractation du présent contrat. Nous procéderons au remboursement en utilisant le même moyen de paiement que celui que vous aurez utilisé pour la transaction initiale, sauf si vous convenez expressément d’un moyen différent ; en tout état de cause, ce remboursement n’occasionnera pas de frais pour vous.</p>
+<p>Si vous avez demandé de commencer la prestation de services pendant le délai de rétractation, vous devrez nous payer un montant proportionnel à ce qui vous a été fourni jusqu’au moment où vous nous avez informé de votre rétractation du présent contrat, par rapport à l’ensemble des prestations prévues par le contrat.</p>
+<p>☐ Je demande que la prestation commence avant la fin du délai de rétractation (aucun paiement n’est demandé avant 8 jours).</p>
+<p class="petit">Texte repris de l’annexe à l’article R221-3 du code de la consommation. Ce droit s’applique aux contrats signés hors des locaux de DIG16 avec une entreprise de cinq salariés au plus (article L221-3) ; DIG16 l’applique à tous ses clients.</p>
+<div class="cadre" style="margin-top:5mm;border-style:dashed">
+<h2 style="margin-top:1mm">Modèle de formulaire de rétractation</h2>
+<p>(Veuillez compléter et renvoyer le présent formulaire uniquement si vous souhaitez vous rétracter du contrat.)</p>
+<p>À l’attention de [Prénom Nom] EI — « DIG16 », [Adresse], contact@dig16.fr :</p>
+<p>Je/nous (*) vous notifie/notifions (*) par la présente ma/notre (*) rétractation du contrat portant sur la prestation de services ci-dessous :</p>
+<div class="champ"></div>
+<p>Commandé le :</p><div class="champ"></div>
+<p>Nom du (des) client(s) :</p><div class="champ"></div>
+<p>Adresse du (des) client(s) :</p><div class="champ"></div>
+<p>Signature du (des) client(s) (uniquement en cas de notification du présent formulaire sur papier) :</p><div class="champ" style="height:12mm"></div>
+<p>Date :</p><div class="champ"></div>
+<p class="petit">(*) Rayez la mention inutile.</p></div>'''
 
 FACTURE = f'''<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Facture</h1>
 <p>N° [AAAA-NNN] (numérotation continue) · Date d’émission : [jj/mm/aaaa] · Date de la prestation : [période ou jj/mm/aaaa]</p></div>
@@ -91,12 +115,15 @@ def ecrire():
         open(os.path.join(SUP, f), 'w').write(TETE.replace('{t}', t) + corps + '</body></html>')
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
-        b = p.chromium.launch(executable_path=CHROME); pg = b.new_page()
+        b = p.chromium.launch(executable_path=CHROME)
+        pg = b.new_page()
         for f, _, _, pdf in docs:
-            pg.goto('file://' + os.path.join(SUP, f)); pg.wait_for_timeout(800)
+            pg.goto('file://' + os.path.join(SUP, f))
+            pg.wait_for_timeout(800)
             pg.pdf(path=os.path.join(SUP, pdf), format='A4', print_background=True, prefer_css_page_size=True)
         b.close()
     return docs
 
 if __name__ == '__main__':
-    for d in ecrire(): print(d[0], '->', d[3])
+    for d in ecrire():
+        print(d[0], '->', d[3])
