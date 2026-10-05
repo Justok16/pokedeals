@@ -34,9 +34,13 @@ Date butoir absolue : **31/01/2027** (fin de support de Connect).
   vérifier, seuils modifiés en 2025]** ; ventes à des entreprises hors de
   France : règles d'autoliquidation **[à vérifier avec un conseiller
   gratuit : CCI, URSSAF ou chambre des métiers]**.
-- Compte bancaire dédié : obligatoire au-delà d'un certain chiffre
-  d'affaires **[à vérifier]** ; en ouvrir un gratuit dès le départ est
-  plus simple.
+- Compte bancaire dédié : obligatoire si le chiffre d'affaires dépasse
+  **10 000 € pendant 2 années consécutives** ; il peut s'agir d'un simple
+  compte personnel distinct, qui doit porter la mention « EI » (source :
+  Service Public Entreprendre, fiche F35991, « Vérifié le 28 mai 2026 »,
+  lue le 05/10/2026). Recommandé dès le départ ; en refus, droit au compte
+  par la Banque de France. Comparatif des comptes pros gratuits : voir
+  moneyradar.org (site d'affiliation : tarifs à revérifier chez la banque).
 
 ### Rappel à faire à l'utilisateur juste après la création (demande du 26/09)
 

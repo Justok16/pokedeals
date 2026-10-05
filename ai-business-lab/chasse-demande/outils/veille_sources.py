@@ -94,9 +94,21 @@ def deviensdev():
             for u, d in re.findall(r'<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>', plan)}
 
 
+def moneyradar():
+    # Comparatifs banque, bourse, épargne, banques pro, logiciels de compta (site envoyé le 05/10/2026).
+    # Site d'affiliation (liens de parrainage) : tout chiffre est revérifié à la source officielle.
+    # Clé = adresse + date de mise à jour, comme deviensdev.
+    index = telecharger('https://moneyradar.org/sitemap.xml')
+    pages = {}
+    for plan in re.findall(r'<loc>([^<]+)</loc>', index):
+        for u, d in re.findall(r'<loc>([^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>', telecharger(plan)):
+            pages[u + '#' + d] = f'{u} (mis à jour le {d[:10]})'
+    return pages
+
+
 SOURCES = {'nosignups': nosignups, 'futuretools': futuretools, 'free-for-dev': free_for_dev,
            'mrfreetools': mrfreetools, 'openalternative': openalternative,
-           'public-apis': public_apis, 'gratos': gratos, 'deviensdev': deviensdev}
+           'public-apis': public_apis, 'gratos': gratos, 'deviensdev': deviensdev, 'moneyradar': moneyradar}
 
 
 def veille_outils(rapport):

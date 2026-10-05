@@ -152,6 +152,11 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
   dont le titre touche au projet (filtre dans `liste-videos.json`) vont dans `prio.json`.
 - **Annuaires d'outils** : nosignups.net (268), futuretools.io (environ 4 300), free-for.dev
   (1 367 offres gratuites), mrfreetools.com (1 913). Mémoire cumulée dans `veille/etat/`.
+- **moneyradar.org** (envoyé le 05/10) : comparatifs banque, bourse, épargne, comptes pros et logiciels de
+  compta ; plan du site lu chaque jour (543 pages, clé = adresse + date de mise à jour). Site d'affiliation
+  (liens de parrainage) : ne sert qu'à repérer des pistes ; tout chiffre ou règle est revérifié à la source
+  officielle. Premier apport : la règle du compte bancaire dédié (10 000 € deux années de suite), confirmée
+  sur Service Public (F35991) et ajoutée au kit 31.
 - **Rapport** : `veille/<date>.md`. Chaque nouveauté utile est évaluée (offre gratuite vérifiée à
   la source, légalité, utilité pour Dig ou pour la chasse aux pistes), puis appliquée ou écartée
   ici, avec la raison.
