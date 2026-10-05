@@ -1,6 +1,6 @@
 # Signaler une faille de sécurité sur le site de DIG16 (norme RFC 9116).
 Contact: mailto:contact@dig16.fr
-Contact: https://digsite.pages.dev/#contact
+Contact: https://dig16.fr/#contact
 Expires: 2027-09-30T00:00:00.000Z
 Preferred-Languages: fr, en
-Canonical: https://digsite.pages.dev/.well-known/security.txt
+Canonical: https://dig16.fr/.well-known/security.txt
