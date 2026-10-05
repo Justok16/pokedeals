@@ -166,7 +166,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 
 ## Registre de toutes les vidéos envoyées
 
-### Chaînes envoyées le 05/10 (soir) : 15 chaînes finance, bourse et crypto
+### Chaînes envoyées le 05/10 (soir) : 16 chaînes finance, bourse, crypto et technologie
 
 - [youtube.com/@journalducoinfr](https://youtube.com/@journalducoinfr) (actualité des cryptomonnaies). **En attente** : résumés vidéo en pause jusqu’au premier client payant (décision du 05/10) ; à trier à la reprise. Hors du sujet principal (sites pour artisans) ; aucun conseil d’investissement n’en sera tiré sans vérification à la source officielle.
 - [youtube.com/@aswathdamodaranonvaluation](https://youtube.com/@aswathdamodaranonvaluation) (Aswath Damodaran, professeur à la Stern School de NYU : finance d’entreprise, valorisation, philosophies d’investissement ; description de la chaîne lue le 05/10). **En attente**, même règle.
@@ -183,6 +183,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 - [youtube.com/@bg2pod](https://youtube.com/@bg2pod) (BG2 : technologie, marchés et investissement (anglais) ; description lue le 05/10). **En attente**, même règle.
 - [youtube.com/@xavierdelmasinvest](https://youtube.com/@xavierdelmasinvest) (Xavier Delmas : bourse et marchés financiers ; description lue le 05/10). **En attente**, même règle.
 - [youtube.com/@zoneboursefr](https://youtube.com/@zoneboursefr) (Zonebourse : actualité de la bourse et de la finance ; description lue le 05/10). **En attente**, même règle.
+- [youtube.com/@a16z](https://youtube.com/@a16z) (a16z, Andreessen Horowitz : société d’investissement en capital-risque, technologie et start-up, en anglais : tendances technologiques et conseils pour créer une entreprise ; description lue le 05/10). **En attente**, même règle.
 
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
