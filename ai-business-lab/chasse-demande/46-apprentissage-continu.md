@@ -201,6 +201,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 - Site envoyé le 05/10 : [sec.gov](https://www.sec.gov/) (SEC, gendarme de la bourse des États-Unis ; base EDGAR des documents officiels des sociétés cotées). Source officielle de référence pour vérifier un chiffre d’entreprise américaine cité dans une vidéo. **En attente**, même règle.
 - Page envoyée le 05/10 : [Crunchbase News, « The Crunchbase Megadeals Board »](https://news.crunchbase.com/biggest-us-vc-startup-funding-deals-2023/) (tableau des plus grosses levées de fonds de start-up américaines ; page mise à jour, date affichée : 26/04/2024 ; titre lu le 05/10). **En attente**, même règle ; tout chiffre repris sera daté et cité.
 - Lettre d’information envoyée le 05/10 : [StrictlyVC](https://newsletter.strictlyvc.com/) (lettre quotidienne gratuite sur le capital-risque et les start-up de la Silicon Valley, en anglais ; description lue le 05/10). **En attente**, même règle ; abonnement seulement sur décision de l’utilisateur (adresse email).
+- Lettre d’information envoyée le 05/10 : [Newcomer](https://www.newcomer.co/) (lettre d’Eric Newcomer sur Substack : enquêtes sur le capital-risque et l’industrie des start-up, en anglais ; présentation lue le 05/10). **En attente**, même règle ; abonnement seulement sur décision de l’utilisateur.
 
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
