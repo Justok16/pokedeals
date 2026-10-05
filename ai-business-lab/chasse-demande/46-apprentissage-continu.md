@@ -166,7 +166,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 
 ## Registre de toutes les vidéos envoyées
 
-### Chaînes envoyées le 05/10 (soir) : 23 chaînes finance, bourse, crypto, économie et création d’entreprise
+### Chaînes envoyées le 05/10 (soir) : 24 chaînes finance, bourse, crypto, économie et création d’entreprise
 
 - [youtube.com/@journalducoinfr](https://youtube.com/@journalducoinfr) (actualité des cryptomonnaies). **En attente** : résumés vidéo en pause jusqu’au premier client payant (décision du 05/10) ; à trier à la reprise. Hors du sujet principal (sites pour artisans) ; aucun conseil d’investissement n’en sera tiré sans vérification à la source officielle.
 - [youtube.com/@aswathdamodaranonvaluation](https://youtube.com/@aswathdamodaranonvaluation) (Aswath Damodaran, professeur à la Stern School de NYU : finance d’entreprise, valorisation, philosophies d’investissement ; description de la chaîne lue le 05/10). **En attente**, même règle.
@@ -191,6 +191,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 - [youtube.com/@unchainedcrypto](https://youtube.com/@unchainedcrypto) (Unchained, Laura Shin : actualité des cryptomonnaies, en anglais ; description lue le 05/10). **En attente**, même règle.
 - [youtube.com/@heu7reka](https://youtube.com/@heu7reka) (Heu?reka : la finance et l’économie expliquées simplement, en dialogues, en français ; description lue le 05/10). **En attente**, même règle.
 - [youtube.com/@20vc](https://youtube.com/@20vc) (20VC, Harry Stebbings : capital-risque, levée de fonds des start-up, en anglais ; description lue le 05/10). **En attente**, même règle.
+- [youtube.com/@blockworkshq](https://youtube.com/@blockworkshq) (Blockworks : investisseurs et entreprises des marchés financiers « on-chain » (crypto), données et analyses, en anglais ; description lue le 05/10). **En attente**, même règle.
 
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
