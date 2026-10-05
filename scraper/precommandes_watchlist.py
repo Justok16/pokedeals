@@ -102,6 +102,13 @@ class ProduitSurveille:
 # Un vrai produit suivi n'est jamais un "lot" dans son titre, ni une edition
 # japonaise/importee (les produits suivis sont les produits FRANCAIS).
 MOTS_LOTS_TITRE = frozenset({"lot", "lots", "duopack", "tripack", "duo pack", "tri pack"})
+# Lots de revendeur "produit Pokemon + produit d'un AUTRE jeu" (snooop.gg,
+# 05/10/2026 : "Bundle | Pokémon 30E Anniversaire Mini Tin | Rise 3 Boosters
+# Prestige 2025") : ce ne sont pas les produits officiels suivis.
+MOTS_AUTRES_JEUX_TITRE = frozenset({
+    "lorcana", "rise", "riftbound", "one piece", "yu-gi-oh", "yugioh", "magic", "mtg",
+    "dragon ball", "digimon", "flesh and blood", "star wars unlimited", "naruto", "union arena",
+})
 MOTS_IMPORTS_TEXTE = frozenset({
     "ensky", "case collection", "10 pack box", "japonaise", "japonais", "japanese",
     "edition japonaise", "japan version",
@@ -145,7 +152,7 @@ def langue_non_francaise(titre: str, description: str) -> str | None:
 # (kwilytcg.com) matchaient encore ETB, Bundle, Mini Tin et Pokebox via leur
 # description -> le type de produit doit etre dans le TITRE.
 EXCLUSIONS_LOTS_ET_IMPORTS = {
-    "mots_exclus_titre": MOTS_LOTS_TITRE | {"pack", "gros pack", "pack coffret"},
+    "mots_exclus_titre": MOTS_LOTS_TITRE | MOTS_AUTRES_JEUX_TITRE | {"pack", "gros pack", "pack coffret"},
     "mots_exclus_texte": MOTS_IMPORTS_TEXTE,
     "type_dans_titre": True,
     "francais_uniquement": True,
