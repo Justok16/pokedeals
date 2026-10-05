@@ -105,7 +105,7 @@ Résultat au 05/10 : **11 refus sur 37**, aucun « oui », relance unique prévu
 
 ## 4. Ce que j'attends de toi
 
-Lis au minimum : le site, la page Prestige, les deux démos publiques, et les PDF joints.
+Lis au minimum : le site, la page Prestige, les deux démos publiques et les PDF joints.
 Si tu peux ouvrir les liens, le dossier complet est public :
 https://github.com/Justok16/pokedeals/tree/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande
 (fichiers numérotés 00 à 50 ; essentiels : 39 business plan, 40 cadre légal, 41 textes de
