@@ -168,6 +168,8 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 
 ### Chaînes envoyées le 05/10 (soir) : 30 chaînes finance, bourse, crypto, économie et création d’entreprise
 
+**Mise à jour du 05/10 (soir)** : l'utilisateur demande de tout traiter (« ce sont majoritairement des approches de la finance et de l'investissement »). Exception à la pause des vidéos pour ces sources. Chaînes : résumés par lots dans `connaissances/<chaîne>/` (10 vidéos récentes par chaîne d'abord, environ 300 vidéos, puis le reste ; plus de 41 000 vidéos au total, quota gratuit d'environ 200 par jour). Liens et publication X : traités dans `connaissances/sources-finance.md`. Les mentions « En attente » ci-dessous valent « en cours ».
+
 - [youtube.com/@journalducoinfr](https://youtube.com/@journalducoinfr) (actualité des cryptomonnaies). **En attente** : résumés vidéo en pause jusqu’au premier client payant (décision du 05/10) ; à trier à la reprise. Hors du sujet principal (sites pour artisans) ; aucun conseil d’investissement n’en sera tiré sans vérification à la source officielle.
 - [youtube.com/@aswathdamodaranonvaluation](https://youtube.com/@aswathdamodaranonvaluation) (Aswath Damodaran, professeur à la Stern School de NYU : finance d’entreprise, valorisation, philosophies d’investissement ; description de la chaîne lue le 05/10). **En attente**, même règle.
 - [youtube.com/@pboyle](https://youtube.com/@pboyle) (Patrick Boyle, gérant de fonds et professeur : finance quantitative ; description lue le 05/10). **En attente**, même règle.
