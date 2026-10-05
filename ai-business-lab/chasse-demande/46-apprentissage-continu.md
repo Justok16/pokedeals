@@ -209,6 +209,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 - Site envoyé le 05/10 : [Renaissance Capital, IPO Center](https://www.renaissancecapital.com/IPO-Center) (calendrier et analyses des introductions en bourse, en anglais ; description lue le 05/10). **En attente**, même règle ; aucune offre payante (budget 0 €).
 - Page envoyée le 05/10 : [Nasdaq, « IPO Listings »](https://www.nasdaq.com/market-activity/ipos) (liste des introductions en bourse du Nasdaq ; titre lu le 05/10). **En attente**, même règle.
 - Site envoyé le 05/10 : [DefiLlama](https://defillama.com/) (tableau de bord et statistiques de la finance décentralisée, crypto ; titre lu le 05/10). **En attente**, même règle.
+- Publication X envoyée le 05/10 : [@romanftp](https://x.com/romanftp/status/2106707327965381018) (04/10/2026, en espagnol ; texte lu via fxtwitter) : vidéo de 18 min promettant des vidéos IA « illimitées et gratuites » avec Google Flow et Kling AI, pour une chaîne YouTube automatisée « qui rapporte des milliers d’euros par mois ». **Tri** : promesse de revenus non vérifiée (accroche marketing) ; contourner les crédits payants peut enfreindre les conditions d’utilisation ; hors sujet DIG16 et réseaux en pause. **En attente** (vidéo non résumée, résumés en pause).
 
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
