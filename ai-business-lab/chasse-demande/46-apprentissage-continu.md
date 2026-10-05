@@ -203,6 +203,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 - Lettre d’information envoyée le 05/10 : [StrictlyVC](https://newsletter.strictlyvc.com/) (lettre quotidienne gratuite sur le capital-risque et les start-up de la Silicon Valley, en anglais ; description lue le 05/10). **En attente**, même règle ; abonnement seulement sur décision de l’utilisateur (adresse email).
 - Lettre d’information envoyée le 05/10 : [Newcomer](https://www.newcomer.co/) (lettre d’Eric Newcomer sur Substack : enquêtes sur le capital-risque et l’industrie des start-up, en anglais ; présentation lue le 05/10). **En attente**, même règle ; abonnement seulement sur décision de l’utilisateur.
 - Site envoyé le 05/10 : [Sacra](https://sacra.com/) (plateforme d’études sur les entreprises non cotées, avant leur entrée en bourse, en anglais ; description lue le 05/10). **En attente**, même règle ; aucune offre payante (budget 0 €).
+- Site envoyé le 05/10 : [SemiAnalysis](https://semianalysis.com/) (analyses de l’industrie des semi-conducteurs et de ses enjeux économiques, en anglais ; description lue le 05/10). **En attente**, même règle ; aucune offre payante (budget 0 €).
 
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
