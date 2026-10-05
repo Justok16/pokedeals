@@ -208,6 +208,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 - Site envoyé le 05/10 : [USAspending.gov](https://www.usaspending.gov/search) (site officiel des dépenses de l’État fédéral américain ; titre lu le 05/10, contenu à vérifier à la reprise). Source officielle pour vérifier un marché public américain cité ailleurs. **En attente**, même règle.
 - Site envoyé le 05/10 : [Renaissance Capital, IPO Center](https://www.renaissancecapital.com/IPO-Center) (calendrier et analyses des introductions en bourse, en anglais ; description lue le 05/10). **En attente**, même règle ; aucune offre payante (budget 0 €).
 - Page envoyée le 05/10 : [Nasdaq, « IPO Listings »](https://www.nasdaq.com/market-activity/ipos) (liste des introductions en bourse du Nasdaq ; titre lu le 05/10). **En attente**, même règle.
+- Site envoyé le 05/10 : [DefiLlama](https://defillama.com/) (tableau de bord et statistiques de la finance décentralisée, crypto ; titre lu le 05/10). **En attente**, même règle.
 
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
