@@ -80,3 +80,11 @@ Un client trouvé par recommandation ne demande ni démarchage, ni appels, ni vi
 
 > Mise à jour du 28/09 : offre réduite à Essentiel, Visibilité et Prestige (voir `39`, 3.2 bis) ;
 > le premier mois payant du filleul est réglé avant la mise en ligne.
+
+## 6. Plafond (décision du 05/10/2026, audit n° 6)
+
+La récompense de chaque parrainage est **un mois de la formule la moins chère des deux** (parrain
+et filleul), **plafonnée à 79 €** par personne. Exemple : parrain Prestige + filleul Essentiel →
+49 € offerts à chacun, pas 199 €. Elle n'est jamais liée à un avis Google (règles Google :
+aucun avantage contre un avis), ne se cumule pas avec une autre promotion, et reste conditionnée
+aux deux premiers mois réglés par le filleul. Plafond annuel inchangé : 6 mois par parrain.

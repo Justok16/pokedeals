@@ -236,8 +236,17 @@ client) est la bonne réponse.
    vitesse, liens, mentions légales, formulaire, accessibilité (vidéo bBMp5tLxShQ).
 6. **Bascule** du nom de domaine le jour J, sans coupure.
 7. **Suivi** : rapport mensuel automatique (visites, appels, demandes de
-   devis), modification sous 48 h ouvrées.
+   devis), modification sous 3 jours ouvrés.
 8. **Point à 5 mois** : bilan et proposition de la formule suivante.
+
+### 5.1 bis Capacité et hébergement (décisions du 05/10/2026)
+
+- **15 clients actifs au maximum la première année** (file d'attente ensuite), le temps de
+  mesurer la charge réelle : le premier site livré est **chronométré** de bout en bout.
+- **Un compte Cloudflare gratuit au nom de chaque client** (créé à la signature, accès remis
+  avec les fichiers) : un blocage du compte de DIG16 ne coupe aucun client, et « le site est à
+  vous » est vrai en pratique.
+- Modifications sous **3 jours ouvrés** (et non 48 h).
 
 ### 5.2 Fidélisation
 - Engagement court = confiance ; le client reste parce qu'il est content.
@@ -368,7 +377,7 @@ l'utilisateur garde la relation humaine (appels, visites, signature).
 | 9. Mise en ligne | Nom de domaine au nom du client, hébergement, bascule sans coupure | Cloudflare Pages | Claude (+ client pour son domaine) |
 | 10. Facturation | Facture mensuelle, mention TVA, livre des recettes ; facture électronique obligatoire au 01/09/2027 | Plateforme agréée **[à choisir]** | Automatique |
 | 11. Suivi mensuel | Le site répond ? Pages cassées ? Vitesse ? Avis Google nouveaux ? Rapport « demandes reçues » envoyé au client | Routine Claude mensuelle | Claude |
-| 12. Mise à jour continue | Horaires, photos, promotions, pages saisonnières ; demande du client traitée sous 48 h | Email → Claude | Claude |
+| 12. Mise à jour continue | Horaires, photos, promotions, pages saisonnières ; demande du client traitée sous 3 jours ouvrés | Email → Claude | Claude |
 | 13. Fidélisation | Bilan à 5 mois, proposition d'amélioration, demande d'avis, parrainage | Routine | Claude + utilisateur |
 | 14. Déclarations | Chiffre d'affaires URSSAF, rappels (kit section 2 bis) | Rappels automatiques | Claude prépare, **utilisateur valide** |
 

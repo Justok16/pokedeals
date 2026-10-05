@@ -156,7 +156,7 @@ pas « un site » — leçon de la vidéo « FDE » de Greg Isenberg, `46`)
 | Veut plus de demandes, concurrents actifs sur Google, zone large | **Visibilité** ⭐ (79 €/mois) |
 | Préfère payer une fois | **Achat** (690 € une fois, suivi 15 €/mois en option) ; ou 12 mois d'avance avec 1 mois offert (539 € / 869 €) |
 | Préfère payer une fois | **Essentiel au mois** (rien à avancer) ; Prestige seulement pour un site haut de gamme |
-| Image haut de gamme essentielle (hôtel, restaurant, domaine, art) | **Prestige** (1 990 € ou 199 €/mois) |
+| Image haut de gamme essentielle (hôtel, restaurant, domaine, art) | **Prestige** (1 990 € ou 199 €/mois) — **jamais proposé en prospection** (décision du 05/10) : seulement si le client le demande ou sur recommandation |
 | Contrat en cours ailleurs | + option **Départ sans coupure** (offerte) |
 | Rendez-vous, réservations | **inclus** dans toutes les formules |
 | Clientèle étrangère | Version anglaise **+5 €/mois** (incluse en Prestige) |

@@ -21,6 +21,11 @@ avant de dépenser quoi que ce soit. Autour de ce cœur, quatre canaux gratuits 
 
 ## 2. Conditions de départ (aucune exception)
 
+Décisions du 05/10/2026 (audits n° 2 à 6) : Prestige n'est **pas** proposé en prospection (page
+conservée sur le site) ; **15 clients au maximum la première année** ; réseaux sociaux en pause
+jusqu'au premier client ; un compte Cloudflare gratuit **au nom de chaque client** ; parrainage
+plafonné (`47`).
+
 La loi impose que le professionnel derrière un message de prospection soit **identifiable**
 (art. L34-5 du Code des postes et communications électroniques ; art. 20 de la LCEN —
 `35-demarchage-cadre-legal.md`). Donc **rien ne part avant** :
@@ -88,15 +93,15 @@ Charente, toujours par score décroissant du classement (priorité 1 seulement).
 
 | Étape | Délai | Action |
 |---|---|---|
-| Premier contact | J0 | Email avec le lien de **sa** démo privée |
-| Appel | J+3 | « Vous avez pu regarder ? » |
+| Premier contact | J0 | Appel : accord pour préparer une maquette avec ses photos et son logo (décision du 05/10 : jamais de démo nominative sans accord) ; sans accord, maquette avec photos d'illustration |
+| Démo | J+2 à J+5 | Montrée **en direct** (écran du téléphone, visio ou visite), pas envoyée en fichier ; lien privé seulement s'il le demande |
 | Dernière relance | J+10 | Email court, puis arrêt définitif |
 | Refus | — | Noté, jamais recontacté, démo supprimée |
 
 Prospect sans email publié : appel direct (J0), puis envoi de la démo s'il accepte, ou
 visite s'il est proche.
 
-### 4.2 Email de premier contact (modèle)
+### 4.2 Email de premier contact (modèle, pour les prospects sans téléphone joignable ou après accord)
 
 > **Objet :** J'ai refait la page d'accueil de [Entreprise] (gratuit, sans engagement)
 >

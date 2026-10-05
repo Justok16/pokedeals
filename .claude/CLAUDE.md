@@ -100,6 +100,29 @@
 - Économiser le quota hebdomadaire : garder de la réserve pour le jour où
   un éditeur répond « oui ».
 
+## Décisions du 05/10/2026 (soir) — « tout oui » aux 12 décisions issues de 6 audits
+
+- **Priorité des 30 jours : la preuve de la demande.** L'utilisateur mène des entretiens d'étude
+  de marché (`57-entretiens-etude-de-marche.md`, sans vente ni prix, légal avant immatriculation) ;
+  Claude prépare, consigne, synthétise chaque vendredi. Pas de règle stricte « rien de nouveau »
+  (réponse de l'utilisateur : « pas spécialement, on verra »), mais toute construction nouvelle se
+  justifie par une demande d'artisan ou une correction.
+- **En pause jusqu'au premier client payant** : réseaux sociaux (noms réservés seulement),
+  résumés vidéo, veille des sources, photos des prospects, nouvelles démos. Points automatiques
+  **2 fois par jour** (07:34 et 19:34 UTC).
+- **Atlassian** : relance unique le 08/10, puis dossier clos.
+- **Prestige** : jamais proposé en prospection (page conservée).
+- **Démos** : accord préalable avant toute démo avec les photos ou le logo du prospect ; montrée
+  **en direct**, pas envoyée ; les 64 démos existantes restent hors diffusion sans accord.
+- **Site** : bandeau « ouverture prochaine », formulaire désactivé, « Facile à appeler », pas de
+  badge « Le plus choisi » tant qu'il n'y a pas de client ; modifications sous 3 jours ouvrés.
+- **Capacité** : 15 clients maximum la première année ; un compte Cloudflare gratuit au nom de
+  chaque client ; parrainage plafonné (`47` § 6).
+- **Création** : appeler la mairie et la communauté de communes (adresse, coworking, CFE) au lieu
+  d'attendre le courrier ; demander au SIE si un rescrit est utile pour l'exonération FRR+
+  (ouverte aux micro-entreprises en zone FRR+, fiche officielle lue le 05/10) ; couveuse ou CAE
+  à explorer (Heliscoop, Angoulême).
+
 ## Rappels promis à l'utilisateur
 
 - **Paiement client : FAIT le 27/09.** Antisèche n° 12 : franchise en base

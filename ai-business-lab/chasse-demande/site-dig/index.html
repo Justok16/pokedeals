@@ -57,7 +57,7 @@ nav .cadre{display:flex;align-items:center;justify-content:space-between;height:
 .liens a{text-decoration:none;color:var(--doux)}.liens a:hover{color:#fff}
 .liens .btn{padding:.65rem 1.1rem;color:#fff}
 /* héros */
-.heros{position:relative;padding:140px 0 90px;overflow:hidden}
+.heros{position:relative;padding:180px 0 90px;overflow:hidden}
 .heros::before{content:"";position:absolute;inset:0;background:
  radial-gradient(600px 400px at 85% 10%,rgba(255,138,61,.35),transparent 70%),
  radial-gradient(700px 500px at 0% 70%,rgba(123,92,255,.35),transparent 70%),
@@ -159,11 +159,12 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 /* apparition */
 .apparait{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
 .apparait.vu{opacity:1;transform:none}
+.avis-ouverture{background:#1f3b2d;color:#f4f1ea;text-align:center;font-size:.9rem;padding:.55rem 1rem;line-height:1.4}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.apparait{opacity:1;transform:none}}
 @media (max-width:1000px){.prix{grid-template-columns:1fr;max-width:540px}.g4{grid-template-columns:1fr 1fr}.formule.vedette{transform:none}}
 @media (max-width:820px){
  .liens a:not(.btn){display:none}
- .heros{padding-top:110px}
+ .heros{padding-top:200px}
  .heros .cadre,.contact .cadre,.g2,.g3,.prestige{grid-template-columns:minmax(0,1fr)}
  .notif{left:-10px}
  section{padding:72px 0}
@@ -195,7 +196,8 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 </head>
 <body>
 
-<nav id="nav"><div class="cadre">
+<nav id="nav"><div class="avis-ouverture" role="status">Ouverture prochaine : DIG16 est en cours d’immatriculation. Aucune commande n’est possible avant. Vous pouvez déjà découvrir les offres et les démos.</div>
+<div class="cadre">
  <a href="#" class="logo" aria-label="DIG16, accueil"><i>D</i><span><b>DIG16</b><small>Sites internet</small></span></a>
  <div class="liens">
   <a href="#offres">Offres</a><a href="prestige.html">Prestige</a><a href="#methode">Méthode</a><a href="#demos">Démos</a><a href="#faq">Questions</a>
@@ -224,10 +226,10 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 <section class="clair"><div class="cadre">
  <div class="titre apparait"><div class="sur">Pourquoi un site ?</div><h2>Aujourd’hui, tout commence par une recherche</h2><p>Avant d’appeler un artisan ou de pousser la porte d’un commerce, vos futurs clients regardent sur leur téléphone. S’ils ne vous trouvent pas, ou s’ils tombent sur un site daté, ils appellent quelqu’un d’autre.</p></div>
  <div class="grille g4">
-  <div class="carte apparait"><div class="ic i1">📞</div><h3>Plus d’appels et de devis</h3><p>Un site pensé d’abord pour le téléphone, avec votre numéro toujours à portée de pouce.</p></div>
-  <div class="carte apparait"><div class="ic i2">🔑</div><h3>Votre site vous appartient</h3><p>Site et nom de domaine à votre nom. Vous partez quand vous voulez, avec votre site.</p></div>
-  <div class="carte apparait"><div class="ic i3">⚡</div><h3>En ligne en 7 jours</h3><p>20 minutes ensemble pour vos textes et vos photos. Je m’occupe de tout le reste.</p></div>
-  <div class="carte apparait"><div class="ic i4">🤝</div><h3>Suivi chaque mois</h3><p>Modifications sous 48 h, et un petit bilan mensuel : combien de personnes vous ont trouvé.</p></div>
+  <div class="carte apparait"><div class="ic i1">📞</div><h3>Facile à appeler</h3><p>Un site pensé d’abord pour le téléphone, avec votre numéro toujours à portée de pouce.</p></div>
+  <div class="carte apparait"><div class="ic i2">🔑</div><h3>Votre site vous appartient</h3><p>Site et nom de domaine à votre nom. Après les 6 premiers mois, vous partez quand vous voulez, avec votre site.</p></div>
+  <div class="carte apparait"><div class="ic i3">⚡</div><h3>En ligne en 7 jours</h3><p>20 minutes ensemble pour vos textes et vos photos. Je m’occupe de tout le reste (3 semaines pour Prestige).</p></div>
+  <div class="carte apparait"><div class="ic i4">🤝</div><h3>Suivi chaque mois</h3><p>Modifications sous 3 jours ouvrés, et un petit bilan mensuel : combien de personnes vous ont trouvé.</p></div>
  </div>
 </div></section>
 
@@ -246,7 +248,7 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
  <div class="grille prix">
   <div class="carte formule apparait"><div class="nom">Essentiel</div><div class="montant">49&nbsp;€<small> /mois</small></div><p class="pour">Le site complet de la plupart des artisans.</p>
    <ul><li>Site 5 pages sur mesure</li><li>Galerie de réalisations</li><li>Formulaire de demande de devis</li><li>1 modification par mois</li><li>Rapport mensuel</li></ul><a href="#contact" class="btn second" style="color:var(--texte);border-color:#ddd">Choisir Essentiel</a></div>
-  <div class="carte formule vedette apparait"><span class="badge">Le plus choisi</span><div class="nom">Visibilité</div><div class="montant">79&nbsp;€<small> /mois</small></div><p class="pour">Pour être plus visible sur Google.</p>
+  <div class="carte formule vedette apparait"><span class="badge">Conseillée</span><div class="nom">Visibilité</div><div class="montant">79&nbsp;€<small> /mois</small></div><p class="pour">Pour être plus visible sur Google.</p>
    <ul><li>Tout l’Essentiel</li><li>Fiche Google suivie chaque mois</li><li>Demandes d’avis clients</li><li>3 modifications par mois</li></ul><a href="#contact" class="btn principal">Choisir Visibilité</a></div>
   <div class="carte formule apparait"><div class="nom">Achat</div><div class="montant">690&nbsp;€<small> une fois</small></div><p class="pour">Vous préférez payer une seule fois.</p>
    <ul><li>Site 5 pages livré</li><li>À vous pour toujours</li><li>Suivi en option&nbsp;: 15&nbsp;€/mois</li><li>Fichiers remis sur demande</li></ul><a href="#contact" class="btn second" style="color:var(--texte);border-color:#ddd">Choisir Achat</a></div>
@@ -280,7 +282,7 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
   <div class="carte apparait"><b>100 % à vous</b><p>Site et nom de domaine à votre nom, dès le départ.</p></div>
   <div class="carte apparait"><b>6 mois, puis libre</b><p>Ensuite sans engagement, résiliation simple.</p></div>
   <div class="carte apparait"><b>14 jours</b><p>pour changer d’avis après la signature, et rien n’est prélevé avant 8 jours.</p></div>
-  <div class="carte apparait"><b>48 h</b><p>pour vos demandes de modification, jours ouvrés.</p></div>
+  <div class="carte apparait"><b>3 jours</b><p>ouvrés pour vos demandes de modification.</p></div>
  </div>
 </div></section>
 
@@ -310,7 +312,7 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
  <details><summary>Et ma fiche Google (Google Business Profile) ?</summary><div><p>Je la mets en place avec vous ou je l’améliore. Elle reste à votre nom, et la fiche elle-même est un service gratuit de Google. Google exige une vérification par vous (en général un appel, une vidéo ou un courrier). Ensuite je m’occupe de la tenir à jour avec vous.</p></div></details>
  <details><summary>Je n’ai pas de photos. C’est un problème ?</summary><div><p>Non. Quelques photos prises avec votre téléphone suffisent souvent ; je vous explique comment faire. Je n’utilise jamais de fausses réalisations : vos clients doivent voir votre vrai travail.</p></div></details>
  <details><summary>Qui écrit les textes ?</summary><div><p>Moi, à partir de notre échange. Vous relisez et validez tout avant la mise en ligne.</p></div></details>
- <details><summary>Comment demander une modification ?</summary><div><p>Un email ou un appel suffit : nouveaux horaires, photo, promotion, congés… C’est fait sous 48 heures ouvrées, dans la limite prévue par votre formule.</p></div></details>
+ <details><summary>Comment demander une modification ?</summary><div><p>Un email ou un appel suffit : nouveaux horaires, photo, promotion, congés… C’est fait sous 3 jours ouvrés, dans la limite prévue par votre formule.</p></div></details>
  <details><summary>Et le « rapport mensuel » ?</summary><div><p>Chaque mois, un résumé simple : nombre de visites, demandes de devis reçues, points d’amélioration. Sans jargon.</p></div></details>
  <details><summary>Les mentions légales et la protection des données ?</summary><div><p>Incluses et vérifiées : mentions légales, informations sur les données personnelles, formulaire conforme. Pas de traceurs publicitaires : vos visiteurs ne sont pas pistés.</p></div></details>
 
@@ -322,23 +324,23 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 
 <section id="contact" class="contact"><div class="cadre">
  <div class="apparait">
-  <div class="titre" style="text-align:left;margin:0"><div class="sur">Votre démo gratuite</div><h2>Voyons ce que votre site pourrait être</h2><p>Laissez-moi vos coordonnées : je prépare votre page d’accueil et je vous l’envoie sous 48 heures. Sans engagement.</p></div>
+  <div class="titre" style="text-align:left;margin:0"><div class="sur">Votre démo gratuite</div><h2>Voyons ce que votre site pourrait être</h2><p>Laissez-moi vos coordonnées : je prépare votre page d’accueil et je vous la montre. Sans engagement.</p></div>
   <div class="coord">
    <a href="tel:[TELEPHONE]"><span>📞</span><div><small>Téléphone</small>[Téléphone]</div></a>
    <a href="mailto:contact@dig16.fr"><span>✉️</span><div><small>Email</small>contact@dig16.fr</div></a>
    <div><span>🕘</span><div><small>Horaires</small>Du lundi au samedi</div></div>
   </div>
  </div>
- <form class="carte apparait" id="form">
+ <form class="carte apparait" id="form"><fieldset disabled style="border:0;padding:0;margin:0;min-width:0">
   <label>Votre nom<input name="nom" required autocomplete="name"></label>
   <label>Entreprise et métier<input name="entreprise" required></label>
   <label>Commune<input name="commune" required></label>
   <label>Téléphone ou email<input name="contact" required></label>
   <label>Vous avez déjà un site ?<select name="site"><option>Non</option><option>Oui, mais il est daté</option><option>Oui, loué avec un contrat</option></select></label>
   <label>Un message (facultatif)<textarea name="message" rows="3"></textarea></label>
-  <button class="btn principal" type="submit">Recevoir ma démo gratuite</button>
+  <button class="btn principal" type="submit" disabled aria-disabled="true">Formulaire ouvert à l’immatriculation</button>
   <p class="rgpd">Vos informations servent uniquement à préparer votre démo et à vous recontacter à ce sujet. Elles ne sont jamais revendues. Vous pouvez demander leur suppression à tout moment.</p>
-  <p class="msg" id="msg"></p>
+  <p class="msg" id="msg"></p></fieldset>
  </form>
 </div></section>
 </main>
@@ -374,7 +376,7 @@ const barre=document.getElementById('barre'),vis=new Map();
 const ob2=new IntersectionObserver(e=>{e.forEach(x=>vis.set(x.target,x.isIntersecting));barre.classList.toggle('cache',[...vis.values()].some(Boolean))},{rootMargin:'0px 0px 110px 0px'});
 [document.getElementById('cta-haut'),document.getElementById('contact')].forEach(el=>{vis.set(el,true);ob2.observe(el)});
 // formulaire (branchement à l'envoi d'email prévu à la mise en ligne)
-document.getElementById('form').onsubmit=e=>{e.preventDefault();document.getElementById('msg').textContent='Merci ! Votre demande est bien notée. (Version de présentation : l’envoi sera activé à la mise en ligne.)'};
+document.getElementById('form').onsubmit=e=>{e.preventDefault();document.getElementById('msg').textContent='Le formulaire sera ouvert à l’immatriculation de DIG16. Merci de votre patience.'};
 </script>
 </body>
 </html>

@@ -182,3 +182,10 @@ puni de 3 ans d'emprisonnement et 100 000 € d'amende (Code pénal, art. 323-1,
 depuis le 26/01/2023, lu sur Légifrance le 30/09/2026). Résultats d'audits de concurrents : jamais
 publiés ni utilisés pour dénigrer ; seulement pour montrer au prospect, factuellement, ce que Dig
 fait mieux.
+
+## Démos nominatives (décision du 05/10/2026)
+
+- Aucune démo avec les photos, le logo ou les textes d'un professionnel n'est **envoyée** sans son
+  accord préalable (droit d'auteur, CPI L122-4). Avec accord : montrée en direct (écran, visio,
+  visite) ; le lien privé n'est remis que s'il le demande. Sans accord : photos d'illustration.
+- Les 64 démos existantes restent hors diffusion tant que l'accord n'est pas obtenu.
