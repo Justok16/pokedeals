@@ -101,6 +101,16 @@ Faits vérifiés le 05/10/2026 (sources officielles lues ce jour) :
   BOI-BIC-CHAMP-80-10-75-40, 29/07/2026, § 80). Implantation **réelle**
   exigée. Articulation avec le versement libératoire : **non précisée par
   le BOFiP → à faire confirmer par écrit par le SIE** avant toute option.
+- **Adresse publiée (vérifié le 05/10/2026)** : un entrepreneur individuel peut domicilier son
+  entreprise chez lui et demander la non-diffusion publique de son adresse personnelle dans les
+  registres (Service-Public F2160, « Vérifié le 02 juillet 2026 »). Mais le **site** d'un éditeur
+  professionnel doit afficher « nom, prénoms, domicile et numéro de téléphone » (LCEN art. 1-1, I, 1°,
+  version en vigueur depuis le 23/05/2024, lue sur Légifrance) ; l'anonymat (II) est réservé aux
+  éditeurs « à titre non professionnel ». Le texte ne dit pas qu'une adresse de domiciliation
+  commerciale remplace le domicile. **Décision de l'utilisateur** : publier son adresse sur la page
+  « Mentions légales » de dig16.fr, ou payer une domiciliation (budget 0 € → à éviter), ou chercher une
+  domiciliation gratuite (pépinière, CCI) **[à vérifier]**. Flyer et emails : l'adresse postale n'est
+  pas exigée par L34-5 ni par l'art. 20 de la LCEN (identité + moyen de refuser) **[à confirmer]**.
 - Commune visée, situation et modèles de lettres (SIE, URSSAF, mairie,
   communauté de communes) : document privé « DIG16 – Synthèse création »
   du Drive « Dig », jamais dans ce dépôt.
