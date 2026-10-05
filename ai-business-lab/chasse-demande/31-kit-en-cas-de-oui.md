@@ -58,7 +58,12 @@ Date butoir absolue : **31/01/2027** (fin de support de Connect).
   marque INPI « DIG16 » : **aucun résultat** le 05/10 (faite par l'utilisateur sur
   data.inpi.fr). Décision du 05/10 : réserver `dig16.fr` **tout de suite**,
   au nom du particulier (l'AFNIC masque par défaut les données des personnes
-  physiques dans le Whois du .fr), puis le transférer à l'entreprise si besoin. Sécurité
+  physiques dans le Whois du .fr), puis le transférer à l'entreprise si besoin.
+  **Fait le 05/10** : `dig16.fr` réservé chez OVHcloud (5,99 € TTC la 1re année,
+  renouvellement annoncé à 7,79 €/an), DNSSEC et compte e-mail Zimbra Starter
+  inclus ; boîte `contact@` créée (MX Plan, 5 Go). DNS public vérifié le 05/10 :
+  serveurs OVH, MX OVH, SPF `v=spf1 include:mx.ovh.com -all` ; **reste** : DMARC
+  (absent), DNSSEC (aucun enregistrement DS publié à ce moment), 2FA du compte OVH. Sécurité
   du domaine : 2FA, renouvellement automatique, DNSSEC, verrouillage ;
   email : SPF, DKIM, DMARC. Ensuite : site vitrine sur Cloudflare Pages,
   QR du flyer vers `dig16.fr`, renommer « Dig » en « DIG16 » dans
