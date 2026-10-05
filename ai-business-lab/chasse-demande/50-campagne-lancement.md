@@ -12,7 +12,8 @@ l'ordre où on s'en sert. Les listes de prospects et le suivi nominatif restent 
 **La démo est la publicité.** Chaque professionnel contacté voit **son propre site refait**,
 avant de dépenser quoi que ce soit. Autour de ce cœur, quatre canaux gratuits :
 
-1. **Démarchage direct** des prospects prioritaires : email avec la démo, appel, relance.
+1. **Démarchage direct** des prospects prioritaires : email avec la démo, appel, relance
+   (pas de courrier postal, décision du 05/10).
 2. **Visites** dans les commerces et ateliers proches, avec le flyer.
 3. **Visibilité de DIG16** : fiche Google, réseaux sociaux, annuaires, mairies, réseaux
    de professionnels.
@@ -147,12 +148,11 @@ Objections : réponses prêtes dans `41`, section 6, et dans l'antisèche.
 > Bonne journée,  
 > [signature complète, comme ci-dessus, avec la mention « STOP »]
 
-### 4.5 Courrier postal (option payante, décision de l'utilisateur)
+### 4.5 Courrier postal : écarté
 
-Lettre d'une page avec la capture de la démo et un QR code vers elle : c'est le premier
-contact le plus remarqué, mais il coûte un timbre et une impression par prospect
-**[prix du timbre à vérifier le jour de l'envoi]**. Proposé seulement si l'email et
-l'appel donnent peu de réponses à la fin de la semaine 2.
+Décision de l'utilisateur du 05/10/2026 : **pas de courrier postal** (coût d'un timbre
+par prospect). Si les réponses sont faibles, on corrige l'objet, l'accroche ou l'ordre
+des canaux gratuits (section 3, points de contrôle).
 
 ---
 
@@ -226,7 +226,7 @@ Tableau Google Sheets dans le Drive « Dig », jamais dans ce dépôt. Une ligne
 |---|---|
 | N° | Même numéro que dans la liste des prospects |
 | Entreprise, métier, commune | Copiés de la liste privée |
-| Canal | Email, appel, visite, courrier, recommandation |
+| Canal | Email, appel, visite, recommandation |
 | J0, J+3, J+10 | Dates prévues et faites |
 | Résultat | Pas de réponse, intéressé, rendez-vous, devis, signé, refus |
 | Opposition | « Oui » = plus jamais de contact, démo supprimée |

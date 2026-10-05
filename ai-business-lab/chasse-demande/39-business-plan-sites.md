@@ -198,8 +198,8 @@ client) est la bonne réponse.
    s'achète qu'à la signature, au nom du client. Sur les fiches d'appel, un bouton
    « 🖥️ Démo » signale une démo prête ; sans bouton, l'accroche la propose.
 4. **Premier contact** (dans l'ordre d'efficacité) :
-   - **Courrier postal** avec capture de la démo et QR code (le plus
-     remarqué, coûte un timbre — **dépense à valider**) ;
+   - ~~Courrier postal avec capture de la démo~~ : **écarté par l'utilisateur
+     le 05/10/2026** (coût d'un timbre par prospect) ;
    - **Email** à l'adresse professionnelle publiée, court, avec le lien ;
    - **Appel** 3 jours plus tard (cadre CNIL ci-dessus).
 5. **Relance** unique à J+7, puis arrêt ; toute opposition est notée et
@@ -313,7 +313,7 @@ Impôt sur le revenu et effets sur les aides : **à calculer dans le kit
 | Risque | Parade |
 |---|---|
 | Réaction de SoLocal | Sources publiques uniquement, aucun dénigrement, aucune donnée interne |
-| Taux de réponse faible | Démo personnalisée + courrier ; mesurer, puis ajuster le message |
+| Taux de réponse faible | Démo personnalisée + appel ; mesurer, puis ajuster le message |
 | Client mécontent | Engagement court, modifications rapides, remboursement du 1er mois si insatisfait **[à décider]** |
 | Hébergeur qui change ses règles | Sites statiques, déplaçables en une heure |
 | Charge de travail | Tout ce qui est répétitif est fait par Claude ; l'utilisateur garde les appels et la signature |
