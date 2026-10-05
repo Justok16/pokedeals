@@ -55,7 +55,10 @@ Date butoir absolue : **31/01/2027** (fin de support de Connect).
   `dig-16.fr` non enregistrés le 05/10 d'après l'AFNIC (RDAP 404) :
   revérifier juste avant l'achat. Aucune entreprise nommée DIG16 au
   registre (recherche-entreprises.api.gouv.fr, 05/10) ; recherche de
-  marque INPI **[à faire : data.inpi.fr refuse les robots]**. Sécurité
+  marque INPI « DIG16 » : **aucun résultat** le 05/10 (faite par l'utilisateur sur
+  data.inpi.fr). Décision du 05/10 : réserver `dig16.fr` **tout de suite**,
+  au nom du particulier (l'AFNIC masque par défaut les données des personnes
+  physiques dans le Whois du .fr), puis le transférer à l'entreprise si besoin. Sécurité
   du domaine : 2FA, renouvellement automatique, DNSSEC, verrouillage ;
   email : SPF, DKIM, DMARC. Ensuite : site vitrine sur Cloudflare Pages,
   QR du flyer vers `dig16.fr`, renommer « Dig » en « DIG16 » dans
