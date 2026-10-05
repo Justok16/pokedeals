@@ -76,7 +76,9 @@
   `Justok16/alertes-btc` est hors sujet.
 - **Si création d'entreprise** : tout doit être juridiquement parfait et
   la fiscalité optimisée (demande forte de l'utilisateur, 25/09). Suivre la
-  section 2 bis de `31-kit-en-cas-de-oui.md` ; nom commercial « Dig » validé.
+  section 2 bis de `31-kit-en-cas-de-oui.md` ; nom commercial **DIG16** (décision du 05/10,
+  remplace « Dig »), domaine `dig16.fr` ; implantation réelle en zone FRR+ ; synthèse privée
+  « DIG16 – Synthèse création » dans le Drive « Dig » (ne jamais en recopier les données ici).
   Chercher **toutes** les aides, financières et en nature (`36-aides-creation.md`).
   Situation sociale personnelle : ne jamais l'écrire dans le dépôt public.
 - **Tout enregistrer** (demande du 26/09) : chaque document, démo, visuel ou

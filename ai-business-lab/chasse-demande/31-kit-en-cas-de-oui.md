@@ -48,13 +48,18 @@ Date butoir absolue : **31/01/2027** (fin de support de Connect).
   prénom et nom, SIREN, adresse ; remplacer le lien du QR code par la
   démo définitive (`42-flyer-et-prompt.md`).
 - Même chose pour les textes et l'email de `41-prospection-questionnaire-et-textes.md`.
-- **Nom de domaine choisi : `digsite.fr`** (email `contact@digsite.fr`),
-  accord de principe du 26/09, **achat seulement après la création de
-  l'entreprise** (validation de l'utilisateur). Libre le 26/09 d'après
-  l'AFNIC (RDAP 404) : revérifier juste avant l'achat. Option : `dig-site.fr`
-  en redirection. Ensuite : site vitrine sur Cloudflare Pages, email par
-  Cloudflare Email Routing, QR du flyer (design Canva v4 « DAHWQH2QKK8 »)
-  vers `digsite.fr`, et compléter `site-dig/` (placeholders).
+- **Nom commercial et domaine (décision de l'utilisateur, 05/10/2026)** :
+  marque publique **DIG16** (« Création de sites internet en Charente »),
+  domaine **`dig16.fr`**, email `contact@dig16.fr`, registrar envisagé :
+  OVHcloud. Remplace `digsite.fr` (accord du 26/09). `dig16.fr` et
+  `dig-16.fr` non enregistrés le 05/10 d'après l'AFNIC (RDAP 404) :
+  revérifier juste avant l'achat. Aucune entreprise nommée DIG16 au
+  registre (recherche-entreprises.api.gouv.fr, 05/10) ; recherche de
+  marque INPI **[à faire : data.inpi.fr refuse les robots]**. Sécurité
+  du domaine : 2FA, renouvellement automatique, DNSSEC, verrouillage ;
+  email : SPF, DKIM, DMARC. Ensuite : site vitrine sur Cloudflare Pages,
+  QR du flyer vers `dig16.fr`, renommer « Dig » en « DIG16 » dans
+  `site-dig/` et les supports.
 
 ## 2 bis. Création parfaite et fiscalité optimisée (exigence de l'utilisateur, 25/09)
 
@@ -64,6 +69,32 @@ point est vérifié à la source officielle **au moment d'agir**, puis
 confirmé gratuitement auprès de l'URSSAF, de la CCI ou des impôts ; les
 effets sur les aides sont simulés avec la CPAM (36 46) et la CAF **avant**
 la création.
+
+Faits vérifiés le 05/10/2026 (sources officielles lues ce jour) :
+- **TVA** : franchise en base pour les services en 2026 : 37 500 € ;
+  seuil majoré 41 250 € (TVA due dès le jour du dépassement) ; mention
+  « TVA non applicable - article 293 B du CGI » (Service-Public F21746,
+  « Vérifié le 01 janvier 2026 »).
+- **Cotisations micro, libéral non réglementé (BNC)** : 25,6 % du CA ;
+  27,8 % avec versement libératoire (Service-Public F36232, « Vérifié le
+  01 janvier 2026 »).
+- **ACRE 2026** : demande à l'URSSAF **dans les 60 jours** suivant le début
+  d'activité ; l'implantation dans une commune en zone FRR ou FRR+ est un
+  des critères ; pour une micro-entreprise créée à partir du 01/07/2026 :
+  taux égal à 75 % du taux normal jusqu'à la fin du 3e trimestre civil
+  suivant le début d'activité (Service-Public F11677, « Vérifié le
+  01 juillet 2026 » ; exemple officiel : début le 03/09/2026 → 30/06/2027).
+- **Zone FRR+** (arrêté du 9 juillet 2025, Légifrance JORFTEXT000051871914) :
+  exonération d'impôt sur les bénéfices totale jusqu'au 59e mois, puis
+  abattements de 75 %, 50 % et 25 % sur trois périodes de 12 mois
+  (art. 44 quindecies A du CGI) ; ouverte aux micro-entreprises, le
+  bénéfice exonéré se reporte sur la 2042-C-PRO (BOFiP
+  BOI-BIC-CHAMP-80-10-75-40, 29/07/2026, § 80). Implantation **réelle**
+  exigée. Articulation avec le versement libératoire : **non précisée par
+  le BOFiP → à faire confirmer par écrit par le SIE** avant toute option.
+- Commune visée, situation et modèles de lettres (SIE, URSSAF, mairie,
+  communauté de communes) : document privé « DIG16 – Synthèse création »
+  du Drive « Dig », jamais dans ce dépôt.
 
 Points à trancher, dans l'ordre :
 1. Statut le plus avantageux compte tenu des aides perçues (micro-entreprise
