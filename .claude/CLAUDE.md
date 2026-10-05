@@ -51,6 +51,10 @@
   que des prospects de priorité 1 (score ≥ 55 du barème du classement 16230 : site payant laissé à
   l'abandon, site mort ou jamais terminé, page gratuite, salariés, métier cherché sur Google…). Plus
   d'ajout « annuaire seulement » sans autre signal.
+- **Démos : photos du prospect d'abord** (demande du 05/10) : pour chaque démo, chercher d'abord les photos de son
+  site, de ses pages (Planity, Eatbu, Facebook…) et de son ancien site archivé (`outils/prospects/photos_archives.py`) ;
+  photos d'illustration seulement pour compléter. Ces photos restent dans la démo chiffrée, jamais sur le site public ;
+  écarter logos, images du modèle de site, visages et domaines repris par un tiers.
 - **Démarchage B2B par email autorisé** (révision du 24/09) dans le cadre
   légal CNIL : ciblé, en rapport avec l'activité du destinataire,
   expéditeur identifiable, désinscription simple. Pas de particuliers.

@@ -365,6 +365,7 @@ nosniff, Referrer-Policy, Permissions-Policy absents).
 | Reels Instagram (connexion demandée ; Firecrawl refuse le site) (29/09) | **yt-dlp** (libre et gratuit) lit le reel et sa légende, **imageio-ffmpeg** le réduit en 360p (< 1 Mo), puis Gemini le regarde via `/api/avis` : `outils/lire_reel.py`. Si Instagram répond 429, attendre et réessayer plus tard, sans contourner |
 | Pages Facebook de créateurs (liste des vidéos illisible sans connexion) (29/09) | Chercher le même créateur sur TikTok ou YouTube. yt-dlp liste toutes les vidéos TikTok (`--flat-playlist`) et récupère légende et sous-titres (option `--impersonate chrome`, avec `curl_cffi`) ; résumé par lots de 15 en texte, qui coûte très peu de quota : `outils/resumer_lots_tiktok.py` |
 | Téléchargements GitHub Releases bloqués depuis le conteneur (gitleaks, 03/10) | Paquet PyPI équivalent : **detect-secrets** (Yelp, Apache 2.0) pour la recherche de secrets |
+| Wayback Machine (web.archive.org) bloquée depuis le conteneur (05/10) | Index par le relais (`/api/cc?chemin=wayback`) et images par wsrv.nl, proxy d'images gratuit : `outils/prospects/photos_archives.py` |
 
 ## Playwright (MCP) et Perplexity — demande de l'utilisateur du 30/09/2026
 
