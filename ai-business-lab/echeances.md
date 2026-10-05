@@ -24,6 +24,10 @@ Les trois dernières sont détaillées dans `14-regle-de-kill.md`.
 
 ## Fin de l'essai beehiiv — deux risques, pas un
 
+> ✅ **Contrôlé le 05/10/2026 par l'utilisateur** : plan gratuit **Launch** affiché, aucune carte
+> enregistrée ; inscription test → email de bienvenue « Bonjour, … » bien reçu (puis désinscription
+> de l'adresse test). Formulaire de digcost.github.io et digcost.beehiiv.com vérifiés en ligne le 05/10.
+
 Budget du projet : **0 €**. L'essai a été activé sans intention de payer.
 
 ### Risque 1 — le prélèvement
