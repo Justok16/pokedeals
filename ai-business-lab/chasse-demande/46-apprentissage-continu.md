@@ -198,6 +198,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 - [youtube.com/@grandangleeco](https://youtube.com/@grandangleeco) (Grand Angle : vulgarisation hebdomadaire pour comprendre l’économie, en français ; description lue le 05/10). **En attente**, même règle.
 - [youtube.com/@matthieulouvet](https://youtube.com/@matthieulouvet) (Matthieu Louvet : apprendre à investir soi-même, critique des frais bancaires, en français ; description lue le 05/10). **En attente**, même règle.
 - [youtube.com/@allin](https://youtube.com/@allin) (All-In Podcast, Chamath Palihapitiya, Jason Calacanis, David Sacks et David Friedberg : économie, technologie, politique, en anglais ; description lue le 05/10). **En attente**, même règle.
+- Site envoyé le 05/10 : [sec.gov](https://www.sec.gov/) (SEC, gendarme de la bourse des États-Unis ; base EDGAR des documents officiels des sociétés cotées). Source officielle de référence pour vérifier un chiffre d’entreprise américaine cité dans une vidéo. **En attente**, même règle.
 
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
