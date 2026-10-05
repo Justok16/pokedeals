@@ -166,6 +166,12 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 
 ## Registre de toutes les vidéos envoyées
 
+### Vidéo du 05/10 (nuit) : site 3D animé avec Claude Code (WEB MARKETING TUTO)
+
+| Vidéo | Ce qu'elle dit | Tri et suite |
+|---|---|---|
+| [TuiF6yIeLG4](https://youtu.be/TuiF6yIeLG4) (résumé : `connaissances/webmarketingtuto/TuiF6yIeLG4.md`, 18 min) | Créer avec Claude Code un site « premium » à animations 3D, le mettre en ligne chez Hostinger (moins de 4 € par mois, environ 50 € par an avec un code promo, selon l'auteur), connexion par OAuth, modifications ensuite en demandant « redéploie le site ». Revenus : non précisés (l'auteur dit que l'IA ne rapporte pas d'argent à elle seule) | **Déjà appliqué** : DIG16 est déjà fait avec Claude Code, hébergé gratuitement sur Cloudflare Pages (0 € ; moins cher que Hostinger), avec compte propre au nom du client (décision du 05/10). **Écarté** : animations 3D pour des artisans (lourdes sur téléphone, aucune demande constatée, contraire à la promesse « Facile à appeler ») ; hébergeur payant ; coûts annoncés = affirmations de l'auteur, non vérifiées. **Idée gardée** : « modifier = demander à Claude de redéployer » correspond à notre promesse de modifications sous 3 jours ouvrés |
+
 ### Chaînes envoyées le 05/10 (soir) : 30 chaînes finance, bourse, crypto, économie et création d’entreprise
 
 **Mise à jour du 05/10 (soir)** : l'utilisateur demande de tout traiter (« ce sont majoritairement des approches de la finance et de l'investissement »). Exception à la pause des vidéos pour ces sources. Chaînes : résumés par lots dans `connaissances/<chaîne>/` (10 vidéos récentes par chaîne d'abord, environ 300 vidéos, puis le reste ; plus de 41 000 vidéos au total, quota gratuit d'environ 200 par jour). Liens et publication X : traités dans `connaissances/sources-finance.md`. Les mentions « En attente » ci-dessous valent « en cours ».
