@@ -192,6 +192,25 @@ def test_pack_generique_de_revendeur_ne_matche_aucun_produit_via_sa_description(
             assert evaluer_correspondance(titre, desc, p)[0] is None, (titre, p.nom)
 
 
+def test_lots_pokemon_plus_autre_jeu_rejetes_cas_reels_snooop():
+    # snooop.gg, 05/10/2026 : 6 fausses alertes (lots Pokémon + Lorcana / Rise)
+    produits = [_produit(f) for f in ("Booster Bundle", "Mini Tin", "suivi restock", "Nymphali ex (Sylveon ex Tin)")]
+    for titre in (
+        "Bundle | Pokémon 30E Anniversaire Coffret Amphinobi Ex | Lorcana Coffret Collector Stitch | 🇫🇷",
+        "Précommande Bundle | Pokémon 30E Anniversaire Coffret Classeur | Rise 3 Boosters Prestige 2025 & 3 Boosters Corrupted | 🇫🇷",
+        "Bundle | Pokémon 30E Anniversaire Mini Tin | Rise 3 Boosters Prestige 2025 | 🇫🇷",
+        "Bundle | Pokémon 30E Anniversaire Coffret Nymphalii Ex | Lorcana Coffret Collector Stitch | 🇫🇷",
+    ):
+        for p in produits:
+            assert evaluer_correspondance(titre, "", p)[0] is None, (titre, p.nom)
+
+
+def test_vrais_produits_snooop_toujours_detectes():
+    bundle, mini = _produit("Booster Bundle"), _produit("Mini Tin")
+    assert evaluer_correspondance("Bundle | Pokémon | 30e Anniversaire | 🇫🇷", "", bundle)[0] is not None
+    assert evaluer_correspondance("Mini Tin | Pokémon | 30e Anniversaire | 🇫🇷", "", mini)[0] is not None
+
+
 def test_le_type_dans_le_titre_est_exige_pour_les_produits_en_suivi():
     mini = _produit("Mini Tin")
     conf, raison = evaluer_correspondance("Pokémon 30e Anniversaire - FR", "Mini Tin 30e anniversaire", mini)
