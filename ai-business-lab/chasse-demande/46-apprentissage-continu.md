@@ -166,6 +166,12 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 
 ## Registre de toutes les vidéos envoyées
 
+### Chaînes envoyées le 05/10 (soir) : Journal du Coin, Damodaran, Patrick Boyle
+
+- [youtube.com/@journalducoinfr](https://youtube.com/@journalducoinfr) (actualité des cryptomonnaies). **En attente** : résumés vidéo en pause jusqu’au premier client payant (décision du 05/10) ; à trier à la reprise. Hors du sujet principal (sites pour artisans) ; aucun conseil d’investissement n’en sera tiré sans vérification à la source officielle.
+- [youtube.com/@aswathdamodaranonvaluation](https://youtube.com/@aswathdamodaranonvaluation) (Aswath Damodaran, professeur à la Stern School de NYU : finance d’entreprise, valorisation, philosophies d’investissement ; description de la chaîne lue le 05/10). **En attente**, même règle.
+- [youtube.com/@pboyle](https://youtube.com/@pboyle) (Patrick Boyle, gérant de fonds et professeur : finance quantitative ; description lue le 05/10). **En attente**, même règle.
+
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
 

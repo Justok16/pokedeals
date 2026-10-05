@@ -189,3 +189,23 @@ fait mieux.
   accord préalable (droit d'auteur, CPI L122-4). Avec accord : montrée en direct (écran, visio,
   visite) ; le lien privé n'est remis que s'il le demande. Sans accord : photos d'illustration.
 - Les 64 démos existantes restent hors diffusion tant que l'accord n'est pas obtenu.
+
+## État d'un site : revérifié en ligne le jour même (leçon du 05/10/2026, soir)
+
+Erreur signalée par l'utilisateur : le n° 1 de la liste « les plus probables » était présenté comme un site « pas
+touché depuis 2021 » alors qu'il est en ligne, propre et adapté au téléphone. La date venait des fichiers stockés sur
+le serveur (en-tête Last-Modified), qui ne dit rien du contenu. La revérification des 1 490 prospects a corrigé
+268 fiches et retiré 4 entreprises fermées ; la priorité 1 est passée de 243 à 191 prospects.
+
+- **Jamais** de date « pas mis à jour depuis » tirée des fichiers du serveur. Pour SoLocal seulement : date du plan
+  du site (sitemap), citée comme telle (« d'après le plan du site »).
+- Chaque affirmation sur un site (mort, inachevé, pas adapté au téléphone, à vendre) est **revérifiée le jour même**,
+  depuis l'extérieur si l'hébergeur bloque (lecteur de pages), avec l'adresse complète (une adresse coupée en
+  « nom.site » au lieu de « nom.site-solocal.com » a d'abord fait croire à des sites morts).
+- Un site n'est attribué à une entreprise que si la page contient **son téléphone, ou son nom et sa commune**. Un nom de
+  domaine qui ressemble au nom ne suffit pas (moreau.fr = un menuisier du Vaucluse) ; sinon : « à vérifier au téléphone ».
+- Pages piratées (jeux d'argent), pages « en construction » de l'hébergeur, domaines à vendre : détectés et nommés.
+- Une entreprise qui a déjà un site correct, adapté au téléphone, n'est **jamais** en priorité 1.
+- Entreprise « fermée » au registre : retirée seulement si **aucun** établissement actif du même nom n'existe dans sa
+  commune (les restaurants changent souvent de société sans changer d'enseigne).
+- Outils (privés, hors dépôt) : `verif_tous.py`, `passe1b.py`, `devine_sites.py`, `analyse_verif.py`.
