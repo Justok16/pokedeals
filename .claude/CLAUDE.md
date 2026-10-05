@@ -66,7 +66,8 @@
   expéditeur identifiable, désinscription simple. Pas de particuliers.
 - **Tous les domaines légaux sont ouverts** ; identité : pseudonyme « Dig »
   seulement. Détails : fin de `00-grille-anti-digcost.md`.
-- **Aucune adresse email, clé ou jeton dans le dépôt** (dépôt public). Les
+- **Aucune adresse email, clé ou jeton dans le dépôt** (dépôt public). Seule exception : l'adresse pro publique
+  `contact@dig16.fr` (site, documents commerciaux), validée par l'utilisateur le 05/10. Les
   clés vont dans les variables d'environnement (`TYPESAFE_API_KEY`,
   `TYPESAFE_BASE_URL`). Ne jamais demander de coller une clé dans la
   conversation.
