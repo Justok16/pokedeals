@@ -250,7 +250,8 @@ Polymetis, TeamOps FACTORY, Methoda, Soyatec, Presago, RaleyApps.
 |---|---|---|
 | Cenote Labs | CLS-947 | refus implicite (clos « Canceled » sans commentaire) |
 | Released Software | SUPPORT-744 | **refus explicite** : « Not interested, thanks » (deux responsables), dans l'heure |
-| SaaSJet, Actonic, Caelor, GLiNTECH, Top Shelf | SPRT-10196, PSUP-2426, SUPPORT-15943, GS-2472, DESK-941 | accusé de réception automatique |
+| SaaSJet, Actonic, Caelor, GLiNTECH | SPRT-10196, PSUP-2426, SUPPORT-15943, GS-2472 | accusé de réception automatique |
+| Top Shelf Solutions | DESK-941 | **refus** le 05/10 : « We're doing the migrations ourselves » (demande si beaucoup d'éditeurs acceptent ; réponse polie envoyée, porte ouverte pour une app abandonnée plus tard) |
 
 Lecture : les éditeurs **actifs** (qui répondent en quelques minutes)
 refusent — ils comptent migrer eux-mêmes ou garder l'app. Les meilleures
