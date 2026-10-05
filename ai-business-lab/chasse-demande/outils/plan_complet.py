@@ -34,7 +34,7 @@ section{page-break-before:always} .cover{text-align:center;padding-top:60mm}
 
 def main():
     jour = datetime.date.today().strftime('%d/%m/%Y')
-    corps = [f'<div class=cover><h1>Dig — Plan complet</h1>'
+    corps = [f'<div class=cover><h1>DIG16 — Plan complet</h1>'
              '<p>Sites internet pour artisans, commerçants et indépendants</p>'
              f'<p>Version du {jour} (régénérée depuis les fichiers du dossier)</p>'
              '<ol style="text-align:left;display:inline-block">'

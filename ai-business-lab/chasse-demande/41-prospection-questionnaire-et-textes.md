@@ -27,7 +27,7 @@ Fiche d'une page par prospect :
 ## 2. Texte d'appel (2 minutes)
 
 **Ouverture (15 secondes, identité + raison + permission)**
-> « Bonjour Monsieur/Madame [Nom], [Prénom] de Dig, je crée des sites
+> « Bonjour Monsieur/Madame [Nom], [Prénom] de DIG16, je crée des sites
 > internet pour les artisans et commerçants de votre secteur. Je vous
 > appelle parce que j'ai préparé quelque chose pour votre entreprise.
 > Vous avez deux minutes, ou je vous rappelle à un meilleur moment ? »
@@ -195,7 +195,7 @@ Rappels à dire au client : nom de domaine à son nom, payé par lui
 > Votre site restera à votre nom, sans engagement de longue durée.
 >
 > Bonne journée,
-> [Prénom], Dig — [SIREN] — [téléphone]
+> [Prénom], DIG16 — [SIREN] — [téléphone]
 >
 > *Vous ne souhaitez plus recevoir de message de ma part ? Répondez
 > simplement « stop ».*

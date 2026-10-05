@@ -6,12 +6,12 @@ Chaque règle ci-dessous est citée depuis la source officielle lue le
 
 **Règle d'or** : aucun secteur légal n'est *interdit* de site internet.
 Ce qui change selon le métier, c'est **ce que le site peut dire**. Le
-contenu engage le client (c'est son site), mais Dig doit **connaître ces
+contenu engage le client (c'est son site), mais DIG16 doit **connaître ces
 règles et refuser de publier un contenu illégal**.
 
 ---
 
-## A. Nos propres obligations quand on vend (Dig)
+## A. Nos propres obligations quand on vend (DIG16)
 
 ### A1. Vente « chez le client » à une très petite entreprise
 - **Article L221-3 du Code de la consommation** (en vigueur depuis le
@@ -33,7 +33,7 @@ règles et refuser de publier un contenu illégal**.
   2 ans d'emprisonnement et 150 000 € d'amende **[montant à relire dans
   l'article de sanction]**).
 
-**Conséquences pratiques pour Dig :**
+**Conséquences pratiques pour DIG16 :**
 1. Le contrat signé chez le client comporte le **formulaire de
    rétractation** et les informations précontractuelles.
 2. **Aucun paiement, aucun mandat de prélèvement encaissé avant J+8.**
@@ -79,13 +79,13 @@ Source : [service-public, fiche F31228](https://entreprendre.service-public.gouv
 - Sanction citée par la fiche : jusqu'à 75 000 € pour absence de mentions
   légales (personne physique).
 
-→ **Dig livre chaque site avec ces mentions pré-remplies et vérifiées.**
+→ **DIG16 livre chaque site avec ces mentions pré-remplies et vérifiées.**
 
 ### Accessibilité
 Directive européenne « accessibilité » en vigueur depuis le 28/06/2025 pour
 certains services (dont le commerce électronique) ; exemption annoncée pour
 les microentreprises de services (moins de 10 salariés et 2 M€)
-**[à lire sur la fiche DGCCRF officielle, bloquée le 26/09]**. Dig vise
+**[à lire sur la fiche DGCCRF officielle, bloquée le 26/09]**. DIG16 vise
 quand même un site accessible (contrastes, textes alternatifs, navigation
 clavier) : c'est un argument de qualité.
 
@@ -109,12 +109,12 @@ clavier) : c'est un argument de qualité.
 | **Vétérinaires** | Communication encadrée par leur code de déontologie | **[à vérifier]** |
 | Artisans du bâtiment | Pas de règle spéciale pour le site ; ne pas afficher de label (RGE, Qualibat) sans le détenir | Pratiques commerciales trompeuses **[article exact à citer]** |
 
-**Méthode Dig pour chaque nouveau client** : identifier son secteur dans
+**Méthode DIG16 pour chaque nouveau client** : identifier son secteur dans
 ce tableau ; si « [à vérifier] », lire le texte **avant** de rédiger le site.
 
 ---
 
-## D. Ce que Dig refuse
+## D. Ce que DIG16 refuse
 - Contenu faux ou trompeur (faux avis, faux labels, fausses promotions).
 - Témoignages ou comparaisons pour les professions de santé.
 - Vente en ligne de produits réglementés sans autorisation.

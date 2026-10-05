@@ -11,7 +11,7 @@
 Voir le texte exact dans la réponse du 26/09 ; version de référence :
 
 > Crée un flyer publicitaire A5 portrait (148 × 210 mm), **recto seul**,
-> prêt à imprimer, ultra moderne et très accrocheur, pour « Dig », un
+> prêt à imprimer, ultra moderne et très accrocheur, pour « DIG16 », un
 > créateur indépendant de sites internet pour artisans, commerçants et
 > indépendants en zone rurale en France.
 > Cible : patrons de très petites entreprises (plombiers, maçons, garages,
@@ -33,7 +33,7 @@ Voir le texte exact dans la réponse du 26/09 ; version de référence :
 > orange, vert émeraude), titres en serif élégante et épaisse, texte
 > sans-serif lisible, effets de verre dépoli, ombres douces, beaucoup de
 > contraste. Pas d'aspect « bon marché », pas de clipart.
-> Mentions légales en petit en bas : « Dig — [Prénom Nom], entrepreneur
+> Mentions légales en petit en bas : « DIG16 — [Prénom Nom], entrepreneur
 > individuel (EI) — SIREN [à compléter] — [adresse]. TVA non applicable,
 > art. 293 B du CGI. Offre Essentiel : site 5 pages, hébergement, 1
 > modification/mois ; engagement minimal 6 mois. Démo sans obligation

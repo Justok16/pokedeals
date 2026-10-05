@@ -1,10 +1,10 @@
-# Documents commerciaux de Dig (05/10/2026) : CGV, modèle de devis-bon de commande, modèle de facture.
+# Documents commerciaux de DIG16 (05/10/2026) : CGV, modèle de devis-bon de commande, modèle de facture.
 # Sources lues le 05/10/2026 :
 #  - mentions obligatoires d'une facture : Service Public Entreprendre F31808 (« Vérifié le 11 août 2026 ») ;
 #  - pénalités de retard et indemnité de 40 € : F23211 (vérifié le 07/08/2026, voir 45-impayes-se-proteger.md) ;
 #  - franchise en base : mention « TVA non applicable, art. 293 B du code général des impôts » (F31808) ;
 #  - compte bancaire dédié et mention « EI » : F35991 (« Vérifié le 28 mai 2026 »).
-# Les promesses (engagement, rétractation, propriété du site, délais) reprennent mot pour mot le site de Dig.
+# Les promesses (engagement, rétractation, propriété du site, délais) reprennent mot pour mot le site de DIG16.
 # Les champs entre crochets se remplissent à l'immatriculation : aucune donnée personnelle dans ce dépôt.
 # Usage : python3 outils/documents_commerciaux.py   (écrit supports/*.html et supports/Dig-*.pdf)
 import os
@@ -12,7 +12,7 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 SUP = os.path.normpath(os.path.join(ICI, '..', 'supports'))
 CHROME = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
 
-EMETTEUR = '[Prénom Nom] EI — « Dig »<br>[Adresse]<br>SIREN [numéro à l’immatriculation]'
+EMETTEUR = '[Prénom Nom] EI — « DIG16 »<br>[Adresse]<br>SIREN [numéro à l’immatriculation]<br>contact@dig16.fr'
 CSS = '''@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}
 body{font-family:Inter,sans-serif;font-size:9.4pt;color:#1d1a17;line-height:1.45;margin:0}
 .couv{background:#0d1330;color:#f4f1ea;border-radius:12px;padding:6mm 8mm;margin-bottom:4mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -34,25 +34,25 @@ PENALITES = ('En cas de retard de paiement, des pénalités sont dues de plein d
              'appliqué par la Banque centrale européenne à son opération de refinancement la plus récente, majoré de '
              '10 points, ainsi qu’une indemnité forfaitaire pour frais de recouvrement de 40 € par facture.')
 
-CGV = f'''<div class="couv"><div class="k">Dig — création et suivi de sites internet</div><h1>Conditions générales de vente</h1>
+CGV = f'''<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Conditions générales de vente</h1>
 <p>Applicables à toute commande passée par un professionnel. Version du [date de l’immatriculation].</p></div>
 <div class="cgv">
 <h2>1. Prestataire</h2><p>{EMETTEUR.replace('<br>', ', ')}. TVA non applicable, art. 293 B du code général des impôts.</p>
-<h2>2. Objet</h2><p>Dig crée, héberge et suit des sites internet pour les professionnels (entreprises, artisans, commerçants). Les présentes conditions s’appliquent à toute commande ; elles prévalent sur tout autre document, sauf accord écrit contraire.</p>
+<h2>2. Objet</h2><p>DIG16 crée, héberge et suit des sites internet pour les professionnels (entreprises, artisans, commerçants). Les présentes conditions s’appliquent à toute commande ; elles prévalent sur tout autre document, sauf accord écrit contraire.</p>
 <h2>3. Formules et prix</h2><p>Les formules et leurs prix sont ceux du devis signé : Essentiel 49 € par mois, Visibilité 79 € par mois, Prestige 1 990 € une fois ou 199 € par mois, Achat 690 € une fois (hébergement et suivi en option à 15 € par mois). Douze mois payés d’avance : un mois offert (Essentiel 539 €, Visibilité 869 €). Les prix sont nets : TVA non applicable. Le nom de domaine est enregistré au nom du client et à sa charge (environ 10 € par an).</p>
 <h2>4. Commande</h2><p>La commande est formée par la signature du devis-bon de commande. Pour les formules mensuelles, la création du site est offerte ; le premier mois est réglé avant la mise en ligne.</p>
-<h2>5. Droit de changer d’avis</h2><p>Le client dispose de 14 jours à compter de la signature pour se rétracter, sans motif ni frais, par simple email ou courrier. Aucun paiement n’est demandé avant 8 jours. Ce droit, prévu par la loi pour les contrats signés hors des locaux de Dig, est appliqué à tous les clients.</p>
+<h2>5. Droit de changer d’avis</h2><p>Le client dispose de 14 jours à compter de la signature pour se rétracter, sans motif ni frais, par simple email ou courrier. Aucun paiement n’est demandé avant 8 jours. Ce droit, prévu par la loi pour les contrats signés hors des locaux de DIG16, est appliqué à tous les clients.</p>
 <h2>6. Durée et résiliation</h2><p>Les formules mensuelles comportent un engagement minimal de 6 mois (12 mois pour Prestige en paiement mensuel et pour les 12 mois payés d’avance), qui couvre la création offerte. Ensuite, le contrat se poursuit sans engagement : le client peut y mettre fin à tout moment, par email, avec effet à la fin du mois en cours. Le client peut passer à tout moment à une formule supérieure, et à une formule inférieure après les 6 premiers mois.</p>
 <h2>7. Paiement</h2><p>Formules mensuelles : prélèvement automatique mensuel, une facture chaque mois. Formules payées en une fois : à réception de la facture, au plus tard dans les 30 jours. Escompte pour paiement anticipé : néant. {PENALITES}</p>
-<h2>8. Réalisation et modifications</h2><p>Dig rédige les textes à partir de l’échange avec le client, qui relit et valide tout avant la mise en ligne. Le client fournit des informations exactes et des photos dont il détient les droits. Les demandes de modification sont traitées sous 48 heures ouvrées, dans la limite prévue par la formule (Essentiel : 1 par mois ; Visibilité : 3 par mois).</p>
-<h2>9. Propriété</h2><p>Le nom de domaine est enregistré au nom du client. Le site (textes, photos, fichiers) appartient au client : il peut le récupérer en partant, après les 6 premiers mois, et Dig l’aide à le transférer chez l’hébergeur de son choix. Formule Achat : les fichiers sont remis sur demande.</p>
-<h2>10. Hébergement et disponibilité</h2><p>Dig fait ses meilleurs efforts pour que le site reste accessible et sécurisé ; une interruption ponctuelle pour maintenance ou du fait de l’hébergeur peut survenir. Dig ne promet pas de position dans les résultats de Google.</p>
-<h2>11. Données personnelles</h2><p>Dig traite les données du client et de ses visiteurs uniquement pour réaliser et suivre le site, conformément au RGPD. Chaque site comprend ses mentions légales et ses informations sur les données ; aucun traceur publicitaire n’est installé.</p>
-<h2>12. Responsabilité</h2><p>Le client reste responsable du contenu qu’il fournit ou valide. La responsabilité de Dig est limitée aux sommes payées au titre des 12 derniers mois.</p>
-<h2>13. Litiges</h2><p>Les parties cherchent d’abord une solution amiable. À défaut, le litige est porté devant le tribunal compétent du ressort du siège de Dig. Droit français applicable.</p>
+<h2>8. Réalisation et modifications</h2><p>DIG16 rédige les textes à partir de l’échange avec le client, qui relit et valide tout avant la mise en ligne. Le client fournit des informations exactes et des photos dont il détient les droits. Les demandes de modification sont traitées sous 48 heures ouvrées, dans la limite prévue par la formule (Essentiel : 1 par mois ; Visibilité : 3 par mois).</p>
+<h2>9. Propriété</h2><p>Le nom de domaine est enregistré au nom du client. Le site (textes, photos, fichiers) appartient au client : il peut le récupérer en partant, après les 6 premiers mois, et DIG16 l’aide à le transférer chez l’hébergeur de son choix. Formule Achat : les fichiers sont remis sur demande.</p>
+<h2>10. Hébergement et disponibilité</h2><p>DIG16 fait ses meilleurs efforts pour que le site reste accessible et sécurisé ; une interruption ponctuelle pour maintenance ou du fait de l’hébergeur peut survenir. DIG16 ne promet pas de position dans les résultats de Google.</p>
+<h2>11. Données personnelles</h2><p>DIG16 traite les données du client et de ses visiteurs uniquement pour réaliser et suivre le site, conformément au RGPD. Chaque site comprend ses mentions légales et ses informations sur les données ; aucun traceur publicitaire n’est installé.</p>
+<h2>12. Responsabilité</h2><p>Le client reste responsable du contenu qu’il fournit ou valide. La responsabilité de DIG16 est limitée aux sommes payées au titre des 12 derniers mois.</p>
+<h2>13. Litiges</h2><p>Les parties cherchent d’abord une solution amiable. À défaut, le litige est porté devant le tribunal compétent du ressort du siège de DIG16. Droit français applicable.</p>
 </div>'''
 
-DEVIS = f'''<div class="couv"><div class="k">Dig — création et suivi de sites internet</div><h1>Devis et bon de commande</h1>
+DEVIS = f'''<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Devis et bon de commande</h1>
 <p>N° [AAAA-NNN] · Date : [jj/mm/aaaa] · Valable 30 jours</p></div>
 <div class="deux"><div class="cadre"><b>Prestataire</b><br>{EMETTEUR}<br>TVA non applicable, art. 293 B du CGI</div>
 <div class="cadre"><b>Client</b><div class="champ"></div><div class="champ"></div><span class="petit">Nom de l’entreprise, adresse, SIREN</span></div></div>
@@ -66,9 +66,9 @@ DEVIS = f'''<div class="couv"><div class="k">Dig — création et suivi de sites
 <p><b>Engagement</b> : 6 mois minimum (12 mois pour Prestige en mensuel et pour 12 mois d’avance), puis sans engagement. <b>14 jours pour changer d’avis</b> après la signature ; aucun paiement avant 8 jours.</p>
 <p><b>Paiement</b> : prélèvement automatique mensuel, ou à réception de facture pour un paiement en une fois. Escompte pour paiement anticipé : néant. {PENALITES}</p>
 <p class="petit">Signer ce devis vaut commande et acceptation des conditions générales de vente jointes.</p>
-<div class="sign"><div>Date, signature et cachet du client<br>précédés de « Bon pour accord »</div><div>Pour Dig<br>(date et signature)</div></div>'''
+<div class="sign"><div>Date, signature et cachet du client<br>précédés de « Bon pour accord »</div><div>Pour DIG16<br>(date et signature)</div></div>'''
 
-FACTURE = f'''<div class="couv"><div class="k">Dig — création et suivi de sites internet</div><h1>Facture</h1>
+FACTURE = f'''<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Facture</h1>
 <p>N° [AAAA-NNN] (numérotation continue) · Date d’émission : [jj/mm/aaaa] · Date de la prestation : [période ou jj/mm/aaaa]</p></div>
 <div class="deux"><div class="cadre"><b>Prestataire</b><br>{EMETTEUR}</div>
 <div class="cadre"><b>Client</b><br>[Nom de l’entreprise]<br>[Adresse]<br>SIREN [numéro du client]<br><span class="petit">N° de bon de commande : [si le client en a établi un]</span></div></div>
@@ -84,9 +84,9 @@ FACTURE = f'''<div class="couv"><div class="k">Dig — création et suivi de sit
 <p class="petit">Mentions vérifiées sur Service Public Entreprendre (fiche F31808, vérifiée le 11 août 2026). Facture électronique obligatoire pour les micro-entreprises à partir du 1er septembre 2027 : il faudra alors aussi le SIREN du client, la nature de l’opération (déjà indiquée ici) et, le cas échéant, l’adresse de livraison.</p>'''
 
 def ecrire():
-    docs = [('cgv-dig.html', 'Dig — Conditions générales de vente', CGV, 'Dig-CGV.pdf'),
-            ('modele-devis.html', 'Dig — Devis et bon de commande', DEVIS, 'Dig-Modele-devis.pdf'),
-            ('modele-facture.html', 'Dig — Modèle de facture', FACTURE, 'Dig-Modele-facture.pdf')]
+    docs = [('cgv-dig.html', 'DIG16 — Conditions générales de vente', CGV, 'Dig-CGV.pdf'),
+            ('modele-devis.html', 'DIG16 — Devis et bon de commande', DEVIS, 'Dig-Modele-devis.pdf'),
+            ('modele-facture.html', 'DIG16 — Modèle de facture', FACTURE, 'Dig-Modele-facture.pdf')]
     for f, t, corps, _ in docs:
         open(os.path.join(SUP, f), 'w').write(TETE.replace('{t}', t) + corps + '</body></html>')
     from playwright.sync_api import sync_playwright

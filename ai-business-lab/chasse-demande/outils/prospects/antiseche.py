@@ -2,7 +2,7 @@ import html
 e=html.escape
 S=[
 ("Qui êtes-vous ?",[
-("Vous êtes qui exactement ?","Dig, une entreprise locale de création de sites pour les artisans et commerçants du coin. Vous avez un seul interlocuteur : moi."),
+("Vous êtes qui exactement ?","DIG16, une entreprise locale de création de sites pour les artisans et commerçants du coin. Vous avez un seul interlocuteur : moi."),
 ("Vous travaillez seul ?","Oui, avec des outils modernes qui me permettent d'être rapide et pas cher. Vous m'avez directement au téléphone, pas un standard."),
 ("Vous utilisez l'intelligence artificielle ?","Oui, pour aller plus vite sur la technique, c'est ce qui me permet ces prix. Mais chaque site est relu et vérifié par moi avant d'être en ligne."),
 ("Vous avez des références ?","Je démarre dans le secteur : c'est pour ça que je montre d'abord votre démo, gratuitement. Vous jugez sur pièce, sans rien signer."),
@@ -78,14 +78,14 @@ for t,qs in S:
     b+=f'<h2>{e(t)}</h2>'
     for q,r in qs:
         n+=1;b+=f'<div class="q"><b>{n}. {e(q)}</b><p>{e(r)}</p></div>'
-H=f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Dig — Antisèche des réponses</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;600&display=swap" rel="stylesheet"><style>
+H=f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>DIG16 — Antisèche des réponses</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;600&display=swap" rel="stylesheet"><style>
 @page{{size:A4;margin:11mm 12mm}}body{{font-family:Inter,sans-serif;font-size:8.75pt;color:#1d1a17;line-height:1.35;margin:0}}
 .couv{{background:#0d1330;color:#f4f1ea;border-radius:12px;padding:6mm 8mm;margin-bottom:3mm}}.couv h1{{font-family:Fraunces,serif;font-size:19pt;margin:1mm 0}}.couv p{{color:#c6cbe4;margin:0}}
 .k{{color:#ff8a3d;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:7.6pt}}
 .col{{columns:2;column-gap:7mm}}h2{{font-family:Fraunces,serif;font-size:11.5pt;color:#c2410c;margin:3mm 0 1mm;break-after:avoid}}
 .q{{break-inside:avoid;margin:0 0 1.5mm}}.q b{{display:block}}.q p{{margin:.3mm 0 0;color:#3d3833}}
 .regles{{border:1px solid #e8e1d6;border-radius:8px;padding:2mm 3mm;margin-bottom:2mm;font-size:8.6pt}}
-</style></head><body><div class="couv"><div class="k">Dig — à garder sous les yeux pendant l'appel</div><h1>Antisèche : {n} réponses prêtes</h1><p>Réponses courtes à dire telles quelles. Entre crochets : à adapter. Rien n'est promis qu'on ne puisse tenir.</p></div>
+</style></head><body><div class="couv"><div class="k">DIG16 — à garder sous les yeux pendant l'appel</div><h1>Antisèche : {n} réponses prêtes</h1><p>Réponses courtes à dire telles quelles. Entre crochets : à adapter. Rien n'est promis qu'on ne puisse tenir.</p></div>
 <div class="regles"><b>3 règles d'or :</b> 1) parler moins que le client ; 2) ramener toujours à la démo gratuite ; 3) finir chaque appel par une date de rappel précise.</div>
 <div class="col">{b}</div></body></html>'''
 

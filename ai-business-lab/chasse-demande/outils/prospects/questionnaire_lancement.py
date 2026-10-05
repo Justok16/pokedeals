@@ -118,7 +118,7 @@ for i,(t,intro,qs) in enumerate(S):
         a=aide if ty!='c' else ''
         body+=f'<div class="q"><div class="t"><b>{n}.</b> {e(q)}</div>'+(f'<div class="aide">{e(a)}</div>' if a else '')+champ(ty,aide)+'</div>'
 docs=''.join(f'<li>☐ {e(d)}</li>' for d in DOCS)
-H=f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Dig — Questionnaire de lancement du site</title>
+H=f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>DIG16 — Questionnaire de lancement du site</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;600&display=swap" rel="stylesheet"><style>
 @page{{size:A4;margin:13mm 14mm 14mm}}*{{box-sizing:border-box}}body{{font-family:Inter,sans-serif;font-size:9.6pt;color:#1d1a17;line-height:1.45;margin:0}}
 .couv{{background:#0d1330;color:#f4f1ea;border-radius:14px;padding:9mm}}.couv h1{{font-family:Fraunces,serif;font-size:24pt;margin:2mm 0}}.couv p{{color:#c6cbe4;margin:1mm 0}}
@@ -130,7 +130,7 @@ h2{{font-family:Fraunces,serif;font-size:14pt;margin:6mm 0 1.5mm;break-after:avo
 .ln{{border-bottom:1px solid #c9c2b6;height:6.5mm}}.ck{{display:inline-block;margin:1mm 4mm 0 0;font-size:9pt}}
 .docs{{columns:2;list-style:none;padding:0}}.docs li{{margin:1mm 0}}.page{{break-before:page}}.pied{{color:#7a7480;font-size:8pt;margin-top:5mm}}
 </style></head><body>
-<div class="couv"><div class="k">Dig — dossier client</div><h1>Questionnaire de lancement du site</h1><p>{n} questions pour un site qui convertit et un référencement Google au maximum de ses possibilités. À remplir ensemble pendant l'entretien (45 à 60 minutes).</p></div>
+<div class="couv"><div class="k">DIG16 — dossier client</div><h1>Questionnaire de lancement du site</h1><p>{n} questions pour un site qui convertit et un référencement Google au maximum de ses possibilités. À remplir ensemble pendant l'entretien (45 à 60 minutes).</p></div>
 <div class="entete"><div>Entreprise</div><div>Date de l'entretien</div><div>Interlocuteur</div><div>Formule envisagée</div></div>
 <div class="mode"><b>Mode d'emploi pour l'entretien</b><ul>
 <li>Commencer par les sections 2, 3 et 7 : ce sont elles qui font le chiffre d'affaires du client (services, zone, recherches Google).</li>
@@ -140,6 +140,6 @@ h2{{font-family:Fraunces,serif;font-size:14pt;margin:6mm 0 1.5mm;break-after:avo
 {body}
 <h2 class="page"><span>✓</span>Documents à récupérer après le rendez-vous</h2><ul class="docs">{docs}</ul>
 <h2><span>✎</span>Notes libres</h2>{'<div class="ln"></div>'*14}
-<p class="pied">Dig — création et suivi de sites internet. Les informations recueillies servent uniquement à la réalisation du site du client.</p>
+<p class="pied">DIG16 — création et suivi de sites internet. Les informations recueillies servent uniquement à la réalisation du site du client.</p>
 </body></html>'''
 open('questionnaire.html','w').write(H);print(n)

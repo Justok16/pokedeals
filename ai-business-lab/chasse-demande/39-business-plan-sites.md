@@ -1,4 +1,4 @@
-# Business plan « Dig — sites pour professionnels » (25-26/09/2026)
+# Business plan « DIG16 — sites pour professionnels » (25-26/09/2026)
 
 Demande de l'utilisateur (25/09) : un plan complet et moderne pour démarcher,
 convertir, satisfaire, facturer et suivre des clients professionnels, en
@@ -72,7 +72,7 @@ avant le contact** (le prospect voit *son* site refait), et un prix
 
 ---
 
-## 3. L'offre Dig
+## 3. L'offre DIG16
 
 ### 3.1 Promesse (règle des « 3 P »)
 - **Problème** : site daté, lent, qui ne vous appartient pas, contrat long.
@@ -117,7 +117,7 @@ minimum puis sans engagement ; site et nom de domaine au nom du client ;
 Google, **vérification faite par le client** (exigence de Google).
 
 Prise de rendez-vous ou réservation en ligne **incluse dans toutes les
-formules** (décision du 26/09 : outil d'agenda gratuit, aucun coût pour Dig) ;
+formules** (décision du 26/09 : outil d'agenda gratuit, aucun coût pour DIG16) ;
 version anglaise **+5 €/mois**, incluse dans Prestige (décision du 26/09) ; « Départ sans coupure » (contrat en cours
 ailleurs) **offerte**. Lancement : **1er mois offert aux 10 premiers
 clients** contre un avis et un avant/après publiable.
@@ -191,7 +191,7 @@ client) est la bonne réponse.
 3. **Démo personnalisée** : Claude refait la page d'accueil à partir des
    informations publiques du professionnel. Démo **privée** (lien non
    référencé, « noindex »), montrée à lui seul, supprimée s'il refuse.
-   **Hébergement (04/10/2026)** : gratuit, sur le site de Dig, sans nom de
+   **Hébergement (04/10/2026)** : gratuit, sur le site de DIG16, sans nom de
    domaine à acheter. Chaque démo est chiffrée (`outils/prospects/publier_maquettes.py`) :
    le dépôt public ne contient ni nom ni contenu lisible ; seul le lien remis au
    professionnel (`digsite.pages.dev/m/#…`) l'ouvre. Le vrai nom de domaine ne
@@ -210,7 +210,7 @@ client) est la bonne réponse.
 ### 4.3 La « campagne exceptionnelle » à budget 0 €
 - **La démo est la publicité** : chaque prospect voit son propre site
   refait ; aucun concurrent ne le fait à grande échelle.
-- **Vitrine Dig** : démo publique
+- **Vitrine DIG16** : démo publique
   ([digsite.pages.dev/demos/menuisier](https://digsite.pages.dev/demos/menuisier/),
   entreprise fictive) et démo Prestige
   ([…/demos/prestige](https://digsite.pages.dev/demos/prestige/)), hébergées sur Cloudflare Pages.
@@ -226,7 +226,7 @@ client) est la bonne réponse.
 ### 5.1 Parcours client
 1. Réponse du prospect → rendez-vous en visio ou téléphone de 15 min
    (outil de prise de rendez-vous gratuit **[à choisir]**).
-2. **Devis** clair d'une page + conditions générales Dig (à rédiger).
+2. **Devis** clair d'une page + conditions générales DIG16 (à rédiger).
 3. **Signature électronique** (DocuSeal, connecteur disponible) et
    **mandat de prélèvement** SEPA en ligne.
 4. **Fabrication en 7 jours** : textes, photos du client, validation.
@@ -249,7 +249,7 @@ client) est la bonne réponse.
 ## 6. Facturation, obligations et suivi
 
 ### 6.1 Statut
-Micro-entreprise, nom commercial « Dig » (validé), selon
+Micro-entreprise, nom commercial « DIG16 » (validé), selon
 `31-kit-en-cas-de-oui.md` section 2 bis (création parfaite, fiscalité
 optimisée) et `36-aides-creation.md` (aides à demander **avant** la
 création ; détail propre à l'utilisateur dans le document privé du Drive).
@@ -325,7 +325,7 @@ Impôt sur le revenu et effets sur les aides : **à calculer dans le kit
 
 1. **La micro-entreprise** : rien de commercial n'est possible sans elle.
 2. **Un numéro de téléphone professionnel** séparé (les pros rappellent).
-3. **Un nom de domaine « Dig »** et une adresse email à ce nom (crédibilité).
+3. **Un nom de domaine « DIG16 »** et une adresse email à ce nom (crédibilité).
 4. **Des créneaux d'appel** : 2 à 3 plages par semaine pour les rendez-vous.
 5. **Une assurance RC professionnelle** (conseillée, pas obligatoire pour
    ce métier) **[devis à comparer]**.
@@ -342,13 +342,13 @@ Impôt sur le revenu et effets sur les aides : **à calculer dans le kit
 | Semaine 1 | Conditions générales, devis, courrier type « départ SoLocal » | Claude |
 | Semaine 2 | Appel au 36 46 ; décision création | Utilisateur |
 | Semaine 2-3 | Création micro-entreprise (après demande d'aides) ; domaine ; téléphone | Utilisateur + Claude |
-| Semaine 3 | Site vitrine Dig sur Cloudflare ; paiement SEPA ; plateforme de factures | Claude |
+| Semaine 3 | Site vitrine DIG16 sur Cloudflare ; paiement SEPA ; plateforme de factures | Claude |
 | Semaine 4 | 20 premières démos envoyées ; mesure | Claude + appels utilisateur |
 | Mois 2-3 | Ajuster le message ; viser 10 clients | Les deux |
 
 ---
 
-## 11. Le système Dig, du premier contact à la mise à jour continue
+## 11. Le système DIG16, du premier contact à la mise à jour continue
 
 Demande de l'utilisateur (26/09) : « quelque chose d'exceptionnel, du
 départ à la prospection jusqu'à la facturation, le suivi et la mise à jour
