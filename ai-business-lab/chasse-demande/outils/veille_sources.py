@@ -106,9 +106,16 @@ def moneyradar():
     return pages
 
 
+def shipwithjev():
+    # Cas d'usage de Jev (TypeSafe) : réalisations et articles (vidéo envoyée le 05/10/2026). Nouveautés = nouvelles pages.
+    plan = telecharger('https://www.shipwithjev.com/sitemap.xml')
+    return {u: u for u in re.findall(r'<loc>(https://www\.shipwithjev\.com/(?:builds|blog|guides|tools)/[^<]+)</loc>', plan)}
+
+
 SOURCES = {'nosignups': nosignups, 'futuretools': futuretools, 'free-for-dev': free_for_dev,
            'mrfreetools': mrfreetools, 'openalternative': openalternative,
-           'public-apis': public_apis, 'gratos': gratos, 'deviensdev': deviensdev, 'moneyradar': moneyradar}
+           'public-apis': public_apis, 'gratos': gratos, 'deviensdev': deviensdev, 'moneyradar': moneyradar,
+           'shipwithjev': shipwithjev}
 
 
 def veille_outils(rapport):

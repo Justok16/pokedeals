@@ -119,7 +119,7 @@
 - **Veille sur toutes les sources ajoutées par l'utilisateur** (demande du 28/09 : « vérifier dès
   qu'il y a du nouveau et l'apprendre pour t'améliorer au fur et à mesure ») : une fois par jour,
   `python3 outils/veille_sources.py /tmp/cj.txt` (chaînes YouTube de `connaissances/`, annuaires
-  nosignups, futuretools, free-for.dev, mrfreetools, openalternative, deviensdev.fr, moneyradar.org) ; lire `veille/<date>.md`, trier et
+  nosignups, futuretools, free-for.dev, mrfreetools, openalternative, deviensdev.fr, moneyradar.org, shipwithjev.com) ; lire `veille/<date>.md`, trier et
   appliquer les nouveautés selon `46-apprentissage-continu.md`. Toute nouvelle source envoyée
   par l'utilisateur est ajoutée à cette veille si elle a une liste lisible automatiquement.
 - **Chaque vidéo YouTube envoyée par l'utilisateur** (et chaque nouvelle vidéo Finary/Fintales)

@@ -169,6 +169,12 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
 
+### Vidéo du 05/10 : Jev (TypeSafe) + Claude pour des agents moins chers
+
+| Vidéo | Sujet | Verdict |
+|---|---|---|
+| [3iDiWTt8lok](https://youtu.be/3iDiWTt8lok) (résumé : `videos-resumes/3iDiWTt8lok.md`) | Jev comme « aiguilleur » rapide devant un modèle plus cher : tri des emails, choix du modèle, choix d'outil, détection d'intention d'achat, seuil de confiance, calibration sur 100 à 200 exemples étiquetés | **Déjà appliqué** : `outils/jev_trier_reponses.py` (auto / Claude / humain selon la confiance). **Ajouté** : ShipWithJev.com à la veille quotidienne (799 cas d'usage, `veille_sources.py`). **À faire** : calibrer l'aiguilleur sur les vraies réponses des éditeurs dès qu'il y en a 30 (aucune pour l'instant). **Écarté** : détection d'intention d'achat dans les commentaires des réseaux (Apify payant, et démarchage de particuliers exclu) ; gains « 200 fois plus rapide, 400 fois moins cher » et revenus de membres = affirmations de l'auteur, non vérifiées. |
+
 ### Vidéo du 01/10 (soir) : standardiste téléphonique IA
 
 | Vidéo | Sujet | Verdict |
