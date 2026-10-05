@@ -64,7 +64,7 @@ Date butoir absolue : **31/01/2027** (fin de support de Connect).
   inclus ; boîte `contact@` créée (MX Plan, 5 Go). DNS public vérifié le 05/10 :
   serveurs OVH, MX OVH, SPF `v=spf1 include:mx.ovh.com -all` ; DMARC
   `p=quarantine` et DNSSEC (enregistrement DS) **publiés et vérifiés le 05/10** ;
-  webmail testé en réception ; **reste** : 2FA du compte OVH. Sécurité
+  webmail testé en réception ; double authentification du compte OVH activée (05/10). Sécurité
   du domaine : 2FA, renouvellement automatique, DNSSEC, verrouillage ;
   email : SPF, DKIM, DMARC. Ensuite : site vitrine sur Cloudflare Pages,
   QR du flyer vers `dig16.fr`, renommer « Dig » en « DIG16 » dans
