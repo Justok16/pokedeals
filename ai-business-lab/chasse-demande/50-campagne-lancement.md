@@ -109,7 +109,7 @@ visite s'il est proche.
 > actuel ne s'affiche pas correctement sur téléphone. »]
 >
 > J'ai donc préparé, gratuitement, une nouvelle page d'accueil pour [Entreprise] :
-> [lien de la démo]. Elle n'est visible que par vous.
+> [lien de la démo]. Elle n'est pas publiée : seul ce lien l'ouvre.
 >
 > Si elle vous plaît, je vous explique en 15 minutes comment la mettre en ligne :
 > dès 49 € par mois, 0 € de création, le site et le nom de domaine à votre nom.

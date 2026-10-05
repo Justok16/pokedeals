@@ -209,7 +209,7 @@ client) est la bonne réponse.
 
 ### 4.3 La « campagne exceptionnelle » à budget 0 €
 - **La démo est la publicité** : chaque prospect voit son propre site
-  refait ; aucun concurrent ne le fait à grande échelle.
+  refait (Artizo prépare aussi des aperçus à partir d'informations publiques, relevé par l'audit du 05/10).
 - **Vitrine DIG16** : démo publique
   ([digsite.pages.dev/demos/menuisier](https://digsite.pages.dev/demos/menuisier/),
   entreprise fictive) et démo Prestige
