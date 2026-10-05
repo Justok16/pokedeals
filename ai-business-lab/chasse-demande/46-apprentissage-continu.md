@@ -166,7 +166,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 
 ## Registre de toutes les vidéos envoyées
 
-### Chaînes envoyées le 05/10 (soir) : 28 chaînes finance, bourse, crypto, économie et création d’entreprise
+### Chaînes envoyées le 05/10 (soir) : 29 chaînes finance, bourse, crypto, économie et création d’entreprise
 
 - [youtube.com/@journalducoinfr](https://youtube.com/@journalducoinfr) (actualité des cryptomonnaies). **En attente** : résumés vidéo en pause jusqu’au premier client payant (décision du 05/10) ; à trier à la reprise. Hors du sujet principal (sites pour artisans) ; aucun conseil d’investissement n’en sera tiré sans vérification à la source officielle.
 - [youtube.com/@aswathdamodaranonvaluation](https://youtube.com/@aswathdamodaranonvaluation) (Aswath Damodaran, professeur à la Stern School de NYU : finance d’entreprise, valorisation, philosophies d’investissement ; description de la chaîne lue le 05/10). **En attente**, même règle.
@@ -196,6 +196,7 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 - [youtube.com/@coinbureau](https://youtube.com/@coinbureau) (Coin Bureau : information et pédagogie sur les cryptomonnaies, en anglais ; description lue le 05/10). **En attente**, même règle.
 - [youtube.com/@benjaminjcowen](https://youtube.com/@benjaminjcowen) (Benjamin Cowen : ancien chercheur, analyses quantitatives macroéconomiques et cryptomonnaies, en anglais ; description lue le 05/10). **En attente**, même règle.
 - [youtube.com/@grandangleeco](https://youtube.com/@grandangleeco) (Grand Angle : vulgarisation hebdomadaire pour comprendre l’économie, en français ; description lue le 05/10). **En attente**, même règle.
+- [youtube.com/@matthieulouvet](https://youtube.com/@matthieulouvet) (Matthieu Louvet : apprendre à investir soi-même, critique des frais bancaires, en français ; description lue le 05/10). **En attente**, même règle.
 
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
