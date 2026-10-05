@@ -121,7 +121,9 @@ visite s'il est proche.
 > [Prénom Nom] — DIG16, entrepreneur individuel (EI) — SIREN [numéro]  
 > [adresse de domiciliation] — [téléphone] — contact@dig16.fr — dig16.fr
 >
-> *Vous ne souhaitez plus recevoir de message de ma part ? Répondez simplement « STOP ».*
+> *J'ai trouvé votre adresse professionnelle sur [source publique : votre site, l'annuaire
+> des entreprises…]. Vous ne souhaitez plus recevoir de message de ma part ? Répondez simplement
+> « STOP ».*
 
 ### 4.3 Appel à J+3 (rappel court ; texte complet dans le guide de prospection)
 
@@ -300,7 +302,8 @@ démo de prospect ni de photo d'un prospect.
 
 ## 10. Contrôle avant chaque envoi ou publication
 
-- [ ] Identité complète (nom, EI, SIREN, coordonnées) et mention « STOP » dans chaque email.
+- [ ] Identité complète (nom, EI, SIREN, coordonnées), source des coordonnées et mention « STOP »
+      dans chaque email (CNIL, réutilisation des données publiques à des fins de prospection).
 - [ ] Prospect professionnel, hors secteurs exclus, sans opposition enregistrée.
 - [ ] Accroche vraie, vérifiée sur son site ou sa fiche, jamais inventée.
 - [ ] Prix identiques au site (Essentiel 49 €/mois, Visibilité 79 €/mois, Prestige 1 990 €
