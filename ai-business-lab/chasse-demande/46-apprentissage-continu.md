@@ -169,6 +169,14 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
 
+### Vidéos du 05/10 (2e envoi) : MCP et skills, YouMind, Jev « Système 1 »
+
+| Vidéo | Sujet | Verdict |
+|---|---|---|
+| [kS6xCG6oljU](https://youtu.be/kS6xCG6oljU) | Le vocabulaire de l'IA : MCP = prise universelle vers un outil ; skill = méthode ; plugin = les deux ; artefact = mini-application partageable ; navigateur et ordinateur pilotés | **Déjà appliqué** : connecteurs Gmail, Drive, GitHub, Vercel ; skill Impeccable installée ; pages partagées par artefact. **Ajouté** : skills.sh (répertoire de plus de 10 000 skills) à la veille quotidienne. **Écarté** : Caveman (fait écrire l'IA en style télégraphique, contraire à la consigne « français simple » ; son « proxy » ferait passer tous les échanges par un intermédiaire). **À garder en tête** : Tally (formulaires, offre gratuite à vérifier à la source) pour les vrais formulaires de contact des sites clients. |
+| [WD4cCugw0Y0](https://youtu.be/WD4cCugw0Y0) | Toute la stratégie marketing depuis YouMind (vidéo sponsorisée) | **Écarté** : YouMind (crédits, sponsor). **Appliqué en méthode** : un seul document de contexte de marque avant toute création (pour Dig : 39-business-plan-sites.md et le site) ; plusieurs angles testés plutôt qu'un seul (nos accroches varient déjà selon la situation du prospect) ; continuité accroche → démo → page de vente. |
+| [g68Rxhg-W1s](https://youtu.be/g68Rxhg-W1s) | Jev, modèle de décision rapide (« Système 1 ») face aux modèles qui rédigent (« Système 2 ») | **Déjà appliqué** (aiguilleur `jev_trier_reponses.py`). **Idée notée, non construite** (règle n° 1 : vérifier l'argent avant) : un service d'analyse en masse des avis clients des artisans (« données dormantes »), à passer par la grille `00-grille-anti-digcost.md` avant tout travail. Chiffres d'usage de Jev = affirmations de l'auteur. |
+
 ### Vidéo du 05/10 : Jev (TypeSafe) + Claude pour des agents moins chers
 
 | Vidéo | Sujet | Verdict |

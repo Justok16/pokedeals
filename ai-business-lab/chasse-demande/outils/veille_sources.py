@@ -112,10 +112,19 @@ def shipwithjev():
     return {u: u for u in re.findall(r'<loc>(https://www\.shipwithjev\.com/(?:builds|blog|guides|tools)/[^<]+)</loc>', plan)}
 
 
+def skills_sh():
+    # Répertoire de skills pour agents IA (vidéo du 05/10/2026) : nouvelles skills publiées.
+    index = telecharger('https://www.skills.sh/sitemap.xml')
+    out = {}
+    for plan in re.findall(r'<loc>(https://www\.skills\.sh/sitemap-skills-\d+\.xml)</loc>', index):
+        out.update({u: u for u in re.findall(r'<loc>([^<]+)</loc>', telecharger(plan))})
+    return out
+
+
 SOURCES = {'nosignups': nosignups, 'futuretools': futuretools, 'free-for-dev': free_for_dev,
            'mrfreetools': mrfreetools, 'openalternative': openalternative,
            'public-apis': public_apis, 'gratos': gratos, 'deviensdev': deviensdev, 'moneyradar': moneyradar,
-           'shipwithjev': shipwithjev}
+           'shipwithjev': shipwithjev, 'skills-sh': skills_sh}
 
 
 def veille_outils(rapport):
