@@ -70,9 +70,10 @@
   clés vont dans les variables d'environnement (`TYPESAFE_API_KEY`,
   `TYPESAFE_BASE_URL`). Ne jamais demander de coller une clé dans la
   conversation.
-- Git : ne jamais réécrire l'historique poussé ; `pokedeals` est **privé depuis le 05/10** (décision de l'utilisateur,
-  après la découverte d'informations personnelles dans l'historique) ; garder quand même les règles du dépôt public
-  (aucune donnée personnelle, de prospect, clé ou email) ;
+- Git : ne jamais réécrire l'historique poussé ; `pokedeals` est **redevenu public le 05/10 vers 11:40 UTC**
+  (décision de l'utilisateur, en connaissance de cause : l'historique contient encore son adresse email ; le dépôt
+  privé avait épuisé les 2 000 min gratuites d'Actions et arrêté les scans PokéDeals). Règles du dépôt public
+  **strictes** : aucune donnée personnelle, de prospect, clé ou email. `Justok16/pokedeals-scans` (vide) est abandonné ;
   `Justok16/alertes-btc` est hors sujet.
 - **Si création d'entreprise** : tout doit être juridiquement parfait et
   la fiscalité optimisée (demande forte de l'utilisateur, 25/09). Suivre la
