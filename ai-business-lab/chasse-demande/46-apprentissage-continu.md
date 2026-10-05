@@ -169,6 +169,14 @@ Unefille.ia : 630 vidéos lues (42 lots). IA Boss : 40 lots sur 46 (la fin tourn
 Synthèses détaillées : `37-videos-synthese.md` (13 vidéos du 25/09), `43-videos-26-09.md`
 (vidéos du 26/09), résumés complets : `videos-resumes/`.
 
+### Vidéos du 05/10 (3e envoi) : outils IA pour PME, contenu court et long, direct « bootcamp IA » de trading
+
+| Vidéo | Sujet | Verdict |
+|---|---|---|
+| [CL7EINYSoKw](https://youtu.be/CL7EINYSoKw) | Vendre aux PME des outils IA sur mesure (Claude Code) pôle par pôle, en « socle + modules » | **Idée notée pour Dig, non construite** (règle n° 1) : plus tard, proposer aux clients artisans des modules en plus du site, par exemple un assistant de devis pour le bâtiment (l'auteur parle de devis passés de 10-15 jours à moins de 48 h) ou un assistant de réponse aux emails **sans envoi automatique**. À passer par la grille anti-DigCost et à vérifier auprès de vrais artisans avant tout travail. Exemples de prix (13 500 € + 440 €/mois, etc.) = affirmations de l'auteur. |
+| [6yuGG_vKKXQ](https://youtu.be/6yuGG_vKKXQ) | Vidéos courtes pour être découvert, longues pour gagner la confiance ; autorité, affinité, preuve sociale, urgence honnête | **Pour plus tard** (quand Dig aura ses premiers clients) : témoignages de clients et avant/après comme preuve sociale ; une vente à plusieurs centaines d'euros se conclut avec un échange humain, ce que Dig fait déjà (appel puis rendez-vous). Chiffres d'abonnés et de lancements = affirmations de l'auteur. |
+| [YZXyFlSvLgo](https://www.youtube.com/live/YZXyFlSvLgo) | Direct « Bootcamp IA » d'un créateur sur le **trading** (stratégie testée sur un vrai trade, groupe Telegram) | **Non résumé** : direct sans sous-titres lisibles (Gemini refuse, transcription vidIQ en erreur ; seules les informations publiques de la vidéo ont été lues). **Écarté par prudence** : le trading n'est pas dans le projet, et ce format (direct gratuit qui renvoie vers un groupe privé) précède souvent une offre payante. Rien n'y est vérifiable ; ne rien acheter ni appliquer sans avis indépendant. |
+
 ### Vidéos du 05/10 (2e envoi) : MCP et skills, YouMind, Jev « Système 1 »
 
 | Vidéo | Sujet | Verdict |
