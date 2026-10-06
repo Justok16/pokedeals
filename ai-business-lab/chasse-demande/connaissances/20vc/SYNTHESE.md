@@ -1,0 +1,15 @@
+# 20VC — index des fiches (synthèse du mardi 06/10/2026)
+
+10 vidéos résumées sur 4181. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
+
+- **[AMD rachète World Labs de Fei-Fei Li pour 8,2 Mds$ | Meta débauche le PDG de MongoDB | Bessemer l...](UNH5YtuK5UE.md)** — Sujet : L'état actuel du marché de l'investissement dans le secteur de l'intelligence artificielle (IA) et l'analyse de plusieurs opérations de capital-risque et acquisitions.
+- **[Comment les investisseurs institutionnels allouent leur capital au capital-risque en 2026 : leurs...](U_ManIWISzw.md)** — Sujet : La gestion d'un fonds de dotation (endowment universitaire, ici Baylor University) et les stratégies d'allocation d'actifs (public vs privé, capital-risque, actions de croissance, liquidité).
+- **[Daniel Dines explique pourquoi l'IA ne peut pas remplacer l'humain en entreprise et pourquoi l'Eu...](N9U-RoNXYZE.md)** — Sujet : L'impact de l'intelligence artificielle (IA) sur le monde de l'entreprise et la gestion de la main-d'œuvre.
+- **[Instinct lève 1 milliard de dollars pour une valorisation de 10 milliards et Meta lance Muse | Mi...](_tfUQrusRGM.md)** — Sujet : Discussion sur les actualités économiques et financières, l’impact et les risques de l’intelligence artificielle (IA), les valorisations des entreprises (notamment dans la tech et les LLM) et l’investissement en capital-risque (VC).
+- **[Le modèle publicitaire va mourir et les leçons tirées de ma collaboration avec Elon chez Twitter ...](wTxb_whJR00.md)** — Sujet : L'évolution de la recherche sur le web avec l'émergence des agents autonomes (intelligence artificielle).
+- **[Muse de Meta numéro 1 | Menlo tire la sonnette d'alarme sur la bulle de l'IA | Keith Rabois contr...](5FnXlCQxV5o.md)** — Sujet : L'actualité des entreprises d'intelligence artificielle (IA) et leurs enjeux de financement, d'investissement et de stratégie de marché.
+- **[PDG de Crusoe : Pourquoi tout le monde se trompe sur la dépréciation des GPU et les coûts énergét...](Ko7nU1Img40.md)** — Sujet : L'infrastructure nécessaire au développement de l'intelligence artificielle (IA), notamment le rôle crucial des centres de données et de l'énergie.
+- **[Peut-on encore réussir dans le capital-risque sans un fonds d'un milliard de dollars ? Venky Gane...](EZWsOxpVWwU.md)** — Sujet : Stratégies d'investissement en capital-risque (Venture Capital - VC) et gestion de portefeuille.
+- **[The Untold Story of Higgsfield | Burning $4M a Month on AI Models | CEO, Alex Mashrabov](jszn8rFtxm4.md)** — Sujet : Le parcours entrepreneurial d’Alex Mashrabov, fondateur de Higgsfield AI, et son analyse de la stratégie de croissance des entreprises de technologie.
+- **[« L'opposition aux centres de données est une opération psychologique chinoise » | Combien seront...](6ohZuFkq-aU.md)** — Sujet : L’évolution technique et les enjeux géopolitiques liés aux centres de données et au développement de l'intelligence artificielle (IA).

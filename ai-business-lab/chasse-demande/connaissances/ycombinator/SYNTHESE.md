@@ -1,0 +1,15 @@
+# Y Combinator — index des fiches (synthèse du mardi 06/10/2026)
+
+10 vidéos résumées sur 915. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
+
+- **[Agents d'utilisation de robots : pourquoi les modèles polyvalents pourraient s'imposer en robotique](Jv5B5CEaPJI.md)** — Sujet : L’utilisation des grands modèles de langage (LLM - Large Language Models) pour contrôler des robots.
+- **[Et si nous arrêtions d'utiliser des GPU ? | YC Paper Club](xc2FTBGRSJo.md)** — Sujet : L'évolution des paradigmes de calcul (informatique) pour répondre aux besoins croissants en efficacité énergétique des modèles d'intelligence artificielle.
+- **[L'état des startups en 2026](yslXlV2BP_Y.md)** — Sujet : L'évolution de l'écosystème des startups accompagnées par l'accélérateur Y Combinator, avec un focus sur le passage vers des entreprises "Hard Tech" (technologies matérielles) et l'utilisation de l'IA.
+- **[Max Junestrand: You Need The Willingness To Learn Faster Than Anyone Else](o0ORPbSEgd8.md)** — Sujet : Le parcours de création, de croissance (de 1 à 100M ARR en 18 mois) et de développement culturel de l'entreprise Legora (anciennement Judilica / Leya), une plateforme d'IA générative (système d'exploitation agentique) pour les avocats, raconté par son cofondateur et…
+- **[Open Models Change The Economics of AI](rY0wnfFHYbs.md)** — Sujet : L'état actuel de l'intelligence artificielle (IA) et l'évolution de l'utilisation des modèles "open source" (modèles ouverts) versus les modèles propriétaires (fermés).
+- **[Paul Graham On Startups, Ambition, and Great Founders](5bxp78i96S8.md)** — Sujet : Entretien rétrospectif et prospectif sur la création d'entreprise, les startups (en particulier l'écosystème Y Combinator) et l'impact de l'intelligence artificielle.
+- **[Plongée au cœur de la donnée | YC Paper Club](IfoPg2QefF8.md)** — Sujet : L’évolution de l’intelligence artificielle (IA) vers des modèles plus rapides, multilingues et agentiques, et l’importance cruciale de la qualité des données et des environnements d'apprentissage (Data 2.0).
+- **[Pourquoi le harnais est plus important que le modèle | YC Paper Club](n9xKblqyQ28.md)** — Le sujet est l'utilisation et l'optimisation des « harnais » (harnesses), des infrastructures logicielles permettant de piloter, tester et améliorer les agents d'intelligence artificielle (IA) autonomes.
+- **[Pourquoi vous ne recevez aucune réponse à vos e-mails de prospection](wr6PMD06hP0.md)** — Sujet : Stratégies pour améliorer les ventes par démarchage direct (outbound sales) pour les fondateurs de start-ups.
+- **[The World’s Largest Electric Aircraft Just Flew](nM86DBOqgPM.md)** — Sujet : La conception, le développement et le vol d'essai du plus grand avion électrique au monde (l'avion électrique X1, précurseur de l'ES-30) par l'entreprise Heart Aerospace.

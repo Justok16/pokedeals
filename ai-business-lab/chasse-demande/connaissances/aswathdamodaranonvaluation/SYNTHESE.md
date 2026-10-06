@@ -1,0 +1,15 @@
+# Aswath Damodaran — index des fiches (synthèse du mardi 06/10/2026)
+
+10 vidéos résumées sur 1414. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
+
+- **[L'âge de raison pour l'IA ? Entre battage médiatique, espoirs et réalités commerciales !](AAi9QIl6gw8.md)** — Sujet : L’évolution de l’Intelligence Artificielle (IA) d’un phénomène médiatique ("hype") vers une réalité économique concrète.
+- **[La question de l'indexation : SpaceX, OpenAI et Anthropic devraient-ils intégrer le S&P 500 ?](fbesNIjd_pY.md)** — Sujet : Le débat sur l'inclusion de SpaceX, OpenAI et Anthropic dans l'indice S&P 500 et la montée en puissance de la gestion indicielle (passive).
+- **[Le dilemme entre croissance et rentabilité : le point faible du capital-risque !](R1U3_7fmdqk.md)** — Sujet : Le conflit stratégique entre la recherche d'une croissance rapide de la taille de l'entreprise (scaling) et la mise en place d'un modèle économique rentable.
+- **[Le timing et la diffusion de l'information : le débat sur les rapports trimestriels et les orient...](0pTXwulvxzA.md)** — Sujet : L'impact de la fréquence de publication des informations financières (rapports trimestriels des entreprises et prévisions de la Réserve fédérale américaine - Fed) sur le comportement des investisseurs et la volatilité des marchés.
+- **[Les chiffres sont tombés : évaluation de SpaceX après le prospectus !](NQKIJU7TmTc.md)** — Sujet : Réévaluation de l'entreprise SpaceX suite à la publication de son prospectus d'introduction en bourse (IPO), et analyse critique de la valeur des informations financières pour les jeunes entreprises en croissance par rapport aux entreprises matures.
+- **[Leçons de Leo : le côté obscur de la conviction en investissement !](dNEWqinHrW8.md)** — Sujet : L'analyse de l'échec fulgurant du fonds spéculatif (hedge fund) « Situational Awareness », fondé par Leopold Aschenbrenner, un ancien employé d'OpenAI de 25 ans.
+- **[Risque pays : déterminants, mesures et implications - Édition 2026](sres2R8etKA.md)** — Sujet : L'évaluation du risque pays et son intégration dans le calcul de la valeur des entreprises et des investissements en 2026.
+- **[Taux d'intérêt et cours de bourse : un vieux débat de marché remis au goût du jour !](sPUonzHWZEY.md)** — Sujet : L'analyse de la remontée des taux d'intérêt en 2026 (perspective prospective de l'auteur) et son impact réel sur les marchés obligataires et boursiers.
+- **[Une ode à la retenue : les leçons de l'héritage de Tim Cook !](ig2ewJ9wx2Y.md)** — Sujet : L’analyse du leadership de Tim Cook (CEO d’Apple) à l’occasion de son annonce de départ, comparé à celui de Steve Jobs, au prisme du cycle de vie des entreprises.
+- **[Vers des milliards et au-delà : l'odyssée de l'introduction en bourse de SpaceX](WhY5EF1_LjQ.md)** — Sujet : L'analyse de la valorisation de SpaceX dans la perspective de son introduction en bourse (IPO) prochaine.
