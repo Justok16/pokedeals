@@ -147,6 +147,16 @@ Système **indépendant** ajouté le 13/08/2026, pour 4 cartes explicitement cho
   - **Email** : API HTTP [SendGrid](https://sendgrid.com), requête brute via `requests`, pas de SDK. Secrets `SENDGRID_API_KEY`/`SENDGRID_FROM_EMAIL`. Actif par défaut par utilisateur (table `user_preferences`, `notif_email` — absence de ligne = actif), désactivable depuis le dashboard SaaS. Migré de Resend le 04/09/2026 : le compte Resend tournait en mode sandbox (`onboarding@resend.dev`, aucun domaine vérifié disponible) — Resend restreint alors la livraison au seul propriétaire du compte, donc Justok recevait ses propres alertes mais aucun autre utilisateur ne recevait quoi que ce soit (403 Forbidden confirmé dans les logs Resend pour tout autre destinataire). SendGrid permet une vérification "Single Sender" gratuite sans nom de domaine.
   - L'email destinataire n'est jamais stocké côté scraper : récupéré à la demande via l'API Admin Supabase (`/auth/v1/admin/users/{id}`, réservée à `service_role`), mis en cache uniquement pour la durée du cycle (évite un appel redondant si un même utilisateur a plusieurs nouvelles alertes).
 
+### Lecture des catalogues en parallèle (06/10/2026)
+
+`scan_precommandes.py` lit les catalogues de plusieurs boutiques à la fois (4 par défaut, plafond 8,
+variable d'environnement `RADAR_PARALLELISME`, `1` = ancien mode séquentiel) : un cycle Shopify passe de
+~8 min à ~2 min (mesuré ×4 sur 12 boutiques réelles). La lecture est du pur réseau (chaque boutique a son
+propre connecteur et sa propre session, une même boutique n'est jamais lue deux fois en même temps) ; le
+traitement (détection des alertes, mémoire, marqueurs de balayage) reste séquentiel et dans l'ordre
+d'origine. Mesuré : mêmes alertes, mêmes boutiques OK, mémoire identique hors horodatages.
+Tests : `tests/test_scan_precommandes_parallele.py`.
+
 ## Serveur MCP (`mcp_pokedeals/`) — outil développeur, PAS une fonction du bot
 
 Ajouté le 14/08/2026, système **totalement indépendant** des 3 fonctions ci-dessus : ne tourne jamais en CI/cron, ne modifie et ne lit aucun fichier `data/*.json` de PokéDeals (son propre cache vit dans `mcp_pokedeals/.cache/`, exclu de git). Expose des données Pokémon TCG (cartes, sets, prix) à une IA comme Claude Code via le protocole MCP (transport stdio, lancé en local par l'utilisateur — `python -m mcp_pokedeals.server`).

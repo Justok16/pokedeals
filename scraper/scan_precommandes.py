@@ -24,6 +24,7 @@ import logging
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -161,15 +162,60 @@ def scanner_une_boutique(plateforme: str, domaine: str, mode_repli: str | None, 
     raise ValueError(plateforme)
 
 
+# Lecture des catalogues EN PARALLELE (06/10/2026). Un cycle Shopify lisait ses
+# 54 boutiques l'une apres l'autre (~8 min) ; pour un restock qui s'epuise en
+# quelques minutes, c'est trop lent. La lecture est du pur reseau : chaque
+# boutique a son propre connecteur et sa propre session, et aucune ecriture en
+# memoire n'a lieu pendant la lecture. Le traitement (detection des alertes,
+# memoire, marqueurs de balayage) reste SEQUENTIEL et dans l'ordre d'origine
+# (resultat identique a l'ancien comportement). Une meme boutique n'est jamais
+# interrogee deux fois en meme temps ; seules des boutiques differentes se
+# chevauchent. RADAR_PARALLELISME=1 retablit le comportement sequentiel.
+PARALLELISME_PAR_DEFAUT = 4
+PARALLELISME_MAX = 8
+
+
+def _parallelisme() -> int:
+    try:
+        n = int(os.environ.get("RADAR_PARALLELISME", PARALLELISME_PAR_DEFAUT))
+    except ValueError:
+        n = PARALLELISME_PAR_DEFAUT
+    return max(1, min(n, PARALLELISME_MAX))
+
+
+def _lire_catalogues(plateforme: str, boutiques: list[str], modes: dict[str, str], produits: list,
+                     parallelisme: int) -> list[tuple[list[dict] | None, Exception | None]]:
+    """Resultats alignes sur `boutiques` : (candidats, None) ou (None, exception).
+    Reseau uniquement : ne touche a aucune memoire."""
+    def une(domaine: str):
+        try:
+            return scanner_une_boutique(plateforme, domaine, modes.get(domaine), produits), None
+        except Exception as e:  # noqa: BLE001 -- une boutique en echec ne doit jamais arreter le cycle
+            return None, e
+
+    if parallelisme <= 1:
+        resultats = []
+        for i, domaine in enumerate(boutiques):
+            resultats.append(une(domaine))
+            if i < len(boutiques) - 1:
+                time.sleep(DELAI_ENTRE_BOUTIQUES)
+        return resultats
+    with ThreadPoolExecutor(max_workers=parallelisme) as pool:
+        return list(pool.map(une, boutiques))
+
+
 def scanner_plusieurs_boutiques(plateforme: str, boutiques: list[str], modes: dict[str, str], produits: list, memoire: dict) -> dict:
     debut = time.monotonic()
     tous_les_evenements: list[dict] = []
     boutiques_ok: list[str] = []
     boutiques_echec: list[dict] = []
 
-    for i, domaine in enumerate(boutiques):
+    lectures = _lire_catalogues(plateforme, boutiques, modes, produits, _parallelisme())
+
+    for i, (domaine, (candidats, erreur)) in enumerate(zip(boutiques, lectures)):
         try:
-            candidats = scanner_une_boutique(plateforme, domaine, modes.get(domaine), produits)
+            if erreur is not None:
+                raise erreur
             evenements = detecter_nouvelles_precommandes(domaine, candidats, memoire)
             tous_les_evenements.extend(evenements)
             marquer_boutique_balayee(
@@ -182,9 +228,6 @@ def scanner_plusieurs_boutiques(plateforme: str, boutiques: list[str], modes: di
             raison = f"{type(e).__name__}: {e}"
             boutiques_echec.append({"domaine": domaine, "raison": raison})
             print(f"[{i + 1}/{len(boutiques)}] {domaine} : ECHEC — {raison}")
-
-        if i < len(boutiques) - 1:
-            time.sleep(DELAI_ENTRE_BOUTIQUES)
 
     duree = time.monotonic() - debut
     return {
