@@ -76,6 +76,7 @@
   privé avait épuisé les 2 000 min gratuites d'Actions et arrêté les scans PokéDeals). Règles du dépôt public
   **strictes** : aucune donnée personnelle, de prospect, clé ou email. `Justok16/pokedeals-scans` (vide) est abandonné ;
   `Justok16/alertes-btc` est hors sujet.
+  **Décision du 06/10** : l'utilisateur laisse `scraper/config.yaml` tel quel (alertes PokéDeals) et accepte l'historique ; ne plus reproposer la correction, sauf s'il le redemande. Entretiens artisans : « on verra au moment opportun ».
 - **Si création d'entreprise** : tout doit être juridiquement parfait et
   la fiscalité optimisée (demande forte de l'utilisateur, 25/09). Suivre la
   section 2 bis de `31-kit-en-cas-de-oui.md` ; nom commercial **DIG16** (décision du 05/10,
