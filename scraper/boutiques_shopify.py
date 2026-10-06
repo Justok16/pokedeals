@@ -41,7 +41,6 @@ BOUTIQUES_SHOPIFY = [
     "neyzertcg.com",
     "sugoitcg.com",
     "leviacards.com",
-    "pikadi-collect.fr",
     "fandom.tokyo",
     "cartespokemon.com",
     "kimstcgstore.com",
@@ -125,9 +124,16 @@ BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT = [
 #     renvoie 404 -- l'endpoint JSON public semble desactive
 #     volontairement cote marchand. Alternative sitemap.xml non
 #     investiguee (faible priorite, boutique non prioritaire).
+#   pikadi-collect.fr : retiree de la liste scannee le 06/10/2026. Sa page
+#     d'accueil redirige vers /password (boutique Shopify verrouillee par un
+#     mot de passe, donc fermee au public) et /products.json renvoie 401 :
+#     "ECHEC" a chaque cycle (3 workflows, toutes les 15 min). A re-tester
+#     de temps en temps : si https://pikadi-collect.fr/products.json repond
+#     de nouveau 200, la remettre dans BOUTIQUES_SHOPIFY.
 BOUTIQUES_SHOPIFY_A_CONFIRMER = [
     "loot-factory.com",
     "uturitrading.com",
+    "pikadi-collect.fr",
 ]
 
 # nexthobby.fr : identifiee WooCommerce (pas Shopify) -- cf.
