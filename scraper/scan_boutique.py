@@ -23,6 +23,7 @@ import logging
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -32,6 +33,7 @@ from connecteur_shopify import ConnecteurShopify
 from filtre_annonces import cles_watchlist, deals_config_perso
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from notifications_perso import token_telegram_perso
+from parallelisme import lire_parallelisme
 from watchlist_shopify import CarteWatchlist
 
 # Sans ceci, les log.info()/log.warning() emis par les ponts SaaS appeles
@@ -82,17 +84,61 @@ def scanner_boutique_complet(
     (scanner_plusieurs_boutiques) de faire en sorte qu'un echec sur cette
     boutique ne bloque pas les suivantes.
     """
+    connecteur = ConnecteurShopify(domaine)
+    catalogue = connecteur.recuperer_tout_le_catalogue()                       # 1 seul appel reseau
+    return traiter_catalogue(domaine, connecteur, catalogue, cartes, memoire_stock, cotes, regles)
+
+
+def traiter_catalogue(
+    domaine: str,
+    connecteur: ConnecteurShopify,
+    catalogue: list[dict],
+    cartes: list[CarteWatchlist],
+    memoire_stock: dict,
+    cotes: dict,
+    regles: dict,
+) -> tuple[list[dict], list[dict]]:
+    """Partie SANS reseau de scanner_boutique_complet : un seul passage de
+    matching, puis detection des bonnes affaires et des retours en stock.
+    Met `memoire_stock` a jour en place : doit donc etre appelee en SEQUENTIEL
+    (cf. scanner_plusieurs_boutiques, qui ne parallelise que la lecture reseau)."""
     cartes_par_critere = {carte.cle_recherche: carte for carte in cartes}
     criteres = list(cartes_par_critere.keys())
 
-    connecteur = ConnecteurShopify(domaine)
-    catalogue = connecteur.recuperer_tout_le_catalogue()                       # 1 seul appel reseau
     resultats_par_critere = connecteur.rechercher_dans_catalogue(catalogue, criteres)  # 1 seul passage
 
     deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, cotes, regles)
     evenements_stock = detecter_retours_en_stock(domaine, resultats_par_critere, cartes_par_critere, memoire_stock)
 
     return deals, evenements_stock
+
+
+def _parallelisme() -> int:
+    return lire_parallelisme("SCAN_PARALLELISME")
+
+
+def _lire_catalogues(boutiques: list[str], parallelisme: int) -> list[tuple[tuple | None, Exception | None]]:
+    """Lecture RESEAU des catalogues, alignee sur `boutiques` : ((connecteur,
+    catalogue), None) ou (None, exception). Ne touche a aucune memoire. Un echec
+    de la page 1 (RuntimeError du connecteur) est renvoye tel quel : la boutique
+    sera traitee comme en echec, sans jamais ecrire en memoire (cf. audit du
+    18/08/2026 dans ConnecteurShopify.recuperer_tout_le_catalogue)."""
+    def une(domaine: str):
+        try:
+            connecteur = ConnecteurShopify(domaine)
+            return (connecteur, connecteur.recuperer_tout_le_catalogue()), None
+        except Exception as e:  # noqa: BLE001 -- une boutique en echec ne doit jamais arreter le cycle
+            return None, e
+
+    if parallelisme <= 1:
+        resultats = []
+        for i, domaine in enumerate(boutiques):
+            resultats.append(une(domaine))
+            if i < len(boutiques) - 1:
+                time.sleep(DELAI_ENTRE_BOUTIQUES)
+        return resultats
+    with ThreadPoolExecutor(max_workers=parallelisme) as pool:
+        return list(pool.map(une, boutiques))
 
 
 def scanner_plusieurs_boutiques(
@@ -112,9 +158,17 @@ def scanner_plusieurs_boutiques(
     boutiques_ok: list[str] = []
     boutiques_echec: list[dict] = []  # [{"domaine":..., "raison":...}]
 
-    for i, domaine in enumerate(boutiques):
+    # 06/10/2026 : lecture reseau en parallele (SCAN_PARALLELISME, defaut 4, 1 =
+    # ancien mode) ; matching, alertes et memoire restent sequentiels et dans
+    # l'ordre d'origine -- resultat identique, cycle ~4x plus court.
+    lectures = _lire_catalogues(boutiques, _parallelisme())
+
+    for i, (domaine, (lecture, erreur)) in enumerate(zip(boutiques, lectures)):
         try:
-            deals, evenements = scanner_boutique_complet(domaine, cartes, memoire_stock, cotes, regles)
+            if erreur is not None:
+                raise erreur
+            connecteur, catalogue = lecture
+            deals, evenements = traiter_catalogue(domaine, connecteur, catalogue, cartes, memoire_stock, cotes, regles)
             tous_les_deals.extend(deals)
             tous_les_evenements.extend(evenements)
             boutiques_ok.append(domaine)
@@ -123,9 +177,6 @@ def scanner_plusieurs_boutiques(
             raison = f"{type(e).__name__}: {e}"
             boutiques_echec.append({"domaine": domaine, "raison": raison})
             print(f"[{i + 1}/{len(boutiques)}] {domaine} : ECHEC — {raison}")
-
-        if i < len(boutiques) - 1:
-            time.sleep(DELAI_ENTRE_BOUTIQUES)
 
     duree = time.monotonic() - debut
     return {

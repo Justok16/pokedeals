@@ -38,6 +38,7 @@ from alerte_precommande import (
     sauvegarder_memoire,
 )
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
+from parallelisme import PARALLELISME_MAX, PARALLELISME_PAR_DEFAUT, lire_parallelisme
 from notifications_perso import token_telegram_perso
 from precommandes_watchlist import produits_actifs
 
@@ -171,16 +172,8 @@ def scanner_une_boutique(plateforme: str, domaine: str, mode_repli: str | None, 
 # (resultat identique a l'ancien comportement). Une meme boutique n'est jamais
 # interrogee deux fois en meme temps ; seules des boutiques differentes se
 # chevauchent. RADAR_PARALLELISME=1 retablit le comportement sequentiel.
-PARALLELISME_PAR_DEFAUT = 4
-PARALLELISME_MAX = 8
-
-
 def _parallelisme() -> int:
-    try:
-        n = int(os.environ.get("RADAR_PARALLELISME", PARALLELISME_PAR_DEFAUT))
-    except ValueError:
-        n = PARALLELISME_PAR_DEFAUT
-    return max(1, min(n, PARALLELISME_MAX))
+    return lire_parallelisme("RADAR_PARALLELISME", PARALLELISME_PAR_DEFAUT, PARALLELISME_MAX)
 
 
 def _lire_catalogues(plateforme: str, boutiques: list[str], modes: dict[str, str], produits: list,
