@@ -173,6 +173,7 @@
 - **OpenRush** : mesure de la demande (volumes de recherche).
 - Radar des fermetures : `outils/radar_fermetures.py` (30 sources).
 - Liste des outils : `33-outils.md`.
+- **Contrôle de santé en une commande** (06/10) : `python3 ai-business-lab/chasse-demande/outils/controle_global.py` (site, en-têtes, DNSSEC, messagerie, certificat, relais Vercel, file des résumés). À lancer à chaque point automatique ; ne signaler à l'utilisateur que les « ALERTE ». Audit complet du site (liens, console, mobile, balises) : `outils/audit_site.py`.
 - **Base de connaissances vidéo** (demande du 26/09) : résumés Gemini des
   vidéos YouTube dans `connaissances/` (chaîne Finary : finances
   personnelles, 965 vidéos, traitées avec `outils/resumer_chaine.py` qui

@@ -396,3 +396,8 @@ Après lecture des listes d'outils envoyées par l'utilisateur le 03/10 (MCP, sk
 - **Démarrage de session** : installe `detect-secrets` s'il manque (conteneur neuf).
 - Déjà en place : Superpowers (plugin), Playwright (Python et MCP), GitHub (connecteur), skills de design et de sécurité.
 - Non retenus pour l'instant : Context7 (peu de code de bibliothèque chez nous), Serena et LSP (petits scripts), Task Master, gros paquets type ECC (≈ 40 000 jetons de contexte en permanence), formatage automatique (diffs énormes sur les scripts existants).
+
+## Contrôle de santé et audit du site (06/10/2026)
+
+- `outils/controle_global.py` : 14 contrôles en moins d'une minute, sans secret (pages et en-têtes de dig16.fr, adresse officielle, www, DNSSEC et AD, messagerie MX/SPF/DMARC, certificat, cookie du relais Vercel, file des résumés). Code de sortie = nombre d'alertes. Lancé à chaque point automatique.
+- `outils/audit_site.py` : audit de dig16.fr avec Chromium (téléphone et ordinateur) : titres, description, h1, langue, images sans texte alternatif, défilement horizontal, champs sans nom, cibles tactiles, erreurs console, liens internes et externes. Résultat du 06/10 : tout conforme ; seule erreur console = le script de statistiques que Cloudflare tente d'ajouter, bloqué par notre politique de sécurité (aucune statistique collectée, ce qui convient). Les « contrastes insuffisants » détectés par un script naïf sont des faux positifs (fonds en dégradé) : vérifier à l'œil avant de corriger.
