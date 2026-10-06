@@ -1,6 +1,6 @@
-# Gabzer — index des fiches (synthèse du dimanche 04/10/2026)
+# Gabzer — index des fiches (synthèse du mardi 06/10/2026)
 
-547 vidéos résumées sur 547. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+548 vidéos résumées sur 547. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[+100 outils d'IA gratuits](iX0mOUg8Vsk.md)** — La vidéo présente le site Magic Hour AI, une plateforme centralisée qui propose plus de 100 outils d'intelligence artificielle pour la création et la modification de contenus visuels (images et vidéos), présentés comme étant entièrement gratuits.
@@ -284,6 +284,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Fait ça avant d'acheter sur Internet ! #astuce](ciMTuXR4N0A.md)** — 1) Idée principale : Utilisation de l'IA pour vérifier la fiabilité des avis sur les sites e-commerce.
 - **[Fait ça si tu utilises Google Chrome 🔵🔴🟡🟢](-KH8t4bU6dk.md)** — 1. Idée principale : Optimiser les performances de Google Chrome en activant l'économiseur de mémoire.
 - **[Fini les fautes d’orthographe #astuce](EcM0IDz-sTw.md)** — 1) Idée principale : Améliorer l'orthographe et le style de rédaction pour ses documents professionnels.
+- **[Gabzer : ce qu'enseignent 547 vidéos](SYNTHESE-DETAILLEE.md)** — Synthèse préparée le 4 octobre 2026 à partir des fiches de toutes les vidéos de la chaîne.
 - **[Gagne de l'argent facilement 💸 #astuces](1rm5mQwjZyQ.md)** — 1) Idée principale : Une application française de mise en relation permet de gagner de l'argent en connectant des personnes ayant un besoin avec des personnes capables d'y répondre.
 - **[Gagner de l'argent sur internet en 2025 💸](sgUZ1xzrIZ0.md)** — 1) Idée principale : Lancer un business en ligne de type « Print on Demand » (impression à la demande) de manière automatisée pour générer des revenus sur internet.
 - **[Gemma 4 sur téléphone (100% gratuit)](U9NGhg0Yay4.md)** — Présentation de l'application mobile Google AI Edge Gallery, qui permet d'exécuter des modèles d'intelligence artificielle (comme Gemma 4) directement sur son téléphone. Cela permet d'utiliser l'IA gratuitement, de manière 100 % privée et totalement hors-ligne (sans connexion…

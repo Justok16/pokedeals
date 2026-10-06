@@ -1,0 +1,11 @@
+# Grand Angle Éco — index des fiches (synthèse du mardi 06/10/2026)
+
+6 vidéos résumées sur 1049. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
+
+- **[La fin des Data Centers Géants](YrY_Znst8Bo.md)** — Sujet : L'impact de l'explosion des besoins informatiques (calcul haute performance et intelligence artificielle) sur le réseau électrique mondial, et la crise énergétique qui en découle.
+- **[Ma stratégie d’investissement pour les 10 prochaines années](8xis56tU9mo.md)** — Sujet : Présentation détaillée de la composition et des premiers résultats d'un portefeuille patrimonial d'environ 14 millions de dollars, structuré selon la méthode dite de la « stratégie des 3 terriers ».
+- **[Ma vision de l'avenir (ce qui nous attend après l'IA)](LlGkeaerdsk.md)** — Sujet : L'analyse des grands risques globaux (crise de la dette, dérèglement climatique, bouleversement du travail par l'Intelligence Artificielle) et la manière d'adapter sa stratégie patrimoniale face aux changements de paradigme.
+- **[Où en est vraiment la Chine ? Je suis allé voir sur place](b8KzU_THoDw.md)** — Sujet : Analyse comparative du développement de l'intelligence artificielle (IA) et des data centers entre les États-Unis et la Chine, suivie de la présentation d'une levée de fonds en obligations convertibles en actions (Prometia) pour financer des conteneurs de puissance de…
+- **[Pourquoi les géants de la tech renoncent en silence à leurs data centers au Texas](rwXXwAKWiAs.md)** — Sujet : L'explosion de la demande électrique liée aux centres de données (data centers) de l'intelligence artificielle, la saturation des demandes de raccordement aux réseaux électriques (notamment au Texas) et la transition vers des modèles de calcul décentralisés et flexibles.
+- **[Pourquoi Mélenchon veut annuler la dette française (ça va mal finir)](C4GS3W8vLf8.md)** — Sujet : L'annulation des dettes publiques détenues par les banques centrales (dette interne / dette COVID) et le financement des États par la création monétaire (« planche à billets »).
