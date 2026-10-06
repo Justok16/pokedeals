@@ -88,9 +88,11 @@ ok("SPF présent", any("v=spf1" in x.get("data", "") for x in txt.get("Answer", 
 dm = doh("_dmarc.dig16.fr", "TXT")
 ok("DMARC présent", any("v=DMARC1" in x.get("data", "") for x in dm.get("Answer", [])))
 try:
+    ctx = ssl.create_default_context()
+    ctx.minimum_version = ssl.TLSVersion.TLSv1_2
     with (
         socket.create_connection(("dig16.fr", 443), timeout=15) as s,
-        ssl.create_default_context().wrap_socket(s, server_hostname="dig16.fr") as t,
+        ctx.wrap_socket(s, server_hostname="dig16.fr") as t,
     ):
         fin = datetime.datetime.strptime(
             t.getpeercert()["notAfter"], "%b %d %H:%M:%S %Y %Z"
