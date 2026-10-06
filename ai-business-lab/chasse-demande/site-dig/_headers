@@ -5,6 +5,7 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
+  Cache-Control: public, max-age=0, must-revalidate, no-transform
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
 # Maquettes privées chiffrées (04/10/2026) : jamais indexées, aucune adresse d'origine transmise.
