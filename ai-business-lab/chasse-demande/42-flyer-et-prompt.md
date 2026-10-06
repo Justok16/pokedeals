@@ -128,3 +128,7 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
 - Le flyer HTML (`flyer-dig-a5.html`, v5) reste une solution de secours.
 - Avant impression : prénom, nom, SIREN, adresse, téléphone, email (après immatriculation) ;
   demander à l'imprimeur s'il veut un fond perdu (Canva : « Fond perdu » à l'export).
+
+## 06/10/2026 : QR vers dig16.fr
+
+- DNSSEC de dig16.fr actif et validé le 06/10 (vérifié via dns.google et cloudflare-dns.com). Le QR du flyer pointe encore vers `digsite.pages.dev`, qui fonctionne toujours ; il sera remplacé **une seule fois**, par `https://dig16.fr/`, avec la version définitive du flyer (nom, téléphone, SIREN, adresse), puis décodé depuis l'export pour contrôle.
