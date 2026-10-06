@@ -8,7 +8,12 @@ on:
     # mesure : en dessous de la duree reelle, les triggers cron s'empilent
     # plus vite qu'ils ne se vident (concurrency cancel-in-progress=false),
     # ce qui degraderait la cadence au lieu de l'ameliorer.
-    - cron: "*/25 * * * *"
+    # Passe a 15 min le 06/10/2026 : depuis la lecture parallele des catalogues
+    # (PR #129 radar, #130 scan cartes), le job complet mesure en prod 3.7 min
+    # (run du 06/10 20:25 UTC : scan cartes 1.5 min + radar 1.9 min, 44/44 et
+    # 53/53 boutiques OK) contre 16-19 min avant -- marge x4 a 15 min. Objectif :
+    # detecter plus tot les restocks des produits des 30 ans (Justok, 04/10/2026).
+    - cron: "*/15 * * * *"
   workflow_dispatch:
     inputs:
       boutiques:
