@@ -61,7 +61,7 @@ jobs:
               restant=$(printf '%s' "$credits" | python3 -c "import sys,json;d=json.load(sys.stdin);print(f\"{d['remain']}/{d['total']}\")" 2>/dev/null || true)
               if [ -z "$restant" ]; then
                 echo "::notice::Quota SendGrid non lisible avec cette clé (droit 'user.credits.read' absent) -- non vérifié."
-              elif [ "${restant%%/*}" = "0" ]; then
+              elif [ "${restant%%/*}" -le 0 ] 2>/dev/null; then   # SendGrid peut descendre SOUS zero (constate : -16/100 le 07/10/2026)
                 echo "::error::Quota SendGrid ÉPUISÉ ($restant envois restants) : plus aucun email ne part jusqu'à la remise à zéro du quota. Voir le plan SendGrid (Settings > Account Details > Your Products)."
                 exit 1
               else
