@@ -41,6 +41,9 @@
   @media (max-width: 560px) { .tel { display: none; } }
 
   /* Acte 1 : la visite. Le film avance sous le doigt ; les légendes suivent le film lui-même. */
+  /* Hauteur réservée dès le premier affichage (le moteur pose la même : span × 100vh), sinon la suite de la page saute */
+  .visite { height: 700vh; }
+  @media (prefers-reduced-motion: reduce) { .visite { height: 120vh; } }
   .visite [data-sc-stage] { background: var(--sc-canvas); }
   .chapitre { position: absolute; z-index: 3; left: var(--sc-gutter); bottom: clamp(5.5rem, 16vh, 10rem); max-width: min(34rem, 86vw);
     opacity: 0; transform: translateY(14px); transition: opacity 420ms cubic-bezier(.2,.7,.2,1), transform 520ms cubic-bezier(.2,.7,.2,1); pointer-events: none; }
