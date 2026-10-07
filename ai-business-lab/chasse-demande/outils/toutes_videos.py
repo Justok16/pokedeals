@@ -1,6 +1,6 @@
 """Traite TOUTES les vidéos des chaînes suivies (demande de l'utilisateur du 07/10/2026 : « les 40 467 vidéos »).
 
-Usage : python3 toutes_videos.py <groupe 0|1|2> <dossier_fiches> <cookies.txt>
+Usage : NB_GROUPES=4 python3 toutes_videos.py <groupe 0…NB_GROUPES-1> <dossier_fiches> <cookies.txt>
   (variables MODELES, FPS, LOT_DUREE, COURTE, LOT_MAX, PAUSE transmises à resumer_chaine.py)
 
 - Chaînes : connaissances/<chaine>/liste-videos.json (sauf les comptes TikTok), réparties en 3 groupes
@@ -91,7 +91,10 @@ def attendre_quota():
 def main():
     groupe, fiches, cookies = int(sys.argv[1]), sys.argv[2], sys.argv[3]
     # répartition équilibrée et stable : chaînes triées par taille de liste, chacune au groupe le moins chargé
-    charge, groupes = [0, 0, 0], [[], [], []]
+    nb = int(
+        os.environ.get("NB_GROUPES", 3)
+    )  # un groupe par famille de modèles (quotas séparés)
+    charge, groupes = [0] * nb, [[] for _ in range(nb)]
     tailles = {
         c: len(
             json.load(open(os.path.join(CONNAISSANCES, c, "liste-videos.json")))[
