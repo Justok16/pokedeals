@@ -1,10 +1,15 @@
 # This Week in Startups — index des fiches (synthèse du mercredi 07/10/2026)
 
-12 vidéos résumées sur 5228. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+17 vidéos résumées sur 5228. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[90 % des prototypes d'IA n'atteignent jamais la phase de production (avec Samar Abbas de Temporal...](QObva5QRiFc.md)** — - Sujet : L'utilisation de l'intelligence artificielle (IA) et des agents autonomes dans la conception et l'exploitation de logiciels et de processus d'entreprise, ainsi que les défis de robustesse et de durabilité (plateforme Temporal.io).
 - **[Ask Jason: AI Extinction, Grok's Rogue Meme Coin & Weed Farms as Data Centers | E2337](8O_9PxtK3_0.md)** — Sujet : L’impact de l’intelligence artificielle (IA) sur l’écosystème entrepreneurial, la gestion financière, l’investissement et l’évaluation des startups.
+- **[Becki DeGraw sur le vesting des fondateurs, l'équité des conseillers et la stratégie des 4 term-s...](TMVX_puEg7E.md)** — - Sujet : L'acquisition progressive d'actions (vesting) pour les fondateurs et l'attribution de capital aux conseillers (advisor equity) au sein des startups.
+- **[Becki DeGraw sur les spin-offs, les licences de propriété intellectuelle et les sorties propres |...](PwmiD8YmgyI.md)** — - Sujet : Démonstration des fonctionnalités du navigateur web IA ChatGPT Atlas développé par OpenAI.
+- **[Did OpenAI Steal the Navier-Stokes Solution? | E2335](1vSi26ckhe4.md)** — Sujet : L’impact économique de l’intelligence artificielle, les risques liés à la propriété intellectuelle et aux données confidentielles, les stratégies de financement/acquisition par le capital-risque (VC) et l'augmentation de la productivité au travail.
+- **[Dr. Mark Hyman on Function Health & GLP-1 microdosing | E2334](RlzZrY86Oas.md)** — - Sujet : La médecine fonctionnelle, la prévention personnalisée et l'accès direct aux données biologiques soutenu par l'intelligence artificielle.
+- **[EV REVIEW: 2021 Audi e-tron Sportback Quattro | Molly's Five Minute EV Reviews](hpsP58ZktOo.md)** — - Sujet : Essai et critique de l'Audi e-tron Sportback Quattro 2021 (format court par Molly Wood).
 - **[Hugging Face Co-Founder on Open-Source, Microduck, and NVIDIA | E2339](6748oCo7Z_M.md)** — Sujet : L'écosystème de l'intelligence artificielle open source, la robotique grand public et éducative, les modèles économiques du secteur tech, ainsi que les débats sur la réglementation de l'IA et les robotaxis autonomes.
 - **[Inside The Startup Building Uncensored AI (Abliteration AI) | EP 2345](KvBWp3aPV_g.md)** — Sujet : L'usage des outils d'intelligence artificielle (IA) et des solutions de gestion administrative pour les startups.
 - **[Jason Mentors The Next Generation + Why AI Is Bad at Teaching (Aristotle Interview) | E2346](Uu0BPhOo2oI.md)** — Le sujet est l'apprentissage et le développement personnel à l'ère de l'intelligence artificielle. La thèse principale est que l'utilisation d'outils d'IA pour apprendre (biographies, tutorat) et se former peut constituer un avantage compétitif majeur, à condition d'être un…
