@@ -1,5 +1,5 @@
 """Fabrique un plan-séquence « caméra » à partir de photos fixes (poussées, travellings), sans IA payante.
-Usage : python3 film_photos.py <dossier_photos> <sortie.mp4> <largeur> <hauteur>"""
+Usage : python3 film_photos.py <dossier_photos> <sortie.mp4> <largeur> <hauteur> [plans.json]"""
 
 import subprocess
 import sys
@@ -16,6 +16,14 @@ PLANS = [
     ("artisan", (0.52, 0.48), 1.02, (0.56, 0.44), 1.24),
     ("finitions", (0.64, 0.56), 1.32, (0.58, 0.52), 1.06),
 ]
+# 08/10 : liste de plans réglable (fichier JSON en 5e argument) pour réutiliser l'outil sur d'autres démos.
+if len(sys.argv) > 5:
+    import json
+
+    PLANS = [
+        tuple(x if not isinstance(x, list) else tuple(x) for x in p)
+        for p in json.load(open(sys.argv[5]))
+    ]
 ims = {p[0]: Image.open(f"{src}/{p[0]}.jpg").convert("RGB") for p in PLANS}
 
 
