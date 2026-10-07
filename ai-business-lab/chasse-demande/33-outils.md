@@ -268,6 +268,14 @@ propre quand le quota du jour est épuisé ou le cookie expiré. Réglages pass�
 requête, 216 559 jetons, 120 s), `LOT_DUREE=110`, `COURTE=60`, `LOT_MAX=10`, `PAUSE=70` (limite gratuite
 d'environ 250 000 jetons par minute). Les vidéos de plus de 2 h (307) sont mises de côté (`.longues.json`)
 pour `resumer_video_longue.py`. Consigne anti-mélange ajoutée au relais (un résumé ne contient que sa vidéo).
+Recherche de modèles gratuits supplémentaires (07/10 soir, liste complète de l'API testée sur une vidéo de 3 min) :
+**`gemini-robotics-er-2-preview` lit les vidéos YouTube** (résumé conforme, 5 827 jetons), quota gratuit séparé →
+4e groupe (`NB_GROUPES=4`), lots de 2 vidéos courtes au plus (un lot de 3 vidéos dont une de 56 min a dépassé
+le délai de 295 s). Sans quota gratuit (429) : modèles d'images (`*-image*`), `gemini-2.5-computer-use-preview`,
+`gemini-3.1-pro-preview-customtools`. Fermés aux nouveaux comptes (404) : `gemini-2.5-flash`, `gemini-2.5-flash-lite`.
+Refusent la vidéo : `antigravity-preview-*` (« Image input modality is not enabled »), `gemini-3.5-transcribe`
+(« MediaResolution is not supported »). Écarté : ouvrir d'autres projets Google pour multiplier les quotas
+(contournement des limites, contraire aux conditions de l'API).
 Pistes écartées le même jour : sous-titres YouTube (refusés depuis Vercel et depuis le conteneur :
 « LOGIN_REQUIRED », adresses de centres de données bloquées) ; modèles `gemini-3.5-transcribe` (ignore la
 vidéo par adresse YouTube), `gemma-4-31b-it` (refuse l'audio), `gemini-omni-*` et `gemini-3.1-pro-preview`
