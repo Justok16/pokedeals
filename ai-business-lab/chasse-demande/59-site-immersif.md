@@ -69,6 +69,13 @@ Créé le 07/10/2026 à la demande de l'utilisateur : « je veux que mes sites i
   - aucun débordement horizontal ;
   - film et légendes synchronisés à chaque position ;
   - en mouvements réduits, la visite devient 5 photos légendées, sans écran figé.
+- **Optimisé après l'audit Lighthouse** (téléphone) :
+  - images en WebP, en deux tailles (640 et 1200 px) ;
+  - moteur minifié (`scrollcraft.min.js`, 21 Ko) avec sa licence MIT jointe (`LICENCE-scrollcraft.txt`) ;
+  - polices chargées sans bloquer l'affichage ;
+  - noms accessibles pour les boutons du plan.
+  - Sur tout le site, ajout de `robots.txt` (il manquait : l'accueil était renvoyé à sa place) et d'une vraie
+    page 404.
 - **Sécurité** : `_headers` autorise désormais `media-src 'self' blob:`, parce que le moteur charge la vidéo en
   mémoire pour pouvoir la parcourir.
 - **À vérifier sur un vrai téléphone** :

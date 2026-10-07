@@ -10,8 +10,9 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2316120e'/><path d='M9 23V9h4l3 9 3-9h4v14' fill='none' stroke='%23c8955a' stroke-width='2.4'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="scrollcraft.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap"></noscript>
+<link rel="stylesheet" href="scrollcraft.min.css">
 <style>
   /* Thème : nuit d'atelier, chêne raboté, noyer, sciure. Le moteur ne se modifie pas : on ne règle que ces jetons. */
   :root {
@@ -145,8 +146,8 @@
   <section class="visite" data-sc-act="scrub" data-sc-span="7" data-sc-dwell="0" aria-label="Visite de l'atelier">
     <div data-sc-stage>
       <picture>
-        <source media="(max-width: 860px)" srcset="affiche-m.jpg">
-        <img class="sc-stage__poster" src="affiche.jpg" alt="L'atelier : établis en bois, outils rangés au mur, lumière du jour par la fenêtre">
+        <source media="(max-width: 860px)" srcset="affiche-m.webp">
+        <img class="sc-stage__poster" src="affiche.webp" fetchpriority="high" alt="L'atelier : établis en bois, outils rangés au mur, lumière du jour par la fenêtre">
       </picture>
       <video data-sc-scrub data-sc-src="visite.mp4" data-sc-src-mobile="visite-m.mp4" muted playsinline preload="none" aria-hidden="true"></video>
       <div class="sc-scrim" aria-hidden="true"></div>
@@ -173,11 +174,11 @@
       </div>
 
       <div class="plan" role="group" aria-label="Étapes de la visite">
-        <button type="button" data-t="0.4"><span>L'atelier</span></button>
-        <button type="button" data-t="4.6"><span>Le bois</span></button>
-        <button type="button" data-t="8.2"><span>L'assemblage</span></button>
-        <button type="button" data-t="11.8"><span>La main</span></button>
-        <button type="button" data-t="15.6"><span>Les finitions</span></button>
+        <button type="button" data-t="0.4" aria-label="Étape : L'atelier"><span>L'atelier</span></button>
+        <button type="button" data-t="4.6" aria-label="Étape : Le bois"><span>Le bois</span></button>
+        <button type="button" data-t="8.2" aria-label="Étape : L'assemblage"><span>L'assemblage</span></button>
+        <button type="button" data-t="11.8" aria-label="Étape : La main"><span>La main</span></button>
+        <button type="button" data-t="15.6" aria-label="Étape : Les finitions"><span>Les finitions</span></button>
       </div>
     </div>
   </section>
@@ -187,7 +188,7 @@
     <div class="sc-wrap grille">
       <div class="photo" id="photo-pres">
         <div class="cadre">
-        <img src="assemblage-1200.jpg" width="1200" height="795" loading="lazy" alt="Deux cadres en bois assemblés sur l'établi, un flacon de colle et une agrafeuse pneumatique">
+        <img src="assemblage-1200.webp" srcset="assemblage-640.webp 640w, assemblage-1200.webp 1200w" sizes="(max-width: 860px) 92vw, 60vw" width="1200" height="795" loading="lazy" alt="Deux cadres en bois assemblés sur l'établi, un flacon de colle et une agrafeuse pneumatique">
         <button class="repere" type="button" style="left:27%;top:56%" aria-expanded="false" aria-controls="b1" aria-label="Détail : l'assemblage d'angle"></button>
         <button class="repere" type="button" style="left:60%;top:60%" aria-expanded="false" aria-controls="b2" aria-label="Détail : la colle"></button>
         <button class="repere" type="button" style="left:77%;top:68%" aria-expanded="false" aria-controls="b3" aria-label="Détail : la fixation"></button>
@@ -214,10 +215,10 @@
           <h2>Ce que nous fabriquons</h2>
           <p>Tout est fait sur mesure, dans le bois que vous choisissez avec nous.</p>
         </div>
-        <article class="ouvrage"><div class="img"><img src="atelier-1200.jpg" loading="lazy" alt="Établi et outils de menuisier dans l'atelier"></div><h3>Fenêtres et baies</h3><p>Bois, alu ou PVC, double ou triple vitrage, posés en rénovation sans gros travaux.</p></article>
-        <article class="ouvrage"><div class="img"><img src="artisan-1200.jpg" loading="lazy" alt="Le menuisier rabote une planche dans son atelier"></div><h3>Portes d'entrée</h3><p>Isolantes et sécurisées, dessinées pour le caractère de votre maison.</p></article>
-        <article class="ouvrage"><div class="img"><img src="reserve-bois-1200.jpg" loading="lazy" alt="Réserve de bois sur des étagères"></div><h3>Volets et portails</h3><p>Battants, roulants ou motorisés, pilotables depuis votre téléphone.</p></article>
-        <article class="ouvrage"><div class="img"><img src="finitions-1200.jpg" loading="lazy" alt="Fixation d'un panneau de bois à l'agrafeuse"></div><h3>Agencement sur mesure</h3><p>Escaliers, placards, dressings : ajustés au centimètre.</p></article>
+        <article class="ouvrage"><div class="img"><img src="atelier-1200.webp" srcset="atelier-640.webp 640w, atelier-1200.webp 1200w" sizes="(max-width: 760px) 62vw, 27vw" loading="lazy" alt="Établi et outils de menuisier dans l'atelier"></div><h3>Fenêtres et baies</h3><p>Bois, alu ou PVC, double ou triple vitrage, posés en rénovation sans gros travaux.</p></article>
+        <article class="ouvrage"><div class="img"><img src="artisan-1200.webp" srcset="artisan-640.webp 640w, artisan-1200.webp 1200w" sizes="(max-width: 760px) 62vw, 27vw" loading="lazy" alt="Le menuisier rabote une planche dans son atelier"></div><h3>Portes d'entrée</h3><p>Isolantes et sécurisées, dessinées pour le caractère de votre maison.</p></article>
+        <article class="ouvrage"><div class="img"><img src="reserve-bois-1200.webp" srcset="reserve-bois-640.webp 640w, reserve-bois-1200.webp 1200w" sizes="(max-width: 760px) 62vw, 27vw" loading="lazy" alt="Réserve de bois sur des étagères"></div><h3>Volets et portails</h3><p>Battants, roulants ou motorisés, pilotables depuis votre téléphone.</p></article>
+        <article class="ouvrage"><div class="img"><img src="finitions-1200.webp" srcset="finitions-640.webp 640w, finitions-1200.webp 1200w" sizes="(max-width: 760px) 62vw, 27vw" loading="lazy" alt="Fixation d'un panneau de bois à l'agrafeuse"></div><h3>Agencement sur mesure</h3><p>Escaliers, placards, dressings : ajustés au centimètre.</p></article>
         <p class="rail__fin">Votre projet n'est pas dans la liste ? Parlons-en quand même.</p>
       </div>
     </div>
@@ -252,7 +253,7 @@
 
 </main>
 
-<script src="scrollcraft.js"></script>
+<script src="scrollcraft.min.js"></script>
 <script>
   // Rares navigateurs sans lecteur MP4 (H.264) : on leur donne la version WebM du même film.
   (function () {
@@ -267,7 +268,7 @@
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var visite = document.querySelector('.visite');
     visite.setAttribute('data-sc-span', '1.2');
-    var photos = ['reserve-bois-1200.jpg', 'assemblage-1200.jpg', 'artisan-1200.jpg', 'finitions-1200.jpg'];
+    var photos = ['reserve-bois-1200.webp', 'assemblage-1200.webp', 'artisan-1200.webp', 'finitions-1200.webp'];
     var bloc = document.createElement('section');
     bloc.className = 'visite-fixe';
     bloc.setAttribute('aria-label', 'Les étapes de la visite');
