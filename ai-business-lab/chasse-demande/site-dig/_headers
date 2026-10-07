@@ -12,8 +12,3 @@
 /m/*
   X-Robots-Tag: noindex, nofollow
   Referrer-Policy: no-referrer
-# Essai 3D (07/10/2026) : « no-transform » (posé contre le script de statistiques injecté dans les pages) empêche
-# aussi la compression ; on le retire pour ce gros fichier JavaScript, qui n'est pas une page.
-/demos/menuisier-3d/hero3d.js
-  ! Cache-Control
-  Cache-Control: public, max-age=86400
