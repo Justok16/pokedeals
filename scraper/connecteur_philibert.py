@@ -69,13 +69,13 @@ def lister_urls_pokemon_sitemap(connecteur: ConnecteurPrestaShopSitemap | None =
     return [u for u in urls if "pokemon" in u.lower()]
 
 
-def _extraire_produit(url: str) -> dict | None:
+def _extraire_produit(url: str, session: requests.Session | None = None) -> dict | None:
     """Recupere une page produit et en extrait titre/description/stock.
     None si la page est inaccessible ou sans donnees structurees
     exploitables (JSON-LD Product ni microdata) -- ignoree, jamais une
     exception qui interromprait le cycle complet."""
     try:
-        r = requests.get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
+        r = (session or requests).get(url, headers=HEADERS_HTML, timeout=TIMEOUT)
         if r.status_code != 200:
             return None
         html = r.text
@@ -128,9 +128,14 @@ def scanner_philibert_precommandes_generiques(
     depuis radar_precommande_generique.py)."""
     urls = urls if urls is not None else lister_urls_pokemon_sitemap(connecteur)
 
+    # 07/10/2026 : UNE connexion reutilisee pour les ~1000 pages (keep-alive)
+    # au lieu d'une nouvelle connexion TLS par page -- mesure : 0,88 s -> 0,23 s
+    # par page. Meme politesse envers le site : toujours une page a la fois,
+    # meme pause DELAI_ENTRE_PAGES_PRODUIT entre deux pages.
+    session = requests.Session()
     candidats = []
     for i, url in enumerate(urls):
-        produit = _extraire_produit(url)
+        produit = _extraire_produit(url, session)
         if i < len(urls) - 1:
             time.sleep(DELAI_ENTRE_PAGES_PRODUIT)
         if produit is None:
