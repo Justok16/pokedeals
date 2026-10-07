@@ -165,6 +165,11 @@ alertes, mémoire de stock) toujours séquentiel et dans l'ordre. Une boutique d
 Tests : `tests/test_scan_boutique_parallele.py`. Les scans PrestaShop/WooCommerce ne sont pas concernés
 (réseau et mémoire mêlés dans la même fonction, déjà répartis en 2 lots parallèles).
 
+Même principe pour `scan_precommandes_generique.py` (radar précommandes génériques PokéPrécoms, 07/10/2026) :
+`PRECO_GENERIQUE_PARALLELISME` (défaut 4, `1` = séquentiel), détection toujours séquentielle et dans l'ordre.
+Mesuré sur les 53 boutiques réelles : lecture complète en 132 s, 53/53 OK, contre ~16 min en médiane avant
+(cadence 15 min, les runs s'empilaient). Tests : `tests/test_scan_precommandes_generique_parallele.py`.
+
 ## Serveur MCP (`mcp_pokedeals/`) — outil développeur, PAS une fonction du bot
 
 Ajouté le 14/08/2026, système **totalement indépendant** des 3 fonctions ci-dessus : ne tourne jamais en CI/cron, ne modifie et ne lit aucun fichier `data/*.json` de PokéDeals (son propre cache vit dans `mcp_pokedeals/.cache/`, exclu de git). Expose des données Pokémon TCG (cartes, sets, prix) à une IA comme Claude Code via le protocole MCP (transport stdio, lancé en local par l'utilisateur — `python -m mcp_pokedeals.server`).

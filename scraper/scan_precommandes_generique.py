@@ -20,6 +20,7 @@ import logging
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -32,6 +33,7 @@ from connecteur_supabase_precoms import (
 from memoire_json import charger_memoire, sauvegarder_memoire
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from notifications_perso import token_telegram_perso
+from parallelisme import PARALLELISME_MAX, PARALLELISME_PAR_DEFAUT, lire_parallelisme
 from radar_precommande_generique import (
     detecter_nouvelles_precommandes_generiques,
     envoyer_telegram_precommandes_generiques,
@@ -65,15 +67,47 @@ def _boutiques_shopify_actives() -> list[str]:
             + list(BOUTIQUES_SHOPIFY_AUTO) + list(BOUTIQUES_SHOPIFY_AUTO_PRECOMMANDE_SEULEMENT))
 
 
+# 07/10/2026 : lecture des catalogues en parallele (meme principe que
+# scan_precommandes.py, PR #129) -- en sequentiel le cycle durait 16 min en
+# mediane (jusqu'a 36) pour une cadence de 15 min, donc les runs s'empilaient.
+# La detection (memoire) reste sequentielle et dans l'ordre des boutiques.
+# PRECO_GENERIQUE_PARALLELISME=1 retablit le comportement sequentiel.
+def _parallelisme() -> int:
+    return lire_parallelisme("PRECO_GENERIQUE_PARALLELISME", PARALLELISME_PAR_DEFAUT, PARALLELISME_MAX)
+
+
+def _lire_catalogues(boutiques: list[str], parallelisme: int) -> list[tuple[list[dict] | None, Exception | None]]:
+    """Resultats alignes sur `boutiques` : (candidats, None) ou (None, exception).
+    Reseau uniquement : ne touche a aucune memoire."""
+    def une(domaine: str):
+        try:
+            return scanner_shopify_precommandes_generiques(domaine), None
+        except Exception as e:  # noqa: BLE001 -- une boutique en echec ne doit jamais arreter le cycle
+            return None, e
+
+    if parallelisme <= 1:
+        resultats = []
+        for i, domaine in enumerate(boutiques):
+            resultats.append(une(domaine))
+            if i < len(boutiques) - 1:
+                time.sleep(DELAI_ENTRE_BOUTIQUES)
+        return resultats
+    with ThreadPoolExecutor(max_workers=parallelisme) as pool:
+        return list(pool.map(une, boutiques))
+
+
 def scanner_plusieurs_boutiques(boutiques: list[str], memoire: dict) -> dict:
     debut = time.monotonic()
     tous_les_evenements: list[dict] = []
     boutiques_ok: list[str] = []
     boutiques_echec: list[dict] = []
 
-    for i, domaine in enumerate(boutiques):
+    lectures = _lire_catalogues(boutiques, _parallelisme())
+
+    for i, (domaine, (candidats, erreur)) in enumerate(zip(boutiques, lectures)):
         try:
-            candidats = scanner_shopify_precommandes_generiques(domaine)
+            if erreur is not None:
+                raise erreur
             evenements = detecter_nouvelles_precommandes_generiques(candidats, memoire)
             tous_les_evenements.extend(evenements)
             boutiques_ok.append(domaine)
@@ -82,9 +116,6 @@ def scanner_plusieurs_boutiques(boutiques: list[str], memoire: dict) -> dict:
             raison = f"{type(e).__name__}: {e}"
             boutiques_echec.append({"domaine": domaine, "raison": raison})
             print(f"[{i + 1}/{len(boutiques)}] {domaine} : ECHEC — {raison}")
-
-        if i < len(boutiques) - 1:
-            time.sleep(DELAI_ENTRE_BOUTIQUES)
 
     duree = time.monotonic() - debut
     return {
