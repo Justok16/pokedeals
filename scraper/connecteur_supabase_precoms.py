@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import json
 import logging
+from datetime import datetime, timedelta, timezone
 
 import requests
 
@@ -104,7 +105,7 @@ def enregistrer_precommande_alertes(
         return None
 
 
-CHAMPS_PRECOMMANDE_DIFFUSION = "id,titre_produit,boutique,url_produit,push_diffuse,email_diffuse"
+CHAMPS_PRECOMMANDE_DIFFUSION = "id,titre_produit,boutique,url_produit,push_diffuse,email_diffuse,created_at"
 TAILLE_PAGE_DIFFUSION = 1000  # limite par defaut de PostgREST/Supabase par requete
 
 
@@ -380,6 +381,29 @@ def _envoyer_email(
 
 SEUIL_COUPE_CIRCUIT_EMAIL = 5
 
+# 07/10/2026 (regle validee par Justok lors de la purge du jour) : un email de
+# precommande qui n'a pas pu partir dans les 48 h n'est plus retente -- marque
+# diffuse sans envoi. Sans ce plafond, une panne (ex. quota SendGrid epuise,
+# 100 envois/jour pour 46 inscrits) accumulait une file de milliers d'emails
+# perimes qui, a la reprise, re-epuisaient le quota avant les vraies nouveautes.
+# La precommande reste visible sur le dashboard ; le push n'est pas concerne.
+DELAI_MAX_EMAIL = timedelta(hours=48)
+
+
+def _email_perime(precommande: dict, maintenant: datetime) -> bool:
+    """True si la precommande a plus de DELAI_MAX_EMAIL. Date absente ou
+    illisible -> False (comportement d'avant : on tente l'envoi)."""
+    brut = precommande.get("created_at")
+    if not brut:
+        return False
+    try:
+        cree = datetime.fromisoformat(str(brut).replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    if cree.tzinfo is None:
+        cree = cree.replace(tzinfo=timezone.utc)
+    return maintenant - cree > DELAI_MAX_EMAIL
+
 
 def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict]) -> None:
     """Point d'entrée unique, appelé avec lister_precommandes_a_diffuser() --
@@ -443,6 +467,7 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
             prefs_email = resultat_prefs
 
     emails_cache: dict[str, str | None] = {}
+    maintenant = datetime.now(timezone.utc)
     # Coupe-circuit (07/10/2026) : clef SendGrid refusee (401) depuis plusieurs
     # jours -> chaque cycle retentait des milliers d'envois voues a l'echec
     # (~7 min perdues par cycle, file d'attente croissante). Apres
@@ -472,7 +497,11 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
             if not echec_push:
                 marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "push")
 
-        if email_actif and email_lecture_ok and not precommande.get("email_diffuse"):
+        if email_actif and email_lecture_ok and not precommande.get("email_diffuse") \
+                and _email_perime(precommande, maintenant):
+            log.info("Email d'une précommande abandonné (plus de 48 h sans envoi possible) -- marqué diffusé")
+            marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "email")
+        elif email_actif and email_lecture_ok and not precommande.get("email_diffuse"):
             echec_email = False
             for uid in user_ids:
                 if email_coupe_ce_cycle:

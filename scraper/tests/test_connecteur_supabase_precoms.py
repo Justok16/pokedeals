@@ -457,3 +457,47 @@ def test_tous_les_envois_reussis_marquent_chaque_precommande():
     email_send_mock, marquer_mock = _notifier_emails(3, 2, lambda *a, **k: True)
     assert email_send_mock.call_count == 6
     assert marquer_mock.call_count == 2
+
+
+# ------------------- emails perimes (> 48 h, 07/10/2026) -------------------
+
+def test_email_perime_selon_l_age_de_la_precommande():
+    from datetime import datetime, timezone
+    from connecteur_supabase_precoms import _email_perime
+    maintenant = datetime(2026, 10, 7, 22, 0, tzinfo=timezone.utc)
+    assert _email_perime({"created_at": "2026-09-23T18:23:32.279785+00:00"}, maintenant)
+    assert not _email_perime({"created_at": "2026-10-07T10:00:00+00:00"}, maintenant)
+    assert _email_perime({"created_at": "2026-10-05T21:00:00Z"}, maintenant)
+    # Date absente ou illisible -> on tente l'envoi, comme avant.
+    assert not _email_perime({}, maintenant)
+    assert not _email_perime({"created_at": "pas une date"}, maintenant)
+
+
+def test_precommande_perimee_marquee_email_sans_envoi_et_push_inchange():
+    secrets = {**_SECRETS_EMAIL, "VAPID_PRIVATE_KEY": "priv", "VAPID_CLAIM_EMAIL": "a@b.com"}
+    vieille = {**_precommande(id="vieille"), "created_at": "2026-01-01T00:00:00+00:00"}
+    with patch("connecteur_supabase_precoms._lister_tous_utilisateurs", return_value=["u1"]), \
+         patch("connecteur_supabase_precoms._lister_abonnements_push",
+               return_value=[{"user_id": "u1", "endpoint": "e1", "p256dh": "p", "auth": "a"}]), \
+         patch("connecteur_supabase_precoms._preferences_email", return_value={}), \
+         patch("connecteur_supabase_precoms._email_utilisateur", return_value="user@example.com"), \
+         patch("connecteur_supabase_precoms._envoyer_push", return_value=True) as push_mock, \
+         patch("connecteur_supabase_precoms._envoyer_email") as email_mock, \
+         patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
+        notifier_abonnes_precoms(secrets, [vieille])
+    email_mock.assert_not_called()
+    push_mock.assert_called_once()   # le push n'est pas concerne par le plafond
+    canaux = sorted(c.args[3] for c in marquer_mock.call_args_list)
+    assert canaux == ["email", "push"]
+
+
+def test_precommande_recente_toujours_envoyee_par_email():
+    from datetime import datetime, timezone
+    recente = {**_precommande(id="recente"), "created_at": datetime.now(timezone.utc).isoformat()}
+    with patch("connecteur_supabase_precoms._lister_tous_utilisateurs", return_value=["u1"]), \
+         patch("connecteur_supabase_precoms._preferences_email", return_value={}), \
+         patch("connecteur_supabase_precoms._email_utilisateur", return_value="user@example.com"), \
+         patch("connecteur_supabase_precoms._envoyer_email", return_value=True) as email_mock, \
+         patch("connecteur_supabase_precoms.marquer_diffusion_terminee"):
+        notifier_abonnes_precoms(_SECRETS_EMAIL, [recente])
+    email_mock.assert_called_once()
