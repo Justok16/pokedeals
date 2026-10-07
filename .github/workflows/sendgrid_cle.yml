@@ -1,0 +1,63 @@
+name: Contrôle clé SendGrid
+
+# Ajoute le 07/10/2026. Pourquoi : SendGrid refusait la clef (401) depuis
+# plusieurs jours sans que personne ne le voie -- le canari email (qui envoie
+# un vrai email de test) est en pause depuis le 22/09/2026 a la demande de
+# Justok (8 emails de test/jour dans sa boite), et les alertes Telegram perso
+# sont coupees depuis le 19/09/2026.
+#
+# Ce controle n'envoie AUCUN email : il demande seulement a SendGrid si la
+# clef est acceptee (GET /v3/scopes, accessible a toute clef valide, meme
+# restreinte). Clef refusee (401) -> le job ECHOUE, et GitHub envoie a
+# Justok son email habituel "Run failed" : une seule alerte par jour tant que
+# la clef est cassee, rien quand tout va bien. Une panne passagere de SendGrid
+# (5xx, reseau) ou une clef restreinte sans droit de lecture de ses permissions (403)
+# n'est PAS une clef cassee : simple avertissement, job vert.
+#
+# Limite assumee : prouve que la clef est acceptee, pas que les emails sont
+# livres aux destinataires (c'est le role du canari email, a reactiver une
+# fois EMAIL_CANARI_DESTINATAIRE pointe vers une boite dediee).
+on:
+  schedule:
+    - cron: "47 7 * * *"   # une fois par jour, ~9h45 Paris (minute decalee de :00, cf. charge du planificateur GitHub)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sendgrid_cle
+  cancel-in-progress: false
+
+jobs:
+  controle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Vérifier que SendGrid accepte la clé
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        run: |
+          if [ -z "$SENDGRID_API_KEY" ]; then
+            echo "::notice::SENDGRID_API_KEY absent -- controle ignore."
+            exit 0
+          fi
+          code=000
+          for essai in 1 2; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 \
+              -H "Authorization: Bearer $SENDGRID_API_KEY" \
+              https://api.sendgrid.com/v3/scopes) || code=000
+            [ "$code" = "200" ] || [ "$code" = "401" ] || [ "$code" = "403" ] && break
+            sleep 10
+          done
+          case "$code" in
+            200)
+              echo "Clé SendGrid acceptée." ;;
+            401)
+              echo "::error::SendGrid REFUSE la clé (HTTP $code) : aucun email PokéDeals ni PokéPrécoms ne part. A faire : sur sendgrid.com, vérifier que le compte est actif, créer une nouvelle clé API (Settings > API Keys, droit 'Mail Send'), puis remplacer le secret SENDGRID_API_KEY (GitHub > pokedeals > Settings > Secrets and variables > Actions)."
+              exit 1 ;;
+            403)
+              echo "::warning::Clé acceptée mais sans droit de lister ses permissions (HTTP 403, clé restreinte) -- pas une clé refusée." ;;
+            *)
+              echo "::warning::SendGrid injoignable ou en panne passagère (HTTP $code) -- pas une clé refusée, rien à faire." ;;
+          esac
