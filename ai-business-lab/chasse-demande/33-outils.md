@@ -258,6 +258,16 @@ les vidéos de 7 min au plus par **lots de 8** (15 min cumulées au plus), déco
 toute vidéo absente du lot, relance 2 fois après une coupure réseau et passe au modèle suivant si l'un est
 surchargé (503). Test du 01/10 : 8 vidéos résumées en 68 s par une seule requête, résumés conformes aux titres.
 Il reste 1 714 vidéos de moins de 3 min sur 3 126 : leur traitement passe d'environ 1 714 requêtes à ~215.
+
+**Toutes les vidéos (07/10, demande de l'utilisateur : « les 40 467 vidéos »)**. `outils/toutes_videos.py`
+répartit les 33 chaînes YouTube (hors comptes TikTok) en 3 groupes équilibrés (~13 500 vidéos chacun), un
+groupe par famille de modèles Gemini (quotas gratuits séparés). Pour chaque chaîne : vidéos prioritaires puis
+toute la liste, sans celles déjà résumées ; tour par tour (240 min de vidéo par chaîne et par tour) ; arrêt
+propre quand le quota du jour est épuisé ou le cookie expiré. Réglages passés à `resumer_chaine.py` :
+`FPS=0.1` (paramètre `fps` du relais : 0,1 image/s, son complet ; essai du 07/10 : 3 vidéos de ~38 min en une
+requête, 216 559 jetons, 120 s), `LOT_DUREE=110`, `COURTE=60`, `LOT_MAX=10`, `PAUSE=70` (limite gratuite
+d'environ 250 000 jetons par minute). Les vidéos de plus de 2 h (307) sont mises de côté (`.longues.json`)
+pour `resumer_video_longue.py`. Consigne anti-mélange ajoutée au relais (un résumé ne contient que sa vidéo).
 Pistes écartées le même jour : sous-titres YouTube (refusés depuis Vercel et depuis le conteneur :
 « LOGIN_REQUIRED », adresses de centres de données bloquées) ; modèles `gemini-3.5-transcribe` (ignore la
 vidéo par adresse YouTube), `gemma-4-31b-it` (refuse l'audio), `gemini-omni-*` et `gemini-3.1-pro-preview`
