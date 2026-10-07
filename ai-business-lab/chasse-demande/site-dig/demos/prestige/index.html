@@ -21,7 +21,7 @@
     --sc-accent: #a9b67a;  --sc-accent-ink: #1f211d;
     --sc-font-display: "Cormorant Garamond", Georgia, serif;
     --sc-font-text: "Mulish", system-ui, sans-serif;
-    --pierre: #efe7d8; --pierre-2: #e6dcc9; --ardoise: #2c3136; --encre: #2a2620; --encre-douce: #6b6152; --tilleul-fonce: #5f6b38;
+    --pierre: #efe7d8; --pierre-2: #e6dcc9; --ardoise: #2c3136; --encre: #2a2620; --encre-douce: #5c5245; --tilleul-fonce: #5f6b38;
   }
   html { scroll-behavior: auto; }
   body { -webkit-font-smoothing: antialiased; }
@@ -87,7 +87,7 @@
   @media (max-width: 820px) { .maison .grille { grid-template-columns: 1fr; } .maison figure img { border-radius: 160px 160px 4px 4px; } }
 
   /* Acte 3 : les chambres, en travelling */
-  .chambres [data-sc-stage] { background: var(--pierre-2); color: var(--encre); }
+  .chambres, .chambres [data-sc-stage] { background: var(--pierre-2); color: var(--encre); }
   .rail { gap: clamp(18px, 2.6vw, 36px); align-items: center; padding-inline: var(--sc-gutter); height: 100%; padding-block: clamp(5rem, 12vh, 7rem) 2rem; }
   .rail > * { flex: 0 0 auto; }
   .rail__tete { width: min(25rem, 80vw); }
@@ -147,7 +147,7 @@
   <a class="marque" href="#haut"><b>Le Clos des Tilleuls</b><span data-fr="Maison d'hôtes" data-en="Guest house">Maison d'hôtes</span></a>
   <nav aria-label="Navigation">
     <a class="lien" href="#chambres" data-fr="Chambres" data-en="Rooms">Chambres</a>
-    <button class="langue" id="langue" type="button" lang="en" aria-label="Switch to English">EN</button>
+    <button class="langue" id="langue" type="button" lang="en" aria-label="EN : switch to English">EN</button>
     <a class="reserver" href="#reserver" data-fr="Réserver" data-en="Book">Réserver</a>
   </nav>
 </header>
@@ -416,7 +416,7 @@
     var b = document.getElementById('langue');
     b.textContent = lang === 'fr' ? 'EN' : 'FR';
     b.setAttribute('lang', lang === 'fr' ? 'en' : 'fr');
-    b.setAttribute('aria-label', lang === 'fr' ? 'Switch to English' : 'Passer en français');
+    b.setAttribute('aria-label', lang === 'fr' ? 'EN : switch to English' : 'FR : passer en français');
     [].slice.call(document.querySelectorAll('[data-fr]')).forEach(function (el) { el.innerHTML = texte(el); });
     window.majHorloge(); window.majResa();
   });
