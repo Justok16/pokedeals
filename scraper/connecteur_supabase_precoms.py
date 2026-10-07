@@ -499,8 +499,7 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
 
         if email_actif and email_lecture_ok and not precommande.get("email_diffuse") \
                 and _email_perime(precommande, maintenant):
-            log.info("Email de la précommande %s abandonné (plus de %d h sans envoi possible) -- marqué diffusé",
-                     precommande["id"], DELAI_MAX_EMAIL.total_seconds() // 3600)
+            log.info("Email d'une précommande abandonné (plus de 48 h sans envoi possible) -- marqué diffusé")
             marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "email")
         elif email_actif and email_lecture_ok and not precommande.get("email_diffuse"):
             echec_email = False
