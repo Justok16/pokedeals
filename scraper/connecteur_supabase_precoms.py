@@ -370,7 +370,11 @@ def _envoyer_email(
         r.raise_for_status()
         return True
     except requests.RequestException as e:
-        log.warning("Envoi email échoué (%s) -- retenté au prochain cycle", e)
+        # 07/10/2026 : le corps de la reponse SendGrid distingue une clef
+        # refusee d'un quota d'envois epuise (les deux en 401) -- sans lui,
+        # impossible de savoir quoi corriger.
+        detail = (e.response.text or "")[:200] if getattr(e, "response", None) is not None else ""
+        log.warning("Envoi email échoué (%s%s) -- retenté au prochain cycle", e, f" : {detail}" if detail else "")
         return False
 
 
