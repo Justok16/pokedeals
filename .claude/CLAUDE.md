@@ -4,7 +4,9 @@
 
 - L'utilisateur est francophone, non développeur, souvent sur téléphone.
   Toujours lui répondre **en français simple**, pas à pas, avec des liens
-  directs. Commencer par « **À TOI :** » quand il a quelque chose à faire.
+  directs. **Tout en français, y compris les petits messages intermédiaires
+  pendant le travail** (demande ferme du 07/10 : « ne parle qu'en français
+  dans toute la conversation »). Commencer par « **À TOI :** » quand il a quelque chose à faire.
 - Objectif : trouver et lancer **un projet qui rapporte beaucoup, par des
   moyens légaux**. Tout le travail est dans `ai-business-lab/chasse-demande/`
   (branche `claude/ai-business-portfolio-strategy-96yf4g`).
