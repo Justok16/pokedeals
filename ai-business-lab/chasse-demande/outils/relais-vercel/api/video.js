@@ -14,6 +14,19 @@ CONSIGNES.finance =
   "à la source officielle » pour toute règle fiscale ou légale) ; 4) les conseils concrets et leurs limites " +
   "ou risques ; 5) les produits, applications ou entreprises cités, en signalant s'il s'agit de publicité " +
   "ou de produits de l'auteur. N'invente rien : si un détail n'est pas clair, écris « non précisé ».";
+// 07/10 : analyse visuelle détaillée d'une vidéo qui montre un site web (demande de l'utilisateur :
+// « je veux que mes sites puissent ressembler à ça, étudie cette vidéo au maximum »).
+CONSIGNES.design =
+  "Tu es directeur artistique web. Cette vidéo montre la création d'un site. Décris en français, avec les " +
+  "horodatages (mm:ss), TOUT ce qu'on voit à l'écran du site final et des étapes : 1) chaque section du site, " +
+  "de haut en bas (contenu, mise en page, proportions, ce qui se passe au défilement : vidéo qui avance avec " +
+  "le défilement, parallaxe, apparitions, zooms, textes qui glissent, compteurs…) ; 2) typographies (style, " +
+  "graisse, tailles relatives, capitales), couleurs (codes approximatifs), fonds, grain, ombres, coins ; 3) " +
+  "navigation, boutons, curseur, menus, transitions entre pages, comportement sur téléphone si montré ; 4) les " +
+  "visuels (photos, vidéos générées, 3D) et comment ils ont été produits ; 5) MOT POUR MOT chaque consigne " +
+  "(prompt) tapée ou lue à l'écran, chaque nom de fichier, de dossier, de dépôt GitHub, de bibliothèque " +
+  "(GSAP, Lenis, Three.js…) et chaque commande ; 6) la méthode pas à pas de l'auteure ; 7) les défauts ou " +
+  "limites visibles (lenteur, poids, lisibilité). N'invente rien : si un détail n'est pas lisible, écris « non lisible ».";
 const CONSIGNE =
   "Résume cette vidéo en français, pour quelqu'un qui cherche à gagner de l'argent " +
   "légalement avec l'IA et Claude Code. Donne : 1) l'idée principale ; 2) chaque outil, " +
