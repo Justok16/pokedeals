@@ -28,7 +28,7 @@ from bonne_affaire_shopify import charger_cotes, charger_regles, detecter_bonnes
 from connecteur_prestashop_sitemap import ConnecteurPrestaShopSitemap
 from filtre_annonces import cles_watchlist, deals_config_perso
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
-from notifications_perso import token_telegram_perso
+from notifications_perso import memoriser_si_telegram_perso_coupe, token_telegram_perso
 from parallelisme import lire_parallelisme
 from watchlist_shopify import CarteWatchlist
 
@@ -264,6 +264,7 @@ if __name__ == "__main__":
     _evenements_stock_perso, _evenements_stock_saas_only = separer_evenements_config_perso(
         resume["evenements_stock"], {nom for nom, _ in _cles_config_perso})
     committer_evenements_sans_envoi(_evenements_stock_saas_only, memoire_stock)
+    memoriser_si_telegram_perso_coupe(_evenements_stock_perso, memoire_stock)
     envoyer_telegram_retours_stock(_evenements_stock_perso, TELEGRAM_CHAT_ID, token, memoire_stock)
 
     if memoire_via_supabase:

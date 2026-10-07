@@ -416,3 +416,44 @@ def test_email_utilisateur_erreur_reseau_retourne_none():
     with patch("connecteur_supabase_precoms.requests.get", side_effect=requests.RequestException("boom")):
         result = _email_utilisateur("https://x.supabase.co", "cle", "u1")
     assert result is None
+
+
+# ------------------- coupe-circuit email (07/10/2026) -------------------
+
+_SECRETS_EMAIL = {
+    "POKEPRECOMS_SUPABASE_URL": "https://x.supabase.co", "POKEPRECOMS_SUPABASE_SERVICE_ROLE_KEY": "k",
+    "SENDGRID_API_KEY": "SG.revoquee", "SENDGRID_FROM_EMAIL": "noreply@pokeprecoms.app",
+}
+
+
+def _notifier_emails(nb_users, nb_precommandes, envoi):
+    precommandes = [_precommande(id=f"p{i}", url_produit=f"https://x/{i}") for i in range(nb_precommandes)]
+    with patch("connecteur_supabase_precoms._lister_tous_utilisateurs",
+               return_value=[f"u{i}" for i in range(nb_users)]), \
+         patch("connecteur_supabase_precoms._preferences_email", return_value={}), \
+         patch("connecteur_supabase_precoms._email_utilisateur", return_value="user@example.com"), \
+         patch("connecteur_supabase_precoms._envoyer_email", side_effect=envoi) as email_send_mock, \
+         patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
+        notifier_abonnes_precoms(_SECRETS_EMAIL, precommandes)
+    return email_send_mock, marquer_mock
+
+
+def test_clef_sendgrid_refusee_coupe_le_canal_apres_le_seuil_sans_rien_marquer():
+    from connecteur_supabase_precoms import SEUIL_COUPE_CIRCUIT_EMAIL
+    email_send_mock, marquer_mock = _notifier_emails(50, 20, lambda *a, **k: False)
+    # 1000 envois auparavant (50 utilisateurs x 20 precommandes) -> seuil seulement.
+    assert email_send_mock.call_count == SEUIL_COUPE_CIRCUIT_EMAIL
+    marquer_mock.assert_not_called()   # tout reste a diffuser -> retente au prochain cycle
+
+
+def test_echecs_isoles_apres_un_succes_ne_coupent_pas_le_canal():
+    resultats = iter([True] + [False] * 20)
+    email_send_mock, marquer_mock = _notifier_emails(21, 1, lambda *a, **k: next(resultats))
+    assert email_send_mock.call_count == 21    # un succes ce cycle -> clef valide, on continue
+    marquer_mock.assert_not_called()           # mais des echecs -> pas marque diffuse
+
+
+def test_tous_les_envois_reussis_marquent_chaque_precommande():
+    email_send_mock, marquer_mock = _notifier_emails(3, 2, lambda *a, **k: True)
+    assert email_send_mock.call_count == 6
+    assert marquer_mock.call_count == 2

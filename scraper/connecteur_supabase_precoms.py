@@ -374,6 +374,9 @@ def _envoyer_email(
         return False
 
 
+SEUIL_COUPE_CIRCUIT_EMAIL = 5
+
+
 def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict]) -> None:
     """Point d'entrée unique, appelé avec lister_precommandes_a_diffuser() --
     TOUTES les précommandes dont au moins un canal n'est pas encore diffusé,
@@ -436,6 +439,15 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
             prefs_email = resultat_prefs
 
     emails_cache: dict[str, str | None] = {}
+    # Coupe-circuit (07/10/2026) : clef SendGrid refusee (401) depuis plusieurs
+    # jours -> chaque cycle retentait des milliers d'envois voues a l'echec
+    # (~7 min perdues par cycle, file d'attente croissante). Apres
+    # SEUIL_COUPE_CIRCUIT_EMAIL echecs d'affilee SANS aucun succes ce cycle, on
+    # arrete le canal email pour ce cycle ; rien n'est marque diffuse, donc
+    # tout est retente au cycle suivant (meme garantie qu'avant).
+    echecs_email_consecutifs = 0
+    email_succes_ce_cycle = False
+    email_coupe_ce_cycle = False
 
     for precommande in precommandes_a_diffuser:
         titre_notif = "Nouvelle précommande Pokémon TCG disponible !"
@@ -459,14 +471,28 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
         if email_actif and email_lecture_ok and not precommande.get("email_diffuse"):
             echec_email = False
             for uid in user_ids:
+                if email_coupe_ce_cycle:
+                    echec_email = True   # non marque diffuse -> retente au prochain cycle
+                    break
                 if prefs_email.get(uid, True):
                     if uid not in emails_cache:
                         emails_cache[uid] = _email_utilisateur(supabase_url, service_role_key, uid)
                     email = emails_cache[uid]
-                    if email and not _envoyer_email(
+                    if not email:
+                        continue
+                    if _envoyer_email(
                         sendgrid_api_key, sendgrid_from, email, titre_notif, corps, url,
                         custom_args={"produit": "pokeprecoms", "type_notification": "precommande", "reference_id": str(precommande["id"])},
                     ):
+                        email_succes_ce_cycle = True
+                        echecs_email_consecutifs = 0
+                    else:
                         echec_email = True
+                        echecs_email_consecutifs += 1
+                        if not email_succes_ce_cycle and echecs_email_consecutifs >= SEUIL_COUPE_CIRCUIT_EMAIL:
+                            email_coupe_ce_cycle = True
+                            log.warning("SendGrid refuse tous les envois (%d échecs d'affilée, aucun succès ce cycle) -- "
+                                        "canal email suspendu pour ce cycle, tout sera retenté au prochain",
+                                        echecs_email_consecutifs)
             if not echec_email:
                 marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "email")
