@@ -129,3 +129,22 @@ def test_scanner_ignore_les_pages_sans_donnees_extraites():
          patch("connecteur_philibert.time.sleep"):
         candidats = scanner_philibert_precommandes_generiques(urls)
     assert candidats == []
+
+
+def test_extraire_produit_utilise_la_session_fournie():
+    from unittest.mock import MagicMock
+    session = MagicMock()
+    session.get.return_value = _reponse(status_code=404)
+    with patch("connecteur_philibert.requests.get") as get_direct:
+        assert _extraire_produit("https://philibertnet.com/fr/3-x.html", session) is None
+    session.get.assert_called_once()
+    get_direct.assert_not_called()
+
+
+def test_scanner_reutilise_une_seule_session_pour_toutes_les_pages():
+    urls = [f"https://philibertnet.com/fr/{i}-x.html" for i in range(5)]
+    with patch("connecteur_philibert._extraire_produit", return_value=None) as extraire, \
+         patch("connecteur_philibert.time.sleep"):
+        scanner_philibert_precommandes_generiques(urls)
+    sessions = {id(c.args[1]) for c in extraire.call_args_list}
+    assert extraire.call_count == 5 and len(sessions) == 1
