@@ -162,8 +162,14 @@ catalogues en parallèle (`SCAN_PARALLELISME`, défaut 4, `1` = séquentiel), `t
 alertes, mémoire de stock) toujours séquentiel et dans l'ordre. Une boutique dont la page 1 échoue reste en
 échec SANS écrire en mémoire (garde-fou de l'audit du 18/08/2026). Mesuré sur 12 boutiques réelles : 149 s -> 39 s
 (×3,8), mêmes résultats, mémoire identique hors horodatages. Réglage partagé : `parallelisme.py`.
-Tests : `tests/test_scan_boutique_parallele.py`. Les scans PrestaShop/WooCommerce ne sont pas concernés
-(réseau et mémoire mêlés dans la même fonction, déjà répartis en 2 lots parallèles).
+Tests : `tests/test_scan_boutique_parallele.py`.
+
+Depuis le 07/10/2026, même principe pour `scan_boutique_prestashop.py` et `scan_boutique_woocommerce.py` :
+`lire_resultats()` (réseau : sitemap ou recherche + pages produits) tourne en parallèle (`SCAN_PARALLELISME`,
+défaut 4, `1` = séquentiel), `traiter_resultats()` (bonnes affaires, retours en stock, mémoire) reste séquentiel
+et dans l'ordre ; `scanner_boutique_complet()` garde la même signature. Les 2 lots parallèles des workflows sont
+conservés (chaque lot lit lui-même 4 boutiques à la fois). Une même boutique n'est jamais lue deux fois en même
+temps. Tests : `tests/test_scan_boutique_presta_woo_parallele.py`.
 
 Même principe pour `scan_precommandes_generique.py` (radar précommandes génériques PokéPrécoms, 07/10/2026) :
 `PRECO_GENERIQUE_PARALLELISME` (défaut 4, `1` = séquentiel), détection toujours séquentielle et dans l'ordre.
