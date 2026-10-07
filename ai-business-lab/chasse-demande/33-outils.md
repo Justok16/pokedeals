@@ -403,3 +403,7 @@ Après lecture des listes d'outils envoyées par l'utilisateur le 03/10 (MCP, sk
 - `outils/audit_site.py` : audit de dig16.fr avec Chromium (téléphone et ordinateur) : titres, description, h1, langue, images sans texte alternatif, défilement horizontal, champs sans nom, cibles tactiles, erreurs console, liens internes et externes. Résultat du 06/10 : tout conforme ; seule erreur console = le script de statistiques que Cloudflare tente d'ajouter, bloqué par notre politique de sécurité (aucune statistique collectée, ce qui convient). Les « contrastes insuffisants » détectés par un script naïf sont des faux positifs (fonds en dégradé) : vérifier à l'œil avant de corriger.
 
 - **Sous-titres YouTube (essai du 06/10)** : le relais Vercel (`soustitres`) répond « LOGIN_REQUIRED » et le conteneur est bloqué par YouTube (bibliothèque `youtube-transcript-api` : « IP de fournisseur cloud bloquée »). Impossible donc d'économiser le quota Gemini avec le texte des sous-titres ; seul secours : vidIQ (crédits limités). Le débit reste ~20 vidéos/jour/modèle, repris à chaque point automatique.
+
+- **Gemma (modèle texte gratuit) pour les synthèses (essai du 07/10)** : via `/api/avis`, refus « quota » dès ~15 000 mots en entrée
+  (limite par minute), et à 12 000 caractères la réponse commence par son raisonnement en anglais. Inutilisable tel quel pour
+  synthétiser 10 fiches d'un coup ; les synthèses finance seront rédigées par Claude à partir des fiches, une fois la phase 1 finie.
