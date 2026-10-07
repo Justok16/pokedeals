@@ -1,12 +1,14 @@
 # Unchained — index des fiches (synthèse du mercredi 07/10/2026)
 
-10 vidéos résumées sur 3530. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+12 vidéos résumées sur 3530. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Comment les pirates ont dérobé 388 millions de dollars à Bitget sans ses clés : de l'argent bien ...](EPmE8U_p4tY.md)** — La vidéo traite de la sécurité dans la finance décentralisée (DeFi), en prenant comme étude de cas une récente cyberattaque sur l'échange Bitget. La thèse principale est que la complexité croissante des systèmes DeFi augmente la surface d'attaque et la probabilité de failles,…
 - **[Comment les pirates ont-ils réussi à dérober 388 millions de dollars à Bitget sans retrait utilis...](9l8JEsVQ7EE.md)** — Sujet : L'analyse d'une cyberattaque survenue le 24 septembre 2026 contre l'échange de cryptomonnaies Bitget, suivie d'une présentation promotionnelle d'une solution technologique appelée "1inch Aqua".
+- **[Comment une faille zero-day chez un tiers a permis à des hackers de dérober 388 millions de dolla...](zHIuaLddK10.md)** — Sujet : L’analyse du piratage de la plateforme Bitget (survenu en septembre 2026), le déroulement de l’attaque, les efforts de récupération des fonds et les leçons à tirer en matière de sécurité pour les investisseurs et les plateformes.
 - **[How a Security Product Became the Way Into Bitget's $388M Hack: Uneasy Money](qqHXe0Z992w.md)** — Sujet : L'analyse des risques liés aux investissements dans les "hyperscalers" (géants technologiques/plateformes crypto) et les enjeux de sécurité liés aux actifs numériques.
 - **[Kalshi Cooked, Bitget Hacked + Agentic Bank Runs - The Chopping Block](l2FgYWDsi-g.md)** — Sujet : Discussion sur les vulnérabilités de sécurité, la gouvernance décentralisée et la gestion des risques dans l'écosystème crypto (DeFi).
+- **[Kevin Owoki on how Supermodular creates a positive impact](OtZCkWsOFks.md)** — Présentation de Supermodular, un nouvel incubateur web3 fondé par Kevin Owocki (co-fondateur et ancien PDG de Gitcoin), qui vise à financer des projets publics et à générer un impact positif via la technologie web3 et le mécénat/financement décentralisé.
 - **[La cryptomonnaie $LAPTOP de Hunter Biden est-elle une arnaque ? Il affirme que les portefeuilles ...](thcwwsYPxtg.md)** — Sujet : Une discussion sur l'implication personnelle de Hunter Biden dans le monde de la cryptomonnaie, ses motivations et sa vision de l'industrie.
 - **[Le vrai problème d'Ethereum est-il le débat plutôt que la technologie ? - Argent fébrile](xhd1IANX64M.md)** — Sujet : L'avenir de l'écosystème Ethereum à l'horizon 2030.
 - **[Les femmes dans la crypto doivent-elles être les « adultes dans la pièce » ? - DEX in the City](0bTcDDQ2ZoE.md)** — Sujet : Le rôle et les défis des femmes dans l'industrie de la crypto et de la finance décentralisée (DeFi), ainsi qu'une présentation technique du service « 1inch Aqua ».
