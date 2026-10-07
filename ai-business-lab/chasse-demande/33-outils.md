@@ -425,3 +425,27 @@ Après lecture des listes d'outils envoyées par l'utilisateur le 03/10 (MCP, sk
 - **Gemma (modèle texte gratuit) pour les synthèses (essai du 07/10)** : via `/api/avis`, refus « quota » dès ~15 000 mots en entrée
   (limite par minute), et à 12 000 caractères la réponse commence par son raisonnement en anglais. Inutilisable tel quel pour
   synthétiser 10 fiches d'un coup ; les synthèses finance seront rédigées par Claude à partir des fiches, une fois la phase 1 finie.
+
+## Kit « design » pour les sites (tri du 07/10/2026, trois listes envoyées par l'utilisateur)
+
+**Déjà en place, utilisés le 07/10 :**
+- skills `frontend-design`, `impeccable` (critique, accessibilité), `taste-design`, `ui-ux-pro-max` ;
+- Playwright (MCP et Python, captures à 390 × 844 et 1440 × 900) ;
+- connecteur Figma ;
+- Lighthouse en local et gratuit : `CHROME_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome npx -y lighthouse@12 <url>`
+  (démo immersive : accessibilité 100, bonnes pratiques 100, performance 86 à 98 sur téléphone) ;
+- moteur scroll-craft (MIT, `59-site-immersif.md`).
+
+**Non retenus pour l'instant :**
+- shadcn, Magic UI, React Bits, Aceternity, Motion, Tailwind, Context7 : ils servent aux applications React.
+  Nos sites d'artisans sont des pages HTML statiques sans étape de construction, plus légères et à 0 € ;
+  scroll-craft couvre déjà les effets ;
+- Better Design (thèmes inspirés de Linear, Stripe, Apple…) : hors sujet pour des artisans, et risque de
+  ressemblance avec des marques ;
+- 21st.dev (2 utilisations par jour) et Figma Starter (20 appels par mois) : gratuité trop limitée ;
+- Google Stitch : demande une clé API (à créer par l'utilisateur ; jamais collée dans la conversation) ;
+- 8B : service non vérifié.
+- À reconsidérer seulement si un client demande une application.
+
+**Reste à faire côté utilisateur (facultatif) :** désactiver Cloudflare Web Analytics, ce qui permettrait de
+retirer `no-transform` et de compresser le HTML (Lighthouse : environ 36 Ko économisés par page).
