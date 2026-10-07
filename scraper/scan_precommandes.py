@@ -39,7 +39,7 @@ from alerte_precommande import (
 )
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from parallelisme import PARALLELISME_MAX, PARALLELISME_PAR_DEFAUT, lire_parallelisme
-from notifications_perso import token_telegram_perso
+from notifications_perso import memoriser_si_telegram_perso_coupe, token_telegram_perso
 from precommandes_watchlist import produits_actifs
 
 # cf. scan_boutique.py pour le detail de ce correctif (31/08/2026) : sans
@@ -290,6 +290,7 @@ if __name__ == "__main__":
     # produits concernes dans precommandes_watchlist.py.
     evenements_dispo = [e for e in resume["evenements"] if e.get("alerte_disponibilite")]
     autres_evenements = [e for e in resume["evenements"] if not e.get("alerte_disponibilite")]
+    memoriser_si_telegram_perso_coupe(autres_evenements, memoire)
     envoyer_telegram_precommandes(autres_evenements, TELEGRAM_CHAT_ID, token, memoire)
     envoyer_telegram_precommandes(
         evenements_dispo, TELEGRAM_CHAT_ID, os.environ.get("TELEGRAM_BOT_TOKEN", ""), memoire)

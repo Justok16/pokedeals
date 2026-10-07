@@ -69,3 +69,25 @@ def mdp_email_perso() -> str:
     if not _notifications_perso_actives("email"):
         return ""
     return os.environ.get("GMAIL_APP_PASSWORD", "")
+
+
+def memoriser_si_telegram_perso_coupe(evenements: list[dict], memoire: dict) -> None:
+    """07/10/2026 -- corrige un effet de bord de l'interrupteur du 19/09 : les
+    alertes perso (retours en stock, precommandes) ne commitent leur etat en
+    memoire qu'APRES un envoi Telegram reussi. Telegram coupe volontairement
+    -> aucun envoi -> rien n'etait jamais memorise : les memes evenements
+    etaient redetectes a CHAQUE cycle (ex. 15 "nouvelles" precommandes
+    identiques toutes les 15 min depuis le 19/09), et une reactivation aurait
+    deverse d'un coup des semaines d'alertes perimees.
+
+    Telegram coupe dans config.yaml -> l'evenement est memorise comme traite,
+    sans envoi. Un token simplement ABSENT (secret manquant, notifications
+    actives) ne passe PAS par ici : l'evenement reste retente au prochain
+    cycle, comme avant. Un evenement dont `_cle_memoire` a ete retire par
+    l'appelant (ex. echec d'ecriture Supabase PokePrecoms) n'est jamais
+    memorise."""
+    if _notifications_perso_actives("telegram"):
+        return
+    for e in evenements:
+        if "_cle_memoire" in e:
+            memoire[e["_cle_memoire"]] = e["_nouvel_etat"]

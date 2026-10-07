@@ -28,7 +28,7 @@ from connecteur_supabase_precoms import (
 )
 from memoire_json import charger_memoire, sauvegarder_memoire
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
-from notifications_perso import token_telegram_perso
+from notifications_perso import memoriser_si_telegram_perso_coupe, token_telegram_perso
 from radar_precommande_generique import (
     detecter_nouvelles_precommandes_generiques,
     envoyer_telegram_precommandes_generiques,
@@ -122,6 +122,7 @@ if __name__ == "__main__":
     # evenements alertes dans `memoire` uniquement pour ceux envoyes avec
     # succes -- evite de figer "deja alerté" en memoire pour un envoi qui a
     # echoué (perte définitive de l'événement sinon).
+    memoriser_si_telegram_perso_coupe(evenements, memoire)
     envoyer_telegram_precommandes_generiques(evenements, TELEGRAM_CHAT_ID, token, memoire)
     if memoire_via_supabase:
         if not sauvegarder_memoire_supabase(memoire, CLE_MEMOIRE, supabase_url, supabase_key):
