@@ -15,6 +15,7 @@ import logging
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -25,6 +26,7 @@ from connecteur_woocommerce import ConnecteurWooCommerce
 from filtre_annonces import cles_watchlist, deals_config_perso
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
 from notifications_perso import token_telegram_perso
+from parallelisme import lire_parallelisme
 from watchlist_shopify import CarteWatchlist
 
 # cf. scan_boutique.py pour le detail de ce correctif (31/08/2026) : sans
@@ -54,6 +56,50 @@ CLE_MEMOIRE_STOCK = "stock_boutiques_tcg_woocommerce"
 # lot precis), comportement alors inchange.
 
 
+def lire_resultats(domaine: str, criteres: list[str], repli_api_rest: bool = False) -> dict:
+    """Partie RESEAU du scan d'une boutique (sitemap ou recherche + pages
+    produits). Ne touche a aucune memoire : peut tourner en parallele pour des
+    boutiques differentes (07/10/2026, cf. parallelisme.py)."""
+    connecteur = ConnecteurWooCommerce(domaine)
+    if repli_api_rest:
+        return connecteur.rechercher_via_api_rest(criteres)
+    urls_produits = connecteur.recuperer_toutes_les_urls_produits()          # 1 seul appel sitemap
+    return connecteur.rechercher_dans_catalogue(urls_produits, criteres)     # 1 seul passage
+
+
+def traiter_resultats(domaine, resultats_par_critere, cartes_par_critere, memoire_stock, cotes, regles):
+    """Partie MEMOIRE : bonnes affaires + retours en stock (`memoire_stock` mise
+    a jour en place). Toujours appelee sequentiellement, dans l'ordre."""
+    deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, cotes, regles)
+    evenements_stock = detecter_retours_en_stock(domaine, resultats_par_critere, cartes_par_critere, memoire_stock)
+    return deals, evenements_stock
+
+
+# 07/10/2026 : lecture reseau de plusieurs boutiques a la fois (comme
+# scan_boutique.py, PR #130). SCAN_PARALLELISME=1 retablit le sequentiel.
+def _parallelisme() -> int:
+    return lire_parallelisme("SCAN_PARALLELISME")
+
+
+def _lire_toutes(boutiques: list[str], criteres: list[str], boutiques_repli_api_rest: set[str], parallelisme: int):
+    """Resultats alignes sur `boutiques` : (resultats, None) ou (None, exception)."""
+    def une(domaine: str):
+        try:
+            return lire_resultats(domaine, criteres, domaine in boutiques_repli_api_rest), None
+        except Exception as e:  # noqa: BLE001 -- une boutique en echec ne doit jamais arreter le cycle
+            return None, e
+
+    if parallelisme <= 1:
+        resultats = []
+        for i, domaine in enumerate(boutiques):
+            resultats.append(une(domaine))
+            if i < len(boutiques) - 1:
+                time.sleep(DELAI_ENTRE_BOUTIQUES)
+        return resultats
+    with ThreadPoolExecutor(max_workers=parallelisme) as pool:
+        return list(pool.map(une, boutiques))
+
+
 def scanner_boutique_complet(
     domaine: str,
     cartes: list[CarteWatchlist],
@@ -78,17 +124,9 @@ def scanner_boutique_complet(
     cartes_par_critere = {carte.cle_recherche: carte for carte in cartes}
     criteres = list(cartes_par_critere.keys())
 
-    connecteur = ConnecteurWooCommerce(domaine)
-    if repli_api_rest:
-        resultats_par_critere = connecteur.rechercher_via_api_rest(criteres)
-    else:
-        urls_produits = connecteur.recuperer_toutes_les_urls_produits()                    # 1 seul appel sitemap
-        resultats_par_critere = connecteur.rechercher_dans_catalogue(urls_produits, criteres)  # 1 seul passage
+    resultats_par_critere = lire_resultats(domaine, criteres, repli_api_rest)
 
-    deals = detecter_bonnes_affaires(resultats_par_critere, cartes_par_critere, cotes, regles)
-    evenements_stock = detecter_retours_en_stock(domaine, resultats_par_critere, cartes_par_critere, memoire_stock)
-
-    return deals, evenements_stock
+    return traiter_resultats(domaine, resultats_par_critere, cartes_par_critere, memoire_stock, cotes, regles)
 
 
 def scanner_plusieurs_boutiques(
@@ -106,10 +144,14 @@ def scanner_plusieurs_boutiques(
     boutiques_ok: list[str] = []
     boutiques_echec: list[dict] = []
 
-    for i, domaine in enumerate(boutiques):
+    cartes_par_critere = {carte.cle_recherche: carte for carte in cartes}
+    lectures = _lire_toutes(boutiques, list(cartes_par_critere.keys()), boutiques_repli_api_rest, _parallelisme())
+
+    for i, (domaine, (resultats_par_critere, erreur)) in enumerate(zip(boutiques, lectures)):
         try:
-            repli_api_rest = domaine in boutiques_repli_api_rest
-            deals, evenements = scanner_boutique_complet(domaine, cartes, memoire_stock, cotes, regles, repli_api_rest)
+            if erreur is not None:
+                raise erreur
+            deals, evenements = traiter_resultats(domaine, resultats_par_critere, cartes_par_critere, memoire_stock, cotes, regles)
             tous_les_deals.extend(deals)
             tous_les_evenements.extend(evenements)
             boutiques_ok.append(domaine)
@@ -118,9 +160,6 @@ def scanner_plusieurs_boutiques(
             raison = f"{type(e).__name__}: {e}"
             boutiques_echec.append({"domaine": domaine, "raison": raison})
             print(f"[{i + 1}/{len(boutiques)}] {domaine} : ECHEC — {raison}")
-
-        if i < len(boutiques) - 1:
-            time.sleep(DELAI_ENTRE_BOUTIQUES)
 
     duree = time.monotonic() - debut
     return {
