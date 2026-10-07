@@ -91,6 +91,11 @@ export async function GET(request) {
     const debut = params.get('debut'), fin = params.get('fin');
     const extrait = /^\d{1,6}$/.test(debut || '') && /^\d{1,6}$/.test(fin || '') && +fin > +debut
       ? { start_offset: `${+debut}s`, end_offset: `${+fin}s` } : null;
+    // 07/10 : fps=0.05…1 (images lues par seconde ; 1 par défaut chez Gemini). Le son reste lu en entier.
+    // À 0,1 image/s, une heure de vidéo coûte environ 3 fois moins de jetons : plusieurs longues vidéos
+    // tiennent dans UNE requête, et le quota gratuit se compte en requêtes (objectif : 40 467 vidéos).
+    const fps = /^(0(\.\d{1,3})?|1(\.0+)?)$/.test(params.get('fps') || '') && +params.get('fps') >= 0.05 ? +params.get('fps') : null;
+    const meta = (base) => ((base || fps) ? { video_metadata: { ...(base || {}), ...(fps ? { fps } : {}) } } : {});
     // API « interactions » (documentation Google, septembre 2026)
     const choisis = (params.get('modeles') || '').split(',').filter((m) => /^[a-z0-9.-]{3,60}$/.test(m));
     for (const modele of (choisis.length ? choisis : [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-2.5-flash'].filter(Boolean))) {
@@ -103,14 +108,14 @@ export async function GET(request) {
             headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
             body: JSON.stringify({
               contents: [{ parts: lot.length > 1
-                ? [...lot.flatMap((v) => [{ text: `Vidéo ${v} :` }, { file_data: { file_uri: `https://www.youtube.com/watch?v=${v}` } }]), { text: consigne }]
-                : [{ file_data: { file_uri: url }, ...(extrait ? { video_metadata: extrait } : {}) }, { text: consigne }] }],
+                ? [...lot.flatMap((v) => [{ text: `Vidéo ${v} :` }, { file_data: { file_uri: `https://www.youtube.com/watch?v=${v}` }, ...meta(null) }]), { text: consigne }]
+                : [{ file_data: { file_uri: url }, ...meta(extrait) }, { text: consigne }] }],
               generationConfig: { mediaResolution: 'MEDIA_RESOLUTION_LOW' },
             }),
           });
           const j = await rep.json();
           const texte = ((j.candidates || [])[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
-          if (rep.ok && texte) return Response.json({ id, ...(lot.length > 1 ? { ids: lot } : {}), resume: texte, modele, voie: 'generateContent-basse' });
+          if (rep.ok && texte) return Response.json({ id, ...(lot.length > 1 ? { ids: lot } : {}), resume: texte, modele, voie: 'generateContent-basse', jetons: j.usageMetadata?.promptTokenCount, fps });
           if (lot.length > 1 && rep.status !== 429) { erreurs.push(`${modele} lot ${rep.status} ${JSON.stringify(j).slice(0, 200)}`); continue; } // lot : pas d'autre API
           erreurs.push(`${modele} generateContent-basse ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
           if (rep.status === 429) continue; // quota épuisé : inutile d'essayer l'autre API
