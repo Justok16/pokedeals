@@ -15,8 +15,10 @@ Usage : python3 toutes_videos.py <groupe 0|1|2> <dossier_fiches> <cookies.txt>
 
 import json
 import os
+import datetime
 import subprocess
 import sys
+import time
 
 RACINE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 CONNAISSANCES = os.path.join(RACINE, "connaissances")
@@ -76,6 +78,16 @@ def reste(c, fiches):
     return len(courtes)
 
 
+def attendre_quota():
+    """Quotas gratuits remis à zéro à minuit, heure du Pacifique (7 h ou 8 h UTC) : on attend 8 h 05 UTC."""
+    maintenant = datetime.datetime.now(datetime.timezone.utc)
+    reprise = maintenant.replace(hour=8, minute=5, second=0, microsecond=0)
+    if reprise <= maintenant:
+        reprise += datetime.timedelta(days=1)
+    print(f"quota du jour épuisé : reprise à {reprise:%d/%m %H:%M} UTC", flush=True)
+    time.sleep((reprise - maintenant).total_seconds())
+
+
 def main():
     groupe, fiches, cookies = int(sys.argv[1]), sys.argv[2], sys.argv[3]
     # répartition équilibrée et stable : chaînes triées par taille de liste, chacune au groupe le moins chargé
@@ -118,16 +130,12 @@ def main():
             )
             sortie = r.stdout + r.stderr
             print(f"--- {c} ({n} à faire)\n{sortie.strip()[-1500:]}", flush=True)
-            if (
-                "épuisé leur quota" in sortie
-                or "cookie du relais" in sortie
-                or r.returncode == 3
-            ):
-                print(
-                    "arrêt du groupe : quota du jour épuisé ou relais à renouveler",
-                    flush=True,
-                )
+            if "cookie du relais" in sortie or r.returncode == 3:
+                print("arrêt du groupe : relais à renouveler", flush=True)
                 return
+            if "épuisé leur quota" in sortie:
+                attendre_quota()
+                break  # nouveau tour complet après la remise à zéro des quotas
         if not restantes:
             print("toutes les vidéos de ce groupe sont résumées", flush=True)
             return

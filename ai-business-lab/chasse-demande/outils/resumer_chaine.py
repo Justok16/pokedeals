@@ -142,6 +142,7 @@ a_faire = [
 a_faire = [v for v in a_faire if echecs.get(v["id"], 0) < 2] + [
     v for v in a_faire if echecs.get(v["id"], 0) >= 2
 ]
+lot_max = LOT_MAX  # 07/10 : taille de lot adaptative (un modèle léger a rendu 1 résumé sur 7 : on divise par 2, puis on remonte)
 seules = set()  # 04/10 : vidéos d'un lot refusé, renvoyées une par une (une seule vidéo privée faisait échouer tout le lot)
 while a_faire and MODELES:
     v = a_faire.pop(0)
@@ -150,7 +151,7 @@ while a_faire and MODELES:
         secondes(v["duree"]) <= COURTE and v["id"] not in seules
     ):  # complète le lot avec d'autres vidéos courtes de la liste, dans l'ordre
         for x in list(a_faire):
-            if len(lot) >= LOT_MAX:
+            if len(lot) >= lot_max:
                 break
             if (
                 x["id"] not in seules
@@ -203,11 +204,18 @@ while a_faire and MODELES:
             for i in range(1, len(morceaux) - 1, 2)
             if morceaux[i + 1].strip()
         }
+        absentes = []
         for x in lot:
             if x["id"] in recus:
                 ecrire(x, recus[x["id"]], j.get("modele", "?") + f", lot de {len(lot)}")
             else:
                 print("absente du lot", x["id"], flush=True)
+                absentes.append(x)
+        if absentes:  # refaites tout de suite, dans des lots plus petits
+            a_faire[:0] = absentes
+            lot_max = max(1, len(lot) // 2)
+        elif lot_max < LOT_MAX:
+            lot_max += 1
     fait += d
     time.sleep(PAUSE)
 print(
