@@ -67,6 +67,16 @@ LOT_MAX, LOT_DUREE, COURTE = (
     20 * 60,
     600,
 )  # 01/10 : jusqu'à 8 vidéos de 10 min au plus (20 min cumulées) par requête (15 min = 68 s au relais, marge jusqu'à 295 s)
+# 07/10 : réglables par variables d'environnement pour traiter les 40 467 vidéos (demande de l'utilisateur) :
+# FPS=0.1 (images lues par seconde, son complet) rend les longues vidéos ~3 fois moins lourdes en jetons,
+# ce qui permet des lots de longues vidéos (LOT_DUREE et COURTE en minutes).
+LOT_MAX = int(os.environ.get("LOT_MAX", LOT_MAX))
+LOT_DUREE = int(float(os.environ.get("LOT_DUREE", LOT_DUREE / 60)) * 60)
+COURTE = int(float(os.environ.get("COURTE", COURTE / 60)) * 60)
+FPS = os.environ.get("FPS", "")
+# pause entre deux requêtes : avec de gros lots (≈ 200 000 jetons), il faut plus d'une minute pour rester
+# sous la limite gratuite de jetons PAR MINUTE (sinon refus 429 pris à tort pour un quota du jour épuisé)
+PAUSE = int(os.environ.get("PAUSE", 30))
 
 
 def appeler(ids):
@@ -74,7 +84,10 @@ def appeler(ids):
     essais = 0
     while MODELES:
         cle = "ids" if len(ids) > 1 else "id"
-        url = f"https://relais-dig-justok1.vercel.app/api/video?{cle}={','.join(ids)}&mode={mode}&modeles={MODELES[0]}"
+        url = (
+            f"https://relais-dig-justok1.vercel.app/api/video?{cle}={','.join(ids)}&mode={mode}&modeles={MODELES[0]}"
+            + (f"&fps={FPS}" if FPS else "")
+        )
         for essai in range(
             3
         ):  # coupure réseau passagère (tunnel fermé, constaté le 01/10) : on relance 2 fois
@@ -174,7 +187,7 @@ while a_faire and MODELES:
                     "3 réponses vides d’affilée : relais à revérifier (lien de partage expiré ?)"
                 )
                 break
-        time.sleep(30)
+        time.sleep(PAUSE)
         continue
     illisibles = 0
     if len(lot) == 1:
@@ -196,7 +209,7 @@ while a_faire and MODELES:
             else:
                 print("absente du lot", x["id"], flush=True)
     fait += d
-    time.sleep(30)
+    time.sleep(PAUSE)
 print(
     "minutes traitées",
     round(fait / 60),

@@ -50,7 +50,7 @@ export async function GET(request) {
   const consigne = (CONSIGNES[mode] || CONSIGNE) + (lot.length > 1
     ? ` Tu reçois ${lot.length} vidéos distinctes, chacune précédée de son identifiant. Fais un résumé SÉPARÉ pour ` +
       'chacune, dans le même ordre, en commençant chaque résumé par une ligne seule « === VIDEO <identifiant> === ». ' +
-      'Ne mélange jamais le contenu de deux vidéos.' : '');
+      'Ne mélange jamais le contenu de deux vidéos : chaque résumé ne contient QUE ce qui est dit ou montré dans sa propre vidéo, sans notion, chiffre ni nom venant d’une autre vidéo du lot.' : '');
   const debug = new URL(request.url).searchParams.get('debug') === '1';
   const cle = process.env.GEMINI_API_KEY;
   // voie=passerelle : Vercel AI Gateway, UNIQUEMENT sur le crédit gratuit mensuel offert par Vercel
