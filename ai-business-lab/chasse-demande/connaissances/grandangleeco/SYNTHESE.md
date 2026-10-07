@@ -1,9 +1,13 @@
-# Grand Angle Éco — index des fiches (synthèse du mardi 06/10/2026)
+# Grand Angle Éco — index des fiches (synthèse du mercredi 07/10/2026)
 
-6 vidéos résumées sur 1049. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+10 vidéos résumées sur 1049. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
+- **["On vous paie pour disparaître" : la vérité sur le revenu universel — David Gurlé](hD2dfKGEVR4.md)** — Sujet : La pertinence du revenu universel face à l’essor de l’intelligence artificielle (IA) et l’automatisation du travail.
+- **[Comment la Chine va provoquer l'effondrement de l'IA 🇺🇸](vLmQ6SVmNx8.md)** — Sujet : La compétition économique, financière et stratégique entre les États-Unis et la Chine autour de l'intelligence artificielle (IA).
+- **[Investissez dans la puissance de calcul et les data centers avec moi](p49QPUpiP3c.md)** — Sujet : Présentation du projet d'investissement Prometia (porté par les équipes de Grand Angle et Antimatter), permettant aux particuliers et investisseurs qualifiés de financer des infrastructures de centres de données modulaires et de puissance de calcul pour l'intelligence…
 - **[La fin des Data Centers Géants](YrY_Znst8Bo.md)** — Sujet : L'impact de l'explosion des besoins informatiques (calcul haute performance et intelligence artificielle) sur le réseau électrique mondial, et la crise énergétique qui en découle.
+- **[La vérité terrifiante derrière l’effondrement du prix de l’IA](-K0E6yNhgpw.md)** — Sujet : Le paradoxe de Jevons appliqué à l'intelligence artificielle et l'impact économique de la baisse du coût des jetons (tokens) sur la consommation globale d'énergie et d'infrastructure.
 - **[Ma stratégie d’investissement pour les 10 prochaines années](8xis56tU9mo.md)** — Sujet : Présentation détaillée de la composition et des premiers résultats d'un portefeuille patrimonial d'environ 14 millions de dollars, structuré selon la méthode dite de la « stratégie des 3 terriers ».
 - **[Ma vision de l'avenir (ce qui nous attend après l'IA)](LlGkeaerdsk.md)** — Sujet : L'analyse des grands risques globaux (crise de la dette, dérèglement climatique, bouleversement du travail par l'Intelligence Artificielle) et la manière d'adapter sa stratégie patrimoniale face aux changements de paradigme.
 - **[Où en est vraiment la Chine ? Je suis allé voir sur place](b8KzU_THoDw.md)** — Sujet : Analyse comparative du développement de l'intelligence artificielle (IA) et des data centers entre les États-Unis et la Chine, suivie de la présentation d'une levée de fonds en obligations convertibles en actions (Prometia) pour financer des conteneurs de puissance de…

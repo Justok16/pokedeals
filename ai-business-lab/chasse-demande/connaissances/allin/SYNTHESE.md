@@ -1,7 +1,15 @@
-# All-In — index des fiches (synthèse du mardi 06/10/2026)
+# All-In — index des fiches (synthèse du mercredi 07/10/2026)
 
-2 vidéos résumées sur 1015. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+10 vidéos résumées sur 1015. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
+- **[Adam Foroughi, PDG d'AppLovin : Survivre à une chute de 92 %, la publicité comme ML 1.0 et le mar...](JtomF4bGxHs.md)** — Sujet : Entretien avec Adam Foroughi, PDG d'AppLovin, lors de l'All-In Summit. L'échange porte sur l'évolution du marché de la publicité mobile et en ligne, l'intelligence artificielle (deep learning) appliquée à la publicité, et le parcours boursier d'une entreprise tech…
+- **[Bill Gurley : À la recherche de Feynman](A4Q7zAayW20.md)** — Sujet : L’analyse des grandes catastrophes (effondrement de bâtiment, accidents aériens, ouragan, accident nucléaire, navette spatiale et pandémie) sous l'angle des défaillances humaines, institutionnelles et de la recherche des causes profondes (« root cause »).
+- **[Blake Scholl : Pourquoi la vitesse des avions a stagné, les vols commerciaux supersoniques et la ...](Gnb-CfNPcPE.md)** — Sujet : Le retour des voyages aériens civils supersoniques, illustré par l'entreprise Boom Supersonic et son projet d'avion (Overture) et de moteur (Symphony).
+- **[Daniel Ek : La vie après Spotify, les incitations défaillantes du système de santé, le dépistage ...](JEUboZzZGM4.md)** — Sujet : L'importance de la prévention dans le domaine de la santé et l'application des méthodes technologiques (intelligence artificielle, collecte de données) à ce secteur.
 - **[Jake Paul et The Chainsmokers : transformer la célébrité en fortune, Jake se lance en politique ?...](uzV45QvPKtU.md)** — Sujet : L'économie de l'attention et le passage de la création de contenu vers l'entrepreneuriat et l'investissement en capital-risque (VC).
+- **[Jared Isaacman : Une nouvelle ère pour la NASA et l'exploration spatiale américaine](VTF6p0U98ek.md)** — Sujet : Le renouveau de la politique spatiale américaine (notamment le programme Artémis, le retour sur la Lune et la conquête de Mars) et le rôle du secteur privé et de la NASA dans l'économie spatiale.
+- **[Luca Ferrari, PDG de Bending Spoons : Le démarrage à 40 000 $, l’acquisition d’une adéquation pro...](6t5yF8ansoQ.md)** — Sujet : L'ascension et la stratégie de croissance de l'entreprise italienne Bending Spoons, une société technologique spécialisée dans l'acquisition et l'optimisation d'applications mobiles.
+- **[Naveen Rao : Informatique 4D, le mur énergétique de l'IA et dépasser la biologie](yAsrMA_ADPc.md)** — Sujet : L'avenir de l'intelligence artificielle (IA) et les défis énergiques et technologiques liés à sa croissance exponentielle.
 - **[Sommet de Trump sur la superintelligence, accord sur la sécurité de l'IA, résultats du PIB, prévi...](ZJKs08oU1zg.md)** — Sujet : L'état de l'économie américaine, l'expansion de l'intelligence artificielle (IA) et l'analyse de l'actualité politique et géopolitique.
+- **[Steve Hilton & Spencer Pratt : Réparer la Californie, essence moins chère, fraude électorale et l...](VF90rBzl26E.md)** — Sujet : Un débat politique sur les problèmes économiques et administratifs de la Californie et de Los Angeles, abordés par deux candidats lors d'une conférence.
