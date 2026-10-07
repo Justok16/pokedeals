@@ -132,3 +132,11 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
 ## 06/10/2026 : QR vers dig16.fr
 
 - DNSSEC de dig16.fr actif et validé le 06/10 (vérifié via dns.google et cloudflare-dns.com). Le QR du flyer pointe encore vers `digsite.pages.dev`, qui fonctionne toujours ; il sera remplacé **une seule fois**, par `https://dig16.fr/`, avec la version définitive du flyer (nom, téléphone, SIREN, adresse), puis décodé depuis l'export pour contrôle.
+
+## Mise à jour du 07/10/2026 (demande de l'utilisateur)
+
+- QR code du design Canva DAHWQH2QKK8 remplacé : il mène maintenant à **https://dig16.fr/** (avant : digsite.pages.dev).
+  Vérifié en décodant les deux exports (PNG 1748 × 2480 px et PDF A5 148 × 210 mm) : `https://dig16.fr/`.
+- Correction de cohérence avec le site et la décision du 05/10 : « Modifications sous 48 h » → « Modifications sous
+  3 jours ouvrés ».
+- Reste à compléter le jour du SIREN : téléphone, prénom et nom, SIREN, adresse (mentions en bas du flyer).
