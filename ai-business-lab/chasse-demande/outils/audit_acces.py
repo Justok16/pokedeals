@@ -14,7 +14,9 @@ Ajouts du 30/09/2026 (Web Interface Guidelines de Vercel, vercel.com/design/guid
 - bouton ou lien à icône seule sans nom accessible ; « ... » au lieu de « … » ; navigation faite
   avec onclick sur un div ou un bouton au lieu d'un vrai lien.
 """
-import os, sys
+
+import os
+import sys
 from playwright.sync_api import sync_playwright
 
 JS = """() => {
@@ -70,15 +72,21 @@ JS = """() => {
 }"""
 
 with sync_playwright() as p:
-    b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium')
+    b = p.chromium.launch(executable_path="/opt/pw-browsers/chromium")
     total = 0
     for f in sys.argv[1:]:
         for w in (390, 1440):
-            pg = b.new_page(viewport={'width': w, 'height': 900})
-            pg.goto(f if f.startswith(('https://', 'http://')) else 'file://' + os.path.abspath(f)); pg.wait_for_timeout(800)  # page en ligne acceptée (01/10)
-            pb = pg.evaluate(JS); pg.close()
+            pg = b.new_page(viewport={"width": w, "height": 900})
+            pg.goto(
+                f
+                if f.startswith(("https://", "http://"))
+                else "file://" + os.path.abspath(f)
+            )
+            pg.wait_for_timeout(800)  # page en ligne acceptée (01/10)
+            pb = pg.evaluate(JS)
+            pg.close()
             total += len(pb)
             for x in pb:
-                print(f'{f} {w}px : {x}')
+                print(f"{f} {w}px : {x}")
     b.close()
-    print('problèmes :', total)
+    print("problèmes :", total)

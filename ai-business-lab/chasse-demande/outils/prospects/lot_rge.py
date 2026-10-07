@@ -12,133 +12,368 @@ Usage :
 Résultats : <scratchpad>/appels/lot<numero>.json et lot<numero>.md ; pages Pappers dans appels/pappers<numero>/.
 Rien de ce que produit cet outil n'entre dans le dépôt public (données de prospects = Drive « Dig »).
 """
-import sys, os, json, re, html, time, subprocess, unicodedata, urllib.request, urllib.parse
 
-VIDE = r'(domaine|domain).{0,40}(vente|sale|parked|parking)|site en construction|en maintenance|coming soon|launching soon|site en cours de cr[ée]ation|bient[ôo]t en ligne|index of /|default web site page|welcome to nginx|page par d[ée]faut|is for sale|dovendi'
-UA = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36',
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15']
+import sys
+import os
+import json
+import re
+import html
+import time
+import subprocess
+import unicodedata
+import urllib.request
+import urllib.parse
+
+VIDE = r"(domaine|domain).{0,40}(vente|sale|parked|parking)|site en construction|en maintenance|coming soon|launching soon|site en cours de cr[ée]ation|bient[ôo]t en ligne|index of /|default web site page|welcome to nginx|page par d[ée]faut|is for sale|dovendi"
+UA = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15",
+]
+
 
 def texte(h):
-    h = re.sub(r'<(script|style)[^>]*>.*?</\1>', ' ', h, flags=re.S)
-    return html.unescape(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', h)))
+    h = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", h, flags=re.S)
+    return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h)))
+
 
 def ademe(siret):
-    url = ('https://data.ademe.fr/data-fair/api/v1/datasets/liste-des-entreprises-rge-2/lines?size=30&'
-           + urllib.parse.urlencode({'qs': f'siret:"{siret}"'}))
+    url = (
+        "https://data.ademe.fr/data-fair/api/v1/datasets/liste-des-entreprises-rge-2/lines?size=30&"
+        + urllib.parse.urlencode({"qs": f'siret:"{siret}"'})
+    )
     try:
-        res = json.load(urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': UA[0]}), timeout=30)).get('results', [])
+        res = json.load(
+            urllib.request.urlopen(
+                urllib.request.Request(url, headers={"User-Agent": UA[0]}), timeout=30
+            )
+        ).get("results", [])
     except Exception as e:
-        return {'erreur': str(e)[:80]}
-    fins = sorted({x.get('lien_date_fin') for x in res if x.get('lien_date_fin')})
-    return {'tels': sorted({x.get('telephone') for x in res if x.get('telephone')}),
-            'fin': fins[-1] if fins else None,
-            'sites': sorted({x.get('site_internet') for x in res if x.get('site_internet') and 'qualit-enr' not in x.get('site_internet')}),
-            'domaines': sorted({str(x.get('domaine'))[:30] for x in res}),
-            'organismes': sorted({x.get('organisme') for x in res if x.get('organisme')})}
+        return {"erreur": str(e)[:80]}
+    fins = sorted({x.get("lien_date_fin") for x in res if x.get("lien_date_fin")})
+    return {
+        "tels": sorted({x.get("telephone") for x in res if x.get("telephone")}),
+        "fin": fins[-1] if fins else None,
+        "sites": sorted(
+            {
+                x.get("site_internet")
+                for x in res
+                if x.get("site_internet") and "qualit-enr" not in x.get("site_internet")
+            }
+        ),
+        "domaines": sorted({str(x.get("domaine"))[:30] for x in res}),
+        "organismes": sorted({x.get("organisme") for x in res if x.get("organisme")}),
+    }
+
 
 def site(url):
     """Teste un site déclaré : vivant / vide ou parking / mort."""
-    u = url if url.startswith('http') else 'http://' + url
-    if re.search(r'(facebook|instagram|linkedin)\.com', u):
-        return {'url': url, 'etat': 'page de réseau social (pas un site)'}
-    if not re.search(r'\.[a-z]{2,}(/|$)', u.split('//', 1)[-1]):
-        return {'url': url, 'etat': 'adresse invalide'}
+    u = url if url.startswith("http") else "http://" + url
+    if re.search(r"(facebook|instagram|linkedin)\.com", u):
+        return {"url": url, "etat": "page de réseau social (pas un site)"}
+    if not re.search(r"\.[a-z]{2,}(/|$)", u.split("//", 1)[-1]):
+        return {"url": url, "etat": "adresse invalide"}
     # Un domaine qui ne répond pas sur la première forme est retesté en www. et en http(s)://
     # (02/10 : afleurdepotangouleme.fr et sbm-auto16.fr étaient vus « morts » alors qu'ils répondaient).
-    hote = u.split('//', 1)[-1]
-    nu = hote[4:] if hote.startswith('www.') else hote
-    variantes = [u] + [v for v in (f'https://www.{nu}', f'http://www.{nu}') if v != u]
+    hote = u.split("//", 1)[-1]
+    nu = hote[4:] if hote.startswith("www.") else hote
+    variantes = [u] + [v for v in (f"https://www.{nu}", f"http://www.{nu}") if v != u]
     for essai in variantes:
-        pr = subprocess.run(['curl', '-sL', '-m', '20', '-A', UA[0], '-o', '-', '-w', '\n%{http_code} %{url_effective}', essai],
-                            capture_output=True, text=True, errors='ignore')
-        corps, _, fin = pr.stdout.rpartition('\n')
-        code = fin.split(' ')[0] if fin else '000'
-        if code not in ('000', '') or pr.returncode == 6:  # 6 = nom de domaine introuvable : inutile d'essayer les variantes
+        pr = subprocess.run(
+            [
+                "curl",
+                "-sL",
+                "-m",
+                "20",
+                "-A",
+                UA[0],
+                "-o",
+                "-",
+                "-w",
+                "\n%{http_code} %{url_effective}",
+                essai,
+            ],
+            capture_output=True,
+            text=True,
+            errors="ignore",
+        )
+        corps, _, fin = pr.stdout.rpartition("\n")
+        code = fin.split(" ")[0] if fin else "000"
+        if (
+            code not in ("000", "") or pr.returncode == 6
+        ):  # 6 = nom de domaine introuvable : inutile d'essayer les variantes
             break
-    titre = re.search(r'<title[^>]*>(.*?)</title>', corps, re.S | re.I)
-    titre = re.sub(r'\s+', ' ', titre[1]).strip()[:80] if titre else ''
-    if code in ('000', '') : etat = 'muet (ne répond pas au relais : à confirmer par Firecrawl, peut être un site vivant)'
-    elif code.startswith('4') or code.startswith('5'): etat = f'erreur HTTP {code}'
-    elif re.search(VIDE, (titre + corps[:3000]).lower()) or len(corps) < 800: etat = 'vide ou parking'
-    else: etat = 'vivant'
-    return {'url': url, 'code': code, 'titre': titre, 'etat': etat, 'final': fin.split(' ', 1)[-1] if ' ' in fin else ''}
+    titre = re.search(r"<title[^>]*>(.*?)</title>", corps, re.S | re.I)
+    titre = re.sub(r"\s+", " ", titre[1]).strip()[:80] if titre else ""
+    if code in ("000", ""):
+        etat = "muet (ne répond pas au relais : à confirmer par Firecrawl, peut être un site vivant)"
+    elif code.startswith("4") or code.startswith("5"):
+        etat = f"erreur HTTP {code}"
+    elif re.search(VIDE, (titre + corps[:3000]).lower()) or len(corps) < 800:
+        etat = "vide ou parking"
+    else:
+        etat = "vivant"
+    return {
+        "url": url,
+        "code": code,
+        "titre": titre,
+        "etat": etat,
+        "final": fin.split(" ", 1)[-1] if " " in fin else "",
+    }
+
 
 def pappers(siren, dest):
     for k in range(3):
-        code = subprocess.run(['curl', '-sL', '-m', '40', '-A', UA[k % 2], '-w', '%{http_code}', '-o', dest,
-                               f'https://www.pappers.fr/entreprise/{siren}'], capture_output=True, text=True).stdout
-        if code == '200': break
+        code = subprocess.run(
+            [
+                "curl",
+                "-sL",
+                "-m",
+                "40",
+                "-A",
+                UA[k % 2],
+                "-w",
+                "%{http_code}",
+                "-o",
+                dest,
+                f"https://www.pappers.fr/entreprise/{siren}",
+            ],
+            capture_output=True,
+            text=True,
+        ).stdout
+        if code == "200":
+            break
         time.sleep(20)
-    tt = texte(open(dest, errors='ignore').read())
+    tt = texte(open(dest, errors="ignore").read())
     g = lambda rx: (re.search(rx, tt) or [None, None])[1]
-    return {'http': code, 'opposition': "opposée à l" in tt, 'radie': bool(re.search(r'Inscription au RCS\s*:\s*RADI[ÉE]', tt)) and not re.search(r'Inscription au RNE\s*:\s*INSCRIT', tt),  # pas les statuts ORIAS (MIA, MOBSP…) ni l'artisan radié du RCS mais inscrit au RNE
-            'effectif': (g(r'Effectif\s*:\s*([^(]{0,30})') or '').strip() or None,
-            'dirigeants': (g(r'Dirigeants?\s*:\s*(.{0,90}?) (?:Voir|Informations)') or '').strip() or None,
-            'creation': g(r'Date de création\s*:\s*(\d\d/\d\d/\d{4})'),
-            'activite': (g(r'Activité principale déclarée\s*:\s*(.{0,120})') or '').strip() or None}
+    return {
+        "http": code,
+        "opposition": "opposée à l" in tt,
+        "radie": bool(re.search(r"Inscription au RCS\s*:\s*RADI[ÉE]", tt))
+        and not re.search(
+            r"Inscription au RNE\s*:\s*INSCRIT", tt
+        ),  # pas les statuts ORIAS (MIA, MOBSP…) ni l'artisan radié du RCS mais inscrit au RNE
+        "effectif": (g(r"Effectif\s*:\s*([^(]{0,30})") or "").strip() or None,
+        "dirigeants": (
+            g(r"Dirigeants?\s*:\s*(.{0,90}?) (?:Voir|Informations)") or ""
+        ).strip()
+        or None,
+        "creation": g(r"Date de création\s*:\s*(\d\d/\d\d/\d{4})"),
+        "activite": (g(r"Activité principale déclarée\s*:\s*(.{0,120})") or "").strip()
+        or None,
+    }
+
 
 def main():
-    S, vivier, a, b, lot = sys.argv[1], sys.argv[2], int(sys.argv[3]), int(sys.argv[4]), sys.argv[5]
-    cookies = sys.argv[6] if len(sys.argv) > 6 else '/tmp/cj.txt'
+    S, vivier, a, b, lot = (
+        sys.argv[1],
+        sys.argv[2],
+        int(sys.argv[3]),
+        int(sys.argv[4]),
+        sys.argv[5],
+    )
+    cookies = sys.argv[6] if len(sys.argv) > 6 else "/tmp/cj.txt"
     ici = os.path.dirname(os.path.abspath(__file__))
-    app = os.path.join(S, 'appels'); os.makedirs(os.path.join(app, f'pappers{lot}'), exist_ok=True)
+    app = os.path.join(S, "appels")
+    os.makedirs(os.path.join(app, f"pappers{lot}"), exist_ok=True)
     c = json.load(open(vivier))
     # étape 0 : doublons
-    r0 = subprocess.run(['python3', os.path.join(app, 'etape0.py'), str(a), str(b), f'sonder{lot}_in.json', S, vivier],
-                        cwd=app, capture_output=True, text=True).stdout
+    r0 = subprocess.run(
+        [
+            "python3",
+            os.path.join(app, "etape0.py"),
+            str(a),
+            str(b),
+            f"sonder{lot}_in.json",
+            S,
+            vivier,
+        ],
+        cwd=app,
+        capture_output=True,
+        text=True,
+    ).stdout
     print(r0.strip())
-    a_sonder = json.load(open(os.path.join(app, f'sonder{lot}_in.json')))
-    drapeaux = json.load(open(os.path.join(app, f'sonder{lot}_in_drapeaux.json')))
+    a_sonder = json.load(open(os.path.join(app, f"sonder{lot}_in.json")))
+    drapeaux = json.load(open(os.path.join(app, f"sonder{lot}_in_drapeaux.json")))
     # domaines probables
-    subprocess.run(['python3', os.path.join(ici, 'sonder_domaines.py'), f'sonder{lot}_in.json', f'sonder{lot}.json'], cwd=app, capture_output=True)
-    sondes = dict(json.load(open(os.path.join(app, f'sonder{lot}.json'))))
+    subprocess.run(
+        [
+            "python3",
+            os.path.join(ici, "sonder_domaines.py"),
+            f"sonder{lot}_in.json",
+            f"sonder{lot}.json",
+        ],
+        cwd=app,
+        capture_output=True,
+    )
+    sondes = dict(json.load(open(os.path.join(app, f"sonder{lot}.json"))))
     # registre + BODACC
-    json.dump([{'n': n, 'nom': c[int(n)]['nom'], 'commune': c[int(n)]['commune'], 'siren': c[int(n)]['siret'][:9]} for n in a_sonder],
-              open(os.path.join(app, f'entree{lot}.json'), 'w'), ensure_ascii=False)
-    subprocess.run(['python3', os.path.join(ici, '..', 'verif_entreprises.py'), f'entree{lot}.json', f'sortie{lot}.json', cookies, '16'], cwd=app, capture_output=True)
-    reg = {x['n']: x for x in json.load(open(os.path.join(app, f'sortie{lot}.json')))}
+    json.dump(
+        [
+            {
+                "n": n,
+                "nom": c[int(n)]["nom"],
+                "commune": c[int(n)]["commune"],
+                "siren": c[int(n)]["siret"][:9],
+            }
+            for n in a_sonder
+        ],
+        open(os.path.join(app, f"entree{lot}.json"), "w"),
+        ensure_ascii=False,
+    )
+    subprocess.run(
+        [
+            "python3",
+            os.path.join(ici, "..", "verif_entreprises.py"),
+            f"entree{lot}.json",
+            f"sortie{lot}.json",
+            cookies,
+            "16",
+        ],
+        cwd=app,
+        capture_output=True,
+    )
+    reg = {x["n"]: x for x in json.load(open(os.path.join(app, f"sortie{lot}.json")))}
     out = {}
     for n in a_sonder:
-        i = int(n); e = c[i]
-        d = {'nom': e['nom'], 'commune': e['commune'], 'adresse': e.get('adresse'), 'siret': e['siret'], 'naf': e.get('activite'),
-             'drapeau': drapeaux.get(n), 'registre': reg.get(n, {}).get('etat'), 'bodacc': reg.get(n, {}).get('bodacc', [])}
-        d['ademe'] = ademe(e['siret']); time.sleep(1)
-        d['sites_declares'] = [site(u) for u in d['ademe'].get('sites', [])]
+        i = int(n)
+        e = c[i]
+        d = {
+            "nom": e["nom"],
+            "commune": e["commune"],
+            "adresse": e.get("adresse"),
+            "siret": e["siret"],
+            "naf": e.get("activite"),
+            "drapeau": drapeaux.get(n),
+            "registre": reg.get(n, {}).get("etat"),
+            "bodacc": reg.get(n, {}).get("bodacc", []),
+        }
+        d["ademe"] = ademe(e["siret"])
+        time.sleep(1)
+        d["sites_declares"] = [site(u) for u in d["ademe"].get("sites", [])]
         # Domaine probable retenu seulement si son titre cite un mot distinctif du nom ou la commune
         # (sinon « nicolas.fr », « patrice.fr »… sont des homonymes sans rapport)
-        mots = [w for w in re.sub(r'[^a-z0-9 ]', ' ', unicodedata.normalize('NFKD', e['nom'] + ' ' + e['commune']).encode('ascii', 'ignore').decode().lower()).split() if len(w) >= 4 and w not in ('sarl', 'eurl', 'entreprise', 'etablissements', 'fils', 'pere', 'saint', 'sainte', 'charente')]
+        mots = [
+            w
+            for w in re.sub(
+                r"[^a-z0-9 ]",
+                " ",
+                unicodedata.normalize("NFKD", e["nom"] + " " + e["commune"])
+                .encode("ascii", "ignore")
+                .decode()
+                .lower(),
+            ).split()
+            if len(w) >= 4
+            and w
+            not in (
+                "sarl",
+                "eurl",
+                "entreprise",
+                "etablissements",
+                "fils",
+                "pere",
+                "saint",
+                "sainte",
+                "charente",
+            )
+        ]
         # Un seul mot commun ne suffit que s'il vient de l'enseigne (entre parenthèses) ou de la commune :
         # « emilie.fr » pour « EMILIE NARFIT (AU SALON D'ELONA) » est un prénom homonyme, pas un site (02/10)
-        ens = ' '.join(re.findall(r'\(([^)]*)\)', e['nom'])) or e['nom']
-        forts = [w for w in re.sub(r'[^a-z0-9 ]', ' ', unicodedata.normalize('NFKD', ens + ' ' + e['commune']).encode('ascii', 'ignore').decode().lower()).split() if w in mots]
+        ens = " ".join(re.findall(r"\(([^)]*)\)", e["nom"])) or e["nom"]
+        forts = [
+            w
+            for w in re.sub(
+                r"[^a-z0-9 ]",
+                " ",
+                unicodedata.normalize("NFKD", ens + " " + e["commune"])
+                .encode("ascii", "ignore")
+                .decode()
+                .lower(),
+            ).split()
+            if w in mots
+        ]
+
         def plausible(x):
-            t = unicodedata.normalize('NFKD', x.get('titre', '')).encode('ascii', 'ignore').decode().lower()
-            return any(w in t for w in forts) or sum(w in t for w in mots) >= 2 or sum(w in x['domaine'] for w in mots) >= 2
-        d['domaines_vivants'] = [x for x in sondes.get(n, []) if x.get('code') == '200' and not x.get('vide_ou_parking') and plausible(x)]
-        d['pappers'] = pappers(e['siret'][:9], os.path.join(app, f'pappers{lot}', f'{i}.html')); time.sleep(4)
+            t = (
+                unicodedata.normalize("NFKD", x.get("titre", ""))
+                .encode("ascii", "ignore")
+                .decode()
+                .lower()
+            )
+            return (
+                any(w in t for w in forts)
+                or sum(w in t for w in mots) >= 2
+                or sum(w in x["domaine"] for w in mots) >= 2
+            )
+
+        d["domaines_vivants"] = [
+            x
+            for x in sondes.get(n, [])
+            if x.get("code") == "200" and not x.get("vide_ou_parking") and plausible(x)
+        ]
+        d["pappers"] = pappers(
+            e["siret"][:9], os.path.join(app, f"pappers{lot}", f"{i}.html")
+        )
+        time.sleep(4)
         # pré-verdict
-        p = d['pappers']
-        if d['registre'] not in (None, 'A') or d['bodacc']: v = 'écarté : registre/BODACC'
-        elif p['opposition']: v = 'écarté : opposition'
-        elif p['radie']: v = 'écarté : radié (vérifier)'
-        elif any(s['etat'] == 'vivant' for s in d['sites_declares']): v = 'écarté : site vivant ' + ', '.join(s['url'] for s in d['sites_declares'] if s['etat'] == 'vivant')
-        elif d['domaines_vivants']: v = 'à vérifier : domaine probable vivant ' + ', '.join(x['domaine'] for x in d['domaines_vivants'])
-        elif d['drapeau']: v = 'à vérifier : ' + d['drapeau']
-        elif d['sites_declares']: v = 'candidat « Sans site » (site déclaré ' + '; '.join(s['etat'] for s in d['sites_declares']) + ')'
-        else: v = 'candidat (recherche web à faire)'
-        d['pre_verdict'] = v
+        p = d["pappers"]
+        if d["registre"] not in (None, "A") or d["bodacc"]:
+            v = "écarté : registre/BODACC"
+        elif p["opposition"]:
+            v = "écarté : opposition"
+        elif p["radie"]:
+            v = "écarté : radié (vérifier)"
+        elif any(s["etat"] == "vivant" for s in d["sites_declares"]):
+            v = "écarté : site vivant " + ", ".join(
+                s["url"] for s in d["sites_declares"] if s["etat"] == "vivant"
+            )
+        elif d["domaines_vivants"]:
+            v = "à vérifier : domaine probable vivant " + ", ".join(
+                x["domaine"] for x in d["domaines_vivants"]
+            )
+        elif d["drapeau"]:
+            v = "à vérifier : " + d["drapeau"]
+        elif d["sites_declares"]:
+            v = (
+                "candidat « Sans site » (site déclaré "
+                + "; ".join(s["etat"] for s in d["sites_declares"])
+                + ")"
+            )
+        else:
+            v = "candidat (recherche web à faire)"
+        d["pre_verdict"] = v
         out[n] = d
         # Console : verdict seulement (téléphones et noms de personnes restent dans les fichiers du scratchpad)
-        print(f"{n} {e['nom'][:34]:34} | {v[:70]:70} | RGE {d['ademe'].get('fin')} | {p['effectif']} | {p['creation']}")
-    json.dump(out, open(os.path.join(app, f'lot{lot}.json'), 'w'), ensure_ascii=False, indent=1)
-    with open(os.path.join(app, f'lot{lot}.md'), 'w') as f:
-        f.write(f"# Lot {lot} : index {a} à {b} (pré-verdicts automatiques, {time.strftime('%d/%m/%Y %H:%M')})\n\n| idx | Entreprise | Commune | Pré-verdict | Tél. ADEME | RGE jusqu'au | Effectif | Dirigeants | Création | Adresse |\n|---|---|---|---|---|---|---|---|---|---|\n")
+        print(
+            f"{n} {e['nom'][:34]:34} | {v[:70]:70} | RGE {d['ademe'].get('fin')} | {p['effectif']} | {p['creation']}"
+        )
+    json.dump(
+        out,
+        open(os.path.join(app, f"lot{lot}.json"), "w"),
+        ensure_ascii=False,
+        indent=1,
+    )
+    with open(os.path.join(app, f"lot{lot}.md"), "w") as f:
+        f.write(
+            f"# Lot {lot} : index {a} à {b} (pré-verdicts automatiques, {time.strftime('%d/%m/%Y %H:%M')})\n\n| idx | Entreprise | Commune | Pré-verdict | Tél. ADEME | RGE jusqu'au | Effectif | Dirigeants | Création | Adresse |\n|---|---|---|---|---|---|---|---|---|---|\n"
+        )
         for n, d in out.items():
-            f.write(f"| {n} | {d['nom']} | {d['commune']} | {d['pre_verdict']} | {', '.join(d['ademe'].get('tels', []))} | {d['ademe'].get('fin')} | {d['pappers']['effectif']} | {d['pappers']['dirigeants']} | {d['pappers']['creation']} | {d['adresse']} |\n")
-    print('candidats :', sum(1 for d in out.values() if d['pre_verdict'].startswith('candidat')), '| à vérifier :', sum(1 for d in out.values() if d['pre_verdict'].startswith('à vérifier')))
+            f.write(
+                f"| {n} | {d['nom']} | {d['commune']} | {d['pre_verdict']} | {', '.join(d['ademe'].get('tels', []))} | {d['ademe'].get('fin')} | {d['pappers']['effectif']} | {d['pappers']['dirigeants']} | {d['pappers']['creation']} | {d['adresse']} |\n"
+            )
+    print(
+        "candidats :",
+        sum(1 for d in out.values() if d["pre_verdict"].startswith("candidat")),
+        "| à vérifier :",
+        sum(1 for d in out.values() if d["pre_verdict"].startswith("à vérifier")),
+    )
     # Non-RGE : téléphones et sites liés via Mappy (outil mappy_lot.py), qui met à jour lot<N>.json
-    r = subprocess.run(['python3', os.path.join(ici, 'mappy_lot.py'), S, lot], capture_output=True, text=True)
+    r = subprocess.run(
+        ["python3", os.path.join(ici, "mappy_lot.py"), S, lot],
+        capture_output=True,
+        text=True,
+    )
     print(r.stdout.strip()[-3000:])
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

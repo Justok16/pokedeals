@@ -15,12 +15,13 @@
 # Les champs entre crochets se remplissent à l'immatriculation : aucune donnée personnelle dans ce dépôt.
 # Usage : python3 outils/documents_commerciaux.py   (écrit supports/*.html et supports/Dig-*.pdf)
 import os
-ICI = os.path.dirname(os.path.abspath(__file__))
-SUP = os.path.normpath(os.path.join(ICI, '..', 'supports'))
-CHROME = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
 
-EMETTEUR = '[Prénom Nom] EI — « DIG16 »<br>[Adresse]<br>SIREN [numéro à l’immatriculation]<br>contact@dig16.fr'
-CSS = '''@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}
+ICI = os.path.dirname(os.path.abspath(__file__))
+SUP = os.path.normpath(os.path.join(ICI, "..", "supports"))
+CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+
+EMETTEUR = "[Prénom Nom] EI — « DIG16 »<br>[Adresse]<br>SIREN [numéro à l’immatriculation]<br>contact@dig16.fr"
+CSS = """@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}
 body{font-family:Inter,sans-serif;font-size:9.4pt;color:#1d1a17;line-height:1.45;margin:0}
 .couv{background:#0d1330;color:#f4f1ea;border-radius:12px;padding:6mm 8mm;margin-bottom:4mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .couv h1{font-family:Fraunces,serif;font-size:20pt;margin:1mm 0}.couv p{color:#c6cbe4;margin:.5mm 0}
@@ -32,19 +33,23 @@ th{background:#f4efe6;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .deux{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin:2mm 0}.cadre{border:1px solid #d8d0c3;border-radius:8px;padding:3mm 4mm}
 .champ{border-bottom:1px solid #999;height:6mm;margin:1mm 0}.petit{color:#5d5a66;font-size:8.2pt}
 .sign{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:4mm}.sign div{border:1px solid #d8d0c3;border-radius:8px;height:26mm;padding:2mm 3mm;font-size:8.4pt;color:#5d5a66}
-.cgv{columns:2;column-gap:7mm;font-size:8.5pt;line-height:1.37}.cgv h2{font-size:10pt;margin:2.4mm 0 .6mm}.cgv p{margin:.5mm 0;text-align:justify}'''
-TETE = ('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>{t}</title>'
-        '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;600&display=swap" rel="stylesheet">'
-        '<style>' + CSS + '</style></head><body>')
+.cgv{columns:2;column-gap:7mm;font-size:8.5pt;line-height:1.37}.cgv h2{font-size:10pt;margin:2.4mm 0 .6mm}.cgv p{margin:.5mm 0;text-align:justify}"""
+TETE = (
+    '<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>{t}</title>'
+    '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;600&display=swap" rel="stylesheet">'
+    "<style>" + CSS + "</style></head><body>"
+)
 
-PENALITES = ('En cas de retard de paiement, des pénalités sont dues de plein droit, sans rappel préalable, au taux '
-             'appliqué par la Banque centrale européenne à son opération de refinancement la plus récente, majoré de '
-             '10 points, ainsi qu’une indemnité forfaitaire pour frais de recouvrement de 40 € par facture.')
+PENALITES = (
+    "En cas de retard de paiement, des pénalités sont dues de plein droit, sans rappel préalable, au taux "
+    "appliqué par la Banque centrale européenne à son opération de refinancement la plus récente, majoré de "
+    "10 points, ainsi qu’une indemnité forfaitaire pour frais de recouvrement de 40 € par facture."
+)
 
-CGV = f'''<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Conditions générales de vente</h1>
+CGV = f"""<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Conditions générales de vente</h1>
 <p>Applicables à toute commande passée par un professionnel. Version du [date de l’immatriculation].</p></div>
 <div class="cgv">
-<h2>1. Prestataire</h2><p>{EMETTEUR.replace('<br>', ', ')}. TVA non applicable, art. 293 B du code général des impôts.</p>
+<h2>1. Prestataire</h2><p>{EMETTEUR.replace("<br>", ", ")}. TVA non applicable, art. 293 B du code général des impôts.</p>
 <h2>2. Objet</h2><p>DIG16 crée, héberge et suit des sites internet pour les professionnels (entreprises, artisans, commerçants). Les présentes conditions s’appliquent à toute commande ; elles prévalent sur tout autre document, sauf accord écrit contraire.</p>
 <h2>3. Formules et prix</h2><p>Les formules et leurs prix sont ceux du devis signé : Essentiel 49 € par mois, Visibilité 79 € par mois, Prestige 1 990 € une fois ou 199 € par mois, Achat 690 € une fois (hébergement et suivi en option à 15 € par mois). Douze mois payés d’avance : un mois offert (Essentiel 539 €, Visibilité 869 €). Les prix sont nets : TVA non applicable. Le nom de domaine est enregistré au nom du client et à sa charge (environ 10 € par an).</p>
 <h2>4. Commande et délais</h2><p>La commande est formée par la signature du devis-bon de commande. Pour les formules mensuelles, la création du site est offerte. Le site est mis en ligne 7 jours après la réception de tous les contenus et leur validation par le client (3 semaines pour Prestige), et jamais avant le 8e jour suivant la signature. Le premier mois est réglé avant la mise en ligne, au plus tôt le 8e jour suivant la signature.</p>
@@ -57,9 +62,9 @@ CGV = f'''<div class="couv"><div class="k">DIG16 — création et suivi de sites
 <h2>11. Données personnelles</h2><p>DIG16 traite les données du client et de ses visiteurs uniquement pour réaliser et suivre le site, conformément au RGPD. Chaque site comprend ses mentions légales et ses informations sur les données ; aucun traceur publicitaire n’est installé.</p>
 <h2>12. Responsabilité</h2><p>Le client reste responsable du contenu qu’il fournit ou valide. La responsabilité de DIG16 est limitée aux sommes payées au titre des 12 derniers mois.</p>
 <h2>13. Litiges</h2><p>Les parties cherchent d’abord une solution amiable. À défaut, le litige est porté devant la juridiction compétente selon les règles de droit commun. Droit français applicable.</p>
-</div>'''
+</div>"""
 
-DEVIS = f'''<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Devis et bon de commande</h1>
+DEVIS = f"""<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Devis et bon de commande</h1>
 <p>N° [AAAA-NNN] · Date : [jj/mm/aaaa] · Valable 30 jours</p></div>
 <div class="deux"><div class="cadre"><b>Prestataire</b><br>{EMETTEUR}<br>TVA non applicable, art. 293 B du CGI</div>
 <div class="cadre"><b>Client</b><div class="champ"></div><div class="champ"></div><span class="petit">Nom de l’entreprise, adresse, SIREN</span></div></div>
@@ -94,9 +99,9 @@ DEVIS = f'''<div class="couv"><div class="k">DIG16 — création et suivi de sit
 <p>Adresse du (des) client(s) :</p><div class="champ"></div>
 <p>Signature du (des) client(s) (uniquement en cas de notification du présent formulaire sur papier) :</p><div class="champ" style="height:12mm"></div>
 <p>Date :</p><div class="champ"></div>
-<p class="petit">(*) Rayez la mention inutile.</p></div>'''
+<p class="petit">(*) Rayez la mention inutile.</p></div>"""
 
-FACTURE = f'''<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Facture</h1>
+FACTURE = f"""<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Facture</h1>
 <p>N° [AAAA-NNN] (numérotation continue) · Date d’émission : [jj/mm/aaaa] · Date de la prestation : [période ou jj/mm/aaaa]</p></div>
 <div class="deux"><div class="cadre"><b>Prestataire</b><br>{EMETTEUR}</div>
 <div class="cadre"><b>Client</b><br>[Nom de l’entreprise]<br>[Adresse]<br>SIREN [numéro du client]<br><span class="petit">N° de bon de commande : [si le client en a établi un]</span></div></div>
@@ -109,25 +114,47 @@ FACTURE = f'''<div class="couv"><div class="k">DIG16 — création et suivi de s
 <p><b>TVA non applicable, art. 293 B du code général des impôts.</b></p>
 <p><b>Date de règlement</b> : [jj/mm/aaaa] · Mode : [prélèvement / virement]. Escompte pour paiement anticipé : néant.</p>
 <p>{PENALITES}</p>
-<p class="petit">Mentions vérifiées sur Service Public Entreprendre (fiche F31808, vérifiée le 11 août 2026). Facture électronique obligatoire pour les micro-entreprises à partir du 1er septembre 2027 : il faudra alors aussi le SIREN du client, la nature de l’opération (déjà indiquée ici) et, le cas échéant, l’adresse de livraison.</p>'''
+<p class="petit">Mentions vérifiées sur Service Public Entreprendre (fiche F31808, vérifiée le 11 août 2026). Facture électronique obligatoire pour les micro-entreprises à partir du 1er septembre 2027 : il faudra alors aussi le SIREN du client, la nature de l’opération (déjà indiquée ici) et, le cas échéant, l’adresse de livraison.</p>"""
+
 
 def ecrire():
-    docs = [('cgv-dig.html', 'DIG16 — Conditions générales de vente', CGV, 'Dig-CGV.pdf'),
-            ('modele-devis.html', 'DIG16 — Devis et bon de commande', DEVIS, 'Dig-Modele-devis.pdf'),
-            ('modele-facture.html', 'DIG16 — Modèle de facture', FACTURE, 'Dig-Modele-facture.pdf')]
+    docs = [
+        ("cgv-dig.html", "DIG16 — Conditions générales de vente", CGV, "Dig-CGV.pdf"),
+        (
+            "modele-devis.html",
+            "DIG16 — Devis et bon de commande",
+            DEVIS,
+            "Dig-Modele-devis.pdf",
+        ),
+        (
+            "modele-facture.html",
+            "DIG16 — Modèle de facture",
+            FACTURE,
+            "Dig-Modele-facture.pdf",
+        ),
+    ]
     for f, t, corps, _ in docs:
-        open(os.path.join(SUP, f), 'w').write(TETE.replace('{t}', t) + corps + '</body></html>')
+        open(os.path.join(SUP, f), "w").write(
+            TETE.replace("{t}", t) + corps + "</body></html>"
+        )
     from playwright.sync_api import sync_playwright
+
     with sync_playwright() as p:
         b = p.chromium.launch(executable_path=CHROME)
         pg = b.new_page()
         for f, _, _, pdf in docs:
-            pg.goto('file://' + os.path.join(SUP, f))
+            pg.goto("file://" + os.path.join(SUP, f))
             pg.wait_for_timeout(800)
-            pg.pdf(path=os.path.join(SUP, pdf), format='A4', print_background=True, prefer_css_page_size=True)
+            pg.pdf(
+                path=os.path.join(SUP, pdf),
+                format="A4",
+                print_background=True,
+                prefer_css_page_size=True,
+            )
         b.close()
     return docs
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     for d in ecrire():
-        print(d[0], '->', d[3])
+        print(d[0], "->", d[3])

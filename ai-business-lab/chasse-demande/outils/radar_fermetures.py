@@ -5,7 +5,10 @@ phrases qui annoncent un retrait daté dans le futur. Sortie : radar.md.
 Leçon d'Invoice Stack (voir 20-hubspot-comptabilite-grille.md) : l'argent B2B
 va à celui qui est prêt AVANT la date de fermeture.
 """
-import html, re, urllib.request
+
+import html
+import re
+import urllib.request
 from datetime import date
 
 SOURCES = {
@@ -40,9 +43,16 @@ SOURCES = {
     "Calendly": "https://developer.calendly.com/changelog",
     "Microsoft (fin de support 2027)": "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027",
 }
-MOTS = re.compile(r"deprecat|sunset|retir|end[- ]of[- ]life|decommission|no longer (be )?(available|supported)|will be removed|shut ?down", re.I)
+MOTS = re.compile(
+    r"deprecat|sunset|retir|end[- ]of[- ]life|decommission|no longer (be )?(available|supported)|will be removed|shut ?down",
+    re.I,
+)
 MOIS = "January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec"
-DATE = re.compile(rf"(({MOIS})\.? \d{{1,2}},? (20\d\d))|((20\d\d)-(\d\d)-(\d\d))|(({MOIS}) (20\d\d))|(Q[1-4] (20\d\d))", re.I)
+DATE = re.compile(
+    rf"(({MOIS})\.? \d{{1,2}},? (20\d\d))|((20\d\d)-(\d\d)-(\d\d))|(({MOIS}) (20\d\d))|(Q[1-4] (20\d\d))",
+    re.I,
+)
+
 
 def texte(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
@@ -50,8 +60,10 @@ def texte(url):
     s = re.sub(r"<(script|style)\b.*?</\1\s*>", " ", s, flags=re.S | re.I)
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", s)))
 
+
 def annee(m):
     return int(next(g for g in (m.group(3), m.group(5), m.group(10), m.group(12)) if g))
+
 
 def main():
     auj = date.today().year
@@ -75,12 +87,15 @@ def main():
                 vus.add(cle)
                 # [clients] : pas de jargon de développeur, donc peut toucher des
                 # utilisateurs non techniques (le cas qui a fait Invoice Stack).
-                dev = re.search(r"\b(API|SDK|endpoint|scope|CLI|webhook|v\d+(\.\d+)?)\b", phrase)
+                dev = re.search(
+                    r"\b(API|SDK|endpoint|scope|CLI|webhook|v\d+(\.\d+)?)\b", phrase
+                )
                 trouves.append(("" if dev else "[clients] ") + phrase.strip())
         lignes.append(f"\n## {nom} ({len(trouves)})\n\nSource : {url}\n")
         lignes += [f"- {p}" for p in trouves[:25]]
     open("radar.md", "w", encoding="utf-8").write("\n".join(lignes) + "\n")
     print("\n".join(lignes)[:200])
+
 
 if __name__ == "__main__":
     main()

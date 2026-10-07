@@ -9,24 +9,34 @@ Usage :
 À lancer sur toute photo fournie par un client avant de la mettre en ligne (une photo prise au
 téléphone contient souvent la position GPS du domicile ou de l'atelier).
 """
-import glob, os, sys
+
+import glob
+import os
+import sys
 from PIL import Image
 
-dossier = sys.argv[1] if len(sys.argv) > 1 else '.'
-nettoyer = '--nettoyer' in sys.argv
+dossier = sys.argv[1] if len(sys.argv) > 1 else "."
+nettoyer = "--nettoyer" in sys.argv
 vues, trouvees = 0, 0
-for f in glob.glob(os.path.join(dossier, '**', '*'), recursive=True):
-    if not f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
+for f in glob.glob(os.path.join(dossier, "**", "*"), recursive=True):
+    if not f.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
         continue
     vues += 1
     im = Image.open(f)
     ex = im.getexif()
-    if not len(ex) and not im.info.get('exif'):
+    if not len(ex) and not im.info.get("exif"):
         continue
     trouvees += 1
     gps = bool(ex.get_ifd(0x8825)) if len(ex) else False
-    print(('GPS ! ' if gps else '') + f, f'({len(ex)} champs)')
+    print(("GPS ! " if gps else "") + f, f"({len(ex)} champs)")
     if nettoyer:
-        propre = Image.frombytes(im.mode, im.size, im.tobytes())  # pixels seuls, sans métadonnées
-        propre.save(f, quality=90) if f.lower().endswith(('.jpg', '.jpeg')) else propre.save(f)
-print(f'{vues} images vues, {trouvees} avec métadonnées' + (' (nettoyées)' if nettoyer and trouvees else ''))
+        propre = Image.frombytes(
+            im.mode, im.size, im.tobytes()
+        )  # pixels seuls, sans métadonnées
+        propre.save(f, quality=90) if f.lower().endswith(
+            (".jpg", ".jpeg")
+        ) else propre.save(f)
+print(
+    f"{vues} images vues, {trouvees} avec métadonnées"
+    + (" (nettoyées)" if nettoyer and trouvees else "")
+)

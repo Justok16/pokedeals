@@ -5,15 +5,26 @@ Sources : sitemap public https://chromewebstore.google.com/sitemap (43 lots),
 puis la page de chaque extension (en-tête HTML). Reprend là où il s'est
 arrêté (fichier chrome.csv). Usage : python3 chrome_extensions.py
 """
-import csv, gzip, html, os, re, sys, time, urllib.error, urllib.request
+
+import csv
+import gzip
+import html
+import os
+import re
+import time
+import urllib.error
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
 UA = {"User-Agent": "Mozilla/5.0", "Accept-Encoding": "gzip"}
 
+
 def lire(url, essais=5):
     for e in range(essais):
         try:
-            r = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120)
+            r = urllib.request.urlopen(
+                urllib.request.Request(url, headers=UA), timeout=120
+            )
             b = r.read()
             if r.headers.get("Content-Encoding") == "gzip":
                 b = gzip.decompress(b)
@@ -25,6 +36,7 @@ def lire(url, essais=5):
         except Exception:
             time.sleep(5)
     return None
+
 
 def urls():
     if os.path.exists("urls.txt"):
@@ -39,6 +51,7 @@ def urls():
         open("urls.txt", "w").write("\n".join(tout))
     return tout
 
+
 def extraire(url):
     s = lire(url)
     if not s:
@@ -46,20 +59,29 @@ def extraire(url):
     m = re.search(r"<h1[^>]*>(.*?)</h1>", s, re.S)
     if not m:
         return None
-    bloc = html.unescape(re.sub(r"<[^>]+>", "|", s[m.start():m.start() + 12000]))
+    bloc = html.unescape(re.sub(r"<[^>]+>", "|", s[m.start() : m.start() + 12000]))
     bloc = re.sub(r"\|+", "|", bloc)
     note = re.search(r"\|(\d\.\d)\|\(\|([\d.,]+K?) ratings?\|", bloc)
     users = re.search(r"\|([\d,]+\+?) users?\|", bloc)
     cat = re.search(r"\|(Extension|Theme|App)\|([^|]+)\|", bloc)
     desc = re.search(r'<meta name="description" content="([^"]*)"', s)
     nb = note.group(2) if note else "0"
-    nb = int(float(nb[:-1]) * 1000) if nb.endswith("K") else int(nb.replace(",", "") or 0)
-    return [url.rstrip("/").split("/")[-1], html.unescape(m.group(1)).strip()[:120],
-            cat.group(2).strip() if cat else "",
-            int(users.group(1).replace(",", "").rstrip("+")) if users else 0,
-            note.group(1) if note else "", nb,
-            1 if re.search(r"in-app purchases", s, re.I) else 0,
-            html.unescape(desc.group(1))[:200] if desc else ""]
+    nb = (
+        int(float(nb[:-1]) * 1000)
+        if nb.endswith("K")
+        else int(nb.replace(",", "") or 0)
+    )
+    return [
+        url.rstrip("/").split("/")[-1],
+        html.unescape(m.group(1)).strip()[:120],
+        cat.group(2).strip() if cat else "",
+        int(users.group(1).replace(",", "").rstrip("+")) if users else 0,
+        note.group(1) if note else "",
+        nb,
+        1 if re.search(r"in-app purchases", s, re.I) else 0,
+        html.unescape(desc.group(1))[:200] if desc else "",
+    ]
+
 
 def main():
     liste = urls()
@@ -69,15 +91,31 @@ def main():
     reste = [u for u in liste if u.rstrip("/").split("/")[-1] not in faits]
     print(len(liste), "extensions,", len(reste), "à relever", flush=True)
     neuf = not faits
-    with open("chrome.csv", "a", newline="", encoding="utf-8") as f, ThreadPoolExecutor(8) as ex:
+    with (
+        open("chrome.csv", "a", newline="", encoding="utf-8") as f,
+        ThreadPoolExecutor(8) as ex,
+    ):
         w = csv.writer(f)
         if neuf:
-            w.writerow(["id", "nom", "categorie", "utilisateurs", "note", "nb_notes", "achats_integres", "description"])
+            w.writerow(
+                [
+                    "id",
+                    "nom",
+                    "categorie",
+                    "utilisateurs",
+                    "note",
+                    "nb_notes",
+                    "achats_integres",
+                    "description",
+                ]
+            )
         for i, r in enumerate(ex.map(extraire, reste)):
             if r:
                 w.writerow(r)
             if i % 2000 == 0:
-                f.flush(); print(i, flush=True)
+                f.flush()
+                print(i, flush=True)
+
 
 if __name__ == "__main__":
     main()

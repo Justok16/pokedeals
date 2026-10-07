@@ -5,11 +5,16 @@ la page jusqu'à charger toutes les apps, puis lit : nom, accroche, prix,
 note, nombre d'avis. Sortie : wix_apps.csv. Nécessite Playwright + Chromium
 (le magasin de certificats NSS doit contenir l'autorité du proxy).
 """
-import csv, re
+
+import csv
+import re
 from playwright.sync_api import sync_playwright
 
 CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
-PRIX = re.compile(r"^(Free to install|Free plan available|Free|\d+ day free trial|From .*|\$.*)$")
+PRIX = re.compile(
+    r"^(Free to install|Free plan available|Free|\d+ day free trial|From .*|\$.*)$"
+)
+
 
 def lire_apps(texte, cat):
     lignes = [l.strip() for l in texte.split("\n") if l.strip()]
@@ -21,8 +26,11 @@ def lire_apps(texte, cat):
             if not re.fullmatch(r"\d(\.\d)?", note) or not PRIX.match(prix):
                 continue
             nom, accroche = lignes[i - 4], lignes[i - 3]
-            apps.append([cat, nom, accroche, prix, note, int(l.strip("()").replace(",", ""))])
+            apps.append(
+                [cat, nom, accroche, prix, note, int(l.strip("()").replace(",", ""))]
+            )
     return apps
+
 
 def main():
     with sync_playwright() as p:
@@ -30,8 +38,13 @@ def main():
         pg = b.new_page()
         pg.goto("https://www.wix.com/app-market", timeout=90000)
         pg.wait_for_timeout(5000)
-        cats = sorted({re.sub(r"\?.*", "", h) for h in pg.eval_on_selector_all("a", "e=>e.map(x=>x.href)")
-                       if re.search(r"/app-market/category/[^/]+/[^/?]+", h)})
+        cats = sorted(
+            {
+                re.sub(r"\?.*", "", h)
+                for h in pg.eval_on_selector_all("a", "e=>e.map(x=>x.href)")
+                if re.search(r"/app-market/category/[^/]+/[^/?]+", h)
+            }
+        )
         print(len(cats), "sous-catégories", flush=True)
         w = csv.writer(open("wix_apps.csv", "w", newline="", encoding="utf-8"))
         w.writerow(["categorie", "nom", "accroche", "prix", "note", "avis"])
@@ -53,6 +66,7 @@ def main():
             except Exception as e:
                 print("échec", c, e, flush=True)
         b.close()
+
 
 if __name__ == "__main__":
     main()

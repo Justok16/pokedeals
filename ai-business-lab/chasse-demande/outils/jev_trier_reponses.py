@@ -22,6 +22,7 @@ Usage :
     echo "texte" | python3 jev_trier_reponses.py -
 Sortie : une ligne JSON par email.
 """
+
 import json
 import os
 import re
@@ -50,13 +51,13 @@ ACTIONS_AUTO = {
     "rejet_adresse": "chercher une autre adresse publique",
     "hors_sujet": "archiver",
     "refus": "noter le refus, remercier, ne pas relancer",
-    "question": None,   # une réponse engage l'image de l'utilisateur → Claude au minimum
-    "interet": None,    # peut mener à un accord → toujours l'humain
+    "question": None,  # une réponse engage l'image de l'utilisateur → Claude au minimum
+    "interet": None,  # peut mener à un accord → toujours l'humain
 }
 TOUJOURS_HUMAIN = {"interet"}
 
-SEUIL_AUTO = 0.85     # au-dessus : action automatique si la catégorie le permet
-SEUIL_CLAUDE = 0.55   # entre les deux : relecture par Claude ; en dessous : humain
+SEUIL_AUTO = 0.85  # au-dessus : action automatique si la catégorie le permet
+SEUIL_CLAUDE = 0.55  # entre les deux : relecture par Claude ; en dessous : humain
 
 # -----------------------------------------------------------------------------
 
@@ -64,7 +65,7 @@ QUESTIONS = {
     "categorie": {
         "type": "choice",
         "instructions": "We offered an app vendor to take over their Atlassian "
-                        "Connect app. Classify this email received in reply.",
+        "Connect app. Classify this email received in reply.",
         "criteria": CATEGORIES,
     },
 }
@@ -83,15 +84,23 @@ def aiguiller(categorie, confiance):
 
 
 def jev(texte, cle):
-    corps = json.dumps({"state": texte[:6000], "model": "jev-latest",
-                        "questions": QUESTIONS}).encode()
+    corps = json.dumps(
+        {"state": texte[:6000], "model": "jev-latest", "questions": QUESTIONS}
+    ).encode()
     if cle:
-        req = urllib.request.Request(API, data=corps, headers={
-            "Authorization": f"Bearer {cle}", "Content-Type": "application/json"})
+        req = urllib.request.Request(
+            API,
+            data=corps,
+            headers={
+                "Authorization": f"Bearer {cle}",
+                "Content-Type": "application/json",
+            },
+        )
         reponse = urllib.request.urlopen(req, timeout=30)
     else:
         import base64
         import http.cookiejar
+
         pot = http.cookiejar.MozillaCookieJar(os.environ["JEV_COOKIES"])
         pot.load(ignore_discard=True, ignore_expires=True)
         ouvreur = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(pot))
@@ -104,11 +113,23 @@ def jev(texte, cle):
 def regles(texte):
     t = texte.lower()
     for cat, motif in (
-        ("rejet_adresse", r"delivery status notification|couldn'?t be created|address not found|may not exist"),
+        (
+            "rejet_adresse",
+            r"delivery status notification|couldn'?t be created|address not found|may not exist",
+        ),
         ("absence", r"out of (the )?office|on vacation|on leave until"),
-        ("accuse_reception", r"just confirming|request .*(received|has been received)|auto-?reply|we have received your"),
-        ("refus", r"not interested|decline|no thanks|we (are|will be) (migrat|releas)|already (migrat|working on)"),
-        ("interet", r"\binterested\b|let'?s talk|schedule a call|\bterms\b|happy to discuss|open to"),
+        (
+            "accuse_reception",
+            r"just confirming|request .*(received|has been received)|auto-?reply|we have received your",
+        ),
+        (
+            "refus",
+            r"not interested|decline|no thanks|we (are|will be) (migrat|releas)|already (migrat|working on)",
+        ),
+        (
+            "interet",
+            r"\binterested\b|let'?s talk|schedule a call|\bterms\b|happy to discuss|open to",
+        ),
     ):
         if re.search(motif, t):
             return cat, None, "regles"
@@ -119,7 +140,9 @@ def main():
     cle = os.environ.get("TYPESAFE_API_KEY")
     jev_dispo = bool(cle or os.environ.get("JEV_COOKIES"))
     for chemin in sys.argv[1:] or ["-"]:
-        texte = sys.stdin.read() if chemin == "-" else open(chemin, encoding="utf-8").read()
+        texte = (
+            sys.stdin.read() if chemin == "-" else open(chemin, encoding="utf-8").read()
+        )
         erreur = None
         try:
             cat, conf, moteur = jev(texte, cle) if jev_dispo else regles(texte)
@@ -127,9 +150,14 @@ def main():
             cat, conf, moteur = regles(texte)
             erreur = str(e)[:120]
         voie = aiguiller(cat, conf)
-        res = {"source": chemin, "categorie": cat, "confiance": conf, "moteur": moteur,
-               "aiguillage": voie,
-               "action": ACTIONS_AUTO.get(cat) if voie == "auto" else None}
+        res = {
+            "source": chemin,
+            "categorie": cat,
+            "confiance": conf,
+            "moteur": moteur,
+            "aiguillage": voie,
+            "action": ACTIONS_AUTO.get(cat) if voie == "auto" else None,
+        }
         if erreur:
             res["erreur_jev"] = erreur
         print(json.dumps(res, ensure_ascii=False))
