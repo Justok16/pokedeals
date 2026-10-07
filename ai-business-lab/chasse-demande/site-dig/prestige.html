@@ -20,6 +20,8 @@
 <meta name="theme-color" content="#0d1330">
 <!-- Avant le lancement officiel : ne pas indexer (retirer à la création de l’entreprise) -->
 <meta name="robots" content="noindex">
+<link rel="preload" as="image" href="demos/prestige/maison-large-1920.webp" media="(min-aspect-ratio:4/5)" fetchpriority="high">
+<link rel="preload" as="image" href="demos/prestige/maison-haute-900.webp" media="(max-aspect-ratio:4/5)" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -180,8 +182,8 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 
 /* page Prestige */
 .pheros{position:relative;min-height:92vh;display:flex;align-items:flex-end;padding:140px 0 72px;background:#0b0a14}
-.pheros::before{content:"";position:absolute;inset:0;background:url(demos/prestige/maison-large.jpg) center 35%/cover;opacity:.8}
-@media (max-aspect-ratio:4/5){.pheros::before{background-image:url(demos/prestige/maison-haute.jpg)}}
+.pheros::before{content:"";position:absolute;inset:0;background:url(demos/prestige/maison-large-1920.webp) center 35%/cover;opacity:.8}
+@media (max-aspect-ratio:4/5){.pheros::before{background-image:url(demos/prestige/maison-haute-900.webp)}}
 .pheros::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,20,.25) 0%,rgba(11,10,20,.45) 40%,rgba(11,10,20,.92) 85%,#0b0a14 100%)}
 .pheros .cadre{position:relative;z-index:1}
 .pheros h1{font-size:clamp(2.5rem,6.2vw,4.8rem);max-width:17ch;text-wrap:balance;margin:1.1rem 0 1.2rem}
@@ -235,11 +237,24 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 .liens .btn{white-space:nowrap}
 @media (max-width:420px){.liens .btn{padding:.7rem .95rem;font-size:.92rem}.logo b{font-size:1.35rem}}
 @media (max-width:350px){.logo small{font-size:.74rem;letter-spacing:.04em}.liens .btn{padding:.65rem .75rem;font-size:.86rem}}
-@media (max-width:699px){a[href^="demos/"],a[href="mentions-legales.html"]{display:inline-block;padding:13px 0}}</style>
+@media (max-width:699px){a[href^="demos/"]:not(.btn),a[href="mentions-legales.html"]{display:inline-block;padding:13px 0}}
+/* harmonisation avec l'accueil (07/10) : un seul accent orange, sans dégradé */
+.avis-ouverture{background:#1f3b2d;color:#f4f1ea;text-align:center;font-size:.9rem;padding:.55rem 1rem;line-height:1.4}
+.btn.principal,.badge,.choix button.actif{background:#b4460f;box-shadow:none;color:#fff}
+.btn.principal:hover{background:#c4521a}
+.degrade{background:none;color:#ff7a2f;-webkit-text-fill-color:currentColor}
+.etape .n{background:none;color:#b4460f;-webkit-text-fill-color:currentColor}
+.i1,.i2,.i3,.i4{background:#b4460f}
+.inclus .ic{background:#8a5a2b}
+.logo i{background:linear-gradient(135deg,#ff7a2f,#7b5cff)}
+@media (max-width:520px){.pheros{padding-top:196px}.pheros .actions{display:grid;gap:12px}.pheros .actions .btn{white-space:normal;text-align:center}}
+@media (min-width:521px) and (max-width:900px){.pheros{padding-top:170px}}
+</style>
 </head>
 <body>
-<nav id="nav"><div class="cadre">
- <a href="index.html" class="logo" aria-label="DIG16, accueil"><i>D</i><span><b>DIG16</b><small>Sites internet</small></span></a>
+<nav id="nav"><div class="avis-ouverture" role="status">Ouverture prochaine : DIG16 est en cours d’immatriculation. Aucune commande n’est possible avant. Vous pouvez déjà découvrir les offres et les démos.</div>
+<div class="cadre">
+ <a href="index.html" class="logo"><i>D</i><span><b>DIG16</b><small>Sites internet</small></span></a>
  <div class="liens">
   <a href="index.html#offres">Offres</a><a href="prestige.html" aria-current="page">Prestige</a><a href="index.html#demos">Démos</a><a href="index.html#faq">Questions</a>
   <a href="index.html#contact" class="btn principal">Ma démo gratuite</a>
