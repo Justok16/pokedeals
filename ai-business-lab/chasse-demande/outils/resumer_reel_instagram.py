@@ -42,7 +42,7 @@ def resumer_fichier(brut, code, legende, dossier, cookies='/tmp/cj.txt', origine
                     '-c:a', 'aac', '-b:a', '32k', '-ac', '1', petit], check=True)
     corps = f'/tmp/reel-{code}-corps.json'
     json.dump({'texte': f'Légende ({origine}) : ' + (legende or '(aucune)'), 'consigne': CONSIGNE.replace('reel Instagram', origine),
-               'media_base64': base64.b64encode(open(petit, 'rb').read()).decode(), 'media_type': 'video/mp4'}, open(corps, 'w'))
+               'media_base64': base64.b64encode(open(petit, 'rb').read()).decode(), 'media_type': 'video/mp4', 'modeles': os.environ.get('MODELES', '')}, open(corps, 'w'))
     r = subprocess.run(['curl', '-s', '-m', '280', '-b', cookies, '-H', 'content-type: application/json',
                         '--data-binary', '@' + corps, RELAIS], capture_output=True, text=True).stdout
     for f in (corps, petit, brut):
