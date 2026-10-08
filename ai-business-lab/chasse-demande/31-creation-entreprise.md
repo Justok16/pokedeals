@@ -77,6 +77,15 @@ du Drive « Dig ». Sources lues le 08/10 : Service-Public F36746 et F23282 (« 
   confirmer par le SIE). Déclarations URSSAF trimestrielles (mensuelles possibles). Franchise en base de TVA. ACRE demandée.
 - **Dossier déposé au guichet le 08/10/2026** (décision de l'utilisateur de ne pas attendre la CPAM ni
   l'Agefiph ; l'aide Agefiph, à demander avant l'immatriculation, est donc probablement perdue).
+- **Classement par le greffe (08/10/2026)** : la réclamation du greffe du tribunal de commerce d'Angoulême
+  porte sur une « immatriculation principale dématérialisée **RCS** » : l'activité a été classée
+  **commerciale** (prestations de services BIC), sans doute par le choix « hébergement » au guichet, et non
+  libérale. Cotisations micro (Service-Public F36232, « Vérifié le 01 janvier 2026 », lu le 08/10) :
+  **21,2 %** du chiffre d'affaires pour les prestations de services commerciales ou artisanales (22,9 % avec
+  versement libératoire), contre 25,6 % en libéral non réglementé : **classement conservé**, plus favorable.
+  Conséquence : à l'immatriculation, ajouter « RCS Angoulême » à côté du SIREN sur les factures, devis et CGV
+  **[à vérifier sur F31808 au moment de le faire]**. Corrections demandées : nom de domaine du document de
+  synthèse (à supprimer) et déclaration de non-condamnation non signée ; délai 15 jours.
 - **ACRE (formulaire Urssaf « Demande-ACRE_2026 », lu le 08/10/2026)** : à transmettre « dès la création
   d'activité » sur autoentrepreneur.urssaf.fr, au plus tard 60 jours après le début d'activité. Cas retenu :
   « Exercice de l'activité au sein d'une zone France ruralités revitalisation (ZFRR) ou … (ZFRR+) », pièce :
