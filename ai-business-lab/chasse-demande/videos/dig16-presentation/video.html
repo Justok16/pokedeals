@@ -124,7 +124,7 @@ h1,h2{font-family:Fraunces;font-weight:700;line-height:1.06;letter-spacing:-.01e
  <div class="fin-logo" id="Flogo"><i>D</i><b>DIG16</b><small>Sites internet pour artisans et commerçants</small></div>
  <p id="F1" style="position:absolute;left:0;right:0;top:1200px;text-align:center;font-family:Fraunces;font-size:84px;font-weight:700;opacity:0">Vous jugez sur pièce.</p>
  <div class="url" id="Furl">dig16.fr</div>
- <div class="credit" id="Fcredit">Voix de synthèse Piper « siwis » (CC BY 4.0) · musique originale DIG16</div>
+ <div class="credit" id="Fcredit">Voix de synthèse · musique originale DIG16</div>
 </div>
 
 <script>
@@ -141,25 +141,25 @@ window.seek=function(t){
   // A 0 → 5.3
   scene($('A'),t,0,5.3,.35);
   document.querySelectorAll('#A1 .mot').forEach((m,i)=>up(m,p(t,.6+i*.27,1.2+i*.27),40));
-  up($('A2'),p(t,3.35,3.9),50);
+  up($('A2'),p(t,3.45,4.0),50);
   $('Atel').style.transform=`translateY(${(1-p(t,0,1.1))*260}px)`;
   const n=Math.floor(cl((t-.9)/1.8)*requete.length);$('saisie').textContent=requete.slice(0,n);
   $('cur').style.opacity=(Math.floor(t*2.2)%2)?1:.15;
   ['r1','r2','r3','r4'].forEach((r,i)=>up($(r),p(t,2.8+i*.18,3.3+i*.18),30));
   // B 5.3 → 10.4
-  scene($('B'),t,5.3,10.4);
+  scene($('B'),t,5.3,10.9);
   up($('B1'),p(t,5.6,6.1));up($('B2'),p(t,7.0,7.5));
   $('Btel').style.transform=`translateY(${(1-p(t,5.3,6.3))*200}px) rotate(${-3+3*p(t,5.3,6.6)}deg)`;
-  const g=p(t,8.2,9.0);$('Btel').style.filter=`grayscale(${g}) brightness(${1-.45*g})`;
-  up($('Bappel'),p(t,8.3,8.9),40);$('Bappel').style.transform+=' translateX(-50%)';
+  const g=p(t,8.4,9.2);$('Btel').style.filter=`grayscale(${g}) brightness(${1-.45*g})`;
+  up($('Bappel'),p(t,8.5,9.1),40);$('Bappel').style.transform+=' translateX(-50%)';
   // C 10.4 → 19.3
-  scene($('C'),t,10.4,19.3);
-  up($('C1'),p(t,10.6,11.2));up($('C2'),p(t,12.3,12.9),30);
-  const e=p(t,10.6,12.0),dr=Math.sin((t-10.4)*.6)*8;
+  scene($('C'),t,10.9,19.3);
+  up($('C1'),p(t,11.1,11.7));up($('C2'),p(t,12.9,13.5),30);
+  const e=p(t,11.1,12.5),dr=Math.sin((t-10.9)*.6)*8;
   $('t1').style.transform=`translate(${(1-e)*-300}px,${(1-e)*200+dr}px) rotate(${-9*e}deg)`;$('t1').style.opacity=e;
   $('t3').style.transform=`translate(${(1-e)*300}px,${(1-e)*200-dr}px) rotate(${9*e}deg)`;$('t3').style.opacity=e;
-  $('t2').style.transform=`translateY(${(1-p(t,10.8,12.0))*400+dr*.5}px)`;$('t2').style.opacity=p(t,10.8,11.6);
-  up($('ch1'),p(t,15.5,16.0),30);up($('ch2'),p(t,16.6,17.1),30);
+  $('t2').style.transform=`translateY(${(1-p(t,11.3,12.5))*400+dr*.5}px)`;$('t2').style.opacity=p(t,11.3,12.1);
+  up($('ch1'),p(t,15.9,16.4),30);up($('ch2'),p(t,16.9,17.4),30);
   // D 19.3 → 25.9
   scene($('D'),t,19.3,25.9);
   up($('s1'),p(t,19.6,20.2));up($('s2'),p(t,21.3,21.9));up($('s3'),p(t,23.0,23.6));

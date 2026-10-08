@@ -26,26 +26,23 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <style>/* scroll-craft (MIT), voir moteur/LICENCE-scrollcraft.txt *//*! scrollcraft (c) 2026 Nate Herk, licence MIT : voir LICENCE-scrollcraft.txt */
 :root{--sc-canvas: #08090b;--sc-surface: #101217;--sc-ink: #f4f2ef;--sc-ink-soft: #9a9ba1;--sc-accent: #d8ff3e;--sc-accent-ink: #08090b;--sc-hairline: color-mix(in oklab, var(--sc-ink) 12%, transparent);--sc-hairline-strong: color-mix(in oklab, var(--sc-ink) 22%, transparent);--sc-font-display: "Instrument Sans", "Geist", system-ui, sans-serif;--sc-font-text: "Geist", system-ui, sans-serif;--sc-font-mono: "Geist Mono", ui-monospace, monospace;--sc-t-xs: clamp(.75rem, .72rem + .15vw, .82rem);--sc-t-sm: clamp(.875rem, .84rem + .18vw, .95rem);--sc-t-base: clamp(1rem, .96rem + .22vw, 1.125rem);--sc-t-lg: clamp(1.2rem, 1.1rem + .5vw, 1.5rem);--sc-t-xl: clamp(1.6rem, 1.35rem + 1.2vw, 2.25rem);--sc-t-2xl: clamp(2.1rem, 1.6rem + 2.4vw, 3.4rem);--sc-t-3xl: clamp(2.8rem, 1.9rem + 4.2vw, 5rem);--sc-t-4xl: clamp(3.4rem, 1.9rem + 6.6vw, 7.5rem);--sc-track-tight: -.035em;--sc-track-snug: -.02em;--sc-track-normal: -.005em;--sc-track-wide: .08em;--sc-leading-none: .94;--sc-leading-tight: 1.06;--sc-leading-body: 1.62;--sc-measure: 62ch;--sc-1: .25rem;--sc-2: .5rem;--sc-3: .75rem;--sc-4: 1rem;--sc-5: 1.5rem;--sc-6: 2rem;--sc-7: 3rem;--sc-8: 4rem;--sc-9: 6rem;--sc-10: 8rem;--sc-11: 12rem;--sc-section: clamp(4.5rem, 9vw, 11rem);--sc-gutter: clamp(1.25rem, 5vw, 5.5rem);--sc-maxw: 82rem;--sc-r-sm: 6px;--sc-r-md: 12px;--sc-r-lg: 20px;--sc-r-pill: 999px;--sc-shadow-color: 220 40% 2%;--sc-e1: 0 1px 2px hsl(var(--sc-shadow-color) / .28), 0 2px 6px -1px hsl(var(--sc-shadow-color) / .2);--sc-e2: 0 2px 4px hsl(var(--sc-shadow-color) / .24), 0 8px 18px -4px hsl(var(--sc-shadow-color) / .3);--sc-e3: 0 4px 8px hsl(var(--sc-shadow-color) / .22), 0 18px 40px -8px hsl(var(--sc-shadow-color) / .38), 0 48px 90px -24px hsl(var(--sc-shadow-color) / .3);--sc-edge: inset 0 1px 0 color-mix(in oklab, var(--sc-ink) 10%, transparent);--sc-ease-out: cubic-bezier(.23, 1, .32, 1);--sc-ease-in-out: cubic-bezier(.77, 0, .175, 1);--sc-ease-drawer: cubic-bezier(.32, .72, 0, 1);--sc-d-fast: .16s;--sc-d-base: .24s;--sc-d-slow: .42s;--sc-z-stage: 1;--sc-z-copy: 20;--sc-z-chrome: 60}*,*:before,*:after{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}body{margin:0;background:var(--sc-canvas);color:var(--sc-ink);font-family:var(--sc-font-text);font-size:var(--sc-t-base);line-height:var(--sc-leading-body);letter-spacing:var(--sc-track-normal);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-synthesis-weight:none;overflow-x:clip}img,video,canvas,svg{display:block;max-width:100%}button,input,select,textarea{font:inherit;color:inherit}::selection{background:var(--sc-accent);color:var(--sc-accent-ink)}:root{caret-color:var(--sc-accent);accent-color:var(--sc-accent)}:focus-visible{outline:2px solid var(--sc-accent);outline-offset:3px;border-radius:var(--sc-r-sm)}:where(a){color:inherit;text-decoration-thickness:1px;text-underline-offset:.22em}@supports (scrollbar-color: auto){html{scrollbar-color:color-mix(in oklab,var(--sc-ink) 26%,transparent) transparent;scrollbar-width:thin}}:where(table,.sc-nums,[data-sc-count]){font-variant-numeric:tabular-nums}.sc-display{font-family:var(--sc-font-display);font-weight:500;line-height:var(--sc-leading-none);letter-spacing:var(--sc-track-tight);text-wrap:balance;margin:0}.sc-display--xl{font-size:var(--sc-t-4xl)}.sc-display--lg{font-size:var(--sc-t-3xl)}.sc-display--md{font-size:var(--sc-t-2xl);letter-spacing:var(--sc-track-snug)}.sc-lede{font-size:var(--sc-t-lg);line-height:1.44;letter-spacing:var(--sc-track-snug);color:var(--sc-ink);max-width:46ch;text-wrap:pretty;margin:0}.sc-body{max-width:var(--sc-measure);color:var(--sc-ink-soft);text-wrap:pretty;margin:0}.sc-label{font-family:var(--sc-font-mono);font-size:var(--sc-t-xs);letter-spacing:var(--sc-track-wide);text-transform:uppercase;color:var(--sc-ink-soft)}.sc-wrap{width:100%;max-width:var(--sc-maxw);margin-inline:auto;padding-inline:var(--sc-gutter)}.sc-section{padding-block:var(--sc-section)}.sc-stack>*+*{margin-top:var(--sc-4)}.sc-stack>:is(h1,h2,h3){margin-top:var(--sc-7)}.sc-stack>:is(h1,h2,h3):first-child{margin-top:0}.sc-rule{height:1px;border:0;background:var(--sc-hairline);margin:0}.sc-act--pinned{position:relative}.sc-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:clip;z-index:var(--sc-z-stage)}.sc-stage :is(video[data-sc-scrub],canvas[data-sc-sequence],.sc-stage__poster){position:absolute;inset:0;width:100%;height:100%;object-fit:cover}video[data-sc-scrub]{opacity:0;transition:opacity .38s var(--sc-ease-out)}.sc-has-clip video[data-sc-scrub]{opacity:1}.sc-stage__poster{z-index:0;transition:opacity .38s var(--sc-ease-out)}.sc-has-clip .sc-stage__poster{opacity:0}.sc-scrim{position:absolute;inset:0;pointer-events:none;z-index:1;background:linear-gradient(var(--sc-scrim-angle, 180deg),color-mix(in oklab,var(--sc-canvas) var(--sc-scrim-a, 78%),transparent) 0%,color-mix(in oklab,var(--sc-canvas) 30%,transparent) 42%,transparent 68%)}.sc-scrim--bottom{--sc-scrim-angle: 0deg}.sc-scrim--left{--sc-scrim-angle: 90deg}.sc-scrim--right{--sc-scrim-angle: 270deg}.sc-scrim--lead{background:linear-gradient(to top right,color-mix(in oklab,var(--sc-canvas) 94%,transparent) 0%,color-mix(in oklab,var(--sc-canvas) 72%,transparent) 30%,color-mix(in oklab,var(--sc-canvas) 30%,transparent) 52%,transparent 72%)}.sc-scrim--trail{background:linear-gradient(to top left,color-mix(in oklab,var(--sc-canvas) 94%,transparent) 0%,color-mix(in oklab,var(--sc-canvas) 72%,transparent) 30%,color-mix(in oklab,var(--sc-canvas) 30%,transparent) 52%,transparent 72%)}.sc-scrim--band{background:linear-gradient(to top,color-mix(in oklab,var(--sc-canvas) 94%,transparent) 0%,color-mix(in oklab,var(--sc-canvas) 74%,transparent) 22%,color-mix(in oklab,var(--sc-canvas) 30%,transparent) 42%,transparent 58%)}.sc-scrim--vignette{background:radial-gradient(120% 90% at 50% 45%,transparent 40%,color-mix(in oklab,var(--sc-canvas) 70%,transparent) 100%)}.sc-copy{position:absolute;z-index:var(--sc-z-copy);inset-inline:var(--sc-gutter);max-width:min(46rem,76vw);will-change:opacity,transform}.sc-copy--lead{left:var(--sc-gutter);bottom:clamp(3rem,12vh,9rem)}.sc-copy--center{inset-inline:auto;left:50%;top:50%;translate:-50% -50%;text-align:center}.sc-copy--trail{inset-inline:auto;right:var(--sc-gutter);bottom:clamp(3rem,12vh,9rem);text-align:right}[data-sc-cue]{opacity:0;will-change:opacity,transform}.sc-ready [data-sc-cue]{transition:none}.sc-split{display:inline-block;overflow:hidden;vertical-align:top}.sc-split--line{display:block;padding-bottom:.14em;margin-bottom:-.14em}.sc-split__i{display:inline-block;will-change:transform,opacity}.sc-is-split{opacity:1!important}[data-sc-pan]{display:flex;will-change:transform}[data-sc-reveal]{will-change:clip-path}[data-sc-parallax]{will-change:transform}[data-sc-in],[data-sc-stagger]>*{opacity:0;transform:translate3d(0,14px,0);transition:opacity .62s var(--sc-ease-out),transform .62s var(--sc-ease-out)}[data-sc-in].sc-in,[data-sc-stagger]>.sc-in{opacity:1;transform:none}[data-sc-tilt]{transform-style:preserve-3d;will-change:transform}[data-sc-magnet]{will-change:transform}[data-sc-spotlight]{isolation:isolate}:where([data-sc-spotlight]){position:relative}[data-sc-spotlight]:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(28rem 28rem at calc(var(--sc-mx, .5) * 100%) calc(var(--sc-my, .5) * 100%),color-mix(in oklab,var(--sc-accent) 16%,transparent),transparent 70%);opacity:0;transition:opacity var(--sc-d-slow) var(--sc-ease-out)}[data-sc-spotlight]:hover:after{opacity:1}[data-sc-mode=worldflight]{position:relative}.sc-world{position:fixed;inset:0;overflow:clip;z-index:var(--sc-z-stage);background:var(--sc-canvas)}.sc-world__seg{position:absolute;inset:0;opacity:0;will-change:opacity}.sc-world__seg>:is(video,img,canvas){position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.sc-world__poster{z-index:0;transform-origin:50% 50%;transition:opacity .42s var(--sc-ease-out)}.sc-world__seg>video{z-index:1}.sc-world__seg.sc-has-clip .sc-world__poster{opacity:0}video[data-sc-scrub].sc-has-clip{opacity:1}.sc-world__copy{position:fixed;inset:0;z-index:var(--sc-z-copy);pointer-events:none}.sc-world__scrim{position:absolute;inset:0;pointer-events:none;z-index:0}[data-sc-copy]{opacity:0;pointer-events:none;will-change:opacity,transform}.sc-ready [data-sc-copy]{transition:none}.sc-world__spacer{pointer-events:none}[data-sc-progress]{position:fixed;inset:0 0 auto;height:2px;z-index:var(--sc-z-chrome);background:var(--sc-accent);transform-origin:0 50%;transform:scaleX(0);will-change:transform}.sc-grain{position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.045}.sc-grain:before{content:"";position:absolute;inset:-50%;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>")}@media (prefers-reduced-motion: reduce){[data-sc-in],[data-sc-stagger]>*{transform:none;transition-duration:.22s}[data-sc-parallax],[data-sc-pan],.sc-split__i{transform:none!important}[data-sc-reveal]{clip-path:none!important}[data-sc-act=pan] .sc-stage,[data-sc-act=pan] [data-sc-stage]{overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x proximity}[data-sc-pan]>*{scroll-snap-align:center}[data-sc-spotlight]:after{display:none}.sc-world__poster,[data-sc-copy]{transform:none!important}}@media (max-width: 860px){.sc-copy{inset-inline:var(--sc-gutter);max-width:none}.sc-copy--trail{text-align:left}.sc-stage{height:100svh}.sc-scrim--trail{background:linear-gradient(to top,color-mix(in oklab,var(--sc-canvas) 94%,transparent) 0%,color-mix(in oklab,var(--sc-canvas) 74%,transparent) 22%,color-mix(in oklab,var(--sc-canvas) 30%,transparent) 42%,transparent 58%)}}
-/* vidéo de présentation (08/10) */
-.lien-film{display:inline-flex;align-items:center;gap:.8rem;margin-top:1.3rem;color:var(--encre);text-decoration:none;font-weight:600}
-.lien-film .rond{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(255,122,47,.16);border:1px solid rgba(255,122,47,.55);transition:transform .2s}
-.lien-film:hover .rond{transform:scale(1.08)}
-.lien-film svg{width:20px;height:20px;fill:#ff9a62;margin-left:3px}
-.film-cadre{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
-.film-bloc h2{font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,4vw,3.1rem);line-height:1.08;margin:.4rem 0 1rem}
-.film-bloc .sur{color:#ff7a2f}
-.film-bloc p{color:var(--doux);font-size:1.1rem;max-width:34rem}
-.film-points{list-style:none;margin:1.6rem 0 0;padding:0;display:grid;gap:.7rem}
-.film-points li{display:flex;gap:.7rem;align-items:baseline}
-.film-points li::before{content:"";flex:0 0 8px;height:8px;border-radius:50%;background:var(--orange);transform:translateY(-2px)}
-.film-tel{position:relative;justify-self:center;width:min(340px,78vw);aspect-ratio:9/16;border-radius:40px;padding:10px;background:#05070f;box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 2px #2b3566}
-.film-tel video{width:100%;height:100%;object-fit:cover;border-radius:31px;display:block;background:#0c1129}
-.film-lecture{position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:50%;border:0;cursor:pointer;background:#b4460f;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(255,122,47,.55);animation:pouls 2.2s infinite}
-.film-lecture svg{width:38px;height:38px;fill:#fff;margin-left:6px}
-.film-lecture[hidden]{display:none}
-@keyframes pouls{0%{box-shadow:0 0 0 0 rgba(255,122,47,.5)}70%{box-shadow:0 0 0 26px rgba(255,122,47,0)}100%{box-shadow:0 0 0 0 rgba(255,122,47,0)}}
-@media (prefers-reduced-motion:reduce){.film-lecture{animation:none}}
-@media (max-width:820px){.film-cadre{grid-template-columns:minmax(0,1fr);gap:40px}}
+/* vidéo de présentation au centre de l'éventail (08/10) */
+.eventail .fig-film{transform:translate(-50%,-52%);z-index:3;width:300px;aspect-ratio:9/16;padding:9px}
+.eventail:hover .fig-film{transform:translate(-50%,-53%) scale(1.02)}
+.fig-film video{width:100%;height:100%;object-fit:cover;border-radius:22px;display:block;background:#0c1129}
+.film-son{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;align-items:center;gap:.7rem;border:0;cursor:pointer;background:rgba(12,17,41,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font:inherit;font-weight:700;font-size:.92rem;line-height:1.15;text-align:left;padding:.6rem 1rem .6rem .6rem;border-radius:999px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.film-son small{display:block;font-weight:500;font-size:.74rem;color:#c9cfe6}
+.film-son .rond{flex:0 0 42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#b4460f;animation:pouls 2.2s infinite}
+.film-son svg{width:18px;height:18px;fill:#fff;margin-left:3px}
+.film-son[hidden]{display:none}
+@keyframes pouls{0%{box-shadow:0 0 0 0 rgba(255,122,47,.55)}70%{box-shadow:0 0 0 16px rgba(255,122,47,0)}100%{box-shadow:0 0 0 0 rgba(255,122,47,0)}}
+@media (prefers-reduced-motion:reduce){.film-son .rond{animation:none}}
+@media (max-width:820px){
+ .heros .cadre>div:first-child{display:contents}
+ .heros h1{order:1}.eventail{order:2}.heros .accroche{order:3}.heros .actions{order:4}.heros .confiance{order:5}
+ .eventail .fig-film{width:206px}
+ .film-son{bottom:14px;font-size:.84rem}
+}
 </style>
 <style>
 /* DIG16 : la nuit bleue de la marque, le papier des devis, un seul accent orange. */
@@ -307,12 +304,11 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
    <a href="#contact" class="btn principal" id="cta-haut">Recevoir ma démo gratuite</a>
    <a href="#demos" class="btn second">Voir les démos</a>
   </div>
-  <a href="#presentation" class="lien-film" id="lien-film"><span class="rond" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>La présentation en 38&nbsp;secondes</a>
   <div class="confiance"><div><b>0 €</b> de création</div><div><b>7 jours</b> pour être en ligne</div><div><b>100 %</b> à votre nom</div></div>
  </div>
- <div class="eventail" aria-hidden="true">
-  <figure><img src="img/vitrine-essentiel-tel-300.webp" srcset="img/vitrine-essentiel-tel-300.webp 300w, img/vitrine-essentiel-tel-470.webp 470w, img/vitrine-essentiel-tel.webp 560w" sizes="(max-width:820px) 180px, 250px" width="560" height="1212" alt=""></figure>
-  <figure><img src="img/vitrine-prestige-tel-300.webp" srcset="img/vitrine-prestige-tel-300.webp 300w, img/vitrine-prestige-tel-470.webp 470w, img/vitrine-prestige-tel.webp 560w" sizes="(max-width:820px) 180px, 250px" width="560" height="1212" alt=""></figure>
+ <div class="eventail">
+  <figure><img src="img/vitrine-essentiel-tel-300.webp" srcset="img/vitrine-essentiel-tel-300.webp 300w, img/vitrine-essentiel-tel-470.webp 470w, img/vitrine-essentiel-tel.webp 560w" sizes="(max-width:820px) 180px, 250px" width="560" height="1212" alt="" aria-hidden="true"></figure>
+  <figure class="fig-film"><video id="film" muted playsinline loop preload="none" poster="video/affiche.webp" width="720" height="1280" aria-label="Vidéo de présentation de DIG16, 38 secondes, avec voix et musique"><source src="video/presentation.mp4" type="video/mp4"><source src="video/presentation.webm" type="video/webm"></video><button type="button" class="film-son" id="film-son"><span class="rond" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span><span>Regarder avec le son<small>Présentation · 38 s</small></span></button></figure>
   <figure><img src="img/vitrine-paysagiste-tel-300.webp" srcset="img/vitrine-paysagiste-tel-300.webp 300w, img/vitrine-paysagiste-tel-470.webp 470w, img/vitrine-paysagiste-tel.webp 560w" sizes="(max-width:820px) 180px, 250px" width="560" height="1212" alt=""></figure>
  </div>
 </div></header>
@@ -352,22 +348,6 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
   <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4.5"/><path d="M11.2 11.8 20 3m-3.5 3.5 2.5 2.5M14 9l2 2"/></svg><h3>Votre site vous appartient</h3><p>Site et nom de domaine à votre nom. Après les 6 premiers mois, vous partez quand vous voulez, avec votre site.</p></div>
   <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2.5 4.5 13.5H12l-1 8 8.5-11H12z"/></svg><h3>En ligne en 7 jours</h3><p>20 minutes ensemble pour vos textes et vos photos. Je m’occupe de tout le reste (3 semaines pour Prestige).</p></div>
   <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><h3>Suivi chaque mois</h3><p>Modifications sous 3 jours ouvrés, et un petit bilan mensuel : combien de personnes vous ont trouvé.</p></div>
- </div>
-</div></section>
-
-<section id="presentation" class="bloc film-bloc"><div class="cadre film-cadre">
- <div data-sc-in>
-  <div class="sur">En 38 secondes</div>
-  <h2>Ce que DIG16 change pour vous</h2>
-  <p>Le problème, la solution, et ce que vous y gagnez&nbsp;: tout est dans cette courte vidéo. Montez le son.</p>
-  <ul class="film-points"><li>Un site pensé pour le téléphone</li><li>En ligne en 7 jours, à votre nom</li><li>Votre page d’accueil refaite gratuitement, avant toute décision</li></ul>
- </div>
- <div class="film-tel" data-sc-in>
-  <video id="film" playsinline controls preload="none" poster="video/affiche.webp" width="720" height="1280" aria-label="Vidéo de présentation de DIG16, 38 secondes, avec voix et musique">
-   <source src="video/presentation.mp4" type="video/mp4">
-   <source src="video/presentation.webm" type="video/webm">
-  </video>
-  <button type="button" class="film-lecture" id="film-lecture" aria-label="Lire la vidéo de présentation, avec le son"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button>
  </div>
 </div></section>
 
@@ -529,16 +509,19 @@ document.querySelectorAll('.choix').forEach(g=>g.addEventListener('click',e=>{
 // barre du bas (mobile) : visible seulement quand le bouton du haut et le formulaire sont hors de l’écran
 const barre=document.getElementById('barre'),vis=new Map();
 const ob2=new IntersectionObserver(e=>{e.forEach(x=>vis.set(x.target,x.isIntersecting));barre.classList.toggle('cache',[...vis.values()].some(Boolean))},{rootMargin:'0px 0px 110px 0px'});
-[document.getElementById('cta-haut'),document.getElementById('contact'),document.querySelector('.avant-apres'),document.getElementById('presentation')].forEach(el=>{vis.set(el,true);ob2.observe(el)});
+[document.getElementById('cta-haut'),document.getElementById('contact'),document.querySelector('.avant-apres'),document.querySelector('.fig-film')].forEach(el=>{vis.set(el,true);ob2.observe(el)});
 // formulaire (branchement à l'envoi d'email prévu à la mise en ligne)
 document.getElementById('form').onsubmit=e=>{e.preventDefault();document.getElementById('msg').textContent='Le formulaire sera ouvert à l’immatriculation de DIG16. Merci de votre patience.'};
 </script>
 <script>
-/* vidéo de présentation : lecture avec le son au clic, depuis la section ou le lien du haut */
-(function(){var v=document.getElementById('film'),b=document.getElementById('film-lecture'),l=document.getElementById('lien-film');if(!v)return;
-function lire(){b.hidden=true;v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){b.hidden=false})}
-b.addEventListener('click',lire);v.addEventListener('play',function(){b.hidden=true});v.addEventListener('ended',function(){b.hidden=false});
-l.addEventListener('click',function(e){e.preventDefault();document.getElementById('presentation').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});setTimeout(lire,650)});})();
+/* vidéo de présentation (08/10) : aperçu muet en boucle à l'arrivée (sauf mouvement réduit ou économie de données),
+   puis lecture depuis le début avec le son au clic sur « Regarder avec le son » */
+(function(){var v=document.getElementById('film'),b=document.getElementById('film-son');if(!v||!b)return;
+var calme=matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData);
+function apercu(){if(calme||!v.muted)return;v.preload='auto';var p=v.play();if(p&&p.catch)p.catch(function(){})}
+if(document.readyState==='complete')setTimeout(apercu,300);else addEventListener('load',function(){setTimeout(apercu,300)});
+b.addEventListener('click',function(){b.hidden=true;v.loop=false;v.muted=false;v.controls=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){b.hidden=false})});
+v.addEventListener('ended',function(){v.controls=false;b.hidden=false});})();
 </script>
 </body>
 </html>
