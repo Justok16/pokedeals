@@ -27,6 +27,16 @@ CONSIGNES.design =
   "(prompt) tapée ou lue à l'écran, chaque nom de fichier, de dossier, de dépôt GitHub, de bibliothèque " +
   "(GSAP, Lenis, Three.js…) et chaque commande ; 6) la méthode pas à pas de l'auteure ; 7) les défauts ou " +
   "limites visibles (lenteur, poids, lisibilité). N'invente rien : si un détail n'est pas lisible, écris « non lisible ».";
+// 08/10 : décrire la voix off d'une vidéo (l'utilisateur aime une voix et veut s'en approcher, sans la copier).
+CONSIGNES.voix =
+  "Écoute la voix off de cette vidéo et décris-la en français, précisément : 1) voix humaine enregistrée ou voix de " +
+  "synthèse (IA) ? Donne les indices qui te font pencher (respirations, hésitations, intonations répétitives, " +
+  "artefacts) et, si c'est une voix de synthèse connue (par exemple une voix ElevenLabs), dis-le seulement si tu en es " +
+  "sûr, sinon écris « non identifiable » ; 2) homme ou femme, âge apparent, timbre (grave, médium, aigu), texture " +
+  "(chaude, voilée, claire…) ; 3) ton et style (humour pince-sans-rire, conteur, dramatique…), rythme (mots par minute " +
+  "approximatif), pauses, accent ; 4) traitement du son (proximité du micro, réverbération, compression, musique) ; " +
+  "5) en trois lignes, comment décrire cette voix à un acteur ou à une synthèse vocale pour obtenir un style proche, " +
+  "sans imiter la personne. N'invente rien.";
 const CONSIGNE =
   "Résume cette vidéo en français, pour quelqu'un qui cherche à gagner de l'argent " +
   "légalement avec l'IA et Claude Code. Donne : 1) l'idée principale ; 2) chaque outil, " +
