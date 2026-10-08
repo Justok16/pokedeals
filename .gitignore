@@ -54,3 +54,6 @@ yarn-error.log*
 .env.*
 !.env.example
 !**/.env.example
+
+# Versions remplies des documents DIG16 (coordonnées réelles) : jamais dans le dépôt public
+ai-business-lab/chasse-demande/supports/*-prive.html

@@ -14,11 +14,14 @@
 # Les promesses (engagement, rétractation, propriété du site, délais) reprennent mot pour mot le site de DIG16.
 # Les champs entre crochets se remplissent à l'immatriculation : aucune donnée personnelle dans ce dépôt.
 # Usage : python3 outils/documents_commerciaux.py   (écrit supports/*.html et supports/Dig-*.pdf)
+# Version remplie (privée) : DIG16_IDENTITE=<json privé> DIG16_SORTIE=<dossier privé> python3 outils/documents_commerciaux.py
+#   (voir outils/marque/identite.py ; les fichiers remplis ne vont jamais dans supports/)
 import os
 import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "marque"))
 from charte_documents import BASE, COUVERTURE, POLICES, attendre_polices, bandeau  # noqa: E402
+import identite  # noqa: E402
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 SUP = os.path.normpath(os.path.join(ICI, "..", "supports"))
@@ -107,7 +110,7 @@ DEVIS = f"""{bandeau("Création et suivi de sites internet", "Devis et bon de co
 
 FACTURE = f"""{bandeau("Création et suivi de sites internet", "Facture", "N° [AAAA-NNN] (numérotation continue) · Date d’émission : [jj/mm/aaaa] · Date de la prestation : [période ou jj/mm/aaaa]")}
 <div class="deux"><div class="cadre"><b>Prestataire</b><br>{EMETTEUR}</div>
-<div class="cadre"><b>Client</b><br>[Nom de l’entreprise]<br>[Adresse]<br>SIREN [numéro du client]<br><span class="petit">N° de bon de commande : [si le client en a établi un]</span></div></div>
+<div class="cadre"><b>Client</b><br>[Nom de l’entreprise]<br>[Adresse du client]<br>SIREN [numéro du client]<br><span class="petit">N° de bon de commande : [si le client en a établi un]</span></div></div>
 <p><b>Nature de l’opération</b> : prestation de services.</p>
 <table><tr><th>Désignation</th><th>Quantité</th><th>Prix unitaire HT</th><th>Total HT</th></tr>
 <tr><td>[Formule Essentiel — abonnement du mois de …]</td><td class="n">1</td><td class="n">[49,00 €]</td><td class="n">[49,00 €]</td></tr>
@@ -136,9 +139,12 @@ def ecrire():
             "Dig-Modele-facture.pdf",
         ),
     ]
+    ident = identite.charger()
+    if ident:  # HTML provisoire à côté des images de la charte, effacé après le PDF
+        docs = [(f.replace(".html", "-prive.html"), t, c, pdf) for f, t, c, pdf in docs]
     for f, t, corps, _ in docs:
         open(os.path.join(SUP, f), "w").write(
-            TETE.replace("{t}", t) + corps + "</body></html>"
+            identite.remplir(TETE.replace("{t}", t) + corps + "</body></html>", ident)
         )
     from playwright.sync_api import sync_playwright
 
@@ -150,12 +156,15 @@ def ecrire():
             pg.emulate_media(media="print")
             attendre_polices(pg)
             pg.pdf(
-                path=os.path.join(SUP, pdf),
+                path=os.path.join(identite.sortie(SUP), pdf),
                 format="A4",
                 print_background=True,
                 prefer_css_page_size=True,
             )
         b.close()
+    if ident:
+        for f, *_ in docs:
+            os.remove(os.path.join(SUP, f))
     return docs
 
 

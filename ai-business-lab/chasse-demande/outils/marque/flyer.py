@@ -18,6 +18,9 @@ import segno
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import identite  # noqa: E402
+
 ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.normpath(os.path.join(ICI, "..", ".."))
 SUP = os.path.join(RACINE, "supports")
@@ -152,11 +155,12 @@ CONTROLE = """() => {
 
 
 def main():
-    html_path = os.path.join(SUP, "flyer-dig-a5.html")
+    ident = identite.charger()  # version remplie : fichiers dans DIG16_SORTIE, jamais dans supports/
+    html_path = os.path.join(SUP, "flyer-dig-a5-prive.html" if ident else "flyer-dig-a5.html")
     with open(html_path, "w", encoding="utf-8") as f:
-        f.write(HTML.replace("{QR}", qr_svg()))
-    png = os.path.join(SUP, "Dig-Flyer-A5.png")
-    pdf = os.path.join(SUP, "Dig-Flyer-A5.pdf")
+        f.write(identite.remplir(HTML.replace("{QR}", qr_svg()), ident))
+    png = os.path.join(identite.sortie(SUP), "Dig-Flyer-A5.png")
+    pdf = os.path.join(identite.sortie(SUP), "Dig-Flyer-A5.pdf")
     largeur = 148 * 96 / 25.4
     hauteur = 210 * 96 / 25.4
     with sync_playwright() as p:
@@ -168,6 +172,8 @@ def main():
         res = pg.evaluate(CONTROLE)
         pg.locator(".page").screenshot(path=png)
         nav.close()
+    if ident:
+        os.remove(html_path)
     print("Téléphone glissé sous l'offre de", res["bas_tel"], "px (voulu : > 0) ; plus petit texte hors mentions :", res["mini"], "pt ; pire contraste :", res["pire"])
     for f in res["fautes"]:
         print("ALERTE", f)
