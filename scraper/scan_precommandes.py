@@ -108,7 +108,7 @@ def _boutiques_et_replis_complement(plateforme: str) -> tuple[list[str], dict[st
 
     def union(*listes):
         return list(dict.fromkeys(d for liste in listes for d in liste
-                                  if d not in manuelles.VENDEURS_HORS_FRANCE))
+                                  if d not in manuelles.VENDEURS_SANS_LIVRAISON_FRANCE))
 
     if plateforme == "shopify":
         return union(bc.BOUTIQUES_COMPLEMENT_SHOPIFY, ct.BOUTIQUES_COMPLEMENT_CT_SHOPIFY, manuelles.BOUTIQUES_SHOPIFY), {}
