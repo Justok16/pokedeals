@@ -51,7 +51,9 @@ from precommandes_watchlist import ProduitSurveille, evaluer_correspondance
 
 import requests
 
-DELAI_ENTRE_PAGES = 0.5
+from http_radar_poli import rendre_poli
+
+DELAI_ENTRE_PAGES = 1.0
 
 
 def _horodatage() -> str:
@@ -119,7 +121,7 @@ def _candidat(domaine, produit, titre, texte_desc, url, prix=None, en_stock=None
 
 def scanner_shopify(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
     from connecteur_shopify import ConnecteurShopify
-    connecteur = connecteur or ConnecteurShopify(domaine)
+    connecteur = rendre_poli(connecteur or ConnecteurShopify(domaine))
     catalogue = connecteur.recuperer_tout_le_catalogue()
 
     candidats = []
@@ -128,20 +130,47 @@ def scanner_shopify(domaine: str, produits: list[ProduitSurveille], connecteur=N
         description = re.sub(r"<[^>]+>", " ", p.get("body_html") or "")
         handle = p.get("handle", "")
         url = f"{connecteur.base_url}/products/{handle}"
-        prix = None
-        en_stock = None
         variants = p.get("variants") or []
-        if variants:
-            try:
-                prix = float(variants[0].get("price"))
-            except (TypeError, ValueError):
-                pass
-            en_stock = any(v.get("available") for v in variants)
-
         for produit in produits:
-            c = _candidat(domaine, produit, titre, description, url, prix, en_stock)
-            if c:
-                candidats.append(c)
+            # 08/10/2026 : une fiche UPC peut reunir Mentali ET Noctali.
+            # Le stock d'une variante ne prouve jamais celui de l'autre,
+            # meme si la description commune mentionne les deux personnages.
+            # On conserve une seule observation par produit/fiche pour la
+            # memoire existante, avec prix et lien de la variante retenue.
+            observations = []
+            personnages = {"mentali", "espeon", "noctali", "umbreon", "nymphali", "sylveon"}
+            discriminants = produit.mots_cles_type & personnages
+            discriminants |= frozenset(
+                mot for groupe in produit.mots_cles_supplementaires
+                for mot in groupe if mot in personnages
+            )
+            variantes_personnage = any(
+                any(mot in _normaliser_slug(v.get("title") or "") for mot in personnages)
+                for v in variants
+            )
+            for v in variants or [{}]:
+                titre_variante = v.get("title") or ""
+                if discriminants and variantes_personnage and not any(
+                    mot in _normaliser_slug(titre_variante) for mot in discriminants
+                ):
+                    continue
+                titre_complet = titre if titre_variante in ("", "Default Title") else f"{titre} — {titre_variante}"
+                try:
+                    prix = float(v.get("price"))
+                except (TypeError, ValueError):
+                    prix = None
+                disponible = v.get("available")
+                en_stock = disponible if isinstance(disponible, bool) else None
+                lien = f"{url}?variant={v['id']}" if v.get("id") else url
+                c = _candidat(domaine, produit, titre_complet, description, lien, prix, en_stock)
+                if c:
+                    observations.append(c)
+            if observations:
+                # Priorite a une variante commandable et son prix reel.
+                # L'absence de champ available reste INDETERMINEE.
+                disponibles = [c for c in observations if c["en_stock"] is True]
+                choix = disponibles or [c for c in observations if c["en_stock"] is None] or observations
+                candidats.append(min(choix, key=lambda c: c["prix"] if c["prix"] is not None else float("inf")))
 
     return candidats
 
@@ -249,7 +278,7 @@ def _evaluer_page(connecteur, url: str, produits: list[ProduitSurveille]) -> lis
 
 
 def scanner_prestashop_sitemap(domaine: str, produits: list[ProduitSurveille]) -> list[dict]:
-    connecteur = ConnecteurPrestaShopSitemap(domaine)
+    connecteur = rendre_poli(ConnecteurPrestaShopSitemap(domaine))
     urls = connecteur.recuperer_toutes_les_urls_produits()
 
     candidats_urls = {
@@ -264,7 +293,7 @@ def scanner_prestashop_sitemap(domaine: str, produits: list[ProduitSurveille]) -
 
 
 def scanner_prestashop_repli_html(domaine: str, produits: list[ProduitSurveille]) -> list[dict]:
-    connecteur = ConnecteurPrestaShopSitemap(domaine)
+    connecteur = rendre_poli(ConnecteurPrestaShopSitemap(domaine))
     urls_vues = set()
     for produit in produits:
         for mot in produit.mots_cles_type:
@@ -278,7 +307,7 @@ def scanner_prestashop_repli_html(domaine: str, produits: list[ProduitSurveille]
 
 
 def scanner_woocommerce_sitemap(domaine: str, produits: list[ProduitSurveille]) -> list[dict]:
-    connecteur = ConnecteurWooCommerce(domaine)
+    connecteur = rendre_poli(ConnecteurWooCommerce(domaine))
     urls = connecteur.recuperer_toutes_les_urls_produits()
 
     candidats_urls = {
@@ -293,7 +322,7 @@ def scanner_woocommerce_sitemap(domaine: str, produits: list[ProduitSurveille]) 
 
 
 def scanner_woocommerce_repli_html(domaine: str, produits: list[ProduitSurveille]) -> list[dict]:
-    connecteur = ConnecteurWooCommerce(domaine)
+    connecteur = rendre_poli(ConnecteurWooCommerce(domaine))
     urls_vues = set()
     for produit in produits:
         for mot in produit.mots_cles_type:
@@ -321,7 +350,7 @@ def scanner_woocommerce_api_rest(domaine: str, produits: list[ProduitSurveille])
     Meme logique de coupe-circuit que rechercher_via_api_rest() reprise ici
     (mots-cles differents des criteres carte, mais meme principe : apres N
     echecs D'AFFILEE, on arrete d'interroger cette boutique pour ce cycle)."""
-    connecteur = ConnecteurWooCommerce(domaine)
+    connecteur = rendre_poli(ConnecteurWooCommerce(domaine))
     candidats = []
     vus_ids = set()
     echecs_consecutifs = 0
@@ -354,9 +383,18 @@ def scanner_woocommerce_api_rest(domaine: str, produits: list[ProduitSurveille])
                     prix = float(p["prices"]["price"]) / (10 ** unite_min)
                 except (KeyError, TypeError, ValueError):
                     pass
-                c = _candidat(domaine, produit, titre, description, url, prix, p.get("is_in_stock"))
-                if c:
-                    candidats.append(c)
+                # Une recherche peut renvoyer plusieurs produits suivis.
+                # Ne pas marquer l'ID vu apres l'avoir compare a UN SEUL
+                # produit : un Noctali trouve par la recherche Mentali
+                # serait ensuite saute par la recherche Noctali.
+                stock = p.get("is_in_stock")
+                en_stock = stock if isinstance(stock, bool) else None
+                if p.get("is_purchasable") is False:
+                    en_stock = False
+                for produit_a_evaluer in produits:
+                    c = _candidat(domaine, produit_a_evaluer, titre, description, url, prix, en_stock)
+                    if c:
+                        candidats.append(c)
             time.sleep(DELAI_ENTRE_PAGES)
     return candidats
 
@@ -399,6 +437,7 @@ def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur
     (EAN connus, cf. EANS_30E) ; une fiche absente (404) est ignoree, une
     fiche presente passe par le meme filtre edition + type que les resultats
     de recherche (son titre fait foi)."""
+    connecteur = rendre_poli(connecteur)
     vus: dict[str, dict] = {}
     for requete in requetes:
         for r in connecteur.rechercher(requete):

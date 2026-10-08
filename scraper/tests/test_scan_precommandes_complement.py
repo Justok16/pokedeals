@@ -3,10 +3,14 @@ memoire distinctes du perimetre principal."""
 
 import boutiques_complement as bc
 import scan_precommandes as sp
+import boutiques_complement_manuelles as manuelles
 
 
 def test_complement_utilise_les_listes_du_fichier_complement():
-    assert sp._boutiques_et_replis("shopify", complement=True) == (list(bc.BOUTIQUES_COMPLEMENT_SHOPIFY), {})
+    boutiques_shopify, modes_shopify = sp._boutiques_et_replis("shopify", complement=True)
+    assert (set(bc.BOUTIQUES_COMPLEMENT_SHOPIFY) - manuelles.VENDEURS_HORS_FRANCE) <= set(boutiques_shopify)
+    assert set(manuelles.BOUTIQUES_SHOPIFY) <= set(boutiques_shopify)
+    assert modes_shopify == {}
     boutiques, modes = sp._boutiques_et_replis("prestashop", complement=True)
     assert set(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_REPLI_HTML) <= set(boutiques)
     assert all(modes[d] == "html" for d in bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_REPLI_HTML)
