@@ -60,3 +60,23 @@ def test_pokebox_amphinobi_seule_rejetee_mais_modele_au_choix_garde():
     assert w.evaluer_correspondance("Pokémon – Pokébox – 30e Anniversaire - Amphinobi-ex – Français", texte, p)[0] is None
     assert w.evaluer_correspondance("Pokébox Pokémon Nymphali Ex et Amphinobi Ex – 30e Anniversaire", texte, p)[0]
     assert w.evaluer_correspondance("Pokémon – Pokébox – 30e Anniversaire - Nymphali-ex – Français", texte, p)[0]
+
+
+def test_plusieurs_fiches_du_meme_produit_dans_une_boutique_n_alertent_qu_une_fois():
+    """08/10/2026 : 10 fiches Mini Tin chez ultrajeux.com ; une seule
+    commandable ne doit pas re-alerter a chaque cycle (etat ecrase)."""
+    import alerte_precommande as ap
+    nom = "Mini Tin — 30e Anniversaire (30th Celebration) FR"
+
+    def fiche(n, stock, prix=29.9):
+        return {"nom_produit": nom, "confiance": "moyenne", "raison": "", "titre": f"Mini Tin {n}",
+                "url_produit": f"https://u.fr/p{n}", "prix": prix, "en_stock": stock, "alerte_disponibilite": True}
+
+    memoire = {}
+    ap.detecter_nouvelles_precommandes("u.fr", [fiche(1, False), fiche(2, False)], memoire)   # reference
+    ev = ap.detecter_nouvelles_precommandes("u.fr", [fiche(1, False), fiche(2, True), fiche(3, False)], memoire)
+    assert [e["url_produit"] for e in ev] == ["https://u.fr/p2"]
+    memoire[ev[0]["_cle_memoire"]] = ev[0]["_nouvel_etat"]                                    # envoi reussi
+    assert ap.detecter_nouvelles_precommandes("u.fr", [fiche(1, False), fiche(2, True), fiche(3, False)], memoire) == []
+    choix = ap._consolider_suivi_disponibilite([fiche(1, True, 40), fiche(2, True, 30)])
+    assert [c["url_produit"] for c in choix] == ["https://u.fr/p2"]

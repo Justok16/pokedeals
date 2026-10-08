@@ -65,3 +65,20 @@ def test_fiche_detectee_malgre_autres_produits_et_date_de_validite_du_prix(monke
     cand = r._evaluer_page(_FauxConnecteur(html), "https://boutique.fr/produit/etb-30e/", produits)
     assert {(c["nom_produit"], c["prix"], c["en_stock"]) for c in cand} == {
         ("Coffret Dresseur d'Élite — 30e Anniversaire FR (suivi restock)", 110.0, True)}
+
+
+def _page_dispo(disponibilite):
+    ld = {"@type": "Product", "name": "UPC", "description": "Version française.",
+          "offers": {"@type": "Offer", "price": "429.90", "availability": disponibilite}}
+    return (f'<html><head><title>UPC Noctali 30e Anniversaire - Version Française</title>'
+            f'<script type="application/ld+json">{json.dumps(ld)}</script></head><body>'
+            f'<p class="stock available-on-backorder">Produit en précommande</p>'
+            f'<button class="single_add_to_cart_button">Ajouter</button></body></html>')
+
+
+def test_schema_org_en_http_et_precommande_comptent_comme_commandables():
+    """08/10/2026 (pixelheart.eu) : "http://schema.org/BackOrder" lu en rupture."""
+    assert r._extraire_prix_et_stock(_page_dispo("http://schema.org/InStock"), "woocommerce") == (429.9, True)
+    assert r._extraire_prix_et_stock(_page_dispo("http://schema.org/BackOrder"), "woocommerce") == (429.9, True)
+    assert r._extraire_prix_et_stock(_page_dispo("https://schema.org/PreOrder"), "prestashop")[1] is True
+    assert r._extraire_prix_et_stock(_page_dispo("http://schema.org/OutOfStock"), "woocommerce")[1] is False

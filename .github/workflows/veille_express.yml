@@ -1,0 +1,38 @@
+name: Veille express 30 ans (fiches connues)
+on:
+  schedule:
+    # 08/10/2026 (choix de Justok) : toutes les 5 min. Le cron GitHub peut
+    # prendre du retard : cron-job.org declenche aussi ce workflow
+    # (workflow_dispatch) pour une cadence reelle fiable.
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: read   # memoire dans Supabase (cle veille_express_30e), aucune ecriture sur le repo
+concurrency:
+  group: veille_express   # jamais deux veilles en meme temps ; un declenchement en trop attend
+  cancel-in-progress: false
+jobs:
+  veille:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    # Mesure locale 08/10/2026 : ~21 s pour 29 fiches + 3 enseignes.
+    timeout-minutes: 4
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+      - name: Installer Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Veille express des fiches connues
+        run: python veille_express_30e.py

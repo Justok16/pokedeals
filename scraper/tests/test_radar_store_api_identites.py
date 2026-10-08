@@ -40,3 +40,13 @@ def test_stock_absent_reste_indetermine():
     p = page()
     del p["is_in_stock"]
     assert scan(p)[0]["en_stock"] is None
+
+
+def test_vitrine_anglaise_en_ignoree_pour_eviter_les_doublons():
+    """08/10/2026 (pixelheart.eu) : meme produit sur /fr/ et /en/, deux ID."""
+    fr = page(1, permalink="https://exemple.fr/fr/produit/noctali/")
+    en = page(2, permalink="https://exemple.fr/en/produit/noctali/")
+    with patch.object(ConnecteurWooCommerce, "_decouvrir_produits_api_rest", return_value=([fr, en], True)), \
+         patch("radar_precommandes.time.sleep"):
+        r = scanner_woocommerce_api_rest("exemple.fr", [NOCTALI])
+    assert [c["url_produit"] for c in r] == ["https://exemple.fr/fr/produit/noctali/"]

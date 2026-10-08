@@ -262,6 +262,31 @@ def scanner_plusieurs_boutiques(plateforme: str, boutiques: list[str], modes: di
     }
 
 
+def _retirer_deja_signales_par_la_veille_express(evenements: list[dict], memoire: dict,
+                                                 supabase_url: str, supabase_key: str) -> list[dict]:
+    """08/10/2026 : la veille express (veille_express_30e.py, toutes les 5 min)
+    a peut-etre deja signale ce passage en stock -- memorise sans re-alerter.
+    Memoire express illisible : on alerte quand meme (doublon possible plutot
+    qu'alerte perdue)."""
+    from veille_express_30e import CLE_MEMOIRE_EXPRESS, FICHIER_MEMOIRE_EXPRESS, deja_alerte_par_la_veille_express
+    if not evenements:
+        return evenements
+    if supabase_url and supabase_key:
+        memoire_express = charger_memoire_supabase(CLE_MEMOIRE_EXPRESS, supabase_url, supabase_key)
+    else:
+        memoire_express = charger_memoire(FICHIER_MEMOIRE_EXPRESS)
+    if not memoire_express:
+        return evenements
+    restants = []
+    for e in evenements:
+        if deja_alerte_par_la_veille_express(e, memoire_express, memoire.get(e.get("_cle_memoire", ""))):
+            memoire[e["_cle_memoire"]] = e["_nouvel_etat"]
+            print(f"  (deja signale par la veille express : {e['nom_produit']} — {e['domaine']})")
+        else:
+            restants.append(e)
+    return restants
+
+
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] not in ("shopify", "prestashop", "woocommerce", "leclerc", "auchan", "ultrajeux"):
         print("Usage : python scan_precommandes.py {shopify|prestashop|woocommerce|leclerc|auchan|ultrajeux} [boutique1 boutique2 ...]")
@@ -326,6 +351,8 @@ if __name__ == "__main__":
     # couper aussi ces alertes : retirer alerte_disponibilite=True des
     # produits concernes dans precommandes_watchlist.py.
     evenements_dispo = [e for e in resume["evenements"] if e.get("alerte_disponibilite")]
+    evenements_dispo = _retirer_deja_signales_par_la_veille_express(
+        evenements_dispo, memoire, supabase_url, supabase_key)
     autres_evenements = [e for e in resume["evenements"] if not e.get("alerte_disponibilite")]
     memoriser_si_telegram_perso_coupe(autres_evenements, memoire)
     envoyer_telegram_precommandes(autres_evenements, TELEGRAM_CHAT_ID, token, memoire)
