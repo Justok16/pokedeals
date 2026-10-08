@@ -77,6 +77,13 @@ du Drive « Dig ». Sources lues le 08/10 : Service-Public F36746 et F23282 (« 
   confirmer par le SIE). Déclarations URSSAF trimestrielles (mensuelles possibles). Franchise en base de TVA. ACRE demandée.
 - **Dossier déposé au guichet le 08/10/2026** (décision de l'utilisateur de ne pas attendre la CPAM ni
   l'Agefiph ; l'aide Agefiph, à demander avant l'immatriculation, est donc probablement perdue).
+- **ACRE (formulaire Urssaf « Demande-ACRE_2026 », lu le 08/10/2026)** : à transmettre « dès la création
+  d'activité » sur autoentrepreneur.urssaf.fr, au plus tard 60 jours après le début d'activité. Cas retenu :
+  « Exercice de l'activité au sein d'une zone France ruralités revitalisation (ZFRR) ou … (ZFRR+) », pièce :
+  justificatif de l'adresse de l'établissement dans la zone ; joindre aussi le justificatif de création du
+  guichet. Attestation sur l'honneur : pas d'ACRE dans les 3 dernières années. Attention : l'ACRE « sera
+  considérée comme utilisée sur la période d'exonération, même en l'absence de chiffre d'affaires ».
+  Réponse : silence d'un mois vaut accord (à revérifier sur la fiche Urssaf) ; attestation dans « Mes attestations ».
 - Au SIREN : l'adresse et le téléphone vont sur les mentions légales du site et sur le flyer au
   moment du déploiement, **sans être copiés dans ce dépôt public**.
 
