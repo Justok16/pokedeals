@@ -1,8 +1,13 @@
-# Invest Like the Best — index des fiches (synthèse du mercredi 07/10/2026)
+# Invest Like the Best — index des fiches (synthèse du jeudi 08/10/2026)
 
-3 vidéos résumées sur 155. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+8 vidéos résumées sur 155. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
+- **[Ancien ingénieur de NVIDIA : pourquoi l'IA est sur le point de devenir 1000 fois moins chère](uyzqxIoiobU.md)** — Sujet : L’évolution de l’intelligence artificielle (IA), son coût (les « jetons »), la puissance de calcul (GPU, tenseur, mémoire SRAM/DRAM) et l’impact sur l’économie, les entreprises et les infrastructures informatiques.
+- **[Elle connaît les 250 personnes qui construisent l'IA. Voici ce qu'elles pensent réellement.](hY6S__xeCjg.md)** — Sujet : L’impact de l’intelligence artificielle (IA) sur l’investissement, les marchés technologiques, la stratégie des fonds et la compétitivité mondiale.
 - **[L'assistant IA à 10 milliards de dollars qui défie Meta Muse, les bots de Grok et les Dots d'OpenAI](Am7IWP8IpEc.md)** — Sujet : L'impact de l'intelligence artificielle (agents conversationnels autonomes, assistants personnels intelligents comme Instinct) sur la gestion quotidienne, les interfaces utilisateurs, les services et la structuration des marchés (finance, voyages, commerce, etc.).
 - **[Pourquoi l'ordre mondial s'effondre et la puissance américaine renaît](v-2BdiL6r74.md)** — Sujet : L'analyse des rapports de force géopolitiques mondiaux (notamment la rivalité États-Unis/Chine), l'évolution de la puissance à l'ère de l'information et de l'intelligence artificielle (IA), et les répercussions sur les systèmes économiques et les sociétés.
 - **[Pourquoi OpenAI et Anthropic ne gagneront pas dans la finance](B0illwrqUG0.md)** — Sujet : L’intégration de l’intelligence artificielle (IA) et des modèles de langage dans les secteurs de la finance, du capital-investissement et de la gestion d’actifs, ainsi que la structuration d’une entreprise axée sur l’IA.
+- **[Que se passera-t-il quand l'essor de l'IA sera à court de financement ?](h-0NZ-oIjlk.md)** — Sujet : L'économie politique et stratégique de l'intelligence artificielle (IA), son impact sur les modèles d'affaires des géants de la technologie et les risques de bulle d'investissement.
+- **[Tout le monde sous-estime encore le marché de l'IA | Eric Vishria](0e7aG_MIHlQ.md)** — Sujet : Une discussion sur l'évolution du capital-risque, l'impact de l'intelligence artificielle sur l'infrastructure technologique, le logiciel et les investissements, ainsi que la psychologie et la méthode des investisseurs en capital-risque.
+- **[Why the Markets Are Pricing AI Wrong | Gavin Baker](NGsi2PC4y68.md)** — Sujet : L'impact de l'intelligence artificielle (IA) et de la technologie sur l'économie, les marchés financiers, l'investissement en capital-risque, le secteur des centres de données et les infrastructures informatiques.
