@@ -29,7 +29,7 @@ import identite  # noqa: E402
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.normpath(os.path.join(ICI, "..", "site-dig"))
-PAGES = ["index.html", "prestige.html", "mentions-legales.html"]
+PAGES = ["index.html", "prestige.html", "mentions-legales.html", "test-du-pouce/index.html"]
 TVA = "non applicable, art. 293 B du CGI (franchise en base)"
 MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre",
         "novembre", "décembre"]
