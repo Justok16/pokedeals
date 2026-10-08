@@ -83,8 +83,10 @@ du Drive « Dig ». Sources lues le 08/10 : Service-Public F36746 et F23282 (« 
   libérale. Cotisations micro (Service-Public F36232, « Vérifié le 01 janvier 2026 », lu le 08/10) :
   **21,2 %** du chiffre d'affaires pour les prestations de services commerciales ou artisanales (22,9 % avec
   versement libératoire), contre 25,6 % en libéral non réglementé : **classement conservé**, plus favorable.
-  Conséquence : à l'immatriculation, ajouter « RCS Angoulême » à côté du SIREN sur les factures, devis et CGV
-  **[à vérifier sur F31808 au moment de le faire]**. Corrections demandées : nom de domaine du document de
+  Factures : Service-Public F31808 (lu le 08/10/2026) demande pour un entrepreneur individuel « nom et prénom
+  de l'entrepreneur individuel précédé ou suivi de la mention « Entrepreneur individuel ou EI » - adresse -
+  numéro Siren » ; aucune mention RCS n'y est citée. Les modèles (EI, adresse, SIREN) sont donc conformes :
+  **pas d'ajout « RCS Angoulême »**. Corrections demandées : nom de domaine du document de
   synthèse (à supprimer) et déclaration de non-condamnation non signée ; délai 15 jours.
 - **ACRE (formulaire Urssaf « Demande-ACRE_2026 », lu le 08/10/2026)** : à transmettre « dès la création
   d'activité » sur autoentrepreneur.urssaf.fr, au plus tard 60 jours après le début d'activité. Cas retenu :
