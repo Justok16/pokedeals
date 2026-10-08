@@ -1,0 +1,50 @@
+"""Noms FRANCAIS officiels des produits des 30 ans (08/10/2026, visuels envoyes
+par Justok) : chaque titre doit etre reconnu par le BON produit suivi, et
+seulement lui ; les lots de revendeur restent exclus."""
+
+import pytest
+
+import precommandes_watchlist as w
+
+PRODUITS = {p.nom: p for p in w.PRODUITS_SURVEILLES if p.alerte_disponibilite}
+
+
+def _produit(fragment):
+    return next(p for nom, p in PRODUITS.items() if fragment in nom)
+
+
+def _reconnu_par(titre, description="Précommande, version française"):
+    return [nom for nom, p in PRODUITS.items() if w.evaluer_correspondance(titre, description, p)[0]]
+
+
+@pytest.mark.parametrize("titre,fragment", [
+    ("Pokémon 30e Anniversaire - Lot de boosters", "Booster Bundle"),
+    ("Lot de boosters Pokémon 30ème Anniversaire FR", "Booster Bundle"),
+    ("Pokémon - Bundle / Lot de 6 boosters ME05.5 : 30e Anniversaire", "Booster Bundle"),  # dracaugames
+    ("Coffret Dresseur d'Élite 30e Anniversaire", "Coffret Dresseur d'Élite — 30e Anniversaire FR (suivi"),
+    ("Pokémon 30e Anniversaire : Mini Tin", "Mini Tin"),
+    ("Tin Pokémon Nymphali-ex 30e Anniversaire", "Nymphali"),
+    ("Boîte métal Nymphali-ex 30e Anniversaire", "Nymphali"),
+    ("Pokébox Nymphali ex 30 ans FR", "Nymphali"),
+    ("Collection Ultra-Premium 30e Anniversaire Noctali-ex", "Noctali"),
+    ("Coffret Ultra Premium Mentali ex 30e Anniversaire", "Mentali"),
+])
+def test_nom_francais_reconnu_par_le_seul_bon_produit(titre, fragment):
+    attendu = _produit(fragment).nom
+    assert _reconnu_par(titre) == [attendu]
+
+
+@pytest.mark.parametrize("titre", [
+    "Lot de 3 lots de boosters 30e Anniversaire",   # vrai lot de revendeur
+    "Lot 2 Bundle 30e anniversaire",
+    "Lot/bundle 30 ans - 30e anniversaire - Pokémon français officiel",  # lot revendeur (kwilytcg)
+    "Tin Pokémon Martin 30e anniversaire",          # "tin" jamais seul
+    "Carte ultra premium Noctali VMAX EVS 215/203",  # faux positif historique
+    "30th Celebration Elite Trainer Box - EN",       # version anglaise
+])
+def test_titres_qui_ne_doivent_rien_declencher(titre):
+    assert _reconnu_par(titre) == []
+
+
+def test_mini_tin_jamais_pris_pour_la_pokebox_nymphali():
+    assert _reconnu_par("Pokémon 30e Anniversaire : Mini Tin (Nymphali)") == [_produit("Mini Tin").nom]
