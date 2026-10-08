@@ -489,13 +489,20 @@ def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur
 
 # EAN des produits des 30 ans VERIFIES sur des fiches reelles (08/10/2026) :
 # ETB et Bundle sur ultrajeux.com (EAN affiche sur la fiche), Bundle aussi
-# sur lagranderecre.fr, Mini Tin sur e.leclerc. Ceux de la Pokebox Nymphali
-# et des UPC ne sont pas confirmes (le rapport Gemini donnait a tort l'EAN
-# de l'ETB pour les deux UPC) : a ajouter une fois vus sur une fiche.
+# sur lagranderecre.fr, Mini Tin sur e.leclerc. Le rapport Gemini donnait a
+# tort l'EAN de l'ETB pour les deux UPC, et 0196214147102 est le COFFRET
+# 4 boosters Nymphali (ultrajeux.com), pas la Pokebox.
 EANS_30E = {
     "0196214144835": "Coffret Dresseur d'Elite 30e anniversaire",
     "0196214145221": "Lot de 6 boosters (Bundle) 30e anniversaire",
     "0196214146297": "Mini Tin 30e anniversaire",
+    # Donnes concordants par deux rapports independants (Grok, puis l'audit
+    # de la PR #147 recoupe sur les catalogues CLD), pas encore vus sur une
+    # fiche Leclerc (404 le 08/10/2026) : une fiche absente ne coute qu'une
+    # requete sans effet, une fiche presente repasse le filtre edition + type.
+    "0196214146976": "Pokebox Nymphali-ex 30e anniversaire",
+    "0196214155398": "Collection Ultra Premium Noctali-ex (Soiree)",
+    "0196214155336": "Collection Ultra Premium Mentali-ex (Journee)",
 }
 
 

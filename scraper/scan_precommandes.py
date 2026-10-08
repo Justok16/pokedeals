@@ -117,7 +117,9 @@ def _boutiques_et_replis_complement(plateforme: str) -> tuple[list[str], dict[st
         sitemap = union(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_PRESTASHOP_SITEMAP)
         return union(sitemap, repli), {d: "html" for d in repli}
     if plateforme == "woocommerce":
-        return union(bc.BOUTIQUES_COMPLEMENT_WOOCOMMERCE_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_WOOCOMMERCE_SITEMAP), {}
+        api = union(manuelles.BOUTIQUES_WOOCOMMERCE_API_REST)
+        sitemap = union(bc.BOUTIQUES_COMPLEMENT_WOOCOMMERCE_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_WOOCOMMERCE_SITEMAP)
+        return union(sitemap, api), {d: "api_rest" for d in api}
     if plateforme == "leclerc":
         return ["e.leclerc"], {}
     if plateforme == "auchan":
