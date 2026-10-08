@@ -154,3 +154,8 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
 - 08/10 (matin), à la demande de l'utilisateur (« trop sombre dans son ensemble ») : **version claire** — fond ivoire,
   texte encre, accents bronze, signature DIG16 foncée ; seuls le téléphone et la bulle « Nouvelle demande de devis »
   restent sombres pour le contraste. QR code conservé et décodé → `https://dig16.fr/`.
+- 08/10 (matin, suite) — **version accessible à tous** (« c'est écrit tout petit ») : textes de 10 pt minimum
+  (avant : 5,8 à 7,3 pt), titres des avantages en gras 13 pt, prix 27 pt, téléphone et email 12 pt gras, « Scannez-moi »
+  10,5 pt, QR agrandi à 34 mm ; plus de petites capitales espacées ; phrases raccourcies ; mentions légales 6,5 pt
+  en gris foncé. Contrôle automatique ajouté dans `flyer.py` : taille minimale de chaque texte et contraste WCAG AA
+  (pire contraste mesuré : 6,4:1, seuil 4,5:1). QR toujours décodé → `https://dig16.fr/`.
