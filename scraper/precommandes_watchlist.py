@@ -217,6 +217,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             # n'importe quel ordre de mots) est specifique au produit.
             "collection ultra premium", "ultra premium collection", "upc",
             "journee et soiree", "day and night",
+            "coffret ultra premium",  # 08/10/2026 : "Coffret Ultra Premium Mentali ex" non reconnu
         }),
         mots_cles_type=frozenset({
             "mentali", "espeon",
@@ -231,6 +232,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         mots_cles_edition=frozenset({
             "collection ultra premium", "ultra premium collection", "upc",
             "journee et soiree", "day and night",
+            "coffret ultra premium",  # 08/10/2026 : "Coffret Ultra Premium Mentali ex" non reconnu
         }),
         mots_cles_type=frozenset({
             "noctali", "umbreon",
@@ -282,6 +284,12 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         }),
         mots_cles_type=frozenset({
             "booster bundle", "bundle", "paquet de boosters", "paquet de booster",
+            # Nom FRANCAIS officiel sur la boite (photo envoyee par Justok le
+            # 08/10/2026) : "30e Anniversaire -- Lot de boosters".
+            "lot de boosters", "lot de booster",
+            # Fiche reelle manquee (dracaugames.com, 08/10/2026) : "Pokemon -
+            # Bundle / Lot de 6 boosters ME05.5 : 30e Anniversaire".
+            "lot de 6 boosters",
         }),
         date_sortie=None,
         surveiller_jusqu_au=date(2026, 12, 31),
@@ -319,12 +327,20 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         mots_cles_type=frozenset({
             "pokebox", "poke box", "ex tin", "tin nymphali", "tin sylveon",
             "ex box", "pokemon ex box", "coffret pokemon ex",
+            # 08/10/2026 (visuel envoye par Justok : une boite metal) : titres
+            # reels du type "Tin Pokemon Nymphali-ex 30e Anniversaire" ou
+            # "Boite metal Nymphali-ex" n'etaient pas reconnus. Jamais "tin"
+            # seul (correspondance par sous-chaine : "martin", "mini tin").
+            "tin pokemon", "pokemon tin", "tin 30", "boite metal", "boite en metal",
         }),
         mots_cles_supplementaires=(frozenset({"nymphali", "sylveon"}),),
         date_sortie=None,
         surveiller_jusqu_au=date(2027, 1, 31),
         alerte_disponibilite=True,
-        **EXCLUSIONS_LOTS_ET_IMPORTS,
+        **{**EXCLUSIONS_LOTS_ET_IMPORTS,
+           # "Mini Tin 30e Anniversaire" (autre produit suivi) ne doit pas
+           # passer pour la Pokebox via "tin pokemon"/"tin 30".
+           "mots_exclus_titre": EXCLUSIONS_LOTS_ET_IMPORTS["mots_exclus_titre"] | {"mini"}},
     ),
 ]
 
@@ -468,6 +484,20 @@ def _mot_exclu(texte: str, mots: frozenset[str]) -> str | None:
     return None
 
 
+def _titre_sans_nom_officiel(titre: str, produit: ProduitSurveille) -> str:
+    """Titre normalise, prive des noms officiels du produit qui contiennent
+    eux-memes un mot exclu (08/10/2026, signale par Justok) : le Booster
+    Bundle s'appelle officiellement "Lot de boosters" en francais, et "lot"
+    (exclusion des lots de revendeur) rejetait donc la fiche officielle.
+    Un vrai lot ("Lot de 3 lots de boosters...") garde un "lot" en dehors du
+    nom officiel et reste exclu."""
+    norm = f" {_normaliser(titre)} "
+    for mot in sorted(produit.mots_cles_type, key=len, reverse=True):
+        if _mot_exclu(mot, produit.mots_exclus_titre):
+            norm = norm.replace(f" {_normaliser(mot).strip()} ", " ")
+    return norm
+
+
 def evaluer_correspondance(
     titre: str, texte_description: str, produit: ProduitSurveille
 ) -> tuple[str, str] | tuple[None, str]:
@@ -488,7 +518,8 @@ def evaluer_correspondance(
         scrapable a ce stade)."""
     texte_complet = f"{titre} {texte_description}"
 
-    exclu = _mot_exclu(titre, produit.mots_exclus_titre) or _mot_exclu(texte_complet, produit.mots_exclus_texte)
+    exclu = (_mot_exclu(_titre_sans_nom_officiel(titre, produit), produit.mots_exclus_titre)
+             or _mot_exclu(texte_complet, produit.mots_exclus_texte))
     if exclu:
         return None, f"exclu : lot ou edition importee ('{exclu}')"
 
