@@ -24,6 +24,11 @@ Pourquoi ça attire l'attention :
 
 ## 2. Les supports (prêts, à la charte `60`)
 
+**Signature visuelle (version 2, 08/10)** : une **empreinte de pouce dorée** (`outils/marque/empreinte.py`, dessin
+fixe) est le seul élément fort de la campagne ; tout le reste reste sobre (encre, laiton, ivoire). On la retrouve
+immense sur la première publication et la story, posée dans la place vide « Et vous ? », pressée sur le nom
+(ondes), et discrète sur l'affiche. Contrôles automatiques : marges, chevauchements, polices, QR.
+
 Générés par `python3 outils/marque/campagne_pouce.py`, dans `supports/campagne-pouce/` :
 
 | Fichier | Usage |
