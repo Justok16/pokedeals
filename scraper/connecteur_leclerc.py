@@ -47,7 +47,7 @@ _RE_ARTICLE = re.compile(r"<article([^>]*data-product-card[^>]*)>(.*?)</article>
 _RE_OFFRE = re.compile(r'data-offer-id="([^"]*)"')
 _RE_TITRE = re.compile(r'<a[^>]*href="([^"]+)"[^>]*data-product-card-title[^>]*title="([^"]*)"', re.S)
 _RE_TITRE_INVERSE = re.compile(r'<a[^>]*data-product-card-title[^>]*title="([^"]*)"[^>]*href="([^"]+)"', re.S)
-_RE_JSONLD = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
+_RE_JSONLD = re.compile(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', re.S)
 
 
 def analyser_recherche(page: str) -> list[dict]:

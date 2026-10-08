@@ -521,7 +521,8 @@ def _titre_sans_nom_officiel(titre: str, produit: ProduitSurveille) -> str:
 
 
 def evaluer_correspondance(
-    titre: str, texte_description: str, produit: ProduitSurveille
+    titre: str, texte_description: str, produit: ProduitSurveille,
+    texte_exclusions: str | None = None,
 ) -> tuple[str, str] | tuple[None, str]:
     """Applique la regle complete de detection a un produit trouve sur une
     boutique. Retourne (confiance, raison) si retenu -- confiance vaut
@@ -537,11 +538,19 @@ def evaluer_correspondance(
       - Si la date ATTENDUE est trouvee -- confiance forte.
       - Si aucune date exploitable n'est trouvee -- confiance moyenne (la
         plupart des pages de precommande n'auront pas de date structuree
-        scrapable a ce stade)."""
+        scrapable a ce stade).
+
+    `texte_exclusions` : texte PROPRE au produit (description JSON-LD de la
+    fiche) sur lequel chercher les mots exclus, quand `texte_description`
+    est la page entiere. Bug reel du 08/10/2026 : les fiches 30e
+    Anniversaire FR de missplaybros.com etaient rejetees ("japonais") a
+    cause des AUTRES produits affiches sur la page (suggestions, derniers
+    articles). None = page entiere (comportement d'origine)."""
     texte_complet = f"{titre} {texte_description}"
+    texte_exclu = texte_complet if texte_exclusions is None else f"{titre} {texte_exclusions}"
 
     exclu = (_mot_exclu(_titre_sans_nom_officiel(titre, produit), produit.mots_exclus_titre)
-             or _mot_exclu(texte_complet, produit.mots_exclus_texte))
+             or _mot_exclu(texte_exclu, produit.mots_exclus_texte))
     if exclu:
         return None, f"exclu : lot ou edition importee ('{exclu}')"
 

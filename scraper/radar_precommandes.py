@@ -25,6 +25,7 @@ Strategie par plateforme :
 """
 
 import os
+import html as html_module
 import re
 import sys
 import time
@@ -95,8 +96,8 @@ def _slug_est_candidat(url: str, produit: ProduitSurveille) -> bool:
     return a_edition and a_type
 
 
-def _candidat(domaine, produit, titre, texte_desc, url, prix=None, en_stock=None):
-    confiance, raison = evaluer_correspondance(titre, texte_desc, produit)
+def _candidat(domaine, produit, titre, texte_desc, url, prix=None, en_stock=None, texte_exclusions=None):
+    confiance, raison = evaluer_correspondance(titre, texte_desc, produit, texte_exclusions)
     if confiance is None:
         return None
     return {
@@ -225,13 +226,23 @@ def _evaluer_page(connecteur, url: str, produits: list[ProduitSurveille]) -> lis
     # (V53). scanner_shopify() (meme fichier) n'a AUCUNE troncature
     # equivalente sur body_html -- retiree ici par coherence, le cout de
     # traitement d'un texte de page web complet est negligeable.
-    texte = re.sub(r"<[^>]+>", " ", html)
+    # Texte VISIBLE seulement : sans <script>/<style>. Bug reel du 08/10/2026
+    # (missplaybros.com) : le "priceValidUntil" 2027-12-31 du JSON-LD etait
+    # lu comme une date de sortie incompatible -> ETB 30e Anniversaire rejete.
+    texte = re.sub(r"<[^>]+>", " ", re.sub(r"<(script|style)\b.*?</\1>", " ", html, flags=re.S | re.I))
     plateforme = "woocommerce" if isinstance(connecteur, ConnecteurWooCommerce) else "prestashop"
     prix, en_stock = _extraire_prix_et_stock(html, plateforme)
+    # Mots exclus ("japonais", "coreen"...) cherches dans la description
+    # PROPRE au produit quand la fiche en a une (JSON-LD), pas dans la page
+    # entiere ou figurent d'autres produits (cf. evaluer_correspondance).
+    produit_jsonld = _extraire_jsonld_produit(html)
+    description = produit_jsonld.get("description") if produit_jsonld else None
+    texte_exclusions = (re.sub(r"<[^>]+>", " ", html_module.unescape(description))
+                        if isinstance(description, str) and description.strip() else None)
 
     candidats = []
     for produit in produits:
-        c = _candidat(connecteur.nom_affiche, produit, titre, texte, url, prix, en_stock)
+        c = _candidat(connecteur.nom_affiche, produit, titre, texte, url, prix, en_stock, texte_exclusions)
         if c:
             candidats.append(c)
     return candidats

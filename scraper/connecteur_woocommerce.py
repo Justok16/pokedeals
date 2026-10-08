@@ -48,6 +48,7 @@ from urllib.parse import quote
 import requests
 
 from connecteur_shopify import (
+    prix_offre,
     HEADERS_HTML,
     TIMEOUT,
     CritereRecherche,
@@ -158,7 +159,7 @@ def _chercher_product_jsonld(noeud):
 
 
 def _extraire_jsonld_produit(html: str) -> dict | None:
-    for bloc in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S):
+    for bloc in re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', html, re.S):
         corps = re.sub(r"/\*\s*<!\[CDATA\[\s*\*/", "", bloc)
         corps = re.sub(r"/\*\s*\]\]>\s*\*/", "", corps)
         try:
@@ -178,10 +179,7 @@ def _analyser_offre_jsonld(produit_jsonld: dict) -> dict:
     if not isinstance(offres, dict):
         offres = {}
 
-    try:
-        prix = float(offres.get("price"))
-    except (TypeError, ValueError):
-        prix = None
+    prix = prix_offre(offres)
 
     return {
         "prix": prix,
