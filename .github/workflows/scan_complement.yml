@@ -63,13 +63,6 @@ jobs:
         id: auchan
         continue-on-error: true
         run: python scan_precommandes.py auchan
-      # Lidl (08/10/2026) : API de recherche publique en JSON
-      # (cf. connecteur_lidl.py). Hors de la condition d'echec finale : l'API
-      # limite le debit (401) et doit d'abord etre observee sur les runners.
-      - name: Radar Lidl (complement)
-        id: lidl
-        continue-on-error: true
-        run: python scan_precommandes.py lidl
       - name: Échec si une plateforme a échoué
         if: steps.shopify.outcome == 'failure' || steps.woocommerce.outcome == 'failure' || steps.prestashop.outcome == 'failure' || steps.leclerc.outcome == 'failure' || steps.auchan.outcome == 'failure'
         run: exit 1
