@@ -237,6 +237,10 @@ form{display:grid;gap:14px;background:rgba(255,255,255,.04);border:1px solid var
 label{font-size:.92rem;font-weight:600;display:grid;gap:.4rem}
 input,select,textarea{width:100%;min-width:0;font:inherit;font-size:max(16px,1em);padding:.85rem 1rem;border-radius:11px;border:1px solid var(--ligne);background:rgba(255,255,255,.05);color:var(--encre)}
 select option{color:#111}
+#form fieldset{grid-template-columns:minmax(0,1fr)}#form .btn{white-space:normal;text-align:center}
+.avis-ouverture .court{display:none}
+@media (max-width:760px){nav.plein .avis-ouverture{font-size:.8rem;padding:.35rem 1rem}nav.plein .avis-ouverture .long{display:none}nav.plein .avis-ouverture .court{display:inline}}
+
 .rgpd{font-size:.88rem;color:var(--doux)}
 .msg{font-size:.9rem;color:var(--vert);min-height:1.2em}
 footer{border-top:1px solid var(--ligne);padding:40px 0 100px;color:var(--doux);font-size:.9rem}
@@ -265,7 +269,7 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 <body>
 <span data-sc-progress></span>
 
-<nav id="nav"><div class="avis-ouverture" role="status">Ouverture prochaine : DIG16 est en cours d’immatriculation. Aucune commande n’est possible avant. Vous pouvez déjà découvrir les offres et les démos.</div>
+<nav id="nav"><div class="avis-ouverture" role="status"><span class="long">Ouverture prochaine : DIG16 est en cours d’immatriculation. Aucune commande n’est possible avant. Vous pouvez déjà découvrir les offres et les démos.</span><span class="court" aria-hidden="true">Ouverture prochaine : pas encore de commande</span></div>
 <div class="cadre">
  <a href="#" class="logo"><i>D</i><span><b>DIG16</b><small>Sites internet</small></span></a>
  <div class="liens">

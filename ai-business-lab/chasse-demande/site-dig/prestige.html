@@ -249,10 +249,13 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 .logo i{background:linear-gradient(135deg,#ff7a2f,#7b5cff)}
 @media (max-width:520px){.pheros{padding-top:196px}.pheros .actions{display:grid;gap:12px}.pheros .actions .btn{white-space:normal;text-align:center}}
 @media (min-width:521px) and (max-width:900px){.pheros{padding-top:170px}}
+
+.avis-ouverture .court{display:none}
+@media (max-width:760px){nav.plein .avis-ouverture{font-size:.8rem;padding:.35rem 1rem}nav.plein .avis-ouverture .long{display:none}nav.plein .avis-ouverture .court{display:inline}}
 </style>
 </head>
 <body>
-<nav id="nav"><div class="avis-ouverture" role="status">Ouverture prochaine : DIG16 est en cours d’immatriculation. Aucune commande n’est possible avant. Vous pouvez déjà découvrir les offres et les démos.</div>
+<nav id="nav"><div class="avis-ouverture" role="status"><span class="long">Ouverture prochaine : DIG16 est en cours d’immatriculation. Aucune commande n’est possible avant. Vous pouvez déjà découvrir les offres et les démos.</span><span class="court" aria-hidden="true">Ouverture prochaine : pas encore de commande</span></div>
 <div class="cadre">
  <a href="index.html" class="logo"><i>D</i><span><b>DIG16</b><small>Sites internet</small></span></a>
  <div class="liens">
