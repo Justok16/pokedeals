@@ -21,6 +21,8 @@ def _reconnu_par(titre, description="Précommande, version française"):
     ("Pokémon 30e Anniversaire - Lot de boosters", "Booster Bundle"),
     ("Lot de boosters Pokémon 30ème Anniversaire FR", "Booster Bundle"),
     ("Pokémon - Bundle / Lot de 6 boosters ME05.5 : 30e Anniversaire", "Booster Bundle"),  # dracaugames
+    ("ME5.5 - 30 ans - Bundle - FRANCAIS (02/10)", "Booster Bundle"),  # gmcardsandtoys (code d'extension)
+    ("Pokémon ME05.5 : coffret Dresseur d'Elite - français", "Coffret Dresseur d'Élite — 30e Anniversaire FR (suivi"),
     ("Coffret Dresseur d'Élite 30e Anniversaire", "Coffret Dresseur d'Élite — 30e Anniversaire FR (suivi"),
     ("Pokémon 30e Anniversaire : Mini Tin", "Mini Tin"),
     ("Tin Pokémon Nymphali-ex 30e Anniversaire", "Nymphali"),

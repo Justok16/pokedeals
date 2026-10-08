@@ -263,6 +263,10 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             # ME06 Regne Delta, ce serait un faux positif).
             "30e anniversaire", "30eme anniversaire", "30th anniversary",
             "30th celebration",
+            # Code d'extension (08/10/2026) : E.Leclerc nomme ses produits par code
+            # ("Pokemon ME04 : coffret Dresseur d'Elite"), et la serie des 30 ans
+            # est vendue sous "ME05.5" (dracaugames, tradingcardsxxx).
+            "me05.5", "me 05.5", "me5.5",
         }),
         mots_cles_type=frozenset({
             "dresseur d'elite", "dresseur elite", "etb", "elite trainer box",
@@ -281,6 +285,10 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         mots_cles_edition=frozenset({
             "30e anniversaire", "30eme anniversaire", "30th anniversary",
             "30th celebration",
+            # Code d'extension (08/10/2026) : E.Leclerc nomme ses produits par code
+            # ("Pokemon ME04 : coffret Dresseur d'Elite"), et la serie des 30 ans
+            # est vendue sous "ME05.5" (dracaugames, tradingcardsxxx).
+            "me05.5", "me 05.5", "me5.5",
         }),
         mots_cles_type=frozenset({
             "booster bundle", "bundle", "paquet de boosters", "paquet de booster",
@@ -301,6 +309,10 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         mots_cles_edition=frozenset({
             "30e anniversaire", "30eme anniversaire", "30th anniversary",
             "30th celebration",
+            # Code d'extension (08/10/2026) : E.Leclerc nomme ses produits par code
+            # ("Pokemon ME04 : coffret Dresseur d'Elite"), et la serie des 30 ans
+            # est vendue sous "ME05.5" (dracaugames, tradingcardsxxx).
+            "me05.5", "me 05.5", "me5.5",
         }),
         mots_cles_type=frozenset({
             "mini tin", "mini boite", "mini coffret metal",
