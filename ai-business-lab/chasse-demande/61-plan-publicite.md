@@ -33,6 +33,9 @@ Claude prépare tout le contenu et programme les publications.
 **Campagne choc « Le test du pouce »** (08/10) : idée centrale, 5 visuels, story, affiche A4 et textes dans
 `62-campagne-test-du-pouce.md`.
 
+**Kit de branchement** (08/10) : ordre de création des comptes, images par réseau, calendrier des 27 publications
+prêt pour Metricool : `63-kit-branchement-reseaux.md`.
+
 ## 2. Textes des profils (identiques partout)
 
 - **Nom** : DIG16 — Sites internet en Charente
