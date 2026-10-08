@@ -50,6 +50,13 @@
   .journee { height: 760vh; }
   @media (prefers-reduced-motion: reduce) { .journee { height: 120vh; } }
   .journee [data-sc-stage] { background: var(--sc-canvas); }
+  .etats { position: absolute; inset: 0; z-index: 1; transition: opacity .5s ease; }
+  .etats picture, .etats img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .etats img { object-fit: cover; }
+  .etats picture { opacity: 0; transition: opacity .6s ease; }
+  .etats picture.actif { opacity: 1; }
+  .journee.film-ok .etats { opacity: 0; pointer-events: none; }
+  .journee .sc-scrim { z-index: 2; }
   .journee .sc-scrim { background: linear-gradient(0deg, rgba(31,33,29,.85) 0%, rgba(31,33,29,.3) 40%, rgba(31,33,29,0) 64%), linear-gradient(90deg, rgba(31,33,29,.35), rgba(31,33,29,0) 45%); }
   .moment { position: absolute; z-index: 3; left: var(--sc-gutter); bottom: clamp(6.5rem, 18vh, 11rem); max-width: min(38rem, 88vw);
     opacity: 0; transform: translateY(16px); transition: opacity 480ms cubic-bezier(.2,.7,.2,1), transform 600ms cubic-bezier(.2,.7,.2,1); pointer-events: none; }
@@ -165,6 +172,8 @@
         <img class="sc-stage__poster" src="affiche.webp" fetchpriority="high" alt="La façade en pierre blonde de la maison, sous les tilleuls">
       </picture>
       <video data-sc-scrub data-sc-src="journee.mp4" data-sc-src-mobile="journee-m.mp4" muted playsinline preload="none" aria-hidden="true"></video>
+      <!-- Images fixes de chaque moment : prennent le relais si le téléphone ne lit pas la vidéo (iPhone en économie d'énergie, etc.) -->
+      <div class="etats" aria-hidden="true"><picture class="actif"><source media="(max-width: 860px)" srcset="etat-1-m.webp"><img src="etat-1.webp" alt="" decoding="async"></picture><picture><source media="(max-width: 860px)" srcset="etat-2-m.webp"><img src="etat-2.webp" alt="" loading="lazy" decoding="async"></picture><picture><source media="(max-width: 860px)" srcset="etat-3-m.webp"><img src="etat-3.webp" alt="" loading="lazy" decoding="async"></picture><picture><source media="(max-width: 860px)" srcset="etat-4-m.webp"><img src="etat-4.webp" alt="" loading="lazy" decoding="async"></picture><picture><source media="(max-width: 860px)" srcset="etat-5-m.webp"><img src="etat-5.webp" alt="" loading="lazy" decoding="async"></picture></div>
       <div class="sc-scrim" aria-hidden="true"></div>
 
       <div class="moment actif" data-de="0" data-a="3.4" data-h="16" data-m="0">
@@ -347,12 +356,24 @@
       document.getElementById('aig-h').style.transform = 'rotate(' + (cible + tours) * 30 + 'deg)';
       document.getElementById('aig-m').style.transform = 'rotate(' + (cible + tours) * 360 + 'deg)';
     }
+    var etats = [].slice.call(document.querySelectorAll('.etats picture')), panne = 0;
     function maj() {
-      var t = video && video.readyState > 0 ? video.currentTime : 0, i = 0;
+      // L'heure suit le défilement (et non la vidéo) : elle avance même si le téléphone ne lit pas le film.
+      var duree = (video && video.duration) || 18.7;
+      var course = section.offsetHeight - innerHeight;
+      var p = course > 0 ? Math.min(1, Math.max(0, -section.getBoundingClientRect().top / course)) : 0;
+      var t = p * duree, i = 0;
+      // Le film n'est montré que s'il répond vraiment au défilement ; sinon, les images fixes de chaque moment.
+      // (un court passage à readyState < 2 pendant une recherche d'image est normal : on attend 1,5 s avant de basculer)
+      var maintenant = performance.now();
+      if (video && video.readyState >= 2) { panne = 0; if (video.currentTime > 0.05) section.classList.add('film-ok'); }
+      else if (!panne) panne = maintenant;
+      else if (maintenant - panne > 1500) section.classList.remove('film-ok');
       moments.forEach(function (c, k) { if (t >= +c.dataset.de && t < +c.dataset.a) i = k; });
       if (i !== courant) {
         courant = i;
         moments.forEach(function (c, k) { c.classList.toggle('actif', k === i); });
+        etats.forEach(function (e, k) { e.classList.toggle('actif', k === i); });
         points.forEach(function (b, k) { if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
         var c = moments[i];
         document.getElementById('heure').textContent = lang === 'fr' ? c.dataset.h + ' h' : (((+c.dataset.h + 11) % 12) + 1) + (+c.dataset.h < 12 ? ' am' : ' pm');
