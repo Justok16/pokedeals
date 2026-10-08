@@ -25,7 +25,15 @@ CHAMPS = {
 
 
 def charger():
-    """Renvoie le dictionnaire privé, ou None pour la version publique."""
+    """Renvoie le dictionnaire privé (et exige DIG16_SORTIE), ou None pour la version publique."""
+    ident = charger_identite_seule()
+    if ident and not os.environ.get("DIG16_SORTIE"):
+        raise SystemExit("ALERTE : DIG16_SORTIE (dossier privé) est obligatoire avec DIG16_IDENTITE")
+    return ident
+
+
+def charger_identite_seule():
+    """Renvoie le dictionnaire privé, ou None ; sans exiger de dossier de sortie (site : outils/ouverture_site.py)."""
     chemin = os.environ.get("DIG16_IDENTITE")
     if not chemin:
         return None
@@ -34,8 +42,6 @@ def charger():
     manque = [k for k in ("nom", "adresse", "telephone", "siren") if not str(ident.get(k, "")).strip()]
     if manque:
         raise SystemExit(f"ALERTE identité incomplète : {manque}")
-    if not os.environ.get("DIG16_SORTIE"):
-        raise SystemExit("ALERTE : DIG16_SORTIE (dossier privé) est obligatoire avec DIG16_IDENTITE")
     return ident
 
 
