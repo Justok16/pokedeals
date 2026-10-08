@@ -20,6 +20,10 @@ ensuite les 8 semaines de publications en une fois.
 Deux publications restent **manuelles** (« premier client », « bilan des deux mois ») : elles exigent un fait
 réel et l'accord écrit du client ; elles ne sont jamais programmées automatiquement.
 
+Pourquoi l'utilisateur crée lui-même les comptes : chaque réseau exige l'identité du titulaire, un code reçu par SMS
+sur son téléphone et souvent un test anti-robot ; leurs conditions d'utilisation interdisent qu'un tiers ou un
+programme crée le compte à sa place ; et la fiche Google demande une vérification de l'entreprise elle-même.
+
 ## 2. Ordre de branchement le jour J (environ 1 h 30 pour l'utilisateur)
 
 Partout : nom **DIG16 — Sites internet en Charente**, identifiant **dig16fr**, lien **https://dig16.fr**, email
@@ -45,7 +49,10 @@ https://app.metricool.com/brands/connections?blogId=7154026
 | **Bing Places** | Importer la fiche Google (une fois vérifiée) | Utilisateur, 10 min |
 | **Apple Business Connect** | Créer la fiche (mêmes textes) | Utilisateur |
 | **PagesJaunes, 118712** | Fiche de base ; gratuité **[à vérifier sur leurs sites]** avant toute inscription | Utilisateur |
-| **Google Search Console, Bing Webmaster Tools** | Ajouter dig16.fr, puis le sitemap `https://dig16.fr/sitemap.xml` | Utilisateur valide la propriété, Claude guide |
+| **Google Search Console** | L'utilisateur ajoute dig16.fr, choisit la vérification par **fichier HTML** et donne à Claude le nom du fichier (ce n'est pas un secret) ; Claude le place sur le site et publie ; l'utilisateur clique « Valider », puis Claude guide l'envoi du sitemap `https://dig16.fr/sitemap.xml` | Utilisateur (5 min), Claude |
+| **Bing Webmaster Tools** | Importer le site depuis Google Search Console (un clic) | Utilisateur |
+| **IndexNow** (Bing et autres moteurs, sans compte) | **Branché par Claude le 08/10** : fichier de preuve `site-dig/dig16-indexnow-2026-cle-publique.txt` ; à l'ouverture, `python3 outils/indexnow.py` signale toutes les pages du sitemap (refuse tant que le site est en « noindex ») | Claude |
+| **Données structurées** (fiche d'identité lue par Google) | **Branchées par Claude le 08/10** : JSON-LD Organization + WebSite dans `index.html` (sans adresse, zone Charente ; téléphone ajouté par `ouverture_site.py`) ; ajouter les profils des réseaux (`sameAs`) une fois créés | Claude |
 | **Signature email** | Coller la version remplie dans Gmail (ordinateur) et la version texte dans l'application | Utilisateur, 2 min |
 | **Affiches A4** | Imprimer la version remplie (coût à soumettre) et la tournée des commerces (`62` § 3) | Utilisateur |
 | **Presse, mairie, communauté de communes, CCI** | Envoyer le communiqué | Utilisateur envoie, Claude prépare les messages |
