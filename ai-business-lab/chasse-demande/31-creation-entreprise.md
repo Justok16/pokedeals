@@ -57,7 +57,10 @@ n'est pas vérifié à la source est marqué **[à vérifier]**.
 ### Formulaire du guichet : réponses préparées (08/10/2026)
 
 Décision de l'utilisateur (08/10) : l'entreprise est domiciliée **chez lui** (pas de domiciliation
-payante), avec la **non-diffusion** de l'adresse personnelle cochée au guichet (F2160). Version
+payante). **Correction du 08/10 (écran du guichet INPI lu par l'utilisateur)** : quand l'adresse de
+l'entreprise est le domicile, elle est **publiée au RNE** (art. L123-50 et L123-52 du code de commerce,
+D411-1-3 du CPI) et réutilisable par tous ; la non-diffusion ne protège que l'adresse personnelle
+**distincte** de celle de l'entreprise. Seule parade : domiciliation (payante) ou local. Version
 complète avec ses coordonnées : document privé « DIG16 – Création de la micro-entreprise pas à pas »
 du Drive « Dig ». Sources lues le 08/10 : Service-Public F36746 et F23282 (« Vérifié le 18 mars
 2026 »), INSEE NAF 62.01Z (mise à jour du 19/12/2025).
@@ -71,7 +74,7 @@ du Drive « Dig ». Sources lues le 08/10 : Service-Public F36746 et F23282 (« 
   62.01Z (la sous-classe cite la création de « pages web ») ; remplace l'hypothèse 58.29C ci-dessus.
 - Nom commercial DIG16, site dig16.fr, email contact@dig16.fr.
 - Versement libératoire : **non** (l'exonération FRR+ porte sur l'impôt sur le bénéfice ; à faire
-  confirmer par le SIE). Déclarations URSSAF trimestrielles. Franchise en base de TVA. ACRE demandée.
+  confirmer par le SIE). Déclarations URSSAF trimestrielles (mensuelles possibles). Franchise en base de TVA. ACRE demandée.
 - Validation après le rappel de la CPAM (semaine du 12/10), comme prévu en 2 bis.
 - Au SIREN : l'adresse et le téléphone vont sur les mentions légales du site et sur le flyer au
   moment du déploiement, **sans être copiés dans ce dépôt public**.
@@ -109,7 +112,8 @@ Faits vérifiés le 05/10/2026 (sources officielles lues ce jour) :
   le BOFiP → à faire confirmer par écrit par le SIE** avant toute option.
 - **Adresse publiée (vérifié le 05/10/2026)** : un entrepreneur individuel peut domicilier son
   entreprise chez lui et demander la non-diffusion publique de son adresse personnelle dans les
-  registres (Service-Public F2160, « Vérifié le 02 juillet 2026 »). Mais le **site** d'un éditeur
+  registres (Service-Public F2160, « Vérifié le 02 juillet 2026 ») **[corrigé le 08/10 : la
+  non-diffusion ne vaut pas quand l'entreprise est domiciliée au domicile ; voir § 2]**. Mais le **site** d'un éditeur
   professionnel doit afficher « nom, prénoms, domicile et numéro de téléphone » (LCEN art. 1-1, I, 1°,
   version en vigueur depuis le 23/05/2024, lue sur Légifrance) ; l'anonymat (II) est réservé aux
   éditeurs « à titre non professionnel ». Le texte ne dit pas qu'une adresse de domiciliation
