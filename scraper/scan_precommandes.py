@@ -101,12 +101,14 @@ def _boutiques_et_replis_complement(plateforme: str) -> tuple[list[str], dict[st
     # (boutiques_complement_ct.py), dedoublonnes en gardant l'ordre.
     import boutiques_complement as bc
     import boutiques_complement_ct as ct
+    import boutiques_complement_manuelles as manuelles
 
     def union(*listes):
-        return list(dict.fromkeys(d for liste in listes for d in liste))
+        return list(dict.fromkeys(d for liste in listes for d in liste
+                                  if d not in manuelles.VENDEURS_HORS_FRANCE))
 
     if plateforme == "shopify":
-        return union(bc.BOUTIQUES_COMPLEMENT_SHOPIFY, ct.BOUTIQUES_COMPLEMENT_CT_SHOPIFY), {}
+        return union(bc.BOUTIQUES_COMPLEMENT_SHOPIFY, ct.BOUTIQUES_COMPLEMENT_CT_SHOPIFY, manuelles.BOUTIQUES_SHOPIFY), {}
     if plateforme == "prestashop":
         repli = union(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_REPLI_HTML, ct.BOUTIQUES_COMPLEMENT_CT_PRESTASHOP_REPLI_HTML)
         sitemap = union(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_PRESTASHOP_SITEMAP)
