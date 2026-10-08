@@ -340,3 +340,17 @@ some Connect features may stop working » (06/08/2025). La phrase de notre messa
 customers may lose these apps » est **trop forte**. Pour la relance du 08/10, écrire plutôt :
 « after 31 January 2027 these apps will get no more security or feature updates, and some
 features may stop working over time ». Bilan à reporter fidèlement : 10 refus sur 37 au 27/09.
+
+## Préparation de la relance unique (08/10, 03:40 UTC)
+
+- Boîte du pseudonyme relue : aucune nouvelle réponse depuis le refus de Top Shelf Solutions (05/10).
+  Bilan : **11 refus sur 37**, 1 ticket « en cours » sans réponse écrite (Teamlead), **25 éditeurs
+  silencieux** à relancer (19 par email, 6 par réponse au ticket de leur portail).
+- Six fils (accusés de réception de Tech Labs, EliteSoft, Colined, Magic Apps, Bloompeak, et le fil
+  Actonic) se trouvaient dans la corbeille ; ils ont été **restaurés** et rangés sous l'étiquette
+  « Reprise Atlassian » (rien n'est supprimé ; la corbeille Gmail s'efface au bout de 30 jours).
+- Envoi programmé le 08/10 à 08:20 UTC, une réponse par minute environ, avec la formulation corrigée
+  du 28/09 (« no more security or feature updates, and some features may stop working over time »)
+  et une sortie simple (« a one-word reply is perfectly fine, and I will not contact you again »).
+  Les éditeurs ayant refusé ne sont jamais relancés. Après cette relance, le dossier est clos :
+  seules les réponses reçues seront traitées.
