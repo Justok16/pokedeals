@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f0e0c'/%3E%3Crect x='1.5' y='1.5' width='29' height='29' rx='6.5' fill='none' stroke='%23c8a46e' stroke-width='1.2'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' text-anchor='middle' fill='%23c8a46e'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/marque/favicon-32.png">
+<link rel="apple-touch-icon" href="/img/marque/apple-touch-icon.png">
 <title>Mentions légales et confidentialité — DIG16</title>
 <link rel="canonical" href="https://dig16.fr/mentions-legales">
 <meta name="description" content="Mentions légales, confidentialité et données personnelles du site DIG16 (sites internet pour artisans et commerçants).">
@@ -46,10 +47,19 @@ h1,h2,h3{font-family:'Instrument Serif',Georgia,serif!important;font-weight:400!
 .logo b{font-family:Geist,system-ui,sans-serif!important;font-weight:600!important;font-size:1.02rem!important;letter-spacing:.2em}
 .avis-ouverture{background:#16140f!important;color:#cfc6b8!important;border-bottom:1px solid rgba(200,164,110,.18)}
 nav.plein{background:rgba(15,14,12,.86)!important}
+
+/* logo DIG16 (08/10) : emblème D16 + signature */
+.logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.logo .logo-embleme{width:42px;height:42px;flex:none;display:block}
+.logo-mot{display:flex;flex-direction:column;line-height:1}
+.logo-mot>span{font-family:'Instrument Serif',Georgia,serif;font-size:1.72rem;letter-spacing:.07em;color:#efe9df;font-weight:400}
+.logo-mot em{font-style:italic;color:#c8a46e;letter-spacing:0;margin-left:.03em}
+.logo-mot small{font-family:'Geist Mono',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
+@media (max-width:420px){.logo .logo-embleme{width:36px;height:36px}.logo-mot>span{font-size:1.5rem}.logo-mot small{font-size:.5rem;letter-spacing:.18em}}
 </style>
 </head>
 <body>
-<header><div class="cadre"><a class="logo" href="index.html"><i>D</i><b>DIG16</b></a></div></header>
+<header><div class="cadre"><a href="index.html" class="logo"><svg class="logo-embleme" viewBox="20 20 160 160" aria-hidden="true"><rect x="24" y="24" width="152" height="152" rx="30" fill="none" stroke="#c8a46e" stroke-width="2.2"/><rect x="31" y="31" width="138" height="138" rx="24" fill="none" stroke="#c8a46e" stroke-width=".8" opacity=".5"/><text x="90" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="116" fill="#c8a46e">D</text><text x="134" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="42" fill="#efe9df">16</text></svg><span class="logo-mot"><span>DIG<em>16</em></span></span></a></div></header>
 <main class="cadre">
 <h1>Mentions légales et confidentialité</h1>
 <p>Dernière mise à jour : 26 septembre 2026 (version de présentation)</p>

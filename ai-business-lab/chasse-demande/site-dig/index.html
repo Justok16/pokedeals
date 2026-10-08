@@ -17,7 +17,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Un site moderne, rapide, qui vous appartient. Votre page d'accueil refaite gratuitement avant de décider. Dès 49 €/mois, 0 € de création, sans engagement après 6 mois.">
 <meta name="theme-color" content="#0c1129">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f0e0c'/%3E%3Crect x='1.5' y='1.5' width='29' height='29' rx='6.5' fill='none' stroke='%23c8a46e' stroke-width='1.2'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' text-anchor='middle' fill='%23c8a46e'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/marque/favicon-32.png">
+<link rel="apple-touch-icon" href="/img/marque/apple-touch-icon.png">
 <!-- Avant le lancement officiel : ne pas indexer (retirer à la création de l’entreprise) -->
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -386,6 +387,15 @@ input,select,textarea{border-radius:12px}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or);box-shadow:0 0 0 3px rgba(200,164,110,.18)}
 :focus-visible{outline-color:var(--or)}
 .mobile-cta .btn{box-shadow:0 10px 28px rgba(0,0,0,.4)}
+
+/* logo DIG16 (08/10) : emblème D16 + signature */
+.logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.logo .logo-embleme{width:42px;height:42px;flex:none;display:block}
+.logo-mot{display:flex;flex-direction:column;line-height:1}
+.logo-mot>span{font-family:'Instrument Serif',Georgia,serif;font-size:1.72rem;letter-spacing:.07em;color:#efe9df;font-weight:400}
+.logo-mot em{font-style:italic;color:#c8a46e;letter-spacing:0;margin-left:.03em}
+.logo-mot small{font-family:'Geist Mono',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
+@media (max-width:420px){.logo .logo-embleme{width:36px;height:36px}.logo-mot>span{font-size:1.5rem}.logo-mot small{font-size:.5rem;letter-spacing:.18em}}
 </style>
 </head>
 <body>
@@ -393,7 +403,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or);box-
 
 <nav id="nav"><div class="avis-ouverture" role="status"><span class="long">Ouverture prochaine : DIG16 est en cours d’immatriculation. Aucune commande n’est possible avant. Vous pouvez déjà découvrir les offres et les démos.</span><span class="court" aria-hidden="true">Ouverture prochaine : pas encore de commande</span></div>
 <div class="cadre">
- <a href="#" class="logo"><i>D</i><span><b>DIG16</b><small>Sites internet</small></span></a>
+ <a href="#" class="logo"><svg class="logo-embleme" viewBox="20 20 160 160" aria-hidden="true"><rect x="24" y="24" width="152" height="152" rx="30" fill="none" stroke="#c8a46e" stroke-width="2.2"/><rect x="31" y="31" width="138" height="138" rx="24" fill="none" stroke="#c8a46e" stroke-width=".8" opacity=".5"/><text x="90" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="116" fill="#c8a46e">D</text><text x="134" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="42" fill="#efe9df">16</text></svg><span class="logo-mot"><span>DIG<em>16</em></span><small>Sites internet · Charente</small></span></a>
  <div class="liens">
   <a href="#demos">Démos</a><a href="#offres">Offres</a><a href="prestige.html">Prestige</a><a href="#methode">Méthode</a><a href="#faq">Questions</a>
   <a href="#contact" class="btn principal">Ma démo gratuite</a>
