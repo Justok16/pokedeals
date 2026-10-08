@@ -50,6 +50,7 @@ from connecteur_woocommerce import (
 from precommandes_watchlist import ProduitSurveille, evaluer_correspondance
 
 import requests
+from urllib.parse import urlsplit
 
 from http_radar_poli import rendre_poli
 
@@ -374,6 +375,11 @@ def scanner_woocommerce_api_rest(domaine: str, produits: list[ProduitSurveille])
                 if p.get("id") in vus_ids:
                     continue
                 vus_ids.add(p.get("id"))
+                # 08/10/2026 (pixelheart.eu) : chaque fiche existe aussi sur la
+                # vitrine anglaise /en/ (autre ID, meme produit) -> une alerte
+                # en double. La vitrine francaise suffit.
+                if "/en/" in urlsplit(p.get("permalink", "")).path[:4]:
+                    continue
                 titre = p.get("name", "")
                 description = re.sub(r"<[^>]+>", " ", p.get("description") or p.get("short_description") or "")
                 url = p.get("permalink", "")

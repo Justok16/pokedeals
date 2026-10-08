@@ -19,5 +19,5 @@ VENDEURS_SANS_LIVRAISON_FRANCE = frozenset()
 # sans sitemap : boutique generaliste (jeux video), un sitemap complet serait
 # disproportionne. Verifie le 08/10/2026 : UPC Noctali-ex et Mentali-ex
 # "VERSION FRANCAISE" en precommande (is_in_stock + is_purchasable, classe
-# available-on-backorder). Fiches doublees /fr/ et /en/ (deux ID distincts).
+# available-on-backorder). Fiches doublees /fr/ et /en/ : /en/ ignoree.
 BOUTIQUES_WOOCOMMERCE_API_REST = ["www.pixelheart.eu"]
