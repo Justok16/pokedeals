@@ -1,6 +1,7 @@
 # Musique originale DIG16 : nappe douce + arpèges légers + basse, 38 s, 44,1 kHz (composée par programme, libre de droits)
 import numpy as np, wave
-sr=44100; dur=38.5; t=np.arange(int(sr*dur))/sr
+import os
+sr=44100; dur=float(os.environ.get("DUREE","38.5")); t=np.arange(int(sr*dur))/sr
 def note(f,start,length,amp,kind='pad'):
     n=int(length*sr);tt=np.arange(n)/sr
     if kind=='pad':

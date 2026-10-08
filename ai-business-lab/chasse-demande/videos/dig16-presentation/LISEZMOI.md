@@ -26,3 +26,18 @@
 Au centre de l'éventail du haut de l'accueil (`site-dig/video/`, 720 × 1280, MP4 2,4 Mo + WebM 2 Mo) : aperçu muet
 en boucle à l'arrivée (désactivé si « mouvement réduit » ou « économie de données »), bouton « Regarder avec le son »
 qui relance la vidéo depuis le début avec le son ; la barre d'appel du bas se cache tant que la vidéo est visible.
+
+## Version 3 (08/10, après-midi) : voix d'homme « conteur »
+
+- L'utilisateur trouvait encore la voix « robotique » et a cité comme modèle la voix de la chaîne YouTube
+  @laquetedusavoiryt. Analyse par Gemini (mode `voix` du relais) : **voix de synthèse** (probablement ElevenLabs,
+  payant, offre gratuite non commerciale), homme 30-40 ans, médium-grave, ronde et chaleureuse, ton de conteur
+  mi-sérieux mi-ironique, ~160 mots/min, voix sèche et proche. On **s'inspire du style sans copier la voix**.
+- Texte lu **d'une seule traite** (prosodie naturelle) par `gemini-3.8-flash-tts`, sans consigne (ce modèle lit
+  la consigne à voix haute), voix « Algieba » par défaut ; essais « Sadaltager » et « Charon » envoyés à
+  l'utilisateur pour choix. Texte : ajout « Basé en Charente » (demande du 08/10).
+- Traitement : passe-haut 75 Hz, +2,5 dB à 160 Hz (chaleur), +1,5 dB à 3,2 kHz (présence), compression 3,5:1,
+  dé-essage, -15 LUFS. Musique ajustée à la durée (`DUREE`).
+- `fabriquer.py <voix>` : repère le début de chaque phrase dans la voix (mots horodatés par Vosk), déforme le temps
+  de l'animation pour suivre la voix, mixe, rend la vidéo. Sur le site : `site-dig/video/presentation-v3.*`
+  (nouveau nom à chaque version, pour éviter l'ancienne vidéo gardée en cache).
