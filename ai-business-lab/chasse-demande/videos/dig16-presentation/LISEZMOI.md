@@ -42,3 +42,10 @@ qui relance la vidéo depuis le début avec le son ; la barre d'appel du bas se 
   de l'animation pour suivre la voix, mixe, rend la vidéo. Sur le site : `site-dig/video/presentation-v3.*`
   (nouveau nom à chaque version, pour éviter l'ancienne vidéo gardée en cache).
 - **Choix validé par l'utilisateur le 08/10 : voix « Algieba »** (« Algieba c'est très bien »). À réutiliser pour toute future vidéo DIG16.
+
+## v5 (08/10/2026)
+
+- « pour les artisans et commerçants de Charente » coupé à droite (signalé par l'utilisateur) : passé sur
+  deux lignes (« … commerçants » / « de Charente »), largeur contrôlée (888 px sur 888 px disponibles).
+- Nouveau logo DIG16 (emblème D16 et signature) en haut de la vidéo et sur l'écran de fin.
+- Même voix Algieba, même musique, même durée (33,8 s), −15,7 LUFS. Fichiers web : `presentation-v5.*`.
