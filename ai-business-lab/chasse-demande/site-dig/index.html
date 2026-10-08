@@ -396,6 +396,23 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or);box-
 .logo-mot em{font-style:italic;color:#c8a46e;letter-spacing:0;margin-left:.03em}
 .logo-mot small{font-family:'Geist Mono',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
 @media (max-width:420px){.logo .logo-embleme{width:36px;height:36px}.logo-mot>span{font-size:1.5rem}.logo-mot small{font-size:.5rem;letter-spacing:.18em}}
+
+/* 08/10 : lecture automatique muette dès l'arrivée, bouton « Activer le son » ; téléphone vidéo plus grand sur PC */
+.fig-film.auto video{filter:none}
+.film-muet{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:4;display:inline-flex;align-items:center;gap:.5rem;border:0;cursor:pointer;font:inherit;font-weight:600;font-size:.95rem;color:var(--or-ink);background:var(--or);padding:.62rem 1.05rem;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.45);white-space:nowrap;animation:pouls 2.2s infinite}
+.film-muet svg{width:20px;height:20px;fill:currentColor}
+.film-muet:hover,.film-muet:focus-visible{background:var(--or-clair)}
+.film-muet[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){.film-muet{animation:none}}
+@media (max-width:820px){.film-muet{bottom:14px;font-size:.8rem;padding:.48rem .8rem;gap:.35rem}.film-muet svg{width:16px;height:16px}}
+@media (min-width:1100px){
+ .eventail{height:clamp(560px,calc(100vh - 230px),720px)}
+ .eventail figure.fig-film{width:clamp(300px,min(25vw,calc((100vh - 250px)*.5625)),400px)}
+ .eventail figure:nth-child(1){transform:translate(-138%,-46%) rotate(-9deg)}
+ .eventail figure:nth-child(3){transform:translate(38%,-46%) rotate(9deg)}
+ .eventail:hover figure:nth-child(1){transform:translate(-146%,-48%) rotate(-12deg)}
+ .eventail:hover figure:nth-child(3){transform:translate(46%,-48%) rotate(12deg)}
+}
 </style>
 </head>
 <body>
@@ -425,7 +442,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or);box-
   <figure><img fetchpriority="high" src="img/vitrine-essentiel-tel-300.webp" srcset="img/vitrine-essentiel-tel-300.webp 300w, img/vitrine-essentiel-tel-470.webp 470w, img/vitrine-essentiel-tel.webp 560w" sizes="(max-width:820px) 180px, 250px" width="560" height="1212" alt="" aria-hidden="true"></figure>
   <figure class="fig-film" id="fig-film">
    <video id="film" muted playsinline loop preload="none" poster="video/affiche-v6.webp" width="720" height="1280" aria-label="Vidéo de présentation de DIG16, 33 secondes, avec voix et musique"><source src="video/presentation-v6.mp4" type="video/mp4"><source src="video/presentation-v6.webm" type="video/webm"></video>
-   <button type="button" class="film-lecture" id="film-son" aria-label="Regarder 33 s : la présentation de DIG16, avec le son"><span class="rond" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="etiquette">Regarder <b>33 s</b></span></button>
+   <button type="button" class="film-lecture" id="film-son" aria-label="Regarder 33 s : la présentation de DIG16, avec le son"><span class="rond" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="etiquette">Regarder <b>33 s</b></span></button><button type="button" class="film-muet" id="film-muet" hidden aria-label="Activer le son et revoir la présentation depuis le début"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Activer le son</button>
    <div class="film-fin" id="film-fin" hidden>
     <p class="fin-titre">Et si on commençait par <em>votre</em> page d’accueil&nbsp;?</p>
     <p class="fin-texte">Je la refais gratuitement. Vous décidez ensuite.</p>
@@ -638,17 +655,17 @@ const ob2=new IntersectionObserver(e=>{e.forEach(x=>vis.set(x.target,x.isInterse
 document.getElementById('form').onsubmit=e=>{e.preventDefault();document.getElementById('msg').textContent='Le formulaire sera ouvert à l’immatriculation de DIG16. Merci de votre patience.'};
 </script>
 <script>
-/* vidéo de présentation (08/10) : aperçu muet en boucle à l'arrivée (sauf mouvement réduit ou économie de données) ;
+/* vidéo de présentation (08/10) : lecture automatique dès l'arrivée, muette si le navigateur l'impose, avec « Activer le son » (sauf mouvement réduit ou économie de données) ;
    un clic n'importe où sur la vidéo (ou sur « Voir la présentation ») la relance depuis le début avec le son ;
    à la fin, un écran propose la démo gratuite pour garder le visiteur. */
 (function(){var v=document.getElementById('film'),b=document.getElementById('film-son'),f=document.getElementById('fig-film'),fin=document.getElementById('film-fin');if(!v||!b)return;
 var calme=matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData);
-function apercu(){if(calme||!v.muted)return;v.preload='auto';var p=v.play();if(p&&p.catch)p.catch(function(){})}
+var m=document.getElementById('film-muet');function muet(){v.muted=true;v.loop=false;f.classList.add('auto');b.hidden=true;if(m)m.hidden=false;var p=v.play();if(p&&p.catch)p.catch(function(){f.classList.remove('auto');b.hidden=false;if(m)m.hidden=true})}function apercu(){if(calme||f.classList.contains('lecture'))return;v.preload='auto';v.currentTime=0;v.muted=false;var p=v.play();if(p&&p.then)p.then(function(){f.classList.add('lecture');b.hidden=true;v.controls=true},function(){muet()});else muet()}
 if(document.readyState==='complete')setTimeout(apercu,300);else addEventListener('load',function(){setTimeout(apercu,300)});
-function lire(){b.hidden=true;fin.hidden=true;f.classList.add('lecture');v.loop=false;v.muted=false;v.controls=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){b.hidden=false;f.classList.remove('lecture')})}
-b.addEventListener('click',function(e){e.stopPropagation();lire()});
+function lire(){b.hidden=true;if(m)m.hidden=true;f.classList.remove('auto');fin.hidden=true;f.classList.add('lecture');v.loop=false;v.muted=false;v.controls=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){b.hidden=false;f.classList.remove('lecture')})}
+b.addEventListener('click',function(e){e.stopPropagation();lire()});if(m)m.addEventListener('click',function(e){e.stopPropagation();lire()});/* Les navigateurs interdisent le son avant tout geste du visiteur : au premier clic ou toucher n'importe où (hors liens et boutons), si la vidéo tourne en muet et reste bien visible, on la relance depuis le début avec le son. */function geste(e){if(!f.classList.contains('auto')||f.contains(e.target))return;if(e.target.closest&&e.target.closest('a,button,input,select,textarea,label'))return;var r=f.getBoundingClientRect(),vis=Math.min(r.bottom,innerHeight)-Math.max(r.top,0);if(vis<r.height*.5)return;removeEventListener('pointerdown',geste,true);removeEventListener('keydown',geste,true);lire()}addEventListener('pointerdown',geste,true);addEventListener('keydown',geste,true);
 f.addEventListener('click',function(e){if(!f.classList.contains('lecture')&&!fin.contains(e.target))lire()});
-v.addEventListener('ended',function(){v.controls=false;if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen();fin.hidden=false;var c=document.getElementById('fin-cta');if(c)c.focus({preventScroll:true})});
+v.addEventListener('ended',function(){v.controls=false;if(m)m.hidden=true;f.classList.remove('auto');if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen();fin.hidden=false;var c=document.getElementById('fin-cta');if(c)c.focus({preventScroll:true})});
 document.getElementById('fin-revoir').addEventListener('click',function(e){e.stopPropagation();lire()});
 var bf=document.getElementById('btn-film');if(bf)bf.addEventListener('click',function(){var r=v.getBoundingClientRect();if(r.top<60||r.bottom>innerHeight)v.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});lire()});})();
 </script>
