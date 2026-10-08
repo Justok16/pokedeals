@@ -428,3 +428,17 @@ def scanner_auchan(domaine: str, produits: list[ProduitSurveille], connecteur=No
     recherche (microdonnees schema.org), aucune fiche a charger."""
     from connecteur_auchan import ConnecteurAuchan
     return _scanner_enseigne(domaine, produits, connecteur or ConnecteurAuchan(), REQUETES_LECLERC)
+
+
+# L'API Lidl limite le debit (401 des la 3e-4e requete rapprochee, verifie
+# le 08/10/2026), mais "pokemon" ne renvoie qu'une cinquantaine d'articles :
+# UNE requete large par cycle couvre tout le rayon, le filtre edition + type
+# fait le tri.
+REQUETES_LIDL = ["pokemon"]
+
+
+def scanner_lidl(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
+    """Lidl (08/10/2026) : API de recherche publique en JSON, disponibilite
+    en ligne sur chaque resultat, aucune fiche a charger."""
+    from connecteur_lidl import ConnecteurLidl
+    return _scanner_enseigne(domaine, produits, connecteur or ConnecteurLidl(), REQUETES_LIDL)
