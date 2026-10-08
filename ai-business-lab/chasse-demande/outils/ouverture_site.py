@@ -11,7 +11,8 @@ Ce que fait le script :
   2. retire le bandeau « Ouverture prochaine » (index.html, prestige.html) ;
   3. retire <meta name="robots" content="noindex"> des pages publiques (pas des démos) ;
   4. remplit le téléphone de l'accueil ([Téléphone], tel:[TELEPHONE]) ;
-  5. active le formulaire de contact : envoi par FormSubmit (formsubmit.co, gratuit, sans compte ni clé ;
+  5. autorise FormSubmit dans la politique de sécurité du site (_headers, connect-src) ;
+  6. active le formulaire de contact : envoi par FormSubmit (formsubmit.co, gratuit, sans compte ni clé ;
      page officielle lue le 08/10/2026), en AJAX vers contact@dig16.fr, sans reCAPTCHA (pas de cookie Google)
      mais avec un champ piège _honey ; la première soumission envoie un lien d'activation à contact@dig16.fr
      que l'utilisateur doit cliquer ; le prestataire est ajouté aux mentions légales (section 4).
@@ -76,6 +77,12 @@ def formulaire(html, ident):
     return html.replace(ANCIEN_JS, JS_FORM)
 
 
+def entetes(texte):
+    """Autorise l'envoi du formulaire vers FormSubmit dans la politique de sécurité (CSP) du site : sans cela le
+    navigateur bloque l'envoi (défaut trouvé le 09/10/2026, invisible dans un essai local sans _headers)."""
+    return texte.replace("connect-src 'self';", "connect-src 'self' https://formsubmit.co;")
+
+
 def ouvrir(html):
     html = re.sub(r'<div class="avis-ouverture" role="status">.*?</div>', "", html, flags=re.S)
     return html.replace('<meta name="robots" content="noindex">\n', "").replace('<meta name="robots" content="noindex">', "")
@@ -107,6 +114,14 @@ def main():
               "| bandeau" if "avis-ouverture\" role" in apres else "", "| noindex" if "noindex" in apres else "")
         if ecrire and apres != avant:
             open(chemin, "w", encoding="utf-8").write(apres)
+    chemin = os.path.join(site, "_headers")
+    avant = open(chemin, encoding="utf-8").read()
+    apres = entetes(avant)
+    if "connect-src 'self' https://formsubmit.co;" not in apres:
+        print("ALERTE _headers : FormSubmit non autorisé dans connect-src (le formulaire serait bloqué)")
+    print("_headers :", "modifiée" if apres != avant else "inchangée")
+    if ecrire and apres != avant:
+        open(chemin, "w", encoding="utf-8").write(apres)
     print("Écrit." if ecrire else "Aperçu seulement (ajouter --ecrire, avec l'accord de l'utilisateur).")
 
 
