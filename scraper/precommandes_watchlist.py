@@ -82,6 +82,10 @@ class ProduitSurveille:
     # `mots_exclus_texte` -- cf. EXCLUSIONS_LOTS_ET_IMPORTS.
     mots_exclus_titre: frozenset[str] = frozenset()
     mots_exclus_texte: frozenset[str] = frozenset()
+    # Mots (ENTIERS) d'un produit CONCURRENT : un titre qui en contient un
+    # sans contenir aucun mot de `mots_cles_supplementaires` est rejete
+    # (ex. Pokebox Amphinobi-ex vs Pokebox Nymphali-ex, 08/10/2026).
+    concurrents_titre: frozenset[str] = frozenset()
     # True : au moins un mot-cle TYPE doit figurer dans le TITRE (pas seulement
     # dans la description) -- un "Pack coffret 30 ans" de revendeur dont la
     # description enumere ETB/bundle/mini tin ne doit pas matcher chacun de
@@ -363,6 +367,11 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
            # "Mini Tin 30e Anniversaire" (autre produit suivi) ne doit pas
            # passer pour la Pokebox via "tin pokemon"/"tin 30".
            "mots_exclus_titre": EXCLUSIONS_LOTS_ET_IMPORTS["mots_exclus_titre"] | {"mini"}},
+        # 08/10/2026 : la Pokebox SOEUR "Amphinobi-ex" 30e Anniversaire
+        # (plazatcg.com, pokemagic.fr) matchait via "nymphali" ailleurs sur la
+        # page. Rejetee si son TITRE nomme Amphinobi sans nommer Nymphali ;
+        # "Pokebox Nymphali ex et Amphinobi ex" (modele au choix) reste gardee.
+        concurrents_titre=frozenset({"amphinobi", "greninja"}),
     ),
 ]
 
@@ -553,6 +562,10 @@ def evaluer_correspondance(
              or _mot_exclu(texte_exclu, produit.mots_exclus_texte))
     if exclu:
         return None, f"exclu : lot ou edition importee ('{exclu}')"
+
+    concurrent = _mot_exclu(titre, produit.concurrents_titre)
+    if concurrent and not any(_mot_exclu(titre, groupe) for groupe in produit.mots_cles_supplementaires):
+        return None, f"autre produit dans le titre ('{concurrent}')"
 
     if not titre_correspond_produit(texte_complet, produit):
         return None, "mots-cles absents (edition et/ou type de produit)"

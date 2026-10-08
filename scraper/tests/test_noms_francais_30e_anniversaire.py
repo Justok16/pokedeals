@@ -50,3 +50,13 @@ def test_titres_qui_ne_doivent_rien_declencher(titre):
 
 def test_mini_tin_jamais_pris_pour_la_pokebox_nymphali():
     assert _reconnu_par("Pokémon 30e Anniversaire : Mini Tin (Nymphali)") == [_produit("Mini Tin").nom]
+
+
+def test_pokebox_amphinobi_seule_rejetee_mais_modele_au_choix_garde():
+    """08/10/2026 : la Pokebox soeur Amphinobi-ex 30e (plazatcg.com,
+    pokemagic.fr) passait pour la Nymphali via "nymphali" ailleurs sur la page."""
+    p = next(p for p in w.PRODUITS_SURVEILLES if p.nom.startswith("Pokébox"))
+    texte = "Version française. Voir aussi la Pokébox Nymphali-ex."
+    assert w.evaluer_correspondance("Pokémon – Pokébox – 30e Anniversaire - Amphinobi-ex – Français", texte, p)[0] is None
+    assert w.evaluer_correspondance("Pokébox Pokémon Nymphali Ex et Amphinobi Ex – 30e Anniversaire", texte, p)[0]
+    assert w.evaluer_correspondance("Pokémon – Pokébox – 30e Anniversaire - Nymphali-ex – Français", texte, p)[0]
