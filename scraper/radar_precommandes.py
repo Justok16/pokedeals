@@ -348,3 +348,64 @@ def scanner_woocommerce_api_rest(domaine: str, produits: list[ProduitSurveille])
                     candidats.append(c)
             time.sleep(DELAI_ENTRE_PAGES)
     return candidats
+
+
+# --- E.Leclerc (08/10/2026) : plateforme maison, recherche + fiche JSON-LD ---
+
+# Recherches lancees a chaque cycle (une page de resultats chacune) : couvrent
+# les 6 produits des 30 ans suivis par Justok, en noms francais.
+REQUETES_LECLERC = (
+    "pokemon 30e anniversaire",
+    "pokemon me05.5",   # Leclerc nomme ses produits par code d'extension
+    "coffret dresseur d'elite 30e anniversaire",
+    "pokemon lot de boosters 30e anniversaire",
+    "pokemon mini tin 30e anniversaire",
+    "pokebox nymphali",
+    "collection ultra premium noctali",
+    "collection ultra premium mentali",
+)
+
+
+def _titre_est_candidat(titre: str, produit: ProduitSurveille) -> bool:
+    """Meme double exigence (edition ET type) que _slug_est_candidat, sur le
+    titre d'un resultat de recherche -- evite de charger des fiches inutiles."""
+    norm = _normaliser_slug(titre)
+    return (any(_normaliser_slug(m) in norm for m in produit.mots_cles_edition)
+            and any(_normaliser_slug(m) in norm for m in produit.mots_cles_type))
+
+
+def scanner_leclerc(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
+    """Une erreur sur une RECHERCHE remonte (boutique en echec ce cycle, rien
+    n'est ecrit en memoire) ; une fiche illisible est simplement ignoree."""
+    from connecteur_leclerc import ConnecteurLeclerc
+    connecteur = connecteur or ConnecteurLeclerc()
+
+    vus: dict[str, dict] = {}
+    for requete in REQUETES_LECLERC:
+        for r in connecteur.rechercher(requete):
+            vus.setdefault(r["url"].split("?")[0], r)
+
+    candidats = []
+    for url, r in vus.items():
+        concernes = [p for p in produits if _titre_est_candidat(r["titre"], p)]
+        if not concernes:
+            continue
+        try:
+            fiche = connecteur.lire_fiche(r["url"])
+        except requests.RequestException:
+            continue
+        if fiche is None:
+            continue
+        titre = fiche["titre"] or r["titre"]
+        for produit in concernes:
+            # Les descriptions Leclerc sont en francais mais sans les mots-indices
+            # de langue_non_francaise() (verifie le 08/10/2026 : "Les Mini Tins
+            # Pokemon, appelees aussi mini-boites..."). Site francais vendant des
+            # versions francaises : indice explicite ajoute ; un marqueur d'une
+            # autre langue dans le TITRE ("- EN", "japonais"...) reste rejete.
+            description = f"{fiche['description']} (site francais e.leclerc)"
+            c = _candidat(domaine, produit, titre, description, url,
+                          prix=fiche["prix"], en_stock=fiche["en_stock"])
+            if c:
+                candidats.append(c)
+    return candidats
