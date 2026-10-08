@@ -48,7 +48,8 @@
 
   /* Acte 1 : une journée au Clos. L'heure avance avec le film. */
   .journee { height: 760vh; }
-  @media (prefers-reduced-motion: reduce) { .journee { height: 120vh; } }
+  /* Animations réduites (réglage fréquent sous Windows) : même parcours, images fixes qui se succèdent sans fondu. */
+  @media (prefers-reduced-motion: reduce) { .journee { height: 500vh; } }
   .journee [data-sc-stage] { background: var(--sc-canvas); }
   .etats { position: absolute; inset: 0; z-index: 1; transition: opacity .5s ease; }
   .etats picture, .etats img { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -78,7 +79,7 @@
   .etapes-jour button { all: unset; cursor: pointer; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; }
   .etapes-jour button::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: rgba(244,238,226,.45); transition: background 150ms, transform 150ms; }
   .etapes-jour button[aria-current="step"]::before { background: var(--sc-accent); transform: scale(1.35); }
-  @media (prefers-reduced-motion: reduce) { .moment, .cadran .aig { transition: none; } .etapes-jour { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .moment, .cadran .aig, .etats, .etats picture { transition: none; } }
 
   /* Acte 2 : la maison, une page de livre ouverte */
   .maison { background: var(--pierre); color: var(--encre); }
@@ -334,7 +335,7 @@
     }
   })();
   // Mouvements réduits : la journée tient en un écran (la suite de la page reste complète).
-  if (calme) document.querySelector('.journee').setAttribute('data-sc-span', '1.2');
+  if (calme) document.querySelector('.journee').setAttribute('data-sc-span', '5');
   ScrollCraft.mount(document.body);
 
   var lang = 'fr';
@@ -369,6 +370,7 @@
       if (video && video.readyState >= 2) { panne = 0; if (video.currentTime > 0.05) section.classList.add('film-ok'); }
       else if (!panne) panne = maintenant;
       else if (maintenant - panne > 1500) section.classList.remove('film-ok');
+      if (section.classList.contains('film-ok')) t = video.currentTime; // l'heure colle à l'image du film
       moments.forEach(function (c, k) { if (t >= +c.dataset.de && t < +c.dataset.a) i = k; });
       if (i !== courant) {
         courant = i;
