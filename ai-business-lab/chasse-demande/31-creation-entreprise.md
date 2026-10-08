@@ -84,8 +84,11 @@ du Drive « Dig ». Sources lues le 08/10 : Service-Public F36746 et F23282 (« 
   guichet. Attestation sur l'honneur : pas d'ACRE dans les 3 dernières années. Attention : l'ACRE « sera
   considérée comme utilisée sur la période d'exonération, même en l'absence de chiffre d'affaires ».
   Réponse : silence d'un mois vaut accord (à revérifier sur la fiche Urssaf) ; attestation dans « Mes attestations ».
-- Au SIREN : l'adresse et le téléphone vont sur les mentions légales du site et sur le flyer au
-  moment du déploiement, **sans être copiés dans ce dépôt public**.
+- **Accord de l'utilisateur (08/10, « Oui »)** : à la validation de la formalité, ses coordonnées (nom,
+  adresse, téléphone, SIREN) sont publiées sur les mentions légales de dig16.fr, donc aussi dans ce dépôt
+  (obligation LCEN ; adresse déjà publique au RNE) : `DIG16_IDENTITE=<json privé> python3
+  outils/ouverture_site.py --ecrire`, puis `outils/test_pages.py`. Flyer et documents commerciaux remplis :
+  versions privées seulement (`outils/marque/identite.py`).
 
 ## 2 bis. Création parfaite et fiscalité optimisée (exigence de l'utilisateur, 25/09)
 
