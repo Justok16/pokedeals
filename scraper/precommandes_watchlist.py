@@ -267,6 +267,9 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             # ("Pokemon ME04 : coffret Dresseur d'Elite"), et la serie des 30 ans
             # est vendue sous "ME05.5" (dracaugames, tradingcardsxxx).
             "me05.5", "me 05.5", "me5.5",
+            # E.Leclerc nomme la serie "Pokemon 30A" ("Pokemon 30A : Mini Tin
+            # (modele aleatoire)", fiche verifiee le 08/10/2026).
+            "pokemon 30a",
         }),
         mots_cles_type=frozenset({
             "dresseur d'elite", "dresseur elite", "etb", "elite trainer box",
@@ -289,6 +292,9 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             # ("Pokemon ME04 : coffret Dresseur d'Elite"), et la serie des 30 ans
             # est vendue sous "ME05.5" (dracaugames, tradingcardsxxx).
             "me05.5", "me 05.5", "me5.5",
+            # E.Leclerc nomme la serie "Pokemon 30A" ("Pokemon 30A : Mini Tin
+            # (modele aleatoire)", fiche verifiee le 08/10/2026).
+            "pokemon 30a",
         }),
         mots_cles_type=frozenset({
             "booster bundle", "bundle", "paquet de boosters", "paquet de booster",
@@ -313,6 +319,9 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             # ("Pokemon ME04 : coffret Dresseur d'Elite"), et la serie des 30 ans
             # est vendue sous "ME05.5" (dracaugames, tradingcardsxxx).
             "me05.5", "me 05.5", "me5.5",
+            # E.Leclerc nomme la serie "Pokemon 30A" ("Pokemon 30A : Mini Tin
+            # (modele aleatoire)", fiche verifiee le 08/10/2026).
+            "pokemon 30a",
         }),
         mots_cles_type=frozenset({
             "mini tin", "mini boite", "mini coffret metal",
@@ -335,6 +344,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         mots_cles_edition=frozenset({
             "30e anniversaire", "30eme anniversaire", "30th anniversary",
             "30th celebration", "30 ans",
+            "pokemon 30a",   # nom E.Leclerc de la serie (cf. ETB)
         }),
         mots_cles_type=frozenset({
             "pokebox", "poke box", "ex tin", "tin nymphali", "tin sylveon",

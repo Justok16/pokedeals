@@ -68,7 +68,9 @@ def test_scanner_leclerc_detecte_le_produit_et_ignore_le_reste():
     cand = r.scanner_leclerc("e.leclerc", produits, faux)
     assert [(c["nom_produit"], c["en_stock"], c["prix"]) for c in cand] == [
         ("Booster Bundle — 30e Anniversaire (30th Celebration) FR", True, 89.0)]
-    assert faux.fiches_lues == ["https://www.e.leclerc/fp/bundle-1?offerId=9"]   # ME04 jamais chargee
+    # Fiches par EAN (absentes ici) puis la seule fiche candidate : ME04 jamais chargee.
+    assert faux.fiches_lues == [f"https://www.e.leclerc/fp/x-{e}" for e in r.EANS_30E] + [
+        "https://www.e.leclerc/fp/bundle-1?offerId=9"]
     assert cand[0]["url_produit"] == "https://www.e.leclerc/fp/bundle-1"         # sans ?offerId
 
 
@@ -77,3 +79,16 @@ def test_scanner_leclerc_rejette_une_version_anglaise():
     faux = _FauxLeclerc(resultats, {"https://www.e.leclerc/fp/en": analyser_fiche(_fiche("Pokémon ME05.5 : Bundle - EN"))})
     produits = [p for p in w.PRODUITS_SURVEILLES if p.alerte_disponibilite]
     assert r.scanner_leclerc("e.leclerc", produits, faux) == []
+
+
+def test_fiche_par_ean_trouvee_meme_absente_de_la_recherche():
+    """08/10/2026 : "Pokemon 30A : Mini Tin" existe sur /fp/...-0196214146297
+    mais la recherche Leclerc ne la remonte pas -- la fiche lue par EAN suffit."""
+    url_ean = "https://www.e.leclerc/fp/x-0196214146297"
+    fiche = {"titre": "Pokémon 30A : Mini Tin (modèle aléatoire)", "description": "", "prix": 12.99, "en_stock": True,
+             "url": "https://www.e.leclerc/fp/pokemon-30a-mini-tin-modele-aleatoire-0196214146297"}
+    faux = _FauxLeclerc([], {url_ean: fiche})
+    produits = [p for p in w.PRODUITS_SURVEILLES if p.alerte_disponibilite]
+    cand = r.scanner_leclerc("e.leclerc", produits, faux)
+    assert [(c["nom_produit"], c["en_stock"], c["prix"], c["url_produit"]) for c in cand] == [
+        ("Mini Tin — 30e Anniversaire (30th Celebration) FR", True, 12.99, fiche["url"])]

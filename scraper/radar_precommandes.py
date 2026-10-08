@@ -374,18 +374,35 @@ def _titre_est_candidat(titre: str, produit: ProduitSurveille) -> bool:
             and any(_normaliser_slug(m) in norm for m in produit.mots_cles_type))
 
 
-def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur, requetes) -> list[dict]:
+def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur, requetes,
+                      urls_directes: tuple[str, ...] = ()) -> list[dict]:
     """Logique commune aux grandes enseignes a plateforme maison (Leclerc,
     Auchan...) : quelques recherches, dedoublonnage par URL (sans parametres),
     filtre edition + type sur le titre, puis evaluation complete. Si le
     connecteur sait lire une fiche (`lire_fiche`), prix/stock/description en
     viennent ; sinon ceux de la carte de recherche sont utilises. Une erreur
     sur une RECHERCHE remonte (boutique en echec ce cycle, rien n'est ecrit en
-    memoire) ; une fiche illisible est simplement ignoree."""
+    memoire) ; une fiche illisible est simplement ignoree.
+
+    `urls_directes` : fiches lues meme si la recherche ne les remonte pas
+    (EAN connus, cf. EANS_30E) ; une fiche absente (404) est ignoree, une
+    fiche presente passe par le meme filtre edition + type que les resultats
+    de recherche (son titre fait foi)."""
     vus: dict[str, dict] = {}
     for requete in requetes:
         for r in connecteur.rechercher(requete):
             vus.setdefault(r["url"].split("?")[0], r)
+    fiches_lues: dict[str, dict] = {}
+    for url in urls_directes:
+        try:
+            fiche = connecteur.lire_fiche(url)
+        except requests.RequestException:
+            continue
+        if fiche is None:
+            continue
+        url_finale = fiche.get("url") or url
+        fiches_lues[url_finale] = fiche
+        vus.setdefault(url_finale, {"titre": fiche["titre"], "url": url_finale})
 
     lire_fiche = getattr(connecteur, "lire_fiche", None)
     candidats = []
@@ -393,7 +410,9 @@ def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur
         concernes = [p for p in produits if _titre_est_candidat(r["titre"], p)]
         if not concernes:
             continue
-        if lire_fiche:
+        if url in fiches_lues:
+            fiche = fiches_lues[url]
+        elif lire_fiche:
             try:
                 fiche = lire_fiche(r["url"])
             except requests.RequestException:
@@ -418,9 +437,24 @@ def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur
     return candidats
 
 
+# EAN des produits des 30 ans VERIFIES sur des fiches reelles (08/10/2026) :
+# ETB et Bundle sur ultrajeux.com (EAN affiche sur la fiche), Bundle aussi
+# sur lagranderecre.fr, Mini Tin sur e.leclerc. Ceux de la Pokebox Nymphali
+# et des UPC ne sont pas confirmes (le rapport Gemini donnait a tort l'EAN
+# de l'ETB pour les deux UPC) : a ajouter une fois vus sur une fiche.
+EANS_30E = {
+    "0196214144835": "Coffret Dresseur d'Elite 30e anniversaire",
+    "0196214145221": "Lot de 6 boosters (Bundle) 30e anniversaire",
+    "0196214146297": "Mini Tin 30e anniversaire",
+}
+
+
 def scanner_leclerc(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
-    from connecteur_leclerc import ConnecteurLeclerc
-    return _scanner_enseigne(domaine, produits, connecteur or ConnecteurLeclerc(), REQUETES_LECLERC)
+    """Recherche + fiches lues directement par EAN (la recherche Leclerc ne
+    remonte pas les produits "Pokemon 30A", cf. connecteur_leclerc)."""
+    from connecteur_leclerc import ConnecteurLeclerc, url_fiche_par_ean
+    return _scanner_enseigne(domaine, produits, connecteur or ConnecteurLeclerc(), REQUETES_LECLERC,
+                             urls_directes=tuple(url_fiche_par_ean(e) for e in EANS_30E))
 
 
 def scanner_auchan(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
@@ -428,3 +462,10 @@ def scanner_auchan(domaine: str, produits: list[ProduitSurveille], connecteur=No
     recherche (microdonnees schema.org), aucune fiche a charger."""
     from connecteur_auchan import ConnecteurAuchan
     return _scanner_enseigne(domaine, produits, connecteur or ConnecteurAuchan(), REQUETES_LECLERC)
+
+
+def scanner_ultrajeux(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
+    """Ultrajeux (08/10/2026) : pages categorie lisibles (nouveautes en tete),
+    prix et disponibilite en ligne sur chaque carte, aucune fiche a charger."""
+    from connecteur_ultrajeux import CATEGORIES, ConnecteurUltrajeux
+    return _scanner_enseigne(domaine, produits, connecteur or ConnecteurUltrajeux(), list(CATEGORIES))
