@@ -57,6 +57,12 @@ jobs:
         id: leclerc
         continue-on-error: true
         run: python scan_precommandes.py leclerc
+      # Auchan (08/10/2026) : idem, microdonnees sur les cartes de recherche
+      # (cf. connecteur_auchan.py).
+      - name: Radar Auchan (complement)
+        id: auchan
+        continue-on-error: true
+        run: python scan_precommandes.py auchan
       - name: Échec si une plateforme a échoué
-        if: steps.shopify.outcome == 'failure' || steps.woocommerce.outcome == 'failure' || steps.prestashop.outcome == 'failure' || steps.leclerc.outcome == 'failure'
+        if: steps.shopify.outcome == 'failure' || steps.woocommerce.outcome == 'failure' || steps.prestashop.outcome == 'failure' || steps.leclerc.outcome == 'failure' || steps.auchan.outcome == 'failure'
         run: exit 1
