@@ -86,6 +86,7 @@
   « DIG16 – Synthèse création » dans le Drive « Dig » (ne jamais en recopier les données ici).
   Chercher **toutes** les aides, financières et en nature (`36-aides-creation.md`).
   Situation sociale personnelle : ne jamais l'écrire dans le dépôt public.
+- **Exception du 08/10** (demande explicite de l'utilisateur) : le texte de la vidéo de présentation DIG16 peut dire « basé en Charente » (département seulement, jamais de commune ni d'adresse).
 - **Tout enregistrer** (demande du 26/09) : chaque document, démo, visuel ou
   prompt créé est sauvegardé. Public (sans données personnelles ni région de
   l'utilisateur) → ce dépôt. Privé (listes de prospects, données clients,

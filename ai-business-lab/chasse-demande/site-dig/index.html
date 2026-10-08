@@ -30,18 +30,16 @@
 .eventail .fig-film{transform:translate(-50%,-52%);z-index:3;width:300px;aspect-ratio:9/16;padding:9px}
 .eventail:hover .fig-film{transform:translate(-50%,-53%) scale(1.02)}
 .fig-film video{width:100%;height:100%;object-fit:cover;border-radius:22px;display:block;background:#0c1129}
-.film-son{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;align-items:center;gap:.7rem;border:0;cursor:pointer;background:rgba(12,17,41,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font:inherit;font-weight:700;font-size:.92rem;line-height:1.15;text-align:left;padding:.6rem 1rem .6rem .6rem;border-radius:999px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4)}
-.film-son small{display:block;font-weight:500;font-size:.74rem;color:#c9cfe6}
-.film-son .rond{flex:0 0 42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#b4460f;animation:pouls 2.2s infinite}
-.film-son svg{width:18px;height:18px;fill:#fff;margin-left:3px}
+.film-son{position:absolute;right:16px;top:16px;width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:rgba(12,17,41,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.film-son svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .film-son[hidden]{display:none}
-@keyframes pouls{0%{box-shadow:0 0 0 0 rgba(255,122,47,.55)}70%{box-shadow:0 0 0 16px rgba(255,122,47,0)}100%{box-shadow:0 0 0 0 rgba(255,122,47,0)}}
-@media (prefers-reduced-motion:reduce){.film-son .rond{animation:none}}
+.btn-film{gap:.55rem}
+.btn-film svg{width:16px;height:16px;fill:#ff9a62}
+.btn-film small{font-size:.78rem;font-weight:500;color:var(--doux);margin-left:.15rem}
 @media (max-width:820px){
  .heros .cadre>div:first-child{display:contents}
  .heros h1{order:1}.eventail{order:2}.heros .accroche{order:3}.heros .actions{order:4}.heros .confiance{order:5}
  .eventail .fig-film{width:206px}
- .film-son{bottom:14px;font-size:.84rem}
 }
 </style>
 <style>
@@ -303,12 +301,13 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
   <div class="actions">
    <a href="#contact" class="btn principal" id="cta-haut">Recevoir ma démo gratuite</a>
    <a href="#demos" class="btn second">Voir les démos</a>
+   <button type="button" class="btn second btn-film" id="btn-film"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Voir la présentation<small>38 s</small></button>
   </div>
   <div class="confiance"><div><b>0 €</b> de création</div><div><b>7 jours</b> pour être en ligne</div><div><b>100 %</b> à votre nom</div></div>
  </div>
  <div class="eventail">
   <figure><img fetchpriority="high" src="img/vitrine-essentiel-tel-300.webp" srcset="img/vitrine-essentiel-tel-300.webp 300w, img/vitrine-essentiel-tel-470.webp 470w, img/vitrine-essentiel-tel.webp 560w" sizes="(max-width:820px) 180px, 250px" width="560" height="1212" alt="" aria-hidden="true"></figure>
-  <figure class="fig-film"><video id="film" muted playsinline loop preload="none" poster="video/affiche.webp" width="720" height="1280" aria-label="Vidéo de présentation de DIG16, 38 secondes, avec voix et musique"><source src="video/presentation.mp4" type="video/mp4"><source src="video/presentation.webm" type="video/webm"></video><button type="button" class="film-son" id="film-son"><span class="rond" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span><span>Regarder avec le son<small>Présentation · 38 s</small></span></button></figure>
+  <figure class="fig-film"><video id="film" muted playsinline loop preload="none" poster="video/affiche.webp" width="720" height="1280" aria-label="Vidéo de présentation de DIG16, 38 secondes, avec voix et musique"><source src="video/presentation.mp4" type="video/mp4"><source src="video/presentation.webm" type="video/webm"></video><button type="button" class="film-son" id="film-son" aria-label="Activer le son et regarder la présentation depuis le début"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5m0-5l-5 5"/></svg></button></figure>
   <figure><img src="img/vitrine-paysagiste-tel-300.webp" srcset="img/vitrine-paysagiste-tel-300.webp 300w, img/vitrine-paysagiste-tel-470.webp 470w, img/vitrine-paysagiste-tel.webp 560w" sizes="(max-width:820px) 180px, 250px" width="560" height="1212" alt=""></figure>
  </div>
 </div></header>
@@ -520,7 +519,9 @@ document.getElementById('form').onsubmit=e=>{e.preventDefault();document.getElem
 var calme=matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData);
 function apercu(){if(calme||!v.muted)return;v.preload='auto';var p=v.play();if(p&&p.catch)p.catch(function(){})}
 if(document.readyState==='complete')setTimeout(apercu,300);else addEventListener('load',function(){setTimeout(apercu,300)});
-b.addEventListener('click',function(){b.hidden=true;v.loop=false;v.muted=false;v.controls=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){b.hidden=false})});
+function lire(){b.hidden=true;v.loop=false;v.muted=false;v.controls=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){b.hidden=false})}
+b.addEventListener('click',lire);
+var bf=document.getElementById('btn-film');if(bf)bf.addEventListener('click',function(){var r=v.getBoundingClientRect();if(r.top<60||r.bottom>innerHeight)v.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});lire()});
 v.addEventListener('ended',function(){v.controls=false;b.hidden=false});})();
 </script>
 </body>
