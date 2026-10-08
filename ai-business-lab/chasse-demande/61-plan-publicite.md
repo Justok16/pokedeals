@@ -30,7 +30,7 @@ Claude prépare tout le contenu et programme les publications.
 | 13 | **Signature email** de contact@dig16.fr avec lien et SIREN : **prête** (`outils/marque/signature_email.py`, `supports/signature-email.html`, version remplie remise en privé) | Oui | Claude prépare | Validation |
 | 14 | **Référencement du site** : Google Search Console et Bing Webmaster Tools (sitemap) | Oui | Utilisateur valide la propriété ; Claude prépare le sitemap | Ouverture du site |
 
-**Campagne choc « Le test du pouce »** (08/10) : idée centrale, 6 visuels, story, affiche A4 et textes dans
+**Campagne choc « Le test du pouce »** (08/10) : idée centrale, 5 visuels, story, affiche A4 et textes dans
 `62-campagne-test-du-pouce.md`.
 
 ## 2. Textes des profils (identiques partout)

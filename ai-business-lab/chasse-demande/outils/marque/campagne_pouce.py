@@ -7,13 +7,15 @@ Motif unique de la campagne : l'empreinte de pouce dorée (outils/marque/emprein
 tout le reste reste sobre. Détail de la campagne : 62-campagne-test-du-pouce.md.
 
 Usage : python3 outils/marque/campagne_pouce.py
-  écrit supports/campagne-pouce/ : 6 publications 1080 × 1350 (pouce-1.png … pouce-6.png),
+  écrit supports/campagne-pouce/ : 5 publications 1080 × 1350 (pouce-1.png … pouce-5.png),
   une story 1080 × 1920 (pouce-story.png), l'affiche A4 (affiche-pouce.pdf + .png) et une planche de contrôle.
   Avec DIG16_IDENTITE et DIG16_SORTIE (fichiers privés) : l'affiche remplie (nom, SIREN) va dans DIG16_SORTIE.
+PDF de l'affiche fait à partir de l'image A4 300 ppp (lisible dans toutes les visionneuses).
 Contrôles : polices et images chargées, aucun bloc de texte (.z) hors de la marge de sécurité ni débordant,
 QR de l'affiche décodé.
 """
 
+import base64
 import os
 import sys
 
@@ -30,7 +32,6 @@ from empreinte import empreinte_svg  # noqa: E402
 
 RACINE = os.path.normpath(os.path.join(ICI, "..", ".."))
 SORTIE = os.path.join(RACINE, "supports", "campagne-pouce")
-MARQUE = "file://" + os.path.join(RACINE, "site-dig", "img", "marque") + "/"
 CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
 LIEN = "https://dig16.fr/"
 POLICES = ('<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1'
@@ -71,9 +72,9 @@ def gabarit(larg, h, corps):
 
 
 def entete(n):
-    barres = "".join(f'<i class="{"on" if k == n else ""}"></i>' for k in range(1, 7))
-    return (f'<div class="z haut"><img src="{MARQUE}signature-ivoire@2x.png" alt="DIG16">'
-            f'<div class="serie" aria-label="{n} sur 6">{barres}</div></div>')
+    barres = "".join(f'<i class="{"on" if k == n else ""}"></i>' for k in range(1, 6))
+    return (f'<div class="z haut"><img src="{image_data("signature-ivoire@2x.png")}" alt="DIG16">'
+            f'<div class="serie" aria-label="{n} sur 5">{barres}</div></div>')
 
 
 PIED = f'<div class="z bas"><div class="site">dig16<span>.fr</span></div><div class="bouton">{APPEL}</div></div>'
@@ -172,17 +173,10 @@ noms qui s’affichent.</p></div>
 <div>""" + vieux + f"<p {legende}>Aujourd’hui</p></div>"
         + '<div style="align-self:center;width:2px;height:420px;background:linear-gradient(transparent,#c8a46e,transparent)"></div>'
         + "<div>" + neuf + f"<p {legende}>Avec DIG16 (exemple fictif)</p></div></div>" + PIED)
-    # 5 — la rareté, en un chiffre monumental
-    p["pouce-5.png"] = (emp(760, "right:-250px;bottom:-260px", .35, "d") + entete(5) + """
-<div class="z" style="top:190px"><div class="campagne">Une règle simple</div>
-<div style="font:400 430px/.86 'Instrument Serif';letter-spacing:-.04em;color:#c8a46e;margin-top:10px">15</div>
-<h1 style="font-size:92px;margin-top:6px">entreprises par an.<span class="l2">Pas une de plus.</span></h1>
-<p class="texte" style="margin-top:40px;font-size:35px;max-width:780px">La première année, DIG16 accompagne <b>15 entreprises
-au maximum</b> : une vraie personne au bout du fil, et vos changements faits <b>en 3 jours ouvrés</b>.</p></div>""" + PIED)
     rang = ('<div style="display:flex;justify-content:space-between;align-items:baseline;padding:24px 0;'
             'border-top:1.5px solid rgba(200,164,110,.26)"><span style="font:300 36px Geist;color:#cfc6b8">%s</span>'
             '<span style="font:400 62px \'Instrument Serif\';color:#efe9df;letter-spacing:-.01em">%s</span></div>')
-    p["pouce-6.png"] = (emp(620, "left:-260px;bottom:-200px", .22, "f") + entete(6) + """
+    p["pouce-5.png"] = (emp(620, "left:-260px;bottom:-200px", .22, "f") + entete(5) + """
 <div class="z" style="top:180px"><div class="campagne">Ce que vous obtenez</div>
 <h1 style="margin-top:24px;font-size:104px">Un site clair,<span class="l2">à votre nom.</span></h1>
 <div style="margin-top:44px">""" + "".join(rang % x for x in [
@@ -198,7 +192,7 @@ def story():
              '<div><div style="font:400 58px/1.05 \'Instrument Serif\'">%s</div>'
              '<div style="font:300 31px/1.4 Geist;color:#cfc6b8;margin-top:12px">%s</div></div></div>')
     return (emp(900, "left:50%;top:-470px;transform:translateX(-50%);-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.35) 30%,#000 55%,#000 80%,transparent 100%);mask-image:linear-gradient(180deg,rgba(0,0,0,.35) 30%,#000 55%,#000 80%,transparent 100%)", .9, "s")
-            + f'<div class="z haut"><img src="{MARQUE}signature-ivoire@2x.png" alt="DIG16"></div>'
+            + f'<div class="z haut"><img src="{image_data("signature-ivoire@2x.png")}" alt="DIG16"></div>'
             '<div class="z" style="top:690px"><div class="campagne">Le test du pouce</div>'
             '<h1 style="margin-top:22px;font-size:110px">30 secondes<span class="l2">pour savoir.</span></h1>'
             '<div style="margin-top:38px">'
@@ -212,10 +206,9 @@ def story():
             f'<div class="site" style="font-size:44px">dig16<span>.fr</span></div><div class="bouton">{APPEL}</div></div></div>')
 
 
-def signature_data():
-    """Signature en image intégrée (data URI) : l'affiche se rend sans accès aux fichiers locaux."""
-    import base64
-    with open(os.path.join(RACINE, "site-dig", "img", "marque", "signature-encre@2x.png"), "rb") as f:
+def image_data(nom):
+    """Image de la marque intégrée (data URI) : les pages se rendent en mémoire, sans fichier local."""
+    with open(os.path.join(RACINE, "site-dig", "img", "marque", nom), "rb") as f:
         return "data:image/png;base64," + base64.b64encode(f.read()).decode()
 
 
@@ -268,10 +261,7 @@ h1 span{display:block;color:#6e5025}
 
 def rendre_png(nav, html, larg, h, chemin, fautes):
     pg = nav.new_page(viewport={"width": larg, "height": h})
-    tmp = os.path.join(SORTIE, "_tmp.html")
-    with open(tmp, "w", encoding="utf-8") as f:
-        f.write(html)
-    pg.goto("file://" + tmp)
+    pg.set_content(html, wait_until="networkidle")  # en mémoire : aucun fichier intermédiaire
     pg.evaluate("document.fonts.ready")
     pg.wait_for_timeout(800)
     r = pg.evaluate("""(()=>{const out=[];for(const z of document.querySelectorAll('.z')){const b=z.getBoundingClientRect();
@@ -280,7 +270,6 @@ def rendre_png(nav, html, larg, h, chemin, fautes):
         const b=d.getBoundingClientRect();return [b.left,b.top,b.right,b.bottom,d.querySelector('div[style*="border-radius:64px"]')!==null]});
       return [out,[...document.fonts].filter(f=>f.status==='loaded').length,
       [...document.images].every(i=>i.complete&&i.naturalWidth>0),deco]})()""")
-    os.remove(tmp)
     nom = os.path.basename(chemin)
     for g, ha, d, b, deborde in r[0]:
         if g < MARGE - 1 or ha < MARGE - 1 or d > larg - MARGE + 1 or b > h - MARGE + 1 or deborde:
@@ -299,17 +288,13 @@ def rendre_png(nav, html, larg, h, chemin, fautes):
 def chevauchements(nav, html, larg, h, nom, fautes):
     """Le texte ne doit pas toucher le téléphone ni le pied (contrôle géométrique)."""
     pg = nav.new_page(viewport={"width": larg, "height": h})
-    tmp = os.path.join(SORTIE, "_tmp2.html")
-    with open(tmp, "w", encoding="utf-8") as f:
-        f.write(html)
-    pg.goto("file://" + tmp)
+    pg.set_content(html, wait_until="networkidle")
     pg.evaluate("document.fonts.ready")
     pg.wait_for_timeout(500)
     r = pg.evaluate("""(()=>{const R=e=>{const b=e.getBoundingClientRect();return [b.left,b.top,b.right,b.bottom]};
       const zs=[...document.querySelectorAll('.z')].map(R);
       const tel=[...document.querySelectorAll('.deco')].filter(d=>d.querySelector('div[style*="border-radius:64px"]')).map(R);
       return [zs,tel]})()""")
-    os.remove(tmp)
     pg.close()
     zs, tel = r
     inter = lambda a, b: a[0] < b[2] and b[0] < a[2] and a[1] < b[3] and b[1] < a[3]  # noqa: E731
@@ -324,7 +309,7 @@ def chevauchements(nav, html, larg, h, nom, fautes):
 
 def rendre_affiche(nav, html, pdf, png, fautes):
     # rendu en mémoire (aucun fichier intermédiaire : la version remplie contient le nom et le SIREN)
-    pg = nav.new_page(viewport={"width": 794, "height": 1123}, device_scale_factor=2)
+    pg = nav.new_page(viewport={"width": 794, "height": 1123}, device_scale_factor=2480 / 794)
     pg.set_content(html, wait_until="networkidle")
     pg.evaluate("document.fonts.ready")
     pg.wait_for_timeout(800)
@@ -336,9 +321,14 @@ def rendre_affiche(nav, html, pdf, png, fautes):
     if r[2] > 1123 - 30 or not r[3]:
         fautes.append("affiche : pied hors page ou image non chargée")
     pg.screenshot(path=png)
-    pg.pdf(path=pdf, width="210mm", height="297mm", print_background=True)
     pg.close()
+    # PDF fait à partir de l'image A4 à 300 ppp : rendu identique dans toutes les visionneuses (les visionneuses
+    # de téléphone n'affichaient que le fond du PDF vectoriel, 08/10 ; même leçon que le flyer le 28/09)
     im = Image.open(png).convert("RGB")
+    if im.size != (2480, 3508):
+        im = im.resize((2480, 3508), Image.LANCZOS)
+    im.save(png, dpi=(300, 300))
+    im.save(pdf, "PDF", resolution=300.0)
     lu = cv2.QRCodeDetector().detectAndDecode(cv2.cvtColor(np.array(im), cv2.COLOR_RGB2BGR))[0]
     if lu != LIEN:
         fautes.append(f"affiche : QR non décodé ({lu!r})")
@@ -368,7 +358,7 @@ def main():
         rendre_png(nav, html, 1080, 1920, os.path.join(SORTIE, "pouce-story.png"), fautes)
         chevauchements(nav, html, 1080, 1920, "pouce-story.png", fautes)
         print("pouce-story.png")
-        html = (AFFICHE.replace("{QR}", qr_svg()).replace("SIG", signature_data())
+        html = (AFFICHE.replace("{QR}", qr_svg()).replace("SIG", image_data("signature-encre@2x.png"))
                 .replace("EMPREINTE", empreinte_svg(600, couleur="#b08a52", ident="p")))
         rendre_affiche(nav, html, os.path.join(SORTIE, "affiche-pouce.pdf"),
                        os.path.join(SORTIE, "affiche-pouce.png"), fautes)

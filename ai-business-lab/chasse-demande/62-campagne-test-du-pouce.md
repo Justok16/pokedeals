@@ -19,8 +19,7 @@ Pourquoi ça attire l'attention :
 - **Il agit** (il sort son téléphone) au lieu de lire une publicité de plus ;
 - **c'est vrai et vérifiable** : aucun chiffre inventé, aucun concurrent nommé ni critiqué ;
 - **c'est personnel** : le résultat est le sien, dans sa ville, aujourd'hui ;
-- **la suite est sans risque** pour lui : la démo est gratuite et il décide après l'avoir vue ;
-- **une vraie rareté** : 15 entreprises au maximum la première année (décision du 05/10, `50` § 2).
+- **la suite est sans risque** pour lui : la démo est gratuite et il décide après l'avoir vue.
 
 ## 2. Les supports (prêts, à la charte `60`)
 
@@ -33,7 +32,7 @@ Générés par `python3 outils/marque/campagne_pouce.py`, dans `supports/campagn
 
 | Fichier | Usage |
 |---|---|
-| `pouce-1.png` à `pouce-6.png` (1080 × 1350) | Série de 6 publications, à publier dans l'ordre (carrousel Instagram ou 6 publications Facebook) : 1 « Prenez votre téléphone », 2 « Vous êtes où ? », 3 « Touchez votre nom », 4 avant/après (exemple fictif), 5 « 15 entreprises. Pas une de plus. », 6 l'offre |
+| `pouce-1.png` à `pouce-5.png` (1080 × 1350) | Série de 5 publications, à publier dans l'ordre (carrousel Instagram ou 5 publications Facebook) : 1 « Prenez votre téléphone », 2 « Vous êtes où ? », 3 « Touchez votre nom », 4 avant/après (exemple fictif), 5 l'offre. La publication « 15 entreprises » a été retirée à la demande de l'utilisateur (08/10) : ne plus utiliser cet argument dans la campagne. |
 | `pouce-story.png` (1080 × 1920) | Story Instagram et Facebook, statut WhatsApp de l'utilisateur |
 | `affiche-pouce.pdf` (A4) | Vitrines des commerces qui acceptent, panneaux d'affichage des supermarchés et des mairies, salle d'attente ; QR vers dig16.fr testé |
 | `planche-publications.png` | Aperçu de la série (contrôle) |
@@ -46,7 +45,7 @@ l'immatriculation, jamais dans ce dépôt.
 | Moment | Action | Qui |
 |---|---|---|
 | Jour J | Profils créés (`61` § 2), affiche remplie générée, signature email avec SIREN | Claude prépare, l'utilisateur crée les comptes |
-| Semaine 1, lundi | Carrousel des 6 visuels sur Facebook et Instagram + story ; partage dans 2 ou 3 groupes locaux de commerçants et d'artisans **qui autorisent la publicité** (lire leur règlement avant) | Utilisateur publie (Metricool : programmation) |
+| Semaine 1, lundi | Carrousel des 5 visuels sur Facebook et Instagram + story ; partage dans 2 ou 3 groupes locaux de commerçants et d'artisans **qui autorisent la publicité** (lire leur règlement avant) | Utilisateur publie (Metricool : programmation) |
 | Semaine 1 | **10 messages « Je vous ai cherché »** (§ 4.1) aux prospects prioritaires dont le test donne vraiment un « non » | Claude prépare, utilisateur envoie |
 | Semaines 1 et 2 | **Tournée de l'affiche** : 10 commerces de passage (boulangerie, presse, garage, supérette), mairie, panneaux des supermarchés ; demander toujours l'accord | Utilisateur |
 | Semaine 2 | Visites avec le test fait **devant le prospect**, sur son téléphone (§ 4.2) | Utilisateur |
@@ -112,8 +111,6 @@ Si la réponse est non : merci, au revoir, noté comme refus définitif (`50` §
 - **Professionnels seulement**, jamais de particuliers ; jamais les secteurs exclus (`CLAUDE.md`).
 - **Constat exact et du jour** dans chaque message personnalisé ; jamais « votre site est nul » ni critique
   d'un concurrent ; aucun chiffre inventé (aucun pourcentage de clients, aucune durée « 3 secondes »).
-- **« 15 entreprises au maximum »** : vrai tant que la décision du 05/10 tient ; si elle change, retirer le
-  visuel 5 le jour même (sinon publicité trompeuse).
 - **Démos personnalisées** : montrées en direct, jamais envoyées, et avec ses photos ou son logo seulement
   après son accord (décision du 05/10).
 - **Affiches** : uniquement avec l'accord du commerçant ou sur les panneaux prévus pour ça ; jamais d'affichage
