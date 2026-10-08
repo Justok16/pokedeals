@@ -40,6 +40,11 @@ Générés par `python3 outils/marque/campagne_pouce.py`, dans `supports/campagn
 Version de l'affiche avec le nom et le SIREN : générée en privé (`DIG16_IDENTITE` + `DIG16_SORTIE`) le jour de
 l'immatriculation, jamais dans ce dépôt.
 
+**Outil en ligne (09/10)** : **https://dig16.fr/test-du-pouce/** fait le test à la place du prospect (site adapté
+au téléphone, numéro cliquable, rapidité, connexion sécurisée, année affichée) puis propose la recherche Google
+et la démo gratuite. Fonction Cloudflare gratuite `site-dig/functions/api/test-pouce.js` (aucune clé, rien
+d'enregistré). À citer dans les publications, les messages et les visites.
+
 ## 3. Le déroulé (à partir de la validation de l'entreprise, jamais avant : L34-5 CPCE, art. 20 LCEN)
 
 | Moment | Action | Qui |

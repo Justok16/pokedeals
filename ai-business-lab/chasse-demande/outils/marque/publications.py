@@ -44,7 +44,7 @@ P = [
      "vous ? Je refais votre page d'accueil gratuitement, avant que vous décidiez quoi que ce soit.\n👉 dig16.fr", "auto"),
     ("s1-pouce", 1, "mardi", "pouce", "CARROUSEL",
      "Le test du pouce 👍 30 secondes, votre téléphone, votre métier et votre ville. Vous êtes où ?\nFaites le test, "
-     "puis glissez jusqu'au bout. Un « non » ? Je refais votre page d'accueil gratuitement : dig16.fr", "auto"),
+     "puis glissez jusqu'au bout. Ou faites-le en ligne, gratuitement : dig16.fr/test-du-pouce\nUn « non » ? Je refais votre page d'accueil gratuitement.", "auto"),
     ("s1-fiche-google", 1, "mercredi", "aider", "Votre fiche Google :|3 choses à vérifier.",
      "3 choses à vérifier aujourd'hui sur votre fiche Google :\n1️⃣ Vos horaires sont-ils à jour (jours fériés "
      "compris) ?\n2️⃣ Votre numéro de téléphone est-il le bon ?\n3️⃣ Avez-vous au moins quelques photos récentes de "
@@ -67,7 +67,7 @@ P = [
      "gardez tout : votre adresse internet, vos textes, vos photos.", "auto"),
     ("s3-pouce-rappel", 3, "lundi", "pouce", "Vous avez fait|le test du pouce ?",
      "Vous avez fait le test du pouce ? Tapez votre métier et votre ville sur votre téléphone… et dites-moi en "
-     "commentaire ce que vous avez trouvé (sans nommer personne 🙂).\nSi le résultat ne vous plaît pas : dig16.fr",
+     "commentaire ce que vous avez trouvé (sans nommer personne 🙂).\nLe test en ligne, gratuit : dig16.fr/test-du-pouce",
      "auto"),
     ("s3-photos", 3, "mercredi", "aider", "3 conseils pour|de belles photos.",
      "3 conseils pour vos photos de chantier ou de boutique :\n1️⃣ Photographiez en journée, lumière naturelle.\n2️⃣ "
