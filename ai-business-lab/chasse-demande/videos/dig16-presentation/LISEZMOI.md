@@ -57,3 +57,4 @@ qui relance la vidéo depuis le début avec le son ; la barre d'appel du bas se 
 - Écran : « Avec DIG16.fr ». Nouvelle prise Algieba (gemini-3.8-flash-tts), 33,2 s, −15,5 LUFS.
   Fichiers web `presentation-v6.*`, affiche `affiche-v6.webp` ; boutons du site passés à « 33 s ».
 - La v5 (voix « Dig seize, sites internet ») est gardée dans le brouillon de travail, pas sur le site.
+- **08/10 : v6 validée par l'utilisateur** (prononciation « Dig seize point F R » : « parfait »).
