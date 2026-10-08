@@ -30,15 +30,14 @@ MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août
 
 
 def mentions(html, ident):
-    champs = {
-        "Prénom NOM": ident["nom"],
-        "adresse professionnelle": ident["adresse"],
-        "numéro SIREN": ident["siren"],
-        "régime de TVA": TVA,
-        "téléphone": ident["telephone"],
-    }
-    for cle, valeur in champs.items():
-        html = re.sub(r'<span class="a-completer" data-champ="%s">[^<]*</span>' % re.escape(cle), valeur, html)
+    # champ de la page -> clé du fichier privé (publication voulue : obligation de la LCEN, art. 1-1)
+    champs = {"Prénom NOM": "nom", "adresse professionnelle": "adresse", "numéro SIREN": "siren",
+              "téléphone": "telephone"}
+    valeurs = dict(ident, tva=TVA)
+    champs["régime de TVA"] = "tva"
+    for champ, cle in champs.items():
+        html = re.sub(r'<span class="a-completer" data-champ="%s">[^<]*</span>' % re.escape(champ),
+                      lambda _m, c=cle: valeurs[c], html)
     j = datetime.date.today()
     html = re.sub(r"<p>Dernière mise à jour : [^<]*</p>",
                   "<p>Dernière mise à jour : %d %s %d</p>" % (j.day, MOIS[j.month - 1], j.year), html)
