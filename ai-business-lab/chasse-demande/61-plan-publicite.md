@@ -27,7 +27,7 @@ Claude prépare tout le contenu et programme les publications.
 | 10 | **Pinterest, Bluesky, Threads** : nom `dig16fr` réservé, publication automatique | Oui | Idem | Semaine 2 |
 | 11 | **Affichage local** : flyer A5 dans les commerces qui l'acceptent (boulangerie, mairie, salle d’attente), panneau d'affichage des supermarchés | Oui (impression : coût à soumettre) | Utilisateur | Après validation |
 | 12 | **Recommandation** : premier mois offert au client qui recommande (`47`) | Oui | Automatique dans les documents | Toujours |
-| 13 | **Signature email** de contact@dig16.fr avec lien et SIREN | Oui | Claude prépare | Validation |
+| 13 | **Signature email** de contact@dig16.fr avec lien et SIREN : **prête** (`outils/marque/signature_email.py`, `supports/signature-email.html`, version remplie remise en privé) | Oui | Claude prépare | Validation |
 | 14 | **Référencement du site** : Google Search Console et Bing Webmaster Tools (sitemap) | Oui | Utilisateur valide la propriété ; Claude prépare le sitemap | Ouverture du site |
 
 **Campagne choc « Le test du pouce »** (08/10) : idée centrale, 6 visuels, story, affiche A4 et textes dans
