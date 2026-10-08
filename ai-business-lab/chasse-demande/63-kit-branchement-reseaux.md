@@ -9,7 +9,7 @@ ensuite les 8 semaines de publications en une fois.
 
 | Élément | Où |
 |---|---|
-| Textes des profils (nom, identifiant, catégorie, bio courte, description longue) | `61-plan-publicite.md` § 2 et Drive « DIG16 – Fiche Google et réseaux » |
+| Textes des profils (nom, identifiant, catégorie, bio courte, description longue) | `61-plan-publicite.md` § 2 et Drive « DIG16 – Créer les comptes réseaux, pas à pas » |
 | Photo de profil, couvertures et bannières (Facebook, LinkedIn, Google, YouTube) | `supports/reseaux/` |
 | 27 publications sur 8 semaines : textes, visuels, textes alternatifs, version Bluesky | `supports/publications/` (`calendrier.csv` pour un tableur, `calendrier.json` pour Metricool, un PNG par publication, `planche.png`) — générés par `outils/marque/publications.py` |
 | Campagne « Le test du pouce » : carrousel de 5 visuels, story, affiche A4 | `supports/campagne-pouce/`, `62-campagne-test-du-pouce.md` |
