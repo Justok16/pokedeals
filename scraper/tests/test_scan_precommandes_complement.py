@@ -14,7 +14,11 @@ def test_complement_utilise_les_listes_du_fichier_complement():
     boutiques, modes = sp._boutiques_et_replis("prestashop", complement=True)
     assert set(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_REPLI_HTML) <= set(boutiques)
     assert all(modes[d] == "html" for d in bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_REPLI_HTML)
-    assert sp._boutiques_et_replis("woocommerce", complement=True)[0] == list(bc.BOUTIQUES_COMPLEMENT_WOOCOMMERCE_SITEMAP)
+    boutiques_woo, modes_woo = sp._boutiques_et_replis("woocommerce", complement=True)
+    assert boutiques_woo[:len(bc.BOUTIQUES_COMPLEMENT_WOOCOMMERCE_SITEMAP)] == list(bc.BOUTIQUES_COMPLEMENT_WOOCOMMERCE_SITEMAP)
+    # 08/10/2026 : PixelHeart, lue par la Store API (pas de sitemap).
+    assert modes_woo == {d: "api_rest" for d in manuelles.BOUTIQUES_WOOCOMMERCE_API_REST}
+    assert set(manuelles.BOUTIQUES_WOOCOMMERCE_API_REST) <= set(boutiques_woo)
 
 
 def test_aucune_boutique_complement_nest_deja_dans_le_perimetre_principal():

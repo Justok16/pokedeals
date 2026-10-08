@@ -25,6 +25,7 @@ Strategie par plateforme :
 """
 
 import os
+import html as html_module
 import re
 import sys
 import time
@@ -97,8 +98,8 @@ def _slug_est_candidat(url: str, produit: ProduitSurveille) -> bool:
     return a_edition and a_type
 
 
-def _candidat(domaine, produit, titre, texte_desc, url, prix=None, en_stock=None):
-    confiance, raison = evaluer_correspondance(titre, texte_desc, produit)
+def _candidat(domaine, produit, titre, texte_desc, url, prix=None, en_stock=None, texte_exclusions=None):
+    confiance, raison = evaluer_correspondance(titre, texte_desc, produit, texte_exclusions)
     if confiance is None:
         return None
     return {
@@ -254,13 +255,23 @@ def _evaluer_page(connecteur, url: str, produits: list[ProduitSurveille]) -> lis
     # (V53). scanner_shopify() (meme fichier) n'a AUCUNE troncature
     # equivalente sur body_html -- retiree ici par coherence, le cout de
     # traitement d'un texte de page web complet est negligeable.
-    texte = re.sub(r"<[^>]+>", " ", html)
+    # Texte VISIBLE seulement : sans <script>/<style>. Bug reel du 08/10/2026
+    # (missplaybros.com) : le "priceValidUntil" 2027-12-31 du JSON-LD etait
+    # lu comme une date de sortie incompatible -> ETB 30e Anniversaire rejete.
+    texte = re.sub(r"<[^>]+>", " ", re.sub(r"<(script|style)\b.*?</\1>", " ", html, flags=re.S | re.I))
     plateforme = "woocommerce" if isinstance(connecteur, ConnecteurWooCommerce) else "prestashop"
     prix, en_stock = _extraire_prix_et_stock(html, plateforme)
+    # Mots exclus ("japonais", "coreen"...) cherches dans la description
+    # PROPRE au produit quand la fiche en a une (JSON-LD), pas dans la page
+    # entiere ou figurent d'autres produits (cf. evaluer_correspondance).
+    produit_jsonld = _extraire_jsonld_produit(html)
+    description = produit_jsonld.get("description") if produit_jsonld else None
+    texte_exclusions = (re.sub(r"<[^>]+>", " ", html_module.unescape(description))
+                        if isinstance(description, str) and description.strip() else None)
 
     candidats = []
     for produit in produits:
-        c = _candidat(connecteur.nom_affiche, produit, titre, texte, url, prix, en_stock)
+        c = _candidat(connecteur.nom_affiche, produit, titre, texte, url, prix, en_stock, texte_exclusions)
         if c:
             candidats.append(c)
     return candidats
@@ -412,19 +423,36 @@ def _titre_est_candidat(titre: str, produit: ProduitSurveille) -> bool:
             and any(_normaliser_slug(m) in norm for m in produit.mots_cles_type))
 
 
-def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur, requetes) -> list[dict]:
+def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur, requetes,
+                      urls_directes: tuple[str, ...] = ()) -> list[dict]:
     """Logique commune aux grandes enseignes a plateforme maison (Leclerc,
     Auchan...) : quelques recherches, dedoublonnage par URL (sans parametres),
     filtre edition + type sur le titre, puis evaluation complete. Si le
     connecteur sait lire une fiche (`lire_fiche`), prix/stock/description en
     viennent ; sinon ceux de la carte de recherche sont utilises. Une erreur
     sur une RECHERCHE remonte (boutique en echec ce cycle, rien n'est ecrit en
-    memoire) ; une fiche illisible est simplement ignoree."""
+    memoire) ; une fiche illisible est simplement ignoree.
+
+    `urls_directes` : fiches lues meme si la recherche ne les remonte pas
+    (EAN connus, cf. EANS_30E) ; une fiche absente (404) est ignoree, une
+    fiche presente passe par le meme filtre edition + type que les resultats
+    de recherche (son titre fait foi)."""
     connecteur = rendre_poli(connecteur)
     vus: dict[str, dict] = {}
     for requete in requetes:
         for r in connecteur.rechercher(requete):
             vus.setdefault(r["url"].split("?")[0], r)
+    fiches_lues: dict[str, dict] = {}
+    for url in urls_directes:
+        try:
+            fiche = connecteur.lire_fiche(url)
+        except requests.RequestException:
+            continue
+        if fiche is None:
+            continue
+        url_finale = fiche.get("url") or url
+        fiches_lues[url_finale] = fiche
+        vus.setdefault(url_finale, {"titre": fiche["titre"], "url": url_finale})
 
     lire_fiche = getattr(connecteur, "lire_fiche", None)
     candidats = []
@@ -432,7 +460,9 @@ def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur
         concernes = [p for p in produits if _titre_est_candidat(r["titre"], p)]
         if not concernes:
             continue
-        if lire_fiche:
+        if url in fiches_lues:
+            fiche = fiches_lues[url]
+        elif lire_fiche:
             try:
                 fiche = lire_fiche(r["url"])
             except requests.RequestException:
@@ -457,9 +487,31 @@ def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur
     return candidats
 
 
+# EAN des produits des 30 ans VERIFIES sur des fiches reelles (08/10/2026) :
+# ETB et Bundle sur ultrajeux.com (EAN affiche sur la fiche), Bundle aussi
+# sur lagranderecre.fr, Mini Tin sur e.leclerc. Le rapport Gemini donnait a
+# tort l'EAN de l'ETB pour les deux UPC, et 0196214147102 est le COFFRET
+# 4 boosters Nymphali (ultrajeux.com), pas la Pokebox.
+EANS_30E = {
+    "0196214144835": "Coffret Dresseur d'Elite 30e anniversaire",
+    "0196214145221": "Lot de 6 boosters (Bundle) 30e anniversaire",
+    "0196214146297": "Mini Tin 30e anniversaire",
+    # Donnes concordants par deux rapports independants (Grok, puis l'audit
+    # de la PR #147 recoupe sur les catalogues CLD), pas encore vus sur une
+    # fiche Leclerc (404 le 08/10/2026) : une fiche absente ne coute qu'une
+    # requete sans effet, une fiche presente repasse le filtre edition + type.
+    "0196214146976": "Pokebox Nymphali-ex 30e anniversaire",
+    "0196214155398": "Collection Ultra Premium Noctali-ex (Soiree)",
+    "0196214155336": "Collection Ultra Premium Mentali-ex (Journee)",
+}
+
+
 def scanner_leclerc(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
-    from connecteur_leclerc import ConnecteurLeclerc
-    return _scanner_enseigne(domaine, produits, connecteur or ConnecteurLeclerc(), REQUETES_LECLERC)
+    """Recherche + fiches lues directement par EAN (la recherche Leclerc ne
+    remonte pas les produits "Pokemon 30A", cf. connecteur_leclerc)."""
+    from connecteur_leclerc import ConnecteurLeclerc, url_fiche_par_ean
+    return _scanner_enseigne(domaine, produits, connecteur or ConnecteurLeclerc(), REQUETES_LECLERC,
+                             urls_directes=tuple(url_fiche_par_ean(e) for e in EANS_30E))
 
 
 def scanner_auchan(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
@@ -467,3 +519,10 @@ def scanner_auchan(domaine: str, produits: list[ProduitSurveille], connecteur=No
     recherche (microdonnees schema.org), aucune fiche a charger."""
     from connecteur_auchan import ConnecteurAuchan
     return _scanner_enseigne(domaine, produits, connecteur or ConnecteurAuchan(), REQUETES_LECLERC)
+
+
+def scanner_ultrajeux(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
+    """Ultrajeux (08/10/2026) : pages categorie lisibles (nouveautes en tete),
+    prix et disponibilite en ligne sur chaque carte, aucune fiche a charger."""
+    from connecteur_ultrajeux import CATEGORIES, ConnecteurUltrajeux
+    return _scanner_enseigne(domaine, produits, connecteur or ConnecteurUltrajeux(), list(CATEGORIES))

@@ -52,6 +52,7 @@ logging.basicConfig(
 )
 from radar_precommandes import (
     scanner_auchan,
+    scanner_ultrajeux,
     scanner_leclerc,
     scanner_prestashop_repli_html,
     scanner_prestashop_sitemap,
@@ -76,6 +77,7 @@ FICHIER_MEMOIRE_PAR_PLATEFORME = {
     "woocommerce": Path(__file__).parent / "data" / "precommandes_anniversaire_woocommerce.json",
     "leclerc": Path(__file__).parent / "data" / "precommandes_anniversaire_leclerc.json",
     "auchan": Path(__file__).parent / "data" / "precommandes_anniversaire_auchan.json",
+    "ultrajeux": Path(__file__).parent / "data" / "precommandes_anniversaire_ultrajeux.json",
 }
 # Cles Supabase equivalentes (cf. memoire_supabase.py) -- migration du
 # 25/08/2026, meme principe que stock_boutiques_tcg* pour alerte_stock.py.
@@ -85,6 +87,7 @@ CLE_MEMOIRE_PAR_PLATEFORME = {
     "woocommerce": "precommandes_anniversaire_woocommerce",
     "leclerc": "precommandes_anniversaire_leclerc",
     "auchan": "precommandes_anniversaire_auchan",
+    "ultrajeux": "precommandes_anniversaire_ultrajeux",
 }
 
 
@@ -114,11 +117,15 @@ def _boutiques_et_replis_complement(plateforme: str) -> tuple[list[str], dict[st
         sitemap = union(bc.BOUTIQUES_COMPLEMENT_PRESTASHOP_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_PRESTASHOP_SITEMAP)
         return union(sitemap, repli), {d: "html" for d in repli}
     if plateforme == "woocommerce":
-        return union(bc.BOUTIQUES_COMPLEMENT_WOOCOMMERCE_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_WOOCOMMERCE_SITEMAP), {}
+        api = union(manuelles.BOUTIQUES_WOOCOMMERCE_API_REST)
+        sitemap = union(bc.BOUTIQUES_COMPLEMENT_WOOCOMMERCE_SITEMAP, ct.BOUTIQUES_COMPLEMENT_CT_WOOCOMMERCE_SITEMAP)
+        return union(sitemap, api), {d: "api_rest" for d in api}
     if plateforme == "leclerc":
         return ["e.leclerc"], {}
     if plateforme == "auchan":
         return ["auchan.fr"], {}
+    if plateforme == "ultrajeux":
+        return ["ultrajeux.com"], {}
     raise ValueError(f"Plateforme inconnue : {plateforme!r} (attendu: shopify/prestashop/woocommerce)")
 
 
@@ -132,6 +139,8 @@ def _boutiques_et_replis(plateforme: str, complement: bool = False) -> tuple[lis
         return ["e.leclerc"], {}
     if plateforme == "auchan":    # 08/10/2026 : idem, cf. connecteur_auchan.py
         return ["auchan.fr"], {}
+    if plateforme == "ultrajeux":  # 08/10/2026 : idem, cf. connecteur_ultrajeux.py
+        return ["ultrajeux.com"], {}
     if plateforme == "shopify":
         from boutiques_decouvertes import BOUTIQUES_SHOPIFY_AUTO, BOUTIQUES_SHOPIFY_AUTO_PRECOMMANDE_SEULEMENT
         from boutiques_shopify import BOUTIQUES_SHOPIFY, BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT
@@ -180,6 +189,8 @@ def scanner_une_boutique(plateforme: str, domaine: str, mode_repli: str | None, 
         return scanner_leclerc(domaine, produits)
     if plateforme == "auchan":
         return scanner_auchan(domaine, produits)
+    if plateforme == "ultrajeux":
+        return scanner_ultrajeux(domaine, produits)
     raise ValueError(plateforme)
 
 
@@ -252,8 +263,8 @@ def scanner_plusieurs_boutiques(plateforme: str, boutiques: list[str], modes: di
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2 or sys.argv[1] not in ("shopify", "prestashop", "woocommerce", "leclerc", "auchan"):
-        print("Usage : python scan_precommandes.py {shopify|prestashop|woocommerce|leclerc|auchan} [boutique1 boutique2 ...]")
+    if len(sys.argv) < 2 or sys.argv[1] not in ("shopify", "prestashop", "woocommerce", "leclerc", "auchan", "ultrajeux"):
+        print("Usage : python scan_precommandes.py {shopify|prestashop|woocommerce|leclerc|auchan|ultrajeux} [boutique1 boutique2 ...]")
         sys.exit(1)
 
     plateforme = sys.argv[1]

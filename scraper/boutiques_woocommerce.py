@@ -30,6 +30,10 @@ BOUTIQUES_WOOCOMMERCE_SITEMAP = [
     "ecardstore.fr",
     "k-tcg.com",
     "figuyatta.com",
+    # AJOUTEE le 08/10/2026 (piste du rapport Grok demande par Justok) :
+    # product-sitemap.xml valide (610 URL), Store API ouverte, ETB / Bundle /
+    # Mini Tin / coffrets 30e Anniversaire FR en catalogue.
+    "missplaybros.com",
     # AJOUTEES le 24/08/2026 -- trouvees par recherche web (limite assumee
     # du radar decouverte_boutiques.py : ne couvre que les .fr fraichement
     # crees via AFNIC, jamais une boutique existante), verifiees via

@@ -82,6 +82,10 @@ class ProduitSurveille:
     # `mots_exclus_texte` -- cf. EXCLUSIONS_LOTS_ET_IMPORTS.
     mots_exclus_titre: frozenset[str] = frozenset()
     mots_exclus_texte: frozenset[str] = frozenset()
+    # Mots (ENTIERS) d'un produit CONCURRENT : un titre qui en contient un
+    # sans contenir aucun mot de `mots_cles_supplementaires` est rejete
+    # (ex. Pokebox Amphinobi-ex vs Pokebox Nymphali-ex, 08/10/2026).
+    concurrents_titre: frozenset[str] = frozenset()
     # True : au moins un mot-cle TYPE doit figurer dans le TITRE (pas seulement
     # dans la description) -- un "Pack coffret 30 ans" de revendeur dont la
     # description enumere ETB/bundle/mini tin ne doit pas matcher chacun de
@@ -267,6 +271,9 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             # ("Pokemon ME04 : coffret Dresseur d'Elite"), et la serie des 30 ans
             # est vendue sous "ME05.5" (dracaugames, tradingcardsxxx).
             "me05.5", "me 05.5", "me5.5",
+            # E.Leclerc nomme la serie "Pokemon 30A" ("Pokemon 30A : Mini Tin
+            # (modele aleatoire)", fiche verifiee le 08/10/2026).
+            "pokemon 30a",
         }),
         mots_cles_type=frozenset({
             "dresseur d'elite", "dresseur elite", "etb", "elite trainer box",
@@ -289,6 +296,9 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             # ("Pokemon ME04 : coffret Dresseur d'Elite"), et la serie des 30 ans
             # est vendue sous "ME05.5" (dracaugames, tradingcardsxxx).
             "me05.5", "me 05.5", "me5.5",
+            # E.Leclerc nomme la serie "Pokemon 30A" ("Pokemon 30A : Mini Tin
+            # (modele aleatoire)", fiche verifiee le 08/10/2026).
+            "pokemon 30a",
         }),
         mots_cles_type=frozenset({
             "booster bundle", "bundle", "paquet de boosters", "paquet de booster",
@@ -313,6 +323,9 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
             # ("Pokemon ME04 : coffret Dresseur d'Elite"), et la serie des 30 ans
             # est vendue sous "ME05.5" (dracaugames, tradingcardsxxx).
             "me05.5", "me 05.5", "me5.5",
+            # E.Leclerc nomme la serie "Pokemon 30A" ("Pokemon 30A : Mini Tin
+            # (modele aleatoire)", fiche verifiee le 08/10/2026).
+            "pokemon 30a",
         }),
         mots_cles_type=frozenset({
             "mini tin", "mini boite", "mini coffret metal",
@@ -335,6 +348,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         mots_cles_edition=frozenset({
             "30e anniversaire", "30eme anniversaire", "30th anniversary",
             "30th celebration", "30 ans",
+            "pokemon 30a",   # nom E.Leclerc de la serie (cf. ETB)
         }),
         mots_cles_type=frozenset({
             "pokebox", "poke box", "ex tin", "tin nymphali", "tin sylveon",
@@ -353,6 +367,11 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
            # "Mini Tin 30e Anniversaire" (autre produit suivi) ne doit pas
            # passer pour la Pokebox via "tin pokemon"/"tin 30".
            "mots_exclus_titre": EXCLUSIONS_LOTS_ET_IMPORTS["mots_exclus_titre"] | {"mini"}},
+        # 08/10/2026 : la Pokebox SOEUR "Amphinobi-ex" 30e Anniversaire
+        # (plazatcg.com, pokemagic.fr) matchait via "nymphali" ailleurs sur la
+        # page. Rejetee si son TITRE nomme Amphinobi sans nommer Nymphali ;
+        # "Pokebox Nymphali ex et Amphinobi ex" (modele au choix) reste gardee.
+        concurrents_titre=frozenset({"amphinobi", "greninja"}),
     ),
 ]
 
@@ -511,7 +530,8 @@ def _titre_sans_nom_officiel(titre: str, produit: ProduitSurveille) -> str:
 
 
 def evaluer_correspondance(
-    titre: str, texte_description: str, produit: ProduitSurveille
+    titre: str, texte_description: str, produit: ProduitSurveille,
+    texte_exclusions: str | None = None,
 ) -> tuple[str, str] | tuple[None, str]:
     """Applique la regle complete de detection a un produit trouve sur une
     boutique. Retourne (confiance, raison) si retenu -- confiance vaut
@@ -527,13 +547,25 @@ def evaluer_correspondance(
       - Si la date ATTENDUE est trouvee -- confiance forte.
       - Si aucune date exploitable n'est trouvee -- confiance moyenne (la
         plupart des pages de precommande n'auront pas de date structuree
-        scrapable a ce stade)."""
+        scrapable a ce stade).
+
+    `texte_exclusions` : texte PROPRE au produit (description JSON-LD de la
+    fiche) sur lequel chercher les mots exclus, quand `texte_description`
+    est la page entiere. Bug reel du 08/10/2026 : les fiches 30e
+    Anniversaire FR de missplaybros.com etaient rejetees ("japonais") a
+    cause des AUTRES produits affiches sur la page (suggestions, derniers
+    articles). None = page entiere (comportement d'origine)."""
     texte_complet = f"{titre} {texte_description}"
+    texte_exclu = texte_complet if texte_exclusions is None else f"{titre} {texte_exclusions}"
 
     exclu = (_mot_exclu(_titre_sans_nom_officiel(titre, produit), produit.mots_exclus_titre)
-             or _mot_exclu(texte_complet, produit.mots_exclus_texte))
+             or _mot_exclu(texte_exclu, produit.mots_exclus_texte))
     if exclu:
         return None, f"exclu : lot ou edition importee ('{exclu}')"
+
+    concurrent = _mot_exclu(titre, produit.concurrents_titre)
+    if concurrent and not any(_mot_exclu(titre, groupe) for groupe in produit.mots_cles_supplementaires):
+        return None, f"autre produit dans le titre ('{concurrent}')"
 
     if not titre_correspond_produit(texte_complet, produit):
         return None, "mots-cles absents (edition et/ou type de produit)"

@@ -441,6 +441,23 @@ class ConnecteurShopify:
         return self.rechercher_dans_catalogue(catalogue, criteres)
 
 
+def prix_offre(offre: dict) -> float | None:
+    """Prix d'une offre schema.org : "price", sinon le premier
+    "priceSpecification" (WooCommerce recent : constate le 08/10/2026 sur
+    missplaybros.com, aucun "price" direct)."""
+    candidats = [offre.get("price")]
+    specs = offre.get("priceSpecification")
+    for spec in specs if isinstance(specs, list) else [specs]:
+        if isinstance(spec, dict):
+            candidats.append(spec.get("price"))
+    for brut in candidats:
+        try:
+            return float(brut)
+        except (TypeError, ValueError):
+            continue
+    return None
+
+
 if __name__ == "__main__":
     # Echantillon de 10 entrees REELLES de config.yaml (watchlist PokeDeals),
     # melangeant les 3 formats rencontres :

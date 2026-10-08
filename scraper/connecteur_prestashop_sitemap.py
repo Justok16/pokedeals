@@ -45,6 +45,7 @@ from urllib.parse import quote
 import requests
 
 from connecteur_shopify import (
+    prix_offre,
     HEADERS_HTML,
     TIMEOUT,
     CritereRecherche,
@@ -86,17 +87,33 @@ def _extraire_jsonld_produit(html: str) -> dict | None:
     """Extrait le premier bloc JSON-LD de type Product (schema.org) d'une
     page produit. Gere le wrapper /* <![CDATA[ ... ]]> */ que certains
     themes (ex: nin-nin-game.com) ajoutent autour du JSON."""
-    for bloc in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S):
+    for bloc in re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', html, re.S):
         corps = re.sub(r"/\*\s*<!\[CDATA\[\s*\*/", "", bloc)
         corps = re.sub(r"/\*\s*\]\]>\s*\*/", "", corps)
         try:
             donnees = json.loads(corps)
         except (json.JSONDecodeError, ValueError):
             continue
-        candidats = donnees if isinstance(donnees, list) else [donnees]
-        for d in candidats:
-            if isinstance(d, dict) and d.get("@type") == "Product":
-                return d
+        produit = _chercher_product(donnees)
+        if produit:
+            return produit
+    return None
+
+
+def _chercher_product(noeud) -> dict | None:
+    """Premier noeud @type Product, y compris dans un "@graph" (format
+    Yoast/WooCommerce : constate le 08/10/2026 sur missplaybros.com, dont
+    les fiches 30e Anniversaire etaient lues sans prix ni stock)."""
+    if isinstance(noeud, list):
+        for element in noeud:
+            trouve = _chercher_product(element)
+            if trouve:
+                return trouve
+    elif isinstance(noeud, dict):
+        if noeud.get("@type") == "Product":
+            return noeud
+        if "@graph" in noeud:
+            return _chercher_product(noeud["@graph"])
     return None
 
 
@@ -108,10 +125,7 @@ def _analyser_offre(produit_jsonld: dict) -> dict:
     if not isinstance(offres, dict):
         offres = {}
 
-    try:
-        prix = float(offres.get("price"))
-    except (TypeError, ValueError):
-        prix = None
+    prix = prix_offre(offres)
 
     return {
         "prix": prix,

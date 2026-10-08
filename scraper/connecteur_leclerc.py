@@ -47,7 +47,7 @@ _RE_ARTICLE = re.compile(r"<article([^>]*data-product-card[^>]*)>(.*?)</article>
 _RE_OFFRE = re.compile(r'data-offer-id="([^"]*)"')
 _RE_TITRE = re.compile(r'<a[^>]*href="([^"]+)"[^>]*data-product-card-title[^>]*title="([^"]*)"', re.S)
 _RE_TITRE_INVERSE = re.compile(r'<a[^>]*data-product-card-title[^>]*title="([^"]*)"[^>]*href="([^"]+)"', re.S)
-_RE_JSONLD = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
+_RE_JSONLD = re.compile(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', re.S)
 
 
 def analyser_recherche(page: str) -> list[dict]:
@@ -109,6 +109,10 @@ class ConnecteurLeclerc:
         self._derniere_requete = 0.0
 
     def _get(self, url: str) -> str:
+        return self._get_reponse(url)[0]
+
+    def _get_reponse(self, url: str) -> tuple[str, str]:
+        """(page, URL finale apres redirection)."""
         attente = DELAI_ENTRE_REQUETES - (time.monotonic() - self._derniere_requete)
         if attente > 0:
             time.sleep(attente)
@@ -119,10 +123,23 @@ class ConnecteurLeclerc:
         r.raise_for_status()
         # Leclerc n'annonce pas de charset : requests supposerait du latin-1
         # ("PokÃ©mon"). Les pages sont en UTF-8.
-        return r.content.decode("utf-8", errors="replace")
+        return r.content.decode("utf-8", errors="replace"), r.url
 
     def rechercher(self, requete: str) -> list[dict]:
         return analyser_recherche(self._get(f"{BASE}/recherche?q={quote(requete)}"))
 
     def lire_fiche(self, url: str) -> dict | None:
-        return analyser_fiche(self._get(url))
+        page, url_finale = self._get_reponse(url)
+        fiche = analyser_fiche(page)
+        if fiche is not None:
+            fiche["url"] = url_finale.split("?")[0]
+        return fiche
+
+
+def url_fiche_par_ean(ean: str) -> str:
+    """Fiche Leclerc a partir du seul EAN (verifie le 08/10/2026) :
+    /fp/<slug>-<EAN> ignore le slug -- /fp/x-<EAN> redirige vers la vraie
+    fiche si l'article est reference, 404 sinon. Utile car la RECHERCHE ne
+    remonte pas les produits "Pokemon 30A" (Mini Tin introuvable par
+    recherche, mais fiche existante)."""
+    return f"{BASE}/fp/x-{ean}"

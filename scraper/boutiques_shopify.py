@@ -63,6 +63,9 @@ BOUTIQUES_SHOPIFY = [
                           # acces reseau general (proxy bloque vcollect.fr). A confirmer/ajuster
                           # (deplacement vers BOUTIQUES_SHOPIFY_PRECOMMANDE_SEULEMENT si 0 carte a
                           # l'unite trouvee) au vu des resultats du premier vrai cycle en prod.
+    "pokemael.com",       # AJOUTEE le 08/10/2026 (piste du rapport Grok demande par Justok) :
+                          # Shopify confirme (/products.json), precommandes Bundle + 10 Mini
+                          # Tins 30e Anniversaire FR en catalogue, quelques cartes gradees.
 ]
 
 # AJOUTEES le 12/08/2026 : boutiques verifiees Shopify, actives, mais dont
