@@ -39,6 +39,7 @@ Claude prépare tout le contenu et programme les publications.
 - **Description longue** : DIG16 crée des sites internet pour les artisans, commerçants et indépendants de Charente. Des sites modernes et rapides, pensés d'abord pour le téléphone, avec un bouton pour vous appeler en un geste. Le site et le nom de domaine sont à votre nom. Offre découverte : votre page d'accueil refaite gratuitement, avant de décider. Dès 49 € par mois, 0 € de création, 6 mois puis sans engagement. Changements faits en 3 jours ouvrés. Basé en Charente.
 - **Lien** : https://dig16.fr — **Email** : contact@dig16.fr — **Téléphone** : celui du site (ajouté à l'ouverture)
 - **Visuels** : logo `site-dig/img/marque/` (emblème carré pour l'avatar, signature pour la bannière), captures des démos publiques, vidéo de présentation `site-dig/video/presentation-v6.mp4`.
+  Images des profils prêtes dans `supports/reseaux/`. Idées de visuels supplémentaires : essayer **Pomelli** (Google Labs, disponible en France d'après la page officielle lue le 08/10 ; gratuité **[à vérifier]**) sur dig16.fr ; tout visuel produit passe le contrôle `44-controle-qualite.md` (chiffres et promesses conformes au site).
 
 ## 3. Publications : 8 semaines, 3 par semaine (lundi montrer, mercredi aider, vendredi rassurer)
 
