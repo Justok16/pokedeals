@@ -1,20 +1,20 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@500&display=block" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:1080px;height:1920px;overflow:hidden;background:#0c1129}
-body{font-family:Inter,sans-serif;color:#f3f0ea;position:relative}
-.fond{position:absolute;inset:0;background:radial-gradient(900px 700px at 85% 8%,rgba(255,122,47,.22),transparent 70%),radial-gradient(900px 800px at 0% 90%,rgba(84,92,190,.25),transparent 70%),#0c1129}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0f0e0c}
+body{font-family:Geist,sans-serif;color:#efe9df;position:relative}
+.fond{position:absolute;inset:0;background:radial-gradient(900px 700px at 85% 10%,rgba(200,164,110,.16),transparent 70%),radial-gradient(1000px 800px at 0% 95%,rgba(120,98,66,.14),transparent 70%),#0f0e0c}
 .scene{position:absolute;inset:0;opacity:0}
 .logo{position:absolute;left:72px;top:72px;display:flex;align-items:center;gap:18px;z-index:5}
-.logo i{font-style:normal;width:74px;height:74px;border-radius:20px;display:grid;place-items:center;font-family:Fraunces;font-weight:700;font-size:44px;color:#fff;background:linear-gradient(135deg,#ff7a2f,#7b5cff)}
-.logo b{font-family:Fraunces;font-size:46px;font-weight:700;display:block;line-height:1}
-.logo small{font-size:24px;color:#c9cfe6}
-.sur{font-size:32px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#ff7a2f}
-h1,h2{font-family:Fraunces;font-weight:700;line-height:1.06;letter-spacing:-.01em}
+.logo i{font-style:normal;width:74px;height:74px;border-radius:18px;display:grid;place-items:center;font-family:'Instrument Serif';font-weight:400;font-size:50px;color:#c8a46e;border:2px solid rgba(200,164,110,.6);padding-top:4px}
+.logo b{font-family:Geist;font-size:34px;font-weight:600;letter-spacing:.2em;display:block;line-height:1}
+.logo small{font-size:22px;color:#a8a093;letter-spacing:.06em}
+.sur{font-family:'Geist Mono';font-size:28px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#c8a46e}
+h1,h2{font-family:'Instrument Serif';font-weight:400;line-height:1;letter-spacing:-.015em}
 .mot{display:inline-block;opacity:0}
-.tel{position:absolute;width:560px;height:1180px;border-radius:72px;background:#05070f;padding:20px;box-shadow:0 40px 120px rgba(0,0,0,.55),0 0 0 3px #2b3566}
+.tel{position:absolute;width:560px;height:1180px;border-radius:72px;background:#05070f;padding:20px;box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 2px rgba(239,233,223,.16)}
 .ecran{width:100%;height:100%;border-radius:54px;overflow:hidden;position:relative;background:#fff}
 .ecran img{width:100%;display:block}
 /* scène A */
@@ -35,27 +35,27 @@ h1,h2{font-family:Fraunces;font-weight:700;line-height:1.06;letter-spacing:-.01e
 .vieux p{font-size:22px;line-height:1.35;margin-bottom:14px}
 .vieux .boite{border:3px double #003399;padding:14px;margin:20px 0;background:#ffffcc;font-size:22px}
 .vieux .compteur{font-family:"Courier New",monospace;background:#000;color:#0f0;padding:6px 10px;display:inline-block;font-size:22px}
-.appel{position:absolute;left:50%;top:1500px;transform:translateX(-50%);display:flex;align-items:center;gap:24px;background:#141b3d;border:2px solid rgba(255,255,255,.14);border-radius:28px;padding:30px 44px;font-size:40px;font-weight:600;opacity:0;white-space:nowrap}
-.appel svg{width:52px;height:52px;fill:none;stroke:#ff9a6a;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.appel{position:absolute;left:50%;top:1500px;transform:translateX(-50%);display:flex;align-items:center;gap:24px;background:#1b1915;border:2px solid rgba(255,255,255,.14);border-radius:28px;padding:30px 44px;font-size:40px;font-weight:600;opacity:0;white-space:nowrap}
+.appel svg{width:52px;height:52px;fill:none;stroke:#c8a46e;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 /* scène C */
-.chip{display:inline-flex;align-items:center;gap:14px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.16);border-radius:999px;padding:18px 34px;font-size:36px;font-weight:600;opacity:0}
-.chip svg{width:38px;height:38px;fill:none;stroke:#7ee2b8;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-.btn-appel{position:absolute;left:50%;top:1640px;transform:translateX(-50%);background:#b4460f;color:#fff;border-radius:22px;padding:32px 64px;font-size:42px;font-weight:700;display:flex;gap:18px;align-items:center;opacity:0;box-shadow:0 0 0 0 rgba(255,122,47,.6)}
+.chip{display:inline-flex;align-items:center;gap:14px;background:rgba(239,233,223,.06);border:2px solid rgba(200,164,110,.35);border-radius:999px;padding:18px 34px;font-size:36px;font-weight:600;opacity:0}
+.chip svg{width:38px;height:38px;fill:none;stroke:#c8a46e;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.btn-appel{position:absolute;left:50%;top:1640px;transform:translateX(-50%);background:#c8a46e;color:#14110d;border-radius:999px;padding:32px 64px;font-size:42px;font-weight:700;display:flex;gap:18px;align-items:center;opacity:0;box-shadow:0 0 0 0 rgba(255,122,47,.6)}
 .btn-appel svg{width:46px;height:46px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 /* scène D */
 .stat{position:absolute;left:96px;right:96px;border-top:3px solid rgba(255,255,255,.14);padding-top:36px;opacity:0}
-.stat b{font-family:Fraunces;font-size:200px;font-weight:700;line-height:1;color:#fff;display:block}
-.stat b em{font-style:normal;color:#ff7a2f}
-.stat span{font-size:50px;color:#c9cfe6;font-weight:500}
+.stat b{font-family:'Instrument Serif';font-size:230px;font-weight:400;line-height:1;color:#fff;display:block}
+.stat b em{font-style:italic;color:#c8a46e}
+.stat span{font-size:48px;color:#a8a093;font-weight:400}
 /* scène E */
-.scan{position:absolute;left:-10px;right:-10px;height:6px;background:#ff7a2f;box-shadow:0 0 30px #ff7a2f;opacity:0}
+.scan{position:absolute;left:-10px;right:-10px;height:5px;background:#c8a46e;box-shadow:0 0 30px #c8a46e;opacity:0}
 /* scène F */
 .fin-logo{position:absolute;left:0;right:0;top:560px;text-align:center;opacity:0}
-.fin-logo i{font-style:normal;width:210px;height:210px;border-radius:56px;display:grid;place-items:center;margin:0 auto 44px;font-family:Fraunces;font-weight:700;font-size:128px;color:#fff;background:linear-gradient(135deg,#ff7a2f,#7b5cff);box-shadow:0 30px 90px rgba(255,122,47,.35)}
-.fin-logo b{font-family:Fraunces;font-size:150px;font-weight:700;display:block;line-height:1}
-.fin-logo small{display:block;font-size:46px;color:#c9cfe6;margin-top:18px;letter-spacing:.04em}
-.url{position:absolute;left:50%;top:1420px;transform:translateX(-50%);background:#b4460f;border-radius:999px;padding:34px 80px;font-size:60px;font-weight:700;opacity:0;white-space:nowrap}
-.credit{position:absolute;left:0;right:0;bottom:56px;text-align:center;font-size:22px;color:#7c84a8;opacity:0}
+.fin-logo i{font-style:normal;width:200px;height:200px;border-radius:44px;display:grid;place-items:center;margin:0 auto 50px;font-family:'Instrument Serif';font-weight:400;font-size:140px;color:#c8a46e;border:3px solid rgba(200,164,110,.65);padding-top:10px;box-shadow:0 30px 90px rgba(200,164,110,.18)}
+.fin-logo b{font-family:Geist;font-size:96px;font-weight:600;letter-spacing:.22em;display:block;line-height:1;padding-left:.22em}
+.fin-logo small{display:block;font-size:40px;color:#a8a093;margin-top:26px;letter-spacing:.08em}
+.url{position:absolute;left:50%;top:1420px;transform:translateX(-50%);background:#c8a46e;color:#14110d;border-radius:999px;padding:34px 84px;font-size:58px;font-weight:600;letter-spacing:.02em;opacity:0;white-space:nowrap}
+.credit{position:absolute;left:0;right:0;bottom:56px;text-align:center;font-size:22px;color:#7d756a;opacity:0}
 </style></head>
 <body>
 <div class="fond"></div>
@@ -64,7 +64,7 @@ h1,h2{font-family:Fraunces;font-weight:700;line-height:1.06;letter-spacing:-.01e
 <!-- A : la recherche -->
 <div class="scene" id="A">
  <h1 style="position:absolute;left:96px;right:96px;top:250px;font-size:104px" id="A1"><span class="mot">Vos</span> <span class="mot">clients</span> <span class="mot">vous</span> <span class="mot">cherchent</span> <span class="mot">sur</span> <span class="mot">leur</span> <span class="mot">téléphone.</span></h1>
- <h2 id="A2" style="position:absolute;left:96px;top:600px;font-size:118px;font-style:italic;color:#ff7a2f;opacity:0">Ils vous trouvent ?</h2>
+ <h2 id="A2" style="position:absolute;left:96px;top:600px;font-size:118px;font-style:italic;color:#c8a46e;opacity:0">Ils vous trouvent ?</h2>
  <div class="tel" id="Atel" style="left:260px;top:840px"><div class="ecran">
   <div class="recherche"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span id="saisie"></span><span class="curseur" id="cur"></span></div>
   <div class="resultat" id="r1" style="top:230px"></div><div class="resultat" id="r2" style="top:410px"></div><div class="resultat" id="r3" style="top:590px"></div><div class="resultat" id="r4" style="top:770px"></div>
@@ -88,7 +88,7 @@ h1,h2{font-family:Fraunces;font-weight:700;line-height:1.06;letter-spacing:-.01e
 <div class="scene" id="C">
  <div class="sur" style="position:absolute;left:96px;top:250px">Avec DIG16</div>
  <h1 id="C1" style="position:absolute;left:96px;right:80px;top:310px;font-size:100px;opacity:0">Des sites modernes et rapides</h1>
- <p id="C2" style="position:absolute;left:96px;top:540px;font-size:46px;color:#c9cfe6;opacity:0">pour les artisans et commerçants de Charente</p>
+ <p id="C2" style="position:absolute;left:96px;top:540px;font-size:46px;color:#a8a093;opacity:0">pour les artisans et commerçants de Charente</p>
  <div id="eventail" style="position:absolute;left:0;right:0;top:680px;height:900px">
   <div class="tel" id="t1" style="width:400px;height:845px;border-radius:52px;padding:14px;left:70px;top:70px"><div class="ecran" style="border-radius:40px"><img src="vitrine-essentiel-tel.webp" alt=""></div></div>
   <div class="tel" id="t3" style="width:400px;height:845px;border-radius:52px;padding:14px;left:610px;top:70px"><div class="ecran" style="border-radius:40px"><img src="vitrine-paysagiste-tel.webp" alt=""></div></div>
@@ -111,7 +111,7 @@ h1,h2{font-family:Fraunces;font-weight:700;line-height:1.06;letter-spacing:-.01e
 <!-- E : la démo offerte -->
 <div class="scene" id="E">
  <div class="sur" style="position:absolute;left:96px;top:250px">Avant de décider</div>
- <h1 id="E1" style="position:absolute;left:96px;right:80px;top:310px;font-size:100px;opacity:0">Votre page d'accueil, <span style="color:#ff7a2f;font-style:italic">refaite gratuitement.</span></h1>
+ <h1 id="E1" style="position:absolute;left:96px;right:80px;top:310px;font-size:100px;opacity:0">Votre page d'accueil, <span style="color:#c8a46e;font-style:italic">refaite gratuitement.</span></h1>
  <div class="tel" style="left:260px;top:640px"><div class="ecran" style="background:#d9d9d9">
   <div class="vieux" aria-hidden="true"><header>Bienvenue sur le site de VOTRE ENTREPRISE</header><div class="menu"><a>Accueil</a><a>Qui sommes-nous</a><a>Nos prestations</a><a>Plan d'accès</a><a>Contact</a></div><div class="corps"><aside><h4>Infos</h4><p>Ouvert du lundi au vendredi.</p><p>Devis sur demande par téléphone ou par fax.</p><span class="compteur">004521</span><p>visiteurs</p></aside><div><h4>Notre entreprise</h4><p>Bienvenue sur notre site internet ! Notre entreprise est à votre service depuis de nombreuses années pour tous vos travaux.</p><div class="boite">NOUVEAU : découvrez nos prestations dans la rubrique « Nos prestations ».</div></div></div></div>
   <div id="Enouveau" style="position:absolute;inset:0;clip-path:inset(100% 0 0 0)"><img src="vitrine-essentiel-tel.webp" alt="" style="width:100%"></div>
@@ -122,7 +122,7 @@ h1,h2{font-family:Fraunces;font-weight:700;line-height:1.06;letter-spacing:-.01e
 <!-- F : fin -->
 <div class="scene" id="F">
  <div class="fin-logo" id="Flogo"><i>D</i><b>DIG16</b><small>Sites internet en Charente</small></div>
- <p id="F1" style="position:absolute;left:0;right:0;top:1200px;text-align:center;font-family:Fraunces;font-size:84px;font-weight:700;opacity:0">Vous jugez sur pièce.</p>
+ <p id="F1" style="position:absolute;left:0;right:0;top:1200px;text-align:center;font-family:'Instrument Serif';font-size:104px;font-weight:400;font-style:italic;opacity:0">Vous jugez sur pièce.</p>
  <div class="url" id="Furl">dig16.fr</div>
  <div class="credit" id="Fcredit">Voix de synthèse · musique originale DIG16</div>
 </div>
