@@ -30,6 +30,9 @@ Claude prépare tout le contenu et programme les publications.
 | 13 | **Signature email** de contact@dig16.fr avec lien et SIREN | Oui | Claude prépare | Validation |
 | 14 | **Référencement du site** : Google Search Console et Bing Webmaster Tools (sitemap) | Oui | Utilisateur valide la propriété ; Claude prépare le sitemap | Ouverture du site |
 
+**Campagne choc « Le test du pouce »** (08/10) : idée centrale, 6 visuels, story, affiche A4 et textes dans
+`62-campagne-test-du-pouce.md`.
+
 ## 2. Textes des profils (identiques partout)
 
 - **Nom** : DIG16 — Sites internet en Charente
