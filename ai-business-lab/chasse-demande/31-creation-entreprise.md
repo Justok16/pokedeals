@@ -54,6 +54,28 @@ n'est pas vérifié à la source est marqué **[à vérifier]**.
   QR du flyer vers `dig16.fr`, renommer « Dig » en « DIG16 » dans
   `site-dig/` et les supports.
 
+### Formulaire du guichet : réponses préparées (08/10/2026)
+
+Décision de l'utilisateur (08/10) : l'entreprise est domiciliée **chez lui** (pas de domiciliation
+payante), avec la **non-diffusion** de l'adresse personnelle cochée au guichet (F2160). Version
+complète avec ses coordonnées : document privé « DIG16 – Création de la micro-entreprise pas à pas »
+du Drive « Dig ». Sources lues le 08/10 : Service-Public F36746 et F23282 (« Vérifié le 18 mars
+2026 »), INSEE NAF 62.01Z (mise à jour du 19/12/2025).
+
+- Guichet gratuit pour une activité libérale ; dépôt au plus tôt 1 mois avant et au plus tard
+  15 jours après le début d'activité (F36746, F23282).
+- Pièces : pièce d'identité, justificatif de domicile (facture d'eau, d'électricité ou de gaz),
+  déclaration de non-condamnation et attestation de filiation signée (F36746).
+- Nature : libérale non réglementée (BNC). Description : « Conception, réalisation, mise en ligne et
+  maintenance de sites internet pour les professionnels ». Code APE attribué par l'INSEE, attendu
+  62.01Z (la sous-classe cite la création de « pages web ») ; remplace l'hypothèse 58.29C ci-dessus.
+- Nom commercial DIG16, site dig16.fr, email contact@dig16.fr.
+- Versement libératoire : **non** (l'exonération FRR+ porte sur l'impôt sur le bénéfice ; à faire
+  confirmer par le SIE). Déclarations URSSAF trimestrielles. Franchise en base de TVA. ACRE demandée.
+- Validation après le rappel de la CPAM (semaine du 12/10), comme prévu en 2 bis.
+- Au SIREN : l'adresse et le téléphone vont sur les mentions légales du site et sur le flyer au
+  moment du déploiement, **sans être copiés dans ce dépôt public**.
+
 ## 2 bis. Création parfaite et fiscalité optimisée (exigence de l'utilisateur, 25/09)
 
 Claude prépare **tout** (choix, formulaires pré-remplis, calendrier des
