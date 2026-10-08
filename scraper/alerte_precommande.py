@@ -53,6 +53,34 @@ def sauvegarder_memoire(memoire: dict, chemin: Path) -> None:
     _sauvegarder_memoire_generique(memoire, chemin)
 
 
+def _consolider_suivi_disponibilite(candidats: list[dict]) -> list[dict]:
+    """Une seule observation par produit en suivi de disponibilite pour une
+    boutique (la memoire n'a qu'une entree domaine|produit). Bug reel du
+    08/10/2026 : ultrajeux.com liste 10 fiches Mini Tin 30e ; chacune
+    ecrasait l'etat de la precedente, donc une seule fiche commandable parmi
+    des fiches en rupture re-alertait a CHAQUE cycle. Retenue : la fiche
+    commandable la moins chere, sinon la premiere vue. Les autres produits
+    (sans alerte_disponibilite) gardent le comportement d'origine."""
+    retenus: dict[str, dict] = {}
+    resultat: list[dict] = []
+    for c in candidats:
+        if not c.get("alerte_disponibilite"):
+            resultat.append(c)
+            continue
+        actuel = retenus.get(c["nom_produit"])
+        if actuel is None:
+            retenus[c["nom_produit"]] = c
+            resultat.append(c)
+            continue
+        meilleur = (c.get("en_stock") is True and (
+            actuel.get("en_stock") is not True
+            or (c.get("prix") or float("inf")) < (actuel.get("prix") or float("inf"))))
+        if meilleur:
+            resultat[resultat.index(actuel)] = c
+            retenus[c["nom_produit"]] = c
+    return resultat
+
+
 def detecter_nouvelles_precommandes(
     domaine: str,
     candidats: list[dict],
@@ -138,7 +166,7 @@ def detecter_nouvelles_precommandes(
     reste immediate : aucune perte possible dans ce cas."""
     evenements = []
 
-    for c in candidats:
+    for c in _consolider_suivi_disponibilite(candidats):
         cle_mem = _cle_memoire(domaine, c["nom_produit"])
         etat_precedent = memoire.get(cle_mem)
         premiere_fois = etat_precedent is None
