@@ -35,7 +35,7 @@ sans régler ce point.
 
 ## Solution compatible avec « pseudonyme seulement »
 
-1. Créer la micro-entreprise (déjà prévue dans `31-kit-en-cas-de-oui.md`)
+1. Créer la micro-entreprise (déjà prévue dans `31-creation-entreprise.md`)
    avec **« Dig » comme nom commercial**.
 2. Pied de chaque email : « Dig — [nom commercial], SIREN [numéro],
    [adresse de domiciliation] — pour ne plus recevoir de message :

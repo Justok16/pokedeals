@@ -42,7 +42,7 @@ pas seulement les artisans (ex. trouvé : un centre de radiologie).
 4. **Démarchage** : B2B uniquement, expéditeur identifiable → exige une
    structure légale (`35-demarchage-cadre-legal.md`), donc la
    micro-entreprise, avec les effets sur les aides (section 2 bis de
-   `31-kit-en-cas-de-oui.md`).
+   `31-creation-entreprise.md`).
 
 ## Grille rapide (règle n° 1 : l'argent avant de construire)
 

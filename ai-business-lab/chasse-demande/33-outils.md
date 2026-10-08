@@ -9,7 +9,7 @@ quand un revenu le justifie (budget 0 €).
 |---|---|---|---|
 | Gmail (connecteur, boîte du pseudonyme) | Contacter et suivre les éditeurs | gratuit | **actif** |
 | OpenRush (connecteur) | Mesurer la demande (volumes de recherche Google) | gratuit (déjà connecté) | **actif** |
-| Jev — TypeSafe AI (skill `.claude/skills/typesafe-ai`, outil `outils/jev_trier_reponses.py`) | Aiguilleur des réponses : catégories fermées, repli Claude puis humain | 5 $/mois offerts via Vercel AI Gateway | skill installé ; **clé à ajouter** (inscription TypeSafe fermée → Vercel) |
+| Jev — TypeSafe AI (skill `.claude/skills/typesafe-ai`) | Classement rapide (catégories fermées) ; ancien aiguilleur des réponses Atlassian supprimé le 08/10 | 5 $/mois offerts via Vercel AI Gateway | skill installé ; **clé à ajouter** (inscription TypeSafe fermée → Vercel) |
 | Similarweb, Crunchbase | Trafic des sites, fermetures de startups | payants (Similarweb 338 €/mois) | écartés tant que rien ne rapporte |
 | Stripe | Encaisser un produit vendu en direct | commission | inutile pour Atlassian (Atlassian encaisse) |
 | Plugin « Small Business » (Anthropic, 44 skills) | Contrats, propositions, factures, trésorerie, impôts | gratuit | **installé** dans le projet (.claude/settings.json) le 24/09 |

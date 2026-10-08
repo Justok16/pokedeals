@@ -259,7 +259,7 @@ client) est la bonne réponse.
 
 ### 6.1 Statut
 Micro-entreprise, nom commercial « DIG16 » (validé), selon
-`31-kit-en-cas-de-oui.md` section 2 bis (création parfaite, fiscalité
+`31-creation-entreprise.md` section 2 bis (création parfaite, fiscalité
 optimisée) et `36-aides-creation.md` (aides à demander **avant** la
 création ; détail propre à l'utilisateur dans le document privé du Drive).
 

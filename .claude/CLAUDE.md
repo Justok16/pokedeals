@@ -10,11 +10,9 @@
 - Objectif : trouver et lancer **un projet qui rapporte beaucoup, par des
   moyens légaux**. Tout le travail est dans `ai-business-lab/chasse-demande/`
   (branche `claude/ai-business-portfolio-strategy-96yf4g`).
-- Piste principale (septembre 2026) : **reprendre des apps Atlassian
-  « Connect » figées** avant la fin de support du 31/01/2027 (transfert de
-  fiche + portage Forge + 30 % du revenu à l'éditeur pendant 24 mois).
-  Dossier : `25-reprise-atlassian.md` ; kit en cas de « oui » :
-  `31-kit-en-cas-de-oui.md`.
+- Piste principale : **DIG16**, sites internet pour artisans et commerçants (dig16.fr).
+  **Piste Atlassian abandonnée et supprimée le 08/10** (décision de l'utilisateur : « on arrête
+  complètement ») : ne plus jamais la relancer ni la reproposer.
 
 ## Comment travailler (et pourquoi)
 
@@ -81,7 +79,7 @@
   **Décision du 06/10** : l'utilisateur laisse `scraper/config.yaml` tel quel (alertes PokéDeals) et accepte l'historique ; ne plus reproposer la correction, sauf s'il le redemande. Entretiens artisans : « on verra au moment opportun ».
 - **Si création d'entreprise** : tout doit être juridiquement parfait et
   la fiscalité optimisée (demande forte de l'utilisateur, 25/09). Suivre la
-  section 2 bis de `31-kit-en-cas-de-oui.md` ; nom commercial **DIG16** (décision du 05/10,
+  section 2 bis de `31-creation-entreprise.md` ; nom commercial **DIG16** (décision du 05/10,
   remplace « Dig »), domaine `dig16.fr` ; implantation réelle en zone FRR+ ; synthèse privée
   « DIG16 – Synthèse création » dans le Drive « Dig » (ne jamais en recopier les données ici).
   Chercher **toutes** les aides, financières et en nature (`36-aides-creation.md`).
@@ -101,8 +99,7 @@
   (mesures au pixel, alignements, chevauchements, liens et QR testés,
   cohérence des chiffres entre documents, orthographe, rendu téléphone
   et ordinateur). Ne jamais envoyer une version « à moitié finie ».
-- Économiser le quota hebdomadaire : garder de la réserve pour le jour où
-  un éditeur répond « oui ».
+- Économiser le quota hebdomadaire : garder de la réserve pour les demandes de l'utilisateur.
 
 ## Décisions du 05/10/2026 (soir) — « tout oui » aux 12 décisions issues de 6 audits
 
@@ -115,7 +112,6 @@
   résumés vidéo (sauf les 30 chaînes et liens finance/investissement envoyés le 05/10 au soir, à traiter
   sur demande de l'utilisateur : `connaissances/`, `46` et `connaissances/sources-finance.md`), veille des sources, photos des prospects, nouvelles démos. Points automatiques
   **2 fois par jour** (07:34 et 19:34 UTC).
-- **Atlassian** : relance unique le 08/10, puis dossier clos.
 - **Prestige** : jamais proposé en prospection (page conservée).
 - **Démos** : accord préalable avant toute démo avec les photos ou le logo du prospect ; montrée
   **en direct**, pas envoyée ; les 64 démos existantes restent hors diffusion sans accord.
@@ -164,16 +160,13 @@
 
 ## Outils en place
 
-- Boîte du pseudonyme via le connecteur **Gmail** (signature : « Dig ») ;
-  fils rangés sous l'étiquette « Reprise Atlassian ». **Archiver chaque
+- Boîte du pseudonyme via le connecteur **Gmail** (signature : « Dig »). **Archiver chaque
   fil après traitement** (demande du 25/09) : étiquette + retrait de la
   boîte de réception et du « non lu » ; ne jamais supprimer ; ne laisser
   en boîte de réception que ce qui attend une décision de l'utilisateur.
 - Démarchage B2B : pas de campagne en série sous le seul pseudonyme (voir
   `35-demarchage-cadre-legal.md`).
-- **Jev** (TypeSafe AI) : skill dans `.claude/skills/typesafe-ai`,
-  aiguilleur `outils/jev_trier_reponses.py` (catégories fermées ; auto /
-  Claude / humain selon la confiance).
+- **Jev** (TypeSafe AI) : skill dans `.claude/skills/typesafe-ai`.
 - **OpenRush** : mesure de la demande (volumes de recherche).
 - Radar des fermetures : `outils/radar_fermetures.py` (30 sources).
 - Liste des outils : `33-outils.md`.
