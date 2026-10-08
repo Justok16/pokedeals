@@ -374,38 +374,71 @@ def _titre_est_candidat(titre: str, produit: ProduitSurveille) -> bool:
             and any(_normaliser_slug(m) in norm for m in produit.mots_cles_type))
 
 
-def scanner_leclerc(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
-    """Une erreur sur une RECHERCHE remonte (boutique en echec ce cycle, rien
-    n'est ecrit en memoire) ; une fiche illisible est simplement ignoree."""
-    from connecteur_leclerc import ConnecteurLeclerc
-    connecteur = connecteur or ConnecteurLeclerc()
-
+def _scanner_enseigne(domaine: str, produits: list[ProduitSurveille], connecteur, requetes) -> list[dict]:
+    """Logique commune aux grandes enseignes a plateforme maison (Leclerc,
+    Auchan...) : quelques recherches, dedoublonnage par URL (sans parametres),
+    filtre edition + type sur le titre, puis evaluation complete. Si le
+    connecteur sait lire une fiche (`lire_fiche`), prix/stock/description en
+    viennent ; sinon ceux de la carte de recherche sont utilises. Une erreur
+    sur une RECHERCHE remonte (boutique en echec ce cycle, rien n'est ecrit en
+    memoire) ; une fiche illisible est simplement ignoree."""
     vus: dict[str, dict] = {}
-    for requete in REQUETES_LECLERC:
+    for requete in requetes:
         for r in connecteur.rechercher(requete):
             vus.setdefault(r["url"].split("?")[0], r)
 
+    lire_fiche = getattr(connecteur, "lire_fiche", None)
     candidats = []
     for url, r in vus.items():
         concernes = [p for p in produits if _titre_est_candidat(r["titre"], p)]
         if not concernes:
             continue
-        try:
-            fiche = connecteur.lire_fiche(r["url"])
-        except requests.RequestException:
-            continue
-        if fiche is None:
-            continue
+        if lire_fiche:
+            try:
+                fiche = lire_fiche(r["url"])
+            except requests.RequestException:
+                continue
+            if fiche is None:
+                continue
+        else:
+            fiche = {"titre": r["titre"], "description": "", "prix": r.get("prix"), "en_stock": r.get("en_stock")}
         titre = fiche["titre"] or r["titre"]
+        # Descriptions de ces enseignes en francais mais souvent sans les
+        # mots-indices de langue_non_francaise() (verifie le 08/10/2026 :
+        # "Les Mini Tins Pokemon, appelees aussi mini-boites..."). Sites
+        # francais vendant des versions francaises : indice explicite ajoute ;
+        # un marqueur d'une autre langue dans le TITRE ("- EN", "japonais"...)
+        # reste rejete.
+        description = f"{fiche['description']} (site francais {domaine})"
         for produit in concernes:
-            # Les descriptions Leclerc sont en francais mais sans les mots-indices
-            # de langue_non_francaise() (verifie le 08/10/2026 : "Les Mini Tins
-            # Pokemon, appelees aussi mini-boites..."). Site francais vendant des
-            # versions francaises : indice explicite ajoute ; un marqueur d'une
-            # autre langue dans le TITRE ("- EN", "japonais"...) reste rejete.
-            description = f"{fiche['description']} (site francais e.leclerc)"
             c = _candidat(domaine, produit, titre, description, url,
                           prix=fiche["prix"], en_stock=fiche["en_stock"])
             if c:
                 candidats.append(c)
     return candidats
+
+
+def scanner_leclerc(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
+    from connecteur_leclerc import ConnecteurLeclerc
+    return _scanner_enseigne(domaine, produits, connecteur or ConnecteurLeclerc(), REQUETES_LECLERC)
+
+
+def scanner_auchan(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
+    """Auchan (08/10/2026) : prix et disponibilite directement sur la carte de
+    recherche (microdonnees schema.org), aucune fiche a charger."""
+    from connecteur_auchan import ConnecteurAuchan
+    return _scanner_enseigne(domaine, produits, connecteur or ConnecteurAuchan(), REQUETES_LECLERC)
+
+
+# L'API Lidl limite le debit (401 des la 3e-4e requete rapprochee, verifie
+# le 08/10/2026), mais "pokemon" ne renvoie qu'une cinquantaine d'articles :
+# UNE requete large par cycle couvre tout le rayon, le filtre edition + type
+# fait le tri.
+REQUETES_LIDL = ["pokemon"]
+
+
+def scanner_lidl(domaine: str, produits: list[ProduitSurveille], connecteur=None) -> list[dict]:
+    """Lidl (08/10/2026) : API de recherche publique en JSON, disponibilite
+    en ligne sur chaque resultat, aucune fiche a charger."""
+    from connecteur_lidl import ConnecteurLidl
+    return _scanner_enseigne(domaine, produits, connecteur or ConnecteurLidl(), REQUETES_LIDL)
