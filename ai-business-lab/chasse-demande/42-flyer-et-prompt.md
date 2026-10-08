@@ -159,3 +159,4 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
   10,5 pt, QR agrandi à 34 mm ; plus de petites capitales espacées ; phrases raccourcies ; mentions légales 6,5 pt
   en gris foncé. Contrôle automatique ajouté dans `flyer.py` : taille minimale de chaque texte et contraste WCAG AA
   (pire contraste mesuré : 6,4:1, seuil 4,5:1). QR toujours décodé → `https://dig16.fr/`.
+- **08/10 : version validée par l'utilisateur** (« Parfait pour le flyer »). Référence d'impression : `supports/Dig-Flyer-A5.pdf`.
