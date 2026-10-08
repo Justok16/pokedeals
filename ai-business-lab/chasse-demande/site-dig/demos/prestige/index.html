@@ -33,6 +33,8 @@
   .barre { position: fixed; inset: 0 0 auto; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
     padding: max(14px, env(safe-area-inset-top)) clamp(16px, 4vw, 52px) 14px; color: var(--sc-ink);
     background: linear-gradient(180deg, rgba(31,33,29,.7), rgba(31,33,29,0)); pointer-events: none; }
+  .barre { transition: background .35s ease; }
+  .barre.pleine { background: rgba(44,49,54,.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
   .barre > * { pointer-events: auto; }
   .marque { text-decoration: none; display: grid; line-height: 1.05; }
   .marque b { font-family: var(--sc-font-display); font-weight: 600; font-size: clamp(1.3rem, 2.1vw, 1.7rem); }
@@ -421,6 +423,12 @@
     [].slice.call(document.querySelectorAll('[data-fr]')).forEach(function (el) { el.innerHTML = texte(el); });
     window.majHorloge(); window.majResa();
   });
+</script>
+<script>
+/* en-tête opaque après le film, pour rester lisible sur les sections claires */
+(function(){var b=document.querySelector('.barre'),j=document.querySelector('.journee');
+function maj(){b.classList.toggle('pleine',j.getBoundingClientRect().bottom<b.offsetHeight)}
+addEventListener('scroll',maj,{passive:true});addEventListener('resize',maj);maj();})();
 </script>
 </body>
 </html>
