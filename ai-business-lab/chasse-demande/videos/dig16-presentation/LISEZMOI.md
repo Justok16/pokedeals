@@ -41,3 +41,4 @@ qui relance la vidéo depuis le début avec le son ; la barre d'appel du bas se 
 - `fabriquer.py <voix>` : repère le début de chaque phrase dans la voix (mots horodatés par Vosk), déforme le temps
   de l'animation pour suivre la voix, mixe, rend la vidéo. Sur le site : `site-dig/video/presentation-v3.*`
   (nouveau nom à chaque version, pour éviter l'ancienne vidéo gardée en cache).
+- **Choix validé par l'utilisateur le 08/10 : voix « Algieba »** (« Algieba c'est très bien »). À réutiliser pour toute future vidéo DIG16.
