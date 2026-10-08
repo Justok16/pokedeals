@@ -1,0 +1,43 @@
+name: Test Telegram (manuel)
+
+# Ajoute le 08/10/2026 : verifie de bout en bout que le bot Telegram peut
+# ecrire a Justok (jeton valide + chat joignable), sans attendre une vraie
+# alerte. Lancement MANUEL uniquement (bouton "Run workflow") : un seul
+# message par lancement. Echec du job = jeton refuse ou chat injoignable.
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "Texte du message de test"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Envoyer un message de test
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          # Meme passage par env: que les autres workflows (jamais ${{ }} dans run:).
+          MESSAGE: ${{ github.event.inputs.message }}
+          CHAT_ID: "1245330032"   # cf. config.yaml telegram.chat_id
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
+            echo "::error::TELEGRAM_BOT_TOKEN absent des secrets GitHub."
+            exit 1
+          fi
+          [ -n "$MESSAGE" ] || MESSAGE="Test du bot PokéDeals"
+          code=$(curl -s -o /tmp/reponse.json -w '%{http_code}' --max-time 20 \
+            "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${CHAT_ID}" --data-urlencode "text=${MESSAGE}")
+          if [ "$code" = "200" ]; then
+            echo "Message Telegram envoyé."
+          else
+            echo "::error::Telegram a refusé l'envoi (HTTP $code) : $(head -c 300 /tmp/reponse.json)"
+            exit 1
+          fi

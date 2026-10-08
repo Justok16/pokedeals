@@ -255,7 +255,13 @@ if __name__ == "__main__":
         sortie = p.date_sortie.isoformat() if p.date_sortie else "date inconnue/reportee"
         print(f"  - {p.nom} (sortie {sortie})")
     print(f"{len(boutiques)} boutique(s) {plateforme} a scanner" + (" (perimetre COMPLEMENT)" if complement else ""))
-    print(f"Telegram : {'configure' if token else 'NON configure (TELEGRAM_BOT_TOKEN absent -- envoi desactive)'}\n")
+    # 08/10/2026 : l'ancien libelle ("NON configure ... envoi desactive")
+    # laissait croire que les alertes des 30 ans etaient coupees, alors
+    # qu'elles partent avec TELEGRAM_BOT_TOKEN directement (cf. plus bas).
+    token_direct = bool(os.environ.get("TELEGRAM_BOT_TOKEN"))
+    print(f"Telegram (alertes perso) : {'actif' if token else 'coupe (config.yaml) ou token absent'}")
+    print(f"Telegram (disponibilite produits suivis) : "
+          f"{'actif' if token_direct else 'INACTIF -- TELEGRAM_BOT_TOKEN absent'}\n")
 
     supabase_url = os.environ.get("SUPABASE_URL", "")
     supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
