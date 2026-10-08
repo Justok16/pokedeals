@@ -220,9 +220,20 @@ def _extraire_prix_et_stock(html: str, plateforme: str) -> tuple[float | None, b
     if produit_jsonld:
         offre = _analyser_offre(produit_jsonld)
         prix, en_stock = offre["prix"], offre["en_stock"]
+        offres = produit_jsonld.get("offers")
+        offres = offres if isinstance(offres, list) else [offres]
+        disponibilites = [o.get("availability") or "" for o in offres if isinstance(o, dict)]
     else:
         microdata = _extraire_microdata_produit(html)
         prix, en_stock = (microdata["prix"], microdata["en_stock"]) if microdata else (None, None)
+        disponibilites = re.findall(r'itemprop="availability"[^>]*(?:content|href)="([^"]+)"', html)
+    # Radar des produits suivis : une PRECOMMANDE ouverte est commandable
+    # (demande de Justok : "precommander et/ou stock"). 08/10/2026 :
+    # pixelheart.eu annonce ses UPC en "BackOrder" (bouton panier actif,
+    # "Produit en precommande") et etait lu en rupture. Reserve au radar :
+    # les connecteurs de CARTES gardent InStock/LimitedAvailability seuls.
+    if any(d.rstrip("/").endswith(("PreOrder", "BackOrder")) for d in disponibilites):
+        en_stock = True
 
     rupture_dom = _rupture_dom_woocommerce if plateforme == "woocommerce" else _rupture_dom_prestashop
     if rupture_dom(html):

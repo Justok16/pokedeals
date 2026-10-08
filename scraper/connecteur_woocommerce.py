@@ -93,9 +93,14 @@ SEGMENTS_RECHERCHE_EXCLUS = SEGMENTS_URL_EXCLUS + (
     "/cgv", "/nos-services",
 )
 
+# "http://" ET "https://" (08/10/2026 : pixelheart.eu et d'autres themes
+# ecrivent "http://schema.org/..." -- un produit en stock etait lu en
+# rupture ; le repli microdata, lui, comparait deja la fin de l'URL).
 DISPONIBILITES_JSONLD_EN_STOCK = {
     "https://schema.org/InStock",
     "https://schema.org/LimitedAvailability",
+    "http://schema.org/InStock",
+    "http://schema.org/LimitedAvailability",
 }
 
 # Symbole -> code ISO, pour le repli HTML (JSON-LD donne deja le code ISO
