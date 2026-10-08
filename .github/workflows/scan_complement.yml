@@ -10,6 +10,7 @@ on:
   workflow_dispatch: {}
 permissions:
   contents: read   # memoire du radar dans Supabase, aucune ecriture sur le repo
+  actions: write   # lancer la veille express a la fin du scan (cf. derniere etape)
 concurrency:
   group: scan_complement   # groupe DEDIE
   cancel-in-progress: false
@@ -69,6 +70,16 @@ jobs:
         id: ultrajeux
         continue-on-error: true
         run: python scan_precommandes.py ultrajeux
+      # 08/10/2026 : ni le cron GitHub ni l'evenement workflow_run ne se
+      # declenchent sur ce depot (seuls les workflow_dispatch tournent). Le
+      # scan lance donc lui-meme la veille express (4 passages a 5 min).
+      # Un workflow_dispatch emis avec le GITHUB_TOKEN declenche bien un
+      # workflow (exception documentee par GitHub).
+      - name: Lancer la veille express
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run veille_express.yml --ref main --repo "${{ github.repository }}"
       - name: Échec si une plateforme a échoué
         if: steps.shopify.outcome == 'failure' || steps.woocommerce.outcome == 'failure' || steps.prestashop.outcome == 'failure' || steps.leclerc.outcome == 'failure' || steps.auchan.outcome == 'failure' || steps.ultrajeux.outcome == 'failure'
         run: exit 1
