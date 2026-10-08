@@ -15,29 +15,35 @@
 # Les champs entre crochets se remplissent à l'immatriculation : aucune donnée personnelle dans ce dépôt.
 # Usage : python3 outils/documents_commerciaux.py   (écrit supports/*.html et supports/Dig-*.pdf)
 import os
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "marque"))
+from charte_documents import BASE, COUVERTURE, POLICES, attendre_polices, bandeau  # noqa: E402
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 SUP = os.path.normpath(os.path.join(ICI, "..", "supports"))
 CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
 
 EMETTEUR = "[Prénom Nom] EI — « DIG16 »<br>[Adresse]<br>SIREN [numéro à l’immatriculation]<br>contact@dig16.fr"
-CSS = """@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}
-body{font-family:Inter,sans-serif;font-size:9.4pt;color:#1d1a17;line-height:1.45;margin:0}
-.couv{background:#0d1330;color:#f4f1ea;border-radius:12px;padding:6mm 8mm;margin-bottom:4mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.couv h1{font-family:Fraunces,serif;font-size:20pt;margin:1mm 0}.couv p{color:#c6cbe4;margin:.5mm 0}
-.k{color:#ff8a3d;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:7.8pt}
-h2{font-family:Fraunces,serif;font-size:11.5pt;margin:4mm 0 1mm;break-after:avoid}
+CSS = BASE + COUVERTURE + """@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}
+body{font-size:9.2pt;line-height:1.48;margin:0}
+h2{font-size:13pt;line-height:1.1;margin:4.2mm 0 1mm;break-after:avoid}
 p,li{margin:.8mm 0}ul{padding-left:5mm;margin:1mm 0}
-table{width:100%;border-collapse:collapse;margin:2mm 0;font-size:9pt}th,td{border:1px solid #d8d0c3;padding:1.6mm 2mm;text-align:left;vertical-align:top}
-th{background:#f4efe6;-webkit-print-color-adjust:exact;print-color-adjust:exact}td.n{text-align:right;white-space:nowrap}
-.deux{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin:2mm 0}.cadre{border:1px solid #d8d0c3;border-radius:8px;padding:3mm 4mm}
-.champ{border-bottom:1px solid #999;height:6mm;margin:1mm 0}.petit{color:#5d5a66;font-size:8.2pt}
-.sign{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:4mm}.sign div{border:1px solid #d8d0c3;border-radius:8px;height:26mm;padding:2mm 3mm;font-size:8.4pt;color:#5d5a66}
-.cgv{columns:2;column-gap:7mm;font-size:8.5pt;line-height:1.37}.cgv h2{font-size:10pt;margin:2.4mm 0 .6mm}.cgv p{margin:.5mm 0;text-align:justify}"""
+table{width:100%;border-collapse:collapse;margin:2.4mm 0;font-size:8.9pt}
+th,td{border-bottom:.25mm solid var(--trait);padding:1.8mm 2mm;text-align:left;vertical-align:top}
+th{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);border-bottom:.35mm solid var(--or);background:none}
+td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:.35mm solid var(--texte)}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin:2mm 0}
+.cadre{background:var(--fond-doux);border:.25mm solid var(--trait);border-radius:2.5mm;padding:3mm 4mm}
+.cadre>b:first-child{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.8pt;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze)}
+.champ{border-bottom:.25mm solid #b9b0a2;height:6mm;margin:1mm 0}.petit{color:var(--gris);font-size:8pt}
+.sign{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:4mm}.sign div{border:.25mm solid var(--trait);border-radius:2.5mm;height:26mm;padding:2mm 3mm;font-size:8.2pt;color:var(--gris)}
+.cgv{columns:2;column-gap:7mm;column-rule:.25mm solid var(--trait);font-size:8.15pt;line-height:1.37}.cgv h2{font-size:11pt;margin:2.2mm 0 .4mm}.cgv p{margin:.5mm 0;text-align:justify;hyphens:auto}"""
 TETE = (
     '<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>{t}</title>'
-    '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;600&display=swap" rel="stylesheet">'
-    "<style>" + CSS + "</style></head><body>"
+    + POLICES
+    + "<style>" + CSS + "</style></head><body>"
 )
 
 PENALITES = (
@@ -46,8 +52,7 @@ PENALITES = (
     "10 points, ainsi qu’une indemnité forfaitaire pour frais de recouvrement de 40 € par facture."
 )
 
-CGV = f"""<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Conditions générales de vente</h1>
-<p>Applicables à toute commande passée par un professionnel. Version du [date de l’immatriculation].</p></div>
+CGV = f"""{bandeau("Création et suivi de sites internet", "Conditions générales de vente", "Applicables à toute commande passée par un professionnel. Version du [date de l’immatriculation].")}
 <div class="cgv">
 <h2>1. Prestataire</h2><p>{EMETTEUR.replace("<br>", ", ")}. TVA non applicable, art. 293 B du code général des impôts.</p>
 <h2>2. Objet</h2><p>DIG16 crée, héberge et suit des sites internet pour les professionnels (entreprises, artisans, commerçants). Les présentes conditions s’appliquent à toute commande ; elles prévalent sur tout autre document, sauf accord écrit contraire.</p>
@@ -64,8 +69,7 @@ CGV = f"""<div class="couv"><div class="k">DIG16 — création et suivi de sites
 <h2>13. Litiges</h2><p>Les parties cherchent d’abord une solution amiable. À défaut, le litige est porté devant la juridiction compétente selon les règles de droit commun. Droit français applicable.</p>
 </div>"""
 
-DEVIS = f"""<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Devis et bon de commande</h1>
-<p>N° [AAAA-NNN] · Date : [jj/mm/aaaa] · Valable 30 jours</p></div>
+DEVIS = f"""{bandeau("Création et suivi de sites internet", "Devis et bon de commande", "N° [AAAA-NNN] · Date : [jj/mm/aaaa] · Valable 30 jours")}
 <div class="deux"><div class="cadre"><b>Prestataire</b><br>{EMETTEUR}<br>TVA non applicable, art. 293 B du CGI</div>
 <div class="cadre"><b>Client</b><div class="champ"></div><div class="champ"></div><span class="petit">Nom de l’entreprise, adresse, SIREN</span></div></div>
 <table><tr><th>Formule (cocher)</th><th>Contenu</th><th>Prix</th></tr>
@@ -101,8 +105,7 @@ DEVIS = f"""<div class="couv"><div class="k">DIG16 — création et suivi de sit
 <p>Date :</p><div class="champ"></div>
 <p class="petit">(*) Rayez la mention inutile.</p></div>"""
 
-FACTURE = f"""<div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Facture</h1>
-<p>N° [AAAA-NNN] (numérotation continue) · Date d’émission : [jj/mm/aaaa] · Date de la prestation : [période ou jj/mm/aaaa]</p></div>
+FACTURE = f"""{bandeau("Création et suivi de sites internet", "Facture", "N° [AAAA-NNN] (numérotation continue) · Date d’émission : [jj/mm/aaaa] · Date de la prestation : [période ou jj/mm/aaaa]")}
 <div class="deux"><div class="cadre"><b>Prestataire</b><br>{EMETTEUR}</div>
 <div class="cadre"><b>Client</b><br>[Nom de l’entreprise]<br>[Adresse]<br>SIREN [numéro du client]<br><span class="petit">N° de bon de commande : [si le client en a établi un]</span></div></div>
 <p><b>Nature de l’opération</b> : prestation de services.</p>
@@ -144,7 +147,8 @@ def ecrire():
         pg = b.new_page()
         for f, _, _, pdf in docs:
             pg.goto("file://" + os.path.join(SUP, f))
-            pg.wait_for_timeout(800)
+            pg.emulate_media(media="print")
+            attendre_polices(pg)
             pg.pdf(
                 path=os.path.join(SUP, pdf),
                 format="A4",

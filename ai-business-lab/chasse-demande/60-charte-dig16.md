@@ -28,3 +28,12 @@ Interdits : dégradés orange-violet, bleu nuit, deuxième couleur d'accent.
 - Boutons en pilule ; principal laiton sur texte encre ; secondaire filet ivoire translucide.
 - Grain très léger sur toute la page (bruit SVG, opacité 5 %).
 - Icône d'onglet : monogramme laiton sur encre.
+
+## Documents imprimés (08/10/2026)
+
+- Même rendu sur tous les documents : `outils/marque/charte_documents.py` (polices, couleurs, couverture sombre
+  avec signature et emblème).
+- Générateurs passés à la charte : `outils/documents_commerciaux.py` (CGV, devis, facture), `outils/plan_complet.py`,
+  `outils/campagne_pdf.py`, `outils/marque/flyer.py`.
+- Supports écrits à la main : `python3 outils/marque/restyler_supports.py` puis `python3 outils/marque/pdf_supports.py`
+  (antisèche, guide de prospection, questionnaires, audit, guides Jarvis et MiniMax, visuel de lancement).

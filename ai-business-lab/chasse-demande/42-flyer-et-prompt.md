@@ -140,3 +140,13 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
 - Correction de cohérence avec le site et la décision du 05/10 : « Modifications sous 48 h » → « Modifications sous
   3 jours ouvrés ».
 - Reste à compléter le jour du SIREN : téléphone, prénom et nom, SIREN, adresse (mentions en bas du flyer).
+
+## Version premium du 08/10/2026 (demande de l'utilisateur : « refais le design du flyer… avec ce même rendu »)
+
+- Nouvelle référence : **`outils/marque/flyer.py`** → `supports/flyer-dig-a5.html`, `Dig-Flyer-A5.png`
+  (1 748 × 2 480 px, 300 ppp) et `Dig-Flyer-A5.pdf` (A5 exact, fait depuis l'image). Remplace le design Canva.
+- Charte du site : noir chaud, laiton, Instrument Serif, Geist, signature DIG16 ; vrai site de démonstration
+  (menuisier) dans le téléphone ; mêmes textes, prix et mentions qu'avant.
+- Contrôles automatiques à chaque génération : QR décodé (→ `https://dig16.fr/`, lu jusqu'à 90 ppp),
+  aucun bloc hors de la zone de sécurité de 5 mm, aucun chevauchement, polices chargées.
+- Reste à compléter le jour du SIREN : téléphone, prénom et nom, SIREN, adresse (dans `flyer.py`).

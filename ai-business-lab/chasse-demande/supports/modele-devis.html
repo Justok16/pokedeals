@@ -1,17 +1,41 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>DIG16 — Devis et bon de commande</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;600&display=swap" rel="stylesheet"><style>@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}
-body{font-family:Inter,sans-serif;font-size:9.4pt;color:#1d1a17;line-height:1.45;margin:0}
-.couv{background:#0d1330;color:#f4f1ea;border-radius:12px;padding:6mm 8mm;margin-bottom:4mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.couv h1{font-family:Fraunces,serif;font-size:20pt;margin:1mm 0}.couv p{color:#c6cbe4;margin:.5mm 0}
-.k{color:#ff8a3d;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:7.8pt}
-h2{font-family:Fraunces,serif;font-size:11.5pt;margin:4mm 0 1mm;break-after:avoid}
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>DIG16 — Devis et bon de commande</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet"><style>
+:root{--nuit:#0f0e0c;--ivoire:#efe9df;--doux:#a8a093;--or:#c8a46e;--or-clair:#d9bb8a;
+--texte:#1a1814;--gris:#655e54;--trait:#e0d8cb;--fond-doux:#f6f2ea;--bronze:#7a5a2c}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Geist,Arial,sans-serif;color:var(--texte);font-feature-settings:"ss01"}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.005em;color:var(--texte)}
+h1 em,h2 em{color:var(--bronze)}
+b,strong{font-weight:600}
+a{color:var(--bronze)}
+.k,.etiquette{font-family:'Geist Mono',monospace;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+.couv,.cover{position:relative}
+.signature{display:block;height:12.5mm}
+.embleme{display:block;width:13mm;height:13mm}
+
+.couv{background:#0f0e0c;color:#efe9df;border-radius:3mm;padding:5.5mm 8mm 5.6mm;margin-bottom:4.5mm;
+ background-image:radial-gradient(90mm 50mm at 100% 0,rgba(200,164,110,.16),rgba(200,164,110,0) 70%);
+ box-shadow:inset 0 0 0 .25mm rgba(200,164,110,.35)}
+.couv .ligne-haut{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3mm}
+.couv .k{color:#c8a46e;font-size:7pt;display:flex;align-items:center;gap:2.4mm}
+.couv .k::before{content:"";width:7mm;height:.3mm;background:#c8a46e}
+.couv h1{color:#efe9df;font-size:23pt;line-height:1;margin:1.8mm 0 1.4mm}
+.couv h1 em{color:#d9bb8a}
+.couv p{color:#a8a093;margin:.5mm 0}
+@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}
+body{font-size:9.2pt;line-height:1.48;margin:0}
+h2{font-size:13pt;line-height:1.1;margin:4.2mm 0 1mm;break-after:avoid}
 p,li{margin:.8mm 0}ul{padding-left:5mm;margin:1mm 0}
-table{width:100%;border-collapse:collapse;margin:2mm 0;font-size:9pt}th,td{border:1px solid #d8d0c3;padding:1.6mm 2mm;text-align:left;vertical-align:top}
-th{background:#f4efe6;-webkit-print-color-adjust:exact;print-color-adjust:exact}td.n{text-align:right;white-space:nowrap}
-.deux{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin:2mm 0}.cadre{border:1px solid #d8d0c3;border-radius:8px;padding:3mm 4mm}
-.champ{border-bottom:1px solid #999;height:6mm;margin:1mm 0}.petit{color:#5d5a66;font-size:8.2pt}
-.sign{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:4mm}.sign div{border:1px solid #d8d0c3;border-radius:8px;height:26mm;padding:2mm 3mm;font-size:8.4pt;color:#5d5a66}
-.cgv{columns:2;column-gap:7mm;font-size:8.5pt;line-height:1.37}.cgv h2{font-size:10pt;margin:2.4mm 0 .6mm}.cgv p{margin:.5mm 0;text-align:justify}</style></head><body><div class="couv"><div class="k">DIG16 — création et suivi de sites internet</div><h1>Devis et bon de commande</h1>
-<p>N° [AAAA-NNN] · Date : [jj/mm/aaaa] · Valable 30 jours</p></div>
+table{width:100%;border-collapse:collapse;margin:2.4mm 0;font-size:8.9pt}
+th,td{border-bottom:.25mm solid var(--trait);padding:1.8mm 2mm;text-align:left;vertical-align:top}
+th{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);border-bottom:.35mm solid var(--or);background:none}
+td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:.35mm solid var(--texte)}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin:2mm 0}
+.cadre{background:var(--fond-doux);border:.25mm solid var(--trait);border-radius:2.5mm;padding:3mm 4mm}
+.cadre>b:first-child{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.8pt;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze)}
+.champ{border-bottom:.25mm solid #b9b0a2;height:6mm;margin:1mm 0}.petit{color:var(--gris);font-size:8pt}
+.sign{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:4mm}.sign div{border:.25mm solid var(--trait);border-radius:2.5mm;height:26mm;padding:2mm 3mm;font-size:8.2pt;color:var(--gris)}
+.cgv{columns:2;column-gap:7mm;column-rule:.25mm solid var(--trait);font-size:8.15pt;line-height:1.37}.cgv h2{font-size:11pt;margin:2.2mm 0 .4mm}.cgv p{margin:.5mm 0;text-align:justify;hyphens:auto}</style></head><body><div class="couv"><div class="ligne-haut"><img class="signature" src="../site-dig/img/marque/signature-ivoire@6x.png" alt="DIG16, sites internet"><img class="embleme" src="../site-dig/img/marque/embleme-or@6x.png" alt=""></div><div class="k">Création et suivi de sites internet</div><h1>Devis et bon de commande</h1><p>N° [AAAA-NNN] · Date : [jj/mm/aaaa] · Valable 30 jours</p></div>
 <div class="deux"><div class="cadre"><b>Prestataire</b><br>[Prénom Nom] EI — « DIG16 »<br>[Adresse]<br>SIREN [numéro à l’immatriculation]<br>contact@dig16.fr<br>TVA non applicable, art. 293 B du CGI</div>
 <div class="cadre"><b>Client</b><div class="champ"></div><div class="champ"></div><span class="petit">Nom de l’entreprise, adresse, SIREN</span></div></div>
 <table><tr><th>Formule (cocher)</th><th>Contenu</th><th>Prix</th></tr>

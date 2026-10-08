@@ -3,23 +3,23 @@
 <head>
 <meta charset="utf-8">
 <title>DIG16 — Guide de prospection</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 @page{size:A4;margin:0}
-:root{--nuit:#0d1330;--orange:#ff8a3d;--rose:#ff6f91;--violet:#7b5cff;--vert:#16c79a;--texte:#1d1a17;--gris:#5d5a66;--fond:#faf7f2;--ligne:#e8e1d6}
+:root{--nuit:#0f0e0c;--orange:#c8a46e;--rose:#d9bb8a;--violet:#7a5a2c;--vert:#c8a46e;--texte:#1a1814;--gris:#655e54;--fond:#f6f2ea;--ligne:#e0d8cb}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,system-ui,sans-serif;color:var(--texte);font-size:10.4pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Geist,system-ui,sans-serif;color:var(--texte);font-size:10.1pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .page{width:210mm;height:297mm;padding:16mm 16mm 14mm;position:relative;page-break-after:always;overflow:hidden;background:#fff}
 .page:last-child{page-break-after:auto}
-h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.1}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;line-height:1.1}
 h2{font-size:21pt;margin-bottom:3mm}
-h2 small{display:block;font-family:Inter;font-size:8pt;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:2mm;font-weight:700}
+h2 small{display:block;font-family:Geist;font-size:8pt;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:2mm;font-weight:700}
 h3{font-size:12.5pt;margin:4.5mm 0 1.8mm}
 p{margin:1.4mm 0}
 .intro{color:var(--gris);margin-bottom:3mm}
-.pied{position:absolute;bottom:7mm;left:16mm;right:16mm;display:flex;justify-content:space-between;font-size:7.5pt;color:#9a93a6;border-top:1px solid var(--ligne);padding-top:2mm}
-.dit{background:var(--fond);border-left:4px solid var(--orange);border-radius:0 10px 10px 0;padding:2.6mm 4mm;margin:2mm 0;font-size:10.4pt}
-.dit b{color:#b44d0f}
+.pied{position:absolute;bottom:7mm;left:16mm;right:16mm;display:flex;justify-content:space-between;font-size:7.5pt;color:#8c8478;border-top:1px solid var(--ligne);padding-top:2mm}
+.dit{background:var(--fond);border-left:4px solid var(--orange);border-radius:0 10px 10px 0;padding:2.4mm 4mm;margin:1.7mm 0;font-size:10.1pt}
+.dit b{color:#7a5a2c}
 .dit.v{border-color:var(--violet)}.dit.g{border-color:var(--vert)}
 .qui{font-size:7.5pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-top:3mm}
 .note{font-size:9pt;color:var(--gris);font-style:italic}
@@ -35,32 +35,40 @@ table.serre{font-size:9.1pt}table.serre td{padding:1.5mm 2mm}
 .num{display:inline-grid;place-items:center;width:6mm;height:6mm;border-radius:50%;background:var(--nuit);color:#fff;font-size:8pt;font-weight:700;margin-right:2mm}
 .etape{display:flex;gap:3mm;margin:2.2mm 0}.etape>div{flex:1}
 ul{padding-left:5mm}li{margin:.8mm 0}
-.alerte{background:#fff4ec;border:1px solid #ffd2b5;border-radius:12px;padding:3mm 4mm;margin-top:3mm;font-size:9.4pt}
+.alerte{background:#f6f0e4;border:1px solid #e3d3b6;border-radius:12px;padding:3mm 4mm;margin-top:3mm;font-size:9.4pt}
 /* couverture */
-.couv{background:var(--nuit);color:#f4f1ea;display:flex;flex-direction:column;justify-content:space-between}
-.couv::before{content:"";position:absolute;inset:0;background:radial-gradient(90mm 70mm at 90% 8%,rgba(255,138,61,.45),transparent 70%),radial-gradient(110mm 90mm at 0% 75%,rgba(123,92,255,.45),transparent 70%),radial-gradient(80mm 60mm at 95% 100%,rgba(22,199,154,.3),transparent 70%);background-repeat:no-repeat}
+.couv{background:var(--nuit);color:#efe9df;display:flex;flex-direction:column;justify-content:space-between}
+.couv::before{content:"";position:absolute;inset:0;background:radial-gradient(90mm 70mm at 90% 8%,rgba(200,164,110,.45),transparent 70%),radial-gradient(110mm 90mm at 0% 75%,rgba(200,164,110,.45),transparent 70%),radial-gradient(80mm 60mm at 95% 100%,rgba(200,164,110,.3),transparent 70%);background-repeat:no-repeat}
 .couv>*{position:relative}
-.logo{display:flex;align-items:center;gap:3mm;font-family:Fraunces;font-size:18pt;font-weight:800}
+.logo{display:flex;align-items:center;gap:3mm;font-family:'Instrument Serif';font-size:18pt;font-weight:800}
 .logo i{font-style:normal;width:12mm;height:12mm;border-radius:3.5mm;display:grid;place-items:center;background:linear-gradient(135deg,var(--orange),var(--violet));color:#fff}
 .couv h1{font-size:40pt;margin:6mm 0}
-.degrade{color:#ff7d5a}
-.couv p{color:#c6cbe4;font-size:12pt;max-width:150mm}
-.sommaire{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 8mm;font-size:10.5pt;color:#e7e4f2}
+.degrade{color:#d9bb8a}
+.couv p{color:#a8a093;font-size:12pt;max-width:150mm}
+.sommaire{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 8mm;font-size:10.5pt;color:#e6dfd3}
 .sommaire div{border-top:1px solid rgba(255,255,255,.18);padding-top:2mm}
 .sommaire b{color:var(--orange);margin-right:2mm}
 /* antisèche */
-.anti{background:var(--nuit);color:#f4f1ea}
+.anti{background:var(--nuit);color:#efe9df}
 .anti h2{color:#fff}
-.anti .carte{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:#e7e4f2}
+.anti .carte{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:#e6dfd3}
 .anti .carte h3{color:var(--orange)}
-.anti .pied{color:#8c93b8;border-color:rgba(255,255,255,.15)}
+.anti .pied{color:#8c8478;border-color:rgba(255,255,255,.15)}
 </style>
-</head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet"><style id="charte-dig16">
+body{font-family:Geist,Arial,sans-serif}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif}
+h1,h2,h3,.logo{font-weight:400!important}
+h1,h2{letter-spacing:-.008em}
+.k,h2 small,.qui,th,.etiquette{font-family:'Geist Mono',monospace!important;font-weight:400!important}
+.degrade{color:#d9bb8a!important}
+img.signature-dig16{display:block;height:13mm;width:auto;align-self:flex-start}
+</style></head>
 <body>
 
 <!-- 1. COUVERTURE -->
 <section class="page couv">
- <div class="logo"><i>D</i>DIG16</div>
+ <img class="signature-dig16" src="../site-dig/img/marque/signature-ivoire@6x.png" alt="DIG16, sites internet">
  <div>
   <p style="font-size:9pt;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);font-weight:700">Guide de prospection</p>
   <h1>Décrocher des<br><span style="white-space:nowrap">rendez-vous,</span><br><span class="degrade">au téléphone<br>comme en&nbsp;face.</span></h1>
@@ -94,7 +102,7 @@ ul{padding-left:5mm}li{margin:.8mm 0}
  <table>
   <tr><th>Métier</th><th>Plutôt</th><th>Éviter</th></tr>
   <tr><td>Artisans du bâtiment</td><td>7 h 45 – 8 h 30, ou 17 h 30 – 19 h (hors chantier)</td><td>Milieu de journée</td></tr>
-  <tr><td>Restaurants, bars</td><td>14 h 30 – 17 h 30</td><td>Services de midi et du soir</td></tr>
+  <tr><td>Restaurants</td><td>14 h 30 – 17 h 30</td><td>Services de midi et du soir</td></tr>
   <tr><td>Coiffure, beauté</td><td>Début d’après-midi en semaine, ou un rendez-vous en visite</td><td>Samedi, fin de journée</td></tr>
   <tr><td>Garages, commerces</td><td>10 h – 11 h 30, 14 h – 16 h</td><td>Ouverture et fermeture</td></tr>
   <tr><td>Gîtes, chambres d’hôtes</td><td>Hors saison ; en saison 10 h – 12 h</td><td>Heures d’arrivée des clients</td></tr>

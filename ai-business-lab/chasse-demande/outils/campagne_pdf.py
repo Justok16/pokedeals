@@ -9,7 +9,7 @@ import os
 import re
 import markdown
 from playwright.sync_api import sync_playwright
-from plan_complet import STYLE, RACINE
+from plan_complet import POLICES, RACINE, STYLE, attendre_polices, couverture
 
 EXTRA = """
 input[type=checkbox]{margin-right:4px}
@@ -27,19 +27,19 @@ def main():
     texte = re.sub(r"^# .*\n", "", texte, count=1)
     texte = texte.replace("- [ ] ", "- ☐ ")
     corps = markdown.markdown(texte, extensions=["tables", "sane_lists", "md_in_html"])
-    couverture = (
-        "<div class=cover><h1>DIG16 — Campagne de lancement</h1>"
-        "<p>Budget 0 € · démarchage direct, visites, visibilité, recommandation</p>"
-        f"<p>Version du {jour}</p>"
-        '<p style="margin-top:30mm;color:#6b645a">Les listes de prospects et le suivi '
-        "nominatif sont dans des documents privés séparés.</p></div>"
+    garde = couverture(
+        "Budget 0 € · démarchage direct, visites, visibilité, recommandation",
+        "Campagne de <em>lancement</em>",
+        [f"Version du {jour}."],
+        [],
+        "Les listes de prospects et le suivi nominatif sont dans des documents privés séparés.",
     )
     page = (
-        "<!doctype html><html lang=fr><head><meta charset=utf-8><style>"
+        "<!doctype html><html lang=fr><head><meta charset=utf-8>" + POLICES + "<style>"
         + STYLE
         + EXTRA
         + "</style></head><body>"
-        + couverture
+        + garde
         + "<section>"
         + corps
         + "</section></body></html>"
@@ -50,6 +50,8 @@ def main():
         b = p.chromium.launch(executable_path="/opt/pw-browsers/chromium")
         pg = b.new_page()
         pg.goto("file://" + sortie_html)
+        pg.emulate_media(media="print")
+        attendre_polices(pg)
         pg.pdf(
             path=os.path.join(RACINE, "supports", "Dig-Campagne-lancement.pdf"),
             format="A4",

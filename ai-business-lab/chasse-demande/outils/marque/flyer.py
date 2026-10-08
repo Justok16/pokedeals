@@ -1,4 +1,36 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Flyer DIG16 A5</title>
+#!/usr/bin/env python3
+"""Flyer A5 de DIG16, charte premium du 08/10/2026 (noir chaud, laiton, Instrument Serif, Geist).
+
+Usage : python3 outils/marque/flyer.py
+Écrit supports/flyer-dig-a5.html, puis supports/Dig-Flyer-A5.png (300 ppp, 1748 × 2480 px)
+et supports/Dig-Flyer-A5.pdf (A5 exact, fait à partir de l'image : rendu identique dans toutes
+les visionneuses, leçon du 28/09). Contrôles : QR décodé depuis le PNG, rien ne déborde du cadre.
+Les champs entre crochets se remplissent à l'immatriculation (aucune donnée personnelle ici).
+"""
+
+import os
+import sys
+
+import cv2
+import numpy as np
+import segno
+from PIL import Image
+from playwright.sync_api import sync_playwright
+
+ICI = os.path.dirname(os.path.abspath(__file__))
+RACINE = os.path.normpath(os.path.join(ICI, "..", ".."))
+SUP = os.path.join(RACINE, "supports")
+CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+LIEN = "https://dig16.fr/"
+
+
+def qr_svg():
+    q = segno.make(LIEN, error="q")
+    chemin = q.svg_inline(scale=1, border=0, dark="#14110d", omitsize=True)
+    return chemin
+
+
+HTML = """<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Flyer DIG16 A5</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet">
 <style>
 @page{size:148mm 210mm;margin:0}
@@ -79,8 +111,69 @@ h1 em{color:var(--or-clair)}
   <div class="puces"><span>0 € de création</span><span>6 mois, puis sans engagement</span></div>
   <p class="contact"><b>[Téléphone] · contact@dig16.fr</b><br>Appelez ou scannez : la démo est gratuite.<br>Recommandé par un client ? Premier mois offert.</p>
  </div>
- <div class="qr"><div class="cadre"><svg viewBox="0 0 25 25" class="segno"><path class="qrline" stroke="#14110d" d="M0 0.5h7m1 0h1m1 0h3m1 0h1m1 0h1m1 0h7m-25 1h1m5 0h1m2 0h4m2 0h1m2 0h1m5 0h1m-25 1h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h1m1 0h3m1 0h1m-25 1h1m1 0h3m1 0h1m1 0h3m2 0h1m4 0h1m1 0h3m1 0h1m-25 1h1m1 0h3m1 0h1m2 0h1m4 0h2m2 0h1m1 0h3m1 0h1m-25 1h1m5 0h1m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m5 0h1m-25 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-17 1h3m1 0h2m2 0h1m-16 1h1m1 0h1m1 0h7m2 0h1m2 0h3m1 0h2m1 0h1m-24 1h1m2 0h2m1 0h2m3 0h2m2 0h3m5 0h1m-25 1h2m1 0h1m2 0h2m1 0h2m2 0h2m4 0h2m2 0h2m-25 1h3m1 0h2m1 0h1m1 0h2m2 0h1m2 0h2m2 0h1m-21 1h2m4 0h2m1 0h3m2 0h1m1 0h3m2 0h1m1 0h2m-23 1h4m1 0h1m2 0h1m1 0h1m1 0h1m2 0h3m1 0h2m1 0h1m-25 1h1m2 0h1m2 0h1m1 0h1m1 0h2m2 0h1m1 0h1m1 0h3m1 0h1m1 0h1m-24 1h1m1 0h1m4 0h7m1 0h1m1 0h1m1 0h1m2 0h1m-24 1h4m2 0h2m1 0h2m2 0h10m-15 1h2m2 0h5m3 0h2m2 0h1m-25 1h7m1 0h4m2 0h3m1 0h1m1 0h2m1 0h2m-25 1h1m5 0h1m1 0h2m3 0h4m3 0h3m-23 1h1m1 0h3m1 0h1m2 0h1m3 0h2m1 0h6m1 0h2m-25 1h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h4m1 0h4m-23 1h1m1 0h3m1 0h1m2 0h3m3 0h1m1 0h1m1 0h2m1 0h1m1 0h1m-25 1h1m5 0h1m1 0h2m2 0h1m3 0h1m4 0h1m-22 1h7m5 0h1m3 0h4m3 0h2"/></svg></div><p>Scannez-moi<br>dig16.fr</p></div>
+ <div class="qr"><div class="cadre">{QR}</div><p>Scannez-moi<br>dig16.fr</p></div>
 </div>
 <p class="legal">DIG16 — [Prénom Nom], entrepreneur individuel (EI) — SIREN [à compléter] — [adresse]. TVA non applicable, art. 293 B du CGI. Offre « Essentiel » : site 5 pages, hébergement, 1 modification par mois ; engagement minimal 6 mois ; premier mois réglé avant la mise en ligne ; nom de domaine à la charge du client. Démo sans obligation d’achat. Visuel d’illustration. Ne pas jeter sur la voie publique.</p>
 </div>
-</section></body></html>
+</section></body></html>"""
+
+CONTROLE = """() => {
+  const P = document.querySelector('.page').getBoundingClientRect();
+  const C = document.querySelector('.corps');
+  const marge = 5 * 96 / 25.4;  // 5 mm : zone de sécurité de l'imprimeur
+  const fautes = [];
+  if (C.scrollHeight > C.clientHeight + 1) fautes.push('contenu trop haut de ' + (C.scrollHeight - C.clientHeight) + ' px');
+  const r = s => document.querySelector(s).getBoundingClientRect();
+  for (const s of ['.haut', 'h1', '.sous', '.tel', '.notif', '.avantages', '.offre', '.legal']) {
+    const b = r(s);
+    if (b.left < P.left + marge || b.right > P.right - marge || b.top < P.top + marge || b.bottom > P.bottom - marge) fautes.push('hors zone de sécurité : ' + s);
+  }
+  const touche = (A, B) => A.left < B.right && B.left < A.right && A.top < B.bottom && B.top < A.bottom;
+  const paires = [['.sous', '.tel'], ['.sous', '.avantages'], ['.tel', '.avantages'], ['.notif', '.avantages'], ['.avantages', '.offre'], ['.offre', '.legal'], ['.notif', '.offre']];
+  for (const [a, b] of paires) if (touche(r(a), r(b))) fautes.push('chevauchement ' + a + ' / ' + b);
+  for (const el of document.querySelectorAll('.offre *, .av *, .notif *'))
+    if (el.scrollWidth > el.clientWidth + 1 && getComputedStyle(el).overflow !== 'visible') fautes.push('texte coupé : ' + el.textContent.slice(0, 30));
+  const fonts = [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family);
+  return {fautes, fonts: [...new Set(fonts)], bas_tel: Math.round(r('.tel').bottom - r('.offre').top)};
+}"""
+
+
+def main():
+    html_path = os.path.join(SUP, "flyer-dig-a5.html")
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write(HTML.replace("{QR}", qr_svg()))
+    png = os.path.join(SUP, "Dig-Flyer-A5.png")
+    pdf = os.path.join(SUP, "Dig-Flyer-A5.pdf")
+    largeur = 148 * 96 / 25.4
+    hauteur = 210 * 96 / 25.4
+    with sync_playwright() as p:
+        nav = p.chromium.launch(executable_path=CHROME)
+        pg = nav.new_page(viewport={"width": round(largeur), "height": round(hauteur)}, device_scale_factor=1748 / largeur)
+        pg.goto("file://" + html_path)
+        pg.evaluate("document.fonts.ready")
+        pg.wait_for_timeout(800)
+        res = pg.evaluate(CONTROLE)
+        pg.locator(".page").screenshot(path=png)
+        nav.close()
+    print("Téléphone glissé sous l'offre de", res["bas_tel"], "px (voulu : > 0)")
+    for f in res["fautes"]:
+        print("ALERTE", f)
+    manque = {"Instrument Serif", "Geist", "Geist Mono"} - set(res["fonts"])
+    if manque:
+        print("ALERTE polices non chargées :", manque)
+    im = Image.open(png).convert("RGB")
+    if im.size != (1748, 2480):
+        im = im.resize((1748, 2480), Image.LANCZOS)
+    im.save(png, dpi=(300, 300))
+    im.save(pdf, "PDF", resolution=300.0)
+    lu = cv2.QRCodeDetector().detectAndDecode(cv2.cvtColor(np.array(im), cv2.COLOR_RGB2BGR))[0]
+    petit = im.resize((583, 827), Image.LANCZOS)  # 100 ppp
+    lu2 = cv2.QRCodeDetector().detectAndDecode(cv2.cvtColor(np.array(petit), cv2.COLOR_RGB2BGR))[0]
+    print("QR (300 ppp) ->", lu, "| QR (100 ppp) ->", lu2)
+    ok = lu == LIEN and not res["fautes"] and not manque
+    print("Flyer prêt :" if ok else "ALERTE flyer :", png, pdf)
+    return 0 if ok else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#1a1814">
 <title>Jarvis sur ton ordinateur — guide DIG16</title>
 <style>
 @page{size:A4;margin:14mm 14mm 16mm}
-:root{--encre:#0f172a;--doux:#475569;--ligne:#e2e8f0;--acc:#0e7490;--fond:#f8fafc;--alerte:#9a3412}
+:root{--encre:#1a1814;--doux:#655e54;--ligne:#e0d8cb;--acc:#7a5a2c;--fond:#f6f2ea;--alerte:#7a5a2c}
 *{box-sizing:border-box}
 body{margin:0;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--encre);background:#fff}
 main{max-width:760px;margin:0 auto;padding:16px}
@@ -17,16 +17,24 @@ h2{font-size:1.1rem;margin:1.3rem 0 .5rem;color:var(--acc)}
 ol{padding-left:1.3rem;margin:.4rem 0}
 li{margin:.35rem 0}
 .carte{border:1px solid var(--ligne);border-radius:12px;padding:12px 14px;background:var(--fond);margin:.6rem 0;break-inside:avoid}
-.alerte{border-color:#fed7aa;background:#fff7ed}
+.alerte{border-color:#e3d3b6;background:#f6f0e4}
 .alerte b{color:var(--alerte)}
-pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;margin:.5rem 0;break-inside:avoid}
-code{font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#e2e8f0;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#1a1814;color:#e0d8cb;border-radius:10px;padding:12px 14px;margin:.5rem 0;break-inside:avoid}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#e0d8cb;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
 table{border-collapse:collapse;width:100%;font-size:14px}
 td{border-top:1px solid var(--ligne);padding:6px 4px;vertical-align:top}
 td:first-child{white-space:nowrap;font-weight:600;padding-right:12px}
 .pied{color:var(--doux);font-size:12.5px;margin-top:1.2rem;border-top:1px solid var(--ligne);padding-top:.6rem}
 @media print{body{font-size:14px;line-height:1.45}h2{margin:.9rem 0 .35rem}li{margin:.2rem 0}pre{padding:9px 12px;margin:.35rem 0}.carte{padding:9px 12px}}h2{break-after:avoid;page-break-after:avoid}.bloc{break-inside:avoid;page-break-inside:avoid}</style>
-</head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet"><style id="charte-dig16">
+body{font-family:Geist,Arial,sans-serif}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif}
+h1,h2,h3,.logo{font-weight:400!important}
+h1,h2{letter-spacing:-.008em}
+.k,h2 small,.qui,th,.etiquette{font-family:'Geist Mono',monospace!important;font-weight:400!important}
+.degrade{color:#d9bb8a!important}
+img.signature-dig16{display:block;height:13mm;width:auto;align-self:flex-start}
+</style></head>
 <body><main>
 <h1>Jarvis sur ton ordinateur, en français</h1>
 <p class="sous">Assistant vocal gratuit (projet libre « Jarvis », licence MIT). Il écoute « Jarvis », répond à voix haute et agit avec Claude Code. Voix française naturelle et gratuite : les voix « Natural » de Microsoft Edge (Henri, Rémy, Denise, Vivienne, Éloïse), classées de très haute qualité.</p>

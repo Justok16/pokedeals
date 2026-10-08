@@ -1,18 +1,43 @@
-<!doctype html><html lang=fr><head><meta charset=utf-8><style>
-@page{size:A4;margin:16mm 14mm}
-body{font-family:Inter,Arial,sans-serif;font-size:9.5pt;line-height:1.45;color:#1f1b16}
-h1{font-size:17pt;color:#1f3b2d;border-bottom:2px solid #c98a4b;padding-bottom:4px}
-h2{font-size:13pt;color:#1f3b2d;margin-top:16px} h3{font-size:11pt}
-table{border-collapse:collapse;width:100%;margin:6px 0;font-size:8.3pt}
-th{background:#1f3b2d;color:#fff;text-align:left;padding:3px 5px}
-td{border-bottom:1px solid #e7e0d5;padding:3px 5px;vertical-align:top}
+<!doctype html><html lang=fr><head><meta charset=utf-8><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet"><style>
+:root{--nuit:#0f0e0c;--ivoire:#efe9df;--doux:#a8a093;--or:#c8a46e;--or-clair:#d9bb8a;
+--texte:#1a1814;--gris:#655e54;--trait:#e0d8cb;--fond-doux:#f6f2ea;--bronze:#7a5a2c}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Geist,Arial,sans-serif;color:var(--texte);font-feature-settings:"ss01"}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.005em;color:var(--texte)}
+h1 em,h2 em{color:var(--bronze)}
+b,strong{font-weight:600}
+a{color:var(--bronze)}
+.k,.etiquette{font-family:'Geist Mono',monospace;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+.couv,.cover{position:relative}
+.signature{display:block;height:12.5mm}
+.embleme{display:block;width:13mm;height:13mm}
+
+@page{size:A4;margin:16mm 15mm 17mm}
+body{font-size:9.4pt;line-height:1.5}
+h1{font-size:24pt;line-height:1.05;margin:0 0 4mm;padding-bottom:3mm;border-bottom:.35mm solid var(--or)}
+h2{font-size:16pt;line-height:1.1;margin:7mm 0 2mm;break-after:avoid} h3{font-size:12.5pt;margin:5mm 0 1.5mm;break-after:avoid}
+table{border-collapse:collapse;width:100%;margin:2.5mm 0;font-size:8.2pt}
+th{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.6pt;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);text-align:left;padding:1.6mm 2mm;border-bottom:.35mm solid var(--or)}
+td{border-bottom:.25mm solid var(--trait);padding:1.5mm 2mm;vertical-align:top}
 tr,img{page-break-inside:avoid}
-blockquote{border-left:3px solid #c98a4b;margin:6px 0;padding:2px 10px;background:#faf7f2}
-code{background:#f1e7da;padding:0 3px;border-radius:3px;word-break:break-all}
-a{color:#1f3b2d;word-break:break-all} del{color:#8a8176}
-section{page-break-before:always} .cover{text-align:center;padding-top:60mm}
-.cover h1{border:0;font-size:30pt}
-</style></head><body><div class=cover><h1>DIG16 — Plan complet</h1><p>Sites internet pour artisans, commerçants et indépendants</p><p>Version du 05/10/2026 (régénérée depuis les fichiers du dossier)</p><ol style="text-align:left;display:inline-block"><li>Business plan</li><li>Cadre légal</li><li>Questionnaire et textes d'appel</li><li>Flyer et prompts</li><li>Aides à la création</li></ol><p style="margin-top:30mm;color:#6b645a">Les listes de prospects et toute donnée personnelle sont dans des documents privés séparés.</p></div><section><h1>Business plan « DIG16 — sites pour professionnels » (25-26/09/2026)</h1>
+blockquote{border-left:.6mm solid var(--or);margin:2mm 0;padding:1mm 4mm;background:var(--fond-doux)}
+code{font-family:'Geist Mono',monospace;font-size:.92em;background:var(--fond-doux);padding:0 1mm;border-radius:1mm;word-break:break-all}
+a{word-break:break-all} del{color:#8c8478}
+hr{border:0;border-top:.25mm solid var(--trait);margin:5mm 0}
+section{page-break-before:always}
+.cover{box-sizing:border-box;height:258mm;background:var(--nuit);color:var(--ivoire);border-radius:3mm;padding:16mm 15mm;display:flex;flex-direction:column;justify-content:space-between;
+ background-image:radial-gradient(140mm 110mm at 100% 0,rgba(200,164,110,.17),rgba(200,164,110,0) 70%);box-shadow:inset 0 0 0 .3mm rgba(200,164,110,.35)}
+.cover .signature{height:17mm;width:auto;align-self:flex-start}
+.cover .k{color:var(--or);font-size:7.4pt;display:flex;align-items:center;gap:3mm}
+.cover .k::before{content:"";width:9mm;height:.3mm;background:var(--or)}
+.cover h1{color:var(--ivoire);font-size:44pt;line-height:.98;border:0;margin:4mm 0 5mm;padding:0}
+.cover h1 em{color:var(--or-clair)}
+.cover p{color:var(--doux);margin:1mm 0}
+.cover ol{margin:6mm 0 0;padding:0;list-style:none;counter-reset:n;border-top:.25mm solid rgba(239,233,223,.14)}
+.cover li{counter-increment:n;padding:2.2mm 0;border-bottom:.25mm solid rgba(239,233,223,.14);font-family:'Instrument Serif',serif;font-size:14pt;color:var(--ivoire)}
+.cover li::before{content:counter(n,decimal-leading-zero);font-family:'Geist Mono',monospace;font-size:7pt;color:var(--or);margin-right:5mm;vertical-align:2pt}
+.cover .note{font-size:7.6pt;color:#8c8478}
+</style></head><body><div class="cover"><img class="signature" src="../site-dig/img/marque/signature-ivoire@6x.png" alt="DIG16, sites internet"><div><div class="k">Sites internet pour artisans, commerçants et indépendants</div><h1>Plan <em>complet</em></h1><p>Version du 08/10/2026, régénérée depuis les fichiers du dossier.</p><ol><li>Business plan</li><li>Cadre légal</li><li>Questionnaire et textes d'appel</li><li>Flyer et prompts</li><li>Aides à la création</li></ol></div><p class="note">Les listes de prospects et toute donnée personnelle sont dans des documents privés séparés.</p></div><section><h1>Business plan « DIG16 — sites pour professionnels » (25-26/09/2026)</h1>
 <p>Demande de l'utilisateur (25/09) : un plan complet et moderne pour démarcher,
 convertir, satisfaire, facturer et suivre des clients professionnels, en
 visant d'abord les clients SoLocal. Règles : sources sûres uniquement, chaque
@@ -1272,6 +1297,18 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).</p>
 <li>Le flyer HTML (<code>flyer-dig-a5.html</code>, v5) reste une solution de secours.</li>
 <li>Avant impression : prénom, nom, SIREN, adresse, téléphone, email (après immatriculation) ;
   demander à l'imprimeur s'il veut un fond perdu (Canva : « Fond perdu » à l'export).</li>
+</ul>
+<h2>06/10/2026 : QR vers dig16.fr</h2>
+<ul>
+<li>DNSSEC de dig16.fr actif et validé le 06/10 (vérifié via dns.google et cloudflare-dns.com). Le QR du flyer pointe encore vers <code>digsite.pages.dev</code>, qui fonctionne toujours ; il sera remplacé <strong>une seule fois</strong>, par <code>https://dig16.fr/</code>, avec la version définitive du flyer (nom, téléphone, SIREN, adresse), puis décodé depuis l'export pour contrôle.</li>
+</ul>
+<h2>Mise à jour du 07/10/2026 (demande de l'utilisateur)</h2>
+<ul>
+<li>QR code du design Canva DAHWQH2QKK8 remplacé : il mène maintenant à <strong>https://dig16.fr/</strong> (avant : digsite.pages.dev).
+  Vérifié en décodant les deux exports (PNG 1748 × 2480 px et PDF A5 148 × 210 mm) : <code>https://dig16.fr/</code>.</li>
+<li>Correction de cohérence avec le site et la décision du 05/10 : « Modifications sous 48 h » → « Modifications sous
+  3 jours ouvrés ».</li>
+<li>Reste à compléter le jour du SIREN : téléphone, prénom et nom, SIREN, adresse (mentions en bas du flyer).</li>
 </ul></section><section><h1>Aides à la création d'entreprise — financières et en nature (vérifié le 25/09/2026)</h1>
 <p>Demande de l'utilisateur : tout creuser et <strong>tout maîtriser</strong> avant une
 éventuelle création. L'éligibilité dépend de son profil personnel, qui n'est
