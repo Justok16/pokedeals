@@ -150,3 +150,7 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).
 - Contrôles automatiques à chaque génération : QR décodé (→ `https://dig16.fr/`, lu jusqu'à 90 ppp),
   aucun bloc hors de la zone de sécurité de 5 mm, aucun chevauchement, polices chargées.
 - Reste à compléter le jour du SIREN : téléphone, prénom et nom, SIREN, adresse (dans `flyer.py`).
+
+- 08/10 (matin), à la demande de l'utilisateur (« trop sombre dans son ensemble ») : **version claire** — fond ivoire,
+  texte encre, accents bronze, signature DIG16 foncée ; seuls le téléphone et la bulle « Nouvelle demande de devis »
+  restent sombres pour le contraste. QR code conservé et décodé → `https://dig16.fr/`.

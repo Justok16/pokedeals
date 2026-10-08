@@ -3,40 +3,40 @@
 <style>
 @page{size:148mm 210mm;margin:0}
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--nuit:#0f0e0c;--nuit2:#181613;--ivoire:#efe9df;--doux:#a8a093;--or:#c8a46e;--or-clair:#d9bb8a;--encre:#14110d;--papier:#f3eee5;--bronze:#7a5a2c;--ligne:rgba(239,233,223,.13)}
-body{font-family:Geist,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact;background:var(--nuit)}
-.page{width:148mm;height:210mm;position:relative;overflow:hidden;color:var(--ivoire);
- background:radial-gradient(95mm 75mm at 118mm 22mm,rgba(200,164,110,.17),rgba(200,164,110,0) 70%),
-  radial-gradient(90mm 80mm at 8mm 130mm,rgba(200,164,110,.08),rgba(200,164,110,0) 70%),
-  linear-gradient(180deg,#14120f 0%,#0f0e0c 60%,#0c0b09 100%)}
-.grain{position:absolute;inset:0;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.filet{position:absolute;inset:5mm;border:.25mm solid rgba(200,164,110,.32);border-radius:3mm;pointer-events:none}
+:root{--nuit:#0f0e0c;--nuit2:#181613;--ivoire:#efe9df;--doux:#a8a093;--or:#c8a46e;--or-clair:#d9bb8a;--encre:#14110d;--papier:#f3eee5;--bronze:#7a5a2c;--ligne:rgba(26,24,20,.13);--gris:#655e54}
+body{font-family:Geist,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact;background:var(--papier)}
+.page{width:148mm;height:210mm;position:relative;overflow:hidden;color:var(--encre);
+ background:radial-gradient(100mm 80mm at 120mm 18mm,rgba(200,164,110,.30),rgba(200,164,110,0) 70%),
+  radial-gradient(90mm 80mm at 6mm 135mm,rgba(200,164,110,.16),rgba(200,164,110,0) 70%),
+  linear-gradient(180deg,#f8f4ec 0%,#f3eee5 55%,#ede6d9 100%)}
+.grain{position:absolute;inset:0;opacity:.05;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.filet{position:absolute;inset:5mm;border:.3mm solid rgba(122,90,44,.38);border-radius:3mm;pointer-events:none}
 .corps{position:absolute;inset:11mm 11mm 7.5mm;display:flex;flex-direction:column;justify-content:space-between}
 .haut{margin-bottom:3mm;display:flex;justify-content:space-between;align-items:center}
 .haut img{height:13.5mm;display:block}
-.pastille{font-family:'Geist Mono',monospace;font-size:6.2pt;letter-spacing:.16em;text-transform:uppercase;color:var(--ivoire);border:.25mm solid var(--ligne);border-radius:10mm;padding:1.6mm 3mm;display:flex;align-items:center;gap:1.8mm}
-.pastille i{width:1.6mm;height:1.6mm;border-radius:50%;background:var(--or);display:block}
-.k{font-family:'Geist Mono',monospace;font-size:6.4pt;letter-spacing:.2em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:2.5mm}
-.k::before{content:"";width:8mm;height:.3mm;background:var(--or)}
+.pastille{font-family:'Geist Mono',monospace;font-size:6.2pt;letter-spacing:.16em;text-transform:uppercase;color:var(--encre);background:rgba(255,253,249,.7);border:.25mm solid rgba(122,90,44,.35);border-radius:10mm;padding:1.6mm 3mm;display:flex;align-items:center;gap:1.8mm}
+.pastille i{width:1.6mm;height:1.6mm;border-radius:50%;background:var(--bronze);display:block}
+.k{font-family:'Geist Mono',monospace;font-size:6.4pt;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze);display:flex;align-items:center;gap:2.5mm}
+.k::before{content:"";width:8mm;height:.3mm;background:var(--bronze)}
 h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:29pt;line-height:.98;letter-spacing:-.01em;margin-top:3.2mm}
-h1 em{color:var(--or-clair)}
-.sous{margin-top:3.2mm;font-size:9.2pt;line-height:1.48;color:var(--doux);font-weight:300;text-wrap:balance}
-.sous b{color:var(--ivoire);font-weight:500}
+h1 em{color:var(--bronze)}
+.sous{margin-top:3.2mm;font-size:9.2pt;line-height:1.48;color:var(--gris);font-weight:400;text-wrap:balance}
+.sous b{color:var(--encre);font-weight:600}
 .milieu{position:relative;display:grid;grid-template-columns:47mm 1fr;gap:6mm}
 .tel{position:absolute;left:2mm;top:1mm;width:38mm;height:80mm;border-radius:6mm;background:#060605;padding:1.4mm;transform:rotate(-4deg);z-index:1;
- box-shadow:0 0 0 .35mm #3a342b,0 0 0 .7mm #0a0908,0 7mm 14mm rgba(0,0,0,.6)}
+ box-shadow:0 0 0 .35mm #3a342b,0 0 0 .7mm #0a0908,0 8mm 16mm rgba(70,48,18,.38)}
 .tel img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:4.8mm;display:block}
-.notif{position:absolute;left:0;top:33mm;z-index:2;background:var(--papier);color:var(--encre);border-radius:2.8mm;padding:2mm 2.8mm 2mm 2.2mm;display:flex;gap:2mm;align-items:center;box-shadow:0 3mm 7mm rgba(0,0,0,.5);white-space:nowrap}
-.notif .ic{width:6mm;height:6mm;border-radius:1.7mm;background:var(--nuit);display:grid;place-items:center}
+.notif{position:absolute;left:0;top:33mm;z-index:2;background:var(--encre);color:var(--ivoire);border-radius:2.8mm;padding:2mm 2.8mm 2mm 2.2mm;display:flex;gap:2mm;align-items:center;box-shadow:0 3mm 8mm rgba(40,28,10,.4),0 0 0 .25mm rgba(200,164,110,.5);white-space:nowrap}
+.notif .ic{width:6mm;height:6mm;border-radius:1.7mm;background:rgba(200,164,110,.16);display:grid;place-items:center}
 .notif b{display:block;font-size:6.8pt;font-weight:600;line-height:1.15}
-.notif span{display:block;font-size:5.8pt;color:#655e54;line-height:1.2}
+.notif span{display:block;font-size:5.8pt;color:var(--doux);line-height:1.2}
 .avantages{grid-column:2}
 .av{display:grid;grid-template-columns:7mm 1fr;padding:2.3mm 0 2.4mm;border-top:.25mm solid var(--ligne)}
 .av:last-child{border-bottom:.25mm solid var(--ligne)}
-.av .n{font-family:'Geist Mono',monospace;font-size:6.4pt;color:var(--or);padding-top:1mm}
+.av .n{font-family:'Geist Mono',monospace;font-size:6.4pt;color:var(--bronze);padding-top:1mm}
 .av b{display:block;font-family:'Instrument Serif',serif;font-weight:400;font-size:12.6pt;line-height:1.08}
-.av span{display:block;font-size:7pt;line-height:1.36;color:var(--doux);margin-top:.5mm;font-weight:300}
-.offre{position:relative;z-index:3;margin:0 -2mm;background:var(--papier);color:var(--encre);border-radius:3.5mm;padding:4.6mm 5mm 4.4mm 6mm;display:grid;grid-template-columns:1fr 30mm;gap:5mm;box-shadow:0 -2mm 10mm rgba(0,0,0,.45),0 5mm 12mm rgba(0,0,0,.5)}
+.av span{display:block;font-size:7pt;line-height:1.36;color:var(--gris);margin-top:.5mm;font-weight:400}
+.offre{position:relative;z-index:3;margin:0 -2mm;background:#fffdf9;color:var(--encre);border:.3mm solid rgba(200,164,110,.6);border-radius:3.5mm;padding:4.6mm 5mm 4.4mm 6mm;display:grid;grid-template-columns:1fr 30mm;gap:5mm;box-shadow:0 -1mm 8mm rgba(80,55,20,.10),0 5mm 14mm rgba(80,55,20,.18)}
 .offre .k{color:var(--bronze)}.offre .k::before{background:var(--bronze)}
 .offre h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:16pt;line-height:1.02;margin-top:2mm;letter-spacing:-.005em}
 .offre h2 em{color:var(--bronze)}
@@ -55,7 +55,7 @@ h1 em{color:var(--or-clair)}
 </style></head><body>
 <section class="page"><div class="grain"></div><div class="filet"></div>
 <div class="corps">
-<div class="haut"><img src="../site-dig/img/marque/signature-ivoire@6x.png" alt="DIG16, sites internet"><div class="pastille"><i></i>Fait près de chez vous</div></div>
+<div class="haut"><img src="../site-dig/img/marque/signature-encre@6x.png" alt="DIG16, sites internet"><div class="pastille"><i></i>Fait près de chez vous</div></div>
 <div class="titre">
  <div class="k">Artisans · commerçants · indépendants</div>
  <h1>Vos clients vous cherchent<br>sur leur téléphone.<br><em>Ils vous trouvent&#8239;?</em></h1>
