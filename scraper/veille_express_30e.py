@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import os
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
@@ -257,5 +258,23 @@ def main() -> int:
     return 0
 
 
+def boucle(passages: int, intervalle: float) -> int:
+    """`passages` veilles espacees de `intervalle` secondes (debut a debut).
+    08/10/2026 : le cron GitHub "*/5" ne se declenche jamais en pratique ;
+    la veille est donc lancee a la fin de chaque scan_complement (lui-meme
+    declenche ~toutes les 20 min par cron-job.org) et couvre l'intervalle
+    en 4 passages. Chaque passage relit les memoires (etat a jour). Code de
+    sortie : le pire des passages."""
+    pire = 0
+    for i in range(passages):
+        debut = time.monotonic()
+        print(f"--- Passage {i + 1}/{passages} ({_maintenant()}) ---")
+        pire = max(pire, main())
+        if i < passages - 1:
+            time.sleep(max(0.0, intervalle - (time.monotonic() - debut)))
+    return pire
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(boucle(int(os.environ.get("VEILLE_PASSAGES", "1")),
+                    float(os.environ.get("VEILLE_INTERVALLE", "300"))))

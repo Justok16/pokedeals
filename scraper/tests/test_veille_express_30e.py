@@ -72,3 +72,12 @@ def test_fiche_shopify_lit_la_variante_exacte_et_le_prix_en_centimes():
     assert (o["en_stock"], o["prix"]) == (False, 429.9)
     fiche["url"] = "https://b.fr/products/upc"
     assert v.observer_fiche_shopify(session, fiche, produit)["en_stock"] is True
+
+
+def test_boucle_fait_n_passages_et_rend_le_pire_code(monkeypatch):
+    codes = iter([0, 1, 0])
+    monkeypatch.setattr(v, "main", lambda: next(codes))
+    attentes = []
+    monkeypatch.setattr(v.time, "sleep", attentes.append)
+    assert v.boucle(3, 300) == 1
+    assert len(attentes) == 2 and all(0 < a <= 300 for a in attentes)

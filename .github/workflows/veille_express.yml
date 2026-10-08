@@ -1,10 +1,12 @@
 name: Veille express 30 ans (fiches connues)
 on:
-  schedule:
-    # 08/10/2026 (choix de Justok) : toutes les 5 min. Le cron GitHub peut
-    # prendre du retard : cron-job.org declenche aussi ce workflow
-    # (workflow_dispatch) pour une cadence reelle fiable.
-    - cron: "*/5 * * * *"
+  # 08/10/2026 : le cron GitHub "*/5" ne partait jamais (seuls les
+  # declenchements cron-job.org tournent sur ce depot). La veille demarre
+  # donc a la fin de chaque scan_complement (~toutes les 20 min via
+  # cron-job.org) et fait 4 passages espaces de 5 min (choix de Justok).
+  workflow_run:
+    workflows: ["Scan Complement (boutiques verifiees)"]
+    types: [completed]
   workflow_dispatch: {}
 permissions:
   contents: read   # memoire dans Supabase (cle veille_express_30e), aucune ecriture sur le repo
@@ -17,13 +19,16 @@ jobs:
     defaults:
       run:
         working-directory: scraper
-    # Mesure locale 08/10/2026 : ~21 s pour 29 fiches + 3 enseignes.
-    timeout-minutes: 4
+    # 4 passages espaces de 5 min (~25 s chacun, mesure GitHub 08/10/2026 :
+    # 123 fiches + 3 enseignes) : ~16 min ; le suivant attend (concurrence).
+    timeout-minutes: 22
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       PYTHONUNBUFFERED: "1"
+      VEILLE_PASSAGES: "4"
+      VEILLE_INTERVALLE: "300"
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v7
