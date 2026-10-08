@@ -75,7 +75,8 @@ du Drive « Dig ». Sources lues le 08/10 : Service-Public F36746 et F23282 (« 
 - Nom commercial DIG16, site dig16.fr, email contact@dig16.fr.
 - Versement libératoire : **non** (l'exonération FRR+ porte sur l'impôt sur le bénéfice ; à faire
   confirmer par le SIE). Déclarations URSSAF trimestrielles (mensuelles possibles). Franchise en base de TVA. ACRE demandée.
-- Validation après le rappel de la CPAM (semaine du 12/10), comme prévu en 2 bis.
+- **Dossier déposé au guichet le 08/10/2026** (décision de l'utilisateur de ne pas attendre la CPAM ni
+  l'Agefiph ; l'aide Agefiph, à demander avant l'immatriculation, est donc probablement perdue).
 - Au SIREN : l'adresse et le téléphone vont sur les mentions légales du site et sur le flyer au
   moment du déploiement, **sans être copiés dans ce dépôt public**.
 
