@@ -194,7 +194,7 @@ def main():
     ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS), "-c:v", "mjpeg",
                            "-i", "-", "-i", "son.m4a", "-af", "loudnorm=I=-15:TP=-1.5:LRA=9", "-c:v", "libx264",
                            "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
-                           "-c:a", "aac", "-b:a", "192k", "-shortest", "test-du-pouce.mp4"], stdin=subprocess.PIPE)
+                           "-ar", "44100", "-c:a", "aac", "-b:a", "192k", "-shortest", "test-du-pouce.mp4"], stdin=subprocess.PIPE)
     controles = {round(s + 1.2, 1) for s in scenes} | {round(duree - .3, 1)}
     with sync_playwright() as p:
         nav = p.chromium.launch(executable_path=CHROME)

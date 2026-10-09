@@ -19,7 +19,7 @@ subprocess.run(['ffmpeg','-y','-loglevel','error','-i',f'conteur/voix-{voix}.wav
  '-map','[out]','-c:a','aac','-b:a','192k',f'son-{voix}.m4a'],check=True)
 ff=subprocess.Popen(['ffmpeg','-y','-loglevel','error','-f','image2pipe','-framerate',str(FPS),'-c:v','mjpeg','-i','-','-i',f'son-{voix}.m4a',
  '-af','loudnorm=I=-15:TP=-1.5:LRA=9','-c:v','libx264','-preset','slow','-crf','20','-pix_fmt','yuv420p','-movflags','+faststart',
- '-c:a','aac','-b:a','192k','-shortest',f'dig16-{voix}.mp4'],stdin=subprocess.PIPE)
+ '-ar','44100','-c:a','aac','-b:a','192k','-shortest',f'dig16-{voix}.mp4'],stdin=subprocess.PIPE)
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path='/opt/pw-browsers/chromium-1194/chrome-linux/chrome')
     pg=b.new_page(viewport={'width':1080,'height':1920})
