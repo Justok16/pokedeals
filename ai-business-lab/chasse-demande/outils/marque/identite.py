@@ -49,10 +49,12 @@ def remplir(texte, ident):
     """Remplace les champs entre crochets ; ne touche pas aux champs du client (devis, facture)."""
     if not ident:
         return texte
+    if ident.get("immatriculation"):  # date du Kbis : « Version du [date de l’immatriculation] » des CGV
+        texte = texte.replace("[date de l’immatriculation]", ident["immatriculation"])
     for champ, cle in CHAMPS.items():
         valeur = ident[cle]
-        if cle == "siren":
-            valeur = "SIREN " + valeur
+        if cle == "siren":  # immatriculé au RCS : ville du greffe obligatoire sur factures et papiers (art. R123-237)
+            valeur = "SIREN " + valeur + (" — " + ident["rcs"] if ident.get("rcs") else "")
         texte = texte.replace(champ, valeur)
     return texte
 
