@@ -36,6 +36,7 @@ Générés par `python3 outils/marque/campagne_pouce.py`, dans `supports/campagn
 | `pouce-story.png` (1080 × 1920) | Story Instagram et Facebook, statut WhatsApp de l'utilisateur |
 | `affiche-pouce.pdf` (A4) | Vitrines des commerces qui acceptent, panneaux d'affichage des supermarchés et des mairies, salle d'attente ; QR vers dig16.fr testé |
 | `planche-publications.png` | Aperçu de la série (contrôle) |
+| `videos/test-du-pouce/test-du-pouce.mp4` (1080 × 1920, 18 s, voix Algieba) | Vidéo verticale : Reel, Short, TikTok, statut WhatsApp ; semaine 1 avec le carrousel, puis rediffusée en semaine 3 (09/10) |
 
 Version de l'affiche avec le nom et le SIREN : générée en privé (`DIG16_IDENTITE` + `DIG16_SORTIE`) le jour de
 l'immatriculation, jamais dans ce dépôt.

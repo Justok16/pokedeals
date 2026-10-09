@@ -57,3 +57,6 @@ yarn-error.log*
 
 # Versions remplies des documents DIG16 (coordonnées réelles) : jamais dans le dépôt public
 ai-business-lab/chasse-demande/supports/*-prive.html
+ai-business-lab/chasse-demande/videos/test-du-pouce/controle/
+ai-business-lab/chasse-demande/videos/test-du-pouce/son.m4a
+ai-business-lab/chasse-demande/videos/test-du-pouce/musique.wav
