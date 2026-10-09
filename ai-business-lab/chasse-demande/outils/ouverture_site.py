@@ -44,6 +44,8 @@ def mentions(html, ident):
     for champ, cle in champs.items():
         html = re.sub(r'<span class="a-completer" data-champ="%s">[^<]*</span>' % re.escape(champ),
                       lambda _m, c=cle: valeurs[c], html)
+    if ident.get("rcs"):  # immatriculé au RCS (Kbis du 09/10/2026) : numéro d'inscription obligatoire (LCEN, art. 1-1)
+        html = re.sub(r"(SIREN\s*:\s*[0-9 ]{9,11})<br>", lambda m: "%s — %s<br>" % (m.group(1), ident["rcs"]), html, count=1)
     j = datetime.date.today()
     html = re.sub(r"<p>Dernière mise à jour : [^<]*</p>",
                   "<p>Dernière mise à jour : %d %s %d</p>" % (j.day, MOIS[j.month - 1], j.year), html)
