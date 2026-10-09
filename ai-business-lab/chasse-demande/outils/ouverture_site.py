@@ -50,7 +50,8 @@ def mentions(html, ident):
     return html
 
 
-ENVOI = "https://formsubmit.co/ajax/contact@dig16.fr"
+FORMSUBMIT = "https://formsubmit.co"  # source à autoriser dans la CSP (connect-src)
+ENVOI = FORMSUBMIT + "/ajax/contact@dig16.fr"
 JS_FORM = ("document.getElementById('form').onsubmit=async e=>{e.preventDefault();const f=e.target,m=document.getElementById('msg'),"
            "b=f.querySelector('button');if(f._honey&&f._honey.value)return;b.disabled=true;m.textContent='Envoi en cours…';"
            "const d=Object.fromEntries(new FormData(f));d._subject='Demande de démo DIG16 : '+(d.entreprise||'');d._captcha='false';"
@@ -77,12 +78,18 @@ def formulaire(html, ident):
     return html.replace(ANCIEN_JS, JS_FORM)
 
 
+def sources_connect(texte):
+    """Sources autorisées par la directive connect-src de la CSP (liste vide si absente)."""
+    directive = re.search(r"connect-src([^;]*);", texte)
+    return directive.group(1).split() if directive else []
+
+
 def entetes(texte):
     """Autorise l'envoi du formulaire vers FormSubmit dans la politique de sécurité (CSP) du site : sans cela le
     navigateur bloque l'envoi (défaut trouvé le 09/10/2026, invisible dans un essai local sans _headers)."""
-    if "https://formsubmit.co" in texte:
+    if FORMSUBMIT in sources_connect(texte):  # source déjà autorisée (comparaison exacte)
         return texte
-    return texte.replace("connect-src 'self'", "connect-src 'self' https://formsubmit.co", 1)
+    return texte.replace("connect-src 'self'", "connect-src 'self' " + FORMSUBMIT, 1)
 
 
 def ouvrir(html):
@@ -119,7 +126,7 @@ def main():
     chemin = os.path.join(site, "_headers")
     avant = open(chemin, encoding="utf-8").read()
     apres = entetes(avant)
-    if "connect-src 'self' https://formsubmit.co" not in apres:
+    if FORMSUBMIT not in sources_connect(apres):
         print("ALERTE _headers : FormSubmit non autorisé dans connect-src (le formulaire serait bloqué)")
     print("_headers :", "modifiée" if apres != avant else "inchangée")
     if ecrire and apres != avant:
