@@ -1,4 +1,4 @@
-# BG2 Pod — index des fiches (synthèse du jeudi 08/10/2026)
+# BG2 Pod — index des fiches (synthèse du vendredi 09/10/2026)
 
 10 vidéos résumées sur 46. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).

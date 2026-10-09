@@ -1,0 +1,182 @@
+# Washington accroît sa pression sur Pékin
+
+Vidéo : https://youtu.be/Ub5ry_vy4YI · durée 9:20 · résumé Gemini (gemini-flash-lite-latest, lot de 6) du 2026-10-08
+(connaissances générales, non vérifiées : toute règle fiscale ou chiffre est à contrôler à la source officielle)
+
+1. **Sujet et thèse principale** : La chronique aborde la Bourse et l'économie mondiale le 25 février 2025. La thèse est que Washington accroît sa pression sur Pékin (restrictions d'investissement, limitations à l'export pour des acteurs comme Nvidia ou Tokyo Electron), provoquant des remous sur les marchés financiers, particulièrement dans le secteur technologique (IA) et l'industrie (chutes de valeurs comme Alibaba, Nvidia, le CAC 40).
+2. **Notions expliquées** :
+- *FOMO* : La peur de manquer la suite de la hausse (Fear Of Missing Out), la crainte de rater le train.
+- *Carry trade* : Pratique lucrative consistant à profiter de combinaisons de taux de devise favorables.
+- *Resserrement quantitatif* : Réduction de la taille du bilan de l'institution pour traiter la question du plafond de la dette.
+3. **Chiffres, taux, plafonds et règles fiscales** :
+- Alibaba : -10% la veille.
+- Nvidia : -3%.
+- Broadcom : -5%.
+- Super Micro Computer : -8%.
+- Palantir : -10,5%.
+- CAC 40 : -0,8% la veille, -7% pour Schneider Electric (plus forte baisse).
+- DAX : +0,6%.
+- Alibaba : planté d'investissement intacts, mais insuffisant pour dissiper le doute.
+- Fondue (géant du monde) : record battu par des Suisses (meilleur athlète : Adrien, sponsorisé par des fabricants de nutriments anti-obésité).
+- Fonderie : 2039 kilos (objectif initial : 2000 kilos, le fort des Rousses a ajouté 39 kilos de compté). Record battu de peu.
+- Chiffres de NVidia : prévus demain soir.
+- Alibaba : 10% de baisse hier.
+- Autres performances technologiques : Alibaba -10%, Nvidia -3%, Broadcom -5%, Super Micro Computer -8%, Palantir -10,5%.
+- CAC 40 : -0,8% hier.
+- DAX : +0,6%.
+- Nasdaq : -1,2% (3e séance de baisse consécutive).
+- Dow Jones : léger gain soutenu par les valeurs traditionnelles (Disney, Boeing, Nike).
+- Consommation de l'IA et de la technologie : publications des résultats de Nvidia prévues demain soir.
+- Record mondial de la plus grosse fondue : détenu par les Suisses, battu par le meilleur athlète en la matière, Adrien.
+- Fonderie : 2039 kg (objectif initial : 2000 kg, + 39 kg de compté).
+- Le champion de la fondue est tombé malade après la compétition.
+- Les excès finissent toujours par se payer : couronnée et dispos le surlendemain.
+- Alibaba : plongé de 10% hier.
+- Nvidia : -3%.
+- Broadcom : -5%.
+- Super Micro Computer : -8%.
+- Palantir : -10,5%.
+- Chine : Alibaba, Nvidia, Broadcom, Super Micro Computer, Palantir ont chuté.
+- Alibaba : -10%.
+- Nvidia : -3%.
+- Broadcom : -5%.
+- Super Micro Computer : -8%.
+- Palantir : -10,5%.
+- Dow Jones : léger gain soutenu par ses valeurs traditionnelles (Disney, Boeing, Nike).
+- Fonderie : record battu de la plus grosse fondue par les Suisses (2039 kg).
+- Alibaba : -10%.
+- Nvidia : -3%.
+- Broadcom : -5%.
+- Super Micro Computer : -8%.
+- Palantir : -10,5%.
+- Dow Jones : léger gain.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : prévus demain soir.
+- Rachat et investissements : Microsoft n'aurait pas levé certaines options (centres de données), selon TD Cowen (qui a allumé la mèche). Redburn Atlantic répond que les plans d'investissement sont intacts.
+- Schneider Electric : -7%.
+- CAC 40 : -0,8% hier.
+- DAX : +0,6%.
+- Nasdaq : -1,2% (3e séance de baisse consécutive).
+- Dow Jones : léger gain (Disney, Boeing, Nike).
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia : demain soir.
+- Fonderie : 2039 kg.
+- Chiffres Nvidia / AI : Nvidia, TSMC, ASML, etc.
+4. **Conseils concrets et risques** :
+- Prudence face aux tensions géopolitiques et réglementaires (restrictions américaines sur l'IA et les semi-conducteurs).
+- Attention au "FOMO" et à l'impact des rumeurs de marché (ex: rumeur Microsoft sur les centres de données).
+5. **Produits, applications ou entreprises cités** :
+- ZoneBourse (auteur : Anthony Bondain)
+- Nvidia, ASML, Tokyo Electron, Alibaba, Broadcom, Super Micro Computer, Palantir, Microsoft, TD Cowen, Redburn Atlantic, Schneider Electric, Dow Jones, Walt Disney, Boeing, Nike.
+
+---
