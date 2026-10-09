@@ -42,6 +42,9 @@ naturel de dig16.fr sera **un canal secondaire** ; les clients viendront d'abord
    politique de sécurité). Correction : script de statistiques **autorisé** (mesure d'audience sans cookie,
    signalée dans les mentions légales) et `no-transform` retiré ; compression Brotli vérifiée en ligne.
    Temps de blocage : 1 350 ms → 0 ms. Accessibilité et bonnes pratiques : 100/100.
+   Puis (09/10, nuit) : feuille des polices Google chargée **sans bloquer** le premier affichage (doublon bloquant
+   retiré) et image principale préchargée. Sur 5 mesures : **médiane 84/100**, meilleure 94 (écarts dus à la
+   simulation de Lighthouse et au relais réseau du conteneur, pas au site).
 2. **Titre et description de l'accueil** avec les mots réellement cherchés : « Création de site internet pour
    artisans en Charente | DIG16 » (59 caractères) et une description de 148 caractères (Google coupe au-delà
    d'environ 60 et 160).
@@ -58,7 +61,7 @@ naturel de dig16.fr sera **un canal secondaire** ; les clients viendront d'abord
 | 4 | Inscriptions gratuites : Bing Places, Apple Business Connect, annuaire de la CCI | Semaine 1 | Utilisateur |
 | 5 | Chaque site client porte « Site réalisé par DIG16 » en pied de page, avec lien (avec l'accord du client) | Chaque livraison | Claude |
 | 6 | Mesurer chaque mois : Search Console (clics, positions), statistiques Cloudflare, fiche Google (appels) | Mensuel | Claude |
-| 7 | Vitesse : viser 90/100 (image d'aperçu principale plus légère, animations du haut de page) | Quand le temps le permet | Claude |
+| 7 | Vitesse : médiane 84/100 atteinte le 09/10 ; re-mesurer avec PageSpeed Insights à l'ouverture (réseau réel, sans le relais du conteneur) | À l'ouverture | Claude |
 | 8 | Pages par ville ou par métier : **non** tant que les volumes restent à 10-20 recherches par mois (contenu mince pénalisé) | À revoir dans 3 mois avec Search Console | Claude |
 
 ## 5. Le contrôle mensuel (consigne pour le point automatique, après l'ouverture)
