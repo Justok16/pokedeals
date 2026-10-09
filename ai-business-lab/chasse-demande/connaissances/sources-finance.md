@@ -51,3 +51,13 @@ gratuit au-delà de l'essai.
 le filigrane » (proposées par le résumé automatique) contournent les règles de la plateforme. **Gardé pour plus
 tard** : de courtes vidéos d'illustration pour les sites des artisans, avec un outil utilisé selon ses conditions,
 seulement si un client le demande (réseaux et nouvelles constructions en pause).
+
+## Chaîne YouTube @matthiasbaccino (envoyée le 09/10/2026)
+
+Matthias Baccino (Zone Bourse) : économie française, retraites, dette publique, Bourse, épargne ; 699 vidéos
+(78 h), surtout des formats courts, plus des directs de 1 h 30 à 2 h. Ajoutée le 09/10 à la file automatique de
+résumés (`matthiasbaccino/liste-videos.json`, `outils/toutes_videos.py`) ; **53 vidéos prioritaires** (de 5 min à
+2 h, `prio.json`) résumées d'abord, puis le reste. Comme pour les autres chaînes : ce sont des opinions et des
+analyses de l'auteur ; tout chiffre ou règle fiscale réutilisé est revérifié à la source officielle, et aucun conseil
+d'investissement personnalisé n'en est tiré. Utilité pour DIG16 : faible (contexte économique) ; utilité pour la
+culture financière demandée par l'utilisateur : bonne.
