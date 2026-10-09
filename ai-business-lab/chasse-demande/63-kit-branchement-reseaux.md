@@ -70,6 +70,9 @@ Quota : l'offre gratuite de Metricool permet 20 publications par mois (lu le 05/
    en compte 15 sur les 4 premières semaines et 10 sur les 4 suivantes. Qu'une publication envoyée sur plusieurs
    réseaux compte pour une seule est **[à vérifier dans Metricool]** ; sinon, garder Facebook, Instagram et la fiche
    Google, et publier le reste à la main.
+   Secours si le quota gratuit bloque vraiment : **Mixpost** (licence MIT) ou **Shoutrrr** (licence Apache 2.0), logiciels libres de
+   programmation à héberger soi-même (LinkedIn compris, sans limite) ; il leur faut un serveur PHP permanent et une application développeur par réseau
+   (lu sur leurs dépôts le 09/10, `46`). Pas avant d'en avoir besoin.
 5. Chaque vendredi : mesurer ce qui fait venir des demandes (`50` § 8) ; aucun taux inventé.
 
 Les images sont servies depuis le dépôt public (adresse « raw.githubusercontent.com » de la branche de travail ;
