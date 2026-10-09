@@ -18,7 +18,7 @@ PAGES = {
     "/": "https://dig16.fr/",
     "/prestige": "https://dig16.fr/prestige",
     "/mentions-legales": "https://dig16.fr/mentions-legales",
-}
+}  # /test-du-pouce/ : contrôlé à part (page en noindex jusqu'à l'ouverture, fonction /api/test-pouce)
 ENTETES = [
     "strict-transport-security",
     "content-security-policy",
@@ -62,6 +62,17 @@ for chemin, canon in PAGES.items():
             )
     except Exception as e:
         ok(f"page {chemin}", False, str(e)[:80])
+# Outil en ligne « test du pouce » (09/10) : la fonction Cloudflare doit analyser un site et refuser une adresse interne
+try:
+    j = requests.get(SITE + "/api/test-pouce", params={"url": "https://dig16.fr"}, timeout=40).json()
+    k = requests.get(SITE + "/api/test-pouce", params={"url": "http://127.0.0.1"}, timeout=25).json()
+    ok(
+        "outil test du pouce",
+        j.get("joignable") is True and j.get("adapte_telephone") is True and "erreur" in k,
+        f"dig16.fr lu en {j.get('duree_secondes')} s ; adresse interne refusée" if "erreur" in k else str(j)[:80],
+    )
+except Exception as e:
+    ok("outil test du pouce", False, str(e)[:80])
 try:
     ok(
         "www.dig16.fr",
