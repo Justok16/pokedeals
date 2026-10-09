@@ -80,7 +80,9 @@ def formulaire(html, ident):
 def entetes(texte):
     """Autorise l'envoi du formulaire vers FormSubmit dans la politique de sécurité (CSP) du site : sans cela le
     navigateur bloque l'envoi (défaut trouvé le 09/10/2026, invisible dans un essai local sans _headers)."""
-    return texte.replace("connect-src 'self';", "connect-src 'self' https://formsubmit.co;")
+    if "https://formsubmit.co" in texte:
+        return texte
+    return texte.replace("connect-src 'self'", "connect-src 'self' https://formsubmit.co", 1)
 
 
 def ouvrir(html):
@@ -117,7 +119,7 @@ def main():
     chemin = os.path.join(site, "_headers")
     avant = open(chemin, encoding="utf-8").read()
     apres = entetes(avant)
-    if "connect-src 'self' https://formsubmit.co;" not in apres:
+    if "connect-src 'self' https://formsubmit.co" not in apres:
         print("ALERTE _headers : FormSubmit non autorisé dans connect-src (le formulaire serait bloqué)")
     print("_headers :", "modifiée" if apres != avant else "inchangée")
     if ecrire and apres != avant:
