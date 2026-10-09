@@ -39,7 +39,7 @@ Partout : nom **DIG16 — Sites internet en Charente**, identifiant **dig16fr**,
 | 6 | **Bluesky, Threads** | Compte `dig16fr` (Threads se crée depuis Instagram) | `avatar-1080.png` | Oui |
 | 7 | **TikTok, Pinterest** | Compte `dig16fr` ; Pinterest : un tableau « Sites d'artisans » | `avatar-1080.png` | Plus tard (vidéos nécessaires) |
 
-Lien de connexion des réseaux dans Metricool (marque déjà créée, aucun réseau relié au 08/10) :
+Lien de connexion des réseaux dans Metricool (Facebook et Instagram reliés le 09/10 ; jour J = lundi 12/10/2026 ; 25 publications « auto » programmées le 09/10 sur Facebook et Instagram, vérifiées avec getScheduledPosts ; fiche Google, Bluesky et Threads à ajouter quand ils seront reliés) :
 https://app.metricool.com/brands/connections?blogId=7154026
 
 ## 3. Les autres supports
