@@ -17,17 +17,22 @@ import urllib.request
 
 CLE = "dig16-indexnow-2026-cle-publique"
 HOTE = "dig16.fr"
+# Cloudflare refuse (403) l'agent par défaut de Python : on se présente comme un navigateur (09/10/2026)
+AGENT = {"User-Agent": "Mozilla/5.0 (compatible; DIG16-indexnow/1.0; +https://dig16.fr)"}
+
+
+def lire(url):
+    with urllib.request.urlopen(urllib.request.Request(url, headers=AGENT), timeout=20) as r:
+        return r.read().decode()
 
 
 def adresses_du_sitemap():
-    with urllib.request.urlopen(f"https://{HOTE}/sitemap.xml", timeout=20) as r:
-        return re.findall(r"<loc>([^<]+)</loc>", r.read().decode())
+    return re.findall(r"<loc>([^<]+)</loc>", lire(f"https://{HOTE}/sitemap.xml"))
 
 
 def main():
-    with urllib.request.urlopen(f"https://{HOTE}/", timeout=20) as r:
-        if 'name="robots" content="noindex"' in r.read().decode():
-            raise SystemExit("ALERTE : le site est encore en « noindex » (ouverture prochaine) : rien n'est envoyé")
+    if 'name="robots" content="noindex"' in lire(f"https://{HOTE}/"):
+        raise SystemExit("ALERTE : le site est encore en « noindex » (ouverture prochaine) : rien n'est envoyé")
     urls = sys.argv[1:] or adresses_du_sitemap()
     corps = json.dumps({"host": HOTE, "key": CLE, "keyLocation": f"https://{HOTE}/{CLE}.txt", "urlList": urls}).encode()
     req = urllib.request.Request("https://api.indexnow.org/indexnow", data=corps, method="POST",

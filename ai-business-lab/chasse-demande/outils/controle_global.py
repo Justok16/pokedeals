@@ -55,11 +55,13 @@ for chemin, canon in PAGES.items():
         if chemin == "/":
             manque = [h for h in ENTETES if h not in {k.lower() for k in r.headers}]
             ok("en-têtes de sécurité", not manque, ", ".join(manque) or "5/5")
-            ok(
-                "bandeau « ouverture prochaine »",
-                "avis-ouverture" in r.text,
-                "à retirer le jour du SIREN seulement",
+            ok(  # site ouvert le 09/10/2026 (Kbis) : plus de bandeau ni de « noindex »
+                "site ouvert (sans bandeau ni noindex)",
+                'class="avis-ouverture"' not in r.text and 'content="noindex"' not in r.text,
+                "ouvert le 09/10/2026",
             )
+        if chemin == "/mentions-legales":
+            ok("mentions légales complètes (RCS)", "RCS Angoul" in r.text and 'class="a-completer"' not in r.text)
     except Exception as e:
         ok(f"page {chemin}", False, str(e)[:80])
 # Outil en ligne « test du pouce » (09/10) : la fonction Cloudflare doit analyser un site et refuser une adresse interne
