@@ -3,7 +3,7 @@
 
 Idée tirée du reel « Reverse Engineer Anything » (46-apprentissage-continu.md), ramenée à ce qui est légal : on ne
 copie ni le code ni le design d'un tiers ; on récupère les **faits et les textes du client lui-même** (nom, métier,
-services, zone, horaires, téléphone, années, photos et logo) pour qu'il retrouve son contenu dans la démo de son
+services, zone, horaires, années, photos et logo ; le téléphone vient de nos listes privées, pas de cet outil) pour qu'il retrouve son contenu dans la démo de son
 nouveau site. À n'utiliser que sur le site du prospect concerné, et ses photos ou son logo seulement avec son accord
 (décision du 05/10). Lecture polie : quelques pages du même site, une pause entre chaque, robots.txt respecté.
 
@@ -23,7 +23,6 @@ import urllib.request
 import urllib.robotparser
 
 AGENT = "Mozilla/5.0 (compatible; DIG16-reprise/1.0; +https://dig16.fr)"
-TEL = re.compile(r"(?:\+33\s?|0)[1-9](?:[\s.-]?\d{2}){4}")
 JOURS = re.compile(r"\b(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\b[^<\n]{0,80}", re.I)
 ANNEE = re.compile(r"\b(?:depuis|créée? en|fondée? en|en activité depuis)\s+(19\d\d|20[0-2]\d)\b", re.I)
 CP = re.compile(r"\b(16\d{3}|17\d{3}|79\d{3}|86\d{3}|87\d{3}|24\d{3})\s+([A-ZÉÈ][\w' -]{2,40})")
@@ -66,7 +65,6 @@ def analyser(url, page):
         "titre": texte(m.group(1)) if (m := re.search(r"(?is)<title[^>]*>(.*?)</title>", page)) else "",
         "description": attr(meta.group(0), "content") if meta else "",
         "titres": [t for t in titres if 2 < len(t) < 120][:25],
-        "telephones": sorted({re.sub(r"[\s.-]", " ", t).strip() for t in TEL.findall(corps)}),
         "horaires": sorted({m.group(0).strip() for m in JOURS.finditer(corps)})[:14],
         "annees": sorted(set(ANNEE.findall(corps))),
         "villes": sorted({f"{c} {v.strip()}" for c, v in CP.findall(corps)})[:10],
@@ -112,7 +110,6 @@ def main(url, dossier, nb=6):
         "synthese": {
             "nom_probable": ok[0]["titre"].split("|")[0].split(" - ")[0].strip() if ok else "",
             "description": ok[0]["description"] if ok else "",
-            "telephones": sorted({t for p in ok for t in p["telephones"]}),
             "horaires": sorted({h for p in ok for h in p["horaires"]})[:14],
             "annees": sorted({a for p in ok for a in p["annees"]}),
             "villes": sorted({v for p in ok for v in p["villes"]})[:10],
@@ -129,14 +126,14 @@ def main(url, dossier, nb=6):
     s = fiche["synthese"]
     lignes = [f"# Reprise du site {url} (lu le {fiche['lu_le']}, {len(ok)} page(s))", "",
               f"- Nom probable : {s['nom_probable']}", f"- Description : {s['description']}",
-              f"- Téléphones : {', '.join(s['telephones']) or '—'}", f"- Années citées : {', '.join(s['annees']) or '—'}",
+f"- Années citées : {', '.join(s['annees']) or '—'}",
               f"- Villes : {', '.join(s['villes']) or '—'}", f"- Logos probables : {len(s['logos_probables'])} ; photos : {len(s['photos'])}",
               "", "## Horaires repérés", *([f"- {h}" for h in s["horaires"]] or ["- —"]),
               "", "## Titres de sections (services probables)", *([f"- {t}" for t in s["services_probables"]] or ["- —"]),
               "", "> " + fiche["rappel"]]
     with open(os.path.join(dossier, nom + ".md"), "w", encoding="utf-8") as f:
         f.write("\n".join(lignes) + "\n")
-    print(f"{nom} : {len(ok)} page(s) lue(s), {len(s['telephones'])} téléphone(s), {len(s['services_probables'])} titre(s), "
+    print(f"{nom} : {len(ok)} page(s) lue(s), {len(s['services_probables'])} titre(s), "
           f"{len(s['photos'])} photo(s), {len(s['logos_probables'])} logo(s) probable(s) -> {dossier}")
 
 
