@@ -59,3 +59,5 @@ jamais dans ce dépôt.
    démarchées. Le classement par taille reste, mais l'encadré des 3 premiers mélange les tailles.
 Rappels déjà en place et confirmés par ce guide : pas d'extraction en masse de Google Maps
 (conditions d'utilisation), recherche du nom exact avant de conclure « sans site », doublons exclus.
+
+- `reprise_site.py` (09/10/2026) : lit poliment quelques pages de l'ancien site d'un prospect (robots.txt respecté, pause entre pages) et en tire une fiche privée (nom, description, téléphones, horaires, villes, années, titres de sections = services probables, photos et logo probables) pour préparer sa page d'accueil refaite plus vite. Contenu du client seulement ; photos et logo dans une démo uniquement avec son accord ; sortie dans un dossier privé, jamais dans le dépôt.
