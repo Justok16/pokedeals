@@ -10,8 +10,10 @@ fois a l'insertion, mais retentee canal par canal (push_diffuse/email_diffuse)
 tant qu'elle n'a pas ete diffusee avec succes -- cf. lister_precommandes_a_diffuser()
 et marquer_diffusion_terminee()."""
 
+from datetime import datetime, timezone
 from unittest.mock import Mock, patch
 
+import pytest
 import requests
 
 from connecteur_supabase_precoms import (
@@ -39,6 +41,17 @@ def _precommande(id="p1", titre_produit="ETB 30e Anniversaire", boutique="boutiq
         "id": id, "titre_produit": titre_produit, "boutique": boutique, "url_produit": url_produit,
         "push_diffuse": push_diffuse, "email_diffuse": email_diffuse,
     }
+
+
+# Par defaut, chaque test s'execute PENDANT le creneau du resume email
+# quotidien (16 h 20 UTC le 10/10/2026), precommandes sans date -> incluses.
+MAINTENANT_CRENEAU = datetime(2026, 10, 10, 16, 20, tzinfo=timezone.utc)
+
+
+@pytest.fixture(autouse=True)
+def _heure_du_resume():
+    with patch("connecteur_supabase_precoms._maintenant", return_value=MAINTENANT_CRENEAU):
+        yield
 
 
 # ------------------- enregistrer_precommande_alertes -------------------
@@ -197,7 +210,7 @@ def test_notifier_push_reussi_notifie_les_abonnes_et_marque_le_canal_diffuse():
                return_value=[{"user_id": "u1", "endpoint": "e1", "p256dh": "p", "auth": "a"}]), \
          patch("connecteur_supabase_precoms._preferences_email", return_value={}) as pref_mock, \
          patch("connecteur_supabase_precoms._envoyer_push", return_value=True) as push_send_mock, \
-         patch("connecteur_supabase_precoms._envoyer_email") as email_send_mock, \
+         patch("connecteur_supabase_precoms._envoyer_resume_email") as email_send_mock, \
          patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
         notifier_abonnes_precoms(secrets, [_precommande()])
     # Seul u1 a un abonnement push -- u2 (inscrit mais pas abonné push) n'est pas notifié par push.
@@ -216,16 +229,13 @@ def test_notifier_email_reussi_notifie_les_abonnes_et_marque_le_canal_diffuse():
          patch("connecteur_supabase_precoms._lister_abonnements_push") as push_list_mock, \
          patch("connecteur_supabase_precoms._preferences_email", return_value={"u1": False}), \
          patch("connecteur_supabase_precoms._email_utilisateur", return_value="user@example.com") as lookup_mock, \
-         patch("connecteur_supabase_precoms._envoyer_email", return_value=True) as email_send_mock, \
+         patch("connecteur_supabase_precoms._envoyer_resume_email", return_value=True) as email_send_mock, \
          patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
         notifier_abonnes_precoms(secrets, [_precommande()])
     push_list_mock.assert_not_called()  # push désactivé -> pas besoin des abonnements
     # u1 a désactivé l'email, seul u2 (actif par défaut) est notifié.
     assert lookup_mock.call_count == 1
     email_send_mock.assert_called_once()
-    assert email_send_mock.call_args.kwargs["custom_args"] == {
-        "produit": "pokeprecoms", "type_notification": "precommande", "reference_id": "p1",
-    }
     marquer_mock.assert_called_once_with("https://x.supabase.co", "k", "p1", "email")
 
 
@@ -239,11 +249,14 @@ def test_notifier_deux_precommandes_meme_utilisateur_email_recherche_une_seule_f
     with patch("connecteur_supabase_precoms._lister_tous_utilisateurs", return_value=["u1"]), \
          patch("connecteur_supabase_precoms._preferences_email", return_value={}), \
          patch("connecteur_supabase_precoms._email_utilisateur", return_value="user@example.com") as lookup_mock, \
-         patch("connecteur_supabase_precoms._envoyer_email", return_value=True) as email_send_mock, \
-         patch("connecteur_supabase_precoms.marquer_diffusion_terminee"):
+         patch("connecteur_supabase_precoms._envoyer_resume_email", return_value=True) as email_send_mock, \
+         patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
         notifier_abonnes_precoms(secrets, precommandes)
     lookup_mock.assert_called_once()
-    assert email_send_mock.call_count == 2
+    # Resume quotidien (10/10/2026) : UN seul email pour les deux precommandes.
+    email_send_mock.assert_called_once()
+    assert [p["id"] for p in email_send_mock.call_args.args[3]] == ["p1", "p2"]
+    assert marquer_mock.call_count == 2
 
 
 def test_notifier_ne_retente_pas_un_canal_deja_diffuse():
@@ -259,7 +272,7 @@ def test_notifier_ne_retente_pas_un_canal_deja_diffuse():
          patch("connecteur_supabase_precoms._preferences_email", return_value={}), \
          patch("connecteur_supabase_precoms._email_utilisateur", return_value="user@example.com"), \
          patch("connecteur_supabase_precoms._envoyer_push") as push_send_mock, \
-         patch("connecteur_supabase_precoms._envoyer_email", return_value=True) as email_send_mock, \
+         patch("connecteur_supabase_precoms._envoyer_resume_email", return_value=True) as email_send_mock, \
          patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
         notifier_abonnes_precoms(secrets, [precommande])
     push_send_mock.assert_not_called()  # push déjà diffusé -> pas retenté
@@ -311,7 +324,7 @@ def test_notifier_panne_lecture_preferences_email_ne_marque_pas_le_broadcast_dif
     with patch("connecteur_supabase_precoms._lister_tous_utilisateurs", return_value=["u1", "u2"]), \
          patch("connecteur_supabase_precoms._preferences_email", return_value=None), \
          patch("connecteur_supabase_precoms._email_utilisateur") as lookup_mock, \
-         patch("connecteur_supabase_precoms._envoyer_email") as email_send_mock, \
+         patch("connecteur_supabase_precoms._envoyer_resume_email") as email_send_mock, \
          patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
         notifier_abonnes_precoms(secrets, [_precommande()])
     lookup_mock.assert_not_called()
@@ -432,7 +445,7 @@ def _notifier_emails(nb_users, nb_precommandes, envoi):
                return_value=[f"u{i}" for i in range(nb_users)]), \
          patch("connecteur_supabase_precoms._preferences_email", return_value={}), \
          patch("connecteur_supabase_precoms._email_utilisateur", return_value="user@example.com"), \
-         patch("connecteur_supabase_precoms._envoyer_email", side_effect=envoi) as email_send_mock, \
+         patch("connecteur_supabase_precoms._envoyer_resume_email", side_effect=envoi) as email_send_mock, \
          patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
         notifier_abonnes_precoms(_SECRETS_EMAIL, precommandes)
     return email_send_mock, marquer_mock
@@ -441,22 +454,74 @@ def _notifier_emails(nb_users, nb_precommandes, envoi):
 def test_clef_sendgrid_refusee_coupe_le_canal_apres_le_seuil_sans_rien_marquer():
     from connecteur_supabase_precoms import SEUIL_COUPE_CIRCUIT_EMAIL
     email_send_mock, marquer_mock = _notifier_emails(50, 20, lambda *a, **k: False)
-    # 1000 envois auparavant (50 utilisateurs x 20 precommandes) -> seuil seulement.
+    # 50 resumes auparavant (un par utilisateur) -> seuil seulement.
     assert email_send_mock.call_count == SEUIL_COUPE_CIRCUIT_EMAIL
     marquer_mock.assert_not_called()   # tout reste a diffuser -> retente au prochain cycle
 
 
-def test_echecs_isoles_apres_un_succes_ne_coupent_pas_le_canal():
+def test_echecs_isoles_apres_un_succes_ne_coupent_pas_le_canal_et_evitent_les_doublons():
     resultats = iter([True] + [False] * 20)
     email_send_mock, marquer_mock = _notifier_emails(21, 1, lambda *a, **k: next(resultats))
     assert email_send_mock.call_count == 21    # un succes ce cycle -> clef valide, on continue
-    marquer_mock.assert_not_called()           # mais des echecs -> pas marque diffuse
+    # Au moins un resume parti -> marque diffuse, pour ne pas renvoyer le
+    # resume aux destinataires deja servis a chaque cycle du creneau.
+    assert marquer_mock.call_count == 1
 
 
 def test_tous_les_envois_reussis_marquent_chaque_precommande():
     email_send_mock, marquer_mock = _notifier_emails(3, 2, lambda *a, **k: True)
-    assert email_send_mock.call_count == 6
+    assert email_send_mock.call_count == 3     # un resume par utilisateur, pas 6 emails
     assert marquer_mock.call_count == 2
+
+
+# ------------------- resume quotidien (10/10/2026) -------------------
+
+def test_hors_creneau_aucun_email_et_rien_marque():
+    hors = datetime(2026, 10, 10, 9, 5, tzinfo=timezone.utc)
+    with patch("connecteur_supabase_precoms._maintenant", return_value=hors):
+        email_send_mock, marquer_mock = _notifier_emails(3, 2, lambda *a, **k: True)
+    email_send_mock.assert_not_called()
+    marquer_mock.assert_not_called()   # attend le creneau
+
+
+def test_precommande_arrivee_pendant_le_creneau_attend_le_lendemain():
+    avant = {**_precommande(id="avant", url_produit="https://x/a"), "created_at": "2026-10-10T08:00:00+00:00"}
+    pendant = {**_precommande(id="pendant", url_produit="https://x/b"), "created_at": "2026-10-10T16:10:00+00:00"}
+    with patch("connecteur_supabase_precoms._lister_tous_utilisateurs", return_value=["u1"]), \
+         patch("connecteur_supabase_precoms._preferences_email", return_value={}), \
+         patch("connecteur_supabase_precoms._email_utilisateur", return_value="user@example.com"), \
+         patch("connecteur_supabase_precoms._envoyer_resume_email", return_value=True) as email_mock, \
+         patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
+        notifier_abonnes_precoms(_SECRETS_EMAIL, [avant, pendant])
+    assert [p["id"] for p in email_mock.call_args.args[3]] == ["avant"]
+    assert [c.args[2] for c in marquer_mock.call_args_list] == ["avant"]
+
+
+def test_composer_resume_liste_chaque_precommande_avec_son_lien():
+    from connecteur_supabase_precoms import _composer_resume
+    sujet, texte, html = _composer_resume([
+        _precommande(id="p1", titre_produit="ETB <30e>", url_produit="https://x/1"),
+        _precommande(id="p2", titre_produit="Display", boutique="", url_produit="https://x/2"),
+    ])
+    assert sujet == "2 nouvelles précommandes Pokémon TCG aujourd'hui"
+    assert "ETB <30e> sur boutique.fr : https://x/1" in texte
+    assert "Display : https://x/2" in texte
+    assert "ETB &lt;30e&gt;" in html and 'href="https://x/2"' in html
+    assert _composer_resume([_precommande()])[0] == "1 nouvelle précommande Pokémon TCG aujourd'hui"
+
+
+def test_envoyer_resume_email_un_seul_appel_sendgrid():
+    from connecteur_supabase_precoms import _envoyer_resume_email
+    reponse = Mock()
+    reponse.raise_for_status.return_value = None
+    with patch("connecteur_supabase_precoms.requests.post", return_value=reponse) as post_mock:
+        ok = _envoyer_resume_email("SG.x", "noreply@pokeprecoms.app", "user@example.com",
+                                   [_precommande(id="p1"), _precommande(id="p2")])
+    assert ok
+    post_mock.assert_called_once()
+    args = post_mock.call_args.kwargs["json"]["custom_args"]
+    assert args == {"produit": "pokeprecoms", "type_notification": "resume_precommandes",
+                    "reference_id": "p1", "nb_precommandes": "2"}
 
 
 # ------------------- emails perimes (> 48 h, 07/10/2026) -------------------
@@ -482,7 +547,7 @@ def test_precommande_perimee_marquee_email_sans_envoi_et_push_inchange():
          patch("connecteur_supabase_precoms._preferences_email", return_value={}), \
          patch("connecteur_supabase_precoms._email_utilisateur", return_value="user@example.com"), \
          patch("connecteur_supabase_precoms._envoyer_push", return_value=True) as push_mock, \
-         patch("connecteur_supabase_precoms._envoyer_email") as email_mock, \
+         patch("connecteur_supabase_precoms._envoyer_resume_email") as email_mock, \
          patch("connecteur_supabase_precoms.marquer_diffusion_terminee") as marquer_mock:
         notifier_abonnes_precoms(secrets, [vieille])
     email_mock.assert_not_called()
@@ -492,12 +557,11 @@ def test_precommande_perimee_marquee_email_sans_envoi_et_push_inchange():
 
 
 def test_precommande_recente_toujours_envoyee_par_email():
-    from datetime import datetime, timezone
-    recente = {**_precommande(id="recente"), "created_at": datetime.now(timezone.utc).isoformat()}
+    recente = {**_precommande(id="recente"), "created_at": "2026-10-10T07:00:00+00:00"}
     with patch("connecteur_supabase_precoms._lister_tous_utilisateurs", return_value=["u1"]), \
          patch("connecteur_supabase_precoms._preferences_email", return_value={}), \
          patch("connecteur_supabase_precoms._email_utilisateur", return_value="user@example.com"), \
-         patch("connecteur_supabase_precoms._envoyer_email", return_value=True) as email_mock, \
+         patch("connecteur_supabase_precoms._envoyer_resume_email", return_value=True) as email_mock, \
          patch("connecteur_supabase_precoms.marquer_diffusion_terminee"):
         notifier_abonnes_precoms(_SECRETS_EMAIL, [recente])
     email_mock.assert_called_once()
