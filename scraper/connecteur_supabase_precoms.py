@@ -379,6 +379,94 @@ def _envoyer_email(
         return False
 
 
+def _composer_resume(precommandes: list[dict]) -> tuple[str, str, str]:
+    """Sujet, texte brut et HTML du resume quotidien (10/10/2026) : une ligne
+    par precommande, avec son lien."""
+    from telegram_utils import echapper_html, echapper_url_html
+
+    n = len(precommandes)
+    sujet = ("1 nouvelle précommande Pokémon TCG aujourd'hui" if n == 1
+             else f"{n} nouvelles précommandes Pokémon TCG aujourd'hui")
+    lignes_txt, lignes_html = [], []
+    for p in precommandes:
+        nom = p.get("titre_produit") or "un produit"
+        if p.get("boutique"):
+            nom += f" sur {p['boutique']}"
+        url = p.get("url_produit", "")
+        lignes_txt.append(f"- {nom} : {url}")
+        lignes_html.append(f"<li><a href=\"{echapper_url_html(url)}\">{echapper_html(nom)}</a></li>")
+    texte = "Les précommandes détectées depuis le dernier résumé :\n\n" + "\n".join(lignes_txt)
+    html = ("<p>Les précommandes détectées depuis le dernier résumé :</p><ul>"
+            + "".join(lignes_html) + "</ul>")
+    return sujet, texte, html
+
+
+def _envoyer_resume_email(
+    sendgrid_api_key: str, sendgrid_from: str, destinataire: str, precommandes: list[dict],
+) -> bool:
+    """Un seul email pour toutes les precommandes en attente (resume quotidien,
+    choix de Justok le 10/10/2026) au lieu d'un email par precommande."""
+    sujet, texte, html = _composer_resume(precommandes)
+    payload = {
+        "personalizations": [{"to": [{"email": destinataire}]}],
+        "from": {"email": sendgrid_from},
+        "subject": sujet,
+        "content": [{"type": "text/plain", "value": texte}, {"type": "text/html", "value": html}],
+        "custom_args": {
+            "produit": "pokeprecoms", "type_notification": "resume_precommandes",
+            "reference_id": str(precommandes[0]["id"]), "nb_precommandes": str(len(precommandes)),
+        },
+    }
+    try:
+        r = requests.post(
+            "https://api.sendgrid.com/v3/mail/send",
+            headers={"Authorization": f"Bearer {sendgrid_api_key}", "Content-Type": "application/json"},
+            json=payload,
+            timeout=TIMEOUT,
+        )
+        r.raise_for_status()
+        return True
+    except requests.RequestException as e:
+        detail = (e.response.text or "")[:200] if getattr(e, "response", None) is not None else ""
+        log.warning("Envoi du résumé email échoué (%s%s) -- retenté au prochain créneau", e, f" : {detail}" if detail else "")
+        return False
+
+
+# 10/10/2026 (choix de Justok, option « regrouper les alertes ») : les emails
+# PokePrecoms partent en UN resume par inscrit et par jour, pendant ce creneau
+# (heure UTC ; 16 h UTC = 18 h a Paris l'ete, 17 h l'hiver). Avant : 1 email
+# par precommande et par inscrit (46 inscrits -> 2 precommandes suffisaient a
+# epuiser les 100 envois/jour gratuits de SendGrid). Le push reste immediat.
+HEURE_RESUME_EMAIL_UTC = 16
+
+
+def _maintenant() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+def _debut_creneau_resume(maintenant: datetime) -> datetime | None:
+    """Debut du creneau du jour si `maintenant` est dedans, sinon None."""
+    if maintenant.hour != HEURE_RESUME_EMAIL_UTC:
+        return None
+    return maintenant.replace(minute=0, second=0, microsecond=0)
+
+
+def _cree_avant(precommande: dict, limite: datetime) -> bool:
+    """True si la precommande a ete creee avant `limite` (date absente ou
+    illisible -> True, on l'inclut). Les precommandes arrivees PENDANT le
+    creneau attendent le resume du lendemain : au plus un resume par jour."""
+    brut = precommande.get("created_at")
+    if not brut:
+        return True
+    try:
+        cree = datetime.fromisoformat(str(brut).replace("Z", "+00:00"))
+    except ValueError:
+        return True
+    if cree.tzinfo is None:
+        cree = cree.replace(tzinfo=timezone.utc)
+    return cree < limite
+
+
 SEUIL_COUPE_CIRCUIT_EMAIL = 5
 
 # 07/10/2026 (regle validee par Justok lors de la purge du jour) : un email de
@@ -467,7 +555,7 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
             prefs_email = resultat_prefs
 
     emails_cache: dict[str, str | None] = {}
-    maintenant = datetime.now(timezone.utc)
+    maintenant = _maintenant()
     # Coupe-circuit (07/10/2026) : clef SendGrid refusee (401) depuis plusieurs
     # jours -> chaque cycle retentait des milliers d'envois voues a l'echec
     # (~7 min perdues par cycle, file d'attente croissante). Apres
@@ -497,35 +585,51 @@ def notifier_abonnes_precoms(secrets: dict, precommandes_a_diffuser: list[dict])
             if not echec_push:
                 marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "push")
 
-        if email_actif and email_lecture_ok and not precommande.get("email_diffuse") \
-                and _email_perime(precommande, maintenant):
+    # Resume quotidien (10/10/2026) : un seul email par inscrit, pendant le
+    # creneau HEURE_RESUME_EMAIL_UTC, regroupant toutes les precommandes dont
+    # l'email n'est pas encore parti. Hors creneau : rien, elles attendent.
+    debut_creneau = _debut_creneau_resume(maintenant)
+    if not (email_actif and email_lecture_ok and debut_creneau):
+        return
+    en_attente = [p for p in precommandes_a_diffuser if not p.get("email_diffuse")]
+    a_envoyer = []
+    for precommande in en_attente:
+        if _email_perime(precommande, maintenant):
             log.info("Email d'une précommande abandonné (plus de 48 h sans envoi possible) -- marqué diffusé")
             marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "email")
-        elif email_actif and email_lecture_ok and not precommande.get("email_diffuse"):
-            echec_email = False
-            for uid in user_ids:
-                if email_coupe_ce_cycle:
-                    echec_email = True   # non marque diffuse -> retente au prochain cycle
-                    break
-                if prefs_email.get(uid, True):
-                    if uid not in emails_cache:
-                        emails_cache[uid] = _email_utilisateur(supabase_url, service_role_key, uid)
-                    email = emails_cache[uid]
-                    if not email:
-                        continue
-                    if _envoyer_email(
-                        sendgrid_api_key, sendgrid_from, email, titre_notif, corps, url,
-                        custom_args={"produit": "pokeprecoms", "type_notification": "precommande", "reference_id": str(precommande["id"])},
-                    ):
-                        email_succes_ce_cycle = True
-                        echecs_email_consecutifs = 0
-                    else:
-                        echec_email = True
-                        echecs_email_consecutifs += 1
-                        if not email_succes_ce_cycle and echecs_email_consecutifs >= SEUIL_COUPE_CIRCUIT_EMAIL:
-                            email_coupe_ce_cycle = True
-                            log.warning("SendGrid refuse tous les envois (%d échecs d'affilée, aucun succès ce cycle) -- "
-                                        "canal email suspendu pour ce cycle, tout sera retenté au prochain",
-                                        echecs_email_consecutifs)
-            if not echec_email:
-                marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "email")
+        elif _cree_avant(precommande, debut_creneau):
+            a_envoyer.append(precommande)
+    if not a_envoyer:
+        return
+
+    echec_email = False
+    for uid in user_ids:
+        if email_coupe_ce_cycle:
+            echec_email = True   # non marque diffuse -> retente au prochain cycle du creneau
+            break
+        if not prefs_email.get(uid, True):
+            continue
+        if uid not in emails_cache:
+            emails_cache[uid] = _email_utilisateur(supabase_url, service_role_key, uid)
+        email = emails_cache[uid]
+        if not email:
+            continue
+        if _envoyer_resume_email(sendgrid_api_key, sendgrid_from, email, a_envoyer):
+            email_succes_ce_cycle = True
+            echecs_email_consecutifs = 0
+        else:
+            echec_email = True
+            echecs_email_consecutifs += 1
+            if not email_succes_ce_cycle and echecs_email_consecutifs >= SEUIL_COUPE_CIRCUIT_EMAIL:
+                email_coupe_ce_cycle = True
+                log.warning("SendGrid refuse tous les envois (%d échecs d'affilée, aucun succès ce cycle) -- "
+                            "canal email suspendu pour ce cycle, tout sera retenté au prochain",
+                            echecs_email_consecutifs)
+    # Au moins un resume parti -> on marque tout diffuse, meme si quelques
+    # destinataires ont echoue : sinon chaque cycle du creneau renverrait le
+    # resume a TOUS les autres (doublons qui re-epuisent le quota). Aucun
+    # succes (quota epuise, clef refusee) -> rien de marque, retente au
+    # cycle suivant du creneau.
+    if not echec_email or email_succes_ce_cycle:
+        for precommande in a_envoyer:
+            marquer_diffusion_terminee(supabase_url, service_role_key, precommande["id"], "email")
