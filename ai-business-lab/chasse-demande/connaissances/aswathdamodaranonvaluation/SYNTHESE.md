@@ -1,6 +1,6 @@
-# Aswath Damodaran — index des fiches (synthèse du vendredi 09/10/2026)
+# Aswath Damodaran — index des fiches (synthèse du samedi 10/10/2026)
 
-121 vidéos résumées sur 1414. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+125 vidéos résumées sur 1414. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[A "Fairly Highly Valued" (Stock) Market: The Fed Chair Opines but should anyone listen?](0faNl-maR5o.md)** — Le sujet est l'analyse de la cherté des marchés d'actions américains en 2025, suite aux déclarations du président de la Fed, Jérôme Powell, qualifiant le marché de « passablement hautement évalué ». La thèse principale est que, bien que les actions américaines soient…
@@ -103,7 +103,11 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Session 7 (of 42): Market Efficiency I - Laying the Groundwork](V8KoxUIajug.md)** — L’efficience des marchés financiers et ses implications pour la gestion de portefeuille. La thèse est que, si les marchés étaient parfaitement efficients, la recherche active et la sélection de titres seraient vaines ; par conséquent, l'efficience dicte que la stratégie…
 - **[Session 8 (of 42): Market Efficient II - Testing market-beating schemes and strategies](91yKnqGSb48.md)** — La mise à l’épreuve de l’efficience des marchés et l’évaluation des stratégies d’investissement dites « de battage du marché ». La thèse est qu’il est extrêmement difficile de prouver de manière définitive qu’une stratégie bat le marché, car tout test d'efficience est un test…
 - **[Session 9 (of 42): Random Walks and Momentum](vPmEiwfyzfo.md)** — Sujet : L'analyse des prix passés, de l'effet "momentum" (poursuite des tendances) et des bulles financières, en contraste avec l'hypothèse de marche aléatoire.
+- **[Séance 17 : Introduction à la valorisation](ldTsmcTNJE8.md)** — Sujet : L’évaluation relative en finance d'entreprise et boursière (utilisation des multiples comme le ratio P/E, EV/EBITDA, etc., par opposition aux flux de trésorerie actualisés ou DCF).
+- **[Séance 17 : Optimisation de la structure de la dette par l'approche du coût du capital](fdEnaqWUYzM.md)** — Sujet : Le choix de la structure du capital d'une entreprise (financement par la dette vs par les capitaux propres) et comment optimiser ce "mix" de financement.
+- **[Séance 18 : Clôture de la valeur intrinsèque et initiation à la tarification](f5eDlMgI-RA.md)** — Sujet : L’évaluation relative (le « pricing ») et l’utilisation des multiples en finance d’entreprise, en comparaison avec l’évaluation intrinsèque (DCF).
 - **[Séance 19 : Les approches APV et groupes de pairs pour la structure financière](jv-mk7lpIdg.md)** — Sujet : La détermination et l’optimisation du ratio d’endettement (structure du capital) pour les entreprises et, de manière spécifique, pour les institutions financières (banques).
+- **[Séance 19 : Suite de la tarification](9zFaoB7KIRI.md)** — Sujet : L'utilisation des multiples de valorisation relative pour évaluer des actions.
 - **[Séance 20 : Conception de la dette](Kk7BEn3Y4XY.md)** — Sujet : Le choix de la structure financière optimale d'une entreprise (ratio d'endettement idéal, gestion de la dette et des capitaux propres, et conception des instruments de financement).
 - **[Séance 21 : Évaluation des entreprises privées (non cotées en bourse)](T0DcUKaNgzY.md)** — Sujet : L’évaluation des entreprises privées par rapport aux entreprises publiques, l’ajustement du coût du capital et de la structure financière (coût de la dette, bêta, décote d’illiquidité) lors d’une transition (vente à un tiers, introduction en bourse - IPO,…
 - **[Séance 24 : Clôture sur les dividendes et premières étapes de l’évaluation](bm1zE4wCQvI.md)** — - Sujet : La gestion des changements de politique de dividende, l'approche par les pairs, et l'introduction à la valorisation d'entreprise (valeur vs prix, DCF, flux de trésorerie, croissance).

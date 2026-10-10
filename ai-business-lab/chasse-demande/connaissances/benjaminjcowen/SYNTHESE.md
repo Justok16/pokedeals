@@ -1,6 +1,6 @@
-# Benjamin Cowen — index des fiches (synthèse du vendredi 09/10/2026)
+# Benjamin Cowen — index des fiches (synthèse du samedi 10/10/2026)
 
-103 vidéos résumées sur 3157. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+107 vidéos résumées sur 3157. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Bitcoin : Bande de résistance du marché baissier](dy3E7Jzte88.md)** — Sujet : Analyse technique et historique du cours du Bitcoin (BTC), axée sur l'indicateur de la « bande de résistance de marché baissier » (Bear Market Resistance Band) au cours des années dites de milieu de cycle (mid-term years).
@@ -12,6 +12,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin : La beauté des mathématiques (Partie 71)](uoF9yzXHmt4.md)** — Analyse de la capitalisation totale du marché des cryptomonnaies par rapport au modèle de régression logarithmique de la "juste valeur" (Fair Value), concluant que le marché reste globalement sous cette ligne en 2026.
 - **[Bitcoin : La beauté des mathématiques (Partie 72)](2o0qSlwjkv8.md)** — Sujet : Évaluation de la valorisation du Bitcoin et de la capitalisation globale du marché crypto à l'aide de modèles mathématiques et de courbes de régression.
 - **[Bitcoin : la fin du mois de juillet](7vNA0geUryY.md)** — Sujet : Analyse des performances historiques du Bitcoin à l'approche de la fin du mois de juillet et prévisions pour la fin du troisième trimestre (Q3).
+- **[Bitcoin : La psychologie d'un marché baissier](WHK1S6MrlCA.md)** — Sujet : Le comportement et la psychologie du cours du Bitcoin (BTC) en marché baissier (bear market), notamment en relation avec les années électorales de mi-mandat (midterm years) aux États-Unis.
 - **[Bitcoin : La période de faiblesse](dIa8HUYDNEY.md)** — Le sujet de la vidéo est l'analyse technique et cyclique du cours du Bitcoin (BTC). La thèse principale est que le Bitcoin se trouve actuellement dans une « fenêtre de faiblesse » (window of weakness) historique et prévisible. Après avoir buté sur sa moyenne mobile à 200…
 - **[Bitcoin : La voie vers le point bas](OjfITR_jrmQ.md)** — Sujet : L'analyse des cycles de marché du Bitcoin (BTC) et la prévision de la période de son point bas (bottom).
 - **[Bitcoin : Le coût de base du réseau](R9vEpIpyj2s.md)** — Le sujet de la vidéo est le Prix Réalisé (Realized Price) du Bitcoin. La thèse principale est que, historiquement, le prix du marché du Bitcoin passe sous son Prix Réalisé à la fin des marchés baissiers, matérialisant ainsi un point d'entrée optimal à long terme avant un…
@@ -30,6 +31,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin : Spéculation douteuse](mnCn7NzuzKA.md)** — Sujet : Analyse technique et spéculative de l'évolution du cours du Bitcoin, en comparant les cycles de marché passés (notamment 2018, 2019, 2022) avec la dynamique actuelle.
 - **[Bitcoin : Spéculation douteuse](OuNjnmsqg4M.md)** — Sujet : Analyse technique et macroéconomique du cours du Bitcoin, en relation avec les taux directeurs, l'inflation (PCE) et les autres marchés financiers (obligations, pétrole).
 - **[Bitcoin : Spéculation douteuse](SG3tuA8zqs8.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC), comparaison historique des cycles (principalement 2018 et 2022) et stratégies d'investissement (DCA).
+- **[Bitcoin : Spéculation douteuse](zKHgKnv51r0.md)** — Sujet : Analyse technique et historique du cours du Bitcoin par rapport à sa moyenne mobile de 200 jours, dans le contexte des années de mi-mandat (mid-term) et des marchés baissiers.
 - **[Bitcoin : Spéculations douteuses](sigSZCnSa6M.md)** — Sujet : Analyse de la saisonnalité et des cycles de marché du Bitcoin (BTC), spécifiquement au cours des années d'élections américaines de mi-mandat (mid-term election years).
 - **[Bitcoin : Un graphique magnifique](vxnpP3EOl-8.md)** — Le sujet est l'analyse du graphique « Bitcoin Percentage of Supply in Profit and Loss » (pourcentage d'approvisionnement en profit et en perte). La thèse principale est que ce graphique est l'un des plus esthétiques et informatifs pour identifier les cycles de marché,…
 - **[Bitcoin : un moment critique](gvvMvW7AGE4.md)** — Sujet : L'analyse technique du cours du Bitcoin (BTC) à l'approche de la clôture hebdomadaire et son impact sur la tendance du quatrième trimestre.
@@ -46,6 +48,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin et la moyenne mobile sur 50 semaines](X2ztVVyfgQU.md)** — Sujet : L'analyse du cours du Bitcoin (BTC) face à sa moyenne mobile sur 50 semaines pour déterminer si le marché baissier (bear market) est terminé.
 - **[Bitcoin passe sous la zone de résistance du marché baissier](slTIiS-Y65k.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC) et étude de son comportement cyclique, en particulier lors des années de mi-mandat présidentiel américain (années de transition/baissières).
 - **[Bitcoin passe sous sa moyenne mobile de 200 semaines](1LI9wfqxOmc.md)** — - Sujet : Analyse du cours du Bitcoin après sa chute sous sa moyenne mobile à 200 semaines (200-week moving average).
+- **[Bitcoin rejeté par la moyenne mobile 200 jours](M5d5fbiSfhc.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC), comportement historique durant les années de milieu de cycle (années de transition/baisse) et prévisions de marché.
 - **[Bitcoin remonte jusqu’à la zone de résistance du bear market](9avrSmPczP4.md)** — Sujet : L'analyse du cours du Bitcoin (BTC) lors d'un rebond technique vers la « bande de résistance du marché baissier », et la pertinence des stratégies d'accumulation.
 - **[Bitcoin se maintient légèrement au-dessus de son plus haut de mai](2C70_Ms3V9A.md)** — Sujet : Analyse technique du cours du Bitcoin et conseils sur la stratégie d'investissement.
 - **[Bitcoin: Monthly Returns](zC7G2uW1Xjk.md)** — Analyse des rendements mensuels historiques de Bitcoin (Heatmap) pour évaluer la saisonnalité et anticiper les performances à venir en fonction des cycles précédents (années de pré-halving vs années post-halving).
@@ -95,6 +98,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Or : spéculation douteuse](ZH5ivfBD-KQ.md)** — Sujet : Analyse technique et historique du cours de l'or et son interaction avec le marché obligataire (taux d'intérêt).
 - **[Or : à la recherche d'un plus bas](33Q5XZuyKUU.md)** — Analyse de l'évolution du cours de l'or en 2026 par rapport à sa saisonnalité historique, ses moyennes mobiles et son rôle de valeur refuge, en lien avec les cycles d'investissement.
 - **[Perspectives pour l'or sur la fin de l'année 2026](DoteyQFNfnE.md)** — Sujet : Analyse technique et historique des cycles de l'or (Gold), de ses corrections de milieu de cycle (notamment pour l'année 2026) et de son positionnement face aux marchés d'actions.
+- **[Powell démissionne de son poste de président de la Réserve fédérale](FgxAe_NAh5c.md)** — Sujet : Analyse des cycles macroéconomiques pluriannuels, de l'inflation (indices PPI, CPI), des prix de l'énergie (pétrole) et de l'influence des taux d'intérêt de la Réserve fédérale américaine (Fed) sur les marchés boursiers et les cryptomonnaies.
 - **[Quand la Fed augmentera-t-elle ses taux ?](TOKUXlPBhOs.md)** — Sujet : L'anticipation des décisions de la Réserve fédérale américaine (Fed) concernant les taux d'intérêt et leur impact sur les marchés financiers (obligations, actions et cryptomonnaies).
 - **[Quand les taux d'intérêt vont-ils baisser ?](FVcHFIPVI40.md)** — Sujet : Analyse du cycle des taux d'intérêt aux États-Unis et leur impact sur les actifs à risque.
 - **[Risque social du Bitcoin](gAf6tPzkcgg.md)** — Sujet : L'analyse du « risque social » (intérêt et engagement du grand public) pour le Bitcoin et les cryptomonnaies, et son impact sur la dynamique du marché (notamment la dominance du Bitcoin par rapport aux altcoins).
