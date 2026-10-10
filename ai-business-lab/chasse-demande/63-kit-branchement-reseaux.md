@@ -34,7 +34,7 @@ Partout : nom **DIG16 — Sites internet en Charente**, identifiant **dig16fr**,
 | 1 | **Fiche Google** (Google Business Profile) | Créer l'établissement « Concepteur de sites Web », **entreprise de services avec zone desservie, adresse masquée** ; demander la vérification | `avatar-1080.png` (logo), `couverture-google.png` | Oui (« Google Business Profile ») |
 | 2 | **Page Facebook** | Créer la page depuis son compte personnel (catégorie : conception de sites web) ; bio courte, description, lien | `avatar-1080.png`, `couverture-facebook.png` | Oui |
 | 3 | **Instagram** professionnel | Créer `dig16fr`, passer en compte professionnel, le **lier à la page Facebook** | `avatar-1080.png` | Oui |
-| 4 | **LinkedIn** | Profil personnel à jour, puis **page entreprise** DIG16 | `avatar-1080.png`, `banniere-linkedin.png` | Non : l'offre gratuite de Metricool n'inclut pas LinkedIn (`61`) ; publication à la main avec `calendrier.csv` |
+| 4 | **LinkedIn** | **Abandonné le 10/10 (décision de l'utilisateur : « trop complexe pour si peu »)** ; profil personnel créé, page entreprise refusée par LinkedIn (profil de moins de 7 jours, pas de relations). Ne pas reproposer sauf demande | — | Non |
 | 5 | **YouTube** | Chaîne `@dig16fr` ; mettre la vidéo de présentation (non destinée aux enfants) | `avatar-1080.png`, `banniere-youtube.png` | Facultatif |
 | 6 | **Bluesky, Threads** | Compte `dig16fr` (Threads se crée depuis Instagram) | `avatar-1080.png` | Oui |
 | 7 | **TikTok, Pinterest** | Compte `dig16fr` ; Pinterest : un tableau « Sites d'artisans » | `avatar-1080.png` | Plus tard (vidéos nécessaires) |

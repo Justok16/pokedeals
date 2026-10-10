@@ -19,7 +19,7 @@ Claude prépare tout le contenu et programme les publications.
 | 2 | **Démarchage direct** : appels, emails B2B, visites avec le flyer | Oui | Utilisateur appelle et visite ; Claude prépare (`50` § 4-5) | Dès la validation |
 | 3 | **Page Facebook** + groupes locaux (Ruffec, Nord-Charente, commerçants et artisans) | Oui | Utilisateur crée ; Claude publie via Metricool | Validation |
 | 4 | **Instagram** professionnel (lié à la page Facebook) | Oui | Idem | Validation |
-| 5 | **LinkedIn** (profil + page entreprise) | Oui | Utilisateur ; publication à la main (Metricool gratuit exclut LinkedIn) | Validation |
+| 5 | ~~**LinkedIn**~~ : **abandonné le 10/10** (décision de l'utilisateur) | — | — | — |
 | 6 | **Presse locale** : communiqué « nouvelle entreprise » | Oui (article d'information) | Claude rédige ; utilisateur envoie | Semaine de la validation |
 | 7 | **Mairie de Ruffec** (bulletin municipal, site) et **communauté de communes Val de Charente** | Oui | Claude rédige le message | Semaine de la validation |
 | 8 | **Annuaires gratuits** : Annuaire des Entreprises (automatique), PagesJaunes (fiche de base), Apple Business Connect, Bing Places, 118712 | Apple et Bing : gratuits d'après Apple et Microsoft (recherche du 08/10) ; PagesJaunes : **[gratuité à vérifier sur pagesjaunes.fr]** | Utilisateur crée (identité) ; Claude rédige les textes | Après la fiche Google (Bing peut l'importer) |
