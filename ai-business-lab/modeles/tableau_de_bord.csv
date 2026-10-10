@@ -1,0 +1,4 @@
+projet,niche,plateforme,contenu_id,date,format,hook,duree,vues,impressions,retention_3s,ctr,abonnements,commentaires,clics_sortants,conversions,revenu,cout,temps_production_min,revenu_estime_par_contenu,statut,decision
+A4,<profession>,beehiiv,NUM-001,2026-09-28,numero_veille,"Ce qui change au 1er janvier",0,0,0,0,0,0,0,0,0,0,0,90,0,TEST,
+B2,<profession>,site,FICHE-001,2026-09-29,fiche_comparateur,"Logiciel X : prix reel et limites",0,0,0,0,0,0,0,0,0,0,0,60,0,TEST,
+D1,<profession>,tiktok,VID-001,2026-09-29,video_courte,"L'erreur que 80% font sur ce point",52,0,0,0,0,0,0,0,0,0,0,25,0,TEST,

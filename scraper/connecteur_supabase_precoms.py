@@ -171,8 +171,9 @@ def marquer_diffusion_terminee(supabase_url: str, service_role_key: str, precomm
         )
         r.raise_for_status()
     except requests.RequestException as e:
-        log.warning("Marquage de la diffusion %s comme terminée échoué pour la précommande %s (%s) -- retentée au prochain cycle",
-                    canal, precommande_id, e)
+        # Ni l'exception ni les paramètres de la requête dans le journal (CodeQL : la clé pourrait y figurer).
+        log.warning("Marquage de la diffusion %s comme terminée échoué (%s) -- retenté au prochain cycle",
+                    "push" if canal == "push" else "email", type(e).__name__)
 
 
 def _lister_tous_utilisateurs(supabase_url: str, service_role_key: str) -> list[str]:

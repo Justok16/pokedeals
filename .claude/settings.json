@@ -1,0 +1,94 @@
+{
+  "enabledPlugins": {
+    "small-business@knowledge-work-plugins": true,
+    "superpowers@superpowers-marketplace": true
+  },
+  "extraKnownMarketplaces": {
+    "knowledge-work-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/knowledge-work-plugins"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    }
+  },
+  "permissions": {
+    "allow": [
+      "mcp__Canva",
+      "mcp__Canva__*",
+      "mcp__Google_Drive",
+      "mcp__Google_Drive__*",
+      "mcp__Vercel",
+      "mcp__Vercel__*",
+      "mcp__Gmail",
+      "mcp__Gmail__*",
+      "mcp__github",
+      "mcp__OpenRush",
+      "mcp__Resend"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(git rebase*)",
+      "Bash(git filter-branch*)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~*)",
+      "Bash(pkill -f*)",
+      "Bash(pgrep -f*)",
+      "Bash(sudo *)",
+      "Bash(chmod 777*)",
+      "Bash(chmod -R 777*)",
+      "Bash(ssh *)",
+      "Bash(dd *of=/dev/*)"
+    ]
+  },
+  "env": {
+    "MCP_TIMEOUT": "120000"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secrets_avant_commit.sh",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/python_syntaxe.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v detect-secrets-hook >/dev/null 2>&1 || pip install -q detect-secrets==1.5.0 2>&1 | tail -n 3 || true",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "sh",
+      "args": ["ai-business-lab/chasse-demande/outils/mcp-playwright.sh"]
+    }
+  }
+}

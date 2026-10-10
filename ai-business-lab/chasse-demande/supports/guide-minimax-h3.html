@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1a1814">
+<title>Vidéos IA avec son sur ton PC — guide DIG16</title>
+<style>
+@page{size:A4;margin:14mm 14mm 16mm}
+:root{--encre:#1a1814;--doux:#655e54;--ligne:#e0d8cb;--acc:#7a5a2c;--fond:#f6f2ea;--alerte:#7a5a2c;--vert:#166534}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--encre);background:#fff}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.55rem;line-height:1.25;margin:0 0 .3rem;text-wrap:balance}
+.sous{color:var(--doux);margin:0 0 1rem}
+h2{font-size:1.1rem;margin:1.3rem 0 .5rem;color:var(--acc);text-wrap:balance}
+ol,ul{padding-left:1.3rem;margin:.4rem 0}
+li{margin:.35rem 0}
+.carte{border:1px solid var(--ligne);border-radius:12px;padding:12px 14px;background:var(--fond);margin:.6rem 0;break-inside:avoid}
+.carte p{margin:.3rem 0}
+.ok{border-color:#bbf7d0;background:#f0fdf4}
+.ok b{color:var(--vert)}
+.alerte{border-color:#e3d3b6;background:#f6f0e4}
+.alerte b{color:var(--alerte)}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#e0d8cb;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.pied{color:var(--doux);font-size:12.5px;margin-top:1.2rem;border-top:1px solid var(--ligne);padding-top:.6rem;overflow-wrap:anywhere}
+@media print{body{font-size:14px;line-height:1.45}h2{margin:.9rem 0 .35rem}li{margin:.2rem 0}.carte{padding:9px 12px}}
+h2{break-after:avoid;page-break-after:avoid}.bloc{break-inside:avoid;page-break-inside:avoid}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet"><style id="charte-dig16">
+body{font-family:Geist,Arial,sans-serif}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif}
+h1,h2,h3,.logo{font-weight:400!important}
+h1,h2{letter-spacing:-.008em}
+.k,h2 small,.qui,th,.etiquette{font-family:'Geist Mono',monospace!important;font-weight:400!important}
+.degrade{color:#d9bb8a!important}
+img.signature-dig16{display:block;height:13mm;width:auto;align-self:flex-start}
+</style></head>
+<body><main>
+<h1>Des vidéos IA avec son, gratuites, sur ton PC</h1>
+<p class="sous">Avec MiniMax H3 (modèle de vidéo à poids publiés) et Wan2GP (logiciel gratuit), installés en quelques clics grâce à Pinokio (logiciel libre, licence MIT).</p>
+
+<div class="carte ok">
+<p><b>Ton PC est compatible.</b> Test du 01/10/2026 : NVIDIA GeForce RTX 4060 pour ordinateur portable (8 Go de mémoire graphique) et 16 Go de mémoire vive. Wan2GP annonce fonctionner dès 6 Go de mémoire graphique.</p>
+<p>À savoir : avec 8 Go, ce sera <b>lent</b> (des utilisateurs parlent de 10 à 15 minutes par clip sur 6 Go, à confirmer chez toi) et la qualité sera un peu réduite. Et 16 Go de mémoire vive, c’est le minimum : ferme les autres programmes pendant la création.</p>
+</div>
+
+<div class="bloc"><h2>Avant d’installer : essaie gratuitement en ligne</h2>
+<p>Pour voir le résultat sans rien installer, ouvre la page de démonstration gratuite <b>huggingface.co/spaces/multimodalart/minimax-h3</b> (file d’attente possible). Si le rendu te plaît, installe-le sur ton PC pour en faire autant que tu veux.</p></div>
+
+<div class="bloc"><h2>Étape 1 — Préparer le PC (10 minutes)</h2>
+<ol>
+<li><b>Branche l’ordinateur sur le secteur</b> (sur batterie, la carte graphique ralentit).</li>
+<li>Libère <b>au moins 60 Go</b> sur le disque : le modèle et ses compléments pèsent une cinquantaine de Go.</li>
+<li>Mets à jour le pilote de la carte : ouvre l’application <b>NVIDIA App</b> (ou GeForce Experience) (ou va sur <b>nvidia.com/fr-fr/drivers</b>), puis « Pilotes » et « Télécharger ».</li>
+</ol></div>
+
+<div class="bloc"><h2>Étape 2 — Installer Pinokio (5 minutes)</h2>
+<ol>
+<li>Va sur <b>pinokio.co</b> (seule adresse officielle) et télécharge la version <b>Windows</b>.</li>
+<li>Ouvre le fichier téléchargé et suis l’installation. Si Windows affiche un avertissement, vérifie que le fichier vient bien de pinokio.co avant de continuer.</li>
+<li>Au premier lancement, garde les réglages proposés.</li>
+</ol></div>
+
+<div class="bloc"><h2>Étape 3 — Installer Wan2GP dans Pinokio (30 à 60 minutes, surtout du téléchargement)</h2>
+<ol>
+<li>Dans Pinokio, ouvre <b>Discover</b> et cherche <b>wan2gp</b>.</li>
+<li>Choisis le script communautaire <b>« wan2gp » de Morpheus</b> : c’est celui que recommande le créateur de Wan2GP lui-même.</li>
+<li>Clique sur <b>Download</b>, puis <b>Install</b>, et laisse faire jusqu’au bout.</li>
+<li>Clique sur <b>Start</b>, puis sur le bouton qui ouvre l’interface (<b>Open Web UI</b>).</li>
+</ol></div>
+
+<div class="bloc"><h2>Étape 4 — Créer ta première vidéo</h2>
+<ol>
+<li>Dans la liste des modèles, choisis <b>MiniMax H3</b> (le premier lancement télécharge le modèle : compte du temps).</li>
+<li>Dans les réglages, choisis le <b>profil prévu pour peu de mémoire</b> : Wan2GP en propose plusieurs et l’interface les décrit.</li>
+<li>Commence <b>court</b> : 4 à 5 secondes, résolution par défaut. Allonge ensuite si le PC suit.</li>
+<li>Décris la scène simplement : qui, où, ce qui se passe, l’ambiance et les sons voulus.</li>
+</ol></div>
+
+<div class="carte alerte">
+<p><b>Les règles à respecter</b> (licence MiniMax H3 lue le 01/10/2026, et droit à l’image)</p>
+<ol>
+<li>Usage commercial <b>permis</b> (jusqu’à 20 millions de dollars de chiffre d’affaires par an).</li>
+<li>Chaque vidéo produite doit porter une <b>mention indiquant qu’elle est générée par IA</b>. Un produit ou service commercial qui l’utilise doit afficher « MiniMax H3 ».</li>
+<li>Interdit d’utiliser les vidéos pour entraîner une autre IA. Pas de visage de vraie personne sans son accord.</li>
+<li>N’installe que depuis <b>pinokio.co</b> et le dépôt officiel de Wan2GP (github.com/deepbeepmeep/Wan2GP), comme le demande son créateur.</li>
+</ol>
+</div>
+
+<div class="bloc"><h2>À quoi ça peut servir pour DIG16</h2>
+<ul>
+<li>Une courte vidéo de présentation de DIG16 pour les réseaux sociaux, sans frais.</li>
+<li>Des petites animations d’ambiance pour les sites de démonstration des artisans, avec la mention « vidéo générée par IA ».</li>
+</ul></div>
+
+<p class="pied">Vérifié le 01/10/2026 aux sources : Wan2GP (github.com/deepbeepmeep/Wan2GP : « as little as 6 GB of VRAM », cartes NVIDIA GTX 10XX et plus récentes ou AMD RDNA 2 et plus, script Pinokio « wan2gp » de Morpheus recommandé) ; MiniMax H3 (huggingface.co/MiniMaxAI/MiniMax-H3 : poids publiés, 33 milliards de paramètres, vidéos de 4 à 15 secondes avec son, licence « MiniMax H3 Community License ») ; tailles des fichiers du modèle pour Wan2GP (huggingface.co/DeepBeepMeep/MiniMax-H3) ; Pinokio (github.com/pinokiocomputer/pinokio : licence MIT, version 8.2.0 du 02/09/2026). Temps de création : retours d’utilisateurs, non garantis.</p>
+</main></body>
+</html>

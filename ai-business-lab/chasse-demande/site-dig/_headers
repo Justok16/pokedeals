@@ -1,0 +1,16 @@
+# En-têtes de sécurité (Cloudflare Pages), ajoutés le 28/09/2026 après l'audit « vibe-security ».
+# Scripts et styles : uniquement ceux de la page (en ligne) ; polices : Google Fonts.
+# 09/10/2026 : mesure d'audience Cloudflare Web Analytics autorisée (sans cookie) et « no-transform » retiré :
+# Cloudflare peut enfin compresser les pages (Lighthouse : page d'accueil non compressée, environ 70 Ko de trop).
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formsubmit.co https://cloudflareinsights.com; media-src 'self' blob:; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Cache-Control: public, max-age=0, must-revalidate
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+# Maquettes privées chiffrées (04/10/2026) : jamais indexées, aucune adresse d'origine transmise.
+/m/*
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer

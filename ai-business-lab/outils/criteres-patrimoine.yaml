@@ -1,0 +1,87 @@
+# GRILLE "PATRIMOINE" — ajoutee le 21/09/2026.
+#
+# Elle repond a une consigne explicite de l'utilisateur : "devenir riche etait
+# LA seule vraie volonte". Ce n'est pas la meme fonction objectif que les deux
+# autres grilles, et il faut le dire clairement :
+#
+#   criteres.yaml            -> meilleur rapport potentiel / risque / effort
+#   criteres-max-revenu.yaml -> revenu maximal et marche solide
+#   criteres-patrimoine.yaml -> VALEUR DE L'ACTIF A LA REVENTE
+#
+# Le patrimoine ne vient pas d'un revenu, meme confortable. Il vient d'un actif
+# qui prend de la valeur INDEPENDAMMENT du temps qu'on y passe, et qui trouve un
+# acheteur. D'ou les poids ci-dessous.
+#
+# CE QUE CETTE GRILLE ACCEPTE EN ECHANGE, et qui doit etre assume :
+#   - une probabilite d'echec PLUS ELEVEE qu'avec la grille de reference ;
+#   - un delai plus long avant le premier euro ;
+#   - un effort de production plus lourd.
+# Elle n'optimise pas l'esperance de gain. Elle optimise le PLAFOND.
+
+criteres:
+  revente_actif:
+    poids: 5.0
+    sens: >-
+      LE critere de cette grille. 5 = actif revendable a un acheteur
+      identifiable, a un multiple eleve. Un logiciel B2B se revend 3 a 5 fois
+      son revenu ANNUEL ; un site de contenu, 30 a 45 fois son revenu MENSUEL.
+      A revenu egal, l'ecart de valeur est d'un facteur proche de 10.
+  revenu_recurrent:
+    poids: 4.0
+    sens: "5 = abonnement. C'est ce qui rend un actif valorisable ; le revenu ponctuel ne se valorise presque pas"
+  avantage_defendable:
+    poids: 4.0
+    sens: "5 = un acheteur paie pour ce qu'il ne peut pas reconstruire lui-meme"
+  international:
+    poids: 4.0
+    sens: >-
+      5 = duplicable en anglais sans refaire le produit. Le marche francophone
+      seul plafonne l'actif ; la queue de distribution est anglophone.
+  produit_numerique:
+    poids: 3.0
+    sens: "5 = il existe un produit, pas seulement une audience"
+  valeur_commerciale:
+    poids: 3.0
+    sens: "5 = panier eleve, clients qui paient par abonnement"
+  automatisation:
+    poids: 3.0
+    sens: "5 = tourne sans l'operateur. Un actif qui exige sa presence ne se vend pas cher"
+  independance_plateforme:
+    poids: 2.5
+    sens: "5 = survit a la fermeture d'un robinet. Un acheteur decote lourdement la dependance"
+  durabilite:
+    poids: 2.5
+    sens: "5 = demande structurelle. Personne n'achete une fenetre qui se referme"
+  croissance_demande:
+    poids: 2.0
+    sens: "5 = marche en croissance : un acheteur paie le futur, pas le present"
+  potentiel_audience:
+    poids: 1.5
+    sens: "Compte peu : une petite audience qui paie vaut mieux qu'une grande qui ne paie pas"
+  tenue_dans_la_duree:
+    poids: 1.5
+    sens: "Compte, mais moins : sur un horizon de 3 a 5 ans, l'abandon reste le premier risque"
+  concurrence_faible:
+    poids: 1.5
+    sens: "Compte peu : un marche sans concurrent est souvent un marche sans argent"
+  risque_juridique_faible:
+    poids: 1.0
+    sens: "Compte peu ici : le risque juridique se gere, il ne plafonne pas la valeur"
+  facilite_production:
+    poids: 0.5
+    sens: "NEUTRALISE. Si l'objectif est le plafond, la difficulte n'est plus un critere de choix"
+  cout_faible:
+    poids: 0.5
+    sens: "NEUTRALISE. Le budget nul est une contrainte de depart, pas un objectif"
+  vitesse_validation:
+    poids: 0.5
+    sens: "NEUTRALISE. On accepte de savoir plus tard si l'on s'est trompe"
+  affiliation:
+    poids: 1.5
+    sens: >-
+      DELIBEREMENT BAS, et c'est un des enseignements de cette grille.
+      L'affiliation est une excellente source de REVENU et un mauvais actif
+      PATRIMONIAL : elle depend d'un programme tiers qui peut changer ses taux
+      ou fermer, elle ne cree aucune relation contractuelle avec le client
+      final, et un acheteur la decote lourdement pour cette raison. Elle finance
+      la phase 1 ; elle ne construit pas le patrimoine.

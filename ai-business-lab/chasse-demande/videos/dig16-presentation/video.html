@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@500&display=block" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0f0e0c}
+body{font-family:Geist,sans-serif;color:#efe9df;position:relative}
+.fond{position:absolute;inset:0;background:radial-gradient(900px 700px at 85% 10%,rgba(200,164,110,.16),transparent 70%),radial-gradient(1000px 800px at 0% 95%,rgba(120,98,66,.14),transparent 70%),#0f0e0c}
+.scene{position:absolute;inset:0;opacity:0}
+.logo{position:absolute;left:72px;top:72px;display:flex;align-items:center;gap:18px;z-index:5}
+.logo i{font-style:normal;width:74px;height:74px;border-radius:18px;display:grid;place-items:center;font-family:'Instrument Serif';font-weight:400;font-size:50px;color:#c8a46e;border:2px solid rgba(200,164,110,.6);padding-top:4px}
+.logo b{font-family:Geist;font-size:34px;font-weight:600;letter-spacing:.2em;display:block;line-height:1}
+.logo small{font-size:22px;color:#a8a093;letter-spacing:.06em}
+.sur{font-family:'Geist Mono';font-size:28px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#c8a46e}
+h1,h2{font-family:'Instrument Serif';font-weight:400;line-height:1;letter-spacing:-.015em}
+.mot{display:inline-block;opacity:0}
+.tel{position:absolute;width:560px;height:1180px;border-radius:72px;background:#05070f;padding:20px;box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 2px rgba(239,233,223,.16)}
+.ecran{width:100%;height:100%;border-radius:54px;overflow:hidden;position:relative;background:#fff}
+.ecran img{width:100%;display:block}
+/* scène A */
+.recherche{position:absolute;left:36px;right:36px;top:90px;height:96px;border-radius:48px;background:#f1f3f4;display:flex;align-items:center;gap:20px;padding:0 30px;font-size:29px;color:#202124;white-space:nowrap}
+.recherche svg{width:40px;height:40px;stroke:#5f6368;fill:none;stroke-width:2.4}
+.curseur{display:inline-block;width:3px;height:40px;background:#1a73e8;margin-left:2px;vertical-align:middle}
+.resultat{position:absolute;left:44px;right:44px;height:150px;border-radius:24px;background:#f6f7f8;opacity:0}
+.resultat::before{content:"";position:absolute;left:28px;top:30px;width:58%;height:26px;border-radius:13px;background:#c7cbe0}
+.resultat::after{content:"";position:absolute;left:28px;top:78px;width:82%;height:20px;border-radius:10px;background:#e1e3ea;box-shadow:0 34px 0 #e1e3ea}
+/* vieux site */
+.vieux{width:1000px;transform:scale(.52);transform-origin:0 0;font-family:"Times New Roman",Times,serif;color:#000;background:#d9d9d9}
+.vieux header{background:#003399;color:#ffff66;padding:30px 24px;font-size:44px;font-weight:bold;text-align:center;border-bottom:6px ridge #c0c0c0}
+.vieux .menu{display:flex;gap:16px;background:#c0c0c0;padding:10px 24px;font-size:22px}
+.vieux .menu a{color:#0000ee;text-decoration:underline}
+.vieux .corps{display:grid;grid-template-columns:260px 1fr;gap:20px;padding:20px 24px;background:#fff;min-height:2200px}
+.vieux aside{background:#eee;border:2px inset #999;padding:14px;font-size:20px}
+.vieux h4{font-size:30px;color:#990000;margin-bottom:12px}
+.vieux p{font-size:22px;line-height:1.35;margin-bottom:14px}
+.vieux .boite{border:3px double #003399;padding:14px;margin:20px 0;background:#ffffcc;font-size:22px}
+.vieux .compteur{font-family:"Courier New",monospace;background:#000;color:#0f0;padding:6px 10px;display:inline-block;font-size:22px}
+.appel{position:absolute;left:50%;top:1500px;transform:translateX(-50%);display:flex;align-items:center;gap:24px;background:#1b1915;border:2px solid rgba(255,255,255,.14);border-radius:28px;padding:30px 44px;font-size:40px;font-weight:600;opacity:0;white-space:nowrap}
+.appel svg{width:52px;height:52px;fill:none;stroke:#c8a46e;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* scène C */
+.chip{display:inline-flex;align-items:center;gap:14px;background:rgba(239,233,223,.06);border:2px solid rgba(200,164,110,.35);border-radius:999px;padding:18px 34px;font-size:36px;font-weight:600;opacity:0}
+.chip svg{width:38px;height:38px;fill:none;stroke:#c8a46e;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.btn-appel{position:absolute;left:50%;top:1640px;transform:translateX(-50%);background:#c8a46e;color:#14110d;border-radius:999px;padding:32px 64px;font-size:42px;font-weight:700;display:flex;gap:18px;align-items:center;opacity:0;box-shadow:0 0 0 0 rgba(255,122,47,.6)}
+.btn-appel svg{width:46px;height:46px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+/* scène D */
+.stat{position:absolute;left:96px;right:96px;border-top:3px solid rgba(255,255,255,.14);padding-top:36px;opacity:0}
+.stat b{font-family:'Instrument Serif';font-size:230px;font-weight:400;line-height:1;color:#fff;display:block}
+.stat b em{font-style:italic;color:#c8a46e}
+.stat span{font-size:48px;color:#a8a093;font-weight:400}
+/* scène E */
+.scan{position:absolute;left:-10px;right:-10px;height:5px;background:#c8a46e;box-shadow:0 0 30px #c8a46e;opacity:0}
+/* scène F */
+.fin-logo{position:absolute;left:0;right:0;top:560px;text-align:center;opacity:0}
+.fin-logo i{font-style:normal;width:200px;height:200px;border-radius:44px;display:grid;place-items:center;margin:0 auto 50px;font-family:'Instrument Serif';font-weight:400;font-size:140px;color:#c8a46e;border:3px solid rgba(200,164,110,.65);padding-top:10px;box-shadow:0 30px 90px rgba(200,164,110,.18)}
+.fin-logo b{font-family:Geist;font-size:96px;font-weight:600;letter-spacing:.22em;display:block;line-height:1;padding-left:.22em}
+.fin-logo small{display:block;font-size:40px;color:#a8a093;margin-top:26px;letter-spacing:.08em}
+.url{position:absolute;left:50%;top:1420px;transform:translateX(-50%);background:#c8a46e;color:#14110d;border-radius:999px;padding:34px 84px;font-size:58px;font-weight:600;letter-spacing:.02em;opacity:0;white-space:nowrap}
+.credit{position:absolute;left:0;right:0;bottom:56px;text-align:center;font-size:22px;color:#7d756a;opacity:0}
+</style></head>
+<body>
+<div class="fond"></div>
+<div class="logo" id="logo"><img src="embleme-or@6x.png" alt="" style="width:92px;height:92px;display:block"><img src="signature-ivoire@6x.png" alt="DIG16" style="height:88px;display:block"></div>
+
+<!-- A : la recherche -->
+<div class="scene" id="A">
+ <h1 style="position:absolute;left:96px;right:96px;top:250px;font-size:104px" id="A1"><span class="mot">Vos</span> <span class="mot">clients</span> <span class="mot">vous</span> <span class="mot">cherchent</span> <span class="mot">sur</span> <span class="mot">leur</span> <span class="mot">téléphone.</span></h1>
+ <h2 id="A2" style="position:absolute;left:96px;top:600px;font-size:118px;font-style:italic;color:#c8a46e;opacity:0">Ils vous trouvent ?</h2>
+ <div class="tel" id="Atel" style="left:260px;top:840px"><div class="ecran">
+  <div class="recherche"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span id="saisie"></span><span class="curseur" id="cur"></span></div>
+  <div class="resultat" id="r1" style="top:230px"></div><div class="resultat" id="r2" style="top:410px"></div><div class="resultat" id="r3" style="top:590px"></div><div class="resultat" id="r4" style="top:770px"></div>
+ </div></div>
+</div>
+
+<!-- B : avant -->
+<div class="scene" id="B">
+ <div class="sur" style="position:absolute;left:96px;top:250px">Avant</div>
+ <h1 style="position:absolute;left:96px;right:80px;top:310px;font-size:100px"><span id="B1" style="opacity:0;display:block">Un site daté…</span><span id="B2" style="opacity:0;display:block">ou pas de site du tout.</span></h1>
+ <div class="tel" id="Btel" style="left:260px;top:620px"><div class="ecran" style="background:#d9d9d9"><div class="vieux" aria-hidden="true">
+  <header>Bienvenue sur le site de VOTRE ENTREPRISE</header>
+  <div class="menu"><a>Accueil</a><a>Qui sommes-nous</a><a>Nos prestations</a><a>Plan d'accès</a><a>Contact</a></div>
+  <div class="corps"><aside><h4>Infos</h4><p>Ouvert du lundi au vendredi.</p><p>Devis sur demande par téléphone ou par fax.</p><span class="compteur">004521</span><p>visiteurs</p></aside>
+  <div><h4>Notre entreprise</h4><p>Bienvenue sur notre site internet ! Notre entreprise est à votre service depuis de nombreuses années pour tous vos travaux.</p><div class="boite">NOUVEAU : découvrez nos prestations dans la rubrique « Nos prestations ».</div><p>Site optimisé pour un écran de 1024 × 768. Dernière mise à jour : mars 2014.</p></div></div>
+ </div></div></div>
+ <div class="appel" id="Bappel"><svg viewBox="0 0 24 24"><path d="M6.6 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.1 6.1l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/></svg>…et ils appellent quelqu'un d'autre.</div>
+</div>
+
+<!-- C : après -->
+<div class="scene" id="C">
+ <div class="sur" style="position:absolute;left:96px;top:250px">Avec DIG16.fr</div>
+ <h1 id="C1" style="position:absolute;left:96px;right:80px;top:310px;font-size:100px;opacity:0">Des sites modernes et rapides</h1>
+ <p id="C2" style="position:absolute;left:96px;right:96px;top:540px;font-size:46px;line-height:1.25;color:#a8a093;opacity:0">pour les artisans et commerçants<br>de Charente</p>
+ <div id="eventail" style="position:absolute;left:0;right:0;top:680px;height:900px">
+  <div class="tel" id="t1" style="width:400px;height:845px;border-radius:52px;padding:14px;left:70px;top:70px"><div class="ecran" style="border-radius:40px"><img src="vitrine-essentiel-tel.webp" alt=""></div></div>
+  <div class="tel" id="t3" style="width:400px;height:845px;border-radius:52px;padding:14px;left:610px;top:70px"><div class="ecran" style="border-radius:40px"><img src="vitrine-paysagiste-tel.webp" alt=""></div></div>
+  <div class="tel" id="t2" style="width:440px;height:930px;border-radius:56px;padding:15px;left:320px;top:0"><div class="ecran" style="border-radius:42px"><img src="vitrine-prestige-tel.webp" alt=""></div></div>
+ </div>
+ <div style="position:absolute;left:0;right:0;top:1640px;display:flex;justify-content:center;gap:26px" id="chips">
+  <span class="chip" id="ch1"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Faciles à lire</span>
+  <span class="chip" id="ch2"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Faciles à appeler</span>
+ </div>
+</div>
+
+<!-- D : les chiffres -->
+<div class="scene" id="D">
+ <div class="sur" style="position:absolute;left:96px;top:250px">Concrètement</div>
+ <div class="stat" id="s1" style="top:360px"><b id="n1">0 <em>€</em></b><span>de création</span></div>
+ <div class="stat" id="s2" style="top:860px"><b><span id="n2" style="font:inherit;color:inherit">7</span> <em>jours</em></b><span>pour être en ligne</span></div>
+ <div class="stat" id="s3" style="top:1360px"><b><span id="n3" style="font:inherit;color:inherit">100</span> <em>%</em></b><span>le site est à votre nom</span></div>
+</div>
+
+<!-- E : la démo offerte -->
+<div class="scene" id="E">
+ <div class="sur" style="position:absolute;left:96px;top:250px">Avant de décider</div>
+ <h1 id="E1" style="position:absolute;left:96px;right:80px;top:310px;font-size:100px;opacity:0">Votre page d'accueil, <span style="color:#c8a46e;font-style:italic">refaite gratuitement.</span></h1>
+ <div class="tel" style="left:260px;top:640px"><div class="ecran" style="background:#d9d9d9">
+  <div class="vieux" aria-hidden="true"><header>Bienvenue sur le site de VOTRE ENTREPRISE</header><div class="menu"><a>Accueil</a><a>Qui sommes-nous</a><a>Nos prestations</a><a>Plan d'accès</a><a>Contact</a></div><div class="corps"><aside><h4>Infos</h4><p>Ouvert du lundi au vendredi.</p><p>Devis sur demande par téléphone ou par fax.</p><span class="compteur">004521</span><p>visiteurs</p></aside><div><h4>Notre entreprise</h4><p>Bienvenue sur notre site internet ! Notre entreprise est à votre service depuis de nombreuses années pour tous vos travaux.</p><div class="boite">NOUVEAU : découvrez nos prestations dans la rubrique « Nos prestations ».</div></div></div></div>
+  <div id="Enouveau" style="position:absolute;inset:0;clip-path:inset(100% 0 0 0)"><img src="vitrine-essentiel-tel.webp" alt="" style="width:100%"></div>
+  <div class="scan" id="Escan"></div>
+ </div></div>
+</div>
+
+<!-- F : fin -->
+<div class="scene" id="F">
+ <div class="fin-logo" id="Flogo"><img src="embleme-or@6x.png" alt="" style="width:250px;height:250px;display:block;margin:0 auto 46px"><img src="signature-ivoire@6x.png" alt="DIG16, sites internet, Charente" style="height:220px;display:block;margin:0 auto"></div>
+ <p id="F1" style="position:absolute;left:0;right:0;top:1200px;text-align:center;font-family:'Instrument Serif';font-size:104px;font-weight:400;font-style:italic;opacity:0">Vous jugez sur pièce.</p>
+ <div class="url" id="Furl">dig16.fr</div>
+ <div class="credit" id="Fcredit">Voix de synthèse · musique originale DIG16</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const cl=x=>Math.max(0,Math.min(1,x));
+const ease=x=>{x=cl(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const out=x=>{x=cl(x);return 1-Math.pow(1-x,3)};
+const p=(t,a,b)=>out((t-a)/(b-a));
+function scene(el,t,a,b,f=.45){ // fondu entrée/sortie
+  const o=Math.min(p(t,a,a+f),1-p(t,b-f,b));el.style.opacity=o;return o}
+function up(el,v,d=60){el.style.opacity=v;el.style.transform=`translateY(${(1-v)*d}px)`}
+const requete='menuisier près de chez moi';
+window.seek=function(t){
+  // A 0 → 5.3
+  scene($('A'),t,0,5.3,.35);
+  document.querySelectorAll('#A1 .mot').forEach((m,i)=>up(m,p(t,.6+i*.27,1.2+i*.27),40));
+  up($('A2'),p(t,3.45,4.0),50);
+  $('Atel').style.transform=`translateY(${(1-p(t,0,1.1))*260}px)`;
+  const n=Math.floor(cl((t-.9)/1.8)*requete.length);$('saisie').textContent=requete.slice(0,n);
+  $('cur').style.opacity=(Math.floor(t*2.2)%2)?1:.15;
+  ['r1','r2','r3','r4'].forEach((r,i)=>up($(r),p(t,2.8+i*.18,3.3+i*.18),30));
+  // B 5.3 → 10.4
+  scene($('B'),t,5.3,10.9);
+  up($('B1'),p(t,5.6,6.1));up($('B2'),p(t,7.0,7.5));
+  $('Btel').style.transform=`translateY(${(1-p(t,5.3,6.3))*200}px) rotate(${-3+3*p(t,5.3,6.6)}deg)`;
+  const g=p(t,8.4,9.2);$('Btel').style.filter=`grayscale(${g}) brightness(${1-.45*g})`;
+  up($('Bappel'),p(t,8.5,9.1),40);$('Bappel').style.transform+=' translateX(-50%)';
+  // C 10.4 → 19.3
+  scene($('C'),t,10.9,19.3);
+  up($('C1'),p(t,11.1,11.7));up($('C2'),p(t,12.9,13.5),30);
+  const e=p(t,11.1,12.5),dr=Math.sin((t-10.9)*.6)*8;
+  $('t1').style.transform=`translate(${(1-e)*-300}px,${(1-e)*200+dr}px) rotate(${-9*e}deg)`;$('t1').style.opacity=e;
+  $('t3').style.transform=`translate(${(1-e)*300}px,${(1-e)*200-dr}px) rotate(${9*e}deg)`;$('t3').style.opacity=e;
+  $('t2').style.transform=`translateY(${(1-p(t,11.3,12.5))*400+dr*.5}px)`;$('t2').style.opacity=p(t,11.3,12.1);
+  up($('ch1'),p(t,15.9,16.4),30);up($('ch2'),p(t,16.9,17.4),30);
+  // D 19.3 → 25.9
+  scene($('D'),t,19.3,25.9);
+  up($('s1'),p(t,19.6,20.2));up($('s2'),p(t,21.3,21.9));up($('s3'),p(t,23.0,23.6));
+  $('n2').textContent=Math.max(1,Math.round(7*p(t,21.3,22.3)));
+  $('n3').textContent=Math.round(100*p(t,23.0,24.2));
+  // E 25.9 → 31.1
+  scene($('E'),t,25.9,31.1);
+  up($('E1'),p(t,26.1,26.7));
+  const w=ease((t-27.2)/2.2);$('Enouveau').style.clipPath=`inset(${(1-w)*100}% 0 0 0)`;
+  $('Escan').style.top=`${(1-w)*100}%`;$('Escan').style.opacity=(w>0&&w<1)?1:0;
+  // F 31.1 → 38
+  scene($('F'),t,31.1,40);
+  const lg=p(t,31.2,32.2);$('Flogo').style.opacity=lg;$('Flogo').style.transform=`scale(${.86+.14*lg})`;
+  up($('F1'),p(t,31.6,32.2),40);
+  const u=p(t,34.2,34.8);$('Furl').style.opacity=u;$('Furl').style.transform=`translateX(-50%) scale(${.9+.1*u})`;
+  $('Fcredit').style.opacity=p(t,34.6,35.4)*.9;
+  $('logo').style.opacity=1-p(t,30.6,31.2);
+};
+window.seek(0);
+</script>
+</body></html>

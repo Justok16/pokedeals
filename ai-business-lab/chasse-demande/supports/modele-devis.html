@@ -1,0 +1,72 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>DIG16 — Devis et bon de commande</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet"><style>
+:root{--nuit:#0f0e0c;--ivoire:#efe9df;--doux:#a8a093;--or:#c8a46e;--or-clair:#d9bb8a;
+--texte:#1a1814;--gris:#655e54;--trait:#e0d8cb;--fond-doux:#f6f2ea;--bronze:#7a5a2c}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Geist,Arial,sans-serif;color:var(--texte);font-feature-settings:"ss01"}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.005em;color:var(--texte)}
+h1 em,h2 em{color:var(--bronze)}
+b,strong{font-weight:600}
+a{color:var(--bronze)}
+.k,.etiquette{font-family:'Geist Mono',monospace;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+.couv,.cover{position:relative}
+.signature{display:block;height:12.5mm}
+.embleme{display:block;width:13mm;height:13mm}
+
+.couv{background:#0f0e0c;color:#efe9df;border-radius:3mm;padding:5.5mm 8mm 5.6mm;margin-bottom:4.5mm;
+ background-image:radial-gradient(90mm 50mm at 100% 0,rgba(200,164,110,.16),rgba(200,164,110,0) 70%);
+ box-shadow:inset 0 0 0 .25mm rgba(200,164,110,.35)}
+.couv .ligne-haut{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3mm}
+.couv .k{color:#c8a46e;font-size:7pt;display:flex;align-items:center;gap:2.4mm}
+.couv .k::before{content:"";width:7mm;height:.3mm;background:#c8a46e}
+.couv h1{color:#efe9df;font-size:23pt;line-height:1;margin:1.8mm 0 1.4mm}
+.couv h1 em{color:#d9bb8a}
+.couv p{color:#a8a093;margin:.5mm 0}
+@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}
+body{font-size:9.2pt;line-height:1.48;margin:0}
+h2{font-size:13pt;line-height:1.1;margin:4.2mm 0 1mm;break-after:avoid}
+p,li{margin:.8mm 0}ul{padding-left:5mm;margin:1mm 0}
+table{width:100%;border-collapse:collapse;margin:2.4mm 0;font-size:8.9pt}
+th,td{border-bottom:.25mm solid var(--trait);padding:1.8mm 2mm;text-align:left;vertical-align:top}
+th{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);border-bottom:.35mm solid var(--or);background:none}
+td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:.35mm solid var(--texte)}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin:2mm 0}
+.cadre{background:var(--fond-doux);border:.25mm solid var(--trait);border-radius:2.5mm;padding:3mm 4mm}
+.cadre>b:first-child{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.8pt;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze)}
+.champ{border-bottom:.25mm solid #b9b0a2;height:6mm;margin:1mm 0}.petit{color:var(--gris);font-size:8pt}
+.sign{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:4mm}.sign div{border:.25mm solid var(--trait);border-radius:2.5mm;height:26mm;padding:2mm 3mm;font-size:8.2pt;color:var(--gris)}
+.cgv{columns:2;column-gap:7mm;column-rule:.25mm solid var(--trait);font-size:8.15pt;line-height:1.37}.cgv h2{font-size:11pt;margin:2.2mm 0 .4mm}.cgv p{margin:.5mm 0;text-align:justify;hyphens:auto}</style></head><body><div class="couv"><div class="ligne-haut"><img class="signature" src="../site-dig/img/marque/signature-ivoire@6x.png" alt="DIG16, sites internet"><img class="embleme" src="../site-dig/img/marque/embleme-or@6x.png" alt=""></div><div class="k">Création et suivi de sites internet</div><h1>Devis et bon de commande</h1><p>N° [AAAA-NNN] · Date : [jj/mm/aaaa] · Valable 30 jours</p></div>
+<div class="deux"><div class="cadre"><b>Prestataire</b><br>[Prénom Nom] EI — « DIG16 »<br>[Adresse]<br>SIREN [numéro à l’immatriculation]<br>contact@dig16.fr<br>TVA non applicable, art. 293 B du CGI</div>
+<div class="cadre"><b>Client</b><div class="champ"></div><div class="champ"></div><span class="petit">Nom de l’entreprise, adresse, SIREN</span></div></div>
+<table><tr><th>Formule (cocher)</th><th>Contenu</th><th>Prix</th></tr>
+<tr><td>☐ Essentiel</td><td>Site 5 pages sur mesure, hébergement, sécurité, mentions légales, 1 modification par mois, rapport mensuel</td><td class="n">49 €/mois</td></tr>
+<tr><td>☐ Visibilité</td><td>Essentiel + fiche Google suivie, demandes d’avis, 3 modifications par mois</td><td class="n">79 €/mois</td></tr>
+<tr><td>☐ Prestige</td><td>Site haut de gamme, voir le détail joint</td><td class="n">1 990 € ou 199 €/mois</td></tr>
+<tr><td>☐ Achat</td><td>Site 5 pages livré, à vous pour toujours ; ☐ hébergement et suivi en option</td><td class="n">690 € · option 15 €/mois</td></tr>
+<tr><td>☐ 12 mois d’avance</td><td>Un mois offert : ☐ Essentiel 539 € · ☐ Visibilité 869 €</td><td class="n">une fois</td></tr></table>
+<p><b>Création offerte</b> sur les formules mensuelles. Mise en ligne 7 jours après réception et validation de vos contenus (3 semaines pour Prestige), jamais avant le 8e jour suivant la signature ; le premier mois est réglé avant la mise en ligne, au plus tôt ce 8e jour. Nom de domaine au nom du client, à sa charge (environ 10 € par an).</p>
+<p><b>Engagement</b> : 6 mois minimum (12 mois pour Prestige en mensuel et pour 12 mois d’avance), puis sans engagement. <b>14 jours pour changer d’avis</b> après la signature ; aucun paiement avant 8 jours.</p>
+<p><b>Paiement</b> : prélèvement automatique mensuel, ou à réception de facture pour un paiement en une fois. Escompte pour paiement anticipé : néant. En cas de retard de paiement, des pénalités sont dues de plein droit, sans rappel préalable, au taux appliqué par la Banque centrale européenne à son opération de refinancement la plus récente, majoré de 10 points, ainsi qu’une indemnité forfaitaire pour frais de recouvrement de 40 € par facture.</p>
+<p class="petit">Signer ce devis vaut commande et acceptation des conditions générales de vente jointes.</p>
+<div class="sign"><div>Date, signature et cachet du client<br>précédés de « Bon pour accord »</div><div>Pour DIG16<br>(date et signature)</div></div>
+<div style="break-before:page"></div>
+<h2>Informations concernant l’exercice du droit de rétractation</h2>
+<p><b>Droit de rétractation.</b> Vous avez le droit de vous rétracter du présent contrat sans donner de motif dans un délai de quatorze jours. Le délai de rétractation expire quatorze jours après le jour de la conclusion du contrat.</p>
+<p>Pour exercer le droit de rétractation, vous devez nous notifier ([Prénom Nom] EI — « DIG16 », [Adresse], [téléphone], contact@dig16.fr) votre décision de rétractation du présent contrat au moyen d’une déclaration dénuée d’ambiguïté (par exemple, lettre envoyée par la poste ou courrier électronique). Vous pouvez utiliser le modèle de formulaire de rétractation ci-dessous mais ce n’est pas obligatoire.</p>
+<p>Pour que le délai de rétractation soit respecté, il suffit que vous transmettiez votre communication relative à l’exercice du droit de rétractation avant l’expiration du délai de rétractation.</p>
+<p><b>Effets de rétractation.</b> En cas de rétractation de votre part du présent contrat, nous vous rembourserons tous les paiements reçus de vous sans retard excessif et, en tout état de cause, au plus tard quatorze jours à compter du jour où nous sommes informés de votre décision de rétractation du présent contrat. Nous procéderons au remboursement en utilisant le même moyen de paiement que celui que vous aurez utilisé pour la transaction initiale, sauf si vous convenez expressément d’un moyen différent ; en tout état de cause, ce remboursement n’occasionnera pas de frais pour vous.</p>
+<p>Si vous avez demandé de commencer la prestation de services pendant le délai de rétractation, vous devrez nous payer un montant proportionnel à ce qui vous a été fourni jusqu’au moment où vous nous avez informé de votre rétractation du présent contrat, par rapport à l’ensemble des prestations prévues par le contrat.</p>
+<p>☐ Je demande que la prestation commence avant la fin du délai de rétractation (aucun paiement n’est demandé avant 8 jours).</p>
+<p class="petit">Texte repris de l’annexe à l’article R221-3 du code de la consommation. Ce droit s’applique aux contrats signés hors des locaux de DIG16 avec une entreprise de cinq salariés au plus (article L221-3) ; DIG16 l’applique à tous ses clients.</p>
+<div class="cadre" style="margin-top:5mm;border-style:dashed">
+<h2 style="margin-top:1mm">Modèle de formulaire de rétractation</h2>
+<p>(Veuillez compléter et renvoyer le présent formulaire uniquement si vous souhaitez vous rétracter du contrat.)</p>
+<p>À l’attention de [Prénom Nom] EI — « DIG16 », [Adresse], contact@dig16.fr :</p>
+<p>Je/nous (*) vous notifie/notifions (*) par la présente ma/notre (*) rétractation du contrat portant sur la prestation de services ci-dessous :</p>
+<div class="champ"></div>
+<p>Commandé le :</p><div class="champ"></div>
+<p>Nom du (des) client(s) :</p><div class="champ"></div>
+<p>Adresse du (des) client(s) :</p><div class="champ"></div>
+<p>Signature du (des) client(s) (uniquement en cas de notification du présent formulaire sur papier) :</p><div class="champ" style="height:12mm"></div>
+<p>Date :</p><div class="champ"></div>
+<p class="petit">(*) Rayez la mention inutile.</p></div></body></html>

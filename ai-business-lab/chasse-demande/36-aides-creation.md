@@ -1,0 +1,154 @@
+# Aides à la création d'entreprise — financières et en nature (vérifié le 25/09/2026)
+
+Demande de l'utilisateur : tout creuser et **tout maîtriser** avant une
+éventuelle création. L'éligibilité dépend de son profil personnel, qui n'est
+**jamais** écrit ici (dépôt public) : elle est vérifiée avec lui au moment d'agir.
+
+> **Correction (leçon Kitwise)** : un résumé de recherche annonçait 6 300 €
+> pour l'aide Agefiph. Ce chiffre date d'un article d'**août 2022**. La fiche
+> officielle de **janvier 2026** indique **3 000 €**. Toujours lire la fiche
+> officielle datée, jamais un résumé.
+
+## 1. Agefiph — aide à la création (subvention)
+
+Source : [fiche officielle janvier 2026 (PDF)](https://www.agefiph.fr/sites/default/files/medias/fichiers/2026-01/Agefiph-Aide-creation-reprise_2026-01.pdf),
+[page Agefiph](https://www.agefiph.fr/aides-financieres/aide-la-creation-ou-la-reprise-dune-entreprise).
+
+- **Montant : 3 000 €**, forfaitaire, non renouvelable, cumulable avec les
+  aides de droit commun et les autres aides Agefiph.
+- **Bénéficiaires** : personnes bénéficiaires de l'obligation d'emploi
+  (RQTH, pension d'invalidité, AAH…) — justificatif demandé.
+- **Objectif** : « créer son emploi principal et pérenne ».
+  **[à vérifier avec l'Agefiph : compatibilité avec une activité réduite]**
+- **Conditions à respecter** :
+  1. accompagnement par un **expert habilité** Agefiph ou Région **avant
+     l'immatriculation** ;
+  2. demande déposée **avant l'immatriculation** (ou dans les 6 mois après,
+     si l'avis favorable de viabilité a été obtenu avant) — **ne pas créer
+     l'entreprise avant d'avoir lancé ce parcours** ;
+  3. projet d'au moins **7 500 €**, financé par un **apport personnel
+     effectif de 1 200 €** (extrait de compte exigé), l'aide de 3 000 € et
+     d'autres cofinancements (ex. prêt d'honneur) ;
+  4. plan de financement équilibré, devis ou factures de moins de 6 mois ;
+  5. détenir la majorité des parts (automatique en entreprise individuelle).
+- **Exclus** : activité saisonnière, associations, SCI, sociétés de fait.
+- ⚠️ L'apport de 1 200 € est une dépense de l'utilisateur : décision à lui
+  soumettre ; il est incompatible avec la règle « budget 0 € » actuelle.
+
+## 2. Agefiph — conseil et accompagnement (en nature, gratuit)
+
+Source : [Agefiph](https://www.agefiph.fr/aides-handicap/conseil-et-accompagnement-la-creation-ou-la-reprise-dentreprise).
+
+- **Gratuit** : accompagnement par un expert de la création d'entreprise
+  (c'est lui qui rend l'avis de viabilité exigé pour la subvention).
+- Inclut une **micro-assurance** (responsabilité civile professionnelle,
+  accident du travail et maladie professionnelle, santé).
+- Accès : **via le conseiller France Travail, Cap emploi ou Mission locale**,
+  qui oriente vers l'expert partenaire de l'Agefiph.
+
+## 3. Acre — cotisations réduites la première année
+
+Sources : [Urssaf](https://www.urssaf.fr/accueil/actualites/acre-nouvelles-regles-demarches.html),
+[Service-Public](https://entreprendre.service-public.fr/vosdroits/F11677).
+
+- 25 % d'exonération si les revenus sont ≤ 36 045 € (dégressive jusqu'à 48 060 €).
+- **Depuis le 01/01/2026**, publics restreints : demandeurs d'emploi non
+  indemnisés inscrits 6 mois sur 18 ; bénéficiaires de l'ASS ou du RSA ;
+  18-25 ans ; handicapés de moins de 30 ans ; titulaires d'un **contrat
+  Cape** ; création en quartier prioritaire (QPV) ; repreneurs d'entreprise
+  en difficulté.
+- Micro-entreprise : l'exonération « **passe de 50 à 25 %** pour les
+  micro-entreprises créées ou reprises **à compter du 1er juillet 2026** »
+  ([Service Public A18795, publié le 11/02/2026, lu le 02/10/2026](https://entreprendre.service-public.gouv.fr/actualites/A18795)).
+- Demande à l'Urssaf **dans les 60 jours** suivant le début d'activité.
+- Voies possibles à étudier : contrat Cape (§ 4), QPV selon l'adresse de
+  l'entreprise, inscription à France Travail **[à vérifier : effets de
+  l'inscription sur les aides perçues]**.
+
+## 3 bis. Allocation chômage (ARE) et création — la date compte
+
+Source : [France Travail, « Je crée, je reprends une entreprise »](https://www.francetravail.fr/candidat/mes-droits-aux-aides-et-allocati/a-chaque-situation-son-allocatio/quelle-est-ma-situation-professi/je-reprends-une-activite-ou-une/je-cree-je-reprends-une-entrepri.html)
+(modifiée le 18/09/2025, lue le 02/10/2026). Règle générale, à vérifier pour
+chaque situation avec le conseiller **avant** d'immatriculer :
+
+- **Création après la fin du contrat**, avec l'ARE : choisir soit l'**ARCE**
+  (versée en deux fois), soit le **cumul** chaque mois : « Montant de votre ARE
+  mensuelle – 70 % de vos rémunérations », dans la limite de « 60 % de vos
+  droits restants » (fins de contrat depuis le 01/04/2025).
+- ARCE : « ne créez pas votre entreprise AVANT de vous inscrire ».
+- **Activité déjà exercée avant la fin du contrat** (« activité conservée ») :
+  cumul de « l'intégralité des rémunérations […] avec votre allocation ARE »,
+  mais pas d'ARCE.
+- Repéré grâce au guide deviensdev.fr/freelance (02/10/2026) ; chiffres relus
+  sur la page officielle ci-dessus.
+
+## 4. Couveuse d'entreprises et contrat Cape (en nature)
+
+Source : [Bpifrance Création](https://bpifrance-creation.fr/encyclopedie/differentes-facons-dentreprendre/entreprendre-autrement/cape),
+[Légifrance L5142-1 et suivants](https://www.legifrance.gouv.fr/codes/id/LEGISCTA000006178137).
+
+- **Tester l'activité avant de créer** : la couveuse héberge juridiquement
+  l'activité (factures émises sous son numéro), avec accompagnement.
+- Contrat d'un an, renouvelable deux fois ; ouvert à tous sauf les salariés
+  à temps complet.
+- **Le Cape ne crée pas de nouveau statut social** : on conserve son statut
+  et ses droits aux aides sociales.
+- Ouvre droit à l'**Acre** à la création.
+- **[à vérifier : sort des sommes facturées pendant le Cape dans les
+  déclarations de ressources ; frais éventuels de la couveuse]**
+
+## 5. Prêts d'honneur à 0 % (vérifié sur les pages officielles, 25/09/2026)
+
+**a) Prêt d'honneur Initiative France** —
+[page officielle](https://www.initiative-france.fr/nos-solutions/financement-le-pret-d-honneur.html)
+- « montant compris entre 3 000 et 50 000 € », moyenne 10 000 € ; « taux 0 » ;
+  « sans garantie demandée » ; prêt **personnel** au créateur.
+- Durée et différé : non précisés sur cette page (dépendent de l'association locale).
+
+**b) Prêt d'honneur Création-Reprise (Bpifrance, distribué par Initiative
+France et Réseau Entreprendre)** —
+[Bpifrance Création, publié en août 2026](https://bpifrance-creation.fr/encyclopedie/financements/financement-fonds-propres/pret-dhonneur-creation-reprise)
+- « entre 1 000 et 80 000 euros » ; « taux zéro » ; « entre 1 et 7 ans avec un
+  différé d'amortissement modulable entre 0 et 24 mois ».
+- Conditions : accompagnement par un opérateur ; les prêts d'honneur ne
+  peuvent dépasser **1/3** du total des financements ;
+  **« Assurance décès et PTIA exigée »** **[à vérifier : conditions
+  d'assurabilité selon la situation de santé]**.
+
+C'est un **prêt** (à rembourser) : décision de l'utilisateur.
+
+## 6. Adie — microcrédit (vérifié sur la page officielle, 25/09/2026)
+
+[Page officielle Adie](https://www.adie.org/pour-creer-ou-developper-mon-entreprise/)
+- « de 300 € à 15 000 € », « jusqu'à 48 mois ».
+- **Ce n'est PAS un prêt à 0 %** : « à partir de 8,4 % (taux fixe au 6 juillet 2026) ».
+- Un proche doit se porter garant pour « 50 % du montant emprunté ».
+- Accompagnement gratuit avant, pendant et après le lancement.
+- (Plafond légal du microcrédit professionnel : 17 000 € depuis le
+  01/01/2025 — [Bpifrance Création](https://bpifrance-creation.fr/encyclopedie/financements/lemprunt/microcredit-professionnel).)
+
+## 7. Effets sur les aides sociales — le point le plus important
+
+Toute création peut modifier les aides sociales perçues : effet à **simuler
+avant la création** auprès des organismes concernés (CPAM au 36 46, CAF).
+Le détail propre à la situation de l'utilisateur est dans un document
+**privé** (dossier « Dig » de son Google Drive), jamais dans ce dépôt public.
+
+## 8. Reste à explorer
+
+- Aides de la **région** et du **département** de l'utilisateur (à lui
+  demander le moment venu ; ne pas l'écrire ici).
+- Réseau Entreprendre et France Active (prêts d'honneur, garanties).
+- Offres gratuites pour créateurs : banque en ligne sans frais, logiciels
+  de facturation, crédits cloud.
+
+## Ordre des démarches (si création un jour)
+
+L'ordre détaillé, qui dépend de la situation de l'utilisateur, est dans le
+document privé du dossier « Dig » (Google Drive). Principe général :
+1. Faire simuler l'effet de la création sur les aides perçues (CPAM, CAF).
+2. Rencontrer le conseiller France Travail (ou l'organisme compétent) pour
+   l'accompagnement gratuit et les aides possibles.
+3. Étudier la couveuse et le contrat Cape (tester sans créer).
+4. Déposer les demandes d'aides **avant** l'immatriculation quand elles l'exigent.
+5. Immatriculer (section 2 bis du kit), puis demander l'Acre sous 60 jours si éligible.

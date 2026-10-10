@@ -1,0 +1,1450 @@
+<!doctype html><html lang=fr><head><meta charset=utf-8><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet"><style>
+:root{--nuit:#0f0e0c;--ivoire:#efe9df;--doux:#a8a093;--or:#c8a46e;--or-clair:#d9bb8a;
+--texte:#1a1814;--gris:#655e54;--trait:#e0d8cb;--fond-doux:#f6f2ea;--bronze:#7a5a2c}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Geist,Arial,sans-serif;color:var(--texte);font-feature-settings:"ss01"}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.005em;color:var(--texte)}
+h1 em,h2 em{color:var(--bronze)}
+b,strong{font-weight:600}
+a{color:var(--bronze)}
+.k,.etiquette{font-family:'Geist Mono',monospace;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+.couv,.cover{position:relative}
+.signature{display:block;height:12.5mm}
+.embleme{display:block;width:13mm;height:13mm}
+
+@page{size:A4;margin:16mm 15mm 17mm}
+body{font-size:9.4pt;line-height:1.5}
+h1{font-size:24pt;line-height:1.05;margin:0 0 4mm;padding-bottom:3mm;border-bottom:.35mm solid var(--or)}
+h2{font-size:16pt;line-height:1.1;margin:7mm 0 2mm;break-after:avoid} h3{font-size:12.5pt;margin:5mm 0 1.5mm;break-after:avoid}
+table{border-collapse:collapse;width:100%;margin:2.5mm 0;font-size:8.2pt}
+th{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.6pt;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);text-align:left;padding:1.6mm 2mm;border-bottom:.35mm solid var(--or)}
+td{border-bottom:.25mm solid var(--trait);padding:1.5mm 2mm;vertical-align:top}
+tr,img{page-break-inside:avoid}
+blockquote{border-left:.6mm solid var(--or);margin:2mm 0;padding:1mm 4mm;background:var(--fond-doux)}
+code{font-family:'Geist Mono',monospace;font-size:.92em;background:var(--fond-doux);padding:0 1mm;border-radius:1mm;word-break:break-all}
+a{word-break:break-all} del{color:#8c8478}
+hr{border:0;border-top:.25mm solid var(--trait);margin:5mm 0}
+section{page-break-before:always}
+.cover{box-sizing:border-box;height:258mm;background:var(--nuit);color:var(--ivoire);border-radius:3mm;padding:16mm 15mm;display:flex;flex-direction:column;justify-content:space-between;
+ background-image:radial-gradient(140mm 110mm at 100% 0,rgba(200,164,110,.17),rgba(200,164,110,0) 70%);box-shadow:inset 0 0 0 .3mm rgba(200,164,110,.35)}
+.cover .signature{height:17mm;width:auto;align-self:flex-start}
+.cover .k{color:var(--or);font-size:7.4pt;display:flex;align-items:center;gap:3mm}
+.cover .k::before{content:"";width:9mm;height:.3mm;background:var(--or)}
+.cover h1{color:var(--ivoire);font-size:44pt;line-height:.98;border:0;margin:4mm 0 5mm;padding:0}
+.cover h1 em{color:var(--or-clair)}
+.cover p{color:var(--doux);margin:1mm 0}
+.cover ol{margin:6mm 0 0;padding:0;list-style:none;counter-reset:n;border-top:.25mm solid rgba(239,233,223,.14)}
+.cover li{counter-increment:n;padding:2.2mm 0;border-bottom:.25mm solid rgba(239,233,223,.14);font-family:'Instrument Serif',serif;font-size:14pt;color:var(--ivoire)}
+.cover li::before{content:counter(n,decimal-leading-zero);font-family:'Geist Mono',monospace;font-size:7pt;color:var(--or);margin-right:5mm;vertical-align:2pt}
+.cover .note{font-size:7.6pt;color:#8c8478}
+</style></head><body><div class="cover"><img class="signature" src="../site-dig/img/marque/signature-ivoire@6x.png" alt="DIG16, sites internet"><div><div class="k">Sites internet pour artisans, commerçants et indépendants</div><h1>Plan <em>complet</em></h1><p>Version du 08/10/2026, régénérée depuis les fichiers du dossier.</p><ol><li>Business plan</li><li>Cadre légal</li><li>Questionnaire et textes d'appel</li><li>Flyer et prompts</li><li>Aides à la création</li></ol></div><p class="note">Les listes de prospects et toute donnée personnelle sont dans des documents privés séparés.</p></div><section><h1>Business plan « DIG16 — sites pour professionnels » (25-26/09/2026)</h1>
+<p>Demande de l'utilisateur (25/09) : un plan complet et moderne pour démarcher,
+convertir, satisfaire, facturer et suivre des clients professionnels, en
+visant d'abord les clients SoLocal. Règles : sources sûres uniquement, chaque
+chiffre daté et sourcé ; <strong>[à vérifier]</strong> quand ce n'est pas le cas.</p>
+<p>Complète <code>38-piste-sites-artisans.md</code> (faits et lignes rouges).</p>
+<hr />
+<h2>1. En une phrase</h2>
+<p>Refaire, pour les professionnels (tous métiers), un site <strong>plus beau, plus
+rapide, qui leur appartient</strong>, avec un <strong>abonnement court et sans piège</strong>,
+en montrant <strong>la démo de leur propre site avant même le premier contact</strong>.</p>
+<hr />
+<h2>2. Le marché (chiffres vérifiés)</h2>
+<h3>2.1 SoLocal, l'acteur installé</h3>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Chiffre</th>
+<th>Source (lue le 25/09/2026)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chiffre d'affaires T1 2026</td>
+<td>74,0 M€, −10,7 %</td>
+<td><a href="https://www.webdisclosure.com/press-release/solocal-epa-local-solocal-activite-du-premier-trimestre-2026-83zA0L2gofd">communiqué SoLocal</a></td>
+</tr>
+<tr>
+<td>Offre site « Initiale »</td>
+<td>« à partir de 64 € /mois »</td>
+<td><a href="https://www.solocal.com/solutions-pour-tpme/solution-site-internet/offres-et-tarifs">solocal.com, offres site internet</a></td>
+</tr>
+<tr>
+<td>Offre site « Confort »</td>
+<td>« à partir de 114 € /mois »</td>
+<td>idem</td>
+</tr>
+<tr>
+<td>Offre site « Performance »</td>
+<td>« à partir de 209 € /mois »</td>
+<td>idem</td>
+</tr>
+<tr>
+<td>MyConnect (présence)</td>
+<td>« à partir de 49 € /mois », « tarif pour un engagement de 48 mois […] paiement comptant »</td>
+<td><a href="https://www.solocal.com/solutions-pour-tpme/solutions-pour-tpme/solution-connect/offres-et-tarifs">solocal.com, MyConnect</a></td>
+</tr>
+<tr>
+<td>Résiliation (CGAS MyConnect, juin 2026)</td>
+<td>« préavis de DEUX (2) mois avant la date de reconduction automatique », porté à « QUATRE (4) mois » pour les clients à conditions de paiement particulières ; lettre recommandée ou formulaire Solocal Manager</td>
+<td><a href="https://www.solocal.com/sites/default/storage/files/2026-06/CGAS%20Solocal%20Gamme%20MyConnect%20Gestion%20Finance%20Juin%202026.pdf">CGAS juin 2026 (PDF)</a></td>
+</tr>
+<tr>
+<td>Sort du site à la fin du contrat</td>
+<td>Non précisé dans ces CGAS. Selon plusieurs agences : CMS propriétaire, site non récupérable. <strong>[à vérifier dans les CGV « site internet »]</strong></td>
+<td>Refonte Up, WebSentinel (sources concurrentes, non neutres)</td>
+</tr>
+<tr>
+<td>Outil technique</td>
+<td>Sites <code>*.site-solocal.com</code> servis par l'outil <strong>Duda</strong> (ressources <code>cdn-website.com</code> présentes dans le code des pages)</td>
+<td>Constaté le 25/09 sur les pages publiques</td>
+</tr>
+</tbody>
+</table>
+<p>Correction : le « 29 € HT/mois » de <code>38</code> venait de guides tiers ; le tarif
+officiel affiché est <strong>64 € /mois minimum</strong> (HT non précisé sur la page).</p>
+<h3>2.2 Combien de sites SoLocal publics ?</h3>
+<p>Voir section 2.4 (comptage du 25-26/09). Méthode : index publics Common
+Crawl (2018-2026) et Wayback Machine, via le relais Vercel ; puis visite de
+chaque page d'accueil en respectant robots.txt.</p>
+<h3>2.3 Prix de la concurrence (sources lues le 25/09/2026)</h3>
+<table>
+<thead>
+<tr>
+<th>Acteur</th>
+<th>Offre</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WebTensor</td>
+<td>99 € HT/mois, sans engagement, sans frais de création ; propriété rachetable 399 €</td>
+<td><a href="https://webtensor.fr/creation-site-web-artisan">webtensor.fr</a></td>
+</tr>
+<tr>
+<td>Artisites</td>
+<td>29 / 59 / 129 €/mois + création 290 € HT (au lieu de 890 €)</td>
+<td><a href="https://www.barometredesprix.fr/tech-et-web/prix-dun-site-internet-pour-artisan/">Baromètre des prix, 15/07/2026</a></td>
+</tr>
+<tr>
+<td>Freelance artisans</td>
+<td>390 à 1 500 € de création, 96 à 240 €/an ensuite</td>
+<td><a href="https://sk-web.fr/article/cout-creation-site-web-artisan-2026">SK Web, 07/09/2026</a></td>
+</tr>
+<tr>
+<td>Agence web</td>
+<td>3 000 à 20 000 € + 600 à 3 000 €/an</td>
+<td>idem</td>
+</tr>
+<tr>
+<td>Refonte Up</td>
+<td>490 € HT/mois pendant 6 mois, puis 0 € ; site à vous</td>
+<td><a href="https://refonte-up.fr/alternative-solocal/">refonte-up.fr</a></td>
+</tr>
+<tr>
+<td>Wix / Squarespace (fait soi-même)</td>
+<td>200 à 430 €/an</td>
+<td><a href="https://sk-web.fr/article/cout-creation-site-web-artisan-2026">SK Web</a></td>
+</tr>
+<tr>
+<td>Artizo (Charente)</td>
+<td>4,90 €/mois sans engagement, ou « Formule Autonome 199 € une fois » ; domaine .fr offert</td>
+<td><a href="https://artizo.fr">artizo.fr</a> (lu le 04/10/2026)</td>
+</tr>
+</tbody>
+</table>
+<p>Revérifié le 04/10/2026 sur les pages officielles : SoLocal 64 / 114 / 209 €/mois (inchangé), WebTensor 99 € HT/mois (inchangé).</p>
+<p><strong>Bonnes idées reprises de la concurrence :</strong>
+1. « <strong>Votre site vous appartient</strong> » : code, contenu et nom de domaine au
+   nom du client (Refonte Up, WebSentinel).
+2. <strong>Aide à la résiliation</strong> : calcul de la date limite de préavis,
+   courrier type ; construire le nouveau site <strong>avant</strong> la fin de l'ancien,
+   pour ne jamais être invisible (Refonte Up).
+3. <strong>Rapport mensuel simple</strong> : nombre de demandes de devis et d'appels,
+   pas seulement des visites (Refonte Up).
+4. Fiche Google (Google Business Profile) et comptes <strong>au nom du client</strong>.
+5. <strong>Sans frais de création</strong>, mais avec une période minimale courte.</p>
+<p><strong>Ce que personne ne fait (notre différence)</strong> : la <strong>démo personnalisée
+avant le contact</strong> (le prospect voit <em>son</em> site refait), et un prix
+<strong>sans TVA</strong> en franchise (voir 6.2).</p>
+<hr />
+<h2>3. L'offre DIG16</h2>
+<h3>3.1 Promesse (règle des « 3 P »)</h3>
+<ul>
+<li><strong>Problème</strong> : site daté, lent, qui ne vous appartient pas, contrat long.</li>
+<li><strong>Personne</strong> : professionnel indépendant ou TPE (artisan, santé, commerce,
+  services) qui a déjà un site loué.</li>
+<li><strong>Promesse</strong> : « Votre nouveau site en 7 jours, à vous pour toujours,
+  sans engagement long. »</li>
+</ul>
+<h3>3.2 bis — Décisions du 28/09/2026 (après 4 audits externes, <code>48</code>)</h3>
+<ul>
+<li><strong>Offre publique réduite à 3 formules : Essentiel 49 €/mois, Visibilité 79 €/mois, Prestige</strong>
+  (1 990 € ou 199 €/mois). Présence (29 €) et Achat (690 €) retirés du site et des supports.</li>
+<li><strong>04/10 (décision de l'utilisateur)</strong> : <strong>Achat rétabli</strong> (690 € une fois, hébergement et suivi 15 €/mois
+  en option) et <strong>12 mois payés d'avance avec 1 mois offert</strong> (Essentiel 539 €, Visibilité 869 €). Même règle
+  d'encaissement : rien avant J+8 après une signature hors établissement (voir <code>40</code>).</li>
+<li><strong>Premier mois réglé avant la mise en ligne</strong> (jamais avant J+8 après une signature hors
+  établissement, article L221-10, voir <code>40</code>).</li>
+<li><strong>Pas de « pages par commune »</strong> (risque de pages satellites, règles anti-spam de Google) ;
+  une page locale seulement pour un vrai chantier à montrer.</li>
+<li><strong>Micro-entreprise créée avant les premiers appels</strong> ; calcul préalable du revenu le plus
+  judicieux au regard de la situation personnelle (données privées, hors dépôt).</li>
+<li>Attention franchise de TVA : 37 500 € par an en services (Service Public F21746, vérifié le
+  01/01/2026) ; les scénarios à 60 et 100 clients ci-dessous la dépassent.</li>
+</ul>
+<h3>3.2 Formules (grille <strong>validée par l'utilisateur le 26/09/2026</strong>) — <em>remplacée en partie par 3.2 bis</em></h3>
+<table>
+<thead>
+<tr>
+<th>Formule</th>
+<th>Prix</th>
+<th>Pour qui</th>
+<th>Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><del>Présence</del> (retirée le 28/09)</td>
+<td><del>29 €/mois</del></td>
+<td>Petit budget, auto-entrepreneur</td>
+<td>Site d'une page, fiche Google créée, 1 modification tous les 3 mois</td>
+</tr>
+<tr>
+<td><strong>Essentiel</strong></td>
+<td><strong>49 €/mois</strong></td>
+<td>La plupart des artisans</td>
+<td>Site 5 pages sur mesure, hébergement, sécurité, mentions légales, 1 modification/mois, rapport mensuel</td>
+</tr>
+<tr>
+<td><strong>Visibilité</strong> ⭐</td>
+<td><strong>79 €/mois</strong></td>
+<td>Veut plus de clients</td>
+<td>Essentiel + fiche Google suivie, demandes d'avis, 3 modifications/mois (pages par commune retirées le 28/09)</td>
+</tr>
+<tr>
+<td><strong>Achat</strong> (retirée le 28/09, <strong>rétablie le 04/10</strong> par l'utilisateur)</td>
+<td><strong>690 € une fois</strong> + hébergement et suivi <strong>15 €/mois en option</strong></td>
+<td>Veut payer une seule fois</td>
+<td>Site 5 pages livré, à lui pour toujours ; fichiers remis sur demande</td>
+</tr>
+<tr>
+<td><strong>Prestige</strong></td>
+<td><strong>1 990 €</strong> une fois (+ suivi 29 €/mois facultatif) <strong>ou 199 €/mois</strong>, 0 € de création, 12 mois minimum (<strong>validé le 26/09</strong> ; suivi à 29 € et 12 mois : proposition à confirmer)</td>
+<td>Hyper premium : hôtels, restaurants, domaines, artisans d'art</td>
+<td>Voir 3.2 bis</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Paiement de 12 mois d'avance (décision de l'utilisateur du 04/10)</strong> : 1 mois offert, soit
+<strong>Essentiel 539 €</strong> (au lieu de 588 €) et <strong>Visibilité 869 €</strong> (au lieu de 948 €) ; engagement
+de 12 mois ; trésorerie encaissée d'avance.</p>
+<p>Conditions communes aux formules mensuelles : <strong>0 € de création</strong>, 6 mois
+minimum puis sans engagement ; site et nom de domaine au nom du client ;
+<strong>nom de domaine payé par le client</strong> (environ 10 €/an) ; pour la fiche
+Google, <strong>vérification faite par le client</strong> (exigence de Google).</p>
+<p>Prise de rendez-vous ou réservation en ligne <strong>incluse dans toutes les
+formules</strong> (décision du 26/09 : outil d'agenda gratuit, aucun coût pour DIG16) ;
+version anglaise <strong>+5 €/mois</strong>, incluse dans Prestige (décision du 26/09) ; « Départ sans coupure » (contrat en cours
+ailleurs) <strong>offerte</strong>. Lancement : <strong>1er mois offert aux 10 premiers
+clients</strong> contre un avis et un avant/après publiable.</p>
+<p>Pourquoi ces prix : Présence = prix d'entrée d'Artisites sans leurs 290 €
+de création ; Essentiel = 588 €/an contre 768 € pour l'offre SoLocal la moins
+chère et 1 188 € chez WebTensor ; Visibilité, mise en avant, reste sous
+WebTensor et SoLocal Confort. Prix nets sans TVA (franchise) : environ 20 %
+moins cher pour un client qui ne récupère pas la TVA.</p>
+<h3>3.2 bis Prestige (hyper premium, demande de l'utilisateur du 26/09)</h3>
+<p>Exigence : « un travail irréprochable » et « de l'hyper premium si besoin ».
+Ce que Claude sait livrer pour Prestige, avec des outils gratuits :
+- design sur mesure : typographies, animations au défilement, effets
+  « cinématiques », galerie plein écran, vidéo d'arrière-plan fournie par
+  le client ;
+- visuels générés avec Canva (décoratifs uniquement, jamais de fausses
+  réalisations) ; photos professionnelles du client mises en valeur ;
+- multilingue, réservation ou prise de rendez-vous, carte, menu, boutique
+  simple <strong>[paiement en ligne : frais Stripe]</strong> ;
+- rédaction soignée, référencement local complet, données structurées ;
+- note de performance et d'accessibilité mesurée avant livraison.
+Limite honnête : un shooting photo ou une vidéo professionnelle ne se fait
+pas avec Claude ; si le client le veut, un photographe local (payé par le
+client) est la bonne réponse.</p>
+<h3>3.3 Coûts de fabrication par client</h3>
+<ul>
+<li>Hébergement : <strong>Cloudflare Pages</strong>, gratuit (100 projets, 500
+  constructions/mois, 100 domaines par projet —
+  <a href="https://developers.cloudflare.com/pages/platform/limits/">limites officielles</a>).
+  Fichiers statiques : « Requests to static assets are free and unlimited »
+  (<a href="https://developers.cloudflare.com/workers/static-assets/billing-and-limitations/">Cloudflare, mis à jour le 23/04/2026, lu le 02/10/2026</a>).
+  Usage commercial : autorisé selon le forum Cloudflare
+  <strong>[à confirmer dans les conditions générales]</strong>.</li>
+<li><strong>Pas Vercel gratuit pour les clients</strong> : « Hobby teams are restricted to
+  non-commercial personal use only », y compris « Receiving payment to
+  create, update, or host the site »
+  (<a href="https://vercel.com/docs/limits/fair-use-guidelines">Vercel, mis à jour le 14/09/2026</a>).</li>
+<li>Nom de domaine : payé par le client, à son nom (quelques euros à
+  une quinzaine d'euros par an selon l'extension <strong>[prix exact à relever]</strong>).</li>
+<li>Paiement : prélèvement SEPA Stripe « 0,35 € » par prélèvement + Billing
+  « 0,7 % du volume traité » (<a href="https://stripe.com/fr/pricing">stripe.com/fr/pricing</a>),
+  soit environ <strong>0,90 €</strong> sur 79 €. Alternative GoCardless : « 1 % + 0,20 € »
+  plafonné à « 2 € » (<a href="https://gocardless.com/fr-fr/tarifs/">gocardless.com</a>).</li>
+<li>Fabrication : Claude (déjà payé), environ 1 à 2 h de relecture humaine.</li>
+</ul>
+<hr />
+<h2>4. Trouver les clients (démarchage légal)</h2>
+<h3>4.1 Règles (vérifiées)</h3>
+<ul>
+<li><strong>Email B2B</strong> : autorisé si en rapport avec l'activité du destinataire,
+  expéditeur identifiable, désinscription simple (<code>35-demarchage-cadre-legal.md</code>).</li>
+<li><strong>Téléphone B2B</strong> : base légale « l'intérêt légitime de l'organisme
+  lorsque l'objet de la sollicitation est en rapport avec la profession de
+  la personne démarchée » ; identité de l'appelant et refus simple
+  obligatoires (<a href="https://www.cnil.fr/fr/prospection-commerciale-par-telephone-hors-automate-dappel-quelles-sont-les-regles">CNIL, 10/06/2026</a>).
+  Le consentement préalable obligatoire depuis le 11/08/2026 concerne les
+  <strong>consommateurs</strong> (décret n° 2026-662), pas les professionnels.</li>
+<li><strong>Préalable indispensable</strong> : la micro-entreprise (identité, SIREN dans
+  chaque message). Aucune campagne sous le seul pseudonyme.</li>
+<li><strong>Aucune donnée interne SoLocal</strong> ; aucun dénigrement ; ne pas prétendre
+  être partenaire de SoLocal.</li>
+</ul>
+<h3>4.2 La machine à prospects (automatisée par Claude)</h3>
+<ol>
+<li><strong>Liste</strong> : adresses publiques <code>*.site-solocal.com</code> (section 2.4), mises
+   à jour chaque mois via les index publics.</li>
+<li><strong>Qualification</strong> automatique : site encore en ligne, métier, ville,
+   note de qualité (vitesse, affichage mobile, date du dernier contenu).</li>
+<li><strong>Démo personnalisée</strong> : Claude refait la page d'accueil à partir des
+   informations publiques du professionnel. Démo <strong>privée</strong> (lien non
+   référencé, « noindex »), montrée à lui seul, supprimée s'il refuse.
+   <strong>Hébergement (04/10/2026)</strong> : gratuit, sur le site de DIG16, sans nom de
+   domaine à acheter. Chaque démo est chiffrée (<code>outils/prospects/publier_maquettes.py</code>) :
+   le dépôt public ne contient ni nom ni contenu lisible ; seul le lien remis au
+   professionnel (<code>digsite.pages.dev/m/#…</code>) l'ouvre. Le vrai nom de domaine ne
+   s'achète qu'à la signature, au nom du client. Sur les fiches d'appel, un bouton
+   « 🖥️ Démo » signale une démo prête ; sans bouton, l'accroche la propose.</li>
+<li><strong>Premier contact</strong> (dans l'ordre d'efficacité) :
+   - <del>Courrier postal avec capture de la démo</del> : <strong>écarté par l'utilisateur
+     le 05/10/2026</strong> (coût d'un timbre par prospect) ;
+   - <strong>Email</strong> à l'adresse professionnelle publiée, court, avec le lien ;
+   - <strong>Appel</strong> 3 jours plus tard (cadre CNIL ci-dessus).</li>
+<li><strong>Relance</strong> unique à J+7, puis arrêt ; toute opposition est notée et
+   définitive.</li>
+<li><strong>Rythme de départ</strong> : 20 démos par semaine, suivi du taux de réponse
+   avant d'augmenter.</li>
+</ol>
+<h3>4.3 La « campagne exceptionnelle » à budget 0 €</h3>
+<ul>
+<li><strong>La démo est la publicité</strong> : chaque prospect voit son propre site
+  refait (Artizo prépare aussi des aperçus à partir d'informations publiques, relevé par l'audit du 05/10).</li>
+<li><strong>Vitrine DIG16</strong> : démo publique
+  (<a href="https://digsite.pages.dev/demos/menuisier/">digsite.pages.dev/demos/menuisier</a>,
+  entreprise fictive) et démo Prestige
+  (<a href="https://digsite.pages.dev/demos/prestige/">…/demos/prestige</a>), hébergées sur Cloudflare Pages.</li>
+<li><strong>Cas clients</strong> : avec l'accord écrit du client, avant/après publié.</li>
+<li><strong>Parrainage</strong> : 1 mois offert au client et au filleul.</li>
+<li><strong>Référencement</strong> : une page par vraie réalisation (cas client publié avec accord), jamais de
+  pages « [métier] à [ville] » en série (pages satellites interdites par Google, décision du 28/09).</li>
+</ul>
+<hr />
+<h2>5. Transformer et satisfaire</h2>
+<h3>5.1 Parcours client</h3>
+<ol>
+<li>Réponse du prospect → rendez-vous en visio ou téléphone de 15 min
+   (outil de prise de rendez-vous gratuit <strong>[à choisir]</strong>).</li>
+<li><strong>Devis</strong> clair d'une page + conditions générales DIG16 (à rédiger).</li>
+<li><strong>Signature électronique</strong> (DocuSeal, connecteur disponible) et
+   <strong>mandat de prélèvement</strong> SEPA en ligne.</li>
+<li><strong>Fabrication en 7 jours</strong> : textes, photos du client, validation.</li>
+<li><strong>Contrôles qualité</strong> avant mise en ligne : <strong>optimisé ordinateur ET
+   téléphone</strong> (exigence de l'utilisateur du 26/09 : tests en 1366 px et
+   390 px, aucun défilement horizontal, boutons d'appel au pouce),
+   vitesse, liens, mentions légales, formulaire, accessibilité (vidéo bBMp5tLxShQ).</li>
+<li><strong>Bascule</strong> du nom de domaine le jour J, sans coupure.</li>
+<li><strong>Suivi</strong> : rapport mensuel automatique (visites, appels, demandes de
+   devis), modification sous 3 jours ouvrés.</li>
+<li><strong>Point à 5 mois</strong> : bilan et proposition de la formule suivante.</li>
+</ol>
+<h3>5.1 bis Capacité et hébergement (décisions du 05/10/2026)</h3>
+<ul>
+<li><strong>15 clients actifs au maximum la première année</strong> (file d'attente ensuite), le temps de
+  mesurer la charge réelle : le premier site livré est <strong>chronométré</strong> de bout en bout.</li>
+<li><strong>Un compte Cloudflare gratuit au nom de chaque client</strong> (créé à la signature, accès remis
+  avec les fichiers) : un blocage du compte de DIG16 ne coupe aucun client, et « le site est à
+  vous » est vrai en pratique.</li>
+<li>Modifications sous <strong>3 jours ouvrés</strong> (et non 48 h).</li>
+</ul>
+<h3>5.2 Fidélisation</h3>
+<ul>
+<li>Engagement court = confiance ; le client reste parce qu'il est content.</li>
+<li>Demande d'avis Google après la mise en ligne (client satisfait).</li>
+<li>Petite amélioration offerte chaque trimestre (photo, page saisonnière).</li>
+</ul>
+<hr />
+<h2>6. Facturation, obligations et suivi</h2>
+<h3>6.1 Statut</h3>
+<p>Micro-entreprise, nom commercial « DIG16 » (validé), selon
+<code>31-kit-en-cas-de-oui.md</code> section 2 bis (création parfaite, fiscalité
+optimisée) et <code>36-aides-creation.md</code> (aides à demander <strong>avant</strong> la
+création ; détail propre à l'utilisateur dans le document privé du Drive).</p>
+<p>Activité probable : prestation intellectuelle (création de sites) → régime
+<strong>BNC, profession libérale non réglementée</strong> <strong>[à confirmer au guichet
+unique]</strong>. Cotisations 2026 : « 25,6 % » du chiffre d'affaires, « 27,8 % »
+avec versement libératoire
+(<a href="https://entreprendre.service-public.gouv.fr/vosdroits/F36232">service-public, vérifié le 01/01/2026</a>).
+Plafond du régime : « 83 600 € » HT
+(<a href="https://entreprendre.service-public.gouv.fr/vosdroits/F32353">service-public, vérifié le 21/02/2026</a>).</p>
+<h3>6.2 TVA</h3>
+<p>Franchise en base : factures sans TVA, mention « TVA non applicable,
+art. 293 B du CGI ». <strong>Seuil 2026 à vérifier au moment de la création.</strong></p>
+<h3>6.3 Facturation électronique (fiche officielle, mise à jour juin 2026)</h3>
+<ul>
+<li><strong>Dès le 1er septembre 2026</strong> : pouvoir <strong>recevoir</strong> des factures
+  électroniques, via une « plateforme agréée immatriculée par
+  l'administration fiscale ».</li>
+<li><strong>Au plus tard le 1er septembre 2027</strong> : <strong>émettre</strong> des factures
+  électroniques vers les professionnels via une plateforme agréée.
+  Nos clients étant des professionnels, <strong>tout le chiffre d'affaires est
+  concerné</strong>. (<a href="https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiche-3_tpe_a-partir-de-quand-mon-entreprise-doit-etre-prete.pdf">impots.gouv.fr, fiche 3</a>)</li>
+<li>À faire : choisir dans la <a href="https://www.impots.gouv.fr/je-consulte-la-liste-des-plateformes-agreees">liste officielle</a>
+  une plateforme agréée <strong>gratuite pour les micro-entreprises</strong>, qui fasse
+  aussi devis, factures récurrentes et livre des recettes <strong>[à comparer]</strong>.</li>
+</ul>
+<h3>6.4 Suivi automatisé (Claude)</h3>
+<ul>
+<li>Tableau de bord clients : échéances, prélèvements, impayés, modifications
+  demandées, date de fin des 6 mois.</li>
+<li>Déclarations de chiffre d'affaires URSSAF et autres déclarations
+  (calendrier en section 2 bis du kit) : rappel automatique.</li>
+<li>Relance d'impayé automatique à J+3, puis appel.</li>
+</ul>
+<hr />
+<h2>7. Chiffres prévisionnels (hypothèses, pas des promesses)</h2>
+<p>Hypothèses : prix moyen 65 €/mois (mélange Essentiel/Visibilité),
+cotisations 25,6 %, frais de paiement ~1 €/client/mois.</p>
+<table>
+<thead>
+<tr>
+<th>Clients actifs</th>
+<th>Chiffre d'affaires / mois</th>
+<th>Après cotisations et frais / mois</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>650 €</td>
+<td>≈ 474 €</td>
+</tr>
+<tr>
+<td>30</td>
+<td>1 950 €</td>
+<td>≈ 1 421 €</td>
+</tr>
+<tr>
+<td>60</td>
+<td>3 900 €</td>
+<td>≈ 2 842 €</td>
+</tr>
+<tr>
+<td>100</td>
+<td>6 500 €</td>
+<td>≈ 4 736 €</td>
+</tr>
+</tbody>
+</table>
+<p>Hypothèse de conversion à mesurer : 2 à 5 % des démos → client
+<strong>[non prouvée ; à mesurer sur les 100 premières démos]</strong>. Avec 20
+démos/semaine, cela donnerait 2 à 4 clients par mois.</p>
+<p>Impôt sur le revenu et effets sur les aides : <strong>à calculer dans le kit
+(section 2 bis), avant la création</strong> — le gain net réel en dépend.</p>
+<hr />
+<h2>8. Risques et parades</h2>
+<table>
+<thead>
+<tr>
+<th>Risque</th>
+<th>Parade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Réaction de SoLocal</td>
+<td>Sources publiques uniquement, aucun dénigrement, aucune donnée interne</td>
+</tr>
+<tr>
+<td>Taux de réponse faible</td>
+<td>Démo personnalisée + appel ; mesurer, puis ajuster le message</td>
+</tr>
+<tr>
+<td>Client mécontent</td>
+<td>Engagement court, modifications rapides, remboursement du 1er mois si insatisfait <strong>[à décider]</strong></td>
+</tr>
+<tr>
+<td>Hébergeur qui change ses règles</td>
+<td>Sites statiques, déplaçables en une heure</td>
+</tr>
+<tr>
+<td>Charge de travail</td>
+<td>Tout ce qui est répétitif est fait par Claude ; l'utilisateur garde les appels et la signature</td>
+</tr>
+<tr>
+<td>Effets sur les aides sociales</td>
+<td>Étude préalable (appel au 36 46, kit section 2 bis)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>9. Ce qu'il faudra que l'utilisateur ajoute (sans détour)</h2>
+<ol>
+<li><strong>La micro-entreprise</strong> : rien de commercial n'est possible sans elle.</li>
+<li><strong>Un numéro de téléphone professionnel</strong> séparé (les pros rappellent).</li>
+<li><strong>Un nom de domaine « DIG16 »</strong> et une adresse email à ce nom (crédibilité).</li>
+<li><strong>Des créneaux d'appel</strong> : 2 à 3 plages par semaine pour les rendez-vous.</li>
+<li><strong>Une assurance RC professionnelle</strong> (conseillée, pas obligatoire pour
+   ce métier) <strong>[devis à comparer]</strong>.</li>
+<li><strong>Un compte bancaire séparé</strong> pour l'activité (simplifie tout).</li>
+<li><strong>Validation des prix</strong> de la section 3.2.</li>
+</ol>
+<hr />
+<h2>10. Plan d'action</h2>
+<table>
+<thead>
+<tr>
+<th>Quand</th>
+<th>Quoi</th>
+<th>Qui</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Semaine 1</td>
+<td>Liste qualifiée des sites ; 5 démos réelles (non envoyées)</td>
+<td>Claude</td>
+</tr>
+<tr>
+<td>Semaine 1</td>
+<td>Conditions générales, devis, courrier type « départ SoLocal »</td>
+<td>Claude</td>
+</tr>
+<tr>
+<td>Semaine 2</td>
+<td>Appel au 36 46 ; décision création</td>
+<td>Utilisateur</td>
+</tr>
+<tr>
+<td>Semaine 2-3</td>
+<td>Création micro-entreprise (après demande d'aides) ; domaine ; téléphone</td>
+<td>Utilisateur + Claude</td>
+</tr>
+<tr>
+<td>Semaine 3</td>
+<td>Site vitrine DIG16 sur Cloudflare ; paiement SEPA ; plateforme de factures</td>
+<td>Claude</td>
+</tr>
+<tr>
+<td>Semaine 4</td>
+<td>20 premières démos envoyées ; mesure</td>
+<td>Claude + appels utilisateur</td>
+</tr>
+<tr>
+<td>Mois 2-3</td>
+<td>Ajuster le message ; viser 10 clients</td>
+<td>Les deux</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>11. Le système DIG16, du premier contact à la mise à jour continue</h2>
+<p>Demande de l'utilisateur (26/09) : « quelque chose d'exceptionnel, du
+départ à la prospection jusqu'à la facturation, le suivi et la mise à jour
+continue des sites ». Règle : Claude fait tout ce qui est répétitif,
+l'utilisateur garde la relation humaine (appels, visites, signature).</p>
+<table>
+<thead>
+<tr>
+<th>Étape</th>
+<th>Ce qui se passe</th>
+<th>Outil (gratuit sauf mention)</th>
+<th>Qui</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Repérage</td>
+<td>Registre officiel des entreprises + sites SoLocal publics + recherche web : liste « sans site » et « site ancien » par commune</td>
+<td>API Recherche d'entreprises, index publics, relais Vercel</td>
+<td>Claude, chaque mois</td>
+</tr>
+<tr>
+<td>2. Qualification</td>
+<td>Score de priorité : métier, taille, âge du site, avis Google, concurrents</td>
+<td>Script Claude</td>
+<td>Claude</td>
+</tr>
+<tr>
+<td>3. Démo</td>
+<td>Page d'accueil refaite pour chaque prospect prioritaire, lien privé</td>
+<td>Générateur de sites Claude</td>
+<td>Claude</td>
+</tr>
+<tr>
+<td>4. Contact</td>
+<td>Appel ou visite avec la fiche prospect et le texte (<code>41</code>)</td>
+<td>Téléphone</td>
+<td><strong>Utilisateur</strong></td>
+</tr>
+<tr>
+<td>5. Suivi prospect</td>
+<td>Relances J+3 / J+10, refus notés et respectés</td>
+<td>Tableau prospects (Airtable ou Google Sheets, privé)</td>
+<td>Claude</td>
+</tr>
+<tr>
+<td>6. Devis et contrat</td>
+<td>Devis d'une page, CGV, formulaire de rétractation, signature électronique</td>
+<td>DocuSeal (connecté)</td>
+<td>Claude prépare, <strong>utilisateur signe</strong></td>
+</tr>
+<tr>
+<td>7. Paiement</td>
+<td>Mandat SEPA, premier prélèvement <strong>au plus tôt J+8</strong> (<code>40</code> A1)</td>
+<td>Stripe (0,35 € + 0,7 %)</td>
+<td>Automatique</td>
+</tr>
+<tr>
+<td>8. Fabrication</td>
+<td>Site en 7 jours : textes, photos du client, mentions légales, contrôles qualité</td>
+<td>Claude + dépôt privé du code</td>
+<td>Claude</td>
+</tr>
+<tr>
+<td>9. Mise en ligne</td>
+<td>Nom de domaine au nom du client, hébergement, bascule sans coupure</td>
+<td>Cloudflare Pages</td>
+<td>Claude (+ client pour son domaine)</td>
+</tr>
+<tr>
+<td>10. Facturation</td>
+<td>Facture mensuelle, mention TVA, livre des recettes ; facture électronique obligatoire au 01/09/2027</td>
+<td>Plateforme agréée <strong>[à choisir]</strong></td>
+<td>Automatique</td>
+</tr>
+<tr>
+<td>11. Suivi mensuel</td>
+<td>Le site répond ? Pages cassées ? Vitesse ? Avis Google nouveaux ? Rapport « demandes reçues » envoyé au client</td>
+<td>Routine Claude mensuelle</td>
+<td>Claude</td>
+</tr>
+<tr>
+<td>12. Mise à jour continue</td>
+<td>Horaires, photos, promotions, pages saisonnières ; demande du client traitée sous 3 jours ouvrés</td>
+<td>Email → Claude</td>
+<td>Claude</td>
+</tr>
+<tr>
+<td>13. Fidélisation</td>
+<td>Bilan à 5 mois, proposition d'amélioration, demande d'avis, parrainage</td>
+<td>Routine</td>
+<td>Claude + utilisateur</td>
+</tr>
+<tr>
+<td>14. Déclarations</td>
+<td>Chiffre d'affaires URSSAF, rappels (kit section 2 bis)</td>
+<td>Rappels automatiques</td>
+<td>Claude prépare, <strong>utilisateur valide</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Données clients</strong> : jamais dans le dépôt public. Tableau privé (compte de
+l'utilisateur) ; code des sites dans un dépôt <strong>privé</strong> séparé.</p>
+<p><strong>Ce qu'il faudra ouvrir le moment venu (gratuit)</strong> : compte Cloudflare,
+compte Stripe, plateforme de facturation agréée — au nom de la
+micro-entreprise, donc <strong>après</strong> sa création.</p>
+<hr />
+<h2>12. Méthode de repérage des prospects (testée le 26/09, reproductible partout)</h2>
+<ol>
+<li>Registre officiel : API Recherche d'entreprises, par code postal (relais Vercel).</li>
+<li>Filtre des métiers qui ont besoin d'un site (bâtiment, auto, beauté,
+   restauration, hébergement, commerce…), hors sociétés civiles et chaînes.</li>
+<li>Adresses devinées (nom.fr / nom.com) puis recherche web automatique
+   (Perplexity « sonar » via le relais, 5 requêtes/min) et manuelle.</li>
+<li>Vérification de chaque site trouvé : bonne entreprise, outil (WordPress,
+   Wix, SoLocal…), date de dernière mise à jour (plan du site).</li>
+<li><strong>Sites SoLocal</strong> : adresses <code>nom.site-solocal.com</code> devinées à partir du
+   nom (5 028 variantes testées pour un code postal) + repérage des sites
+   SoLocal sur adresse propre (fichiers <code>solocal-runtime</code> / « Réalisé par
+   Solocal »).</li>
+<li>Contre-vérification manuelle des meilleurs « sans site » : environ
+   <strong>1 sur 5 avait en fait un site</strong> → toujours vérifier avant d'appeler.
+Résultats : privés (Google Drive de l'utilisateur, dossier « Dig »), jamais ici.</li>
+</ol></section><section><h1>Cadre légal : faire des sites pour des professionnels (26/09/2026)</h1>
+<p>Demande de l'utilisateur : « que tout ce que je ferai respecte la Loi ».
+Chaque règle ci-dessous est citée depuis la source officielle lue le
+25-26/09/2026 ; <strong>[à vérifier]</strong> = non encore lu dans le texte officiel.</p>
+<p><strong>Règle d'or</strong> : aucun secteur légal n'est <em>interdit</em> de site internet.
+Ce qui change selon le métier, c'est <strong>ce que le site peut dire</strong>. Le
+contenu engage le client (c'est son site), mais DIG16 doit <strong>connaître ces
+règles et refuser de publier un contenu illégal</strong>.</p>
+<hr />
+<h2>A. Nos propres obligations quand on vend (DIG16)</h2>
+<h3>A1. Vente « chez le client » à une très petite entreprise</h3>
+<ul>
+<li><strong>Article L221-3 du Code de la consommation</strong> (en vigueur depuis le
+  01/07/2016) : les protections du consommateur (information, contrat hors
+  établissement, droit de rétractation) s'appliquent aussi à un contrat
+  conclu <strong>hors établissement</strong> entre deux professionnels quand l'objet du
+  contrat <strong>n'entre pas dans le champ de l'activité principale</strong> du client
+  et que celui-ci emploie <strong>cinq salariés ou moins</strong>.
+  → C'est <strong>le cas typique</strong> : un plombier de 2 salariés qui achète un
+  site chez lui ou sur un salon.</li>
+<li><strong>Rétractation</strong> : « un délai de quatorze jours pour exercer son droit de
+  rétractation d'un contrat conclu à distance, à la suite d'un démarchage
+  téléphonique ou hors établissement » (article L221-18).</li>
+<li><strong>Aucun paiement pendant 7 jours</strong> : « Le professionnel ne peut recevoir
+  aucun paiement ou aucune contrepartie, sous quelque forme que ce soit, de
+  la part du consommateur avant l'expiration d'un délai de sept jours à
+  compter de la conclusion du contrat hors établissement » (article L221-10,
+  en vigueur depuis le 01/07/2016 ; sanction citée par Légifrance :
+  2 ans d'emprisonnement et 150 000 € d'amende <strong>[montant à relire dans
+  l'article de sanction]</strong>).</li>
+</ul>
+<p><strong>Conséquences pratiques pour DIG16 :</strong>
+1. Le contrat signé chez le client comporte le <strong>formulaire de
+   rétractation</strong> et les informations précontractuelles.
+2. <strong>Aucun paiement, aucun mandat de prélèvement encaissé avant J+8.</strong>
+   Premier prélèvement au plus tôt 8 jours après la signature.
+3. Pas de mise en ligne facturée pendant le délai de rétractation sans
+   demande écrite expresse du client <strong>[règle exacte à vérifier : L221-25]</strong>.
+4. Plus simple : faire signer <strong>à distance</strong> (lien envoyé par email après
+   le rendez-vous) ; le droit de rétractation de 14 jours s'applique aussi
+   dans ce cas si le contrat fait suite à un démarchage téléphonique, donc
+   même prudence.</p>
+<h3>A2. Prospection</h3>
+<ul>
+<li>Email et téléphone B2B : voir <code>35-demarchage-cadre-legal.md</code> et
+  <code>39-business-plan-sites.md</code> section 4.1 (CNIL, 10/06/2026).</li>
+<li>Le consentement préalable obligatoire depuis le 11/08/2026 concerne le
+  démarchage téléphonique des <strong>consommateurs</strong>, pas des professionnels.</li>
+</ul>
+<h3>A3. Démo personnalisée</h3>
+<ul>
+<li>Faite à partir d'informations <strong>publiques</strong> ; montrée au seul
+  professionnel ; « noindex » ; supprimée s'il refuse.</li>
+<li>Ne pas reprendre ses photos ni son logo sans son accord dans une page
+  publique <strong>[droit d'auteur : à vérifier pour un usage privé de démo]</strong>.</li>
+<li>Faux avis interdits : la démo affiche des avis marqués « fictifs ».</li>
+</ul>
+<hr />
+<h2>B. Ce que tout site professionnel doit contenir</h2>
+<p>Source : <a href="https://entreprendre.service-public.gouv.fr/vosdroits/F31228">service-public, fiche F31228</a>
+(« vérifié le 31/07/2023 », à relire à la création) :
+- identité ; pour un entrepreneur individuel, nom et prénom suivis de
+  « entrepreneur individuel » ou « EI » ;
+- numéro d'immatriculation, numéro de TVA le cas échéant ;
+- email et téléphone ;
+- <strong>hébergeur</strong> : nom, adresse, téléphone ;
+- <strong>profession réglementée</strong> : nom et adresse de l'autorité qui a délivré
+  l'autorisation ;
+- CGV obligatoires si vente à des consommateurs ;
+- données personnelles et cookies : information, consentement, pas de case
+  pré-cochée ;
+- si abonnement vendu en ligne : fonction de <strong>résiliation en ligne</strong>
+  gratuite (depuis le 01/06/2023).
+- Sanction citée par la fiche : jusqu'à 75 000 € pour absence de mentions
+  légales (personne physique).</p>
+<p>→ <strong>DIG16 livre chaque site avec ces mentions pré-remplies et vérifiées.</strong></p>
+<h3>Accessibilité</h3>
+<p>Directive européenne « accessibilité » en vigueur depuis le 28/06/2025 pour
+certains services (dont le commerce électronique) ; exemption annoncée pour
+les microentreprises de services (moins de 10 salariés et 2 M€)
+<strong>[à lire sur la fiche DGCCRF officielle, bloquée le 26/09]</strong>. DIG16 vise
+quand même un site accessible (contrastes, textes alternatifs, navigation
+clavier) : c'est un argument de qualité.</p>
+<hr />
+<h2>C. Secteurs réglementés : ce qui change</h2>
+<table>
+<thead>
+<tr>
+<th>Secteur</th>
+<th>Règle</th>
+<th>Source / statut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Médecins</strong></td>
+<td>« libre de communiquer au public, par tout moyen, y compris sur un site internet, des informations de nature à contribuer au libre choix du praticien » ; communication loyale, honnête ; <strong>pas de témoignages de tiers, pas de comparaison</strong> avec d'autres praticiens</td>
+<td>Art. R4127-19-1 CSP, en vigueur depuis le 25/12/2020 (lu)</td>
+</tr>
+<tr>
+<td>Médecins : référencement payant</td>
+<td>Interdiction d'obtenir contre paiement un référencement prioritaire</td>
+<td>Résumé du Conseil national de l'Ordre <strong>[texte exact à lire]</strong> → <strong>pas de formule « Visibilité » payante pour eux</strong></td>
+</tr>
+<tr>
+<td><strong>Infirmiers, masseurs-kinés, dentistes, sages-femmes, pédicures</strong></td>
+<td>Règles proches, décrets du 22/12/2020 (ex. R4312-68-1 pour les infirmiers) ; recommandations de chaque Ordre</td>
+<td><strong>[à lire article par article]</strong></td>
+</tr>
+<tr>
+<td><strong>Données de santé</strong></td>
+<td>Ne jamais faire collecter d'informations médicales par un formulaire du site ; renvoyer vers un outil de rendez-vous spécialisé</td>
+<td>Prudence (hébergement de données de santé réglementé <strong>[à vérifier]</strong>)</td>
+</tr>
+<tr>
+<td><strong>Pharmacies</strong></td>
+<td>Site vitrine possible ; <strong>vente en ligne de médicaments</strong> soumise à autorisation</td>
+<td><strong>[à vérifier CSP]</strong> → pas de vente de médicaments sur nos sites</td>
+</tr>
+<tr>
+<td><strong>Alcool</strong> (caves, bars, viticulteurs, restaurants)</td>
+<td>Publicité en ligne autorisée « à l'exclusion de ceux qui […] apparaissent comme principalement destinés à la jeunesse », ni intrusive ni interstitielle</td>
+<td>Art. L3323-2 9° CSP, version du 02/03/2017 (lu)</td>
+</tr>
+<tr>
+<td>Alcool : contenu et mention</td>
+<td>Message sanitaire « l'abus d'alcool est dangereux pour la santé » ; contenu limité à des informations objectives (origine, composition, mode d'élaboration…)</td>
+<td><strong>[texte exact L3323-3 et L3323-4 à lire]</strong></td>
+</tr>
+<tr>
+<td><strong>Tabac</strong> (bureaux de tabac)</td>
+<td>Publicité en faveur du tabac interdite : le site peut présenter le commerce (presse, jeux, services) mais <strong>aucune promotion du tabac</strong></td>
+<td><strong>[à vérifier CSP L3512-4]</strong></td>
+</tr>
+<tr>
+<td><strong>Avocats, notaires, commissaires de justice, experts-comptables</strong></td>
+<td>Communication encadrée par leur déontologie</td>
+<td><strong>[à lire par profession]</strong></td>
+</tr>
+<tr>
+<td><strong>Agents immobiliers</strong></td>
+<td>Affichage obligatoire des honoraires et de mentions sur le site</td>
+<td><strong>[fiche DGCCRF à lire]</strong></td>
+</tr>
+<tr>
+<td><strong>Intermédiaires en assurance / crédit</strong></td>
+<td>Numéro ORIAS et mentions obligatoires</td>
+<td><strong>[à vérifier]</strong></td>
+</tr>
+<tr>
+<td><strong>Vétérinaires</strong></td>
+<td>Communication encadrée par leur code de déontologie</td>
+<td><strong>[à vérifier]</strong></td>
+</tr>
+<tr>
+<td>Artisans du bâtiment</td>
+<td>Pas de règle spéciale pour le site ; ne pas afficher de label (RGE, Qualibat) sans le détenir</td>
+<td>Pratiques commerciales trompeuses <strong>[article exact à citer]</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Méthode DIG16 pour chaque nouveau client</strong> : identifier son secteur dans
+ce tableau ; si « [à vérifier] », lire le texte <strong>avant</strong> de rédiger le site.</p>
+<hr />
+<h2>D. Ce que DIG16 refuse</h2>
+<ul>
+<li>Contenu faux ou trompeur (faux avis, faux labels, fausses promotions).</li>
+<li>Témoignages ou comparaisons pour les professions de santé.</li>
+<li>Vente en ligne de produits réglementés sans autorisation.</li>
+<li>Tout secteur illégal.</li>
+</ul></section><section><h1>Prospection : questionnaire client et textes d'appel / de visite (26/09/2026)</h1>
+<p>Demandes de l'utilisateur : un <strong>questionnaire</strong> pour proposer le produit
+qui correspond le mieux au client, et des <strong>textes très vendeurs</strong> pour
+appeler ou rendre visite. Tout respecte <code>40-cadre-legal-sites.md</code> :
+se présenter clairement, accepter un « non » tout de suite, ne jamais
+dénigrer un concurrent, ne rien faire payer pendant 7 jours après une
+signature sur place.</p>
+<p>Principe de vente : <strong>on ne vend pas un site, on vend des appels et des
+clients en plus</strong>. Le client doit parler 70 % du temps.</p>
+<hr />
+<h2>1. Avant chaque contact (préparé automatiquement par Claude)</h2>
+<p>Fiche d'une page par prospect :
+- nom, métier, commune, ancienneté, taille (registre public) ;
+- son site actuel (ou « pas de site »), sa date de dernière mise à jour,
+  ce qui ne va pas (mobile, lenteur, informations anciennes, doublon) ;
+- sa fiche Google (note, nombre d'avis, photos, horaires) <strong>[à relever]</strong> ;
+- 2 concurrents proches qui ont un meilleur site ;
+- <strong>la démo</strong> : sa page d'accueil refaite, sur téléphone (lien privé).</p>
+<hr />
+<h2>2. Texte d'appel (2 minutes)</h2>
+<p><strong>Ouverture (15 secondes, identité + raison + permission)</strong></p>
+<blockquote>
+<p>« Bonjour Monsieur/Madame [Nom], [Prénom] de DIG16, je crée des sites
+internet pour les artisans et commerçants de votre secteur. Je vous
+appelle parce que j'ai préparé quelque chose pour votre entreprise.
+Vous avez deux minutes, ou je vous rappelle à un meilleur moment ? »</p>
+</blockquote>
+<p><em>S'il dit non</em> → « Bien sûr. Préférez-vous que je ne vous rappelle plus ? »
+Noter la réponse ; ne jamais rappeler s'il le demande.</p>
+<p><strong>Accroche (le « cadeau »)</strong></p>
+<blockquote>
+<p>« En cherchant [métier] à [commune] sur mon téléphone, je suis tombé
+sur votre entreprise. [Au choix :]
+– « Vous n'avez pas encore de site, alors que vos clients vous
+cherchent sur Google. »
+– « Votre site n'a pas bougé depuis [2024] : les horaires et les photos
+ne sont plus à jour. »
+– « Vous avez deux sites qui parlent de vous, ce qui gêne Google. »
+Du coup, j'ai <strong>déjà refait votre page d'accueil</strong>, gratuitement, pour
+que vous voyiez la différence. Je peux vous l'envoyer par SMS ou par
+email, ça prend 30 secondes à regarder. »</p>
+</blockquote>
+<p><strong>Question d'ouverture</strong></p>
+<blockquote>
+<p>« Aujourd'hui, vos nouveaux clients vous trouvent plutôt comment ? »</p>
+</blockquote>
+<p>(Laisser parler. Puis 2 ou 3 questions du questionnaire, section 4.)</p>
+<p><strong>Proposition de rendez-vous (jamais de vente au téléphone)</strong></p>
+<blockquote>
+<p>« Je vous envoie la démo maintenant. Si elle vous plaît, je passe
+20 minutes à votre [atelier/boutique] [jour] ou [jour] pour l'adapter
+avec vous. Qu'est-ce qui vous arrange le mieux ? »</p>
+</blockquote>
+<p><strong>Clôture de l'appel</strong></p>
+<blockquote>
+<p>« Parfait. Je vous envoie le lien tout de suite depuis le [numéro].
+Bonne journée ! »</p>
+</blockquote>
+<hr />
+<h2>3. Texte de visite (20 minutes, dans l'ordre)</h2>
+<ol>
+<li><strong>Poignée de main et 1 compliment sincère</strong> sur l'atelier, la
+   vitrine, le travail (1 min).</li>
+<li><strong>Montrer la démo sur son téléphone</strong> (pas le vôtre) :<blockquote>
+<p>« Voilà ce que voit un client qui vous cherche le soir sur son
+canapé. »
+   Laisser regarder en silence 30 secondes.</p>
+</blockquote>
+</li>
+<li><strong>Questionnaire</strong> (section 4) : 8 à 10 minutes, noter ses mots exacts.</li>
+<li><strong>Reformuler son besoin avec ses mots</strong> :<blockquote>
+<p>« Si je résume : vous voulez [plus de demandes de devis en
+rénovation], sans y passer de temps, et sans être bloqué par un
+contrat. C'est bien ça ? »</p>
+</blockquote>
+</li>
+<li><strong>Recommander UNE formule</strong> (grille section 5), pas trois :<blockquote>
+<p>« Pour vous, je conseille [Visibilité], parce que [raison tirée de
+ses réponses]. »</p>
+</blockquote>
+</li>
+<li><strong>Trois garanties</strong> :<blockquote>
+<p>« Votre site et votre nom de domaine sont à votre nom. Pas
+d'engagement de 12 mois : 6 mois, puis vous restez seulement si vous
+êtes content. Et chaque mois, un petit bilan : combien de personnes
+vous ont appelé grâce au site. »</p>
+</blockquote>
+</li>
+<li><strong>Question de décision</strong> :<blockquote>
+<p>« On le met en ligne pour le [date dans 7 jours] ? »</p>
+</blockquote>
+</li>
+<li><strong>Si oui</strong> : contrat, <strong>formulaire de rétractation remis</strong>, rappel :<blockquote>
+<p>« Vous avez 14 jours pour changer d'avis, et je ne prélève rien
+avant 8 jours. »
+   (Obligatoire si ≤ 5 salariés, voir <code>40</code> section A1 ; fait pour tout le
+   monde, par simplicité et par confiance.)</p>
+</blockquote>
+</li>
+<li><strong>Si « je réfléchis »</strong> : fixer tout de suite la date de rappel.</li>
+</ol>
+<hr />
+<h2>4. Questionnaire de découverte (choisir 6 à 10 questions)</h2>
+<p>Support imprimable (2 pages A4, lignes de réponse) : <code>supports/Dig-Questionnaire-decouverte.pdf</code>
+(source <code>supports/questionnaire-decouverte.html</code>, PDF via <code>outils/pdf_pages.py</code>). Version du 02/10/2026.</p>
+<p><strong>Son activité</strong>
+1. Quels sont les travaux/produits qui vous rapportent le plus ?
+2. Et ceux que vous aimeriez faire plus souvent ?
+3. Sur quelle zone voulez-vous travailler (communes, km) ?
+4. Vos clients sont plutôt des particuliers, des professionnels, des
+   touristes ?</p>
+<p><strong>Comment les clients le trouvent</strong>
+5. Aujourd'hui, comment vos nouveaux clients vous trouvent-ils ?
+   (bouche-à-oreille, Google, PagesJaunes, Facebook, passage)
+6. Combien de nouvelles demandes par mois ? Combien en voudriez-vous ?
+7. Qu'est-ce que vos clients vous demandent le plus souvent au téléphone ?
+   (→ contenu de la FAQ du site)</p>
+<p><strong>Sa présence actuelle</strong>
+8. Avez-vous un site ? Qui l'a fait, depuis quand, combien il vous coûte
+   par mois ? <strong>Qui est propriétaire du nom de domaine ?</strong>
+9. Avez-vous un contrat en cours ? Date de fin, préavis ?
+   (→ option « Départ sans coupure »)
+10. Avez-vous une fiche Google ? Qui la gère ? Répondez-vous aux avis ?
+11. Des photos de vos réalisations ? Un logo ?</p>
+<p><strong>Ses attentes et limites</strong>
+12. Qu'est-ce qui vous a déçu dans ce que vous avez eu avant ?
+13. Si le site marche bien dans 6 mois, qu'est-ce qui aura changé pour
+    vous ?
+14. Combien de temps pouvez-vous y consacrer ? (réponse attendue :
+    « aucun » → argument « on s'occupe de tout »)
+15. Budget : « Aujourd'hui, combien mettez-vous par mois pour vous faire
+    connaître ? »</p>
+<p><strong>Besoins spéciaux (déclenchent des options)</strong>
+16. Prise de rendez-vous en ligne ? (coiffure, beauté, garage)
+17. Menu, carte, réservations ? (restaurants)
+18. Disponibilités et réservation ? (gîtes, chambres d'hôtes)
+19. Galerie avant/après ? (bâtiment, paysage)
+20. Site en anglais ? (clientèle étrangère)</p>
+<p><strong>Chiffrer ce que ça lui coûte aujourd'hui</strong> (ajout du 01/10 : vendre un résultat mesurable,
+pas « un site » — leçon de la vidéo « FDE » de Greg Isenberg, <code>46</code>)
+21. Combien d'appels manquez-vous par semaine quand vous êtes sur un chantier ou en
+    service ? (→ option standardiste IA, à ne construire qu'après 3 « oui », voir <code>46</code>)
+22. Combien d'heures par semaine passent dans les devis, les relances et les réponses aux
+    messages ? (→ l'argument se chiffre : « X heures par semaine, Y demandes perdues »)</p>
+<hr />
+<h2>5. Grille : quelle formule recommander (prix validés le 26/09)</h2>
+<table>
+<thead>
+<tr>
+<th>Réponses</th>
+<th>Formule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Très petit budget, auto-entrepreneur, besoin d'être « trouvable »</td>
+<td><strong>Essentiel</strong> (49 €/mois, 0 € de création)</td>
+</tr>
+<tr>
+<td>Pas de site ou vieux site, bouche-à-oreille suffit presque</td>
+<td><strong>Essentiel</strong> (49 €/mois)</td>
+</tr>
+<tr>
+<td>Veut plus de demandes, concurrents actifs sur Google, zone large</td>
+<td><strong>Visibilité</strong> ⭐ (79 €/mois)</td>
+</tr>
+<tr>
+<td>Préfère payer une fois</td>
+<td><strong>Achat</strong> (690 € une fois, suivi 15 €/mois en option) ; ou 12 mois d'avance avec 1 mois offert (539 € / 869 €)</td>
+</tr>
+<tr>
+<td>Préfère payer une fois</td>
+<td><strong>Essentiel au mois</strong> (rien à avancer) ; Prestige seulement pour un site haut de gamme</td>
+</tr>
+<tr>
+<td>Image haut de gamme essentielle (hôtel, restaurant, domaine, art)</td>
+<td><strong>Prestige</strong> (1 990 € ou 199 €/mois) — <strong>jamais proposé en prospection</strong> (décision du 05/10) : seulement si le client le demande ou sur recommandation</td>
+</tr>
+<tr>
+<td>Contrat en cours ailleurs</td>
+<td>+ option <strong>Départ sans coupure</strong> (offerte)</td>
+</tr>
+<tr>
+<td>Rendez-vous, réservations</td>
+<td><strong>inclus</strong> dans toutes les formules</td>
+</tr>
+<tr>
+<td>Clientèle étrangère</td>
+<td>Version anglaise <strong>+5 €/mois</strong> (incluse en Prestige)</td>
+</tr>
+<tr>
+<td>Vient de la part d'un client (parrainage)</td>
+<td>Premier mois <strong>offert</strong> ; un mois offert au client qui l'a recommandé (<code>47-parrainage.md</code>)</td>
+</tr>
+<tr>
+<td>Profession de santé</td>
+<td>Essentiel, sans témoignages ni référencement payant (<code>40</code> section C)</td>
+</tr>
+</tbody>
+</table>
+<p>Rappels à dire au client : nom de domaine à son nom, payé par lui
+(environ 10 €/an) ; vérification de sa fiche Google par lui-même.</p>
+<h2>6. Réponses aux objections</h2>
+<table>
+<thead>
+<tr>
+<th>Objection</th>
+<th>Réponse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>« J'ai assez de travail. »</td>
+<td>« Tant mieux ! Le site sert alors à choisir vos chantiers : plus de demandes, vous gardez les plus intéressantes, près de chez vous. »</td>
+</tr>
+<tr>
+<td>« J'ai déjà un site. »</td>
+<td>« Je l'ai vu. Est-ce qu'il vous apporte des appels ? Regardez la démo : si elle ne fait pas mieux, je ne vous dérange plus. »</td>
+</tr>
+<tr>
+<td>« C'est trop cher. »</td>
+<td>« Un seul chantier ou quelques clients de plus par an paient l'année. Et vous pouvez arrêter après 6 mois. »</td>
+</tr>
+<tr>
+<td>« Je suis engagé ailleurs. »</td>
+<td>« Je vous aide à trouver la date de fin et le préavis. On prépare le nouveau site avant, pour ne jamais être invisible. »</td>
+</tr>
+<tr>
+<td>« Les clients viennent par le bouche-à-oreille. »</td>
+<td>« Et ils vérifient sur Google avant d'appeler. Le site confirme ce qu'on leur a dit de vous. »</td>
+</tr>
+<tr>
+<td>« Je n'ai pas le temps. »</td>
+<td>« Il me faut 20 minutes avec vous, une fois. Tout le reste, je le fais. »</td>
+</tr>
+<tr>
+<td>« Je vais réfléchir. »</td>
+<td>« Bien sûr. Qu'est-ce qui vous fait hésiter ? » puis fixer une date de rappel.</td>
+</tr>
+<tr>
+<td>« Envoyez-moi une documentation. »</td>
+<td>« Je vous envoie mieux : votre démo. Je vous rappelle jeudi pour avoir votre avis ? »</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. Email d'accompagnement de la démo (après accord au téléphone)</h2>
+<blockquote>
+<p>Objet : Votre nouvelle page d'accueil, [Nom de l'entreprise]</p>
+<p>Bonjour [Nom],</p>
+<p>Comme convenu, voici la page d'accueil que j'ai préparée pour vous :
+[lien]. Elle s'affiche parfaitement sur téléphone, où vos clients vous
+cherchent.</p>
+<p>Si elle vous plaît, je passe 20 minutes pour l'adapter avec vous.
+Votre site restera à votre nom, sans engagement de longue durée.</p>
+<p>Bonne journée,
+[Prénom], DIG16 — [SIREN] — [téléphone]</p>
+<p><em>Vous ne souhaitez plus recevoir de message de ma part ? Répondez
+simplement « stop ».</em></p>
+</blockquote>
+<hr />
+<h2>8. Suivi du prospect (automatisé)</h2>
+<table>
+<thead>
+<tr>
+<th>Étape</th>
+<th>Délai</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Démo envoyée</td>
+<td>J0</td>
+<td>Email ou SMS avec le lien</td>
+</tr>
+<tr>
+<td>Relance</td>
+<td>J+3</td>
+<td>Appel court : « Vous avez pu regarder ? »</td>
+</tr>
+<tr>
+<td>Dernière relance</td>
+<td>J+10</td>
+<td>Email court ; ensuite arrêt définitif</td>
+</tr>
+<tr>
+<td>Refus</td>
+<td>—</td>
+<td>Noté, jamais recontacté ; démo supprimée</td>
+</tr>
+</tbody>
+</table></section><section><h1>Flyer A5 et prompt pour comparer avec d'autres IA (26/09/2026)</h1>
+<ul>
+<li>Flyer Claude : <code>supports/flyer-dig-a5.html</code> (A5 recto seul, 148 × 210 mm, QR code vers la démo ;
+  version 2 du 26/09 : l'utilisateur a jugé la v1 bicolore trop simple et le verso peu lu). PDF prêt à imprimer, généré à partir de ce fichier.</li>
+<li>À compléter avant impression : téléphone, email, prénom et nom, SIREN,
+  adresse (après création de la micro-entreprise). Prix à valider.</li>
+<li>Impression : prévoir 3 mm de fond perdu si l'imprimeur le demande.</li>
+</ul>
+<h2>Prompt à copier dans une autre IA (ChatGPT, Gemini, Canva, etc.)</h2>
+<p>Voir le texte exact dans la réponse du 26/09 ; version de référence :</p>
+<blockquote>
+<p>Crée un flyer publicitaire A5 portrait (148 × 210 mm), <strong>recto seul</strong>,
+prêt à imprimer, ultra moderne et très accrocheur, pour « DIG16 », un
+créateur indépendant de sites internet pour artisans, commerçants et
+indépendants en zone rurale en France.
+Cible : patrons de très petites entreprises (plombiers, maçons, garages,
+coiffeurs, restaurants, gîtes…), 35-65 ans, pressés, méfiants envers les
+contrats longs ; beaucoup ont un vieux site loué ou pas de site.
+Tout doit tenir sur une seule face et se comprendre en 5 secondes.
+Contenu : titre « Vos clients vous cherchent sur leur téléphone. Ils vous
+trouvent ? » ; sous-titre « Un site moderne, rapide, qui vous appartient.
+Fait près de chez vous, sans contrat qui vous enferme. » ; 4 avantages
+avec icônes (plus d'appels et de devis ; votre site vous appartient, site
+et nom de domaine à votre nom ; en ligne en 7 jours, 20 min ensemble ;
+suivi chaque mois, mises à jour sous 48 h) ; un visuel fort : un
+smartphone qui affiche un beau site d'artisan avec une notification
+« Nouvelle demande de devis ! » ; un encadré offre très visible « Votre
+page d'accueil refaite gratuitement, avant de décider », « dès 29 €/mois
+· 0 € de création · 6 mois puis sans engagement », avec un QR code et
+[téléphone] · [email].
+Style : premium, coloré et vivant (dégradés profonds bleu nuit, violet,
+orange, vert émeraude), titres en serif élégante et épaisse, texte
+sans-serif lisible, effets de verre dépoli, ombres douces, beaucoup de
+contraste. Pas d'aspect « bon marché », pas de clipart.
+Mentions légales en petit en bas : « DIG16 — [Prénom Nom], entrepreneur
+individuel (EI) — SIREN [à compléter] — [adresse]. TVA non applicable,
+art. 293 B du CGI. Offre Essentiel : site 5 pages, hébergement, 1
+modification/mois ; engagement minimal 6 mois. Démo sans obligation
+d'achat. Visuel d'illustration. Ne pas jeter sur la voie publique. »
+Interdits : citer ou critiquer un concurrent, faux avis, résultats
+chiffrés inventés.
+Livre : le flyer en PDF ou image haute définition (300 dpi, 3 mm de fond
+perdu), puis 3 variantes de titre.</p>
+</blockquote>
+<h2>Version 3 (26/09) : Canva</h2>
+<ul>
+<li>Essai 1 avec l'ancien outil Canva (<code>generate-design</code>) : 4 propositions
+  inutilisables (textes incompréhensibles, fausses dates, format paysage).</li>
+<li>Essai 2 avec <code>create-design</code>, format « Flyer (Portrait A5) » et textes
+  imposés : <strong>réussi</strong> (photo réaliste, icônes, textes corrects). Design
+  dans le compte Canva de l'utilisateur (« DAHWQBvgVuI »), modifiable.</li>
+<li>QR code ajouté par Claude dans le cadre vide (vérifié : il mène à la
+  démo), export 300 dpi (1748 × 2480 px).</li>
+<li>Reste à faire dans Canva : téléphone, email, nom, SIREN ; remplacer le
+  lien du QR code par la démo définitive.</li>
+<li>26/09, v3.1 après validation des prix : « dès 29 € », « trouvent ? »,
+  « EI » (Canva avait écrit « El »), mention « nom de domaine à la charge
+  du client » ; modifications enregistrées dans le design Canva.</li>
+</ul>
+<h2>Comparaison avec les autres IA (26/09) — fichiers dans <code>supports/concurrence/</code></h2>
+<table>
+<thead>
+<tr>
+<th>IA</th>
+<th>Bonnes idées</th>
+<th>Défauts relevés</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grok</td>
+<td>Logo en pastille « D », étiquette de cible, avantages avec phrase, bloc offre à pastilles</td>
+<td>QR décoratif illisible ; « contact@dig.fr » (domaine déjà pris par un tiers) ; entreprise fictive dans une vraie ville ; faux numéro ; 49 €</td>
+</tr>
+<tr>
+<td>ChatGPT</td>
+<td>Vrai site d'artisan dans le téléphone ; « Simple, humain, sans vous compliquer la vie »</td>
+<td>Logo qui chevauche le texte ; bloc offre coupé par le téléphone ; grand vide ; QR = texte, pas de lien</td>
+</tr>
+<tr>
+<td>Mistral</td>
+<td>Pastilles « Fait près de chez vous » et « Offre découverte » ; « appelez ou scannez, la démo est gratuite »</td>
+<td>Logo qui chevauche ; QR factice ; icônes cassées ; écran vide</td>
+</tr>
+<tr>
+<td>Gemini</td>
+<td>Bandeau « Spécial artisans… ruraux » ; bloc contact étiqueté ; 3 variantes de titre</td>
+<td>Fond coupé net à mi-hauteur ; écran presque vide ; faux avis « 4,9/5 – 38 avis » et faux numéro dans la maquette ; QR illisible ; 49 €</td>
+</tr>
+<tr>
+<td>Claude (Canva)</td>
+<td>Photo réaliste, seul QR fonctionnel, prix et mentions à jour</td>
+<td>Moins d'explications sous les avantages, pas de logo</td>
+</tr>
+</tbody>
+</table>
+<p>Variantes de titre retenues (Gemini) : « Artisan, commerçant : vos clients cherchent
+sur internet. Êtes-vous visible ? » ; « Transformez les recherches sur smartphone
+en vrais devis et chantiers locaux. » Écartée : « Marre des sites payés une
+fortune ou bloqués ? » (dénigrement implicite des concurrents).</p>
+<h2>Version 4 (26/09) — la synthèse, validée par l'utilisateur (« vas-y pour la v4 »)</h2>
+<ul>
+<li>Design Canva « DAHWQH2QKK8 » (modifiable par l'utilisateur) ; fichiers
+  <code>supports/flyer-dig-a5-v4.pdf</code> et <code>.png</code> (1748 × 2480 px, 300 dpi).</li>
+<li>Reprend : mise en page et logo « D » (Grok), textes et bloc contact
+  (Gemini), site dans le téléphone (ChatGPT), pastilles « Fait près de chez
+  vous » et « Offre découverte » + « Appelez ou scannez » (Mistral), photo,
+  prix 29 € et mentions (Claude).</li>
+<li>Corrigé après génération : « E1 » → « EI » ; QR code réel envoyé dans
+  Canva (vérifié : il ouvre la démo).</li>
+<li>À compléter après création : téléphone, email, prénom et nom, SIREN,
+  adresse ; lien du QR vers la démo définitive.</li>
+</ul>
+<h2>Correction du 26/09 (soir)</h2>
+<ul>
+<li>L'ancien QR code menait à <code>dig-demo-menuisier.vercel.app</code>, projet Vercel supprimé : il ne fonctionnait plus.</li>
+<li>Remplacé dans Canva (design « DAHWQH2QKK8 ») par un QR vers <strong>https://digsite.pages.dev/</strong> (<code>site-dig/qr-digsite.png</code>) ; vérifié en décodant l'export 1748 × 2480 px. PNG et PDF du flyer mis à jour dans <code>supports/</code>.</li>
+</ul>
+<h2>Parrainage (28/09)</h2>
+<ul>
+<li>Ajout validé par l'utilisateur (« ok flyer ») : « Recommandé par un client ? 1er mois offert. »
+  sous « Appelez ou scannez », dans l'élément texte d'origine (même police), 10 pt, interligne 1,05.</li>
+<li>Contrôle : QR décodé → https://digsite.pages.dev/ ; écart mesuré entre la dernière ligne et le
+  bord du bloc ≈ 1,7 mm, aucun chevauchement avec l'icône email. PNG 1748 × 2480 et PDF A5 mis à jour.</li>
+</ul>
+<h2>Version 5 (28/09/2026, après l'audit externe)</h2>
+<ul>
+<li>Fichier de référence : <code>supports/flyer-dig-a5.html</code> → <code>supports/flyer-dig-a5-v5.pdf</code> et <code>.png</code>.</li>
+<li>« Plus d'appels et de devis » (promesse de résultat) remplacé par « Facile à appeler » ; note
+  fictive « 4,9/5 » retirée de l'image d'exemple ; « premier mois réglé avant la mise en ligne »
+  ajouté aux mentions ; prix « dès 49 €/mois ».</li>
+<li><strong>QR code refait</strong> : la source HTML menait encore à l'ancienne démo supprimée (erreur 404).
+  Nouveau QR vers https://digsite.pages.dev/, décodé depuis le PDF lui-même, y compris à basse
+  résolution. Contrôle ajouté : tous les QR et liens des PDF et du site testés (35 liens).</li>
+<li>Anciennes versions retirées du dossier (v4 : « dès 29 € » ; export Canva : QR mort). Le
+  design Canva DAHWQH2QKK8 n'est plus la référence.</li>
+<li>
+<p>Reste avant impression : prénom, nom, SIREN, adresse, téléphone et email (après immatriculation).</p>
+</li>
+<li>
+<p>28/09 (soir) : PDF refait à partir d'une image 300 ppp (1 748 × 2 480 px, A5 exact) après une capture de l'utilisateur montrant des rectangles sombres et un titre tronqué dans sa visionneuse ; contrôlé avec pdfium et MuPDF, QR décodé.</p>
+</li>
+</ul>
+<h2>Flyer de référence : Canva (28/09/2026, soir) — choix de l'utilisateur (« bien plus beau »)</h2>
+<ul>
+<li>Design Canva DAHWQH2QKK8, exports <code>supports/Dig-Flyer-A5.pdf</code> (A5 exact) et <code>.png</code> (300 ppp).</li>
+<li>Corrections : « dès 49 € » ; « Facile à appeler / Pensé d’abord pour le téléphone » (plus de
+  promesse de résultat) ; « Modifications sous 48 h, bilan mensuel » ; « Premier mois offert »
+  (parrainage) ; mentions légales avec « premier mois réglé avant la mise en ligne » ;
+  apostrophes typographiques ; titres des cartes harmonisés (même taille, une ligne) ;
+  coupures de lignes volontaires ; encadré de l'offre ajusté.</li>
+<li>Contrôle : texte extrait (aucune trace de 29 €, promesse, note fictive), QR décodé depuis le
+  PDF à 300 et 72 ppp → https://digsite.pages.dev/, rendu identique pdfium / MuPDF, marges :
+  3,2 mm en bas, 6,3 mm à gauche et à droite (zone de sécurité d'imprimeur ≈ 3 mm).</li>
+<li>Le flyer HTML (<code>flyer-dig-a5.html</code>, v5) reste une solution de secours.</li>
+<li>Avant impression : prénom, nom, SIREN, adresse, téléphone, email (après immatriculation) ;
+  demander à l'imprimeur s'il veut un fond perdu (Canva : « Fond perdu » à l'export).</li>
+</ul>
+<h2>06/10/2026 : QR vers dig16.fr</h2>
+<ul>
+<li>DNSSEC de dig16.fr actif et validé le 06/10 (vérifié via dns.google et cloudflare-dns.com). Le QR du flyer pointe encore vers <code>digsite.pages.dev</code>, qui fonctionne toujours ; il sera remplacé <strong>une seule fois</strong>, par <code>https://dig16.fr/</code>, avec la version définitive du flyer (nom, téléphone, SIREN, adresse), puis décodé depuis l'export pour contrôle.</li>
+</ul>
+<h2>Mise à jour du 07/10/2026 (demande de l'utilisateur)</h2>
+<ul>
+<li>QR code du design Canva DAHWQH2QKK8 remplacé : il mène maintenant à <strong>https://dig16.fr/</strong> (avant : digsite.pages.dev).
+  Vérifié en décodant les deux exports (PNG 1748 × 2480 px et PDF A5 148 × 210 mm) : <code>https://dig16.fr/</code>.</li>
+<li>Correction de cohérence avec le site et la décision du 05/10 : « Modifications sous 48 h » → « Modifications sous
+  3 jours ouvrés ».</li>
+<li>Reste à compléter le jour du SIREN : téléphone, prénom et nom, SIREN, adresse (mentions en bas du flyer).</li>
+</ul></section><section><h1>Aides à la création d'entreprise — financières et en nature (vérifié le 25/09/2026)</h1>
+<p>Demande de l'utilisateur : tout creuser et <strong>tout maîtriser</strong> avant une
+éventuelle création. L'éligibilité dépend de son profil personnel, qui n'est
+<strong>jamais</strong> écrit ici (dépôt public) : elle est vérifiée avec lui au moment d'agir.</p>
+<blockquote>
+<p><strong>Correction (leçon Kitwise)</strong> : un résumé de recherche annonçait 6 300 €
+pour l'aide Agefiph. Ce chiffre date d'un article d'<strong>août 2022</strong>. La fiche
+officielle de <strong>janvier 2026</strong> indique <strong>3 000 €</strong>. Toujours lire la fiche
+officielle datée, jamais un résumé.</p>
+</blockquote>
+<h2>1. Agefiph — aide à la création (subvention)</h2>
+<p>Source : <a href="https://www.agefiph.fr/sites/default/files/medias/fichiers/2026-01/Agefiph-Aide-creation-reprise_2026-01.pdf">fiche officielle janvier 2026 (PDF)</a>,
+<a href="https://www.agefiph.fr/aides-financieres/aide-la-creation-ou-la-reprise-dune-entreprise">page Agefiph</a>.</p>
+<ul>
+<li><strong>Montant : 3 000 €</strong>, forfaitaire, non renouvelable, cumulable avec les
+  aides de droit commun et les autres aides Agefiph.</li>
+<li><strong>Bénéficiaires</strong> : personnes bénéficiaires de l'obligation d'emploi
+  (RQTH, pension d'invalidité, AAH…) — justificatif demandé.</li>
+<li><strong>Objectif</strong> : « créer son emploi principal et pérenne ».
+  <strong>[à vérifier avec l'Agefiph : compatibilité avec une activité réduite]</strong></li>
+<li><strong>Conditions à respecter</strong> :
+  1. accompagnement par un <strong>expert habilité</strong> Agefiph ou Région <strong>avant
+     l'immatriculation</strong> ;
+  2. demande déposée <strong>avant l'immatriculation</strong> (ou dans les 6 mois après,
+     si l'avis favorable de viabilité a été obtenu avant) — <strong>ne pas créer
+     l'entreprise avant d'avoir lancé ce parcours</strong> ;
+  3. projet d'au moins <strong>7 500 €</strong>, financé par un <strong>apport personnel
+     effectif de 1 200 €</strong> (extrait de compte exigé), l'aide de 3 000 € et
+     d'autres cofinancements (ex. prêt d'honneur) ;
+  4. plan de financement équilibré, devis ou factures de moins de 6 mois ;
+  5. détenir la majorité des parts (automatique en entreprise individuelle).</li>
+<li><strong>Exclus</strong> : activité saisonnière, associations, SCI, sociétés de fait.</li>
+<li>⚠️ L'apport de 1 200 € est une dépense de l'utilisateur : décision à lui
+  soumettre ; il est incompatible avec la règle « budget 0 € » actuelle.</li>
+</ul>
+<h2>2. Agefiph — conseil et accompagnement (en nature, gratuit)</h2>
+<p>Source : <a href="https://www.agefiph.fr/aides-handicap/conseil-et-accompagnement-la-creation-ou-la-reprise-dentreprise">Agefiph</a>.</p>
+<ul>
+<li><strong>Gratuit</strong> : accompagnement par un expert de la création d'entreprise
+  (c'est lui qui rend l'avis de viabilité exigé pour la subvention).</li>
+<li>Inclut une <strong>micro-assurance</strong> (responsabilité civile professionnelle,
+  accident du travail et maladie professionnelle, santé).</li>
+<li>Accès : <strong>via le conseiller France Travail, Cap emploi ou Mission locale</strong>,
+  qui oriente vers l'expert partenaire de l'Agefiph.</li>
+</ul>
+<h2>3. Acre — cotisations réduites la première année</h2>
+<p>Sources : <a href="https://www.urssaf.fr/accueil/actualites/acre-nouvelles-regles-demarches.html">Urssaf</a>,
+<a href="https://entreprendre.service-public.fr/vosdroits/F11677">Service-Public</a>.</p>
+<ul>
+<li>25 % d'exonération si les revenus sont ≤ 36 045 € (dégressive jusqu'à 48 060 €).</li>
+<li><strong>Depuis le 01/01/2026</strong>, publics restreints : demandeurs d'emploi non
+  indemnisés inscrits 6 mois sur 18 ; bénéficiaires de l'ASS ou du RSA ;
+  18-25 ans ; handicapés de moins de 30 ans ; titulaires d'un <strong>contrat
+  Cape</strong> ; création en quartier prioritaire (QPV) ; repreneurs d'entreprise
+  en difficulté.</li>
+<li>Micro-entreprise : l'exonération « <strong>passe de 50 à 25 %</strong> pour les
+  micro-entreprises créées ou reprises <strong>à compter du 1er juillet 2026</strong> »
+  (<a href="https://entreprendre.service-public.gouv.fr/actualites/A18795">Service Public A18795, publié le 11/02/2026, lu le 02/10/2026</a>).</li>
+<li>Demande à l'Urssaf <strong>dans les 60 jours</strong> suivant le début d'activité.</li>
+<li>Voies possibles à étudier : contrat Cape (§ 4), QPV selon l'adresse de
+  l'entreprise, inscription à France Travail <strong>[à vérifier : effets de
+  l'inscription sur les aides perçues]</strong>.</li>
+</ul>
+<h2>3 bis. Allocation chômage (ARE) et création — la date compte</h2>
+<p>Source : <a href="https://www.francetravail.fr/candidat/mes-droits-aux-aides-et-allocati/a-chaque-situation-son-allocatio/quelle-est-ma-situation-professi/je-reprends-une-activite-ou-une/je-cree-je-reprends-une-entrepri.html">France Travail, « Je crée, je reprends une entreprise »</a>
+(modifiée le 18/09/2025, lue le 02/10/2026). Règle générale, à vérifier pour
+chaque situation avec le conseiller <strong>avant</strong> d'immatriculer :</p>
+<ul>
+<li><strong>Création après la fin du contrat</strong>, avec l'ARE : choisir soit l'<strong>ARCE</strong>
+  (versée en deux fois), soit le <strong>cumul</strong> chaque mois : « Montant de votre ARE
+  mensuelle – 70 % de vos rémunérations », dans la limite de « 60 % de vos
+  droits restants » (fins de contrat depuis le 01/04/2025).</li>
+<li>ARCE : « ne créez pas votre entreprise AVANT de vous inscrire ».</li>
+<li><strong>Activité déjà exercée avant la fin du contrat</strong> (« activité conservée ») :
+  cumul de « l'intégralité des rémunérations […] avec votre allocation ARE »,
+  mais pas d'ARCE.</li>
+<li>Repéré grâce au guide deviensdev.fr/freelance (02/10/2026) ; chiffres relus
+  sur la page officielle ci-dessus.</li>
+</ul>
+<h2>4. Couveuse d'entreprises et contrat Cape (en nature)</h2>
+<p>Source : <a href="https://bpifrance-creation.fr/encyclopedie/differentes-facons-dentreprendre/entreprendre-autrement/cape">Bpifrance Création</a>,
+<a href="https://www.legifrance.gouv.fr/codes/id/LEGISCTA000006178137">Légifrance L5142-1 et suivants</a>.</p>
+<ul>
+<li><strong>Tester l'activité avant de créer</strong> : la couveuse héberge juridiquement
+  l'activité (factures émises sous son numéro), avec accompagnement.</li>
+<li>Contrat d'un an, renouvelable deux fois ; ouvert à tous sauf les salariés
+  à temps complet.</li>
+<li><strong>Le Cape ne crée pas de nouveau statut social</strong> : on conserve son statut
+  et ses droits aux aides sociales.</li>
+<li>Ouvre droit à l'<strong>Acre</strong> à la création.</li>
+<li><strong>[à vérifier : sort des sommes facturées pendant le Cape dans les
+  déclarations de ressources ; frais éventuels de la couveuse]</strong></li>
+</ul>
+<h2>5. Prêts d'honneur à 0 % (vérifié sur les pages officielles, 25/09/2026)</h2>
+<p><strong>a) Prêt d'honneur Initiative France</strong> —
+<a href="https://www.initiative-france.fr/nos-solutions/financement-le-pret-d-honneur.html">page officielle</a>
+- « montant compris entre 3 000 et 50 000 € », moyenne 10 000 € ; « taux 0 » ;
+  « sans garantie demandée » ; prêt <strong>personnel</strong> au créateur.
+- Durée et différé : non précisés sur cette page (dépendent de l'association locale).</p>
+<p><strong>b) Prêt d'honneur Création-Reprise (Bpifrance, distribué par Initiative
+France et Réseau Entreprendre)</strong> —
+<a href="https://bpifrance-creation.fr/encyclopedie/financements/financement-fonds-propres/pret-dhonneur-creation-reprise">Bpifrance Création, publié en août 2026</a>
+- « entre 1 000 et 80 000 euros » ; « taux zéro » ; « entre 1 et 7 ans avec un
+  différé d'amortissement modulable entre 0 et 24 mois ».
+- Conditions : accompagnement par un opérateur ; les prêts d'honneur ne
+  peuvent dépasser <strong>1/3</strong> du total des financements ;
+  <strong>« Assurance décès et PTIA exigée »</strong> <strong>[à vérifier : conditions
+  d'assurabilité selon la situation de santé]</strong>.</p>
+<p>C'est un <strong>prêt</strong> (à rembourser) : décision de l'utilisateur.</p>
+<h2>6. Adie — microcrédit (vérifié sur la page officielle, 25/09/2026)</h2>
+<p><a href="https://www.adie.org/pour-creer-ou-developper-mon-entreprise/">Page officielle Adie</a>
+- « de 300 € à 15 000 € », « jusqu'à 48 mois ».
+- <strong>Ce n'est PAS un prêt à 0 %</strong> : « à partir de 8,4 % (taux fixe au 6 juillet 2026) ».
+- Un proche doit se porter garant pour « 50 % du montant emprunté ».
+- Accompagnement gratuit avant, pendant et après le lancement.
+- (Plafond légal du microcrédit professionnel : 17 000 € depuis le
+  01/01/2025 — <a href="https://bpifrance-creation.fr/encyclopedie/financements/lemprunt/microcredit-professionnel">Bpifrance Création</a>.)</p>
+<h2>7. Effets sur les aides sociales — le point le plus important</h2>
+<p>Toute création peut modifier les aides sociales perçues : effet à <strong>simuler
+avant la création</strong> auprès des organismes concernés (CPAM au 36 46, CAF).
+Le détail propre à la situation de l'utilisateur est dans un document
+<strong>privé</strong> (dossier « Dig » de son Google Drive), jamais dans ce dépôt public.</p>
+<h2>8. Reste à explorer</h2>
+<ul>
+<li>Aides de la <strong>région</strong> et du <strong>département</strong> de l'utilisateur (à lui
+  demander le moment venu ; ne pas l'écrire ici).</li>
+<li>Réseau Entreprendre et France Active (prêts d'honneur, garanties).</li>
+<li>Offres gratuites pour créateurs : banque en ligne sans frais, logiciels
+  de facturation, crédits cloud.</li>
+</ul>
+<h2>Ordre des démarches (si création un jour)</h2>
+<p>L'ordre détaillé, qui dépend de la situation de l'utilisateur, est dans le
+document privé du dossier « Dig » (Google Drive). Principe général :
+1. Faire simuler l'effet de la création sur les aides perçues (CPAM, CAF).
+2. Rencontrer le conseiller France Travail (ou l'organisme compétent) pour
+   l'accompagnement gratuit et les aides possibles.
+3. Étudier la couveuse et le contrat Cape (tester sans créer).
+4. Déposer les demandes d'aides <strong>avant</strong> l'immatriculation quand elles l'exigent.
+5. Immatriculer (section 2 bis du kit), puis demander l'Acre sous 60 jours si éligible.</p></section></body></html>

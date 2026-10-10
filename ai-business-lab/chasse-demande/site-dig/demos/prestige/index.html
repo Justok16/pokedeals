@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1f211d">
+<title>Le Clos des Tilleuls, maison d'hôtes (démonstration Prestige DIG16)</title>
+<meta name="description" content="Démonstration Prestige réalisée par DIG16 : une maison d'hôtes fictive, une journée racontée au fil du défilement, réservation en direct, version anglaise.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='16' fill='%231f211d'/><path d='M16 7c-4 5-4 10 0 18 4-8 4-13 0-18z' fill='%23a9b67a'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Mulish:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Mulish:wght@400;500;600&display=swap"></noscript>
+<link rel="stylesheet" href="scrollcraft.min.css">
+<style>
+  /* Pierre blonde, ardoise, tilleul : les trois matières de la maison. Un seul accent, le vert du tilleul. */
+  :root {
+    --sc-canvas: #1f211d;  --sc-surface: #2a2c27;
+    --sc-ink: #f4eee2;     --sc-ink-soft: #c2b9a7;
+    --sc-accent: #a9b67a;  --sc-accent-ink: #1f211d;
+    --sc-font-display: "Cormorant Garamond", Georgia, serif;
+    --sc-font-text: "Mulish", system-ui, sans-serif;
+    --pierre: #efe7d8; --pierre-2: #e6dcc9; --ardoise: #2c3136; --encre: #2a2620; --encre-douce: #5c5245; --tilleul-fonce: #5f6b38;
+  }
+  html { scroll-behavior: auto; }
+  body { -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
+  .titre { font-family: var(--sc-font-display); font-weight: 500; letter-spacing: -.012em; line-height: 1.02; margin: 0; }
+
+  /* En-tête : marque à gauche, langue et réservation à droite */
+  .barre { position: fixed; inset: 0 0 auto; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: max(14px, env(safe-area-inset-top)) clamp(16px, 4vw, 52px) 14px; color: var(--sc-ink);
+    background: linear-gradient(180deg, rgba(31,33,29,.7), rgba(31,33,29,0)); pointer-events: none; }
+  .barre { transition: background .35s ease; }
+  .barre.pleine { background: rgba(44,49,54,.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+  .barre > * { pointer-events: auto; }
+  .marque { text-decoration: none; display: grid; line-height: 1.05; }
+  .marque b { font-family: var(--sc-font-display); font-weight: 600; font-size: clamp(1.3rem, 2.1vw, 1.7rem); }
+  .marque span { font-size: .78rem; letter-spacing: .08em; opacity: .8; margin-top: .2rem; }
+  .barre nav { display: flex; align-items: center; gap: clamp(8px, 1.6vw, 18px); }
+  .langue { all: unset; cursor: pointer; font-size: .9rem; padding: .55rem .7rem; border: 1px solid rgba(244,238,226,.35); border-radius: 999px; }
+  .reserver { text-decoration: none; background: var(--sc-ink); color: var(--encre); font-weight: 600; font-size: .92rem; padding: .62rem 1.15rem; border-radius: 999px; white-space: nowrap; }
+  .reserver:hover { background: #fff; }
+  .barre .lien { text-decoration: none; font-size: .95rem; opacity: .9; }
+  @media (max-width: 720px) { .barre .lien { display: none; } }
+
+  /* Acte 1 : une journée au Clos. L'heure avance avec le film. */
+  .journee { height: 760vh; }
+  /* Animations réduites (réglage fréquent sous Windows) : même parcours, images fixes qui se succèdent sans fondu. */
+  @media (prefers-reduced-motion: reduce) { .journee { height: 500vh; } }
+  .journee [data-sc-stage] { background: var(--sc-canvas); }
+  .etats { position: absolute; inset: 0; z-index: 1; transition: opacity .5s ease; }
+  .etats picture, .etats img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .etats img { object-fit: cover; }
+  .etats picture { opacity: 0; transition: opacity .6s ease; }
+  .etats picture.actif { opacity: 1; }
+  .journee.film-ok .etats { opacity: 0; pointer-events: none; }
+  .journee .sc-scrim { z-index: 2; }
+  .journee .sc-scrim { background: linear-gradient(0deg, rgba(31,33,29,.85) 0%, rgba(31,33,29,.3) 40%, rgba(31,33,29,0) 64%), linear-gradient(90deg, rgba(31,33,29,.35), rgba(31,33,29,0) 45%); }
+  .moment { position: absolute; z-index: 3; left: var(--sc-gutter); bottom: clamp(6.5rem, 18vh, 11rem); max-width: min(38rem, 88vw);
+    opacity: 0; transform: translateY(16px); transition: opacity 480ms cubic-bezier(.2,.7,.2,1), transform 600ms cubic-bezier(.2,.7,.2,1); pointer-events: none; }
+  .moment.actif { opacity: 1; transform: none; }
+  .moment h1 { font-family: var(--sc-font-display); font-weight: 500; font-size: clamp(3.1rem, 9vw, 8rem); line-height: .9; letter-spacing: -.025em; margin: 0 0 1rem; }
+  .moment h2 { font-family: var(--sc-font-display); font-weight: 500; font-style: italic; font-size: clamp(2.2rem, 5vw, 4.3rem); line-height: 1; margin: 0 0 .8rem; }
+  .moment p { font-size: clamp(1.02rem, 1.4vw, 1.16rem); line-height: 1.6; color: #ebe4d6; max-width: 32rem; margin: 0; text-shadow: 0 1px 14px rgba(0,0,0,.4); }
+
+  /* L'horloge du séjour : un cadran fin dont l'aiguille suit l'heure de chaque moment */
+  .horloge { position: absolute; z-index: 4; right: var(--sc-gutter); bottom: max(1.5rem, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: .9rem; color: var(--sc-ink); }
+  .cadran { width: 64px; height: 64px; }
+  .cadran circle { fill: rgba(31,33,29,.45); stroke: rgba(244,238,226,.55); stroke-width: 1.2; }
+  .cadran .aig { stroke: var(--sc-ink); stroke-width: 2; stroke-linecap: round; transform-origin: 32px 32px; transition: transform 700ms cubic-bezier(.3,.7,.2,1); }
+  .cadran .aig.min { stroke: var(--sc-accent); stroke-width: 1.4; }
+  .heure { display: grid; text-align: right; }
+  .heure b { font-family: var(--sc-font-display); font-size: 2rem; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; }
+  .heure span { font-size: .86rem; color: var(--sc-ink-soft); }
+  .etapes-jour { position: absolute; z-index: 4; left: var(--sc-gutter); bottom: max(1.6rem, env(safe-area-inset-bottom)); display: flex; gap: 6px; }
+  .etapes-jour button { all: unset; cursor: pointer; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; }
+  .etapes-jour button::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: rgba(244,238,226,.45); transition: background 150ms, transform 150ms; }
+  .etapes-jour button[aria-current="step"]::before { background: var(--sc-accent); transform: scale(1.35); }
+  @media (prefers-reduced-motion: reduce) { .moment, .cadran .aig, .etats, .etats picture { transition: none; } }
+
+  /* Acte 2 : la maison, une page de livre ouverte */
+  .maison { background: var(--pierre); color: var(--encre); }
+  .maison .grille { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .maison h2 { font-size: clamp(2.5rem, 5vw, 4.4rem); }
+  .maison h2 em { font-style: italic; color: var(--tilleul-fonce); }
+  .maison p { color: var(--encre-douce); line-height: 1.75; max-width: 31rem; margin: 1.3rem 0 0; }
+  .reperes { display: flex; gap: clamp(20px, 4vw, 48px); margin-top: 2.2rem; flex-wrap: wrap; }
+  .reperes div { border-top: 1px solid rgba(42,38,32,.25); padding-top: .8rem; min-width: 7rem; }
+  .reperes b { display: block; font-family: var(--sc-font-display); font-size: 2.1rem; font-weight: 500; line-height: 1; }
+  .reperes span { font-size: .92rem; color: var(--encre-douce); }
+  .maison figure { margin: 0; position: relative; }
+  .maison figure img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; border-radius: 220px 220px 4px 4px; }
+  .maison figcaption { font-family: var(--sc-font-display); font-style: italic; font-size: 1.15rem; color: var(--encre-douce); margin-top: .8rem; text-align: center; }
+  @media (max-width: 820px) { .maison .grille { grid-template-columns: 1fr; } .maison figure img { border-radius: 160px 160px 4px 4px; } }
+
+  /* Acte 3 : les chambres, en travelling */
+  .chambres, .chambres [data-sc-stage] { background: var(--pierre-2); color: var(--encre); }
+  .rail { gap: clamp(18px, 2.6vw, 36px); align-items: center; padding-inline: var(--sc-gutter); height: 100%; padding-block: clamp(5rem, 12vh, 7rem) 2rem; }
+  .rail > * { flex: 0 0 auto; }
+  .rail__tete { width: min(25rem, 80vw); }
+  .rail__tete h2 { font-size: clamp(2.4rem, 4.6vw, 3.8rem); }
+  .rail__tete p { color: var(--encre-douce); line-height: 1.7; margin: 1rem 0 0; }
+  .chambre, .rail__tete, .rail__fin { background: var(--pierre-2); }
+  .chambre { width: clamp(16rem, 25vw, 22rem); }
+  .chambre .img { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 3px; }
+  .chambre img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .chambre h3 { font-family: var(--sc-font-display); font-weight: 500; font-size: 1.85rem; margin: 1rem 0 .25rem; }
+  .chambre .infos { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; color: var(--encre-douce); font-size: .95rem; }
+  .chambre .prix { font-family: var(--sc-font-display); font-size: 1.35rem; color: var(--encre); white-space: nowrap; }
+  .chambre button { all: unset; cursor: pointer; margin-top: .9rem; font-weight: 600; font-size: .95rem; border-bottom: 1px solid currentColor; padding: .35rem 0; color: #4e5a2b; }
+  .rail__fin { width: min(19rem, 70vw); font-family: var(--sc-font-display); font-style: italic; font-size: clamp(1.6rem, 2.5vw, 2.1rem); line-height: 1.2; }
+
+  /* Acte 4 : le séjour, le cadre tient pendant que la journée se déroule */
+  .sejour [data-sc-stage] { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--ardoise); }
+  .sejour .photos { position: relative; overflow: hidden; }
+  .sejour .photos img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .sejour .textes { position: relative; }
+  .sejour .ligne { position: absolute; left: clamp(24px, 5vw, 72px); right: clamp(24px, 5vw, 72px); top: 50%; translate: 0 -50%; }
+  .sejour .ligne small { display: block; color: var(--sc-accent); font-size: 1rem; margin-bottom: .9rem; }
+  .sejour .ligne p { font-family: var(--sc-font-display); font-size: clamp(1.9rem, 3.6vw, 3.1rem); line-height: 1.1; margin: 0; color: #f6f1e7; }
+  @media (max-width: 820px) { .sejour [data-sc-stage] { grid-template-columns: 1fr; grid-template-rows: 46% 54%; } }
+
+  /* Acte 5 : un avis, en grand */
+  .avis { background: var(--pierre); color: var(--encre); text-align: center; }
+  .avis blockquote { margin: 0 auto; max-width: 46rem; font-family: var(--sc-font-display); font-style: italic; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.12; }
+  .avis cite { display: block; margin-top: 1.4rem; font-style: normal; font-size: .95rem; color: var(--encre-douce); }
+
+  /* Acte 6 : réserver en direct, avec le prix qui se calcule */
+  .resa { background: var(--sc-canvas); color: var(--sc-ink); }
+  .resa .grille { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .resa h2 { font-size: clamp(2.6rem, 5.4vw, 4.6rem); }
+  .resa .intro p { color: var(--sc-ink-soft); line-height: 1.7; max-width: 28rem; margin: 1.2rem 0 0; }
+  form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; background: var(--sc-surface); padding: clamp(20px, 3vw, 36px); border-radius: 6px; }
+  label { display: grid; gap: .45rem; font-size: .9rem; color: var(--sc-ink-soft); }
+  label.plein { grid-column: 1 / -1; }
+  input, select { font: inherit; font-size: 1rem; color: var(--sc-ink); background: #1b1d19; border: 1px solid rgba(244,238,226,.18); border-radius: 4px; padding: .8rem .85rem; min-height: 48px; color-scheme: dark; }
+  input:focus, select:focus { outline: 2px solid var(--sc-accent); outline-offset: 1px; }
+  .total { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid rgba(244,238,226,.12); padding-top: 1rem; margin-top: .4rem; }
+  .total span { color: var(--sc-ink-soft); font-size: .95rem; }
+  .total b { font-family: var(--sc-font-display); font-size: 2.2rem; font-weight: 500; }
+  form button { grid-column: 1 / -1; font: inherit; font-weight: 600; font-size: 1rem; background: var(--sc-accent); color: var(--sc-accent-ink); border: 0; border-radius: 999px; padding: 1rem 1.4rem; cursor: pointer; }
+  form button:hover { background: #b8c48a; }
+  .note { grid-column: 1 / -1; min-height: 1.4em; font-size: .95rem; color: var(--sc-accent); margin: 0; }
+  @media (max-width: 820px) { .resa .grille { grid-template-columns: 1fr; } }
+  @media (max-width: 460px) { form { grid-template-columns: 1fr; } }
+
+  .pied { background: #171915; color: #9c9483; font-size: .86rem; line-height: 1.6; padding: 1.6rem var(--sc-gutter) max(1.6rem, env(safe-area-inset-bottom)); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .pied a { text-decoration: underline; text-underline-offset: 3px; }
+</style>
+</head>
+<body>
+<span data-sc-progress></span>
+
+<header class="barre">
+  <a class="marque" href="#haut"><b>Le Clos des Tilleuls</b><span data-fr="Maison d'hôtes" data-en="Guest house">Maison d'hôtes</span></a>
+  <nav aria-label="Navigation">
+    <a class="lien" href="#chambres" data-fr="Chambres" data-en="Rooms">Chambres</a>
+    <button class="langue" id="langue" type="button" lang="en" aria-label="EN : switch to English">EN</button>
+    <a class="reserver" href="#reserver" data-fr="Réserver" data-en="Book">Réserver</a>
+  </nav>
+</header>
+
+<main id="haut">
+
+  <!-- 1 · Une journée au Clos -->
+  <section class="journee" data-sc-act="scrub" data-sc-span="7.6" data-sc-dwell="0" aria-label="Une journée au Clos">
+    <div data-sc-stage>
+      <picture>
+        <source media="(max-width: 860px)" srcset="affiche-m.webp">
+        <img class="sc-stage__poster" src="affiche.webp" fetchpriority="high" alt="La façade en pierre blonde de la maison, sous les tilleuls">
+      </picture>
+      <video data-sc-scrub data-sc-src="journee.mp4" data-sc-src-mobile="journee-m.mp4" muted playsinline preload="none" aria-hidden="true"></video>
+      <!-- Images fixes de chaque moment : prennent le relais si le téléphone ne lit pas la vidéo (iPhone en économie d'énergie, etc.) -->
+      <div class="etats" aria-hidden="true"><picture class="actif"><source media="(max-width: 860px)" srcset="etat-1-m.webp"><img src="etat-1.webp" alt="" decoding="async"></picture><picture><source media="(max-width: 860px)" srcset="etat-2-m.webp"><img src="etat-2.webp" alt="" loading="lazy" decoding="async"></picture><picture><source media="(max-width: 860px)" srcset="etat-3-m.webp"><img src="etat-3.webp" alt="" loading="lazy" decoding="async"></picture><picture><source media="(max-width: 860px)" srcset="etat-4-m.webp"><img src="etat-4.webp" alt="" loading="lazy" decoding="async"></picture><picture><source media="(max-width: 860px)" srcset="etat-5-m.webp"><img src="etat-5.webp" alt="" loading="lazy" decoding="async"></picture></div>
+      <div class="sc-scrim" aria-hidden="true"></div>
+
+      <div class="moment actif" data-de="0" data-a="3.4" data-h="16" data-m="0">
+        <h1>Le Clos des Tilleuls</h1>
+        <p data-fr="Une demeure du XVIIIᵉ siècle, cinq chambres et le silence de la campagne. Faites défiler : voici une journée chez nous." data-en="An 18th-century house, five rooms and the quiet of the countryside. Scroll down: here is a day with us.">Une demeure du XVIIIᵉ siècle, cinq chambres et le silence de la campagne. Faites défiler : voici une journée chez nous.</p>
+      </div>
+      <div class="moment" data-de="3.4" data-a="7.0" data-h="18" data-m="0">
+        <h2 data-fr="Le jardin, à l'heure dorée" data-en="The garden, at golden hour">Le jardin, à l'heure dorée</h2>
+        <p data-fr="Lavandes, herbes folles et tilleuls centenaires. On s'y installe avec un livre jusqu'au soir." data-en="Lavender, wild grasses and century-old lime trees. Settle in with a book until evening.">Lavandes, herbes folles et tilleuls centenaires. On s'y installe avec un livre jusqu'au soir.</p>
+      </div>
+      <div class="moment" data-de="7.0" data-a="10.6" data-h="23" data-m="0">
+        <h2 data-fr="Une nuit en lin lavé" data-en="A night in washed linen">Une nuit en lin lavé</h2>
+        <p data-fr="Literie haut de gamme, murs épais, fenêtres sur le parc. Ici, le seul bruit, c'est le vent." data-en="Fine bedding, thick walls, windows on the park. The only sound here is the wind.">Literie haut de gamme, murs épais, fenêtres sur le parc. Ici, le seul bruit, c'est le vent.</p>
+      </div>
+      <div class="moment" data-de="10.6" data-a="14.2" data-h="9" data-m="0">
+        <h2 data-fr="Le petit-déjeuner, sans se presser" data-en="Breakfast, unhurried">Le petit-déjeuner, sans se presser</h2>
+        <p data-fr="Viennoiseries du village, confitures maison, fruits du verger. Servi au jardin dès les beaux jours." data-en="Pastries from the village, homemade jam, fruit from the orchard. Served in the garden on fine days.">Viennoiseries du village, confitures maison, fruits du verger. Servi au jardin dès les beaux jours.</p>
+      </div>
+      <div class="moment" data-de="14.2" data-a="99" data-h="20" data-m="0">
+        <h2 data-fr="Le soir, la table d'hôtes" data-en="In the evening, the guest table">Le soir, la table d'hôtes</h2>
+        <p data-fr="Une cuisine de saison partagée à la grande table, à la lueur des bougies. Sur réservation." data-en="Seasonal cooking shared at the long table, by candlelight. On request.">Une cuisine de saison partagée à la grande table, à la lueur des bougies. Sur réservation.</p>
+      </div>
+
+      <div class="etapes-jour" role="group" aria-label="Moments de la journée">
+        <button type="button" data-t="0.4" aria-label="Arrivée, 16 h"></button>
+        <button type="button" data-t="4.6" aria-label="Le jardin, 18 h"></button>
+        <button type="button" data-t="8.2" aria-label="La nuit, 23 h"></button>
+        <button type="button" data-t="11.8" aria-label="Le petit-déjeuner, 9 h"></button>
+        <button type="button" data-t="15.6" aria-label="La table d'hôtes, 20 h"></button>
+      </div>
+      <div class="horloge" aria-live="polite">
+        <svg class="cadran" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="30"/>
+          <line class="aig" id="aig-h" x1="32" y1="32" x2="32" y2="17"/>
+          <line class="aig min" id="aig-m" x1="32" y1="32" x2="32" y2="9"/>
+        </svg>
+        <div class="heure"><b id="heure">16 h</b><span id="libelle" data-fr="Arrivée" data-en="Arrival">Arrivée</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · La maison -->
+  <section class="maison sc-section" id="maison">
+    <div class="sc-wrap grille">
+      <div data-sc-in data-sc-stagger="70">
+        <h2 class="titre" data-fr="Pierre blonde,<br><em>fenêtres cintrées</em><br>et lavandes" data-en="Honey stone,<br><em>arched windows</em><br>and lavender">Pierre blonde,<br><em>fenêtres cintrées</em><br>et lavandes</h2>
+        <p data-fr="Restaurée avec patience, la demeure a gardé ses poutres, ses tomettes et son jardin de tilleuls. On y vient pour se poser, et l'on repart reposé." data-en="Patiently restored, the house has kept its beams, its terracotta tiles and its garden of lime trees. You come here to slow down, and leave rested.">Restaurée avec patience, la demeure a gardé ses poutres, ses tomettes et son jardin de tilleuls. On y vient pour se poser, et l'on repart reposé.</p>
+        <div class="reperes">
+          <div><b>5</b><span data-fr="chambres" data-en="rooms">chambres</span></div>
+          <div><b>2 ha</b><span data-fr="de parc" data-en="of parkland">de parc</span></div>
+          <div><b>1768</b><span data-fr="année de construction" data-en="year built">année de construction</span></div>
+        </div>
+      </div>
+      <figure data-sc-reveal="up" data-sc-reveal-at="0.1 0.5">
+        <img src="maison-detail.webp" srcset="maison-detail-560.webp 560w, maison-detail.webp 1000w" sizes="(max-width: 820px) 90vw, 46vw" loading="lazy" alt="Fenêtre cintrée de la façade, avec des lavandes au pied du mur">
+        <figcaption data-fr="La façade sud, en juin" data-en="The south front, in June">La façade sud, en juin</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 3 · Les chambres -->
+  <section class="chambres" id="chambres" data-sc-act="pan" data-sc-span="4.4" aria-label="Chambres">
+    <div data-sc-stage>
+      <div class="rail" data-sc-pan="0.04">
+        <div class="rail__tete">
+          <h2 class="titre" data-fr="Cinq chambres, chacune son caractère" data-en="Five rooms, each with its own character">Cinq chambres, chacune son caractère</h2>
+          <p data-fr="Linge de lin, salles de bains en pierre, vue sur le parc. Choisissez la vôtre : elle sera prête dans le formulaire." data-en="Linen sheets, stone bathrooms, views over the park. Pick yours: it will be ready in the booking form.">Linge de lin, salles de bains en pierre, vue sur le parc. Choisissez la vôtre : elle sera prête dans le formulaire.</p>
+        </div>
+        <article class="chambre">
+          <div class="img"><img src="chambre-tilleul.webp" srcset="chambre-tilleul-560.webp 560w, chambre-tilleul.webp 900w" sizes="(max-width: 760px) 64vw, 25vw" loading="lazy" alt="Lit en lin vert sauge et blanc dans la chambre Tilleul"></div>
+          <h3 data-fr="Chambre Tilleul" data-en="Tilleul room">Chambre Tilleul</h3>
+          <div class="infos"><span data-fr="2 personnes, 24 m²" data-en="2 guests, 24 m²">2 personnes, 24 m²</span><span class="prix" data-fr="dès 145 €" data-en="from €145">dès 145 €</span></div>
+          <button type="button" data-chambre="tilleul" data-fr="Choisir cette chambre" data-en="Choose this room">Choisir cette chambre</button>
+        </article>
+        <article class="chambre">
+          <div class="img"><img src="chambre-jardin.webp" srcset="chambre-jardin-560.webp 560w, chambre-jardin.webp 900w" sizes="(max-width: 760px) 64vw, 25vw" loading="lazy" alt="Lit en lin écru près d'une fenêtre ouverte sur le jardin"></div>
+          <h3 data-fr="Suite Jardin" data-en="Garden suite">Suite Jardin</h3>
+          <div class="infos"><span data-fr="2 à 3 personnes, 38 m²" data-en="2 to 3 guests, 38 m²">2 à 3 personnes, 38 m²</span><span class="prix" data-fr="dès 210 €" data-en="from €210">dès 210 €</span></div>
+          <button type="button" data-chambre="jardin" data-fr="Choisir cette chambre" data-en="Choose this room">Choisir cette chambre</button>
+        </article>
+        <article class="chambre">
+          <div class="img"><img src="chambre-riviere.webp" srcset="chambre-riviere-560.webp 560w, chambre-riviere.webp 900w" sizes="(max-width: 760px) 64vw, 25vw" loading="lazy" alt="Lit en fer forgé sous les combles, devant une fenêtre à petits carreaux"></div>
+          <h3 data-fr="Chambre Rivière" data-en="River room">Chambre Rivière</h3>
+          <div class="infos"><span data-fr="2 personnes, 22 m²" data-en="2 guests, 22 m²">2 personnes, 22 m²</span><span class="prix" data-fr="dès 130 €" data-en="from €130">dès 130 €</span></div>
+          <button type="button" data-chambre="riviere" data-fr="Choisir cette chambre" data-en="Choose this room">Choisir cette chambre</button>
+        </article>
+        <p class="rail__fin" data-fr="Deux autres chambres vous attendent sous les toits." data-en="Two more rooms await you under the eaves.">Deux autres chambres vous attendent sous les toits.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · Le séjour -->
+  <section class="sejour" data-sc-act="pin" data-sc-span="3.4" aria-label="Le séjour">
+    <div data-sc-stage>
+      <div class="photos">
+        <img data-sc-cue="0 0.36 0" src="sejour-petitdej.webp" srcset="sejour-petitdej-560.webp 560w, sejour-petitdej.webp 1400w" sizes="(max-width: 820px) 100vw, 50vw" loading="lazy" alt="Plateau de petit-déjeuner au jardin : gaufres, myrtilles, fleurs blanches">
+        <img data-sc-cue="0.3 0.7" src="bande-lavandes.webp" srcset="bande-lavandes-560.webp 560w, bande-lavandes.webp 1600w" sizes="(max-width: 820px) 100vw, 50vw" loading="lazy" alt="Massif de lavandes et d'herbes devant la façade">
+        <img data-sc-cue="0.64 1 0.16 0.02" src="diner.webp" srcset="diner-560.webp 560w, diner.webp 1400w" sizes="(max-width: 820px) 100vw, 50vw" loading="lazy" alt="Grande table dressée aux bougies et aux hortensias">
+      </div>
+      <div class="textes">
+        <div class="ligne" data-sc-cue="0 0.36 0"><small data-fr="Le matin" data-en="Morning">Le matin</small><p data-fr="Un petit-déjeuner du terroir, servi quand vous descendez." data-en="A local breakfast, served whenever you come down.">Un petit-déjeuner du terroir, servi quand vous descendez.</p></div>
+        <div class="ligne" data-sc-cue="0.3 0.7"><small data-fr="L'après-midi" data-en="Afternoon">L'après-midi</small><p data-fr="Piscine face aux champs, vélos et canoë pour aller à la rivière." data-en="A pool facing the fields, bikes and a canoe to reach the river.">Piscine face aux champs, vélos et canoë pour aller à la rivière.</p></div>
+        <div class="ligne" data-sc-cue="0.64 1 0.16 0.02"><small data-fr="Le soir" data-en="Evening">Le soir</small><p data-fr="La table d'hôtes, quatre soirs par semaine, avec les produits des fermes voisines." data-en="The guest table, four evenings a week, with produce from nearby farms.">La table d'hôtes, quatre soirs par semaine, avec les produits des fermes voisines.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Un avis -->
+  <section class="avis sc-section">
+    <div class="sc-wrap" data-sc-in>
+      <blockquote data-fr="« Nous sommes venus pour deux nuits, nous sommes restés cinq. »" data-en="“We came for two nights and stayed five.”">« Nous sommes venus pour deux nuits, nous sommes restés cinq. »</blockquote>
+      <cite data-fr="Avis fictif, pour la démonstration" data-en="Fictional review, for the demo">Avis fictif, pour la démonstration</cite>
+    </div>
+  </section>
+
+  <!-- 6 · Réserver -->
+  <section class="resa sc-section" id="reserver">
+    <div class="sc-wrap grille">
+      <div class="intro" data-sc-in>
+        <h2 class="titre" data-fr="Réservez en direct" data-en="Book direct">Réservez en direct</h2>
+        <p data-fr="Au meilleur prix, sans commission, avec une réponse sous 24 heures. Le total se calcule pendant que vous choisissez." data-en="Best rate, no commission, with a reply within 24 hours. The total updates as you choose.">Au meilleur prix, sans commission, avec une réponse sous 24 heures. Le total se calcule pendant que vous choisissez.</p>
+      </div>
+      <form id="form" novalidate>
+        <label class="plein"><span data-fr="Chambre" data-en="Room">Chambre</span>
+          <select id="chambre">
+            <option value="tilleul" data-prix="145" data-fr="Chambre Tilleul, 145 € la nuit" data-en="Tilleul room, €145 per night">Chambre Tilleul, 145 € la nuit</option>
+            <option value="jardin" data-prix="210" data-fr="Suite Jardin, 210 € la nuit" data-en="Garden suite, €210 per night">Suite Jardin, 210 € la nuit</option>
+            <option value="riviere" data-prix="130" data-fr="Chambre Rivière, 130 € la nuit" data-en="River room, €130 per night">Chambre Rivière, 130 € la nuit</option>
+          </select>
+        </label>
+        <label><span data-fr="Arrivée" data-en="Check-in">Arrivée</span><input type="date" id="arrivee" required></label>
+        <label><span data-fr="Départ" data-en="Check-out">Départ</span><input type="date" id="depart" required></label>
+        <label class="plein"><span data-fr="Voyageurs" data-en="Guests">Voyageurs</span>
+          <select id="voyageurs"><option>1</option><option selected>2</option><option>3</option></select>
+        </label>
+        <div class="total" aria-live="polite"><span id="nuits" data-fr="Choisissez vos dates" data-en="Choose your dates">Choisissez vos dates</span><b id="montant">—</b></div>
+        <button type="submit" data-fr="Demander la réservation" data-en="Request booking">Demander la réservation</button>
+        <p class="note" id="note" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pied">
+  <span>© Le Clos des Tilleuls · <span data-fr="établissement fictif" data-en="fictional property">établissement fictif</span> · <a href="../../mentions-legales.html" data-fr="Mentions légales" data-en="Legal notice">Mentions légales</a></span>
+  <span data-fr="Démonstration « Prestige » réalisée par DIG16. Maison, avis et prix fictifs ; film composé à partir de photos d'illustration libres de droits (Unsplash)." data-en="DIG16 “Prestige” demo. Fictional house, review and prices; film made from royalty-free illustrative photos (Unsplash).">Démonstration « Prestige » réalisée par DIG16. Maison, avis et prix fictifs ; film composé à partir de photos d'illustration libres de droits (Unsplash).</span>
+</footer>
+
+<script src="scrollcraft.min.js"></script>
+<script>
+  var calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Navigateurs sans lecteur MP4 : version WebM du même film.
+  (function () {
+    var v = document.querySelector('.journee video');
+    if (v && !v.canPlayType('video/mp4; codecs="avc1.640028"') && v.canPlayType('video/webm; codecs="vp9"')) {
+      v.setAttribute('data-sc-src', 'journee.webm'); v.setAttribute('data-sc-src-mobile', 'journee-m.webm');
+    }
+  })();
+  // Mouvements réduits : la journée tient en un écran (la suite de la page reste complète).
+  if (calme) document.querySelector('.journee').setAttribute('data-sc-span', '5');
+  ScrollCraft.mount(document.body);
+
+  var lang = 'fr';
+  function texte(el) { return el.getAttribute('data-' + lang); }
+
+  // L'horloge du séjour : chaque moment du film a son heure ; l'aiguille tourne d'un moment à l'autre.
+  (function () {
+    var video = document.querySelector('.journee video');
+    var moments = [].slice.call(document.querySelectorAll('.moment'));
+    var points = [].slice.call(document.querySelectorAll('.etapes-jour button'));
+    var libelles = [['Arrivée', 'Arrival'], ['Le jardin', 'The garden'], ['La nuit', 'Night'], ['Le petit-déjeuner', 'Breakfast'], ['La table d\'hôtes', 'Dinner']];
+    var section = document.querySelector('.journee');
+    var courant = -1, tours = 0, dernier = 16;
+    function aiguilles(h, m) {
+      // l'aiguille des heures avance toujours dans le sens des aiguilles d'une montre (la nuit passe, le jour revient)
+      var cible = h + m / 60;
+      if (cible < dernier) tours += 12;
+      dernier = cible;
+      document.getElementById('aig-h').style.transform = 'rotate(' + (cible + tours) * 30 + 'deg)';
+      document.getElementById('aig-m').style.transform = 'rotate(' + (cible + tours) * 360 + 'deg)';
+    }
+    var etats = [].slice.call(document.querySelectorAll('.etats picture')), panne = 0;
+    function maj() {
+      // L'heure suit le défilement (et non la vidéo) : elle avance même si le téléphone ne lit pas le film.
+      var duree = (video && video.duration) || 18.7;
+      var course = section.offsetHeight - innerHeight;
+      var p = course > 0 ? Math.min(1, Math.max(0, -section.getBoundingClientRect().top / course)) : 0;
+      var t = p * duree, i = 0;
+      // Le film n'est montré que s'il répond vraiment au défilement ; sinon, les images fixes de chaque moment.
+      // (un court passage à readyState < 2 pendant une recherche d'image est normal : on attend 1,5 s avant de basculer)
+      var maintenant = performance.now();
+      if (video && video.readyState >= 2) { panne = 0; if (video.currentTime > 0.05) section.classList.add('film-ok'); }
+      else if (!panne) panne = maintenant;
+      else if (maintenant - panne > 1500) section.classList.remove('film-ok');
+      if (section.classList.contains('film-ok')) t = video.currentTime; // l'heure colle à l'image du film
+      moments.forEach(function (c, k) { if (t >= +c.dataset.de && t < +c.dataset.a) i = k; });
+      if (i !== courant) {
+        courant = i;
+        moments.forEach(function (c, k) { c.classList.toggle('actif', k === i); });
+        etats.forEach(function (e, k) { e.classList.toggle('actif', k === i); });
+        points.forEach(function (b, k) { if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+        var c = moments[i];
+        document.getElementById('heure').textContent = lang === 'fr' ? c.dataset.h + ' h' : (((+c.dataset.h + 11) % 12) + 1) + (+c.dataset.h < 12 ? ' am' : ' pm');
+        var lib = document.getElementById('libelle');
+        lib.setAttribute('data-fr', libelles[i][0]); lib.setAttribute('data-en', libelles[i][1]); lib.textContent = libelles[i][lang === 'fr' ? 0 : 1];
+        aiguilles(+c.dataset.h, +c.dataset.m);
+      }
+      requestAnimationFrame(maj);
+    }
+    aiguilles(16, 0);
+    requestAnimationFrame(maj);
+    points.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var duree = (video && video.duration) || 18.7;
+        var haut = section.getBoundingClientRect().top + scrollY, course = section.offsetHeight - innerHeight;
+        scrollTo({ top: haut + course * Math.min(1, +b.dataset.t / duree), behavior: calme ? 'auto' : 'smooth' });
+      });
+    });
+    window.majHorloge = function () { courant = -1; };
+  })();
+
+  // Réservation : la chambre choisie dans le travelling est reprise ; le total se calcule à chaque changement.
+  (function () {
+    var choix = document.getElementById('chambre'), arr = document.getElementById('arrivee'), dep = document.getElementById('depart');
+    var nuits = document.getElementById('nuits'), montant = document.getElementById('montant'), note = document.getElementById('note');
+    var auj = new Date(); auj.setHours(12, 0, 0, 0);
+    function iso(d) { return d.toISOString().slice(0, 10); }
+    arr.min = iso(auj);
+    function calcul() {
+      note.textContent = '';
+      if (arr.value) { var lendemain = new Date(arr.value + 'T12:00:00'); lendemain.setDate(lendemain.getDate() + 1); dep.min = iso(lendemain); }
+      var a = arr.value && new Date(arr.value + 'T12:00:00'), d = dep.value && new Date(dep.value + 'T12:00:00');
+      var n = a && d ? Math.round((d - a) / 864e5) : 0;
+      if (n > 0) {
+        var prix = +choix.options[choix.selectedIndex].dataset.prix;
+        nuits.textContent = lang === 'fr' ? n + (n > 1 ? ' nuits' : ' nuit') + ' × ' + prix + ' €' : n + (n > 1 ? ' nights' : ' night') + ' × €' + prix;
+        montant.textContent = lang === 'fr' ? (n * prix).toLocaleString('fr-FR') + ' €' : '€' + (n * prix).toLocaleString('en-GB');
+      } else {
+        nuits.textContent = lang === 'fr' ? 'Choisissez vos dates' : 'Choose your dates';
+        montant.textContent = '—';
+      }
+    }
+    [choix, arr, dep].forEach(function (el) { el.addEventListener('change', calcul); el.addEventListener('input', calcul); });
+    [].slice.call(document.querySelectorAll('[data-chambre]')).forEach(function (b) {
+      b.addEventListener('click', function () {
+        choix.value = b.dataset.chambre; calcul();
+        document.getElementById('reserver').scrollIntoView({ behavior: calme ? 'auto' : 'smooth' });
+        setTimeout(function () { arr.focus({ preventScroll: true }); }, calme ? 0 : 900);
+      });
+    });
+    document.getElementById('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var a = arr.value && new Date(arr.value), d = dep.value && new Date(dep.value);
+      if (!a || !d || d <= a) { note.textContent = lang === 'fr' ? 'Choisissez une date d\'arrivée puis une date de départ plus tardive.' : 'Choose a check-in date, then a later check-out date.'; (a ? dep : arr).focus(); return; }
+      note.textContent = lang === 'fr' ? 'Démonstration : la demande n\'est pas envoyée. Sur votre site, vous la recevriez par e-mail et le client aurait une confirmation.' : 'Demo: the request is not sent. On your site, you would receive it by email and the guest would get a confirmation.';
+    });
+    window.majResa = calcul;
+  })();
+
+  // Français / anglais : tous les textes portent leurs deux versions.
+  document.getElementById('langue').addEventListener('click', function () {
+    lang = lang === 'fr' ? 'en' : 'fr';
+    document.documentElement.lang = lang;
+    var b = document.getElementById('langue');
+    b.textContent = lang === 'fr' ? 'EN' : 'FR';
+    b.setAttribute('lang', lang === 'fr' ? 'en' : 'fr');
+    b.setAttribute('aria-label', lang === 'fr' ? 'EN : switch to English' : 'FR : passer en français');
+    [].slice.call(document.querySelectorAll('[data-fr]')).forEach(function (el) { el.innerHTML = texte(el); });
+    window.majHorloge(); window.majResa();
+  });
+</script>
+<script>
+/* en-tête opaque après le film, pour rester lisible sur les sections claires */
+(function(){var b=document.querySelector('.barre'),j=document.querySelector('.journee');
+function maj(){b.classList.toggle('pleine',j.getBoundingClientRect().bottom<b.offsetHeight)}
+addEventListener('scroll',maj,{passive:true});addEventListener('resize',maj);maj();})();
+</script>
+</body>
+</html>

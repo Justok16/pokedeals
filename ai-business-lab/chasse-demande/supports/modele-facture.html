@@ -1,0 +1,50 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>DIG16 — Modèle de facture</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet"><style>
+:root{--nuit:#0f0e0c;--ivoire:#efe9df;--doux:#a8a093;--or:#c8a46e;--or-clair:#d9bb8a;
+--texte:#1a1814;--gris:#655e54;--trait:#e0d8cb;--fond-doux:#f6f2ea;--bronze:#7a5a2c}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Geist,Arial,sans-serif;color:var(--texte);font-feature-settings:"ss01"}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.005em;color:var(--texte)}
+h1 em,h2 em{color:var(--bronze)}
+b,strong{font-weight:600}
+a{color:var(--bronze)}
+.k,.etiquette{font-family:'Geist Mono',monospace;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+.couv,.cover{position:relative}
+.signature{display:block;height:12.5mm}
+.embleme{display:block;width:13mm;height:13mm}
+
+.couv{background:#0f0e0c;color:#efe9df;border-radius:3mm;padding:5.5mm 8mm 5.6mm;margin-bottom:4.5mm;
+ background-image:radial-gradient(90mm 50mm at 100% 0,rgba(200,164,110,.16),rgba(200,164,110,0) 70%);
+ box-shadow:inset 0 0 0 .25mm rgba(200,164,110,.35)}
+.couv .ligne-haut{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3mm}
+.couv .k{color:#c8a46e;font-size:7pt;display:flex;align-items:center;gap:2.4mm}
+.couv .k::before{content:"";width:7mm;height:.3mm;background:#c8a46e}
+.couv h1{color:#efe9df;font-size:23pt;line-height:1;margin:1.8mm 0 1.4mm}
+.couv h1 em{color:#d9bb8a}
+.couv p{color:#a8a093;margin:.5mm 0}
+@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}
+body{font-size:9.2pt;line-height:1.48;margin:0}
+h2{font-size:13pt;line-height:1.1;margin:4.2mm 0 1mm;break-after:avoid}
+p,li{margin:.8mm 0}ul{padding-left:5mm;margin:1mm 0}
+table{width:100%;border-collapse:collapse;margin:2.4mm 0;font-size:8.9pt}
+th,td{border-bottom:.25mm solid var(--trait);padding:1.8mm 2mm;text-align:left;vertical-align:top}
+th{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);border-bottom:.35mm solid var(--or);background:none}
+td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:.35mm solid var(--texte)}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin:2mm 0}
+.cadre{background:var(--fond-doux);border:.25mm solid var(--trait);border-radius:2.5mm;padding:3mm 4mm}
+.cadre>b:first-child{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.8pt;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze)}
+.champ{border-bottom:.25mm solid #b9b0a2;height:6mm;margin:1mm 0}.petit{color:var(--gris);font-size:8pt}
+.sign{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:4mm}.sign div{border:.25mm solid var(--trait);border-radius:2.5mm;height:26mm;padding:2mm 3mm;font-size:8.2pt;color:var(--gris)}
+.cgv{columns:2;column-gap:7mm;column-rule:.25mm solid var(--trait);font-size:8.15pt;line-height:1.37}.cgv h2{font-size:11pt;margin:2.2mm 0 .4mm}.cgv p{margin:.5mm 0;text-align:justify;hyphens:auto}</style></head><body><div class="couv"><div class="ligne-haut"><img class="signature" src="../site-dig/img/marque/signature-ivoire@6x.png" alt="DIG16, sites internet"><img class="embleme" src="../site-dig/img/marque/embleme-or@6x.png" alt=""></div><div class="k">Création et suivi de sites internet</div><h1>Facture</h1><p>N° [AAAA-NNN] (numérotation continue) · Date d’émission : [jj/mm/aaaa] · Date de la prestation : [période ou jj/mm/aaaa]</p></div>
+<div class="deux"><div class="cadre"><b>Prestataire</b><br>[Prénom Nom] EI — « DIG16 »<br>[Adresse]<br>SIREN [numéro à l’immatriculation]<br>contact@dig16.fr</div>
+<div class="cadre"><b>Client</b><br>[Nom de l’entreprise]<br>[Adresse du client]<br>SIREN [numéro du client]<br><span class="petit">N° de bon de commande : [si le client en a établi un]</span></div></div>
+<p><b>Nature de l’opération</b> : prestation de services.</p>
+<table><tr><th>Désignation</th><th>Quantité</th><th>Prix unitaire HT</th><th>Total HT</th></tr>
+<tr><td>[Formule Essentiel — abonnement du mois de …]</td><td class="n">1</td><td class="n">[49,00 €]</td><td class="n">[49,00 €]</td></tr>
+<tr><td>[Autre ligne si besoin]</td><td class="n"></td><td class="n"></td><td class="n"></td></tr>
+<tr><td colspan="3"><b>Total HT</b> · réduction de prix : [néant ou montant]</td><td class="n"><b>[49,00 €]</b></td></tr>
+<tr><td colspan="3"><b>Total à payer (TVA non applicable)</b></td><td class="n"><b>[49,00 €]</b></td></tr></table>
+<p><b>TVA non applicable, art. 293 B du code général des impôts.</b></p>
+<p><b>Date de règlement</b> : [jj/mm/aaaa] · Mode : [prélèvement / virement]. Escompte pour paiement anticipé : néant.</p>
+<p>En cas de retard de paiement, des pénalités sont dues de plein droit, sans rappel préalable, au taux appliqué par la Banque centrale européenne à son opération de refinancement la plus récente, majoré de 10 points, ainsi qu’une indemnité forfaitaire pour frais de recouvrement de 40 € par facture.</p>
+<p class="petit">Mentions vérifiées sur Service Public Entreprendre (fiche F31808, vérifiée le 11 août 2026). Facture électronique obligatoire pour les micro-entreprises à partir du 1er septembre 2027 : il faudra alors aussi le SIREN du client, la nature de l’opération (déjà indiquée ici) et, le cas échéant, l’adresse de livraison.</p></body></html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /m/
+Sitemap: https://dig16.fr/sitemap.xml
