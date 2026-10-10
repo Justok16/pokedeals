@@ -52,7 +52,7 @@ img{max-width:100%;height:auto;display:block}
 /* tant qu'aucun numéro / email n'est renseigné, les liens d'appel et d'email restent masqués */
 a[href^="tel:["],a[href^="mailto:["]{display:none!important}
 /* navigation */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:.3s}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s ease,box-shadow .3s ease}
 nav.plein{background:rgba(15,14,12,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--ligne)}
 nav .cadre{display:flex;align-items:center;justify-content:space-between;height:72px;gap:1rem}
 .logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
@@ -163,7 +163,7 @@ footer{border-top:1px solid var(--ligne);padding:40px 0 100px;color:var(--doux);
 footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .mobile-cta{display:none}
 /* apparition */
-.apparait{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.apparait{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.23,1,.32,1),transform .6s cubic-bezier(.23,1,.32,1)}
 .apparait.vu{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.apparait{opacity:1;transform:none}}
 @media (max-width:1000px){.prix{grid-template-columns:1fr 1fr}.g4{grid-template-columns:1fr 1fr}.formule.vedette{transform:none}}
@@ -275,6 +275,12 @@ nav.plein{background:rgba(15,14,12,.86)!important}
 .logo-mot em{font-style:italic;color:#c8a46e;letter-spacing:0;margin-left:.03em}
 .logo-mot small{font-family:'Geist Mono',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
 @media (max-width:420px){.logo .logo-embleme{width:36px;height:36px}.logo-mot>span{font-size:1.5rem}.logo-mot small{font-size:.5rem;letter-spacing:.18em}}
+
+/* Finitions des mouvements (règles d'Emil Kowalski, 10/10) : courbe franche, retour au toucher, survols réservés à la souris */
+:root{--dig-ease:cubic-bezier(.23,1,.32,1)}
+.btn{transition:transform 160ms var(--dig-ease),background .2s ease,border-color .2s ease,color .2s ease}
+@media (hover:none),(pointer:coarse){.btn:hover,.demo:hover .pc img,.demo:hover img,.film-lecture:hover .rond,.eventail:hover .fig-film{transform:none}}
+.btn:active{transform:scale(.97)}
 </style>
 </head>
 <body>
