@@ -61,17 +61,33 @@ def test_fiches_a_surveiller_lit_les_memoires_du_radar():
 
 def test_fiche_shopify_lit_la_variante_exacte_et_le_prix_en_centimes():
     reponse = MagicMock(status_code=200)
-    reponse.json.return_value = {"title": "UPC 30e", "variants": [
-        {"id": 1, "available": True, "price": 42990}, {"id": 2, "available": False, "price": 42990}]}
+    reponse.json.return_value = {"title": "Coffret Dresseur d'Élite 30e Anniversaire", "description": "Version française",
+                                 "variants": [{"id": 1, "available": True, "price": 42990},
+                                              {"id": 2, "available": False, "price": 42990}]}
     session = MagicMock()
     session.get.return_value = reponse
-    produit = MagicMock(prioritaire=False)
+    produit = next(p for p in v.produits_actifs() if p.nom == ETB)
     fiche = {"domaine": "b.fr", "nom_produit": ETB, "url": "https://b.fr/products/upc?variant=2", "titre": ""}
     o = v.observer_fiche_shopify(session, fiche, produit)
     assert session.get.call_args[0][0] == "https://b.fr/products/upc.js"
     assert (o["en_stock"], o["prix"]) == (False, 429.9)
     fiche["url"] = "https://b.fr/products/upc"
     assert v.observer_fiche_shopify(session, fiche, produit)["en_stock"] is True
+
+
+def test_fiche_shopify_rejoue_la_regle_du_radar():
+    """10/10/2026 : une fiche restee en memoire du radar mais exclue depuis
+    (pack en chinois traditionnel de poke-geek.fr) ne doit plus alerter."""
+    reponse = MagicMock(status_code=200)
+    reponse.json.return_value = {"title": "Pack Pokémon 30th Celebration Starter 1 – Chinois Traditionnel",
+                                 "description": "Précommande 30e anniversaire", "variants": [
+                                     {"id": 1, "available": True, "price": 2390}]}
+    session = MagicMock()
+    session.get.return_value = reponse
+    bundle = next(p for p in v.produits_actifs() if p.nom.startswith("Booster Bundle — 30e"))
+    fiche = {"domaine": "poke-geek.fr", "nom_produit": bundle.nom, "titre": "",
+             "url": "https://poke-geek.fr/products/pack-pokemon-30th-celebration-starter-1-chinois"}
+    assert v.observer_fiche_shopify(session, fiche, bundle) is None
 
 
 def test_boucle_fait_n_passages_et_rend_le_pire_code(monkeypatch):
