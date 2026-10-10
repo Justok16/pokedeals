@@ -35,6 +35,25 @@ def son_videos():
             print(('OK    ' if ok else 'ALERTE'), 'son', os.path.relpath(chemin, site), r)
     return souci
 
+def regles_interface():
+    """Règles d'interface de Vercel (10/10) sur les pages publiques : lien d'accès direct au contenu, toucher sans
+    délai, champs de formulaire avec saisie automatique, focus visible au clavier."""
+    import re
+    site = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site-dig')
+    souci = 0
+    for page in ('index.html', 'prestige.html', 'mentions-legales.html', 'test-du-pouce/index.html'):
+        t = open(os.path.join(site, page), encoding='utf-8').read()
+        manque = [nom for nom, ok in (
+            ('lien « Aller au contenu »', 'class="saut"' in t and 'id="contenu"' in t),
+            ('touch-action', 'touch-action' in t),
+            ('focus visible', 'focus-visible' in t),
+            ('saisie automatique', all('autocomplete' in i or 'type="hidden"' in i
+                                      for i in re.findall(r'<input\b[^>]*>', t))),
+        ) if not ok]
+        souci += bool(manque)
+        print(('ALERTE' if manque else 'OK    '), 'interface', page, manque or '')
+    return souci
+
 def main():
     base = sys.argv[1].rstrip('/') if len(sys.argv) > 1 else None
     serveur = None
@@ -43,7 +62,7 @@ def main():
         serveur = subprocess.Popen([sys.executable, '-m', 'http.server', '4699'], cwd=site,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(1.5); base = 'http://localhost:4699'
-    souci = son_videos()
+    souci = son_videos() + regles_interface()
     try:
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()
