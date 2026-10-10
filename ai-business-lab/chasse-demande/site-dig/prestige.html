@@ -281,9 +281,17 @@ nav.plein{background:rgba(15,14,12,.86)!important}
 .btn{transition:transform 160ms var(--dig-ease),background .2s ease,border-color .2s ease,color .2s ease}
 @media (hover:none),(pointer:coarse){.btn:hover,.demo:hover .pc img,.demo:hover img,.film-lecture:hover .rond,.eventail:hover .fig-film{transform:none}}
 .btn:active{transform:scale(.97)}
+
+/* Règles d'interface Vercel (10/10) : lien d'accès direct au contenu, toucher sans délai, couleur de surbrillance assumée */
+.saut{position:absolute;left:-9999px;top:0}
+.saut:focus{left:12px;top:12px;z-index:200;background:#fff;color:#111;padding:.6rem 1rem;border-radius:8px;font-weight:600}
+a,button,input,select,textarea,label,summary{touch-action:manipulation}
+html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
+:focus-visible{outline:2px solid #c8a46e;outline-offset:3px}
 </style>
 </head>
 <body>
+<a class="saut" href="#contenu">Aller au contenu</a>
 <nav id="nav">
 <div class="cadre">
  <a href="index.html" class="logo"><svg class="logo-embleme" viewBox="20 20 160 160" aria-hidden="true"><rect x="24" y="24" width="152" height="152" rx="30" fill="none" stroke="#c8a46e" stroke-width="2.2"/><rect x="31" y="31" width="138" height="138" rx="24" fill="none" stroke="#c8a46e" stroke-width=".8" opacity=".5"/><text x="90" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="116" fill="#c8a46e">D</text><text x="134" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="42" fill="#efe9df">16</text></svg><span class="logo-mot"><span>DIG<em>16</em></span><small>Sites internet · Charente</small></span></a>
@@ -292,7 +300,7 @@ nav.plein{background:rgba(15,14,12,.86)!important}
   <a href="index.html#contact" class="btn principal">Ma démo gratuite</a>
  </div>
 </div></nav>
-<main>
+<main id="contenu">
 <header class="pheros"><div class="cadre">
  <span class="pastille"><span class="point"></span>Hôtels · restaurants · domaines</span>
  <h1>Prestige&nbsp;: un site à la hauteur de <span class="or">votre maison</span>.</h1>

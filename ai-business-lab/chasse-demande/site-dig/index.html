@@ -431,10 +431,17 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or);box-
 .btn{transition:transform 160ms var(--dig-ease),background .2s ease,border-color .2s ease,color .2s ease}
 @media (hover:none),(pointer:coarse){.btn:hover,.demo:hover .pc img,.demo:hover img,.film-lecture:hover .rond,.eventail:hover .fig-film{transform:none}}
 .btn:active{transform:scale(.97)}
+
+/* Règles d'interface Vercel (10/10) : lien d'accès direct au contenu, toucher sans délai, couleur de surbrillance assumée */
+.saut{position:absolute;left:-9999px;top:0}
+.saut:focus{left:12px;top:12px;z-index:200;background:#fff;color:#111;padding:.6rem 1rem;border-radius:8px;font-weight:600}
+a,button,input,select,textarea,label,summary{touch-action:manipulation}
+html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://dig16.fr/#organisation","name":"DIG16","sameAs":["https://www.facebook.com/1334231963113482","https://www.instagram.com/dig16fr/"],"url":"https://dig16.fr/","logo":"https://dig16.fr/img/marque/icone-512.png","image":"https://dig16.fr/img/apercu-dig16.jpg","description":"Sites internet pour artisans, commerçants et indépendants de Charente : modernes, rapides, à votre nom. Page d'accueil refaite gratuitement avant de décider.","email":"contact@dig16.fr","telephone":"+33687910214","areaServed":{"@type":"AdministrativeArea","name":"Charente"},"knowsLanguage":"fr"},{"@type":"WebSite","@id":"https://dig16.fr/#site","name":"DIG16","url":"https://dig16.fr/","inLanguage":"fr-FR","publisher":{"@id":"https://dig16.fr/#organisation"}}]}</script>
 </head>
 <body>
+<a class="saut" href="#contenu">Aller au contenu</a>
 <span data-sc-progress></span>
 
 <nav id="nav">
@@ -473,7 +480,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or);box-
  </div>
 </div></header>
 
-<main>
+<main id="contenu">
 
 <!-- Le moment fort : le vieux site devient un site DIG16 sous le doigt -->
 <section class="avant-apres" data-sc-act="pin" data-sc-span="3" aria-label="Avant, après">
@@ -629,9 +636,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or);box-
  </div>
  <form id="form" data-sc-in><fieldset style="border:0;padding:0;margin:0;min-width:0;display:grid;gap:14px">
   <label>Votre nom<input name="nom" required autocomplete="name"></label>
-  <label>Entreprise et métier<input name="entreprise" required></label>
-  <label>Commune<input name="commune" required></label>
-  <label>Téléphone ou email<input name="contact" required></label>
+  <label>Entreprise et métier<input name="entreprise" required autocomplete="organization"></label>
+  <label>Commune<input name="commune" required autocomplete="address-level2"></label>
+  <label>Téléphone ou email<input name="contact" required autocomplete="on" spellcheck="false" autocapitalize="off"></label>
   <label>Vous avez déjà un site ?<select name="site"><option>Non</option><option>Oui, mais il est daté</option><option>Oui, loué avec un contrat</option></select></label>
   <label>Un message (facultatif)<textarea name="message" rows="3"></textarea></label>
   <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none"><button class="btn principal" type="submit">Recevoir ma démo gratuite</button>

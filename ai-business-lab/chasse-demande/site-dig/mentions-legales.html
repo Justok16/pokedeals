@@ -55,11 +55,19 @@ nav.plein{background:rgba(15,14,12,.86)!important}
 .logo-mot em{font-style:italic;color:#c8a46e;letter-spacing:0;margin-left:.03em}
 .logo-mot small{font-family:'Geist Mono',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
 @media (max-width:420px){.logo .logo-embleme{width:36px;height:36px}.logo-mot>span{font-size:1.5rem}.logo-mot small{font-size:.5rem;letter-spacing:.18em}}
+
+/* Règles d'interface Vercel (10/10) : lien d'accès direct au contenu, toucher sans délai, couleur de surbrillance assumée */
+.saut{position:absolute;left:-9999px;top:0}
+.saut:focus{left:12px;top:12px;z-index:200;background:#fff;color:#111;padding:.6rem 1rem;border-radius:8px;font-weight:600}
+a,button,input,select,textarea,label,summary{touch-action:manipulation}
+html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
+:focus-visible{outline:2px solid #c8a46e;outline-offset:3px}
 </style>
 </head>
 <body>
+<a class="saut" href="#contenu">Aller au contenu</a>
 <header><div class="cadre"><a href="index.html" class="logo"><svg class="logo-embleme" viewBox="20 20 160 160" aria-hidden="true"><rect x="24" y="24" width="152" height="152" rx="30" fill="none" stroke="#c8a46e" stroke-width="2.2"/><rect x="31" y="31" width="138" height="138" rx="24" fill="none" stroke="#c8a46e" stroke-width=".8" opacity=".5"/><text x="90" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="116" fill="#c8a46e">D</text><text x="134" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="42" fill="#efe9df">16</text></svg><span class="logo-mot"><span>DIG<em>16</em></span></span></a></div></header>
-<main class="cadre">
+<main id="contenu" class="cadre">
 <h1>Mentions légales et confidentialité</h1>
 <p>Dernière mise à jour : 26 septembre 2026 (version de présentation)</p>
 
