@@ -6,8 +6,6 @@ Le point automatique de 07:34 et 19:34 UTC le lance et ne signale à l'utilisate
 
 import json
 import os
-import ssl
-import socket
 import subprocess
 import sys
 import datetime
@@ -100,20 +98,20 @@ txt = doh("dig16.fr", "TXT")
 ok("SPF présent", any("v=spf1" in x.get("data", "") for x in txt.get("Answer", [])))
 dm = doh("_dmarc.dig16.fr", "TXT")
 ok("DMARC présent", any("v=DMARC1" in x.get("data", "") for x in dm.get("Answer", [])))
+# Certificat : lu dans le registre public Certificate Transparency (crt.sh).
+# Une connexion directe passe par le relais réseau de l'environnement, qui
+# présente SON propre certificat (constaté le 10/10/2026) : la date lue
+# n'était pas celle de dig16.fr.
 try:
-    ctx = ssl.create_default_context()
-    ctx.minimum_version = ssl.TLSVersion.TLSv1_2
-    with (
-        socket.create_connection(("dig16.fr", 443), timeout=15) as s,
-        ctx.wrap_socket(s, server_hostname="dig16.fr") as t,
-    ):
-        fin = datetime.datetime.strptime(
-            t.getpeercert()["notAfter"], "%b %d %H:%M:%S %Y %Z"
-        )
-        jours = (fin - datetime.datetime.utcnow()).days
-        ok("certificat HTTPS", jours > 14, f"expire dans {jours} jours")
+    certs = requests.get(
+        "https://crt.sh/?q=dig16.fr&output=json&exclude=expired",
+        headers={"User-Agent": "controle-dig16"}, timeout=60,
+    ).json()
+    fin = max(datetime.datetime.fromisoformat(c["not_after"]) for c in certs)
+    jours = (fin - datetime.datetime.utcnow()).days
+    ok("certificat HTTPS (registre public)", jours > 14, f"le plus récent expire dans {jours} jours")
 except Exception as e:
-    ok("certificat HTTPS", False, str(e)[:80])
+    ok("certificat HTTPS (registre public)", False, str(e)[:80])
 try:
     cj = "/tmp/cj.txt"
     age = (
