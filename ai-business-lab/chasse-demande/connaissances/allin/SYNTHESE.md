@@ -1,6 +1,6 @@
 # All-In — index des fiches (synthèse du samedi 10/10/2026)
 
-10 vidéos résumées sur 1015. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+10 vidéos résumées sur 1020. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Adam Foroughi, PDG d'AppLovin : Survivre à une chute de 92 %, la publicité comme ML 1.0 et le mar...](JtomF4bGxHs.md)** — Sujet : Entretien avec Adam Foroughi, PDG d'AppLovin, lors de l'All-In Summit. L'échange porte sur l'évolution du marché de la publicité mobile et en ligne, l'intelligence artificielle (deep learning) appliquée à la publicité, et le parcours boursier d'une entreprise tech…

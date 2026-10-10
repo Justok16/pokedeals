@@ -1,6 +1,6 @@
 # a16z — index des fiches (synthèse du samedi 10/10/2026)
 
-10 vidéos résumées sur 1347. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+10 vidéos résumées sur 1352. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[AI, Infrastructure, and the Next Investment Cycle](lr3hNhA0IfQ.md)** — Sujet : L'état des marchés technologiques et l'impact de l'intelligence artificielle (IA) sur l'économie globale.

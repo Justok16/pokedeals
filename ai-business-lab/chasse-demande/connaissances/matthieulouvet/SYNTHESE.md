@@ -1,6 +1,6 @@
 # Matthieu Louvet — index des fiches (synthèse du samedi 10/10/2026)
 
-10 vidéos résumées sur 1184. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+10 vidéos résumées sur 1196. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Comment gagner de l’argent en Bourse ? (expliqué en 12 min)](mO6D9zjsEYY.md)** — Sujet : Fonctionnement fondamental de la Bourse, mécanismes de rémunération (dividendes vs plus-values), puissance des intérêts composés et supériorité de l'investissement passif indiciel (ETF).

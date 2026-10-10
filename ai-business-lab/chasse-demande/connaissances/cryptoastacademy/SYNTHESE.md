@@ -1,6 +1,6 @@
 # Cryptoast Academy — index des fiches (synthèse du samedi 10/10/2026)
 
-9 vidéos résumées sur 305. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+9 vidéos résumées sur 306. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Bitcoin s'envole de 25% ces derniers jours - L'analyse sans Vincent Ganne](fcZSr7FJRuY.md)** — La vidéo propose un point hebdomadaire sur le marché des cryptomonnaies, en remplaçant l'animateur habituel (Vincent Ganne). La thèse principale est que le marché des cryptomonnaies est intimement lié à la psychologie des investisseurs et à des indicateurs techniques, plus…

@@ -1,6 +1,6 @@
 # Money & Macro Talks — index des fiches (synthèse du samedi 10/10/2026)
 
-9 vidéos résumées sur 166. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+9 vidéos résumées sur 167. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Ce que révèlent plus de 100 études sur l'encadrement des loyers | Prof. Konstantin Kholodilin](Qr95jmR5tBk.md)** — Sujet : L'analyse empirique de la littérature économique sur le contrôle des loyers (rent control), à partir d'une revue de plus de 100 cas d'études publiés entre 1963 et 2023.

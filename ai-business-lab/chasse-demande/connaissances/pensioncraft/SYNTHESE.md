@@ -1,6 +1,6 @@
 # PensionCraft — index des fiches (synthèse du samedi 10/10/2026)
 
-10 vidéos résumées sur 697. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+10 vidéos résumées sur 699. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Annonces des taux de la Fed (FOMC) et de la BoE : mon analyse](2wFh9s3z2x4.md)** — Sujet : Analyse des décisions de politique monétaire de la Réserve fédérale américaine (Fed) et de la Banque d'Angleterre (BoE) en septembre 2026.

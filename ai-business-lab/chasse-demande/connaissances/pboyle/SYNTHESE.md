@@ -1,6 +1,6 @@
 # Patrick Boyle — index des fiches (synthèse du samedi 10/10/2026)
 
-44 vidéos résumées sur 482. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+44 vidéos résumées sur 483. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Anthropic vient d'annoncer son introduction en bourse. Le compte est-il bon ?](T-oXyXwD6sE.md)** — Sujet : L'évaluation financière des entreprises de l'intelligence artificielle (IA), la viabilité de leurs modèles économiques et le risque d'une bulle spéculative similaire à celle d'Internet en 2000.

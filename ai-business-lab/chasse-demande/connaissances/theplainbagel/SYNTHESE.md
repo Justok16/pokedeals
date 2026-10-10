@@ -1,6 +1,6 @@
 # The Plain Bagel — index des fiches (synthèse du samedi 10/10/2026)
 
-10 vidéos résumées sur 281. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+10 vidéos résumées sur 282. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[C'est reparti](YgbbI_nRF2A.md)** — Sujet : L’escalade des tensions commerciales entre les États-Unis et le Canada, marquée par l’imposition de nouveaux tarifs douaniers américains.

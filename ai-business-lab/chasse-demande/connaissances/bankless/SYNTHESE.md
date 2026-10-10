@@ -1,6 +1,6 @@
 # Bankless — index des fiches (synthèse du samedi 10/10/2026)
 
-11 vidéos résumées sur 2972. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+11 vidéos résumées sur 2977. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Bitcoin Broke the Bear Case. What Happens Next?](gYyhed2KEV8.md)** — Sujet : Analyse du cycle de marché des cryptomonnaies (Bitcoin et altcoins) au regard des données macroéconomiques et de la liquidité mondiale.
