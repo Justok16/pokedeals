@@ -35,3 +35,4 @@ fausses (menus renommés, options disparues), ce qui lui a fait perdre du temps.
 | YouTube | Commentaire épinglé sur un Short | Ouvrir le Short → bulle 💬 à droite → écrire → ⋮ du commentaire → Épingler | 11/10/2026 |
 | YouTube Studio | Avertissement règlement | Bandeau en haut : formulation « mise en garde » + formation de 7 questions (expire en 90 jours) | 11/10/2026 |
 | Metricool (appli Android) | Relier la fiche Google | Connexions → ligne « Google Business Profile » → Connecter (fiche « Dig16 » reliée) | 12/10/2026 |
+| Metricool (appli Android) | Relier YouTube | Connexions → ligne « YouTube, Connecter un canal » → chaîne « DIG16 » | 12/10/2026 |
