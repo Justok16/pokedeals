@@ -32,4 +32,6 @@ Règles : aucune commune de résidence de l'utilisateur, seulement « Charente �
 - Tags : création site internet Charente, site internet artisan, site internet commerçant, création site web Angoulême,
   site internet Cognac, site vitrine artisan, référencement local, fiche Google, DIG16
 - Public : « Non, elle n'est pas conçue pour les enfants » ; Visibilité : Publique ; Catégorie : Science et technologie
-  (ou « Formation ») ; Commentaires : autorisés.
+  (sinon « Éducation ») ; Commentaires : autorisés.
+
+**Publié le 11/10/2026** : https://youtube.com/shorts/8mgDyxbrp5g (vérifié public via oEmbed, auteur @dig16fr). YouTube ajouté au pied de page et au `sameAs` du site.
