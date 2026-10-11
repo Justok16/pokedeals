@@ -102,16 +102,25 @@ ok("DMARC présent", any("v=DMARC1" in x.get("data", "") for x in dm.get("Answer
 # Une connexion directe passe par le relais réseau de l'environnement, qui
 # présente SON propre certificat (constaté le 10/10/2026) : la date lue
 # n'était pas celle de dig16.fr.
-try:
-    certs = requests.get(
-        "https://crt.sh/?q=dig16.fr&output=json&exclude=expired",
-        headers={"User-Agent": "controle-dig16"}, timeout=60,
-    ).json()
-    fin = max(datetime.datetime.fromisoformat(c["not_after"]) for c in certs)
-    jours = (fin - datetime.datetime.utcnow()).days
+SOURCES_CERT = (
+    # (adresse, champ de la date de fin) ; crt.sh est souvent surchargé (11/10/2026) → Cert Spotter en secours
+    ("https://crt.sh/?q=dig16.fr&output=json&exclude=expired", "not_after"),
+    ("https://api.certspotter.com/v1/issuances?domain=dig16.fr&include_subdomains=false", "not_after"),
+)
+fins, erreurs = [], []
+for adresse, champ in SOURCES_CERT:
+    try:
+        certs = requests.get(adresse, headers={"User-Agent": "controle-dig16"}, timeout=60).json()
+        fins = [datetime.datetime.fromisoformat(c[champ].replace("Z", "")) for c in certs]
+        if fins:
+            break
+    except Exception as e:
+        erreurs.append(str(e)[:40])
+if fins:
+    jours = (max(fins) - datetime.datetime.utcnow()).days
     ok("certificat HTTPS (registre public)", jours > 14, f"le plus récent expire dans {jours} jours")
-except Exception as e:
-    ok("certificat HTTPS (registre public)", False, str(e)[:80])
+else:
+    ok("certificat HTTPS (registre public)", False, "registres injoignables : " + " ; ".join(erreurs))
 try:
     cj = "/tmp/cj.txt"
     age = (
