@@ -29,7 +29,8 @@ Bluesky (rangés dans `63`). Toute tâche de l'utilisateur, quelle que soit sa s
 | Réseaux | **TikTok, Pinterest** : réserver le nom `dig16fr` seulement | 5 min | Plus tard (vidéos après le 1er client) |
 | Réseaux | LinkedIn | — | **Abandonné le 10/10** (ne pas reproposer) |
 | Référencement | **Google Search Console** (`63` § 3), puis Bing Webmaster Tools | ordinateur, 5 min | À faire |
-| Référencement | **Bing Places** : importer la fiche Google | après validation de la fiche Google (vers le 14/10) | En attente |
+| Référencement | **Compléter la fiche Google** (description, services, logo, couverture) puis la **relier à Metricool** | 10 min | À faire (fiche validée le 11/10) |
+| Référencement | **Bing Places** : importer la fiche Google | 10 min | À faire (fiche validée le 11/10) |
 | Référencement | Apple Business Connect ; PagesJaunes (gratuité à vérifier) | 10 min chacun | À faire |
 | Prospection | **Entretiens d'étude de marché** (`57`) : priorité n° 1 après l'administratif | téléphone / visite | À lancer |
 | Prospection | Campagne « Le test du pouce » (`62`) : messages et affiches | quand l'utilisateur le demande | En réserve |
