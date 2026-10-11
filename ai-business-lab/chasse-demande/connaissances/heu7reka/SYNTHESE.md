@@ -1,6 +1,6 @@
-# Heu?reka — index des fiches (synthèse du samedi 10/10/2026)
+# Heu?reka — index des fiches (synthèse du dimanche 11/10/2026)
 
-32 vidéos résumées sur 138. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+34 vidéos résumées sur 138. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[? Hein !](MpXxSq5cRMo.md)** — - Sujet : L'analyse critique de l'économie à travers un manuel d'économie populaire (« Tout sur l'économie (ou presque) »), en abordant la question des livres de vulgarisation, la structure des marchés, l'égoïsme rationnel et la théorie de l'équilibre général.
@@ -22,6 +22,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[La France est-elle un enfer fiscal ? Spoiler : NON !](flMOPiwaeQ4.md)** — - Sujet : L'analyse critique de l'idée reçue selon laquelle « la France est un enfer fiscal » en raison de ses prélèvements obligatoires élevés.
 - **[Le capitalisme ferait-il de la 💩 avec les renouvelables ?](B8fQyuB0ytE.md)** — Sujet : L’incompatibilité entre le capitalisme libéral et la transition énergétique rapide pour sauver le climat.
 - **[Les traités européens sont-ils réellement austéritaires ?](GhjcWXdVrqo.md)** — - Sujet : La gouvernance européenne en matière économique et budgétaire, notamment les règles de déficit public et de dette publique (Traités de Maastricht, Pacte de Stabilité et de Croissance) et leur articulation avec les enjeux environnementaux (Green Deal).
+- **[Mort par INFLATION ? La faute des banques centrales ? (..............pas sûr quand même)](n1Kuomt_wgw.md)** — Sujet : Les causes et mécanismes de l'inflation actuelle, et le rôle (souvent mal compris ou surestimé) des banques centrales, de la création monétaire (QE), des chocs énergétiques et des chaînes d'approvisionnement.
 - **[PEUT ON AVOIR CONFIANCE DANS NOS MÉDIAS [ARGENT MAGIQUE]](5p4J97mQHo8.md)** — Sujet : L'économie des médias en France, la crise de confiance du public, et l'impact des modes de financement sur l'indépendance du journalisme.
 - **[Pourquoi l'égoïsme seul n'est pas efficace ?](tcFBRJTrPxI.md)** — - Sujet : L'analyse économique de l'emplacement optimal des commerces rivaux sur une ligne (marché de Hotelling) et ses implications sur l'intérêt général et la concurrence.
 - **[Pouvons-nous faire l'économie du don ?](L8vLG8DAGyU.md)** — - Sujet : L'analyse économique, historique et philosophique du don, du mécénat d'entreprise et de l'aide alimentaire en France, mise en perspective avec les idéologies néolibérale et ordolibérale.
@@ -33,5 +34,6 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Une brève histoire de la comptabilité](APN_tnr2r5M.md)** — - Sujet : L'analyse critique de la comptabilité d'entreprise et de son évolution historique, en comparant la comptabilité au « prix d'achat » et la comptabilité au « prix de vente ».
 - **[Électricité : la VRAIE méthode pour payer moins ! [ARGENT MAGIQUE]](lcrPLGap0Zc.md)** — Sujet : Le fonctionnement, la fixation des prix et les dysfonctionnements du marché de l'électricité en France et en Europe.
 - **[⚡ Comprendre la bourse de l'électricité : Le marché SPOT](rZCKv0C6Dqs.md)** — Cette vidéo explique le fonctionnement du marché de l'électricité en France, en se concentrant sur le marché spot, le mécanisme du merit order (ordre de mérite), et l'impact des coûts fixes et variables des différentes technologies de production (renouvelable, nucléaire,…
+- **[⚡ Comprendre le marché de l'électricité](ienoSbONyhw.md)** — Sujet : Le fonctionnement du marché de l'électricité en France, la formation des prix de gros et de détail, et l'explication de la hausse des factures.
 - **[⚡ Les super-profits des fournisseurs alternatifs & Erratum épisode 1](P3to46JLDu8.md)** — - Sujet : Le fonctionnement du marché de l'électricité en France, l'impact des marchés de gros, et le calcul du Tarif Réglementé de Vente de l'Électricité (TRVE, ou tarif bleu d'EDF) via la formule de la CRE (Commission de Régulation de l'Énergie) incluant l'ARENH.
 - **[⚡ Pourquoi fixer le prix sur la centrale la plus chère ? Comprendre le modèle](Ep3biZAtitE.md)** — Sujet : Le fonctionnement du marché de l’électricité en Europe (marché de gros, marché SPOT, merit order, coûts fixes vs. coûts variables, marché de capacité et subventions/AOLT).

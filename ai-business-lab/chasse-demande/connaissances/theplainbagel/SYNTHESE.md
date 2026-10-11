@@ -1,6 +1,6 @@
-# The Plain Bagel — index des fiches (synthèse du samedi 10/10/2026)
+# The Plain Bagel — index des fiches (synthèse du dimanche 11/10/2026)
 
-10 vidéos résumées sur 282. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+12 vidéos résumées sur 282. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[C'est reparti](YgbbI_nRF2A.md)** — Sujet : L’escalade des tensions commerciales entre les États-Unis et le Canada, marquée par l’imposition de nouveaux tarifs douaniers américains.
@@ -13,3 +13,5 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Les promotions des « finfluenceurs » empirent](co681TqHDzQ.md)** — Sujet : Les pratiques de promotion d'actions boursières à risque par des influenceurs financiers (« finfluenceurs ») et l'évolution des tactiques trompeuses employées par certaines entreprises.
 - **[The SpaceX IPO Is Wild](jNAAG3Ma5K8.md)** — Sujet : La course à l'introduction en bourse (IPO) des entreprises spécialisées ou pivotant dans l'intelligence artificielle (IA), avec une analyse détaillée du cas de SpaceX (qui a intégré xAI/Grok) ainsi que d'Anthropic (Claude) et OpenAI (ChatGPT).
 - **[Un analyste financier réagit aux TikToks sur la finance : le doomscrolling de l'apocalypse](mzkdUnCThjc.md)** — Sujet : Analyse critique des conseils en finances personnelles diffusés sur les réseaux sociaux (TikTok / "FinTok") par un professionnel agréé de l'investissement.
+- **[Un analyste financier réagit aux TikToks sur la finance : marchés de prédiction et plus encore](G3k9XF9b-MQ.md)** — Sujet : L'analyse critique par un analyste financier (Richard, CFA) de plusieurs vidéos TikTok relatives aux marchés de prédiction (Polymarket), à l'investissement géopolitique (stocks de défense, pétrole), au réinvestissement des remboursements d'impôts, et au trading via des…
+- **[À quel point les valorisations boursières sont-elles vraiment mauvaises ?](0ZCVKL_PDsg.md)** — Sujet : Le marché boursier américain (S&P 500) est-il dans une bulle en raison de l'engouement autour de l'intelligence artificielle (IA) et des investissements massifs des entreprises technologiques ?
