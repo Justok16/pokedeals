@@ -362,6 +362,8 @@ Premiers résultats : site de Dig 100/100 (après ajout de security.txt) ; concu
 nosniff, Referrer-Policy, Permissions-Policy absents).
 
 ## Blocages et solutions de rechange (tenir à jour à chaque blocage)
+
+Premier réflexe pour tout outil payant ou bloqué : chercher l'équivalent gratuit sur **AlternativeTo** (alternativeto.net), puis la liste triée `connaissances/technologybrief-sites.md` (11/10).
 | Blocage | Solution gratuite qui marche |
 |---|---|
 | Sous-titres YouTube bloqués (conteneur, Vercel, Invidious, Piped ; revérifié le 04/10 avec youtube-transcript-api : « IpBlocked », adresse de serveur) | Gemini lit la vidéo ; secours vidIQ (transcription, 5 crédits ; rien pour un film sans paroles) |
