@@ -24,7 +24,7 @@ Bluesky (rangés dans `63`). Toute tâche de l'utilisateur, quelle que soit sa s
 |---|---|---|---|
 | Administratif | Étapes 1 à 9 du tableau ci-dessous | § tableau | voir colonne État |
 | Réseaux | **YouTube** : chaîne `@dig16fr` + vidéo de présentation (`site-dig/video/presentation-v6.mp4`, bannière `supports/reseaux/banniere-youtube.png`) | ordinateur, 10 min | **Fait le 11/10** (lien YouTube ajouté à la bio Instagram) (https://youtube.com/shorts/8mgDyxbrp5g) ; commentaire épinglé le 11/10 ; partage programmé dans Metricool le 15/10 18:30 (Reel Facebook + Reel Instagram, vidéo native) |
-| Réseaux | **Threads** depuis le compte Instagram `dig16fr` | téléphone, 1 min | **Profil créé le 11/10** (logo, bio, lien, public) ; nom Instagram « DIG16 · Sites internet Charente » fait le 11/10 (identifiant `dig16fr` conservé) ; reste : bio Threads, relier Threads à Metricool |
+| Réseaux | **Threads** depuis le compte Instagram `dig16fr` | téléphone, 1 min | **Profil créé le 11/10** (logo, bio, lien, public) ; nom Instagram « DIG16 · Sites internet Charente » fait le 11/10 (identifiant `dig16fr` conservé) ; Threads relié à Metricool le 11/10 (vidéo programmée aussi sur Threads le 15/10 18:30 : vérifier qu'elle est bien partie) ; reste : bio Threads |
 | Réseaux | **Bluesky** `dig16fr`, puis relier à Metricool | 5 min | À faire |
 | Réseaux | **TikTok, Pinterest** : réserver le nom `dig16fr` seulement | 5 min | Plus tard (vidéos après le 1er client) |
 | Réseaux | LinkedIn | — | **Abandonné le 10/10** (ne pas reproposer) |
