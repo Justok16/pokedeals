@@ -15,6 +15,26 @@ l'ordre ci-dessous ; chaque fait vient de la page officielle citée, lue le 10/1
 | 8 | Activation du formulaire FormSubmit (lien reçu sur contact@dig16.fr) | boîte contact@dig16.fr | **Fait le 09/10** (envoi d'essai accepté) |
 | 9 | France Travail (si inscrit) | appli France Travail | **Sans objet** (utilisateur non inscrit, 11/10) |
 
+## 0. LISTE UNIQUE de ce qui reste à l'utilisateur (à relire EN ENTIER à chaque « que me reste-t-il ? »)
+
+Leçon du 11/10 : un récapitulatif fait à partir de la seule liste administrative avait oublié YouTube, Threads et
+Bluesky (rangés dans `63`). Toute tâche de l'utilisateur, quelle que soit sa source, est recopiée ici.
+
+| Domaine | Tâche | Où / comment | État |
+|---|---|---|---|
+| Administratif | Étapes 1 à 9 du tableau ci-dessous | § tableau | voir colonne État |
+| Réseaux | **YouTube** : chaîne `@dig16fr` + vidéo de présentation (`site-dig/video/presentation-v6.mp4`, bannière `supports/reseaux/banniere-youtube.png`) | ordinateur, 10 min | À faire (proposé le 11/10) |
+| Réseaux | **Threads** depuis le compte Instagram `dig16fr` | téléphone, 1 min | À faire |
+| Réseaux | **Bluesky** `dig16fr`, puis relier à Metricool | 5 min | À faire |
+| Réseaux | **TikTok, Pinterest** : réserver le nom `dig16fr` seulement | 5 min | Plus tard (vidéos après le 1er client) |
+| Réseaux | LinkedIn | — | **Abandonné le 10/10** (ne pas reproposer) |
+| Référencement | **Google Search Console** (`63` § 3), puis Bing Webmaster Tools | ordinateur, 5 min | À faire |
+| Référencement | **Bing Places** : importer la fiche Google | après validation de la fiche Google (vers le 14/10) | En attente |
+| Référencement | Apple Business Connect ; PagesJaunes (gratuité à vérifier) | 10 min chacun | À faire |
+| Prospection | **Entretiens d'étude de marché** (`57`) : priorité n° 1 après l'administratif | téléphone / visite | À lancer |
+| Prospection | Campagne « Le test du pouce » (`62`) : messages et affiches | quand l'utilisateur le demande | En réserve |
+| Formation | Cours Udemy gratuits retenus (`connaissances/udemy-programmes.md`) | quand il a du temps | Facultatif |
+
 ## 1. Facturation électronique et compte pro : Indy (offre Essentiel, 0 €)
 
 - Liste officielle DGFiP des plateformes agréées (page modifiée le 22/09/2026, fichier
