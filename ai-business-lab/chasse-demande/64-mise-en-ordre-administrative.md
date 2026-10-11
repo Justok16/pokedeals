@@ -10,7 +10,7 @@ l'ordre ci-dessous ; chaque fait vient de la page officielle citée, lue le 10/1
 | 3 | Compte bancaire réservé à DIG16 | voir § 1 (Indy, gratuit) | À faire (téléphone) |
 | 4 | Déclaration initiale de CFE 1447-C-SD + exonération FRR+ | espace pro impots.gouv, **avant le 31/12/2026** | Après l'étape 1 (PC) |
 | 5 | Plateforme agréée de facturation électronique (réception obligatoire depuis le 01/09/2026) | voir § 1 | À faire |
-| 6 | Encaissement par prélèvement SEPA mensuel | voir § 2 | Choix à valider (frais) |
+| 6 | Encaissement par prélèvement SEPA mensuel | voir § 2 | **GoCardless validé par l'utilisateur le 11/10** ; inscription après l'IBAN Indy (étape 3) |
 | 7 | Google Search Console | `63` § 3 | PC |
 | 8 | Activation du formulaire FormSubmit (lien reçu sur contact@dig16.fr) | boîte contact@dig16.fr | À vérifier |
 | 9 | France Travail (si inscrit) | appli France Travail | Selon situation |
