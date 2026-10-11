@@ -12,4 +12,4 @@
 # de decalage silencieux entre la borne declaree et l'API reellement utilisee.
 mcp==2.2.0
 requests==2.34.2
-python-dotenv==1.2.3
+python-dotenv==1.2.4
