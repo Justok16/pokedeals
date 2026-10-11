@@ -1,6 +1,6 @@
 # The Investor's Podcast — index des fiches (synthèse du dimanche 11/10/2026)
 
-18 vidéos résumées sur 424. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+18 vidéos résumées sur 425. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[A Star Investor's Tale of Risk, Ruin & Reinvention w/ Victor Haghani (RWH071)](rVFfGc-6U1Q.md)** — Sujet : L'évolution d'une stratégie d'investissement, passant de l'arbitrage complexe et risqué (LTCM) à une gestion indicielle dynamique basée sur le bien-être de l'investisseur.

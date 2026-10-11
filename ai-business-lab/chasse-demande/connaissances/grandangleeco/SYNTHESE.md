@@ -1,6 +1,6 @@
 # Grand Angle Éco — index des fiches (synthèse du dimanche 11/10/2026)
 
-186 vidéos résumées sur 1049. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+186 vidéos résumées sur 1050. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["Ce sera la plus grande crise sociale que le Monde ait jamais connue" - Laurent Alexandre](PJyCHMpdkIc.md)** — Sujet : L’histoire, l'évolution technologique et l'impact économique et géopolitique de l’intelligence artificielle (IA), en particulier de la super-IA et des réseaux de neurones, ainsi que la comparaison entre les investissements et la compétitivité de l’Europe et des…

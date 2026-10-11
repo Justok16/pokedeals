@@ -1,6 +1,6 @@
 # Journal du Coin — index des fiches (synthèse du dimanche 11/10/2026)
 
-46 vidéos résumées sur 1575. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+47 vidéos résumées sur 1575. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[1.4 milliards de revenus crypto en 2025 : Trump s'en met plein les fouilles ! - Actu Crypto 🗞️](VZlOEMiTFhI.md)** — Sujet : L'actualité hebdomadaire des cryptomonnaies : hack d'un bot MEV, trucage de vidéos par Polymarket, scandale politique lié à Tether au Royaume-Uni, interdiction de Binance en France sous MiCA, et déclarations financières de Donald Trump.
@@ -15,6 +15,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Christine Lagarde accusée d'avoir bloqué la licence MiCA de Binance - Actu crypto 🗞️](GLo3s0p3WII.md)** — Le "JT du Coin" récapitule les actualités majeures du secteur crypto : le piratage majeur de la sidechain Liquid Network, la fermeture programmée de la blockchain Harmony, l'arrêt des services de CoinEx, les développements institutionnels de Visa et du Nasdaq, ainsi que les…
 - **[Comment se positionner pour la fin d'année sur le marché crypto ?](4kotN2ljRTM.md)** — Analyse macroéconomique de l'évolution du cours de Bitcoin depuis le halving d'avril 2024. La vidéo questionne la validité des cycles historiques de 4 ans face au changement de profil des investisseurs (institutionnels, ETF, trésoreries d'entreprises) et à la politique…
 - **[Des signaux positifs pour une prochaine Altseason ?! - Analyse crypto 📈](rueR5SaxF_o.md)** — Sujet : Analyse technique macroéconomique et perspectives de marché sur les cryptomonnaies (Bitcoin, Ethereum, Altcoins et capitalisation globale).
+- **[Enfin des bons points d'achat LONG TERME sur le marché crypto ?! - Analyse crypto 📈](u24qFMIIcz0.md)** — Sujet : Analyse technique et psychologique du marché des cryptomonnaies (Bitcoin, Ethereum, Altcoins et capitalisation globale).
 - **[Faut-il VRAIMENT acheter cette correction ?! - Analyse crypto 📈](CegapN1zqIM.md)** — Analyse technique hebdomadaire du marché des cryptomonnaies par l'analyste Cara (Steady Lads / Journal du Coin). La thèse soutenue est que le marché est entré dans une phase de consolidation et de retest des anciennes zones de résistance franchies (breakout), confirmant un…
 - **[L'ATH 2021 tient encore : BTC reste indécis - Analyse crypto 📈](Vdy__CpLR6k.md)** — Sujet : Analyse technique et macroéconomique à long terme de Bitcoin, d'Ethereum, de Solana et des ratios de marché (TOTALES, altcoins, dominance).
 - **[La date fatidique se rapproche... - Analyse crypto 📈](XM9ymhmuEQo.md)** — Sujet : Analyse technique des marchés de crypto-monnaies (indice global hors stablecoins, Bitcoin, Ethereum, Solana et indices d'Altcoins).
