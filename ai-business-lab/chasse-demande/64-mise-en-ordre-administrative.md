@@ -13,7 +13,7 @@ l'ordre ci-dessous ; chaque fait vient de la page officielle citée, lue le 10/1
 | 6 | Encaissement par prélèvement SEPA mensuel | voir § 2 | **GoCardless validé par l'utilisateur le 11/10** ; inscription après l'IBAN Indy (étape 3) |
 | 7 | Google Search Console | `63` § 3 | PC |
 | 8 | Activation du formulaire FormSubmit (lien reçu sur contact@dig16.fr) | boîte contact@dig16.fr | **Fait le 09/10** (envoi d'essai accepté) |
-| 9 | France Travail (si inscrit) | appli France Travail | Selon situation |
+| 9 | France Travail (si inscrit) | appli France Travail | **Sans objet** (utilisateur non inscrit, 11/10) |
 
 ## 1. Facturation électronique et compte pro : Indy (offre Essentiel, 0 €)
 
