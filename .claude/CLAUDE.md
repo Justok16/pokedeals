@@ -158,6 +158,14 @@
   automatique). Outils gratuits et sûrs : installés après lecture complète ; connecteurs
   utiles : proposés à l'utilisateur (lui seul peut les brancher, voir `33-outils.md`).
 
+## Guidage dans les applis (exigence du 11/10 : indications de menus souvent fausses)
+
+- **Jamais de menu décrit de mémoire.** Ordre : 1) le faire soi-même si un connecteur le permet ;
+  2) parcours déjà vérifié dans `connaissances/parcours-verifies.md` ; 3) sinon page d'aide officielle
+  actuelle lue avant d'écrire (lien cité) ; 4) sinon **un écran à la fois** à partir d'une capture,
+  en le disant. Toujours prévoir l'alternative. Chaque parcours confirmé par une capture est ajouté
+  au fichier avec la date. Ne pas déclarer « c'est bon » sans preuve réelle.
+
 ## Outils en place
 
 - Boîte du pseudonyme via le connecteur **Gmail** (signature : « Dig »). **Archiver chaque
