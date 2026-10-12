@@ -209,3 +209,10 @@ le serveur (en-tête Last-Modified), qui ne dit rien du contenu. La revérificat
 - Entreprise « fermée » au registre : retirée seulement si **aucun** établissement actif du même nom n'existe dans sa
   commune (les restaurants changent souvent de société sans changer d'enseigne).
 - Outils (privés, hors dépôt) : `verif_tous.py`, `passe1b.py`, `devine_sites.py`, `analyse_verif.py`.
+
+## Référencement d'un site client (ajouté le 12/10/2026)
+
+Avant toute livraison ou mise en ligne d'un site client : `python3 outils/seo_client.py https://site-du-client.fr/`
+doit afficher **0 ALERTE** (titres, descriptions, H1, canonique, noindex, données structurées « entreprise locale »,
+sitemap, robots, liens internes, email masqué par Cloudflare). Méthode complète : `65-seo-sites-clients.md`.
+Même contrôle sur dig16.fr après chaque modification du site (12/10 : 0 ALERTE).
