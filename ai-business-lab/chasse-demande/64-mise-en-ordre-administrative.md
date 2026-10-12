@@ -9,7 +9,7 @@ l'ordre ci-dessous ; chaque fait vient de la page officielle citée, lue le 10/1
 | 2 | Espace URSSAF auto-entrepreneur (déclarations, suivi ACRE) | autoentrepreneur.urssaf.fr ou appli | Attente du courrier avec le n° de compte ; 3698 le 26/10 si rien. **12/10 : l'URSSAF a appelé pour l'ACRE** (message vocal, rappel prévu) |
 | 3 | Compte bancaire réservé à DIG16 | voir § 1 (Indy, gratuit) | À faire (téléphone) |
 | 4 | Déclaration initiale de CFE 1447-C-SD + exonération FRR+ | espace pro impots.gouv, **avant le 31/12/2026** | Après l'étape 1 (PC) |
-| 5 | Plateforme agréée de facturation électronique (réception obligatoire depuis le 01/09/2026) | voir § 1 | À faire |
+| 5 | Plateforme agréée de facturation électronique (réception obligatoire depuis le 01/09/2026) | voir § 1 | **Couverte par Indy Essentiel** (0 €, « Facturation électronique (Plateforme agréée) », page tarifs relue le 12/10) : se fait en même temps que l'étape 3 |
 | 6 | Encaissement par prélèvement SEPA mensuel | voir § 2 | **GoCardless validé par l'utilisateur le 11/10** ; inscription après l'IBAN Indy (étape 3) |
 | 7 | Google Search Console | `63` § 3 | **Fait le 12/10** (accueil indexé ; nouvelle indexation demandée le 12/10 au soir après correction du titre) |
 | 8 | Activation du formulaire FormSubmit (lien reçu sur contact@dig16.fr) | boîte contact@dig16.fr | **Fait le 09/10** (envoi d'essai accepté) |
