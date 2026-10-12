@@ -33,7 +33,7 @@ Bluesky (rangés dans `63`). Toute tâche de l'utilisateur, quelle que soit sa s
 | Référencement | **Google Search Console** (`63` § 3), puis Bing Webmaster Tools | ordinateur, 5 min | Search Console **validée le 12/10** (balise HTML), sitemap envoyé, indexation de l'accueil demandée ; **Bing importé depuis Search Console le 12/10** (données sous 48 h), sitemap repris automatiquement (« Traitement ») ; reste : revérifier l'état des sitemaps Google et Bing |
 | Référencement | Compléter la fiche Google (description, services, logo, couverture, 5 photos) | — | **Fait le 11/10** |
 | Référencement | **Relier la fiche Google à Metricool** (puis Claude ajoute les publications sur Google) | 5 min | **Fait le 12/10** ; 1re publication Google programmée le 13/10 12:00 |
-| Référencement | **Bing Places** : importer la fiche Google | 10 min | À faire (fiche validée le 11/10) |
+| Référencement | **Bing Places** : fiche « Dig16 » | 10 min | **Créée le 12/10** à la main (import Google en boucle), catégorie « Concepteur web » ; **code de vérification envoyé par courrier** (à saisir dans Bing Places → Dig16 → « Code confidentiel » → Envoyer). **Dès la vérification : masquer l'adresse** (Détails Essentiel → option « masquer l'adresse », exige d'ajouter les zones desservies, ex. Charente ; aide officielle bing.com/forbusiness/help/manageYourListings) — modification impossible avant vérification |
 | Référencement | Apple Business Connect ; PagesJaunes (gratuité à vérifier) | 10 min chacun | À faire |
 | Prospection | **Entretiens d'étude de marché** (`57`) : priorité n° 1 après l'administratif | téléphone / visite | À lancer |
 | Prospection | Campagne « Le test du pouce » (`62`) : messages et affiches | quand l'utilisateur le demande | En réserve |
