@@ -8,7 +8,8 @@ Usage : python3 outils/marque/visuels_reseaux.py
   couverture-facebook.png 1640 × 624 (zone utile centrale, le texte évite les bords) ;
   banniere-linkedin.png   1584 × 396 ;
   couverture-google.png   1080 × 608 ;
-  banniere-youtube.png    2560 × 1440 (texte dans la zone sûre centrale 1546 × 423).
+  banniere-youtube.png    2560 × 1440 (texte dans la zone sûre centrale 1546 × 423) ;
+  banniere-x.png          1500 × 500 (contenu décalé à droite : la photo de profil X recouvre le bas gauche).
 Contrôles : polices chargées, aucun texte hors de sa zone sûre.
 """
 
@@ -34,10 +35,13 @@ FORMATS = [
     ("couverture-google.png", 1080, 608, (960, 500), "bandeau"),
     ("banniere-youtube.png", 2560, 1440, (1546, 423), "bandeau"),
     ("avatar-1080.png", 1080, 1080, (860, 860), "avatar"),
+    ("banniere-x.png", 1500, 500, (1000, 330), "bandeau"),
 ]
+# décalage vers la droite (px) quand la photo de profil recouvre une partie de la bannière
+DECALAGE = {"banniere-x.png": 360}
 
 
-def page(larg, h, zone, genre):
+def page(larg, h, zone, genre, decalage=0):
     zl, zh = zone
     if genre == "avatar":
         corps = f'<img id="z" src="{MARQUE}embleme-or@6x.png" style="width:{zl * 0.82}px;height:auto">'
@@ -52,7 +56,7 @@ def page(larg, h, zone, genre):
                  f'<div style="font:400 {21 * t}px Geist;color:#a8a093">dig16.fr · dès 49 € par mois · 0 € de création</div>'
                  f'</div></div>')
     return (f'<!doctype html><html><head><meta charset="utf-8">{POLICES}<style>html,body{{margin:0}}'
-            f'body{{width:{larg}px;height:{h}px;{FOND}display:grid;place-items:center;overflow:hidden}}</style></head>'
+            f'body{{width:{larg}px;height:{h}px;{FOND}display:grid;place-items:center;overflow:hidden;box-sizing:border-box;padding-left:{decalage}px}}</style></head>'
             f'<body>{corps}</body></html>')
 
 
@@ -61,11 +65,14 @@ def main():
     fautes = []
     with sync_playwright() as p:
         nav = p.chromium.launch(executable_path=CHROME)
+        seuls = os.environ.get("SEULEMENT", "").split(",")
         for nom, larg, h, zone, genre in FORMATS:
+            if seuls != [""] and nom not in seuls:
+                continue
             pg = nav.new_page(viewport={"width": larg, "height": h})
             tmp = os.path.join(SORTIE, "_tmp.html")  # file:// pour que les images de la marque se chargent
             with open(tmp, "w", encoding="utf-8") as f:
-                f.write(page(larg, h, zone, genre))
+                f.write(page(larg, h, zone, genre, DECALAGE.get(nom, 0)))
             pg.goto("file://" + tmp)
             pg.evaluate("document.fonts.ready")
             pg.wait_for_timeout(600)
