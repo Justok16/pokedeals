@@ -177,7 +177,7 @@
 - **Jev** (TypeSafe AI) : skill dans `.claude/skills/typesafe-ai`.
 - **OpenRush** : mesure de la demande (volumes de recherche).
 - Radar des fermetures : `outils/radar_fermetures.py` (30 sources).
-- Liste des outils : `33-outils.md`.
+- Liste des outils : `33-outils.md` ; **boîte à outils classée par besoin (tout ce que l'utilisateur a envoyé) : `connaissances/boite-a-outils.md`, à consulter avant toute tâche**, régénérée à chaque point par `outils/catalogue_outils.py`.
 - **Contrôle de santé en une commande** (06/10) : `python3 ai-business-lab/chasse-demande/outils/controle_global.py` (site, en-têtes, DNSSEC, messagerie, certificat, relais Vercel, file des résumés). À lancer à chaque point automatique ; ne signaler à l'utilisateur que les « ALERTE ». Audit complet du site (liens, console, mobile, balises) : `outils/audit_site.py`. **Avant chaque mise en ligne du site** (07/10) : `python3 outils/test_pages.py` (toutes les pages et démos, ordinateur et téléphone : erreurs, 404, images, débordement) ; refuser de publier tant qu'il reste une « ALERTE ».
 - **Base de connaissances vidéo** (demande du 26/09) : résumés Gemini des
   vidéos YouTube dans `connaissances/` (chaîne Finary : finances
