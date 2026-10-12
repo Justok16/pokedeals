@@ -44,3 +44,19 @@ avant toute dépense** (règle « budget 0 € »). Tri : ce qui sert DIG16, qua
 - Déjà couverts par nos outils : générateurs d'images et de vidéos IA (Leonardo, FLUX, Runway, HeyGen, ElevenLabs),
   assistants IA multiples (Poe, Monica, HuggingChat) — utiles seulement si un besoin précis apparaît.
 - CleanPNG : licences des images incertaines → jamais pour un client.
+
+## Publication Instagram « Hidden websites » (@choly.ai, 21/09/2026), envoyée par l'utilisateur le 12/10
+
+Carrousel lu le 12/10 (5 diapositives visibles, la 5e annoncée n'a pas pu être lue sans compte). Outils de vidéo par IA
+présentés comme « $0 / month » : **à vérifier sur la page tarifs de chaque outil avant tout usage** (publication
+promotionnelle, ton accrocheur).
+
+| Outil | Promesse du carrousel | Avis pour DIG16 |
+|---|---|---|
+| Zsky AI | générations vidéo et image illimitées, sans filigrane ni carte | inconnu jusqu'ici : à vérifier (sérieux, droits d'usage commercial) avant essai |
+| Pictory | article → vidéo | déjà écarté le 11/10 (payant, essai seulement) |
+| D-ID | texte → présentateur qui parle | écarté : visage de synthèse, contraire à la règle « pas de promesse invérifiable » et à l'image locale de DIG16 |
+| Steve AI | script → dessin animé explicatif | à garder pour plus tard (vidéos « comment ça marche » après le 1er client), gratuité à vérifier |
+
+Décision : rien à installer maintenant (vidéos en pause jusqu'au premier client payant, décision du 05/10) ; Clipchamp
+(gratuit, déjà retenu) suffit pour les montages actuels.
