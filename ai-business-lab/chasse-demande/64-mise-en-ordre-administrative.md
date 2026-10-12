@@ -30,7 +30,7 @@ Bluesky (rangés dans `63`). Toute tâche de l'utilisateur, quelle que soit sa s
 | Réseaux | Pinterest | — | **Abandonné le 12/10** (ne pas reproposer, décision de l'utilisateur) |
 | Réseaux | **X** `@dig16charente` (`dig16fr` pris ; demande de l'utilisateur le 12/10) | téléphone, 5 min | **Fait le 12/10** (photo, bannière, bio, site ; lien ajouté au site) ; relier X à Metricool est **payant** (module X/Twitter à 10 €/mois, page d'aide Metricool lue le 12/10) → pas de connexion (budget 0 €) ; publication par un autre moyen gratuit à vérifier |
 | Réseaux | LinkedIn | — | **Abandonné le 10/10** (ne pas reproposer) |
-| Référencement | **Google Search Console** (`63` § 3), puis Bing Webmaster Tools | ordinateur, 5 min | Search Console **validée le 12/10** (balise HTML), sitemap envoyé, indexation de l'accueil demandée ; **Bing importé depuis Search Console le 12/10** (données sous 48 h) ; reste : revérifier l'état des sitemaps Google et Bing |
+| Référencement | **Google Search Console** (`63` § 3), puis Bing Webmaster Tools | ordinateur, 5 min | Search Console **validée le 12/10** (balise HTML), sitemap envoyé, indexation de l'accueil demandée ; **Bing importé depuis Search Console le 12/10** (données sous 48 h), sitemap repris automatiquement (« Traitement ») ; reste : revérifier l'état des sitemaps Google et Bing |
 | Référencement | Compléter la fiche Google (description, services, logo, couverture, 5 photos) | — | **Fait le 11/10** |
 | Référencement | **Relier la fiche Google à Metricool** (puis Claude ajoute les publications sur Google) | 5 min | **Fait le 12/10** ; 1re publication Google programmée le 13/10 12:00 |
 | Référencement | **Bing Places** : importer la fiche Google | 10 min | À faire (fiche validée le 11/10) |
