@@ -5,8 +5,8 @@ l'ordre ci-dessous ; chaque fait vient de la page officielle citée, lue le 10/1
 
 | # | Démarche | Où | État |
 |---|---|---|---|
-| 1 | Espace professionnel impots.gouv (code d'activation par courrier) | impots.gouv.fr → Votre espace professionnel | À faire (téléphone) |
-| 2 | Espace URSSAF auto-entrepreneur (déclarations, suivi ACRE) | autoentrepreneur.urssaf.fr ou appli | À faire (téléphone) |
+| 1 | Espace professionnel impots.gouv (code d'activation par courrier) | impots.gouv.fr → Votre espace professionnel | Espace créé ; « Adhérer aux services » refuse encore le SIREN → **réessayer le 15/10** (SIE si refus après le 23/10) |
+| 2 | Espace URSSAF auto-entrepreneur (déclarations, suivi ACRE) | autoentrepreneur.urssaf.fr ou appli | Attente du courrier avec le n° de compte ; 3698 le 26/10 si rien. **12/10 : l'URSSAF a appelé pour l'ACRE** (message vocal, rappel prévu) |
 | 3 | Compte bancaire réservé à DIG16 | voir § 1 (Indy, gratuit) | À faire (téléphone) |
 | 4 | Déclaration initiale de CFE 1447-C-SD + exonération FRR+ | espace pro impots.gouv, **avant le 31/12/2026** | Après l'étape 1 (PC) |
 | 5 | Plateforme agréée de facturation électronique (réception obligatoire depuis le 01/09/2026) | voir § 1 | À faire |
