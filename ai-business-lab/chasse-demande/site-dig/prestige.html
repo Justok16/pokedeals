@@ -384,5 +384,6 @@ const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.class
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');obs.unobserve(x.target)}}),{threshold:.12});
 document.querySelectorAll('.apparait').forEach(el=>obs.observe(el));
 </script>
+<script src="/mesure.js" defer></script>
 </body>
 </html>

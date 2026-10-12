@@ -697,5 +697,6 @@ v.addEventListener('ended',function(){v.controls=false;if(m)m.hidden=true;if(pz)
 document.getElementById('fin-revoir').addEventListener('click',function(e){e.stopPropagation();lire()});
 var bf=document.getElementById('btn-film');if(bf)bf.addEventListener('click',function(){var r=v.getBoundingClientRect();if(r.top<60||r.bottom>innerHeight)v.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});lire()});})();
 </script>
+<script src="/mesure.js" defer></script>
 </body>
 </html>
