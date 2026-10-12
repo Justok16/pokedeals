@@ -37,3 +37,5 @@ fausses (menus renommés, options disparues), ce qui lui a fait perdre du temps.
 | Metricool (appli Android) | Relier la fiche Google | Connexions → ligne « Google Business Profile » → Connecter (fiche « Dig16 » reliée) | 12/10/2026 |
 | Metricool (appli Android) | Relier YouTube | Connexions → ligne « YouTube, Connecter un canal » → chaîne « DIG16 » | 12/10/2026 |
 | X (navigateur, inscription) | Piège | `dig16fr` déjà pris ; `dig16charente` disponible ; le **Nom refuse tout chiffre** à l'inscription (« Erreur lors de la validation du nom », trouvé par l'utilisateur) : s'inscrire avec un nom sans chiffre puis le changer dans Modifier le profil | 12/10/2026 |
+| Google Search Console (navigateur) | Ajouter et valider le site | Accueil → « Ajouter un site Web » → « Préfixe d'URL » `https://dig16.fr/` → « Balise HTML » → Claude insère la balise dans `site-dig/index.html` et publie → « Valider » (propriété validée) | 12/10/2026 |
+| Google Search Console | Menu de gauche | Vue d'ensemble, Insights, Performances, Inspection de l'URL ; Indexation : Pages, **Sitemaps**, Suppressions | 12/10/2026 |
