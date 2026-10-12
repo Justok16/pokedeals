@@ -17,7 +17,8 @@ zone desservie, téléphone, horaires, URL). Sortie : OK / ATTENTION / ALERTE, c
 Le fichier fiche.json (privé, jamais dans le dépôt) contient : nom, metier (clé de METIERS), url, telephone,
 email, adresse {rue, cp, ville}, masquer_adresse (vrai si l'artisan se déplace chez ses clients), zone (liste de
 communes), horaires [{jours: ["Monday", …], ouvre: "08:00", ferme: "18:00"}], reseaux (liste d'URL),
-logo, image, prix ("€€"), siren, latitude, longitude.
+logo, image, prix ("€€"), siren. Pas de coordonnées GPS : l'adresse suffit à Google, et CodeQL
+les classe en données privées.
 """
 
 import json
@@ -56,8 +57,6 @@ def schema(fiche):
     if a and not fiche.get("masquer_adresse"):
         d["address"] = {"@type": "PostalAddress", "streetAddress": a.get("rue", ""), "postalCode": a.get("cp", ""),
                         "addressLocality": a.get("ville", ""), "addressRegion": "Charente", "addressCountry": "FR"}
-        if fiche.get("latitude") and fiche.get("longitude"):
-            d["geo"] = {"@type": "GeoCoordinates", "latitude": fiche["latitude"], "longitude": fiche["longitude"]}
     elif a:
         d["address"] = {"@type": "PostalAddress", "addressLocality": a.get("ville", ""), "postalCode": a.get("cp", ""),
                         "addressRegion": "Charente", "addressCountry": "FR"}
