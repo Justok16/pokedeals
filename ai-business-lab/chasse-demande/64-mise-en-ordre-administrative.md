@@ -11,7 +11,7 @@ l'ordre ci-dessous ; chaque fait vient de la page officielle citée, lue le 10/1
 | 4 | Déclaration initiale de CFE 1447-C-SD + exonération FRR+ | espace pro impots.gouv, **avant le 31/12/2026** | Après l'étape 1 (PC) |
 | 5 | Plateforme agréée de facturation électronique (réception obligatoire depuis le 01/09/2026) | voir § 1 | À faire |
 | 6 | Encaissement par prélèvement SEPA mensuel | voir § 2 | **GoCardless validé par l'utilisateur le 11/10** ; inscription après l'IBAN Indy (étape 3) |
-| 7 | Google Search Console | `63` § 3 | PC |
+| 7 | Google Search Console | `63` § 3 | **Fait le 12/10** (accueil indexé ; nouvelle indexation demandée le 12/10 au soir après correction du titre) |
 | 8 | Activation du formulaire FormSubmit (lien reçu sur contact@dig16.fr) | boîte contact@dig16.fr | **Fait le 09/10** (envoi d'essai accepté) |
 | 9 | France Travail (si inscrit) | appli France Travail | **Sans objet** (utilisateur non inscrit, 11/10) |
 
@@ -36,7 +36,6 @@ Bluesky (rangés dans `63`). Toute tâche de l'utilisateur, quelle que soit sa s
 | Référencement | **Apple Business** (Plans, Siri) | 15 min | Compte créé le 12/10 (organisation « Dig16 ») ; **validation envoyée le 12/10** : Kbis + attestation de contrat d'énergie à l'adresse du siège (la validation par domaine bloquait : Apple proposait www.dig16.fr, qui est un CNAME ; le TXT `apple-domain-verification` reste sur dig16.fr, sans gêne) ; **réponse d'Apple sous 5 jours ouvrés** (60 jours max sinon suppression) ; ensuite : ajouter l'établissement (Marques / lieux) |
 | Référencement | **PagesJaunes** (Solocal Manager, gratuit) | 15 min | Compte créé le 12/10 (connexion Google), fiche « Dig16 » à l'adresse du siège ; bouton « Valider mon établissement » inactif (2 navigateurs, 12/10) → **appeler le service client** (Solocal Manager → Contacter solocal → « Afficher le numéro », lun-ven 8 h-19 h, sam 9 h-16 h ; numéro client = n° de fiche affiché) pour valider ; ensuite : téléphone, horaires, site, activité ; refuser toute offre payante |
 | Référencement | **Bing Places** : fiche « Dig16 » | 10 min | **Créée le 12/10** à la main (import Google en boucle), catégorie « Concepteur web » ; **code de vérification envoyé par courrier** (à saisir dans Bing Places → Dig16 → « Code confidentiel » → Envoyer). Adresse provisoire choisie par l'utilisateur pour recevoir le courrier ; **dès la vérification : remettre l'adresse du siège** (même adresse que PagesJaunes et le site, cohérence nom-adresse-téléphone ; Bing peut redemander une vérification) et, si voulu, masquer l'adresse (Détails Essentiel → option « masquer l'adresse », exige d'ajouter les zones desservies, ex. Charente ; aide officielle bing.com/forbusiness/help/manageYourListings) — modification impossible avant vérification |
-| Référencement | Apple Business Connect ; PagesJaunes (gratuité à vérifier) | 10 min chacun | À faire |
 | Prospection | **Entretiens d'étude de marché** (`57`) : priorité n° 1 après l'administratif | téléphone / visite | À lancer |
 | Prospection | Campagne « Le test du pouce » (`62`) : messages et affiches | quand l'utilisateur le demande | En réserve |
 | Formation | Cours Udemy gratuits retenus (`connaissances/udemy-programmes.md`) | quand il a du temps | Facultatif |
