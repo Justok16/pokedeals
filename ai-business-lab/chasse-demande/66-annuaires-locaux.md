@@ -106,12 +106,17 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | 13/10 | RCF Charente (rédaction d'Angoulême) | information de presse locale (création, test du pouce) | en attente |
 | 13/10 | Charente Libre (service internet, à transmettre à la rédaction, cahier Pays ruffécois / économie) | information de presse locale | en attente |
 | 13/10 | Attitude FM (radio charentaise) | information de presse locale | en attente |
+| 13/10 | Charente Libre, journaliste du Nord-Ruffécois (copie : correspondant local de Ruffec) | information de presse locale | en attente |
+| 13/10 | CPME Charente (« Les Entrepreneurs Charente ») | rencontres d'entrepreneurs, relais du test du pouce, atelier gratuit proposé | en attente |
+| 13/10 | Dynamique 16 (club d'entreprises du Nord Charente ; dernières actualités en ligne de 2020) | rencontres de dirigeants, atelier proposé | en attente |
+| 13/10 | BGE (accompagnement des créateurs, accueils à Ruffec et Confolens) | liste de prestataires, ateliers pour créateurs | en attente |
+| 13/10 | Initiative Charente | rencontres entre créateurs (aucune demande de prêt) | en attente |
 
 Demande de l'utilisateur du 13/10 (après-midi) : étendre à toute la Charente. Sources des adresses : registre national Banatic (mis à jour avril 2026) pour Charente Limousine, La Rochefoucauld, Lavalette Tude Dronne et 4B ; site officiel grand-cognac.fr ; documents de GrandAngoulême et de Cœur de Charente ; page officielle du diocèse pour RCF Charente.
 
-Adresses presse : Charente Libre, relevée sur sa page Facebook officielle et un avis publié par le journal (site illisible par nos outils) ; Attitude FM, site officiel de la radio. Messages signés DIG16, sans le nom de l'utilisateur.
+Adresses presse : Charente Libre, relevée sur sa page Facebook officielle et un avis publié par le journal (site illisible par nos outils) ; Attitude FM, site officiel de la radio. Messages signés DIG16, sans le nom de l'utilisateur. Deuxième vague (13/10 ~13:00) : page « Nous contacter » de charentelibre.fr (journaliste et correspondants par secteur), sites officiels cpme16.fr, dynamique-16.fr et bge-nouvelle-aquitaine.fr, fiche Initiative Charente de les-aides.fr (base des CCI).
 
-Non contactés par mail (pas d'adresse publique vérifiée) : FFB Charente (05 45 92 16 71, adresses réservées aux adhérents), CPME et U2P Charente (aucun contact local trouvé), Chambre de métiers (formulaire « être rappelé » de
-cma-nouvelleaquitaine.fr), Initiative Charente (formulaire ; prêt d'honneur = engagement de l'utilisateur),
+Non contactés par mail (pas d'adresse publique vérifiée) : L'Entrepreneur Charentais (média et club d'entrepreneurs, magazine à 7 042 exemplaires ; site en panne le 13/10, à réessayer), Union patronale de la Charente (Medef), radios RDC, LA16 et Cool Radio, Sud Ouest (pages Charente), FFB Charente (05 45 92 16 71, adresses réservées aux adhérents), CPME et U2P Charente (aucun contact local trouvé), Chambre de métiers (formulaire « être rappelé » de
+cma-nouvelleaquitaine.fr),
 PETR du Pays du Ruffécois (05 45 20 34 94), office de tourisme Destination Nord Charente (05 45 31 05 42).
 Relance unique au bout de 10 jours ouvrés sans réponse ; réponses consignées ici, sans données personnelles.
