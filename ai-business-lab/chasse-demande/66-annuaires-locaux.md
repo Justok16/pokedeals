@@ -94,7 +94,7 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 |---|---|---|---|
 | 13/10 | Mairie de Ruffec (cheffe de projet cœur de ville) | inscription à l'annuaire des commerçants + présentation | en attente |
 | 13/10 | Communauté de communes Val de Charente, développement économique | présentation, liste des entreprises, rencontres de créateurs | en attente |
-| 13/10 | CCI Charente (Angoulême) | annuaire de prestataires, actions gratuites pour créateurs, numérique | en attente |
+| 13/10 | CCI Charente (Angoulême) | annuaire de prestataires, actions gratuites pour créateurs, numérique | **répondu le 13/10** : demande transmise à la conseillère création d'entreprise, qui doit recontacter DIG16 (pas de relance le 27/10) |
 | 13/10 | CAPEB Charente | référencement de prestataires, ateliers visibilité en ligne | en attente |
 | 13/10 | GrandAngoulême (Maison de l'entreprendre) | présentation, annuaire, rencontres, atelier « être trouvé sur Google » proposé | en attente |
 | 13/10 | Grand Cognac (service économie) | idem | en attente |
