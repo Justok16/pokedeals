@@ -163,6 +163,27 @@ EXCLUSIONS_LOTS_ET_IMPORTS = {
 }
 
 
+# --- Produits supplementaires des 30 ans (demande de Justok, 13/10/2026) ---
+# Mots-cles d'edition partages par les coffrets FR ajoutes le 13/10/2026.
+EDITION_30E_FR = frozenset({
+    "30e anniversaire", "30eme anniversaire", "30th anniversary", "30th celebration",
+    "me05.5", "me 05.5", "me5.5", "pokemon 30a",
+})
+# Coffrets d'IMPORT (japonais, chinois, thai, indonesien) : seuls les lots de
+# revendeur sont exclus -- PAS de filtre de langue ni d'exclusion "japonais",
+# ces produits n'existent pas en francais (demande explicite de Justok).
+EXCLUSIONS_LOTS = {
+    "mots_exclus_titre": MOTS_LOTS_TITRE | MOTS_AUTRES_JEUX_TITRE | {"pack", "gros pack", "pack coffret"},
+    "type_dans_titre": True,
+}
+EDITION_30E_IMPORT = frozenset({
+    "30th celebration", "30th anniversary", "30e anniversaire", "30eme anniversaire", "30 ans",
+})
+LANGUE_CHINOIS_SIMPLIFIE = frozenset({"chinois", "chinoise", "chinese", "simplifie", "simplified"})
+FIGURINE = frozenset({"figurine", "figure"})
+FIN_SUIVI_30E_SUPPLEMENTS = date(2027, 3, 31)
+
+
 PRODUITS_SURVEILLES: list[ProduitSurveille] = [
     ProduitSurveille(
         nom="Coffret Dresseur d'Élite — 30e Anniversaire (30th Celebration) FR",
@@ -372,6 +393,117 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         # page. Rejetee si son TITRE nomme Amphinobi sans nommer Nymphali ;
         # "Pokebox Nymphali ex et Amphinobi ex" (modele au choix) reste gardee.
         concurrents_titre=frozenset({"amphinobi", "greninja"}),
+    ),
+    # --- Ajouts du 13/10/2026 (liste envoyee par Justok) : alerte a la mise
+    # en precommande ET a chaque passage en stock. date_sortie=None (dates
+    # differentes selon les marches : aucune page rejetee pour sa date).
+    # Versions FRANCAISES quand le produit existe en francais.
+    ProduitSurveille(
+        nom="Collection Premium Métamorph (Ditto) 30e Anniversaire FR",
+        mots_cles_edition=EDITION_30E_FR,
+        mots_cles_type=frozenset({"metamorph", "ditto"}),
+        # Une carte Metamorph a l'unite de l'extension n'est pas le coffret.
+        mots_cles_supplementaires=(frozenset({
+            "collection premium", "premium collection", "coffret premium"}),),
+        date_sortie=None,
+        surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
+        alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS_ET_IMPORTS,
+    ),
+    ProduitSurveille(
+        nom="Collection avec figurine Mew 30e Anniversaire FR",
+        mots_cles_edition=EDITION_30E_FR,
+        mots_cles_type=frozenset({"mew"}),
+        mots_cles_supplementaires=(FIGURINE,),
+        date_sortie=None,
+        surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
+        alerte_disponibilite=True,
+        # "mew" est contenu dans "mewtwo" (comparaison par sous-chaine).
+        **{**EXCLUSIONS_LOTS_ET_IMPORTS,
+           "mots_exclus_titre": EXCLUSIONS_LOTS_ET_IMPORTS["mots_exclus_titre"] | {"mewtwo"}},
+    ),
+    ProduitSurveille(
+        nom="Collection avec figurine Mewtwo 30e Anniversaire FR",
+        mots_cles_edition=EDITION_30E_FR,
+        mots_cles_type=frozenset({"mewtwo"}),
+        mots_cles_supplementaires=(FIGURINE,),
+        date_sortie=None,
+        surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
+        alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS_ET_IMPORTS,
+    ),
+    # Imports : contenus TRES differents malgre les memes Pikachu-ex FUR
+    # (avertissement de Justok) -> une entree par coffret, types exclusifs.
+    ProduitSurveille(
+        nom="30th Celebration FUTURISTIC BOX (JP / chinois traditionnel / KR)",
+        mots_cles_edition=EDITION_30E_IMPORT | {"futuristic"},
+        mots_cles_type=frozenset({"futuristic box"}),
+        date_sortie=None,
+        surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
+        alerte_disponibilite=True,
+        **{**EXCLUSIONS_LOTS,
+           "mots_exclus_titre": EXCLUSIONS_LOTS["mots_exclus_titre"] | {"simplifie", "simplified"}},
+    ),
+    ProduitSurveille(
+        nom="Coffret commémoratif « Futur » 幻彩未来 (chinois simplifié)",
+        # PAS "futur" seul : sous-chaine de "future" (figurine Vsinger
+        # « Retro Future » de hobbyhouse.fr, 13/10/2026).
+        mots_cles_edition=EDITION_30E_IMPORT | {"futuristic"},
+        mots_cles_type=frozenset({"futuristic"}),
+        mots_cles_supplementaires=(LANGUE_CHINOIS_SIMPLIFIE,),
+        date_sortie=None,
+        surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
+        alerte_disponibilite=True,
+        **{**EXCLUSIONS_LOTS,
+           "mots_exclus_titre": EXCLUSIONS_LOTS["mots_exclus_titre"]
+           | {"traditionnel", "traditional", "rare set"}},
+    ),
+    ProduitSurveille(
+        nom="30th Celebration Futuristic Rare Set (thaï / indonésien)",
+        mots_cles_edition=EDITION_30E_IMPORT | {"futuristic"},
+        mots_cles_type=frozenset({"futuristic rare set"}),
+        date_sortie=None,
+        surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
+        alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS,
+    ),
+    ProduitSurveille(
+        nom="Premium Deck Set Mentali & Noctali (JP / chinois traditionnel)",
+        mots_cles_edition=EDITION_30E_IMPORT | {"premium deck set"},
+        mots_cles_type=frozenset({"premium deck set", "deck set premium"}),
+        mots_cles_supplementaires=(frozenset({"mentali", "espeon", "noctali", "umbreon"}),),
+        date_sortie=None,
+        surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
+        alerte_disponibilite=True,
+        # Cartes a l'unite du deck, gradees ou encadrees (hikarudistribution.com,
+        # 13/10/2026 : "Mentali ex 043/040 - ... Premium Deck Set — + Cadre").
+        **{**EXCLUSIONS_LOTS,
+           "mots_exclus_titre": EXCLUSIONS_LOTS["mots_exclus_titre"]
+           | {"cadre", "gradation", "psa", "pca", "cgc"}},
+    ),
+    ProduitSurveille(
+        nom="Coffret collector figurine Dracaufeu 30th (chinois simplifié)",
+        mots_cles_edition=EDITION_30E_IMPORT,
+        mots_cles_type=frozenset({"dracaufeu", "charizard"}),
+        mots_cles_supplementaires=(FIGURINE, LANGUE_CHINOIS_SIMPLIFIE),
+        date_sortie=None,
+        surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
+        alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS,
+    ),
+    ProduitSurveille(
+        nom="Coffret collection & exposition Mentali-ex & Noctali-ex (chinois simplifié)",
+        mots_cles_edition=EDITION_30E_IMPORT,
+        mots_cles_type=frozenset({"mentali", "espeon"}),
+        mots_cles_supplementaires=(
+            frozenset({"noctali", "umbreon"}),
+            LANGUE_CHINOIS_SIMPLIFIE,
+            frozenset({"cadre", "frame", "exposition", "magnet", "aimant"}),
+        ),
+        date_sortie=None,
+        surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
+        alerte_disponibilite=True,
+        **EXCLUSIONS_LOTS,
     ),
 ]
 
