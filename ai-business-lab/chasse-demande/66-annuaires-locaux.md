@@ -114,6 +114,9 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | 13/10 | L'Entrepreneur Charentais et Entreprendre en Charente (via l'agence qui les édite, Angoulême) | portrait de nouveau créateur, article de conseils gratuit proposé | en attente |
 | 13/10 | Union Patronale de la Charente (Medef) | rencontres d'entrepreneurs, relais du test, atelier proposé | en attente |
 | 13/10 | RDC – Radio Diffusion Charentaise (Angoulême) | information de presse locale | en attente |
+| 13/10 | L'Entrepreneur Charentais, responsable de la publication (adresse des mentions légales) | proposition de portrait + article de conseils | en attente |
+| 13/10 | LA16 (média local, studio à Montbron) | proposition d'interview | en attente |
+| 13/10 | Mairie de L'Isle-d'Espagnac, service vie associative | demande des coordonnées de Cool Radio (absente du répertoire municipal des associations) | en attente |
 
 Demande de l'utilisateur du 13/10 (après-midi) : étendre à toute la Charente. Sources des adresses : registre national Banatic (mis à jour avril 2026) pour Charente Limousine, La Rochefoucauld, Lavalette Tude Dronne et 4B ; site officiel grand-cognac.fr ; documents de GrandAngoulême et de Cœur de Charente ; page officielle du diocèse pour RCF Charente.
 
@@ -123,7 +126,9 @@ Troisième vague (13/10 ~13:45) : page contact du site de l'agence éditrice (ag
 
 **Sud Ouest** : aucune adresse publiée ; la page officielle <https://www.sudouest.fr/contact/> propose un formulaire « La rédaction de Cognac » (seule rédaction Sud Ouest en Charente) qui exige le vrai prénom et nom et un test anti-robot → à remplir par l'utilisateur (2 minutes, texte prêt : celui du mail à Charente Libre), ou appel à l'agence de Cognac (05 45 36 62 80, numéro de la page officielle).
 
-Non contactés par mail (pas d'adresse publique vérifiée) : radios LA16 et Cool Radio (aucun site, aucune trace d'activité récente ; Cool Radio : association de 2004 domiciliée à l'adresse de Charente Libre), FFB Charente (05 45 92 16 71, adresses réservées aux adhérents), CPME et U2P Charente (aucun contact local trouvé), Chambre de métiers (formulaire « être rappelé » de
+Quatrième vague (13/10 ~14:05), pistes apportées par l'utilisateur et vérifiées une à une : mentions légales de lentrepreneurcharentais.fr, page contacts de la16.fr, page vie associative de lisledespagnac.fr. RDC : la page contact officielle donne bien l'adresse déjà utilisée (la variante « contact… » d'un annuaire colle le mot « Contact » à l'adresse). Sud Ouest : l'adresse « cognac@ » citée par un annuaire n'apparaît sur aucune page officielle → non utilisée ; formulaire officiel maintenu.
+
+Non contactés par mail (pas d'adresse publique vérifiée) : Cool Radio (association de 2004, absente du répertoire municipal ; demande faite à la mairie), FFB Charente (05 45 92 16 71, adresses réservées aux adhérents), CPME et U2P Charente (aucun contact local trouvé), Chambre de métiers (formulaire « être rappelé » de
 cma-nouvelleaquitaine.fr),
 PETR du Pays du Ruffécois (05 45 20 34 94), office de tourisme Destination Nord Charente (05 45 31 05 42).
 Relance unique au bout de 10 jours ouvrés sans réponse ; réponses consignées ici, sans données personnelles.
