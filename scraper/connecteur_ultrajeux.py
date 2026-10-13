@@ -43,6 +43,10 @@ CATEGORIES = {
     "cat-1-4-488-x.html": "Mini Tin",
     "cat-1-4-81-x.html": "Pokebox",
     "cat-1-4-522-x.html": "Collection Ultra Premium",
+    # 13/10/2026 : Collection Premium Metamorph (8 boosters) et Collections
+    # avec figurine Mew / Mewtwo (5 boosters).
+    "cat-1-4-516-x.html": "Coffret 8 boosters",
+    "cat-1-4-518-x.html": "Coffret 5 boosters",
 }
 
 _RE_TITRE = re.compile(r'alt="([^"]*)"[^>]*class="produit_scan"')

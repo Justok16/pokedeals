@@ -37,8 +37,8 @@ def test_nom_francais_reconnu_par_le_seul_bon_produit(titre, fragment):
 
 
 @pytest.mark.parametrize("titre", [
-    "Lot de 3 lots de boosters 30e Anniversaire",   # vrai lot de revendeur
-    "Lot 2 Bundle 30e anniversaire",
+    # 13/10/2026 : les vrais lots du produit alertent desormais (demande de
+    # Justok) -- cf. test_lots_du_produit_alertent dans test_precommandes_watchlist.py.
     "Lot/bundle 30 ans - 30e anniversaire - Pokémon français officiel",  # lot revendeur (kwilytcg)
     "Tin Pokémon Martin 30e anniversaire",          # "tin" jamais seul
     "Carte ultra premium Noctali VMAX EVS 215/203",  # faux positif historique

@@ -429,6 +429,10 @@ REQUETES_LECLERC = (
     "pokebox nymphali",
     "collection ultra premium noctali",
     "collection ultra premium mentali",
+    # 13/10/2026 : coffrets ajoutes a la liste de Justok.
+    "collection premium metamorph",
+    "pokemon collection figurine mew",
+    "pokemon collection figurine mewtwo",
 )
 
 

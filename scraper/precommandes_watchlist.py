@@ -155,8 +155,16 @@ def langue_non_francaise(titre: str, description: str) -> str | None:
 # Suite du meme jour : "Pack coffret 30 ans" et "Gros pack 30ans + ME03/04"
 # (kwilytcg.com) matchaient encore ETB, Bundle, Mini Tin et Pokebox via leur
 # description -> le type de produit doit etre dans le TITRE.
+# 13/10/2026 : Justok veut AUSSI etre alerte pour les lots du produit ("Lot de
+# 2 Pokebox" chez TCGSpeed, "Lot 2 Bundle") -> "lot"/"lots" ne sont plus
+# exclus. Restent exclus les PACKS de revendeur melangeant d'autres produits
+# (kwilytcg.com : "Lot/bundle 30 ans" = Bundle ME05 d'une AUTRE extension +
+# poster + tripack ME04 ; "Pack pokebox/mini tin", "Mega bundle pack"...).
+MOTS_PACKS_REVENDEUR_TITRE = frozenset({
+    "pack", "gros pack", "pack coffret", "duopack", "tripack", "duo pack", "tri pack", "lot bundle",
+})
 EXCLUSIONS_LOTS_ET_IMPORTS = {
-    "mots_exclus_titre": MOTS_LOTS_TITRE | MOTS_AUTRES_JEUX_TITRE | {"pack", "gros pack", "pack coffret"},
+    "mots_exclus_titre": MOTS_PACKS_REVENDEUR_TITRE | MOTS_AUTRES_JEUX_TITRE,
     "mots_exclus_texte": MOTS_IMPORTS_TEXTE,
     "type_dans_titre": True,
     "francais_uniquement": True,
@@ -173,7 +181,7 @@ EDITION_30E_FR = frozenset({
 # revendeur sont exclus -- PAS de filtre de langue ni d'exclusion "japonais",
 # ces produits n'existent pas en francais (demande explicite de Justok).
 EXCLUSIONS_LOTS = {
-    "mots_exclus_titre": MOTS_LOTS_TITRE | MOTS_AUTRES_JEUX_TITRE | {"pack", "gros pack", "pack coffret"},
+    "mots_exclus_titre": MOTS_PACKS_REVENDEUR_TITRE | MOTS_AUTRES_JEUX_TITRE,
     "type_dans_titre": True,
 }
 EDITION_30E_IMPORT = frozenset({
@@ -354,7 +362,10 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         date_sortie=None,
         surveiller_jusqu_au=date(2026, 12, 31),
         alerte_disponibilite=True,
-        **EXCLUSIONS_LOTS_ET_IMPORTS,
+        # "Lot POKEBOX 30 ans + mini tin Illumis" (kwilytcg.com, 13/10/2026) :
+        # le Mini Tin Illumis est un AUTRE mini tin, pas celui des 30 ans.
+        **{**EXCLUSIONS_LOTS_ET_IMPORTS,
+           "mots_exclus_titre": EXCLUSIONS_LOTS_ET_IMPORTS["mots_exclus_titre"] | {"illumis"}},
     ),
     # Pokebox / Tin 30e Anniversaire Nymphali-ex (Sylveon ex Tin, 4
     # boosters + promo + carte oversize) : sortie annoncee le 04/12/2026
