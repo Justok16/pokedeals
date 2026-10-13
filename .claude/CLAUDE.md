@@ -176,7 +176,7 @@
   fil après traitement** (demande du 25/09) : étiquette + retrait de la
   boîte de réception et du « non lu » ; ne jamais supprimer ; ne laisser
   en boîte de réception que ce qui attend une décision de l'utilisateur.
-- **contact@dig16.fr passe par la boîte Gmail du connecteur** (décision du 13/10) : redirection OVH avec copie, « envoyer en tant que » contact@ par défaut. Claude répond au nom de DIG16 (signature HTML insérée à la main, le connecteur ne l'ajoute pas) : **seul** pour l'accusé de réception, les infos déjà publiques, les organismes et la presse ; **brouillon validé par l'utilisateur** pour tout prix, remise, rendez-vous, délai, devis, réclamation.
+- **contact@dig16.fr passe par la boîte Gmail du connecteur** (décision du 13/10) : redirection OVH avec copie, « envoyer en tant que » contact@ par défaut. Claude répond au nom de DIG16 (signature HTML insérée à la main, le connecteur ne l'ajoute pas ; **vérifié le 13/10 : le connecteur supprime toute image, même jointe en `cid:` ou dans un brouillon, et change les liens `tel:` en lien mort** : signature sans logo ni lien `tel:`, numéro en texte simple, ne pas joindre le logo ; le logo n'apparaît que dans les mails envoyés par l'utilisateur depuis Gmail ou Outlook) : **seul** pour l'accusé de réception, les infos déjà publiques, les organismes et la presse ; **brouillon validé par l'utilisateur** pour tout prix, remise, rendez-vous, délai, devis, réclamation.
 - Démarchage B2B : pas de campagne en série sous le seul pseudonyme (voir
   `35-demarchage-cadre-legal.md`).
 - **Jev** (TypeSafe AI) : skill dans `.claude/skills/typesafe-ai`.
