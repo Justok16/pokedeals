@@ -46,6 +46,20 @@ Bluesky (rangés dans `63`). Toute tâche de l'utilisateur, quelle que soit sa s
 | Prospection | Campagne « Le test du pouce » (`62`) : messages et affiches | quand l'utilisateur le demande | En réserve |
 | Formation | Cours Udemy gratuits retenus (`connaissances/udemy-programmes.md`) | quand il a du temps | Facultatif |
 
+## 0 bis. Garde-fous automatiques « l'entreprise reste vivante et à jour » (13/10/2026)
+
+Demande de l'utilisateur (13/10) : « que l'entreprise vive, qu'elle soit maintenue à jour au maximum ».
+
+| Quand | Rappel automatique | Pourquoi |
+|---|---|---|
+| 2 fois par jour (07:34 et 19:34 UTC) | Point autonome : Gmail, site, publications, échéances | Rien ne reste sans suite |
+| **20/10/2026**, puis tous les 4 jours jusqu'au 06/11 | Choix déclaration **mensuelle ou trimestrielle** à l'URSSAF (à demander dans le mois suivant le début d'activité ; trimestriel recommandé) | Fiche Service Public F23257 (mise à jour de 2017, à revérifier sur une page actuelle) : déclaration obligatoire **même à 0 €** (« néant »), **50 € de pénalité** par déclaration manquante |
+| **Le 20 de chaque mois** | Garde-fou mensuel : déclarations des 45 jours à venir (URSSAF, CFE, impôts, seuil de TVA), livre des recettes, abonnements et comptes (domaine, messagerie, Indy, GoCardless, fiches Google/Bing/PagesJaunes, Metricool), site vrai et sans erreur, réponses en attente, sécurité | Aucune échéance ni expiration oubliée |
+| 27/10/2026 | Relance unique des organismes contactés le 13/10 | `66` § 5 |
+| Le 13 de janvier, avril, juillet, octobre | Point organismes et presse (seulement s'il y a une vraie nouvelle, validé par l'utilisateur) | `66` § 5 |
+| **23/08/2027** | Renouvellement du domaine **dig16.fr** (OVH), qui **expire le 05/10/2027** (rdap.nic.fr, lu le 13/10/2026) : vérifier le renouvellement automatique | Sans domaine : plus de site ni de messagerie |
+| Déjà programmés | impots.gouv + URSSAF (15/10), Indy + GoCardless (15/10), SIREN diffusible (15/10), masquer l'adresse Google/Bing (14/10), URSSAF 3698 (26/10), ACRE (09/11), cookie du relais (quotidien) | Voir les sections ci-dessous |
+
 ## 1. Facturation électronique et compte pro : Indy (offre Essentiel, 0 €)
 
 - Liste officielle DGFiP des plateformes agréées (page modifiée le 22/09/2026, fichier
