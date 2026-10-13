@@ -15,6 +15,8 @@ officielles citées ci-dessous.
   annuaire-entreprises.data.gouv.fr) et peut être vérifiée par les clients ; les organismes ci-dessous pourront
   la retrouver. **Envoyer les demandes d'inscription après ces 48 heures.**
 
+**Demande faite par l'utilisateur le 13/10/2026** : contrôle de la diffusion le 15/10 (annuaire-entreprises.data.gouv.fr).
+
 ## 1. Où s'inscrire (vérifié sur les sites officiels le 13/10/2026)
 
 | # | Annuaire | Ce qui existe | Comment | État |
