@@ -83,8 +83,19 @@ Objet : Nouvelle entreprise à Ruffec — DIG16, sites internet pour les profess
 
 ## 5. Suivi
 
-| Date | Organisme | Envoyé par | Réponse |
+Demande de l'utilisateur (13/10) : « Envoie des mails à tous les organismes de Charente qui auraient un rôle
+stratégique ». Envoyés le 13/10/2026 depuis la boîte du pseudonyme (signature DIG16), adresses relevées sur les
+pages officielles (mairie : page « S'installer à Ruffec » ; communauté de communes : page « Zone d'activités » de
+ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact). Aucun retour d'erreur à l'envoi.
+
+| Date | Organisme | Objet | Réponse |
 |---|---|---|---|
-| | Mairie de Ruffec | | |
-| | Communauté de communes | | |
-| | CCI Charente | | |
+| 13/10 | Mairie de Ruffec (cheffe de projet cœur de ville) | inscription à l'annuaire des commerçants + présentation | en attente |
+| 13/10 | Communauté de communes Val de Charente, développement économique | présentation, liste des entreprises, rencontres de créateurs | en attente |
+| 13/10 | CCI Charente (Angoulême) | annuaire de prestataires, actions gratuites pour créateurs, numérique | en attente |
+| 13/10 | CAPEB Charente | référencement de prestataires, ateliers visibilité en ligne | en attente |
+
+Non contactés par mail (pas d'adresse publique vérifiée) : Chambre de métiers (formulaire « être rappelé » de
+cma-nouvelleaquitaine.fr), Initiative Charente (formulaire ; prêt d'honneur = engagement de l'utilisateur),
+PETR du Pays du Ruffécois (05 45 20 34 94), office de tourisme Destination Nord Charente (05 45 31 05 42).
+Relance unique au bout de 10 jours ouvrés sans réponse ; réponses consignées ici, sans données personnelles.
