@@ -1,6 +1,6 @@
 # The Plain Bagel — index des fiches (synthèse du mardi 13/10/2026)
 
-37 vidéos résumées sur 282. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+38 vidéos résumées sur 282. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["The Biggest Trade Deal Ever" - The EU-US Agreement Explained](yb9-7U8pB10.md)** — Sujet : L’accord commercial conclu entre les États-Unis et l’Union Européenne (UE) après des mois de négociations et de menaces d’escalade tarifaire.
@@ -10,6 +10,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[C'est reparti](YgbbI_nRF2A.md)** — Sujet : L’escalade des tensions commerciales entre les États-Unis et le Canada, marquée par l’imposition de nouveaux tarifs douaniers américains.
 - **[Canada's Exit Tax Explained](imNcJrD1QpM.md)** — Sujet : Le fonctionnement et les règles de l'impôt de départ canadien (communément appelé « exit tax » ou taxe d'émigration).
 - **[Clearing Up the Inflation Target Misinformation](yPxQJuGlm38.md)** — Sujet : L'analyse du discours de Jerome Powell (président de la Fed) lors du symposium de Jackson Hole en août 2025 et la réaction des marchés et des réseaux sociaux face à une prétendue "abandon" de la cible d'inflation.
+- **[Fractionnement des actions de Google : que s'est-il passé ?](Bl5vAxtMQ0A.md)** — Sujet : L'impact réel des divisions d'actions (stock splits), en prenant l'exemple de l'annonce récente du fractionnement d'actions par Google (Alphabet).
 - **[Investment Analyst Reacts to Finance TikToks - Bonus Edition](_D4Xwpa4trE.md)** — - Sujet : Réaction critique de Richard Coffin (expert financier) à des conseils d'investissement et de trading publiés sur TikTok (10e épisode).
 - **[Investment Analyst Reacts to Finance TikToks - Naughty & Nice Edition](bkvpEHnhoGU.md)** — Sujet : Revue critique de vidéos TikTok sur l'investissement (bourse, trading, assurance-vie/trusts, IA) dans le cadre d'un « spécial Noël » présenté par un créateur déguisé en Père Noël (chaîne Plain & Simple).
 - **[L'accord commercial entre le Canada et les États-Unis capote](-VWZ3pDm94c.md)** — Sujet : L’effondrement des négociations commerciales entre le Canada et les États-Unis en août 2026 et le début d'une guerre commerciale bilatérale.

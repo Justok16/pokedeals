@@ -1,6 +1,6 @@
 # Heu?reka — index des fiches (synthèse du mardi 13/10/2026)
 
-52 vidéos résumées sur 138. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+53 vidéos résumées sur 139. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[? Hein !](MpXxSq5cRMo.md)** — - Sujet : L'analyse critique de l'économie à travers un manuel d'économie populaire (« Tout sur l'économie (ou presque) »), en abordant la question des livres de vulgarisation, la structure des marchés, l'égoïsme rationnel et la théorie de l'équilibre général.
@@ -33,6 +33,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Les marchés financiers sont-ils un jeu à somme nulle ?](hSPsaNmFumk.md)** — Le sujet est la démonstration mathématique et comptable que les marchés financiers et le monde de la finance ne constituent pas un « jeu à somme nulle » (où ce que l'un gagne correspond exactement à ce que l'autre perd), contrairement à une idée reçue. La thèse principale est…
 - **[Les marchés financiers vous cachent beaucoup de choses](UuIt21q9gCY.md)** — Sujet : Le « shadow banking » (la finance de marché du crédit) : qu'est-ce que c'est, comment ça fonctionne, quels sont ses rouages et son rôle dans l'économie (en lien avec des crises comme les subprimes ou l'euro).
 - **[Les traités européens sont-ils réellement austéritaires ?](GhjcWXdVrqo.md)** — - Sujet : La gouvernance européenne en matière économique et budgétaire, notamment les règles de déficit public et de dette publique (Traités de Maastricht, Pacte de Stabilité et de Croissance) et leur articulation avec les enjeux environnementaux (Green Deal).
+- **[MACRON : LE BILAN DU NÉOLIBÉRALISME [ARGENT MAGIQUE]](MFy5VnJ2PPE.md)** — Sujet : L’analyse économique des deux mandats d’Emmanuel Macron en France, à travers le prisme du néolibéralisme et de ses limites, en évaluant l’impact de ses politiques fiscales, de l’emploi et des services publics.
 - **[Main Street vs Wall Street : l’Affaire GameStop](EGs5kYYw6d8.md)** — L'analyse de la flambée boursière de l'action GameStop (GME) orchestrée par les investisseurs particuliers du forum Reddit (WallStreetBets) face aux fonds spéculatifs (hedge funds) adeptes de la vente à découvert (short selling). La thèse est que, malgré la valorisation…
 - **[Modéliser l'avenir de l'humanité](nAO21ec1lqc.md)** — Sujet : L'affrontement entre deux visions économiques et systémiques de la croissance face aux limites planétaires et au changement climatique : le modèle WORLD3 (Limits to Growth, MIT, 1972) et le modèle DICE (William Nordhaus, 1991, prix Nobel 2018).
 - **[Mort par INFLATION ? La faute des banques centrales ? (..............pas sûr quand même)](n1Kuomt_wgw.md)** — Sujet : Les causes et mécanismes de l'inflation actuelle, et le rôle (souvent mal compris ou surestimé) des banques centrales, de la création monétaire (QE), des chocs énergétiques et des chaînes d'approvisionnement.

@@ -1,6 +1,6 @@
 # Mohnish Pabrai — index des fiches (synthèse du mardi 13/10/2026)
 
-28 vidéos résumées sur 126. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+28 vidéos résumées sur 127. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Bubbles - Past, Present and Future](K-NXDCXzrao.md)** — Sujet : L’histoire des bulles spéculatives sur le marché boursier, à travers l’examen de différents secteurs industriels et technologiques au fil du temps.
