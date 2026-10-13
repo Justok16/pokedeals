@@ -1,0 +1,54 @@
+name: Sentinelle DIG16
+
+# Surveillance de dig16.fr indépendante de la conversation Claude (13/10/2026) : site, certificat,
+# nom de domaine, messagerie. En cas d'alerte, ouvre (ou complète) une issue « Alerte DIG16 » : GitHub
+# prévient le propriétaire du dépôt par email, et le point automatique de Claude lit les issues ouvertes.
+on:
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: sentinelle_dig16
+  cancel-in-progress: false
+jobs:
+  sentinelle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+      - name: Installer Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Installer requests
+        run: pip install requests
+      - name: Contrôler le site, le certificat, le domaine et la messagerie
+        id: controle
+        continue-on-error: true
+        run: python ai-business-lab/chasse-demande/outils/sentinelle_dig16.py
+      - name: Ouvrir ou compléter l'issue d'alerte
+        if: steps.controle.outcome == 'failure'
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const corps = fs.readFileSync('sentinelle.md', 'utf8');
+            const titre = 'Alerte DIG16 : surveillance du site';
+            const ouvertes = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: 'open', per_page: 100,
+            });
+            const deja = ouvertes.data.find((i) => i.title === titre);
+            if (deja) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo, issue_number: deja.number, body: corps,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo, title: titre, body: corps,
+              });
+            }
+            core.setFailed('Au moins une alerte DIG16');
