@@ -117,6 +117,7 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | 13/10 | L'Entrepreneur Charentais, responsable de la publication (adresse des mentions légales) | proposition de portrait + article de conseils | en attente |
 | 13/10 | LA16 (média local, studio à Montbron) | proposition d'interview | en attente |
 | 13/10 | Mairie de L'Isle-d'Espagnac, service vie associative | demande des coordonnées de Cool Radio (absente du répertoire municipal des associations) | en attente |
+| 13/10 | Sud Ouest, rédaction de Cognac (adresse d'annuaire, absente des pages officielles : essai, surveiller le retour d'erreur ; sinon formulaire officiel) | information de presse locale | en attente |
 
 Demande de l'utilisateur du 13/10 (après-midi) : étendre à toute la Charente. Sources des adresses : registre national Banatic (mis à jour avril 2026) pour Charente Limousine, La Rochefoucauld, Lavalette Tude Dronne et 4B ; site officiel grand-cognac.fr ; documents de GrandAngoulême et de Cœur de Charente ; page officielle du diocèse pour RCF Charente.
 
