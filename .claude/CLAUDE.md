@@ -183,6 +183,7 @@
 - Radar des fermetures : `outils/radar_fermetures.py` (30 sources).
 - Liste des outils : `33-outils.md` ; **boîte à outils classée par besoin (tout ce que l'utilisateur a envoyé) : `connaissances/boite-a-outils.md`, à consulter avant toute tâche**, régénérée à chaque point par `outils/catalogue_outils.py`.
 - **Contrôle de santé en une commande** (06/10) : `python3 ai-business-lab/chasse-demande/outils/controle_global.py` (site, en-têtes, DNSSEC, messagerie, certificat, relais Vercel, file des résumés). À lancer à chaque point automatique ; ne signaler à l'utilisateur que les « ALERTE ». Audit complet du site (liens, console, mobile, balises) : `outils/audit_site.py`. **Avant chaque mise en ligne du site** (07/10) : `python3 outils/test_pages.py` (toutes les pages et démos, ordinateur et téléphone : erreurs, 404, images, débordement) ; refuser de publier tant qu'il reste une « ALERTE ».
+- **Sentinelle DIG16** (13/10) : `.github/workflows/sentinelle_dig16.yml` lance `outils/sentinelle_dig16.py` toutes les 3 h chez GitHub (site, certificat, domaine, messagerie), même si cette conversation dort ; en cas de problème, issue « Alerte DIG16 » (email à l'utilisateur). **À chaque point : lire les issues ouvertes « Alerte DIG16 », corriger, puis fermer l'issue.** Garde-fous programmés : tableau `64` § 0 bis.
 - **Base de connaissances vidéo** (demande du 26/09) : résumés Gemini des
   vidéos YouTube dans `connaissances/` (chaîne Finary : finances
   personnelles, 965 vidéos, traitées avec `outils/resumer_chaine.py` qui
