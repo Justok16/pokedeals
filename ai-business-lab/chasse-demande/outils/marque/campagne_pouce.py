@@ -358,7 +358,7 @@ def main():
         rendre_png(nav, html, 1080, 1920, os.path.join(SORTIE, "pouce-story.png"), fautes)
         chevauchements(nav, html, 1080, 1920, "pouce-story.png", fautes)
         print("pouce-story.png")
-        html = (AFFICHE.replace("{QR}", qr_svg()).replace("SIG", image_data("signature-encre@2x.png"))
+        html = (AFFICHE.replace("{QR}", qr_svg()).replace("SIG", image_data("signature-encre-transparent@2x.png"))
                 .replace("EMPREINTE", empreinte_svg(600, couleur="#b08a52", ident="p")))
         rendre_affiche(nav, html, os.path.join(SORTIE, "affiche-pouce.pdf"),
                        os.path.join(SORTIE, "affiche-pouce.png"), fautes)

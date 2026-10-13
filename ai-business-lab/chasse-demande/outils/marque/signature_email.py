@@ -19,11 +19,11 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.normpath(os.path.join(ICI, "..", ".."))
 SUP = os.path.join(RACINE, "supports")
 CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
-LOGO = "https://dig16.fr/img/marque/signature-encre@2x.png"
+LOGO = "https://dig16.fr/img/marque/signature-email@2x.png"
 
 SIGNATURE = f"""<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;color:#1a1814">
 <tr><td style="padding:0 18px 0 0;border-right:2px solid #c8a46e;vertical-align:top">
-<a href="https://dig16.fr/" style="text-decoration:none"><img src="{LOGO}" width="96" alt="DIG16" style="display:block;border:0;width:96px;height:auto"></a></td>
+<a href="https://dig16.fr/" style="text-decoration:none"><img src="{LOGO}" width="110" alt="DIG16" style="display:block;border:0;width:110px;height:auto"></a></td>
 <td style="padding:0 0 0 18px;vertical-align:top">
 <div style="font-family:Georgia,'Times New Roman',serif;font-size:19px;line-height:1.2;color:#1a1814">[Prénom Nom]</div>
 <div style="font-size:13px;line-height:1.5;color:#7a5a2c;margin-top:2px">DIG16, sites internet pour artisans et commerçants de Charente</div>
