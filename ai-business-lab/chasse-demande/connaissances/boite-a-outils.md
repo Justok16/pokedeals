@@ -140,7 +140,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | Vidéo YouTube hRr-yUSM0_A (envoyée le 12/10) : « cloner Higgsfield » avec Claude Code et revendre des générat… | Écarté pour l'instant : API et crédits payants (budget 0 €), hors cœur DIG16 ; idée « visuel IA avant/après » gardée comme option future pour les clients artisans (cuisi… |
 | ⛔ | D-ID | écarté : visage de synthèse, contraire à la règle « pas de promesse invérifiable » et à l'image locale de DIG16 |
 
-### Création de sites et design (57)
+### Création de sites et design (58)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -164,6 +164,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ✅ | Second avis Gemini (lot 4 de démos, 29/09) | Appliqué : légendes et textes surchargés par prospect ; règle : relire chaque texte hérité d'un modèle contre le métier réel |
 | ✅ | Vidéo YouTube UJtjPXpuOcY (envoyée le 09/10, « Beginner to First Million with AI in 2026 », Albert Olgaard, 1… | Déjà en place : skills Claude dans .claude/skills/, plugin Superpowers installé, plan avant construction (grille 00), vidéo courte « Le test du pouce » faite le 09/10 (v… |
 | ✅ | Vidéo YouTube S8sQeFy9VbQ (12/10) : la « zone grise », fabriquer ses propres petits outils avec Claude Code | Appliqué : c'est notre façon de faire (outils/ maison) ; le modèle en 5 parties est retenu pour les demandes de sites clients (brief). |
+| ✅ | Reel Instagram DeYKx9fgENd (13/10, compte openrushdata) : « Turn Claude into your SEO analyst. Live rankings,… | Déjà en place : OpenRush est branché depuis le 28/09 (33-outils.md), utilisé pour les volumes de recherche, l'analyse des sites et des résultats Google. Search Console d… |
 | ⏳ | Site buildyoursaas.tech envoyé le 02/10 (accompagnement payant pour apprendre Claude Code aux dirigeants de p… | lu le 02/10 ; (a) et (b) à faire au premier appel |
 | ⏳ | CL7EINYSoKw | Idée notée pour Dig, non construite (règle n° 1) : plus tard, proposer aux clients artisans des modules en plus du site, par exemple un assistant de devis pour le bâtime… |
 | · | Page d'arrivée alignée mot pour mot sur le message de prospection | à appliquer aux prochains messages |
@@ -293,6 +294,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 | ⛔ | Pictory | déjà écarté le 11/10 (payant, essai seulement) |
 
-_211 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_212 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
