@@ -141,6 +141,17 @@ def test_tin_nymphali_matche_le_coffret_mais_pas_la_carte_a_lunite():
 
 # ------------- 04/10/2026 : faux positifs reels recus sur Telegram -------------
 
+def test_lots_du_produit_alertent():
+    """13/10/2026 (Justok : "oui" aux lots) : un lot du produit suivi alerte."""
+    assert evaluer_correspondance("Lot 2 Bundle 30e anniversaire", "", _produit("Booster Bundle"))[0]
+    assert evaluer_correspondance(
+        "Pokémon – Lot de 2 Pokébox 30e Anniversaire – Nymphali-ex & Amphinobi-ex – 8 Boosters", "",
+        _produit("Pokébox"))[0]
+    assert evaluer_correspondance(
+        "Lot POKEBOX 30 ans + mini tin Illumis - 30e anniversaire - Pokémon français", "",
+        _produit("Mini Tin"))[0] is None
+
+
 def test_lot_revendeur_kwily_nest_pas_un_booster_bundle():
     bundle = _produit("Booster Bundle")
     conf, raison = evaluer_correspondance(

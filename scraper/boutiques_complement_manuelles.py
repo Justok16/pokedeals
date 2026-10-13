@@ -4,8 +4,10 @@ Verifiees HTTP 200 le 08/10/2026 avec User-Agent honnete :
 etw-tcg.com /collections/pokemon-30e-anniversaire/products.json?limit=250
 lorenzone.fr /products/coffret-ultra-premium-upc-30eme-anniversaire.js
 Notices legales : SIRET 99367661800016 et 93444064500018 respectivement.
+belgiumpokecenter.com (11/10/2026) : Shopify, BCE BE0771953417, livre en France
+(Mondial Relay, Bpost, DPD) ; Bundle, Mini Tin et Pokebox Nymphali 30e FR reperes.
 """
-BOUTIQUES_SHOPIFY = ["etw-tcg.com", "lorenzone.fr"]
+BOUTIQUES_SHOPIFY = ["etw-tcg.com", "lorenzone.fr", "belgiumpokecenter.com"]
 
 # Regle de Justok (08/10/2026) : un vendeur etranger est garde s'il LIVRE EN
 # FRANCE (le produit, lui, doit etre en version francaise -- cf.

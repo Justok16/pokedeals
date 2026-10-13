@@ -41,7 +41,9 @@ from alerte_precommande import _consolider_suivi_disponibilite, envoyer_telegram
 from http_radar_poli import SessionRadarPolie, rendre_poli
 from memoire_json import charger_memoire as charger_json, sauvegarder_memoire as sauvegarder_json
 from memoire_supabase import charger_memoire_supabase, sauvegarder_memoire_supabase
-from precommandes_watchlist import produits_actifs
+import re
+
+from precommandes_watchlist import evaluer_correspondance, produits_actifs
 
 CLE_MEMOIRE_EXPRESS = "veille_express_30e"
 FICHIER_MEMOIRE_EXPRESS = Path(__file__).parent / "data" / "veille_express_30e.json"
@@ -114,6 +116,17 @@ def observer_fiche_shopify(session: requests.Session, fiche: dict, produit) -> d
     voulue = (parse_qs(morceaux.query).get("variant") or [None])[0]
     if voulue:
         variantes = [v for v in variantes if str(v.get("id")) == voulue] or variantes
+    # 10/10/2026 : une fiche reste en memoire du radar meme si une regle
+    # ajoutee depuis l'exclut (pack en chinois traditionnel de poke-geek.fr,
+    # UPC « -en » de pokemael.com, lots kwilytcg.com...) : on rejoue la regle
+    # du radar sur le titre et la description du jour, sinon un retour en
+    # stock declencherait une fausse alerte « Disponible ».
+    description = re.sub(r"<[^>]+>", " ", donnees.get("description") or "")
+    titre = donnees.get("title") or fiche["titre"]
+    if voulue and len(variantes) == 1 and variantes[0].get("title") not in (None, "", "Default Title"):
+        titre = f"{titre} — {variantes[0]['title']}"
+    if evaluer_correspondance(titre, description, produit)[0] is None:
+        return None
     dispo = [v for v in variantes if v.get("available") is True]
     choix = dispo or variantes
     prix = None
