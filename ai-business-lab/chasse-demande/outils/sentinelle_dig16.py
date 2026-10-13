@@ -35,6 +35,7 @@ def pages():
 def certificat():
     try:
         ctx = ssl.create_default_context()
+        ctx.minimum_version = ssl.TLSVersion.TLSv1_2
         with socket.create_connection((DOMAINE, 443), timeout=20) as s:
             with ctx.wrap_socket(s, server_hostname=DOMAINE) as t:
                 fin = datetime.datetime.fromtimestamp(
