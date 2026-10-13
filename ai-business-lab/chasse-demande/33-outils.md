@@ -386,6 +386,7 @@ Premier réflexe pour tout outil payant ou bloqué : chercher l'équivalent grat
 | Pages Facebook de créateurs (liste des vidéos illisible sans connexion) (29/09) | Chercher le même créateur sur TikTok ou YouTube. yt-dlp liste toutes les vidéos TikTok (`--flat-playlist`) et récupère légende et sous-titres (option `--impersonate chrome`, avec `curl_cffi`) ; résumé par lots de 15 en texte, qui coûte très peu de quota : `outils/resumer_lots_tiktok.py` |
 | Téléchargements GitHub Releases bloqués depuis le conteneur (gitleaks, 03/10) | Paquet PyPI équivalent : **detect-secrets** (Yelp, Apache 2.0) pour la recherche de secrets |
 | Wayback Machine (web.archive.org) bloquée depuis le conteneur (05/10) | Index par le relais (`/api/cc?chemin=wayback`) et images par wsrv.nl, proxy d'images gratuit : `outils/prospects/photos_archives.py` |
+| Adresse email d'un organisme ou d'un média introuvable (13/10) | Dans l'ordre : `outils/trouver_contact.py` (vrai navigateur, pages contact/presse) ; page « Nous contacter » du journal (correspondants par secteur) ; éditeur ou agence qui gère le média ; page contact officielle trouvée par le moteur de recherche ; registre officiel (relais `/api/cc?chemin=entreprises`) ; index archive.org via le relais (`chemin=wayback`) ; liste du Réseau A pour les radios associatives. Formulaire avec nom réel ou anti-robot → à l'utilisateur |
 
 ## Playwright (MCP) et Perplexity — demande de l'utilisateur du 30/09/2026
 

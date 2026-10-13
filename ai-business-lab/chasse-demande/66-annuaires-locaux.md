@@ -111,12 +111,19 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | 13/10 | Dynamique 16 (club d'entreprises du Nord Charente ; dernières actualités en ligne de 2020) | rencontres de dirigeants, atelier proposé | en attente |
 | 13/10 | BGE (accompagnement des créateurs, accueils à Ruffec et Confolens) | liste de prestataires, ateliers pour créateurs | en attente |
 | 13/10 | Initiative Charente | rencontres entre créateurs (aucune demande de prêt) | en attente |
+| 13/10 | L'Entrepreneur Charentais et Entreprendre en Charente (via l'agence qui les édite, Angoulême) | portrait de nouveau créateur, article de conseils gratuit proposé | en attente |
+| 13/10 | Union Patronale de la Charente (Medef) | rencontres d'entrepreneurs, relais du test, atelier proposé | en attente |
+| 13/10 | RDC – Radio Diffusion Charentaise (Angoulême) | information de presse locale | en attente |
 
 Demande de l'utilisateur du 13/10 (après-midi) : étendre à toute la Charente. Sources des adresses : registre national Banatic (mis à jour avril 2026) pour Charente Limousine, La Rochefoucauld, Lavalette Tude Dronne et 4B ; site officiel grand-cognac.fr ; documents de GrandAngoulême et de Cœur de Charente ; page officielle du diocèse pour RCF Charente.
 
 Adresses presse : Charente Libre, relevée sur sa page Facebook officielle et un avis publié par le journal (site illisible par nos outils) ; Attitude FM, site officiel de la radio. Messages signés DIG16, sans le nom de l'utilisateur. Deuxième vague (13/10 ~13:00) : page « Nous contacter » de charentelibre.fr (journaliste et correspondants par secteur), sites officiels cpme16.fr, dynamique-16.fr et bge-nouvelle-aquitaine.fr, fiche Initiative Charente de les-aides.fr (base des CCI).
 
-Non contactés par mail (pas d'adresse publique vérifiée) : L'Entrepreneur Charentais (média et club d'entrepreneurs, magazine à 7 042 exemplaires ; site en panne le 13/10, à réessayer), Union patronale de la Charente (Medef), radios RDC, LA16 et Cool Radio, Sud Ouest (pages Charente), FFB Charente (05 45 92 16 71, adresses réservées aux adhérents), CPME et U2P Charente (aucun contact local trouvé), Chambre de métiers (formulaire « être rappelé » de
+Troisième vague (13/10 ~13:45) : page contact du site de l'agence éditrice (agence42.fr, qui présente L'Entrepreneur Charentais comme son média), page contact officielle upmedef.fr, page contact du site de RDC (radio-rdcfm.com, lue via l'index du moteur de recherche car le site refuse les robots ; à surveiller si le message revient). Radios associatives de Charente selon le Réseau A (reseau-a.org) : Attitude et RCF, déjà contactées.
+
+**Sud Ouest** : aucune adresse publiée ; la page officielle <https://www.sudouest.fr/contact/> propose un formulaire « La rédaction de Cognac » (seule rédaction Sud Ouest en Charente) qui exige le vrai prénom et nom et un test anti-robot → à remplir par l'utilisateur (2 minutes, texte prêt : celui du mail à Charente Libre), ou appel à l'agence de Cognac (05 45 36 62 80, numéro de la page officielle).
+
+Non contactés par mail (pas d'adresse publique vérifiée) : radios LA16 et Cool Radio (aucun site, aucune trace d'activité récente ; Cool Radio : association de 2004 domiciliée à l'adresse de Charente Libre), FFB Charente (05 45 92 16 71, adresses réservées aux adhérents), CPME et U2P Charente (aucun contact local trouvé), Chambre de métiers (formulaire « être rappelé » de
 cma-nouvelleaquitaine.fr),
 PETR du Pays du Ruffécois (05 45 20 34 94), office de tourisme Destination Nord Charente (05 45 31 05 42).
 Relance unique au bout de 10 jours ouvrés sans réponse ; réponses consignées ici, sans données personnelles.
