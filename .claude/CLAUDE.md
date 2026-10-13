@@ -124,6 +124,10 @@
   (ouverte aux micro-entreprises en zone FRR+, fiche officielle lue le 05/10) ; couveuse ou CAE
   à explorer (Heliscoop, Angoulême).
 
+## Ne rien oublier (exigence ferme du 13/10)
+
+- Avant tout appel de prospect, **tout** doit être fini et irréprochable, même les plus petites tâches. À chaque nouvelle tâche, décision ou envoi : l'inscrire aussitôt dans la LISTE UNIQUE de `64-mise-en-ordre-administrative.md` § 0. À chaque « que me reste-t-il ? » : relire 64 EN ENTIER, `63` (kit) et `66` (organismes), et vérifier les données réelles (ex. compteur Metricool) avant de classer une tâche « facultative » (leçon du 13/10 : compteur de visites classé facultatif à tort).
+
 ## Rappels promis à l'utilisateur
 
 - **Paiement client : FAIT le 27/09.** Antisèche n° 12 : franchise en base

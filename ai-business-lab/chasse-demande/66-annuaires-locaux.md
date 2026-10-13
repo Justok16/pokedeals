@@ -96,8 +96,18 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | 13/10 | Communauté de communes Val de Charente, développement économique | présentation, liste des entreprises, rencontres de créateurs | en attente |
 | 13/10 | CCI Charente (Angoulême) | annuaire de prestataires, actions gratuites pour créateurs, numérique | en attente |
 | 13/10 | CAPEB Charente | référencement de prestataires, ateliers visibilité en ligne | en attente |
+| 13/10 | GrandAngoulême (Maison de l'entreprendre) | présentation, annuaire, rencontres, atelier « être trouvé sur Google » proposé | en attente |
+| 13/10 | Grand Cognac (service économie) | idem | en attente |
+| 13/10 | CC Cœur de Charente (secrétariat, à transmettre au service économique) | idem | en attente |
+| 13/10 | CC Charente Limousine (accueil) | idem | en attente |
+| 13/10 | CC La Rochefoucauld - Porte du Périgord (accueil) | idem | en attente |
+| 13/10 | CC Lavalette Tude Dronne (accueil) | idem | en attente |
+| 13/10 | CC 4B Sud Charente (accueil) | idem | en attente |
+| 13/10 | RCF Charente (rédaction d'Angoulême) | information de presse locale (création, test du pouce) | en attente |
 
-Non contactés par mail (pas d'adresse publique vérifiée) : Chambre de métiers (formulaire « être rappelé » de
+Demande de l'utilisateur du 13/10 (après-midi) : étendre à toute la Charente. Sources des adresses : registre national Banatic (mis à jour avril 2026) pour Charente Limousine, La Rochefoucauld, Lavalette Tude Dronne et 4B ; site officiel grand-cognac.fr ; documents de GrandAngoulême et de Cœur de Charente ; page officielle du diocèse pour RCF Charente.
+
+Non contactés par mail (pas d'adresse publique vérifiée) : Charente Libre (site illisible par nos outils : appel au standard à faire par l'utilisateur ou formulaire), FFB Charente (05 45 92 16 71, adresses réservées aux adhérents), CPME et U2P Charente (aucun contact local trouvé), Chambre de métiers (formulaire « être rappelé » de
 cma-nouvelleaquitaine.fr), Initiative Charente (formulaire ; prêt d'honneur = engagement de l'utilisateur),
 PETR du Pays du Ruffécois (05 45 20 34 94), office de tourisme Destination Nord Charente (05 45 31 05 42).
 Relance unique au bout de 10 jours ouvrés sans réponse ; réponses consignées ici, sans données personnelles.
