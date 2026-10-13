@@ -104,10 +104,14 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | 13/10 | CC Lavalette Tude Dronne (accueil) | idem | en attente |
 | 13/10 | CC 4B Sud Charente (accueil) | idem | en attente |
 | 13/10 | RCF Charente (rédaction d'Angoulême) | information de presse locale (création, test du pouce) | en attente |
+| 13/10 | Charente Libre (service internet, à transmettre à la rédaction, cahier Pays ruffécois / économie) | information de presse locale | en attente |
+| 13/10 | Attitude FM (radio charentaise) | information de presse locale | en attente |
 
 Demande de l'utilisateur du 13/10 (après-midi) : étendre à toute la Charente. Sources des adresses : registre national Banatic (mis à jour avril 2026) pour Charente Limousine, La Rochefoucauld, Lavalette Tude Dronne et 4B ; site officiel grand-cognac.fr ; documents de GrandAngoulême et de Cœur de Charente ; page officielle du diocèse pour RCF Charente.
 
-Non contactés par mail (pas d'adresse publique vérifiée) : Charente Libre (site illisible par nos outils : appel au standard à faire par l'utilisateur ou formulaire), FFB Charente (05 45 92 16 71, adresses réservées aux adhérents), CPME et U2P Charente (aucun contact local trouvé), Chambre de métiers (formulaire « être rappelé » de
+Adresses presse : Charente Libre, relevée sur sa page Facebook officielle et un avis publié par le journal (site illisible par nos outils) ; Attitude FM, site officiel de la radio. Messages signés DIG16, sans le nom de l'utilisateur.
+
+Non contactés par mail (pas d'adresse publique vérifiée) : FFB Charente (05 45 92 16 71, adresses réservées aux adhérents), CPME et U2P Charente (aucun contact local trouvé), Chambre de métiers (formulaire « être rappelé » de
 cma-nouvelleaquitaine.fr), Initiative Charente (formulaire ; prêt d'honneur = engagement de l'utilisateur),
 PETR du Pays du Ruffécois (05 45 20 34 94), office de tourisme Destination Nord Charente (05 45 31 05 42).
 Relance unique au bout de 10 jours ouvrés sans réponse ; réponses consignées ici, sans données personnelles.
