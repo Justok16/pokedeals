@@ -12,7 +12,7 @@ Code de sortie 1 si un problème est trouvé.
 import subprocess, sys, time, os
 from playwright.sync_api import sync_playwright
 
-PAGES = ['/', '/prestige.html', '/mentions-legales.html', '/test-du-pouce/', '/demos/prestige/',
+PAGES = ['/', '/prestige.html', '/mentions-legales.html', '/test-du-pouce/', '/le-projet/', '/demos/prestige/',
          '/demos/paysagiste/', '/demos/menuisier/', '/demos/menuisier-visite/']
 CHROME = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
 
