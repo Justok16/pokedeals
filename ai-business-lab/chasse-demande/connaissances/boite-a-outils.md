@@ -140,7 +140,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | Vidéo YouTube hRr-yUSM0_A (envoyée le 12/10) : « cloner Higgsfield » avec Claude Code et revendre des générat… | Écarté pour l'instant : API et crédits payants (budget 0 €), hors cœur DIG16 ; idée « visuel IA avant/après » gardée comme option future pour les clients artisans (cuisi… |
 | ⛔ | D-ID | écarté : visage de synthèse, contraire à la règle « pas de promesse invérifiable » et à l'image locale de DIG16 |
 
-### Création de sites et design (58)
+### Création de sites et design (59)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -202,6 +202,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | Vidéo YouTube 58MtToM79w4 (envoyée le 09/10) | Rien à installer : le formulaire du site part par FormSubmit (gratuit) à contact@dig16.fr et le suivi des demandes est le tableau privé de 50 § 8 ; Replit est payant (bu… |
 | ⛔ | Carrousel Instagram @choly.ai « Hidden websites » (envoyé le 12/10) | Trié : rien à installer (vidéos en pause jusqu'au 1er client) ; gratuités à vérifier à la source ; D-ID écarté (visage de synthèse) → connaissances/technologybrief-sites… |
 | ⛔ | Veille du 11/10 (veille/2026-10-11.md) | Trié : rien à installer. Noté pour plus tard : OpenRegistry (registres officiels de 80 pays dont la France, en secours de verif_entreprises.py) et Brevo (secours e-mail… |
+| ⛔ | Veille du 13/10 (veille/2026-10-13.md) | Trié : rien à installer. Relvato (surveillance de site) = doublon de controle_global.py ; Domain Info / QR LifeStep = déjà couverts par nos outils ; Master Setter (API c… |
 
 ### Référencement et visibilité (5)
 
@@ -294,6 +295,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 | ⛔ | Pictory | déjà écarté le 11/10 (payant, essai seulement) |
 
-_212 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_213 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
