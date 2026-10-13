@@ -133,3 +133,5 @@ Non contactés par mail (pas d'adresse publique vérifiée) : Cool Radio (associ
 cma-nouvelleaquitaine.fr),
 PETR du Pays du Ruffécois (05 45 20 34 94), office de tourisme Destination Nord Charente (05 45 31 05 42).
 Relance unique au bout de 10 jours ouvrés sans réponse ; réponses consignées ici, sans données personnelles.
+
+**Suivi automatisé (décision de l'utilisateur du 13/10)** : relance unique le **27/10** (rappel programmé, 08:10 heure de Paris) aux seuls organismes sans réponse ni erreur, dans le même fil. Puis **point tous les 3 mois** (13 janvier, avril, juillet, octobre) : message seulement s'il y a une vraie nouvelle (client, témoignage avec accord, atelier, chiffre local vérifié), adapté à chaque catégorie et **validé par l'utilisateur avant envoi** ; jamais le même message répété (risque d'être classé indésirable).
