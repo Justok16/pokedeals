@@ -104,9 +104,9 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | 13/10 | CC Lavalette Tude Dronne (accueil) | idem | en attente |
 | 13/10 | CC 4B Sud Charente (accueil) | idem | en attente |
 | 13/10 | RCF Charente (rédaction d'Angoulême) | information de presse locale (création, test du pouce) | en attente |
-| 13/10 | Charente Libre (service internet, à transmettre à la rédaction, cahier Pays ruffécois / économie) | information de presse locale | en attente |
+| 13/10 | Charente Libre (service internet, à transmettre à la rédaction, cahier Pays ruffécois / économie) | information de presse locale | suite : rendez-vous du 27/10 (ligne ci-dessous), ne pas relancer |
 | 13/10 | Attitude FM (radio charentaise) | information de presse locale | en attente |
-| 13/10 | Charente Libre, journaliste du Nord-Ruffécois (copie : correspondant local de Ruffec) | information de presse locale | en attente |
+| 13/10 | Charente Libre, journaliste du Nord-Ruffécois (copie : correspondant local de Ruffec) | information de presse locale | **13/10 : le correspondant du Nord-Charente a appelé l'utilisateur → rendez-vous le 27/10/2026 à 9 h 30 pour un éventuel article** (ne pas relancer Charente Libre) |
 | 13/10 | CPME Charente (« Les Entrepreneurs Charente ») | rencontres d'entrepreneurs, relais du test du pouce, atelier gratuit proposé | en attente |
 | 13/10 | Dynamique 16 (club d'entreprises du Nord Charente ; dernières actualités en ligne de 2020) | rencontres de dirigeants, atelier proposé | en attente |
 | 13/10 | BGE (accompagnement des créateurs, accueils à Ruffec et Confolens) | liste de prestataires, ateliers pour créateurs | en attente |
