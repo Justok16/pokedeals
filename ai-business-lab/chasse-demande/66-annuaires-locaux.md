@@ -93,7 +93,7 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | Date | Organisme | Objet | Réponse |
 |---|---|---|---|
 | 13/10 | Mairie de Ruffec (cheffe de projet cœur de ville) | inscription à l'annuaire des commerçants + présentation | en attente |
-| 13/10 | Communauté de communes Val de Charente, développement économique | présentation, liste des entreprises, rencontres de créateurs | **répondu le 14/10** : liste d'entreprises (non exhaustive) oui ; **Soirée des Entreprises Val de Charente le 30/11 au soir** (inscription à l'ouverture de la communication) ; signale Dynamique 16 et **Atout Ruffec** (association des pros de Ruffec) ; propose un rendez-vous : **l'utilisateur doit les rappeler la semaine du 19/10** (rappel programmé le 19/10). Pas de relance le 27/10 |
+| 13/10 | Communauté de communes Val de Charente, développement économique | présentation, liste des entreprises, rencontres de créateurs | **répondu le 14/10** : liste d'entreprises (non exhaustive) oui ; **Soirée des Entreprises Val de Charente le 30/11 au soir** (inscription à l'ouverture de la communication) ; signale Dynamique 16 et **Atout Ruffec** (association des pros de Ruffec) ; propose un rendez-vous : **l'utilisateur doit les rappeler la semaine du 19/10** (rappel programmé le 19/10, avec insistance quotidienne jusqu'au 23/10). **Remerciements envoyés le 14/10** (annonce de l'appel). Pas de relance le 27/10 |
 | 13/10 | CCI Charente (Angoulême) | annuaire de prestataires, actions gratuites pour créateurs, numérique | **répondu le 13/10** : demande transmise à la conseillère création d'entreprise, qui doit recontacter DIG16 (pas de relance le 27/10) |
 | 13/10 | CAPEB Charente | référencement de prestataires, ateliers visibilité en ligne | en attente |
 | 13/10 | GrandAngoulême (Maison de l'entreprendre) | présentation, annuaire, rencontres, atelier « être trouvé sur Google » proposé | en attente |
@@ -117,6 +117,7 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | 13/10 | L'Entrepreneur Charentais, responsable de la publication (adresse des mentions légales) | proposition de portrait + article de conseils | en attente |
 | 13/10 | LA16 (média local, studio à Montbron) | proposition d'interview | en attente |
 | 13/10 | Mairie de L'Isle-d'Espagnac, service vie associative | demande des coordonnées de Cool Radio (absente du répertoire municipal des associations) | en attente |
+| 14/10 | Atout Ruffec – l'asso des pros (adresse publiée sur sa page Facebook et son Instagram ; l'annuaire de la mairie donne une autre adresse, plus ancienne) | conditions d'adhésion, rencontre découverte, atelier gratuit / test du pouce, interlocuteur local (contact signalé par Val de Charente) | en attente |
 | 13/10 | Sud Ouest, rédaction de Cognac : mail de Claude (adresse d'annuaire, surveiller le retour d'erreur) **et message envoyé par l'utilisateur le 13/10** (formulaire officiel) | information de presse locale | en attente |
 
 Demande de l'utilisateur du 13/10 (après-midi) : étendre à toute la Charente. Sources des adresses : registre national Banatic (mis à jour avril 2026) pour Charente Limousine, La Rochefoucauld, Lavalette Tude Dronne et 4B ; site officiel grand-cognac.fr ; documents de GrandAngoulême et de Cœur de Charente ; page officielle du diocèse pour RCF Charente.
