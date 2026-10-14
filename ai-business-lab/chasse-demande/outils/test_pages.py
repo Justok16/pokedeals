@@ -73,7 +73,13 @@ def main():
                     pg.on('pageerror', lambda e: errs.append(str(e)))
                     pg.on('console', lambda m: m.type == 'error' and errs.append(m.text))
                     pg.on('response', lambda r: r.status >= 400 and bad.append(f'{r.status} {r.url}'))
-                    pg.goto(base + u, wait_until='networkidle')
+                    # 'load' d'abord, puis réseau calme si possible : chez GitHub (15/10), la démo Prestige (vidéos
+                    # d'ambiance en boucle) ne devenait jamais « networkidle » en 30 s et faisait échouer le test.
+                    pg.goto(base + u, wait_until='load')
+                    try:
+                        pg.wait_for_load_state('networkidle', timeout=15000)
+                    except Exception:
+                        pass
                     for y in range(0, pg.evaluate('document.body.scrollHeight'), 700):
                         pg.evaluate(f'scrollTo(0,{y})'); pg.wait_for_timeout(60)
                     pg.wait_for_timeout(400)
