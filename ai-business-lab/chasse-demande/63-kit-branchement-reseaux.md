@@ -47,7 +47,7 @@ https://app.metricool.com/brands/connections?blogId=7154026
 | Support | Action | Qui |
 |---|---|---|
 | **Bing Places** | Importer la fiche Google (une fois vérifiée) | Utilisateur, 10 min |
-| **Apple Business Connect** | Créer la fiche (mêmes textes) | Utilisateur |
+| **Apple Business Connect** | ~~Créer la fiche~~ abandonné le 14/10 (décision de l'utilisateur : peu utile) | — |
 | **PagesJaunes, 118712** | Fiche de base PagesJaunes gratuite, validée et complétée le 13/10 ; le 118712 (Solocal, « en partenariat avec PagesJaunes ») renvoie les professionnels à cette même fiche (page officielle <https://www.118712.fr/contactez-nous>, lue le 13/10) : aucune inscription séparée | Fait |
 | **Google Search Console** | L'utilisateur ajoute dig16.fr, choisit la vérification par **fichier HTML** et donne à Claude le nom du fichier (ce n'est pas un secret) ; Claude le place sur le site et publie ; l'utilisateur clique « Valider », puis Claude guide l'envoi du sitemap `https://dig16.fr/sitemap.xml` | Utilisateur (5 min), Claude |
 | **Bing Webmaster Tools** | Importer le site depuis Google Search Console (un clic) | Utilisateur |
