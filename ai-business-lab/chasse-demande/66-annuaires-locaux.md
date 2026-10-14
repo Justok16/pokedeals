@@ -107,7 +107,7 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | 13/10 | Charente Libre (service internet, à transmettre à la rédaction, cahier Pays ruffécois / économie) | information de presse locale | suite : rendez-vous du 27/10 (ligne ci-dessous), ne pas relancer |
 | 13/10 | Attitude FM (radio charentaise) | information de presse locale | en attente |
 | 13/10 | Charente Libre, journaliste du Nord-Ruffécois (copie : correspondant local de Ruffec) | information de presse locale | **13/10 : le correspondant du Nord-Charente a appelé l'utilisateur → rendez-vous le 27/10/2026 à 9 h 30 pour un éventuel article** (ne pas relancer Charente Libre) |
-| 13/10 | CPME Charente (« Les Entrepreneurs Charente ») | rencontres d'entrepreneurs, relais du test du pouce, atelier gratuit proposé | en attente |
+| 13/10 | CPME Charente (« Les Entrepreneurs Charente ») | rencontres d'entrepreneurs, relais du test du pouce, atelier gratuit proposé | **rappel téléphonique le 14/10** : adhésion 100 €, environ 400 adhérents, réseau et conseils. Décision de l'utilisateur en attente (budget serré) ; piste proposée : assister d'abord à une rencontre en invité, adhérer au premier client. Pas de relance le 27/10 |
 | 13/10 | Dynamique 16 (club d'entreprises du Nord Charente ; dernières actualités en ligne de 2020) | rencontres de dirigeants, atelier proposé | en attente |
 | 13/10 | BGE (accompagnement des créateurs, accueils à Ruffec et Confolens) | liste de prestataires, ateliers pour créateurs | en attente |
 | 13/10 | Initiative Charente | rencontres entre créateurs (aucune demande de prêt) | en attente |
