@@ -3,14 +3,23 @@
 # 12/10/2026 : compteur de visites Metricool (sans cookie) : image de comptage tracker.metricool.com autorisée (img-src).
 # 09/10/2026 : mesure d'audience Cloudflare Web Analytics autorisée (sans cookie) et « no-transform » retiré :
 # Cloudflare peut enfin compresser les pages (Lighthouse : page d'accueil non compressée, environ 70 Ko de trop).
+# 15/10/2026 : polices hébergées sur le site (/moteur/polices/), plus aucun appel à Google Fonts (RGPD : aucune adresse IP
+# transmise à Google ; vitesse : plus de décalage d'affichage au chargement de la police). Images, vidéos et polices gardées
+# 30 jours en cache navigateur (les fichiers changent de nom quand ils changent : v3, v6…).
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://tracker.metricool.com; connect-src 'self' https://formsubmit.co https://cloudflareinsights.com; media-src 'self' blob:; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://tracker.metricool.com; connect-src 'self' https://formsubmit.co https://cloudflareinsights.com; media-src 'self' blob:; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Cache-Control: public, max-age=0, must-revalidate
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+/img/*
+  Cache-Control: public, max-age=2592000
+/video/*
+  Cache-Control: public, max-age=2592000
+/moteur/polices/*
+  Cache-Control: public, max-age=2592000
 # Maquettes privées chiffrées (04/10/2026) : jamais indexées, aucune adresse d'origine transmise.
 /m/*
   X-Robots-Tag: noindex, nofollow

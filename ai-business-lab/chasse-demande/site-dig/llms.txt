@@ -15,6 +15,7 @@
 - [Accueil, offres et questions fréquentes](https://dig16.fr/)
 - [Offre Prestige](https://dig16.fr/prestige)
 - [Test du pouce : votre entreprise est-elle trouvable sur téléphone ?](https://dig16.fr/test-du-pouce/)
+- [Le projet DIG16 : l'idée, l'offre, où en est le projet](https://dig16.fr/le-projet/)
 - [Mentions légales](https://dig16.fr/mentions-legales)
 
 ## Contact
