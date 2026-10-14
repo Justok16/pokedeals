@@ -1,6 +1,6 @@
-# Cryptoast Academy — index des fiches (synthèse du mardi 13/10/2026)
+# Cryptoast Academy — index des fiches (synthèse du mercredi 14/10/2026)
 
-115 vidéos résumées sur 306. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+115 vidéos résumées sur 307. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[2027 sera une grande année pour les altcoins - L'analyse de Vincent Ganne](r5clGrSAZjg.md)** — Analyse technique et macroéconomique du Bitcoin et des marchés financiers au 7 juillet 2026, évaluant si le « bottom » du marché baissier a été atteint (notamment autour de 57 700 $) et discutant des perspectives pour les altcoins, les ETF Bitcoin, et la politique de la Fed.

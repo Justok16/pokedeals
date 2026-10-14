@@ -1,6 +1,6 @@
-# Benjamin Cowen — index des fiches (synthèse du mardi 13/10/2026)
+# Benjamin Cowen — index des fiches (synthèse du mercredi 14/10/2026)
 
-185 vidéos résumées sur 3167. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+186 vidéos résumées sur 3168. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[08/10/2026 11:23:42](se6UlLbDTEo.md)** — Sujet : Analyse technique et macroéconomique du cours du Bitcoin pour le quatrième trimestre (Q4) de 2026, en le comparant aux cycles historiques précédents (notamment 2018, 2019 et 2022).
@@ -141,6 +141,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Les actions ont chuté de 9 % - Que va-t-il se passer ensuite ?](Cu9PAF1X088.md)** — Sujet : Analyse technique de l'indice boursier S&P 500 et prévisions de sa trajectoire à court et moyen terme.
 - **[Les actions ont maintenant chuté de 5 % - Que va-t-il se passer ensuite ?](BT716hsXI_Y.md)** — Sujet : L'analyse de la correction en cours sur les marchés d'actions américains (S&P 500, Nasdaq, Dow Jones) et son impact sur le comportement du Bitcoin, replacés dans le contexte du cycle économique.
 - **[Les actions rebondissent et se rapprochent de leurs sommets.](UW4xMQX0Vqk.md)** — Sujet : L'analyse des cycles boursiers, en particulier de l'indice S&P 500 et du Bitcoin, axée sur les phases de correction et de retour vers des sommets historiques.
+- **[Les actions vont-elles bientôt chuter de 10 % ?](sITmbu1FL-w.md)** — Sujet : L'analyse technique de l'indice boursier S&P 500 et la prévision d'une correction de marché.
 - **[Les cycles économiques se terminent par des récessions.](FiztJuyl7p4.md)** — Sujet : La fin des cycles économiques, les récessions et leur impact prévisible sur les marchés financiers (actions et cryptomonnaies).
 - **[Les rendements du Bitcoin sous différents présidents américains](OYcGIifaO4Q.md)** — L'analyse de l'historique du prix du Bitcoin sous différents mandats présidentiels américains (Obama, Trump, Biden). La thèse principale est que les cycles macroéconomiques globaux (tels que l'inflation et le chômage) ainsi que la capitalisation de marché de l'actif ont un…
 - **[Lunettes Bitcoin Bear](C5Y4zGO4Gxs.md)** — Sujet : Analyse technique et historique du cours du Bitcoin (BTC) pour évaluer si la hausse récente est le début d'un nouveau cycle haussier ou un simple rebond temporaire.

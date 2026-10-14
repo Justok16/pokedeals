@@ -1,6 +1,6 @@
-# This Week in Startups — index des fiches (synthèse du mardi 13/10/2026)
+# This Week in Startups — index des fiches (synthèse du mercredi 14/10/2026)
 
-176 vidéos résumées sur 5231. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+177 vidéos résumées sur 5231. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[100 000 milliards de dollars gérés par du « ruban adhésif humain » | E2308](yyP8p3wVv9c.md)** — Sujet : La modernisation des opérations financières de fonds d'investissement (Fund Ops) par l'intelligence artificielle native, ainsi que l'évolution des modèles d'affaires SaaS et de la vente bottom-up.
@@ -17,6 +17,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Alors que d'autres entreprises de viande de culture s'effondrent, celle-ci est devenue rentable |...](Yjieo-rT9SU.md)** — Sujet : L'agriculture cellulaire, la viande cultivée en laboratoire et les stratégies de développement des startups Deeptech.
 - **[Améliorez votre copywriting avec Sam Parr | E2226](uYmJiGa1MPo.md)** — Sujet : L'art du copywriting (rédaction persuasive) appliqué aux startups, le développement de communautés d'affaires à forte valeur ajoutée (Hampton), et la gestion/psychologie de la richesse personnelle des fondateurs.
 - **[Anthropic veut ralentir l'IA et Bernie veut 50% : La réaction de JCal | E2297](2Y5xwjkCj30.md)** — Sujet : L’impact des avancées de l'intelligence artificielle (outils de création visuelle comme ComfyUI, modèles de frontière) sur l’économie de l’emploi, la concentration des richesses, les débats politiques (propositions de taxation de Bernie Sanders, revenu universel) et…
+- **[Archer buys an airport, Ramp’s huge raise, RIP KitKat, Bezos returns to the C-Suite, and more |E2210](L2l5fnZKnHQ.md)** — Sujet : Tour d'horizon de l'actualité tech et startup du podcast This Week in Startups (épisode animé par Jason Calacanis et Alex Wilhelm). Les thèmes abordés incluent les levées de fonds dans l'IA appliquée au monde physique, l'écosystème startup au Moyen-Orient et au Japon,…
 - **[Are Brain-Computer Interfaces Actually Ready for Humans? | E2263](6tRPTof_aUA.md)** — Sujet : Analyse économique, technologique et commerciale de trois startups de rupture (Paradromics, JetZero, et Nutrisense) présentées dans l'émission This Week in Startups.
 - **[Ask Jason: AI Extinction, Grok's Rogue Meme Coin & Weed Farms as Data Centers | E2337](8O_9PxtK3_0.md)** — Sujet : L’impact de l’intelligence artificielle (IA) sur l’écosystème entrepreneurial, la gestion financière, l’investissement et l’évaluation des startups.
 - **[Avi Patel sur la startup qui a copié Kled et pourquoi il a dénoncé General Catalyst nommément | E...](SHubt9Bm-uo.md)** — Sujet : Actualité technologique et financière (levées de fonds, marché bancaire pour startups, vol de propriété intellectuelle dans l'IA) couplée à des réflexions macroéconomiques (dette publique, explosion des salaires hôteliers à New York, salaire minimum et protection du…

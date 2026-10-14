@@ -1,4 +1,4 @@
-# The Investor's Podcast — index des fiches (synthèse du mardi 13/10/2026)
+# The Investor's Podcast — index des fiches (synthèse du mercredi 14/10/2026)
 
 36 vidéos résumées sur 425. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
