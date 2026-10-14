@@ -84,6 +84,13 @@ def main():
                         pg.evaluate(f'scrollTo(0,{y})'); pg.wait_for_timeout(60)
                     pg.wait_for_timeout(400)
                     ov = pg.evaluate('document.documentElement.scrollWidth-innerWidth')
+                    # Leçon du 15/10 : une barre du bas passée en <nav> a hérité de « nav{position:fixed;top:0} »
+                    # et a couvert tout l'écran du téléphone. Toute barre fixe de plus de 30 % de la hauteur = alerte.
+                    geante = pg.evaluate("""[...document.querySelectorAll('nav,#barre,.basbar,.mobile-cta,[role=navigation]')]
+                        .filter(e=>getComputedStyle(e).position==='fixed').map(e=>[e.className||e.id,Math.round(e.getBoundingClientRect().height)])
+                        .filter(x=>x[1]>innerHeight*0.3)""")
+                    if geante:
+                        errs.append(f'barre fixe géante {geante}')
                     nb = pg.evaluate('[...document.images].filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.src)')
                     ok = not (errs or bad or nb or ov > 0)
                     souci += not ok
