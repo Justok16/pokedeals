@@ -9,6 +9,11 @@ qui relie tout.
 
 > **« Prenez votre téléphone. Tapez votre métier et votre ville. Vous êtes où ? »**
 
+**Pourquoi « du pouce »** (décision de l'utilisateur du 15/10 : garder le nom, ajouter l'explication) : le pouce est le doigt avec
+lequel on fait défiler et on appelle sur un téléphone ; le test vérifie qu'un client trouve l'entreprise et l'appelle
+« du bout du pouce » (clin d'œil à « un coup de pouce »). Sous-titre à reprendre partout : **« Vos clients peuvent-ils vous
+trouver et vous appeler du bout du pouce ? »** (page du test et publication du 26/10 mises à jour le 15/10).
+
 Le prospect fait lui-même le test, en 30 secondes, et **constate seul** le problème : il n'apparaît pas, ou
 son site s'ouvre mal sur un téléphone, ou son numéro ne s'appelle pas d'un geste. Personne ne lui dit que
 son site est mauvais : il le voit. Ensuite, une seule proposition, déjà sur le site : **« Je refais votre
