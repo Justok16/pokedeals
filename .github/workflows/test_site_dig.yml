@@ -1,0 +1,38 @@
+name: Test du site dig16.fr
+
+# Garde-fou automatique (audit du 14/10/2026) : à chaque modification du site, toutes les pages publiques
+# sont ouvertes sur ordinateur et sur téléphone (erreurs, liens morts, images cassées, débordement),
+# exactement comme `outils/test_pages.py` le fait avant chaque mise en ligne. Une alerte bloque la PR.
+on:
+  pull_request:
+    paths:
+      - "ai-business-lab/chasse-demande/site-dig/**"
+      - "ai-business-lab/chasse-demande/outils/test_pages.py"
+  push:
+    branches: [main]
+    paths:
+      - "ai-business-lab/chasse-demande/site-dig/**"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: test_site_dig-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+      - name: Installer Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Installer Playwright, Chromium et ffprobe
+        run: |
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Ouvrir toutes les pages (ordinateur et téléphone)
+        run: python ai-business-lab/chasse-demande/outils/test_pages.py
