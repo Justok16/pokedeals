@@ -1,6 +1,6 @@
 # Cryptoast — index des fiches (synthèse du jeudi 15/10/2026)
 
-222 vidéos résumées sur 1208. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+222 vidéos résumées sur 1209. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[0 espoir ? La vérité sur la Gen Z et l'argent](7vFwRmrpxZQ.md)** — Sujet : L’hyper financiarisation de la société moderne (« quand tout devient un pari »), analysée à travers la multiplication des marchés spéculatifs, des paris (sur la météo, la géopolitique, le trafic, etc.) et de la « gamification » (jeux d’argent, memecoins, paris…

@@ -42,7 +42,7 @@ déjà trié répond au besoin, l'utiliser ; ne pas re-trier ce qui est écarté
 
 Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison indiquée) · · simple information.
 
-### Vidéo, voix et montage (57)
+### Vidéo, voix et montage (59)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -102,9 +102,11 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | Vidéo YouTube sGt1ACELN4k (envoyée le 09/10) | Rien à installer maintenant : il faut un ordinateur avec le logiciel de montage (nos sessions tournent dans le cloud) et les vidéos courtes (TikTok, Shorts) ne viennent… |
 | ⛔ | Vidéo YouTube Fuo1i_-9Frc (envoyée le 09/10) | Rien à installer maintenant : nos besoins d'images, de PDF et de vidéo sont déjà couverts par des outils éprouvés (Pillow, Playwright, PyMuPDF, ffmpeg) ; logiciel très j… |
 | ⛔ | Vidéo YouTube 4aUVjc7ttko (envoyée le 09/10) | Rien à installer (pas de podcast ; Riverside payant). Conseils retenus pour la future vidéo verticale « Le test du pouce » (15 s) : démarrer directement sur la phrase fo… |
+| ⛔ | Carrousel Instagram DeYzjEXgWa2 (envoyé le 15/10, flm_freelancing, 10 images ; lu image par image le 15/10) | Plus tard (au premier client) : galeries gratuites à consulter pour trouver une direction visuelle quand on construit le site d'un client, en complément de la skill desi… |
+| ⛔ | Reel Instagram DehBKCjtB4I (envoyé le 15/10, kingarms.ai, 101 s ; résumé Gemini le 15/10) | Écarté : la partie piratage (contenus payants rendus gratuits) est illégale et hors de question pour DIG16. REA lui-même : déjà traité le 15/10 (règle : pas d'installati… |
 | ⛔ | Vidéo YouTube 1RqsrzT9-CI (12/10) : clonage de voix et traduction avec Fish Audio | Écarté : vidéos en pause ; cloner la voix de l'utilisateur toucherait à son identité (accord nécessaire) ; gratuité de l'API à vérifier. Idée « plusieurs variantes à tes… |
 
-### Images et visuels (41)
+### Images et visuels (43)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -125,6 +127,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | · | Visuels par IA (Nano Banana, Krea, Recraft, Ideogram, Napkin, Canva en masse) | Pas pour les démos : photos réelles libres de droits, plus honnêtes. Napkin (schémas) et Recraft (logos) : à évaluer seulement si un client en demande |
 | · | Image « Les outils IA qui te rendent inarrêtable » (35 outils) | Aucune offre gratuite affirmée sans vérification à la source. Déjà couverts : Gamma et Canva (connecteurs), Claude Artifacts, Playwright pour les vidéos de démo. Durable… |
 | · | Hedra, Hailuo, Vista, Ideogram, Open Design | Pas de besoin immédiat ; offres gratuites non vérifiées, à revoir si une vidéo ou un visuel Dig est décidé |
+| · | Veille du 15/10 (veille/2026-10-15.md) | Retenu pour le 21/10 : vérifier avec MailSenpai (en plus de la lecture DNS directe) que la signature DKIM est bien active une fois l'utilisateur passé chez OVH. Rien d'a… |
 | · | Photos d'un client trop lourdes | Compresser/convertir dans le navigateur, rien n'est envoyé (complète nos scripts Pillow) |
 | · | Photos d'un client floues ou anciennes | Netteté de vieilles photos de devanture ou de réalisations — seulement avec l'accord du client |
 | · | Détourer un produit, une enseigne | Fond retiré (aperçu gratuit ; Photoroom gratuit avec filigrane) |
@@ -146,6 +149,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | Vidéo YouTube fq3wx-AR6B0 (envoyée le 09/10 ; résumé Gemini via le relais) | Déjà appliqué pour l'essentiel : références et boucle de critiques = nos skills de design et les contrôles automatiques (marges, chevauchements, rendu téléphone) de camp… |
 | ⛔ | Vidéo YouTube lDrAZ1wAyVs (envoyée le 09/10) | Rien à installer (mêmes raisons que xvy40dHyAmw : session dans le cloud). Idée retenue de Reflect : chaque correction de l'utilisateur devient une règle écrite pour ne p… |
 | ⛔ | Vidéo YouTube xWuLotc8zjE (envoyée le 09/10) | Déjà appliqué : l'utilisateur pilote depuis l'application ; connecteurs Gmail, Drive, Metricool déjà utilisés ; un dossier par sujet (chasse-demande/, connaissances/, su… |
+| ⛔ | Carrousel Instagram DeekQtwk30w (envoyé le 15/10, rakeshmahantiai1, 17 images, marqué « Contenu IA » ; lu ima… | Rien à installer : DIG16 est déjà à 0 € pour ces besoins (notes et suivi dans le dépôt et le Drive, formulaire du site, Metricool, vidéos faites par programme, Excalidra… |
 | ⛔ | Liste « websites » de technologybrief.io (envoyée le 11/10, 148 sites) | Appliqué : 23 retenus pour DIG16 avec leur moment dusage, 3 concurrents notés pour largumentaire, le reste écarté (hors sujet ou payant) → connaissances/technologybrief-… |
 | ⛔ | Vidéo YouTube hRr-yUSM0_A (envoyée le 12/10) : « cloner Higgsfield » avec Claude Code et revendre des générat… | Écarté pour l'instant : API et crédits payants (budget 0 €), hors cœur DIG16 ; idée « visuel IA avant/après » gardée comme option future pour les clients artisans (cuisi… |
 | ⛔ | D-ID | écarté : visage de synthèse, contraire à la règle « pas de promesse invérifiable » et à l'image locale de DIG16 |
@@ -317,6 +321,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 | ⛔ | Pictory | déjà écarté le 11/10 (payant, essai seulement) |
 
-_235 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_239 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
