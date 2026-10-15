@@ -53,6 +53,14 @@ BOUTIQUES_WOOCOMMERCE_SITEMAP = [
     "maxireves.fr",   # 1001 produits/102 slugs pokemon
     "yukistore.fr",   # 1001 produits/27 slugs pokemon
     "all4play.fr",    # 1001 produits/35 slugs pokemon
+    # AJOUTEE le 15/10/2026 a la demande de Justok. Verifiee via
+    # verifier_candidats_manuels.py : product-sitemap.xml valide (295 URL,
+    # 47 slugs pokemon, verdict "scelle"). Boutique belge (Bruxelles, BCE
+    # 1014997310) qui LIVRE EN FRANCE (CGV : Mondial Relay, zones BE/FR/LU/
+    # NL/DE/AT/IT/ES/PT/PL) -- gardee selon la regle du 08/10/2026. ETB,
+    # Pokebox Nymphali, bundle 2 mini tins et coffret poster 30e FR en
+    # catalogue, plus des imports JP/CN (30th Celebration).
+    "maniatcg.com",   # 295 produits/47 slugs pokemon
 ]
 
 # Scinde en 2 lots pour le workflow scan_woocommerce.yml (19 min mesurees
@@ -76,6 +84,15 @@ LOT_B = [
     # AJOUTEES le 25/08/2026 -- meme lot que les autres petits/moyens
     # catalogues (1001 produits chacun, volume comparable a shop-tcg.fr) :
     "maxireves.fr", "yukistore.fr", "all4play.fr",
+    # maniatcg.com (15/10/2026) : 295 URL sitemap, volume comparable aux
+    # petits catalogues ci-dessus -- LOT_B, qui a la marge la plus large
+    # (7,6 min mesurees le 15/10/2026 pour un budget de 22/18 min).
+    "maniatcg.com",
+    # missplaybros.com : ajoutee a BOUTIQUES_WOOCOMMERCE_SITEMAP le 08/10/2026
+    # mais oubliee ici -- or la production ne scanne QUE LOT_A/LOT_B (le
+    # radar precommandes, lui, lit la liste complete), donc ses cartes a
+    # l'unite n'etaient jamais scannees. Corrige le 15/10/2026 (610 URL).
+    "missplaybros.com",
     # mymesis.fr : deplacee de LOT_A vers LOT_B le 16/08/2026 (diagnostic
     # flake scan_lot_a, cf. SESSION_NOTES.md) -- repli API REST (pas de
     # sitemap), volume normalement negligeable MAIS observe au moins une
