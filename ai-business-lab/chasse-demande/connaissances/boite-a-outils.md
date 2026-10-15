@@ -42,7 +42,7 @@ déjà trié répond au besoin, l'utiliser ; ne pas re-trier ce qui est écarté
 
 Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison indiquée) · · simple information.
 
-### Vidéo, voix et montage (50)
+### Vidéo, voix et montage (57)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -61,6 +61,13 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ✅ | Carrousel Instagram Dd2tZCCDofx (compte « aitechorigin », envoyé le 09/10 ; légende et 10 images lues depuis… | Mixpost (licence MIT) et Shoutrrr (licence Apache 2.0, lues sur leurs dépôts le 09/10) : solution de secours de Metricool, notée dans 63-kit-branchement-reseaux.md § 4 :… |
 | ✅ | Vidéo YouTube DBQqB8eqpFI (envoyée le 09/10) | Déjà en place chez nous : la vidéo de présentation DIG16 (33 s) est faite exactement ainsi, animation en HTML enregistrée, voix de synthèse Google (Algieba), musique et… |
 | ✅ | Vidéo YouTube rkK8ZyzYyEA (envoyée le 09/10) | Déjà installés chez nous : Impeccable et les skills marketing (copywriting, cold-email, prospecting, offers…) sont dans .claude/skills ; « grill-me » ≈ notre skill brain… |
+| ✅ | Vidéo YouTube PPu5E8wAAeg (envoyée le 15/10, Melvynx, « Je remplace TOUT par Claude (ManyChat, Social Media M… | En pause (réseaux en pause jusqu'au premier client, décision du 05/10). Déjà en place : programmation multi-réseaux gratuite par Metricool (20 publications jusqu'au 27/1… |
+| ✅ | Vidéo YouTube HhZdNYI4pJs (envoyée le 15/10, Nate Herk, « I Tried 100+ Github Repos for Claude. These 6 Are t… | Déjà en place : ScrollCraft, humanizer, Playwright (+ test GitHub), OpenSEO, connecteurs Google, Superpowers ; DIG16 vend déjà un résultat. Écarté : Apify (payant), Expo… |
+| ✅ | Vidéo YouTube MPDhk385gSg (envoyée le 15/10, RandomAI, « Claude Opus 5.5 + JavaScript = INSANE 2D Animations… | Déjà en place : même méthode pour nos vidéos (code + Playwright + ffmpeg, skill motion-broll). En pause : nouvelles vidéos (décision du 05/10). Écarté : ElevenLabs (paya… |
+| ✅ | Vidéo YouTube tvYFPGaIO9k (envoyée le 15/10, Yassine Sdiri, « Comment créer des animations INCROYABLES avec l… | En pause : nouvelles vidéos pour les réseaux (décision du 05/10). Déjà en place : nos vidéos sont faites en code (Playwright + ffmpeg, skill motion-broll). Écarté : Higg… |
+| ✅ | Publication Instagram DeeaXaAiPGa (envoyée le 15/10, carrousel de 8 images « 7 GitHub repos worth installing… | Déjà en place : ScrollCraft (site dig16.fr), OpenSEO (connecteur), humanizer (skill), connecteurs Google (Drive, Gmail, Agenda), plan avant construction (Superpowers). É… |
+| ✅ | Publication Instagram Ddcd73yAshV (envoyée le 15/10, DataWarlord, carrousel de 10 images « 22 Skills to Insta… | Déjà installés (12) : Superpowers, UI-UX Pro Max, Taste, Impeccable, Emil (emil-design-eng), Humanizer, Skill Creator, skills marketing (copywriting, seo, cold-email…),… |
+| ✅ | Reel Instagram DeeDOp4uFo_ (envoyé le 15/10, bencodezero ; vidéo non téléchargeable sans compte, lu par sa lé… | Déjà en place : l'annuaire skills.sh (celui de Vercel) est dans la veille quotidienne (outils/veille_sources.py) et la recherche de skills est disponible ; règle déjà ap… |
 | ✅ | Vidéo YouTube gyVqYy5yDK8 (envoyée le 12/10) : un créateur solo délègue son montage vidéo à Claude | Noté : vidéos en pause jusqu'au 1er client ; quand elles reprendront, même méthode (dossier de rushes + consigne écrite) avec nos outils gratuits (ffmpeg, faster-whisper… |
 | ⏳ | 96G4KDnEFyI (Anthony Shoosh) | Piste d'option à valider, pas à construire. Vérifié le 01/10 : Retell (retellai.com/pricing) offre 10 $ de crédits gratuits, puis environ 0,07 à 0,31 $/minute (exemple :… |
 | ⏳ | O_4l1rPsWTM (Système Gagnant) | Hors piste, rien à construire. Vérifié le 01/10 sur flick.art/pricing : offre gratuite « 300 credits to start + 100 every week », formules payantes Casual (500 crédits/m… |
@@ -97,7 +104,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | Vidéo YouTube 4aUVjc7ttko (envoyée le 09/10) | Rien à installer (pas de podcast ; Riverside payant). Conseils retenus pour la future vidéo verticale « Le test du pouce » (15 s) : démarrer directement sur la phrase fo… |
 | ⛔ | Vidéo YouTube 1RqsrzT9-CI (12/10) : clonage de voix et traduction avec Fish Audio | Écarté : vidéos en pause ; cloner la voix de l'utilisateur toucherait à son identité (accord nécessaire) ; gratuité de l'API à vérifier. Idée « plusieurs variantes à tes… |
 
-### Images et visuels (38)
+### Images et visuels (41)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -109,6 +116,9 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ✅ | pZgw2WNOcHE (YouTube, 30/09, Codesistency, 3 h 42, résumé en 12 morceaux le 01/10) | Appliqué : 2 règles de sécurité ajoutées à 44-controle-qualite.md (webhooks signés, mode sandbox, .env.local hors Git, limite d'appels IA ; intégrations depuis la doc of… |
 | ✅ | Reel Instagram DdoWZFCOhPZ (sadie.ontech, 01/10) | Appliqué : skills taste-design, taste-redesign (MIT, leonxlnx/taste-skill) et impeccable (Apache 2.0, pbakaus/impeccable) installés dans .claude/skills après lecture, pa… |
 | ✅ | dFdULRWj_Qs (résumé : connaissances/gustens/dFdULRWj_Qs.md, Gusten Sun, envoyée le 07/10) | Déjà appliqué : modèle réutilisable d'un client à l'autre (démos DIG16), couleur de la démo tirée du logo du client, tout fait avec Claude Code, hébergement gratuit (pas… |
+| ✅ | Vidéo YouTube zwQmodmp1To (envoyée le 15/10, Jack Roberts, « 10 New Github Repos to Make Money in 19 mins » ;… | Déjà en place : humanizer, vibe-security/security-review + CodeQL, connecteurs Gmail/Agenda/Zapier, Playwright. Écarté : suite Craft, 21st.dev (React), Orca, Arena, mods… |
+| ✅ | Vidéo YouTube stn5BMpT4FU (envoyée le 15/10, ROBONOMIC IA, « Photoshop GRATUIT recréé avec Claude » ; résumé… | Écarté : DIG16 ne paie aucun de ces logiciels (visuels, PDF, vidéos faits par nos scripts et Canva) ; applications non signées. Déjà en place : vérification complète ava… |
+| ✅ | Publication Instagram DeeksLymAvI (envoyée le 15/10, hasantoxr, carrousel de 12 images « 10 GitHub repos that… | Écarté : ce sont des briques pour développeurs qui construisent leur propre agent ; DIG16 a déjà son « employé IA » en place : Claude Code avec la boîte mail, Metricool,… |
 | ✅ | Vidéo YouTube we6zrIsVovw (envoyée le 12/10) : site d'artisan de A à Z avec Claude Code + GitHub + Vercel + R… | Trié : rien de nouveau à installer ; Resend (formulaires par e-mail, gratuité annoncée « 3 000 e-mails/mois » à vérifier à la source) noté comme solution de rechange à F… |
 | ⏳ | Nano Banana (images Gemini) | Possible pour des visuels neutres avec la mention « image générée par IA », jamais pour de fausses réalisations ; offre gratuite à vérifier avant usage |
 | ⏳ | Zsky AI | inconnu jusqu'ici : à vérifier (sérieux, droits d'usage commercial) avant essai |
@@ -140,7 +150,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | Vidéo YouTube hRr-yUSM0_A (envoyée le 12/10) : « cloner Higgsfield » avec Claude Code et revendre des générat… | Écarté pour l'instant : API et crédits payants (budget 0 €), hors cœur DIG16 ; idée « visuel IA avant/après » gardée comme option future pour les clients artisans (cuisi… |
 | ⛔ | D-ID | écarté : visage de synthèse, contraire à la règle « pas de promesse invérifiable » et à l'image locale de DIG16 |
 
-### Création de sites et design (60)
+### Création de sites et design (67)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -163,6 +173,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ✅ | kYNwdRnb4ks | Déjà appliqué presque entièrement |
 | ✅ | Second avis Gemini (lot 4 de démos, 29/09) | Appliqué : légendes et textes surchargés par prospect ; règle : relire chaque texte hérité d'un modèle contre le métier réel |
 | ✅ | Vidéo YouTube UJtjPXpuOcY (envoyée le 09/10, « Beginner to First Million with AI in 2026 », Albert Olgaard, 1… | Déjà en place : skills Claude dans .claude/skills/, plugin Superpowers installé, plan avant construction (grille 00), vidéo courte « Le test du pouce » faite le 09/10 (v… |
+| ✅ | Vidéo YouTube -9jiz-OmBos (envoyée le 15/10, Rudy IO, « Claude Code skills : arrête de les copier (la bonne m… | Appliqué le 15/10 : nouvelle règle à l'étape 3 de la marche à suivre de 46 (un skill maison seulement après avoir réussi la tâche une fois ; jamais d'installation « au c… |
 | ✅ | Vidéo YouTube S8sQeFy9VbQ (12/10) : la « zone grise », fabriquer ses propres petits outils avec Claude Code | Appliqué : c'est notre façon de faire (outils/ maison) ; le modèle en 5 parties est retenu pour les demandes de sites clients (brief). |
 | ✅ | Reel Instagram DeYKx9fgENd (13/10, compte openrushdata) : « Turn Claude into your SEO analyst. Live rankings,… | Déjà en place : OpenRush est branché depuis le 28/09 (33-outils.md), utilisé pour les volumes de recherche, l'analyse des sites et des résultats Google. Search Console d… |
 | ⏳ | Site buildyoursaas.tech envoyé le 02/10 (accompagnement payant pour apprendre Claude Code aux dirigeants de p… | lu le 02/10 ; (a) et (b) à faire au premier appel |
@@ -200,17 +211,24 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | Veille du 10/10 (reprise à la demande de l'utilisateur : « je veux que tu t'améliores constamment », après 5… | Trié : rien à installer en urgence. Noté comme solution de secours : Formgong (réception de formulaires, offre gratuite de 300 messages par mois selon l'annuaire free-fo… |
 | ⛔ | Vidéo YouTube xvy40dHyAmw (envoyée le 09/10) | Rien à installer ici : nos sessions tournent dans le cloud, pilotées depuis le téléphone, et les mods modifient l'interface du terminal ou de l'application de bureau. Le… |
 | ⛔ | Vidéo YouTube 58MtToM79w4 (envoyée le 09/10) | Rien à installer : le formulaire du site part par FormSubmit (gratuit) à contact@dig16.fr et le suivi des demandes est le tableau privé de 50 § 8 ; Replit est payant (bu… |
+| ⛔ | Vidéo YouTube _Up4YpZe5H8 (envoyée le 15/10, Simon De Lima, « J’ai testé l’outil IA viral qui clone n’importe… | Écarté (REA) : aucun besoin pour des sites vitrines construits de zéro ; programme tiers qui s'exécute et se met à jour seul (même refus qu'Impeccable, ligne 1) ; décomp… |
+| ⛔ | Vidéo YouTube hafejDoRfDc (envoyée le 15/10, IA Professeur, « REA : Reverse Engineer n'importe quelle applica… | Écarté (voir ligne précédente). Déjà appliqué : code et design neufs pour chaque démo, contrôlés par outils/test_pages.py. |
+| ⛔ | Vidéo YouTube eI0NM5hM-4o (envoyée le 15/10, Duncan Rogoff, « AI Can Copy Any App Now - Here's What People Wi… | Déjà appliqué : DIG16 vend un résultat (être trouvé et appelé), la confiance et le suivi humain, pas une technique ; c'est notre « fossé » face aux sites faits seuls ave… |
+| ⛔ | Vidéo YouTube AoxK3JpxbRc (envoyée le 15/10, Johnathan Mo, « The Claude Code workflow that helped me win 5 Ha… | Déjà appliqué : se faire poser des questions par l'IA avant de construire (plugin Superpowers « brainstorming », règle de CLAUDE.md), démo en direct plutôt qu'envoyée (d… |
+| ⛔ | Vidéo YouTube pnD1PafeXic (envoyée le 15/10, Melvynx, « Comment AVOIR Claude en illimité et arrêter de cramer… | Appliqué le 15/10 : économie de quota (consigne de CLAUDE.md) : réserver les efforts de réflexion élevés aux tâches complexes, déléguer les recherches simples à des sous… |
+| ⛔ | Vidéo YouTube 8tpL8k-mUb4 (envoyée le 15/10, Lou IA, « 10 Business IA que tu peux lancer avec Claude Code dès… | Confirme la piste DIG16 : l'auteur classe « sites web pour commerces locaux » parmi les activités les plus faciles et rapides à lancer (avis de l'auteur, sans chiffre).… |
 | ⛔ | Carrousel Instagram @choly.ai « Hidden websites » (envoyé le 12/10) | Trié : rien à installer (vidéos en pause jusqu'au 1er client) ; gratuités à vérifier à la source ; D-ID écarté (visage de synthèse) → connaissances/technologybrief-sites… |
 | ⛔ | Veille du 11/10 (veille/2026-10-11.md) | Trié : rien à installer. Noté pour plus tard : OpenRegistry (registres officiels de 80 pays dont la France, en secours de verif_entreprises.py) et Brevo (secours e-mail… |
 | ⛔ | Veille du 13/10 (veille/2026-10-13.md) | Trié : rien à installer. Relvato (surveillance de site) = doublon de controle_global.py ; Domain Info / QR LifeStep = déjà couverts par nos outils ; Master Setter (API c… |
 | ⛔ | Veille du 14/10 (veille/2026-10-14.md) | Trié : rien à installer. Noté : Jsonpage (API données d'entreprises France, SIREN/SIRET/TVA, 1 000 requêtes/jour gratuites sans carte) en secours de verif_entreprises.py… |
 
-### Référencement et visibilité (5)
+### Référencement et visibilité (6)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
 | ✅ | S9n8vPvoHFk (YouTube, 30/09, chaîne « AI Master ») | Écarté (payant). Équivalents gratuits déjà en place : routage = OmniRoute (installé) et l'aiguilleur de Jev ; comparaison = second avis Gemini via /api/avis ; tâches pla… |
 | ✅ | g68Rxhg-W1s | Déjà appliqué (aiguilleur jev_trier_reponses.py). Idée notée, non construite (règle n° 1 : vérifier l'argent avant) : un service d'analyse en masse des avis clients des… |
+| ✅ | Playlist YouTube « Le Marketing Digital facile » (envoyée le 15/10, Ludo Salenne, 27 vidéos ; résumés : video… | Appliqué le 15/10 : message de remerciement du formulaire avec une suite (lien vers le test du pouce) ; guide d'entretien 57 complété (question des mots tapés sur Google… |
 | · | rWbVgBdl-0I (Melvynx) | Hors piste Dig pour l'instant ; idée gardée : se faire lister dans les annuaires gratuits de son secteur |
 | ⛔ | Reel DdmcP6BlU6u (30/09) | Écarté : extraction de profils sur des réseaux qui l'interdisent dans leurs conditions, et données personnelles (cadre CNIL, 35-demarchage-cadre-legal.md) ; nos sources… |
 | ⛔ | _9ZGlLWr6UE | Codex payant : écarté ; appliqué en gratuit : /api/avis (second avis Gemini) |
@@ -245,7 +263,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | 5gifZmpc99g | Écarté : pas de publicité payante (budget 0 €) |
 | ⛔ | Dépôt GitHub p-e-w/heretic (envoyé le 12/10, lien technologybrief ; jeton de suivi non conservé) | Écarté : aucun usage pour DIG16, budget 0 € (GPU), et un modèle sans garde-fous est un risque (contenus, réputation) ; rien installé. |
 
-### Claude, agents et automatisation (21)
+### Claude, agents et automatisation (24)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -256,6 +274,8 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ✅ | Claude Code, Gemini, MiniMax | Déjà en place (Claude Code, relais Gemini, guide MiniMax H3) |
 | ✅ | Open Code, Cline | Inutiles : Claude Code fait déjà ce travail |
 | ✅ | YuOSyRj3sXg | Déjà en place (.claude/CLAUDE.md + dossier) |
+| ✅ | Vidéo YouTube 1Dlh_Mqze1s (envoyée le 15/10, Tony Lotis, « Claude Code vient de lancer les mods : voici mes 5… | Déjà en place autrement : passation = ETAT.md privé, suivi = LISTE UNIQUE de 64 § 0. Écarté : mods vendus dans une communauté payante, visibles seulement dans le termina… |
+| ✅ | Vidéo YouTube aD-h7Bcn5OY (envoyée le 15/10, Tristen O'Brien, « 5 MORE Claude Code MODS You Need | Écarté : visibles seulement dans le terminal, l'utilisateur suit depuis son téléphone (comme 1Dlh_Mqze1s). Déjà en place : questions à l'utilisateur seulement pour ce qu… |
 | ✅ | Vidéo YouTube gvESqM6s0kM (12/10) : 23 erreurs avec Claude 5.5 / Claude Code | Appliqué : CLAUDE.md fait 201 lignes → à alléger en renvoyant les détails vers des fichiers (à faire en douceur, sans perdre de règle) ; garde-fous déjà en place (pas de… |
 | · | Tests de modèles d'IA (Gemini, GPT, Grok…) | Information générale, rien à appliquer |
 | · | n8n (automatisation) | Version « Community » gratuite en auto-hébergement (docs.n8n.io, lu le 29/09 : « Without a license key, n8n runs as the free Community edition ») mais il faut un serveur… |
@@ -269,6 +289,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | dHe2sHKvLFc (YouTube, 30/09) | Appliqué : le point automatique (routine) se déclenchait toutes les heures en relisant toute la conversation alors que sa consigne dit « toutes les 3 h » → recalé sur 34… |
 | ⛔ | PLGnXz9_dTY | Écarté (trading, hors projet) |
 | ⛔ | ucer2chlfM8 | Écarté (abonnement OpenAI payant) |
+| ⛔ | Vidéo YouTube o8LjTSvza0E (envoyée le 15/10, Chase AI, « This Viral Open Source Repo Lets Claude Clone ANYTHI… | Écarté (comme les 2 vidéos REA du 15/10). Déjà appliqué : reconstruire du neuf, jamais copier. |
 | ⛔ | Vidéo YouTube Tk5cgoGY1PU (12/10) : « deuxième cerveau » avec le greffon claude-obsidian (Obsidian + Claude C… | Pas installé : notre base connaissances/ + 46 + CLAUDE.md joue déjà ce rôle ; dépôt introuvable depuis le conteneur (accès GitHub limité à ce dépôt), donc impossible à l… |
 
 ### Divers (20)
@@ -296,6 +317,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 | ⛔ | Pictory | déjà écarté le 11/10 (payant, essai seulement) |
 
-_214 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_235 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
