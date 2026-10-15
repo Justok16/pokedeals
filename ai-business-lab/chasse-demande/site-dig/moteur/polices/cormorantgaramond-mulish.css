@@ -1,3 +1,9 @@
+/* Polices de secours calées sur les vraies (mesures du 15/10/2026) : même largeur avant et après l'arrivée des fichiers, donc pas de décalage (CLS). */
+@font-face{font-family:"Cormorant Garamond Fallback";src:local("Times New Roman"),local("TimesNewRomanPSMT"),local("Times"),local("Liberation Serif");font-style:normal;font-weight:100 550;size-adjust:95.5%;ascent-override:96.8%;descent-override:30.1%;line-gap-override:0%}
+@font-face{font-family:"Cormorant Garamond Fallback";src:local("Times New Roman Bold"),local("TimesNewRomanPS-BoldMT"),local("Times Bold"),local("Liberation Serif Bold");font-style:normal;font-weight:551 900;size-adjust:90.7%;ascent-override:101.9%;descent-override:31.6%;line-gap-override:0%}
+@font-face{font-family:"Cormorant Garamond Fallback";src:local("Times New Roman Italic"),local("TimesNewRomanPS-ItalicMT"),local("Times Italic"),local("Liberation Serif Italic");font-style:italic;size-adjust:85.8%;ascent-override:107.7%;descent-override:33.4%;line-gap-override:0%}
+@font-face{font-family:"Mulish Fallback";src:local("Arial"),local("ArialMT"),local("Helvetica"),local("Liberation Sans");font-weight:100 550;size-adjust:103.2%;ascent-override:97.4%;descent-override:24.2%;line-gap-override:0%}
+@font-face{font-family:"Mulish Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Helvetica Bold"),local("Liberation Sans Bold");font-weight:551 900;size-adjust:98%;ascent-override:102.6%;descent-override:25.5%;line-gap-override:0%}
 /* latin-ext */
 @font-face {
   font-family: 'Cormorant Garamond';

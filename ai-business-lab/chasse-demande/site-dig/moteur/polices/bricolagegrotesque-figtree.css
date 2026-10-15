@@ -1,3 +1,8 @@
+/* Polices de secours calées sur les vraies (mesures du 15/10/2026) : même largeur avant et après l'arrivée des fichiers, donc pas de décalage (CLS). */
+@font-face{font-family:"Bricolage Grotesque Fallback";src:local("Arial"),local("ArialMT"),local("Helvetica"),local("Liberation Sans");font-weight:100 600;size-adjust:94.3%;ascent-override:98.6%;descent-override:28.6%;line-gap-override:0%}
+@font-face{font-family:"Bricolage Grotesque Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Helvetica Bold"),local("Liberation Sans Bold");font-weight:601 900;size-adjust:91.4%;ascent-override:101.8%;descent-override:29.5%;line-gap-override:0%}
+@font-face{font-family:"Figtree Fallback";src:local("Arial"),local("ArialMT"),local("Helvetica"),local("Liberation Sans");font-weight:100 550;size-adjust:99.5%;ascent-override:95.5%;descent-override:25.1%;line-gap-override:0%}
+@font-face{font-family:"Figtree Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Helvetica Bold"),local("Liberation Sans Bold");font-weight:551 900;size-adjust:94.7%;ascent-override:100.3%;descent-override:26.4%;line-gap-override:0%}
 /* latin-ext */
 @font-face {
   font-family: 'Bricolage Grotesque';
