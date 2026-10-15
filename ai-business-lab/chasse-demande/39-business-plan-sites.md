@@ -104,7 +104,7 @@ avant le contact** (le prospect voit *son* site refait), et un prix
 | ~~Présence~~ (retirée le 28/09) | ~~29 €/mois~~ | Petit budget, auto-entrepreneur | Site d'une page, fiche Google créée, 1 modification tous les 3 mois |
 | **Essentiel** | **49 €/mois** | La plupart des artisans | Site 5 pages sur mesure, hébergement, sécurité, mentions légales, 1 modification/mois, rapport mensuel |
 | **Visibilité** ⭐ | **79 €/mois** | Veut plus de clients | Essentiel + fiche Google suivie, demandes d'avis, 3 modifications/mois (pages par commune retirées le 28/09) |
-| **Achat** (retirée le 28/09, **rétablie le 04/10** par l'utilisateur) | **690 € une fois** + hébergement et suivi **15 €/mois en option** | Veut payer une seule fois | Site 5 pages livré, à lui pour toujours ; fichiers remis sur demande |
+| **Achat** (retirée le 28/09, **rétablie le 04/10** par l'utilisateur) | **690 € une fois** + hébergement et suivi **15 €/mois en option** (hébergement, sécurité, surveillance et 1 petite modification par mois, autres modifications sur devis ; décision de l'utilisateur du 15/10) | Veut payer une seule fois | Site 5 pages livré, à lui pour toujours ; fichiers remis sur demande |
 | **Prestige** | **1 990 €** une fois (+ suivi 29 €/mois facultatif) **ou 199 €/mois**, 0 € de création, 12 mois minimum (**validé le 26/09** ; suivi à 29 € et 12 mois : proposition à confirmer) | Hyper premium : hôtels, restaurants, domaines, artisans d'art | Voir 3.2 bis |
 
 **Paiement de 12 mois d'avance (décision de l'utilisateur du 04/10)** : 1 mois offert, soit

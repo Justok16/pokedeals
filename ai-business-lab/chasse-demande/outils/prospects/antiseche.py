@@ -40,7 +40,7 @@ S = [
             ),
             (
                 "Je préfère payer une fois.",
-                "C'est possible : formule Achat, 690 € une fois, votre site de 5 pages est à vous. L'hébergement et le suivi sont en option, à 15 € par mois. Vous pouvez aussi régler 12 mois d'avance avec 1 mois offert : 539 € (Essentiel) ou 869 € (Visibilité). Pour un site d'exception : Prestige, 1 990 €.",
+                "C'est possible : formule Achat, 690 € une fois, votre site de 5 pages est à vous. L'hébergement et le suivi sont en option, à 15 € par mois : hébergement, sécurité, surveillance et 1 petite modification par mois. Vous pouvez aussi régler 12 mois d'avance avec 1 mois offert : 539 € (Essentiel) ou 869 € (Visibilité). Pour un site d'exception : Prestige, 1 990 €.",
             ),
             (
                 "Je suis engagé combien de temps ?",

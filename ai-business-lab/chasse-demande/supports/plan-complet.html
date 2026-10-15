@@ -37,7 +37,7 @@ section{page-break-before:always}
 .cover li{counter-increment:n;padding:2.2mm 0;border-bottom:.25mm solid rgba(239,233,223,.14);font-family:'Instrument Serif',serif;font-size:14pt;color:var(--ivoire)}
 .cover li::before{content:counter(n,decimal-leading-zero);font-family:'Geist Mono',monospace;font-size:7pt;color:var(--or);margin-right:5mm;vertical-align:2pt}
 .cover .note{font-size:7.6pt;color:#8c8478}
-</style></head><body><div class="cover"><img class="signature" src="../site-dig/img/marque/signature-ivoire@6x.png" alt="DIG16, sites internet"><div><div class="k">Sites internet pour artisans, commerçants et indépendants</div><h1>Plan <em>complet</em></h1><p>Version du 08/10/2026, régénérée depuis les fichiers du dossier.</p><ol><li>Business plan</li><li>Cadre légal</li><li>Questionnaire et textes d'appel</li><li>Flyer et prompts</li><li>Aides à la création</li></ol></div><p class="note">Les listes de prospects et toute donnée personnelle sont dans des documents privés séparés.</p></div><section><h1>Business plan « DIG16 — sites pour professionnels » (25-26/09/2026)</h1>
+</style></head><body><div class="cover"><img class="signature" src="../site-dig/img/marque/signature-ivoire@6x.png" alt="DIG16, sites internet"><div><div class="k">Sites internet pour artisans, commerçants et indépendants</div><h1>Plan <em>complet</em></h1><p>Version du 15/10/2026, régénérée depuis les fichiers du dossier.</p><ol><li>Business plan</li><li>Cadre légal</li><li>Questionnaire et textes d'appel</li><li>Flyer et prompts</li><li>Aides à la création</li></ol></div><p class="note">Les listes de prospects et toute donnée personnelle sont dans des documents privés séparés.</p></div><section><h1>Business plan « DIG16 — sites pour professionnels » (25-26/09/2026)</h1>
 <p>Demande de l'utilisateur (25/09) : un plan complet et moderne pour démarcher,
 convertir, satisfaire, facturer et suivre des clients professionnels, en
 visant d'abord les clients SoLocal. Règles : sources sûres uniquement, chaque
@@ -226,7 +226,7 @@ avant le contact</strong> (le prospect voit <em>son</em> site refait), et un pri
 </tr>
 <tr>
 <td><strong>Achat</strong> (retirée le 28/09, <strong>rétablie le 04/10</strong> par l'utilisateur)</td>
-<td><strong>690 € une fois</strong> + hébergement et suivi <strong>15 €/mois en option</strong></td>
+<td><strong>690 € une fois</strong> + hébergement et suivi <strong>15 €/mois en option</strong> (hébergement, sécurité, surveillance et 1 petite modification par mois, autres modifications sur devis ; décision de l'utilisateur du 15/10)</td>
 <td>Veut payer une seule fois</td>
 <td>Site 5 pages livré, à lui pour toujours ; fichiers remis sur demande</td>
 </tr>
@@ -384,7 +384,7 @@ client) est la bonne réponse.</p>
 <h2>6. Facturation, obligations et suivi</h2>
 <h3>6.1 Statut</h3>
 <p>Micro-entreprise, nom commercial « DIG16 » (validé), selon
-<code>31-kit-en-cas-de-oui.md</code> section 2 bis (création parfaite, fiscalité
+<code>31-creation-entreprise.md</code> section 2 bis (création parfaite, fiscalité
 optimisée) et <code>36-aides-creation.md</code> (aides à demander <strong>avant</strong> la
 création ; détail propre à l'utilisateur dans le document privé du Drive).</p>
 <p>Activité probable : prestation intellectuelle (création de sites) → régime
@@ -1016,7 +1016,7 @@ pas « un site » — leçon de la vidéo « FDE » de Greg Isenberg, <code>46</
 </tr>
 <tr>
 <td>Préfère payer une fois</td>
-<td><strong>Achat</strong> (690 € une fois, suivi 15 €/mois en option) ; ou 12 mois d'avance avec 1 mois offert (539 € / 869 €)</td>
+<td><strong>Achat</strong> (690 € une fois, hébergement et suivi 15 €/mois en option : hébergement, sécurité, surveillance et 1 petite modification par mois) ; ou 12 mois d'avance avec 1 mois offert (539 € / 869 €)</td>
 </tr>
 <tr>
 <td>Préfère payer une fois</td>
@@ -1309,6 +1309,29 @@ fortune ou bloqués ? » (dénigrement implicite des concurrents).</p>
 <li>Correction de cohérence avec le site et la décision du 05/10 : « Modifications sous 48 h » → « Modifications sous
   3 jours ouvrés ».</li>
 <li>Reste à compléter le jour du SIREN : téléphone, prénom et nom, SIREN, adresse (mentions en bas du flyer).</li>
+</ul>
+<h2>Version premium du 08/10/2026 (demande de l'utilisateur : « refais le design du flyer… avec ce même rendu »)</h2>
+<ul>
+<li>Nouvelle référence : <strong><code>outils/marque/flyer.py</code></strong> → <code>supports/flyer-dig-a5.html</code>, <code>Dig-Flyer-A5.png</code>
+  (1 748 × 2 480 px, 300 ppp) et <code>Dig-Flyer-A5.pdf</code> (A5 exact, fait depuis l'image). Remplace le design Canva.</li>
+<li>Charte du site : noir chaud, laiton, Instrument Serif, Geist, signature DIG16 ; vrai site de démonstration
+  (menuisier) dans le téléphone ; mêmes textes, prix et mentions qu'avant.</li>
+<li>Contrôles automatiques à chaque génération : QR décodé (→ <code>https://dig16.fr/</code>, lu jusqu'à 90 ppp),
+  aucun bloc hors de la zone de sécurité de 5 mm, aucun chevauchement, polices chargées.</li>
+<li>
+<p>Reste à compléter le jour du SIREN : téléphone, prénom et nom, SIREN, adresse (dans <code>flyer.py</code>).</p>
+</li>
+<li>
+<p>08/10 (matin), à la demande de l'utilisateur (« trop sombre dans son ensemble ») : <strong>version claire</strong> — fond ivoire,
+  texte encre, accents bronze, signature DIG16 foncée ; seuls le téléphone et la bulle « Nouvelle demande de devis »
+  restent sombres pour le contraste. QR code conservé et décodé → <code>https://dig16.fr/</code>.</p>
+</li>
+<li>08/10 (matin, suite) — <strong>version accessible à tous</strong> (« c'est écrit tout petit ») : textes de 10 pt minimum
+  (avant : 5,8 à 7,3 pt), titres des avantages en gras 13 pt, prix 27 pt, téléphone et email 12 pt gras, « Scannez-moi »
+  10,5 pt, QR agrandi à 34 mm ; plus de petites capitales espacées ; phrases raccourcies ; mentions légales 6,5 pt
+  en gris foncé. Contrôle automatique ajouté dans <code>flyer.py</code> : taille minimale de chaque texte et contraste WCAG AA
+  (pire contraste mesuré : 6,4:1, seuil 4,5:1). QR toujours décodé → <code>https://dig16.fr/</code>.</li>
+<li><strong>08/10 : version validée par l'utilisateur</strong> (« Parfait pour le flyer »). Référence d'impression : <code>supports/Dig-Flyer-A5.pdf</code>.</li>
 </ul></section><section><h1>Aides à la création d'entreprise — financières et en nature (vérifié le 25/09/2026)</h1>
 <p>Demande de l'utilisateur : tout creuser et <strong>tout maîtriser</strong> avant une
 éventuelle création. L'éligibilité dépend de son profil personnel, qui n'est
