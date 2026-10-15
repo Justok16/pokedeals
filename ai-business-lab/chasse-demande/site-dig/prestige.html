@@ -33,8 +33,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Geist,system-ui,sans-serif;background:var(--nuit);color:var(--encre);line-height:1.6;overflow-x:hidden}
-h1,h2,h3,.serif{font-family:'Instrument Serif',Georgia,serif;line-height:1.1;font-weight:800}
+body{font-family:Geist,'Geist Fallback',system-ui,sans-serif;background:var(--nuit);color:var(--encre);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.serif{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;line-height:1.1;font-weight:800}
 a{color:inherit}
 img{max-width:100%;height:auto;display:block}
 .cadre{max-width:1180px;margin:0 auto;padding:0 20px}
@@ -55,8 +55,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s eas
 nav.plein{background:rgba(15,14,12,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--ligne)}
 nav .cadre{display:flex;align-items:center;justify-content:space-between;height:72px;gap:1rem}
 .logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
-.logo i{font-style:normal;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-family:'Instrument Serif',Georgia,serif;font-weight:800;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,var(--orange),var(--violet))}
-.logo b{font-family:'Instrument Serif',Georgia,serif;font-size:1.5rem}
+.logo i{font-style:normal;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-weight:800;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,var(--orange),var(--violet))}
+.logo b{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.5rem}
 .logo small{display:block;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--doux);margin-top:-2px}
 .liens{display:flex;gap:1.6rem;align-items:center;font-size:.92rem}
 .liens a{text-decoration:none;color:var(--doux);padding:6px 2px}.liens a:hover{color:#fff}
@@ -98,13 +98,13 @@ section{padding:100px 0}
 .carte p{color:var(--doux)}.clair .carte p{color:var(--gris)}
 /* étapes */
 .etape{position:relative;padding-top:56px}
-.etape .n{position:absolute;top:0;left:28px;font-family:'Instrument Serif',Georgia,serif;font-size:3rem;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.etape .n{position:absolute;top:0;left:28px;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:3rem;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
 /* prix */
 .prix{grid-template-columns:repeat(4,1fr);align-items:stretch}
 .formule{display:flex;flex-direction:column;position:relative}
 .formule .nom{font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
-.formule .montant{font-family:'Instrument Serif',Georgia,serif;font-size:2.7rem;font-weight:800;margin:.4rem 0 .2rem}
-.formule .montant small{font-family:Geist,system-ui,sans-serif;font-size:1rem;font-weight:500;color:var(--gris)}
+.formule .montant{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:2.7rem;font-weight:800;margin:.4rem 0 .2rem}
+.formule .montant small{font-family:Geist,'Geist Fallback',system-ui,sans-serif;font-size:1rem;font-weight:500;color:var(--gris)}
 .formule .pour{font-size:.92rem;color:var(--gris);min-height:2.8em}
 .formule ul{list-style:none;margin:1.2rem 0 1.5rem;display:grid;gap:.55rem;font-size:.94rem}
 .formule li::before{content:"✓";color:var(--vert);font-weight:800;margin-right:.55rem}
@@ -126,7 +126,7 @@ section{padding:100px 0}
 .choix button.actif{background:linear-gradient(135deg,var(--orange),var(--rose));border-color:transparent;font-weight:600}
 .resultat{margin-top:26px;padding:24px;border-radius:var(--r);background:rgba(200,164,110,.12);border:1px solid rgba(200,164,110,.4);display:none}
 .resultat.vu{display:block}
-.resultat b{font-family:'Instrument Serif',Georgia,serif;font-size:1.6rem}
+.resultat b{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.6rem}
 /* démos */
 .demo{overflow:hidden;padding:0}
 .demo img{aspect-ratio:16/10;object-fit:cover;object-position:top;transition:transform .8s}
@@ -135,7 +135,7 @@ section{padding:100px 0}
 .demo a{font-weight:700;color:var(--orange);text-decoration:none}
 /* garanties */
 .garanties .carte{text-align:center}
-.garanties b{display:block;font-family:'Instrument Serif',Georgia,serif;font-size:1.5rem;margin-bottom:.3rem}
+.garanties b{display:block;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.5rem;margin-bottom:.3rem}
 /* FAQ */
 .faq{max-width:860px;margin:0 auto}
 .faq h3{font-size:1.2rem;margin:34px 0 12px;color:var(--orange)}
@@ -192,8 +192,8 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 .tarifs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:960px;margin:0 auto}
 .tarif{position:relative}
 .tarif .nom{font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
-.tarif .montant{font-family:'Instrument Serif',Georgia,serif;font-size:3rem;font-weight:800;margin:.5rem 0 .2rem;line-height:1.05}
-.tarif .montant small{font-family:Geist,system-ui,sans-serif;font-size:1rem;font-weight:500;color:var(--gris)}
+.tarif .montant{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:3rem;font-weight:800;margin:.5rem 0 .2rem;line-height:1.05}
+.tarif .montant small{font-family:Geist,'Geist Fallback',system-ui,sans-serif;font-size:1rem;font-weight:500;color:var(--gris)}
 .tarif .pour{color:var(--gris);margin-bottom:1rem}
 .tarif ul{list-style:none;display:grid;gap:.55rem;margin:1rem 0 1.6rem}
 .tarif li::before{content:"✓";color:var(--vert);font-weight:800;margin-right:.55rem}
@@ -203,7 +203,7 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 .inclus .carte h3{font-size:1.15rem;margin:.9rem 0 .4rem}
 .inclus .ic{background:linear-gradient(135deg,#c9974f,#8a5a2b)}
 .etapes4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-.etapes4 .num{font-family:'Instrument Serif',Georgia,serif;font-size:2.6rem;font-weight:800;color:#c8a46e;line-height:1}
+.etapes4 .num{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:2.6rem;font-weight:800;color:#c8a46e;line-height:1}
 .etapes4 h3{font-size:1.1rem;margin:.6rem 0 .3rem}
 .comparatif{width:100%;border-collapse:collapse;max-width:960px;margin:0 auto;font-size:.98rem;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 8px 24px rgba(30,20,10,.05)}
 .comparatif th,.comparatif td{padding:14px 18px;border-bottom:1px solid #ece6dc;text-align:left;vertical-align:top}
@@ -254,15 +254,15 @@ footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
 .inclus .ic svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 
 /* ===== charte premium DIG16 (08/10), commune à toutes les pages ===== */
-body{font-family:Geist,system-ui,sans-serif;font-weight:400;letter-spacing:-.003em}
-h1,h2,h3{font-family:'Instrument Serif',Georgia,serif!important;font-weight:400!important;letter-spacing:-.012em;line-height:1.04;text-wrap:balance}
+body{font-family:Geist,'Geist Fallback',system-ui,sans-serif;font-weight:400;letter-spacing:-.003em}
+h1,h2,h3{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif!important;font-weight:400!important;letter-spacing:-.012em;line-height:1.04;text-wrap:balance}
 ::selection{background:#c8a46e;color:#14110d}
 .btn{border-radius:999px!important;font-weight:500}
 .btn.principal,.badge{background:#c8a46e!important;color:#14110d!important;box-shadow:none!important}
 .btn.principal:hover{background:#d9bb8a!important}
 .degrade{background:none!important;color:#c8a46e!important;-webkit-text-fill-color:currentColor!important}
-.logo i{background:transparent!important;border:1px solid rgba(200,164,110,.6);color:#c8a46e!important;border-radius:10px!important;font-family:'Instrument Serif',Georgia,serif!important;font-weight:400!important;font-size:1.5rem!important;padding-top:2px}
-.logo b{font-family:Geist,system-ui,sans-serif!important;font-weight:600!important;font-size:1.02rem!important;letter-spacing:.2em}
+.logo i{background:transparent!important;border:1px solid rgba(200,164,110,.6);color:#c8a46e!important;border-radius:10px!important;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif!important;font-weight:400!important;font-size:1.5rem!important;padding-top:2px}
+.logo b{font-family:Geist,'Geist Fallback',system-ui,sans-serif!important;font-weight:600!important;font-size:1.02rem!important;letter-spacing:.2em}
 .avis-ouverture{background:#16140f!important;color:#cfc6b8!important;border-bottom:1px solid rgba(200,164,110,.18)}
 nav.plein{background:rgba(15,14,12,.86)!important}
 
@@ -270,9 +270,9 @@ nav.plein{background:rgba(15,14,12,.86)!important}
 .logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
 .logo .logo-embleme{width:42px;height:42px;flex:none;display:block}
 .logo-mot{display:flex;flex-direction:column;line-height:1}
-.logo-mot>span{font-family:'Instrument Serif',Georgia,serif;font-size:1.72rem;letter-spacing:.07em;color:#efe9df;font-weight:400}
+.logo-mot>span{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.72rem;letter-spacing:.07em;color:#efe9df;font-weight:400}
 .logo-mot em{font-style:italic;color:#c8a46e;letter-spacing:0;margin-left:.03em}
-.logo-mot small{font-family:'Geist Mono',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
+.logo-mot small{font-family:'Geist Mono','Geist Mono Fallback',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
 @media (max-width:420px){.logo .logo-embleme{width:36px;height:36px}.logo-mot>span{font-size:1.5rem}.logo-mot small{font-size:.5rem;letter-spacing:.18em}}
 
 /* Finitions des mouvements (règles d'Emil Kowalski, 10/10) : courbe franche, retour au toucher, survols réservés à la souris */

@@ -1,3 +1,9 @@
+/* Polices de secours calées sur les vraies (mesures du 15/10/2026) : le texte garde la même largeur avant et après l'arrivée des fichiers, donc aucun décalage d'affichage (CLS). */
+@font-face{font-family:"Instrument Serif Fallback";src:local("Times New Roman"),local("TimesNewRomanPSMT"),local("Times"),local("Liberation Serif");font-style:normal;size-adjust:83.3%;ascent-override:118.8%;descent-override:37.2%;line-gap-override:0%}
+@font-face{font-family:"Instrument Serif Fallback";src:local("Times New Roman Italic"),local("TimesNewRomanPS-ItalicMT"),local("Times Italic"),local("Liberation Serif Italic");font-style:italic;size-adjust:87.2%;ascent-override:113.5%;descent-override:35.5%;line-gap-override:0%}
+@font-face{font-family:"Geist Fallback";src:local("Arial"),local("ArialMT"),local("Helvetica"),local("Liberation Sans");font-weight:100 500;size-adjust:102.5%;ascent-override:98%;descent-override:28.8%;line-gap-override:0%}
+@font-face{font-family:"Geist Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Helvetica Bold"),local("Liberation Sans Bold");font-weight:600 900;size-adjust:100.3%;ascent-override:100.2%;descent-override:29.4%;line-gap-override:0%}
+@font-face{font-family:"Geist Mono Fallback";src:local("Courier New"),local("CourierNewPSMT"),local("Liberation Mono");size-adjust:100%;ascent-override:100.5%;descent-override:29.5%;line-gap-override:0%}
 /* latin-ext */
 @font-face {
   font-family: 'Geist';

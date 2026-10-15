@@ -47,7 +47,7 @@ with sync_playwright() as p:
               nimg:document.images.length,
               defil:document.documentElement.scrollWidth>window.innerWidth+1,
               boutonsvides:[...document.querySelectorAll('button,a')].filter(e=>!(e.textContent.trim()||e.getAttribute('aria-label')||e.querySelector('img[alt]'))).length,
-              champsansnom:[...document.querySelectorAll('input,select,textarea')].filter(e=>e.type!='hidden'&&!e.labels?.length&&!e.getAttribute('aria-label')).length,
+              champsansnom:[...document.querySelectorAll('input,select,textarea')].filter(e=>e.type!='hidden'&&e.offsetParent!==null&&!e.labels?.length&&!e.getAttribute('aria-label')).length,
               petitcible:[...document.querySelectorAll('a,button')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&(r.height<24||r.width<24)&&e.textContent.trim().length>0&&getComputedStyle(e).display!='inline'}).length,
               liens:[...document.querySelectorAll('a[href]')].map(a=>a.href)
             })""")

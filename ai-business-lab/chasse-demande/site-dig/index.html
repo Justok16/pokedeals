@@ -43,7 +43,7 @@
 @media (prefers-reduced-motion:reduce){.film-lecture .rond{animation:none}}
 .film-fin{position:absolute;inset:9px;border-radius:22px;background:linear-gradient(180deg,rgba(15,14,12,.55),rgba(15,14,12,.94) 45%);display:flex;flex-direction:column;justify-content:flex-end;gap:.7rem;padding:1.4rem;text-align:left;cursor:default}
 .film-fin[hidden]{display:none}
-.film-fin .fin-titre{font-family:'Instrument Serif',Georgia,serif;font-size:1.45rem;font-weight:700;line-height:1.12;margin:0;color:#fff}
+.film-fin .fin-titre{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.45rem;font-weight:700;line-height:1.12;margin:0;color:#fff}
 .film-fin .fin-titre em{color:#ff9a62}
 .film-fin .fin-texte{margin:0;color:#c9cfe6;font-size:.92rem}
 .film-fin .btn{width:100%;white-space:normal;text-align:center;padding:.85rem 1rem}
@@ -64,7 +64,7 @@
 /* DIG16, charte premium (08/10) : encre chaude, ivoire, un seul accent laiton ; Instrument Serif + Geist. */
 :root{
  --sc-canvas:#0f0e0c;--sc-surface:#181613;--sc-ink:#efe9df;--sc-ink-soft:#a8a093;--sc-accent:#c8a46e;--sc-accent-ink:#14110d;
- --sc-font-display:'Instrument Serif',Georgia,serif;--sc-font-text:Geist,system-ui,sans-serif;
+ --sc-font-display:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;--sc-font-text:Geist,'Geist Fallback',system-ui,sans-serif;
  --nuit:#0f0e0c;--nuit2:#181613;--encre:#efe9df;--doux:#a8a093;--ligne:rgba(239,233,223,.11);
  --orange:#c8a46e;--orange-fonce:#7a5a2c;--or:#c8a46e;--or-clair:#d9bb8a;--or-ink:#14110d;
  --papier:#f3eee5;--texte:#1a1814;--gris:#655e54;--trait:#e0d8cb;--vert:#c8a46e;
@@ -72,8 +72,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Geist,system-ui,sans-serif;background:var(--nuit);color:var(--encre);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;font-weight:700;line-height:1.08;letter-spacing:-.015em}
+body{font-family:Geist,'Geist Fallback',system-ui,sans-serif;background:var(--nuit);color:var(--encre);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-weight:700;line-height:1.08;letter-spacing:-.015em}
 a{color:inherit}
 img{max-width:100%;height:auto;display:block}
 :focus-visible{outline:2px solid var(--orange);outline-offset:3px}
@@ -95,8 +95,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s}
 nav.plein{background:rgba(15,14,12,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--ligne)}
 nav .cadre{display:flex;align-items:center;justify-content:space-between;height:70px;gap:1rem}
 .logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
-.logo i{font-style:normal;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-family:'Instrument Serif',Georgia,serif;font-weight:700;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,#ff7a2f,#7b5cff)}
-.logo b{font-family:'Instrument Serif',Georgia,serif;font-size:1.45rem;font-weight:700}
+.logo i{font-style:normal;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-weight:700;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,#ff7a2f,#7b5cff)}
+.logo b{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.45rem;font-weight:700}
 .logo small{display:block;font-size:.8rem;color:#c9cfe6;margin-top:-2px;white-space:nowrap}
 .liens{display:flex;gap:1.5rem;align-items:center;font-size:.93rem}
 .liens a{text-decoration:none;color:var(--doux);padding:6px 2px}.liens a:hover{color:#fff}
@@ -112,7 +112,7 @@ nav .cadre{display:flex;align-items:center;justify-content:space-between;height:
 .accroche b{color:#fff;font-weight:600}
 .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
 .confiance{display:flex;gap:1.8rem;flex-wrap:wrap;margin-top:2.3rem;color:var(--doux);font-size:.93rem}
-.confiance b{display:block;color:#fff;font-family:'Instrument Serif',Georgia,serif;font-size:1.6rem;font-weight:500;line-height:1.1}
+.confiance b{display:block;color:#fff;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.6rem;font-weight:500;line-height:1.1}
 .eventail{position:relative;height:540px}
 .eventail figure{position:absolute;top:50%;left:50%;width:220px;aspect-ratio:390/844;border-radius:30px;background:#05070f;padding:8px;box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1.5px #2b3566;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .eventail figure img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:23px}
@@ -200,7 +200,7 @@ section.bloc{padding:110px 0}
 /* méthode : quatre étapes numérotées (c'est une vraie suite) */
 .etapes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;counter-reset:e}
 .etape{padding-top:18px;border-top:2px solid var(--orange)}
-.etape b{display:block;font-family:'Instrument Serif',Georgia,serif;font-size:2.6rem;font-weight:500;line-height:1;color:var(--orange);margin-bottom:.8rem}
+.etape b{display:block;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:2.6rem;font-weight:500;line-height:1;color:var(--orange);margin-bottom:.8rem}
 .etape h3{font-size:1.3rem;margin-bottom:.5rem}
 .etape p{color:var(--doux)}
 
@@ -209,8 +209,8 @@ section.bloc{padding:110px 0}
 .carte{background:#fff;border:1px solid var(--trait);border-radius:var(--r);padding:30px}
 .formule{display:flex;flex-direction:column;position:relative}
 .formule .nom{font-size:.95rem;font-weight:600;color:var(--orange-fonce)}
-.formule .montant{font-family:'Instrument Serif',Georgia,serif;font-size:3rem;font-weight:700;margin:.3rem 0 .2rem;letter-spacing:-.02em}
-.formule .montant small{font-family:Geist,system-ui,sans-serif;font-size:1rem;font-weight:500;color:var(--gris);letter-spacing:0}
+.formule .montant{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:3rem;font-weight:700;margin:.3rem 0 .2rem;letter-spacing:-.02em}
+.formule .montant small{font-family:Geist,'Geist Fallback',system-ui,sans-serif;font-size:1rem;font-weight:500;color:var(--gris);letter-spacing:0}
 .formule .pour{font-size:.95rem;color:var(--gris);min-height:2.8em}
 .formule ul{list-style:none;margin:1.2rem 0 1.6rem;display:grid;gap:.6rem;font-size:.96rem}
 .formule li{padding-left:1.5rem;position:relative}
@@ -227,7 +227,7 @@ section.bloc{padding:110px 0}
 .prestige-bloc{margin:26px auto 0;max-width:1120px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);overflow:hidden;background:#1f211d;color:#f4eee2;border-radius:var(--r)}
 .prestige-bloc .txt{padding:36px}
 .prestige-bloc .sur{color:#a9b67a;font-weight:600;font-size:.95rem}
-.prestige-bloc h3{font-family:'Instrument Serif',Georgia,serif;font-size:2rem;margin:.4rem 0 .7rem}
+.prestige-bloc h3{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:2rem;margin:.4rem 0 .7rem}
 .prestige-bloc p{color:#cdc5b4}
 .prestige-bloc p b{color:#fff}
 .prestige-bloc .btn{margin-top:1.4rem;background:#f4eee2;color:#1f211d}
@@ -243,12 +243,12 @@ section.bloc{padding:110px 0}
 .choix button.actif{background:var(--orange-fonce);border-color:transparent;font-weight:600}
 .resultat{margin-top:26px;padding:24px;border-radius:var(--r);background:rgba(22,199,154,.1);border:1px solid rgba(22,199,154,.4);display:none}
 .resultat.vu{display:block}
-.resultat b{font-family:'Instrument Serif',Georgia,serif;font-size:1.6rem}
+.resultat b{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.6rem}
 
 /* engagements */
 .engagements{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
 .engagements div{border-left:2px solid var(--orange);padding-left:18px}
-.engagements b{display:block;font-family:'Instrument Serif',Georgia,serif;font-size:1.7rem;font-weight:500;margin-bottom:.3rem}
+.engagements b{display:block;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.7rem;font-weight:500;margin-bottom:.3rem}
 .engagements p{color:var(--doux)}
 
 /* FAQ */
@@ -279,7 +279,7 @@ select option{color:#111}
 .rgpd{font-size:.88rem;color:var(--doux)}
 .msg{font-size:.9rem;color:var(--vert);min-height:1.2em}
 footer{border-top:1px solid var(--ligne);padding:40px 0 100px;color:var(--doux);font-size:.9rem}
-footer a{display:inline-block;padding:.3rem .4rem;margin:0 -.25rem}
+footer a{display:inline-block;min-width:24px;text-align:center;padding:.3rem .4rem;margin:0 -.25rem}
 footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .mobile-cta{display:none}
 
@@ -315,7 +315,7 @@ p{text-wrap:pretty}
 .heros h1{font-size:clamp(2.9rem,6.4vw,5.6rem);letter-spacing:-.02em;line-height:.98}
 .heros h1 span{color:var(--or);font-weight:400}
 .titre h2{font-size:clamp(2.3rem,4.8vw,3.9rem);letter-spacing:-.018em}
-.titre .sur,.demo .formule,.aa-textes small,.formule .nom,.prestige-bloc .sur{font-family:'Geist Mono',ui-monospace,monospace;font-weight:500;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase}
+.titre .sur,.demo .formule,.aa-textes small,.formule .nom,.prestige-bloc .sur{font-family:'Geist Mono','Geist Mono Fallback',ui-monospace,monospace;font-weight:500;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase}
 .titre .sur,.demo .formule,.aa-textes small{color:var(--or)}
 .clair .titre .sur,.formule .nom{color:var(--orange-fonce)}
 .accroche{font-size:1.14rem;line-height:1.65;font-weight:300;color:#c4bcb0}
@@ -333,8 +333,8 @@ p{text-wrap:pretty}
 /* bandeau, navigation, logo */
 .avis-ouverture{background:#16140f;color:#cfc6b8;border-bottom:1px solid rgba(200,164,110,.18);font-size:.84rem;letter-spacing:.01em}
 nav.plein{background:rgba(15,14,12,.86)}
-.logo i{background:transparent;border:1px solid rgba(200,164,110,.6);color:var(--or);border-radius:10px;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:1.5rem;line-height:1;padding-top:2px}
-.logo b{font-family:Geist,system-ui,sans-serif;font-weight:600;font-size:1.02rem;letter-spacing:.2em}
+.logo i{background:transparent;border:1px solid rgba(200,164,110,.6);color:var(--or);border-radius:10px;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-weight:400;font-size:1.5rem;line-height:1;padding-top:2px}
+.logo b{font-family:Geist,'Geist Fallback',system-ui,sans-serif;font-weight:600;font-size:1.02rem;letter-spacing:.2em}
 .logo small{color:var(--doux);font-size:.72rem;letter-spacing:.06em;margin-top:1px}
 .liens a{font-size:.9rem;letter-spacing:.01em}
 /* héros : halo laiton discret, plus de dégradé bleu-violet */
@@ -367,12 +367,12 @@ nav.plein{background:rgba(15,14,12,.86)}
 /* offres */
 .carte{border-radius:20px;border-color:var(--trait);background:#fbf8f2}
 .formule .montant{font-weight:400;font-size:3.6rem;letter-spacing:-.02em}
-.formule .montant small{font-family:Geist,system-ui,sans-serif}
+.formule .montant small{font-family:Geist,'Geist Fallback',system-ui,sans-serif}
 .formule li::before{border-color:var(--orange-fonce)}
 .formule.vedette{background:var(--nuit);box-shadow:0 30px 70px rgba(26,24,20,.35)}
 .formule.vedette .nom{color:var(--or)}
 .formule.vedette li::before{border-color:var(--or)}
-.badge{background:var(--or);color:var(--or-ink);font-family:'Geist Mono',ui-monospace,monospace;font-weight:500;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;border-radius:6px}
+.badge{background:var(--or);color:var(--or-ink);font-family:'Geist Mono','Geist Mono Fallback',ui-monospace,monospace;font-weight:500;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;border-radius:6px}
 .options span{background:#fbf8f2;border-radius:14px}
 .choix button.actif{background:var(--or);color:var(--or-ink)}
 .resultat{background:rgba(200,164,110,.08);border-color:rgba(200,164,110,.4)}
@@ -393,9 +393,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or);box-
 .logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
 .logo .logo-embleme{width:42px;height:42px;flex:none;display:block}
 .logo-mot{display:flex;flex-direction:column;line-height:1}
-.logo-mot>span{font-family:'Instrument Serif',Georgia,serif;font-size:1.72rem;letter-spacing:.07em;color:#efe9df;font-weight:400}
+.logo-mot>span{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.72rem;letter-spacing:.07em;color:#efe9df;font-weight:400}
 .logo-mot em{font-style:italic;color:#c8a46e;letter-spacing:0;margin-left:.03em}
-.logo-mot small{font-family:'Geist Mono',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
+.logo-mot small{font-family:'Geist Mono','Geist Mono Fallback',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
 @media (max-width:420px){.logo .logo-embleme{width:36px;height:36px}.logo-mot>span{font-size:1.5rem}.logo-mot small{font-size:.5rem;letter-spacing:.18em}}
 
 /* 08/10 : lecture automatique muette dès l'arrivée, bouton « Activer le son » ; téléphone vidéo plus grand sur PC */
@@ -687,7 +687,7 @@ document.getElementById('form').onsubmit=async e=>{e.preventDefault();const f=e.
    un clic n'importe où sur la vidéo (ou sur « Voir la présentation ») la relance depuis le début avec le son ;
    à la fin, un écran propose la démo gratuite pour garder le visiteur. */
 (function(){var v=document.getElementById('film'),b=document.getElementById('film-son'),f=document.getElementById('fig-film'),fin=document.getElementById('film-fin');if(!v||!b)return;
-var calme=navigator.connection&&navigator.connection.saveData; /* économie de données seulement : avec « animations réduites », la vidéo démarre aussi (demande du 08/10), avec un bouton pause */
+var calme=navigator.connection&&(navigator.connection.saveData||/^(slow-)?2g$|^3g$/.test(navigator.connection.effectiveType||'')); /* économie de données seulement : avec « animations réduites », la vidéo démarre aussi (demande du 08/10), avec un bouton pause */
 var m=document.getElementById('film-muet'),pz=document.getElementById('film-pause');if(pz)pz.addEventListener('click',function(e){e.stopPropagation();var P='<path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/>',L='<path d="M8 5.5v13l11-6.5z"/>',g=pz.querySelector('svg');if(v.paused){v.play();g.innerHTML=P;pz.setAttribute('aria-label','Mettre la vidéo en pause')}else{v.pause();g.innerHTML=L;pz.setAttribute('aria-label','Reprendre la vidéo')}});function muet(){v.muted=true;v.loop=false;f.classList.add('auto');b.hidden=true;if(m)m.hidden=false;if(pz)pz.hidden=false;var p=v.play();if(p&&p.catch)p.catch(function(){f.classList.remove('auto');b.hidden=false;if(m)m.hidden=true;if(pz)pz.hidden=true})}function apercu(){if(calme||f.classList.contains('lecture'))return;v.preload='auto';v.currentTime=0;v.muted=false;var p=v.play();if(p&&p.then)p.then(function(){f.classList.add('lecture');b.hidden=true;v.controls=true},function(){muet()});else muet()}
 if(document.readyState==='complete')setTimeout(apercu,300);else addEventListener('load',function(){setTimeout(apercu,300)});
 function lire(){b.hidden=true;if(m)m.hidden=true;if(pz)pz.hidden=true;f.classList.remove('auto');fin.hidden=true;f.classList.add('lecture');v.loop=false;v.muted=false;v.controls=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){b.hidden=false;f.classList.remove('lecture')})}
