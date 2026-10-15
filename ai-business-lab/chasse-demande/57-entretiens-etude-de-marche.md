@@ -40,6 +40,10 @@ Si « non » : « Pas de souci, bonne journée. » On note, on ne rappelle pas.
    chiffre comme une hypothèse de mon projet, jamais comme une offre)*
 7. Si un jour vous changiez, ce serait quand ?
 
+Question bonus, si l'échange se passe bien (ajoutée le 15/10, vidéos Ludo Salenne sur le référencement) :
+« Si vous cherchiez un artisan comme vous sur votre téléphone, vous taperiez quoi ? » → noter les mots exacts :
+ce sont les vrais mots-clés à mettre dans les titres des sites clients (souvent différents du jargon du métier).
+
 Fin : « Merci. Quand je serai lancé, est-ce que je peux vous rappeler pour vous montrer ce que
 ça donnerait, sans engagement ? » → noter oui / non / date.
 
@@ -68,3 +72,17 @@ Les mots exacts valent plus que les cases cochées : ils serviront aux accroches
 - On ne montre pas de démo avec les photos ou le logo du prospect sans son accord ; après la
   création, la démo est montrée en direct (écran du téléphone ou visio), pas envoyée.
 - Bilan chaque vendredi avec Claude : ce qui revient, ce qui surprend, ce qu'on change.
+
+## Conseils de conduite (ajoutés le 15/10, playlist « Le Marketing Digital facile » de Ludo Salenne)
+
+- **Une conversation, pas un questionnaire** : les 7 questions servent de fil, on les pose avec ses propres mots et
+  on relance (« c'est-à-dire ? », « la dernière fois, ça s'est passé comment ? ») ; les réponses vraies viennent des relances.
+- **Écouter plus que parler** ; ne pas défendre le projet pendant l'entretien.
+- **Ne jamais enregistrer un appel sans l'accord explicite de la personne** (on prend des notes ; l'enregistrement
+  clandestin d'une conversation privée est interdit, art. 226-1 du Code pénal, à relire sur Légifrance si besoin).
+- **Chercher le déclencheur** : qu'est-ce qui a fait qu'un jour ils ont cherché une solution (un chantier perdu, un
+  client qui ne les a pas trouvés, un contrat qui arrivait à échéance…) ? C'est l'argument le plus fort pour plus tard.
+- **Après 5 à 10 entretiens** : Claude rédige 1 à 3 « portraits types » (personas) **à partir des mots réels** notés,
+  jamais inventés ; ils servent ensuite aux textes du site, aux publications et à l'appel de prospection.
+- **Bilan des « oui » et des « non »** : à chaque client signé ou perdu, noter pourquoi (une ligne) pour ajuster
+  l'accroche.
