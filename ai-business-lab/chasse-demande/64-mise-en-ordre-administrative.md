@@ -62,6 +62,7 @@ Demande de l'utilisateur (13/10) : « que l'entreprise vive, qu'elle soit mainte
 | Quand | Rappel automatique | Pourquoi |
 |---|---|---|
 | 2 fois par jour (07:34 et 19:34 UTC) | Point autonome : Gmail, site, publications, échéances | Rien ne reste sans suite |
+| **Lundi-samedi, 10 h 13, 13 h 13 et 16 h 13 (Paris)** | Relevé du courrier DIG16 en journée : toute réponse d'organisme, de presse, de prospect ou mail administratif est signalée aussitôt (décidé le 16/10 : le mail d'Atout Ruffec arrivé à 11 h n'avait été vu que le soir) | Aucune réponse ne dort plusieurs heures |
 | **20/10/2026**, puis tous les 4 jours jusqu'au 06/11 | Choix déclaration **mensuelle ou trimestrielle** à l'URSSAF (à demander dans le mois suivant le début d'activité ; trimestriel recommandé) | Fiche Service Public F23257 (mise à jour de 2017, à revérifier sur une page actuelle) : déclaration obligatoire **même à 0 €** (« néant »), **50 € de pénalité** par déclaration manquante |
 | **Le 1er de chaque mois, 17 h 47 (Paris)** | Bilan mensuel (demande du 16/10) : appels, démos, clients, CA comparé à l'objectif de 500 €/mois, statistiques, 1 à 3 changements si aucun client | Ne jamais tourner en rond |
 | **Chaque lundi, 8 h 47 (Paris)** | Point statistiques de la semaine (site, Instagram, Facebook, YouTube, TikTok, Threads, fiche Google) comparé à la semaine précédente, envoyé à l'utilisateur (demande du 15/10) ; 1er point le 19/10 | Savoir ce qui attire vraiment du monde |
