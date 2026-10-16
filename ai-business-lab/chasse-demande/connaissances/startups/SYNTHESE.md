@@ -1,6 +1,6 @@
-# This Week in Startups — index des fiches (synthèse du jeudi 15/10/2026)
+# This Week in Startups — index des fiches (synthèse du vendredi 16/10/2026)
 
-200 vidéos résumées sur 5232. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+201 vidéos résumées sur 5232. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["I'm holding for 10+ years." | Jason Calacanis explains why he's bullish on $UBER | CNBC 2/10/21](c3_Ab2MsIME.md)** — Sujet : L'action Uber atteignant des sommets historiques sur fond d'anticipation des résultats du quatrième trimestre (données affichées : 10 février 2021 sur CNBC).
@@ -25,6 +25,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Ask Jason: AI Extinction, Grok's Rogue Meme Coin & Weed Farms as Data Centers | E2337](8O_9PxtK3_0.md)** — Sujet : L’impact de l’intelligence artificielle (IA) sur l’écosystème entrepreneurial, la gestion financière, l’investissement et l’évaluation des startups.
 - **[Avi Patel sur la startup qui a copié Kled et pourquoi il a dénoncé General Catalyst nommément | E...](SHubt9Bm-uo.md)** — Sujet : Actualité technologique et financière (levées de fonds, marché bancaire pour startups, vol de propriété intellectuelle dans l'IA) couplée à des réflexions macroéconomiques (dette publique, explosion des salaires hôteliers à New York, salaire minimum et protection du…
 - **[Avoiding buzzwords and marketing-speak (feat. Thomas McInerney) | E2236](0Zo7nb8m4hM.md)** — Sujet : L’investissement de démarrage dans les startups (angel investing / capital-amorçage), la sélection des fondateurs, la gestion de trésorerie (runway) et les mécanismes de rendement asymétrique.
+- **[Battery Power for Texans with Zach Dell, plus Tim Apple is LEAVING?  and a Tesla fan update | E2190](cJHBN0zs79A.md)** — Sujet : Tour d'horizon économique, technologique et financier : modèle d'infrastructure énergétique décentralisée (Base Power), positionnement prix et conduite autonome de Tesla, sécurité des robots humanoïdes chinois (Unitree), gouvernance chez Apple, méga-financement du…
 - **[Becki DeGraw sur le vesting des fondateurs, l'équité des conseillers et la stratégie des 4 term-s...](TMVX_puEg7E.md)** — - Sujet : L'acquisition progressive d'actions (vesting) pour les fondateurs et l'attribution de capital aux conseillers (advisor equity) au sein des startups.
 - **[Becki DeGraw sur les spin-offs, les licences de propriété intellectuelle et les sorties propres |...](PwmiD8YmgyI.md)** — - Sujet : Démonstration des fonctionnalités du navigateur web IA ChatGPT Atlas développé par OpenAI.
 - **[Behind the Scenes with an early OpenClaw contributor! | E2255](65NplKBgwUA.md)** — Sujet : L'écosystème de l'intelligence artificielle (IA), le projet open-source OpenClaw, la prolifération des agents autonomes, l'impact sur le marché des logiciels SaaS (Software as a Service) et l'émergence de nouvelles interfaces matérielles homme-machine.

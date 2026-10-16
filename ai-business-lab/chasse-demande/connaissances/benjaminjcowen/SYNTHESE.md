@@ -1,6 +1,6 @@
-# Benjamin Cowen — index des fiches (synthèse du jeudi 15/10/2026)
+# Benjamin Cowen — index des fiches (synthèse du vendredi 16/10/2026)
 
-230 vidéos résumées sur 3170. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+231 vidéos résumées sur 3170. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[08/10/2026 11:23:42](se6UlLbDTEo.md)** — Sujet : Analyse technique et macroéconomique du cours du Bitcoin pour le quatrième trimestre (Q4) de 2026, en le comparant aux cycles historiques précédents (notamment 2018, 2019 et 2022).
@@ -29,6 +29,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin : La beauté des mathématiques (Partie 71)](uoF9yzXHmt4.md)** — Analyse de la capitalisation totale du marché des cryptomonnaies par rapport au modèle de régression logarithmique de la "juste valeur" (Fair Value), concluant que le marché reste globalement sous cette ligne en 2026.
 - **[Bitcoin : La beauté des mathématiques (Partie 72)](2o0qSlwjkv8.md)** — Sujet : Évaluation de la valorisation du Bitcoin et de la capitalisation globale du marché crypto à l'aide de modèles mathématiques et de courbes de régression.
 - **[Bitcoin : La déprime du marché baissier](jiehja20gFE.md)** — Sujet : L'analyse des cycles de prix du Bitcoin, particulièrement les comportements et tendances observés durant les marchés baissiers (bear markets).
+- **[Bitcoin : La déprime du marché baissier](pkDDBb1EYwg.md)** — Sujet : L'analyse du cycle de marché du Bitcoin, la phase de morosité actuelle (« bear market blues ») et l'impact de la fin du resserrement quantitatif (QT) de la Réserve Fédérale sur le cours de la crypto-monnaie.
 - **[Bitcoin : la fin du mois de juillet](7vNA0geUryY.md)** — Sujet : Analyse des performances historiques du Bitcoin à l'approche de la fin du mois de juillet et prévisions pour la fin du troisième trimestre (Q3).
 - **[Bitcoin : La psychologie d'un marché baissier](WHK1S6MrlCA.md)** — Sujet : Le comportement et la psychologie du cours du Bitcoin (BTC) en marché baissier (bear market), notamment en relation avec les années électorales de mi-mandat (midterm years) aux États-Unis.
 - **[Bitcoin : La période de faiblesse](dIa8HUYDNEY.md)** — Le sujet de la vidéo est l'analyse technique et cyclique du cours du Bitcoin (BTC). La thèse principale est que le Bitcoin se trouve actuellement dans une « fenêtre de faiblesse » (window of weakness) historique et prévisible. Après avoir buté sur sa moyenne mobile à 200…

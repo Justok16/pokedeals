@@ -1,4 +1,4 @@
-# Money & Macro Talks — index des fiches (synthèse du jeudi 15/10/2026)
+# Money & Macro Talks — index des fiches (synthèse du vendredi 16/10/2026)
 
 16 vidéos résumées sur 167. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
