@@ -154,7 +154,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | Vidéo YouTube hRr-yUSM0_A (envoyée le 12/10) : « cloner Higgsfield » avec Claude Code et revendre des générat… | Écarté pour l'instant : API et crédits payants (budget 0 €), hors cœur DIG16 ; idée « visuel IA avant/après » gardée comme option future pour les clients artisans (cuisi… |
 | ⛔ | D-ID | écarté : visage de synthèse, contraire à la règle « pas de promesse invérifiable » et à l'image locale de DIG16 |
 
-### Création de sites et design (67)
+### Création de sites et design (68)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -221,6 +221,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | Vidéo YouTube AoxK3JpxbRc (envoyée le 15/10, Johnathan Mo, « The Claude Code workflow that helped me win 5 Ha… | Déjà appliqué : se faire poser des questions par l'IA avant de construire (plugin Superpowers « brainstorming », règle de CLAUDE.md), démo en direct plutôt qu'envoyée (d… |
 | ⛔ | Vidéo YouTube pnD1PafeXic (envoyée le 15/10, Melvynx, « Comment AVOIR Claude en illimité et arrêter de cramer… | Appliqué le 15/10 : économie de quota (consigne de CLAUDE.md) : réserver les efforts de réflexion élevés aux tâches complexes, déléguer les recherches simples à des sous… |
 | ⛔ | Vidéo YouTube 8tpL8k-mUb4 (envoyée le 15/10, Lou IA, « 10 Business IA que tu peux lancer avec Claude Code dès… | Confirme la piste DIG16 : l'auteur classe « sites web pour commerces locaux » parmi les activités les plus faciles et rapides à lancer (avis de l'auteur, sans chiffre).… |
+| ⛔ | Veille du 16/10 (veille/2026-10-16.md) | Plus tard (au premier client) : Pin Feed pour recueillir ses corrections sur la maquette (à vérifier à la source le jour J : offre gratuite, données hébergées). Rien à i… |
 | ⛔ | Carrousel Instagram @choly.ai « Hidden websites » (envoyé le 12/10) | Trié : rien à installer (vidéos en pause jusqu'au 1er client) ; gratuités à vérifier à la source ; D-ID écarté (visage de synthèse) → connaissances/technologybrief-sites… |
 | ⛔ | Veille du 11/10 (veille/2026-10-11.md) | Trié : rien à installer. Noté pour plus tard : OpenRegistry (registres officiels de 80 pays dont la France, en secours de verif_entreprises.py) et Brevo (secours e-mail… |
 | ⛔ | Veille du 13/10 (veille/2026-10-13.md) | Trié : rien à installer. Relvato (surveillance de site) = doublon de controle_global.py ; Domain Info / QR LifeStep = déjà couverts par nos outils ; Master Setter (API c… |
@@ -321,6 +322,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 | ⛔ | Pictory | déjà écarté le 11/10 (payant, essai seulement) |
 
-_239 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_240 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->

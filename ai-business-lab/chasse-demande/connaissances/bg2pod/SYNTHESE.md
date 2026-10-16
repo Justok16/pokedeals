@@ -1,6 +1,6 @@
 # BG2 Pod — index des fiches (synthèse du vendredi 16/10/2026)
 
-10 vidéos résumées sur 46. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+10 vidéos résumées sur 47. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Bulle de l'IA, boom des stablecoins et la fin d'un rêve | BG2 avec Bill Gurley et Brad Gerstner](KX6q6lvoYtM.md)** — Sujet : L’actualité économique, les tendances de l'intelligence artificielle (IA), les dépenses d’investissement (CAPEX), la réglementation de l’IA, et la transition vers les cryptomonnaies/stablecoins, reliés au développement personnel et professionnel (promotion du livre de…
