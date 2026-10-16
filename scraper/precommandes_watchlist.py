@@ -514,7 +514,13 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         date_sortie=None,
         surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
         alerte_disponibilite=True,
-        **EXCLUSIONS_LOTS,
+        # "deck set" exclu (16/10/2026, faux positif reel nippontcg.fr) : la
+        # fiche "Premium Deck Set Mentali ex & Noctali ex ... Chinois
+        # Traditionnel" a "chinois" dans son titre, et "cadre"/"aimant"/
+        # "exposition" figuraient ailleurs dans la page (autres produits) --
+        # elle etait rangee sous ce coffret d'exposition chinois simplifie.
+        **{**EXCLUSIONS_LOTS,
+           "mots_exclus_titre": EXCLUSIONS_LOTS["mots_exclus_titre"] | {"deck set"}},
     ),
 ]
 
