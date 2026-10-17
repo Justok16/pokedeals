@@ -37,12 +37,21 @@ AUTRE = "Divers"
 
 
 def etat(texte):
+    """⛔ = refus de principe (illégal, dangereux, garde-fous retirés) ; 📦 = en réserve : gardé et
+    ressorti dès qu'un besoin réel apparaît (demande de l'utilisateur du 17/10 : tout enregistrer)."""
     t = texte.lower()
+    if any(m in t for m in ("piratage", "illégal", "illegal", "sans garde-fous", "contrefa", "faux avis",
+                            "se faisant passer", "logiciel malveillant", "malware")) and not t.startswith(
+            ("appliqué", "déjà", "fait", "installé", "confirme")):
+        return "⛔"
     if any(m in t for m in ("déjà branché", "déjà installé", "déjà en place", "déjà le cas", "déjà disponible")):
         return "✅"
-    if any(m in t for m in ("écarté", "ecarté", "refusé", "non retenu", "abandonné", "pas installé", "non installé", "non utilisé", "exclu", "rien à installer")):
-        return "⛔"
-    if any(m in t for m in ("installé", "appliqué", "fait", "en place", "branché", "validé", "trié")):
+    if any(m in t for m in ("installé", "appliqué", "fait le", "mis en place", "branché", "validé")):
+        return "✅"
+    if any(m in t for m in ("écarté", "ecarté", "refusé", "non retenu", "abandonné", "pas installé", "non installé",
+                            "non utilisé", "exclu", "rien à installer", "payant")):
+        return "📦"
+    if any(m in t for m in ("en place", "fait", "trié")):
         return "✅"
     if any(m in t for m in ("plus tard", "à vérifier", "a verifier", "à étudier", "à faire", "noté pour", "option")):
         return "⏳"
@@ -94,13 +103,13 @@ def main():
         par_dom.setdefault(dom, []).append((e, quoi, dec, src))
     ordre = [d for d, _ in DOMAINES] + [AUTRE]
     out = [DEBUT, "", "## Catalogue complet (généré automatiquement par `outils/catalogue_outils.py`)", "",
-           "Légende : ✅ en place · ⏳ plus tard ou à vérifier · ⛔ écarté (raison indiquée) · · simple information.", ""]
+           "Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pas utile aujourd'hui, gardé : à ressortir dès que le besoin apparaît, raison et condition indiquées) · ⛔ refusé par principe (illégal ou dangereux) · · simple information.", ""]
     total = 0
     for dom in ordre:
         rangs = par_dom.get(dom)
         if not rangs:
             continue
-        rangs.sort(key=lambda r: "✅⏳·⛔".index(r[0]))
+        rangs.sort(key=lambda r: "✅⏳📦·⛔".index(r[0]))
         out += [f"### {dom} ({len(rangs)})", "", "| État | Envoi / outil | Décision et usage |", "|---|---|---|"]
         out += [f"| {e} | {q.replace('|', '/')} | {d.replace('|', '/')} |" for e, q, d, _ in rangs]
         out.append("")
