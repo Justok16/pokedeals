@@ -7,7 +7,7 @@ déjà trié répond au besoin, l'utiliser ; ne pas re-trier ce qui est écarté
 - Partie 1 (écrite à la main) : **par besoin, quoi utiliser tout de suite** (déjà installé, gratuit, sûr).
 - Partie 2 (automatique) : catalogue complet de chaque envoi, régénéré par `python3 outils/catalogue_outils.py`
   à partir des registres (`46-apprentissage-continu.md`, `connaissances/technologybrief-sites.md`).
-- **Rien n'est jeté** (demande de l'utilisateur du 17/10 : « que tu les enregistres et que tu puisses les appliquer si besoin ») : un outil pas utile aujourd'hui est classé 📦 **en réserve**, avec la raison et la condition pour le ressortir. Seuls les outils illégaux ou dangereux sont ⛔ refusés. Avant toute tâche, chercher dans ce fichier (y compris la réserve) un outil déjà envoyé qui répond au besoin.
+- **Rien n'est jeté** (demande de l'utilisateur du 17/10 : « que tu les enregistres et que tu puisses les appliquer si besoin ») : un outil pas utile aujourd'hui est classé 📦 **en réserve**, avec la raison et la condition pour le ressortir. Seuls les outils illégaux ou dangereux sont ⛔ refusés. Avant toute tâche, chercher dans ce fichier (y compris la réserve) un outil déjà envoyé qui répond au besoin. **Réserve classée par besoin, avec la façon d'activer chaque outil : `reserve-prete.md`.**
 - Règles qui s'appliquent à tout : budget 0 € (jamais de crédits achetés), lecture complète avant installation,
   gratuité vérifiée à la source datée, rien d'invérifié affirmé.
 
