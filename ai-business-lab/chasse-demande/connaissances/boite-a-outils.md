@@ -109,7 +109,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ⛔ | Reel Instagram DeRhu46NmhK (compte « kingarms.ai », envoyé le 09/10 ; résumé : connaissances/reels/DeRhu46Nmh… | Écarté : copier le fonctionnement ou l'apparence d'un logiciel ou d'un site existant expose à la contrefaçon (droit d'auteur, dessins et modèles) et viole souvent les co… |
 | ⛔ | Reel Instagram DehBKCjtB4I (envoyé le 15/10, kingarms.ai, 101 s ; résumé Gemini le 15/10) | Écarté : la partie piratage (contenus payants rendus gratuits) est illégale et hors de question pour DIG16. REA lui-même : déjà traité le 15/10 (règle : pas d'installati… |
 
-### Images et visuels (43)
+### Images et visuels (44)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -132,6 +132,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Vidéo YouTube zwQmodmp1To (envoyée le 15/10, Jack Roberts, « 10 New Github Repos to Make Money in 19 mins » ;… | Déjà en place : humanizer, vibe-security/security-review + CodeQL, connecteurs Gmail/Agenda/Zapier, Playwright. Écarté : suite Craft, 21st.dev (React), Orca, Arena, mods… |
 | ✅ | Vidéo YouTube stn5BMpT4FU (envoyée le 15/10, ROBONOMIC IA, « Photoshop GRATUIT recréé avec Claude » ; résumé… | Écarté : DIG16 ne paie aucun de ces logiciels (visuels, PDF, vidéos faits par nos scripts et Canva) ; applications non signées. Déjà en place : vérification complète ava… |
 | ✅ | Publication Instagram DeeksLymAvI (envoyée le 15/10, hasantoxr, carrousel de 12 images « 10 GitHub repos that… | Écarté : ce sont des briques pour développeurs qui construisent leur propre agent ; DIG16 a déjà son « employé IA » en place : Claude Code avec la boîte mail, Metricool,… |
+| ✅ | Carrousel Instagram DegsO8likZa (envoyé le 17/10, datamarv_ia, 16 images ; lu image par image le 17/10, détai… | Tout gardé : 9 déjà en réserve (carrousel DeekQtwk30w), Excalidraw déjà disponible (connecteur Claude), 4 nouveaux mis en réserve prête dans connaissances/reserve-prete.… |
 | ✅ | Liste « websites » de technologybrief.io (envoyée le 11/10, 148 sites) | Appliqué : 23 retenus pour DIG16 avec leur moment dusage, 3 concurrents notés pour largumentaire, le reste écarté (hors sujet ou payant) → connaissances/technologybrief-… |
 | ✅ | Vidéo YouTube we6zrIsVovw (envoyée le 12/10) : site d'artisan de A à Z avec Claude Code + GitHub + Vercel + R… | Trié : rien de nouveau à installer ; Resend (formulaires par e-mail, gratuité annoncée « 3 000 e-mails/mois » à vérifier à la source) noté comme solution de rechange à F… |
 | ⏳ | Nano Banana (images Gemini) | Possible pour des visuels neutres avec la mention « image générée par IA », jamais pour de fausses réalisations ; offre gratuite à vérifier avant usage |
@@ -327,6 +328,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 
-_244 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_245 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->

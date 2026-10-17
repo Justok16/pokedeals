@@ -23,6 +23,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Débriefing après appel (_To3N8UTh94) | L'utilisateur dicte ses notes, Claude dit quoi améliorer | **Dès les premiers appels**, déjà possible sans outil | Gratuit (Claude) |
 | Retell AI (96G4KDnEFyI) | Standardiste téléphonique IA pour un client | Si un artisan demande qu'on réponde à ses appels | 10 $ offerts puis ~0,07 à 0,31 $/min (lu le 01/10) : option payante à refacturer |
 | Google Forms (DeekQtwk30w) | Formulaires et questionnaires | Questionnaire client, sondage | Gratuit |
+| Granola (DegsO8likZa, 17/10) | Notes de réunion transformées en résumés | Entretiens d'étude de marché ou rendez-vous clients en visio | Offre Basic gratuite annoncée (historique 30 jours, à revérifier) ; enregistrer seulement avec l'accord de la personne |
 
 ## Sites des clients (design, contenu, fonctions)
 
@@ -32,6 +33,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Google Stitch (MDZoiwPl2QU) | Maquette d'interface décrite en français | Si un client veut voir une maquette très vite | Gratuit (Google Labs, à revérifier) |
 | Effets visuels : React Three Fiber, Liquidglass.js, Shader Gradient, Liquid Logo (DeMO5D0AUBq) ; img2threejs (Ddytkf2gBEj) | 3D, effets « verre », dégradés animés | Seulement sur une demande explicite d'un client « vitrine » (Prestige) ; ces effets alourdissent le site sur téléphone | Bibliothèques libres ; tester la vitesse (LCP) avant et après |
 | Visuel IA « avant / après » (hRr-yUSM0_A) | Montrer une cuisine ou une salle de bain refaite | Client cuisiniste ou rénovation qui le demande | API payante : chercher d'abord un équivalent gratuit |
+| Penpot (DegsO8likZa, 17/10) | Maquettes d'écrans partagées (alternative à Figma) | Client qui veut valider une maquette détaillée avant le site | Offre gratuite annoncée (à revérifier) ; en ligne, sans installation |
 | Anydoc (Ddytkf2gBEj) | Convertir les documents du client (Word, Excel, PDF) en texte | **Installé le 17/10**, prêt | `python3 -c "import anydoc; print(anydoc.to_markdown('fichier'))"` ; gratuit (sans l'OCR « hosted », payant) |
 | 10Web, Durable, Lovable… (Dde3xh9EYkM, reels du 29/09) | Sites générés par IA | Veille concurrence seulement : savoir ce que propose la concurrence | Payants ou concurrents directs |
 
@@ -39,6 +41,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 
 | Outil | Sert à | Le ressortir quand… | Comment l'activer / coût |
 |---|---|---|---|
+| OBS Studio (DegsO8likZa, 17/10) | Enregistrer l'écran (démo du site, tutoriel pour un client) | Tutoriel « comment modifier vos horaires » ou démo à distance | Logiciel libre et gratuit, à installer sur le PC de l'utilisateur |
 | Editor de Diffusion Studio (Ddytkf2gBEj) | Montage vidéo piloté par un agent | Si un client commande des vidéos régulières | Open source, appli de bureau ; aujourd'hui : ffmpeg suffit |
 | Skill `cbh991/animate`, méthode Canvas + Playwright + FFmpeg (rscb1DgJtNg) | Vidéos animées en code | Vidéo de démo ou de lancement | Gratuit, déjà dans le conteneur |
 | Générateur vidéo de There's An AI For That, ArtPlayer (vqMhGnep1H0) | Clips de 8 s avec son | Petits visuels animés des démos | « 100 par jour » annoncé : quota et licence à revérifier le jour J |
@@ -74,7 +77,8 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Temp-Mail (DeCV78sETMT) | Adresse jetable pour tester un formulaire | Tests du site | Gratuit |
 | Open-kritt (Ddytkf2gBEj) | Recherche de failles par des agents | Si un client a un site avec comptes ou paiements | Open source, auto-hébergé ; aujourd'hui CodeQL suffit |
 | Bitwarden (DeekQtwk30w) | Coffre-fort de mots de passe (comptes clients) | **Dès 2 ou 3 clients** (comptes Cloudflare, domaines) | Gratuit pour un utilisateur (à revérifier) |
-| Nextcloud, Baserow, Vikunja, PostHog, n8n (DeekQtwk30w) | Fichiers, tableaux, tâches, statistiques, automatisations | Si un service gratuit actuel devient payant | Libres, auto-hébergés |
+| Obsidian (DegsO8likZa, 17/10) | Notes personnelles reliées, gardées sur l'appareil | Si l'utilisateur veut un carnet de notes hors ligne | Gratuit en local (Sync payant, inutile) |
+| Nextcloud, Baserow, Vikunja, PostHog, n8n (DeekQtwk30w, revus dans DegsO8likZa) | Fichiers, tableaux, tâches, statistiques, automatisations | Si un service gratuit actuel devient payant | Libres, auto-hébergés |
 
 ## Claude, agents et automatisation
 
