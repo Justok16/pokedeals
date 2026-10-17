@@ -301,7 +301,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | MROM3p3CPZU | Méthode = notre règle n° 1 (demande prouvée) ; action n° 4 |
 | · | Recherche avec sources citées | Recherche rapide ; tout chiffre reste revérifié à la source officielle |
 
-### Divers (20)
+### Divers (21)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -309,6 +309,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | HCZ3-Scx704 | Déjà appliqués pour l'essentiel ; rappel : phrases courtes et simples pour l'utilisateur |
 | ✅ | LanguageTool | Installé le 01/10 : correcteur libre (LGPL) hors ligne, bibliothèques téléchargées depuis Maven Central avec empreintes vérifiées ; l'API publique en ligne est écartée c… |
 | ✅ | is3XYKl2bpI | Appliqué : vérifier tout le contexte avant d'agir, effort adapté |
+| ✅ | Veille du 17/10 (veille/2026-10-17.md) | Trié : rien d'utile à DIG16 aujourd'hui ; MentionBird (suivi des mentions d'une marque) noté en réserve pour le jour où DIG16 voudra suivre ce qu'on dit d'elle (gratuité… |
 | 📦 | s7QXxRvylrs, aBPAmYi1FfU | Information générale ; rien à appliquer (pas d'API payante) |
 | 📦 | NotebookLM, Perplexity, Gamma | Utiles à l'utilisateur, rien à installer ici |
 | 📦 | openalternative.co, OpenSourceAlternative.com (alternatives gratuites) | À ajouter à la veille si leur liste se lit automatiquement (réflexe « outil payant → équivalent gratuit ») |
@@ -326,6 +327,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 
-_243 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_244 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
