@@ -1,0 +1,9 @@
+{
+  "name": "relais-dig",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "ai": "^5.0.0",
+    "@vercel/oidc": "^3.0.0"
+  }
+}

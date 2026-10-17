@@ -1,0 +1,57 @@
+# Parcours vérifiés dans les applis (guidage pas à pas de l'utilisateur)
+
+Créé le 11/10/2026 après la remarque de l'utilisateur : des indications de menus données de mémoire étaient
+fausses (menus renommés, options disparues), ce qui lui a fait perdre du temps.
+
+## Méthode obligatoire avant de guider l'utilisateur dans une appli ou un site
+
+1. **Le faire soi-même d'abord** si un connecteur ou un outil le permet (Metricool, Gmail, Drive, Vercel, GitHub…).
+   L'utilisateur n'agit que pour ce qui exige son compte ou son identité.
+2. **Chercher ici** si le parcours a déjà été vérifié (tableau ci-dessous). Si oui, le donner tel quel.
+3. Sinon, **lire la page d'aide officielle actuelle** de l'éditeur (recherche web, date de la page) avant d'écrire
+   les étapes, et citer le lien. Ne jamais décrire un menu de mémoire.
+4. **Un écran à la fois** quand le parcours n'est pas vérifié : demander une capture de l'écran de départ, donner
+   seulement la ou les 2 prochaines touches, puis attendre la capture suivante. Dire clairement « je n'ai pas vu
+   cet écran, envoie-moi une capture si ça ne correspond pas ».
+5. **Prévoir l'alternative** dès le départ (ex. « si l'option n'existe pas, on passe par X »).
+6. **Vérifier le résultat soi-même** quand c'est possible (API, page publique), sans conclure trop vite : une
+   absence d'erreur n'est pas une preuve (leçon Threads/Metricool du 11/10).
+7. **Consigner ici** chaque parcours confirmé par une capture de l'utilisateur, avec la date.
+
+## Parcours confirmés (captures de l'utilisateur)
+
+| Appli | But | Parcours exact | Vu le |
+|---|---|---|---|
+| Metricool (appli Android) | Voir / changer la marque active | Rond du logo de la marque **en bas à droite** → liste « Marques » (⚙️ à droite de chaque marque) | 11/10/2026 |
+| Metricool (appli Android) | Relier un réseau | Rond en bas à droite → ⚙️ de la marque → « Paramètres des marques » → **Connexions** → « Connecter » sur la ligne du réseau | 11/10/2026 |
+| Metricool (appli Android) | Piège | L'appli peut être ouverte sur une **autre marque/compte** (« Marque vide ») : toujours vérifier le nom de la marque avant de connecter | 11/10/2026 |
+| Metricool (API) | Piège | `getBrandSettings` n'affiche que Facebook/Instagram dans `networksData` ; une publication acceptée sur un réseau ne prouve pas qu'il est relié | 11/10/2026 |
+| Instagram (Android) | Lien cliquable dans la bio | Modifier le profil → **Liens** → Ajouter un lien → Ajouter un lien externe (le texte de la bio n'est jamais cliquable) | 11/10/2026 |
+| Instagram (Android) | Piège | « Nom » (affiché) ≠ « Nom d'utilisateur » (identifiant `dig16fr`, à ne jamais changer) ; ancien identifiant récupérable 14 jours | 11/10/2026 |
+| Threads (Android) | Ajouter le profil DIG16 | S'ouvre sur le compte personnel ; profil DIG16 ajouté depuis le compte Instagram `dig16fr` ; Modifier le profil : Nom, Bio, Centres d'intérêt, Liens, Confidentialité | 11/10/2026 |
+| TikTok (Android) | Changer le nom | Modifier le profil → Nom : **bloqué 7 jours** après la création du compte | 11/10/2026 |
+| TikTok (Android) | Compte professionnel | **N'existe plus** dans Paramètres → Compte ; seul « Deviens un compte Entreprise vérifié » (documents exigés). Metricool accepte le **compte personnel** (1re ligne TikTok de Connexions) | 11/10/2026 |
+| TikTok (Android) | Mot de passe | Paramètres et confidentialité → Compte → **Mot de passe** (code envoyé par e-mail) | 11/10/2026 |
+| YouTube | Commentaire épinglé sur un Short | Ouvrir le Short → bulle 💬 à droite → écrire → ⋮ du commentaire → Épingler | 11/10/2026 |
+| YouTube Studio | Avertissement règlement | Bandeau en haut : formulation « mise en garde » + formation de 7 questions (expire en 90 jours) | 11/10/2026 |
+| Metricool (appli Android) | Relier la fiche Google | Connexions → ligne « Google Business Profile » → Connecter (fiche « Dig16 » reliée) | 12/10/2026 |
+| Metricool (appli Android) | Relier YouTube | Connexions → ligne « YouTube, Connecter un canal » → chaîne « DIG16 » | 12/10/2026 |
+| X (navigateur, inscription) | Piège | `dig16fr` déjà pris ; `dig16charente` disponible ; le **Nom refuse tout chiffre** à l'inscription (« Erreur lors de la validation du nom », trouvé par l'utilisateur) : s'inscrire avec un nom sans chiffre puis le changer dans Modifier le profil | 12/10/2026 |
+| Google Search Console (navigateur) | Ajouter et valider le site | Accueil → « Ajouter un site Web » → « Préfixe d'URL » `https://dig16.fr/` → « Balise HTML » → Claude insère la balise dans `site-dig/index.html` et publie → « Valider » (propriété validée) | 12/10/2026 |
+| Google Search Console | Menu de gauche | Vue d'ensemble, Insights, Performances, Inspection de l'URL ; Indexation : Pages, **Sitemaps**, Suppressions | 12/10/2026 |
+| Google Search Console | Sitemap et indexation | Sitemaps → saisir `sitemap.xml` → ENVOYER (1er état « Impossible de récupérer » sur propriété neuve, normal) ; barre « Inspecter n'importe quelle URL » → TEST EN LIGNE (« Google a accès à cette URL ») → DEMANDER UNE INDEXATION (« Indexation demandée ») | 12/10/2026 |
+| Bing Webmaster Tools (navigateur) | Ajouter le site | bing.com/webmasters → cadre gauche « Google Search Console » → **Importer** → compte Google → autoriser → arrive sur l'accueil `dig16.fr/` (« données en cours de traitement, jusqu'à 48 h ») ; menu gauche : Accueil, Performances, Inspection d'URL, **Plans de site**, IndexNow… | 12/10/2026 |
+| Bing Webmaster Tools | Sitemap | Menu gauche « Plans de site » : `https://dig16.fr/sitemap.xml` déjà repris de Google par l'import, statut « Traitement » (rien à envoyer) | 12/10/2026 |
+| Bing Places (navigateur Brave) | Piège | « Importer à partir de votre fiche d'établissement Google » **revient en boucle** sur « Configurez votre profil » : passer par « Créez votre profil Bing en trois étapes » | 12/10/2026 |
+| Bing Places | Créer la fiche | Trouvez votre entreprise (recherche « Dig16 » → « Nous n'avons pas pu trouver ») → **Créer une liste** → nom + catégorie principale → … → fiche « Vérification en cours », **code par courrier** | 12/10/2026 |
+| Bing Places | Piège | L'adresse saisie s'affiche en entier ; **Détails Essentiel non modifiables avant vérification** (« Vous pourrez … mettre à jour … une fois votre entreprise vérifiée ») ; masquer l'adresse ensuite (option + zones desservies obligatoires, aide officielle) | 12/10/2026 |
+| PagesJaunes / Solocal Manager | Créer la fiche | pagesjaunes.fr/plusdeservices/gerer-ma-fiche-pagesjaunes → « C'est parti, je crée un compte » → « Continuer avec Google » → « Recherchez votre établissement » → fiche créée en « Accès limité » (mode public) | 12/10/2026 |
+| Solocal Manager | Piège | Bouton « Valider mon établissement » sans effet (2 navigateurs) ; aide officielle : 3 voies (bandeau, notification « Je m'authentifie », « Mes fiches établissements ») ; le contact n'est **que par téléphone** : bas du menu « Mon compte, mes factures, contacter solocal » → Contacter solocal → « Afficher le numéro » | 12/10/2026 |
+| Apple Business (ex-Business Connect, navigateur, sans iPhone) | Valider l'organisation | business.apple.com → bandeau « Valider › » → méthode 1 : document (Kbis) ; méthode 2 : « Validation d'un domaine » → dig16.fr → « Générer un enregistrement TXT » → Copier → « Envoyer pour validation » une fois le TXT en ligne (aide officielle support.apple.com/fr-fr/guide/business/axm402206497) | 12/10/2026 |
+| Cloudflare (navigateur) | Ajouter un TXT | dash.cloudflare.com → dig16.fr → menu DNS → Records → « + Add record » → Type TXT, Name `@`, Content = code, TTL Auto → Save ; vérifié en ligne par Claude (dns.google) en moins d'une minute | 12/10/2026 |
+| Apple Business | Piège | Validation de domaine : la liste ne proposait que `www.dig16.fr` (CNAME, aucun TXT possible) → « Envoyer pour validation » restait grisé ; solution : méthode 2 = document (attestation de contrat d'énergie au nom du titulaire, adresse du siège), puis envoi accepté | 12/10/2026 |
+| Metricool (appli Android) | Piège | Connexions → « Web / Blog » → Connecter : « pas encore prise en charge depuis l'application mobile » → passer par le site metricool.com sur ordinateur. Le code de suivi a été installé par Claude sans attendre (format du code officiel tiré de l'extension WordPress Metricool, identifiant de marque lu dans getBrandSettings) | 12/10/2026 |
+| Metricool (navigateur, app.metricool.com) | Relier le site web | Marque DIG16 → Analyses → menu « Gérer les connexions » → bloc **Web** : le domaine était resté « localhost » (cause des 0 visite) → icône crayon → « Nom du site web » : `https://dig16.fr` → Accepter (« Le nom du site a été mis à jour avec succès ») ; balise déjà en place (`site-dig/mesure.js`), visites de test du 13/10 acceptées (200) ; chiffres du jour visibles le lendemain, onglet « En temps réel » pour le direct | 13/10/2026 |
+| Nouvel Outlook pour Windows | Ajouter contact@dig16.fr (OVH MX Plan) | « Ajouter un compte » → adresse → mot de passe → « Afficher plus » → IMAP ssl0.ovh.net 993 SSL/TLS, SMTP ssl0.ovh.net 465 SSL/TLS, utilisateur = adresse complète (guide OVH du 08/06/2026) ; compte ajouté par l'utilisateur | 13/10/2026 |
+| Nouvel Outlook pour Windows | Signature HTML d'un compte | Roue dentée → « Signatures de comptes » → choisir le compte → + Ajoutez une signature → coller → cases nouveaux messages / réponses → Enregistrer. **Piège** : ouvrir le fichier .html dans le **navigateur** (clic droit → Ouvrir avec → Edge) et copier la signature affichée ; sinon Outlook reçoit le code | 13/10/2026 |
+| OpenSEO (navigateur) | Relier Search Console | Projet DIG16 créé par Claude (app.openseo.so/p/9d8e84cb-…) → l'utilisateur ouvre le projet et autorise Google → `get_search_console_performance` renvoie `siteUrl: https://dig16.fr/` (lecture seule, « uses no credits ») | 12/10/2026 |

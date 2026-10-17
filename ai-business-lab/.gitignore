@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Systeme
+.DS_Store
+Thumbs.db
+
+# Donnees de travail non versionnees
+opportunites/brouillons/
+*.local.csv

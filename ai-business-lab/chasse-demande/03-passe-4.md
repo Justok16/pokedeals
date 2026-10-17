@@ -1,0 +1,109 @@
+# Chasse à la demande — passe 4 (23/09, nuit)
+
+Angle : services humains chers, déjà payés, automatisables par l'IA.
+
+| Piste | Qui paie, combien (source secondaire) | Concurrence automatisée francophone | Verdict |
+|---|---|---|---|
+| Réponse aux appels d'offres publics (mémoire technique) | PME ; consultant 500 à 2 000 € par dossier, 5 à 15 jours | Remporte, Maître AO, Olra, Tenderbolt, Odialis (Lyon) ; veille : Wanao, Vecteur Plus | **Écarté** : la demande est prouvée, mais au moins 5 acteurs IA français sont déjà là |
+| Dossiers de subventions et d'aides publiques | PME ; conseil au succès | Simulateurs déjà en ligne (subventions-ia.fr, 69 dispositifs ; MAPi Infogreffe ; fonds-publics.fr) | **Écarté en l'état** : le repérage est gratuit ; la rédaction reste à vérifier une fois |
+
+**Constat** : en 2026, dès qu'un service humain cher et répétitif existe en
+France, des start-up IA l'attaquent déjà. Chercher plutôt : un métier de
+**niche** (peu visible des investisseurs), où le client paie cher, sans outil
+IA dédié. Méthode : partir des tarifs de prestataires indépendants (Malt,
+annuaires professionnels) et vérifier l'absence d'outil.
+
+Sources : remporte.fr, maitre-ao.fr, odecia.fr, lyon-entreprises.com,
+subventions-ia.fr, mesaidespubliques.infogreffe.fr.
+
+---
+
+## Réveil 20:34 UTC — règlement européen déforestation (EUDR)
+
+- Échéance à venir : 30/12/2026 (grands opérateurs), **30/06/2027** (micro et
+  petites entreprises) ; café, cacao, bois, caoutchouc, soja, bovins, huile de
+  palme. Source secondaire : Access2Markets (Commission), Parlement européen.
+- Grille : **échoue au point 3** (la simplification de 2026 réduit l'obligation
+  des micro et petits producteurs à une **déclaration unique**, donc pas
+  d'abonnement) et **au point 8** (Coolset, EUDR Navigator, EUDR.live, PSQR,
+  déjà présents avec guides pour PME).
+- **Écarté.**
+
+Sources : trade.ec.europa.eu, europarl.europa.eu, coolset.com,
+eudr-navigator.com, eudr.live.
+
+---
+
+## Réveil 21:34 UTC — méthode « offre rare, demande forte » (GapQuery)
+
+- GapQuery (secondaire, 20/04/2026) : 6 catégories Shopify ont < 100 apps et
+  > 250 avis par app (moyenne 92). Seule nommée dans les extraits : **impression
+  à la demande** (24 apps, 581 avis/app).
+- Grille : l'impression à la demande exige une **logistique physique**
+  (ateliers, stocks, expéditions) — hors de portée (points 16, 20) ; le ratio
+  élevé reflète la domination de Printful/Printify, pas un manque. **Écarté.**
+- Les 5 autres catégories ne sont pas lisibles : gapquery.com est **bloqué par
+  le proxy** de l'environnement. À demander en capture à l'utilisateur si la
+  méthode reste retenue.
+
+Sources : gapquery.com (via moteur de recherche).
+
+---
+
+## Réveil 22:34 UTC — extensions WordPress fermées ou abandonnées
+
+- Faits (secondaires) : 31 extensions « Essential Plugin » (> 400 000
+  installations cumulées) fermées le 07/04/2026 après une porte dérobée ;
+  83 extensions WPFactory fermées ; ~59 % des extensions du répertoire
+  considérées comme abandonnées.
+- Deux produits possibles : (a) remplaçant payant d'une extension fermée,
+  (b) surveillance des extensions abandonnées sur un site.
+- Grille : (a) échoue au **point 5** — les utilisateurs d'extensions gratuites
+  migrent vers une autre gratuite ; (b) échoue au **point 8** — Wordfence,
+  Patchstack, SmartWP, InstaRenewal couvrent déjà l'audit, souvent
+  gratuitement. **Écarté.**
+- Méthode à garder : une **fermeture brutale** crée une demande ponctuelle ;
+  utile seulement si l'outil fermé était **payant** (utilisateurs habitués à
+  payer).
+
+Sources : wordpress.org (forum), smartwp.com, dreamhost.com, dev.to.
+
+---
+
+## Réveil 23:34 UTC — outils payants qui ferment (fenêtre de migration)
+
+- Méthode déjà outillée par d'autres : SunsetProof (32 fermetures suivies,
+  guides de migration), MicroGaps, endoflife.date. SunsetProof est **bloqué
+  par le proxy** ; lu via moteur de recherche.
+- Candidats vus : Delighted (enquêtes NPS, fermé le 30/06/2026 — passé) ;
+  QuickBooks Desktop 2023 (31/05/2026 — passé) ; Firebase Studio (22/03/2027,
+  outil de développeur gratuit) ; Varonis sur site (grands comptes) ;
+  **OpsGenie** (alertes d'astreinte d'Atlassian, payant, **05/04/2027**).
+- OpsGenie à la grille : clients payants et besoin récurrent (points 1, 3, 5 ✓),
+  mais **point 8** — PagerDuty, incident.io, Better Stack, Rootly, Squadcast,
+  Zenduty publient déjà des pages « alternative à OpsGenie » ; **point 21** —
+  personne ne confie ses alertes de production à un éditeur anonyme débutant.
+  **Écarté.**
+- Leçon : les fermetures **visibles** sont chassées par des concurrents
+  outillés ; il faudrait une fermeture **de niche** (outil payant d'un petit
+  éditeur, clientèle non technique), ce que les traqueurs publics ne
+  couvrent pas.
+
+Sources : sunsetproof.com (via moteur), zonkafeedback.com,
+firebase.google.com, netwrix.com.
+
+---
+
+## Réveil 00:34 UTC (24/09) — outils pour revendeurs Vinted
+
+- Demande prouvée : les revendeurs paient des outils de publication multiple
+  (abonnements mensuels ; Vinted revendique 100 M+ acheteurs et 0 frais
+  vendeur).
+- Grille : **point 8** — Crosslist, List Perfectly, FLUF Connect, Resylr,
+  ZeeDrop, Vendoo, ResaleOS et d'autres couvrent déjà Vinted, y compris la
+  rédaction d'annonces par IA ; **point 15** — dépendance totale à Vinted, qui
+  n'offre pas d'API publique aux vendeurs et peut bloquer l'automatisation.
+  **Écarté.**
+
+Sources : crosslist.com, listperfectly.com, fluf.io, reclaimstuff.com,
+resylr.com, resaleos.co.

@@ -1,0 +1,511 @@
+<!doctype html><html lang=fr><head><meta charset=utf-8><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet"><style>
+:root{--nuit:#0f0e0c;--ivoire:#efe9df;--doux:#a8a093;--or:#c8a46e;--or-clair:#d9bb8a;
+--texte:#1a1814;--gris:#655e54;--trait:#e0d8cb;--fond-doux:#f6f2ea;--bronze:#7a5a2c}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Geist,Arial,sans-serif;color:var(--texte);font-feature-settings:"ss01"}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.005em;color:var(--texte)}
+h1 em,h2 em{color:var(--bronze)}
+b,strong{font-weight:600}
+a{color:var(--bronze)}
+.k,.etiquette{font-family:'Geist Mono',monospace;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+.couv,.cover{position:relative}
+.signature{display:block;height:12.5mm}
+.embleme{display:block;width:13mm;height:13mm}
+
+@page{size:A4;margin:16mm 15mm 17mm}
+body{font-size:9.4pt;line-height:1.5}
+h1{font-size:24pt;line-height:1.05;margin:0 0 4mm;padding-bottom:3mm;border-bottom:.35mm solid var(--or)}
+h2{font-size:16pt;line-height:1.1;margin:7mm 0 2mm;break-after:avoid} h3{font-size:12.5pt;margin:5mm 0 1.5mm;break-after:avoid}
+table{border-collapse:collapse;width:100%;margin:2.5mm 0;font-size:8.2pt}
+th{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.6pt;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);text-align:left;padding:1.6mm 2mm;border-bottom:.35mm solid var(--or)}
+td{border-bottom:.25mm solid var(--trait);padding:1.5mm 2mm;vertical-align:top}
+tr,img{page-break-inside:avoid}
+blockquote{border-left:.6mm solid var(--or);margin:2mm 0;padding:1mm 4mm;background:var(--fond-doux)}
+code{font-family:'Geist Mono',monospace;font-size:.92em;background:var(--fond-doux);padding:0 1mm;border-radius:1mm;word-break:break-all}
+a{word-break:break-all} del{color:#8c8478}
+hr{border:0;border-top:.25mm solid var(--trait);margin:5mm 0}
+section{page-break-before:always}
+.cover{box-sizing:border-box;height:258mm;background:var(--nuit);color:var(--ivoire);border-radius:3mm;padding:16mm 15mm;display:flex;flex-direction:column;justify-content:space-between;
+ background-image:radial-gradient(140mm 110mm at 100% 0,rgba(200,164,110,.17),rgba(200,164,110,0) 70%);box-shadow:inset 0 0 0 .3mm rgba(200,164,110,.35)}
+.cover .signature{height:17mm;width:auto;align-self:flex-start}
+.cover .k{color:var(--or);font-size:7.4pt;display:flex;align-items:center;gap:3mm}
+.cover .k::before{content:"";width:9mm;height:.3mm;background:var(--or)}
+.cover h1{color:var(--ivoire);font-size:44pt;line-height:.98;border:0;margin:4mm 0 5mm;padding:0}
+.cover h1 em{color:var(--or-clair)}
+.cover p{color:var(--doux);margin:1mm 0}
+.cover ol{margin:6mm 0 0;padding:0;list-style:none;counter-reset:n;border-top:.25mm solid rgba(239,233,223,.14)}
+.cover li{counter-increment:n;padding:2.2mm 0;border-bottom:.25mm solid rgba(239,233,223,.14);font-family:'Instrument Serif',serif;font-size:14pt;color:var(--ivoire)}
+.cover li::before{content:counter(n,decimal-leading-zero);font-family:'Geist Mono',monospace;font-size:7pt;color:var(--or);margin-right:5mm;vertical-align:2pt}
+.cover .note{font-size:7.6pt;color:#8c8478}
+
+input[type=checkbox]{margin-right:4px}
+li{margin:2px 0} blockquote p{margin:4px 0} blockquote,.bloc{page-break-inside:avoid}
+h2{page-break-after:avoid} h3{page-break-after:avoid}
+table{page-break-inside:avoid}
+</style></head><body><div class="cover"><img class="signature" src="../site-dig/img/marque/signature-ivoire@6x.png" alt="DIG16, sites internet"><div><div class="k">Budget 0 € · démarchage direct, visites, visibilité, recommandation</div><h1>Campagne de <em>lancement</em></h1><p>Version du 08/10/2026.</p></div><p class="note">Les listes de prospects et le suivi nominatif sont dans des documents privés séparés.</p></div><section><p>Demande de l'utilisateur (05/10) : « une campagne de pub gratuite mais efficace et
+irréprochable » et « être partout sur les réseaux ». Ce document rassemble tout, dans
+l'ordre où on s'en sert. Les listes de prospects et le suivi nominatif restent <strong>privés</strong>
+(Drive « Dig »), jamais dans ce dépôt.</p>
+<hr />
+<h2>1. Le principe</h2>
+<p><strong>La démo est la publicité.</strong> Chaque professionnel contacté voit <strong>son propre site refait</strong>,
+avant de dépenser quoi que ce soit. Autour de ce cœur, quatre canaux gratuits :</p>
+<ol>
+<li><strong>Démarchage direct</strong> des prospects prioritaires : email avec la démo, appel, relance
+   (pas de courrier postal, décision du 05/10).</li>
+<li><strong>Visites</strong> dans les commerces et ateliers proches, avec le flyer.</li>
+<li><strong>Visibilité de DIG16</strong> : fiche Google, réseaux sociaux, annuaires, mairies, réseaux
+   de professionnels.</li>
+<li><strong>Recommandation</strong> : le parrainage « un artisan recommandé = un mois offert » (<code>47</code>).</li>
+</ol>
+<h2>2. Conditions de départ (aucune exception)</h2>
+<p>Décisions du 05/10/2026 (audits n° 2 à 6) : Prestige n'est <strong>pas</strong> proposé en prospection (page
+conservée sur le site) ; <strong>15 clients au maximum la première année</strong> ; réseaux sociaux en pause
+jusqu'au premier client ; un compte Cloudflare gratuit <strong>au nom de chaque client</strong> ; parrainage
+plafonné (<code>47</code>).</p>
+<p>La loi impose que le professionnel derrière un message de prospection soit <strong>identifiable</strong>
+(art. L34-5 du Code des postes et communications électroniques ; art. 20 de la LCEN —
+<code>35-demarchage-cadre-legal.md</code>). Donc <strong>rien ne part avant</strong> :</p>
+<ul>
+<li>☐ l'entreprise créée (SIREN reçu) ;</li>
+<li>☐ SIREN, téléphone et adresse de domiciliation ajoutés dans le flyer, la signature
+      des emails, l'antisèche et le site (Claude le fait le jour même) ;</li>
+<li>☐ le site ouvert sur <code>dig16.fr</code> (bascule en cours le 05/10) ;</li>
+<li>☐ le tableau de suivi privé prêt (section 8).</li>
+</ul>
+<p>Règles permanentes, vérifiées :</p>
+<ul>
+<li><strong>Email aux professionnels</strong> : autorisé si le message est en rapport avec leur activité,
+  si l'expéditeur est identifiable et si l'on peut refuser simplement (« STOP »).</li>
+<li><strong>Téléphone aux professionnels</strong> : autorisé sur la base de « l'intérêt légitime » lorsque
+  l'objet est en rapport avec leur profession ; se présenter et accepter un refus
+  (<a href="https://www.cnil.fr/fr/prospection-commerciale-par-telephone-hors-automate-dappel-quelles-sont-les-regles">CNIL, 10/06/2026</a>).
+  Le consentement préalable du décret n° 2026-662 vise les <strong>consommateurs</strong>, pas les pros.</li>
+<li><strong>Jamais de particuliers.</strong> Jamais les secteurs exclus (alcool, tabac, jeux, santé,
+  professions réglementées, immobilier, assurance, crédit, CBD…, voir <code>CLAUDE.md</code>).</li>
+<li><strong>Un refus est définitif</strong> : noté, plus jamais recontacté, démo supprimée.</li>
+<li>Aucun faux avis, aucun chiffre inventé, aucune critique d'un concurrent.</li>
+</ul>
+<hr />
+<h2>3. Le calendrier</h2>
+<h3>Jour J (création de l'entreprise) — environ 1 h pour l'utilisateur</h3>
+<table>
+<thead>
+<tr>
+<th>Qui</th>
+<th>Quoi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude</td>
+<td>Ajoute SIREN, téléphone, adresse dans tous les documents ; régénère les PDF et le flyer</td>
+</tr>
+<tr>
+<td>Utilisateur</td>
+<td>Termine la fiche Google DIG16 (section 6.1) et lance sa vérification</td>
+</tr>
+<tr>
+<td>Claude</td>
+<td>Remplit les profils réseaux (bio, logo, bannière) et programme la publication d'annonce</td>
+</tr>
+<tr>
+<td>Utilisateur</td>
+<td>Prévient son entourage et ses contacts professionnels (bouche-à-oreille, pas de démarchage)</td>
+</tr>
+<tr>
+<td>Claude</td>
+<td>Prépare le premier lot de 20 prospects (section 4) et leurs emails</td>
+</tr>
+</tbody>
+</table>
+<h3>Semaines 1 à 8 — le rythme</h3>
+<table>
+<thead>
+<tr>
+<th>Chaque semaine</th>
+<th>Qui</th>
+<th>Temps de l'utilisateur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20 nouveaux prospects contactés par email avec leur démo (lundi)</td>
+<td>Claude prépare, l'utilisateur valide et envoie</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>Appels à J+3 (jeudi)</td>
+<td>Utilisateur, avec l'antisèche</td>
+<td>1 h 30</td>
+</tr>
+<tr>
+<td>Relances email à J+10, puis arrêt</td>
+<td>Claude prépare, l'utilisateur envoie</td>
+<td>10 min</td>
+</tr>
+<tr>
+<td>Une demi-journée de visites avec le flyer</td>
+<td>Utilisateur</td>
+<td>3 h</td>
+</tr>
+<tr>
+<td>3 publications sur les réseaux</td>
+<td>Claude (programmées)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Point du vendredi : chiffres de la semaine, réglages</td>
+<td>Claude</td>
+<td>5 min de lecture</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ordre des prospects</strong> : d'abord la zone 16230 (visites possibles), puis le reste de la
+Charente, toujours par score décroissant du classement (priorité 1 seulement).</p>
+<h3>Points de contrôle (on mesure, on n'invente pas de taux)</h3>
+<table>
+<thead>
+<tr>
+<th>Quand</th>
+<th>On regarde</th>
+<th>Si ça ne va pas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fin semaine 2 (40 contacts)</td>
+<td>Réponses, rendez-vous</td>
+<td>Moins de 2 réponses : changer l'objet de l'email et l'accroche, puis retester 2 semaines</td>
+</tr>
+<tr>
+<td>Fin semaine 4 (80 contacts)</td>
+<td>Rendez-vous, devis</td>
+<td>Aucun devis : revoir l'offre de découverte ou le prix d'appel avec l'utilisateur</td>
+</tr>
+<tr>
+<td>Fin semaine 8 (160 contacts)</td>
+<td>Clients signés, revenu mensuel</td>
+<td>Bilan complet ; décision : accélérer, corriger ou changer de canal</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Canal 1 — démarchage direct (le moteur)</h2>
+<h3>4.1 Le cycle de chaque prospect (aligné sur <code>41</code>, section 8)</h3>
+<table>
+<thead>
+<tr>
+<th>Étape</th>
+<th>Délai</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Premier contact</td>
+<td>J0</td>
+<td>Appel : accord pour préparer une maquette avec ses photos et son logo (décision du 05/10 : jamais de démo nominative sans accord) ; sans accord, maquette avec photos d'illustration</td>
+</tr>
+<tr>
+<td>Démo</td>
+<td>J+2 à J+5</td>
+<td>Montrée <strong>en direct</strong> (écran du téléphone, visio ou visite), pas envoyée en fichier ; lien privé seulement s'il le demande</td>
+</tr>
+<tr>
+<td>Dernière relance</td>
+<td>J+10</td>
+<td>Email court, puis arrêt définitif</td>
+</tr>
+<tr>
+<td>Refus</td>
+<td>—</td>
+<td>Noté, jamais recontacté, démo supprimée</td>
+</tr>
+</tbody>
+</table>
+<p>Prospect sans email publié : appel direct (J0), puis envoi de la démo s'il accepte, ou
+visite s'il est proche.</p>
+<h3>4.2 Email de premier contact (modèle, pour les prospects sans téléphone joignable ou après accord)</h3>
+<blockquote>
+<p><strong>Objet :</strong> Une nouvelle page d'accueil pour [Entreprise] ? (gratuit, sans engagement)</p>
+<p>Bonjour [Madame / Monsieur Nom],</p>
+<p>Je m'appelle [Prénom] et je crée des sites internet pour les artisans et commerçants
+de Charente, sous le nom DIG16.</p>
+<p>[Accroche vraie, propre au prospect, tirée de la liste privée : par exemple « Votre site
+actuel ne s'affiche pas correctement sur téléphone. »]</p>
+<p>Je peux vous préparer, gratuitement, une nouvelle page d'accueil pour [Entreprise],
+avec vos photos et votre logo si vous êtes d'accord, et vous la montrer en 15 minutes,
+chez vous ou en visio. Ensuite, si elle vous plaît : dès 49 € par mois, 0 € de création,
+le site et le nom de domaine à votre nom. Répondez simplement « oui » à ce message.</p>
+<p>Je me permettrai de vous appeler jeudi pour en parler.</p>
+<p>Bonne journée,<br />
+[Prénom Nom] — DIG16, entrepreneur individuel (EI) — SIREN [numéro]<br />
+[adresse de domiciliation] — [téléphone] — contact@dig16.fr — dig16.fr</p>
+<p><em>J'ai trouvé votre adresse professionnelle sur [source publique : votre site, l'annuaire
+des entreprises…]. Vous ne souhaitez plus recevoir de message de ma part ? Répondez simplement
+« STOP ».</em></p>
+</blockquote>
+<h3>4.3 Appel (J0 pour les prospects joignables, J+3 après un email ; texte complet dans le guide)</h3>
+<blockquote>
+<p>« Bonjour, [Prénom], de DIG16. Je fais les sites internet des artisans et commerçants du
+coin. Je peux vous préparer gratuitement une page d'accueil pour [Entreprise], avec vos
+photos et votre logo si vous êtes d'accord, et vous la montrer en 15 minutes. Ça vous dit ? »</p>
+<p>— Oui : fixer le rendez-vous (sur place ou en visio), deux créneaux au choix.</p>
+<p>— Pas maintenant : « Je vous rappelle quand ? » et noter la date.</p>
+<p>— Pas intéressé : « Très bien, je ne vous dérange plus. Bonne journée. »</p>
+</blockquote>
+<p>Objections : réponses prêtes dans <code>41</code>, section 6, et dans l'antisèche.</p>
+<h3>4.4 Relance J+10 (la seule)</h3>
+<blockquote>
+<p><strong>Objet :</strong> Votre page d'accueil — on en parle ?</p>
+<p>Bonjour [Nom],</p>
+<p>Un petit mot pour savoir si une nouvelle page d'accueil pour [Entreprise] vous
+intéresse. Sans réponse de votre part, je ne vous relancerai plus.</p>
+<p>Bonne journée,<br />
+[signature complète, comme ci-dessus, avec la mention « STOP »]</p>
+</blockquote>
+<h3>4.5 Courrier postal : écarté</h3>
+<p>Décision de l'utilisateur du 05/10/2026 : <strong>pas de courrier postal</strong> (coût d'un timbre
+par prospect). Si les réponses sont faibles, on corrige l'objet, l'accroche ou l'ordre
+des canaux gratuits (section 3, points de contrôle).</p>
+<hr />
+<h2>5. Canal 2 — visites avec le flyer</h2>
+<ul>
+<li><strong>Où</strong> : commerces et ateliers de la zone 16230 d'abord (liste privée, ordre de tournée
+  préparé par Claude), en dehors des heures de pointe.</li>
+<li><strong>Quoi</strong> : le flyer A5 et la démo du professionnel affichée sur le téléphone.</li>
+<li><strong>Phrase d'ouverture</strong> : « Bonjour, je suis [Prénom], je fais des sites internet pour les
+  artisans d'ici. J'ai préparé quelque chose pour vous, ça prend 30 secondes. »</li>
+<li><strong>Après la visite</strong> : noter le résultat dans le suivi le jour même.</li>
+<li>Ne jamais déposer de flyer sans parler à quelqu'un, ni sur un pare-brise.</li>
+</ul>
+<hr />
+<h2>6. Canal 3 — rendre DIG16 visible partout (gratuit)</h2>
+<h3>6.1 Fiche Google DIG16 (priorité n° 1)</h3>
+<ul>
+<li>Gratuite (<a href="https://www.google.com/intl/fr_fr/business/">google.com/intl/fr_fr/business</a>,
+  lu le 05/10/2026).</li>
+<li>Établissement « de services de proximité » (on se déplace chez le client) : on définit
+  une <strong>zone desservie</strong> et on <strong>n'affiche pas d'adresse</strong> ; Google demande de supprimer
+  l'adresse quand on n'accueille pas de clients sur place
+  (<a href="https://support.google.com/business/answer/9157481?hl=fr">aide Google, lue le 05/10/2026</a>).</li>
+<li>Catégorie, horaires, photos des démos publiques, lien <code>dig16.fr</code>, téléphone.</li>
+<li>Après chaque client satisfait : lui demander un avis (jamais d'avis acheté ni rédigé à
+  sa place).</li>
+</ul>
+<h3>6.2 Réseaux sociaux (détail : <code>49-reseaux-sociaux.md</code>)</h3>
+<ul>
+<li>Identifiant <code>dig16fr</code> partout (<code>dig16</code> est déjà pris sur Bluesky et Pinterest).</li>
+<li>Priorités : Facebook, Instagram, LinkedIn, YouTube Shorts, TikTok ; Pinterest, Bluesky,
+  Threads et X en publication automatique seulement.</li>
+<li>Publication programmée avec Metricool : offre gratuite lue le 05/10/2026 sur
+  metricool.com/pricing : « Schedule up to 20 posts per month », tous les réseaux
+  « except LinkedIn and Twitter » ; LinkedIn et X à la main (texte prêt fourni par Claude).</li>
+<li><strong>Groupes Facebook locaux</strong> (commerçants, artisans, communes de Charente) : lire le
+  règlement de chaque groupe ; publier seulement là où la publicité est permise, et
+  apporter d'abord des conseils utiles.</li>
+</ul>
+<h3>6.3 Annuaires et relais locaux</h3>
+<table>
+<thead>
+<tr>
+<th>Relais</th>
+<th>Ce qu'on demande</th>
+<th>Statut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Annuaire des Entreprises (État)</td>
+<td>Rien : la fiche se crée avec le SIREN</td>
+<td>Automatique</td>
+</tr>
+<tr>
+<td>PagesJaunes</td>
+<td>Inscription de base</td>
+<td><strong>[gratuité à vérifier]</strong> (page d'inscription introuvable le 05/10)</td>
+</tr>
+<tr>
+<td>Mairie de la commune d'implantation et communauté de communes</td>
+<td>Annonce de la nouvelle entreprise dans le bulletin ou sur le site</td>
+<td><strong>[à demander]</strong> (lettres déjà envoyées le 05/10)</td>
+</tr>
+<tr>
+<td>CCI de la Charente, chambre de métiers</td>
+<td>Événements de création d'entreprise, ateliers</td>
+<td><strong>[à vérifier]</strong></td>
+</tr>
+<tr>
+<td>Presse locale</td>
+<td>Article « nouvelle entreprise près de chez vous »</td>
+<td><strong>[à vérifier]</strong> ; jamais d'article payé présenté comme information</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. Canal 4 — la recommandation</h2>
+<ul>
+<li>Offre validée (variante A du 28/09, <code>47-parrainage.md</code>) : <strong>le client qui recommande
+  reçoit 1 mois offert, le nouveau client aussi</strong>, dès que le nouveau client a payé
+  2 mois ; plafond de 6 mois offerts par an.</li>
+<li>Déjà sur le flyer : « Recommandé par un client ? Premier mois offert. »</li>
+<li>Rappel au client 1 mois après la mise en ligne de son site, quand il est content.</li>
+</ul>
+<hr />
+<div class="bloc">
+<h2>8. Le suivi (privé)</h2>
+<p>Tableau Google Sheets dans le Drive « Dig », jamais dans ce dépôt. Une ligne par prospect :</p>
+<table>
+<thead>
+<tr>
+<th>Colonne</th>
+<th>Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N°</td>
+<td>Même numéro que dans la liste des prospects</td>
+</tr>
+<tr>
+<td>Entreprise, métier, commune</td>
+<td>Copiés de la liste privée</td>
+</tr>
+<tr>
+<td>Canal</td>
+<td>Email, appel, visite, recommandation</td>
+</tr>
+<tr>
+<td>J0, J+3, J+10</td>
+<td>Dates prévues et faites</td>
+</tr>
+<tr>
+<td>Résultat</td>
+<td>Pas de réponse, intéressé, rendez-vous, devis, signé, refus</td>
+</tr>
+<tr>
+<td>Opposition</td>
+<td>« Oui » = plus jamais de contact, démo supprimée</td>
+</tr>
+<tr>
+<td>Note</td>
+<td>Ce qu'il a dit, prochaine action</td>
+</tr>
+</tbody>
+</table>
+<p>Claude met à jour le tableau et fait le point chaque vendredi.</p>
+</div>
+<hr />
+<h2>9. Calendrier des publications (8 semaines, 3 par semaine)</h2>
+<p>Thèmes en rotation : <strong>montrer</strong> (avant / après sur une entreprise fictive ou un client
+qui a donné son accord écrit), <strong>aider</strong> (un conseil pratique qu'un artisan peut appliquer
+seul), <strong>rassurer</strong> (comment on travaille, le prix, le site à votre nom).</p>
+<table>
+<thead>
+<tr>
+<th>Semaine</th>
+<th>Lundi — montrer</th>
+<th>Mercredi — aider</th>
+<th>Vendredi — rassurer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Lancement de DIG16</td>
+<td>3 choses à vérifier sur votre fiche Google</td>
+<td>Comment se passe un site avec DIG16</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Démo menuisier (fictive) sur téléphone</td>
+<td>Pourquoi votre numéro doit être cliquable</td>
+<td>Le site et le nom de domaine à votre nom</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Démo Prestige (fictive) sur ordinateur</td>
+<td>Les bonnes photos de chantier ou de boutique</td>
+<td>Le prix, sans surprise</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Avant / après d'une page d'accueil</td>
+<td>Répondre aux avis, même négatifs</td>
+<td>Sans engagement après 6 mois</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Un site en 7 jours, étape par étape</td>
+<td>Vos horaires à jour partout</td>
+<td>Le suivi chaque mois</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Le site affiché sur un téléphone, en 10 secondes</td>
+<td>Écrire une bonne description de votre métier</td>
+<td>Recommandez un artisan, un mois offert</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Avant / après (premier client, avec accord)</td>
+<td>Pourquoi un site lent fait fuir</td>
+<td>Questions fréquentes</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Bilan des deux premiers mois</td>
+<td>Préparer la saison suivante</td>
+<td>Votre page d'accueil refaite gratuitement</td>
+</tr>
+</tbody>
+</table>
+<h3>Les 3 publications de la semaine 1 (textes prêts)</h3>
+<div class="bloc">
+<p><strong>1. Lancement</strong></p>
+<blockquote>
+<p>DIG16 est lancé 🎉<br />
+Je crée des sites internet pour les artisans, commerçants et indépendants de Charente :<br />
+modernes, rapides, pensés d'abord pour le téléphone, et à votre nom.<br />
+Vous voulez voir ce que ça donnerait pour vous ? Je refais votre page d'accueil<br />
+gratuitement, avant que vous décidiez quoi que ce soit.<br />
+👉 dig16.fr  </p>
+</blockquote>
+</div>
+<div class="bloc">
+<p><strong>2. Conseil — fiche Google</strong></p>
+<blockquote>
+<p>3 choses à vérifier aujourd'hui sur votre fiche Google :<br />
+1️⃣ Vos horaires sont-ils à jour (jours fériés compris) ?<br />
+2️⃣ Votre numéro de téléphone est-il le bon ?<br />
+3️⃣ Avez-vous au moins quelques photos récentes de votre travail ?<br />
+C'est gratuit, ça prend 10 minutes, et c'est souvent la première chose que vos clients<br />
+voient de vous.  </p>
+</blockquote>
+</div>
+<div class="bloc">
+<p><strong>3. Comment on travaille</strong></p>
+<blockquote>
+<p>Un site avec DIG16, comment ça se passe ?<br />
+✅ Je refais votre page d'accueil gratuitement, pour que vous puissiez juger sur pièce.<br />
+✅ 20 minutes ensemble pour vos textes et vos photos.<br />
+✅ En ligne en 7 jours.<br />
+✅ Le site et le nom de domaine sont à votre nom.<br />
+Dès 49 € par mois, 0 € de création. Les détails : dig16.fr  </p>
+</blockquote>
+</div>
+<p>Visuels : logo DIG16, captures des démos publiques fictives (<code>site-dig/demos/</code>), jamais de
+démo de prospect ni de photo d'un prospect.</p>
+<hr />
+<h2>10. Contrôle avant chaque envoi ou publication</h2>
+<ul>
+<li>☐ Identité complète (nom, EI, SIREN, coordonnées), source des coordonnées et mention « STOP »
+      dans chaque email (CNIL, réutilisation des données publiques à des fins de prospection).</li>
+<li>☐ Prospect professionnel, hors secteurs exclus, sans opposition enregistrée.</li>
+<li>☐ Accroche vraie, vérifiée sur son site ou sa fiche, jamais inventée.</li>
+<li>☐ Prix identiques au site (Essentiel 49 €/mois, Visibilité 79 €/mois, Prestige 1 990 €
+      ou 199 €/mois, Achat 690 €) et au flyer (« dès 49 € /mois »).</li>
+<li>☐ Liens et QR codes testés ; démo qui s'ouvre sur téléphone et ordinateur.</li>
+<li>☐ Orthographe et rendu vérifiés (<code>44-controle-qualite.md</code>).</li>
+</ul></section></body></html>

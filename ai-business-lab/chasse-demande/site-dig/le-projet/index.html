@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/marque/favicon-32.png">
+<link rel="apple-touch-icon" href="/img/marque/apple-touch-icon.png">
+<title>Le projet DIG16 : des sites internet pour les artisans de Charente</title>
+<link rel="canonical" href="https://dig16.fr/le-projet/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="DIG16">
+<meta property="og:title" content="Le projet DIG16, en 2 minutes">
+<meta property="og:url" content="https://dig16.fr/le-projet/">
+<meta property="og:image" content="https://dig16.fr/img/apercu-dig16-v3.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="DIG16, créé en octobre 2026 en Charente : des sites internet modernes, pensés pour le téléphone, pour les artisans, commerçants et indépendants. L'idée, l'offre, où en est le projet.">
+<meta property="og:description" content="L'idée, l'offre et où en est le projet, en 2 minutes.">
+<meta name="theme-color" content="#0f0e0c">
+<link rel="preload" href="/moteur/polices/04ce1a617b.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/moteur/polices/d65c264453.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/moteur/polices/instrumentserif-geist-geistmono.css?v=20261015">
+<style>
+:root{--nuit:#0f0e0c;--encre:#efe9df;--doux:#a8a093;--ligne:rgba(239,233,223,.11);--orange:#c8a46e;--rose:#b08d58;--violet:#7a5a2c}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Geist,'Geist Fallback',system-ui,sans-serif;background:var(--nuit);color:var(--encre);line-height:1.7;overflow-x:hidden}
+.cadre{max-width:820px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--ligne);padding:18px 0}
+.logo{display:inline-flex;align-items:center;gap:.7rem;text-decoration:none;color:inherit}
+.logo i{font-style:normal;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-weight:800;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,var(--orange),var(--violet))}
+.logo b{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.5rem}
+main{padding:50px 0 80px}
+h1{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:clamp(2rem,6vw,3rem);line-height:1.1;margin-bottom:.6rem}
+h2{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.35rem;margin:2.4rem 0 .8rem;color:#fff}
+p,li{color:var(--doux)}
+ul{padding-left:1.2rem}
+li{margin:.3rem 0}
+b{color:#fff}
+.carte{background:rgba(255,255,255,.05);border:1px solid var(--ligne);border-radius:18px;padding:1.3rem 1.4rem;margin-top:.8rem}
+.a-completer{color:var(--doux);font-style:italic}
+.avis{background:rgba(200,164,110,.1);border:1px solid rgba(200,164,110,.35);border-radius:14px;padding:.9rem 1.1rem;margin:1.2rem 0 0;font-size:.92rem}
+a{color:#fff}
+.retour{display:inline-block;margin-top:2.5rem;padding:.9rem 1.3rem;border-radius:14px;text-decoration:none;font-weight:700;background:linear-gradient(135deg,var(--orange),var(--rose))}
+footer{border-top:1px solid var(--ligne);padding:24px 0;color:var(--doux);font-size:.85rem}
+.logo{min-height:44px}
+/* ===== charte premium DIG16 (08/10), commune à toutes les pages ===== */
+body{font-family:Geist,'Geist Fallback',system-ui,sans-serif;font-weight:400;letter-spacing:-.003em}
+h1,h2,h3{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif!important;font-weight:400!important;letter-spacing:-.012em;line-height:1.04;text-wrap:balance}
+::selection{background:#c8a46e;color:#14110d}
+.btn{border-radius:999px!important;font-weight:500}
+.btn.principal,.badge{background:#c8a46e!important;color:#14110d!important;box-shadow:none!important}
+.btn.principal:hover{background:#d9bb8a!important}
+.degrade{background:none!important;color:#c8a46e!important;-webkit-text-fill-color:currentColor!important}
+.logo i{background:transparent!important;border:1px solid rgba(200,164,110,.6);color:#c8a46e!important;border-radius:10px!important;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif!important;font-weight:400!important;font-size:1.5rem!important;padding-top:2px}
+.logo b{font-family:Geist,'Geist Fallback',system-ui,sans-serif!important;font-weight:600!important;font-size:1.02rem!important;letter-spacing:.2em}
+.avis-ouverture{background:#16140f!important;color:#cfc6b8!important;border-bottom:1px solid rgba(200,164,110,.18)}
+nav.plein{background:rgba(15,14,12,.86)!important}
+
+/* logo DIG16 (08/10) : emblème D16 + signature */
+.logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.logo .logo-embleme{width:42px;height:42px;flex:none;display:block}
+.logo-mot{display:flex;flex-direction:column;line-height:1}
+.logo-mot>span{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:1.72rem;letter-spacing:.07em;color:#efe9df;font-weight:400}
+.logo-mot em{font-style:italic;color:#c8a46e;letter-spacing:0;margin-left:.03em}
+.logo-mot small{font-family:'Geist Mono','Geist Mono Fallback',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
+@media (max-width:420px){.logo .logo-embleme{width:36px;height:36px}.logo-mot>span{font-size:1.5rem}.logo-mot small{font-size:.5rem;letter-spacing:.18em}}
+
+/* Règles d'interface Vercel (10/10) : lien d'accès direct au contenu, toucher sans délai, couleur de surbrillance assumée */
+.saut{position:absolute;left:-9999px;top:0}
+.saut:focus{left:12px;top:12px;z-index:200;background:#fff;color:#111;padding:.6rem 1rem;border-radius:8px;font-weight:600}
+a,button,input,select,textarea,label,summary{touch-action:manipulation}
+html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
+:focus-visible{outline:2px solid #c8a46e;outline-offset:3px}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-top:1rem}
+.chiffres div{background:rgba(255,255,255,.05);border:1px solid var(--ligne);border-radius:16px;padding:1rem 1.1rem}
+.chiffres strong{display:block;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-weight:400;font-size:clamp(1.45rem,5.2vw,2rem);line-height:1.1;color:#c8a46e}
+.chiffres span{color:var(--doux);font-size:.92rem}
+.liens{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+.liens a{display:inline-flex;align-items:center;min-height:44px;padding:.55rem 1.1rem;border:1px solid rgba(200,164,110,.45);border-radius:999px;text-decoration:none;font-weight:500}
+.liens a:hover{background:rgba(200,164,110,.12)}
+.chapo{font-size:1.15rem;color:var(--encre);max-width:62ch}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AboutPage","@id":"https://dig16.fr/le-projet/#page","url":"https://dig16.fr/le-projet/","name":"Le projet DIG16 : des sites internet pour les artisans de Charente","description":"DIG16, créé en octobre 2026 en Charente : des sites internet modernes, pensés pour le téléphone, pour les artisans, commerçants et indépendants. L’idée, l’offre et où en est le projet.","inLanguage":"fr-FR","isPartOf":{"@id":"https://dig16.fr/#site"},"about":{"@id":"https://dig16.fr/#organisation"},"publisher":{"@id":"https://dig16.fr/#organisation"},"datePublished":"2026-10-13","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://dig16.fr/"},{"@type":"ListItem","position":2,"name":"Le projet","item":"https://dig16.fr/le-projet/"}]}}</script>
+</head>
+<body><!--email_off-->
+<a class="saut" href="#contenu">Aller au contenu</a>
+<header><div class="cadre"><a href="/" class="logo"><svg class="logo-embleme" viewBox="20 20 160 160" aria-hidden="true"><rect x="24" y="24" width="152" height="152" rx="30" fill="none" stroke="#c8a46e" stroke-width="2.2"/><rect x="31" y="31" width="138" height="138" rx="24" fill="none" stroke="#c8a46e" stroke-width=".8" opacity=".5"/><text x="90" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="116" fill="#c8a46e">D</text><text x="134" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="42" fill="#efe9df">16</text></svg><span class="logo-mot"><span>DIG<em>16</em></span></span></a></div></header>
+<main id="contenu" class="cadre">
+<h1>Le projet DIG16, en 2 minutes</h1>
+<p class="chapo">DIG16 est née en octobre 2026, en Charente. Une idée simple : que chaque artisan, commerçant ou indépendant du coin soit facile à trouver et à appeler depuis un téléphone.</p>
+
+<h2>L’idée de départ</h2>
+<p>Aujourd’hui, on cherche presque tout sur son téléphone : « plombier », « coiffeur », « garage », suivi du nom de la ville. Beaucoup de professionnels de Charente n’ont pas de site, ou ont un site ancien, lent ou illisible sur un petit écran. Ils perdent des clients sans le savoir.</p>
+<p>D’où <a href="/test-du-pouce/">le test du pouce</a> : prenez votre téléphone, tapez votre métier et votre ville. Est-ce que vous apparaissez ? Est-ce que votre numéro s’appelle d’un geste ?</p>
+
+<h2>Ce que propose DIG16</h2>
+<div class="chiffres">
+<div><strong>0 €</strong><span>de création</span></div>
+<div><strong>Dès 49 €</strong><span>par mois</span></div>
+<div><strong>7 jours</strong><span>pour être en ligne</span></div>
+<div><strong>À votre nom</strong><span>le site vous appartient</span></div>
+</div>
+<ul style="margin-top:1.2rem">
+<li><b>Essentiel, 49 € par mois :</b> site de 5 pages sur mesure, formulaire de demande de devis, 1 modification par mois, bilan mensuel.</li>
+<li><b>Visibilité, 79 € par mois :</b> tout l’Essentiel, suivi de la fiche Google, demandes d’avis clients, 3 modifications par mois.</li>
+<li><b>Pour juger avant de décider :</b> je refais gratuitement votre page d’accueil.</li>
+</ul>
+<p>Les détails sont sur <a href="/">la page d’accueil</a>.</p>
+
+<h2>Où en est le projet</h2>
+<ul>
+<li>L’entreprise est immatriculée et le site <b>dig16.fr</b> est en ligne.</li>
+<li>DIG16 est présente sur Google, Facebook, Instagram, TikTok, YouTube et X.</li>
+<li>Les organismes et la presse de la Charente ont été contactés.</li>
+<li>Prochaine étape : rencontrer les artisans et commerçants, et écouter ce dont ils ont vraiment besoin.</li>
+</ul>
+
+<h2>Comment aider</h2>
+<p>Vous connaissez un artisan, un commerçant ou un indépendant en Charente ? Donnez-lui l’adresse <b>dig16.fr</b>. Un abonnement ou un partage sur les réseaux aide aussi beaucoup au début.</p>
+<div class="liens">
+<a href="https://www.facebook.com/1334231963113482" rel="noopener">Facebook</a>
+<a href="https://www.instagram.com/dig16fr/" rel="noopener">Instagram</a>
+<a href="https://www.tiktok.com/@dig16fr" rel="noopener">TikTok</a>
+<a href="https://www.youtube.com/@dig16fr" rel="noopener">YouTube</a>
+<a href="https://x.com/dig16charente" rel="noopener">X</a>
+</div>
+<p style="margin-top:1.4rem">Une question ? <a href="mailto:contact@dig16.fr">contact@dig16.fr</a></p>
+
+<a class="retour" href="/">← Découvrir DIG16</a>
+</main>
+<footer><div class="cadre">© DIG16 — Sites internet pour artisans, commerçants et indépendants · <a href="/mentions-legales">Mentions légales</a></div></footer>
+<script src="/mesure.js" defer></script>
+<!--/email_off--></body>
+</html>
