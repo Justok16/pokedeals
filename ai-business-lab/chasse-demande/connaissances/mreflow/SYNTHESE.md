@@ -1,6 +1,6 @@
-# Matt Wolfe — index des fiches (synthèse du vendredi 16/10/2026)
+# Matt Wolfe — index des fiches (synthèse du samedi 17/10/2026)
 
-228 vidéos résumées sur 808. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+228 vidéos résumées sur 809. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[11 outils d'IA GRATUITS qui remplaceront vos applications payantes](p7SRuKWZMvQ.md)** — Matt Wolfe présente un panorama de 11 outils d'intelligence artificielle gratuits (ou proposant une version gratuite très généreuse) permettant d'automatiser et d'améliorer la création de contenu numérique : dictée vocale intelligente, recherche web multi-onglets, création de…

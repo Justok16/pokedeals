@@ -1,6 +1,6 @@
-# Y Combinator — index des fiches (synthèse du vendredi 16/10/2026)
+# Y Combinator — index des fiches (synthèse du samedi 17/10/2026)
 
-175 vidéos résumées sur 918. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+175 vidéos résumées sur 919. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[50 fondateurs expliquent pourquoi ils ont postulé chez Y Combinator](HQjjgi6271k.md)** — Sujet : Les motivations des entrepreneurs pour postuler au programme d'accélération Y Combinator (YC).

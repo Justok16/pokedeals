@@ -1,4 +1,4 @@
-# Grand Angle Éco — index des fiches (synthèse du vendredi 16/10/2026)
+# Grand Angle Éco — index des fiches (synthèse du samedi 17/10/2026)
 
 420 vidéos résumées sur 1050. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).

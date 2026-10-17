@@ -1,4 +1,4 @@
-# Invest Like the Best — index des fiches (synthèse du vendredi 16/10/2026)
+# Invest Like the Best — index des fiches (synthèse du samedi 17/10/2026)
 
 26 vidéos résumées sur 161. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
