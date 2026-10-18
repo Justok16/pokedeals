@@ -32,6 +32,7 @@
   dire précisément lequel et ce qui a été essayé. **Réflexe (demande du 28/09)** : outil payant ou
   bloqué → chercher tout de suite un équivalent gratuit (ex. Similarweb → OpenRush) ; tableau
   « Blocages et solutions de rechange » en fin de `33-outils.md`.
+- **LE MEILLEUR, À CHAQUE DEMANDE, JUSQU'AU BOUT** (consigne absolue de l'utilisateur, 19/10 : « à chaque fois que je te demande quelque chose, je veux le meilleur ») : ne jamais rendre la main sur une tâche à moitié faite ni la repousser à un rappel quand elle peut être finie maintenant ; viser d'emblée la meilleure version possible (pas « suffisante »), la vérifier en entier (zoom, contrôles, tests) et la livrer terminée. Avant de répondre : « est-ce vraiment le mieux que je puisse faire, et est-ce fini ? » Si non, continuer.
 - **Règle permanente du 19/10** (« à appliquer pour toujours ») : avant de demander quoi que ce soit à l'utilisateur, vérifier si Claude peut le faire lui-même avec ses outils ; le faire, et au pire lui demander une simple **validation** (« envoie », « oui »), jamais une tâche. Exemple : demande de rendez-vous à un organisme → Claude écrit et envoie le mail lui-même.
 - **Ne soumettre à l'utilisateur que** ce qui l'engage : dépense d'argent,
   son identité (signature, création d'entreprise), un prix ou un
