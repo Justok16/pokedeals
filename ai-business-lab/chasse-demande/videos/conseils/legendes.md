@@ -2,8 +2,8 @@
 
 Même texte pour Facebook, Instagram, TikTok (cocher « contenu généré par IA » : voix de synthèse). X : version courte.
 Lien : sur **Instagram et TikTok**, une adresse en légende n'est pas cliquable (texte mort) : la ligne guide est donc
-« … sur dig16.fr (lien dans la bio) ». **TikTok** : la bio a un lien depuis le 18/10 au soir (ajouté par l'utilisateur) ;
-« … sur dig16.fr (lien dans la bio) » vaut donc aussi pour TikTok (les vidéos déjà programmées gardent « … sur dig16.fr », juste aussi). Sur **Facebook**, remplacer cette ligne par
+« … sur dig16.fr (lien dans la bio) ». **TikTok** : depuis le 18/10 au soir, la bio affiche « www.dig16.fr » en texte (pas de lien
+cliquable, capture du 18/10) : garder « … sur dig16.fr » sans « (lien dans la bio) ». Sur **Facebook**, remplacer cette ligne par
 « Le guide complet, gratuit : https://dig16.fr/site-internet-artisan/ » (lien cliquable).
 Contrôle du 18/10 avec `caption.py` (instagram-agent-skill, MIT) : les 125 premiers caractères (ce que montre le fil avant
 « … plus ») contiennent l'accroche entière ; 3 hashtags (plafond Instagram : 5 depuis le 18/12/2025) ; aucun lien mort.
