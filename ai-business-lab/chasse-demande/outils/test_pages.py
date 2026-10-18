@@ -54,6 +54,22 @@ def regles_interface():
         print(('ALERTE' if manque else 'OK    '), 'interface', page, manque or '')
     return souci
 
+def plan_du_site():
+    """Leçon du 18/10 : un <url> resté ouvert avait glissé la page guide DANS l'entrée de « Le projet » (XML bien formé,
+    mais Google ne voyait plus la page guide dans le plan). Chaque <url> doit être au premier niveau et chaque page publique
+    du test doit y figurer."""
+    import xml.etree.ElementTree as ET
+    site = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site-dig')
+    ns = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
+    racine = ET.parse(os.path.join(site, 'sitemap.xml')).getroot()
+    imbriquees = [u.findtext(ns + 'loc') for u in racine.iter(ns + 'url') if u not in list(racine)]
+    adresses = {u.findtext(ns + 'loc') for u in racine.findall(ns + 'url')}
+    publiques = [p for p in PAGES if not p.startswith('/demos/')]
+    absentes = [p for p in publiques if not ({'https://dig16.fr' + p, 'https://dig16.fr' + p.removesuffix('.html')} & adresses)]
+    ok = not (imbriquees or absentes)
+    print(('OK    ' if ok else 'ALERTE'), 'plan du site', '' if ok else f'imbriquées={imbriquees} absentes={absentes}')
+    return not ok
+
 def main():
     base = sys.argv[1].rstrip('/') if len(sys.argv) > 1 else None
     serveur = None
@@ -62,7 +78,7 @@ def main():
         serveur = subprocess.Popen([sys.executable, '-m', 'http.server', '4699'], cwd=site,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(1.5); base = 'http://localhost:4699'
-    souci = son_videos() + regles_interface()
+    souci = son_videos() + regles_interface() + plan_du_site()
     try:
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()
