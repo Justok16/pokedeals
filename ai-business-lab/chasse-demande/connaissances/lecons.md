@@ -47,6 +47,7 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 
 | Date | Erreur | Règle | Garde-fou |
 |---|---|---|---|
+| 18/10 | Post « flyer » sur la fiche Google avec **téléphone et email dans le texte et sur l'image** : Google a supprimé le post et **désactivé les publications de la fiche** | **Fiche Google : jamais de téléphone, d'email ni de compte de réseau social dans un post (texte ni image)** ; utiliser le bouton « Appeler » ; lire le règlement des posts (support.google.com/business/answer/7213077) avant tout nouveau type de contenu sur une plateforme | Avant toute publication « gmb » : chercher numéro (`0[1-9]( ?\d\d){4}`), « @ » et réseaux dans le texte, et ne jamais réutiliser un visuel portant des coordonnées |
 | 15/10 | Ancien CSS servi par le cache, correctif aléatoire en ligne | Changer le `?v=` des liens à chaque modification d'un CSS mis en cache | `CLAUDE.md` (polices) |
 | 18/10 | `www.dig16.fr` répondait en 200 (site en double pour Google) | Une seule adresse ; vérifier les deux variantes avec `curl` | `functions/_middleware.js` |
 | 18/10 | 6 images sans texte alternatif sur l'accueil | Toute image publique a un `alt` | `audit_acces.py`, OpenRush `audit_site` |
