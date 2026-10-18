@@ -163,7 +163,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Légendes de publications | Idées de légendes à partir d'une photo (à réécrire selon la charte) |
 | · | Anciennes versions d'un site prospect | Déjà utilisé (photos_archives.py) ; bloqué depuis le conteneur, à ouvrir sur le téléphone de l'utilisateur |
 
-### Création de sites et design (68)
+### Création de sites et design (70)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -207,6 +207,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Vidéo YouTube AoxK3JpxbRc (envoyée le 15/10, Johnathan Mo, « The Claude Code workflow that helped me win 5 Ha… | Déjà appliqué : se faire poser des questions par l'IA avant de construire (plugin Superpowers « brainstorming », règle de CLAUDE.md), démo en direct plutôt qu'envoyée (d… |
 | ✅ | Vidéo YouTube pnD1PafeXic (envoyée le 15/10, Melvynx, « Comment AVOIR Claude en illimité et arrêter de cramer… | Appliqué le 15/10 : économie de quota (consigne de CLAUDE.md) : réserver les efforts de réflexion élevés aux tâches complexes, déléguer les recherches simples à des sous… |
 | ✅ | Vidéo YouTube 8tpL8k-mUb4 (envoyée le 15/10, Lou IA, « 10 Business IA que tu peux lancer avec Claude Code dès… | Confirme la piste DIG16 : l'auteur classe « sites web pour commerces locaux » parmi les activités les plus faciles et rapides à lancer (avis de l'auteur, sans chiffre).… |
+| ✅ | Skill apple-design d'Emil Kowalski (lien envoyé le 18/10 ; le jeton mcp_token du lien n'est recopié nulle par… | Déjà installé (.claude/skills/apple-design, MIT, identique au dépôt au commit 2d22863, vérifié le 18/10). Appliqué le 18/10 : règle « transparence réduite » (§ 14) ajout… |
 | ✅ | Vidéo YouTube S8sQeFy9VbQ (12/10) : la « zone grise », fabriquer ses propres petits outils avec Claude Code | Appliqué : c'est notre façon de faire (outils/ maison) ; le modèle en 5 parties est retenu pour les demandes de sites clients (brief). |
 | ✅ | Reel Instagram DeYKx9fgENd (13/10, compte openrushdata) : « Turn Claude into your SEO analyst. Live rankings,… | Déjà en place : OpenRush est branché depuis le 28/09 (33-outils.md), utilisé pour les volumes de recherche, l'analyse des sites et des résultats Google. Search Console d… |
 | ⏳ | Site buildyoursaas.tech envoyé le 02/10 (accompagnement payant pour apprendre Claude Code aux dirigeants de p… | lu le 02/10 ; (a) et (b) à faire au premier appel |
@@ -223,6 +224,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | 📦 | Veille du 11/10 (veille/2026-10-11.md) | Trié : rien à installer. Noté pour plus tard : OpenRegistry (registres officiels de 80 pays dont la France, en secours de verif_entreprises.py) et Brevo (secours e-mail… |
 | 📦 | Veille du 13/10 (veille/2026-10-13.md) | Trié : rien à installer. Relvato (surveillance de site) = doublon de controle_global.py ; Domain Info / QR LifeStep = déjà couverts par nos outils ; Master Setter (API c… |
 | 📦 | Veille du 14/10 (veille/2026-10-14.md) | Trié : rien à installer. Noté : Jsonpage (API données d'entreprises France, SIREN/SIRET/TVA, 1 000 requêtes/jour gratuites sans carte) en secours de verif_entreprises.py… |
+| 📦 | Veille du 18/10 (veille/2026-10-18.md) | Trié : rien à installer aujourd'hui ; le skill sécurité Cloudflare en réserve (à lire si un formulaire ou une fonction serveur s'ajoute au site) |
 | · | Page d'arrivée alignée mot pour mot sur le message de prospection | à appliquer aux prochains messages |
 | · | Tarif « forfait + usage » ; ne pas miser sur le SEO au démarrage d'un logiciel | Pas pour Dig aujourd'hui (offre de sites à prix fixe) |
 | · | Wappalyzer (technologie d'un site) | Déjà couvert par notre détection de sites pour la prospection |
@@ -333,6 +335,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 
-_250 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_252 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->

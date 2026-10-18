@@ -1,6 +1,6 @@
 # Xavier Delmas — index des fiches (synthèse du dimanche 18/10/2026)
 
-76 vidéos résumées sur 198. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+76 vidéos résumées sur 199. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[100 ans de krachs, et ça recommence](fjoxYroq2gc.md)** — Sujet : L'histoire des méthodes de valorisation boursière (des années 1920 à aujourd'hui) et leurs limites.
