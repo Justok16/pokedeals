@@ -43,6 +43,11 @@ de tes capacités ». Tout ce qui suit a été mesuré ou vérifié le 18/10/202
    (`65-seo-sites-clients.md`). Règles Google sur les avis rappelées dans l'outil : jamais payés, jamais
    inventés, jamais de tri des clients contents.
 
+7. **Vérifié en ligne après mise en ligne (00:30 UTC)** : `www.dig16.fr/le-projet/` → 301 vers `dig16.fr/le-projet/` ;
+   nouvelle page en 200 ; plus aucune image sans `alt` sur l'accueil ; IndexNow : 6 adresses signalées (200).
+   **Lighthouse (téléphone simulé)** : guide 100 / 100 / 100 / 100 (performance, accessibilité, bonnes pratiques,
+   SEO), LCP 1,1 s, CLS 0 ; accueil 94 / 100 / 100 / 100, LCP 1,8 s, CLS 0.
+
 ## 3. Ce qui reste, et pourquoi
 
 | Levier | État | Pourquoi ce n'est pas fait par Claude |
