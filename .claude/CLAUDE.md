@@ -16,6 +16,8 @@
 
 ## Comment travailler (et pourquoi)
 
+- **Apprendre de ses erreurs POUR TOUJOURS** (demande ferme du 18/10) : lire `ai-business-lab/chasse-demande/connaissances/lecons.md` **au début de chaque session et avant toute tâche du même type** ; chaque erreur constatée y est ajoutée **avant** de répondre à l'utilisateur, avec la règle et, si possible, un contrôle automatique dans l'outil concerné. Continuer d'apprendre (connaissances, compétences, skills, dépôts) de façon cumulative : chaque bonne pratique qui marche est étendue aux autres outils du même type.
+
 - **Autonomie maximale, initiative** : l'utilisateur l'a demandé à
   plusieurs reprises. Faire soi-même tout ce que les outils permettent, et
   proposer spontanément de le faire plutôt que de lui donner des tâches.
