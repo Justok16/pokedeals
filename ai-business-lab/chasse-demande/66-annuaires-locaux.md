@@ -136,3 +136,19 @@ PETR du Pays du Ruffécois (05 45 20 34 94), office de tourisme Destination Nord
 Relance unique au bout de 10 jours ouvrés sans réponse ; réponses consignées ici, sans données personnelles.
 
 **Suivi automatisé (décision de l'utilisateur du 13/10)** : relance unique le **27/10** (rappel programmé, 08:10 heure de Paris) aux seuls organismes sans réponse ni erreur, dans le même fil. Puis **point tous les 3 mois** (13 janvier, avril, juillet, octobre) : message seulement s'il y a une vraie nouvelle (client, témoignage avec accord, atelier, chiffre local vérifié), adapté à chaque catégorie et **validé par l'utilisateur avant envoi** ; jamais le même message répété (risque d'être classé indésirable).
+
+## 6. Demandes de relais du guide (19/10/2026, audit de la campagne `69`)
+
+Décision de l'utilisateur (19/10, 0 h 55 : « prépare les mails de demande de relais »). Objet : faire relayer le guide
+gratuit `dig16.fr/guide` (utile à toutes les entreprises, indépendant de l'offre) plutôt qu'une publicité, avec un
+texte prêt à coller. Quatre brouillons créés dans la boîte DIG16, chacun **dans le fil existant** :
+
+| Destinataire | Fil | Particularité |
+|---|---|---|
+| Val de Charente, développement économique | réponse à leur mail du 14/10 | rappelle l'appel de la semaine et la soirée du 30/11 |
+| CCI de la Charente (accueil Angoulême) | réponse à leur mail du 13/10 | rappelle l'attente de la conseillère création |
+| Atout Ruffec (Pauline) | réponse à son mail du 16/10 | **à envoyer après l'appel du 19/10 à 9 h 47**, propose aussi un atelier gratuit d'une heure |
+| Mairie de Ruffec (Petites villes de demain) | relance du mail du 13/10 (sans réponse) | bulletin municipal, page Facebook de la ville |
+
+Non sollicitée : la CMA (DIG16 relève du RCS, donc de la CCI ; la CMA relaie ses propres ressortissants). Charente
+Libre : rendez-vous déjà pris le 27/10, ne pas doubler.
