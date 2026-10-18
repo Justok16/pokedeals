@@ -170,8 +170,13 @@ automatise […] mis à jour au fur et à mesure ». Ce qui a été fait, et pou
 | Campagne « Le test du pouce » annulée (19/10) mais 2 publications programmées le 26/10 | Story en brouillon ; publication remplacée par « Les mentions légales, obligatoires » |
 | Aucune demande précise à la fin des textes | Un seul appel : « Votre page d'accueil refaite gratuitement : écrivez-moi en message privé » (Instagram, TikTok) ou lien https://dig16.fr (Facebook, Threads) |
 
+Horaires vérifiés (Metricool, « meilleur moment pour publier » sur TikTok, audience du compte, lu le 19/10) : 18 h fait partie
+des meilleures heures tous les jours (18 h 30 retenu), 12 h aussi ; le jeudi, 10 h est la meilleure heure de la semaine
+→ vidéos du jeudi à 10 h 15. Instagram : pas encore assez de données (valeurs nulles). Chaque carrousel est suivi
+d'une **story** Instagram et Facebook à 18 h 50 (couverture dans la zone sûre 1080 × 1920, `publications_v2.py`).
+
 Rythme obtenu jusqu'au 04/12 : lundi, mercredi, vendredi 18 h 30 (carrousels, 4 réseaux) et mardi 12 h 15 (vidéo
-« Le conseil DIG16 », 5 réseaux), + vidéos 6 à 10 le jeudi 12 h 15 (voir `64`). Contrôle automatique chaque soir à
+« Le conseil DIG16 », 5 réseaux), + vidéos 6 à 10 le jeudi 10 h 15 (voir `64`). Contrôle automatique chaque soir à
 19 h 07 (statut de chaque publication, correction et reprogrammation en cas d'erreur) ; version X préparée chaque jour
 à 17 h 52 et remise à l'utilisateur (X n'est pas relié : module payant).
 
