@@ -18,6 +18,8 @@ Rien d'inventé : jamais de faux avis, de fausses réalisations ni de pages en s
 | 7 | Email non masqué par Cloudflare (sinon lien `/cdn-cgi/` en 404 pour Google) : `<!--email_off-->` autour du contenu | gabarit DIG16 |
 | 8 | **Contrôle final : `python3 outils/seo_client.py https://site-du-client.fr/` → 0 ALERTE**, puis `test_pages.py` adapté | obligatoire (`44`) |
 | 9 | Signalement immédiat aux moteurs : IndexNow (Bing, Yandex…) | `outils/indexnow.py` adapté au domaine |
+| 10 | Une seule adresse en 200 (`www` redirigé en 301 vers l'adresse canonique, ou l'inverse) : `functions/_middleware.js` du site DIG16 à adapter | `curl -I` sur les deux adresses |
+| 11 | **Kit avis Google** livré avec le site : carte A6 avec QR code vers « Laisser un avis » + messages SMS/email (`python3 outils/kit_avis.py "<Nom>" <place_id> <dossier privé>` ; place_id via OpenSEO `get_business_profile`) | QR décodé et lien testé par l'outil |
 
 ## 2. Les comptes du client (toujours à son nom ; DIG16 ajouté comme gestionnaire)
 
@@ -31,7 +33,7 @@ Rien d'inventé : jamais de faux avis, de fausses réalisations ni de pages en s
 
 ## 3. Avis et liens (ce qui fait vraiment monter)
 
-- **Avis Google** : un lien court « laisser un avis » envoyé au client du client après chaque chantier ; répondre à
+- **Avis Google** : le kit avis (carte QR + messages, étape 11) remis au client ; lien direct envoyé par le client à ses clients après chaque chantier ; répondre à
   chaque avis. Jamais d'avis acheté, échangé ou rédigé à la place du client (interdit et sanctionné par Google).
 - **Liens** : page « réalisations » de dig16.fr vers le site du client (avec son accord) ; liens des fournisseurs,
   partenaires et associations locales quand ils existent vraiment.

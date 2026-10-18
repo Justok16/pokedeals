@@ -51,6 +51,15 @@ naturel de dig16.fr sera **un canal secondaire** ; les clients viendront d'abord
 3. Défaut évité : la politique de sécurité aurait bloqué le formulaire de contact à l'ouverture (corrigé et
    testé par `outils/test_formulaire.py`).
 
+## 3 bis. Fait le 18/10 (audit complet, détail dans `67-audit-referencement-1810.md`)
+
+- Note technique 99,4/100 (OpenRush) ; `www.dig16.fr` redirigé en 301 (`functions/_middleware.js`) ; 6 textes
+  alternatifs ajoutés ; titre et description de `le-projet` raccourcis.
+- Nouvelle page **`/site-internet-artisan/`** (guide, ≈ 1 300 mots, FAQ et Article en données structurées, sources
+  citées) pour les recherches « site internet artisan » (110/mois) et « création site internet artisan » (140/mois).
+- **Kit avis Google** (`outils/kit_avis.py`, `supports/avis/`) : carte A6 + QR + messages ; 0 avis à ce jour.
+- Réseaux : YouTube et TikTok vérifiés ; Instagram, Facebook, Threads, X à contrôler sur capture (§ 4 de `67`).
+
 ## 4. Liste d'actions classée (priorité décroissante)
 
 | # | Action | Quand | Qui |
@@ -63,6 +72,8 @@ naturel de dig16.fr sera **un canal secondaire** ; les clients viendront d'abord
 | 6 | Mesurer chaque mois : Search Console (clics, positions), statistiques Cloudflare, fiche Google (appels) | Mensuel | Claude |
 | 7 | Vitesse : médiane 84/100 atteinte le 09/10 ; re-mesurer avec PageSpeed Insights à l'ouverture (réseau réel, sans le relais du conteneur) | À l'ouverture | Claude |
 | 8 | Pages par ville ou par métier : **non** tant que les volumes restent à 10-20 recherches par mois (contenu mince pénalisé) | À revoir dans 3 mois avec Search Console | Claude |
+| 9 | Kit avis Google remis à chaque client satisfait (`supports/avis/`) ; jamais d'avis sollicité avant la fin d'une prestation | Dès le 1er client | Utilisateur |
+| 10 | Un article de conseils par trimestre au plus, seulement s'il répond à une vraie question d'artisan entendue en entretien (pas de contenu en série) | Trimestriel | Claude |
 
 ## 5. Le contrôle mensuel (consigne pour le point automatique, après l'ouverture)
 
