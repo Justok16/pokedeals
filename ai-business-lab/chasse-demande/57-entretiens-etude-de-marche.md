@@ -44,6 +44,13 @@ Question bonus, si l'échange se passe bien (ajoutée le 15/10, vidéos Ludo Sal
 « Si vous cherchiez un artisan comme vous sur votre téléphone, vous taperiez quoi ? » → noter les mots exacts :
 ce sont les vrais mots-clés à mettre dans les titres des sites clients (souvent différents du jargon du métier).
 
+Question bonus n° 2, seulement si l'artisan a du personnel ou du matériel (idée de l'utilisateur du 19/10 :
+« l'aider à tout faire plus vite » ; on mesure la demande avant de construire quoi que ce soit, règle n° 1) :
+« Dans votre journée, en dehors du chantier, qu'est-ce qui vous prend le plus de temps : les devis, les factures,
+le planning de l'équipe, les relances, le matériel ? » → noter mot pour mot, puis « Vous faites ça comment
+aujourd'hui, sur papier, un tableur, un logiciel ? Combien ça vous coûte ? » On ne propose rien ; on note. Une
+tâche citée 3 fois par des artisans différents = un besoin réel, à étudier (voir la note du 19/10 dans `64` § 0).
+
 Fin : « Merci. Quand je serai lancé, est-ce que je peux vous rappeler pour vous montrer ce que
 ça donnerait, sans engagement ? » → noter oui / non / date.
 
@@ -62,6 +69,7 @@ Fin : « Merci. Quand je serai lancé, est-ce que je peux vous rappeler pour vou
 | Quand | date ou « jamais » |
 | Rappel accepté ? | oui / non / date |
 | Durée de l'appel | minutes |
+| Tâche chronophage (bonus 2) | mot pour mot + outil actuel + coût (vide si pas de personnel ni de matériel) |
 
 Les mots exacts valent plus que les cases cochées : ils serviront aux accroches.
 
