@@ -137,7 +137,7 @@
   avec le site et le plan). Si le statut choisi à la création sort de la
   franchise, revoir la n° 12 et renvoyer le PDF.
 
-- **Investissement (promis le 18/10)** : à chaque paiement client encaissé (Indy / GoCardless), rappeler à l'utilisateur sa règle d'investissement et les montants calculés (détail et faits vérifiés N26 dans le fichier privé `scratchpad/prive/plan-investissement.md`, jamais dans le dépôt) ; informations générales vérifiées à la source, aucun conseil sur un titre précis ; l'utilisateur passe lui-même les ordres.
+- **Investissement (promis le 18/10)** : à chaque paiement client encaissé (Indy / GoCardless), rappeler à l'utilisateur sa règle d'investissement et les montants calculés (détail et faits vérifiés N26 dans le fichier privé `scratchpad/prive/plan-investissement.md`, jamais dans le dépôt) ; recommandation nommée d'un produit (ETF éligible PEA chez N26) appuyée sur des données officielles datées, avec montant et parcours vérifié dans l'appli (accord de l'utilisateur du 18/10) ; toujours rappeler : pas de prévision du marché, risque de perte, pas de conseiller agréé ; l'utilisateur valide et passe lui-même chaque ordre.
 
 - **Impayés (promis le 27/09)** : à chaque signature, vérifier le client
   (annuaire officiel + BODACC, `outils/verif_entreprises.py`) avant qu'il
