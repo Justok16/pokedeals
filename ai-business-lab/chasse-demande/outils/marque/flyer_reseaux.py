@@ -8,14 +8,15 @@
   « Ne pas jeter sur la voie publique » retiré (papier seulement).
 - Contrôles : ceux de `flyer.py` (zone, chevauchements, tailles, contrastes, polices) + QR décodé sur l'image finale.
 
-Usage : DIG16_IDENTITE=<json privé> python3 outils/marque/flyer_reseaux.py <dossier de sortie>
+Usage : DIG16_IDENTITE=<json privé> python3 outils/marque/flyer_reseaux.py <dossier de sortie> [--google]
+--google : version pour la fiche Google, **sans téléphone ni email** (règlement des posts Google : coordonnées
+interdites dans le texte et l'image, post refusé et publications désactivées le 18/10).
 """
 
 import os
 import sys
 
 import cv2
-import numpy as np
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
@@ -28,9 +29,11 @@ LEGAL_RESEAUX = "DIG16, entrepreneur individuel (EI). Mentions légales : dig16.
 
 
 def main():
-    if len(sys.argv) != 2:
+    args = [a for a in sys.argv[1:] if a != "--google"]
+    google = "--google" in sys.argv
+    if len(args) != 1:
         sys.exit(__doc__)
-    sortie = sys.argv[1]
+    sortie = args[0]
     os.makedirs(sortie, exist_ok=True)
     ident = identite.charger_identite_seule()
     if not ident:
@@ -52,6 +55,12 @@ def main():
         # téléphone posé dans la page seulement : aucune donnée de l'identité n'est écrite sur disque (CodeQL)
         pg.evaluate("t => { const b = document.querySelector('.contact b'); b.textContent = b.textContent.replace('[Téléphone]', t); }",
                     ident["telephone"])
+        if google:
+            pg.evaluate("() => { document.querySelector('.contact b').textContent = 'Votre démo gratuite sur dig16.fr'; }")
+            texte = pg.evaluate("document.body.innerText")
+            import re
+            if re.search(r"0[1-9](\s?\d\d){4}|@", texte):
+                sys.exit("ALERTE : coordonnées restantes dans la version Google")
         if pg.evaluate("document.body.innerText.includes('[')"):
             sys.exit("ALERTE : champ entre crochets restant")
         pg.evaluate("document.fonts.ready")
@@ -71,7 +80,7 @@ def main():
     petit = im.resize((w, h), Image.LANCZOS)
     fond = Image.new("RGB", (1080, 1350), (237, 230, 217))  # #ede6d9, bas du dégradé du flyer
     fond.paste(petit, ((1080 - w) // 2, 24))
-    jpg = os.path.join(sortie, "DIG16-flyer-reseaux-1080x1350.jpg")
+    jpg = os.path.join(sortie, "DIG16-flyer-google-1080x1350.jpg" if google else "DIG16-flyer-reseaux-1080x1350.jpg")
     fond.save(jpg, quality=92, optimize=True)
     os.remove(a5)
     lu = cv2.QRCodeDetector().detectAndDecode(cv2.imread(jpg))[0]
