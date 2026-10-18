@@ -137,6 +137,8 @@
   avec le site et le plan). Si le statut choisi à la création sort de la
   franchise, revoir la n° 12 et renvoyer le PDF.
 
+- **Investissement (promis le 18/10)** : à chaque paiement client encaissé (Indy / GoCardless), rappeler à l'utilisateur sa règle d'investissement et les montants calculés (détail et faits vérifiés N26 dans le fichier privé `scratchpad/prive/plan-investissement.md`, jamais dans le dépôt) ; informations générales vérifiées à la source, aucun conseil sur un titre précis ; l'utilisateur passe lui-même les ordres.
+
 - **Impayés (promis le 27/09)** : à chaque signature, vérifier le client
   (annuaire officiel + BODACC, `outils/verif_entreprises.py`) avant qu'il
   signe ; dès qu'un paiement est en retard, rappeler à l'utilisateur la
