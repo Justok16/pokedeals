@@ -176,7 +176,7 @@ des meilleures heures tous les jours (18 h 30 retenu), 12 h aussi ; le jeudi, 10
 d'une **story** Instagram et Facebook à 18 h 50 (couverture dans la zone sûre 1080 × 1920, `publications_v2.py`).
 
 Rythme obtenu jusqu'au 04/12 : lundi, mercredi, vendredi 18 h 30 (carrousels, 4 réseaux) et mardi 12 h 15 (vidéo
-« Le conseil DIG16 », 5 réseaux), + vidéos 6 à 10 le jeudi 10 h 15 (voir `64`). Contrôle automatique chaque soir à
+« Le conseil DIG16 », 5 réseaux), + vidéos 6 à 10 le jeudi 10 h 15 (n° 6 programmée le 22/10 ; 7 à 10 dès que la voix est refaite, voir `64`). Contrôle automatique chaque soir à
 19 h 07 (statut de chaque publication, correction et reprogrammation en cas d'erreur) ; version X préparée chaque jour
 à 17 h 52 et remise à l'utilisateur (X n'est pas relié : module payant).
 
