@@ -43,7 +43,7 @@ déjà trié répond au besoin, l'utiliser ; ne pas re-trier ce qui est écarté
 
 Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pas utile aujourd'hui, gardé : à ressortir dès que le besoin apparaît, raison et condition indiquées) · ⛔ refusé par principe (illégal ou dangereux) · · simple information.
 
-### Vidéo, voix et montage (62)
+### Vidéo, voix et montage (63)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -99,6 +99,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | 📦 | Vidéo YouTube 4aUVjc7ttko (envoyée le 09/10) | Rien à installer (pas de podcast ; Riverside payant). Conseils retenus pour la future vidéo verticale « Le test du pouce » (15 s) : démarrer directement sur la phrase fo… |
 | 📦 | Carrousel Instagram DeYzjEXgWa2 (envoyé le 15/10, flm_freelancing, 10 images ; lu image par image le 15/10) | Plus tard (au premier client) : galeries gratuites à consulter pour trouver une direction visuelle quand on construit le site d'un client, en complément de la skill desi… |
 | 📦 | Reel Instagram DekeJLyxVT9 (envoyé le 16/10, kingarms.ai, 65 s, collaboration commerciale avec Higgsfield ; r… | Écarté : la page d'aide officielle de Higgsfield (lue le 16/10) dit que chaque génération par le connecteur « déduit des crédits au tarif standard » → payant, budget 0 €… |
+| 📦 | Reel Instagram Dc1OrJNox7B (envoyé le 18/10, 0xloucash ; détail dans videos-resumes/Dc1OrJNox7B.md) | Déjà fait : même outil que le reel Facebook du 01/10 (vérifié, guide Dig-Guide-MiniMax-H3.pdf, PC compatible). En réserve jusqu'au 1er client payant ; rien à installer d… |
 | 📦 | Vidéo YouTube 1RqsrzT9-CI (12/10) : clonage de voix et traduction avec Fish Audio | Écarté : vidéos en pause ; cloner la voix de l'utilisateur toucherait à son identité (accord nécessaire) ; gratuité de l'API à vérifier. Idée « plusieurs variantes à tes… |
 | · | Pages Facebook IA Boss (@iabossai) et Unefille.ia : toutes les vidéos (demande du 29/09) | Collecte des légendes et sous-titres lancée (texte privé, hors dépôt), puis fiches par lots de 15 dans connaissances/iaboss/ et connaissances/unefille/ |
 | · | Outil créé | Testé le 30/09 sur ces 4 reels : fonctionne |
@@ -329,6 +330,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 
-_246 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_247 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
