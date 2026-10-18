@@ -103,7 +103,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 
 | Piste | Source | Statut |
 |---|---|---|
-| Clipping payé à la vue sur Whop + OpusClip (Dej1p_IgkuM, 18/10) | Revenu d'appoint en publiant des clips de vidéos autorisées | Si l'utilisateur veut un complément en plus de DIG16 et a du temps de publication | Gratuit pour démarrer ; revenus aléatoires (vues, validation) ; gains à déclarer |
+| Clipping payé à la vue (Whop + OpusClip) : revenu d'appoint en publiant des clips de vidéos autorisées | Dej1p_IgkuM (18/10) | En réserve : à ressortir si l'utilisateur veut un complément en plus de DIG16 ; revenus aléatoires (vues, validation), gains à déclarer, chiffres de l'auteur non vérifiés |
 | Racheter de petits logiciels sous-exploités | 7XTYaVrt4QM | Idée notée, chiffres de l'auteur non vérifiés |
 | Chaînes vidéo « sans visage » | x.com/chesny | Écartée pour l'instant : outils payants et règles YouTube vérifiées |
 | Standardiste IA pour artisans | 96G4KDnEFyI | Option à proposer si un client le demande |
