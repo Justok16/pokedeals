@@ -43,6 +43,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 
 | Outil | Sert à | Le ressortir quand… | Comment l'activer / coût |
 |---|---|---|---|
+| OpusClip (Dej1p_IgkuM, 18/10) | Découper une vidéo longue en clips verticaux sous-titrés | Interview, rendez-vous presse filmé, vidéo d'un client à recycler en réseaux | opus.pro ; offre gratuite à vérifier avant usage |
 | OBS Studio (DegsO8likZa, 17/10) | Enregistrer l'écran (démo du site, tutoriel pour un client) | Tutoriel « comment modifier vos horaires » ou démo à distance | Logiciel libre et gratuit, à installer sur le PC de l'utilisateur |
 | Editor de Diffusion Studio (Ddytkf2gBEj) | Montage vidéo piloté par un agent | Si un client commande des vidéos régulières | Open source, appli de bureau ; aujourd'hui : ffmpeg suffit |
 | Skill `cbh991/animate`, méthode Canvas + Playwright + FFmpeg (rscb1DgJtNg) | Vidéos animées en code | Vidéo de démo ou de lancement | Gratuit, déjà dans le conteneur |
@@ -102,6 +103,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 
 | Piste | Source | Statut |
 |---|---|---|
+| Clipping payé à la vue sur Whop + OpusClip (Dej1p_IgkuM, 18/10) | Revenu d'appoint en publiant des clips de vidéos autorisées | Si l'utilisateur veut un complément en plus de DIG16 et a du temps de publication | Gratuit pour démarrer ; revenus aléatoires (vues, validation) ; gains à déclarer |
 | Racheter de petits logiciels sous-exploités | 7XTYaVrt4QM | Idée notée, chiffres de l'auteur non vérifiés |
 | Chaînes vidéo « sans visage » | x.com/chesny | Écartée pour l'instant : outils payants et règles YouTube vérifiées |
 | Standardiste IA pour artisans | 96G4KDnEFyI | Option à proposer si un client le demande |

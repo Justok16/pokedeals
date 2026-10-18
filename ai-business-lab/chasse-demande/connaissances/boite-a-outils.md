@@ -43,7 +43,7 @@ déjà trié répond au besoin, l'utiliser ; ne pas re-trier ce qui est écarté
 
 Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pas utile aujourd'hui, gardé : à ressortir dès que le besoin apparaît, raison et condition indiquées) · ⛔ refusé par principe (illégal ou dangereux) · · simple information.
 
-### Vidéo, voix et montage (64)
+### Vidéo, voix et montage (65)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -80,6 +80,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Vidéo YouTube gyVqYy5yDK8 (envoyée le 12/10) : un créateur solo délègue son montage vidéo à Claude | Noté : vidéos en pause jusqu'au 1er client ; quand elles reprendront, même méthode (dossier de rushes + consigne écrite) avec nos outils gratuits (ffmpeg, faster-whisper… |
 | ⏳ | vqMhGnep1H0 (Jornada Digital, 10 min, en portugais) | Noté, à vérifier à la source avant usage (quota et licence affichés sur theresanaiforthat.com le jour J) ; piste pour de courts visuels animés des démos Dig, sans achat.… |
 | ⏳ | hImo2S4HOGI | Plus tard (vidéo de présentation Dig), consomme des crédits |
+| ⏳ | Reel Instagram Dej1p_IgkuM (envoyé le 18/10, danyltn, 82 s ; détail dans videos-resumes/Dej1p_IgkuM.md) | Gardé en réserve : OpusClip pour les futures vidéos (gratuité à vérifier) ; Whop comme piste de revenu d'appoint, aléatoire, hors DIG16. Chiffres de la vidéo non vérifié… |
 | 📦 | Petit outil gratuit sans inscription sur le site de Dig (« votre entreprise est-elle trouvable sur Google et… | écarté le 01/10 (grille) : OpenRush (France, 01/10) ne trouve aucune recherche pour « tester visibilité google entreprise » ; « audit fiche google gratuit » ne remonte q… |
 | 📦 | 6 reels Instagram (enfin lus le 29/09 : yt-dlp + ffmpeg + Gemini) | Design des démos : Taste Skill, Impeccable, Awesome DESIGN.md (gratuits et libres selon les vidéos) : à évaluer, avec lecture complète du code avant toute installation (… |
 | 📦 | x.com/chesny 2105326525239415230 (12 min) | Écarté pour l'instant selon la grille : pas de demande prouvée pour nous, outils payants (ElevenLabs, Midjourney), et risque réel vérifié à la source : les règles de mon… |
@@ -331,6 +332,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 
-_248 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_249 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
