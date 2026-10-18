@@ -97,12 +97,42 @@ Les CGV privées (Drive « Dig », version du 08/10) prévoient déjà : client 
 **[Relecture par un professionnel du droit conseillée avant le premier client : CCI Charente ou permanence gratuite
 d'avocats, à vérifier.]**
 
+**18/10 (23 h 50)** : l'utilisateur veut être « irréprochable » en cas de litige et « ne pas perdre d'argent à
+cause d'une erreur ou d'un oubli » → projet **« DIG16 – CGV v2 (PROJET à relire, 18-10-2026) »** créé dans le Drive
+« Dig » (la version du 08/10 reste intacte) : les 4 ajouts ci-dessus + validation avant mise en ligne (art. 4 bis),
+suspension après impayé et mise en demeure (art. 7), preuve par écrits et signature électronique (art. 12 bis),
+amiable de 30 jours et conciliateur de justice (art. 13), annexe de sous-traitance RGPD.
+
+## 5 bis. Litiges : ne jamais perdre d'argent par erreur ou oubli
+
+**Les preuves, à chaque client** (rangées dans le dossier privé du client, Drive « Dig ») :
+1. devis-bon de commande et CGV **signés** (signature électronique valable : Code civil, art. 1367, Légifrance) ;
+2. vérification du client avant signature (annuaire officiel + BODACC, `outils/verif_entreprises.py`) ;
+3. contenus et photos reçus, avec l'attestation de droits sur les photos ;
+4. **accord écrit** du client sur la prévisualisation avant mise en ligne (art. 4 bis) ;
+5. chaque demande de modification et sa date de réalisation (email), pour prouver le délai de 3 jours ouvrés ;
+6. factures, mandat SEPA, relances et mises en demeure (`45-impayes-se-proteger.md`).
+Règle : **tout accord important passe par écrit** (un appel est suivi d'un email récapitulatif le jour même).
+
+**Les rappels automatiques** (déjà en place ou à créer au premier client) : impayé → procédure `45` ; échéance
+de domaine du client ; fin d'engagement ; délai des modifications (alerte si une demande a plus de 2 jours ouvrés).
+
+**En cas de désaccord** : réponse écrite sous 48 heures, calme et factuelle, sans reconnaître de faute avant d'avoir
+vérifié ; Claude rédige, l'utilisateur valide (règle du brouillon validé) ; puis conciliateur de justice (gratuit) ;
+conseil juridique gratuit avant toute réponse engageante :
+- **Point-Justice, Maison de Justice et du Droit d'Angoulême**, rue René Pajot, 05 45 24 68 01 : consultation gratuite
+  d'avocat le mercredi de 14 h à 17 h sur rendez-vous ; conciliateur de justice les 1er et 3e vendredis matin sur
+  rendez-vous (fiche justice.gouv.fr, lue le 18/10/2026).
+
+**La meilleure protection financière restante** : RC Pro (et éventuellement protection juridique) à comparer à la
+première signature (`64`), car un contrat bien écrit limite une condamnation mais ne paie pas un avocat.
+
 ## 5. Ce qui reste à faire
 
 | Quoi | Qui | Quand |
 |---|---|---|
-| Valider ou corriger les ajouts aux CGV (§ 4) | utilisateur | quand il veut, avant le premier client |
-| Reporter les ajouts validés dans les CGV du Drive, avec l'annexe CNIL | Claude | après validation |
+| Lire le projet CGV v2 du Drive, puis le faire relire gratuitement au Point-Justice d'Angoulême (mercredi 14 h-17 h, sur rendez-vous) | utilisateur | avant le premier client |
+| Intégrer les corrections de l'avocat et faire de la v2 la version officielle | Claude | après la relecture |
 | Ajouter l'attestation « droits sur les photos » au questionnaire de lancement | Claude | avec les CGV |
 | Étendre la sentinelle aux sites clients ; registre des médias ; modèle de formulaire sans stockage | Claude | au premier client |
 | Remplacer FormSubmit sur dig16.fr par la fonction Cloudflare | Claude | après test du modèle |
