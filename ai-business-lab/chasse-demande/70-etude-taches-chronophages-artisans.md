@@ -97,6 +97,9 @@ devis et [assurer] les contacts avec les fournisseurs »). **Aucune statistique 
    son temps à l'administratif (CAPEB ARTIsanté 2025) » ; « 30 % des dirigeants de TPE y passent plus de 8 heures par
    semaine (SDI, 2023) ».
 
+Prompt de recoupement pour les autres IA (ChatGPT, Gemini, Perplexity…) : `supports/prompt-ia-taches-chronophages.md` ;
+leurs réponses sont relues à la source avant d'entrer ici.
+
 ## Sources (toutes lues le 19/10/2026)
 
 - Asterès / FAFCEA, étude du 06/12/2024 : <https://asteres.fr/site/wp-content/uploads/2024/12/ASTERES-FAFCEA-Impact-de-lIA-06122024.pdf> ;
