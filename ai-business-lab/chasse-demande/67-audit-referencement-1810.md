@@ -91,3 +91,27 @@ avis ou le premier site client dès qu'il existe).
 - Une seule adresse par site (www → sans www ou l'inverse, jamais les deux en 200) : même middleware.
 - Texte alternatif sur chaque image, titre ≤ 60, description ≤ 160, une page par service, FAQ en données
   structurées quand il y a de vraies questions de clients.
+
+## 6. Profil Instagram noté sur capture (18/10/2026, 04:48 heure du téléphone) — 61 / 100
+
+Grille `ig-profile` (12 critères). Constat : nom « DIG16 · Sites internet Charente », catégorie « Web Designer », bio de
+131 caractères finissant par « → dig16.fr », lien « dig16.fr et 1 autre », 6 publications, 6 abonnés, 370 vues sur 30 jours.
+
+| Critère | Note | Constat → correction |
+|---|---|---|
+| Nom (recherche) | 12/12 | Conforme |
+| 1re ligne de bio | 11/12 | Conforme (pour qui, quoi, où) |
+| Suite de la bio | 6/8 | « → dig16.fr » répète le lien → remplacer par « Démo gratuite 👇 » (136 car., offre déjà sur le site) |
+| 3 publications épinglées | 0/10 | Aucune → épingler l'offre (« Un site avec DIG16, comment ça se passe ? »), le conseil (« Votre fiche Google : 3 choses à vérifier »), le lancement (« DIG16 est lancé ») ; plus tard la preuve (1er avis ou site client) |
+| Lien | 5/8 | Deux liens : n'en garder qu'un (dig16.fr) sauf si le 2e est utile → **2e lien à identifier** |
+| Stories à la une | 0/8 | Aucune ; en pause avec les réseaux (à reprendre après le 1er client : Tarifs, Comment ça marche, Réalisations, Qui je suis) |
+| Grille lisible | 5/8 | Un reel à couverture noire (41 vues) et le 1er visuel coupé sur les côtés ; couverture **non modifiable après publication** (aide Instagram « Reel size & aspect ratios », lue le 18/10) → les vidéos « Le conseil » ont une 1re image lisible (contrôle de `fabriquer.py`) ; visuels futurs en 4:5 avec marges latérales |
+| Photo | 5/6 | Logo, adapté à une marque |
+| Identifiant | 5/6 | `dig16fr` partout sauf X (`@dig16charente`) ; on ne change rien (risque de perdre l'ancien nom) |
+| Catégorie, contact | 4/6 | Catégorie cohérente ; boutons de contact visibles seulement des visiteurs → à vérifier depuis un autre compte |
+| Activité récente | 8/10 | Publication dans les 7 jours (15/10) ; réponses aux commentaires à suivre |
+| Story du jour | 0/6 | En pause (décision du 05/10) |
+
+Après les 3 corrections faciles (bio, épingles, lien unique) : ≈ 76 / 100 ; le reste dépend des stories et de la preuve
+client. Épingler : publication → « ⋯ » en haut à droite → « Épingler à la grille principale » (3 au maximum ; aide
+Instagram « Pin a post to the top of your profile », lue le 18/10 ; libellé français exact à confirmer sur l'écran).
