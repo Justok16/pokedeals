@@ -31,6 +31,7 @@
   dire précisément lequel et ce qui a été essayé. **Réflexe (demande du 28/09)** : outil payant ou
   bloqué → chercher tout de suite un équivalent gratuit (ex. Similarweb → OpenRush) ; tableau
   « Blocages et solutions de rechange » en fin de `33-outils.md`.
+- **Règle permanente du 19/10** (« à appliquer pour toujours ») : avant de demander quoi que ce soit à l'utilisateur, vérifier si Claude peut le faire lui-même avec ses outils ; le faire, et au pire lui demander une simple **validation** (« envoie », « oui »), jamais une tâche. Exemple : demande de rendez-vous à un organisme → Claude écrit et envoie le mail lui-même.
 - **Ne soumettre à l'utilisateur que** ce qui l'engage : dépense d'argent,
   son identité (signature, création d'entreprise), un prix ou un
   pourcentage accepté avec un tiers.
