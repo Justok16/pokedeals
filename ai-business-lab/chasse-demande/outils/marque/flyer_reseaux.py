@@ -38,11 +38,8 @@ def main():
     html = flyer.HTML.replace("{QR}", flyer.qr_svg())
     assert LEGAL_PAPIER in html and " Ne pas jeter sur la voie publique." in html
     html = html.replace(LEGAL_PAPIER, LEGAL_RESEAUX).replace(" Ne pas jeter sur la voie publique.", "")
-    html = html.replace("[Téléphone]", ident["telephone"])
     # le HTML est écrit hors de supports/ : ses images relatives (logo, téléphone) doivent y être cherchées
     html = html.replace("<head>", '<head><base href="file://' + flyer.SUP + '/">', 1)
-    if "[" in html.split("<body")[1].replace("[data", ""):
-        sys.exit("ALERTE : champ entre crochets restant")
     chemin = os.path.join(sortie, "flyer-reseaux.html")
     with open(chemin, "w", encoding="utf-8") as f:
         f.write(html)
@@ -52,6 +49,11 @@ def main():
         nav = p.chromium.launch(executable_path=flyer.CHROME)
         pg = nav.new_page(viewport={"width": round(largeur), "height": round(hauteur)}, device_scale_factor=1748 / largeur)
         pg.goto("file://" + chemin)
+        # téléphone posé dans la page seulement : aucune donnée de l'identité n'est écrite sur disque (CodeQL)
+        pg.evaluate("t => { const b = document.querySelector('.contact b'); b.textContent = b.textContent.replace('[Téléphone]', t); }",
+                    ident["telephone"])
+        if pg.evaluate("document.body.innerText.includes('[')"):
+            sys.exit("ALERTE : champ entre crochets restant")
         pg.evaluate("document.fonts.ready")
         pg.wait_for_timeout(800)
         res = pg.evaluate(flyer.CONTROLE)
