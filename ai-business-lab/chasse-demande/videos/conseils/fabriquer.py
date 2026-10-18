@@ -77,7 +77,7 @@ SERIE = {
         ("Votre site, à votre nom, reste à vous.", "Votre site, à votre nom, *reste à vous.*"),
         ("Le guide complet est sur Dig seize point F R.", None)]},
     # Série 2 (19/10, demande de l'utilisateur : « pousse au maximum la campagne »), mêmes sources : le guide.
-    6: {"titre": "Pensé d'abord pour le téléphone", "scenes": [
+    6: {"titre": "Pensé pour le téléphone", "scenes": [
         ("Google classe les sites d'après leur version pour téléphone.", "Google regarde d'abord *la version téléphone.*"),
         ("Un site qui s'affiche mal sur un petit écran est donc doublement pénalisé.",
          "Mal affiché sur téléphone ? *Doublement pénalisé.*"),
@@ -85,7 +85,7 @@ SERIE = {
          "Lisible sans zoomer, *le numéro d'un geste.*"),
         ("Et les pages doivent s'ouvrir en moins de deux secondes.", "Des pages ouvertes en *moins de deux secondes.*"),
         ("Le guide complet est sur Dig seize point F R.", None)]},
-    7: {"titre": "La fiche Google, le premier contact", "scenes": [
+    7: {"titre": "La fiche Google", "scenes": [
         ("Pour un artisan, la fiche Google est souvent vue avant le site.", "Votre fiche Google, *vue avant votre site.*"),
         ("Elle doit être validée et à jour : horaires, téléphone, zone desservie.", "Validée, *et à jour.*"),
         ("Avec de vraies photos, et un lien vers votre site.", "De vraies photos, *un lien vers votre site.*"),
@@ -108,7 +108,7 @@ SERIE = {
         ("Ce qui compte : savoir ce que vous payez, et ce que vous gardez.",
          "Sachez ce que vous payez, *et ce que vous gardez.*"),
         ("Le guide complet est sur Dig seize point F R.", None)]},
-    10: {"titre": "Avez-vous vraiment besoin d'un site ?", "scenes": [
+    10: {"titre": "Besoin d'un site ?", "scenes": [
         ("Avez-vous vraiment besoin d'un site ?", "Avez-vous vraiment *besoin d'un site ?*"),
         ("Si votre carnet est plein pour six mois grâce au bouche-à-oreille, pas tout de suite.",
          "Carnet plein pour six mois ? *Pas tout de suite.*"),

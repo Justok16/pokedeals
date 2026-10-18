@@ -365,7 +365,7 @@ def contenu(image, theme):
     raise ValueError(genre)
 
 
-def page(pub, n, total):
+def page(pub, n, total, story=False):
     image = pub["images"][n]
     theme = pub["theme"]
     clair = theme == "clair"
@@ -375,7 +375,8 @@ def page(pub, n, total):
                                   "signature-encre-transparent@2x.png" if clair else "signature-ivoire@2x.png"), "image/png")
     deco = (f'<div class="deco">{empreinte_svg(440, couleur=accent, opacite=1.0, ident="d")}</div>'
             if image[0] == 'cover' and len(image[1].replace('*', '')) <= 33 else '')  # titre long : pas de décor
-    compte = (f'<span class="or">Faites glisser →</span>&nbsp;&nbsp;{n + 1} / {total}' if n == 0 and total > 1
+    compte = ('<span class="or">Nouveau sur le fil</span>' if story else
+              f'<span class="or">Faites glisser →</span>&nbsp;&nbsp;{n + 1} / {total}' if n == 0 and total > 1
               else f'{n + 1} / {total}' if total > 1 else '')
     return f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>{css_polices()}</style><style>
 *{{box-sizing:border-box;margin:0;padding:0}}
@@ -447,6 +448,7 @@ blockquote{{font:400 italic 78px/1.12 'Instrument Serif','Instrument Serif Fallb
 .site{{margin-top:56px;display:inline-block;padding:26px 54px;border-radius:999px;background:{'#1a1814' if clair else '#c8a46e'};
  color:{'#f3eee5' if clair else '#14110d'};font:600 52px Geist,'Geist Fallback',sans-serif;letter-spacing:.01em}}
 .mini{{margin-top:30px;font:400 26px Geist,'Geist Fallback',sans-serif;color:{second}}}
+{'html{height:1920px} body{margin-top:285px}' if story else ''}
 </style></head><body>
 {deco}
 <div class="entete"><img src="{signature}" alt=""><div class="etq">{insecables(pub['etiquette'])}</div></div>
@@ -515,6 +517,17 @@ def main():
                 pg.screenshot(path=png)
                 Image.open(png).convert("RGB").save(os.path.join(SORTIE, nom), "JPEG", quality=90, optimize=True,
                                                     progressive=True)
+            if not choix or pub["id"] in choix:
+                # Story 1080 × 1920 : la couverture dans la zone sûre (285 px libres en haut et en bas), fond continu.
+                pg.set_viewport_size({"width": 1080, "height": 1920})
+                pg.set_content(page(pub, 0, total, story=True), wait_until="load")
+                pg.evaluate("document.fonts.ready")
+                pg.wait_for_timeout(150)
+                png = os.path.join(SUPPORTS, "_tmp.png")
+                pg.screenshot(path=png)
+                Image.open(png).convert("RGB").save(os.path.join(SORTIE, f"{pub['id']}-story.jpg"), "JPEG", quality=90,
+                                                    optimize=True, progressive=True)
+                pg.set_viewport_size({"width": 1080, "height": 1350})
             sortie.append({k: pub[k] for k in ("id", "date", "theme", "etiquette", "titre_tiktok", "legende", "alt",
                                                "metricool")} | {"images": fichiers})
         b.close()

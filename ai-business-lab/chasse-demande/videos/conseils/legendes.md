@@ -45,3 +45,38 @@ La fiche Google est indispensable pour être trouvé sur Maps. Mais ces pages ne
 Le guide complet, gratuit, sur dig16.fr (lien dans la bio)
 #artisan #Charente #siteinternet
 X : Une page Facebook suffit-elle ? Non : elle ne vous appartient pas. Votre site, si. https://dig16.fr/site-internet-artisan/ #artisan
+
+## Conseil 6 — Pensé pour le téléphone
+Votre site s'affiche-t-il bien sur un téléphone ? 📱
+Google classe les sites d'après leur version pour téléphone : un site mal affiché sur un petit écran est doublement pénalisé. Texte lisible sans zoomer, numéro qui s'appelle d'un geste, pages ouvertes en moins de deux secondes.
+Le guide complet, gratuit, sur dig16.fr (lien dans la bio)
+#artisan #Charente #siteinternet
+X : Google classe les sites d'après leur version pour téléphone. Le vôtre s'affiche-t-il bien ? https://dig16.fr/site-internet-artisan/ #artisan
+
+## Conseil 7 — La fiche Google
+Votre fiche Google, on la voit souvent avant votre site 📍
+Elle doit être validée et à jour (horaires, téléphone, zone desservie), avec de vraies photos et un lien vers votre site. Le nom, l'adresse et le téléphone : exactement les mêmes partout.
+Le guide complet, gratuit, sur dig16.fr (lien dans la bio)
+#artisan #Charente #fichegoogle
+X : Votre fiche Google est souvent vue avant votre site : validée, à jour, de vraies photos. https://dig16.fr/site-internet-artisan/ #artisan
+
+## Conseil 8 — Un site gratuit suffit-il ?
+Un site gratuit, ça suffit pour un artisan ? 🤔
+Pour commencer, parfois. Vérifiez trois points : l'adresse (souvent avec le nom du fournisseur dedans), la publicité affichée sur vos pages, et ce qui se passe si vous changez d'outil.
+Le guide complet, gratuit, sur dig16.fr (lien dans la bio)
+#artisan #Charente #siteinternet
+X : Un site gratuit suffit-il ? Vérifiez l'adresse, la publicité et ce qui se passe si vous changez d'outil. https://dig16.fr/site-internet-artisan/
+
+## Conseil 9 — Location ou achat ?
+Un site internet, ça se loue ou ça s'achète 💶
+En location, la création est souvent offerte, puis vous payez chaque mois. À l'achat, vous payez une fois, puis l'hébergement si vous le voulez. Ce qui compte : savoir ce que vous payez, et ce que vous gardez.
+Le guide complet, gratuit, sur dig16.fr (lien dans la bio)
+#artisan #Charente #siteinternet
+X : Location ou achat d'un site : savoir ce que vous payez, et ce que vous gardez. https://dig16.fr/site-internet-artisan/ #artisan
+
+## Conseil 10 — Besoin d'un site ?
+Avez-vous vraiment besoin d'un site ? 🔎
+Si votre carnet est plein pour six mois grâce au bouche-à-oreille, pas tout de suite. Sinon, une seule question : sur un téléphone, vous trouve-t-on avec votre métier et votre ville, et peut-on vous appeler d'un geste ?
+Le guide complet, gratuit, sur dig16.fr (lien dans la bio)
+#artisan #Charente #siteinternet
+X : Avez-vous vraiment besoin d'un site ? Une seule question : vous trouve-t-on sur un téléphone ? https://dig16.fr/site-internet-artisan/
