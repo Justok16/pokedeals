@@ -93,6 +93,7 @@ a[href^="tel:["],a[href^="mailto:["]{display:none!important}
 .avis-ouverture{background:#1f3b2d;color:#f4f1ea;text-align:center;font-size:.9rem;padding:.55rem 1rem;line-height:1.4}
 nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s}
 nav.plein{background:rgba(15,14,12,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--ligne)}
+@media (prefers-reduced-transparency:reduce){nav.plein,.film-lecture .etiquette{background:#0f0e0c;backdrop-filter:none;-webkit-backdrop-filter:none}}
 nav .cadre{display:flex;align-items:center;justify-content:space-between;height:70px;gap:1rem}
 .logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
 .logo i{font-style:normal;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-weight:700;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,#ff7a2f,#7b5cff)}
