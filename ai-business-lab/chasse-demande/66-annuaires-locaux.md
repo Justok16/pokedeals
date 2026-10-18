@@ -152,3 +152,9 @@ texte prêt à coller. Quatre brouillons créés dans la boîte DIG16, chacun **
 
 Non sollicitée : la CMA (DIG16 relève du RCS, donc de la CCI ; la CMA relaie ses propres ressortissants). Charente
 Libre : rendez-vous déjà pris le 27/10, ne pas doubler.
+
+**Décision de l'utilisateur (19/10, 1 h 10) : « envoie dans deux semaines ».** Les quatre mails partent le
+**lundi 02/11/2026 à 9 h 07** (rappel programmé « Envoyer les 4 mails de relais ») : relecture de chaque brouillon,
+vérification des faits cités (liens, chiffres du dernier lundi, résultat du rendez-vous Charente Libre du 27/10),
+envoi, archivage, relance à J+10 (12/11) pour les sans-réponse. Le brouillon Atout Ruffec est réécrit après l'appel
+avec Pauline du 19/10 et montré à l'utilisateur avant le 02/11.
