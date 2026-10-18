@@ -135,12 +135,12 @@ SERIE = [
      "titre_tiktok": "Avant, après : la même page d'accueil",
      "images": [
          ("avantapres", "Avant, après : *la même page d'accueil.*"),
-         ("point", "1", "Le numéro, *visible tout de suite.*", "Sans faire défiler la page."),
+         ("point", "1", "Une page *claire.*", "Votre métier et votre secteur, lisibles sans zoomer."),
          ("point", "2", "Vos réalisations, *en grandes photos.*", "C'est ce que vos clients viennent voir."),
-         ("point", "3", "Un bouton pour *demander un devis.*", "Simple, en haut de la page."),
+         ("point", "3", "Un bouton pour *demander un devis.*", "En haut de la page, toujours à portée de pouce."),
          APPEL],
      "legende": "Avant / après : une page d'accueil d'artisan refaite par DIG16 (exemple fictif) ✨\n"
-                "Plus claire, les réalisations en grand, et le numéro bien en vue.\n"
+                "Plus claire, les réalisations en grand, et le devis à portée de pouce.\n"
                 "Vous voulez voir la même chose pour votre entreprise ? C'est gratuit pour voir.",
      "alt": "Avant, après : une page d'accueil d'artisan démodée, puis la même refaite par DIG16 (exemple fictif)."},
     {"id": "p08", "date": "2026-11-04T18:30:00", "theme": "clair", "etiquette": "Le conseil", "metricool": 392400832,
