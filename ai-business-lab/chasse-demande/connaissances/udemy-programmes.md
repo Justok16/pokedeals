@@ -1,5 +1,7 @@
 # Cours Udemy gratuits du 10/10/2026 : programmes publics lus et appliqués
 
+> **Projet ANNULÉ DÉFINITIVEMENT par l'utilisateur le 19/10/2026** : ne plus reproposer les cours Udemy. Les idées déjà appliquées restent en place.
+
 Les vidéos sont réservées au compte de l'utilisateur : seuls les programmes publics (titres des leçons et
 promesses) ont été lus, le 10/10/2026, avec Firecrawl. Rien n'est repris mot pour mot ; les idées utiles sont
 comparées à ce que DIG16 fait déjà, puis appliquées si elles sont justes et légales.

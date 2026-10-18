@@ -13,6 +13,7 @@
 - Piste principale : **DIG16**, sites internet pour artisans et commerçants (dig16.fr).
   **Piste Atlassian abandonnée et supprimée le 08/10** (décision de l'utilisateur : « on arrête
   complètement ») : ne plus jamais la relancer ni la reproposer.
+  **Annulés définitivement le 19/10** (décision de l'utilisateur) : la campagne « Le test du pouce » (`62` ; la page outil du site reste) et les cours Udemy gratuits : ne plus les reproposer.
 
 ## Comment travailler (et pourquoi)
 

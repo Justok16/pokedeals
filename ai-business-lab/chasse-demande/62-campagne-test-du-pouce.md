@@ -1,5 +1,7 @@
 # 62 — Campagne « Le test du pouce » (préparée le 08/10/2026, budget 0 €)
 
+> **ANNULÉE DÉFINITIVEMENT par l'utilisateur le 19/10/2026** : ne plus la relancer ni la reproposer. Document gardé pour mémoire ; la page outil `/test-du-pouce/` du site reste en ligne.
+
 Demande de l'utilisateur (08/10) : « une campagne de pub exceptionnelle qui attirera l'attention des prospects
 au maximum ». Elle s'ajoute à `50-campagne-lancement.md` (démarchage, visites, recommandation) et à
 `61-plan-publicite.md` (supports, profils, 24 publications) : même offre, mêmes règles, **une idée centrale**
