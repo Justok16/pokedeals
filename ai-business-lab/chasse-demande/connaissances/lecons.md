@@ -18,6 +18,8 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 | Date | Erreur | Règle | Garde-fou |
 |---|---|---|---|
 | 16/10, 17/10 (×3) | Réponse « No response requested » à un rappel programmé au lieu de faire les étapes (cookie du relais, Indy/GoCardless) | **Un rappel programmé est une tâche** : lire la notification, faire chaque étape avec les outils, puis reprogrammer. Jamais de réponse vide | Phrase « ne jamais répondre No response requested » dans chaque consigne de rappel |
+| 18/10 (19 h 45) | Encore « No response requested », cette fois au milieu du point de 19:34 UTC, après une reprise (« Continue from where you left off ») : le point est resté à moitié fait | **Une reprise continue la tâche en cours** : relire la dernière consigne non terminée et finir chaque étape (ETAT.md compris) avant toute réponse | Avant de répondre, se demander : « quelle étape de la consigne reste à faire ? » |
+| 18/10 | Cookie du relais reposé sans `-L` : la redirection du lien de partage n'était pas suivie, fichier de cookies vide, relais refusé (302) | Reposer le cookie avec `curl -s -L -c /tmp/cj.txt -b /tmp/cj.txt` puis tester `/api/video` | Test « identifiant vidéo invalide » obligatoire après chaque renouvellement |
 | 16/10 | Mail d'Atout Ruffec arrivé à 11 h, vu le soir | Courrier relevé 3 fois par jour en semaine | Rappel lun-sam 10 h 13, 13 h 13, 16 h 13 |
 | 13/10 | Tâche classée « facultative » sans vérifier les données (compteur de visites à 0) | Vérifier les données réelles avant de classer une tâche | Liste unique `64` § 0 relue en entier |
 | 11/10 | Récapitulatif oubliant YouTube, Threads, Bluesky | Une seule liste fait foi : `64` § 0 | Idem |
