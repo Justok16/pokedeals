@@ -100,8 +100,11 @@ def voix(texte, chemin):
                                   capture_output=True, text=True).stdout
         try:
             rep = json.loads(brut_rep)
-        except ValueError:
-            sys.exit(f"ALERTE voix (cookie du relais ?) : {brut_rep[:200]}")
+        except ValueError:  # réponse vide ou page d'erreur passagère (constaté le 18/10) : on réessaie
+            if essai == 7:
+                sys.exit(f"ALERTE voix (cookie du relais ?) : {brut_rep[:200]!r}")
+            time.sleep(30)
+            continue
         if "audio" in rep or "429" not in json.dumps(rep):
             break
         time.sleep(70)
