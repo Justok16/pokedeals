@@ -12,5 +12,10 @@ réseaux (idée « clipping » du reel Dej1p_IgkuM, faite gratuitement et sans f
   18/10 : une consigne de style était lue à voix haute). Musique originale DIG16 (`../dig16-presentation/musique.py`).
   Étiquette « contenu généré par IA » à cocher sur TikTok et Instagram (voix de synthèse), comme pour la présentation.
 - Refaire : `python3 fabriquer.py [numéros]` (voix en cache dans `voix/`, non versionnées). Contrôles bloquants :
-  polices chargées, textes dans la marge, durée 12-35 s, voix conforme. Images de contrôle dans `controle/`.
+  polices chargées, textes dans la marge, durée 12-35 s, voix conforme, barre de progression à 50 % à mi-vidéo, 1re image avec le titre (vignette des réseaux). Images de contrôle dans `controle/`.
 - Textes des publications : `legendes.md`.
+
+- Contrôle du 18/10 (conseils 1 et 2) : 7 images par vidéo (0 à 100 %), transitions sans chevauchement, son final
+  transcrit (phrases exactes), −14,8 et −14,5 LUFS, H.264 + AAC 1080 × 1920. Défauts trouvés et corrigés : barre de
+  progression trop rapide, 1re image vide, titre final trop proche du bandeau, « : » et « ? » en début de ligne,
+  apostrophes droites, « devis en deux clics » (non écrit dans le guide) remplacé par « simple à demander ».

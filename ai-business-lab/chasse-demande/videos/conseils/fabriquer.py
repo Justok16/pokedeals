@@ -152,7 +152,7 @@ def dores(t):
     return re.sub(r"\*(.+?)\*", r"<em>\1</em>", insecables(t))
 
 
-def page(n, cfg, debuts):
+def page(n, cfg, debuts, total):
     emp = empreinte_svg(760, opacite=1.0, ident="f")
     signature = data(os.path.join(CD, "site-dig", "img", "marque", "signature-ivoire@2x.png"), "image/png")
     scenes = "".join(
@@ -175,7 +175,7 @@ body{{width:1080px;height:1920px;overflow:hidden;background:#0f0e0c;color:#efe9d
 .barre i{{display:block;height:100%;border-radius:3px;background:#c8a46e;width:0}}
 #emp{{position:absolute;left:160px;top:640px;opacity:0}}
 .fin{{position:absolute;inset:0;opacity:0}}
-.fin h2{{position:absolute;left:84px;right:84px;top:360px;font:400 104px/1.02 'Instrument Serif','Instrument Serif Fallback',serif;letter-spacing:-.02em;text-wrap:balance}}
+.fin h2{{position:absolute;left:84px;right:84px;top:440px;font:400 104px/1.02 'Instrument Serif','Instrument Serif Fallback',serif;letter-spacing:-.02em;text-wrap:balance}}
 .fin h2 em{{color:#d9bb8a;font-style:italic}}
 .lien{{position:absolute;left:84px;right:84px;bottom:330px;font:500 64px Geist,'Geist Fallback',sans-serif;letter-spacing:-.01em}}
 .lien span{{color:#c8a46e}}
@@ -189,11 +189,11 @@ body{{width:1080px;height:1920px;overflow:hidden;background:#0f0e0c;color:#efe9d
 <div class="lien">dig16<span>.fr</span></div><div class="chemin">dig16.fr/site-internet-artisan</div></section>
 <div class="barre"><i id="prog"></i></div>
 <script>
-const D={json.dumps(debuts)}, NF={fin}, TOTAL=window.TOTAL||1;
+const D={json.dumps(debuts)}, NF={fin}, TOTAL={total};
 const cl=(x,a,b)=>Math.max(a,Math.min(b,x)), doux=x=>{{x=cl(x,0,1);return x*x*(3-2*x)}};
 function seek(t){{
   for(let i=0;i<NF;i++){{
-    const a=D[i]-.12, b=D[i+1]-.12, e=document.getElementById('s'+i);
+    const a=i?D[i]-.12:-1, b=D[i+1]-.12, e=document.getElementById('s'+i);
     const o=Math.min(doux((t-a)/.3), doux((b-t)/.25));
     e.style.opacity=o; e.style.transform=`translateY(${{(1-doux((t-a)/.5))*46}}px)`;
   }}
@@ -254,8 +254,7 @@ def fabriquer(n):
     with sync_playwright() as p:
         nav = p.chromium.launch(executable_path=CHROME)
         pg = nav.new_page(viewport={"width": 1080, "height": 1920})
-        pg.add_init_script(f"window.TOTAL={total}")
-        pg.set_content(page(n, cfg, debuts), wait_until="load")
+        pg.set_content(page(n, cfg, debuts, total), wait_until="load")
         pg.evaluate("document.fonts.ready")
         pg.wait_for_timeout(400)
         polices = pg.evaluate("[...document.fonts].filter(f=>f.status==='loaded').map(f=>f.family)")
@@ -268,6 +267,13 @@ def fabriquer(n):
         if fautes or max(hauteurs) > 1500:
             nav.close()
             sys.exit(f"ALERTE conseil {n} : textes hors marge {fautes} / bas des titres {hauteurs}")
+        pg.evaluate(f"seek({total / 2:.3f})")
+        moitie = pg.evaluate("parseFloat(document.getElementById('prog').style.width)")
+        pg.evaluate("seek(0)")
+        premiere = pg.evaluate("parseFloat(getComputedStyle(document.getElementById('s0')).opacity)")
+        if not 45 <= moitie <= 55 or premiere < .99:
+            nav.close()
+            sys.exit(f"ALERTE conseil {n} : barre à {moitie} % à mi-parcours, 1re scène opacité {premiere}")
         for i in range(int(FPS * total)):
             t = i / FPS
             pg.evaluate(f"seek({t:.4f})")
