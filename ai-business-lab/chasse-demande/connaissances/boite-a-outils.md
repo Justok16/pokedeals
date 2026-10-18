@@ -43,7 +43,7 @@ déjà trié répond au besoin, l'utiliser ; ne pas re-trier ce qui est écarté
 
 Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pas utile aujourd'hui, gardé : à ressortir dès que le besoin apparaît, raison et condition indiquées) · ⛔ refusé par principe (illégal ou dangereux) · · simple information.
 
-### Vidéo, voix et montage (65)
+### Vidéo, voix et montage (66)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -76,6 +76,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Publication Instagram Ddcd73yAshV (envoyée le 15/10, DataWarlord, carrousel de 10 images « 22 Skills to Insta… | Déjà installés (12) : Superpowers, UI-UX Pro Max, Taste, Impeccable, Emil (emil-design-eng), Humanizer, Skill Creator, skills marketing (copywriting, seo, cold-email…),… |
 | ✅ | Reel Instagram DeeDOp4uFo_ (envoyé le 15/10, bencodezero ; vidéo non téléchargeable sans compte, lu par sa lé… | Déjà en place : l'annuaire skills.sh (celui de Vercel) est dans la veille quotidienne (outils/veille_sources.py) et la recherche de skills est disponible ; règle déjà ap… |
 | ✅ | Reel Instagram DekBh2BlTi9 (envoyé le 16/10, henriexploria, 40 s ; résumé Gemini le 16/10) | APPLIQUÉ le 16/10 : outils/ameliorer_systeme.py (rapport privé dans le scratchpad, jamais dans le dépôt : il cite les messages) ; 1re analyse sur 7 jours : 398 messages,… |
+| ✅ | Reel Instagram DeeyiaVILNi (envoyé le 18/10, damien.mapt, 47 s ; détail dans videos-resumes/DeeyiaVILNi.md) | Appliqué : dépôt lu en entier ; ig-caption et ig-profile installés ; légendes de la série contrôlées (adresse non cliquable sur Instagram corrigée) ; nom de profil et ép… |
 | ✅ | Reel Instagram DeguteFBRO2 (envoyé le 17/10, damien.mapt, 28 s ; détail dans videos-resumes/DeguteFBRO2.md) | Appliqué : agent « coach d'appels de découverte » installé le 17/10 dans .claude/agents/discovery-coach.md après lecture complète (préparer et débriefer les appels aux a… |
 | ✅ | Vidéo YouTube gyVqYy5yDK8 (envoyée le 12/10) : un créateur solo délègue son montage vidéo à Claude | Noté : vidéos en pause jusqu'au 1er client ; quand elles reprendront, même méthode (dossier de rushes + consigne écrite) avec nos outils gratuits (ffmpeg, faster-whisper… |
 | ⏳ | vqMhGnep1H0 (Jornada Digital, 10 min, en portugais) | Noté, à vérifier à la source avant usage (quota et licence affichés sur theresanaiforthat.com le jour J) ; piste pour de courts visuels animés des démos Dig, sans achat.… |
@@ -332,6 +333,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 
-_249 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_250 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->

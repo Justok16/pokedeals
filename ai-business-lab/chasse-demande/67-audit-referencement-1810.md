@@ -76,6 +76,14 @@ Tous citent le métier, la cible, le département et le site ; aucune donnée pe
 Catégorie à vérifier sur chaque profil professionnel : « Concepteur de sites Web » / « Conception de sites web »,
 la même que sur la fiche Google.
 
+**Ajout du 18/10 (grille de profil d'instagram-agent-skill, MIT, lue en entier)** : sur Instagram, le champ « Nom »
+(ligne en gras, différent du @) est lu par la recherche Instagram. Il est **déjà bon** : « DIG16 · Sites internet
+Charente », posé le 11/10 (`64` § 0) : métier cherché + département ; on le garde. À la capture,
+noter le profil sur la grille de 100 points (nom, 1re ligne de bio, épingles, lien unique, couvertures lisibles) et
+corriger dans l'ordre des points perdus. **Trois publications épinglées**, trois rôles : l'offre (vidéo de présentation
+DIG16), un conseil utile (conseil 1, « Votre site est-il vraiment à vous ? »), puis la preuve (remplacée par le premier
+avis ou le premier site client dès qu'il existe).
+
 ## 5. Pour les sites des clients (ajouté à `65-seo-sites-clients.md`)
 
 - À la livraison : `python3 outils/kit_avis.py "<Nom>" <place_id> <dossier privé>` → carte à imprimer (A6) et

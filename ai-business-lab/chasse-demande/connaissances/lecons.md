@@ -40,6 +40,7 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 | 18/10 | Barre de progression d'une vidéo pleine en 1 s (variable jamais transmise) ; 1re image vide (vignette) ; titre final sur le bandeau | Contrôler une vidéo à 0, 25, 50, 75 et 100 % et ses transitions **avant** de l'envoyer | Contrôles bloquants dans `fabriquer.py` (barre à 50 %, 1re image) |
 | 18/10 | « : » et « ? » en début de ligne, apostrophes droites | Typographie française : insécable avant « : ; ? ! », apostrophe ’ | Fonction `insecables()` |
 | 18/10 | Carte « avis » rendue avec une police de secours (chemins `/moteur/polices/` hors du site) | Hors du site, incorporer les polices (data URI) et vérifier `document.fonts` | `kit_avis.py`, `fabriquer.py` |
+| 18/10 | Légendes Instagram avec une adresse écrite (non cliquable sur Instagram), contraire à la règle notée en tête du même fichier | Une légende se contrôle **par réseau** : lien cliquable sur Facebook et X seulement ; Instagram et TikTok → « lien dans la bio », et seulement si la bio a bien un lien | `caption.py` (`.claude/skills/ig-caption/`) sur chaque légende avant publication |
 | 18/10 | Envoi de 2 vidéos **avant** le contrôle complet (défauts trouvés ensuite) | **Rien n'est envoyé avant le contrôle complet de `44`**, même une « première version » | Ce registre, relu avant chaque envoi |
 
 ## Site et référencement

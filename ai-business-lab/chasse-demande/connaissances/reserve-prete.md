@@ -67,6 +67,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Variantes de publicités à tester (1RqsrzT9-CI) | Plusieurs versions d'une même pub | Première publicité payante | Méthode gratuite |
 | ViralityAI (DeMr4aFiCvy) | Idées de contenus et tendances | Reprise des réseaux | Gratuité non précisée |
 | Mixpost, Shoutrrr (Dd2tZCCDofx) | Secours de Metricool pour programmer les publications | Si Metricool devient payant ou tombe en panne | Libres (MIT, Apache 2.0) ; noté dans `63` § 4 |
+| Instagram Agent Skill (DeeyiaVILNi, 18/10) : `ig-reel` (26 accroches notées), `ig-viral`, `ig-plan`, `ig-carousel`, `ig-story`, `ig-comment`, `ig-reply`, `ig-dm`, `ig-repurpose`, `ig-audit` | Préparer reels, recherche des formats qui marchent, planning de la semaine, réponses aux commentaires | Reprise des réseaux après le 1er client payant, ou réseaux d'un client (offre Visibilité) | github.com/Jakeschincariol/instagram-agent-skill, MIT, gratuit, hors ligne ; copier `skills/ig-*` dans `.claude/skills/` ; listes de mots en anglais ; **ne pas utiliser `ig-human` sur du français** (casse ’ et insécables). `ig-caption` et `ig-profile` déjà installés |
 
 ## Administratif, données d'entreprises, sécurité
 
