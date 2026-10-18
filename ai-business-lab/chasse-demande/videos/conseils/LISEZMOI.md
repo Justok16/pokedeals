@@ -19,3 +19,5 @@ réseaux (idée « clipping » du reel Dej1p_IgkuM, faite gratuitement et sans f
   transcrit (phrases exactes), −14,8 et −14,5 LUFS, H.264 + AAC 1080 × 1920. Défauts trouvés et corrigés : barre de
   progression trop rapide, 1re image vide, titre final trop proche du bandeau, « : » et « ? » en début de ligne,
   apostrophes droites, « devis en deux clics » (non écrit dans le guide) remplacé par « simple à demander ».
+
+- **Validé par l'utilisateur le 18/10** (« elles sont top ») : style, voix et rythme des conseils 1 et 2 ; les 3 suivantes gardent exactement ce format.
