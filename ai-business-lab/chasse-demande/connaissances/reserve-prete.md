@@ -20,6 +20,8 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Pin Feed (veille 16/10, free-for.dev) | Le client clique sur sa maquette en ligne pour laisser ses corrections | **Dès le 1er client**, pendant les allers-retours sur la maquette | Gratuit jusqu'à 3 projets, sans compte côté client (à revérifier le jour J) |
 | Cal.com (carrousel DeekQtwk30w) | Lien de prise de rendez-vous en ligne | Quand les rendez-vous se multiplient | Gratuit, open source (à revérifier) ; équivalent libre de Calendly |
 | Chatwoot (DeekQtwk30w) | Boîte unique des messages clients (site, Facebook, mail) | Si un client veut un chat sur son site | Open source, auto-hébergé |
+| Agent `discovery-coach` (DeguteFBRO2, 17/10) | Préparer et débriefer un appel avec un artisan (questions, structure, objections) | **Installé le 17/10**, prêt : avant l'appel de Pauline et chaque entretien | `.claude/agents/discovery-coach.md` ; gratuit (MIT) |
+| Autres agents « The Agency » : ventes, marketing, design (DeguteFBRO2) | Fiches d'experts prêtes à copier | Si une skill manque pour un besoin précis | Copier le fichier voulu depuis github.com/msitarzewski/agency-agents dans `.claude/agents/` après lecture ; gratuit (MIT) |
 | Débriefing après appel (_To3N8UTh94) | L'utilisateur dicte ses notes, Claude dit quoi améliorer | **Dès les premiers appels**, déjà possible sans outil | Gratuit (Claude) |
 | Retell AI (96G4KDnEFyI) | Standardiste téléphonique IA pour un client | Si un artisan demande qu'on réponde à ses appels | 10 $ offerts puis ~0,07 à 0,31 $/min (lu le 01/10) : option payante à refacturer |
 | Google Forms (DeekQtwk30w) | Formulaires et questionnaires | Questionnaire client, sondage | Gratuit |
