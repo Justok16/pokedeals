@@ -183,3 +183,5 @@ Rythme obtenu jusqu'au 04/12 : lundi, mercredi, vendredi 18 h 30 (carrousels, 4 
 Règles de la série (contrôles bloquants de l'outil) : polices chargées, aucun texte hors marge ni débordement, aucune
 image de téléphone mal placée, aucun numéro de téléphone ni « @ » sur les images, décor jamais sous le texte, mots à
 trait d'union jamais coupés. Les mots « entreprise fictive » figurent sur chaque capture de démonstration.
+
+**Audit du 19/10** : `69-audit-campagne-1910.md` (note, chiffres, plan d'action, réponses prêtes aux messages privés).
