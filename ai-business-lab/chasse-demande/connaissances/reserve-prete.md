@@ -87,6 +87,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Outil | Sert à | Le ressortir quand… | Comment l'activer / coût |
 |---|---|---|---|
 | Openworker (Ddytkf2gBEj) | Assistant IA sur ordinateur (fichiers, applis) | Si l'utilisateur veut un assistant installé sur son PC Windows | Appli libre (Mac, Windows) |
+| Agent autonome « qui doit gagner sa vie » (Dd9UM0KgpnO, 18/10) | Idée : un agent IA paie ses propres coûts et vend des services seul | Seulement si un projet publié et vérifié offre un plafond de dépense et une validation humaine de chaque envoi | Non activable aujourd'hui (projet non nommé, crypto, démarchage autonome hors cadre) |
 | Graft (Ddytkf2gBEj), HydraDB (Ddytkf2gBEj), PageIndex, Hindsight, Orca, Magpie, Brigade, IFixAi, fframes (DeGDWLNDm86) | Outils de développeurs pour agents (gros code, mémoire, plusieurs agents) | Si les outils DIG16 deviennent gros, ou pour chercher dans de très longs documents (PageIndex) | Open source |
 | Paperclip (7RVf25Rg0Mc, DeGDWLNDm86) | Équipe d'agents organisée en entreprise | Si l'activité exige des agents permanents | Serveur allumé en permanence (coût) |
 | Mods de Claude Code : Reflect, Blast Radius, Cache Tax… (xvy40dHyAmw, lDrAZ1wAyVs) | Extensions de l'interface | Si l'utilisateur travaille sur ordinateur avec Claude Code | Gratuits ; l'idée de Reflect est déjà appliquée (`ameliorer_systeme.py`) |

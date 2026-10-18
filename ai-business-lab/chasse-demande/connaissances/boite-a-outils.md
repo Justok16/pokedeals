@@ -43,7 +43,7 @@ déjà trié répond au besoin, l'utiliser ; ne pas re-trier ce qui est écarté
 
 Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pas utile aujourd'hui, gardé : à ressortir dès que le besoin apparaît, raison et condition indiquées) · ⛔ refusé par principe (illégal ou dangereux) · · simple information.
 
-### Vidéo, voix et montage (63)
+### Vidéo, voix et montage (64)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -106,6 +106,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | 0m0FJJjAWyE (Lucas Montano, 18 min) | Rien à changer. Cohérent avec la règle Dig : budget 0 € tant que rien ne rapporte, puis l'outil se paie avec les premiers clients. Résumé : videos-resumes/0m0FJJjAWyE.md |
 | · | 7XTYaVrt4QM (podcast « opensource », Léo Grindars, 1 h 49, envoyé le 02/10, résumé en 6 morceaux) | Conforte la piste principale, rien de nouveau à construire. Le second axe (reprendre un logiciel qui a déjà des utilisateurs plutôt que partir de zéro) est exactement la… |
 | · | 05ody6JKf1Y | Réflexion générale ; vente en direct sans intermédiaire = déjà le modèle de Dig |
+| · | Reel Instagram Dd9UM0KgpnO (envoyé le 18/10, danyltn, 48 s ; détail dans videos-resumes/Dd9UM0KgpnO.md) | Gardé en réserve (veille d'idées), non applicable : budget 0 €, démarchage autonome contraire au cadre légal suivi, aucun outil vérifiable. Leçon retenue (coût IA par ac… |
 | · | Vidéo courte pour les réseaux | Montage gratuit en 1080p, sous-titres automatiques |
 | ⛔ | 5 reels Facebook | Détail : videos-resumes/reels-facebook-28-09.md ; Klap écarté (contrefaçon) |
 | ⛔ | Reel Instagram DeRhu46NmhK (compte « kingarms.ai », envoyé le 09/10 ; résumé : connaissances/reels/DeRhu46Nmh… | Écarté : copier le fonctionnement ou l'apparence d'un logiciel ou d'un site existant expose à la contrefaçon (droit d'auteur, dessins et modèles) et viole souvent les co… |
@@ -330,6 +331,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 
-_247 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_248 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
