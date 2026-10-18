@@ -131,8 +131,8 @@ première signature (`64`), car un contrat bien écrit limite une condamnation m
 
 | Quoi | Qui | Quand |
 |---|---|---|
-| Demande de rendez-vous par email (adresse officielle de la fiche justice.gouv.fr et du CDAD Charente, lue le 19/10) : **envoyée le 18/10 à 23 h 58** ; réponse à surveiller au relevé du courrier | Claude | fait |
-| Aller au rendez-vous avec le projet CGV v2 imprimé (l'avocat conseille sur place mais « n'accomplit aucun acte ni courrier » : pas de relecture par email, page du CDAD Charente lue le 19/10) ; autre possibilité sans rendez-vous : permanence d'avocat de Ruffec, 3e jeudi du mois, 14 h 30-17 h 30 | utilisateur | avant le premier client |
+| Demande de rendez-vous par email (adresse officielle de la fiche justice.gouv.fr et du CDAD Charente, lue le 19/10) : envoyée le 18/10, puis **annulée** : l'utilisateur ira à la permanence de Ruffec ; confirmation de la date demandée à France Services Val de Charente ; dossier complet préparé (privé) | Claude | fait |
+| Aller au rendez-vous avec le projet CGV v2 imprimé (l'avocat conseille sur place mais « n'accomplit aucun acte ni courrier » : pas de relecture par email, page du CDAD Charente lue le 18/10) : **permanence de Ruffec, jeudi 19/11/2026, 14 h 30-17 h 30, sans rendez-vous** | utilisateur | 19/11 |
 | Intégrer les corrections de l'avocat et faire de la v2 la version officielle | Claude | après la relecture |
 | Ajouter l'attestation « droits sur les photos » au questionnaire de lancement | Claude | avec les CGV |
 | Étendre la sentinelle aux sites clients ; registre des médias ; modèle de formulaire sans stockage | Claude | au premier client |
