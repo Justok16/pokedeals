@@ -113,7 +113,8 @@
   Claude prépare, consigne, synthétise chaque vendredi. Pas de règle stricte « rien de nouveau »
   (réponse de l'utilisateur : « pas spécialement, on verra »), mais toute construction nouvelle se
   justifie par une demande d'artisan ou une correction.
-- **En pause jusqu'au premier client payant** : réseaux sociaux (noms réservés seulement),
+- **Réseaux sociaux relancés et poussés au maximum** (demande de l'utilisateur du 19/10, qui remplace la pause du 05/10 pour les réseaux) : `61` § 6, contrôle chaque soir 19 h 07.
+- **En pause jusqu'au premier client payant** : réseaux sociaux (noms réservés seulement, **levé le 19/10 : voir la ligne au-dessus**),
   résumés vidéo (sauf les 30 chaînes et liens finance/investissement envoyés le 05/10 au soir, à traiter
   sur demande de l'utilisateur : `connaissances/`, `46` et `connaissances/sources-finance.md`), veille des sources, photos des prospects, nouvelles démos. Points automatiques
   **2 fois par jour** (07:34 et 19:34 UTC).

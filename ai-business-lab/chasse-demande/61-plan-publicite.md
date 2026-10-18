@@ -155,3 +155,26 @@ développement économique, qui a déjà répondu le 08/10), CCI de la Charente.
 
 Chaque publication et chaque contact sont notés dans le tableau privé (`50` § 8). On mesure ce
 qui fait venir des demandes (formulaire, appels, fiche Google) ; aucun taux inventé.
+
+## 6. Série 2 : la campagne poussée au maximum (19/10/2026)
+
+Demande de l'utilisateur (19/10, 0 h 15) : « pousse au maximum de tes capacités la campagne […] TOUT parfait […]
+automatise […] mis à jour au fur et à mesure ». Ce qui a été fait, et pourquoi :
+
+| Constat (audit du 19/10) | Correction |
+|---|---|
+| Les 19 publications image n'allaient que sur Facebook et Instagram ; TikTok, le réseau le plus vu (≈ 1 360 vues de la semaine contre ≈ 360 sur Instagram, Metricool), n'en recevait aucune | Chaque publication part sur **4 réseaux** : Instagram + TikTok (carrousel photo, musique ajoutée par TikTok, mention « contenu de marque ») d'un côté, Facebook + Threads (lien cliquable) de l'autre |
+| 19 visuels identiques (fond sombre, titre seul) ; deux annonçaient ce qu'ils ne montraient pas (« un site sur un téléphone » sans téléphone, « avant / après » sans avant ni après) | **Série 2** : 19 carrousels, 82 images, fonds clair et sombre en alternance, vraies captures des démonstrations dans un téléphone, avant / après dessiné (exemple fictif), page de prix et de formules ; chaque image ne montre que ce qui est vrai (`outils/marque/publications_v2.py`) |
+| TikTok refuse le PNG pour les photos (JPEG ou WebP seulement, documentation développeurs TikTok lue le 19/10) | Images en JPEG, hébergées sur `dig16.fr/img/reseaux/pub/` |
+| 3 publications Google encore actives alors que Google a désactivé les publications de la fiche (18/10) | Mises en brouillon (comme celles des 23/10 et 30/10), jusqu'à la réponse de Google |
+| Campagne « Le test du pouce » annulée (19/10) mais 2 publications programmées le 26/10 | Story en brouillon ; publication remplacée par « Les mentions légales, obligatoires » |
+| Aucune demande précise à la fin des textes | Un seul appel : « Votre page d'accueil refaite gratuitement : écrivez-moi en message privé » (Instagram, TikTok) ou lien https://dig16.fr (Facebook, Threads) |
+
+Rythme obtenu jusqu'au 04/12 : lundi, mercredi, vendredi 18 h 30 (carrousels, 4 réseaux) et mardi 12 h 15 (vidéo
+« Le conseil DIG16 », 5 réseaux), + vidéos 6 à 10 le jeudi 12 h 15 (voir `64`). Contrôle automatique chaque soir à
+19 h 07 (statut de chaque publication, correction et reprogrammation en cas d'erreur) ; version X préparée chaque jour
+à 17 h 52 et remise à l'utilisateur (X n'est pas relié : module payant).
+
+Règles de la série (contrôles bloquants de l'outil) : polices chargées, aucun texte hors marge ni débordement, aucune
+image de téléphone mal placée, aucun numéro de téléphone ni « @ » sur les images, décor jamais sous le texte, mots à
+trait d'union jamais coupés. Les mots « entreprise fictive » figurent sur chaque capture de démonstration.

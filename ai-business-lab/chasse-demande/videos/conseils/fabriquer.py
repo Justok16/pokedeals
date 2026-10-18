@@ -76,6 +76,46 @@ SERIE = {
          "Mais ces pages *ne vous appartiennent pas.*"),
         ("Votre site, à votre nom, reste à vous.", "Votre site, à votre nom, *reste à vous.*"),
         ("Le guide complet est sur Dig seize point F R.", None)]},
+    # Série 2 (19/10, demande de l'utilisateur : « pousse au maximum la campagne »), mêmes sources : le guide.
+    6: {"titre": "Pensé d'abord pour le téléphone", "scenes": [
+        ("Google classe les sites d'après leur version pour téléphone.", "Google regarde d'abord *la version téléphone.*"),
+        ("Un site qui s'affiche mal sur un petit écran est donc doublement pénalisé.",
+         "Mal affiché sur téléphone ? *Doublement pénalisé.*"),
+        ("Le texte doit se lire sans zoomer, et le numéro se composer d'un geste.",
+         "Lisible sans zoomer, *le numéro d'un geste.*"),
+        ("Et les pages doivent s'ouvrir en moins de deux secondes.", "Des pages ouvertes en *moins de deux secondes.*"),
+        ("Le guide complet est sur Dig seize point F R.", None)]},
+    7: {"titre": "La fiche Google, le premier contact", "scenes": [
+        ("Pour un artisan, la fiche Google est souvent vue avant le site.", "Votre fiche Google, *vue avant votre site.*"),
+        ("Elle doit être validée et à jour : horaires, téléphone, zone desservie.", "Validée, *et à jour.*"),
+        ("Avec de vraies photos, et un lien vers votre site.", "De vraies photos, *un lien vers votre site.*"),
+        ("Le nom, l'adresse et le téléphone : exactement les mêmes partout.",
+         "Nom, adresse, téléphone : *les mêmes partout.*"),
+        ("Le guide complet est sur Dig seize point F R.", None)]},
+    8: {"titre": "Un site gratuit suffit-il ?", "scenes": [
+        ("Un site gratuit, ça suffit pour un artisan ?", "Un site gratuit, *ça suffit ?*"),
+        ("Pour commencer, parfois. Mais vérifiez trois points.", "Parfois. Mais *vérifiez trois points.*"),
+        ("L'adresse, souvent avec le nom du fournisseur dedans.", "L'adresse : *avec le nom du fournisseur ?*"),
+        ("La publicité affichée sur vos pages.", "De la publicité *sur vos pages ?*"),
+        ("Et ce qui se passe si vous changez d'outil.", "Et si vous *changez d'outil ?*"),
+        ("Le guide complet est sur Dig seize point F R.", None)]},
+    9: {"titre": "Location ou achat ?", "scenes": [
+        ("Un site internet, ça se loue ou ça s'achète.", "Un site, ça se loue *ou ça s'achète.*"),
+        ("En location, la création est souvent offerte, puis vous payez chaque mois.",
+         "Location : création offerte, *puis chaque mois.*"),
+        ("À l'achat, vous payez une fois, puis l'hébergement si vous le voulez.",
+         "Achat : *une fois,* puis l'hébergement."),
+        ("Ce qui compte : savoir ce que vous payez, et ce que vous gardez.",
+         "Sachez ce que vous payez, *et ce que vous gardez.*"),
+        ("Le guide complet est sur Dig seize point F R.", None)]},
+    10: {"titre": "Avez-vous vraiment besoin d'un site ?", "scenes": [
+        ("Avez-vous vraiment besoin d'un site ?", "Avez-vous vraiment *besoin d'un site ?*"),
+        ("Si votre carnet est plein pour six mois grâce au bouche-à-oreille, pas tout de suite.",
+         "Carnet plein pour six mois ? *Pas tout de suite.*"),
+        ("Sinon, une seule question : sur un téléphone, vous trouve-t-on avec votre métier et votre ville ?",
+         "Votre métier et votre ville : *vous trouve-t-on ?*"),
+        ("Et peut-on vous appeler d'un geste ?", "Et peut-on vous appeler *d'un geste ?*"),
+        ("Le guide complet est sur Dig seize point F R.", None)]},
 }
 
 
