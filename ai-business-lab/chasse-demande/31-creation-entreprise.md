@@ -73,6 +73,7 @@ du Drive « Dig ». Sources lues le 08/10 : Service-Public F36746 et F23282 (« 
   maintenance de sites internet pour les professionnels ». Code APE attribué par l'INSEE, attendu
   62.01Z (la sous-classe cite la création de « pages web ») ; remplace l'hypothèse 58.29C ci-dessus.
 - Nom commercial DIG16, site dig16.fr, email contact@dig16.fr.
+- **Activité à ajouter (décision du 19/10, `70` § 7 bis)** : « assistance administrative aux professionnels : préparation de devis, établissement de factures sous mandat de facturation, suivi des règlements ». Si le dossier du 08/10 est encore à régulariser, l'ajouter à la description ; sinon, formalité de modification au guichet unique INPI (à déclarer sous un mois, payante selon tarif réglementé ; page INPI lue le 19/10). Nature BIC ou BNC de cette activité : à faire confirmer par l'URSSAF avant la déclaration (les pages officielles lues ne tranchent pas). Jamais le mot « comptabilité » dans la description (activité réservée aux experts-comptables).
 - Versement libératoire : **non** (l'exonération FRR+ porte sur l'impôt sur le bénéfice ; à faire
   confirmer par le SIE). Déclarations URSSAF trimestrielles (mensuelles possibles). Franchise en base de TVA. ACRE demandée.
 - **Dossier déposé au guichet le 08/10/2026** (décision de l'utilisateur de ne pas attendre la CPAM ni

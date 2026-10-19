@@ -238,19 +238,43 @@ du 19/10). Discours au téléphone, pour après l'immatriculation : `supports/di
   contestation prévu au contrat et expiré) ; l'artisan « conserve l'entière responsabilité de ses obligations en matière
   de facturation » ; mention recommandée « facture établie par A au nom et pour le compte de B » ; « Le double de chaque
   facture doit être adressé au fournisseur ». La numérotation suit la série de l'artisan.
-- **Relances et impayés** : relancer un client au nom de l'artisan (courrier, email, appel) est libre. Le recouvrement
-  amiable pour le compte d'autrui comme activité en soi est encadré (décret n° 96-1112, **non relu le 19/10 : à lire avant
-  d'inclure une « mise en demeure » ou un recouvrement contre honoraires dans l'offre**) ; jusque-là, la relance reste une
-  tâche de secrétariat sous mandat, et la mise en demeure est signée par l'artisan lui-même (`45`).
-- **À rédiger avant le premier client du service** : un mandat de facturation écrit (objet, durée, mode d'acceptation
-  des factures, délai de contestation, mention sur les factures, double envoyé, fin de mandat), une clause de
-  confidentialité, et l'information RGPD sur les données des clients de l'artisan que DIG16 traite pour son compte
-  (sous-traitant au sens du RGPD, article 28 : contrat écrit, à relire à ce moment-là). Assurance responsabilité civile
-  professionnelle à étendre à cette activité (coût à soumettre).
+- **Relances et impayés** (code des procédures civiles d'exécution, articles L124-1 et R124-1 à R124-7, lus le 19/10 ;
+  fiche DGCCRF du 24/10/2025 lue) : les règles du recouvrement amiable s'appliquent « aux personnes physiques ou morales
+  qui, d'une manière habituelle ou occasionnelle, même à titre accessoire, procèdent au recouvrement amiable des créances
+  pour le compte d'autrui » (R124-1) : assurance RC et compte bancaire « exclusivement affecté à la réception des fonds
+  encaissés pour le compte des créanciers », déclaration écrite au procureur de la République « avant tout exercice de
+  l'activité » (R124-2), convention écrite par créance (R124-3), lettre au débiteur à cinq mentions (R124-4), quittance et
+  reversement sous un mois (R124-6), amende de cinquième classe (R124-7). **Choix DIG16** : rester hors de ce cadre. Les
+  relances sont préparées par DIG16 mais envoyées **au nom de l'artisan, depuis sa messagerie**, les paiements vont
+  uniquement sur son compte, DIG16 ne se présente jamais au débiteur, la mise en demeure est signée par l'artisan ; jamais
+  de frais de recouvrement facturés au débiteur (L111-8, sanction pénale selon la DGCCRF), seulement les pénalités et les
+  40 € prévus sur la facture (`45`). Modèles : `supports/service-devis-factures/relances-modeles.md`.
+- **Mentions obligatoires** : devis bâtiment (Service Public F31144, 13 mentions, devis obligatoire pour 20 familles de
+  travaux, amende jusqu'à 3 000 € sans devis) et factures (F31808, vérifié le 11/08/2026, 14 mentions générales + mentions
+  particulières + 4 mentions facture électronique) : liste de contrôle `supports/service-devis-factures/controle-devis-facture.md`.
+- **Documents du service, rédigés le 19/10** (décision de l'utilisateur : proposer le service dès le premier client du
+  site) : contrat d'assistance administrative et mandat de facturation avec clause de confidentialité et annexe RGPD
+  article 28 (`supports/service-devis-factures/mandat-de-facturation.md`, à faire relire une fois par un professionnel du
+  droit, coût à soumettre) ; fiche service pour le client (`fiche-service.md`) ; discours téléphonique mis à jour.
+- **Entreprise** : le dossier déposé le 08/10 décrit l'activité « Conception, réalisation, mise en ligne et maintenance de
+  sites internet pour les professionnels » (`31`). L'assistance administrative (devis, facturation sous mandat, relances)
+  est une activité supplémentaire à déclarer : au guichet unique INPI, « toute modification de l'activité ou de la
+  situation doit être déclarée en ligne dans un délai d'un mois », formalité de modification payante selon tarif
+  réglementé (page INPI « Modifier sa micro-entreprise », publiée le 21/11/2025, mise à jour le 11/09/2026). Nature
+  fiscale de cette activité (BNC libérale ou BIC prestation de services) : **non tranchée par les pages officielles
+  lues** (la FAQ URSSAF classe « conseil en gestion pour les entreprises » en BIC, les consultants en BNC) : à faire
+  confirmer par l'URSSAF ou le conseiller Service Public Entreprises (gratuit) au moment de l'ajout. Assurance RC pro à
+  étendre à cette activité (coût à soumettre).
 - Sources : <https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000032364676> (art. 2),
   <https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000045178543> (art. 20),
   <https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000048827413> (CGI art. 289),
-  <https://bofip.impots.gouv.fr/bofip/13244-PGP.html/identifiant%3DBOI-TVA-DECLA-30-20-10-30-20220629> (mandat de facturation).
+  <https://bofip.impots.gouv.fr/bofip/13244-PGP.html/identifiant%3DBOI-TVA-DECLA-30-20-10-30-20220629> (mandat de facturation),
+  <https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000025024948/LEGISCTA000025938360/> (R124-1 à R124-7),
+  <https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025025711> (L124-1),
+  <https://www.economie.gouv.fr/dgccrf/les-fiches-pratiques/recouvrement-amiable-de-creances-les-regles-connaitre> (DGCCRF),
+  <https://entreprendre.service-public.gouv.fr/vosdroits/F31144> (devis), <https://entreprendre.service-public.gouv.fr/vosdroits/F31808> (factures),
+  <https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre4> (RGPD art. 28),
+  <https://www.inpi.fr/realiser-demarches/formalites-dentreprises/modifier-sa-micro-entreprise> (ajout d'activité).
 
 ## Sources (toutes lues le 19/10/2026)
 

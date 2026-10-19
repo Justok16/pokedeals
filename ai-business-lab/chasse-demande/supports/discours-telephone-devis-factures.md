@@ -2,7 +2,7 @@
 
 Hypothèse de service issue de l'étude `70-etude-taches-chronophages-artisans.md` (§ 7). **À n'utiliser qu'après
 l'immatriculation de DIG16 et avec un client qui a déjà son site** : avant, aucune vente (entretiens d'étude de marché
-seulement, `57`). Le prix est fixé par l'utilisateur, jamais par Claude ; décision du 19/10 : **sur devis, au cas par cas** (`[prix]` dans le texte = le montant du devis). Cadre légal vérifié le 19/10 (voir `70` § 7 bis) : préparer et envoyer des devis est libre ; émettre les factures à la place de l'artisan est permis par le code général des impôts à condition d'un **mandat de facturation écrit signé avant la première facture**, avec acceptation de chaque facture par l'artisan ; tenir sa comptabilité (écritures, TVA, bilan) est réservé aux experts-comptables et reste exclu de l'offre. L'artisan reste l'émetteur de ses devis et factures, il valide et signe tout.
+seulement, `57`). Le prix est fixé par l'utilisateur, jamais par Claude ; décision du 19/10 : **sur devis, au cas par cas** (`[prix]` dans le texte = le montant du devis). Cadre légal vérifié le 19/10 (voir `70` § 7 bis) : préparer et envoyer des devis est libre ; émettre les factures à la place de l'artisan est permis par le code général des impôts à condition d'un **mandat de facturation écrit signé avant la première facture**, avec acceptation de chaque facture par l'artisan ; tenir sa comptabilité (écritures, TVA, bilan) est réservé aux experts-comptables et reste exclu de l'offre ; les relances sont préparées par DIG16 mais **envoyées au nom de l'artisan**, qui seul encaisse (règles du recouvrement pour autrui, R124-1 à R124-7). Documents à signer avant le premier devis : `supports/service-devis-factures/` (contrat et mandat, fiche service, contrôle, modèles de relances). L'artisan reste l'émetteur de ses devis et factures, il valide et signe tout.
 
 Principes : une conversation, pas une lecture ; on fait d'abord dire la corvée au client avec ses mots, on ne décrit le
 service qu'ensuite, en trois phrases ; un seul chiffre d'étude au maximum, avec sa source ; on termine par un essai
@@ -31,8 +31,9 @@ j'utilise tous les jours » : on n'insiste pas, on remercie, on passe au point 6
 
 > « Voilà pourquoi je vous appelle. Je lance un service pour les artisans comme vous : vous m'envoyez une photo ou un
 > message vocal depuis le chantier, et moi je vous prépare le devis dans votre modèle, avec vos prix, sous 24 h. Vous
-> le relisez, vous validez, il part. Pareil pour la facture à la fin, et c'est moi qui relance les clients qui tardent
-> à payer. Vous, vous ne touchez plus à la paperasse le soir. »
+> le relisez, vous validez, il part. Pareil pour la facture à la fin. Et quand un client tarde à payer, je vous prépare
+> les relances : vous les envoyez d'un clic, en votre nom, et l'argent arrive sur votre compte. Vous, vous ne touchez
+> plus à la paperasse le soir. »
 
 Puis une seule phrase de preuve, si le client est du genre à aimer les chiffres :
 
@@ -50,6 +51,7 @@ Puis se taire. Laisser le client réagir.
 |---|---|
 | « C'est moi qui connais mes prix. » | « Justement, je ne les invente pas : je prends votre modèle et votre grille, et rien ne part sans votre validation. Vous gardez la main, vous gagnez le temps de saisie. » |
 | « Mon comptable fait déjà ça. » | « Votre comptable compte ce qui est rentré. Lui, il ne fait pas sortir le devis le lendemain et il ne relance pas le client qui vous doit 2 000 €. Moi, c'est avant ; lui, c'est après. Je lui transmets tout proprement, il sera content. » |
+| « Vous allez appeler mes clients pour l'argent ? » | « Non, jamais en mon nom : je prépare le rappel, il part de votre messagerie, signé de vous, et le paiement arrive chez vous. Vos clients n'ont affaire qu'à vous. » |
 | « Et si vous faites une erreur sur un devis ? » | « C'est vous qui validez avant l'envoi, à chaque fois, en 30 secondes sur votre téléphone. Et je mets toutes les mentions obligatoires : c'est mon métier de les connaître, pas le vôtre. » |
 | « Mes clients, mes prix, c'est confidentiel. » | « Évidemment. C'est écrit noir sur blanc dans notre contrat : confidentialité totale, et vos fichiers restent à vous, vous les récupérez le jour où vous arrêtez. » |
 | « Combien ça coûte ? » | « [prix] par mois, prélevé comme le site, sans engagement de durée. Si ça vous fait gagner deux soirées par mois, c'est payé. » *(ne jamais lancer le prix avant que la question soit posée)* |

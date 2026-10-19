@@ -27,7 +27,7 @@ qu'un paiement est en retard** (procédure). Sources officielles lues le
 
 ## 3. Si un client ne paie pas, dans l'ordre
 
-1. Relance aimable par email (1 à 2 fois).
+1. Relance aimable par email (1 à 2 fois). Pour les clients du service devis-factures : relances préparées par DIG16, envoyées par l'artisan en son nom (modèles et règles : `supports/service-devis-factures/relances-modeles.md`).
 2. Mise en demeure par lettre recommandée (date limite + rappel des pénalités).
 3. Pénalités légales entre professionnels (Service Public, page vérifiée le
    07/08/2026, <https://entreprendre.service-public.gouv.fr/vosdroits/F23211>) :
