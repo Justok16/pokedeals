@@ -254,8 +254,10 @@ du 19/10). Discours au téléphone, pour après l'immatriculation : `supports/di
   particulières + 4 mentions facture électronique) : liste de contrôle `supports/service-devis-factures/controle-devis-facture.md`.
 - **Documents du service, rédigés le 19/10** (décision de l'utilisateur : proposer le service dès le premier client du
   site) : contrat d'assistance administrative et mandat de facturation avec clause de confidentialité et annexe RGPD
-  article 28 (`supports/service-devis-factures/mandat-de-facturation.md`, à faire relire une fois par un professionnel du
-  droit, coût à soumettre) ; fiche service pour le client (`fiche-service.md`) ; discours téléphonique mis à jour.
+  article 28 (`supports/service-devis-factures/mandat-de-facturation.md`, clause RGPD alignée sur le modèle CNIL de
+  septembre 2017 ; relecture prévue à la permanence gratuite d'avocat de Ruffec le 19/11) ; PDF signable avec champs
+  (`outils/contrat_mandat_pdf.py`) et modèle DocuSeal n° 6469260 ; fiche service pour le client (`fiche-service.md`) ;
+  prompt de relecture par d'autres IA (`prompt-relecture-contrat.md`) ; discours téléphonique mis à jour.
 - **Entreprise** : le dossier déposé le 08/10 décrit l'activité « Conception, réalisation, mise en ligne et maintenance de
   sites internet pour les professionnels » (`31`). L'assistance administrative (devis, facturation sous mandat, relances)
   est une activité supplémentaire à déclarer : au guichet unique INPI, « toute modification de l'activité ou de la

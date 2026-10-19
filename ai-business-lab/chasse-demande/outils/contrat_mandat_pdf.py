@@ -66,7 +66,7 @@ th,td{border-bottom:.25mm solid var(--trait);padding:1.6mm 2mm;text-align:left;v
 th{font-family:'Geist Mono',monospace;font-weight:400;font-size:6.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);border-bottom:.35mm solid var(--or)}
 .sig{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin:3mm 0}.sig div{border:.25mm solid var(--trait);border-radius:2.5mm;min-height:30mm;padding:2mm 3mm}
 .tag{font-family:'Geist Mono',monospace;font-size:7.6pt;color:#9a8f7e}
-.bal{color:#9a8f7e;font-family:'Geist Mono',monospace;font-size:7.4pt;white-space:nowrap}
+.bal{color:#9a8f7e;font-family:Arial,Helvetica,sans-serif;font-size:7.4pt;white-space:nowrap;font-feature-settings:normal;letter-spacing:0}
 .signe{border:.25mm solid var(--trait);border-radius:2.5mm;padding:9mm 3mm;margin:1.5mm 0 3mm}.sig2{font-size:11pt}"""
 
 
