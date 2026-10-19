@@ -67,7 +67,7 @@ Toujours par un essai concret, daté :
 > avez quelque chose en attente, là ? … Très bien, envoyez-le-moi ce soir, vous l'avez demain avant midi. »
 
 Si le client dit oui : envoyer dans l'heure un SMS avec le numéro où envoyer le vocal et une ligne de rappel (« Devis :
-photo ou vocal ici, retour sous 24 h. Dig »). Si non : « Pas de souci. Je vous rappelle dans un mois pour prendre des
+photo ou vocal ici, retour sous 24 h. Dig »). Sinon : « Pas de souci. Je vous rappelle dans un mois pour prendre des
 nouvelles du site ? » et noter la date.
 
 ## 6. Version courte (répondeur ou client pressé, 20 secondes)
