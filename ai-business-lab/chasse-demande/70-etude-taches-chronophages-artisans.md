@@ -202,6 +202,21 @@ Mistral reçues le 19/10 ; tour terminé, les cinq convergent) ; leurs réponses
 Méthode : toute réponse d'IA est une piste, jamais une preuve ; seuls les chiffres relus sur la page d'origine entrent
 dans les sections 1 à 5.
 
+## 7. Hypothèse d'offre retenue le 19/10 (réponse à « LE service, ce serait quoi ? »)
+
+**« Vos devis, vos factures et vos relances, je m'en occupe. »** Un secrétariat de l'argent qui rentre, pour l'artisan du
+bâtiment de 1 à 10 salariés : photo ou message vocal depuis le chantier → devis préparé dans son modèle et à ses prix
+sous 24 h → il valide et signe (il reste l'émetteur) → envoi, relance, facture en fin de chantier, relance des impayés,
+préparation de la facture électronique (septembre 2027). Abonnement mensuel, comme le site. Pourquoi cette corvée :
+devis + factures/relances + trésorerie = 3,8 h par semaine et les tâches les moins outillées (§ 3) ; devis 96 % et
+factures 94 % faits en interne alors que compta et paie sont déjà déléguées (§ 2) ; logiciel possédé mais sous-utilisé,
+prestataire introuvable, facture électronique projet n° 1 (§ 4) ; besoin d'un accompagnement neutre de proximité (§ 4).
+C'est le trou entre le logiciel et l'expert-comptable. Réserves : commerçants et restaurateurs non prouvés ; **point
+légal à vérifier** avant toute offre (secrétariat administratif, métier libre, contre tenue de comptabilité, réservée
+aux experts-comptables : lire la source officielle) ; rien n'est construit avant trois artisans citant la corvée
+(question bonus n° 2 de `57`) ; test possible comme extension avec le premier client du site. Discours au téléphone,
+pour après l'immatriculation : `supports/discours-telephone-devis-factures.md`.
+
 ## Sources (toutes lues le 19/10/2026)
 
 - Asterès / FAFCEA, étude du 06/12/2024 : <https://asteres.fr/site/wp-content/uploads/2024/12/ASTERES-FAFCEA-Impact-de-lIA-06122024.pdf> ;
