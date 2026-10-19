@@ -58,7 +58,7 @@ Ce que ça dit : l'artisan dépense déjà **20 à 50 € par mois pour un logic
 - Hypothèse DIG16 à mesurer, jamais à affirmer : temps réel par document pour nous (devis simple, devis long, facture,
   relance) → à chronométrer sur les 3 premiers clients avant de figer la grille.
 
-## 5. Grille de base proposée pour les devis DIG16 (à valider par l'utilisateur, prix HT = TTC en franchise de TVA)
+## 5. Grille de base des devis DIG16 (**validée par l'utilisateur le 19/10, « ok »** ; prix HT = TTC en franchise de TVA)
 
 | Formule | Volume | Prix mensuel proposé | Compris | Position face au marché |
 |---|---|---|---|---|

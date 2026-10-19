@@ -24,6 +24,6 @@ qui je travaille main dans la main), et je n'encaisse jamais d'argent à votre p
 **Engagements** : confidentialité totale, écrite dans le contrat ; vos fichiers restent à vous et vous les récupérez
 quand vous voulez ; sans engagement de durée, préavis d'un mois.
 
-**Prix** : sur devis, selon le nombre de devis et de factures par mois. Premier devis offert pour juger sur pièce.
+**Prix** : sur devis, à partir de 149 € par mois selon le nombre de devis et de factures (sans TVA). Premier devis offert pour juger sur pièce.
 
 DIG16 — dig16.fr — contact@dig16.fr
