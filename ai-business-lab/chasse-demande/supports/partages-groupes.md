@@ -17,6 +17,18 @@ Avant le premier partage, lire la description et les règles du groupe : certain
 la réservent à un jour (« lundi des pros ») ou à une rubrique. Un groupe qui l'interdit : on n'y publie pas. Un
 seul partage par groupe et par publication, jamais deux fois le même texte le même jour.
 
+## 1 bis. Quand le groupe interdit la pub (constat de l'utilisateur, 19/10 au soir : la plupart des groupes de commune l'interdisent)
+
+1. Chercher le fil ou le jour des pros (« À la une », publications épinglées, « jeudi des pros ») : partager là, variante courte.
+2. Demander l'accord de l'administrateur en message privé (Membres → Admins) :
+   > Bonjour, je suis membre du groupe et je viens de créer DIG16, des sites internet pour les artisans et commerçants du
+   > coin. J'ai écrit un guide gratuit pour savoir quoi vérifier avant de signer pour un site, chez n'importe quel
+   > prestataire (dig16.fr/guide), sans rien à vendre dedans. Accepteriez-vous que je le partage une fois dans le groupe ?
+   > Je comprendrai tout à fait si ce n'est pas possible. Merci !
+3. Rechercher dans le groupe `site internet`, `site web`, `qui connaît` : répondre utilement aux demandes existantes.
+4. Priorité aux groupes de pros (artisans, commerçants, entrepreneurs), qui autorisent souvent les présentations.
+Jamais de pub déguisée en conseil dans un groupe qui interdit la promotion (risque d'exclusion).
+
 ## 2. Texte à coller au moment du partage (adapter la première ligne au groupe)
 
 Partager la publication de la Page (Partager → Partager dans un groupe), puis écrire :
