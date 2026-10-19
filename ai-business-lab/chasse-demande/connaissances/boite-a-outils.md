@@ -335,6 +335,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Outil payant ou bloqué → équivalent gratuit | Réflexe du 28/09 : chercher l'équivalent gratuit et open source |
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
+| ⛔ | DeUI5Tot07a (reel @madameb0nplan, 19/10) | Écarté : jeux piratés dans le navigateur (contrefaçon, sites à risque) ; aucun usage pour DIG16. |
 
 _253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
