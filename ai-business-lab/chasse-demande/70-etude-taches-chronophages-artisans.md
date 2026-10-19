@@ -22,19 +22,40 @@ recherche ni un blog d'éditeur de logiciel). Les sources intéressées (vendeur
   déclarent occuper 10 heures soit 22 % de leur temps de travail total à la réalisation de tâches liées à la gestion de
   l'entreprise. » Par secteur : **bâtiment 13 h/semaine (25 %)**, alimentation 11 h (21 %), fabrication et services 10 h
   (23 %). « Les chefs d'entreprises du bâtiment sont à la fois ceux qui consacrent le plus temps à la gestion et qui
-  travaillent le plus. »
-- **CAPEB ARTIsanté 2025** : « 49 % des répondants déclarant que l'administratif représente entre 26 % et 75 % de leur
-  temps de travail » ; « dès lors que l'entreprise emploie des salariés, l'administratif prend une part plus importante
-  dans la charge de travail avec un écart qui se creuse quand l'entreprise dépasse 5 salariés. Par exemple, 17 % des
-  entreprises de 1 à 5 salariés déclarent passer entre 51 % et 75 % de leur temps sur les tâches administratives contre
-  38 % pour les entreprises de 6 à 10 salariés. » Le poids de l'administratif est l'une des principales sources de
-  stress (42 % des chefs d'entreprise, 41 % des conjoints). Édition précédente (année 2024, 3 029 répondants, page CAPEB
-  du 10/07/2025) : top 3 du stress = charge de travail 53 %, poids des responsabilités 44 %, **poids de l'administratif
-  41 %**.
+  travaillent le plus. » **Attention** : le même PDF dit dans son corps « 16 heures sur 52 heures » pour le bâtiment et,
+  dans son annexe, « 13 heures soit 25 % » ; l'écart n'est pas expliqué, on retient « 13 à 16 h ». Les 10 h sont
+  **déclarées** (pas chronométrées) et couvrent 8 tâches de gestion : la comptabilité, les déclarations et la paie n'y
+  sont pas.
+- **CAPEB ARTIsanté** (rapport 2025, qui rappelle d'abord l'année 2024) : « Des tâches administratives toujours présentes
+  avec 49 % des répondants déclarant que l'administratif représente entre 26 % et 75 % de leur temps de travail » —
+  **ce 49 % est le chiffre de l'année 2024** (11e édition, 3 029 répondants ; correction du 19/10 après relecture : la
+  première version de cette page l'attribuait à tort à 2025). Pour 2025 : « on note une hausse de +2 points par rapport
+  à 2024 du nombre de répondants déclarant que l'administratif représente entre 26 % et 50 % de leur charge de travail » ;
+  « dès lors que l'entreprise emploie des salariés, l'administratif prend une part plus importante dans la charge de
+  travail avec un écart qui se creuse quand l'entreprise dépasse 5 salariés. Par exemple, 17 % des entreprises de 1 à 5
+  salariés déclarent passer entre 51 % et 75 % de leur temps sur les tâches administratives contre 38 % pour les
+  entreprises de 6 à 10 salariés. » Le poids de l'administratif est l'une des principales sources de stress (42 % des
+  chefs d'entreprise, 41 % des conjoints). Édition 2024 (page CAPEB du 10/07/2025) : top 3 du stress = charge de
+  travail 53 %, poids des responsabilités 44 %, **poids de l'administratif 41 %**.
+- **Qonto / OpinionWay, communiqué du 09/04/2026** (300 dirigeants de TPE du BTP de 0 à 49 salariés, interrogés par
+  téléphone du 26/02 au 20/03/2026 ; commanditaire = une banque en ligne, donc source intéressée, mais institut et
+  méthode publiés) : « Les dirigeants du BTP consacrent en moyenne 13h21 par semaine à la gestion administrative et
+  financière, et un sur deux y passe plus d'une journée entière. » Aussi : « 68 % des entreprises utilisent un logiciel
+  de facturation, 22 % fonctionnent encore via des outils manuels ou des tableurs » ; « 60 % des dirigeants ont déjà
+  connu des difficultés financières, et 38 % ont été confrontés à des blocages de paiement récents ». Ordre de grandeur
+  cohérent avec les 13 h d'Asterès pour le bâtiment.
 - **SDI 2023** : « Combien de temps par semaine passez-vous personnellement à la gestion des charges administratives ? »
   → 1 h : 8 % ; 2 h : 15 % ; 3 h : 8 % ; 4 h : 18 % ; 5 h : 8 % ; 6 h : 5 % ; 8 h : 8 % ; **plus de 8 h : 30 %**. Part de la
   semaine : moins de 10 % pour 26 %, **33 % et plus pour 31 %**. Lecture : la charge n'est pas « moyenne », elle est
-  **à deux vitesses** : un gros tiers de dirigeants submergés, une petite moitié pour qui ça reste léger.
+  **à deux vitesses** : un gros tiers de dirigeants submergés, une petite moitié pour qui ça reste léger. (Le communiqué
+  du SDI résume en « en moyenne 8 heures par semaine » ; la distribution ci-dessus vient du PDF de l'enquête, p. 2.)
+  **Qui fait quoi (même PDF, p. 3)** : devis « Interne 96 % », facturation « Interne 94 % », litiges clients et
+  fournisseurs « Interne 86 % » ; à l'inverse fiches de paie « Externe 80 % », déclaration des bénéfices « Externe 73 % »,
+  comptabilité « Les deux 63 % ». **Coût** : « Les charges administratives externalisées représentent 1 % à 3 % du CA
+  pour 54 % des TPE » ; coût mensuel des prestataires le plus fréquent : 200 à 400 € (26 %) et 400 à 600 € (22 %).
+  Page SDI du 20/06/2025 (vague 2025, sans détail de méthode sur la page) : « En moyenne, un chef d'entreprise consacre
+  8 heures par semaine à l'administratif », « 78 % des indépendants considèrent la simplification administrative comme
+  prioritaire », « 7 sur 10 considèrent les tâches administratives trop complexes ».
 
 À retenir pour DIG16 : la cible qui souffre vraiment, c'est l'**artisan qui emploie du monde** (à partir de 1 salarié,
 nettement à partir de 6) et le **bâtiment** plus que les autres métiers. Un artisan seul en service ou en fabrication
@@ -75,6 +96,17 @@ devis et [assurer] les contacts avec les fournisseurs »). **Aucune statistique 
   leur traitement automatique » : l'outil existe, il est sous-utilisé.
 - **37 % des TPE-PME disent avoir du mal à trouver un prestataire numérique adapté (+ 15 points en un an)** ; 42 % ont
   dépensé plus de 1 000 € en numérique en 2024.
+- **ISM pour la Siagi et CMA France** (enquête de décembre 2024, 1 359 entreprises artisanales, commerciales et
+  libérales dont 98 % de TPE ; notice du service Veille Artisanat de CMA France du 04/02/2025, PDF 19 p. sur siagi.com) :
+  « 64 % des TPE (et 80 % des TPE employeuses) externalisent la fonction comptable » ; « Le premier conseil sollicité
+  pour la gestion de leur entreprise est généralement l'expert-comptable » ; « Plus l'entreprise est grande, plus elle
+  se dote d'un outil de gestion interne : 39 % chez les entreprises sans salarié, 65 % pour celles de 10 salariés et
+  plus. 4 % utilisent des outils d'intelligence artificielle » ; « un quart des entrepreneurs avouant être défaillants
+  dans leur éducation financière et en matière de gestion d'entreprise ». C'est la seule source qui mélange artisans
+  **et commerçants**, mais elle ne ventile pas par secteur.
+- Shine / Occurrence (août 2025, 641 indépendants et dirigeants de TPE **dont 341 clients de Shine** : source faible,
+  éditeur de logiciel) : facturation « Je m'en occupe personnellement 57 % », « logiciel de facturation dédié 41 % »,
+  « tableur 17 % », « prestataire externe 13 % », « outils papier 3 % ». À ne citer qu'en ordre de grandeur.
 - La facturation électronique devient obligatoire à l'émission pour les TPE-PME **le 1er septembre 2027** (réception
   déjà obligatoire depuis le 1er septembre 2026) : un sujet qui va forcer tous les artisans à toucher à leurs outils.
 
@@ -92,13 +124,34 @@ devis et [assurer] les contacts avec les fournisseurs »). **Aucune statistique 
 4. **La preuve reste à faire localement** : ces études sont nationales et déclaratives. La question bonus n° 2 de `57`
    (« qu'est-ce qui vous prend le plus de temps en dehors du chantier… vous faites ça comment, ça vous coûte combien ? »)
    est le seul moyen de savoir si, à Ruffec, trois artisans citent la même corvée. Tant que non : rien n'est construit.
-5. Chiffres utilisables dans un argumentaire (avec la source et la date, jamais sans) : « 10 heures par semaine de gestion,
+5. **Commerçants et restaurateurs : angle mort confirmé** par trois IA interrogées le 19/10 avec le prompt de
+   `supports/prompt-ia-taches-chronophages.md` (DeepSeek, Grok) : aucune enquête récente ne mesure leur temps de gestion
+   par tâche ni ne leur demande quelle tâche déléguer en premier. Les chiffres qui circulent (« 6 h par semaine »,
+   « 15 h pour les restaurateurs », UMIH 2019) n'ont pas de méthode publiée : écartés. Seule mesure à sonder nous-mêmes.
+6. Chiffres utilisables dans un argumentaire (avec la source et la date, jamais sans) : « 10 heures par semaine de gestion,
    13 heures dans le bâtiment (Asterès/FAFCEA, 2024) » ; « près d'un artisan du bâtiment sur deux passe plus du quart de
-   son temps à l'administratif (CAPEB ARTIsanté 2025) » ; « 30 % des dirigeants de TPE y passent plus de 8 heures par
-   semaine (SDI, 2023) ».
+   son temps à l'administratif (CAPEB ARTIsanté, année 2024) » ; « 13 h 21 par semaine dans le BTP (OpinionWay pour
+   Qonto, mars 2026) » ; « 30 % des dirigeants de TPE y passent plus de 8 heures par semaine (SDI, 2023) ».
 
 Prompt de recoupement pour les autres IA (ChatGPT, Gemini, Perplexity…) : `supports/prompt-ia-taches-chronophages.md` ;
 leurs réponses sont relues à la source avant d'entrer ici.
+
+## 6. Recoupement par d'autres IA (19/10/2026) : ce qui a été vérifié, corrigé, écarté
+
+| Affirmation de l'IA | Vérification à la source | Décision |
+|---|---|---|
+| DeepSeek : Qonto/OpinionWay 2026, 13 h 21, 300 dirigeants BTP | Communiqué Qonto du 09/04/2026 lu : exact | **Ajouté** (§ 2) |
+| DeepSeek : SDI 2023, devis 96 % interne, paie 80 % externe, 1 à 3 % du CA | PDF SDI lu, p. 3 : exact | **Ajouté** (§ 2) |
+| DeepSeek : U2P/Xerfi janvier 2024, 7 675 entreprises, « 39 % une demi-journée ou plus », bâtiment « trois quarts », priorités fiscal 30 % / social 26 % / comptable 19 % | Les enquêtes Xerfi/U2P à 7 675 répondants existent (conjoncture trimestrielle), mais la page de janvier 2025 ne contient pas ces chiffres et le « PDF Maison de l'Artisan » cité n'a pas été trouvé | **Non retenu** tant que la source n'est pas lue |
+| DeepSeek : Shine/Occurrence 2025, 641 répondants | Page Shine du 13/10/2025 lue : exact, mais 341 répondants sont ses clients | Retenu **en ordre de grandeur seulement** (§ 4) |
+| Grok : le 49 % d'ARTIsanté est celui de l'année 2024 (11e édition), pas de 2025 | Relecture du rapport 2025 : exact, le 49 % figure dans le rappel de 2024 | **Corrigé** (§ 2) |
+| Grok : Asterès dit « 16 h sur 52 » dans le corps et « 13 h, 25 % » en annexe ; 10 h déclarées, hors comptabilité et paie | Relecture du PDF : exact | **Corrigé** (§ 2) |
+| Grok : « le 30 % de plus de 8 h du SDI n'a pas été retrouvé » | Faux : le tableau p. 2 du PDF SDI donne bien « Plus de 8h par semaine : 30 % » (Grok n'a lu que le communiqué) | **Maintenu** |
+| Grok : ISM/Siagi déc. 2024, 1 359 TPE, 64 % / 80 % externalisent la comptabilité | Notice CMA France du 04/02/2025 lue : exact (33 % « logiciel de gestion » non retrouvé sur la notice, qui dit 39 % sans salarié / 65 % à 10 salariés et plus) | **Ajouté** (§ 4) |
+| Grok : ARTIsanté 2024, accompagnement souhaité : juridique 42 %, commercial 20 %, comptabilité 19 %, digital 19 % ; Insee indépendants 2025 (45,1 h construction, 57,4 h métiers de bouche) ; SDI mars 2025 (2 140 répondants, 85 % recourent à un prestataire pour 2 % du CA) | Non relus à la source ce soir (rapport 2024 et PDF Insee non ouverts ; la page SDI 2025 ne donne pas ces deux derniers chiffres) | **En attente**, à lire avant usage |
+
+Méthode : toute réponse d'IA est une piste, jamais une preuve ; seuls les chiffres relus sur la page d'origine entrent
+dans les sections 1 à 5.
 
 ## Sources (toutes lues le 19/10/2026)
 
@@ -110,5 +163,10 @@ leurs réponses sont relues à la source avant d'entrer ici.
 - SDI, enquête charges administratives, mai 2023 : <https://sdi-pme.fr/wp-content/uploads/2023/05/Dossier-enquete-charges-admin.pdf>
 - Baromètre France Num 2025 (DGE / Crédoc) : <https://www.francenum.gouv.fr/guides-et-conseils/strategie-numerique/comprendre-le-numerique/barometre-france-num-2025-le> ;
   rapport : <https://www.francenum.gouv.fr/files/2025-09/Barom%C3%A8tre%20France%20Num%202025%20-%20Rapport.pdf>
+- Qonto / OpinionWay, communiqué du 09/04/2026 (PDF repris par Bati-Today) : <https://www.bati-today.com/www.bati-today.com/w/pdf/cp-etude-btp-x-qonto-090426-okok.pdf>
+- SDI, page « Simplification administrative » (20/06/2025) : <https://sdi-pme.fr/nos_objectifs/simplification-administrative/>
+- ISM / Siagi / CMA France : notice Veille Artisanat <https://infoartisanat.artisanat.fr/index.php?lvl=notice_display&id=39788> ;
+  PDF <https://www.siagi.com/uploads/documents/Les_petites_entreprises_et_leur_tresorerie.pdf>
+- Shine / Occurrence (13/10/2025) : <https://www.shine.fr/blog/etude-2025-facturation-electronique-tpe/>
 - Écartés (sources intéressées ou sans origine vérifiable) : estimation Youseeme reprise par Le Figaro Emploi
   (17/09/2025, « 52 à 90 heures par mois », méthode non publiée), blogs d'éditeurs de logiciels (EBP, ArtisanSmart, Sage).
