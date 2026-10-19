@@ -214,7 +214,7 @@ prestataire introuvable, facture électronique projet n° 1 (§ 4) ; besoin d'un
 C'est le trou entre le logiciel et l'expert-comptable. Réserves : commerçants et restaurateurs non prouvés ; cadre légal
 vérifié le 19/10 (§ 7 bis) ; rien n'est construit avant trois artisans citant la corvée (question bonus n° 2 de `57`) ;
 test possible comme extension avec le premier client du site. Prix : sur devis, au cas par cas (décision de l'utilisateur
-du 19/10). Discours au téléphone, pour après l'immatriculation : `supports/discours-telephone-devis-factures.md`.
+du 19/10) ; concurrence et grille de base : `71-tarifs-service-devis-factures.md`. Discours au téléphone, pour après l'immatriculation : `supports/discours-telephone-devis-factures.md`.
 
 ### 7 bis. Cadre légal du service (textes lus le 19/10/2026)
 
