@@ -67,7 +67,7 @@
         ]
       },
       {
-        "matcher": "mcp__Metricool_Social_Media_Management__createScheduledPost",
+        "matcher": "mcp__Metricool_Social_Media_Management__createScheduledPost|mcp__Zapier__execute_zapier_write_action|mcp__Zapier__execute_zapier_read_action",
         "hooks": [
           {
             "type": "command",

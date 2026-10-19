@@ -25,8 +25,28 @@ def refuser(raison):
     sys.exit(0)
 
 
+def zapier(reg):
+    """Zapier MCP : 2 tâches par appel réussi, 100 par mois en gratuit ; refus au-delà de la marge."""
+    from datetime import datetime, timezone
+
+    mois = datetime.now(timezone.utc).strftime("%Y-%m")
+    z = reg["zapier"]
+    deja = z["mois"].get(mois, 0)
+    if deja + z["cout_par_appel"] > z["marge"]:
+        refuser(f"Quota Zapier : {deja} tâches utilisées en {mois} sur {z['limite']} (marge {z['marge']}). "
+                f"Plus d'action Zapier ce mois-ci.")
+    z["mois"][mois] = deja + z["cout_par_appel"]
+    with open(REGISTRE, "w", encoding="utf-8") as f:
+        json.dump(reg, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
 def main():
     donnees = json.load(sys.stdin)
+    if donnees.get("tool_name", "").startswith("mcp__Zapier__execute_zapier"):
+        with open(REGISTRE, encoding="utf-8") as f:
+            zapier(json.load(f))
+        return
     entree = donnees.get("tool_input", {})
     info = entree.get("info", {})
     if isinstance(info, str):
