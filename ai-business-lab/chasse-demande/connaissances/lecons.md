@@ -67,6 +67,7 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 | 30/09, 17/10 | Cookie du relais posé sur l'adresse du déploiement au lieu de l'alias utilisé par les outils | Lien de partage demandé sur `relais-dig-justok1.vercel.app` (l'alias), puis test `/api/video` | Consigne du rappel « cookie » |
 | 18/10 | Quota gratuit de la voix épuisé en pleine série (essais ratés comptés) | Tester sur 1 phrase avant une série ; garder le cache ; prévoir la reprise | Cache `voix/` + rappel de reprise |
 | 18/10 | `flyer_reseaux.py` écrivait un HTML temporaire contenant le téléphone de `identite.json` : CodeQL l'a bloqué (donnée privée stockée en clair) | Aucune donnée de l'identité n'est écrite sur disque par un outil du dépôt : la poser dans la page (Playwright `evaluate`) ou dans le fichier final privé seulement | Analyse CodeQL à chaque push |
+| 19/10 | Identifiants d'articles Légifrance (`LEGIARTI…`) devinés de mémoire : 3 pages lues pour rien (mauvais décret, 404) | Ne jamais deviner un identifiant Légifrance ou BOFiP : passer par une recherche (`firecrawl_search` avec le numéro du texte et de l'article), puis lire la page trouvée | Règle ici |
 | 24/09 | 56 validations manuelles demandées à l'utilisateur | Anticiper les permissions avant toute action en série | `CLAUDE.md` |
 
 ## Apprendre en continu (au-delà des erreurs)

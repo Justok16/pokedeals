@@ -2,9 +2,7 @@
 
 Hypothèse de service issue de l'étude `70-etude-taches-chronophages-artisans.md` (§ 7). **À n'utiliser qu'après
 l'immatriculation de DIG16 et avec un client qui a déjà son site** : avant, aucune vente (entretiens d'étude de marché
-seulement, `57`). Le prix `[prix]` est fixé par l'utilisateur, jamais par Claude. Point légal à vérifier avant le premier
-appel : la frontière entre secrétariat administratif (métier libre) et tenue de comptabilité (réservée aux
-experts-comptables) ; l'artisan reste l'émetteur de ses devis et factures, il valide et signe tout.
+seulement, `57`). Le prix est fixé par l'utilisateur, jamais par Claude ; décision du 19/10 : **sur devis, au cas par cas** (`[prix]` dans le texte = le montant du devis). Cadre légal vérifié le 19/10 (voir `70` § 7 bis) : préparer et envoyer des devis est libre ; émettre les factures à la place de l'artisan est permis par le code général des impôts à condition d'un **mandat de facturation écrit signé avant la première facture**, avec acceptation de chaque facture par l'artisan ; tenir sa comptabilité (écritures, TVA, bilan) est réservé aux experts-comptables et reste exclu de l'offre. L'artisan reste l'émetteur de ses devis et factures, il valide et signe tout.
 
 Principes : une conversation, pas une lecture ; on fait d'abord dire la corvée au client avec ses mots, on ne décrit le
 service qu'ensuite, en trois phrases ; un seul chiffre d'étude au maximum, avec sa source ; on termine par un essai

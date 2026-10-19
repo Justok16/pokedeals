@@ -211,11 +211,46 @@ préparation de la facture électronique (septembre 2027). Abonnement mensuel, c
 devis + factures/relances + trésorerie = 3,8 h par semaine et les tâches les moins outillées (§ 3) ; devis 96 % et
 factures 94 % faits en interne alors que compta et paie sont déjà déléguées (§ 2) ; logiciel possédé mais sous-utilisé,
 prestataire introuvable, facture électronique projet n° 1 (§ 4) ; besoin d'un accompagnement neutre de proximité (§ 4).
-C'est le trou entre le logiciel et l'expert-comptable. Réserves : commerçants et restaurateurs non prouvés ; **point
-légal à vérifier** avant toute offre (secrétariat administratif, métier libre, contre tenue de comptabilité, réservée
-aux experts-comptables : lire la source officielle) ; rien n'est construit avant trois artisans citant la corvée
-(question bonus n° 2 de `57`) ; test possible comme extension avec le premier client du site. Discours au téléphone,
-pour après l'immatriculation : `supports/discours-telephone-devis-factures.md`.
+C'est le trou entre le logiciel et l'expert-comptable. Réserves : commerçants et restaurateurs non prouvés ; cadre légal
+vérifié le 19/10 (§ 7 bis) ; rien n'est construit avant trois artisans citant la corvée (question bonus n° 2 de `57`) ;
+test possible comme extension avec le premier client du site. Prix : sur devis, au cas par cas (décision de l'utilisateur
+du 19/10). Discours au téléphone, pour après l'immatriculation : `supports/discours-telephone-devis-factures.md`.
+
+### 7 bis. Cadre légal du service (textes lus le 19/10/2026)
+
+- **Ce qui est réservé aux experts-comptables** (ordonnance n° 45-2138 du 19 septembre 1945, article 2, version en vigueur
+  depuis le 08/05/2017) : « réviser et d'apprécier les comptabilités » et « tenir, centraliser, ouvrir, arrêter,
+  surveiller, redresser et consolider les comptabilités des entreprises ». Le faire sans être inscrit à l'Ordre est un
+  délit (article 20 : « Exerce illégalement la profession d'expert-comptable celui qui, sans être inscrit au tableau de
+  l'ordre […], exécute habituellement des travaux prévus par les deux premiers alinéas de l'article 2 […], en intervenant
+  directement dans la tenue, la vérification, l'appréciation ou le redressement des comptes », peines des articles 433-17
+  et 433-25 du code pénal). **Donc exclu de l'offre DIG16** : saisie des écritures, rapprochement bancaire, déclarations
+  de TVA, bilan, « tenue des comptes » même simplifiée, et tout mot comme « comptabilité » ou « gestion comptable » dans
+  la présentation du service (usage abusif du titre ou confusion, même article 20).
+- **Les devis** : document commercial, aucune profession ne se le réserve. Préparer un devis dans le modèle de l'artisan,
+  à ses prix, qu'il relit et signe : libre (mentions obligatoires à respecter, à sa charge et à la nôtre).
+- **Les factures** : permis par le code général des impôts, article 289, I-2 : « Les factures peuvent être matériellement
+  émises par le client ou par un tiers lorsque l'assujetti leur donne mandat à cet effet. Sous réserve de son acceptation
+  par l'assujetti, chaque facture est alors émise en son nom et pour son compte. » Conditions lues dans la doctrine
+  fiscale (BOI-TVA-DECLA-30-20-10-30, 29/06/2022) : « Le mandat de facturation doit nécessairement être conclu avant que
+  le client ou le tiers concerné ne commence à émettre des factures » ; « Toute facture émise au nom et pour le compte du
+  fournisseur doit faire l'objet d'une acceptation par ce dernier » (signature, cachet, accusé de réception, ou délai de
+  contestation prévu au contrat et expiré) ; l'artisan « conserve l'entière responsabilité de ses obligations en matière
+  de facturation » ; mention recommandée « facture établie par A au nom et pour le compte de B » ; « Le double de chaque
+  facture doit être adressé au fournisseur ». La numérotation suit la série de l'artisan.
+- **Relances et impayés** : relancer un client au nom de l'artisan (courrier, email, appel) est libre. Le recouvrement
+  amiable pour le compte d'autrui comme activité en soi est encadré (décret n° 96-1112, **non relu le 19/10 : à lire avant
+  d'inclure une « mise en demeure » ou un recouvrement contre honoraires dans l'offre**) ; jusque-là, la relance reste une
+  tâche de secrétariat sous mandat, et la mise en demeure est signée par l'artisan lui-même (`45`).
+- **À rédiger avant le premier client du service** : un mandat de facturation écrit (objet, durée, mode d'acceptation
+  des factures, délai de contestation, mention sur les factures, double envoyé, fin de mandat), une clause de
+  confidentialité, et l'information RGPD sur les données des clients de l'artisan que DIG16 traite pour son compte
+  (sous-traitant au sens du RGPD, article 28 : contrat écrit, à relire à ce moment-là). Assurance responsabilité civile
+  professionnelle à étendre à cette activité (coût à soumettre).
+- Sources : <https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000032364676> (art. 2),
+  <https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000045178543> (art. 20),
+  <https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000048827413> (CGI art. 289),
+  <https://bofip.impots.gouv.fr/bofip/13244-PGP.html/identifiant%3DBOI-TVA-DECLA-30-20-10-30-20220629> (mandat de facturation).
 
 ## Sources (toutes lues le 19/10/2026)
 
