@@ -2,8 +2,7 @@
 
 <!-- impeccable:product-schema 1 -->
 
-Statut : rédigé le 19/10/2026 à partir des documents du projet (CLAUDE.md, 64, site dig16.fr), à faire valider
-par l'utilisateur (« oui » ou corrections). Aucun témoignage, client ni chiffre inventé.
+Statut : rédigé le 19/10/2026 à partir des documents du projet, **validé par l'utilisateur le 19/10/2026** (« oui la fiche PRODUCT.md me va »). Aucun témoignage, client ni chiffre inventé.
 
 ## Platform
 
