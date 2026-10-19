@@ -109,3 +109,5 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Chaînes vidéo « sans visage » | x.com/chesny | Écartée pour l'instant : outils payants et règles YouTube vérifiées |
 | Standardiste IA pour artisans | 96G4KDnEFyI | Option à proposer si un client le demande |
 | Visuels avant/après pour cuisinistes | hRr-yUSM0_A | Option future |
+| Veille « 30 derniers jours » (Reddit, X, YouTube, TikTok…) | mvanhorn/last30days-skill (reel DepRxdRpj-p) | En réserve : sources surtout américaines, clés payantes au-delà des quotas ; à ressortir pour une étude de marché large |
+| Agent « chef de cabinet » / tuteur « Teach » | reel DepRxdRpj-p | En réserve : sources à vérifier, pas de besoin DIG16 actuel |
