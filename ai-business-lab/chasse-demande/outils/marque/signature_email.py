@@ -29,7 +29,7 @@ SIGNATURE = f"""<table cellpadding="0" cellspacing="0" border="0" style="border-
 <div style="font-size:13px;line-height:1.5;color:#7a5a2c;margin-top:2px">DIG16, sites internet pour artisans et commerçants de Charente</div>
 <div style="font-size:13px;line-height:1.6;margin-top:8px"><a href="tel:[TELEPHONE]" style="color:#1a1814;text-decoration:none">[Téléphone]</a>
 &nbsp;|&nbsp; <a href="https://dig16.fr/" style="color:#1a1814;text-decoration:none;font-weight:bold">dig16.fr</a></div>
-<div style="font-size:12px;line-height:1.5;color:#655e54;margin-top:8px">Le test du pouce : tapez votre métier et votre ville sur votre téléphone. Vous êtes où&nbsp;?</div>
+<div style="font-size:12px;line-height:1.5;color:#655e54;margin-top:8px">Guide gratuit avant de choisir un site : <a href="https://dig16.fr/guide" style="color:#8a6a3c">dig16.fr/guide</a></div>
 <div style="font-size:11px;line-height:1.5;color:#8a8278;margin-top:8px">[Prénom Nom] EI, SIREN [numéro à l’immatriculation], [adresse]<br>
 Vous ne souhaitez plus recevoir de message de ma part&nbsp;? Répondez simplement « STOP ».</div></td></tr></table>"""
 

@@ -11,7 +11,7 @@ Règles : aucune commune de résidence de l'utilisateur, seulement « Charente �
   > DIG16 crée des sites internet pour les artisans, commerçants et indépendants de Charente.
   > Des sites modernes et rapides, pensés d'abord pour le téléphone, en ligne en 7 jours et à votre nom.
   > Dès 49 € par mois, 0 € de création. Je refais votre page d'accueil gratuitement, avant que vous décidiez quoi que ce soit.
-  > Ici : conseils simples pour être trouvé sur Google, avant / après de sites, et le « test du pouce ».
+  > Ici : conseils simples pour être trouvé sur Google, avant / après de sites, et un guide gratuit pour bien choisir son site.
   > 👉 https://dig16.fr
 - Liens de la chaîne : Site DIG16 → https://dig16.fr ; Facebook → https://www.facebook.com/1334231963113482 ;
   Instagram → https://www.instagram.com/dig16fr/
@@ -26,7 +26,7 @@ Règles : aucune commune de résidence de l'utilisateur, seulement « Charente �
   > ✅ En ligne en 7 jours
   > ✅ Votre page d'accueil refaite gratuitement, pour juger avant de décider
   > 👉 https://dig16.fr
-  > Le test du pouce (gratuit, 30 secondes) : https://dig16.fr/test-du-pouce
+  > Le guide gratuit avant de choisir un site : https://dig16.fr/guide
   > #Charente #artisan #siteinternet
 - Commentaire épinglé : `Vous voulez voir ce que ça donnerait pour votre entreprise ? Je refais votre page d'accueil gratuitement : https://dig16.fr`
 - Tags : création site internet Charente, site internet artisan, site internet commerçant, création site web Angoulême,
