@@ -44,6 +44,11 @@ recherche ni un blog d'éditeur de logiciel). Les sources intéressées (vendeur
   de facturation, 22 % fonctionnent encore via des outils manuels ou des tableurs » ; « 60 % des dirigeants ont déjà
   connu des difficultés financières, et 38 % ont été confrontés à des blocages de paiement récents ». Ordre de grandeur
   cohérent avec les 13 h d'Asterès pour le bâtiment.
+- **Fondation MMA des Entrepreneurs du Futur / Ifop, baromètre santé du dirigeant 2026** (1 000 dirigeants de TPE, PME
+  et ETI, printemps 2026 ; page officielle lue le 19/10) : « Interrogés sur leurs difficultés quotidiennes, 64 % des
+  dirigeants citent en premier la charge réglementaire et administrative, devant la surcharge de travail (55 %) et
+  l'incertitude économique (54 %). » C'est une mesure de **pénibilité**, tous secteurs (le détail par secteur cité par
+  une IA — construction 67 %, commerce 61 %, cafés-hôtels-restaurants 53 % — est dans le rapport PDF, non relu ici).
 - **SDI 2023** : « Combien de temps par semaine passez-vous personnellement à la gestion des charges administratives ? »
   → 1 h : 8 % ; 2 h : 15 % ; 3 h : 8 % ; 4 h : 18 % ; 5 h : 8 % ; 6 h : 5 % ; 8 h : 8 % ; **plus de 8 h : 30 %**. Part de la
   semaine : moins de 10 % pour 26 %, **33 % et plus pour 31 %**. Lecture : la charge n'est pas « moyenne », elle est
@@ -107,6 +112,22 @@ devis et [assurer] les contacts avec les fournisseurs »). **Aucune statistique 
 - Shine / Occurrence (août 2025, 641 indépendants et dirigeants de TPE **dont 341 clients de Shine** : source faible,
   éditeur de logiciel) : facturation « Je m'en occupe personnellement 57 % », « logiciel de facturation dédié 41 % »,
   « tableur 17 % », « prestataire externe 13 % », « outils papier 3 % ». À ne citer qu'en ordre de grandeur.
+- **Baromètre France Num 2026** (6e édition, publiée le 17/09/2026 ; 9 655 entreprises dont 6 786 TPE, du 23/03 au
+  18/04/2026 ; page officielle lue le 19/10) : « 71 % des dirigeants de TPE PME interrogés estiment que le numérique
+  apporte un bénéfice réel à leur entreprise (-7 points) », baisse « forte chez les TPE (-8 points), et dans les secteurs
+  Commerce, du Bâtiment et de la construction » (bâtiment-construction : 61 %, −9 points) ; « 33 % des TPE PME n'ont
+  réalisé aucune dépense dédiée au numérique » (+8 points) ; pour 2026-2027, projet n° 1 = « la réforme de la
+  facturation électronique : 39 % (+11 pts) » ; conseiller privilégié : « leur expert-comptable : 41 % (+23 pts) »,
+  prestataires 37 %, CCI/CMA 9 %, France Num 7 % ; « 84 % des TPE PME déclarent privilégier un prestataire de services
+  numériques français ou européen, dont 42 % un prestataire de proximité ». Lecture DIG16 : la confiance des artisans
+  et commerçants dans le numérique **recule**, l'expert-comptable devient le prescripteur n° 1, et la facture
+  électronique est le sujet qui les fera bouger en 2027.
+- **France Num 2025, dossier hébergement-restauration** (publié le 07/04/2026, 10,2 % des 11 021 répondants) : « 76 % sont
+  équipées d'un logiciel de caisse », « 58 % d'un logiciel comptable », « 53 % d'un logiciel de facturation », « 19 %
+  disposent d'une solution de gestion des achats, de l'approvisionnement et des stocks » ; « 52 % des TPE PME identifient
+  le manque de temps comme principal frein à la formation », « 27 % rencontrent des difficultés à trouver un prestataire
+  numérique adapté » ; « 28 % des entreprises n'ont aucun budget numérique ». Seule donnée sectorielle solide sur les
+  restaurateurs : équipés en caisse, pas en gestion des achats, et sans temps.
 - La facturation électronique devient obligatoire à l'émission pour les TPE-PME **le 1er septembre 2027** (réception
   déjà obligatoire depuis le 1er septembre 2026) : un sujet qui va forcer tous les artisans à toucher à leurs outils.
 
@@ -133,7 +154,7 @@ devis et [assurer] les contacts avec les fournisseurs »). **Aucune statistique 
    son temps à l'administratif (CAPEB ARTIsanté, année 2024) » ; « 13 h 21 par semaine dans le BTP (OpinionWay pour
    Qonto, mars 2026) » ; « 30 % des dirigeants de TPE y passent plus de 8 heures par semaine (SDI, 2023) ».
 
-Prompt de recoupement pour les autres IA (ChatGPT, Gemini, Perplexity…) : `supports/prompt-ia-taches-chronophages.md` ;
+Prompt de recoupement pour les autres IA : `supports/prompt-ia-taches-chronophages.md` (réponses de DeepSeek, Grok, Gemini et ChatGPT reçues le 19/10) ;
 leurs réponses sont relues à la source avant d'entrer ici.
 
 ## 6. Recoupement par d'autres IA (19/10/2026) : ce qui a été vérifié, corrigé, écarté
@@ -149,6 +170,16 @@ leurs réponses sont relues à la source avant d'entrer ici.
 | Grok : « le 30 % de plus de 8 h du SDI n'a pas été retrouvé » | Faux : le tableau p. 2 du PDF SDI donne bien « Plus de 8h par semaine : 30 % » (Grok n'a lu que le communiqué) | **Maintenu** |
 | Grok : ISM/Siagi déc. 2024, 1 359 TPE, 64 % / 80 % externalisent la comptabilité | Notice CMA France du 04/02/2025 lue : exact (33 % « logiciel de gestion » non retrouvé sur la notice, qui dit 39 % sans salarié / 65 % à 10 salariés et plus) | **Ajouté** (§ 4) |
 | Grok : ARTIsanté 2024, accompagnement souhaité : juridique 42 %, commercial 20 %, comptabilité 19 %, digital 19 % ; Insee indépendants 2025 (45,1 h construction, 57,4 h métiers de bouche) ; SDI mars 2025 (2 140 répondants, 85 % recourent à un prestataire pour 2 % du CA) | Non relus à la source ce soir (rapport 2024 et PDF Insee non ouverts ; la page SDI 2025 ne donne pas ces deux derniers chiffres) | **En attente**, à lire avant usage |
+
+| Gemini : Fondation MMA/Ifop 2026, 64 % « charge administrative et réglementaire » première difficulté quotidienne | Page officielle lue : exact (1 000 dirigeants, printemps 2026) ; le détail par secteur n'est pas sur la page | **Ajouté** (§ 2), détail sectoriel en attente |
+| Gemini : SDI 2023, paie « 86 % en externe », litiges « 80 % en interne », déclaration des bénéfices « 44 % en externe » | PDF SDI p. 3 : paie **80 %**, litiges **86 %**, bénéfices **73 %** (44 % = déclaration des revenus) ; chiffres mélangés | **Rejeté** (le § 2 garde les bons) |
+| Gemini : CPME, « 28 % des dirigeants de TPE-PME consacrent au minimum 2 jours par semaine à l'administratif » | Non retrouvé à la source ; population PME incluse | **Non retenu** |
+| Gemini : France Num 2025, « 78 % : le numérique facilite l'externalisation de la comptabilité, de la paye et de la communication » ; HCR 28 % sans budget | HCR 28 % : exact (dossier lu) ; le 78 % n'a pas été relu | 28 % **ajouté** (§ 4) ; 78 % en attente |
+| ChatGPT : ARTIsanté 2025, graphique p. 7 : 35 % entre 26 et 50 %, 16 % entre 51 et 75 % (soit 51 %) | Cohérent avec le « +2 points » lu dans le rapport, mais le graphique n'a pas été relu | Plausible, **en attente** |
+| ChatGPT : France Num 2026 existe (9 655 entreprises, 23/03–18/04/2026) ; commerce : facturation 79 %, compta 76 %, caisse 54 % ; HCR 61 / 61 / 78 ; stocks 51 % commerce, 17 % HCR | Page officielle lue : l'édition et la méthode sont exactes ; les taux par secteur sont dans le rapport PDF, non relus | Édition **ajoutée** (§ 4) ; taux sectoriels en attente |
+| ChatGPT : SDI 29/12/2025–05/01/2026, 1 679 répondants, « 59 % passent plus de 5 h, dont 17 % plus de 10 h » ; SDI mars 2025, « coût médian 500 €/mois » | Non relus à la source | **En attente** |
+| ChatGPT : ObSoCo / Service Compris, 191 restaurateurs, 57 % jugent la charge administrative difficile | Échantillon petit et non représentatif, communiqué et rapport discordants selon ChatGPT lui-même | **Non retenu** |
+| ChatGPT : « 142 jours » = Sage/Plum 2017 (charge cumulée de l'entreprise) ; « 3 h 18 » = Ipsos 2014 (temps supplémentaire jugé nécessaire, pas temps administratif) | Explications plausibles de l'origine de deux chiffres déjà écartés | Sans effet |
 
 Méthode : toute réponse d'IA est une piste, jamais une preuve ; seuls les chiffres relus sur la page d'origine entrent
 dans les sections 1 à 5.
@@ -168,5 +199,8 @@ dans les sections 1 à 5.
 - ISM / Siagi / CMA France : notice Veille Artisanat <https://infoartisanat.artisanat.fr/index.php?lvl=notice_display&id=39788> ;
   PDF <https://www.siagi.com/uploads/documents/Les_petites_entreprises_et_leur_tresorerie.pdf>
 - Shine / Occurrence (13/10/2025) : <https://www.shine.fr/blog/etude-2025-facturation-electronique-tpe/>
+- Fondation MMA / Ifop, baromètre santé du dirigeant 2026 : <https://fondation-entrepreneurs.mma/etude-sante-dirigeant-entreprise-2026.htm>
+- Baromètre France Num 2026 : <https://www.francenum.gouv.fr/guides-et-conseils/strategie-numerique/comprendre-le-numerique/barometre-france-num-2026-le> ;
+  dossier hébergement-restauration 2025 : <https://www.francenum.gouv.fr/guides-et-conseils/strategie-numerique/comprendre-le-numerique/barometre-france-num-2025-le-0>
 - Écartés (sources intéressées ou sans origine vérifiable) : estimation Youseeme reprise par Le Figaro Emploi
   (17/09/2025, « 52 à 90 heures par mois », méthode non publiée), blogs d'éditeurs de logiciels (EBP, ArtisanSmart, Sage).
