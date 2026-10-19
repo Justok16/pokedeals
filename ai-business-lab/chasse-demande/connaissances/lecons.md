@@ -60,6 +60,7 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 | 15/10 | Ancien CSS servi par le cache, correctif aléatoire en ligne | Changer le `?v=` des liens à chaque modification d'un CSS mis en cache | `CLAUDE.md` (polices) |
 | 18/10 | `www.dig16.fr` répondait en 200 (site en double pour Google) | Une seule adresse ; vérifier les deux variantes avec `curl` | `functions/_middleware.js` |
 | 18/10 | 6 images sans texte alternatif sur l'accueil | Toute image publique a un `alt` | `audit_acces.py`, OpenRush `audit_site` |
+| 19/10 | Kit avis Google déclaré prêt le 18/10 sur la foi d'un lien `writereview` en 200 (qui ne fait que renvoyer à la connexion Google) ; en réalité la fiche porte une **date d'ouverture prochaine** (« Ouverture : octobre ») et Google bloque avis, photos et suggestions tant que l'établissement n'est pas « officiellement ouvert » (aide 9174409, lue le 19/10) ; c'est un ami de l'utilisateur qui l'a constaté | Un code HTTP ne prouve pas qu'une fonction marche : **vérifier sur la fiche publique (Maps) qu'une section Avis et un bouton d'avis existent** avant de dire que les avis sont possibles ; après toute modification de la fiche (date, horaires, catégorie), relire la fiche publique | Contrôle « bouton d'avis présent » à ajouter à `sentinelle_dig16.py` / `controle_global.py` (lecture de la fiche Maps par Playwright) ; `kit_avis.py` refuse de produire le kit si la fiche affiche « Ouverture : » |
 
 ## Outils, relais, quotas
 

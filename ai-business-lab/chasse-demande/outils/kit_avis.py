@@ -8,7 +8,9 @@ Le place_id se lit dans la fiche publique (outil OpenSEO get_business_profile, c
 https://search.google.com/local/writereview?placeid=<place_id> ouvre directement la fenêtre d'avis.
 
 Contrôles intégrés (44-controle-qualite.md) : QR décodé sur l'image finale (OpenCV), lien testé en ligne,
-carte rendue à 300 ppp (1240 × 1748 px, A6) avec les polices du site.
+**fiche publique lue sur Maps** (refus si « Ouverture : <mois> » ou pas de section Avis : Google bloque les avis tant
+que l'établissement n'est pas officiellement ouvert, constaté le 19/10/2026), carte rendue à 300 ppp (1240 × 1748 px,
+A6) avec les polices du site.
 Règles : jamais d'avis rédigé, acheté ou récompensé ; jamais de tri des clients « contents » seulement
 (règles Google sur les contenus, lues le 18/10/2026).
 """
@@ -114,6 +116,34 @@ def rendre(html, sortie):
         b.close()
 
 
+def fiche_ouverte(place_id):
+    """Lit la fiche publique sur Maps et dit si les avis y sont possibles.
+
+    Leçon du 19/10/2026 : un lien « writereview » en 200 ne prouve rien (il renvoie à la connexion Google). Une fiche
+    avec une date d'ouverture prochaine affiche « Ouverture : <mois> » et Google y bloque avis, photos et suggestions
+    tant que l'établissement n'est pas « officiellement ouvert » (aide Google 9174409, lue le 19/10/2026).
+    Renvoie (ok, raison)."""
+    from playwright.sync_api import sync_playwright
+
+    url = f"https://www.google.com/maps/place/?q=place_id:{place_id}&hl=fr&gl=FR"
+    with sync_playwright() as p:
+        b = p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome")
+        pg = b.new_page(locale="fr-FR")
+        pg.goto(url, wait_until="domcontentloaded", timeout=60000)
+        try:
+            pg.wait_for_selector("main", timeout=30000)
+        except Exception:
+            pass
+        pg.wait_for_timeout(2500)
+        texte = pg.inner_text("body")
+        b.close()
+    if "Ouverture :" in texte:
+        return False, "la fiche affiche une date d'ouverture prochaine (« Ouverture : … ») : avis bloqués par Google"
+    if "avis" not in texte.lower():
+        return False, "aucune section « Avis » visible sur la fiche publique"
+    return True, "section Avis visible"
+
+
 def decoder_qr(image):
     import cv2
 
@@ -129,6 +159,7 @@ def main():
     ap.add_argument("sortie")
     ap.add_argument("--metier", default="")
     ap.add_argument("--signature", default="")
+    ap.add_argument("--sans-controle-fiche", action="store_true", help="ne pas lire la fiche Maps (hors ligne)")
     a = ap.parse_args()
     out = pathlib.Path(a.sortie)
     out.mkdir(parents=True, exist_ok=True)
@@ -136,6 +167,10 @@ def main():
     code = lien_ok(lien)
     if code not in (200, 302, 303):
         sys.exit(f"Lien d'avis injoignable ({code}) : {lien}")
+    if not a.sans_controle_fiche:
+        ok, raison = fiche_ouverte(a.place_id)
+        if not ok:
+            sys.exit(f"ALERTE : pas de kit tant que les avis sont impossibles : {raison}")
     qui = f"{a.nom}" if not a.metier else f"votre {a.metier}"
     html = CARTE.format(css=css_polices(), nom=a.nom, qr=qr_data_uri(lien), qui=qui, pied="Fiche Google · avis sincères uniquement")
     png = out / "carte-avis-A6-300ppp.png"
