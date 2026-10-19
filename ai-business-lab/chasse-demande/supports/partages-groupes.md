@@ -37,12 +37,15 @@ mêmes partout ? Petit rappel utile… »), jamais le texte de lancement deux fo
 
 ## 3. Message aux 10 proches (SMS, WhatsApp, Messenger)
 
+Liens vérifiés le 19/10 (ceux du pied de page de dig16.fr) ; l'ancien lien vers une publication précise est retiré
+(non vérifiable depuis Claude).
+
 > Salut ! Je me lance : DIG16, des sites internet pour les artisans et commerçants de Charente. Tu peux m'aider en
-> 10 secondes : partage cette publication (ou mets un j'aime) : https://facebook.com/122104409613500116/posts/122110934973500116
+> 30 secondes : abonne-toi à la page et partage une publication qui te plaît.
+> Facebook : https://www.facebook.com/1334231963113482
+> Instagram : https://www.instagram.com/dig16fr/
 > Et si tu connais un artisan ou un commerçant qui n'est pas facile à trouver sur internet, donne-lui dig16.fr :
 > je refais sa page d'accueil gratuitement, sans engagement. Merci !
-
-Sur Instagram, la même publication : https://www.instagram.com/p/DelvWROiFnr/
 
 ## 4. Ce que Claude fait de son côté
 

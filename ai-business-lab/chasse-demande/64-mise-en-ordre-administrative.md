@@ -18,7 +18,7 @@ l'ordre ci-dessous ; chaque fait vient de la page officielle citée, lue le 10/1
 ## 0. LISTE UNIQUE de ce qui reste à l'utilisateur (à relire EN ENTIER à chaque « que me reste-t-il ? »)
 
 Leçon du 11/10 : un récapitulatif fait à partir de la seule liste administrative avait oublié YouTube, Threads et
-Bluesky (rangés dans `63`). Toute tâche de l'utilisateur, quelle que soit sa source, est recopiée ici.
+Bluesky (rangés dans `63`). Toute tâche de l'utilisateur, quelle que soit sa source, est recopiée ici. **Leçon du 19/10** : relire aussi `69` § 5, `61` § 1, `68` § 5, `supports/partages-groupes.md` et les rappels programmés avant de répondre.
 
 | Domaine | Tâche | Où / comment | État |
 |---|---|---|---|
@@ -69,6 +69,9 @@ Bluesky (rangés dans `63`). Toute tâche de l'utilisateur, quelle que soit sa s
 | Communication | **Signature des mails envoyés par Claude** (demande ferme du 19/10 : « sur tous les mails que tu envoies, je veux que tu insères la signature en pièce jointe ») | Claude | **Fait le 19/10** : fini « Dig » ; signature texte de l'utilisateur + image `Signature-DIG16.png` en pièce jointe sur chaque envoi (test réel réussi le 19/10 vers 15 h 40) ; règle dans `CLAUDE.md` ; appliquée aux 3 envois du 02/11 (rappel mis à jour) |
 | Communication | **Signature Outlook à remplacer** (Windows + Android) : l'ancienne contient encore la ligne du « test du pouce » (campagne annulée le 19/10) ; nouvelle version avec « Guide gratuit avant de choisir un site : dig16.fr/guide » envoyée le 19/10 (fichier privé `Signature-DIG16-a-copier.html` + aperçu) | utilisateur, 5 min, guidage sur capture | **Android : fait le 19/10 à 16 h 05** (capture relue ligne à ligne, compte contact@dig16.fr seul) ; **Windows : fait le 19/10 vers 16 h 15** (capture vérifiée : logo, guide, mentions, cases nouveaux messages et réponses cochées ; fichier .html téléchargé arrivé en PNG → copie depuis une page Artifact privée) : **TERMINÉ** |
 | Communication | **Relance du 27/10 aux organismes sans réponse** : consigne corrigée le 19/10 (nouveaux messages sans ancien fil, pas de « test du pouce », signature de l'utilisateur + image jointe ; mairie de Ruffec exclue car relancée le 02/11) | Claude | Programmé |
+| Prospection | **Message aux 10 proches** (SMS, WhatsApp, Messenger : s'abonner aux pages, partager, recommander dig16.fr) — plan d'action `69` § 5 n° 1 ; texte dans `supports/partages-groupes.md` § 3 (liens vérifiés le 19/10) | utilisateur, 10 min | **Oublié dans la liste du 19/10 (signalé par l'utilisateur), ajouté** : à faire |
+| Prospection | **Flyer A5 papier dans les commerces** qui l'acceptent (boulangerie, coiffeur, salle d'attente, panneau des supermarchés ; bar-tabac exclu) — `69` § 5 n° 7, `61` § 1 n° 11 | utilisateur ; impression = dépense à décider (20 exemplaires) | **QR du flyer passé à `dig16.fr/qr` le 19/10** (provenance mesurée), régénéré et contrôlé (QR lu à 300 et 100 ppp) ; version remplie privée prête ; reste : décider l'impression |
+| Prospection | **Visites et appels avec le flyer** (démarchage direct, `61` § 1 n° 2, textes `50` § 4-5) après les premiers entretiens | utilisateur | À venir |
 | Formation | ~~Cours Udemy gratuits (`connaissances/udemy-programmes.md`)~~ | — | **Annulés définitivement par l'utilisateur (19/10)** |
 
 ## 0 bis. Garde-fous automatiques « l'entreprise reste vivante et à jour » (13/10/2026)
