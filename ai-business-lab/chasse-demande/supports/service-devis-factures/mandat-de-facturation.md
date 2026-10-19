@@ -6,8 +6,11 @@ tiers lorsque l'assujetti leur donne mandat à cet effet. Sous réserve de son a
 est alors émise en son nom et pour son compte ») ; doctrine fiscale BOI-TVA-DECLA-30-20-10-30 du 29/06/2022 (mandat
 conclu **avant** la première facture, acceptation de chaque facture, même forme que si l'artisan la faisait, mention
 « facture établie par A au nom et pour le compte de B », double adressé à l'artisan) ; RGPD, article 28 (contrat écrit de
-sous-traitance). **À faire relire une fois par un professionnel du droit avant le premier client** (coût à soumettre à
-l'utilisateur) ; ensuite réutilisable tel quel. Signature électronique possible (DocuSeal, connecteur disponible).
+sous-traitance), clause 8 alignée sur l'« exemple de clauses contractuelles de sous-traitance » du guide du sous-traitant
+de la CNIL (édition septembre 2017, PDF lu le 19/10). **À faire relire une fois par un professionnel du droit avant le
+premier client** : permanence gratuite d'avocat de Ruffec, jeudi 19/11/2026 (déjà prévue pour les CGV, `64`) ; ensuite
+réutilisable tel quel. Version signable en ligne : modèle DocuSeal créé le 19/10 à partir de
+`supports/service-devis-factures/DIG16-contrat-mandat-facturation.pdf` (généré par `outils/contrat_mandat_pdf.py`).
 
 ---
 
@@ -56,7 +59,7 @@ demander une facture rectificative.
 3.3. **Forme.** Les factures présentent la même forme que si le Client les établissait lui-même : son identité, ses
 mentions légales, sa numérotation chronologique et continue, ses conditions de paiement, ses pénalités de retard et
 l'indemnité forfaitaire de 40 € pour frais de recouvrement, et, pour une activité artisanale, les références de son
-assurance professionnelle. Elles portent la mention : « Facture établie par DIG16 au nom et pour le compte de [Client] ».
+assurance professionnelle. Elles portent la mention : « Facture établie par DIG16 au nom et pour le compte de » suivie du nom du Client.
 
 3.4. **Responsabilité.** Le Client conserve l'entière responsabilité de ses obligations en matière de facturation et de
 TVA. DIG16 est responsable de la conformité matérielle des documents aux instructions du Client et aux mentions
@@ -105,17 +108,24 @@ montants dus), le Client est **responsable du traitement** et DIG16 est **sous-t
 rédaction, envoi, classement et transmission de documents commerciaux. Données : identité et coordonnées des clients
 finaux, nature et montant des prestations. Personnes concernées : clients et prospects du Client.
 
-8.3. DIG16 s'engage à : traiter les données uniquement sur instruction documentée du Client (le présent contrat et les
-messages du Client) ; garantir la confidentialité des personnes autorisées à y accéder ; mettre en œuvre des mesures de
-sécurité adaptées (accès protégé, sauvegardes, pas de stockage sur un service hors Union européenne sans accord écrit) ;
-ne recruter aucun autre sous-traitant sans autorisation écrite préalable du Client ; aider le Client à répondre aux
-demandes des personnes concernées (accès, rectification, effacement) ; l'informer sans délai de toute violation de
-données ; au terme du contrat, restituer puis supprimer les données selon l'article 6 ; mettre à disposition toute
-information permettant de démontrer le respect de ces obligations et se prêter aux vérifications du Client ; informer
-le Client si une instruction lui paraît contraire au RGPD.
+8.3. DIG16 s'engage à : traiter les données uniquement pour les finalités ci-dessus et sur instruction documentée du
+Client (le présent contrat, son annexe et les messages du Client) ; garantir la confidentialité des données et veiller à
+ce que toute personne autorisée à y accéder soit tenue à la confidentialité et formée à la protection des données ;
+mettre en œuvre des mesures de sécurité adaptées : accès protégés par mot de passe et double authentification,
+sauvegardes, chiffrement des appareils, aucun stockage sur un service situé hors de l'Union européenne sans accord écrit
+du Client ; **ne faire appel à aucun sous-traitant ultérieur** sans autorisation écrite, préalable et spécifique du Client ;
+transmettre au Client, dès réception, toute demande d'exercice de droits (accès, rectification, effacement, opposition,
+limitation, portabilité) reçue d'une personne concernée, et l'aider à y répondre ; notifier au Client toute violation de
+données **dans un délai maximum de 48 heures** après en avoir pris connaissance, par email et par téléphone, avec les
+éléments utiles à une éventuelle notification à la CNIL ; aider le Client, si nécessaire, pour une analyse d'impact ou
+une consultation préalable de la CNIL ; tenir un registre des catégories d'activités de traitement effectuées pour le
+Client ; au terme du contrat, restituer les données puis détruire toutes les copies selon l'article 6 et le confirmer par
+écrit ; mettre à disposition toute information permettant de démontrer le respect de ces obligations et se prêter aux
+vérifications du Client ; informer immédiatement le Client si une instruction lui paraît contraire au RGPD.
 
-8.4. Le Client garantit qu'il dispose d'une base légale pour les données qu'il confie et qu'il informe ses clients
-finaux du recours à un prestataire.
+8.4. Le Client s'engage à : fournir à DIG16 les données nécessaires ; documenter par écrit ses instructions ; informer
+lui-même ses clients finaux du traitement de leurs données et du recours à un prestataire (l'information des personnes
+reste à sa charge) ; garantir qu'il dispose d'une base légale pour les données confiées ; superviser le traitement.
 
 ### Article 9 — Assurance et responsabilité
 
@@ -144,8 +154,8 @@ Le Client : [signature, « lu et approuvé, bon pour mandat »] — DIG16 : [sig
 | Numérotation en cours (dernier numéro de devis, de facture) | |
 | Conditions de paiement, acompte, pénalités, escompte | |
 | Assurance professionnelle (assureur, contrat, couverture géographique) | |
-| Mode d'acceptation choisi (réponse écrite / délai de [2] jours ouvrés) | |
+| Mode d'acceptation choisi (réponse écrite / délai de 2 jours ouvrés) | |
 | Calendrier des relances (J+3, J+15, J+30) et ton souhaité | |
 | Expert-comptable (nom, adresse email, rythme de transmission) | |
 | Canal d'envoi aux clients finaux (email du Client, courrier) et signature à apposer | |
-| Plateforme de facturation électronique retenue (ou à choisir avant le [date]) | |
+| Plateforme de facturation électronique retenue (ou à choisir avant le 1er septembre 2027) | |
