@@ -1,6 +1,6 @@
 # Ben Felix — index des fiches (synthèse du lundi 19/10/2026)
 
-77 vidéos résumées sur 181. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+77 vidéos résumées sur 182. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[20 ans de location ou d'achat d'une maison au Canada (2005 à 2024)](lBG-g1CKfgs.md)** — La vidéo analyse le mythe selon lequel « être propriétaire d'un logement est toujours financièrement supérieur à la location ». En comparant des données historiques canadiennes sur 20 ans (2005-2024), la thèse est que la location combinée à un investissement boursier performe…

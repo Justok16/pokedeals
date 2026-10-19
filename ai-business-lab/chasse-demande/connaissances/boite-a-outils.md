@@ -163,7 +163,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Légendes de publications | Idées de légendes à partir d'une photo (à réécrire selon la charte) |
 | · | Anciennes versions d'un site prospect | Déjà utilisé (photos_archives.py) ; bloqué depuis le conteneur, à ouvrir sur le téléphone de l'utilisateur |
 
-### Création de sites et design (70)
+### Création de sites et design (71)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -210,6 +210,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Skill apple-design d'Emil Kowalski (lien envoyé le 18/10 ; le jeton mcp_token du lien n'est recopié nulle par… | Déjà installé (.claude/skills/apple-design, MIT, identique au dépôt au commit 2d22863, vérifié le 18/10). Appliqué le 18/10 : règle « transparence réduite » (§ 14) ajout… |
 | ✅ | Vidéo YouTube S8sQeFy9VbQ (12/10) : la « zone grise », fabriquer ses propres petits outils avec Claude Code | Appliqué : c'est notre façon de faire (outils/ maison) ; le modèle en 5 parties est retenu pour les demandes de sites clients (brief). |
 | ✅ | Reel Instagram DeYKx9fgENd (13/10, compte openrushdata) : « Turn Claude into your SEO analyst. Live rankings,… | Déjà en place : OpenRush est branché depuis le 28/09 (33-outils.md), utilisé pour les volumes de recherche, l'analyse des sites et des résultats Google. Search Console d… |
+| ✅ | Veille du 19/10 (veille/2026-10-19.md) | Trié : rien à installer ; « measure-dont-guess » noté comme déjà appliqué (règle « jamais de supposition » du 19/10) |
 | ⏳ | Site buildyoursaas.tech envoyé le 02/10 (accompagnement payant pour apprendre Claude Code aux dirigeants de p… | lu le 02/10 ; (a) et (b) à faire au premier appel |
 | ⏳ | CL7EINYSoKw | Idée notée pour Dig, non construite (règle n° 1) : plus tard, proposer aux clients artisans des modules en plus du site, par exemple un assistant de devis pour le bâtime… |
 | 📦 | Réaudit des 285 prospects déjà remis (282 annoncés à tort avant le contrôle croisé du 01/10) (question de l'u… | terminé le 01/10 (soir) pour toutes les fiches « sans site » (91 fiches contrôlées) : 4 erreurs (4 entreprises avaient un site actif) → retirées, mêmes numéros ; 9 fiche… |
@@ -335,6 +336,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 
-_252 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->

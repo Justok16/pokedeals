@@ -1,6 +1,6 @@
 # Zonebourse — index des fiches (synthèse du lundi 19/10/2026)
 
-2283 vidéos résumées sur 2283. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+2284 vidéos résumées sur 2284. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["Bloquons Tout" à la sauce américaine](TXjVOkOfkjI.md)** — Analyse de la paralysie budgétaire aux États-Unis et des impacts sur les marchés financiers.
@@ -1023,6 +1023,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[La stratégie (prouvée) qui bat le S&P 500](noLYOLDaOHM.md)** — - Sujet : L'analyse d'un document de recherche de Verdad Capital sur l'investissement contracyclique basé sur les cycles économiques et l'allocation d'actifs.
 - **[La stratégie idéale pour protéger votre portefeuille](OCY1EAog5iM.md)** — 1. Sujet et thèse : Analyse des stratégies de protection de portefeuille en période de marché baissier. La thèse est que, sur le long terme, les stratégies de "suivi de tendance" sont plus rentables que les stratégies basées sur l'achat d'options.
 - **[La Suisse veut limiter sa population à 10 millions d'habitants ? #Suisse #Immigration #Démographie](THUFLhBZUR0.md)** — La Suisse envisage de limiter sa population à 10 millions d'habitants par le biais d'une votation portée par le parti conservateur (SVP). La thèse sous-jacente est que cette limitation pose un enjeu économique majeur, la Suisse dépendant fortement de la main-d'œuvre étrangère…
+- **[La tech a-t-elle les moyens de se remettre la tête à l'endroit ?](CsCe2eZYpM8.md)** — Sujet : Le point de marché boursier du lundi 19 octobre 2026 présenté par Anthony Bondain (Zonebourse).
 - **[La tech n'a pas dit son dernier mot](eIs9RKZ__lc.md)** — Chronique boursière du 10 février 2026. Thème : la tech n'a pas dit son dernier mot. Malgré les incertitudes, les indices européens et américains résistent, portés par le secteur technologique et l'optimisme persistant des investisseurs.
 - **[La tech nous fait une petite déprime de rentrée](Evn6YZTivgQ.md)** — La priorisation des enjeux géopolitiques (Trump/Zelensky, conflit ukrainien) face aux résultats d'entreprises et aux anticipations de politique monétaire de la Fed, dans un contexte de rentrée boursière traditionnellement délicate en septembre.
 - **[La tech redeviendrait-elle inarrêtable ?](RFgif04U230.md)** — Chronique de la bourse par Anthony Bondain (Zonebourse) du 27 avril 2026. Titre : « La tech redeviendrait-elle inarrêtable ? ». Analyse du retour en force des valeurs liées à l'IA et de la tech américaine.

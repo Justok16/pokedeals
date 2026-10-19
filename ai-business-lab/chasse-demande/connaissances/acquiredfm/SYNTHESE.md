@@ -1,6 +1,6 @@
 # Acquired — index des fiches (synthèse du lundi 19/10/2026)
 
-37 vidéos résumées sur 140. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+38 vidéos résumées sur 141. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[ACQ2: Building a Disruptive Payments Company (with Klarna CEO Sebastian Siemiatkowski) (Audio)](rUtQ6PAsBV4.md)** — Sujet : L'histoire, le modèle économique et l'évolution de Klarna (entreprise de paiement "Buy Now, Pay Later" - BNPL), ainsi que l'impact de l'intelligence artificielle sur le secteur financier.
@@ -17,6 +17,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Acquired Live at Radio City Music Hall (Presented by J.P. Morgan)](6sDYv7Ig-6Y.md)** — Sujet : L’histoire, la gestion des risques, la culture d’entreprise et la stratégie de croissance dans le secteur bancaire et financier américain (notamment l’évolution de JPMorgan Chase / City Group, la crise financière de 2008 et la gestion du capital).
 - **[Adapting (by Acquired) Episode 1: Canlis](EVr4bWy0f7s.md)** — Entretien avec Mark Canlis sur la manière dont les restaurants de haute gastronomie (« fine dining ») s'adaptent et innovent face à la crise sanitaire, notamment en développant la vente à emporter, la livraison et de nouveaux formats d'activité (comme les burgers et les boîtes…
 - **[Behind The Scenes: Acquired Live at Chase Center, Presented by J.P. Morgan Payments (2024)](BhkeMziNI0M.md)** — L'épisode traite de la création, de l'organisation et de la réalisation de l'événement en direct « Acquired » au Chase Center à San Francisco, en partenariat avec J.P. Morgan Payments. La thèse principale est que la planification minutieuse, l'intégration de la communauté…
+- **[Charlie Munger (Audio)](w6qRb171cog.md)** — Sujet : Entretien exceptionnel avec Charlie Munger (vice-président de Berkshire Hathaway) réalisé à son domicile de Los Angeles.
 - **[Chase Center + Summer Update (Audio)](1444rkhQwVc.md)** — L'épisode annonce et détaille l'organisation de l'événement en direct du podcast Acquired au Chase Center à San Francisco, avec Mark Zuckerberg comme invité spécial, en partenariat avec J.P. Morgan Payments. La thèse est que la construction d'une communauté engagée et l'audace…
 - **[Coca-Cola: the only company legally allowed to import cocaine in the US](eB5MxN3mcwY.md)** — Explication de l'exception historique et réglementaire qui permet à The Coca-Cola Company d'importer et d'utiliser des feuilles de coca décocaïnisées dans sa recette grâce à un fournisseur exclusif soumis à une exemption fédérale stricte.
 - **[Disney Paid $4 Billion for Marvel. What Did It Get?](Zdg8rzp4u_o.md)** — L'épisode analyse l'acquisition de Marvel par Disney en 2009 pour 4 milliards de dollars. La thèse principale est que ce rachat, jugé « contrarien » et risqué à l'époque en raison de la nature de la société (éditeur de comics dont les personnages principaux étaient déjà…
