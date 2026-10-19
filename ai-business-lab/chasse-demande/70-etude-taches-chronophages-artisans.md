@@ -128,6 +128,19 @@ devis et [assurer] les contacts avec les fournisseurs »). **Aucune statistique 
   le manque de temps comme principal frein à la formation », « 27 % rencontrent des difficultés à trouver un prestataire
   numérique adapté » ; « 28 % des entreprises n'ont aucun budget numérique ». Seule donnée sectorielle solide sur les
   restaurateurs : équipés en caisse, pas en gestion des achats, et sans temps.
+- **France Num 2025, volet qualitatif** (Crédoc, « 32 entretiens auprès de dirigeants de TPE PME » ; page publiée le
+  04/12/2025, mise à jour le 16/10/2026, lue le 19/10 ; signalé par Mistral) : pas de chiffres de temps, mais les mots des
+  dirigeants. Données : « Les plus modestes s'en remettent encore à leur comptable et/ou à des tableurs » ; 8 sur 32 ont
+  « une gestion basique, rudimentaire », « peu d'outils (travaillent avec un tableur) ». Facture électronique, 4 profils :
+  les « TPE PME sans logiciel de comptabilité » (3 sur 32) « sont très attachées à leur tableur, ne souhaitent pas en
+  changer » ; celles qui se sentent peu concernées « dépendent entièrement de leur expert-comptable » et « fonctionnent
+  encore largement avec des factures papier/mail » ; les entreprises en attente (12 sur 32) « comptent sur leur
+  expert-comptable ou leur prestataire » et « se méfient des prestataires “juge et partie” qui vendent des audits coûteux,
+  des solutions inadaptées et/ou chères ». IA : 10 sur 32 « indifférentes ou blasées » (« savoir-faire artisanal, manuel »),
+  12 testent « de façon très ciblée et souvent gratuite », 10 « à la pointe ». Conclusion de la page : « un fort besoin
+  d'accompagnement et de formation, notamment dans les domaines de l'IA et de la facture électronique », évoqué
+  spontanément. Lecture DIG16 : l'offre doit être un accompagnement neutre et de proximité, jamais un audit payant ni un
+  logiciel imposé ; l'expert-comptable est l'allié à ne pas contourner. Échantillon de 32 : illustratif, jamais un pourcentage.
 - La facturation électronique devient obligatoire à l'émission pour les TPE-PME **le 1er septembre 2027** (réception
   déjà obligatoire depuis le 1er septembre 2026) : un sujet qui va forcer tous les artisans à toucher à leurs outils.
 
@@ -145,8 +158,8 @@ devis et [assurer] les contacts avec les fournisseurs »). **Aucune statistique 
 4. **La preuve reste à faire localement** : ces études sont nationales et déclaratives. La question bonus n° 2 de `57`
    (« qu'est-ce qui vous prend le plus de temps en dehors du chantier… vous faites ça comment, ça vous coûte combien ? »)
    est le seul moyen de savoir si, à Ruffec, trois artisans citent la même corvée. Tant que non : rien n'est construit.
-5. **Commerçants et restaurateurs : angle mort confirmé** par trois IA interrogées le 19/10 avec le prompt de
-   `supports/prompt-ia-taches-chronophages.md` (DeepSeek, Grok) : aucune enquête récente ne mesure leur temps de gestion
+5. **Commerçants et restaurateurs : angle mort confirmé** par les cinq IA interrogées le 19/10 avec le prompt de
+   `supports/prompt-ia-taches-chronophages.md` (DeepSeek, Grok, Gemini, ChatGPT, Mistral) : aucune enquête récente ne mesure leur temps de gestion
    par tâche ni ne leur demande quelle tâche déléguer en premier. Les chiffres qui circulent (« 6 h par semaine »,
    « 15 h pour les restaurateurs », UMIH 2019) n'ont pas de méthode publiée : écartés. Seule mesure à sonder nous-mêmes.
 6. Chiffres utilisables dans un argumentaire (avec la source et la date, jamais sans) : « 10 heures par semaine de gestion,
@@ -154,8 +167,8 @@ devis et [assurer] les contacts avec les fournisseurs »). **Aucune statistique 
    son temps à l'administratif (CAPEB ARTIsanté, année 2024) » ; « 13 h 21 par semaine dans le BTP (OpinionWay pour
    Qonto, mars 2026) » ; « 30 % des dirigeants de TPE y passent plus de 8 heures par semaine (SDI, 2023) ».
 
-Prompt de recoupement pour les autres IA : `supports/prompt-ia-taches-chronophages.md` (réponses de DeepSeek, Grok, Gemini et ChatGPT reçues le 19/10) ;
-leurs réponses sont relues à la source avant d'entrer ici.
+Prompt de recoupement pour les autres IA : `supports/prompt-ia-taches-chronophages.md` (réponses de DeepSeek, Grok, Gemini, ChatGPT et
+Mistral reçues le 19/10 ; tour terminé, les cinq convergent) ; leurs réponses sont relues à la source avant d'entrer ici.
 
 ## 6. Recoupement par d'autres IA (19/10/2026) : ce qui a été vérifié, corrigé, écarté
 
@@ -180,6 +193,11 @@ leurs réponses sont relues à la source avant d'entrer ici.
 | ChatGPT : SDI 29/12/2025–05/01/2026, 1 679 répondants, « 59 % passent plus de 5 h, dont 17 % plus de 10 h » ; SDI mars 2025, « coût médian 500 €/mois » | Non relus à la source | **En attente** |
 | ChatGPT : ObSoCo / Service Compris, 191 restaurateurs, 57 % jugent la charge administrative difficile | Échantillon petit et non représentatif, communiqué et rapport discordants selon ChatGPT lui-même | **Non retenu** |
 | ChatGPT : « 142 jours » = Sage/Plum 2017 (charge cumulée de l'entreprise) ; « 3 h 18 » = Ipsos 2014 (temps supplémentaire jugé nécessaire, pas temps administratif) | Explications plausibles de l'origine de deux chiffres déjà écartés | Sans effet |
+| Mistral : France Num 2025, volet qualitatif (32 entretiens Crédoc) : tableur, dépendance à l'expert-comptable, méfiance envers les prestataires « juge et partie », besoin d'accompagnement | Page officielle lue (publiée le 04/12/2025) : exact, citations relevées | **Ajouté** (§ 4) |
+| Mistral : SDI 2023, répartition « 4 h : 8 %, 5 h : 18 %, 7 h : 7 % » | PDF SDI p. 2 : 4 h = **18 %**, 5 h = **8 %**, 7 h = **0 %** ; valeurs décalées d'une ligne | **Rejeté** (le § 2 garde les bonnes) |
+| Mistral : le rapport complet ARTIsanté 2025 (12e édition) « n'est pas disponible en ligne » | Faux : `iris-st.org/medias/7/rapport-barometre-2025.pdf`, lu le 19/10 | **Maintenu** |
+| Mistral : Qonto/OpinionWay à reléguer au second rang (commanditaire éditeur) | Déjà signalé au § 2 (ordre de grandeur, source intéressée) | Sans effet |
+| Mistral : infographie SDI, « 87 % ont recours à une aide extérieure », « 43 % y consacrent 2 % du CA ou plus », « 70 % jugent la simplification prioritaire » (2023) | Non relus (infographie non ouverte ; le PDF p. 3 donne des chiffres par tâche, pas ce total) | **En attente** |
 
 Méthode : toute réponse d'IA est une piste, jamais une preuve ; seuls les chiffres relus sur la page d'origine entrent
 dans les sections 1 à 5.
@@ -193,7 +211,9 @@ dans les sections 1 à 5.
   <https://www.capeb.fr/actualites/barometre-artisante-des-chefs-d-entreprise-du-btp-et-du-paysage-toujours-sous-pression-malgre-une-volonte-de-mieux-concilier-vie-professionnelle-et-personnelle>
 - SDI, enquête charges administratives, mai 2023 : <https://sdi-pme.fr/wp-content/uploads/2023/05/Dossier-enquete-charges-admin.pdf>
 - Baromètre France Num 2025 (DGE / Crédoc) : <https://www.francenum.gouv.fr/guides-et-conseils/strategie-numerique/comprendre-le-numerique/barometre-france-num-2025-le> ;
-  rapport : <https://www.francenum.gouv.fr/files/2025-09/Barom%C3%A8tre%20France%20Num%202025%20-%20Rapport.pdf>
+  rapport : <https://www.francenum.gouv.fr/files/2025-09/Barom%C3%A8tre%20France%20Num%202025%20-%20Rapport.pdf> ;
+  volet qualitatif (04/12/2025) : <https://www.francenum.gouv.fr/guides-et-conseils/strategie-numerique/comprendre-le-numerique/barometre-france-num-2025-resultats> ;
+  PDF : <https://www.francenum.gouv.fr/files/2025-12/Barom%C3%A8tre%20France%20Num%202025%20-%20Enquete%20qualitative.pdf>
 - Qonto / OpinionWay, communiqué du 09/04/2026 (PDF repris par Bati-Today) : <https://www.bati-today.com/www.bati-today.com/w/pdf/cp-etude-btp-x-qonto-090426-okok.pdf>
 - SDI, page « Simplification administrative » (20/06/2025) : <https://sdi-pme.fr/nos_objectifs/simplification-administrative/>
 - ISM / Siagi / CMA France : notice Veille Artisanat <https://infoartisanat.artisanat.fr/index.php?lvl=notice_display&id=39788> ;
