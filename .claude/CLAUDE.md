@@ -131,7 +131,7 @@
   badge « Le plus choisi » tant qu'il n'y a pas de client ; modifications sous 3 jours ouvrés.
 - **Capacité** : 15 clients maximum la première année ; un compte Cloudflare gratuit au nom de
   chaque client ; parrainage plafonné (`47` § 6).
-- **Création** : appeler la mairie et la communauté de communes (adresse, coworking, CFE) au lieu
+- **Création** : appeler la mairie et la communauté de communes (adresse, coworking — **aucun coworking ni bureau partagé sur le territoire, confirmé au téléphone par l'utilisateur, ne plus le proposer** —, CFE) au lieu
   d'attendre le courrier ; demander au SIE si un rescrit est utile pour l'exonération FRR+
   (ouverte aux micro-entreprises en zone FRR+, fiche officielle lue le 05/10) ; couveuse ou CAE
   à explorer (Heliscoop, Angoulême).
