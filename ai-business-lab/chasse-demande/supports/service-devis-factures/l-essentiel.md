@@ -1,6 +1,6 @@
 # L'essentiel à savoir et à faire : service devis, factures, relances (19/10/2026)
 
-Résumé des textes lus le 19/10 (détail et sources : `70` § 7 bis). À relire avant le premier client.
+Résumé des textes lus le 19/10 (détail et sources : `70` § 7 bis). **Règle permanente (demande du 19/10)** : relu par Claude et rappelé à l'utilisateur à chaque nouveau client du service et avant toute tâche de devis, facture ou relance ; la version pour le client (`charte-client.md`, PDF `DIG16-charte-client.pdf`) est remise avec le contrat et renvoyée à chaque changement de règle.
 
 ## À faire avant le premier contrat
 
