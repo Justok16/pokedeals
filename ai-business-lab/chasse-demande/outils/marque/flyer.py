@@ -25,7 +25,7 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.normpath(os.path.join(ICI, "..", ".."))
 SUP = os.path.join(RACINE, "supports")
 CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
-LIEN = "https://dig16.fr/"
+LIEN = "https://dig16.fr/qr"  # 19/10 : lien court mesuré (redirige vers dig16.fr/?de=qr)
 
 
 def qr_svg():
