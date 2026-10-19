@@ -62,3 +62,12 @@ fausses (menus renommés, options disparues), ce qui lui a fait perdre du temps.
 | Google Maps (appli Android, compte qui gère la fiche) | Gérer la fiche Dig16 | Onglet du bas à droite **« Entreprise »** (l'aide Google dit « Établissement ») → écran « Votre établissement » : Dig16, badge bleu validé, efficacité 91 % ; boutons **Éditer la fiche**, Publicité, Ajouter photo, Horaires d'ouverture ; « Plus » déplie Éditer services, Questions, Ajouter une offre, Ajouter un événement, Votre actualité, Logo, Photo de couverture ; plus bas Performances (16 vues en octobre) et carte « Finalisez l'annonce » | 19/10/2026 |
 | Google Maps (appli Android) | Date d'ouverture de la fiche | « Entreprise » → **Éditer la fiche** → écran « Informations sur l'établissement », onglets À propos / Contact / Emplacement / Horaires ; dans **À propos** : Nom, Catégorie, Description, puis **« Date de création »** (l'aide Google dit « Date d'ouverture ») avec un crayon ; valeur au 19/10 : « octobre 2026 » ; puis Coordonnées (téléphone, chat) | 19/10/2026 |
 | Google Recherche (ordinateur, compte qui gère la fiche) | Modifier la fiche | Chercher « Dig16 » → encadré « Votre établissement » → **Éditer la fiche** → fenêtre « Informations sur l'établissement », onglets À propos / Contact / Emplacement / Horaires / Plus ; **Contact** : téléphone, chat, **Site Web**, **Profils sur les réseaux sociaux** (5 adresses acceptées le 19/10 : X, TikTok, YouTube, Instagram, Facebook ; **Threads n'est pas proposé** par Google, confirmé par l'utilisateur) | 19/10/2026 |
+
+### Buffer : relier Facebook, Instagram et TikTok (confirmé par captures le 19/10/2026)
+
+Source : aide Buffer « Connecting your channels », « Connecting your Instagram account », « Using TikTok with Buffer » (lues le 19/10).
+1. Se connecter au réseau voulu dans un autre onglet (pour TikTok : le compte DIG16 ouvert, Buffer prend celui-là sans choix).
+2. publish.buffer.com, à gauche « Connect more channels » → icône du réseau.
+3. Facebook : tout autoriser, choisir la page DIG16. Instagram : « Connect Instagram through Facebook » en bas de la fenêtre.
+4. Après chaque réseau, fenêtre « How many times a week would you like to post? » → 5 times/week → Next → « Got It » (heures indicatives seulement).
+Résultat le 19/10 : « 3/3 channels connected » (DIG16 Facebook, dig16fr Instagram, dig16fr TikTok), offre gratuite.
