@@ -188,11 +188,17 @@
 
 ## Outils en place
 
-- Boîte du pseudonyme via le connecteur **Gmail** (signature : « Dig »). **Archiver chaque
+- **Signature de TOUS les mails envoyés par Claude (règle ferme du 19/10)** : jamais « Dig ». Le texte finit par la
+  signature texte de l'utilisateur (son nom, DIG16, numéro, dig16.fr ; fichier privé `scratchpad/prive/signature-mail-texte.txt`,
+  jamais recopiée dans le dépôt) **et** l'image de sa signature est jointe en pièce jointe (`Signature-DIG16.png`, image/png,
+  fichier privé `scratchpad/prive/Signature-DIG16-mail.png`, base64 dans `sig.b64`). Vérifié le 19/10 : un mail envoyé par le
+  connecteur garde la pièce jointe (get_message la liste) ; un brouillon la cache à l'affichage. Après chaque envoi, vérifier
+  avec get_message que la pièce jointe est là. Sans ces fichiers, ne rien envoyer : les recréer (Drive « Dig ») d'abord.
+- Boîte du connecteur **Gmail** (contact@dig16.fr). **Archiver chaque
   fil après traitement** (demande du 25/09) : étiquette + retrait de la
   boîte de réception et du « non lu » ; ne jamais supprimer ; ne laisser
   en boîte de réception que ce qui attend une décision de l'utilisateur.
-- **contact@dig16.fr passe par la boîte Gmail du connecteur** (décision du 13/10) : redirection OVH avec copie, « envoyer en tant que » contact@ par défaut. Claude répond au nom de DIG16 (signature HTML insérée à la main, le connecteur ne l'ajoute pas ; **vérifié le 13/10 : le connecteur supprime toute image, même jointe en `cid:` ou dans un brouillon, et change les liens `tel:` en lien mort** : signature sans logo ni lien `tel:`, numéro en texte simple, ne pas joindre le logo ; le logo n'apparaît que dans les mails envoyés par l'utilisateur depuis Gmail ou Outlook ; **réponses d'organismes à transmettre à l'utilisateur** : les recopier en texte simple dans un nouveau mail, pas de transfert (le transfert du 13/10 avec signature pleine de liens n'est pas arrivé, le texte simple oui)) : **seul** pour l'accusé de réception, les infos déjà publiques, les organismes et la presse ; **brouillon validé par l'utilisateur** pour tout prix, remise, rendez-vous, délai, devis, réclamation.
+- **contact@dig16.fr passe par la boîte Gmail du connecteur** (décision du 13/10) : redirection OVH avec copie, « envoyer en tant que » contact@ par défaut. Claude répond au nom de DIG16 (signature HTML insérée à la main, le connecteur ne l'ajoute pas ; **vérifié le 13/10 : le connecteur supprime toute image du corps, même en `cid:` (corrigé le 19/10 : une pièce jointe ordinaire, elle, arrive bien ; c'est l'affichage du brouillon qui la cache), et change les liens `tel:` en lien mort** : signature sans logo ni lien `tel:`, numéro en texte simple, ne pas joindre le logo ; le logo n'apparaît que dans les mails envoyés par l'utilisateur depuis Gmail ou Outlook ; **réponses d'organismes à transmettre à l'utilisateur** : les recopier en texte simple dans un nouveau mail, pas de transfert (le transfert du 13/10 avec signature pleine de liens n'est pas arrivé, le texte simple oui)) : **seul** pour l'accusé de réception, les infos déjà publiques, les organismes et la presse ; **brouillon validé par l'utilisateur** pour tout prix, remise, rendez-vous, délai, devis, réclamation.
 - Démarchage B2B : pas de campagne en série sous le seul pseudonyme (voir
   `35-demarchage-cadre-legal.md`).
 - **Jev** (TypeSafe AI) : skill dans `.claude/skills/typesafe-ai`.
