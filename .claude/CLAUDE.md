@@ -42,6 +42,11 @@
   venaient de constructions sans demande prouvée).
 - **Rien d'invérifié n'est publié ni affirmé** : un fait non vérifié à la
   source est marqué « à vérifier » ou retiré (leçon Kitwise).
+- **Jamais de supposition, toujours la vérification, à chaque fois** (consigne ferme du 19/10, « garde ça en mémoire ») :
+  dès qu'une demande de l'utilisateur contient quelque chose à vérifier (texte de loi, chiffre, identifiant, adresse de
+  page, règle, menu), le vérifier **tout de suite**, à la source, **avant** de répondre ; ne jamais répondre « à vérifier
+  plus tard », ne jamais deviner un identifiant ou une adresse (chercher la page, puis la lire). Deviner est une perte de
+  temps pour l'utilisateur : trois pages lues pour rien le 19/10 avec des identifiants Légifrance inventés.
 - **Chiffres** : uniquement tirés de la page officielle **datée**, lue
   directement (jamais d'un résumé de moteur de recherche), avec la citation
   exacte et la date. Leçon du 25/09 : aide Agefiph annoncée à 6 300 € (article
