@@ -5,7 +5,7 @@ Résumé des textes lus le 19/10 (détail et sources : `70` § 7 bis). **Règle 
 ## À faire avant le premier contrat
 
 1. **Déclarer l'activité** « assistance administrative aux professionnels » au guichet unique INPI (modification sous un
-   mois, payante) ; nature **BNC** (adjonction d'activité, réponse de l'URSSAF du 20/10/2026). Ne jamais écrire « comptabilité ».
+   mois, payante) ; nature **BNC** (adjonction d'activité, réponse de l'URSSAF du 20/10/2026). Pas-à-pas vérifié : `pas-a-pas-adjonction-activite.md`. Ne jamais écrire « comptabilité ».
 2. **Assurance responsabilité civile professionnelle** couvrant cette activité (une erreur sur une facture est un
    dommage possible pour le client).
 3. **Faire relire le contrat** une fois (professionnel du droit, ou conseiller Service Public Entreprises, gratuit).
