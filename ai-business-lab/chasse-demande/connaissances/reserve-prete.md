@@ -126,3 +126,4 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Visuels avant/après pour cuisinistes | hRr-yUSM0_A | Option future |
 | Veille « 30 derniers jours » (Reddit, X, YouTube, TikTok…) | mvanhorn/last30days-skill (reel DepRxdRpj-p) | En réserve : sources surtout américaines, clés payantes au-delà des quotas ; à ressortir pour une étude de marché large |
 | Agent « chef de cabinet » / tuteur « Teach » | reel DepRxdRpj-p | En réserve : sources à vérifier, pas de besoin DIG16 actuel |
+| Mémoire persistante d'agent (`agentmemory`) | reel DeuH5GSgNV- (21/10) | En réserve : mémoire écrite déjà en place ; dépôt à vérifier avant usage |

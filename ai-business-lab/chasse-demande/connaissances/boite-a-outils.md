@@ -43,7 +43,7 @@ déjà trié répond au besoin, l'utiliser ; ne pas re-trier ce qui est écarté
 
 Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pas utile aujourd'hui, gardé : à ressortir dès que le besoin apparaît, raison et condition indiquées) · ⛔ refusé par principe (illégal ou dangereux) · · simple information.
 
-### Vidéo, voix et montage (66)
+### Vidéo, voix et montage (73)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -79,6 +79,11 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Reel Instagram DeeyiaVILNi (envoyé le 18/10, damien.mapt, 47 s ; détail dans videos-resumes/DeeyiaVILNi.md) | Appliqué : dépôt lu en entier ; ig-caption et ig-profile installés ; légendes de la série contrôlées (adresse non cliquable sur Instagram corrigée) ; nom de profil vérif… |
 | ✅ | Reel Instagram DeguteFBRO2 (envoyé le 17/10, damien.mapt, 28 s ; détail dans videos-resumes/DeguteFBRO2.md) | Appliqué : agent « coach d'appels de découverte » installé le 17/10 dans .claude/agents/discovery-coach.md après lecture complète (préparer et débriefer les appels aux a… |
 | ✅ | Vidéo YouTube gyVqYy5yDK8 (envoyée le 12/10) : un créateur solo délègue son montage vidéo à Claude | Noté : vidéos en pause jusqu'au 1er client ; quand elles reprendront, même méthode (dossier de rushes + consigne écrite) avec nos outils gratuits (ffmpeg, faster-whisper… |
+| ✅ | Reel Instagram DepRxdRpj-p (@simplif.ia, envoyé le 19/10 au soir ; connaissances/reels/DepRxdRpj-p.md) | Appliqué le 19/10 : marketing-psychology (coreyhaines31/marketingskills, MIT) lu en entier puis installé ; Last 30 Days, Chief of Staff, Teach mis en réserve (reserve-pr… |
+| ✅ | Reel Facebook 19V1QWqJuZ (Gabzer, envoyé le 20/10 ; connaissances/reels/19V1QWqJuZ.md) | 📦 Mis en réserve le 20/10, rien installé : Poe déjà connu ; Prompt Cowboy gratuit (tarifs officiels lus) mais inutile, Claude rédige ses prompts ; Perchance : droits com… |
+| ✅ | Vidéo YouTube Ge1B-Ok1Pfk (20/10 ; videos-resumes/Ge1B-Ok1Pfk.md) | ✅ Notre fabrication des vidéos « Le conseil DIG16 » fait déjà tout cela (voix Algieba, une phrase par scène vérifiée par transcription, images de contrôle) ; Style Atlas… |
+| ✅ | Reel Instagram Ddg3Ztxh2so (@danyltn, 20/10 ; connaissances/reels/Ddg3Ztxh2so.md) | 📦 Scrapling en réserve (BSD-3 vérifié sur PyPI ; secours quand Firecrawl sera épuisé, lecteur simple seulement) ; ⛔ collecte des réseaux sociaux sans leurs API (conditio… |
+| ✅ | Guide PDF « 13 skills Instagram » (@damien.mapt, 20/10 ; videos-resumes/pdf-instagram-skills.md) | ✅ Appliqué : 7 skills de plus installés après lecture complète (ig-reel, ig-carousel, ig-story, ig-plan, ig-dm, ig-reply, ig-comment) ; ig-human, ig-viral non installés. |
 | ⏳ | vqMhGnep1H0 (Jornada Digital, 10 min, en portugais) | Noté, à vérifier à la source avant usage (quota et licence affichés sur theresanaiforthat.com le jour J) ; piste pour de courts visuels animés des démos Dig, sans achat.… |
 | ⏳ | hImo2S4HOGI | Plus tard (vidéo de présentation Dig), consomme des crédits |
 | ⏳ | Reel Instagram Dej1p_IgkuM (envoyé le 18/10, danyltn, 82 s ; détail dans videos-resumes/Dej1p_IgkuM.md) | Gardé en réserve : OpusClip pour les futures vidéos (gratuité à vérifier) ; Whop comme piste de revenu d'appoint, aléatoire, hors DIG16. Chiffres de la vidéo non vérifié… |
@@ -109,12 +114,14 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | 0m0FJJjAWyE (Lucas Montano, 18 min) | Rien à changer. Cohérent avec la règle Dig : budget 0 € tant que rien ne rapporte, puis l'outil se paie avec les premiers clients. Résumé : videos-resumes/0m0FJJjAWyE.md |
 | · | 7XTYaVrt4QM (podcast « opensource », Léo Grindars, 1 h 49, envoyé le 02/10, résumé en 6 morceaux) | Conforte la piste principale, rien de nouveau à construire. Le second axe (reprendre un logiciel qui a déjà des utilisateurs plutôt que partir de zéro) est exactement la… |
 | · | 05ody6JKf1Y | Réflexion générale ; vente en direct sans intermédiaire = déjà le modèle de Dig |
+| · | Publication Instagram DeChDzQDFXy (@sebastianhardy_, 20/10 ; connaissances/reels/DeChDzQDFXy.md) | ⛔ faux témoignages vidéo ; 📦 InfiniteTalk en réserve (carte graphique, seulement avec la photo et la voix de l'utilisateur) ; seule la vidéo lisible, images non accessib… |
 | · | Vidéo courte pour les réseaux | Montage gratuit en 1080p, sous-titres automatiques |
 | ⛔ | 5 reels Facebook | Détail : videos-resumes/reels-facebook-28-09.md ; Klap écarté (contrefaçon) |
 | ⛔ | Reel Instagram DeRhu46NmhK (compte « kingarms.ai », envoyé le 09/10 ; résumé : connaissances/reels/DeRhu46Nmh… | Écarté : copier le fonctionnement ou l'apparence d'un logiciel ou d'un site existant expose à la contrefaçon (droit d'auteur, dessins et modèles) et viole souvent les co… |
 | ⛔ | Reel Instagram DehBKCjtB4I (envoyé le 15/10, kingarms.ai, 101 s ; résumé Gemini le 15/10) | Écarté : la partie piratage (contenus payants rendus gratuits) est illégale et hors de question pour DIG16. REA lui-même : déjà traité le 15/10 (règle : pas d'installati… |
+| ⛔ | Reel Instagram DeUI5Tot07a (@madameb0nplan, envoyé le 19/10 au soir ; connaissances/reels/DeUI5Tot07a.md) | ⛔ Écarté : piratage (illégal) et sites à risque ; aucun usage pour DIG16, rien installé. |
 
-### Images et visuels (44)
+### Images et visuels (45)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -140,6 +147,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Carrousel Instagram DegsO8likZa (envoyé le 17/10, datamarv_ia, 16 images ; lu image par image le 17/10, détai… | Tout gardé : 9 déjà en réserve (carrousel DeekQtwk30w), Excalidraw déjà disponible (connecteur Claude), 4 nouveaux mis en réserve prête dans connaissances/reserve-prete.… |
 | ✅ | Liste « websites » de technologybrief.io (envoyée le 11/10, 148 sites) | Appliqué : 23 retenus pour DIG16 avec leur moment dusage, 3 concurrents notés pour largumentaire, le reste écarté (hors sujet ou payant) → connaissances/technologybrief-… |
 | ✅ | Vidéo YouTube we6zrIsVovw (envoyée le 12/10) : site d'artisan de A à Z avec Claude Code + GitHub + Vercel + R… | Trié : rien de nouveau à installer ; Resend (formulaires par e-mail, gratuité annoncée « 3 000 e-mails/mois » à vérifier à la source) noté comme solution de rechange à F… |
+| ✅ | Guide PDF « Des sites web vraiment pro avec Claude » (@Dany, envoyé le 19/10 au soir) | Appliqué le 19/10 : déjà en place avant (emil-design-eng, animate, review-animations, improve-animations, apple-design, break-ui, impeccable, taste-design, taste-redesig… |
 | ⏳ | Nano Banana (images Gemini) | Possible pour des visuels neutres avec la mention « image générée par IA », jamais pour de fausses réalisations ; offre gratuite à vérifier avant usage |
 | ⏳ | Zsky AI | inconnu jusqu'ici : à vérifier (sérieux, droits d'usage commercial) avant essai |
 | 📦 | Image « Top 10 skill repos » (classement par étoiles, chiffres non vérifiés) | Superpowers : déjà actif. Impeccable : déjà écarté le 29/09 (programme tiers téléchargé au lancement). UI UX Pro Max (MIT, script Python local sans réseau, relu) et agen… |
@@ -163,7 +171,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Légendes de publications | Idées de légendes à partir d'une photo (à réécrire selon la charte) |
 | · | Anciennes versions d'un site prospect | Déjà utilisé (photos_archives.py) ; bloqué depuis le conteneur, à ouvrir sur le téléphone de l'utilisateur |
 
-### Création de sites et design (71)
+### Création de sites et design (78)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -211,6 +219,9 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Vidéo YouTube S8sQeFy9VbQ (12/10) : la « zone grise », fabriquer ses propres petits outils avec Claude Code | Appliqué : c'est notre façon de faire (outils/ maison) ; le modèle en 5 parties est retenu pour les demandes de sites clients (brief). |
 | ✅ | Reel Instagram DeYKx9fgENd (13/10, compte openrushdata) : « Turn Claude into your SEO analyst. Live rankings,… | Déjà en place : OpenRush est branché depuis le 28/09 (33-outils.md), utilisé pour les volumes de recherche, l'analyse des sites et des résultats Google. Search Console d… |
 | ✅ | Veille du 19/10 (veille/2026-10-19.md) | Trié : rien à installer ; « measure-dont-guess » noté comme déjà appliqué (règle « jamais de supposition » du 19/10) |
+| ✅ | Vidéo YouTube ykAUNww86So (envoyée le 20/10 ; videos-resumes/ykAUNww86So.md) | ⛔ cloner l'appli ou le site d'un tiers ; 📦 REA en réserve (seul usage : ancien site d'un client, avec son accord écrit), rien installé ; licence et étoiles non vérifiées… |
+| ✅ | Vidéo YouTube 5nkJKNQAi8I (20/10 ; videos-resumes/5nkJKNQAi8I.md) | Concurrent « fais-le toi-même » noté avec la réponse DIG16 ; astuces déjà appliquées ; Hostinger non retenu (payant). |
+| ✅ | Guide PDF « Brag + Claude Code » (@Dany, 20/10 ; videos-resumes/pdf-brag.md) | ✅ Appliqué : brag-slim (MIT, instructions seulement) lu en entier et installé dans .claude/skills/brag-slim/ ; usage prévu : vidéo de lancement verticale de dig16.fr pou… |
 | ⏳ | Site buildyoursaas.tech envoyé le 02/10 (accompagnement payant pour apprendre Claude Code aux dirigeants de p… | lu le 02/10 ; (a) et (b) à faire au premier appel |
 | ⏳ | CL7EINYSoKw | Idée notée pour Dig, non construite (règle n° 1) : plus tard, proposer aux clients artisans des modules en plus du site, par exemple un assistant de devis pour le bâtime… |
 | 📦 | Réaudit des 285 prospects déjà remis (282 annoncés à tort avant le contrôle croisé du 01/10) (question de l'u… | terminé le 01/10 (soir) pour toutes les fiches « sans site » (91 fiches contrôlées) : 4 erreurs (4 entreprises avaient un site actif) → retirées, mêmes numéros ; 9 fiche… |
@@ -234,6 +245,10 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | e7t6YTrqznM | Hors piste actuelle (on reste sur les sites) |
 | · | TWhoNLkUXKY | Piste à passer à la grille ; marché encombré |
 | · | _SVU3oC4JX8 | Actions n° 1 et 5 |
+| · | Vidéo YouTube 1dvdXWmQXM8 (20/10 ; videos-resumes/1dvdXWmQXM8.md) | 📦 Runable en réserve (gratuit : 1 500 crédits/jour, tarifs lus le 20/10) ; retenu : un prompt pour le haut de page puis un pour le reste, et l'aperçu mobile avant de pub… |
+| · | Vidéo YouTube Lb3jplNeiXo (20/10 ; videos-resumes/Lb3jplNeiXo.md) | ✅ Déjà notre méthode ; 📌 retenu pour tout nouveau skill maison : description « quoi + quand » et test des cas où il ne doit pas se déclencher. |
+| · | Vidéo YouTube nCu2xSFVvv8 (20/10 ; videos-resumes/nCu2xSFVvv8.md) | Concurrence à bas prix notée (argumentaire DIG16 prêt) ; 📌 signal « plus de 100 avis Google et pas de site » pour le classement des prospects ; autres méthodes en réserv… |
+| · | Vidéo YouTube KVP7bboPIio (20/10 ; videos-resumes/KVP7bboPIio.md) | 📦 En réserve (fonction de l'ordinateur de l'utilisateur, pas du cloud). |
 | · | Traduction (démo Prestige FR/EN) | Texte et documents (gratuit plafonné) |
 | · | Tester le formulaire du site | Boîte jetable pour essayer FormSubmit sans polluer la vraie boîte |
 | · | Forums où des artisans parlent de leur site | Repérer les plaintes et besoins réels (preuve de la demande) |
@@ -281,7 +296,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | FOlebMS2MFA (résumé : connaissances/thenextbigshit/FOlebMS2MFA.md, The Next Big Shit, envoyée le 07/10) | Noté, pas lancé : autres métiers, hors priorité et hors budget. Règle n° 1 : demande à prouver avant toute construction. L'idée « adapter localement ce qui marche ailleu… |
 | ⛔ | Dépôt GitHub p-e-w/heretic (envoyé le 12/10, lien technologybrief ; jeton de suivi non conservé) | Écarté : aucun usage pour DIG16, budget 0 € (GPU), et un modèle sans garde-fous est un risque (contenus, réputation) ; rien installé. |
 
-### Claude, agents et automatisation (24)
+### Claude, agents et automatisation (27)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -298,8 +313,11 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Vidéo YouTube aD-h7Bcn5OY (envoyée le 15/10, Tristen O'Brien, « 5 MORE Claude Code MODS You Need | Écarté : visibles seulement dans le terminal, l'utilisateur suit depuis son téléphone (comme 1Dlh_Mqze1s). Déjà en place : questions à l'utilisateur seulement pour ce qu… |
 | ✅ | Vidéo YouTube Tk5cgoGY1PU (12/10) : « deuxième cerveau » avec le greffon claude-obsidian (Obsidian + Claude C… | Pas installé : notre base connaissances/ + 46 + CLAUDE.md joue déjà ce rôle ; dépôt introuvable depuis le conteneur (accès GitHub limité à ce dépôt), donc impossible à l… |
 | ✅ | Vidéo YouTube gvESqM6s0kM (12/10) : 23 erreurs avec Claude 5.5 / Claude Code | Appliqué : CLAUDE.md fait 201 lignes → à alléger en renvoyant les détails vers des fichiers (à faire en douceur, sans perdre de règle) ; garde-fous déjà en place (pas de… |
+| ✅ | Vidéo YouTube mKjxGy6vCnY (20/10 ; videos-resumes/mKjxGy6vCnY.md) | ✅ Déjà couvert (vidéo rVhitJk6KRU du 12/10, nos sessions et rappels programmés) ; rien installé. |
+| ✅ | Vidéo YouTube 1phmHSTYQso (20/10 ; videos-resumes/1phmHSTYQso.md) | ✅ Cloudflare + GitHub déjà en place ; 📦 Lumail (gratuit 3 000 emails/mois, tarifs lus le 20/10), Convex, Stripe en réserve ; ⛔ « Bypass permissions » non appliqué (valid… |
 | 📦 | PLGnXz9_dTY | Écarté (trading, hors projet) |
 | 📦 | ucer2chlfM8 | Écarté (abonnement OpenAI payant) |
+| 📦 | Vidéo YouTube g3e0m8nrQa4 (20/10 ; videos-resumes/g3e0m8nrQa4.md) | ✅ Déjà entièrement en place ; cType (payant) non retenu. |
 | · | Tests de modèles d'IA (Gemini, GPT, Grok…) | Information générale, rien à appliquer |
 | · | n8n (automatisation) | Version « Community » gratuite en auto-hébergement (docs.n8n.io, lu le 29/09 : « Without a license key, n8n runs as the free Community edition ») mais il faut un serveur… |
 | · | IA en local (Ollama, LM Studio) | Pas de carte graphique ici ; Gemini gratuit via le relais suffit |
@@ -310,7 +328,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | MROM3p3CPZU | Méthode = notre règle n° 1 (demande prouvée) ; action n° 4 |
 | · | Recherche avec sources citées | Recherche rapide ; tout chiffre reste revérifié à la source officielle |
 
-### Divers (21)
+### Divers (23)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -319,6 +337,8 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | LanguageTool | Installé le 01/10 : correcteur libre (LGPL) hors ligne, bibliothèques téléchargées depuis Maven Central avec empreintes vérifiées ; l'API publique en ligne est écartée c… |
 | ✅ | is3XYKl2bpI | Appliqué : vérifier tout le contexte avant d'agir, effort adapté |
 | ✅ | Veille du 17/10 (veille/2026-10-17.md) | Trié : rien d'utile à DIG16 aujourd'hui ; MentionBird (suivi des mentions d'une marque) noté en réserve pour le jour où DIG16 voudra suivre ce qu'on dit d'elle (gratuité… |
+| ✅ | Vidéo YouTube IoTCJ9YA2FM (20/10 ; videos-resumes/IoTCJ9YA2FM.md) | 📦 Tous en réserve, une ligne par outil dans la fiche ; retenu : la sauvegarde 3-2-1 ; rien installé. |
+| ✅ | Vidéo YouTube NarezKh3w4o (20/10 ; videos-resumes/NarezKh3w4o.md) | ✅ Déjà appliqué ; 📌 relecture « red team » (ce qu'un artisan méfiant reprocherait) pour les documents importants ; dépôt be-ambitious en réserve. |
 | 📦 | s7QXxRvylrs, aBPAmYi1FfU | Information générale ; rien à appliquer (pas d'API payante) |
 | 📦 | NotebookLM, Perplexity, Gamma | Utiles à l'utilisateur, rien à installer ici |
 | 📦 | openalternative.co, OpenSourceAlternative.com (alternatives gratuites) | À ajouter à la veille si leur liste se lit automatiquement (réflexe « outil payant → équivalent gratuit ») |
@@ -335,26 +355,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Outil payant ou bloqué → équivalent gratuit | Réflexe du 28/09 : chercher l'équivalent gratuit et open source |
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
-| ⛔ | DeUI5Tot07a (reel @madameb0nplan, 19/10) | Écarté : jeux piratés dans le navigateur (contrefaçon, sites à risque) ; aucun usage pour DIG16. |
-| 📦 | 19V1QWqJuZ (reel Facebook Gabzer, 20/10) | Poe (déjà en réserve) ; Prompt Cowboy : aide aux prompts, gratuit, inutile tant que Claude rédige ; Perchance : images IA gratuites, droits commerciaux non confirmés, interdit dans les supports DIG16 en attendant. |
-| 📦 | ykAUNww86So (vidéo YouTube, 20/10) | REA (morluto/rea) : outil qui permet à Claude Code d'analyser une appli sans son code. Cloner un tiers : ⛔ ; usage possible : ancien site d'un client avec son accord écrit. Rien installé. |
-| 📦 | 1dvdXWmQXM8 (YouTube, 20/10) | Runable : sites créés par IA (gratuit, 1 500 crédits/jour) ; Sketchfab : modèles 3D, licence à lire modèle par modèle. En réserve. |
-| ✅ | mKjxGy6vCnY (YouTube, 20/10) | Claude Projects : déjà couvert le 12/10. |
-| 📦 | IoTCJ9YA2FM (YouTube, 20/10) | ~30 logiciels libres en réserve (signature, rendez-vous, veille de pages, mots de passe, captures, montage, sauvegarde 3-2-1) : détail dans `videos-resumes/IoTCJ9YA2FM.md`. |
-| ✅ | Ge1B-Ok1Pfk (YouTube, 20/10) | Motion design codé + voix Gemini : déjà notre méthode (`videos/conseils/fabriquer.py`) ; The Style Atlas (Futurepedia) en réserve. |
-| 📦 | 1phmHSTYQso (YouTube, 20/10) | Lumail (emailing, gratuit 3 000/mois), Convex (base de données), Stripe (paiement) en réserve ; « Bypass permissions » : non appliqué. |
-| ✅ | Lb3jplNeiXo (YouTube, 20/10) | Bonnes pratiques des skills : déjà appliquées ; description « quoi + quand » et tests négatifs pour tout nouveau skill. |
-| 📦 | NarezKh3w4o (YouTube, 20/10) | Dépôt robonuggets/be-ambitious en réserve (non lu, non installé) ; relecture « red team » retenue. |
-| ✅ | g3e0m8nrQa4 (YouTube, 20/10) | Cloud, connecteurs, routines : déjà en place ; cType payant non retenu. |
-| 📦 | nCu2xSFVvv8 (YouTube, 20/10) | AutoDS, Shopify, BuildYourStore, AdSense, affiliation Amazon : hors piste DIG16, en réserve ; prix concurrents notés. |
-| 📦 | KVP7bboPIio (YouTube, 20/10) | « Enregistrer un skill » (appli Claude sur ordinateur) : en réserve. |
-| ✅ | 5nkJKNQAi8I (YouTube, 20/10) | Hostinger AI Builder : concurrent noté, non retenu (payant). |
-| ✅ | Guide PDF Brag (20/10) | Skill brag-slim installé (MIT, lu en entier) : vidéo de lancement de ~20 s à partir d'un site. |
-| 📦 | Ddg3Ztxh2so (reel @danyltn, 20/10) | Scrapling (BSD-3) en réserve, secours de Firecrawl. |
-| ⛔ | Ddg3Ztxh2so (reel @danyltn, 20/10) | « Agent Search » : collecte de données des réseaux sociaux sans leurs API, écartée (conditions d'utilisation, RGPD). |
-| ✅ | Guide PDF « 13 skills Instagram » (20/10) | 7 skills Instagram installés (ig-reel, ig-carousel, ig-story, ig-plan, ig-dm, ig-reply, ig-comment), en plus d'ig-profile et ig-caption. |
-| ⛔ | DeChDzQDFXy (publication @sebastianhardy_, 20/10) | Fausses vidéos de « clients » (UGC générées) : écartées (tromperie, aucun témoignage inventé). InfiniteTalk en réserve. |
 
-_253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_273 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
