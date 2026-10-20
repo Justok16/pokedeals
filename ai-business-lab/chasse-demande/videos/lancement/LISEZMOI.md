@@ -11,3 +11,4 @@ Faite avec le skill brag-slim (plan : `brag-plan.md`), accord de l'utilisateur d
 - Publication : **seulement après le « oui » de l'utilisateur** (Short YouTube par Zapier, puis Reel / TikTok).
 
 - **Publiée le 20/10 à 13 h 36** (« oui tu peux la publier », utilisateur) en Short YouTube par Zapier : https://www.youtube.com/shorts/ylisB7SW5Ms . Envoyée depuis `lancement-dig16.mp4?v=20261020b` : sans paramètre, le cache du site servait encore la version sans voix (leçon du 20/10).
+- **TikTok** : programmée dans Buffer pour le samedi 24/10 à 18 h 30 (Buffer a reçu 2 090 931 octets = version avec voix). **Instagram + Facebook** (Reels, même jour et même heure) : à ajouter le 21/10 à 19 h, quand leurs files Buffer se libèrent (rappel trig_014FW9Xb2EKMwzXcgQoDc4Ea). Accord de l'utilisateur du 20/10.
