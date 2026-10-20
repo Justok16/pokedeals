@@ -341,6 +341,8 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | 📦 | 1dvdXWmQXM8 (YouTube, 20/10) | Runable : sites créés par IA (gratuit, 1 500 crédits/jour) ; Sketchfab : modèles 3D, licence à lire modèle par modèle. En réserve. |
 | ✅ | mKjxGy6vCnY (YouTube, 20/10) | Claude Projects : déjà couvert le 12/10. |
 | 📦 | IoTCJ9YA2FM (YouTube, 20/10) | ~30 logiciels libres en réserve (signature, rendez-vous, veille de pages, mots de passe, captures, montage, sauvegarde 3-2-1) : détail dans `videos-resumes/IoTCJ9YA2FM.md`. |
+| ✅ | Ge1B-Ok1Pfk (YouTube, 20/10) | Motion design codé + voix Gemini : déjà notre méthode (`videos/conseils/fabriquer.py`) ; The Style Atlas (Futurepedia) en réserve. |
+| 📦 | 1phmHSTYQso (YouTube, 20/10) | Lumail (emailing, gratuit 3 000/mois), Convex (base de données), Stripe (paiement) en réserve ; « Bypass permissions » : non appliqué. |
 
 _253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
