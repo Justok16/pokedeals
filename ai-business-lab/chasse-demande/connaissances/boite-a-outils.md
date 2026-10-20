@@ -336,6 +336,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 | ⛔ | DeUI5Tot07a (reel @madameb0nplan, 19/10) | Écarté : jeux piratés dans le navigateur (contrefaçon, sites à risque) ; aucun usage pour DIG16. |
+| 📦 | 19V1QWqJuZ (reel Facebook Gabzer, 20/10) | Poe (déjà en réserve) ; Prompt Cowboy : aide aux prompts, gratuit, inutile tant que Claude rédige ; Perchance : images IA gratuites, droits commerciaux non confirmés, interdit dans les supports DIG16 en attendant. |
 
 _253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
