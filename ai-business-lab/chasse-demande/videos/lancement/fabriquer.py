@@ -1,6 +1,8 @@
 """Vidéo de lancement verticale de dig16.fr (skill brag-slim, 20/10/2026) : plan dans brag-plan.md.
 
-1080 × 1920, 30 i/s, 20 s, musique DIG16 + effets dans la même tonalité, sans voix.
+1080 × 1920, 30 i/s, ~22 s, voix off « Algieba » (gemini-3.8-flash-tts, voix validée par l'utilisateur le 08/10 ;
+voix off demandée le 20/10), musique DIG16 baissée sous la voix + effets dans la même tonalité.
+Chaque phrase est synthétisée seule, transcrite et comparée au texte (faster-whisper) ; l'animation suit la voix.
 Tout vient du site : textes de l'accueil, faux vieux site de la section avant/après, capture de démonstration
 (entreprise fictive), chiffres des encarts de confiance. Polices du site incorporées.
 
@@ -8,6 +10,7 @@ Usage : python3 fabriquer.py [--controle]   (--controle : seulement les images f
 Écrit brag.mp4, brag.jpg (affiche = image 0) et des images de contrôle dans controle/ (non versionnées).
 """
 
+import json
 import os
 import subprocess
 import sys
@@ -18,19 +21,31 @@ from playwright.sync_api import sync_playwright
 ICI = os.path.dirname(os.path.abspath(__file__))
 CD = os.path.normpath(os.path.join(ICI, "..", ".."))
 sys.path.insert(0, os.path.join(CD, "videos", "conseils"))
-from fabriquer import CHROME, css_polices, data, empreinte_svg  # noqa: E402
+from fabriquer import CHROME, css_polices, data, duree, empreinte_svg, verifier_voix, voix  # noqa: E402
 
 FPS = 30
-TOTAL = 20.0
-AFFICHE = 2.6  # image la plus forte (accroche complète), recopiée en image 0
+# Phrases dites (8) : l'écran suit chacune. « DIG16 » écrit pour être bien prononcé.
+PHRASES = [
+    "Vos clients vous cherchent sur leur téléphone.",
+    "Ils vous trouvent ?",
+    "Votre site aujourd'hui : daté, minuscule sur un téléphone.",
+    "Je le refais. Le même, refait par Dig seize.",
+    "Zéro euro de création.",
+    "Sept jours pour être en ligne.",
+    "Et cent pour cent à votre nom.",
+    "Je refais votre page d'accueil gratuitement. Vous décidez ensuite. Dig seize point F R.",
+]
+ECARTS = [0.15, 0.55, 0.45, 0.35, 0.15, 0.15, 0.45]  # silence après chaque phrase (sauf la dernière)
+DEBUT = 0.35
+FIN = 2.0
 SITE = os.path.join(CD, "site-dig")
 
 
-def page():
+def page(debuts, fin_voix):
     signature = data(os.path.join(SITE, "img", "marque", "signature-ivoire@2x.png"), "image/png")
     vitrine = data(os.path.join(SITE, "img", "vitrine-visite-tel.webp"), "image/webp")
     emp = empreinte_svg(620, opacite=1.0, ident="f")
-    return f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>{css_polices()}</style><style>
+    html = f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>{css_polices()}</style><style>
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{width:1080px;height:1920px;overflow:hidden;background:#0f0e0c;color:#efe9df;font-family:Geist,'Geist Fallback',sans-serif;position:relative;
  background-image:radial-gradient(80% 50% at 90% 0%,rgba(200,164,110,.16),rgba(200,164,110,0) 70%),
@@ -102,40 +117,43 @@ const $=id=>document.getElementById(id);
 function vis(id,a,b,dy=40,fi=.45,fo=.35){{const e=$(id),o=Math.min(doux((t0-a)/fi),doux((b-t0)/fo));
  e.style.opacity=o;e.style.transform=`translateY(${{(1-doux((t0-a)/.7))*dy}}px)`;return o}}
 let t0=0;
+const D=__D__, F=__F__;  // débuts des 8 phrases de la voix ; F = fin des phrases
 function seek(t){{
   t0=t;
-  // 1. accroche (la 1re ligne est déjà là à l'image 0)
-  const e1=$('h1');e1.style.opacity=Math.min(1,doux((3.55-t)/.35));e1.style.transform='none';
-  e1.querySelector('.l2').style.opacity=doux((t-1.0)/.45);
+  const B1=D[2]-.3, B2=D[3]-.35, B3=D[4]-.3, B4=D[7]-.3;
+  // 1. accroche (la 1re ligne est déjà là à l'image 0 ; la 2e arrive avec la voix)
+  const e1=$('h1');e1.style.opacity=Math.min(1,doux((B1-t)/.3));e1.style.transform='none';
+  e1.querySelector('.l2').style.opacity=doux((t-D[1]+.1)/.4);
   // 2. avant
-  vis('t2',3.8,7.75);
-  const tel=$('tel'),ot=Math.min(doux((t-3.65)/.6),doux((12.25-t)/.45));
-  tel.style.opacity=ot;tel.style.transform=`translateY(${{(1-doux((t-3.65)/.9))*160 - doux((t-11.9)/.6)*60}}px)`;
+  vis('t2',B1+.15,B2-.05);
+  const tel=$('tel'),ot=Math.min(doux((t-B1)/.6),doux((B3+.1-t)/.4));
+  tel.style.opacity=ot;tel.style.transform=`translateY(${{(1-doux((t-B1)/.9))*160 - doux((t-B3+.3)/.6)*60}}px)`;
   // 3. balayage puis après
-  const w=doux((t-8.0)/1.7);
+  const w=doux((t-B2-.1)/1.6);
   $('nouveau').style.clipPath=`inset(${{(1-w)*100}}% 0 0 0)`;
-  const sc=$('scan');sc.style.top=`calc(${{(1-w)*100}}% - 2px)`;sc.style.opacity=(t>7.9&&w<1)?1:Math.max(0,1-(t-9.7)/.3)*(t>7.9?1:0);
-  vis('t3',8.4,12.15);
-  $('demo').style.opacity=Math.min(doux((t-9.6)/.4),doux((12.1-t)/.35));
-  // 4. trois encarts, l'un après l'autre
-  const f=$('faits');f.style.opacity=Math.min(1,doux((16.15-t)/.35));
-  for(let i=0;i<3;i++){{const e=$('f'+i),a=12.35+i*.75;e.style.opacity=doux((t-a)/.45);
-   e.style.transform=`translateY(${{(1-doux((t-a)/.6))*50}}px)`}}
+  const sc=$('scan');sc.style.top=`calc(${{(1-w)*100}}% - 2px)`;sc.style.opacity=(t>B2&&w<1)?1:Math.max(0,1-(t-B2-1.7)/.3)*(t>B2?1:0);
+  vis('t3',B2+.3,B3);
+  $('demo').style.opacity=Math.min(doux((t-B2-1.5)/.4),doux((B3-.05-t)/.3));
+  // 4. trois encarts, chacun avec sa phrase
+  const f=$('faits');f.style.opacity=Math.min(1,doux((B4-t)/.3));
+  for(let i=0;i<3;i++){{const e=$('f'+i),a=D[4+i]-.2;e.style.opacity=doux((t-a)/.4);
+   e.style.transform=`translateY(${{(1-doux((t-a)/.55))*50}}px)`}}
   // 5. fin
-  vis('fin',16.35,99);
-  const of=doux((t-16.9)/.6);$('lien').style.opacity=of;$('lieu').style.opacity=doux((t-17.2)/.6);
-  const em=$('emp');em.style.opacity=doux((t-16.6)/.9)*.55;
-  em.style.transform=`rotate(${{-6+6*doux((t-16.6)/1.6)}}deg) scale(${{.9+.1*doux((t-16.6)/1.6)}})`;
+  vis('fin',B4+.15,999);
+  const of=doux((t-B4-.6)/.5);$('lien').style.opacity=of;$('lieu').style.opacity=doux((t-B4-.9)/.5);
+  const em=$('emp');em.style.opacity=doux((t-B4-.3)/.9)*.55;
+  em.style.transform=`rotate(${{-6+6*doux((t-B4-.3)/1.6)}}deg) scale(${{.9+.1*doux((t-B4-.3)/1.6)}})`;
 }}
 </script></body></html>"""
+    return html.replace("__D__", json.dumps(debuts)).replace("__F__", str(fin_voix))
 
 
-def son():
-    """Musique DIG16 (même compositeur que la présentation) + effets accordés en Do majeur 7, mixés dessous."""
-    env = dict(os.environ, DUREE=str(TOTAL + .5))
+def son(debuts, fichiers, total):
+    """Voix off + musique DIG16 (baissée sous la voix) + effets accordés en Do majeur 7, mixés dessous."""
+    env = dict(os.environ, DUREE=str(total + .5))
     subprocess.run(["python3", os.path.join(CD, "videos", "dig16-presentation", "musique.py")], check=True, env=env, cwd=ICI)
     sr = 44100
-    n = int(sr * (TOTAL + .5))
+    n = int(sr * (total + .5))
     fx = np.zeros(n)
     hz = lambda m: 440 * 2 ** ((m - 69) / 12)
 
@@ -146,16 +164,15 @@ def son():
         fx[i:i + len(w)] += amp * w[:n - i]
 
     rng = np.random.default_rng(16)
-    # souffle doux au balayage (bruit filtré qui monte puis retombe, 8,0 → 9,8 s)
-    d, a = int(1.9 * sr), int(7.95 * sr)
+    b2 = debuts[3] - .35  # souffle doux pendant le balayage
+    d, a = int(1.8 * sr), int((b2 + .05) * sr)
     bruit = np.convolve(rng.standard_normal(d), np.ones(60) / 60, mode="same")
-    env_s = np.sin(np.linspace(0, np.pi, d)) ** 2
-    fx[a:a + d] += .5 * bruit * env_s
-    pluck(hz(76), 9.7, .16)  # Mi : arrivée du site refait
+    fx[a:a + d] += .5 * bruit * np.sin(np.linspace(0, np.pi, d)) ** 2
+    pluck(hz(76), b2 + 1.7, .16)  # Mi : arrivée du site refait
     for i, m in enumerate((72, 76, 79)):  # Do, Mi, Sol : les trois encarts
-        pluck(hz(m), 12.35 + i * .75, .14)
+        pluck(hz(m), debuts[4 + i] - .2, .14)
     for m in (60, 64, 67, 71):  # accord final Do maj7, doux
-        pluck(hz(m), 16.4, .07)
+        pluck(hz(m), debuts[7] - .1, .07)
     fx = np.clip(fx, -1, 1)
     import wave
     with wave.open(os.path.join(ICI, "effets.wav"), "wb") as w:
@@ -163,24 +180,54 @@ def son():
         w.setsampwidth(2)
         w.setframerate(sr)
         w.writeframes((fx * 32767).astype(np.int16).tobytes())
+    entrees, filtres = [], []
+    for i, (ch, d0) in enumerate(zip(fichiers, debuts)):
+        entrees += ["-i", ch]
+        filtres.append(f"[{i}:a]aresample=44100,adelay={int(d0 * 1000)}:all=1[v{i}]")
+    k = len(fichiers)
+    filtres.append("".join(f"[v{i}]" for i in range(k)) + f"amix=inputs={k}:normalize=0,apad,atrim=0:{total}[vx]")
+    filtres.append("[vx]volume=1.3,asplit=2[vo][sc]")
+    filtres.append(f"[{k}:a]volume=-12dB[mu];[mu][sc]sidechaincompress=threshold=0.03:ratio=5:attack=25:release=400[md]")
+    filtres.append(f"[{k + 1}:a]volume=-15dB,aecho=0.8:0.6:120:0.25[fx]")
+    filtres.append(f"[vo][md][fx]amix=inputs=3:normalize=0,atrim=0:{total},afade=t=out:st={total - 1.4}:d=1.4,"
+                   "alimiter=limit=0.89,aformat=sample_rates=44100:channel_layouts=stereo[out]")
     sortie = os.path.join(ICI, "son.m4a")
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", os.path.join(ICI, "musique.wav"), "-i", os.path.join(ICI, "effets.wav"),
-                    "-filter_complex",
-                    "[0:a]volume=-6dB[mu];[1:a]volume=-11dB,aecho=0.8:0.6:120:0.25[fx];"
-                    f"[mu][fx]amix=inputs=2:normalize=0,atrim=0:{TOTAL},afade=t=out:st={TOTAL - 1.6}:d=1.6,"
-                    "alimiter=limit=0.89,aformat=sample_rates=44100:channel_layouts=stereo[out]",
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", *entrees, "-i", os.path.join(ICI, "musique.wav"),
+                    "-i", os.path.join(ICI, "effets.wav"), "-filter_complex", ";".join(filtres),
                     "-map", "[out]", "-c:a", "aac", "-b:a", "192k", sortie], check=True)
     return sortie
+
+
+def calage():
+    """Synthèse (en cache dans voix/), vérification par transcription, puis débuts de chaque phrase."""
+    os.makedirs(os.path.join(ICI, "voix"), exist_ok=True)
+    fichiers = []
+    for i, ph in enumerate(PHRASES):
+        ch = os.path.join(ICI, "voix", f"l{i}.wav")
+        voix(ph, ch)
+        fichiers.append(ch)
+    verifier_voix(fichiers, PHRASES)
+    debuts, t = [], DEBUT
+    for i, ch in enumerate(fichiers):
+        debuts.append(round(t, 3))
+        t += duree(ch) + (ECARTS[i] if i < len(ECARTS) else 0)
+    fin_voix = round(t, 3)
+    total = round(fin_voix + FIN, 2)
+    if not 15 <= total <= 30:
+        sys.exit(f"ALERTE durée {total} s")
+    return fichiers, debuts, fin_voix, total
 
 
 def fabriquer(controle_seul=False):
     ctrl = os.path.join(ICI, "controle")
     os.makedirs(ctrl, exist_ok=True)
-    instants = [0, .6, 1.6, 2.6, 3.6, 4.4, 6.0, 7.8, 8.6, 9.0, 10.5, 12.0, 12.4, 13.2, 14.6, 16.2, 16.6, 18.0, 19.9]
+    fichiers, debuts, fin_voix, total = calage()
+    print("débuts", debuts, "total", total)
+    instants = sorted({0.0} | {round(d + x, 1) for d in debuts for x in (.05, .9)} | {round(total - .1, 1)})
     with sync_playwright() as p:
         nav = p.chromium.launch(executable_path=CHROME)
         pg = nav.new_page(viewport={"width": 1080, "height": 1920})
-        pg.set_content(page(), wait_until="load")
+        pg.set_content(page(debuts, fin_voix), wait_until="load")
         pg.evaluate("document.fonts.ready")
         pg.wait_for_timeout(500)
         polices = pg.evaluate("[...document.fonts].filter(f=>f.status==='loaded').map(f=>f.family)")
@@ -198,16 +245,16 @@ def fabriquer(controle_seul=False):
         if controle_seul:
             nav.close()
             return
-        pg.evaluate(f"seek({AFFICHE})")
+        pg.evaluate(f"seek({debuts[2] - .45})")  # accroche complète, juste avant la scène suivante
         affiche = pg.screenshot(type="jpeg", quality=95)
         with open(os.path.join(ICI, "brag.jpg"), "wb") as f:
             f.write(affiche)
-        audio = son()
+        audio = son(debuts, fichiers, total)
         ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS), "-c:v", "mjpeg",
                                "-i", "-", "-i", audio, "-af", "loudnorm=I=-15:TP=-1.5:LRA=9", "-c:v", "libx264", "-preset", "slow",
                                "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-ar", "44100", "-c:a", "aac",
                                "-b:a", "192k", "-shortest", os.path.join(ICI, "brag.mp4")], stdin=subprocess.PIPE)
-        for i in range(int(FPS * TOTAL)):
+        for i in range(int(FPS * total)):
             if i == 0:  # l'affiche remplace l'image 0 (miniature partout, durée inchangée)
                 ff.stdin.write(affiche)
                 continue
@@ -218,7 +265,7 @@ def fabriquer(controle_seul=False):
     ff.wait()
     for x in ("musique.wav", "effets.wav", "son.m4a"):
         os.remove(os.path.join(ICI, x))
-    print("brag.mp4 :", TOTAL, "s")
+    print("brag.mp4 :", total, "s")
 
 
 if __name__ == "__main__":
