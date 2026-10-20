@@ -13,7 +13,7 @@ Accord de l'utilisateur : « oui » du 20/10 (vidéo de lancement de dig16.fr en
 - **Légende :** voir `share-copy.txt`.
 
 ## Ce qui est repris tel quel du site (rien d'inventé)
-Titre d'accueil, textes « Avant / Après », chiffres des encarts de confiance (0 € de création, 7 jours pour être en ligne, 100 % à votre nom), phrase de l'offre, vrai faux-vieux site (markup et CSS de la section avant/après), capture « vitrine-visite » (entreprise fictive de démonstration), signature et empreinte de la marque. Aucun nom réel, aucun avis, aucun chiffre ajouté. Pas de voix (musique seule) : pas d'étiquette IA nécessaire.
+Titre d'accueil, textes « Avant / Après », chiffres des encarts de confiance (0 € de création, 7 jours pour être en ligne, 100 % à votre nom), phrase de l'offre, vrai faux-vieux site (markup et CSS de la section avant/après), capture « vitrine-visite » (entreprise fictive de démonstration), signature et empreinte de la marque. Aucun nom réel, aucun avis, aucun chiffre ajouté. Voix off ajoutée le 20/10 à la demande de l'utilisateur (voix de synthèse « Algieba », déjà validée) : étiquette « contenu généré par IA » à cocher sur TikTok et Instagram, comme pour les conseils.
 
 ## Storyboard (1080 × 1920, 30 i/s, 20 s)
 | # | Temps | Scène | Texte à lire (≈ 0,3 s/mot) |

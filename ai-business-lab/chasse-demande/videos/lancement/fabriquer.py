@@ -21,7 +21,7 @@ from playwright.sync_api import sync_playwright
 ICI = os.path.dirname(os.path.abspath(__file__))
 CD = os.path.normpath(os.path.join(ICI, "..", ".."))
 sys.path.insert(0, os.path.join(CD, "videos", "conseils"))
-from fabriquer import CHROME, css_polices, data, duree, empreinte_svg, verifier_voix, voix  # noqa: E402
+from fabriquer import CHROME, css_polices, data, duree, empreinte_svg, voix  # noqa: E402
 
 FPS = 30
 # Phrases dites (8) : l'écran suit chacune. « DIG16 » écrit pour être bien prononcé.
@@ -139,7 +139,7 @@ function seek(t){{
   for(let i=0;i<3;i++){{const e=$('f'+i),a=D[4+i]-.2;e.style.opacity=doux((t-a)/.4);
    e.style.transform=`translateY(${{(1-doux((t-a)/.55))*50}}px)`}}
   // 5. fin
-  vis('fin',B4+.15,999);
+  vis('fin',B4+.02,999);
   const of=doux((t-B4-.6)/.5);$('lien').style.opacity=of;$('lieu').style.opacity=doux((t-B4-.9)/.5);
   const em=$('emp');em.style.opacity=doux((t-B4-.3)/.9)*.55;
   em.style.transform=`rotate(${{-6+6*doux((t-B4-.3)/1.6)}}deg) scale(${{.9+.1*doux((t-B4-.3)/1.6)}})`;
@@ -198,6 +198,35 @@ def son(debuts, fichiers, total):
     return sortie
 
 
+def verifier_voix(fichiers, textes):
+    """Transcrit chaque phrase (faster-whisper) et compare au texte voulu, à l'oreille : les terminaisons muettes
+    du français (« ils vous trouvent » = « il vous trouve », constaté le 20/10) ne comptent pas."""
+    import difflib
+    import re
+
+    from faster_whisper import WhisperModel
+
+    m = WhisperModel("small", compute_type="int8")
+
+    def oral(s):
+        s = s.lower().replace("dig16", "dig seize").replace("dig 16", "dig seize")
+        # même prononciation que les vidéos conseil validées le 18/10, que Whisper écrit « dix-seize »
+        for a in ("dix-seize", "dixseize", "dix seize", "dixez"):
+            s = s.replace(a, "dig seize")
+        for a, b in (("100 %", " cent pour cent "), ("100%", " cent pour cent "), ("€", " euro "), ("100", " cent "),
+                     ("0", " zéro "), ("7", " sept ")):  # Whisper écrit les nombres en chiffres
+            s = s.replace(a, b)
+        mots = re.sub(r"[^a-zàâçéèêëîïôûùüÿœ0-9 ]", " ", s).split()
+        return [re.sub(r"(ent|es|e|s|t|x)$", "", w) if len(w) > 3 else w.rstrip("s") for w in mots]
+
+    for ch, txt in zip(fichiers, textes):
+        entendu = " ".join(x.text for x in m.transcribe(ch, language="fr")[0])
+        ratio = difflib.SequenceMatcher(None, oral(entendu), oral(txt)).ratio()
+        print(f"voix {os.path.basename(ch)} : « {entendu.strip()} » ({ratio:.2f})")
+        if ratio < 0.75 or duree(ch) > 9:
+            sys.exit(f"ALERTE voix {os.path.basename(ch)} : entendu « {entendu.strip()} » ({ratio:.2f}, {duree(ch):.1f} s)")
+
+
 def calage():
     """Synthèse (en cache dans voix/), vérification par transcription, puis débuts de chaque phrase."""
     os.makedirs(os.path.join(ICI, "voix"), exist_ok=True)
@@ -245,7 +274,7 @@ def fabriquer(controle_seul=False):
         if controle_seul:
             nav.close()
             return
-        pg.evaluate(f"seek({debuts[2] - .45})")  # accroche complète, juste avant la scène suivante
+        pg.evaluate(f"seek({debuts[1] + .45})")  # accroche complète (2e ligne arrivée), avant le fondu de sortie
         affiche = pg.screenshot(type="jpeg", quality=95)
         with open(os.path.join(ICI, "brag.jpg"), "wb") as f:
             f.write(affiche)
