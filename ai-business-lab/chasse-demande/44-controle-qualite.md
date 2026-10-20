@@ -216,3 +216,7 @@ Avant toute livraison ou mise en ligne d'un site client : `python3 outils/seo_cl
 doit afficher **0 ALERTE** (titres, descriptions, H1, canonique, noindex, données structurées « entreprise locale »,
 sitemap, robots, liens internes, email masqué par Cloudflare). Méthode complète : `65-seo-sites-clients.md`.
 Même contrôle sur dig16.fr après chaque modification du site (12/10 : 0 ALERTE).
+
+## Relecture « red team » (ajout du 20/10/2026, vidéo NarezKh3w4o)
+
+Pour chaque document important (offre, contrat, CGV, page du site, texte d'appel) : après le contrôle ci-dessus, relire une fois **à la place d'un artisan méfiant** et noter ce qu'il reprocherait (prix flou, promesse invérifiable, jargon, engagement caché). Ne pas se juger soi-même : utiliser aussi un juge externe (tests automatiques, second avis Gemini `/api/avis`).

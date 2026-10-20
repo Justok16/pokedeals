@@ -343,6 +343,9 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | 📦 | IoTCJ9YA2FM (YouTube, 20/10) | ~30 logiciels libres en réserve (signature, rendez-vous, veille de pages, mots de passe, captures, montage, sauvegarde 3-2-1) : détail dans `videos-resumes/IoTCJ9YA2FM.md`. |
 | ✅ | Ge1B-Ok1Pfk (YouTube, 20/10) | Motion design codé + voix Gemini : déjà notre méthode (`videos/conseils/fabriquer.py`) ; The Style Atlas (Futurepedia) en réserve. |
 | 📦 | 1phmHSTYQso (YouTube, 20/10) | Lumail (emailing, gratuit 3 000/mois), Convex (base de données), Stripe (paiement) en réserve ; « Bypass permissions » : non appliqué. |
+| ✅ | Lb3jplNeiXo (YouTube, 20/10) | Bonnes pratiques des skills : déjà appliquées ; description « quoi + quand » et tests négatifs pour tout nouveau skill. |
+| 📦 | NarezKh3w4o (YouTube, 20/10) | Dépôt robonuggets/be-ambitious en réserve (non lu, non installé) ; relecture « red team » retenue. |
+| ✅ | g3e0m8nrQa4 (YouTube, 20/10) | Cloud, connecteurs, routines : déjà en place ; cType payant non retenu. |
 
 _253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
