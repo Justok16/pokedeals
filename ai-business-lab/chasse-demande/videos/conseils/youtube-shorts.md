@@ -15,6 +15,8 @@ Demande de l'utilisateur du 20/10 : « faire régulièrement des shorts sur ma c
 - Vidéo envoyée depuis `https://dig16.fr/video/conseils/conseil-N.mp4` (verticale, < 3 min : YouTube en fait un Short).
 - Étiquette IA : l'aide YouTube (support.google.com/youtube/answer/14328491, lue le 20/10) ne demande de signaler que les contenus **réalistes** ; nos vidéos sont des animations de texte, non réalistes. Par transparence, la description dit « Voix de synthèse ».
 
+**Connexion vérifiée le 20/10 à 4 h 10** : l'utilisateur a relié YouTube dans Zapier ; appel de contrôle « channels?mine=true » → chaîne **DIG16** (@dig16fr, UCdjVtP-NyaCQm4e0IJCYm1w), connexion par défaut 02bdf08a. Compteur Zapier d'octobre : 66/100 après les essais (marge 90).
+
 ## Calendrier (une ligne = un Short ; colonne « État » mise à jour après chaque publication)
 | Date (Paris) | Heure | Vidéo | Titre YouTube | État |
 |---|---|---|---|---|
