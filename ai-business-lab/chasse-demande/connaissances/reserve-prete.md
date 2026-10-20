@@ -98,6 +98,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Poe, NotebookLM, Perplexity, Gamma, Elicit, Consensus, Wolfram Alpha | Outils d'IA à utiliser soi-même | L'utilisateur peut s'en servir directement | Gratuits ou en partie gratuits |
 | Prompt Cowboy (19V1QWqJuZ) | Transformer une demande vague en prompt détaillé | Si l'utilisateur emploie seul une autre IA (ChatGPT, Gemini) | Gratuit (0 €/mois, prompts illimités sur le modèle standard, tarifs officiels lus le 20/10) |
 | Perchance.org (19V1QWqJuZ) | Images par IA, gratuites | Seulement pour un usage interne (essai, maquette jamais publiée) tant que les droits commerciaux ne sont pas confirmés par une source officielle | Gratuit (selon la vidéo) |
+| REA, Reverse Engineer Anything (ykAUNww86So) | Comprendre comment marche une appli ou un site sans son code source | Seulement pour l'ancien site d'un client qui en est propriétaire, avec son accord écrit ; jamais pour copier un tiers | Gratuit (MIT selon une vidéo, à vérifier sur GitHub) ; crédits d'IA en plus |
 | DownSub (DeCV78sETMT) | Sous-titres d'une vidéo YouTube en texte | Secours si Gemini et vidIQ ne lisent pas une vidéo | Gratuit |
 | Excalidraw (DeekQtwk30w) | Schémas faits à la main | Expliquer une offre en rendez-vous | Gratuit (connecteur disponible) |
 | Obsidian (DeekQtwk30w, Tk5cgoGY1PU) | Notes en « second cerveau » | Si l'utilisateur veut ses notes hors de Claude | Gratuit |

@@ -337,6 +337,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 | ⛔ | DeUI5Tot07a (reel @madameb0nplan, 19/10) | Écarté : jeux piratés dans le navigateur (contrefaçon, sites à risque) ; aucun usage pour DIG16. |
 | 📦 | 19V1QWqJuZ (reel Facebook Gabzer, 20/10) | Poe (déjà en réserve) ; Prompt Cowboy : aide aux prompts, gratuit, inutile tant que Claude rédige ; Perchance : images IA gratuites, droits commerciaux non confirmés, interdit dans les supports DIG16 en attendant. |
+| 📦 | ykAUNww86So (vidéo YouTube, 20/10) | REA (morluto/rea) : outil qui permet à Claude Code d'analyser une appli sans son code. Cloner un tiers : ⛔ ; usage possible : ancien site d'un client avec son accord écrit. Rien installé. |
 
 _253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
