@@ -9,3 +9,5 @@ Faite avec le skill brag-slim (plan : `brag-plan.md`), accord de l'utilisateur d
 - Contrôle du 20/10 : 19 images fixes + 6 images de transition lues ; corrigés avant rendu : téléphone coupé en bas, empreinte sur l'adresse, mention « Démonstration · entreprise fictive » ajoutée sous le site refait.
 - Contrôle du 20/10 (voix) : transcription du son final conforme au texte ; 12 images lues ; corrigés : affiche prise pendant un fondu, creux vide avant la fin. « Dig seize » prononcé comme dans les conseils validés (Whisper l'écrit « Dixez »).
 - Publication : **seulement après le « oui » de l'utilisateur** (Short YouTube par Zapier, puis Reel / TikTok).
+
+- **Publiée le 20/10 à 13 h 36** (« oui tu peux la publier », utilisateur) en Short YouTube par Zapier : https://www.youtube.com/shorts/ylisB7SW5Ms . Envoyée depuis `lancement-dig16.mp4?v=20261020b` : sans paramètre, le cache du site servait encore la version sans voix (leçon du 20/10).
