@@ -64,3 +64,7 @@ Liens vérifiés le 19/10 (ceux du pied de page de dig16.fr) ; l'ancien lien ver
 - Chaque jour à 17 h 52 (rappel existant) : le texte de partage du soir, prêt à coller, avec la version X.
 - Chaque lundi : nombre de partages faits (déclaré par l'utilisateur) rapproché des visites `?de=fb` et des contacts.
 - Toute règle de groupe apprise (jour des pros, interdiction) est notée ici pour ne pas la violer.
+
+## 5. Règles apprises
+
+- 20/10/2026 : dans plusieurs groupes locaux, les publications attendent la validation d'un administrateur (encore en attente après 1 jour). Règle : ne jamais publier un 2e message tant que le 1er n'est pas accepté ; en attendant, partager sur le profil personnel et en story. Noter ici les groupes qui acceptent.
