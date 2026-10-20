@@ -352,6 +352,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Guide PDF Brag (20/10) | Skill brag-slim installé (MIT, lu en entier) : vidéo de lancement de ~20 s à partir d'un site. |
 | 📦 | Ddg3Ztxh2so (reel @danyltn, 20/10) | Scrapling (BSD-3) en réserve, secours de Firecrawl. |
 | ⛔ | Ddg3Ztxh2so (reel @danyltn, 20/10) | « Agent Search » : collecte de données des réseaux sociaux sans leurs API, écartée (conditions d'utilisation, RGPD). |
+| ✅ | Guide PDF « 13 skills Instagram » (20/10) | 7 skills Instagram installés (ig-reel, ig-carousel, ig-story, ig-plan, ig-dm, ig-reply, ig-comment), en plus d'ig-profile et ig-caption. |
 
 _253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
