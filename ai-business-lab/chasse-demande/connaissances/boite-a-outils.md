@@ -346,6 +346,9 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Lb3jplNeiXo (YouTube, 20/10) | Bonnes pratiques des skills : déjà appliquées ; description « quoi + quand » et tests négatifs pour tout nouveau skill. |
 | 📦 | NarezKh3w4o (YouTube, 20/10) | Dépôt robonuggets/be-ambitious en réserve (non lu, non installé) ; relecture « red team » retenue. |
 | ✅ | g3e0m8nrQa4 (YouTube, 20/10) | Cloud, connecteurs, routines : déjà en place ; cType payant non retenu. |
+| 📦 | nCu2xSFVvv8 (YouTube, 20/10) | AutoDS, Shopify, BuildYourStore, AdSense, affiliation Amazon : hors piste DIG16, en réserve ; prix concurrents notés. |
+| 📦 | KVP7bboPIio (YouTube, 20/10) | « Enregistrer un skill » (appli Claude sur ordinateur) : en réserve. |
+| ✅ | 5nkJKNQAi8I (YouTube, 20/10) | Hostinger AI Builder : concurrent noté, non retenu (payant). |
 
 _253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
