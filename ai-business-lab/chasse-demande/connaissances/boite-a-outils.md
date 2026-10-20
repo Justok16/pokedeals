@@ -338,6 +338,9 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ⛔ | DeUI5Tot07a (reel @madameb0nplan, 19/10) | Écarté : jeux piratés dans le navigateur (contrefaçon, sites à risque) ; aucun usage pour DIG16. |
 | 📦 | 19V1QWqJuZ (reel Facebook Gabzer, 20/10) | Poe (déjà en réserve) ; Prompt Cowboy : aide aux prompts, gratuit, inutile tant que Claude rédige ; Perchance : images IA gratuites, droits commerciaux non confirmés, interdit dans les supports DIG16 en attendant. |
 | 📦 | ykAUNww86So (vidéo YouTube, 20/10) | REA (morluto/rea) : outil qui permet à Claude Code d'analyser une appli sans son code. Cloner un tiers : ⛔ ; usage possible : ancien site d'un client avec son accord écrit. Rien installé. |
+| 📦 | 1dvdXWmQXM8 (YouTube, 20/10) | Runable : sites créés par IA (gratuit, 1 500 crédits/jour) ; Sketchfab : modèles 3D, licence à lire modèle par modèle. En réserve. |
+| ✅ | mKjxGy6vCnY (YouTube, 20/10) | Claude Projects : déjà couvert le 12/10. |
+| 📦 | IoTCJ9YA2FM (YouTube, 20/10) | ~30 logiciels libres en réserve (signature, rendez-vous, veille de pages, mots de passe, captures, montage, sauvegarde 3-2-1) : détail dans `videos-resumes/IoTCJ9YA2FM.md`. |
 
 _253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 

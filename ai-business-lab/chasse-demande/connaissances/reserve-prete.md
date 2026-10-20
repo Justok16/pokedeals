@@ -99,6 +99,12 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Prompt Cowboy (19V1QWqJuZ) | Transformer une demande vague en prompt détaillé | Si l'utilisateur emploie seul une autre IA (ChatGPT, Gemini) | Gratuit (0 €/mois, prompts illimités sur le modèle standard, tarifs officiels lus le 20/10) |
 | Perchance.org (19V1QWqJuZ) | Images par IA, gratuites | Seulement pour un usage interne (essai, maquette jamais publiée) tant que les droits commerciaux ne sont pas confirmés par une source officielle | Gratuit (selon la vidéo) |
 | REA, Reverse Engineer Anything (ykAUNww86So) | Comprendre comment marche une appli ou un site sans son code source | Seulement pour l'ancien site d'un client qui en est propriétaire, avec son accord écrit ; jamais pour copier un tiers | Gratuit (MIT selon une vidéo, à vérifier sur GitHub) ; crédits d'IA en plus |
+| Runable (1dvdXWmQXM8) | Créer un site par IA et le publier | Jamais pour un client (site non portable, pas à son nom) ; seulement pour un essai d'idée | Gratuit : 1 500 crédits/jour (tarifs lus le 20/10) ; Pro 20 $/mois |
+| Documenso (IoTCJ9YA2FM) | Signature électronique libre | Si DocuSeal change ses conditions gratuites | Libre, à héberger soi-même, ou offre en ligne (à vérifier) |
+| Cal.diy / Cal.com (IoTCJ9YA2FM) | Prise de rendez-vous en ligne | Client qui veut la réservation sur son site | Cal.diy libre ; Cal.com en partie payant (à vérifier) |
+| changedetection.io (IoTCJ9YA2FM) | Alerte quand une page change | Veille de pages officielles (taux URSSAF, aides) si nos scripts ne suffisent plus | Libre à héberger ; en ligne payant |
+| KeePassXC (IoTCJ9YA2FM) | Coffre à mots de passe local | Si l'utilisateur veut ranger ses nombreux mots de passe ; Claude n'y accède jamais | Libre et gratuit (selon la vidéo) |
+| ShareX / Cap, Kdenlive, Syncthing (IoTCJ9YA2FM) | Captures et tutoriels vidéo ; montage ; synchronisation sans cloud | Si l'utilisateur fait ses propres captures ou montages ; sauvegardes clients (règle 3-2-1) | Libres (selon la vidéo) |
 | DownSub (DeCV78sETMT) | Sous-titres d'une vidéo YouTube en texte | Secours si Gemini et vidIQ ne lisent pas une vidéo | Gratuit |
 | Excalidraw (DeekQtwk30w) | Schémas faits à la main | Expliquer une offre en rendez-vous | Gratuit (connecteur disponible) |
 | Obsidian (DeekQtwk30w, Tk5cgoGY1PU) | Notes en « second cerveau » | Si l'utilisateur veut ses notes hors de Claude | Gratuit |
