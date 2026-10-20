@@ -109,6 +109,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Lumail (1phmHSTYQso) | Lettre d'information et emails automatiques | Quand DIG16 aura des clients à informer régulièrement (avec désinscription) | Gratuit : 3 000 emails/mois, envoi arrêté au-delà (tarifs lus le 20/10) ; 20 $/mois pour 40 000 |
 | Convex, Stripe (1phmHSTYQso) | Base de données ; paiement en ligne | Client qui veut un espace membre ou vendre en ligne | Convex gratuit pour démarrer (selon la vidéo) ; Stripe : commission par paiement |
 | « Enregistrer un skill », appli Claude sur ordinateur (KVP7bboPIio) | Montrer une tâche à Claude pour qu'il la refasse seul | Tâche dans un site sans connecteur, faite sur l'ordinateur de l'utilisateur | Inclus dans l'appli Claude (page d'aide à lire avant) |
+| Scrapling (Ddg3Ztxh2so) | Lire et extraire des pages web publiques en Python | Quand les crédits gratuits de Firecrawl sont épuisés ; lecteur simple seulement, jamais de contournement anti-robots ; lire le code avant | Gratuit, BSD-3 (PyPI lu le 20/10) |
 | Chatbot WhatsApp, agent vocal (nCu2xSFVvv8) | Service complémentaire pour artisans | Après les premiers clients DIG16 et une demande prouvée | À chiffrer le moment venu |
 | DownSub (DeCV78sETMT) | Sous-titres d'une vidéo YouTube en texte | Secours si Gemini et vidIQ ne lisent pas une vidéo | Gratuit |
 | Excalidraw (DeekQtwk30w) | Schémas faits à la main | Expliquer une offre en rendez-vous | Gratuit (connecteur disponible) |

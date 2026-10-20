@@ -350,6 +350,8 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | 📦 | KVP7bboPIio (YouTube, 20/10) | « Enregistrer un skill » (appli Claude sur ordinateur) : en réserve. |
 | ✅ | 5nkJKNQAi8I (YouTube, 20/10) | Hostinger AI Builder : concurrent noté, non retenu (payant). |
 | ✅ | Guide PDF Brag (20/10) | Skill brag-slim installé (MIT, lu en entier) : vidéo de lancement de ~20 s à partir d'un site. |
+| 📦 | Ddg3Ztxh2so (reel @danyltn, 20/10) | Scrapling (BSD-3) en réserve, secours de Firecrawl. |
+| ⛔ | Ddg3Ztxh2so (reel @danyltn, 20/10) | « Agent Search » : collecte de données des réseaux sociaux sans leurs API, écartée (conditions d'utilisation, RGPD). |
 
 _253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
