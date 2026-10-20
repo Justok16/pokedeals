@@ -147,7 +147,7 @@ texte prêt à coller. Quatre brouillons créés dans la boîte DIG16, chacun **
 |---|---|---|
 | Val de Charente, développement économique | réponse à leur mail du 14/10 | rappelle l'appel de la semaine et la soirée du 30/11 |
 | CCI de la Charente (accueil Angoulême) | réponse à leur mail du 13/10 | rappelle l'attente de la conseillère création |
-| Atout Ruffec (Pauline) | réponse à son mail du 16/10 | **à envoyer après l'appel du 19/10 à 9 h 47**, propose aussi un atelier gratuit d'une heure |
+| Atout Ruffec (Pauline) | réponse à son mail du 16/10 | **20/10 : Pauline indisponible le 20 et le 21, de retour jeudi 22/10** → l'appeler jeudi 22 (rencontre jeudi, vendredi ou samedi) ; brouillon à finaliser après l'appel ; propose aussi un atelier gratuit d'une heure |
 | Mairie de Ruffec (Petites villes de demain) | relance du mail du 13/10 (sans réponse) | bulletin municipal, page Facebook de la ville |
 
 Non sollicitée : la CMA (DIG16 relève du RCS, donc de la CCI ; la CMA relaie ses propres ressortissants). Charente
