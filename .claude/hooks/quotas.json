@@ -3,8 +3,10 @@
     "limite": 20,
     "source": "help.metricool.com « Main differences between Free and paid plans », lue le 19/10/2026 : 20 publications publiées par mois (offre gratuite), compteur remis à zéro le 1er",
     "mois": {
-      "2026-10": 20
-    }
+      "2026-10": 20,
+      "2026-11": 13
+    },
+    "note_2026-11": "13 publications programmées (hors brouillons) rien que du 01 au 08/11, compté le 20/10 : novembre dépasserait 20 → réorganisation prévue le 22/10 (Buffer pour Instagram/Facebook/TikTok, Zapier pour YouTube, Metricool réservé à Threads)"
   },
   "zapier": {
     "limite": 100,
