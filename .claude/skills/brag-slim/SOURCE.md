@@ -1,0 +1,1 @@
+Source : https://github.com/latent-spaces/brag (skills/brag-slim/SKILL.md, licence MIT), copié tel quel le 20/10/2026 après lecture complète (instructions seulement, aucun code). Règles DIG16 en plus : polices de /moteur/polices/, aucun chiffre ni avis inventé, plan montré à l'utilisateur avant publication.

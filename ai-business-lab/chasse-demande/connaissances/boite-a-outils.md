@@ -349,6 +349,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | 📦 | nCu2xSFVvv8 (YouTube, 20/10) | AutoDS, Shopify, BuildYourStore, AdSense, affiliation Amazon : hors piste DIG16, en réserve ; prix concurrents notés. |
 | 📦 | KVP7bboPIio (YouTube, 20/10) | « Enregistrer un skill » (appli Claude sur ordinateur) : en réserve. |
 | ✅ | 5nkJKNQAi8I (YouTube, 20/10) | Hostinger AI Builder : concurrent noté, non retenu (payant). |
+| ✅ | Guide PDF Brag (20/10) | Skill brag-slim installé (MIT, lu en entier) : vidéo de lancement de ~20 s à partir d'un site. |
 
 _253 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
