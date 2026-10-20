@@ -90,3 +90,5 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 - Auto-analyse 2 fois par semaine (`ameliorer_systeme.py`) : corrections de l'utilisateur → règles et contrôles ici.
 - Chaque bonne pratique qui a marché (ex. transcription de contrôle, contrôles bloquants dans les outils) est
   réutilisée sur les autres outils du même type.
+
+- **20/10/2026 — Une seule fiche officielle ne suffit pas pour une date limite.** J'avais annoncé « 1re déclaration URSSAF avant le 31/01/2027 » d'après F23267 seule ; F23257 (même éditeur) et la FAQ URSSAF donnent un mois plus tard, et F23257 révélait en plus une échéance que j'avais manquée : changement de périodicité **avant le 31/10**. Règle : pour toute échéance administrative, lire **toutes** les fiches officielles du sujet (Service Public + site de l'organisme), retenir la date la plus prudente et chercher les échéances voisines (options, changements) avant de répondre « rien à faire ».
