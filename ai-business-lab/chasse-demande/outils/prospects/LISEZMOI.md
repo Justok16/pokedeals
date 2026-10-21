@@ -61,3 +61,11 @@ Rappels déjà en place et confirmés par ce guide : pas d'extraction en masse d
 (conditions d'utilisation), recherche du nom exact avant de conclure « sans site », doublons exclus.
 
 - `reprise_site.py` (09/10/2026) : lit poliment quelques pages de l'ancien site d'un prospect (robots.txt respecté, pause entre pages) et en tire une fiche privée (nom, description, horaires, villes, années, titres de sections = services probables, photos et logo probables) pour préparer sa page d'accueil refaite plus vite. Contenu du client seulement ; photos et logo dans une démo uniquement avec son accord ; sortie dans un dossier privé, jamais dans le dépôt.
+
+- `fiche_appel.py` (21/10/2026, accord de l'utilisateur) : **une fiche d'une page par prospect avant chaque appel**
+  (qui on va avoir, ce que fait l'entreprise, état du site et de la fiche Google, recherches du métier, 3 questions
+  tirées de `57` selon la situation, ouverture, fin, place pour noter), plus une page de garde avec l'ordre d'appel.
+  Registre officiel et site relus le jour même par l'outil ; BODACC (procédures ET changements de nom), Google en direct
+  (nom, puis « métier + commune ») et volumes (OpenRush, France) relevés par Claude dans le lot privé. Contrôles
+  bloquants : polices DIG16 chargées, aucune page qui déborde, sortie refusée dans le dépôt. Lot et PDF : privés
+  (scratchpad, puis Drive « Dig »).

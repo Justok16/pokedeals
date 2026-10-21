@@ -39,6 +39,7 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 | 18/10 | Formule « devis en deux clics » écrite dans une vidéo sans être dans le guide | **Tout texte publié reprend une source** (guide, page officielle) ; pas de promesse ajoutée par style | Relecture « chaque phrase a une source » avant rendu |
 | 18/10 | Tarif N26 : le communiqué de 2025 (« trading gratuit ») contredisait la page actuelle (0,90 €) | La page actuelle prime sur un communiqué ancien ; dater chaque fait | Citer la page et la date |
 | 05/10 | État d'un site prospect affirmé sans revérification | Revérifier en ligne le jour même | `44` |
+| 21/10 | Fiche d'appel : « ni site ni fiche Google » écrit pour un prospect après une recherche sur son seul nom actuel ; la recherche « métier + commune » montrait en tête de la carte Google sa fiche (4,4/5) sous l'**ancien nom** de l'entreprise, reprise et renommée en février (BODACC). Relevé grâce au relecteur en lecture seule | Avant d'écrire « absent de Google » : chercher aussi « métier + commune » (la carte) et lire au BODACC les changements de nom ; écrire « aucune page à son nom » plutôt que « invisible » | `fiche_appel.py` (consigne en tête) ; relecteur en lecture seule à chaque lot |
 
 ## Documents, visuels, vidéos
 
