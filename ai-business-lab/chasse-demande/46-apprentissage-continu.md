@@ -514,3 +514,5 @@ résultat (appels, fiche Google), pas le prix ; (2) une page Artizo non réclam�
 - 21/10/2026 : vidéo IoTCJ9YA2FM déjà traitée le 20/10 (renvoyée) ; vidéo CCUSpJkAfgU (motion graphics 3D Three.js) : à essayer pour les conseils 11-15, essai proposé.
 
 - 21/10/2026 : vidéo rbV689ZZWp8 (consultant IA, ExplorIA) : questions « devis » ajoutées à 57, règle des 4 cases dans 70, fiche de préparation de rendez-vous proposée.
+
+- 21/10/2026 : CLAUDE.md allégé de 233 à ~110 lignes (accord de l'utilisateur), version intégrale conservée dans `connaissances/consignes-detaillees.md` ; relecture par un agent en lecture seule (verdict « à refaire », 15 oublis corrigés).
