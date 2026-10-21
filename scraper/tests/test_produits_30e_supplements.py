@@ -53,3 +53,39 @@ def test_coffret_exposition_cn_maniatcg():
     "aimant/exposition", seule la page le dit (slug "coffret-collection-aimants")."""
     titre = "Pokémon 30th Celebration Coffret Collection Premium Noctali & Mentali - Chinois Simplifié"
     assert evaluer_correspondance(titre, "coffret collection aimants", P[EXPO_CN])[0] is not None
+
+
+# Display Gem Pack Vol.7 (demande de Justok, 21/10/2026) : titres reels des
+# volumes precedents releves en boutique, transposes au volume 7.
+GEM7 = "Display Gem Pack Vol.7 CBB7C (chinois simplifié)"
+
+
+@pytest.mark.parametrize("titre", [
+    "Display Pokémon – Gem Pack Vol.7 – CBB7C – Chinois Simplifié",         # questcorner.fr
+    "Display Gempack Vol 7 CBB7C 18 Booster Pokémon Chinois",               # tcgdirect.fr
+    "{CBB7C BOX} Gem Pack Vol. 7 | Chinese Pokemon Card Booster box",       # pokeninjapan.store
+    "Display Gem Pack 7 – Pokémon Chinois",                                 # mymesis.fr
+    "Display Gem Pack Vol7 – Pokémon Chinois Simplifié",                    # maniatcg.com
+    "Box Pokémon Gem Pack Vol 7 Chinois Simplifié",                         # lerepaireducollectionneur.fr
+    'Pokemon Cards "Gem Pack Vol. 7" CBB7C Booster Box S Chinese Ver',      # k-tcg.com
+    "[PRECO] Display Pokémon Gem Pack Vol.7 (CBB7C) – Chinois",             # precommande
+])
+def test_gem_pack_vol7_reconnu(titre):
+    assert evaluer_correspondance(titre, "", P[GEM7])[0] is not None
+
+
+@pytest.mark.parametrize("titre", [
+    "Display Pokémon – Gem Pack Vol.6 – CBB6C – Chinois Simplifié",   # autre volume
+    "Display Gem Pack Vol.17 CBB17C – Chinois",                       # volume hypothetique 17
+    "Booster Gem Pack Vol.7 Chinois simplifié",                       # booster seul, pas le display
+    "Display One Piece Gem Pack Vol.7",                               # autre jeu
+])
+def test_gem_pack_vol7_rejete(titre):
+    assert evaluer_correspondance(titre, "", P[GEM7])[0] is None
+
+
+def test_gem_pack_vol7_ne_declenche_aucun_autre_produit():
+    titre = "Display Pokémon – Gem Pack Vol.7 – CBB7C – Chinois Simplifié"
+    autres = [p.nom for p in PRODUITS_SURVEILLES
+              if p.nom != GEM7 and evaluer_correspondance(titre, "", p)[0] is not None]
+    assert autres == []

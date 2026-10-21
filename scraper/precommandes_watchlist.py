@@ -522,6 +522,28 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         **{**EXCLUSIONS_LOTS,
            "mots_exclus_titre": EXCLUSIONS_LOTS["mots_exclus_titre"] | {"deck set"}},
     ),
+    # Demande de Justok (21/10/2026) : alerte des que le display est en
+    # precommande ou en stock. Serie exclusive a la Chine (code CBB = chinois
+    # simplifie), donc pas de groupe de langue : beaucoup de boutiques ecrivent
+    # juste "Chinois" ou rien ("Display Pokemon CBB2C Gem Pack Vol 2").
+    # Titres reels releves sur les volumes precedents : "Gem Pack Vol.5 - CBB5C",
+    # "Gempack Vol 5 CBB5C", "Gem Pack 5", "Gem Pack Vol4", "{CBB5C BOX}".
+    # "pack" fait partie du NOM : pas d'EXCLUSIONS_LOTS (qui exclut le mot
+    # "pack"), seulement les autres jeux. Display/box/case obligatoire dans le
+    # titre : un booster seul ("Booster Gem Pack 5") ne declenche rien.
+    ProduitSurveille(
+        nom="Display Gem Pack Vol.7 CBB7C (chinois simplifié)",
+        mots_cles_edition=frozenset({
+            "cbb7c", "gem pack vol 7", "gem pack vol7", "gem pack 7",
+            "gempack vol 7", "gempack vol7", "gempack 7",
+        }),
+        mots_cles_type=frozenset({"display", "booster box", "box", "case", "boite"}),
+        date_sortie=None,
+        surveiller_jusqu_au=date(2027, 6, 30),
+        alerte_disponibilite=True,
+        mots_exclus_titre=MOTS_AUTRES_JEUX_TITRE,
+        type_dans_titre=True,
+    ),
 ]
 
 
