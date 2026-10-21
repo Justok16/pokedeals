@@ -165,3 +165,4 @@ Gardées (servent à DIG16) : rédaction et relecture, Instagram (`ig-*`), réf�
 `ui-ux-pro-max`…), prospection et offres, sécurité, vérification, `brag-slim`, `typesafe-ai`, `explain-interface`.
 Les 13 compétences synchronisées depuis claude.ai ne se rangent que par l'utilisateur (menu /skills), facultatif.
 
+| « Conseil » contre la complaisance de l'IA : 5 rôles (avocat du diable, rigoureux, premiers principes, généraliste, etc.) qui répondent séparément, se notent sans savoir qui a écrit quoi, puis un « président » tranche. Idée d'origine : `karpathy/llm-council` (README lu le 21/10 ; **aucune licence publiée** : on reprend l'idée, pas le code ; l'original passe par OpenRouter, payant) | reel DZX7IuNobac (21/10) | Prêt sans rien installer, avec nos agents en lecture seule (gratuit) : à utiliser pour les **grosses décisions** (prix, offre, choix d'un outil payant, texte public important), en plus du relecteur habituel de `44` |
