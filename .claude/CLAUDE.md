@@ -56,7 +56,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   visages et domaines repris par un tiers ; jamais sur le site public ; accord préalable, montrées en direct ; les 64
   démos existantes restent hors diffusion sans accord ; couleur tirée du logo ; jamais de logos de partenaires.
 - Démarchage B2B par email autorisé dans le cadre CNIL (`35`) ; pas de particuliers ; pas de campagne en série sous
-  pseudonyme. Prestige jamais proposé en prospection.
+  pseudonyme. Prestige jamais proposé en prospection, mais **toujours cité avec les autres formules** dans les présentations de l'entreprise (décision du 21/10 : « elle existe comme les autres formules »).
 
 ## Sécurité, dépôt public, vie privée
 
