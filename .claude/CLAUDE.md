@@ -7,7 +7,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
 ## Qui et quoi
 
 - Utilisateur francophone, non développeur, souvent sur téléphone : **tout en français simple**, y compris les petits
-  messages pendant le travail ; pas à pas, liens directs ; « **À TOI :** » quand il a quelque chose à faire.
+  messages pendant le travail ; pas à pas, liens directs ; « **À TOI :** » quand il a quelque chose à faire. **Toujours lui mâcher le travail** (consigne du 21/10) : chaque demande donne le lien direct cliquable vérifié, le texte prêt à coller, l'endroit exact où regarder ; ne demander que ce que les outils ne peuvent pas voir.
 - Objectif : un projet qui rapporte beaucoup, légalement. Piste : **DIG16**, sites pour artisans et commerçants (dig16.fr).
   Travail dans `ai-business-lab/chasse-demande/`, branche `claude/ai-business-portfolio-strategy-96yf4g`. Tous les domaines
   légaux sont ouverts (détail : fin de `00-grille-anti-digcost.md`).
