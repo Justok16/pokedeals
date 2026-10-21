@@ -204,6 +204,7 @@ les « brancher ». Aucun n'a de connecteur dans le catalogue de Claude (recherc
   tiers), ShadeStudio (palette de couleurs), Metadata Remover (idée reprise en local :
   `outils/verif_metadonnees.py`), free-for.dev (liste des offres gratuites des services en ligne :
   première source pour trouver un équivalent gratuit).
+- **theresanaiforthat.com** (« There's An AI For That ») : annuaire d'IA classé par besoin, qui indique si chaque outil est gratuit ou payant (reel Facebook de Gabzer, 21/10). Le site bloque nos outils de lecture (403 le 21/10) : à ouvrir à la main au besoin. La gratuité d'un outil trouvé là se vérifie toujours sur la page officielle de l'outil.
 - **futuretools.io** : annuaire de plus de 4 500 outils d'IA, filtrable par prix (Free,
   Freemium, Paid, Open Source) ; lettre d'information gratuite qui donne accès à une « AI Income
   Database » (idées de revenus, à passer à la grille `00` comme toute piste).
