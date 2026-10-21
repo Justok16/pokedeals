@@ -50,6 +50,10 @@ Question bonus n° 2, seulement si l'artisan a du personnel ou du matériel (id�
 le planning de l'équipe, les relances, le matériel ? » → noter mot pour mot, puis « Vous faites ça comment
 aujourd'hui, sur papier, un tableur, un logiciel ? Combien ça vous coûte ? » On ne propose rien ; on note. Une
 tâche citée 3 fois par des artisans différents = un besoin réel, à étudier (voir la note du 19/10 dans `64` § 0).
+Si l'artisan cite **les devis** (ajout du 21/10, vidéo rbV689ZZWp8) : « Combien de demandes de devis par mois, et combien
+sont signées ? Entre la demande et l'envoi du devis, il se passe combien de temps ? Qu'est-ce qui vous retarde : le
+temps, ou des informations qui manquent ? » En visite : « Vous pouvez me montrer le dernier ? » (derrière le mot
+« devis », les problèmes sont très différents). Noter les chiffres tels quels.
 
 Fin : « Merci. Quand je serai lancé, est-ce que je peux vous rappeler pour vous montrer ce que
 ça donnerait, sans engagement ? » → noter oui / non / date.

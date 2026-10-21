@@ -300,3 +300,7 @@ du 19/10) ; concurrence et grille de base : `71-tarifs-service-devis-factures.md
   dossier hébergement-restauration 2025 : <https://www.francenum.gouv.fr/guides-et-conseils/strategie-numerique/comprendre-le-numerique/barometre-france-num-2025-le-0>
 - Écartés (sources intéressées ou sans origine vérifiable) : estimation Youseeme reprise par Le Figaro Emploi
   (17/09/2025, « 52 à 90 heures par mois », méthode non publiée), blogs d'éditeurs de logiciels (EBP, ArtisanSmart, Sage).
+
+## Règle des 4 cases (21/10/2026, vidéo rbV689ZZWp8)
+
+Aucun projet d'automatisation pour un client sans ces 4 cases remplies par écrit : 1) le résultat recherché (ex. : devis envoyés plus vite) ; 2) ce qu'on mesure (ex. : délai entre la demande et l'envoi) ; 3) le point de départ chiffré ; 4) l'objectif avec une date. Sinon ce n'est qu'une idée, pas un projet.
