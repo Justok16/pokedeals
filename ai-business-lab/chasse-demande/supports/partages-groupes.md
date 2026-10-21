@@ -68,3 +68,12 @@ Liens vérifiés le 19/10 (ceux du pied de page de dig16.fr) ; l'ancien lien ver
 ## 5. Règles apprises
 
 - 20/10/2026 : dans plusieurs groupes locaux, les publications attendent la validation d'un administrateur (encore en attente après 1 jour). Règle : ne jamais publier un 2e message tant que le 1er n'est pas accepté ; en attendant, partager sur le profil personnel et en story. Noter ici les groupes qui acceptent.
+
+## 1 ter. Publications en attente d'approbation (constat de l'utilisateur, 21/10)
+
+Les premières publications dans les groupes n'étaient toujours pas approuvées par les modérateurs le 21/10. Règle :
+1. **Ne plus rien publier dans un groupe où une publication attend** (plusieurs envois en attente ressemblent à du spam et peuvent faire refuser le tout).
+2. Envoyer **une seule fois** le message aux administrateurs du § 1 bis (Membres → Admins), en ajoutant : « J'ai proposé une publication il y a quelques jours, elle est en attente de validation. »
+3. Sans réponse après une semaine : laisser ce groupe et en essayer un autre (priorité aux groupes de pros, qui acceptent souvent les présentations).
+4. En attendant : répondre utilement aux demandes existantes (« site internet », « qui connaît ») dans les groupes, sans lien commercial si les règles l'interdisent.
+
