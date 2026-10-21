@@ -126,6 +126,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Visuels avant/après pour cuisinistes | hRr-yUSM0_A | Option future |
 | Veille « 30 derniers jours » (Reddit, X, YouTube, TikTok…) | mvanhorn/last30days-skill (reel DepRxdRpj-p) | En réserve : sources surtout américaines, clés payantes au-delà des quotas ; à ressortir pour une étude de marché large |
 | Agent « chef de cabinet » / tuteur « Teach » | reel DepRxdRpj-p | En réserve : sources à vérifier, pas de besoin DIG16 actuel |
+| Panel de clients simulés et grilles « fondateur » (`Jakeschincariol/founder-skill`, MIT) | reel DevuuhsFGQl (21/10) | Prêt à l'emploi après relecture des scripts : panel rapide sur l'offre DIG16 pour lister les objections et préparer les entretiens `57` ; jamais une preuve de la demande ni un témoignage |
 | Mémoire persistante d'agent (`agentmemory`) | reel DeuH5GSgNV- (21/10) | En réserve : mémoire écrite déjà en place ; dépôt à vérifier avant usage |
 | Proxys résidentiels (Data Impulse, 1 $/Go) | vidéo RPS5U6oa03o (21/10) | En réserve, payant : seulement si un scraping légal est bloqué |
 | CLI officiels à la place des connecteurs | vidéo RPS5U6oa03o (21/10) | En réserve : si un connecteur casse |
