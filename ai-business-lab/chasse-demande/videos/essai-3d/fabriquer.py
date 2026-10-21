@@ -96,7 +96,7 @@ ren.setPixelRatio(1); ren.setSize(1080,1920,false); ren.setClearColor(0x000000,0
 const scene=new THREE.Scene();
 const cam=new THREE.PerspectiveCamera(38,1080/1920,.1,400);
 
-// Carte : texte dessiné sur une toile (polices de la charte), posé sur un panneau de verre dépoli.
+// Phrase : texte dessiné sur une toile (polices de la charte), flottant seul dans l'espace (cadre de verre retiré le 21/10).
 function texture(texte){{
   const W=2048,H=1600,cv=document.createElement('canvas');cv.width=W;cv.height=H;
   const g=cv.getContext('2d');
@@ -127,9 +127,8 @@ const verre=new THREE.ShaderMaterial({{transparent:true,depthWrite:false,uniform
 const groupes=[];
 CARTES.forEach((t,i)=>{{
   const g=new THREE.Group();
-  const fondC=new THREE.Mesh(new THREE.PlaneGeometry(12.2,9.6),verre.clone());
   const tex=new THREE.Mesh(new THREE.PlaneGeometry(12.2,9.6),new THREE.MeshBasicMaterial({{map:texture(t),transparent:true,depthWrite:false}}));
-  tex.position.z=.02;g.add(fondC);g.add(tex);
+  g.add(tex);  // sans cadre de verre (demande de l'utilisateur du 21/10 : « ça fait trop automate et répétitif »)
   g.position.set(i%2?2.4:-2.4,-i*1.4,-i*30);g.rotation.y=i%2?-.16:.16;g.rotation.x=.03;
   scene.add(g);groupes.push(g);
 }});
@@ -175,7 +174,7 @@ window.seek=function(t){{
   cam.position.copy(p);cam.lookAt(r);
   groupes.forEach((g,j)=>{{g.rotation.y=(j%2?-.16:.16)+Math.sin(t*.4+j)*.03;
     const dz=p.z-38-g.position.z, o=cl(1-Math.abs(dz)/30,0,1)*cl((p.z-g.position.z)/6,0,1);
-    g.children[0].material.uniforms.op.value=o; g.children[1].material.opacity=o;}});
+    g.children[0].material.opacity=o;}});
   for(let j=0;j<N;j++){{const [u,v,w]=graine[j];pos[j*3]=(u-.5)*60+Math.sin(t*.25+j)*.6;pos[j*3+1]=(v-.5)*34+Math.sin(t*.2+u*9)*.5-3;
     pos[j*3+2]=10-w*170;}}
   geoP.attributes.position.needsUpdate=true;
