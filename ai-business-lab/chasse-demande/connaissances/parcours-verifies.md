@@ -72,3 +72,10 @@ Source : aide Buffer « Connecting your channels », « Connecting your Instagra
 3. Facebook : tout autoriser, choisir la page DIG16. Instagram : « Connect Instagram through Facebook » en bas de la fenêtre.
 4. Après chaque réseau, fenêtre « How many times a week would you like to post? » → 5 times/week → Next → « Got It » (heures indicatives seulement).
 Résultat le 19/10 : « 3/3 channels connected » (DIG16 Facebook, dig16fr Instagram, dig16fr TikTok), offre gratuite.
+
+## Google : supprimer une fiche d'établissement en double (confirmé sur captures le 21/10/2026, téléphone, navigateur)
+- Lien direct : https://business.google.com/locations (connexion Google, puis liste « Établissements » avec « Tous (N) »).
+- Chaque fiche montre un numéro, le nom, la zone et son état (« Validation requise » ou « Validé »). Garder la fiche « Validé » ; les doublons non validés sont invisibles du public.
+- Cocher les fiches à supprimer → « Actions » → « Supprimer les établissements » → « Supprimer » (aide Google 4669092, lue le 21/10). Ne pas cocher « définitivement fermé ».
+- Résultat vérifié : la liste passe à « Tous (1) » ; la fiche publique garde ses actualités.
+
