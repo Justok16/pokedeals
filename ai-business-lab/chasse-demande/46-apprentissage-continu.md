@@ -504,3 +504,5 @@ résultat (appels, fiche Google), pas le prix ; (2) une page Artizo non réclam�
 - 20/10/2026 (auto-analyse du mardi) : 8 corrections sur 4 jours, déjà au registre des leçons ; nouvelles leçons du jour : échéance administrative = lire toutes les fiches officielles (F23257/F23267/URSSAF) ; « No response requested » interdit (redite, 4 occurrences). Garde-fou ajouté au rappel URSSAF du 26/10 (méthode officielle du passage au mensuel).
 
 - 21/10/2026 : reel DeuH5GSgNV- (5 dépôts GitHub pour agents IA) : même liste que la page Notion du 02/10 ; Diagram Design déjà installé, les 4 autres en réserve (`videos-resumes/DeuH5GSgNV-.md`).
+
+- 21/10/2026 : vidéo RPS5U6oa03o (top 1 % Claude Code) : crochet Stop anti-réponse vide appliqué ; allègement de CLAUDE.md et tri des skills proposés à l'utilisateur (`videos-resumes/RPS5U6oa03o.md`).
