@@ -137,3 +137,4 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Automatisations payées à l'heure économisée (méthode d'entretien employé) | vidéo XsW4tgsSYaI (21/10) | En réserve : extension DIG16 après preuve de la demande |
 | Montage de dossiers d'aides publiques pour PME (au succès) | vidéo XsW4tgsSYaI (21/10) | En réserve : à vérifier juridiquement avant tout |
 | OpenCode (équipe d'agents avec droits séparés) | vidéo dl78bCncIe0 (21/10) | En réserve : principe appliqué dans 44 avec les sous-agents de Claude |
+| Vidéos 3D (Three.js + shaders) filmées par le navigateur | vidéo CCUSpJkAfgU (21/10) | À essayer pour les conseils 11 à 15 ; essai de 10 s à proposer à l'utilisateur |
