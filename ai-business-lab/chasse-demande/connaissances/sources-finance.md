@@ -106,3 +106,40 @@ accès aux courtiers non traités (à vérifier selon la situation).
 
 **Usage possible pour l'utilisateur, plus tard et seulement à sa demande** : apprendre la méthode en simulation,
 sans argent réel ; jamais avant que DIG16 rapporte (budget 0 €), et avec le rappel des risques ci-dessus.
+
+### 21/10 — TradingAgents : une « salle de marché » de 12 agents IA (carrousel DeRU_bFH7Mz, danyltn)
+
+Source vérifiée : dépôt public **github.com/TauricResearch/TradingAgents** (licence Apache 2.0, README lu le 21/10 ;
+version 0.7.0 annoncée en 10/2026), issu de l'article de recherche arXiv 2412.20138 (décembre 2024). Le README le dit :
+« designed for research purposes […] It is not intended as financial, investment, or trading advice ». Les « 110 000
+étoiles » du carrousel ne sont pas vérifiées (API GitHub inaccessible depuis le conteneur).
+
+**L'organisation, copiée sur une vraie salle de marché** (12 rôles tenus par des modèles d'IA) :
+1. *Quatre analystes en parallèle* : cours et indicateurs techniques (RSI, MACD), sentiment (Reddit, X, StockTwits),
+   actualités et macroéconomie, comptes de l'entreprise (déposés auprès de la SEC, « tels que déposés »).
+2. *Débat haussier contre baissier* : deux chercheurs reprennent les quatre rapports et s'opposent, sur un nombre de
+   tours réglable ; un responsable de la recherche tranche entre cinq notes (acheter, surpondérer, conserver,
+   sous-pondérer, vendre), avec une règle écrite : des arguments contradictoires ne suffisent pas pour « conserver ».
+3. *Le trader* fixe le moment, le prix d'entrée, le seuil de perte (stop) et la taille (ex. 5 % du portefeuille).
+4. *L'équipe risques* (profils agressif, neutre, prudent) débat de la volatilité et de la liquidité ; *le gérant*
+   valide, ajuste ou rejette (veto). Exécution sur une **bourse simulée**, jamais avec de l'argent réel.
+5. *La mémoire* : chaque décision est notée ; à l'analyse suivante, le système relit le rendement réellement obtenu
+   sur 5 séances, le compare à l'indice et écrit une leçon courte.
+Deux étages de modèles (rapide pour les analystes, « qui raisonne » pour les responsables) ; Claude, OpenAI ou modèles
+locaux (Ollama) ; une analyse complète = environ 45 appels au modèle d'après la capture du README. Tests sur le passé
+(« backtest ») qui ne voient que les données publiées à la date choisie.
+
+**Compétences à retenir (valables hors de l'outil)** :
+- Séparer les rôles : collecter les faits, puis débattre pour et contre, puis décider, puis contrôler le risque.
+- Forcer l'avocat du diable : toute thèse d'achat doit survivre à la meilleure thèse contraire.
+- Un droit de veto indépendant sur le risque, au-dessus de celui qui veut agir.
+- Tenir un journal de chaque décision et le relire au regard du résultat réel (pas seulement de l'intuition).
+- Ne jamais tester une méthode avec des informations qui n'existaient pas à la date choisie (biais du futur).
+Ces principes servent aussi pour DIG16 : décisions écrites, avocat du diable avant tout investissement, bilan relu.
+
+**Ce que dit vraiment la source** : « Backtest results are not guaranteed to match any published figure […] Treat the
+framework as a research scaffold […] not as a strategy with a fixed, replicable return. » L'exemple « +4,1 % en
+5 jours » du carrousel est marqué « exemple illustratif » : un seul cas, sur 5 jours, ne prouve rien.
+
+**Usage possible pour l'utilisateur, plus tard et seulement à sa demande** : étudier en simulation comment une IA
+argumente une décision ; coût en appels au modèle à vérifier avant ; jamais d'ordre réel par l'outil.
