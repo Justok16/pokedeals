@@ -506,3 +506,5 @@ résultat (appels, fiche Google), pas le prix ; (2) une page Artizo non réclam�
 - 21/10/2026 : reel DeuH5GSgNV- (5 dépôts GitHub pour agents IA) : même liste que la page Notion du 02/10 ; Diagram Design déjà installé, les 4 autres en réserve (`videos-resumes/DeuH5GSgNV-.md`).
 
 - 21/10/2026 : vidéo RPS5U6oa03o (top 1 % Claude Code) : crochet Stop anti-réponse vide appliqué ; allègement de CLAUDE.md et tri des skills proposés à l'utilisateur (`videos-resumes/RPS5U6oa03o.md`).
+
+- 21/10/2026 : vidéos nkg3cquwKiw (7 dépôts GitHub pour Claude : tout en réserve, rien installé) et 3AQEfiQdFTA (TikTok 0 à 10 000 : chauffer le compte, appel à s'abonner à tester ; reprise de vidéos d'autrui et faux compteur ⛔).

@@ -129,3 +129,8 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Mémoire persistante d'agent (`agentmemory`) | reel DeuH5GSgNV- (21/10) | En réserve : mémoire écrite déjà en place ; dépôt à vérifier avant usage |
 | Proxys résidentiels (Data Impulse, 1 $/Go) | vidéo RPS5U6oa03o (21/10) | En réserve, payant : seulement si un scraping légal est bloqué |
 | CLI officiels à la place des connecteurs | vidéo RPS5U6oa03o (21/10) | En réserve : si un connecteur casse |
+| Clonage de sa propre voix en local (Voice Studio) | vidéo nkg3cquwKiw (21/10) | En réserve : si l'utilisateur veut sa voix sur les vidéos ; dépôt à lire avant |
+| Page web → vidéo éditable (Hyperframes) | vidéo nkg3cquwKiw (21/10) | En réserve : notre méthode HTML + ffmpeg fait déjà ce travail |
+| Skills Matt Pocock (grill-me, handoff) | vidéo nkg3cquwKiw (21/10) | En réserve : à lire avant usage |
+| Classement de textes local (« layer ») | vidéo nkg3cquwKiw (21/10) | En réserve : Jev suffit aujourd'hui |
+| Fonds animés (shaders) | vidéo nkg3cquwKiw (21/10) | En réserve : démo Prestige seulement, après test de performance |
