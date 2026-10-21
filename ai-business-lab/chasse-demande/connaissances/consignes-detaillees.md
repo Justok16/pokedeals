@@ -116,6 +116,14 @@ Le résumé obligatoire est dans `.claude/CLAUDE.md` ; **ce fichier fait foi pou
   et ordinateur). Ne jamais envoyer une version « à moitié finie ».
 - Économiser le quota hebdomadaire : garder de la réserve pour les demandes de l'utilisateur.
 
+- **Routines « passives » et avis automatiques (vidéo s_1GPN-NXA0, 21/10)** : un rappel ou une notification qui ne
+  trouve rien d'anormal ne produit aucun message à l'utilisateur. Avis GitHub de mise en ligne Cloudflare « réussie »
+  ou contrôles verts : rien à écrire (une ligne seulement si l'utilisateur attend ce résultat précis) ; un échec, une
+  alerte ou une action à faire : message court avec « À TOI : » si besoin.
+- **Propositions créatives avec 2 « jokers » (même vidéo)** : quand Claude propose des idées (titres, visuels, sujets
+  de publications), 8 suivent le style validé et 2 sont volontairement différents, pour éviter de tourner en rond ;
+  un joker qui plaît à l'utilisateur rejoint le style validé.
+
 ## Décisions du 05/10/2026 (soir) — « tout oui » aux 12 décisions issues de 6 audits
 
 - **Priorité des 30 jours : la preuve de la demande.** L'utilisateur mène des entretiens d'étude
