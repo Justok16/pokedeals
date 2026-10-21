@@ -61,3 +61,48 @@ résumés (`matthiasbaccino/liste-videos.json`, `outils/toutes_videos.py`) ; **5
 analyses de l'auteur ; tout chiffre ou règle fiscale réutilisé est revérifié à la source officielle, et aucun conseil
 d'investissement personnalisé n'en est tiré. Utilité pour DIG16 : faible (contexte économique) ; utilité pour la
 culture financière demandée par l'utilisateur : bonne.
+
+## Vidéos finance et bourse envoyées par l'utilisateur : base de connaissances (demande du 21/10/2026)
+
+Consigne de l'utilisateur (21/10) : « Les vidéos sur la finance et/ou la bourse, je les laisse là pour que tu
+assimiles toutes les compétences et que cela puisse peut-être me servir à l'avenir. » Ces vidéos ne sont donc
+**jamais « écartées »** : chacune est résumée ici (savoir-faire, méthode, outils, limites vérifiées à la source),
+même si elle ne sert pas DIG16 aujourd'hui. Règles inchangées : aucune prévision du marché, risque de perte toujours
+rappelé, pas de conseiller agréé, l'utilisateur décide et passe lui-même chaque ordre ; rien n'est installé ni
+branché à un courtier sans sa demande expresse.
+
+### 21/10 — « Trader Skill » : 11 skills Claude pour le day trading (Reel DewpofdiSaL, dbg_lab)
+
+Source vérifiée : dépôt public **github.com/dan-ai-lab/day-trader-fr** (licence MIT, README lu le 21/10), adaptation
+française de github.com/Jakeschincariol/day-trader-skill. Actions **américaines** seulement, montants en dollars,
+heure de New York, données Yahoo gratuites et non officielles (parfois retardées), **simulation par défaut**.
+
+**La méthode, dans l'ordre** (chaque étape est un skill) :
+1. *Scanner* : repérer les graphiques qui suivent une règle (cassure de la plage d'ouverture, drapeau haussier,
+   survente, rebond). On choisit ensuite soi-même lequel examiner.
+2. *Actus* : actualités, dépôts officiels auprès de la SEC, variations des actions suivies.
+3. *Entrée* : attendre la clôture d'une bougie pour confirmer le signal (ne pas acheter sur un mouvement en cours).
+4. *Sortie* : fixer **avant l'achat** le stop (prix de vente si ça baisse), l'objectif et l'heure limite de sortie.
+5. *Simulation (« Time Machine »)* : rejouer 10 000 fins de séance possibles et comparer avec l'historique.
+6. *Budget* : calculer le nombre d'actions à partir du budget et de la **perte maximale acceptée par opération**.
+7. *Risque* : bloquer toute proposition qui dépasse ses propres règles (« PASS » ou « BLOCK »).
+8. *Courtier* : préparer un seul ordre et demander un « oui » explicite pour cet ordre précis.
+Outils annexes : alertes de prix, lecture des résultats publiés, déclarations publiques de transactions des élus
+américains (publiées parfois des semaines après : aucun avantage d'information).
+
+**Compétences à retenir (valables hors de cet outil)** :
+- Décider la sortie (stop, objectif, heure) **avant** d'entrer ; ne jamais la changer dans l'émotion.
+- Taille de position = perte maximale acceptée ÷ (prix d'entrée − prix du stop). Exemple du README : budget
+  5 000 $, risque maximal 50 $ par opération → 8 actions, perte au stop 46,88 $ (une exécution moins bonne peut
+  coûter plus : le stop n'est pas une garantie).
+- Tester une règle sur l'historique avant d'y mettre de l'argent, et lire honnêtement le résultat.
+- Un garde-fou automatique qui dit non vaut mieux qu'une bonne intuition.
+
+**Ce que dit vraiment la source (à rappeler face aux promesses)** : la vidéo promet des « trades gagnants » ; le
+README de l'auteur donne pour son propre exemple « objectif atteint en premier 29,4 %, stop en premier 25,5 %,
+ni l'un ni l'autre 45,1 % » et conclut : « Le résultat simulé est proche d'un pile ou face » ; il « ne garantit ni
+bénéfice ni prix d'exécution ». Options, marge, levier et vente à découvert désactivés par défaut. Fiscalité et
+accès aux courtiers non traités (à vérifier selon la situation).
+
+**Usage possible pour l'utilisateur, plus tard et seulement à sa demande** : apprendre la méthode en simulation,
+sans argent réel ; jamais avant que DIG16 rapporte (budget 0 €), et avec le rappel des risques ci-dessus.
