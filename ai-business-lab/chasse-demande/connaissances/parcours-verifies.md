@@ -78,4 +78,4 @@ Résultat le 19/10 : « 3/3 channels connected » (DIG16 Facebook, dig16fr Insta
 - Chaque fiche montre un numéro, le nom, la zone et son état (« Validation requise » ou « Validé »). Garder la fiche « Validé » ; les doublons non validés sont invisibles du public.
 - Cocher les fiches à supprimer → « Actions » → « Supprimer les établissements » → « Supprimer » (aide Google 4669092, lue le 21/10). Ne pas cocher « définitivement fermé ».
 - Résultat vérifié : la liste passe à « Tous (1) » ; la fiche publique garde ses actualités.
-
+- Variante (fiche ouverte depuis la recherche Google « mon entreprise », 21/10) : ⋮ en haut à droite → « Paramètres de la fiche d'établissement » → « Supprimer la fiche d'établissement » → « Supprimer les administrateurs et le contenu de la fiche » → « Continuer » → « Supprimer » → « OK » (aide 4669092 ; suppression faite par l'utilisateur, écrans non vus sur capture).
