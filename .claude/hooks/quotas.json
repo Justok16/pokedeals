@@ -1,12 +1,12 @@
 {
   "metricool": {
     "limite": 20,
-    "source": "help.metricool.com « Main differences between Free and paid plans », lue le 19/10/2026 : 20 publications publiées par mois (offre gratuite), compteur remis à zéro le 1er",
+    "source": "help.metricool.com « Main differences between Free and paid plans », relue le 21/10/2026 : 20 publications PUBLIÉES par mois, chaque réseau compte une fois (« Duplicate posts count once for each social network »), compteur remis à zéro le 1er ; au-delà, seules 20 sont publiées",
     "mois": {
       "2026-10": 20,
-      "2026-11": 13
+      "2026-11": 19
     },
-    "note_2026-11": "13 publications programmées (hors brouillons) rien que du 01 au 08/11, compté le 20/10 : novembre dépasserait 20 → réorganisation prévue le 22/10 (Buffer pour Instagram/Facebook/TikTok, Zapier pour YouTube, Metricool réservé à Threads)"
+    "note_2026-11": "Réorganisé le 21/10 : 19 publications non brouillon (11 carrousels TikTok, 5 Shorts YouTube, 3 posts Google) ; Instagram, Facebook, Threads et stories en brouillon (contenu dans supports/publications-v2/novembre-metricool-avant-reorg.json), Instagram et Facebook à envoyer par Buffer à partir du 01/11 (rappel trig_01PvxXHpog5J8MrBUzdGUzAM)"
   },
   "zapier": {
     "limite": 100,
