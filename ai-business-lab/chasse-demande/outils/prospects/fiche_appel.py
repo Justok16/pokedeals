@@ -22,12 +22,15 @@ Format du lot : {"date": "21/10/2026", "titre": "...", "prospects": [{"num", "no
 "telephone", "site"?, "google", "bodacc", "demande", "notes"?, "pourquoi"}]}
 """
 
+import base64
 import html
+import html.parser
 import json
 import os
 import re
 import subprocess
 import sys
+import time
 import urllib.parse
 
 ICI = os.path.dirname(os.path.abspath(__file__))
@@ -65,12 +68,17 @@ def curl(url, cookie=False, tete=False):
 
 
 def annuaire(siren):
-    out = curl(f"{RELAIS}?q={siren}&per_page=1", cookie=True)
-    if "Vercel Authentication" in out:
-        sys.exit("Cookie du relais expiré : renouveler /tmp/cj.txt (33-outils.md), puis relancer.")
-    try:
-        r = json.loads(out)["results"][0]
-    except Exception:
+    r = None
+    for essai in range(4):  # l'annuaire refuse parfois une requête (limite de débit) : on réessaie
+        out = curl(f"{RELAIS}?q={siren}&per_page=1", cookie=True)
+        if "Vercel Authentication" in out:
+            sys.exit("Cookie du relais expiré : renouveler /tmp/cj.txt (33-outils.md), puis relancer.")
+        try:
+            r = json.loads(out)["results"][0]
+            break
+        except (ValueError, KeyError, IndexError, TypeError):
+            time.sleep(2 + 3 * essai)
+    if r is None:
         return None
     s = r.get("siege") or {}
     dirigeants = []
@@ -102,6 +110,30 @@ def annuaire(siren):
     }
 
 
+class Texte(html.parser.HTMLParser):
+    """Texte visible d'une page (sans scripts ni styles), pour y chercher les années affichées."""
+
+    def __init__(self):
+        super().__init__()
+        self.morceaux, self.cache = [], 0
+
+    def handle_starttag(self, tag, attrs):
+        self.cache += tag in ("script", "style")
+
+    def handle_endtag(self, tag):
+        self.cache -= tag in ("script", "style") and self.cache > 0
+
+    def handle_data(self, data):
+        if not self.cache:
+            self.morceaux.append(data)
+
+
+def texte_visible(page):
+    t = Texte()
+    t.feed(page)
+    return " ".join(t.morceaux)
+
+
 def analyser_site(url):
     if not url:
         return None
@@ -109,7 +141,7 @@ def analyser_site(url):
     page = curl(url) if code.startswith("2") else ""
     bas = page.lower()
     annees = [int(a) for a in re.findall(r"(?:©|&copy;|copyright)\D{0,12}((?:19|20)\d\d)", page, re.I)]
-    annees += [int(a) for a in re.findall(r"\b(20[0-2]\d)\b", re.sub(r"<script.*?</script>", "", page, flags=re.S))]
+    annees += [int(a) for a in re.findall(r"\b(20[0-2]\d)\b", texte_visible(page))]
     outil = next((nom for cle, nom in OUTILS_SITE if cle in bas or cle in finale), "")
     maj = ""
     p = urllib.parse.urlparse(finale or url)
@@ -244,27 +276,27 @@ def main():
     if os.path.abspath(sortie).startswith(os.path.abspath(os.path.join(ICI, "..", "..", "..", ".."))):
         sys.exit("Sortie dans le dépôt public refusée : utiliser le scratchpad ou le Drive « Dig ».")
     os.makedirs(sortie, exist_ok=True)
-    pages, resume = [], []
+    pages = []
     for p in lot["prospects"]:
         a = annuaire(p["siren"]) if p.get("siren") else None
         site = analyser_site(p.get("site"))
         p.setdefault("metier_court", p["metier"].split(",")[0].lower())
         pages.append(fiche(p, a, site, lot["date"], len(pages) + 1, len(lot["prospects"])))
-        resume.append({"num": p["num"], "nom": p["nom"], "annuaire": a, "site": site})
         print(f"n° {p['num']} {p['nom']} : registre {'ok' if a else 'INTROUVABLE'}"
               + (f", site {site['code']} {site['outil']} maj {site['maj'] or site['annee']}" if site else ", sans site"))
     corps = typo(couverture(lot, lot["prospects"]) + "".join(pages))
-    polices = open(POLICES, encoding="utf-8").read().replace("/moteur/polices/", "file://" + os.path.dirname(os.path.abspath(POLICES)) + "/")
+    dossier = os.path.dirname(os.path.abspath(POLICES))
+    polices = re.sub(r"url\(/moteur/polices/([^)]+)\)", lambda m: "url(data:font/woff2;base64,"
+                     + base64.b64encode(open(os.path.join(dossier, m.group(1)), "rb").read()).decode() + ")",
+                     open(POLICES, encoding="utf-8").read())
     page = (f"<!doctype html><html lang='fr'><head><meta charset='utf-8'><style>{polices}{CSS}</style></head><body>{corps}</body></html>")
     nom = os.path.join(sortie, "fiches-appel")
-    open(nom + ".html", "w", encoding="utf-8").write(page)
-    json.dump(resume, open(nom + ".json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    # Aucune donnée de prospect écrite sur disque en dehors du PDF final (leçon du 18/10, CodeQL) : page posée en mémoire.
     from playwright.sync_api import sync_playwright
     with sync_playwright() as pw:
         b = pw.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else pw.chromium.launch()
         pg = b.new_page()
-        pg.goto("file://" + os.path.abspath(nom + ".html"))
-        pg.wait_for_load_state("networkidle")
+        pg.set_content(page, wait_until="networkidle")
         pg.evaluate("document.fonts.ready")
         if not pg.evaluate("document.fonts.check('16px Geist') && document.fonts.check('16px \\'Instrument Serif\\'')"):
             sys.exit("ALERTE : polices DIG16 non chargées.")

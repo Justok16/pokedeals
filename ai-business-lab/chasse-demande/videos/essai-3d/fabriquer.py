@@ -8,6 +8,7 @@ mêmes instants de scène : seule l'image change, pour comparer. Rien n'est publ
 Usage : python3 fabriquer.py   (Three.js 0.169.0, licence MIT, téléchargé dans ce dossier s'il manque)
 Écrit essai-3d-conseil-1.mp4 et des images de contrôle dans controle/ (non versionnées).
 Contrôles bloquants : polices chargées, WebGL actif, texte des cartes dans le cadre.
+Écran final : la même empreinte que la version 2D (outils/marque/empreinte.py), en relief (choix de l'utilisateur, 21/10).
 """
 
 import base64
@@ -29,6 +30,8 @@ CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
 POLICES = os.path.join(CD, "site-dig", "moteur", "polices")
 SOURCE = os.path.join(CD, "videos", "conseils", "conseil-1.mp4")
 THREE = os.path.join(ICI, "three.module.min.js")
+sys.path.insert(0, os.path.join(CD, "outils", "marque"))
+from empreinte import empreinte_svg  # noqa: E402  (même empreinte que la version 2D validée)
 FPS = 30
 TOTAL = 19.9
 # Débuts des phrases de conseil-1.mp4, mesurés le 21/10 sur la vidéo (changements de texte à 2,93 ; 6,0 ; 10,5 ; 14,0 s).
@@ -57,6 +60,7 @@ def insecables(t):
 
 def page():
     signature = data(os.path.join(CD, "site-dig", "img", "marque", "signature-ivoire@2x.png"), "image/png")
+    empreinte = "data:image/svg+xml;base64," + base64.b64encode(empreinte_svg(1024, ident="f").encode()).decode()
     return f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>{css_polices()}</style><style>
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{width:1080px;height:1920px;overflow:hidden;background:#0f0e0c;color:#efe9df;font-family:Geist,'Geist Fallback',sans-serif;position:relative}}
@@ -84,6 +88,7 @@ canvas{{position:absolute;inset:0;width:1080px;height:1920px}}
 <div class="barre"><i id="prog"></i></div>
 <script type="module">
 import * as THREE from './three.module.min.js';
+const EMPREINTE="{empreinte}";
 const D={json.dumps(DEBUTS)}, TOTAL={TOTAL}, CARTES={json.dumps([insecables(c) for c in CARTES], ensure_ascii=False)};
 const cl=(x,a,b)=>Math.max(a,Math.min(b,x)), doux=x=>{{x=cl(x,0,1);return x*x*(3-2*x)}};
 const ren=new THREE.WebGLRenderer({{canvas:document.getElementById('c'),antialias:true,alpha:true,preserveDrawingBuffer:true}});
@@ -138,9 +143,24 @@ const grd=pg.createRadialGradient(32,32,0,32,32,32);grd.addColorStop(0,'rgba(240
 pg.fillStyle=grd;pg.fillRect(0,0,64,64);
 const pts=new THREE.Points(geoP,new THREE.PointsMaterial({{size:.32,map:new THREE.CanvasTexture(point),transparent:true,depthWrite:false,
   blending:THREE.AdditiveBlending,opacity:.85}}));scene.add(pts);
-// Anneau doré (écran final).
-const anneau=new THREE.Mesh(new THREE.TorusGeometry(6.2,.22,32,220),new THREE.MeshStandardMaterial({{color:0xc8a46e,emissive:0x6b5230,metalness:.9,roughness:.25,transparent:true,opacity:0}}));
-scene.add(anneau);scene.add(new THREE.AmbientLight(0xffffff,.6));const lum=new THREE.PointLight(0xffe2b0,260,90);scene.add(lum);
+// Empreinte dorée (écran final) : le dessin de la version 2D, en 3 couches décalées en profondeur (relief),
+// révélée du centre vers l'extérieur avec une crête lumineuse.
+const img=new Image();img.src=EMPREINTE;await img.decode();
+const cvE=document.createElement('canvas');cvE.width=1024;cvE.height=1250;cvE.getContext('2d').drawImage(img,0,0,1024,1250);
+const texE=new THREE.CanvasTexture(cvE);texE.anisotropy=8;
+const empreinte=new THREE.Group();const couches=[];
+[[0,1],[-.18,.45],[-.36,.22]].forEach(([z,a])=>{{
+  const m=new THREE.ShaderMaterial({{transparent:true,depthWrite:false,
+    uniforms:{{map:{{value:texE}},rev:{{value:0}},op:{{value:0}},force:{{value:a}}}},
+    vertexShader:`varying vec2 vUv;void main(){{vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}}`,
+    fragmentShader:`uniform sampler2D map;uniform float rev,op,force;varying vec2 vUv;
+      void main(){{vec4 c=texture2D(map,vUv);float d=length((vUv-vec2(.5,.45))*vec2(1.,1.22));
+        float vis=smoothstep(rev,rev-.06,d);float crete=exp(-pow((d-rev)*28.,2.))*step(.001,rev);
+        vec3 col=c.rgb*(1.+crete*.7)+vec3(.85,.68,.42)*crete*c.a*.55;
+        gl_FragColor=vec4(col,c.a*(vis+crete*.8)*op*force);}}`}});
+  const pl=new THREE.Mesh(new THREE.PlaneGeometry(8.6,10.5),m);pl.position.z=z;empreinte.add(pl);couches.push(m);
+}});
+scene.add(empreinte);const lum=new THREE.PointLight(0xffe2b0,260,90);scene.add(lum);
 
 function cible(i){{const g=groupes[i];return {{p:new THREE.Vector3(g.position.x*1.35,g.position.y+.1,g.position.z+38),
   r:new THREE.Vector3(g.position.x,g.position.y,g.position.z)}}}}
@@ -160,7 +180,10 @@ window.seek=function(t){{
     pos[j*3+2]=10-w*170;}}
   geoP.attributes.position.needsUpdate=true;
   const of=doux((t-(D[4]-.15))/.6);
-  anneau.position.set(0,-9,-160);anneau.rotation.set(.35+t*.05,t*.6,0);anneau.material.opacity=of;
+  const kr=doux((t-(D[4]-.05))/2.2);
+  empreinte.position.set(0,-9.2,-160);
+  empreinte.rotation.set(.55*(1-kr)+Math.sin(t*.7)*.05, Math.sin(t*.55)*.28, 0);
+  couches.forEach(m=>{{m.uniforms.op.value=of;m.uniforms.rev.value=kr*.78;}});
   lum.position.set(p.x+6,p.y+5,p.z-8);
   document.getElementById('fin').style.opacity=of;
   document.getElementById('serie').style.opacity=1-of;
