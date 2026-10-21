@@ -33,7 +33,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   dire précisément lequel et ce qui a été essayé.
 - **Vérifier, jamais supposer** : tout fait, chiffre, identifiant, adresse, règle ou menu est vérifié **à la source,
   tout de suite**, avant de répondre ; chiffres seulement depuis la page officielle datée, lue directement, avec
-  citation et date ; sinon « à vérifier » ou retiré. Ne jamais deviner un identifiant ou une adresse.
+  citation et date ; sinon « à vérifier » ou retiré. Ne jamais deviner un identifiant ou une adresse. Adresse, horaire ou numéro d'un service : seulement depuis une page officielle datée de moins d'un an, date citée (consigne du 21/10 : « je veux que tu sois sûr de ta réponse »).
 - **Règle n° 1 : vérifier l'argent avant de construire** (`00-grille-anti-digcost.md`) ; toute construction nouvelle
   se justifie par une demande d'artisan ou une correction.
 - **Budget 0 €** tant que rien ne rapporte ; ne jamais acheter de crédits.
