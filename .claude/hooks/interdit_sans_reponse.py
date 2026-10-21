@@ -38,7 +38,9 @@ def main():
     if entree.get("stop_hook_active"):
         return
     texte = entree.get("last_assistant_message") or dernier_texte(entree.get("transcript_path", ""))
-    if INTERDIT in (texte or "").lower():
+    t = (texte or "").strip().lower()
+    # Bloque la réponse vide elle-même, pas un message qui la cite pour l'expliquer (faux positif du 21/10).
+    if INTERDIT in t and len(t) < 80:
         print(json.dumps({
             "decision": "block",
             "reason": "Réponse interdite (« No response requested ») : reprends la tâche ouverte "
