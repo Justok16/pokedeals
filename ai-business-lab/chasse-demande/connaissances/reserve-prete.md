@@ -137,4 +137,29 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Automatisations payées à l'heure économisée (méthode d'entretien employé) | vidéo XsW4tgsSYaI (21/10) | En réserve : extension DIG16 après preuve de la demande |
 | Montage de dossiers d'aides publiques pour PME (au succès) | vidéo XsW4tgsSYaI (21/10) | En réserve : à vérifier juridiquement avant tout |
 | OpenCode (équipe d'agents avec droits séparés) | vidéo dl78bCncIe0 (21/10) | En réserve : principe appliqué dans 44 avec les sous-agents de Claude |
-| Vidéos 3D (Three.js + shaders) filmées par le navigateur | vidéo CCUSpJkAfgU (21/10) | À essayer pour les conseils 11 à 15 ; essai de 10 s à proposer à l'utilisateur |
+| Vidéos 3D (Three.js + shaders) filmées par le navigateur | vidéo CCUSpJkAfgU (21/10) | **Adopté le 21/10** (« oui, avec l'empreinte ») : conseils 11 à 15 en 3D, `videos/essai-3d/fabriquer.py` |
+
+## Compétences Claude rangées en réserve (21/10/2026, « Oui, range les compétences dans la réserve »)
+
+Bilan `/skill-doctor` du 21/10 : 85 compétences chargées à chaque message. Les 26 ci-dessous ne servent pas à DIG16
+aujourd'hui ; elles sont dans `.claude/skills-reserve/` (pas supprimées, non chargées). **Pour en ressortir une :**
+`git mv .claude/skills-reserve/<nom> .claude/skills/<nom>` (prise en compte à la session suivante).
+
+| Compétence | Sert à | La ressortir quand… |
+|---|---|---|
+| animate, animation-performance, animation-vocabulary, find-animation-opportunities, improve-animations, review-animations | Animations d'interface | Un site client avec animations poussées |
+| motion-foundations, motion-patterns, frontend-a11y | Animations et accessibilité pour React / Next.js | Un projet en React (aucun aujourd'hui) |
+| motion-broll | Habillage animé d'une vidéo face caméra | Une vidéo filmée de l'utilisateur à habiller |
+| apple-design, mobile-native | Interfaces au toucher façon application | Une application web pour un client |
+| state-machine, prototype, variant, break, break-ui, click-path-audit | Tester ou comparer des composants d'application | Un outil interactif complexe (formulaire de devis…) |
+| pick-ui-library, build-design | Choix de bibliothèque, maquette Figma vers code | Un projet avec maquette Figma |
+| design-system, diagram-design | Système de design, schémas | Refonte de la charte, schéma à expliquer |
+| product-lens, production-audit | Diagnostic produit, audit d'application en production | Un logiciel à lancer (pas un site vitrine) |
+| brand-discovery | Entretien d'identité de marque en 8 étapes | Création de marque pour un client (offre Prestige) |
+| directory-submissions | Inscription d'un logiciel dans des annuaires de startups | Un produit logiciel à lancer |
+
+Gardées (servent à DIG16) : rédaction et relecture, Instagram (`ig-*`), référencement (`seo*`, `ai-seo`, `schema`,
+`site-architecture`), design de site (`impeccable`, `taste-*`, `better-*`, `emil-design-eng`, `frontend-design*`,
+`ui-ux-pro-max`…), prospection et offres, sécurité, vérification, `brag-slim`, `typesafe-ai`, `explain-interface`.
+Les 13 compétences synchronisées depuis claude.ai ne se rangent que par l'utilisateur (menu /skills), facultatif.
+
