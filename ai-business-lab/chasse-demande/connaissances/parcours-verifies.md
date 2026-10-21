@@ -79,3 +79,23 @@ Résultat le 19/10 : « 3/3 channels connected » (DIG16 Facebook, dig16fr Insta
 - Cocher les fiches à supprimer → « Actions » → « Supprimer les établissements » → « Supprimer » (aide Google 4669092, lue le 21/10). Ne pas cocher « définitivement fermé ».
 - Résultat vérifié : la liste passe à « Tous (1) » ; la fiche publique garde ses actualités.
 - Variante (fiche ouverte depuis la recherche Google « mon entreprise », 21/10) : ⋮ en haut à droite → « Paramètres de la fiche d'établissement » → « Supprimer la fiche d'établissement » → « Supprimer les administrateurs et le contenu de la fiche » → « Continuer » → « Supprimer » → « OK » (aide 4669092 ; suppression faite par l'utilisateur, écrans non vus sur capture).
+
+## Outils gratuits choisis le 21/10 (annuaire « There's An AI For That »)
+
+**Postnify** (documentation officielle docs.postnify.com, lue le 21/10)
+- Créer le compte sur https://platform.postnify.com/ (offre « Free Forever » : 2 réseaux, 15 publications par mois).
+- Relier les réseaux : Settings → Channels → « Add Channel », puis X, puis Facebook. Chaque réseau demande la connexion de son titulaire.
+- Clé pour Claude : Settings → Developers → Public API. La clé ne se colle **jamais** dans la conversation : elle va dans les réglages de l'environnement cloud (menu de l'environnement dans la barre de titre de la session → Edit → « Network secrets », ou variable d'environnement `POSTNIFY_API_KEY`). Elle sera lue par une nouvelle session.
+- Limite de l'API : 30 appels par heure ; plusieurs publications peuvent partir dans un seul appel.
+
+**WebAnatomy** (écrans vus par Claude le 21/10)
+- https://www.webanatomy.ai/landing-page-analyzer → coller `https://dig16.fr/` → « Analyze for free ».
+- L'écran suivant est « Create an account » : email, mot de passe (12 caractères ou plus, avec majuscule, minuscule, chiffre et symbole), une vérification anti-robot, une case « Receive CRO & growth insights by email » (facultative, à décocher), puis « Sign up ». « Continue with Google » existe aussi.
+- La vérification anti-robot bloque Claude : seul l'utilisateur peut créer ce compte.
+
+**TrustGrowth** (écrans vus par Claude le 21/10)
+- https://trustgrowth.ai/ → champ « Your site URL » : `dig16.fr` → « Get my score → ». Le site annonce : « Read-only Google Search Console · about 60 seconds · no card, ever ».
+- La suite (connexion Google, autorisation de lecture de la Search Console) n'est pas visible sans compte : procéder **un écran à la fois, sur capture**.
+- Search Console de dig16.fr validée depuis le 12/10.
+
+**ProspectFlow** : le lien d'inscription mène à une **liste d'attente** (« ProspectFlow is launching soon. Join the waitlist », lu le 21/10). Il n'y a pas de compte possible pour l'instant, donc l'outil est écarté.

@@ -40,7 +40,6 @@ Les outils écartés comme « doublons » ont été réexaminés. Sont gardés c
 | **ReviewReply** (reviewreply.pages.dev) | Outil à **conseiller aux clients** (formule Visibilité) pour répondre vite et bien à leurs avis Google, même sans nous. Les clients répondent rarement aux avis négatifs : selon une étude citée par le site (UENI, 2026, non vérifiée), seuls 9,8 % des avis à une étoile reçoivent une réponse. | « Free, no signup » | Client. Règle : ne coller que le texte de l'avis, sans le nom de la personne |
 | **WebAnatomy** (webanatomy.ai) | Avis extérieur gratuit sur la page d'accueil de dig16.fr : 3 pistes pour transformer plus de visiteurs en demandes de démo | Page tarifs : « Your first 3 opportunities are free and delivered by email » | Claude lance l'analyse si l'utilisateur accepte de donner contact@dig16.fr ; chaque piste est vérifiée avec `test_pages.py` avant tout changement |
 | **TrustGrowth** (trustgrowth.ai) | Audit automatique et suivi gratuit d'un site (80 contrôles, 27 critères de confiance E-E-A-T, vitesse) : dig16.fr surveillé chaque semaine | Offre gratuite : « 1 site », « Audit on Autopilot — GSC-verified » | **Utilisateur** : créer le compte et relier la Search Console (son compte Google). Claude lit ensuite les rapports. Leurs skills libres « Groundcrew » sont annoncés, mais le dépôt n'a pas été trouvé le 21/10. |
-| **ProspectFlow** (prospectflow.dev) | **Test sur 3 vrais prospects** : comparer son rapport (avis, site, réseaux, concurrents, « points faibles ») avec nos fiches d'appel, et reprendre ce qui est mieux | « The free plan includes 3 lifetime prospect researches » | Utilisateur : créer le compte ; Claude choisit 3 prospects de priorité 1 et compare. Données publiques d'entreprises seulement (B2B). |
 
 ## ⏳ En réserve (gratuits mais limités, ou doublon de ce qu'on a)
 
@@ -64,7 +63,8 @@ Les outils écartés comme « doublons » ont été réexaminés. Sont gardés c
   - SnapSubtitles (téléchargement payant) ;
   - Auto Caption et Free Image Generator (filigrane en gratuit) ;
   - Spokk (essai de 14 jours puis 149 $/mois) ;
-  - Agentkit (50 messages par mois).
+  - Agentkit (50 messages par mois) ;
+  - ProspectFlow : l'inscription mène à une **liste d'attente** (vérifié le 21/10 au soir), donc pas de compte possible pour l'instant.
 - **Déjà couvert, et mieux, gratuitement** :
   - PPT Maker : on fait nos propres présentations ;
   - FreeOCR : Claude lit les images, et FreeOCR envoie les fichiers à des services d'IA ;
@@ -82,3 +82,4 @@ Les outils écartés comme « doublons » ont été réexaminés. Sont gardés c
 - Les trois outils retenus sont ajoutés à `connaissances/boite-a-outils.md`.
 - À chaque nouveau besoin, chercher d'abord dans nos outils, puis dans cet annuaire (lu par Tavily). La gratuité se vérifie
   toujours sur le site de l'outil.
+- **21/10 au soir** : l'utilisateur a répondu « oui comptes ». Les parcours vérifiés de Postnify, WebAnatomy et TrustGrowth sont dans `connaissances/parcours-verifies.md`.
