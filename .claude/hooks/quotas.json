@@ -21,5 +21,12 @@
     "limite_file_par_reseau": 10,
     "source": "buffer.com/pricing FAQ, lue le 19/10/2026 : 3 réseaux, 10 publications programmées par réseau, la place se libère après publication",
     "note": "avant chaque ajout : lire la file (action queue) du réseau"
+  },
+  "tavily": {
+    "limite": 1000,
+    "source": "tavily.com/pricing, lu le 29/09/2026 : 1 000 crédits par mois, sans carte ; coût exact par appel (search, extract basic/advanced, map) à relire sur docs.tavily.com avant une série",
+    "mois": {
+      "2026-10": "environ 20 appels le 21/10 (annuaire There's An AI For That, docs Postnify) ; compte exact à relire sur app.tavily.com"
+    }
   }
 }
