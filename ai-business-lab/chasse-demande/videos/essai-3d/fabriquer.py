@@ -101,13 +101,13 @@ function texture(texte){{
   const W=2048,H=1600,cv=document.createElement('canvas');cv.width=W;cv.height=H;
   const g=cv.getContext('2d');
   const morceaux=[];texte.split(/(\\*[^*]+\\*)/).forEach(p=>{{if(!p)return;const d=p.startsWith('*');
-    (d?p.slice(1,-1):p).split(/(\\s+)/).forEach(m=>{{if(m)morceaux.push({{t:m,d}})}})}});
+    (d?p.slice(1,-1):p).split(/( +)/)  /* espaces ordinaires seulement : l'insécable garde « ? » collé au mot */.forEach(m=>{{if(m)morceaux.push({{t:m,d}})}})}});
   const taille=232, inter=taille*1.0, marge=150, larg=W-2*marge;
   const fonte=d=>`${{d?'italic ':''}}400 ${{taille}}px 'Instrument Serif'`;
   const lignes=[[]];let x=0;
   for(const m of morceaux){{g.font=fonte(m.d);const w=g.measureText(m.t).width;
-    if(/^\\s+$/.test(m.t)){{if(x>0){{lignes.at(-1).push({{...m,w}});x+=w}};continue}}
-    if(x+w>larg&&x>0){{while(lignes.at(-1).length&&/^\\s+$/.test(lignes.at(-1).at(-1).t))lignes.at(-1).pop();lignes.push([]);x=0}}
+    if(/^ +$/.test(m.t)){{if(x>0){{lignes.at(-1).push({{...m,w}});x+=w}};continue}}
+    if(x+w>larg&&x>0){{while(lignes.at(-1).length&&/^ +$/.test(lignes.at(-1).at(-1).t))lignes.at(-1).pop();lignes.push([]);x=0}}
     lignes.at(-1).push({{...m,w}});x+=w}}
   const h0=(H-lignes.length*inter)/2+taille*.78;
   lignes.forEach((l,i)=>{{let x=marge;for(const m of l){{g.font=fonte(m.d);g.fillStyle=m.d?'#d9bb8a':'#efe9df';
