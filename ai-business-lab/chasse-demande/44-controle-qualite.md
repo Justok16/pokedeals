@@ -220,3 +220,7 @@ Même contrôle sur dig16.fr après chaque modification du site (12/10 : 0 ALERT
 ## Relecture « red team » (ajout du 20/10/2026, vidéo NarezKh3w4o)
 
 Pour chaque document important (offre, contrat, CGV, page du site, texte d'appel) : après le contrôle ci-dessus, relire une fois **à la place d'un artisan méfiant** et noter ce qu'il reprocherait (prix flou, promesse invérifiable, jargon, engagement caché). Ne pas se juger soi-même : utiliser aussi un juge externe (tests automatiques, second avis Gemini `/api/avis`).
+
+## Relecteur sans droit de modifier (21/10/2026, vidéo dl78bCncIe0)
+
+Avant d'envoyer un document, une démo ou un texte important : le faire relire par un agent **en lecture seule** (agent « Explore », qui ne peut rien modifier). Il rend un verdict « validé » ou « à refaire » avec, pour chaque défaut, le fichier, le problème et le résultat attendu ; c'est Claude qui corrige. Trois allers-retours au plus ; ensuite, présenter à l'utilisateur ce qui reste douteux plutôt que de boucler.

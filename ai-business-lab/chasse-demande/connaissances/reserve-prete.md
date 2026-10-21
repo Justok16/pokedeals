@@ -134,3 +134,6 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Skills Matt Pocock (grill-me, handoff) | vidéo nkg3cquwKiw (21/10) | En réserve : à lire avant usage |
 | Classement de textes local (« layer ») | vidéo nkg3cquwKiw (21/10) | En réserve : Jev suffit aujourd'hui |
 | Fonds animés (shaders) | vidéo nkg3cquwKiw (21/10) | En réserve : démo Prestige seulement, après test de performance |
+| Automatisations payées à l'heure économisée (méthode d'entretien employé) | vidéo XsW4tgsSYaI (21/10) | En réserve : extension DIG16 après preuve de la demande |
+| Montage de dossiers d'aides publiques pour PME (au succès) | vidéo XsW4tgsSYaI (21/10) | En réserve : à vérifier juridiquement avant tout |
+| OpenCode (équipe d'agents avec droits séparés) | vidéo dl78bCncIe0 (21/10) | En réserve : principe appliqué dans 44 avec les sous-agents de Claude |
