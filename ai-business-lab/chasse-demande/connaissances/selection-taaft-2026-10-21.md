@@ -29,14 +29,23 @@ téléchargement payant). Beaucoup font aussi ce que Claude fait déjà.
 | **colorfor.ai** | Tirer une palette de la couleur du logo d'un client et **vérifier les contrastes** (lisibilité, accessibilité WCAG) avant mise en ligne | « free, no sign-up, no tracking », « No paywall. No tier called Pro », tout se passe dans le navigateur |
 | **Text Behind Image** (makeitaquote.ai/text-behind-image) | Visuels de réseaux sociaux : texte placé derrière le sujet d'une vraie photo (réalisation, portrait de l'utilisateur) | « free, in your browser », « Your photo never leaves your device », export PNG en taille d'origine |
 
+## ✅ Ajoutés le 21/10 au soir (consigne de l'utilisateur : « même s'il y a des outils similaires […], prends-les quand même s'ils permettent d'améliorer l'entreprise »)
+
+Les outils écartés comme « doublons » ont été réexaminés. Sont gardés ceux qui apportent un vrai plus, vérifiés à la source le 21/10.
+
+| Outil | Le plus pour DIG16 | Gratuité vérifiée | Qui fait quoi |
+|---|---|---|---|
+| **Postnify** (postnify.com) | **Publie aussi sur X automatiquement** (X se fait aujourd'hui à la main) et ajoute 15 publications par mois, hors quota Metricool (20 par mois, déjà dépassé en novembre). API incluse en gratuit : Claude pourra programmer lui-même. | Page tarifs : « Free Forever $0/mo », 2 réseaux, 15 publications par mois, API ✓ | **Utilisateur** : créer le compte avec contact@dig16.fr et relier X et un 2e réseau (règle `63` : chaque réseau exige le titulaire). **Claude** : clé API en variable d'environnement, puis programmation. Parcours à vérifier sur l'aide officielle avant de le lui donner. |
+| **Purgebg** (purgebg.com) | Détourage **depuis le téléphone de l'utilisateur**, sans rien envoyer sur un serveur (notre `backgroundremover` ne tourne que dans la session de Claude) | « Try your first image free — no sign-up » ; ensuite compte : 5 crédits + 1 détourage rapide gratuit par jour ; « Your images stay on your device » | Utilisateur, au besoin |
+| **ReviewReply** (reviewreply.pages.dev) | Outil à **conseiller aux clients** (formule Visibilité) pour répondre vite et bien à leurs avis Google, même sans nous. Les clients répondent rarement aux avis négatifs : selon une étude citée par le site (UENI, 2026, non vérifiée), seuls 9,8 % des avis à une étoile reçoivent une réponse. | « Free, no signup » | Client. Règle : ne coller que le texte de l'avis, sans le nom de la personne |
+| **WebAnatomy** (webanatomy.ai) | Avis extérieur gratuit sur la page d'accueil de dig16.fr : 3 pistes pour transformer plus de visiteurs en demandes de démo | Page tarifs : « Your first 3 opportunities are free and delivered by email » | Claude lance l'analyse si l'utilisateur accepte de donner contact@dig16.fr ; chaque piste est vérifiée avec `test_pages.py` avant tout changement |
+| **TrustGrowth** (trustgrowth.ai) | Audit automatique et suivi gratuit d'un site (80 contrôles, 27 critères de confiance E-E-A-T, vitesse) : dig16.fr surveillé chaque semaine | Offre gratuite : « 1 site », « Audit on Autopilot — GSC-verified » | **Utilisateur** : créer le compte et relier la Search Console (son compte Google). Claude lit ensuite les rapports. Leurs skills libres « Groundcrew » sont annoncés, mais le dépôt n'a pas été trouvé le 21/10. |
+| **ProspectFlow** (prospectflow.dev) | **Test sur 3 vrais prospects** : comparer son rapport (avis, site, réseaux, concurrents, « points faibles ») avec nos fiches d'appel, et reprendre ce qui est mieux | « The free plan includes 3 lifetime prospect researches » | Utilisateur : créer le compte ; Claude choisit 3 prospects de priorité 1 et compare. Données publiques d'entreprises seulement (B2B). |
+
 ## ⏳ En réserve (gratuits mais limités, ou doublon de ce qu'on a)
 
 | Outil | Pourquoi en réserve |
 |---|---|
-| **Purgebg** (détourage) | 1re image gratuite sans compte, puis compte obligatoire (5 crédits + 1 par jour), traitement local. On a déjà `backgroundremover` (MIT) en local ; utile seulement si l'utilisateur doit détourer depuis son téléphone. |
-| **ReviewReply** (reviewreply.pages.dev) | Réponses aux avis Google, « Free, no signup ». Claude rédige déjà ces réponses. Un avis contient le nom d'un particulier : ne pas le coller dans un service tiers sans nécessité. |
-| **TrustGrowth** (audit de site) | Offre gratuite pour 1 site, mais il faut brancher la Search Console (compte de l'utilisateur, accord nécessaire). Leurs skills libres « Groundcrew » sont annoncés, mais le dépôt n'a pas été trouvé le 21/10. |
-| **WebAnatomy** (analyse de page d'atterrissage) | 3 pistes gratuites, puis crédits payants ; pensé pour les logiciels en ligne, pas pour les artisans. |
 | **Simple Analytics** | Gratuit pour 5 sites, sans cookie, hébergé en Europe, mais **badge obligatoire** et 30 jours d'historique : pas adapté aux sites clients (on a déjà notre mesure maison). |
 | **AltTextLab** | 25 images par mois gratuites ; Claude écrit déjà les textes alternatifs. |
 
@@ -55,10 +64,8 @@ téléchargement payant). Beaucoup font aussi ce que Claude fait déjà.
   - SnapSubtitles (téléchargement payant) ;
   - Auto Caption et Free Image Generator (filigrane en gratuit) ;
   - Spokk (essai de 14 jours puis 149 $/mois) ;
-  - ProspectFlow (3 recherches à vie) ;
   - Agentkit (50 messages par mois).
 - **Déjà couvert, et mieux, gratuitement** :
-  - Postnify : on a Metricool ;
   - PPT Maker : on fait nos propres présentations ;
   - FreeOCR : Claude lit les images, et FreeOCR envoie les fichiers à des services d'IA ;
   - outils de traduction, d'emails et de rédaction : Claude ;
