@@ -43,6 +43,12 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
       pas de numéros de section décoratifs, d'étapes « Étape 1 », d'invitation à défiler, de verbes
       creux, de noms bidon, d'images de remplissage ; « attention » à examiner (3 colonnes égales,
       chiffres trop ronds, noir pur).
+- [ ] Présentations et diapositives (Reel Dew_fYLN3re du 21/10) : pas de puces « **Mot-clé** : explication »
+      (écrire des phrases), pas de « ce n'est pas X, c'est Y » ni de « pas ceci, pas cela », pas de titres
+      creux ni de titres avec deux-points ou Majuscules À Chaque Mot, pas de calques de l'anglais
+      (« Pourquoi c'est important », « Points clés à retenir »), pas d'émojis ni d'images générées à
+      lumière dorée, pas le même gabarit ni le même nombre de puces sur chaque écran, chiffres et mise en
+      page cohérents d'un écran à l'autre.
 
 ## Outils
 - Accessibilité et ergonomie (depuis le 28/09) : `outils/audit_acces.py page.html …` doit afficher « problèmes : 0 » (boutons et liens d'au moins 44 px sur téléphone, champs de formulaire avec étiquette, titres dans l'ordre, variante « réduire les animations », attribut lang, images avec alt).
