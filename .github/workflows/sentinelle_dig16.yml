@@ -32,7 +32,7 @@ jobs:
         run: python ai-business-lab/chasse-demande/outils/sentinelle_dig16.py
       - name: Ouvrir ou compléter l'issue d'alerte
         if: steps.controle.outcome == 'failure'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
