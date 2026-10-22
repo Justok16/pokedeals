@@ -112,6 +112,20 @@ def test_recuperer_urls_naffecte_pas_un_resultat_vide_apres_filtre_segments():
         assert c.recuperer_toutes_les_urls_produits() == []
 
 
+
+def test_recuperer_urls_echec_indique_la_derniere_reponse_http():
+    # 22/10/2026 : 7 boutiques echouaient en continu depuis les runners
+    # GitHub sans que le log dise pourquoi -- le code HTTP doit y figurer.
+    class Rep:
+        status_code = 403
+        url = "https://bloquee.fr/robots.txt"
+        text = ""
+        content = b""
+    c = ConnecteurWooCommerce("bloquee.fr")
+    with patch.object(c.session, "get", return_value=Rep()):
+        with pytest.raises(RuntimeError, match="HTTP 403"):
+            c.recuperer_toutes_les_urls_produits()
+
 # ------------------- _est_racine_boutique (audit du 18/08/2026) -------------------
 # L'exclusion vivait auparavant dans SEGMENTS_URL_EXCLUS sous la forme du
 # segment "/boutique/</loc>" -- cense filtrer la racine boutique dans le
