@@ -48,6 +48,36 @@ def test_faux_positifs_rejetes(nom, titre):
     assert evaluer_correspondance(titre, "30 ans chinois", P[nom])[0] is None
 
 
+@pytest.mark.parametrize("titre", [
+    # Demande de Justok (22/10/2026), titres donnes tels quels.
+    "Pokémon [CN] - 30th Anniversary Celebration Gift Box : Day & Night",
+    "Coffret Pokémon 30 ans Célébration Mentali & Noctali – Chinois simplifié",
+    # Titres reels releves le meme jour (pokipair, totalcards, tcghobby).
+    "Day & Night Gift Box 30th Anniversary Celebration – Simplified Chinese Pokemon",
+    "Pokemon - 30th Celebration - Espeon ex & Umbreon ex - Collector Display Box (Simplified Chinese)",
+    "[Simplified Chinese] Pokemon 30th Celebration Espeon & Umbreon EX Collector Display Box",
+])
+def test_coffret_day_and_night_cn_reconnu(titre):
+    assert evaluer_correspondance(titre, "", P[EXPO_CN])[0] is not None
+
+
+@pytest.mark.parametrize("titre", [
+    "Pokémon 30th Celebration Coffret Mentali & Noctali - Chinois Traditionnel",
+    "Day & Night Gift Box 30th Anniversary Celebration - Traditional Chinese",
+    "Coffret Premium Deck Set Mentali & Noctali 30 ans - Chinois",
+    "Coffret Pokémon 30 ans Mentali - Chinois simplifié",  # sans Noctali
+])
+def test_coffret_day_and_night_cn_faux_positifs(titre):
+    assert evaluer_correspondance(titre, "", P[EXPO_CN])[0] is None
+
+
+def test_day_and_night_ne_matche_aucun_autre_produit():
+    titre = "Pokémon [CN] - 30th Anniversary Celebration Gift Box : Day & Night"
+    autres = [p.nom for p in PRODUITS_SURVEILLES
+              if p.nom != EXPO_CN and evaluer_correspondance(titre, "", p)[0] is not None]
+    assert autres == []
+
+
 def test_coffret_exposition_cn_maniatcg():
     """Fiche reelle maniatcg.com (16/10/2026) : le titre ne dit pas
     "aimant/exposition", seule la page le dit (slug "coffret-collection-aimants")."""
