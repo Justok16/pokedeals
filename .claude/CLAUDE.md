@@ -25,7 +25,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   « est-ce vraiment le mieux que je puisse faire, et est-ce fini ? » Sinon, continuer. Un rappel programmé ou un « Continue » = exécuter la tâche ouverte.
   Consigne redite le 21/10 : « travailler au maximum de tes capacités pour que tout soit parfait et irréprochable,
   pour tout et partout » (chaque tâche, même petite : vérification à la source, relecteur en lecture seule, contrôles).
-- **Autonomie maximale** : faire soi-même tout ce que les outils permettent ; à l'utilisateur, au plus une
+- **Autonomie maximale** (redit fermement le 22/10 : « tout ce que tu peux faire seul, fais-le sans que j'aie à te le dire ; je ne veux pas me répéter ») : avant tout « À TOI », essayer tous les outils ; faire soi-même tout ce que les outils permettent ; à l'utilisateur, au plus une
   **validation** (« oui », « envoie »), jamais une tâche. Ne lui soumettre que ce qui l'engage : dépense, identité,
   prix ou pourcentage accepté avec un tiers. Anticiper permissions et quotas avant d'agir en série.
 - **Creuser avant de conclure** : jamais « impossible » avant d'avoir essayé connecteurs, petit programme, services
