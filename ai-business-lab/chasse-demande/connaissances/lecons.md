@@ -122,3 +122,5 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 
 
 - **22/10 (TikTok, capture mal lue + fonction supposée)** : l'utilisateur envoyait une capture pour dire « je ne trouve pas Épingler » ; j'ai lu une autre question et j'ai conseillé d'épingler sans avoir vérifié que la fonction existe encore (elle n'existe plus sur les vidéos). Règle : avant de répondre à une capture, relire mon dernier message et chercher ce que la capture montre par rapport à ma consigne ; toute fonction d'appli proposée est d'abord vérifiée dans l'aide officielle (parcours-verifies.md), sinon ne pas la proposer.
+
+- **22/10 (file finance arrêtée après redémarrage)** : le crochet de relance était seulement dans settings.local.json, perdu avec le conteneur ; la file est restée arrêtée. Règle : tout crochet utile va dans .claude/settings.json (sans chemin privé : le script trouve seul ses fichiers) ; contrôle : relance vérifiée à chaque message (UserPromptSubmit).
