@@ -1,6 +1,6 @@
-# Benjamin Cowen — index des fiches (synthèse du lundi 19/10/2026)
+# Benjamin Cowen — index des fiches (synthèse du jeudi 22/10/2026)
 
-401 vidéos résumées sur 3173. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+404 vidéos résumées sur 3173. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[08/10/2026 11:23:42](se6UlLbDTEo.md)** — Sujet : Analyse technique et macroéconomique du cours du Bitcoin pour le quatrième trimestre (Q4) de 2026, en le comparant aux cycles historiques précédents (notamment 2018, 2019 et 2022).
@@ -27,6 +27,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin : Bougies Heikin-Ashi](hMStACy4ou4.md)** — Sujet : L'analyse de la tendance du cours du Bitcoin (BTC) à moyen terme à l'aide des bougies graphiques mensuelles Heikin Ashi.
 - **[Bitcoin : Capitulation basée sur le temps](psz9FwqWGns.md)** — Sujet : L'analyse des cycles de marché de Bitcoin, en comparant la « capitulation basée sur le temps » (time-based capitulation) et la « capitulation basée sur le prix » (price-based capitulation).
 - **[Bitcoin : Entre le marteau et l'enclume](JY_wY8XXjYU.md)** — Sujet : Analyse technique et comportement historique du cours du Bitcoin (BTC) en fonction de sa saisonnalité et des cycles de marché.
+- **[Bitcoin : Incertitude extrême](H_JhpNaRPl8.md)** — Sujet : Analyse technique et macroéconomique du marché du Bitcoin et de son orientation future.
 - **[Bitcoin : La bande de résistance du marché baissier](d71wYhwKpFY.md)** — L'analyse de la position du Bitcoin face à la "Bear Market Resistance Band" (BMRB) et à la moyenne mobile sur 200 semaines. La thèse principale est que le Bitcoin est actuellement comprimé entre ces deux indicateurs majeurs, et que l'analyse historique des marchés baissiers…
 - **[Bitcoin : La beauté des mathématiques (Partie 64)](vWLAcGD3AJc.md)** — Sujet : Analyse du cours du Bitcoin et de la capitalisation globale du marché des cryptomonnaies à l'aide d'une ligne de régression logarithmique de « juste valeur » (fair value).
 - **[Bitcoin : La beauté des mathématiques (Partie 65)](JAkNLbhTjFg.md)** — Le sujet est l'analyse des cycles du marché du Bitcoin et de l'ensemble des crypto-monnaies en utilisant la courbe de régression logarithmique de juste valeur. La thèse principale est que le marché global se trouve actuellement dans une phase de marché baissier (bear market),…
@@ -58,6 +59,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin : Les 60 prochains jours](6V6rlIV2Zek.md)** — Sujet : Analyse de l'évolution du prix du Bitcoin et perspectives à moyen terme, en se concentrant sur les 60 prochains jours (août et septembre).
 - **[Bitcoin : Les dangers de la complaisance](fR4y2sCGg1A.md)** — Sujet : L’analyse du cours du Bitcoin et les dangers de la « complaisance » des investisseurs face aux signaux macroéconomiques.
 - **[Bitcoin : les indicateurs de creux de marché à surveiller](g4FiHz14W14.md)** — Sujet : L'analyse des indicateurs techniques et « on-chain » pour identifier le point bas (le « bottom ») du cycle baissier du Bitcoin.
+- **[Bitcoin : Les vents de l'hiver](OXUeLGbMKyU.md)** — Sujet : L'analyse du marché du Bitcoin en 2026, comparé aux cycles précédents (notamment 2018 et 2022).
 - **[Bitcoin : Nous vivons dans une simulation](mUEsVBXxmUc.md)** — Sujet : Analyse technique et comportement cyclique du prix du Bitcoin (BTC), comparaison des corrections actuelles avec les cycles historiques (2014, 2018, 2022), et analyse de l'indice de peur et d'avidité (Fear and Greed Index).
 - **[Bitcoin : Nous vivons vraiment dans une simulation](i3WIoS9Echo.md)** — Sujet : L'analyse des cycles de prix du Bitcoin (BTC), en particulier les comportements répétitifs de hausse au début du mois de mars (« Early March Rally ») suivis de corrections lors des années dites de milieu de cycle (comme les projections pour 2026 ou les exemples…
 - **[Bitcoin : Où en sommes-nous dans le cycle ?](CmGkfyot8qY.md)** — Sujet : L'analyse de la position actuelle du Bitcoin (BTC) dans son cycle de marché pluriannuel.
@@ -172,6 +174,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Croix dorée du Bitcoin](YHsAbpRoB-A.md)** — Analyse de l'impact de la "croix dorée" (Golden Cross) sur Bitcoin en comparant la situation actuelle avec les cycles de 2014, 2015, 2019 et 2023, pour déterminer si un retournement baissier ou une correction est inévitable.
 - **[Crypto Ghost Town](YA-7M-01d84.md)** — Sujet : Le désintérêt des investisseurs particuliers (retail) pour le marché des crypto-monnaies dans le cycle actuel, qualifié de « ville fantôme » (ghost town).
 - **[Créations d'emplois en baisse, léger hausse du chômage](kDJcse482Eo.md)** — Sujet : Analyse du dernier rapport sur le marché du travail américain et son impact potentiel sur les marchés financiers (obligations, actions).
+- **[Cycles de l'immobilier américain : Spéculation douteuse avec Jason Pizzino](b9eeSm_z4fw.md)** — Sujet : L'analyse des cycles économiques (immobilier, actions, devises, matières premières) et leur corrélation, avec un focus sur les stratégies d'investissement à long terme.
 - **[Cycles du marché du Bitcoin](16xiD2oEU_Y.md)** — Sujet : L'analyse du retour sur investissement (ROI) du Bitcoin mesuré depuis le point bas du cycle (bottom), depuis le point haut (peak) ou après le halving.
 - **[Cycles du marché du Bitcoin](NA2_o6QIuUg.md)** — L'analyse du retour sur investissement (ROI) de Bitcoin à travers ses cycles de marché, mesuré depuis différents points de repère (le point le plus bas du cycle, le halving et le pic du cycle précédent). La thèse principale est que Bitcoin suit une tendance globale de…
 - **[Cycles du marché du Bitcoin](s_SJS5EdwP8.md)** — Sujet : L'analyse du cycle de marché du Bitcoin (BTC) et la recherche du moment où se situera le sommet du cycle actuel (fin 2025).

@@ -1,6 +1,6 @@
-# Aswath Damodaran — index des fiches (synthèse du lundi 19/10/2026)
+# Aswath Damodaran — index des fiches (synthèse du jeudi 22/10/2026)
 
-374 vidéos résumées sur 1415. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+375 vidéos résumées sur 1415. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[A "Fairly Highly Valued" (Stock) Market: The Fed Chair Opines but should anyone listen?](0faNl-maR5o.md)** — Le sujet est l'analyse de la cherté des marchés d'actions américains en 2025, suite aux déclarations du président de la Fed, Jérôme Powell, qualifiant le marché de « passablement hautement évalué ». La thèse principale est que, bien que les actions américaines soient…
@@ -311,6 +311,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Séance 21 : Évaluation des entreprises privées (non cotées en bourse)](T0DcUKaNgzY.md)** — Sujet : L’évaluation des entreprises privées par rapport aux entreprises publiques, l’ajustement du coût du capital et de la structure financière (coût de la dette, bêta, décote d’illiquidité) lors d’une transition (vente à un tiers, introduction en bourse - IPO,…
 - **[Séance 22 (Évaluation de premier cycle) : Évaluation basée sur les actifs et des sociétés privées](EgjCrQHqzzk.md)** — Sujet : L'évaluation d'entreprise, en se concentrant sur l'évaluation par sommation des parties (sum-of-the-parts), l'évaluation basée sur les actifs, et l'évaluation des entreprises non cotées (privées).
 - **[Séance 22 : Dividendes, impôts et compromis](dWi4KtdD624.md)** — Sujet : L'impact de la fiscalité et de la structure du marché sur la politique de dividendes des entreprises et le choix entre dividendes et rachats d'actions (buybacks).
+- **[Séance 22 : Évaluation par la somme des parties et premières étapes de l'évaluation d'entreprises...](Hq_KRiYfYXk.md)** — Le cours porte sur les différentes méthodes de valorisation des entreprises, en distinguant la valorisation globale de la valorisation par morceaux (Sum of the Parts - SOTP) ou par actifs (Asset-Based Valuation). La thèse principale est que la valeur d'une entreprise dépend…
 - **[Séance 23 : Dividendes et dividendes potentiels](hle5BGSrG-c.md)** — Sujet : La politique de dividendes des entreprises et son impact sur la valeur, la fiscalité et les actionnaires.
 - **[Séance 24 : Clôture sur les dividendes et premiers pas en évaluation](n7Rf5PPeXvA.md)** — Sujet : L'analyse des politiques de dividendes et de rachat d'actions à l'échelle mondiale et l'application d'un cadre décisionnel basé sur la confiance envers le management, la rentabilité des projets (ROC vs WACC) et les flux de trésorerie disponibles pour les actionnaires…
 - **[Séance 24 : Clôture sur les dividendes et premières étapes de l’évaluation](bm1zE4wCQvI.md)** — - Sujet : La gestion des changements de politique de dividende, l'approche par les pairs, et l'introduction à la valorisation d'entreprise (valeur vs prix, DCF, flux de trésorerie, croissance).
