@@ -366,3 +366,4 @@ _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technology
 | ✅ | Reels DexHK7_jEvj, DezQWUxR1eV, Dd6nK53jUeh, DeyPRc6lzvw + dépôt achillebrl/skills-ia (22/10) | Appliqué : skill visiteurs installé et testé sur dig16.fr (logo corrigé) ; OpenMontage, Open Design, /watch en réserve ; reel « 10 000 € » sans nouveauté |
 | ✅ | Reels Devqb2KFTct, DePOoFtCy8S + yanny.space (22/10) | LinkedIn abandonné (non installé) ; ui-ux-pro-max et impeccable déjà en place ; Framer Motion / 21st.dev sans objet (sites statiques) ; yanny.space = liste d attente, rien envoyé |
 | ✅ | Fiche Core Labs Roast Room (22/10) | Non installé (trop gourmand) ; méthode ajoutée au « conseil » déjà prêt (reserve-prete) ; aucun email donné |
+| ✅ | Reel DeUQ6OHMi_z (22/10) | Doublon : OpenMontage déjà en réserve |
