@@ -77,3 +77,4 @@ Les premières publications dans les groupes n'étaient toujours pas approuvées
 3. Sans réponse après une semaine : laisser ce groupe et en essayer un autre (priorité aux groupes de pros, qui acceptent souvent les présentations).
 4. En attendant : répondre utilement aux demandes existantes (« site internet », « qui connaît ») dans les groupes, sans lien commercial si les règles l'interdisent.
 
+- 22/10/2026 (soir) : les administrateurs des groupes où une publication attend n'ont toujours pas répondu (constat de l'utilisateur). Règle appliquée : aucun partage dans ces groupes ce soir ; à la place, partage du reel depuis la page DIG16 sur le **profil personnel** de l'utilisateur (aucune modération). Recherche web du 22/10 : aucun groupe Facebook public de pros de Ruffec ou de Charente trouvé hors de l'appli → la recherche de nouveaux groupes se fait dans l'appli (§ 1), au rappel du 28/10.
