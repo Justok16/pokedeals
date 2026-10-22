@@ -189,6 +189,8 @@ EDITION_30E_IMPORT = frozenset({
 })
 LANGUE_CHINOIS_SIMPLIFIE = frozenset({"chinois", "chinoise", "chinese", "simplifie", "simplified"})
 FIGURINE = frozenset({"figurine", "figure"})
+# "&" devient un espace a la normalisation : "Day & Night" -> "day night".
+DAY_AND_NIGHT = frozenset({"day night", "day and night", "jour et nuit", "jour nuit"})
 FIN_SUIVI_30E_SUPPLEMENTS = date(2027, 3, 31)
 
 
@@ -502,14 +504,21 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         alerte_disponibilite=True,
         **EXCLUSIONS_LOTS,
     ),
+    # Nom commercial « Day & Night » / « 30th Anniversary Celebration Gift
+    # Box » (demande de Justok, 22/10/2026) : meme coffret (15 boosters, 2
+    # promos, aimants Jour/Nuit, cadre double), exclusif a la Chine
+    # continentale. Titre reel : "Pokémon [CN] - 30th Anniversary Celebration
+    # Gift Box : Day & Night" -- ni Mentali, ni "chinois", ni "aimant" : le
+    # nom « Day & Night » suffit a identifier le produit dans chaque groupe.
     ProduitSurveille(
         nom="Coffret collection & exposition Mentali-ex & Noctali-ex (chinois simplifié)",
         mots_cles_edition=EDITION_30E_IMPORT,
-        mots_cles_type=frozenset({"mentali", "espeon"}),
+        mots_cles_type=frozenset({"mentali", "espeon"}) | DAY_AND_NIGHT,
         mots_cles_supplementaires=(
-            frozenset({"noctali", "umbreon"}),
-            LANGUE_CHINOIS_SIMPLIFIE,
-            frozenset({"cadre", "frame", "exposition", "magnet", "aimant"}),
+            frozenset({"noctali", "umbreon"}) | DAY_AND_NIGHT,
+            LANGUE_CHINOIS_SIMPLIFIE | DAY_AND_NIGHT,
+            frozenset({"cadre", "frame", "exposition", "magnet", "aimant",
+                       "coffret", "gift box", "display box", "collector"}) | DAY_AND_NIGHT,
         ),
         date_sortie=None,
         surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
@@ -520,7 +529,8 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         # "exposition" figuraient ailleurs dans la page (autres produits) --
         # elle etait rangee sous ce coffret d'exposition chinois simplifie.
         **{**EXCLUSIONS_LOTS,
-           "mots_exclus_titre": EXCLUSIONS_LOTS["mots_exclus_titre"] | {"deck set"}},
+           "mots_exclus_titre": EXCLUSIONS_LOTS["mots_exclus_titre"]
+           | {"deck set", "traditionnel", "traditional"}},
     ),
     # Demande de Justok (21/10/2026) : alerte des que le display est en
     # precommande ou en stock. Serie exclusive a la Chine (code CBB = chinois
