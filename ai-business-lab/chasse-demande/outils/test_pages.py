@@ -70,6 +70,18 @@ def plan_du_site():
     print(('OK    ' if ok else 'ALERTE'), 'plan du site', '' if ok else f'imbriquées={imbriquees} absentes={absentes}')
     return not ok
 
+def accessibilite():
+    """Audit d'accessibilité (outils/audit_acces.py) sur les pages publiques : cibles tactiles de 44 px,
+    étiquettes, titres, contrastes. Intégré le 22/10 après la correction des liens du pied de page."""
+    site = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site-dig')
+    pages = [os.path.join(site, p) for p in ('index.html', 'prestige.html', 'le-projet/index.html',
+                                             'site-internet-artisan/index.html', 'mentions-legales.html')]
+    r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audit_acces.py'), *pages],
+                       capture_output=True, text=True, timeout=600)
+    ok = 'problèmes : 0' in r.stdout
+    print(('OK    ' if ok else 'ALERTE'), 'accessibilité', '' if ok else [l for l in r.stdout.splitlines() if 'px' in l or 'sans' in l][:4])
+    return 0 if ok else 1
+
 def main():
     base = sys.argv[1].rstrip('/') if len(sys.argv) > 1 else None
     serveur = None
@@ -78,7 +90,7 @@ def main():
         serveur = subprocess.Popen([sys.executable, '-m', 'http.server', '4699'], cwd=site,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(1.5); base = 'http://localhost:4699'
-    souci = son_videos() + regles_interface() + plan_du_site()
+    souci = son_videos() + regles_interface() + plan_du_site() + accessibilite()
     try:
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()

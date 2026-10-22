@@ -33,7 +33,7 @@ JS = """() => {
   });
   document.querySelectorAll('img').forEach(i => { if (!i.hasAttribute('alt')) pb.push('image sans alt : ' + (i.src || '').slice(-40)); });
   document.querySelectorAll('input,textarea,select').forEach(c => {
-    if (c.type === 'hidden') return;
+    if (c.type === 'hidden' || c.getAttribute('aria-hidden') === 'true' || getComputedStyle(c).display === 'none') return;
     const lab = (c.id && document.querySelector(`label[for="${c.id}"]`)) || c.closest('label') || c.getAttribute('aria-label') || c.getAttribute('aria-labelledby');
     if (!lab) pb.push(`champ sans étiquette (${c.getAttribute('placeholder') || c.name || c.tagName})`);
   });

@@ -40,7 +40,7 @@ b{color:#fff}
 .avis{background:rgba(200,164,110,.1);border:1px solid rgba(200,164,110,.35);border-radius:14px;padding:.9rem 1.1rem;margin:1.2rem 0 0;font-size:.92rem}
 a{color:#fff}
 .retour{display:inline-block;margin-top:2.5rem;padding:.9rem 1.3rem;border-radius:14px;text-decoration:none;font-weight:700;background:linear-gradient(135deg,var(--orange),var(--rose))}
-footer{border-top:1px solid var(--ligne);padding:24px 0;color:var(--doux);font-size:.85rem}
+footer{border-top:1px solid var(--ligne);padding:24px 0;color:var(--doux);font-size:.85rem}footer a{display:inline-flex;align-items:center;min-height:44px;padding:0 .3rem}
 .logo{min-height:44px}
 /* ===== charte premium DIG16 (08/10), commune à toutes les pages ===== */
 body{font-family:Geist,'Geist Fallback',system-ui,sans-serif;font-weight:400;letter-spacing:-.003em}
@@ -65,8 +65,8 @@ nav.plein{background:rgba(15,14,12,.86)!important}
 @media (max-width:420px){.logo .logo-embleme{width:36px;height:36px}.logo-mot>span{font-size:1.5rem}.logo-mot small{font-size:.5rem;letter-spacing:.18em}}
 
 /* Règles d'interface Vercel (10/10) : lien d'accès direct au contenu, toucher sans délai, couleur de surbrillance assumée */
-.saut{position:absolute;left:-9999px;top:0}
-.saut:focus{left:12px;top:12px;z-index:200;background:#fff;color:#111;padding:.6rem 1rem;border-radius:8px;font-weight:600}
+.saut{position:absolute;left:-9999px;top:0;min-height:44px;display:inline-flex;align-items:center}
+.saut:focus{left:12px;top:12px;z-index:200;background:#fff;color:#111;padding:.6rem 1rem;border-radius:8px;font-weight:600;min-height:44px;display:inline-flex;align-items:center}
 a,button,input,select,textarea,label,summary{touch-action:manipulation}
 html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
 :focus-visible{outline:2px solid #c8a46e;outline-offset:3px}
