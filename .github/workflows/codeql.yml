@@ -11,10 +11,13 @@ on:
 # Ajouté le 02/09/2026 : analyse de sécurité automatique du code (recherche
 # de failles connues -- injection, désérialisation dangereuse, etc.), en
 # complément de Dependabot (qui ne couvre que les dépendances tierces, pas
-# le code du repo lui-même). Gratuit sur ce repo car public.
+# le code du repo lui-même).
+# 05/10/2026 : le dépôt est devenu privé ; l'envoi des résultats à l'onglet « Security » demande alors
+# GitHub Advanced Security (payant). L'analyse continue, mais les résultats sont lus ici même : la
+# vérification échoue si CodeQL signale un problème, comme avant.
 permissions:
   contents: read
-  security-events: write
+  actions: read
 
 jobs:
   analyze:
@@ -32,3 +35,25 @@ jobs:
 
       - name: Analyser
         uses: github/codeql-action/analyze@v4
+        with:
+          upload: never
+          output: sarif-resultats
+
+      - name: Lire les résultats (échec si un problème est trouvé)
+        run: |
+          python3 - <<'PY'
+          import glob, json, sys
+          n = 0
+          for f in glob.glob('sarif-resultats/*.sarif'):
+              for run in json.load(open(f)).get('runs', []):
+                  for r in run.get('results', []):
+                      n += 1
+                      loc = (r.get('locations') or [{}])[0].get('physicalLocation', {})
+                      print('::error::', r.get('ruleId'), loc.get('artifactLocation', {}).get('uri'),
+                            loc.get('region', {}).get('startLine'), r.get('message', {}).get('text', '')[:200])
+                      for rl in r.get('relatedLocations', []):  # origine de la donnée signalée
+                          p = rl.get('physicalLocation', {})
+                          print('   source :', p.get('artifactLocation', {}).get('uri'), p.get('region', {}).get('startLine'))
+          print(n, 'problème(s) signalé(s) par CodeQL')
+          sys.exit(1 if n else 0)
+          PY

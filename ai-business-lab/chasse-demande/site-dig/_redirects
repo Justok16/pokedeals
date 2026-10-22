@@ -1,0 +1,14 @@
+# Liens courts de DIG16 (audit de la campagne du 19/10/2026).
+# Chaque support a sa porte d'entrée : la provenance (?de=…) est conservée par le compteur de visites (mesure.js),
+# alors que les applis Instagram, TikTok et Threads cachent la page de provenance (90 % de visites « Direct » avant).
+# Syntaxe Cloudflare Pages : /source /destination code.
+/ig     /?de=ig     302
+/tt     /?de=tt     302
+/fb     /?de=fb     302
+/th     /?de=th     302
+/x      /?de=x      302
+/yt     /?de=yt     302
+/pj     /?de=pj     302
+/qr     /?de=qr     302
+/mail   /?de=mail   302
+/guide  /site-internet-artisan/  301

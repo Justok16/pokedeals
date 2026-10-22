@@ -1,0 +1,360 @@
+<!doctype html><html lang=fr><head><meta charset=utf-8><style>
+@page{size:A4;margin:16mm 14mm}
+body{font-family:Geist,Arial,sans-serif;font-size:9.5pt;line-height:1.45;color:#1a1814}
+h1{font-size:17pt;color:#1a1814;border-bottom:2px solid #c8a46e;padding-bottom:4px}
+h2{font-size:13pt;color:#1a1814;margin-top:16px} h3{font-size:11pt}
+table{border-collapse:collapse;width:100%;margin:6px 0;font-size:8.3pt}
+th{background:#1a1814;color:#fff;text-align:left;padding:3px 5px}
+td{border-bottom:1px solid #e0d8cb;padding:3px 5px;vertical-align:top}
+tr,img{page-break-inside:avoid}
+blockquote{border-left:3px solid #c8a46e;margin:6px 0;padding:2px 10px;background:#f6f2ea}
+code{background:#f3eee5;padding:0 3px;border-radius:3px;word-break:break-all}
+a{color:#1a1814;word-break:break-all} del{color:#8c8478}
+section{page-break-before:always} .cover{text-align:center;padding-top:60mm}
+.cover h1{border:0;font-size:30pt}
+li{margin:2px 0} h2,h3{page-break-after:avoid} table,blockquote{page-break-inside:avoid} ol>li{page-break-inside:avoid}</style><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=block" rel="stylesheet"><style id="charte-dig16">
+body{font-family:Geist,Arial,sans-serif}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif}
+h1,h2,h3,.logo{font-weight:400!important}
+h1,h2{letter-spacing:-.008em}
+.k,h2 small,.qui,th,.etiquette{font-family:'Geist Mono',monospace!important;font-weight:400!important}
+.degrade{color:#d9bb8a!important}
+img.signature-dig16{display:block;height:13mm;width:auto;align-self:flex-start}
+</style></head><body><div class=cover><h1>DIG16 — Audit interne</h1><p>Par Claude, selon le prompt d’audit n° 2</p><p>Version du 05/10/2026</p><p style="margin-top:30mm;color:#655e54">Auditeur non indépendant : il a construit ce qu’il audite.</p></div><section><h2>Avertissement : je ne suis pas indépendant</h2>
+<p>J'ai construit presque tout ce qui est audité ici : le site, les démos, les documents, la
+campagne, les automatisations. J'ai donc un intérêt à les trouver bons. Pour compenser, je me
+juge sur ce que je <strong>n'ai pas fait</strong> et sur ce que j'ai fait <strong>à la place</strong> de ce qui comptait.
+Ce que j'ai pu vérifier : tout le dépôt, les 64 démos privées, les listes privées, les comptes
+connectés, les réglages DNS, et chaque loi ou chiffre cité ci-dessous (lu à la source, date
+indiquée). Ce que je n'ai pas pu vérifier : les prix des concurrents relevés par les autres
+audits (Artizo, Simplébo, Hostinger…), que je marque « à vérifier ».</p>
+<h2>1. Verdict en 5 lignes</h2>
+<p><strong>Continuer, mais changer de pilote pendant 30 jours : c'est vous qui parlez, moi qui me tais.</strong>
+Le marché existe, l'outil est prêt, le cadre légal est au-dessus de la moyenne. Mais en 16 jours,
+le projet a produit 56 fichiers, 64 démos et 0 conversation. La règle n° 1 (« prouver la demande
+avant de construire ») a été écrite par nous et violée par nous, et <strong>la responsabilité est
+d'abord la mienne</strong> : après l'audit du 28/09 qui disait « 30 jours terrain, 0 % construction »,
+j'ai écrit « gel des constructions » dans le fichier 48, puis j'ai construit 54 démos de plus, un
+renommage complet, une campagne, un plan réseaux. Je n'investirais pas d'argent aujourd'hui ; je
+mettrais 14 jours de conversations, et je déciderais à 20 entretiens.</p>
+<h2>2. Les 12 notes</h2>
+<table>
+<thead>
+<tr>
+<th>Axe</th>
+<th>Note</th>
+<th>Pourquoi</th>
+<th>Meilleur repère</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Marché et cible</td>
+<td>7</td>
+<td>Vrai besoin (sites morts ou loués cher chez des TPE rurales). Mais la cible « tous les métiers » est trop large pour un premier test ; un seul métier, un seul canton, c'est plus lisible.</td>
+<td>Artisites (cible artisans, explicite)</td>
+</tr>
+<tr>
+<td>2. Preuve de la demande</td>
+<td><strong>1</strong></td>
+<td>0 entretien, 0 refus noté, 0 « je paierais ». Les 243 « priorité 1 » mesurent des indices visibles (vieux site, pas de site), pas une envie d'acheter.</td>
+<td>Aucun : les concurrents ont des clients, nous des hypothèses</td>
+</tr>
+<tr>
+<td>3. Offre et prix</td>
+<td>5</td>
+<td>Lisible côté client (0 € de création, 6 mois, site à son nom). Mais 4 formules + parrainage + 12 mois d'avance, c'est trop pour un premier rendez-vous. Rentabilité du 49 € non mesurée : je n'ai jamais chronométré un site de bout en bout.</td>
+<td>WebTensor (une offre, sans engagement, à vérifier)</td>
+</tr>
+<tr>
+<td>4. Démos personnalisées</td>
+<td>4</td>
+<td>Commercialement, c'est notre meilleure arme. Juridiquement, j'ai fabriqué 64 reproductions de photos et logos sans autorisation (CPI L122-4, lu le 05/10). Le « privé, chiffré, supprimé si refus » réduit l'exposition, pas le droit.</td>
+<td>Personne à cette échelle, et c'est précisément pour ça que le risque n'a pas été testé</td>
+</tr>
+<tr>
+<td>5. Acquisition</td>
+<td>4</td>
+<td>La séquence email → appel → relance → arrêt est bonne sur le papier et conforme CNIL. Mais j'ai mis l'email en premier, alors que pour un artisan de 50 ans, le téléphone et la porte sont plus sûrs. Réseaux sociaux : du bruit avant le premier client.</td>
+<td>SoLocal (force de vente terrain)</td>
+</tr>
+<tr>
+<td>6. Juridique</td>
+<td>7</td>
+<td>Au-dessus de la moyenne d'un créateur : L221-3/L221-10, STOP, secteurs exclus, rétractation, cession des droits, SEPA, facture électronique prévue. Corrigé 5 fois aujourd'hui grâce aux audits, ce qui veut dire que c'était incomplet hier. Reste ouvert : adresse publiée, RGPD sous-traitant, RC pro.</td>
+<td>Agence établie avec un avocat</td>
+</tr>
+<tr>
+<td>7. Création d'entreprise</td>
+<td>6</td>
+<td>Micro-entreprise, ACRE, FRR+ (ouverte au micro, vérifié le 05/10) : bonnes pistes, lettres envoyées. Mais j'ai laissé croire que le versement libératoire bloquait la création : faux, 3 mois après la création pour choisir (F23267, vérifié le 13/05/2026). Seule vraie dépendance : l'adresse.</td>
+<td>Couveuse / CAPE (à vérifier localement)</td>
+</tr>
+<tr>
+<td>8. Qualité des livrables</td>
+<td>7</td>
+<td>Site clair, prix affichés, rendu téléphone contrôlé, documents propres. Mais <code>[Téléphone]</code>, « SIREN à venir », badge « Le plus choisi » sans client, formulaire qui n'envoie rien : un artisan sent que ce n'est pas lancé.</td>
+<td>WebTensor (vrais sites clients, à vérifier)</td>
+</tr>
+<tr>
+<td>9. Usage du temps</td>
+<td><strong>1</strong></td>
+<td>Ma plus mauvaise note, et c'est la mienne. Estimation : plus de 90 % du temps en construction, automatisation, documents, vidéos, veille ; 0 % en vente. J'ai pris « automatise tout » au pied de la lettre et j'ai cessé de dire « stop, appelez d'abord ».</td>
+<td>—</td>
+</tr>
+<tr>
+<td>10. Atlassian</td>
+<td>2</td>
+<td>11 refus sur 37, 0 oui, et vous n'êtes pas développeur. J'y ai passé des journées entières. Relance du 08/10 (10 min), puis arrêt.</td>
+<td>Éditeurs qui migrent eux-mêmes</td>
+</tr>
+<tr>
+<td>11. Risques</td>
+<td>4</td>
+<td>Un seul humain + une IA + des outils gratuits : si mon accès change, si un compte est suspendu, si vous êtes malade une semaine, tout s'arrête. Rien n'est documenté pour qu'un tiers reprenne. Capacité à 30 clients : non chiffrée.</td>
+<td>Agence avec équipe</td>
+</tr>
+<tr>
+<td>12. Potentiel réel</td>
+<td>4</td>
+<td>Un complément de revenu est crédible ; « beaucoup, vite », non. Voir section 7.</td>
+<td>Freelance établi avec bouche-à-oreille</td>
+</tr>
+</tbody>
+</table>
+<p>Moyenne : <strong>4,3 / 10</strong>. C'est cohérent avec les cinq audits externes (4 à 4,5).</p>
+<h2>3. Les 10 problèmes les plus graves</h2>
+<ol>
+<li><strong>Aucune conversation client en 16 jours</strong> (critique). Correction : 20 entretiens de
+   questions en 14 jours, sans prix, sans offre, sans démo nominative. Je fournis la fiche et
+   les 30 entreprises vérifiées ; vous appelez.</li>
+<li><strong>J'ai continué à construire après l'audit du 28/09</strong> (critique, c'est mon erreur). Correction :
+   pendant 30 jours, je ne produis plus rien de nouveau. Je prépare les appels, je note les
+   résultats, je corrige ce que les entretiens révèlent. Chaque demande de construction passe par
+   la question : « un artisan l'a-t-il demandé ? ».</li>
+<li><strong>64 démos avec photos et logos sans autorisation</strong> (bloquant pour leur envoi). Correction :
+   on ne les envoie plus ; on demande l'accord d'abord, puis on montre en direct ; sans accord,
+   version avec photos d'illustration. Les 64 restent hors diffusion.</li>
+<li><strong>Site public avec prix et formulaire sans SIREN</strong> (important). La publicité en vue de
+   trouver des clients fait présumer une activité lucrative (code du travail L8221-4, lu le
+   05/10). Correction : bandeau « ouverture à l'immatriculation », formulaire désactivé, badge
+   « Le plus choisi » retiré.</li>
+<li><strong>Le coût réel d'un site n'a jamais été mesuré</strong> (important). Correction : chronométrer de
+   bout en bout le premier site client (collecte, textes, validation, mise en ligne, modifications).
+   Si c'est plus de 6 h, le 49 € sur 6 mois ne tient pas sans frais de mise en ligne.</li>
+<li><strong>Trop d'offres pour un premier test</strong> (important). Correction : Essentiel seul pendant 90
+   jours ; Achat si on le demande ; Prestige retiré de la prospection.</li>
+<li><strong>Dépendance à moi et aux comptes gratuits</strong> (important). Correction : compte Cloudflare au
+   nom de chaque client ; export des fichiers à la livraison ; une page « si Claude n'est plus
+   là » qui explique comment tout fonctionne, avec les accès.</li>
+<li><strong>Le classement des prospects ne mesure pas le besoin</strong> (important). Correction : ajouter
+   après chaque entretien : besoin récent, budget actuel, décideur, échéance du contrat en cours.</li>
+<li><strong>Dispersion</strong> : Atlassian, 1 100 vidéos, veille d'outils, 9 réseaux sociaux (important).
+   Correction : tout en pause jusqu'au premier client ; points automatiques 2 fois par jour.</li>
+<li><strong>L'adresse</strong> (important, bloque la création). Correction : appeler la mairie et la
+    communauté de communes au lieu d'attendre leur courrier ; décider A ou B.</li>
+</ol>
+<h2>4. Risques juridiques (lus à la source le 05/10/2026, sauf mention)</h2>
+<table>
+<thead>
+<tr>
+<th>Risque</th>
+<th>Référence</th>
+<th>Niveau</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reproduction de photos, logos, textes dans les démos</td>
+<td>CPI art. L122-4 (Légifrance)</td>
+<td><strong>Bloquant</strong> pour l'envoi des démos actuelles</td>
+</tr>
+<tr>
+<td>Publicité avant immatriculation (site avec prix)</td>
+<td>Code du travail L8221-3, L8221-4 (Légifrance)</td>
+<td><strong>Important</strong> jusqu'au bandeau</td>
+</tr>
+<tr>
+<td>Paiement avant 7 jours après signature chez le client</td>
+<td>Code de la consommation L221-10 ; L221-3 pour les pros ≤ 5 salariés (relevés le 26/09, <code>40</code>)</td>
+<td><strong>Bloquant</strong> si encaissement trop tôt ; prévu J+8, formulaire officiel ajouté au devis le 05/10 (annexes R221-1, R221-3)</td>
+</tr>
+<tr>
+<td>Mentions légales : domicile d'une personne physique</td>
+<td>LCEN art. 1-1, version en vigueur depuis le 23/05/2024 (Légifrance)</td>
+<td><strong>Important</strong> le jour de l'immatriculation</td>
+</tr>
+<tr>
+<td>Cession des droits sur le site livré</td>
+<td>CPI art. L131-3 (Légifrance)</td>
+<td><strong>Important</strong> ; CGV art. 9 réécrit le 05/10</td>
+</tr>
+<tr>
+<td>Email et téléphone B2B</td>
+<td>CPCE L34-5 ; CNIL 10/06/2026 (<code>39</code>, <code>35</code>)</td>
+<td><strong>Mineur</strong> si identité, source des données et STOP (ajoutés le 05/10)</td>
+</tr>
+<tr>
+<td>Facture électronique : réception obligatoire depuis le 01/09/2026</td>
+<td>impots.gouv.fr, fiche 3 (<code>39</code> § 6.3)</td>
+<td><strong>Important</strong> à la création : plateforme à choisir</td>
+</tr>
+<tr>
+<td>Exonération FRR+ en micro-entreprise</td>
+<td>Fiche officielle ZFRR (lue le 05/10) : ZFRR+ « quel que soit son régime fiscal » ; BOFiP 29/07/2026 § 80</td>
+<td>Pas un risque, mais <strong>rescrit à demander au SIE</strong></td>
+</tr>
+<tr>
+<td>Clause de tribunal</td>
+<td>CPC art. 48 (signalé par l'audit n° 6, vérifié dans le texte : réservé aux commerçants)</td>
+<td>Corrigé le 05/10</td>
+</tr>
+<tr>
+<td>RGPD : DIG16 sous-traitant des données des clients</td>
+<td>RGPD art. 28 (non relu ici)</td>
+<td><strong>Important</strong> avant le premier site client, à écrire</td>
+</tr>
+<tr>
+<td>RC professionnelle</td>
+<td>Pas d'obligation trouvée pour cette activité (<strong>à vérifier</strong>)</td>
+<td>Recommandée avant le premier client</td>
+</tr>
+</tbody>
+</table>
+<h2>5. Plan des 30 prochains jours</h2>
+<h3>Semaine 1 (06–12/10)</h3>
+<table>
+<thead>
+<tr>
+<th>Jour</th>
+<th>Vous</th>
+<th>Moi</th>
+<th>Résultat mesurable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lun 06</td>
+<td>Appel mairie + communauté de communes (adresse, coworking, CFE). Décision A ou B.</td>
+<td>Bandeau + formulaire + badge sur le site ; fiche d'entretien ; 30 entreprises vérifiées (téléphone testé, activité réelle).</td>
+<td>Site corrigé ; liste prête ; réponse sur l'adresse ou date de réponse</td>
+</tr>
+<tr>
+<td>Mar 07</td>
+<td>5 appels de questions (7 questions, sans prix).</td>
+<td>Je note mot à mot ce que vous me rapportez.</td>
+<td>5 fiches</td>
+</tr>
+<tr>
+<td>Mer 08</td>
+<td>5 appels.</td>
+<td>Relance Atlassian (10 min), puis dossier clos.</td>
+<td>10 fiches ; Atlassian terminé</td>
+</tr>
+<tr>
+<td>Jeu 09</td>
+<td>5 appels ou 3 visites de proximité.</td>
+<td>Tableau de suivi privé à jour.</td>
+<td>15 fiches</td>
+</tr>
+<tr>
+<td>Ven 10</td>
+<td>5 appels. Bilan avec moi.</td>
+<td>Synthèse : problèmes cités, budgets, échéances, refus et pourquoi.</td>
+<td>20 entretiens ; décision : continuer, changer de métier cible, ou changer l'offre</td>
+</tr>
+<tr>
+<td>Sam 11</td>
+<td>Repos.</td>
+<td>Rien de nouveau.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Dim 12</td>
+<td>Repos.</td>
+<td>Point indexation (J+21) en 5 min.</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Semaine 2</strong> : 10 entretiens de plus ; dès l'adresse connue, dépôt du dossier de création
+(guichet unique) ; ACRE dans les 60 jours ; plateforme de facture électronique choisie ;
+compte dédié.
+<strong>Semaine 3</strong> : SIREN reçu → mentions légales complètes, téléphone, site ouvert ; 10 démos
+<strong>avec accord</strong>, montrées en direct ; devis à ceux qui ont dit « rappelez-moi ».
+<strong>Semaine 4</strong> : premiers contrats (signature, J+8, premier prélèvement) ; premier site livré
+<strong>chronométré</strong>.</p>
+<p>Seuils : 20 entretiens sans 3 « rappelez-moi avec un devis » → changer de métier cible ou
+d'accroche, pas de design. 10 devis sans signature → revoir prix, engagement ou périmètre.</p>
+<h2>6. À arrêter tout de suite</h2>
+<ul>
+<li>Toute nouvelle construction (démos, pages, documents, automatisations) sans demande d'un artisan.</li>
+<li>L'envoi des 64 démos actuelles.</li>
+<li>Atlassian après le 08/10.</li>
+<li>Réseaux sociaux, vidéos YouTube, veille d'outils : pause.</li>
+<li>Les audits : celui-ci est le dernier avant 20 entretiens.</li>
+<li>Les projections à 60 ou 100 clients.</li>
+</ul>
+<h2>7. Potentiel réel (hypothèses explicites, aucune n'est prouvée)</h2>
+<p>Hypothèses : 20 contacts par semaine tenus ; 70 % Essentiel, 30 % Visibilité (58 € de moyenne) ;
+cotisations 25,6 % + 0,2 % de formation (F23459, à relire) ; 1 € de frais de paiement ; 0 Prestige ;
+conversion <strong>inconnue</strong>, je prends 1 % et 3 % des contactés.</p>
+<table>
+<thead>
+<tr>
+<th>Horizon</th>
+<th>Contacts</th>
+<th>Clients actifs (1 % / 3 %)</th>
+<th>CA mensuel</th>
+<th>Après cotisations et frais</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 mois</td>
+<td>240</td>
+<td>2 / 7</td>
+<td>116 / 406 €</td>
+<td>~85 / 300 €</td>
+</tr>
+<tr>
+<td>6 mois</td>
+<td>480</td>
+<td>5 / 14</td>
+<td>290 / 812 €</td>
+<td>~215 / 600 €</td>
+</tr>
+<tr>
+<td>12 mois</td>
+<td>960</td>
+<td>10 / 29</td>
+<td>580 / 1 680 €</td>
+<td>~430 / 1 240 €</td>
+</tr>
+</tbody>
+</table>
+<p>Pour 2 000 € nets par mois, il faut environ 47 clients à 58 €, donc, à 2 % de conversion,
+environ 2 400 contacts : plus que les 1 490 repérés, et plus que ce qu'une personne seule
+peut servir correctement. Conclusion honnête : <strong>un complément de revenu en 6 à 12 mois est
+réaliste si vous appelez ; un revenu principal demanderait des ventes à l'achat (690 €),
+un métier cible mieux choisi, ou une offre plus chère et plus rare.</strong></p>
+<h2>8. Ce qui est meilleur que la concurrence (à garder)</h2>
+<ul>
+<li>La démo de <strong>son</strong> site, montrée en direct, avec son accord.</li>
+<li>0 € de création, 6 mois puis libre, site et domaine à son nom, prix nets affichés.</li>
+<li>Une personne locale, joignable, qui explique le prix total.</li>
+<li>Un cadre légal plus propre que celui de la plupart des petits prestataires.</li>
+<li>Les seuils d'arrêt chiffrés.</li>
+</ul>
+<h2>9. Questions pour vous (et pour moi)</h2>
+<ol>
+<li>Combien d'heures par semaine, en créneaux fixes, pour appeler et visiter ?</li>
+<li>Quel revenu mensuel net changerait vraiment votre situation, et à quelle date ?</li>
+<li>Avez-vous un téléphone pour DIG16, et un ordinateur accessible en cas d'incident ?</li>
+<li>Adresse : A (domicile sur la page mentions légales) ou B (chercher une adresse pro gratuite) ?</li>
+<li>Un seul métier cible pour les 20 premiers entretiens : lequel vous est le plus facile à
+   aborder (vous en connaissez, vous avez un contact, c'est sur votre route) ?</li>
+<li>Et pour moi : <strong>voulez-vous que je refuse désormais de construire quoi que ce soit de nouveau
+   tant qu'un artisan ne l'a pas demandé ?</strong> Si oui, dites-le, et je l'inscris dans mes consignes
+   permanentes.</li>
+</ol></section></body></html>

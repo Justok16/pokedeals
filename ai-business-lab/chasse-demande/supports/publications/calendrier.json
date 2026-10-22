@@ -1,0 +1,762 @@
+[
+ {
+  "id": "s1-lancement",
+  "semaine": 1,
+  "jour": "lundi",
+  "decalage_jours": 0,
+  "heure": "18:30",
+  "theme": "À voir",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "DIG16 est lancé 🎉\nJe crée des sites internet pour les artisans, commerçants et indépendants de Charente : modernes, rapides, pensés d'abord pour le téléphone, et à votre nom.\nVous voulez voir ce que ça donnerait pour vous ? Je refais votre page d'accueil gratuitement, avant que vous décidiez quoi que ce soit.\n👉 dig16.fr\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "DIG16 est lancé 🎉\n👉 dig16.fr",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s1-lancement.png"
+  ],
+  "fichiers": [
+   "supports/publications/s1-lancement.png"
+  ],
+  "textes_alternatifs": [
+   "DIG16 est lancé. Des sites à votre nom. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s1-story-pouce",
+  "semaine": 1,
+  "jour": "mardi",
+  "decalage_jours": 1,
+  "heure": "12:15",
+  "theme": "Le test du pouce (story)",
+  "statut": "auto",
+  "reseaux": [
+   "instagram:STORY",
+   "facebook:STORY"
+  ],
+  "texte": "",
+  "texte_bluesky": "",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/campagne-pouce/pouce-story.png"
+  ],
+  "fichiers": [
+   "supports/campagne-pouce/pouce-story.png"
+  ],
+  "textes_alternatifs": [
+   "Le test du pouce en 3 étapes : tapez votre métier et votre ville, cherchez-vous, touchez votre nom."
+  ]
+ },
+ {
+  "id": "s1-pouce",
+  "semaine": 1,
+  "jour": "mardi",
+  "decalage_jours": 1,
+  "heure": "18:30",
+  "theme": "Le test du pouce",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Le test du pouce 👍 30 secondes, votre téléphone, votre métier et votre ville. Vous êtes où ?\nFaites le test, puis glissez jusqu'au bout. Ou faites-le en ligne, gratuitement : dig16.fr/test-du-pouce\nUn « non » ? Je refais votre page d'accueil gratuitement.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Le test du pouce 👍 30 secondes, votre téléphone, votre métier et votre ville. Vous êtes où ?\nFaites le test, puis glissez jusqu'au bout. Ou faites-le en ligne, gratuitement : dig16.fr/test-du-pouce\nUn « non » ? Je refais votre page d'accueil gratuitement.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/campagne-pouce/pouce-1.png",
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/campagne-pouce/pouce-2.png",
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/campagne-pouce/pouce-3.png",
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/campagne-pouce/pouce-4.png",
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/campagne-pouce/pouce-5.png"
+  ],
+  "fichiers": [
+   "supports/campagne-pouce/pouce-1.png",
+   "supports/campagne-pouce/pouce-2.png",
+   "supports/campagne-pouce/pouce-3.png",
+   "supports/campagne-pouce/pouce-4.png",
+   "supports/campagne-pouce/pouce-5.png"
+  ],
+  "textes_alternatifs": [
+   "Le test du pouce : prenez votre téléphone et tapez votre métier et votre ville.",
+   "Un téléphone affiche des résultats de recherche ; une place vide porte la question « Et vous ? ».",
+   "Deuxième étape : touchez votre nom ; le site s'ouvre-t-il bien, le numéro s'appelle-t-il d'un geste ?",
+   "Avant, après : un site daté et le même site refait par DIG16 (exemple fictif).",
+   "Ce que vous obtenez : 0 € de création, en ligne en 7 jours, site à votre nom, dès 49 € par mois."
+  ]
+ },
+ {
+  "id": "s1-fiche-google",
+  "semaine": 1,
+  "jour": "mercredi",
+  "decalage_jours": 2,
+  "heure": "18:30",
+  "theme": "Un conseil",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "3 choses à vérifier aujourd'hui sur votre fiche Google :\n1️⃣ Vos horaires sont-ils à jour (jours fériés compris) ?\n2️⃣ Votre numéro de téléphone est-il le bon ?\n3️⃣ Avez-vous au moins quelques photos récentes de votre travail ?\nC'est gratuit, ça prend 10 minutes, et c'est souvent la première chose que vos clients voient de vous.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "3 choses à vérifier aujourd'hui sur votre fiche Google :\n👉 dig16.fr",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s1-fiche-google.png"
+  ],
+  "fichiers": [
+   "supports/publications/s1-fiche-google.png"
+  ],
+  "textes_alternatifs": [
+   "Votre fiche Google : 3 choses à vérifier. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s1-methode",
+  "semaine": 1,
+  "jour": "vendredi",
+  "decalage_jours": 4,
+  "heure": "18:30",
+  "theme": "Comment je travaille",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Un site avec DIG16, comment ça se passe ?\n✅ Je refais votre page d'accueil gratuitement, pour que vous puissiez juger sur pièce.\n✅ 20 minutes ensemble pour vos textes et vos photos.\n✅ En ligne en 7 jours.\n✅ Le site et le nom de domaine sont à votre nom.\nDès 49 € par mois, 0 € de création. Les détails : dig16.fr\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Un site avec DIG16, comment ça se passe ?\n👉 dig16.fr",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s1-methode.png"
+  ],
+  "fichiers": [
+   "supports/publications/s1-methode.png"
+  ],
+  "textes_alternatifs": [
+   "Un site avec DIG16, comment ça se passe ? DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s2-demo-menuisier",
+  "semaine": 2,
+  "jour": "lundi",
+  "decalage_jours": 7,
+  "heure": "18:30",
+  "theme": "À voir",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Voici à quoi ressemble un site DIG16 sur un téléphone 📱\nUne menuiserie (entreprise fictive) : ses réalisations en photos, ses services et un bouton pour appeler en un geste.\nImaginez le vôtre. Je refais votre page d'accueil gratuitement : dig16.fr\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Voici à quoi ressemble un site DIG16 sur un téléphone 📱\nUne menuiserie (entreprise fictive) : ses réalisations en photos, ses services et un bouton pour appeler en un geste.\nImaginez le vôtre. Je refais votre page d'accueil gratuitement : dig16.fr",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s2-demo-menuisier.png"
+  ],
+  "fichiers": [
+   "supports/publications/s2-demo-menuisier.png"
+  ],
+  "textes_alternatifs": [
+   "Un site d'artisan, sur un téléphone. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s2-numero",
+  "semaine": 2,
+  "jour": "mercredi",
+  "decalage_jours": 9,
+  "heure": "18:30",
+  "theme": "Un conseil",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Sur votre site, votre numéro de téléphone est-il cliquable ?\nSur un téléphone, vos clients veulent appeler en un geste, pas recopier 10 chiffres.\nTestez votre site depuis votre téléphone : si rien ne se passe en touchant le numéro, c'est à corriger.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Sur votre site, votre numéro de téléphone est-il cliquable ?\nSur un téléphone, vos clients veulent appeler en un geste, pas recopier 10 chiffres.\nTestez votre site depuis votre téléphone : si rien ne se passe en touchant le numéro, c'est à corriger.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s2-numero.png"
+  ],
+  "fichiers": [
+   "supports/publications/s2-numero.png"
+  ],
+  "textes_alternatifs": [
+   "Votre numéro s'appelle d'un geste ? DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s2-a-votre-nom",
+  "semaine": 2,
+  "jour": "vendredi",
+  "decalage_jours": 11,
+  "heure": "18:30",
+  "theme": "Comment je travaille",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Avec DIG16, votre site et votre nom de domaine sont à votre nom. Pas au mien.\nSi un jour vous partez, vous gardez tout : votre adresse internet, vos textes, vos photos.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Avec DIG16, votre site et votre nom de domaine sont à votre nom. Pas au mien.\nSi un jour vous partez, vous gardez tout : votre adresse internet, vos textes, vos photos.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s2-a-votre-nom.png"
+  ],
+  "fichiers": [
+   "supports/publications/s2-a-votre-nom.png"
+  ],
+  "textes_alternatifs": [
+   "Votre site est à vous. Pas à moi. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s3-story-pouce",
+  "semaine": 3,
+  "jour": "lundi",
+  "decalage_jours": 14,
+  "heure": "12:15",
+  "theme": "Le test du pouce (story)",
+  "statut": "auto",
+  "reseaux": [
+   "instagram:STORY",
+   "facebook:STORY"
+  ],
+  "texte": "",
+  "texte_bluesky": "",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/campagne-pouce/pouce-story.png"
+  ],
+  "fichiers": [
+   "supports/campagne-pouce/pouce-story.png"
+  ],
+  "textes_alternatifs": [
+   "Le test du pouce en 3 étapes : tapez votre métier et votre ville, cherchez-vous, touchez votre nom."
+  ]
+ },
+ {
+  "id": "s3-pouce-rappel",
+  "semaine": 3,
+  "jour": "lundi",
+  "decalage_jours": 14,
+  "heure": "18:30",
+  "theme": "Le test du pouce",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Vous avez fait le test du pouce ? Tapez votre métier et votre ville sur votre téléphone… et dites-moi en commentaire ce que vous avez trouvé (sans nommer personne 🙂).\nLe test en ligne, gratuit : dig16.fr/test-du-pouce\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Vous avez fait le test du pouce ? Tapez votre métier et votre ville sur votre téléphone… et dites-moi en commentaire ce que vous avez trouvé (sans nommer personne 🙂).\nLe test en ligne, gratuit : dig16.fr/test-du-pouce",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s3-pouce-rappel.png"
+  ],
+  "fichiers": [
+   "supports/publications/s3-pouce-rappel.png"
+  ],
+  "textes_alternatifs": [
+   "Vous avez fait le test du pouce ? DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s3-photos",
+  "semaine": 3,
+  "jour": "mercredi",
+  "decalage_jours": 16,
+  "heure": "18:30",
+  "theme": "Un conseil",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "3 conseils pour vos photos de chantier ou de boutique :\n1️⃣ Photographiez en journée, lumière naturelle.\n2️⃣ Montrez le résultat fini, de face, sans désordre autour.\n3️⃣ Une photo nette vaut mieux que dix floues.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "3 conseils pour vos photos de chantier ou de boutique :\n1️⃣ Photographiez en journée, lumière naturelle.\n2️⃣ Montrez le résultat fini, de face, sans désordre autour.\n3️⃣ Une photo nette vaut mieux que dix floues.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s3-photos.png"
+  ],
+  "fichiers": [
+   "supports/publications/s3-photos.png"
+  ],
+  "textes_alternatifs": [
+   "3 conseils pour de belles photos. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s3-prix",
+  "semaine": 3,
+  "jour": "vendredi",
+  "decalage_jours": 18,
+  "heure": "18:30",
+  "theme": "Comment je travaille",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Combien coûte un site avec DIG16 ?\n0 € de création sur les formules mensuelles, puis dès 49 € par mois : hébergement, modifications et suivi compris.\n6 mois d'engagement, puis vous arrêtez quand vous voulez. Tout est sur dig16.fr\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Combien coûte un site avec DIG16 ?\n0 € de création sur les formules mensuelles, puis dès 49 € par mois : hébergement, modifications et suivi compris.\n6 mois d'engagement, puis vous arrêtez quand vous voulez. Tout est sur dig16.fr",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s3-prix.png"
+  ],
+  "fichiers": [
+   "supports/publications/s3-prix.png"
+  ],
+  "textes_alternatifs": [
+   "Combien coûte un site DIG16 ? DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s4-avant-apres",
+  "semaine": 4,
+  "jour": "lundi",
+  "decalage_jours": 21,
+  "heure": "18:30",
+  "theme": "À voir",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Avant / après : une page d'accueil d'artisan (fictive) refaite par DIG16.\nPlus claire, plus rapide, et le numéro bien en vue.\nVous voulez la même chose pour votre entreprise ? C'est gratuit pour voir : dig16.fr\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Avant / après : une page d'accueil d'artisan (fictive) refaite par DIG16.\nPlus claire, plus rapide, et le numéro bien en vue.\nVous voulez la même chose pour votre entreprise ? C'est gratuit pour voir : dig16.fr",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s4-avant-apres.png"
+  ],
+  "fichiers": [
+   "supports/publications/s4-avant-apres.png"
+  ],
+  "textes_alternatifs": [
+   "Avant, après : la même page d'accueil. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s4-avis",
+  "semaine": 4,
+  "jour": "mercredi",
+  "decalage_jours": 23,
+  "heure": "18:30",
+  "theme": "Un conseil",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Un avis négatif sur votre fiche Google ? Répondez-y, calmement et poliment.\nVos futurs clients lisent surtout votre réponse : c'est elle qui montre votre sérieux.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Un avis négatif sur votre fiche Google ? Répondez-y, calmement et poliment.\nVos futurs clients lisent surtout votre réponse : c'est elle qui montre votre sérieux.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s4-avis.png"
+  ],
+  "fichiers": [
+   "supports/publications/s4-avis.png"
+  ],
+  "textes_alternatifs": [
+   "Un avis négatif ? Répondez-y. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s4-sans-engagement",
+  "semaine": 4,
+  "jour": "vendredi",
+  "decalage_jours": 25,
+  "heure": "18:30",
+  "theme": "Comment je travaille",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Après 6 mois, votre site DIG16 est sans engagement : vous pouvez arrêter à tout moment, par simple email.\nEt vous repartez avec tous les fichiers de votre site.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Après 6 mois, votre site DIG16 est sans engagement : vous pouvez arrêter à tout moment, par simple email.\nEt vous repartez avec tous les fichiers de votre site.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s4-sans-engagement.png"
+  ],
+  "fichiers": [
+   "supports/publications/s4-sans-engagement.png"
+  ],
+  "textes_alternatifs": [
+   "Après 6 mois, sans engagement. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s5-7-jours",
+  "semaine": 5,
+  "jour": "lundi",
+  "decalage_jours": 28,
+  "heure": "18:30",
+  "theme": "À voir",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Un site en ligne en 7 jours, comment c'est possible ?\nJour 1 : 20 minutes ensemble pour vos textes et vos photos.\nJours 2 à 6 : je construis, vous relisez.\nJour 7 : votre site est en ligne.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Un site en ligne en 7 jours, comment c'est possible ?\nJour 1 : 20 minutes ensemble pour vos textes et vos photos.\nJours 2 à 6 : je construis, vous relisez.\nJour 7 : votre site est en ligne.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s5-7-jours.png"
+  ],
+  "fichiers": [
+   "supports/publications/s5-7-jours.png"
+  ],
+  "textes_alternatifs": [
+   "En ligne en 7 jours. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s5-horaires",
+  "semaine": 5,
+  "jour": "mercredi",
+  "decalage_jours": 30,
+  "heure": "18:30",
+  "theme": "Un conseil",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Vos horaires sont-ils les mêmes sur votre site, votre fiche Google et votre page Facebook ?\nUn client qui trouve porte close à cause d'un horaire erroné ne revient pas toujours.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Vos horaires sont-ils les mêmes sur votre site, votre fiche Google et votre page Facebook ?\nUn client qui trouve porte close à cause d'un horaire erroné ne revient pas toujours.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s5-horaires.png"
+  ],
+  "fichiers": [
+   "supports/publications/s5-horaires.png"
+  ],
+  "textes_alternatifs": [
+   "Vos horaires, les mêmes partout ? DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s5-suivi",
+  "semaine": 5,
+  "jour": "vendredi",
+  "decalage_jours": 32,
+  "heure": "18:30",
+  "theme": "Comment je travaille",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Avec DIG16, votre site n'est pas abandonné après sa mise en ligne.\nChaque mois : vos changements faits en 3 jours ouvrés, et un petit bilan pour savoir combien de personnes vous ont trouvé.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Avec DIG16, votre site n'est pas abandonné après sa mise en ligne.\nChaque mois : vos changements faits en 3 jours ouvrés, et un petit bilan pour savoir combien de personnes vous ont trouvé.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s5-suivi.png"
+  ],
+  "fichiers": [
+   "supports/publications/s5-suivi.png"
+  ],
+  "textes_alternatifs": [
+   "Un site suivi, chaque mois. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s6-rapidite",
+  "semaine": 6,
+  "jour": "lundi",
+  "decalage_jours": 35,
+  "heure": "18:30",
+  "theme": "À voir",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Combien de temps met votre site à s'afficher sur un téléphone ?\nAu-delà de quelques secondes, beaucoup de visiteurs repartent. Les sites DIG16 sont construits pour être rapides.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Combien de temps met votre site à s'afficher sur un téléphone ?\nAu-delà de quelques secondes, beaucoup de visiteurs repartent. Les sites DIG16 sont construits pour être rapides.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s6-rapidite.png"
+  ],
+  "fichiers": [
+   "supports/publications/s6-rapidite.png"
+  ],
+  "textes_alternatifs": [
+   "Un site qui s'affiche vite sur un téléphone. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s6-description",
+  "semaine": 6,
+  "jour": "mercredi",
+  "decalage_jours": 37,
+  "heure": "18:30",
+  "theme": "Un conseil",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Une bonne description de votre entreprise tient en 3 phrases :\nce que vous faites, où vous intervenez, et ce qui vous distingue.\nExemple : « Menuisier en Charente, je fabrique et pose fenêtres et escaliers sur mesure. »\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Une bonne description de votre entreprise tient en 3 phrases :\nce que vous faites, où vous intervenez, et ce qui vous distingue.\nExemple : « Menuisier en Charente, je fabrique et pose fenêtres et escaliers sur mesure. »",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s6-description.png"
+  ],
+  "fichiers": [
+   "supports/publications/s6-description.png"
+  ],
+  "textes_alternatifs": [
+   "Votre métier en 3 phrases. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s6-recommandation",
+  "semaine": 6,
+  "jour": "vendredi",
+  "decalage_jours": 39,
+  "heure": "18:30",
+  "theme": "Comment je travaille",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Vous connaissez un artisan ou un commerçant qui a besoin d'un site ?\nRecommandez-le : s'il devient client, votre prochain mois est offert, et son premier mois aussi.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Vous connaissez un artisan ou un commerçant qui a besoin d'un site ?\nRecommandez-le : s'il devient client, votre prochain mois est offert, et son premier mois aussi.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s6-recommandation.png"
+  ],
+  "fichiers": [
+   "supports/publications/s6-recommandation.png"
+  ],
+  "textes_alternatifs": [
+   "Recommandez un artisan, un mois offert. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s7-premier-client",
+  "semaine": 7,
+  "jour": "lundi",
+  "decalage_jours": 42,
+  "heure": "18:30",
+  "theme": "À voir",
+  "statut": "manuel",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Premier site DIG16 en ligne 🎉 Merci à [client] pour sa confiance.\n(À publier seulement avec l'accord écrit du client ; sinon, nouvelle démo fictive.)\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Premier site DIG16 en ligne 🎉 Merci à [client] pour sa confiance.\n(À publier seulement avec l'accord écrit du client ; sinon, nouvelle démo fictive.)",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s7-premier-client.png"
+  ],
+  "fichiers": [
+   "supports/publications/s7-premier-client.png"
+  ],
+  "textes_alternatifs": [
+   "Premier site DIG16 en ligne. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s7-site-lent",
+  "semaine": 7,
+  "jour": "mercredi",
+  "decalage_jours": 44,
+  "heure": "18:30",
+  "theme": "Un conseil",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Un site lent, ce sont souvent des photos trop lourdes. Une photo de plusieurs mégaoctets peut presque toujours être allégée fortement sans perte visible.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Un site lent, ce sont souvent des photos trop lourdes. Une photo de plusieurs mégaoctets peut presque toujours être allégée fortement sans perte visible.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s7-site-lent.png"
+  ],
+  "fichiers": [
+   "supports/publications/s7-site-lent.png"
+  ],
+  "textes_alternatifs": [
+   "Un site lent ? Regardez vos photos. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s7-questions",
+  "semaine": 7,
+  "jour": "vendredi",
+  "decalage_jours": 46,
+  "heure": "18:30",
+  "theme": "Comment je travaille",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Les questions qu'on me pose le plus :\n« Je dois écrire les textes ? » Non, je les rédige avec vous.\n« Je peux modifier mon site ? » Oui, envoyez-moi un email, c'est fait en 3 jours ouvrés.\n« Et si j'arrête ? » Vous gardez votre nom de domaine et vos fichiers.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Les questions qu'on me pose le plus :\n« Je dois écrire les textes ? » Non, je les rédige avec vous.\n« Je peux modifier mon site ? » Oui, envoyez-moi un email, c'est fait en 3 jours ouvrés.\n« Et si j'arrête ? » Vous gardez votre nom de domaine et vos fichiers.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s7-questions.png"
+  ],
+  "fichiers": [
+   "supports/publications/s7-questions.png"
+  ],
+  "textes_alternatifs": [
+   "Les questions qu'on me pose le plus. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s8-bilan",
+  "semaine": 8,
+  "jour": "lundi",
+  "decalage_jours": 49,
+  "heure": "18:30",
+  "theme": "À voir",
+  "statut": "manuel",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Deux mois de DIG16 : merci à tous ceux qui ont fait confiance à une jeune entreprise de Charente.\n(Chiffres réels seulement, vérifiés avant publication.)\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Deux mois de DIG16 : merci à tous ceux qui ont fait confiance à une jeune entreprise de Charente.\n(Chiffres réels seulement, vérifiés avant publication.)",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s8-bilan.png"
+  ],
+  "fichiers": [
+   "supports/publications/s8-bilan.png"
+  ],
+  "textes_alternatifs": [
+   "Deux mois de DIG16. Merci. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s8-saison",
+  "semaine": 8,
+  "jour": "mercredi",
+  "decalage_jours": 51,
+  "heure": "18:30",
+  "theme": "Un conseil",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Préparez votre saison maintenant : horaires, photos récentes, offres du moment. Un site à jour, ce sont des appels en plus.\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Préparez votre saison maintenant : horaires, photos récentes, offres du moment. Un site à jour, ce sont des appels en plus.",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s8-saison.png"
+  ],
+  "fichiers": [
+   "supports/publications/s8-saison.png"
+  ],
+  "textes_alternatifs": [
+   "Préparez votre saison dès maintenant. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ },
+ {
+  "id": "s8-offre",
+  "semaine": 8,
+  "jour": "vendredi",
+  "decalage_jours": 53,
+  "heure": "18:30",
+  "theme": "Comment je travaille",
+  "statut": "auto",
+  "reseaux": [
+   "facebook",
+   "instagram",
+   "linkedin",
+   "gmb",
+   "bluesky",
+   "threads"
+  ],
+  "texte": "Votre page d'accueil refaite gratuitement, pour voir avant de décider.\nAucune obligation. Écrivez-moi ou appelez : dig16.fr\n\n#Charente #artisan #commerce #siteinternet",
+  "texte_bluesky": "Votre page d'accueil refaite gratuitement, pour voir avant de décider.\nAucune obligation. Écrivez-moi ou appelez : dig16.fr",
+  "images": [
+   "https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/ai-business-lab/chasse-demande/supports/publications/s8-offre.png"
+  ],
+  "fichiers": [
+   "supports/publications/s8-offre.png"
+  ],
+  "textes_alternatifs": [
+   "Votre page d'accueil, refaite gratuitement. DIG16, sites internet pour artisans et commerçants de Charente."
+  ]
+ }
+]

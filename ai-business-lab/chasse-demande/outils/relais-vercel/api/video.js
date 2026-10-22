@@ -1,0 +1,189 @@
+// Résume une vidéo YouTube avec Gemini.
+// 1) Si la variable d'environnement GEMINI_API_KEY existe (clé gratuite Google AI Studio,
+//    saisie par l'utilisateur dans les réglages Vercel, jamais dans le dépôt) : appel direct
+//    à l'API Gemini (offre gratuite : environ 20 requêtes par jour et par modèle, constaté le 26/09).
+// 2) Sinon : Vercel AI Gateway (jeton OIDC, crédit gratuit mensuel).
+// Déploiement protégé (Vercel Authentication) : appel via le connecteur Vercel.
+import { generateText } from 'ai';
+
+const CONSIGNES = {};
+CONSIGNES.finance =
+  "Résume cette vidéo en français, comme une fiche de connaissances en finances personnelles. Donne : " +
+  "1) le sujet et la thèse principale ; 2) les notions expliquées (définitions simples) ; 3) les chiffres, " +
+  "taux, plafonds et règles fiscales cités, avec l'année ou la date si elle est dite (marque « à vérifier " +
+  "à la source officielle » pour toute règle fiscale ou légale) ; 4) les conseils concrets et leurs limites " +
+  "ou risques ; 5) les produits, applications ou entreprises cités, en signalant s'il s'agit de publicité " +
+  "ou de produits de l'auteur. N'invente rien : si un détail n'est pas clair, écris « non précisé ».";
+// 07/10 : analyse visuelle détaillée d'une vidéo qui montre un site web (demande de l'utilisateur :
+// « je veux que mes sites puissent ressembler à ça, étudie cette vidéo au maximum »).
+CONSIGNES.design =
+  "Tu es directeur artistique web. Cette vidéo montre la création d'un site. Décris en français, avec les " +
+  "horodatages (mm:ss), TOUT ce qu'on voit à l'écran du site final et des étapes : 1) chaque section du site, " +
+  "de haut en bas (contenu, mise en page, proportions, ce qui se passe au défilement : vidéo qui avance avec " +
+  "le défilement, parallaxe, apparitions, zooms, textes qui glissent, compteurs…) ; 2) typographies (style, " +
+  "graisse, tailles relatives, capitales), couleurs (codes approximatifs), fonds, grain, ombres, coins ; 3) " +
+  "navigation, boutons, curseur, menus, transitions entre pages, comportement sur téléphone si montré ; 4) les " +
+  "visuels (photos, vidéos générées, 3D) et comment ils ont été produits ; 5) MOT POUR MOT chaque consigne " +
+  "(prompt) tapée ou lue à l'écran, chaque nom de fichier, de dossier, de dépôt GitHub, de bibliothèque " +
+  "(GSAP, Lenis, Three.js…) et chaque commande ; 6) la méthode pas à pas de l'auteure ; 7) les défauts ou " +
+  "limites visibles (lenteur, poids, lisibilité). N'invente rien : si un détail n'est pas lisible, écris « non lisible ».";
+// 08/10 : décrire la voix off d'une vidéo (l'utilisateur aime une voix et veut s'en approcher, sans la copier).
+CONSIGNES.voix =
+  "Écoute la voix off de cette vidéo et décris-la en français, précisément : 1) voix humaine enregistrée ou voix de " +
+  "synthèse (IA) ? Donne les indices qui te font pencher (respirations, hésitations, intonations répétitives, " +
+  "artefacts) et, si c'est une voix de synthèse connue (par exemple une voix ElevenLabs), dis-le seulement si tu en es " +
+  "sûr, sinon écris « non identifiable » ; 2) homme ou femme, âge apparent, timbre (grave, médium, aigu), texture " +
+  "(chaude, voilée, claire…) ; 3) ton et style (humour pince-sans-rire, conteur, dramatique…), rythme (mots par minute " +
+  "approximatif), pauses, accent ; 4) traitement du son (proximité du micro, réverbération, compression, musique) ; " +
+  "5) en trois lignes, comment décrire cette voix à un acteur ou à une synthèse vocale pour obtenir un style proche, " +
+  "sans imiter la personne. N'invente rien.";
+const CONSIGNE =
+  "Résume cette vidéo en français, pour quelqu'un qui cherche à gagner de l'argent " +
+  "légalement avec l'IA et Claude Code. Donne : 1) l'idée principale ; 2) chaque outil, " +
+  "site ou dépôt GitHub cité, avec son nom exact, s'il est gratuit ou payant, et à quoi il sert ; " +
+  "3) les astuces concrètes et réutilisables ; 4) les chiffres de revenus annoncés, marqués " +
+  "« affirmé par l'auteur ». N'invente rien : si un détail n'est pas clair, écris « non précisé ».";
+
+
+// Seules les adresses protégées par Vercel Authentication (…-justok1.vercel.app)
+// sont acceptées ; l'adresse de production publique est refusée.
+function adresseProtegee(request) {
+  const hote = new URL(request.url).hostname;
+  return hote.endsWith('-justok1.vercel.app');
+}
+
+export async function GET(request) {
+  if (!adresseProtegee(request)) return new Response('Accès refusé', { status: 403 });
+  const params = new URL(request.url).searchParams;
+  if (params.get('liste') === '1' && process.env.GEMINI_API_KEY) {
+    // Liste des modèles disponibles pour cette clé (sans la clé dans la réponse)
+    const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200', { headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY } });
+    const j = await r.json();
+    return Response.json((j.models || []).map((m) => ({ nom: m.name, methodes: m.supportedGenerationMethods })));
+  }
+  // Lot de vidéos (01/10) : ids=a,b,c (10 au plus, documentation Gemini « video understanding » :
+  // « Gemini 2.5 and later models, you can upload a maximum of 10 videos per request »). Le quota gratuit
+  // se compte en requêtes : regrouper les vidéos courtes multiplie le nombre de vidéos résumées par jour.
+  const lot = (params.get('ids') || '').split(',').filter((x) => /^[A-Za-z0-9_-]{11}$/.test(x)).slice(0, 10);
+  const id = lot.length ? lot[0] : (params.get('id') || '');
+  if (!/^[A-Za-z0-9_-]{11}$/.test(id)) {
+    return Response.json({ erreur: 'identifiant vidéo invalide' }, { status: 400 });
+  }
+  const mode = new URL(request.url).searchParams.get('mode') || '';
+  const consigne = (CONSIGNES[mode] || CONSIGNE) + (lot.length > 1
+    ? ` Tu reçois ${lot.length} vidéos distinctes, chacune précédée de son identifiant. Fais un résumé SÉPARÉ pour ` +
+      'chacune, dans le même ordre, en commençant chaque résumé par une ligne seule « === VIDEO <identifiant> === ». ' +
+      'Ne mélange jamais le contenu de deux vidéos : chaque résumé ne contient QUE ce qui est dit ou montré dans sa propre vidéo, sans notion, chiffre ni nom venant d’une autre vidéo du lot.' : '');
+  const debug = new URL(request.url).searchParams.get('debug') === '1';
+  const cle = process.env.GEMINI_API_KEY;
+  // voie=passerelle : Vercel AI Gateway, UNIQUEMENT sur le crédit gratuit mensuel offert par Vercel
+  // (accord de l'utilisateur du 28/09 : « sans jamais dépasser afin de ne rien payer »).
+  // Garde-fou : on lit le solde avant chaque appel et on refuse sous 1 $ de marge.
+  if (params.get('voie') === 'passerelle') {
+    const jeton = request.headers.get('x-vercel-oidc-token') || process.env.VERCEL_OIDC_TOKEN || process.env.AI_GATEWAY_API_KEY;
+    let solde = null, statut = null;
+    try {
+      const rc = await fetch('https://ai-gateway.vercel.sh/v1/credits', { headers: { Authorization: `Bearer ${jeton}` } });
+      statut = rc.status;
+      const jc = await rc.json();
+      solde = parseFloat(jc.balance);
+    } catch (e) { /* solde illisible : on refuse par prudence */ }
+    if (!(solde >= 1)) return Response.json({ id, erreur: `passerelle refusée : solde gratuit ${solde} $ (marge 1 $)`, solde, statut, jeton: Boolean(jeton) }, { status: 402 });
+    if (params.get('solde') === '1') return Response.json({ solde });
+    const modele = /^google\/[a-z0-9.-]{3,60}$/.test(params.get('modele') || '') ? params.get('modele') : 'google/gemini-3.5-flash-lite';
+    try {
+      const r = await generateText({
+        model: modele,
+        providerOptions: { google: { mediaResolution: 'MEDIA_RESOLUTION_LOW' } },
+        messages: [{ role: 'user', content: [
+          { type: 'file', data: new URL(`https://www.youtube.com/watch?v=${id}`), mediaType: 'video/mp4' },
+          { type: 'text', text: consigne },
+        ] }],
+      });
+      if (r.text && r.text.trim()) return Response.json({ id, resume: r.text, modele, voie: 'passerelle', solde_avant: solde, usage: r.usage });
+      return Response.json({ id, erreur: `${modele} passerelle réponse vide` }, { status: 502 });
+    } catch (e) {
+      return Response.json({ id, erreur: `${modele} passerelle ${String(e && e.message || e).slice(0, 400)}` }, { status: 502 });
+    }
+  }
+  if (cle) {
+    const url = `https://www.youtube.com/watch?v=${id}`;
+    const erreurs = [];
+    // Vidéos trop longues (> ~3 h en basse résolution, limite de 1 048 576 jetons) : debut=…&fin=…
+    // (en secondes) ne fait lire qu'un extrait ; on résume alors la vidéo morceau par morceau (30/09).
+    const debut = params.get('debut'), fin = params.get('fin');
+    const extrait = /^\d{1,6}$/.test(debut || '') && /^\d{1,6}$/.test(fin || '') && +fin > +debut
+      ? { start_offset: `${+debut}s`, end_offset: `${+fin}s` } : null;
+    // 07/10 : fps=0.05…1 (images lues par seconde ; 1 par défaut chez Gemini). Le son reste lu en entier.
+    // À 0,1 image/s, une heure de vidéo coûte environ 3 fois moins de jetons : plusieurs longues vidéos
+    // tiennent dans UNE requête, et le quota gratuit se compte en requêtes (objectif : 40 467 vidéos).
+    const fps = /^(0(\.\d{1,3})?|1(\.0+)?)$/.test(params.get('fps') || '') && +params.get('fps') >= 0.05 ? +params.get('fps') : null;
+    const meta = (base) => ((base || fps) ? { video_metadata: { ...(base || {}), ...(fps ? { fps } : {}) } } : {});
+    // API « interactions » (documentation Google, septembre 2026)
+    const choisis = (params.get('modeles') || '').split(',').filter((m) => /^[a-z0-9.-]{3,60}$/.test(m));
+    for (const modele of (choisis.length ? choisis : [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-2.5-flash'].filter(Boolean))) {
+      // 1er essai (28/09) : generateContent en BASSE résolution vidéo (environ 4 fois moins de
+      // jetons par image, donc bien plus rapide quand Gemini est surchargé ; suffisant pour un résumé)
+      if (params.get('resolution') !== 'normale') {
+        try {
+          const rep = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent`, {
+            method: 'POST',
+            headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: lot.length > 1
+                ? [...lot.flatMap((v) => [{ text: `Vidéo ${v} :` }, { file_data: { file_uri: `https://www.youtube.com/watch?v=${v}` }, ...meta(null) }]), { text: consigne }]
+                : [{ file_data: { file_uri: url }, ...meta(extrait) }, { text: consigne }] }],
+              generationConfig: { mediaResolution: 'MEDIA_RESOLUTION_LOW' },
+            }),
+          });
+          const j = await rep.json();
+          const texte = ((j.candidates || [])[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
+          if (rep.ok && texte) return Response.json({ id, ...(lot.length > 1 ? { ids: lot } : {}), resume: texte, modele, voie: 'generateContent-basse', jetons: j.usageMetadata?.promptTokenCount, fps });
+          if (lot.length > 1 && rep.status !== 429) { erreurs.push(`${modele} lot ${rep.status} ${JSON.stringify(j).slice(0, 200)}`); continue; } // lot : pas d'autre API
+          erreurs.push(`${modele} generateContent-basse ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
+          if (rep.status === 429) continue; // quota épuisé : inutile d'essayer l'autre API
+          if (params.get('voie') === 'basse') return Response.json({ id, erreur: erreurs.join(' | ') }, { status: 502 }); // diagnostic
+        } catch (e) { erreurs.push(`${modele} generateContent-basse ${String(e).slice(0, 120)}`); }
+      }
+      try {
+        const rep = await fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
+          method: 'POST',
+          headers: { 'x-goog-api-key': cle, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ model: modele, input: [{ type: 'text', text: consigne }, { type: 'video', uri: url }] }),
+        });
+        const j = await rep.json();
+        // Le texte peut être dans output_text ou dans outputs[] (objets imbriqués) : on le cherche partout.
+        const morceaux = [];
+        const parcourir = (v, cle) => {
+          if (typeof v === 'string') { if (cle === 'text' || cle === 'output_text') morceaux.push(v); }
+          else if (Array.isArray(v)) v.forEach((x) => parcourir(x, cle));
+          else if (v && typeof v === 'object') {
+            if (/thought|reason|user|input/i.test(String(v.type || '') + String(v.role || ''))) return; // ni la réflexion interne ni la consigne
+            for (const [k, x] of Object.entries(v)) if (!['input', 'usage', 'signature'].includes(k)) parcourir(x, k);
+          }
+        };
+        parcourir({ output_text: j.output_text, outputs: j.outputs, output: j.output, steps: j.steps }, '');
+        const texte = [...new Set(morceaux)].join('\n').trim();
+        if (rep.ok && texte) return Response.json({ id, resume: texte, modele, voie: 'interactions' });
+        if (debug) { const { usage, ...reste } = j; return Response.json({ id, debug: JSON.stringify(reste, (k, v) => (k === 'signature' ? '…' : v)).slice(0, 4000) }); }
+        erreurs.push(`${modele} interactions ${rep.status} ${JSON.stringify(j).slice(0, 200)}`);
+      } catch (e) { erreurs.push(`${modele} interactions ${String(e).slice(0, 120)}`); }
+    }
+    return Response.json({ id, erreur: erreurs.join(' | ').slice(0, 1500) }, { status: 502 });
+  }
+  try {
+    const r = await generateText({
+      model: 'google/gemini-2.5-flash',
+      messages: [{
+        role: 'user',
+        content: [
+          { type: 'file', data: new URL(`https://www.youtube.com/watch?v=${id}`), mediaType: 'video/mp4' },
+          { type: 'text', text: consigne },
+        ],
+      }],
+    });
+    return Response.json({ id, resume: r.text, usage: r.usage });
+  } catch (e) {
+    return Response.json({ id, erreur: String(e && e.message || e).slice(0, 500) }, { status: 502 });
+  }
+}

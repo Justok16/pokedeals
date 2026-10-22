@@ -1,0 +1,489 @@
+# Portefeuille de concepts a tester — notes de 0 a 5 par critere.
+#
+# REGLE : une note n'est PAS une verite, c'est une hypothese datee et
+# justifiee. Chaque note discutable porte un commentaire. Les tests reels
+# (cf. 03-plan-execution.md) doivent faire bouger ces notes.
+#
+# Contexte : demarrage a zero, 0 EUR, faceless, francophone, 4 h/jour.
+# Derniere revision : 2026-09-21
+# Prochaine revision obligatoire : apres le premier cycle de tests (J+30)
+
+concepts:
+
+  - id: A1
+    nom: "Facture electronique 2026-2027 (media + annuaire + affiliation)"
+    cluster: "A — B2B francophone a forte valeur"
+    resume: >-
+      Media de niche sur l'obligation de facturation electronique : contenu
+      pedagogique, newsletter d'echeances, annuaire comparatif des plateformes
+      agreees et logiciels de facturation, monetise par affiliation SaaS
+      recurrente. La reforme est entree en vigueur le 01/09/2026 (reception
+      obligatoire pour toutes les entreprises assujetties a la TVA) et
+      l'obligation d'emission frappe les PME/TPE/micro au 01/09/2027 : des
+      millions d'entreprises francaises doivent s'equiper dans les 12 mois.
+    notes:
+      potentiel_audience: 4      # toutes les entreprises FR assujetties a la TVA
+      croissance_demande: 5      # obligation legale datee = demande contrainte, pas optionnelle
+      valeur_commerciale: 5      # B2B logiciel : RPM/CPM les plus eleves, abonnements a commissionner
+      concurrence_faible: 3      # les editeurs et cabinets comptables communiquent, mais peu de media independant
+      facilite_production: 3     # sujet aride : exige rigueur et verification, pas de creativite
+      cout_faible: 5
+      affiliation: 5             # logiciels de facturation/compta en abonnement = commissions recurrentes
+      produit_numerique: 4       # checklist de conformite, modeles, mini-formation
+      revenu_recurrent: 5
+      international: 2           # reforme franco-francaise ; equivalents UE differents
+      durabilite: 2              # FENETRE : l'urgence retombe apres 2027 -> reconversion prevue des le depart
+      independance_plateforme: 5 # SEO + email, pas de dependance a un algorithme social
+      risque_juridique_faible: 2 # information reglementaire : une erreur a des consequences reelles
+      automatisation: 3          # veille et redaction assistees, MAIS verification humaine obligatoire
+      avantage_defendable: 4     # exactitude + exhaustivite de l'annuaire + anteriorite = difficile a copier vite
+      vitesse_validation: 4      # intention de recherche mesurable en quelques semaines
+      revente_actif: 4
+      tenue_dans_la_duree: 3      # l'annuaire persiste, mais l'angle 'echeance' impose une cadence
+
+  - id: A2
+    nom: "IA appliquee a UN metier precis (pas 'les outils IA' en general)"
+    cluster: "A — B2B francophone a forte valeur"
+    resume: >-
+      Media + newsletter sur l'usage concret de l'IA dans un seul metier
+      (ex. comptables, agents immobiliers, artisans, RH). L'inverse du
+      "top 10 des outils IA" : des cas d'usage verifies dans un contexte
+      professionnel precis.
+    notes:
+      potentiel_audience: 3      # un metier = audience etroite mais dense
+      croissance_demande: 5
+      valeur_commerciale: 5      # B2B SaaS : RPM FR 6-12 EUR, affiliation recurrente 20-60%
+      concurrence_faible: 3      # le generaliste IA est sature, le vertical metier beaucoup moins
+      facilite_production: 3
+      cout_faible: 5
+      affiliation: 5             # ex. systeme.io 60% recurrent a vie ; SaaS verticaux
+      produit_numerique: 4
+      revenu_recurrent: 5
+      international: 3
+      durabilite: 3              # les outils tournent vite : c'est le METIER qui dure, pas l'outil
+      independance_plateforme: 4
+      risque_juridique_faible: 3
+      automatisation: 3          # tester reellement les outils n'est pas automatisable
+      avantage_defendable: 4     # la specialisation metier est la barriere ; le generaliste n'en a aucune
+      vitesse_validation: 4
+      revente_actif: 4
+      tenue_dans_la_duree: 4      # contenu de fond, indexe durablement
+
+  - id: A3
+    nom: "Micro-entreprise / creation d'entreprise en France"
+    cluster: "A — B2B francophone a forte valeur"
+    resume: >-
+      Media sur les obligations, statuts, charges et outils du createur
+      d'entreprise francais. Audience renouvelee en permanence, tres forte
+      intention d'achat d'outils (banque pro, compta, facturation, site).
+    notes:
+      potentiel_audience: 5      # ~1 million de creations d'entreprises par an en France
+      croissance_demande: 4
+      valeur_commerciale: 5
+      concurrence_faible: 2      # marche tres occupe (blogs, cabinets, legaltech)
+      facilite_production: 3
+      cout_faible: 5
+      affiliation: 5             # banques pro, compta en ligne, systeme.io (60% recurrent)
+      produit_numerique: 4
+      revenu_recurrent: 5
+      international: 1           # droit et fiscalite non transposables
+      durabilite: 5              # flux permanent de nouveaux entrants
+      independance_plateforme: 4
+      risque_juridique_faible: 2 # information juridique/fiscale : responsabilite reelle
+      automatisation: 2          # exactitude critique, mises a jour legales constantes
+      avantage_defendable: 3
+      vitesse_validation: 4
+      revente_actif: 4
+      tenue_dans_la_duree: 4      # sujet permanent, contenu evergreen
+
+  - id: A4
+    nom: "Newsletter de veille pour une profession"
+    cluster: "A — B2B francophone a forte valeur"
+    resume: >-
+      Une synthese hebdomadaire de ce qui change dans un metier (reglementaire,
+      outils, marche), destinee a des professionnels qui n'ont pas le temps de
+      suivre. Monetisee par sponsoring, puis par abonnement.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 3
+      valeur_commerciale: 5      # sponsoring newsletter B2B FR : 150-800 EUR/insertion, CPM 20-80 EUR
+      concurrence_faible: 4      # beaucoup de metiers n'ont aucune veille independante en francais
+      facilite_production: 4
+      cout_faible: 5             # beehiiv gratuit jusqu'a 2500 abonnes
+      affiliation: 3
+      produit_numerique: 4
+      revenu_recurrent: 5
+      international: 2
+      durabilite: 4
+      independance_plateforme: 5 # liste email = actif possede
+      risque_juridique_faible: 3
+      automatisation: 4          # collecte auto, redaction assistee, validation humaine
+      avantage_defendable: 4     # la regularite et la confiance se construisent, ne se copient pas
+      vitesse_validation: 5      # 8 numeros suffisent a savoir
+      revente_actif: 5           # une newsletter B2B qualifiee se revend
+      tenue_dans_la_duree: 2      # CADENCE HEBDO FORCEE : trois semaines manquees et la liste meurt
+
+  # -------------------------------------------------------------------------
+  # A4b — VARIANTE issue d'un test reel, 21/09/2026.
+  #
+  # Mis devant le numero 1, l'utilisateur a repondu : "trop ennuyeux, trop
+  # juridique, et j'evite ce genre de newsletters qui polluent nos boites mail".
+  # La derniere partie ne vise pas le sujet, elle vise la CADENCE HEBDOMADAIRE.
+  #
+  # Cette variante supprime la cadence : on envoie quand une echeance tombe.
+  # Elle gagne 2 points de tenue_dans_la_duree et en perd 1 sur
+  # avantage_defendable — l'habitude du rendez-vous est ce qui cree la relation,
+  # et la relation est ce qu'un concurrent ne copie pas. Le solde est POSITIF.
+  # -------------------------------------------------------------------------
+  - id: A4b
+    nom: "Newsletter de veille SANS cadence forcee (envoyee quand une echeance tombe)"
+    cluster: "A — B2B francophone a forte valeur"
+    resume: >-
+      Une synthese hebdomadaire de ce qui change dans un metier (reglementaire,
+      outils, marche), destinee a des professionnels qui n'ont pas le temps de
+      suivre. Monetisee par sponsoring, puis par abonnement.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 3
+      valeur_commerciale: 5      # sponsoring newsletter B2B FR : 150-800 EUR/insertion, CPM 20-80 EUR
+      concurrence_faible: 4      # beaucoup de metiers n'ont aucune veille independante en francais
+      facilite_production: 4
+      cout_faible: 5             # beehiiv gratuit jusqu'a 2500 abonnes
+      affiliation: 3
+      produit_numerique: 4
+      revenu_recurrent: 5
+      international: 2
+      durabilite: 4
+      independance_plateforme: 5 # liste email = actif possede
+      risque_juridique_faible: 3
+      automatisation: 4          # collecte auto, redaction assistee, validation humaine
+      avantage_defendable: 3     # la regularite et la confiance se construisent, ne se copient pas
+      vitesse_validation: 5      # 8 numeros suffisent a savoir
+      revente_actif: 5           # une newsletter B2B qualifiee se revend
+      tenue_dans_la_duree: 4      # CADENCE HEBDO FORCEE : trois semaines manquees et la liste meurt
+
+  - id: B1
+    nom: "Site programmatique sur donnees publiques ouvertes"
+    cluster: "B — actifs SEO et donnees"
+    resume: >-
+      Des milliers de pages generees a partir de jeux de donnees publics
+      (data.gouv.fr et equivalents) : une page par commune, par metier, par
+      etablissement, avec une donnee chiffree reelle et sourcee.
+    notes:
+      potentiel_audience: 5
+      croissance_demande: 3
+      valeur_commerciale: 3      # depend totalement de la verticale choisie
+      concurrence_faible: 3
+      facilite_production: 3     # demande un minimum de technique (generation de pages)
+      cout_faible: 4             # hebergement gratuit + nom de domaine ~10 EUR/an
+      affiliation: 4
+      produit_numerique: 2
+      revenu_recurrent: 2        # trafic = revenu non recurrent par nature
+      international: 4           # meme methode sur des donnees ouvertes etrangeres
+      durabilite: 3              # dependant des mises a jour Google et des reponses generatives
+      independance_plateforme: 3 # dependance SEO assumee
+      risque_juridique_faible: 4 # donnees publiques, licences ouvertes a respecter
+      automatisation: 5
+      avantage_defendable: 4     # l'effet de stock (milliers de pages indexees) est une vraie barriere
+      vitesse_validation: 2      # l'indexation demande 3 a 6 mois : on sait TARD
+      revente_actif: 5           # un site SEO monetise se vend a un multiple de son benefice
+      tenue_dans_la_duree: 5      # les pages tournent seules, sans intervention
+
+  - id: B2
+    nom: "Annuaire/comparateur de logiciels d'une niche"
+    cluster: "B — actifs SEO et donnees"
+    resume: >-
+      Comparer honnetement les solutions d'un marche precis (prix reels,
+      fonctionnalites, limites), monetise par affiliation et mise en avant.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 4
+      valeur_commerciale: 5      # intention d'achat maximale au moment de la comparaison
+      concurrence_faible: 3
+      facilite_production: 3     # tester vraiment les outils prend du temps
+      cout_faible: 4
+      affiliation: 5
+      produit_numerique: 2
+      revenu_recurrent: 4        # affiliation SaaS recurrente
+      international: 3
+      durabilite: 4
+      independance_plateforme: 4
+      risque_juridique_faible: 3 # comparatif = obligation d'exactitude et de transparence
+      automatisation: 3
+      avantage_defendable: 4     # la fraicheur et l'exhaustivite du comparatif se maintiennent difficilement
+      vitesse_validation: 3
+      revente_actif: 5
+      tenue_dans_la_duree: 5      # actif SEO : une mise a jour trimestrielle suffit a le tenir
+
+  - id: B3
+    nom: "Outils gratuits en ligne (calculateurs, simulateurs) -> freemium"
+    cluster: "B — actifs SEO et donnees"
+    resume: >-
+      Un outil gratuit qui resout un calcul penible et recurrent (simulateur
+      de charges, calculateur de marge, generateur de documents), qui capte du
+      trafic et des emails, puis bascule en version payante.
+    notes:
+      potentiel_audience: 4
+      croissance_demande: 3
+      valeur_commerciale: 4
+      concurrence_faible: 3
+      facilite_production: 2     # exige de construire un outil qui marche, pas d'ecrire un article
+      cout_faible: 4
+      affiliation: 3
+      produit_numerique: 4
+      revenu_recurrent: 4
+      international: 4
+      durabilite: 4
+      independance_plateforme: 4
+      risque_juridique_faible: 3 # un calcul faux sur des charges sociales engage
+      automatisation: 4
+      avantage_defendable: 4     # un outil utilise quotidiennement cree une habitude
+      vitesse_validation: 3
+      revente_actif: 4
+      tenue_dans_la_duree: 5      # un outil en ligne fonctionne sans operateur
+
+  - id: C1
+    nom: "Produits numeriques pour une profession (modeles, tableurs)"
+    cluster: "C — produits numeriques"
+    resume: >-
+      Modeles Notion/tableurs/documents qui font gagner des heures a un
+      professionnel precis, vendus 19-39 EUR.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 4
+      valeur_commerciale: 4      # valeur percue elevee : 5 h gagnees a un freelance facture 60 EUR/h
+      concurrence_faible: 2      # marche des modeles tres encombre
+      facilite_production: 5
+      cout_faible: 4             # Gumroad ~10% + frais (13% effectifs) ; Etsy ~10-12%, frais en hausse en 2026
+      affiliation: 2
+      produit_numerique: 5
+      revenu_recurrent: 1        # vente unique
+      international: 4
+      durabilite: 2
+      independance_plateforme: 3
+      risque_juridique_faible: 4
+      automatisation: 4
+      avantage_defendable: 2     # un modele se copie en une apres-midi
+      vitesse_validation: 5      # on sait en 2 semaines si ca se vend
+      revente_actif: 2
+      tenue_dans_la_duree: 5      # produit vendu en boucle, aucune cadence imposee
+
+  - id: C2
+    nom: "Mini-formation sur une obligation reglementaire"
+    cluster: "C — produits numeriques"
+    resume: >-
+      Un cours court et tres concret pour se mettre en conformite avec une
+      obligation datee (ex. facturation electronique), vendu 49-149 EUR.
+    notes:
+      potentiel_audience: 3
+      croissance_demande: 5
+      valeur_commerciale: 5      # une obligation legale justifie un prix eleve
+      concurrence_faible: 3
+      facilite_production: 3
+      cout_faible: 4
+      affiliation: 3
+      produit_numerique: 5
+      revenu_recurrent: 2
+      international: 1
+      durabilite: 1              # meurt avec l'echeance
+      independance_plateforme: 4
+      risque_juridique_faible: 1 # vendre de la conformite engage lourdement ; formation = cadre specifique
+      automatisation: 3
+      avantage_defendable: 3
+      vitesse_validation: 4
+      revente_actif: 2
+      tenue_dans_la_duree: 4      # vendue en continu, mise a jour occasionnelle
+
+  - id: C3
+    nom: "Print on demand faceless"
+    cluster: "C — produits numeriques"
+    resume: >-
+      Designs vendus sur objets imprimes a la demande. Present dans l'etude
+      comme CONTRE-EXEMPLE argumente, pas comme recommandation.
+    notes:
+      potentiel_audience: 4
+      croissance_demande: 2
+      valeur_commerciale: 2      # marges faibles apres plateforme et impression
+      concurrence_faible: 1      # sature, IA generative a fait exploser l'offre
+      facilite_production: 4
+      cout_faible: 4
+      affiliation: 1
+      produit_numerique: 3
+      revenu_recurrent: 1
+      international: 4
+      durabilite: 2
+      independance_plateforme: 2
+      risque_juridique_faible: 2 # contrefacon et droits sur les visuels generes
+      automatisation: 4
+      avantage_defendable: 1     # aucune barriere : c'est le probleme
+      vitesse_validation: 4
+      revente_actif: 1
+      tenue_dans_la_duree: 4      # catalogue passif une fois en place
+
+  - id: D1
+    nom: "Chaine faceless education IA/tech en francais"
+    cluster: "D — medias courts et video"
+    resume: >-
+      Format court + long sur l'usage concret de l'IA et des outils
+      numeriques, en voix de synthese, sans visage.
+    notes:
+      potentiel_audience: 5
+      croissance_demande: 5      # categorie faceless en plus forte croissance en 2026, demande > offre
+      valeur_commerciale: 4      # RPM faceless eleve sur tech/IA ; RPM FR tech 5-10 EUR
+      concurrence_faible: 2      # les "listes d'outils IA" generiques sont explicitement saturees
+      facilite_production: 3
+      cout_faible: 5
+      affiliation: 5
+      produit_numerique: 4
+      revenu_recurrent: 3
+      international: 3
+      durabilite: 2
+      independance_plateforme: 2 # YouTube evalue desormais le contenu non authentique AU NIVEAU DE LA CHAINE
+      risque_juridique_faible: 3
+      automatisation: 3          # automatiser trop = zone de risque de demonetisation
+      avantage_defendable: 2     # tres faible sans angle metier ou test reel
+      vitesse_validation: 4
+      revente_actif: 2
+      tenue_dans_la_duree: 2      # l'algorithme exige une cadence ; l'arret fait chuter la portee
+
+  - id: D2
+    nom: "Chaine faceless finance / business en francais"
+    cluster: "D — medias courts et video"
+    resume: >-
+      Contenu sur l'argent, l'entreprise et l'investissement, sans visage.
+      Le meilleur RPM du marche, et le pire risque reglementaire.
+    notes:
+      potentiel_audience: 5
+      croissance_demande: 3
+      valeur_commerciale: 5      # RPM FR finance 8-15 EUR, CPM 18-25 EUR : le plus eleve mesure
+      concurrence_faible: 1
+      facilite_production: 2
+      cout_faible: 5
+      affiliation: 4
+      produit_numerique: 4
+      revenu_recurrent: 3
+      international: 2
+      durabilite: 4
+      independance_plateforme: 2
+      risque_juridique_faible: 1 # conseil en investissement, demarchage, promesse de gain
+      automatisation: 2
+      avantage_defendable: 2
+      vitesse_validation: 4
+      revente_actif: 2
+      tenue_dans_la_duree: 2      # meme contrainte de cadence
+
+  - id: D3
+    nom: "Chaine faceless divertissement (histoires, motivation, musique)"
+    cluster: "D — medias courts et video"
+    resume: >-
+      Le format faceless le plus repandu. Present comme CONTRE-EXEMPLE chiffre.
+    notes:
+      potentiel_audience: 5
+      croissance_demande: 2
+      valeur_commerciale: 1      # piege RPM documente : ~0,50-2,50 $ sur musique/sommeil/histoires
+      concurrence_faible: 1      # categories explicitement citees comme saturees
+      facilite_production: 4
+      cout_faible: 5
+      affiliation: 1
+      produit_numerique: 1
+      revenu_recurrent: 1
+      international: 3
+      durabilite: 2
+      independance_plateforme: 1 # exactement la cible de la politique de contenu non authentique
+      risque_juridique_faible: 2 # droits musicaux, histoires reprises
+      automatisation: 5
+      avantage_defendable: 1
+      vitesse_validation: 4
+      revente_actif: 1
+      tenue_dans_la_duree: 2      # meme contrainte de cadence
+
+  - id: E1
+    nom: "Micro-SaaS no-code B2B (19-49 EUR/mois)"
+    cluster: "E — logiciel"
+    resume: >-
+      Un outil qui resout UN probleme repetitif d'une profession, construit
+      sans code, facture des le premier jour.
+    notes:
+      potentiel_audience: 2
+      croissance_demande: 4
+      valeur_commerciale: 5      # 19-49 EUR/mois est le point d'entree standard du micro-SaaS B2B
+      concurrence_faible: 4
+      facilite_production: 2     # meme en no-code, un produit reste un produit
+      cout_faible: 3             # stack gratuite possible, mais les plans payants arrivent vite
+      affiliation: 1
+      produit_numerique: 4
+      revenu_recurrent: 5
+      international: 4
+      durabilite: 4
+      independance_plateforme: 4 # dependance a l'outil no-code choisi
+      risque_juridique_faible: 3
+      automatisation: 3          # le support client n'est pas automatisable
+      avantage_defendable: 4     # une fois installe dans un flux de travail, on ne change pas d'outil
+      vitesse_validation: 3      # rentabilite typique atteinte en 6 a 18 mois
+      revente_actif: 5           # un micro-SaaS rentable se vend a un multiple de son revenu annuel
+      tenue_dans_la_duree: 3      # tourne seul, mais le support client ne s'arrete jamais
+
+  - id: E2
+    nom: "Automatisations pretes a l'emploi vendues en self-serve"
+    cluster: "E — logiciel"
+    resume: >-
+      Vendre des scenarios d'automatisation prets a installer pour une
+      profession (devis, relances, publication), en libre-service.
+    notes:
+      potentiel_audience: 2
+      croissance_demande: 4
+      valeur_commerciale: 4
+      concurrence_faible: 4
+      facilite_production: 3
+      cout_faible: 4
+      affiliation: 3             # commissions des plateformes d'automatisation
+      produit_numerique: 5
+      revenu_recurrent: 3        # vente unique, sauf mise en place d'un abonnement de maintenance
+      international: 3
+      durabilite: 3
+      independance_plateforme: 3
+      risque_juridique_faible: 3
+      automatisation: 4
+      avantage_defendable: 3
+      vitesse_validation: 4
+      revente_actif: 3
+      tenue_dans_la_duree: 4      # vente self-serve ; la maintenance est episodique
+
+  # -------------------------------------------------------------------------
+  # F — concept issu d'une SOURCE EXTERNE, ajoute le 21/09/2026.
+  #
+  # Origine : ChatGPT, saisi du meme prompt maitre par l'utilisateur, a retenu
+  # cette verticale la ou ce dossier a retenu les e-commercants. Le concept est
+  # note ici selon la MEME grille, pour que la comparaison soit calculee et non
+  # asserted. Les notes s'appuient en grande partie sur les constats de ChatGPT
+  # lui-meme, cites dans 10-comparaison-chatgpt.md.
+  # -------------------------------------------------------------------------
+
+  - id: F1
+    nom: "Marge Claire — Shorts faceless + calculateur de marge pour revendeurs Vinted"
+    cluster: "F — concept externe (ChatGPT)"
+    resume: >-
+      Chaine YouTube Shorts faceless sur la revente Vinted (article reel ->
+      notification de vente -> emballage -> frais -> argent restant), adossee a
+      un calculateur de marge, monetisee par affiliation d'outils de gestion de
+      revente. Deux videos produites et rejetees par l'utilisateur les 20 et
+      21/09/2026 (esthetique et voix de synthese jugees inacceptables).
+    notes:
+      potentiel_audience: 4      # Vinted FR est massif ; les revendeurs REGULIERS sont un sous-ensemble
+      croissance_demande: 3      # revente structurellement en hausse, mais AUCUN declencheur date
+      valeur_commerciale: 1      # audience = particuliers revendant des vetements : pouvoir d'achat et RPM au plus bas du marche
+      concurrence_faible: 1      # constat de ChatGPT : "Concurrence : forte, y compris sur les outils gratuits et les guides"
+      facilite_production: 1     # DEMONTRE par la conversation elle-meme : 2 versions rejetees, la barre est le montage et la voix
+      cout_faible: 3             # 0 EUR revendique, mais la voix gratuite a ete ECARTEE par l'utilisateur : la qualite exigee a un cout
+      affiliation: 2             # Vinteer 20 %, seuil 50 EUR, "conditions de maintien apres l'essai restent a clarifier" (ChatGPT)
+      produit_numerique: 2       # un calculateur de marge existe deja GRATUITEMENT chez VintedCRM ; ChatGPT invalide lui-meme le tableur payant
+      revenu_recurrent: 2        # commissions ponctuelles de faible montant, aucune logique d'abonnement
+      international: 3           # Vinted opere dans plusieurs pays de l'UE : duplicable
+      durabilite: 3              # la revente est structurelle, mais l'angle depend de l'ecosysteme d'UNE plateforme
+      independance_plateforme: 1 # DOUBLE dependance : l'algorithme YouTube ET Vinted. Le pire cas possible
+      risque_juridique_faible: 4 # faible, sous reserve des regles YouTube sur les personas IA et les contenus produits en masse
+      automatisation: 2          # la video de qualite acceptable est la tache la MOINS automatisable ; demontre par les 2 rejets
+      avantage_defendable: 1     # critere decisif : un concurrent equipe des memes IA refait ca en une semaine
+      vitesse_validation: 3      # les Shorts se mesurent vite EN PRINCIPE, mais ici le goulot est la production, pas la mesure
+      revente_actif: 2           # une petite chaine faceless grand public se revend a un faible multiple
+      tenue_dans_la_duree: 2      # double contrainte : cadence YouTube ET suivi d'une plateforme tierce

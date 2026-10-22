@@ -1,0 +1,76 @@
+# Grille alternative : "revenu maximal, a condition que le marche soit stable".
+#
+# Cette grille traduit une consigne explicite du proprietaire (21/09/2026) :
+# maximiser le revenu, n'ecarter aucun secteur SAUF ceux dont le marche n'est
+# pas stable ou pas porteur.
+#
+# Elle n'annule pas criteres.yaml (la grille de reference, qui equilibre revenu,
+# defendabilite et vitesse d'apprentissage) : elle sert a voir ce que devient le
+# classement quand on ne regarde presque QUE l'argent et la solidite du marche.
+# Comparer les deux sorties est plus instructif que chacune prise seule.
+#
+#   python scorer.py --criteres criteres-max-revenu.yaml
+
+criteres:
+  potentiel_audience:
+    poids: 2.0
+    sens: "5 = audience francophone potentielle large"
+  croissance_demande:
+    poids: 4.0
+    sens: "5 = demande en croissance mesurable -- condition posee par le proprietaire"
+  valeur_commerciale:
+    poids: 5.0
+    sens: "5 = audience a fort pouvoir d'achat, CPM/RPM eleve, panier eleve"
+  concurrence_faible:
+    poids: 2.0
+    sens: "5 = peu de concurrents serieux en francophonie"
+  facilite_production:
+    poids: 1.0
+    sens: "5 = productible par un debutant seul"
+  cout_faible:
+    poids: 1.0
+    sens: "5 = lancable a 0 EUR"
+  affiliation:
+    poids: 4.0
+    sens: "5 = programmes nombreux, bien remuneres, RECURRENTS"
+  produit_numerique:
+    poids: 2.0
+    sens: "5 = produit numerique evident sur un probleme deja exprime"
+  revenu_recurrent:
+    poids: 5.0
+    sens: "5 = abonnement / SaaS / affiliation recurrente credible"
+  international:
+    poids: 1.5
+    sens: "5 = duplicable en anglais sans refaire le produit"
+  durabilite:
+    poids: 5.0
+    sens: >-
+      5 = marche structurel et porteur ; 1 = fenetre qui se referme ou marche en
+      recul. Poids maximal : c'est la condition explicite posee ("pas de marche
+      non porteur"), et c'est ce qui disqualifie un secteur en declin meme tres
+      remunerateur a court terme.
+  independance_plateforme:
+    poids: 2.0
+    sens: "5 = l'actif survit si une plateforme ferme le robinet"
+  risque_juridique_faible:
+    poids: 1.0
+    sens: "5 = aucun domaine reglemente (volontairement peu pondere ici : rien n'est ecarte a priori)"
+  automatisation:
+    poids: 1.5
+    sens: "5 = 90%+ du travail recurrent executable par machine"
+  avantage_defendable:
+    poids: 3.0
+    sens: "5 = non copiable en une semaine par un concurrent equipe des memes IA"
+  vitesse_validation:
+    poids: 1.0
+    sens: "5 = on sait en moins de 30 jours"
+  revente_actif:
+    poids: 3.0
+    sens: "5 = actif revendable a un multiple de son benefice -- c'est la ou se cree le patrimoine"
+  tenue_dans_la_duree:
+    poids: 1.0
+    sens: >-
+      Presque neutralise ici, volontairement : cette grille ne regarde que
+      l'argent et la solidite du marche, pas ce que le format coute a celui qui
+      le tient. Le contraste avec la grille de reference est precisement ce qui
+      rend la contre-epreuve informative.

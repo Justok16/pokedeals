@@ -1,0 +1,37 @@
+{
+  "metricool": {
+    "limite": 20,
+    "source": "help.metricool.com « Main differences between Free and paid plans », relue le 21/10/2026 : 20 publications PUBLIÉES par mois, chaque réseau compte une fois (« Duplicate posts count once for each social network »), compteur remis à zéro le 1er ; au-delà, seules 20 sont publiées",
+    "mois": {
+      "2026-10": 20,
+      "2026-11": 19
+    },
+    "note_2026-11": "Réorganisé le 21/10 : 19 publications non brouillon (11 carrousels TikTok, 5 Shorts YouTube, 3 posts Google) ; Instagram, Facebook, Threads et stories en brouillon (contenu dans supports/publications-v2/novembre-metricool-avant-reorg.json), Instagram et Facebook à envoyer par Buffer à partir du 01/11 (rappel trig_01PvxXHpog5J8MrBUzdGUzAM)"
+  },
+  "zapier": {
+    "limite": 100,
+    "marge": 90,
+    "cout_par_appel": 2,
+    "source": "zapier.com/pricing (Free : 100 tâches/mois) et help.zapier.com « How is task usage measured » (MCP : 2 tâches par appel réussi), lus le 19/10/2026",
+    "mois": {
+      "2026-10": 96
+    },
+    "reserve_autorisee": [
+      "upload_video",
+      "code_action_buffercliapi__posts_du_jour_et_remplacer_video"
+    ],
+    "note_reserve": "22/10 : entre la marge (90) et la limite (100), seules ces actions passent : Shorts YouTube du calendrier et correction de la vidéo d'une publication Buffer déjà programmée (voix « Di seize »)."
+  },
+  "buffer": {
+    "limite_file_par_reseau": 10,
+    "source": "buffer.com/pricing FAQ, lue le 19/10/2026 : 3 réseaux, 10 publications programmées par réseau, la place se libère après publication",
+    "note": "avant chaque ajout : lire la file (action queue) du réseau"
+  },
+  "tavily": {
+    "limite": 1000,
+    "source": "tavily.com/pricing, lu le 29/09/2026 : 1 000 crédits par mois, sans carte ; coût exact par appel (search, extract basic/advanced, map) à relire sur docs.tavily.com avant une série",
+    "mois": {
+      "2026-10": "environ 20 appels le 21/10 (annuaire There's An AI For That, docs Postnify) ; compte exact à relire sur app.tavily.com"
+    }
+  }
+}

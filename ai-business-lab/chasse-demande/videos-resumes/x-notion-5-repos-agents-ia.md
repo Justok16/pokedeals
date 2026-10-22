@@ -1,0 +1,13 @@
+# « 5 repos GitHub pour créer des agents IA plus vite (avec les liens) » (page Notion d'ExplorIA, envoyée le 02/10/2026)
+
+Source : page Notion publique « metal-scooter-6f7.notion.site/5-repos-GitHub-pour-cr-er-des-agents-IA-plus-vite… », lue le 02/10/2026 (contenu de l'auteur, vérifié ensuite dépôt par dépôt sur GitHub le même jour). La page renvoie vers une communauté Skool gratuite et un accompagnement payant (« Le Cercle », ExplorIA Labs : « vendre de l'IA aux entreprises »).
+
+| # | Dépôt (nom exact vérifié) | Ce que c'est | Vérifié le 02/10 | Verdict Dig |
+|---|---|---|---|---|
+| 1 | `vercel-labs/agent-browser` (la page l'appelle « Browser Use ») | Navigateur piloté en ligne de commande pour agents (Rust + Chrome for Testing, daemon local) | Apache 2.0, 43 k étoiles ; pas de clé pour l'essentiel ; télécharge Chrome | **Pas installé** : Playwright (Python et MCP) fait déjà tout cela dans le conteneur |
+| 2 | `thedotmack/claude-mem` | Mémoire persistante entre sessions Claude Code (5 hooks, service local Bun, SQLite + Chroma, synchro optionnelle vers cmem.ai avec essai 14 jours) | Apache 2.0, 95 k étoiles | **Pas installé** : installation interactive (`/plugin`), service permanent et base vectorielle ; notre mémoire est déjà dans le dépôt (CLAUDE.md, `46`, routine). Option cloud = payante après essai |
+| 3 | Scientific agent skills (`K-Dense-AI/scientific-agent-skills`, 165 skills, bases biologie/chimie/médecine) | Bibliothèque de skills scientifiques | Existe | **Hors sujet** pour Dig |
+| 4 | `cathrynlavery/diagram-design` (39 à 42 types de schémas éditoriaux, HTML + SVG autonomes) | Skill de schémas propres pour Claude Code (architecture, parcours, frise, organigramme, entonnoir…) | MIT, 43 k étoiles ; scripts Python d'import/export facultatifs | **Installé en texte seul** dans `.claude/skills/diagram-design/` (SKILL.md + références ; exemples et scripts non repris) : utile pour les schémas des supports et du site |
+| 5 | `mukul975/Anthropic-Cybersecurity-Skills` (818 skills, 34 domaines, MITRE ATT&CK / NIST) | Bibliothèque communautaire de workflows de sécurité, **pas officielle Anthropic** (son README le dit) | Apache 2.0, 33 k étoiles ; 46 skills « sécurité des applications web » (OWASP) | **Pas installé** : trop large ; nos audits (`audit_securite.py`, `audit_acces.py`, skill vibe-security) couvrent le besoin. À reconsidérer si un client demande un audit de sécurité formel |
+
+Conseils de la page repris : n'installer que les skills qu'on utilise ; lire le SKILL.md avant de laisser tourner un dépôt communautaire ; ces outils consomment le quota habituel de l'agent.

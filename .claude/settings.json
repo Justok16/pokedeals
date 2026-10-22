@@ -1,0 +1,131 @@
+{
+  "enabledPlugins": {
+    "small-business@knowledge-work-plugins": true,
+    "superpowers@superpowers-marketplace": true
+  },
+  "extraKnownMarketplaces": {
+    "knowledge-work-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/knowledge-work-plugins"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    }
+  },
+  "permissions": {
+    "allow": [
+      "mcp__Canva",
+      "mcp__Canva__*",
+      "mcp__Google_Drive",
+      "mcp__Google_Drive__*",
+      "mcp__Vercel",
+      "mcp__Vercel__*",
+      "mcp__Gmail",
+      "mcp__Gmail__*",
+      "mcp__github",
+      "mcp__OpenRush",
+      "mcp__Resend"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(git rebase*)",
+      "Bash(git filter-branch*)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~*)",
+      "Bash(pkill -f*)",
+      "Bash(pgrep -f*)",
+      "Bash(sudo *)",
+      "Bash(chmod 777*)",
+      "Bash(chmod -R 777*)",
+      "Bash(ssh *)",
+      "Bash(dd *of=/dev/*)"
+    ]
+  },
+  "env": {
+    "MCP_TIMEOUT": "120000"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secrets_avant_commit.sh",
+            "timeout": 120
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__Metricool_Social_Media_Management__createScheduledPost|mcp__Zapier__execute_zapier_write_action|mcp__Zapier__execute_zapier_read_action",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/quota_publications.py",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/python_syntaxe.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v detect-secrets-hook >/dev/null 2>&1 || pip install -q detect-secrets==1.5.0 2>&1 | tail -n 3 || true",
+            "timeout": 120
+          },
+          {
+            "type": "command",
+            "command": "python3 -c 'import yt_dlp' 2>/dev/null || pip install -q yt-dlp 2>&1 | tail -n 3 || true",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/verifier_avant.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/interdit_sans_reponse.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

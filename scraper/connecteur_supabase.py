@@ -262,8 +262,8 @@ def marquer_notification_envoyee(supabase_url: str, service_role_key: str, alert
         )
         r.raise_for_status()
     except requests.RequestException as e:
-        log.warning("Marquage de la notification %s comme envoyée échoué pour l'alerte %s (%s) -- retentée au prochain cycle",
-                    canal, alerte_id, e)
+        log.warning("Marquage de la notification %s comme envoyée échoué (%s) -- retentée au prochain cycle",
+                    "push" if canal == "push" else "email", type(e).__name__)  # CodeQL : rien qui vienne de la requête
 
 
 def enregistrer_cotes_marche(supabase_url: str, service_role_key: str, cotes: list[dict]) -> None:
