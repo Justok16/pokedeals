@@ -14,13 +14,14 @@
     "cout_par_appel": 2,
     "source": "zapier.com/pricing (Free : 100 tâches/mois) et help.zapier.com « How is task usage measured » (MCP : 2 tâches par appel réussi), lus le 19/10/2026",
     "mois": {
-      "2026-10": 96
+      "2026-10": 98
     },
     "reserve_autorisee": [
       "upload_video",
-      "code_action_buffercliapi__posts_du_jour_et_remplacer_video"
+      "code_action_buffercliapi__posts_du_jour_et_remplacer_video",
+      "code_action_buffercliapi__publier_video_trois_reseaux"
     ],
-    "note_reserve": "22/10 : entre la marge (90) et la limite (100), seules ces actions passent : Shorts YouTube du calendrier et correction de la vidéo d'une publication Buffer déjà programmée (voix « Di seize »)."
+    "note_reserve": "22/10 : entre la marge (90) et la limite (100), seules ces actions passent : Shorts YouTube du calendrier et correction de la vidéo d'une publication Buffer déjà programmée (voix « Di seize »). 22/10 18 h : republication du reel corrigé du conseil 6 sur Instagram, Facebook et TikTok (demande de l'utilisateur : tout automatiser) ; en contrepartie le Short du 29/10 passe au début du cycle Zapier suivant."
   },
   "buffer": {
     "limite_file_par_reseau": 10,
