@@ -101,6 +101,11 @@
             "type": "command",
             "command": "python3 -c 'import yt_dlp' 2>/dev/null || pip install -q yt-dlp 2>&1 | tail -n 3 || true",
             "timeout": 120
+          },
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/reprise_finance.sh\"",
+            "timeout": 15
           }
         ]
       }
@@ -112,6 +117,15 @@
             "type": "command",
             "command": "sh \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/verifier_avant.sh",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/reprise_finance.sh\"",
+            "timeout": 15
           }
         ]
       }
