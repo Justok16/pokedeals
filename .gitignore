@@ -63,3 +63,7 @@ ai-business-lab/chasse-demande/videos/test-du-pouce/musique.wav
 
 # Fichiers de travail du navigateur Playwright (outil MCP)
 .playwright-mcp/
+
+# skill visiteurs (22/10) : dépendances et résultats locaux
+.claude/skills/visiteurs/scripts/node_modules/
+.visiteurs/

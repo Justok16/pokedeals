@@ -363,3 +363,4 @@ _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technology
 <!-- catalogue-auto:fin -->
 | ✅ | Post Instagram DemSlicoHm4 (@aiagently, 22/10) | Appliqué : 3 skills marketingskills installés (customer-research, public-relations, community-marketing) ; 10 en réserve ; guide 57 enrichi |
 | ✅ | PDF Jev (@Dany, 22/10) | Déjà appliqué (skill typesafe-ai, relais api/jev) ; règle 75 % / 70-75 % / humain notée dans 46 ; Tally et « communauté » ignorés |
+| ✅ | Reels DexHK7_jEvj, DezQWUxR1eV, Dd6nK53jUeh, DeyPRc6lzvw + dépôt achillebrl/skills-ia (22/10) | Appliqué : skill visiteurs installé et testé sur dig16.fr (logo corrigé) ; OpenMontage, Open Design, /watch en réserve ; reel « 10 000 € » sans nouveauté |
