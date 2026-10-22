@@ -103,3 +103,7 @@ Résultat le 19/10 : « 3/3 channels connected » (DIG16 Facebook, dig16fr Insta
 ### YouTube : supprimer une de ses vidéos (page d'aide officielle support.google.com/youtube/answer/55770, lue le 22/10/2026)
 - **Application YouTube sur Android** : « Connectez-vous à YouTube » → touchez votre photo de profil, puis « Vos vidéos » → à côté de la vidéo, « Plus » (⋮) puis « Supprimer » → « Supprimer » pour confirmer.
 - **YouTube Studio (ordinateur)** : menu de gauche « Contenu » → survoler la vidéo → options → suppression définitive → cocher la case de confirmation → valider. La suppression est définitive.
+
+### TikTok : supprimer une de ses vidéos (aide officielle support.tiktok.com « Editing, posting, and deleting », lue le 22/10/2026, page sans date)
+1. Ouvrir la vidéo à supprimer. 2. Toucher le bouton « Plus d'options » (…) sur le côté de la vidéo. 3. Toucher « Supprimer ».
+La vidéo reste 30 jours dans « supprimés récemment » avant d'être effacée pour de bon. 22/10 : l'utilisateur n'y arrive pas → capture de l'écran après « … » pour guider (ne pas improviser).
