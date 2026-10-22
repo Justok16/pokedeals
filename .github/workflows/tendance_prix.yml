@@ -1,11 +1,9 @@
 name: Tendance Prix
 
 on:
-  schedule:
-    # Quotidien (08h30 UTC, apres la mise a jour du F&G/cotes du matin) --
-    # un point de prix par jour suffit largement pour un indicateur de
-    # tendance a l'echelle de semaines/mois, pas besoin de plus frequent.
-    - cron: "30 8 * * *"
+  # Declenche UNIQUEMENT par cron-job.org (workflow_dispatch, 04h00 UTC) depuis
+  # le 22/10/2026 : le cron GitHub (8h30 UTC, parti en realite vers 13h-16h UTC)
+  # faisait tourner le suivi deux fois par jour.
   workflow_dispatch: {}
 permissions:
   contents: write   # necessaire pour sauvegarder data/historique_prix_tendance.json

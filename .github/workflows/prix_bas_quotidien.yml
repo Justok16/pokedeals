@@ -1,13 +1,9 @@
 name: Prix Bas Quotidien
 
 on:
-  schedule:
-    # Quotidien a 11h heure de Paris. Cron GitHub Actions fixe en UTC, pas
-    # d'ajustement automatique DST -- 9h UTC = 11h Paris en ete (CEST,
-    # situation actuelle) mais 12h Paris en hiver (CET). Meme limite deja
-    # acceptee pour tendance_prix.yml (8h30 UTC fixe) : un ecart d'1h deux
-    # fois par an n'est pas genant pour ce type d'alerte.
-    - cron: "0 9 * * *"
+  # Declenche UNIQUEMENT par cron-job.org (workflow_dispatch) depuis le
+  # 22/10/2026 : le cron GitHub (9h UTC, parti en realite entre 13h et 16h UTC)
+  # doublait le declenchement cron-job.org et envoyait 2 resumes Telegram par jour.
   workflow_dispatch: {}
 permissions:
   contents: read   # aucune ecriture -- ce radar n'a pas de fichier memoire
