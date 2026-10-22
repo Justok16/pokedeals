@@ -25,16 +25,20 @@ def refuser(raison):
     sys.exit(0)
 
 
-def zapier(reg):
-    """Zapier MCP : 2 tâches par appel réussi, 100 par mois en gratuit ; refus au-delà de la marge."""
+def zapier(reg, entree):
+    """Zapier MCP : 2 tâches par appel réussi, 100 par mois en gratuit ; refus au-delà de la marge.
+    Exception écrite dans videos/conseils/youtube-shorts.md (20/10) : les Shorts YouTube prévus au calendrier
+    (action « upload_video » de YouTube) peuvent utiliser la réserve entre la marge et la limite réelle."""
     from datetime import datetime, timezone
 
     mois = datetime.now(timezone.utc).strftime("%Y-%m")
     z = reg["zapier"]
     deja = z["mois"].get(mois, 0)
-    if deja + z["cout_par_appel"] > z["marge"]:
-        refuser(f"Quota Zapier : {deja} tâches utilisées en {mois} sur {z['limite']} (marge {z['marge']}). "
-                f"Plus d'action Zapier ce mois-ci.")
+    short_youtube = entree.get("action") == "upload_video" and "YouTube" in str(entree.get("selected_api", ""))
+    plafond = z["limite"] if short_youtube else z["marge"]
+    if deja + z["cout_par_appel"] > plafond:
+        refuser(f"Quota Zapier : {deja} tâches utilisées en {mois} sur {z['limite']} (marge {z['marge']}"
+                f"{', réserve YouTube comprise' if short_youtube else ''}). Plus d'action Zapier ce mois-ci.")
     z["mois"][mois] = deja + z["cout_par_appel"]
     with open(REGISTRE, "w", encoding="utf-8") as f:
         json.dump(reg, f, ensure_ascii=False, indent=2)
@@ -45,7 +49,7 @@ def main():
     donnees = json.load(sys.stdin)
     if donnees.get("tool_name", "").startswith("mcp__Zapier__execute_zapier"):
         with open(REGISTRE, encoding="utf-8") as f:
-            zapier(json.load(f))
+            zapier(json.load(f), donnees.get("tool_input", {}))
         return
     entree = donnees.get("tool_input", {})
     info = entree.get("info", {})
