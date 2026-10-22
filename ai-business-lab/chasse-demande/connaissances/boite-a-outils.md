@@ -374,3 +374,4 @@ _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technology
 | ✅ | YouTube 4PO0x-myitw et 30BvXY2lpAg (22/10) | Rien de nouveau ; robots.txt et llms.txt vérifiés |
 | ✅ | YouTube PDfLMI1bJv8 (22/10) | Déjà en place (skill schema) ; JSON-LD du site vérifié |
 | ⏳ | YouTube v7YU3q-kO88 (22/10) | À résumer le 23/10 (quota Gemini épuisé ; rappel programmé) |
+| ⏳ | YouTube OcvkZ0LWUTI et CQqwNfvvqWc (22/10) | À résumer le 23/10 à 10 h 20 (quota Gemini épuisé ; même rappel que v7YU3q-kO88) ; XsW4tgsSYaI déjà traitée le 21/10 |
