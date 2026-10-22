@@ -19,7 +19,7 @@ déjà trié répond au besoin, l'utiliser ; ne pas re-trier ce qui est écarté
 | **Animer un site** | `animate`, `motion-foundations`, `motion-patterns`, `find-animation-opportunities`, `improve-animations`, `review-animations` ; contrôle à 0/25/50/75/100 % | — |
 | **Contrôler la qualité avant envoi** | `outils/test_pages.py`, `audit_site.py`, `audit_acces.py`, `qa_site.py`, `orthographe.py`, `typo_fr.py`, `lisibilite.py`, `nettete.py`, `anti_generique.py` ; skills `browser-qa`, `break-ui`, `click-path-audit`, `verification-loop`, `accessibility` ; `44-controle-qualite.md` | — |
 | **Sécurité** | Hooks detect-secrets (avant commit) et ruff ; `outils/audit_securite.py` ; skills `vibe-security`, `production-audit` ; `outils/verif_metadonnees.py` (GPS des photos clients) ; ⚠️ Website Auditor.io : son audit « gratuit » lance aussi des tests de formulaires et « chaos » : jamais sur le site d'un prospect ou d'un client (21/10) | — |
-| **Référencement (SEO, IA)** | `outils/seo_client.py` (contrôle SEO de tout site, 0 ALERTE avant livraison ; `--schema` écrit les données structurées du métier) et méthode `65-seo-sites-clients.md` ; audit OpenSEO (projet par site, gratuit sans rendu JavaScript) ; skills `seo`, `seo-audit`, `ai-seo`, `schema`, `site-architecture`, `directory-submissions` ; `outils/indexnow.py` ; OpenRush (volumes de recherche) ; Search Console, Bing Webmaster, fiche Google, Bing Places, PagesJaunes, Apple Business (12/10) ; TrustGrowth (audit et suivi gratuits d'1 site, Search Console à relier par l'utilisateur) ; WebAnatomy (3 pistes gratuites pour la page d'accueil de dig16.fr) | OpenSEO écarté (données payantes) |
+| **Référencement (SEO, IA)** | `outils/seo_client.py` (contrôle SEO de tout site, 0 ALERTE avant livraison ; `--schema` écrit les données structurées du métier) et méthode `65-seo-sites-clients.md` ; audit OpenSEO (projet par site, gratuit sans rendu JavaScript) ; skills `seo`, `seo-audit`, `ai-seo`, `schema`, `site-architecture`, `directory-submissions`, `link-building` (22/10 : mentions gagnées, jamais de lien acheté) ; `outils/indexnow.py` ; OpenRush (volumes de recherche) ; Search Console, Bing Webmaster, fiche Google, Bing Places, PagesJaunes, Apple Business (12/10) ; TrustGrowth (audit et suivi gratuits d'1 site, Search Console à relier par l'utilisateur) ; WebAnatomy (3 pistes gratuites pour la page d'accueil de dig16.fr) | OpenSEO écarté (données payantes) |
 | **Textes et vente** | Skills `copywriting`, `copy-editing`, `humanizer`, `better-writing`, `cold-email`, `offers`, `pricing`, `referrals`, `prospecting`, `brand-voice`, `brand-discovery` ; mots exacts des clients dans les textes | — |
 | **Trouver et vérifier des prospects** | `outils/verif_entreprises.py` (annuaire officiel + BODACC), `radar_fermetures.py`, `suivi_siren.py`, `avis_negatifs.py` ; connecteurs Contract-Factory (SIREN), Firecrawl (crédits presque épuisés) | Vibe Prospecting, Similarweb : payants à l'usage |
 | **Réseaux sociaux** | Metricool (Facebook, Instagram, Threads, TikTok, YouTube, fiche Google) ; `outils/marque/visuels_reseaux.py` ; skills `content-engine`, `marketing-campaign` ; Text Behind Image (makeitaquote.ai, texte derrière le sujet d'une vraie photo, traitement local, gratuit, 21/10) ; Postnify gratuit (2 réseaux, 15 publications par mois, API : X automatique et place en plus du quota Metricool ; compte à créer par l'utilisateur, 21/10) ; ReviewReply (réponses aux avis, gratuit sans compte, à conseiller aux clients) | X relié à Metricool : payant (non) |
@@ -172,7 +172,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Légendes de publications | Idées de légendes à partir d'une photo (à réécrire selon la charte) |
 | · | Anciennes versions d'un site prospect | Déjà utilisé (photos_archives.py) ; bloqué depuis le conteneur, à ouvrir sur le téléphone de l'utilisateur |
 
-### Création de sites et design (78)
+### Création de sites et design (79)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -220,6 +220,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | ✅ | Vidéo YouTube S8sQeFy9VbQ (12/10) : la « zone grise », fabriquer ses propres petits outils avec Claude Code | Appliqué : c'est notre façon de faire (outils/ maison) ; le modèle en 5 parties est retenu pour les demandes de sites clients (brief). |
 | ✅ | Reel Instagram DeYKx9fgENd (13/10, compte openrushdata) : « Turn Claude into your SEO analyst. Live rankings,… | Déjà en place : OpenRush est branché depuis le 28/09 (33-outils.md), utilisé pour les volumes de recherche, l'analyse des sites et des résultats Google. Search Console d… |
 | ✅ | Veille du 19/10 (veille/2026-10-19.md) | Trié : rien à installer ; « measure-dont-guess » noté comme déjà appliqué (règle « jamais de supposition » du 19/10) |
+| ✅ | Veille du 22/10 (veille/2026-10-22.md) | Installé : skill link-building (lu en entier avec ses 3 références ; même règle que 67 : jamais de lien acheté, seulement mentions gagnées, annuaires, partenaires, pages… |
 | ✅ | Vidéo YouTube ykAUNww86So (envoyée le 20/10 ; videos-resumes/ykAUNww86So.md) | ⛔ cloner l'appli ou le site d'un tiers ; 📦 REA en réserve (seul usage : ancien site d'un client, avec son accord écrit), rien installé ; licence et étoiles non vérifiées… |
 | ✅ | Vidéo YouTube 5nkJKNQAi8I (20/10 ; videos-resumes/5nkJKNQAi8I.md) | Concurrent « fais-le toi-même » noté avec la réponse DIG16 ; astuces déjà appliquées ; Hostinger non retenu (payant). |
 | ✅ | Guide PDF « Brag + Claude Code » (@Dany, 20/10 ; videos-resumes/pdf-brag.md) | ✅ Appliqué : brag-slim (MIT, instructions seulement) lu en entier et installé dans .claude/skills/brag-slim/ ; usage prévu : vidéo de lancement verticale de dig16.fr pou… |
@@ -357,6 +358,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 
-_273 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
+_274 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->

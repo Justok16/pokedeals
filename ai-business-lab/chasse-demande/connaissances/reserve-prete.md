@@ -38,6 +38,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Penpot (DegsO8likZa, 17/10) | Maquettes d'écrans partagées (alternative à Figma) | Client qui veut valider une maquette détaillée avant le site | Offre gratuite annoncée (à revérifier) ; en ligne, sans installation |
 | Anydoc (Ddytkf2gBEj) | Convertir les documents du client (Word, Excel, PDF) en texte | **Installé le 17/10**, prêt | `python3 -c "import anydoc; print(anydoc.to_markdown('fichier'))"` ; gratuit (sans l'OCR « hosted », payant) |
 | 10Web, Durable, Lovable… (Dde3xh9EYkM, reels du 29/09) | Sites générés par IA | Veille concurrence seulement : savoir ce que propose la concurrence | Payants ou concurrents directs |
+| DesignCraft et PdfCraft (veille 22/10, gratos.app → getartcraft.com) | Mise en page type InDesign et gestion de PDF sur ordinateur, libres, sans compte | Un client veut une plaquette imprimable ou un PDF à annoter ; logiciels pré-alpha/alpha (47 % et 55 % prêts selon l'éditeur, lu le 22/10) | Gratuits, Mac/Windows/Linux ; à télécharger seulement depuis getartcraft.com |
 
 ## Vidéo, voix et contenus (en pause jusqu'au 1er client payant)
 
@@ -68,6 +69,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | ViralityAI (DeMr4aFiCvy) | Idées de contenus et tendances | Reprise des réseaux | Gratuité non précisée |
 | Mixpost, Shoutrrr (Dd2tZCCDofx) | Secours de Metricool pour programmer les publications | Si Metricool devient payant ou tombe en panne | Libres (MIT, Apache 2.0) ; noté dans `63` § 4 |
 | Instagram Agent Skill (DeeyiaVILNi, 18/10) : `ig-reel` (26 accroches notées), `ig-viral`, `ig-plan`, `ig-carousel`, `ig-story`, `ig-comment`, `ig-reply`, `ig-dm`, `ig-repurpose`, `ig-audit` | Préparer reels, recherche des formats qui marchent, planning de la semaine, réponses aux commentaires | Reprise des réseaux après le 1er client payant, ou réseaux d'un client (offre Visibilité) | github.com/Jakeschincariol/instagram-agent-skill, MIT, gratuit, hors ligne ; copier `skills/ig-*` dans `.claude/skills/` ; listes de mots en anglais ; **ne pas utiliser `ig-human` sur du français** (casse ’ et insécables). `ig-caption` et `ig-profile` déjà installés |
+| Skill `conversion-tracking` (veille 22/10, `coreyhaines31/marketingskills`, MIT) | Mesurer les conversions (formulaire, appel) vers Google Ads, Meta, GA4 | Première publicité payante d'un client ou de DIG16 | Gratuit ; 30 Ko + extraits ; à installer après lecture complète le jour venu |
 
 ## Administratif, données d'entreprises, sécurité
 
@@ -83,6 +85,8 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Bitwarden (DeekQtwk30w) | Coffre-fort de mots de passe (comptes clients) | **Dès 2 ou 3 clients** (comptes Cloudflare, domaines) | Gratuit pour un utilisateur (à revérifier) |
 | Obsidian (DegsO8likZa, 17/10) | Notes personnelles reliées, gardées sur l'appareil | Si l'utilisateur veut un carnet de notes hors ligne | Gratuit en local (Sync payant, inutile) |
 | Nextcloud, Baserow, Vikunja, PostHog, n8n (DeekQtwk30w, revus dans DegsO8likZa) | Fichiers, tableaux, tâches, statistiques, automatisations | Si un service gratuit actuel devient payant | Libres, auto-hébergés |
+| OpenUptime (veille 22/10) | Surveille dig16.fr toutes les 5 min et prévient par email s'il tombe (aujourd'hui : contrôle 2 fois par jour seulement) | Dès que l'utilisateur veut une alerte immédiate, ou au 1er site client hébergé | Offre gratuite lue sur openuptime.app/pricing le 22/10 : 3 moniteurs, 26 000 contrôles et 100 emails par mois, 30 jours d'historique ; éditeur BECOOL INC., code MIT ; compte à créer par l'utilisateur |
+| DMARCmetric (veille 22/10) | Lire les rapports DMARC (qui envoie des mails au nom de dig16.fr, SPF/DKIM alignés) | Si des mails de DIG16 arrivent en spam ou si une usurpation est soupçonnée | « Free forever for 1 domain », « No credit card » (lu le 22/10) ; demande d'ajouter `rua=` à l'enregistrement DMARC (OVH/Cloudflare, par l'utilisateur) ; éditeur non nommé sur le site : lire la page About et la politique de confidentialité avant |
 
 ## Claude, agents et automatisation
 
