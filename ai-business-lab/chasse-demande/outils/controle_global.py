@@ -4,11 +4,12 @@ messagerie du domaine (DNS en HTTPS), certificat, relais Vercel (cookie), file d
 contrôle, « OK » ou « ALERTE », et le code de sortie vaut le nombre d'alertes (0 = tout va bien).
 Le point automatique de 07:34 et 19:34 UTC le lance et ne signale à l'utilisateur QUE les alertes."""
 
+import datetime
 import json
 import os
 import subprocess
 import sys
-import datetime
+
 import requests
 
 SITE = "https://dig16.fr"
@@ -164,6 +165,17 @@ ok(
     f"{n} processus (0 : quota gratuit du jour épuisé ou file finie ; le point relance finance.sh)",
     info=True,
 )
+
+# 22/10 : la marque doit être bien dite dans toutes les vidéos parlées du site (cache : seules les nouvelles sont écoutées)
+v = subprocess.run(
+    [sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "controle_voix_videos.py")],
+    capture_output=True,
+    text=True,
+    timeout=900,
+    check=False,
+)
+mal = [ligne.split("|")[0].replace("mal dite", "").strip() for ligne in v.stdout.splitlines() if ligne.startswith("mal dite")]
+ok("marque « dig16 » bien dite dans les vidéos du site", v.returncode == 0, ", ".join(mal) or v.stderr[-120:])
 
 alertes = [r for r in res if not r[1]]
 if "--json" in sys.argv:
