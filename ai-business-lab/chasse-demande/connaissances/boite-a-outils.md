@@ -368,3 +368,4 @@ _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technology
 | ✅ | Fiche Core Labs Roast Room (22/10) | Non installé (trop gourmand) ; méthode ajoutée au « conseil » déjà prêt (reserve-prete) ; aucun email donné |
 | ✅ | Reel DeUQ6OHMi_z (22/10) | Doublon : OpenMontage déjà en réserve |
 | ✅ | Reel Dezu72ljHE8 (22/10) | Déjà en place (CLAUDE.md, connaissances, connecteurs, skills) |
+| ✅ | Guide Notion « Un week-end avec Claude » (22/10) | Déjà en place pour l essentiel ; ajout au garde-fou mensuel : contexte à jour + test visiteurs |
