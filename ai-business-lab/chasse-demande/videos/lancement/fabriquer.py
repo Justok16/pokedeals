@@ -21,7 +21,7 @@ from playwright.sync_api import sync_playwright
 ICI = os.path.dirname(os.path.abspath(__file__))
 CD = os.path.normpath(os.path.join(ICI, "..", ".."))
 sys.path.insert(0, os.path.join(CD, "videos", "conseils"))
-from fabriquer import CHROME, css_polices, data, duree, empreinte_svg, voix  # noqa: E402
+from fabriquer import CHROME, css_polices, data, duree, empreinte_svg, marque_mal_dite, voix  # noqa: E402
 
 FPS = 30
 # Phrases dites (8) : l'écran suit chacune. « DIG16 » écrit pour être bien prononcé.
@@ -200,7 +200,8 @@ def son(debuts, fichiers, total):
 
 def verifier_voix(fichiers, textes):
     """Transcrit chaque phrase (faster-whisper) et compare au texte voulu, à l'oreille : les terminaisons muettes
-    du français (« ils vous trouvent » = « il vous trouve », constaté le 20/10) ne comptent pas."""
+    du français (« ils vous trouvent » = « il vous trouve », constaté le 20/10) ne comptent pas.
+    Renvoie les fichiers où la marque est mal dite (à resynthétiser) ; vide si tout est bon."""
     import difflib
     import re
 
@@ -219,12 +220,18 @@ def verifier_voix(fichiers, textes):
         mots = re.sub(r"[^a-zàâçéèêëîïôûùüÿœ0-9 ]", " ", s).split()
         return [re.sub(r"(ent|es|e|s|t|x)$", "", w) if len(w) > 3 else w.rstrip("s") for w in mots]
 
+    a_refaire = []
     for ch, txt in zip(fichiers, textes):
-        entendu = " ".join(x.text for x in m.transcribe(ch, language="fr")[0])
+        entendu = " ".join(x.text for x in m.transcribe(ch, language="fr", beam_size=5)[0])
         ratio = difflib.SequenceMatcher(None, oral(entendu), oral(txt)).ratio()
         print(f"voix {os.path.basename(ch)} : « {entendu.strip()} » ({ratio:.2f})")
         if ratio < 0.75 or duree(ch) > 9:
             sys.exit(f"ALERTE voix {os.path.basename(ch)} : entendu « {entendu.strip()} » ({ratio:.2f}, {duree(ch):.1f} s)")
+        # 22/10 : « oral » assimile « dixseize » à la marque, donc la marque est contrôlée à part, sur le texte brut
+        if "dig seize" in txt.lower() and marque_mal_dite(entendu):
+            print(f"marque mal dite dans {os.path.basename(ch)} : « {entendu.strip()} » → à refaire")
+            a_refaire.append(ch)
+    return a_refaire
 
 
 def calage():
@@ -235,7 +242,15 @@ def calage():
         ch = os.path.join(ICI, "voix", f"l{i}.wav")
         voix(ph, ch)
         fichiers.append(ch)
-    verifier_voix(fichiers, PHRASES)
+    for essai in range(5):  # 22/10 : une phrase où la marque est mal dite est resynthétisée (5 essais au plus)
+        a_refaire = verifier_voix(fichiers, PHRASES)
+        if not a_refaire:
+            break
+        if essai == 4:
+            sys.exit(f"ALERTE voix : la marque reste mal dite après 5 essais ({[os.path.basename(c) for c in a_refaire]})")
+        for ch in a_refaire:
+            os.remove(ch)
+            voix(PHRASES[fichiers.index(ch)], ch)
     debuts, t = [], DEBUT
     for i, ch in enumerate(fichiers):
         debuts.append(round(t, 3))
