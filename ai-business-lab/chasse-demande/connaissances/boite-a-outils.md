@@ -367,3 +367,4 @@ _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technology
 | ✅ | Reels Devqb2KFTct, DePOoFtCy8S + yanny.space (22/10) | LinkedIn abandonné (non installé) ; ui-ux-pro-max et impeccable déjà en place ; Framer Motion / 21st.dev sans objet (sites statiques) ; yanny.space = liste d attente, rien envoyé |
 | ✅ | Fiche Core Labs Roast Room (22/10) | Non installé (trop gourmand) ; méthode ajoutée au « conseil » déjà prêt (reserve-prete) ; aucun email donné |
 | ✅ | Reel DeUQ6OHMi_z (22/10) | Doublon : OpenMontage déjà en réserve |
+| ✅ | Reel Dezu72ljHE8 (22/10) | Déjà en place (CLAUDE.md, connaissances, connecteurs, skills) |
