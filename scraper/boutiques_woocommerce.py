@@ -63,6 +63,18 @@ BOUTIQUES_WOOCOMMERCE_SITEMAP = [
     "maniatcg.com",   # 295 produits/47 slugs pokemon
 ]
 
+# BLOQUEES DEPUIS LES RUNNERS GITHUB (constat du 22/10/2026, en echec a
+# chaque cycle depuis au moins fin septembre). Le robots.txt repond, puis le
+# sitemap est refuse aux seules adresses GitHub (anti-robot, a ne JAMAIS
+# contourner) :
+#   - ecardstore.fr, lecrocodeal.com, pokemoms.fr, pokuji.fr : HTTP 403 depuis
+#     GitHub, lisibles normalement depuis un poste ;
+#   - cardshunter.fr (503), vinticards.fr, comptoirdesecoliers.com (403) :
+#     captcha Cloudflare meme depuis un poste.
+# Decision de Justok (22/10/2026) : les LAISSER dans les lots (echec rapide,
+# sans gene pour les autres boutiques) au cas ou elles se debloquent. Le
+# message d'echec du scan donne la reponse HTTP exacte (connecteur_woocommerce.py).
+
 # Scinde en 2 lots pour le workflow scan_woocommerce.yml (19 min mesurees
 # sur les 26 d'un coup -- marge insuffisante face au surcout habituel de
 # GitHub Actions). Repartition EQUILIBREE PAR VOLUME D'URLs sitemap (pas par
