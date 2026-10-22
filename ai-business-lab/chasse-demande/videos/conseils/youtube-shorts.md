@@ -38,3 +38,7 @@ Demande de l'utilisateur du 20/10 : « faire régulièrement des shorts sur ma c
 Texte de la vidéo dans `legendes.md`, avec « (lien dans la bio) » remplacé par le lien complet
 `https://dig16.fr/site-internet-artisan/`, puis la ligne « Voix de synthèse. DIG16, sites internet pour artisans et commerçants en Charente. »
 Catégorie « Howto & Style », pas pour les enfants, public, abonnés prévenus.
+
+## Contrôle du son après chaque publication (ajouté le 22/10)
+L'utilisateur a cru le Short n° 6 muet. Contrôle en 3 temps, désormais à chaque Short : 1) `ffprobe` sur le fichier en ligne (piste aac) et `ffmpeg -af volumedetect` (niveau moyen autour de −18 dB, comme le conseil n° 1) ; 2) après publication, demander au relais Vercel `…/api/video?id=<id>&mode=voix&modeles=gemini-3.8-flash` : Gemini décrit la voix off telle que YouTube la sert (le 22/10 : voix d'homme, baryton, voix de synthèse ; donc le son est bien sur YouTube) ; 3) si l'utilisateur n'entend rien : vérifier d'abord le volume multimédia du téléphone et la petite icône de haut-parleur barré en haut du Short (les Shorts s'ouvrent parfois en sourdine), puis attendre quelques minutes (YouTube finit de traiter le son après l'envoi).
+
