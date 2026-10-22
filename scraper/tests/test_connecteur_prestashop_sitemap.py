@@ -89,3 +89,17 @@ def test_stock_disponible_badge_product_flag_dune_autre_nature_nest_pas_confondu
     # confondu avec une rupture -- seule la classe out_of_stock compte.
     html = '<li class="product-flag new">Nouveau</li>'
     assert _stock_indisponible_selon_dom(html) is False
+
+
+def test_recuperer_urls_echec_indique_la_derniere_reponse_http():
+    # 22/10/2026 : boutiques en echec continu depuis les runners GitHub
+    # sans cause visible dans le log -- le code HTTP doit y figurer.
+    class Rep:
+        status_code = 503
+        url = "https://bloquee.fr/robots.txt"
+        text = ""
+        content = b""
+    c = ConnecteurPrestaShopSitemap("bloquee.fr")
+    with patch.object(c.session, "get", return_value=Rep()):
+        with pytest.raises(RuntimeError, match="HTTP 503"):
+            c.recuperer_toutes_les_urls_produits()
