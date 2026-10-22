@@ -27,6 +27,18 @@ design. Zone 16230 d'abord (visites possibles) ; liste nominative **privée** (D
 
 Si « non » : « Pas de souci, bonne journée. » On note, on ne rappelle pas.
 
+## Trois réflexes pendant l'entretien (ajout du 22/10, skill `customer-research`, lu en entier)
+
+- **Chercher à se donner tort, pas raison** : une question utile peut rapporter une réponse qui dérange
+  (« Pourquoi n'en avez-vous pas besoin ? »). Si aucune question ne peut contredire notre idée, la reformuler.
+- **Redemander « Pourquoi ? » deux ou trois fois** sur la réponse la plus intéressante : la première réponse
+  est rarement la vraie raison (ex. « pas le temps » → « mon neveu devait s'en occuper » → « je ne sais pas
+  qui croire »). Noter les **mots exacts** de la personne : ce sont eux qu'on reprendra dans nos textes.
+- **Finir par** : « Y a-t-il un autre professionnel du coin à qui je devrais poser ces questions ? »
+  (seulement un professionnel, jamais un particulier ; on note la réponse dans la liste privée).
+
+Au 5e ou 6e entretien, les mêmes réponses reviennent : c'est normal, on garde le cap de 20.
+
 ## Les 7 questions (dans l'ordre, sans en sauter)
 
 1. D'où viennent vos derniers nouveaux clients ?

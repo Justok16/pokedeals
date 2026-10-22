@@ -361,3 +361,4 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
+| ✅ | Post Instagram DemSlicoHm4 (@aiagently, 22/10) | Appliqué : 3 skills marketingskills installés (customer-research, public-relations, community-marketing) ; 10 en réserve ; guide 57 enrichi |
