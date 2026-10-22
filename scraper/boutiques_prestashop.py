@@ -68,6 +68,12 @@ BOUTIQUES_PRESTASHOP_SITEMAP = [
 # par boutique releves dans les logs du run #489 (25/08/2026 05:00-05:26,
 # seul cycle complet post-fusion avant les annulations), qui donne
 # ~755s (12.6 min) par lot sur ~1510s (25.2 min) au total.
+# EN ECHEC A CHAQUE CYCLE (constat du 22/10/2026) : nordikards.com,
+# ludocortex.fr et gamecash.fr sont lisibles depuis un poste mais echouent
+# depuis les runners GitHub (meme blocage anti-robot que plusieurs boutiques
+# WooCommerce, cf. boutiques_woocommerce.py -- a ne JAMAIS contourner) ;
+# starplayer.fr redirige vers sa page de maintenance. Decision de Justok
+# (22/10/2026) : les laisser en place au cas ou elles se debloquent.
 LOT_A = [
     "gamecash.fr", "bulleenstock.com", "skydreamer.fr", "playmogames.com",
     "plazatcg.com", "ludifolie.com", "fungamesnet.fr", "majestikgames.com",
