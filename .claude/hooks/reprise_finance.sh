@@ -6,7 +6,7 @@
 F="$1"
 [ -n "$F" ] || F=$(ls -t /tmp/claude-*/*/*/scratchpad/videos3/finance.sh 2>/dev/null | head -n 1)
 [ -f "$F" ] || exit 0
-[ "$(ps -eo args | grep -cE '[r]esumer_chaine|[t]outes_videos|[f]inance\.sh')" = 0 ] || exit 0
+[ "$(ps -eo args | grep -cE '[r]esumer_chaine|[t]outes_videos|[v]ideos3/finance\.sh')" = 0 ] || exit 0
 cd "$CLAUDE_PROJECT_DIR/ai-business-lab/chasse-demande" || exit 0
 setsid nohup sh "$F" > "$(dirname "$F")/finance.detache.log" 2>&1 < /dev/null &
 echo '{"systemMessage":"File des résumés finance relancée (machine redémarrée)"}'
