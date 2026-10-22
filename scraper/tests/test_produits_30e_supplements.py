@@ -71,6 +71,13 @@ def test_coffret_day_and_night_cn_faux_positifs(titre):
     assert evaluer_correspondance(titre, "", P[EXPO_CN])[0] is None
 
 
+def test_deck_francais_pas_pris_pour_le_coffret_cn():
+    # 22/10/2026, fantasysphere.net : "noctali"/"chinois"/"coffret" venaient
+    # d'autres produits de la page.
+    titre = "Deck Combat 30e Anniversaire Mentali ex - Pokémon FR - Fantasy Sphere"
+    assert evaluer_correspondance(titre, "coffret noctali chinois aimant", P[EXPO_CN])[0] is None
+
+
 def test_day_and_night_ne_matche_aucun_autre_produit():
     titre = "Pokémon [CN] - 30th Anniversary Celebration Gift Box : Day & Night"
     autres = [p.nom for p in PRODUITS_SURVEILLES
