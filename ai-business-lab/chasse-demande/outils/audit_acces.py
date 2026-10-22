@@ -72,7 +72,9 @@ JS = """() => {
 }"""
 
 with sync_playwright() as p:
-    b = p.chromium.launch(executable_path="/opt/pw-browsers/chromium")
+    # Chromium de la machine de Claude si présent, sinon celui installé par Playwright (GitHub Actions, 22/10)
+    chemin = "/opt/pw-browsers/chromium"
+    b = p.chromium.launch(executable_path=chemin) if os.path.exists(chemin) else p.chromium.launch()
     total = 0
     for f in sys.argv[1:]:
         for w in (390, 1440):

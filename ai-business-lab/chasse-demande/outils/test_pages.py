@@ -79,7 +79,8 @@ def accessibilite():
     r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audit_acces.py'), *pages],
                        capture_output=True, text=True, timeout=600)
     ok = 'problèmes : 0' in r.stdout
-    print(('OK    ' if ok else 'ALERTE'), 'accessibilité', '' if ok else [l for l in r.stdout.splitlines() if 'px' in l or 'sans' in l][:4])
+    detail = [l for l in r.stdout.splitlines() if 'px' in l or 'sans' in l][:4] or r.stderr.strip().splitlines()[-3:]
+    print(('OK    ' if ok else 'ALERTE'), 'accessibilité', '' if ok else detail)
     return 0 if ok else 1
 
 def main():
