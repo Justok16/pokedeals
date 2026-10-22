@@ -6,7 +6,8 @@
       "2026-10": 20,
       "2026-11": 19
     },
-    "note_2026-11": "Réorganisé le 21/10 : 19 publications non brouillon (11 carrousels TikTok, 5 Shorts YouTube, 3 posts Google) ; Instagram, Facebook, Threads et stories en brouillon (contenu dans supports/publications-v2/novembre-metricool-avant-reorg.json), Instagram et Facebook à envoyer par Buffer à partir du 01/11 (rappel trig_01PvxXHpog5J8MrBUzdGUzAM)"
+    "note_2026-11": "Réorganisé le 21/10 : 19 publications non brouillon (11 carrousels TikTok, 5 Shorts YouTube, 3 posts Google) ; Instagram, Facebook, Threads et stories en brouillon (contenu dans supports/publications-v2/novembre-metricool-avant-reorg.json), Instagram et Facebook à envoyer par Buffer à partir du 01/11 (rappel trig_01PvxXHpog5J8MrBUzdGUzAM)",
+    "constat_2210": "22/10 : getScheduledPosts d'octobre = 20 publications (32 réseaux) toutes PUBLISHED : Metricool n'a pas bloqué au-delà de 20 réseaux, alors que l'aide dit 1 par réseau. Essai le 22/10 : reel corrigé du conseil 6 sur Facebook et TikTok (2 publications) pour voir s'il part ; résultat à noter ici."
   },
   "zapier": {
     "limite": 100,
@@ -14,14 +15,15 @@
     "cout_par_appel": 2,
     "source": "zapier.com/pricing (Free : 100 tâches/mois) et help.zapier.com « How is task usage measured » (MCP : 2 tâches par appel réussi), lus le 19/10/2026",
     "mois": {
-      "2026-10": 98
+      "2026-10": 100
     },
     "reserve_autorisee": [
       "upload_video",
       "code_action_buffercliapi__posts_du_jour_et_remplacer_video",
-      "code_action_buffercliapi__publier_video_trois_reseaux"
+      "code_action_buffercliapi__publier_video_trois_reseaux",
+      "update"
     ],
-    "note_reserve": "22/10 : entre la marge (90) et la limite (100), seules ces actions passent : Shorts YouTube du calendrier et correction de la vidéo d'une publication Buffer déjà programmée (voix « Di seize »). 22/10 18 h : republication du reel corrigé du conseil 6 sur Instagram, Facebook et TikTok (demande de l'utilisateur : tout automatiser) ; en contrepartie le Short du 29/10 passe au début du cycle Zapier suivant."
+    "note_reserve": "22/10 : entre la marge (90) et la limite (100), seules ces actions passent : Shorts YouTube du calendrier et correction de la vidéo d'une publication Buffer déjà programmée (voix « Di seize »). 22/10 18 h : republication du reel corrigé du conseil 6 sur Instagram, Facebook et TikTok (demande de l'utilisateur : tout automatiser) ; en contrepartie le Short du 29/10 passe au début du cycle Zapier suivant. 22/10 18 h 15 : demande expresse de l'utilisateur (« fais-le à ma place ») : les 2 dernières tâches servent au reel Instagram corrigé (action Buffer native « Add to Queue », fiable) ; le Short du 27/10 passe en novembre."
   },
   "buffer": {
     "limite_file_par_reseau": 10,
