@@ -128,15 +128,39 @@ def resumer_fichier(
         capture_output=True,
         text=True,
     ).stdout
+    avis = json.loads(r).get("avis", "") if r.startswith("{") else ""
+    if not avis:
+        # 22/10 : quota Gemini épuisé le soir → secours gratuit : transcription locale (faster-whisper « small »)
+        texte = transcrire_local(brut, ff)
+        if texte:
+            avis = ("Résumé Gemini indisponible (" + r[:80].replace("\n", " ") + "…) : transcription locale "
+                    "(faster-whisper « small »), à trier à la main.\n\nTranscription : " + texte)
     for f in (corps, petit, brut):
         os.remove(f)
-    avis = json.loads(r).get("avis", "") if r.startswith("{") else ""
     if avis:
         open(os.path.join(dossier, code + ".md"), "w").write(
             f"Légende : {legende}\nDurée : {dur:.0f} s\n\n{avis}"
         )
     print(code, round(dur), "s", "ok" if avis else "ÉCHEC " + r[:120])
     return bool(avis)
+
+
+def transcrire_local(video, ff):
+    """Transcription locale gratuite de la voix (secours quand le relais Gemini refuse) ; chaîne vide si impossible."""
+    wav = video + ".wav"
+    try:
+        subprocess.run([ff, "-loglevel", "error", "-y", "-i", video, "-vn", "-ac", "1", "-ar", "16000", wav],
+                       check=True)
+        from faster_whisper import WhisperModel
+
+        modele = WhisperModel("small", compute_type="int8")
+        return " ".join(x.text for x in modele.transcribe(wav, language="fr", beam_size=5)[0]).strip()
+    except Exception as e:  # noqa: BLE001 — le secours ne doit jamais casser le résumé
+        print("transcription locale impossible :", e)
+        return ""
+    finally:
+        if os.path.exists(wav):
+            os.remove(wav)
 
 
 if __name__ == "__main__":
