@@ -242,6 +242,13 @@ class ConnecteurPrestaShopSitemap:
         self.nom_affiche = nom_affiche or domaine
         self.base_url = f"https://{self.domaine}"
         self.session = requests.Session()
+        # Diagnostic (22/10/2026, meme ajout que connecteur_woocommerce.py) :
+        # derniere reponse HTTP recue pendant la decouverte du sitemap,
+        # reprise dans le message d'echec.
+        self._dernier_statut_sitemap = "aucune reponse"
+
+    def _noter_statut(self, r) -> None:
+        self._dernier_statut_sitemap = f"HTTP {r.status_code} sur {r.url}"
 
     def _decouvrir_sitemaps_racine(self) -> list[str]:
         """Trouve le(s) sitemap(s) racine : d'abord via robots.txt (Sitemap:),
@@ -251,20 +258,23 @@ class ConnecteurPrestaShopSitemap:
         de sitemap absent, avec la page d'accueil comme contenu)."""
         try:
             r = self.session.get(f"{self.base_url}/robots.txt", headers=HEADERS_HTML, timeout=TIMEOUT)
+            self._noter_statut(r)
             if r.status_code == 200:
                 declares = re.findall(r"(?im)^sitemap:\s*(\S+)", r.text)
                 declares = [u if u.startswith("http") else f"{self.base_url}{u}" for u in declares]
                 if declares:
                     return declares
-        except requests.exceptions.RequestException:
-            pass
+        except requests.exceptions.RequestException as e:
+            self._dernier_statut_sitemap = f"{type(e).__name__} sur robots.txt"
 
         for chemin in CHEMINS_SITEMAP_CANDIDATS:
             try:
                 r = self.session.get(f"{self.base_url}{chemin}", headers=HEADERS_HTML, timeout=TIMEOUT)
+                self._noter_statut(r)
                 if r.status_code == 200 and _est_xml_valide(r.content):
                     return [r.url]
-            except requests.exceptions.RequestException:
+            except requests.exceptions.RequestException as e:
+                self._dernier_statut_sitemap = f"{type(e).__name__} sur {chemin}"
                 continue
         return []
 
@@ -277,11 +287,14 @@ class ConnecteurPrestaShopSitemap:
 
         try:
             r = self.session.get(sitemap_url, headers=HEADERS_HTML, timeout=TIMEOUT)
+            self._noter_statut(r)
             r.raise_for_status()
             if not _est_xml_valide(r.content):
                 return []
             racine = ET.fromstring(r.content)
-        except (requests.exceptions.RequestException, ET.ParseError):
+        except (requests.exceptions.RequestException, ET.ParseError) as e:
+            if not isinstance(e, requests.exceptions.HTTPError):
+                self._dernier_statut_sitemap = f"{type(e).__name__} sur {sitemap_url}"
             return []
 
         tag = racine.tag.split("}")[-1]  # ignore le namespace XML
@@ -325,7 +338,8 @@ class ConnecteurPrestaShopSitemap:
 
         if not toutes_urls:
             raise RuntimeError(
-                f"aucune URL produit recuperee pour {self.domaine} (sitemap introuvable ou en echec)"
+                f"aucune URL produit recuperee pour {self.domaine} (sitemap introuvable ou en echec"
+                f" -- derniere reponse : {self._dernier_statut_sitemap})"
             )
 
         toutes_urls = list(dict.fromkeys(toutes_urls))  # dedupe en gardant l'ordre
