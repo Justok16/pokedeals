@@ -34,11 +34,14 @@ def zapier(reg, entree):
     mois = datetime.now(timezone.utc).strftime("%Y-%m")
     z = reg["zapier"]
     deja = z["mois"].get(mois, 0)
-    short_youtube = entree.get("action") == "upload_video" and "YouTube" in str(entree.get("selected_api", ""))
-    plafond = z["limite"] if short_youtube else z["marge"]
+    # Réserve entre la marge et la limite réelle : seulement les actions listées dans quotas.json « reserve_autorisee »
+    # (22/10 : Shorts YouTube du calendrier ; correction d'une publication Buffer déjà programmée).
+    action = str(entree.get("action", ""))
+    en_reserve = action in z.get("reserve_autorisee", [])
+    plafond = z["limite"] if en_reserve else z["marge"]
     if deja + z["cout_par_appel"] > plafond:
         refuser(f"Quota Zapier : {deja} tâches utilisées en {mois} sur {z['limite']} (marge {z['marge']}"
-                f"{', réserve YouTube comprise' if short_youtube else ''}). Plus d'action Zapier ce mois-ci.")
+                f"{', réserve comprise' if en_reserve else ''}). Plus d'action Zapier ce mois-ci.")
     z["mois"][mois] = deja + z["cout_par_appel"]
     with open(REGISTRE, "w", encoding="utf-8") as f:
         json.dump(reg, f, ensure_ascii=False, indent=2)

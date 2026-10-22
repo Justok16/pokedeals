@@ -163,8 +163,17 @@ def voix(texte, chemin):
     os.remove(tmp)
 
 
+def marque_mal_dite(entendu):
+    """22/10 : la voix a dit « Di seize » (sans le g) dans les conseils 6 et 10, et le contrôle global (ratio 0,75)
+    l'avait laissé passer. Toute phrase qui cite la marque doit être entendue « dig seize » / « dig16 »."""
+    e = re.sub(r"[^a-zàâçéèêëîïôûùüÿœ0-9 ]", " ", entendu.lower())
+    e = re.sub(r"\s+", " ", e)
+    return not re.search(r"\b(dig|digue)\s*(seize|16)\b", e)  # marque absente ou déformée (« dix seize », « dixez ») = à refaire
+
+
 def verifier_voix(fichiers, textes):
-    """Transcrit chaque phrase (faster-whisper, local) et refuse si le texte entendu s'écarte du texte voulu."""
+    """Transcrit chaque phrase (faster-whisper, local) et refuse si le texte entendu s'écarte du texte voulu.
+    Renvoie la liste des fichiers à refaire (phrase mal dite) ; vide si tout est bon."""
     import difflib
 
     from faster_whisper import WhisperModel
@@ -174,11 +183,16 @@ def verifier_voix(fichiers, textes):
         s = s.lower().replace("dig seize point f r", "dig16 fr").replace("dig16.fr", "dig16 fr")
         return re.sub(r"[^a-zàâçéèêëîïôûùüÿœ0-9 ]", " ", s).split()
 
+    a_refaire = []
     for ch, txt in zip(fichiers, textes):
-        entendu = " ".join(x.text for x in m.transcribe(ch, language="fr")[0])
+        entendu = " ".join(x.text for x in m.transcribe(ch, language="fr", beam_size=5)[0])
         ratio = difflib.SequenceMatcher(None, norm(entendu), norm(txt)).ratio()
         if ratio < 0.75 or duree(ch) > 9:
             sys.exit(f"ALERTE voix {os.path.basename(ch)} : entendu « {entendu.strip()} » ({ratio:.2f}, {duree(ch):.1f} s)")
+        if "dig seize" in txt.lower() and marque_mal_dite(entendu):
+            print(f"marque mal dite dans {os.path.basename(ch)} : « {entendu.strip()} » → à refaire")
+            a_refaire.append(ch)
+    return a_refaire
 
 
 def duree(chemin):
@@ -258,7 +272,16 @@ def fabriquer(n):
         ch = os.path.join(ICI, "voix", f"c{n}-{i}.wav")
         voix(dit, ch)
         fichiers.append(ch)
-    verifier_voix(fichiers, [d for d, _ in cfg["scenes"]])
+    textes = [d for d, _ in cfg["scenes"]]
+    for essai in range(5):  # 22/10 : une phrase où la marque est mal dite est resynthétisée (5 essais au plus)
+        a_refaire = verifier_voix(fichiers, textes)
+        if not a_refaire:
+            break
+        if essai == 4:
+            sys.exit(f"ALERTE voix : la marque reste mal dite après 5 essais ({[os.path.basename(c) for c in a_refaire]})")
+        for ch in a_refaire:
+            os.remove(ch)
+            voix(textes[fichiers.index(ch)], ch)
     debuts, t = [], DEBUT
     for ch in fichiers:
         debuts.append(round(t, 3))

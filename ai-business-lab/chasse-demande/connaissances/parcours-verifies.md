@@ -99,3 +99,7 @@ Résultat le 19/10 : « 3/3 channels connected » (DIG16 Facebook, dig16fr Insta
 - Search Console de dig16.fr validée depuis le 12/10.
 
 **ProspectFlow** : le lien d'inscription mène à une **liste d'attente** (« ProspectFlow is launching soon. Join the waitlist », lu le 21/10). Il n'y a pas de compte possible pour l'instant, donc l'outil est écarté.
+
+### YouTube : supprimer une de ses vidéos (page d'aide officielle support.google.com/youtube/answer/55770, lue le 22/10/2026)
+- **Application YouTube sur Android** : « Connectez-vous à YouTube » → touchez votre photo de profil, puis « Vos vidéos » → à côté de la vidéo, « Plus » (⋮) puis « Supprimer » → « Supprimer » pour confirmer.
+- **YouTube Studio (ordinateur)** : menu de gauche « Contenu » → survoler la vidéo → options → suppression définitive → cocher la case de confirmation → valider. La suppression est définitive.
