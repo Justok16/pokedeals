@@ -112,6 +112,19 @@ def main():
                     souci += not ok
                     print(('OK    ' if ok else 'ALERTE'), w, u, '' if ok else f'débord={ov} erreurs={errs[:2]} 404={bad[:2]} images={nb[:2]}')
                     pg.close()
+            # Bug du 22/10 : sur téléphone, un toucher laisse « :hover » collé sur l'éventail et une règle tactile
+            # retirait le centrage de la vidéo, qui sautait en bas à droite. Contrôle : après survol, la vidéo
+            # reste centrée dans l'éventail (écart de 24 px au plus).
+            c = b.new_context(viewport={'width': 390, 'height': 844}, is_mobile=True, has_touch=True)
+            pg = c.new_page(); pg.goto(base + '/', wait_until='load'); pg.wait_for_timeout(800)
+            pg.hover('.eventail'); pg.wait_for_timeout(700)
+            ecart = pg.evaluate("""(()=>{const f=document.getElementById('fig-film').getBoundingClientRect(),
+                e=document.querySelector('.eventail').getBoundingClientRect();
+                return [Math.round(Math.abs((f.left+f.width/2)-(e.left+e.width/2))),Math.round(Math.abs((f.top+f.height/2)-(e.top+e.height/2)))]})()""")
+            ok = max(ecart) <= 24
+            souci += not ok
+            print(('OK    ' if ok else 'ALERTE'), 'tactile', '/ vidéo centrée après un toucher', '' if ok else f'écart={ecart}px')
+            c.close()
             b.close()
     finally:
         if serveur: serveur.terminate()

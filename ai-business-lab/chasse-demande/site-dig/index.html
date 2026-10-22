@@ -431,7 +431,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or);box-
 /* Finitions des mouvements (règles d'Emil Kowalski, 10/10) : courbe franche, retour au toucher, survols réservés à la souris */
 :root{--dig-ease:cubic-bezier(.23,1,.32,1)}
 .btn{transition:transform 160ms var(--dig-ease),background .2s ease,border-color .2s ease,color .2s ease}
-@media (hover:none),(pointer:coarse){.btn:hover,.demo:hover .pc img,.demo:hover img,.film-lecture:hover .rond,.eventail:hover .fig-film{transform:none}}
+@media (hover:none),(pointer:coarse){.btn:hover,.demo:hover .pc img,.demo:hover img,.film-lecture:hover .rond{transform:none}.eventail:hover .fig-film{transform:translate(-50%,-52%)}}/* tactile : le survol collant après un toucher ne doit pas retirer le centrage de la vidéo (bug vu le 22/10) */
 .btn:active{transform:scale(.97)}
 
 /* Règles d'interface Vercel (10/10) : lien d'accès direct au contenu, toucher sans délai, couleur de surbrillance assumée */
