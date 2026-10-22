@@ -362,3 +362,4 @@ _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technology
 
 <!-- catalogue-auto:fin -->
 | ✅ | Post Instagram DemSlicoHm4 (@aiagently, 22/10) | Appliqué : 3 skills marketingskills installés (customer-research, public-relations, community-marketing) ; 10 en réserve ; guide 57 enrichi |
+| ✅ | PDF Jev (@Dany, 22/10) | Déjà appliqué (skill typesafe-ai, relais api/jev) ; règle 75 % / 70-75 % / humain notée dans 46 ; Tally et « communauté » ignorés |
