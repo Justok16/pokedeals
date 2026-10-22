@@ -1,6 +1,6 @@
-# Y Combinator — index des fiches (synthèse du lundi 19/10/2026)
+# Y Combinator — index des fiches (synthèse du jeudi 22/10/2026)
 
-226 vidéos résumées sur 920. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+227 vidéos résumées sur 920. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[50 fondateurs expliquent pourquoi ils ont postulé chez Y Combinator](HQjjgi6271k.md)** — Sujet : Les motivations des entrepreneurs pour postuler au programme d'accélération Y Combinator (YC).
@@ -49,6 +49,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Comment créer une entreprise basée sur l'IA à partir de zéro](EN7frwQIbKc.md)** — Sujet : Comment l'intelligence artificielle (IA) redéfinit la construction, le fonctionnement et la structure des entreprises (concept d'entreprise « agent-native »).
 - **[Comment créer une société de services nativement conçue pour l'IA](gSNFJbgoaHI.md)** — Sujet : Le développement des entreprises de services « natives de l'IA » (services automatisés dans la santé, le droit, les audits, etc.).
 - **[Comment faire de Claude Code votre équipe d'ingénierie en IA](wkv2ifxPpF8.md)** — Sujet : L’utilisation d’agents conversationnels et de l'intelligence artificielle (via des outils comme « GStack » et « Conductor ») pour automatiser la création de logiciels et résoudre des problèmes concrets, illustré ici par la gestion et la collecte automatisée de…
+- **[Comment l'IA transforme l'entreprise](aIKfA3gIXwo.md)** — Sujet : L'impact de l'intelligence artificielle (IA) sur le modèle économique des logiciels d'entreprise (SaaS) et la transformation des entreprises traditionnelles.
 - **[Comment Legora est passée de YC à 100 millions de dollars de chiffre d'affaires annuel récurrent ...](mjmswQurIU4.md)** — - Sujet : L’histoire et la croissance de Legora (société de technologie juridique propulsée par l’IA), son expérience avec l’accélérateur Y Combinator (YC), et la stratégie de développement d’une entreprise B2B dans le domaine juridique à l’ère de l’IA.
 - **[Comment les fondateurs peuvent améliorer leur approche du design](ksGNfd-wQY4.md)** — Sujet : L'importance du design dans la création et le développement d'entreprises (startups), et le parcours de Raphael Schaad (fondateur de Cron, acquis par Notion).
 - **[Comment les lois d'échelle détermineront l'avenir de l'IA | YC Decoded](d6Ed5bZAtrM.md)** — Sujet : L'évolution de la « loi d'échelle » (scaling laws) dans les grands modèles de langage (LLM) et son impact sur la performance de l'IA (notamment OpenAI, DeepMind, GPT et o1/o3).

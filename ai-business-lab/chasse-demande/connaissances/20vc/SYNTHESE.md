@@ -1,6 +1,6 @@
-# 20VC — index des fiches (synthèse du lundi 19/10/2026)
+# 20VC — index des fiches (synthèse du jeudi 22/10/2026)
 
-941 vidéos résumées sur 4202. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+942 vidéos résumées sur 4208. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["China is a prison, Japan is a Nursing Home, Europe is a Museum" -- Vinod on Larry Summers' Quote](sdlz5VLBnE0.md)** — - Sujet : L'évolution géopolitique et démographique mondiale, avec un focus sur l'Inde et son potentiel de développement économique et technologique.
@@ -728,6 +728,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Quel est le plus grand potentiel de l'IA ?](jySRZdBBsdM.md)** — Sujet : L'application de l'intelligence artificielle dans la recherche pharmaceutique et la longévité.
 - **[Quelles sont les clés du succès pour réussir les levées de fonds de série A et B aujourd'hui ?](4ncnpYtJCNQ.md)** — Sujet : L'état du marché du Venture Capital (capital-risque), l'impact de la bulle de l'intelligence artificielle (IA), la gestion du rendement (IRR vs multiples), le recours aux marchés secondaires, le blocage des introductions en bourse (IPO) et les risques géopolitiques…
 - **[Qui est Mike Cessario ?](TNGq6ijk1Go.md)** — Sujet : Le parcours personnel du fondateur de Liquid Death et la recherche d'alignement entre compétences créatives, culture populaire et sens donné à son travail.
+- **[Qui gagnera la prochaine décennie du capital-risque | Les marges et les prix importent moins dans...](-r2_5LboWL8.md)** — Sujet : Les dynamiques d'investissement en capital-risque (Venture Capital) à l'ère de l'intelligence artificielle generative et de l'automatisation.
 - **[Quick-Fire AMA with Plaid CTO Jean-Denis Greze](6Pi0LGHLfa4.md)** — Le sujet est un tour de questions rapides sur l'investissement providentiel (Angel Investing) et le leadership. La thèse est que l'impact d'un employé ou d'un projet est plus important que sa visibilité immédiate auprès de la direction.
 - **[Raman Malik : Au cœur de la machine à croissance de Perplexity : ce qui a fonctionné, ce qui n'a ...](MDPmVw1HA1o.md)** — Sujet : La stratégie de croissance, l'acquisition d'utilisateurs et la gestion de la rétention dans une entreprise en forte croissance (en particulier dans le secteur de la tech/IA).
 - **[Rapid-Fire Q&A with Notion's Head of Product Growth, Lauryn Isford!](qAVBAxc-79g.md)** — Entretien avec Lauryn Isford, responsable de la croissance des produits chez Notion, sur les stratégies de croissance (growth) en entreprise. La thèse principale est que les fondements de la croissance (acquisition, intégration, conversion) restent constants au fil du temps,…

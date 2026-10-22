@@ -1,6 +1,6 @@
 # Aswath Damodaran — index des fiches (synthèse du jeudi 22/10/2026)
 
-375 vidéos résumées sur 1415. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+377 vidéos résumées sur 1415. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[A "Fairly Highly Valued" (Stock) Market: The Fed Chair Opines but should anyone listen?](0faNl-maR5o.md)** — Le sujet est l'analyse de la cherté des marchés d'actions américains en 2025, suite aux déclarations du président de la Fed, Jérôme Powell, qualifiant le marché de « passablement hautement évalué ». La thèse principale est que, bien que les actions américaines soient…
@@ -181,6 +181,8 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Session 20 (of 42): Activist Growth Investing - Be your own change agent!](C21URP9N8tA.md)** — Sujet : L’investissement en capital-risque (venture capital ou VC) et en croissance (growth investing), appliqué aux jeunes entreprises et aux startups.
 - **[Session 20 (Val MBAs): Asset Based Valuation & First Steps on Private Business Valuation](za4ARk5Gkn4.md)** — Sujet : L'évaluation d'entreprise, et plus particulièrement la méthode d'évaluation par l'actif (somme des parties) et la valorisation des entreprises privées et conglomérats.
 - **[Session 20 : Clôture de la tarification et évaluation/tarification basée sur les actifs](oSSRcLhum1s.md)** — Sujet : L'évaluation d'entreprise et les méthodes de tarification (multiples de marché, régression, évaluation basée sur les actifs, valorisation d'entreprises privées).
+- **[Session 20: Asset-based valuation and Intro to Private Company Valuation](IFWkYXBzcpw.md)** — La vidéo porte sur les méthodes d'évaluation des entreprises, en mettant l'accent sur l'évaluation par les actifs (Asset-Based Valuation), l'évaluation par somme des parties (Sum of the Parts) et les spécificités des entreprises privées.
+- **[Session 20: Following up on optimizing debt mix](_UPLwEZg1cw.md)** — Sujet : L’optimisation de la structure du capital via l’approche de la Valeur Actuelle Ajustée (APV - Adjusted Present Value) et les mécanismes pour atteindre cet optimal.
 - **[Session 20: Tariff Talk](1rPW7_yRMlU.md)** — Sujet : L'analyse de l'impact des crises boursières (notamment celle liée aux tarifs douaniers) sur les portefeuilles d'investissement.
 - **[Session 21 (Licence) et Session 19 (MBA) : Analyse des prix et groupes de pairs](rjqwM6ZTpA0.md)** — La vidéo traite de l'évaluation relative sur les marchés financiers, notamment l'utilisation des multiples (P/E, EV/EBITDA, prix/ventes, prix/valeur comptable) et de la méthode des régressions pour ajuster les différences entre entreprises comparables. La thèse principale est…
 - **[Session 21 (of 42): Growth Investing - Against the tide of history!](naKbhKUaTYY.md)** — - Sujet : L'investissement de croissance (Growth Investing) face à l'histoire et à l'investissement dans la valeur (Value Investing).
