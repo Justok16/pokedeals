@@ -369,3 +369,4 @@ _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technology
 | ✅ | Reel DeUQ6OHMi_z (22/10) | Doublon : OpenMontage déjà en réserve |
 | ✅ | Reel Dezu72ljHE8 (22/10) | Déjà en place (CLAUDE.md, connaissances, connecteurs, skills) |
 | ✅ | Guide Notion « Un week-end avec Claude » (22/10) | Déjà en place pour l essentiel ; ajout au garde-fou mensuel : contexte à jour + test visiteurs |
+| ✅ | Reels Deh0m4YDNf1 et Deya5_ND6zs (22/10) | SEO : déjà en place (OpenSEO, ai-seo, seo-audit) ; LinkedIn abandonné |
