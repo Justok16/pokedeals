@@ -528,9 +528,12 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         # Traditionnel" a "chinois" dans son titre, et "cadre"/"aimant"/
         # "exposition" figuraient ailleurs dans la page (autres produits) --
         # elle etait rangee sous ce coffret d'exposition chinois simplifie.
+        # "deck" (22/10/2026, faux positif reel fantasysphere.net) : "Deck
+        # Combat 30e Anniversaire Mentali ex - Pokémon FR" etait range sous
+        # ce coffret, "noctali"/"chinois" venant d'autres produits de la page.
         **{**EXCLUSIONS_LOTS,
            "mots_exclus_titre": EXCLUSIONS_LOTS["mots_exclus_titre"]
-           | {"deck set", "traditionnel", "traditional"}},
+           | {"deck", "deck set", "traditionnel", "traditional"}},
     ),
     # Demande de Justok (21/10/2026) : alerte des que le display est en
     # precommande ou en stock. Serie exclusive a la Chine (code CBB = chinois
