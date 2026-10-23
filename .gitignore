@@ -67,3 +67,6 @@ ai-business-lab/chasse-demande/videos/test-du-pouce/musique.wav
 # skill visiteurs (22/10) : dépendances et résultats locaux
 .claude/skills/visiteurs/scripts/node_modules/
 .visiteurs/
+
+# verrous de rendu des vidéos (23/10)
+ai-business-lab/chasse-demande/videos/conseils/.verrou-*

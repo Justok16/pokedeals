@@ -78,11 +78,11 @@ em{{color:#d9bb8a;font-style:italic}}
 .fait b{{display:block;font:400 150px/1 'Instrument Serif','Instrument Serif Fallback',serif;color:#d9bb8a;letter-spacing:-.02em}}
 .fait span{{display:block;font:400 54px/1.15 Geist,'Geist Fallback',sans-serif;color:#efe9df;margin-top:8px}}
 #fin{{top:430px}} #fin h2{{font-size:108px;line-height:1.02}} #fin p{{font-size:52px;color:#cfc6b8;margin-top:34px}}
-#emp{{position:absolute;left:300px;top:700px;opacity:0}}
-.demo{{position:absolute;left:84px;right:84px;top:1800px;text-align:center;font:400 30px Geist,'Geist Fallback',sans-serif;color:#8a8275;opacity:0}}
-.lien{{position:absolute;left:84px;right:84px;bottom:300px;font:500 76px Geist,'Geist Fallback',sans-serif;letter-spacing:-.01em;opacity:0}}
+#emp{{position:absolute;left:300px;top:1010px;opacity:0}}
+.demo{{position:absolute;left:84px;right:84px;top:548px;text-align:center;font:400 30px Geist,'Geist Fallback',sans-serif;color:#8a8275;opacity:0}}
+.lien{{position:absolute;left:84px;right:84px;top:800px;font:500 76px Geist,'Geist Fallback',sans-serif;letter-spacing:-.01em;opacity:0}}
 .lien span{{color:#c8a46e}}
-.lieu{{position:absolute;left:84px;right:84px;bottom:232px;font:400 40px Geist,'Geist Fallback',sans-serif;color:#a8a093;opacity:0}}
+.lieu{{position:absolute;left:84px;right:84px;top:900px;font:400 40px Geist,'Geist Fallback',sans-serif;color:#a8a093;opacity:0}}
 </style></head><body>
 <img class="signature" src="{signature}" alt="DIG16">
 <div class="bloc serif" id="h1"><h1>Vos clients vous cherchent sur leur téléphone. <em class="l2">Ils vous trouvent&nbsp;?</em></h1></div>
@@ -280,6 +280,11 @@ def fabriquer(controle_seul=False):
         fautes = pg.evaluate("""[...document.querySelectorAll('.bloc,.lien,.lieu')].map(e=>{
             const r=e.getBoundingClientRect();
             return (r.right>1080-80||r.left<80||e.scrollWidth>e.clientWidth+1||r.bottom>1920-150)?e.id:null}).filter(Boolean)""")
+        # 23/10 : zone visible d'un Reel (guide Meta : 14 % du haut et 35 % du bas peuvent être couverts par l'appli) :
+        # le lien final finit avant 1 248 px, les autres textes avant 1 500 px
+        fautes += pg.evaluate("""[...document.querySelectorAll('.bloc,.lien,.lieu,.demo')].map(e=>{
+            const r=e.getBoundingClientRect(), lim=(e.id==='lien'||e.id==='lieu')?1248:1500;
+            return (r.top<269||r.bottom>lim)?'zone cachée : '+e.id:null}).filter(Boolean)""")
         if fautes:
             nav.close()
             sys.exit(f"ALERTE : textes hors marge {fautes}")

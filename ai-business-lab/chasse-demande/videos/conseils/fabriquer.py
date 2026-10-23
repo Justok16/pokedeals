@@ -8,6 +8,7 @@ Une phrase = une scène : chaque phrase est synthétisée séparément, donc le 
 Rien d'inventé : chaque phrase reprend le guide (sources citées dans le guide) ; aucun chiffre, aucun nom réel.
 
 Usage : python3 fabriquer.py [numéro…]   (depuis n'importe où ; cookie du relais dans /tmp/cj.txt)
+        python3 fabriquer.py --image-seule 2 3   (image refaite, voix et son repris de conseil-N.mp4, sans synthèse)
 Écrit conseil-N.mp4, et des images de contrôle dans controle/ (non versionnées).
 Contrôles bloquants : polices chargées, aucun texte hors de la marge de 84 px, durée 12-35 s.
 """
@@ -230,13 +231,13 @@ body{{width:1080px;height:1920px;overflow:hidden;background:#0f0e0c;color:#efe9d
 .titre em{{color:#d9bb8a;font-style:italic}}
 .barre{{position:absolute;left:84px;right:84px;bottom:150px;height:6px;border-radius:3px;background:rgba(239,233,223,.12)}}
 .barre i{{display:block;height:100%;border-radius:3px;background:#c8a46e;width:0}}
-#emp{{position:absolute;left:160px;top:640px;opacity:0}}
+#emp{{position:absolute;left:160px;top:820px;opacity:0}}
 .fin{{position:absolute;inset:0;opacity:0}}
 .fin h2{{position:absolute;left:84px;right:84px;top:440px;font:400 104px/1.02 'Instrument Serif','Instrument Serif Fallback',serif;letter-spacing:-.02em;text-wrap:balance}}
 .fin h2 em{{color:#d9bb8a;font-style:italic}}
-.lien{{position:absolute;left:84px;right:84px;bottom:330px;font:500 64px Geist,'Geist Fallback',sans-serif;letter-spacing:-.01em}}
+.lien{{position:absolute;left:84px;right:84px;top:610px;font:500 64px Geist,'Geist Fallback',sans-serif;letter-spacing:-.01em}}
 .lien span{{color:#c8a46e}}
-.chemin{{position:absolute;left:84px;right:84px;bottom:262px;font:400 40px Geist,'Geist Fallback',sans-serif;color:#cfc6b8}}
+.chemin{{position:absolute;left:84px;right:84px;top:700px;font:400 40px Geist,'Geist Fallback',sans-serif;color:#cfc6b8}}
 </style></head><body>
 <img class="signature" src="{signature}" alt="DIG16">
 <div class="serie" id="serie">Le conseil DIG16 · {insecables(cfg['titre'])}</div>
@@ -264,8 +265,10 @@ function seek(t){{
 </script></body></html>"""
 
 
-def fabriquer(n):
+def fabriquer(n, image_seule=False):
     cfg = SERIE[n]
+    if image_seule:  # 23/10 : refaire l'image seule (mise en page), en gardant la voix et le son déjà contrôlés
+        return fabriquer_image(n, cfg)
     os.makedirs(os.path.join(ICI, "voix"), exist_ok=True)
     fichiers = []
     for i, (dit, _) in enumerate(cfg["scenes"]):
@@ -310,12 +313,48 @@ def fabriquer(n):
                     "alimiter=limit=0.89,aformat=sample_rates=44100:channel_layouts=stereo[out]",
                     "-map", "[out]", "-c:a", "aac", "-b:a", "192k", son], check=True)
     sortie = os.path.join(ICI, f"conseil-{n}.mp4")
-    ctrl = os.path.join(ICI, "controle")
-    os.makedirs(ctrl, exist_ok=True)
     ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS), "-c:v", "mjpeg",
                            "-i", "-", "-i", son, "-af", "loudnorm=I=-15:TP=-1.5:LRA=9", "-c:v", "libx264", "-preset", "slow",
                            "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-ar", "44100", "-c:a", "aac",
                            "-b:a", "192k", "-shortest", sortie], stdin=subprocess.PIPE)
+    filmer(n, cfg, debuts, total, ff)
+    for x in (voix_wav, son):
+        os.remove(x)
+    print(f"conseil-{n}.mp4 : {total} s, scènes {debuts}")
+
+
+def fabriquer_image(n, cfg):
+    """Image refaite, son repris tel quel de conseil-N.mp4 ; instants des phrases mesurés sur la vidéo (outil 3D)."""
+    sys.path.insert(0, os.path.join(CD, "videos", "conseils-3d"))
+    from instants import instants
+
+    import fcntl
+
+    verrou = open(os.path.join(ICI, f".verrou-{n}"), "w")
+    try:  # 23/10 : deux rendus du même conseil en même temps s'étaient écrasé le fichier (BrokenPipe)
+        fcntl.flock(verrou, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        sys.exit(f"ALERTE conseil {n} : un autre rendu de ce conseil est déjà en cours")
+    source = os.path.join(ICI, f"conseil-{n}.mp4")
+    debuts = instants(source, len(cfg["scenes"]))
+    total = round(duree(source), 2)
+    if len(debuts) != len(cfg["scenes"]) or debuts != sorted(debuts) or debuts[-1] > total - 2:
+        sys.exit(f"ALERTE conseil {n} : instants incohérents {debuts} (durée {total} s)")
+    son = os.path.join(ICI, f"son-{n}.m4a")
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", source, "-vn", "-c:a", "copy", son], check=True)
+    sortie = os.path.join(ICI, f"conseil-{n}-neuf.mp4")
+    ff = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS), "-c:v", "mjpeg",
+                           "-i", "-", "-i", son, "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-pix_fmt", "yuv420p",
+                           "-movflags", "+faststart", "-c:a", "copy", "-shortest", sortie], stdin=subprocess.PIPE)
+    filmer(n, cfg, debuts, total, ff)
+    os.remove(son)
+    os.replace(sortie, source)
+    print(f"conseil-{n}.mp4 (image refaite, son repris) : {total} s, scènes {debuts}")
+
+
+def filmer(n, cfg, debuts, total, ff):
+    ctrl = os.path.join(ICI, "controle")
+    os.makedirs(ctrl, exist_ok=True)
     controles = {round(d + 1.0, 1) for d in debuts} | {round(total - .3, 1)}
     with sync_playwright() as p:
         nav = p.chromium.launch(executable_path=CHROME)
@@ -329,6 +368,11 @@ def fabriquer(n):
         fautes = pg.evaluate("""[...document.querySelectorAll('.titre,.fin h2,.lien,.chemin,.serie')].map(e=>{
             const r=e.getBoundingClientRect(), s=getComputedStyle(e);
             return (r.right>1080-80||r.left<80||e.scrollWidth>e.clientWidth+1||r.bottom>1920-180)?e.textContent:null}).filter(Boolean)""")
+        # 23/10 : zone visible d'un Reel (guide Meta : 14 % du haut et 35 % du bas peuvent être couverts) pour les textes
+        # de l'écran final ; les titres, eux, doivent finir avant 1 500 px (contrôle ci-dessous)
+        caches = pg.evaluate("""[...document.querySelectorAll('.fin h2,.lien,.chemin')].map(e=>{
+            const r=e.getBoundingClientRect(); return (r.top<269||r.bottom>1248)?e.textContent:null}).filter(Boolean)""")
+        fautes += caches
         hauteurs = pg.evaluate("[...document.querySelectorAll('.titre')].map(e=>Math.round(e.getBoundingClientRect().bottom))")
         if fautes or max(hauteurs) > 1500:
             nav.close()
@@ -350,12 +394,11 @@ def fabriquer(n):
                     f.write(img)
         nav.close()
     ff.stdin.close()
-    ff.wait()
-    for x in (voix_wav, son):
-        os.remove(x)
-    print(f"conseil-{n}.mp4 : {total} s, scènes {debuts}")
+    if ff.wait():
+        sys.exit(f"ALERTE conseil {n} : ffmpeg a échoué")
 
 
 if __name__ == "__main__":
-    for n in [int(x) for x in sys.argv[1:]] or sorted(SERIE):
-        fabriquer(n)
+    seule = "--image-seule" in sys.argv
+    for n in [int(x) for x in sys.argv[1:] if x.isdigit()] or sorted(SERIE):
+        fabriquer(n, image_seule=seule)

@@ -70,9 +70,9 @@ canvas{{position:absolute;inset:0;width:1080px;height:1920px}}
 .fin{{position:absolute;inset:0;opacity:0;pointer-events:none}}
 .fin h2{{position:absolute;left:84px;right:84px;top:440px;font:400 104px/1.02 'Instrument Serif','Instrument Serif Fallback',serif;letter-spacing:-.02em}}
 .fin h2 em{{color:#d9bb8a;font-style:italic}}
-.lien{{position:absolute;left:84px;right:84px;bottom:330px;font:500 64px Geist,'Geist Fallback',sans-serif;letter-spacing:-.01em}}
+.lien{{position:absolute;left:84px;right:84px;top:610px;font:500 64px Geist,'Geist Fallback',sans-serif;letter-spacing:-.01em}}
 .lien span{{color:#c8a46e}}
-.chemin{{position:absolute;left:84px;right:84px;bottom:262px;font:400 40px Geist,'Geist Fallback',sans-serif;color:#cfc6b8}}
+.chemin{{position:absolute;left:84px;right:84px;top:700px;font:400 40px Geist,'Geist Fallback',sans-serif;color:#cfc6b8}}
 </style></head><body>
 <div id="fond"></div>
 <canvas id="c" width="1080" height="1920"></canvas>
@@ -225,6 +225,11 @@ def fabriquer(n):
         polices = pg.evaluate("[...document.fonts].filter(f=>f.status==='loaded').map(f=>f.family)")
         if not any("Instrument" in x for x in polices):
             sys.exit(f"ALERTE : polices non chargées {polices}")
+        # 23/10 : zone visible d'un Reel (guide Meta : 14 % du haut et 35 % du bas peuvent être couverts par l'appli)
+        caches = pg.evaluate("""[...document.querySelectorAll('.fin h2,.lien,.chemin')].map(e=>{
+            const r=e.getBoundingClientRect(); return (r.top<269||r.bottom>1248)?e.textContent:null}).filter(Boolean)""")
+        if caches:
+            sys.exit(f"ALERTE conseil {n} : écran final dans la zone cachée par l'appli {caches}")
         for i in range(int(FPS * total)):
             t = i / FPS
             pg.evaluate(f"seek({t:.4f})")
