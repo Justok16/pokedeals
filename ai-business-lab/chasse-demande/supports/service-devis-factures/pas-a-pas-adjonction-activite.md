@@ -57,13 +57,16 @@ Nature de l'activité : **BNC**. C'est la réponse de l'URSSAF au téléphone, l
 10. **Payer** par carte bancaire, si le site demande un montant.
 11. Suivre le dossier : « **Suivi des formalités** » (en haut à droite de la page d'accueil), puis « **État d'avancement des formalités** ».
 
-## Combien ça coûte (tarifs officiels du 01/03/2026)
+## Combien ça coûte (tarifs officiels du 01/03/2026, page relue le 23/10/2026 : inchangés)
 
 - **Part INPI** : 0 €. Les micro-entrepreneurs sont dispensés de ces droits.
 - **Annonce BODACC** : 0 €. Les auto-entrepreneurs ne sont pas concernés.
 - **Greffe** : la grille prévoit 32,20 € HT pour une inscription modificative d'une personne physique au
   RCS, plus de petits frais de transmission. La page ne dit pas si les micro-entrepreneurs en sont
   dispensés. Le montant exact s'affiche avant le paiement. C'est une dépense : **l'utilisateur la valide**.
+- Si le SIE classe toute l'activité en BNC (profession libérale), l'entreprise n'aurait peut-être plus sa place au
+  RCS : la même grille prévoit 36,23 € HT pour une radiation d'une personne physique. À faire confirmer par le SIE
+  et l'INPI avant toute démarche (question ajoutée au rappel du 03/11).
 
 ## Après
 
