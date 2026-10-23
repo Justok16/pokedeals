@@ -370,6 +370,7 @@ _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technology
 | ✅ | Reel Dezu72ljHE8 (22/10) | Déjà en place (CLAUDE.md, connaissances, connecteurs, skills) |
 | ✅ | Guide Notion « Un week-end avec Claude » (22/10) | Déjà en place pour l essentiel ; ajout au garde-fou mensuel : contexte à jour + test visiteurs |
 | ✅ | Reels Deh0m4YDNf1 et Deya5_ND6zs (22/10) | SEO : déjà en place (OpenSEO, ai-seo, seo-audit) ; LinkedIn abandonné |
+| ✅ | Reel Facebook 1AJfymFcWp (23/10) | 6 phrases de Frank Luntz : appliquées au rendez-vous de 20 min (`41` § 3, guide de prospection) |
 | ✅ | YouTube NvX5jrfZtVc (22/10) | Écarté : rétro-ingénierie hors métier et risquée juridiquement ; idée de petits outils de niche notée sous règle n° 1 |
 | ✅ | YouTube 4PO0x-myitw et 30BvXY2lpAg (22/10) | Rien de nouveau ; robots.txt et llms.txt vérifiés |
 | ✅ | YouTube PDfLMI1bJv8 (22/10) | Déjà en place (skill schema) ; JSON-LD du site vérifié |

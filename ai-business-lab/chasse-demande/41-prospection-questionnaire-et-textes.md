@@ -80,11 +80,12 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
    > « Pour vous, je conseille [Visibilité], parce que [raison tirée de
    > ses réponses]. »
 6. **Trois garanties** :
-   > « Votre site et votre nom de domaine sont à votre nom. Pas
+   > « Ce que je veux que vous reteniez : votre site et votre nom de domaine sont à votre nom. Pas
    > d'engagement de 12 mois : 6 mois, puis vous restez seulement si vous
    > êtes content. Et chaque mois, un petit bilan : combien de personnes
    > vous ont appelé grâce au site. »
-7. **Question de décision** :
+7. **Vérifier qu'il a compris**, puis **question de décision** :
+   > « Qu'est-ce que vous en retenez ? » (écouter, corriger si besoin), puis
    > « On le met en ligne pour le [date dans 7 jours] ? »
 8. **Si oui** : contrat, **formulaire de rétractation remis**, rappel :
    > « Vous avez 14 jours pour changer d'avis, et je ne prélève rien
@@ -92,6 +93,12 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
    (Obligatoire si ≤ 5 salariés, voir `40` section A1 ; fait pour tout le
    monde, par simplicité et par confiance.)
 9. **Si « je réfléchis »** : fixer tout de suite la date de rappel.
+
+Être compris plutôt que paraître malin (méthode des « 6 phrases » de Frank Luntz, reel du
+23/10, `connaissances/reels/fb-1626257485548062.md`) : l'étape 2 fait « imaginez la scène »,
+l'étape 4 « pour résumer », l'étape 6 « voilà ce que je veux que vous reteniez », l'étape 7
+« qu'est-ce que vous en retenez ? ». Toujours au vouvoiement, sans pression. Jamais dans les
+entretiens de preuve de la demande (`57`), où l'on ne vend rien.
 
 ---
 
