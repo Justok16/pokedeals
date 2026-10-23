@@ -3,7 +3,9 @@
 Lit l'historique local de la session Claude Code (fichier .jsonl), garde les messages
 de l'utilisateur depuis N jours et repère :
 - les corrections récurrentes (« encore », « je t'avais demandé », « pourquoi tu »…) ;
-- les demandes répétées (mêmes mots-clés revenant souvent).
+- les demandes répétées (mêmes mots-clés revenant souvent) ;
+- les appels d'outils restés en attente d'accord (23/10 : cause des « No response requested » insérés par le système
+  quand un rappel arrive pendant l'attente) → à ajouter, par leur nom exact, dans permissions.allow de .claude/settings.json.
 
 Le rapport est écrit dans un dossier PRIVÉ (jamais dans le dépôt : il cite les messages).
 Usage : python3 ameliorer_systeme.py <historique.jsonl> <dossier_prive> [jours=7]
@@ -52,6 +54,30 @@ def messages(fichier, depuis):
             yield date, c
 
 
+def attentes_accord(fichier, depuis):
+    """Outils dont l'appel est resté sans accord jusqu'à l'arrivée du message suivant."""
+    appels, bloques = {}, collections.Counter()
+    with open(fichier, errors="ignore") as f:
+        lignes = f.readlines()
+    for ligne in lignes:
+        try:
+            d = json.loads(ligne)
+        except ValueError:
+            continue
+        c = (d.get("message") or {}).get("content")
+        if not isinstance(c, list):
+            continue
+        for x in c:
+            if not isinstance(x, dict):
+                continue
+            if x.get("type") == "tool_use":
+                appels[x.get("id")] = x.get("name")
+            elif (x.get("type") == "tool_result" and d.get("timestamp", "")[:10] >= depuis
+                  and "approval request was still unanswered" in json.dumps(x.get("content"), ensure_ascii=False)):
+                bloques[appels.get(x.get("tool_use_id"), "?")] += 1
+    return bloques
+
+
 def main():
     if len(sys.argv) < 3:
         sys.exit(__doc__)
@@ -75,6 +101,9 @@ def main():
         "## Corrections (à transformer en règle ou en outil si elles se répètent)",
     ]
     rapport += [f"- {d} : {t[:300]}" for d, t in corrections] or ["- aucune"]
+    bloques = attentes_accord(fichier, depuis)
+    rapport += ["", "## Outils restés en attente d'accord (à autoriser par leur nom exact dans .claude/settings.json)"]
+    rapport += [f"- {n} : {k} fois" for n, k in bloques.most_common()] or ["- aucun"]
     rapport += ["", "## Sujets les plus fréquents (mots présents dans le plus de messages)"]
     rapport += [f"- {m} : {n}" for m, n in mots.most_common(25)]
     nom = f"{sortie}/auto-analyse-{dt.date.today().isoformat()}.md"

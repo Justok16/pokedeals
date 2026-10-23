@@ -44,7 +44,15 @@
       "mcp__Gmail__get_message",
       "mcp__Tavily__tavily_search",
       "mcp__Tavily__tavily_extract",
-      "ReadNotifications"
+      "ReadNotifications",
+      "mcp__Claude_Code_Remote__create_trigger",
+      "mcp__Google_Drive__create_file",
+      "mcp__Google_Drive__search_files",
+      "mcp__Google_Drive__read_file_content",
+      "mcp__Google_Drive__get_file_metadata",
+      "mcp__Google_Drive__update_file",
+      "mcp__Metricool_Social_Media_Management__updateScheduledPost",
+      "mcp__Metricool_Social_Media_Management__createScheduledPost"
     ],
     "deny": [
       "Bash(git push --force*)",
