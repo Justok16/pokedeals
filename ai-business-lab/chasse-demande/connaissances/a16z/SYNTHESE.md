@@ -1,6 +1,6 @@
 # a16z — index des fiches (synthèse du vendredi 23/10/2026)
 
-31 vidéos résumées sur 1363. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+32 vidéos résumées sur 1363. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[AI, Infrastructure, and the Next Investment Cycle](lr3hNhA0IfQ.md)** — Sujet : L'état des marchés technologiques et l'impact de l'intelligence artificielle (IA) sur l'économie globale.
@@ -15,6 +15,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Le plus grand bouleversement en cybersécurité depuis 30 ans](cJsHel27Z6M.md)** — Sujet : L'évolution de la cybersécurité face aux menaces générées par l'intelligence artificielle (IA).
 - **[Le prochain chapitre de l'IA est intégré à nos logiciels](TLJNJDf2XGo.md)** — Sujet : Le débat sur la régulation de l'intelligence artificielle (IA), son timing, ses risques (notamment de type existentiel ou de cybersécurité) et les parallèles historiques avec d'autres technologies (internet, PC, aviation).
 - **[Le président d'OpenAI sur ce que signifie l'entrée dans l'ère de l'AGI](IJn8cagMW18.md)** — Sujet : L'évolution de l'intelligence artificielle (IA), les défis de sécurité et l'impact de la technologie sur le monde du travail et la société.
+- **[Les idées avant-gardistes qu'a16z souhaite financer maintenant | Marc Andreessen, Ben Horowitz & ...](-9XQMHhpypc.md)** — Sujet : L'annonce de l'expansion du fonds « A16Z Crypto » vers « A16Z Frontier » et une discussion sur les nouvelles tendances technologiques (IA, robotique, informatique) et leur impact sur l'entrepreneuriat.
 - **[Les modèles ouverts peuvent-ils rivaliser avec OpenAI et Anthropic ? | Nathan Lambert](BKuK0M6oDTI.md)** — Sujet : L'analyse des forces motrices (capital, données, talents) derrière le développement des modèles d'IA et la dynamique concurrentielle entre les laboratoires fermés (ex: OpenAI, Anthropic) et le monde de l'open source.
 - **[Pourquoi ceux qui ont bâti le hip-hop se retrouvent sans rien](ZO6VyDvysxY.md)** — Sujet : La reconnaissance financière, culturelle et symbolique des pionniers du hip-hop à travers la Paid In Full Foundation, et l'importance de valoriser et de soutenir la création artistique et ses précurseurs.
 - **[Pourquoi Fei-Fei Li mise sur l'intelligence spatiale](qn1QDDBnTA0.md)** — Sujet : Le lancement d'Atlas, un nouveau modèle de « monde » (World Model) développé par l'entreprise World Labs.

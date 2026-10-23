@@ -1,6 +1,6 @@
-# Zonebourse — index des fiches (synthèse du jeudi 22/10/2026)
+# Zonebourse — index des fiches (synthèse du vendredi 23/10/2026)
 
-2287 vidéos résumées sur 2287. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+2288 vidéos résumées sur 2288. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["Bloquons Tout" à la sauce américaine](TXjVOkOfkjI.md)** — Analyse de la paralysie budgétaire aux États-Unis et des impacts sur les marchés financiers.
@@ -508,6 +508,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[En bourse, les puces se font secouer](zpqEJAqPknQ.md)** — 1. Sujet et thèse : Chronique boursière du 16 avril 2025. La thèse est que le marché des puces est sous pression à cause des restrictions douanières.
 - **[En Bourse, Novembre joue son va-tout vendredi](UXMp0Df0ViU.md)** — Le podcast analyse la relation paradoxale entre les accords de paix potentiels concernant l'Ukraine et la baisse prononcée des valeurs du secteur de l'armement en bourse. La thèse principale est que, malgré un contexte d'apaisement géopolitique potentiel, l'industrie de…
 - **[En bourse, quand la Santé va, tout va](O4YTzqTd8ns.md)** — Analyse des marchés financiers européens, avec un focus sur le secteur de la santé.
+- **[En Bourse, tempête parfaite ou pause salutaire ?](JCFOldVuVWE.md)** — Sujet : Le point de marché boursier du vendredi 23 octobre 2026 (par Anthony Bondain, Zonebourse).
 - **[En bourse, un mois d'avril à somme nulle ?](O8F2TKeTUAY.md)** — - Sujet : Chronique boursière hebdomadaire (lundi 5 mai 2025) animée par Anthony Bondain pour Zonebourse, analysant la détente des relations sino-américaines, la politique de Donald Trump, l'évolution des marchés boursiers mondiaux et les résultats macroéconomiques et…
 - **[En bourse, une hausse inébranlable](me8gXHR5QY8.md)** — Analyse de la hausse des marchés boursiers, en particulier américains, portés par l'IA et les espoirs de baisse des taux. La thèse est que le marché est en mode "haussier inébranlable".
 - **[En bourse, vers l'infini et au-delà](6SCQyATcXBU.md)** — La persistance de la déconnexion entre les marchés financiers euphoriques (portés par les valeurs technologiques, notamment Nvidia) et la réalité de l'économie américaine, jugée plus mitigée et fragile, dans un contexte d'attente prolongée d'une baisse des taux de la Fed. La…
