@@ -225,8 +225,10 @@ def verifier_voix(fichiers, textes):
         entendu = " ".join(x.text for x in m.transcribe(ch, language="fr", beam_size=5)[0])
         ratio = difflib.SequenceMatcher(None, oral(entendu), oral(txt)).ratio()
         print(f"voix {os.path.basename(ch)} : « {entendu.strip()} » ({ratio:.2f})")
-        if ratio < 0.75 or duree(ch) > 9:
-            sys.exit(f"ALERTE voix {os.path.basename(ch)} : entendu « {entendu.strip()} » ({ratio:.2f}, {duree(ch):.1f} s)")
+        if ratio < 0.75 or duree(ch) > 9:  # 23/10 : phrase mal dite (« Je l'en fais… Dx16 ») → resynthèse, pas d'arrêt
+            print(f"phrase mal dite {os.path.basename(ch)} ({ratio:.2f}, {duree(ch):.1f} s) → à refaire")
+            a_refaire.append(ch)
+            continue
         # 22/10 : « oral » assimile « dixseize » à la marque, donc la marque est contrôlée à part, sur le texte brut
         if "dig seize" in txt.lower() and marque_mal_dite(entendu):
             print(f"marque mal dite dans {os.path.basename(ch)} : « {entendu.strip()} » → à refaire")
@@ -242,12 +244,12 @@ def calage():
         ch = os.path.join(ICI, "voix", f"l{i}.wav")
         voix(ph, ch)
         fichiers.append(ch)
-    for essai in range(5):  # 22/10 : une phrase où la marque est mal dite est resynthétisée (5 essais au plus)
+    for essai in range(5):  # 22/10 : une phrase mal dite (marque ou texte) est resynthétisée (5 essais au plus)
         a_refaire = verifier_voix(fichiers, PHRASES)
         if not a_refaire:
             break
         if essai == 4:
-            sys.exit(f"ALERTE voix : la marque reste mal dite après 5 essais ({[os.path.basename(c) for c in a_refaire]})")
+            sys.exit(f"ALERTE voix : phrase ou marque encore mal dite après 5 essais ({[os.path.basename(c) for c in a_refaire]})")
         for ch in a_refaire:
             os.remove(ch)
             voix(PHRASES[fichiers.index(ch)], ch)
