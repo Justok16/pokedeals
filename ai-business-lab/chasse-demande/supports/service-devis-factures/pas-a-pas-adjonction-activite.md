@@ -9,6 +9,8 @@ Préparé le 20/10/2026 à partir des pages officielles lues le jour même :
 
 Nature de l'activité : **BNC**. C'est la réponse de l'URSSAF au téléphone, le 20/10/2026.
 
+> **23/10/2026 (appels de l'utilisateur)** : l'INPI ne classe pas les activités ; il renvoie au **SIE d'Angoulême** pour savoir si la création de sites et l'assistance administrative relèvent des BIC ou des BNC. Ne rien déposer avant sa réponse écrite (question à poser par la messagerie sécurisée de l'espace professionnel, dès que le SIREN y est rattaché ; rappel le 03/11).
+
 ## Quand le faire
 
 - La règle de l'INPI : toute modification de l'activité se déclare **dans le mois**.
