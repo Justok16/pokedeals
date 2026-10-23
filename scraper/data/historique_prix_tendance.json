@@ -494,6 +494,13 @@
       "devise_pokemonpricetracker": "USD",
       "prix_gradee_psa10": null,
       "cote_pokedeals": 47.23
+    },
+    {
+      "date": "2026-10-23",
+      "prix_pokemonpricetracker": 26.13,
+      "devise_pokemonpricetracker": "USD",
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": 47.23
     }
   ],
   "Squirtle 170/165 sv2a|jp": [
@@ -981,6 +988,13 @@
     },
     {
       "date": "2026-10-22",
+      "prix_pokemonpricetracker": 21.6,
+      "devise_pokemonpricetracker": "USD",
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": 21.89
+    },
+    {
+      "date": "2026-10-23",
       "prix_pokemonpricetracker": 21.6,
       "devise_pokemonpricetracker": "USD",
       "prix_gradee_psa10": null,
@@ -1473,6 +1487,13 @@
     {
       "date": "2026-10-22",
       "prix_pokemonpricetracker": 13.56,
+      "devise_pokemonpricetracker": "USD",
+      "prix_gradee_psa10": null,
+      "cote_pokedeals": 15.93
+    },
+    {
+      "date": "2026-10-23",
+      "prix_pokemonpricetracker": 13.53,
       "devise_pokemonpricetracker": "USD",
       "prix_gradee_psa10": null,
       "cote_pokedeals": 15.93
