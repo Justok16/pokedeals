@@ -56,7 +56,7 @@ em{{color:#d9bb8a;font-style:italic}}
 .bloc{{position:absolute;left:84px;right:84px;opacity:0}}
 .etiq{{font:500 30px 'Geist Mono','Geist Mono Fallback',monospace;letter-spacing:.2em;text-transform:uppercase;color:#c8a46e;margin-bottom:22px}}
 #h1{{top:600px}} #h1 h1{{font-size:124px;line-height:1.02}} #h1 .l2{{display:block;opacity:0}}
-#t2,#t3{{top:250px}} #t2 h2,#t3 h2{{font-size:84px;line-height:1.04}}
+#t2,#t3{{top:290px}} #t2 h2,#t3 h2{{font-size:84px;line-height:1.04}}
 .tel{{position:absolute;left:270px;top:600px;width:540px;height:1168px;border-radius:68px;background:#0b0a08;padding:18px;
  box-shadow:0 40px 110px rgba(0,0,0,.7),0 0 0 2px rgba(239,233,223,.14);opacity:0}}
 .ecran{{position:relative;width:100%;height:100%;border-radius:56px;overflow:hidden;background:#fff}}
