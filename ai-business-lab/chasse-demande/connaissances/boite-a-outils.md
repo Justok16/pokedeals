@@ -378,3 +378,4 @@ _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technology
 | ✅ | YouTube PDfLMI1bJv8 (22/10) | Déjà en place (skill schema) ; JSON-LD du site vérifié |
 | ✅ | YouTube v7YU3q-kO88 (résumée le 23/10) | 30 styles d'animation : rien à installer, skills de design déjà en place |
 | ✅ | YouTube OcvkZ0LWUTI et CQqwNfvvqWc (résumées le 23/10) | Montage vidéo par fichier .md (pack Discord non installé, déjà couvert) ; bonnes pratiques Claude Code déjà en place |
+| ✅ | Capture Threads textura.eu, 5 sites de design (24/10) | landdding.com et godly.website : inspiration gratuite pour les sites clients ; fontinlogo.com : retrouver la police d'un logo (puis police libre hébergée) ; getlayers.ai : écarté pour les clients (licence payante) ; 60fps.design : hors sujet |
