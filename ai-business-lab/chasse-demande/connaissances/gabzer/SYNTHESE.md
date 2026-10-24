@@ -1,6 +1,6 @@
-# Gabzer — index des fiches (synthèse du lundi 19/10/2026)
+# Gabzer — index des fiches (synthèse du samedi 24/10/2026)
 
-548 vidéos résumées sur 547. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+549 vidéos résumées sur 548. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[+100 outils d'IA gratuits](iX0mOUg8Vsk.md)** — La vidéo présente le site Magic Hour AI, une plateforme centralisée qui propose plus de 100 outils d'intelligence artificielle pour la création et la modification de contenus visuels (images et vidéos), présentés comme étant entièrement gratuits.
@@ -60,6 +60,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Arrête d’utiliser Google Traduction 🚫](KItn4zGQz_w.md)** — 1) L'idée principale : Proposer deux alternatives plus précises que Google Traduction pour la traduction de phrases et l'apprentissage de vocabulaire.
 - **[Arrête d’utiliser Google Traduction 🚫](MHqi0nc_WjM.md)** — 1) Idée principale : Présentation de trois alternatives à Google Traduction pour de meilleures traductions.
 - **[Arrête d’être traqué sur iPhone 📱](fpUYLZrCRkA.md)** — 1) Idée principale : Gérer et restreindre le suivi (tracking) publicitaire des applications sur iPhone.
+- **[Arrêtez de faire cette erreur](ryYZtZc2C1U.md)** — L'auteur présente une extension de navigateur appelée « Directo » comme un moyen d'optimiser ses dépenses lors de réservations d'hôtels en ligne. Il affirme que cette extension permet de comparer automatiquement les prix sur différents sites de réservation pour trouver…
 - **[Astuce 100% inconnue sur Wikipédia](2WCuxrXsxs4.md)** — 1) Idée principale : Astuce sur Wikipédia pour télécharger une page web au format PDF afin de la lire hors ligne ou de préparer un exposé.
 - **[Astuce aberrante sur PC Windows 🤯 #shorts](e7vKRgEq6ic.md)** — 1) Idée principale : L'auteur présente une astuce Windows permettant d'exécuter la commande chkdsk pour analyser, détecter et réparer les erreurs du disque dur afin de préserver l'organisation et l'intégrité des données du PC.
 - **[Astuce cachée informaticiens](A7086u49Z74.md)** — 1) Idée principale : Utiliser la dictée vocale de Windows pour écrire du texte sans clavier.
