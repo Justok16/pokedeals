@@ -248,3 +248,5 @@ Le résumé obligatoire est dans `.claude/CLAUDE.md` ; **ce fichier fait foi pou
 ## Vidéos finance et bourse (consigne du 21/10/2026)
 
 « Les vidéos sur la finance et/ou la bourse, je les laisse là pour que tu assimiles toutes les compétences et que cela puisse peut-être me servir à l'avenir. » → jamais « écartées » : chacune est résumée dans `connaissances/sources-finance.md` (section « base de connaissances ») avec la méthode, les compétences réutilisables, les outils et ce que dit vraiment la source. Aucun conseil personnalisé, aucune prévision, risque de perte toujours rappelé ; rien n'est installé ni relié à un courtier sans demande expresse.
+
+- **Modèle à utiliser (conseil du 24/10/2026, accepté par l'utilisateur)** : fabrication d'un site client → l'utilisateur passe sur **Fable 5.1, effort « Élevé »** le temps du chantier, puis revient sur **Opus 5.5 « Moyen »** pour le quotidien (points, rappels, courrier, publications). Sonnet 5.5 seulement pour les petites tâches simples. **Le rappeler à l'utilisateur dès qu'un client signe**, avant de commencer le site.
