@@ -1,4 +1,7 @@
+# Signaux de contenu (contentsignals.org, lu le 24/10/2026) : le site peut servir aux moteurs de recherche, aux
+# réponses des assistants IA et à l'entraînement des modèles, pour que DIG16 soit connu et cité.
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 Disallow: /m/
 Sitemap: https://dig16.fr/sitemap.xml

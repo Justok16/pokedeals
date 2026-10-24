@@ -24,3 +24,10 @@
 /m/*
   X-Robots-Tag: noindex, nofollow
   Referrer-Policy: no-referrer
+# 24/10/2026 (test isitagentready.com de Cloudflare) : la page d'accueil indique aux agents IA sa version Markdown et
+# le résumé llms.txt (en-tête Link, RFC 8288) ; les fichiers Markdown ne sont pas indexés par Google (copie des pages).
+/
+  Link: </md/index.md>; rel="alternate"; type="text/markdown", </llms.txt>; rel="describedby"; type="text/plain"
+/md/*
+  X-Robots-Tag: noindex
+  Content-Type: text/markdown; charset=utf-8

@@ -11,6 +11,7 @@ on:
     paths:
       - "ai-business-lab/chasse-demande/site-dig/**"
       - "ai-business-lab/chasse-demande/outils/test_pages.py"
+      - "ai-business-lab/chasse-demande/outils/pages_markdown.py"
       - ".github/workflows/test_site_dig.yml"
   workflow_dispatch: {}
 permissions:
@@ -32,7 +33,7 @@ jobs:
       - name: Installer Playwright, Chromium et ffprobe
         run: |
           sudo apt-get install -y --no-install-recommends ffmpeg
-          pip install playwright
+          pip install playwright markdownify
           python -m playwright install --with-deps chromium
       - name: Ouvrir toutes les pages (ordinateur et téléphone)
         run: python ai-business-lab/chasse-demande/outils/test_pages.py

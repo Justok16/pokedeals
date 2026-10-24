@@ -83,6 +83,13 @@ def accessibilite():
     print(('OK    ' if ok else 'ALERTE'), 'accessibilité', '' if ok else detail)
     return 0 if ok else 1
 
+def markdown_a_jour():
+    """24/10 : la version Markdown des pages (servie aux agents IA) doit suivre chaque modification d'une page."""
+    outil = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pages_markdown.py')
+    r = subprocess.run([sys.executable, outil, '--verifier'], capture_output=True, text=True)
+    print((r.stdout or r.stderr).strip())
+    return 0 if r.returncode == 0 else 1
+
 def main():
     base = sys.argv[1].rstrip('/') if len(sys.argv) > 1 else None
     serveur = None
@@ -91,7 +98,7 @@ def main():
         serveur = subprocess.Popen([sys.executable, '-m', 'http.server', '4699'], cwd=site,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(1.5); base = 'http://localhost:4699'
-    souci = son_videos() + regles_interface() + plan_du_site() + accessibilite()
+    souci = son_videos() + regles_interface() + plan_du_site() + accessibilite() + markdown_a_jour()
     try:
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()
