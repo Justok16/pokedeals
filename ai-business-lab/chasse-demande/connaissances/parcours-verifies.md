@@ -117,3 +117,8 @@ L'aide officielle TikTok « Comments » et « Manage comments » (lues le 22/10)
 - Source : aide officielle Facebook « Switch between your profile and Page » (facebook.com/business/help/571062040244333, lue le 24/10/2026) ; **✅ confirmé par capture le 24/10 (17 h 23)**.
 - Piège vu le 24/10 : si l'appli est restée sur la page, le partage part **au nom de la page** (auteur « DIG16 - Sites intern… », bouton « Créer une publicité »). Avant de partager : Menu ou photo de profil → petite flèche → choisir le profil personnel. Après le partage, l'auteur affiché doit être le nom du profil, avec l'icône « amis » à côté de l'heure.
 - Le texte d'accompagnement se colle dans la zone au-dessus de la publication **avant** de publier (le 24/10 il a été oublié : partage sans texte, acceptable).
+
+## Claude (application ordinateur) : mettre la session en mode « Auto »
+- Source : documentation de l'environnement (`read_documentation` session.permissions, 24/10/2026) ; **✅ confirmé par capture le 24/10 (PC)**.
+- En bas, sous la zone de saisie, à gauche : bouton du mode (affichait « Accepter les modifications »). Clic → menu « Mode » : **Auto** (Recommandé, « Claude gère les décisions d'autorisation »), Accepter les modifications, Plan. Choisir **Auto**. Jamais « Plan » (bloque les rappels).
+- Sur téléphone (Android, 24/10) : pas trouvé ; « Default » dans l'en-tête n'ouvre rien.
