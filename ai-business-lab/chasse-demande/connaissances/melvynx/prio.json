@@ -1,6 +1,11 @@
 {
 "videos": [
 {
+"id": "01sWd0EoQWQ",
+"titre": "Je ne touche plus jamais à mes DNS (Claude le fait sur Cloudflare)",
+"duree": "4:53"
+},
+{
 "id": "vZIRcPp5LFA",
 "titre": "Tout ce que vous savez sur les skills Claude Code est DÉPASSÉ",
 "duree": "19:49"
