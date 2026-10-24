@@ -275,6 +275,9 @@ nav.plein{background:rgba(15,14,12,.86)!important}
 .logo-mot em{font-style:italic;color:#c8a46e;letter-spacing:0;margin-left:.03em}
 .logo-mot small{font-family:'Geist Mono','Geist Mono Fallback',ui-monospace,monospace;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:#a8a093;margin-top:.32rem;padding-top:.3rem;border-top:1px solid rgba(200,164,110,.55)}
 @media (max-width:420px){.logo .logo-embleme{width:36px;height:36px}.logo-mot>span{font-size:1.5rem}.logo-mot small{font-size:.5rem;letter-spacing:.18em}}
+/* 24/10 : même correctif que l'accueil (bouton de l'en-tête coupé sur les téléphones étroits ou en grand texte). */
+@media (max-width:440px){.liens .mot-long{display:none}.liens .btn{min-height:44px;display:inline-flex;align-items:center}nav .cadre{gap:.5rem}.logo-mot>span{font-size:min(1.5rem,7vw)}}
+@media (max-width:400px){.logo-mot small{display:none}.liens .btn{white-space:nowrap;padding:.65rem .8rem;font-size:.85rem}}
 
 /* Finitions des mouvements (règles d'Emil Kowalski, 10/10) : courbe franche, retour au toucher, survols réservés à la souris */
 :root{--dig-ease:cubic-bezier(.23,1,.32,1)}
@@ -298,7 +301,7 @@ html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
  <a href="/" class="logo"><svg class="logo-embleme" viewBox="20 20 160 160" aria-hidden="true"><rect x="24" y="24" width="152" height="152" rx="30" fill="none" stroke="#c8a46e" stroke-width="2.2"/><rect x="31" y="31" width="138" height="138" rx="24" fill="none" stroke="#c8a46e" stroke-width=".8" opacity=".5"/><text x="90" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="116" fill="#c8a46e">D</text><text x="134" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="42" fill="#efe9df">16</text></svg><span class="logo-mot"><span>DIG<em>16</em></span><small>Sites internet · Charente</small></span></a>
  <div class="liens">
   <a href="/#offres">Offres</a><a href="/prestige" aria-current="page">Prestige</a><a href="/#demos">Démos</a><a href="/#faq">Questions</a>
-  <a href="/#contact" class="btn principal">Ma démo gratuite</a>
+  <a href="/#contact" class="btn principal">Ma démo<span class="mot-long"> gratuite</span></a>
  </div>
 </div></nav>
 <main id="contenu">

@@ -102,7 +102,8 @@ def main():
     try:
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()
-            for w, h in ((1440, 900), (390, 844)):
+            # 360 px ajouté le 24/10 : un visiteur sur un petit téléphone voyait le bouton de l'en-tête coupé.
+            for w, h in ((1440, 900), (390, 844), (360, 780)):
                 for u in PAGES:
                     pg = b.new_page(viewport={'width': w, 'height': h})
                     errs, bad = [], []
@@ -128,6 +129,14 @@ def main():
                     if geante:
                         errs.append(f'barre fixe géante {geante}')
                     nb = pg.evaluate('[...document.images].filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.src)')
+                    # 24/10 : bouton ou lien coupé par le bord de l'écran (le débordement est masqué, donc invisible
+                    # pour scrollWidth). Pages du site seulement : les démos ont des carrousels hors écran volontaires.
+                    if not u.startswith('/demos/'):
+                        coupes = pg.evaluate("""[...document.querySelectorAll('a,button')].filter(e=>{const r=e.getBoundingClientRect();
+                            return r.width>0&&r.height>0&&getComputedStyle(e).visibility!=='hidden'&&(r.right>innerWidth+1||r.left<-1)
+                            &&!e.closest('.eventail,figure,[aria-hidden=true],.avant,.saut')}).map(e=>e.textContent.trim().slice(0,30))""")
+                        if coupes:
+                            errs.append(f'bouton coupé {coupes[:3]}')
                     ok = not (errs or bad or nb or ov > 0)
                     souci += not ok
                     print(('OK    ' if ok else 'ALERTE'), w, u, '' if ok else f'débord={ov} erreurs={errs[:2]} 404={bad[:2]} images={nb[:2]}')
