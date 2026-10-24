@@ -44,7 +44,7 @@ ferais à la place, dans l'ordre.
 
 0 € de création sur les formules mensuelles ; 6 mois d'engagement, puis sans engagement ;
 prélèvement SEPA mensuel ; site et nom de domaine au nom du client (domaine payé par lui) ;
-en ligne en 7 jours. Parrainage : 1 mois offert au client qui recommande et au nouveau client.
+mise en ligne sans délai annoncé (décision du 24/10). Parrainage : 1 mois offert au client qui recommande et au nouveau client.
 Une formule « Présence » à 29 €/mois a été retirée le 28/09.
 
 ### 2.2 La méthode de vente

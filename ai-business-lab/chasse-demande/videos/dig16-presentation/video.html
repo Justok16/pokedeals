@@ -104,7 +104,7 @@ h1,h2{font-family:'Instrument Serif';font-weight:400;line-height:1;letter-spacin
 <div class="scene" id="D">
  <div class="sur" style="position:absolute;left:96px;top:250px">Concrètement</div>
  <div class="stat" id="s1" style="top:360px"><b id="n1">0 <em>€</em></b><span>de création</span></div>
- <div class="stat" id="s2" style="top:860px"><b><span id="n2" style="font:inherit;color:inherit">7</span> <em>jours</em></b><span>pour être en ligne</span></div>
+ <div class="stat" id="s2" style="top:860px"><b><span id="n2" style="font:inherit;color:inherit">7</span> <em>j/7</em></b><span>toujours joignable</span></div>
  <div class="stat" id="s3" style="top:1360px"><b><span id="n3" style="font:inherit;color:inherit">100</span> <em>%</em></b><span>le site est à votre nom</span></div>
 </div>
 
@@ -163,7 +163,7 @@ window.seek=function(t){
   // D 19.3 → 25.9
   scene($('D'),t,19.3,25.9);
   up($('s1'),p(t,19.6,20.2));up($('s2'),p(t,21.3,21.9));up($('s3'),p(t,23.0,23.6));
-  $('n2').textContent=Math.max(1,Math.round(7*p(t,21.3,22.3)));
+  $('n2').textContent='7';  // v7 : « 7 j/7 » ne se compte pas
   $('n3').textContent=Math.round(100*p(t,23.0,24.2));
   // E 25.9 → 31.1
   scene($('E'),t,25.9,31.1);

@@ -256,7 +256,7 @@ seul), **rassurer** (comment on travaille, le prix, le site à votre nom).
 | 2 | Démo menuisier (fictive) sur téléphone | Pourquoi votre numéro doit être cliquable | Le site et le nom de domaine à votre nom |
 | 3 | Démo Prestige (fictive) sur ordinateur | Les bonnes photos de chantier ou de boutique | Le prix, sans surprise |
 | 4 | Avant / après d'une page d'accueil | Répondre aux avis, même négatifs | Sans engagement après 6 mois |
-| 5 | Un site en 7 jours, étape par étape | Vos horaires à jour partout | Le suivi chaque mois |
+| 5 | Un site sans rien gérer, étape par étape | Vos horaires à jour partout | Le suivi chaque mois |
 | 6 | Le site affiché sur un téléphone, en 10 secondes | Écrire une bonne description de votre métier | Recommandez un artisan, un mois offert |
 | 7 | Avant / après (premier client, avec accord) | Pourquoi un site lent fait fuir | Questions fréquentes |
 | 8 | Bilan des deux premiers mois | Préparer la saison suivante | Votre page d'accueil refaite gratuitement |
@@ -293,7 +293,7 @@ seul), **rassurer** (comment on travaille, le prix, le site à votre nom).
 > Un site avec DIG16, comment ça se passe ?  
 > ✅ Je refais votre page d'accueil gratuitement, pour que vous puissiez juger sur pièce.  
 > ✅ 20 minutes ensemble pour vos textes et vos photos.  
-> ✅ En ligne en 7 jours.  
+> ✅ Je m'occupe de tout jusqu'à la mise en ligne, et je reste joignable 7 jours sur 7.  
 > ✅ Le site et le nom de domaine sont à votre nom.  
 > Dès 49 € par mois, 0 € de création. Les détails : dig16.fr  
 

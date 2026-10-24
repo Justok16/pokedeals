@@ -1,46 +1,46 @@
 ---
-title: "Le projet DIG16 : sites internet pour artisans en Charente"
+title: "Le projet DIG16 : sites internet pour artisans en Charente"
 description: "DIG16, créé en octobre 2026 en Charente : des sites internet pensés pour le téléphone, pour les artisans et commerçants. L’idée, l’offre, où en est le projet."
 image: "https://dig16.fr/img/apercu-dig16-v3.jpg"
 url: "https://dig16.fr/le-projet/"
 ---
 
-# Le projet DIG16, en 2 minutes
+# Le projet DIG16, en 2 minutes
 
-DIG16 est née en octobre 2026, en Charente. Une idée simple : que chaque artisan, commerçant ou indépendant du coin soit facile à trouver et à appeler depuis un téléphone.
+DIG16 est née en octobre 2026, en Charente. Une idée simple : que chaque artisan, commerçant ou indépendant du coin soit facile à trouver et à appeler depuis un téléphone.
 
 ## L’idée de départ
 
-Aujourd’hui, on cherche presque tout sur son téléphone : « plombier », « coiffeur », « garage », suivi du nom de la ville. Beaucoup de professionnels de Charente n’ont pas de site, ou ont un site ancien, lent ou illisible sur un petit écran. Ils perdent des clients sans le savoir.
+Aujourd’hui, on cherche presque tout sur son téléphone : « plombier », « coiffeur », « garage », suivi du nom de la ville. Beaucoup de professionnels de Charente n’ont pas de site, ou ont un site ancien, lent ou illisible sur un petit écran. Ils perdent des clients sans le savoir.
 
-D’où [le test du pouce](https://dig16.fr/test-du-pouce/) : prenez votre téléphone, tapez votre métier et votre ville. Est-ce que vous apparaissez ? Est-ce que votre numéro s’appelle d’un geste ?
+D’où [le test du pouce](https://dig16.fr/test-du-pouce/) : prenez votre téléphone, tapez votre métier et votre ville. Est-ce que vous apparaissez ? Est-ce que votre numéro s’appelle d’un geste ?
 
 ## Ce que propose DIG16
 
-**0 €**de création
+**0 €**de création
 
-**Dès 49 €**par mois
+**Dès 49 €**par mois
 
-**7 jours**pour être en ligne
+**7 j/7**joignable
 
 **À votre nom**le site vous appartient
 
-- **Essentiel, 49 € par mois :** site de 5 pages sur mesure, formulaire de demande de devis, 1 modification par mois, bilan mensuel.
-- **Visibilité, 79 € par mois :** tout l’Essentiel, suivi de la fiche Google, demandes d’avis clients, 3 modifications par mois.
-- **Pour juger avant de décider :** je refais gratuitement votre page d’accueil.
+- **Essentiel, 49 € par mois :** site de 5 pages sur mesure, formulaire de demande de devis, 1 modification par mois, bilan mensuel.
+- **Visibilité, 79 € par mois :** tout l’Essentiel, suivi de la fiche Google, demandes d’avis clients, 3 modifications par mois.
+- **Pour juger avant de décider :** je refais gratuitement votre page d’accueil.
 
-Les détails sont sur [la page d’accueil](https://dig16.fr/). Avant de choisir un prestataire, quel qu’il soit, lisez [le guide : site internet pour artisan, ce qu’il faut savoir](https://dig16.fr/site-internet-artisan/).
+Les détails sont sur [la page d’accueil](https://dig16.fr/). Avant de choisir un prestataire, quel qu’il soit, lisez [le guide : site internet pour artisan, ce qu’il faut savoir](https://dig16.fr/site-internet-artisan/).
 
 ## Où en est le projet
 
 - L’entreprise est immatriculée et le site **dig16.fr** est en ligne.
 - DIG16 est présente sur Google, Facebook, Instagram, TikTok, YouTube et X.
 - Les organismes et la presse de la Charente ont été contactés.
-- Prochaine étape : rencontrer les artisans et commerçants, et écouter ce dont ils ont vraiment besoin.
+- Prochaine étape : rencontrer les artisans et commerçants, et écouter ce dont ils ont vraiment besoin.
 
 ## Comment aider
 
-Vous connaissez un artisan, un commerçant ou un indépendant en Charente ? Donnez-lui l’adresse **dig16.fr**. Un abonnement ou un partage sur les réseaux aide aussi beaucoup au début.
+Vous connaissez un artisan, un commerçant ou un indépendant en Charente ? Donnez-lui l’adresse **dig16.fr**. Un abonnement ou un partage sur les réseaux aide aussi beaucoup au début.
 
 [Facebook](https://www.facebook.com/1334231963113482)
 [Instagram](https://www.instagram.com/dig16fr/)
@@ -48,7 +48,7 @@ Vous connaissez un artisan, un commerçant ou un indépendant en Charente ? Donn
 [YouTube](https://www.youtube.com/@dig16fr)
 [X](https://x.com/dig16charente)
 
-Une question ? [contact@dig16.fr](mailto:contact@dig16.fr)
+Une question ? [contact@dig16.fr](mailto:contact@dig16.fr)
 
 [← Découvrir DIG16](https://dig16.fr/)
 

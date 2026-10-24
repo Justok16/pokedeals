@@ -93,7 +93,6 @@ Essentiel convient à la plupart des artisans. Prestige est fait pour les lieux 
 | Réservation en ligne | ✓ | ✓ |
 | Version anglaise | +5 €/mois | ✓ incluse |
 | Fiche Google suivie, avis | — | ✓ |
-| Mise en ligne | 7 jours | 3 semaines |
 | Engagement | 6 mois | 12 mois (abonnement) |
 
 La méthode
@@ -122,7 +121,7 @@ Textes en français et en anglais, photos, réservation : vous validez chaque �
 
 ### Mise en ligne
 
-En 3 semaines environ, testé sur téléphone et ordinateur, puis suivi dans la durée.
+Votre site est testé sur téléphone et ordinateur, mis en ligne après votre accord, puis suivi dans la durée.
 
 ![Démonstration Prestige : site d’une maison d’hôtes fictive, le Clos des Tilleuls](https://dig16.fr/img/vitrine-prestige-pc-700.webp)
 

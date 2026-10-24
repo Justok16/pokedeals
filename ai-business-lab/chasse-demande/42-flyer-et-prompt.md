@@ -22,7 +22,7 @@ Voir le texte exact dans la réponse du 26/09 ; version de référence :
 > trouvent ? » ; sous-titre « Un site moderne, rapide, qui vous appartient.
 > Fait près de chez vous, sans contrat qui vous enferme. » ; 4 avantages
 > avec icônes (plus d'appels et de devis ; votre site vous appartient, site
-> et nom de domaine à votre nom ; en ligne en 7 jours, 20 min ensemble ;
+> et nom de domaine à votre nom ; joignable 7 jours sur 7, 20 min ensemble ;
 > suivi chaque mois, mises à jour sous 48 h) ; un visuel fort : un
 > smartphone qui affiche un beau site d'artisan avec une notification
 > « Nouvelle demande de devis ! » ; un encadré offre très visible « Votre

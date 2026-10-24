@@ -87,7 +87,7 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
    > vous ont appelé grâce au site. »
 7. **Vérifier qu'il a compris**, puis **question de décision** :
    > « Qu'est-ce que vous en retenez ? » (écouter, corriger si besoin), puis
-   > « On le met en ligne pour le [date dans 7 jours] ? »
+   > « On le met en ligne ? Je vous prépare tout. »
 8. **Si oui** : contrat, **formulaire de rétractation remis**, rappel :
    > « Vous avez 14 jours pour changer d'avis, et je ne prélève rien
    > avant 8 jours. »

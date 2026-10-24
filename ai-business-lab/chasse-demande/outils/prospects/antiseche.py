@@ -151,7 +151,7 @@ S = [
             ),
             (
                 "En combien de temps c'est prêt ?",
-                "En ligne en 7 jours une fois vos photos et informations reçues.",
+                "Je m'occupe de tout. On fixe ensemble la date de mise en ligne et je l'écris sur le devis, une fois vos photos et informations reçues (jamais avant le 8e jour après la signature).",
             ),
             (
                 "Je peux modifier moi-même ?",

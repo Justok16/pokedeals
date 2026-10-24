@@ -78,7 +78,7 @@ avant le contact** (le prospect voit *son* site refait), et un prix
 - **Problème** : site daté, lent, qui ne vous appartient pas, contrat long.
 - **Personne** : professionnel indépendant ou TPE (artisan, santé, commerce,
   services) qui a déjà un site loué.
-- **Promesse** : « Votre nouveau site en 7 jours, à vous pour toujours,
+- **Promesse** : « Votre nouveau site sans rien gérer, à vous pour toujours,
   sans engagement long. »
 
 ### 3.2 bis — Décisions du 28/09/2026 (après 4 audits externes, `48`)
@@ -229,7 +229,7 @@ client) est la bonne réponse.
 2. **Devis** clair d'une page + conditions générales DIG16 (à rédiger).
 3. **Signature électronique** (DocuSeal, connecteur disponible) et
    **mandat de prélèvement** SEPA en ligne.
-4. **Fabrication en 7 jours** : textes, photos du client, validation.
+4. **Fabrication** (aucun délai annoncé en public depuis le 24/10 ; date écrite sur le devis) : textes, photos du client, validation.
 5. **Contrôles qualité** avant mise en ligne : **optimisé ordinateur ET
    téléphone** (exigence de l'utilisateur du 26/09 : tests en 1366 px et
    390 px, aucun défilement horizontal, boutons d'appel au pouce),
@@ -373,7 +373,7 @@ l'utilisateur garde la relation humaine (appels, visites, signature).
 | 5. Suivi prospect | Relances J+3 / J+10, refus notés et respectés | Tableau prospects (Airtable ou Google Sheets, privé) | Claude |
 | 6. Devis et contrat | Devis d'une page, CGV, formulaire de rétractation, signature électronique | DocuSeal (connecté) | Claude prépare, **utilisateur signe** |
 | 7. Paiement | Mandat SEPA, premier prélèvement **au plus tôt J+8** (`40` A1) | Stripe (0,35 € + 0,7 %) | Automatique |
-| 8. Fabrication | Site en 7 jours : textes, photos du client, mentions légales, contrôles qualité | Claude + dépôt privé du code | Claude |
+| 8. Fabrication | Site : textes, photos du client, mentions légales, contrôles qualité | Claude + dépôt privé du code | Claude |
 | 9. Mise en ligne | Nom de domaine au nom du client, hébergement, bascule sans coupure | Cloudflare Pages | Claude (+ client pour son domaine) |
 | 10. Facturation | Facture mensuelle, mention TVA, livre des recettes ; facture électronique obligatoire au 01/09/2027 | Plateforme agréée **[à choisir]** | Automatique |
 | 11. Suivi mensuel | Le site répond ? Pages cassées ? Vitesse ? Avis Google nouveaux ? Rapport « demandes reçues » envoyé au client | Routine Claude mensuelle | Claude |

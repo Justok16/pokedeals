@@ -111,7 +111,7 @@ Pour commencer, parfois. Vérifiez trois points dans les conditions de l’offre
 
 Combien de temps faut-il pour mettre un site en ligne ?
 
-Pour un site de 5 pages, quelques jours suffisent une fois les textes, les photos et les informations réunis. Chez DIG16, la mise en ligne se fait en 7 jours après la rencontre de 20 minutes.
+Pour un site de 5 pages, quelques jours suffisent une fois les textes, les photos et les informations réunis. Chez DIG16, la date de mise en ligne est fixée avec vous et écrite sur le devis, une fois les textes et les photos validés.
 
 Que doit contenir le site d’un artisan ?
 
@@ -212,7 +212,7 @@ Demandez-le simplement à chaque client satisfait, avec un lien direct vers votr
           "name": "Combien de temps faut-il pour mettre un site en ligne ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Pour un site de 5 pages, quelques jours suffisent une fois les textes, les photos et les informations réunis. Chez DIG16, la mise en ligne se fait en 7 jours après la rencontre de 20 minutes."
+            "text": "Pour un site de 5 pages, quelques jours suffisent une fois les textes, les photos et les informations réunis. Chez DIG16, la date de mise en ligne est fixée avec vous et écrite sur le devis, une fois les textes et les photos validés."
           }
         },
         {

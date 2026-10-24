@@ -46,7 +46,7 @@ Objet : Inscription de DIG16 à l'annuaire des commerçants de Ruffec
 > - Téléphone : 06 87 91 02 14
 > - Email : contact@dig16.fr
 > - Site : https://dig16.fr
-> - Horaires : du lundi au samedi, 9 h - 18 h
+> - Disponibilité : joignable 7 jours sur 7
 > - SIREN : 131 256 091
 >
 > Je peux envoyer un logo ou une photo si besoin. Je peux aussi présenter mon activité à la cheffe de projet

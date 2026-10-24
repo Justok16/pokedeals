@@ -165,17 +165,18 @@ SERIE = [
                 "Et vous repartez avec tous les fichiers de votre site.",
      "alt": "Après 6 mois, sans engagement : arrêt par simple email, et vous repartez avec vos fichiers."},
     {"id": "p10", "date": "2026-11-09T18:30:00", "theme": "clair", "etiquette": "Comment je travaille",
-     "metricool": 392400865, "titre_tiktok": "Un site en ligne en 7 jours",
+     "metricool": 392400865, "titre_tiktok": "Votre site, sans rien gérer",
      "images": [
-         ("cover", "En ligne *en 7 jours.*", "Comment c'est possible ?"),
-         ("point", "", "Jour 1 : *20 minutes ensemble.*", "Pour vos textes et vos photos."),
-         ("point", "", "Jours 2 à 6 : *je construis, vous relisez.*", "Vous suivez votre site avant qu'il soit en ligne."),
-         ("point", "", "Jour 7 : *votre site est en ligne.*", "Après votre accord écrit."),
+         ("cover", "Votre site, *sans rien gérer.*", "Comment ça se passe ?"),
+         ("point", "", "Étape 1 : *20 minutes ensemble.*", "Pour vos textes et vos photos."),
+         ("point", "", "Étape 2 : *je construis, vous relisez.*", "Vous suivez votre site avant qu'il soit en ligne."),
+         ("point", "", "Étape 3 : *votre site est en ligne.*", "Après votre accord écrit."),
          APPEL],
-     "legende": "Un site en ligne en 7 jours, comment c'est possible ? ⏱️\n"
-                "Jour 1 : 20 minutes ensemble pour vos textes et vos photos.\nJours 2 à 6 : je construis, vous relisez.\n"
-                "Jour 7 : votre site est en ligne.",
-     "alt": "En ligne en 7 jours : jour 1, 20 minutes ensemble ; jours 2 à 6, je construis ; jour 7, en ligne."},
+     # 24/10 : plus aucun délai de création annoncé (demande de l'utilisateur) ; on met en avant la disponibilité.
+     "legende": "Votre site, sans rien gérer : comment ça se passe ? 🛠️\n"
+                "Étape 1 : 20 minutes ensemble pour vos textes et vos photos.\nÉtape 2 : je construis, vous relisez.\n"
+                "Étape 3 : votre site est mis en ligne après votre accord.\nUne question ? Je suis joignable 7 jours sur 7.",
+     "alt": "Comment ça se passe : étape 1, 20 minutes ensemble ; étape 2, je construis et vous relisez ; étape 3, en ligne après votre accord."},
     {"id": "p11", "date": "2026-11-11T18:30:00", "theme": "sombre", "etiquette": "Le conseil", "metricool": 392400879,
      "titre_tiktok": "Vos horaires, les mêmes partout ?",
      "images": [

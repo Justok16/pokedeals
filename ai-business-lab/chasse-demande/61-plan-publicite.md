@@ -94,7 +94,7 @@ gratuite : 20 publications par mois, 1 marque, lu le 05/10) ; LinkedIn à la mai
 > Après 6 mois, votre site DIG16 est sans engagement : vous pouvez arrêter à tout moment, par simple email.
 > Et vous repartez avec tous les fichiers de votre site.
 
-**S5 — lundi — 7 jours**
+**S5 — lundi — 7 jours** *(obsolète depuis le 24/10 : plus aucun délai de création annoncé ; remplacé par le carrousel « Votre site, sans rien gérer » du 09/11)*
 > Un site en ligne en 7 jours, comment c'est possible ?
 > Jour 1 : 20 minutes ensemble pour vos textes et vos photos.
 > Jours 2 à 6 : je construis, vous relisez.

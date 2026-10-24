@@ -4,7 +4,7 @@
 - Demandée par l'utilisateur le 08/10 (« Oui vidéo avec une présentation attractive et convaincante », voix et musique).
 - Usage : à montrer en rendez-vous ou en entretien. **Pas de prix dans la vidéo**, pour qu'elle reste utilisable
   pendant les entretiens d'étude de marché, où l'on ne vend rien (`57-entretiens-etude-de-marche.md`).
-- Affirmations reprises telles quelles du site dig16.fr : 0 € de création, en ligne en 7 jours, site à votre nom,
+- Affirmations reprises telles quelles du site dig16.fr : 0 € de création, site à votre nom,
   page d'accueil refaite gratuitement avant toute décision.
 
 ## Fabrication (0 €, tout est rejouable)
@@ -58,3 +58,11 @@ qui relance la vidéo depuis le début avec le son ; la barre d'appel du bas se 
   Fichiers web `presentation-v6.*`, affiche `affiche-v6.webp` ; boutons du site passés à « 33 s ».
 - La v5 (voix « Dig seize, sites internet ») est gardée dans le brouillon de travail, pas sur le site.
 - **08/10 : v6 validée par l'utilisateur** (prononciation « Dig seize point F R » : « parfait »).
+
+## v7 (24/10/2026) — demande de l'utilisateur : plus aucun délai de création annoncé, montrer qu'il est toujours joignable
+
+- Voix Algieba de la v6 gardée (validée le 08/10) : seule la phrase « En ligne en sept jours. » est retirée de la
+  bande-son (fondu de 60 ms) ; écran « 7 jours pour être en ligne » remplacé par « 7 j/7, toujours joignable ».
+- `v7.py` : repères des phrases relevés sur la v6 par transcription, animation recalée sur la voix raccourcie.
+- 31,4 s, −16 LUFS ; transcription vérifiée (plus de « sept jours », « dig16.fr » bien dit). Fichiers web
+  `presentation-v7.*`, affiche `affiche-v7.webp` (même image que la v6, à 12,5 s) ; boutons du site passés à « 31 s ».

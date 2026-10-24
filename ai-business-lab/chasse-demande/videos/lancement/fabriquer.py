@@ -31,7 +31,7 @@ PHRASES = [
     "Votre site aujourd'hui : daté, minuscule sur un téléphone.",
     "Je le refais. Le même, refait par Dig seize.",
     "Zéro euro de création.",
-    "Sept jours pour être en ligne.",
+    "Joignable sept jours sur sept.",
     "Et cent pour cent à votre nom.",
     "Je refais votre page d'accueil gratuitement. Vous décidez ensuite. Dig seize point F R.",
 ]
@@ -103,7 +103,7 @@ em{{color:#d9bb8a;font-style:italic}}
 <div class="demo" id="demo">Démonstration · entreprise fictive</div>
 <div class="bloc faits" id="faits">
  <div class="fait" id="f0"><b>0&nbsp;€</b><span>de création</span></div>
- <div class="fait" id="f1"><b>7 jours</b><span>pour être en ligne</span></div>
+ <div class="fait" id="f1"><b>7&nbsp;j/7</b><span>toujours joignable</span></div>
  <div class="fait" id="f2"><b>100&nbsp;%</b><span>à votre nom</span></div>
 </div>
 <div class="bloc" id="fin"><h2 class="serif">Je refais votre page d’accueil <em>gratuitement.</em></h2><p>Vous décidez ensuite.</p></div>

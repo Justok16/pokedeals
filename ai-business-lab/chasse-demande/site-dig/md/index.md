@@ -41,9 +41,9 @@ Vos services, vos photos, votre numéro : tout arrive l’un après l’autre, 
 
 Site et nom de domaine à votre nom. Après les 6 premiers mois, vous partez quand vous voulez, avec votre site.
 
-### En ligne en 7 jours
+### Je m’occupe de tout
 
-20 minutes ensemble pour vos textes et vos photos. Je m’occupe de tout le reste (3 semaines pour Prestige).
+20 minutes ensemble pour vos textes et vos photos. Le reste, jusqu’à la mise en ligne, c’est pour moi.
 
 ### Suivi chaque mois
 
@@ -120,7 +120,7 @@ Chez vous ou au téléphone : vos services, vos photos, votre zone. Je vous con
 
 **3**
 
-### En ligne en 7 jours
+### Mise en ligne
 
 Textes rédigés, mentions légales, tests sur téléphone et ordinateur. Vous validez, on publie.
 
@@ -335,7 +335,7 @@ Laissez-moi vos coordonnées : je prépare votre page d’accueil et je vous la
 [Téléphone06 87 91 02 14](tel:+33687910214)
 [Emailcontact@dig16.fr](mailto:contact@dig16.fr)
 
-HorairesDu lundi au samedi, 9 h – 18 h
+DisponibilitéToujours joignable, 7 jours sur 7
 
 ```json
 {
@@ -400,10 +400,11 @@ HorairesDu lundi au samedi, 9 h – 18 h
             "Wednesday",
             "Thursday",
             "Friday",
-            "Saturday"
+            "Saturday",
+            "Sunday"
           ],
-          "opens": "09:00",
-          "closes": "18:00"
+          "opens": "00:00",
+          "closes": "23:59"
         }
       ],
       "priceRange": "€€",
