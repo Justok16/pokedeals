@@ -35,7 +35,7 @@ Avant d’appeler un artisan ou de pousser la porte d’un commerce, vos futurs 
 
 ### Tout au bout du pouce
 
-Vos clients font défiler avec le pouce, et tout y est : vos services, vos photos, votre numéro à portée de doigt. Rien à chercher, rien à zoomer.
+Vos services, vos photos, votre numéro : tout arrive l’un après l’autre, sans rien chercher ni zoomer.
 
 ### Votre site vous appartient
 
@@ -47,7 +47,7 @@ Site et nom de domaine à votre nom. Après les 6 premiers mois, vous partez qua
 
 ### Suivi chaque mois
 
-Modifications sous 3 jours ouvrés, et un petit bilan mensuel : combien de personnes vous ont trouvé.
+Modifications sous 3 jours ouvrés, et un bilan rapide chaque mois : combien de personnes vous ont trouvé.
 
 Démonstrations
 

@@ -69,8 +69,9 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
    vitrine, le travail (1 min).
 2. **Montrer la démo sur son téléphone** (pas le vôtre) :
    > « Voilà ce que voit un client qui vous cherche le soir sur son
-   > canapé. »
-   Laisser regarder en silence 30 secondes.
+   > canapé. Faites défiler avec votre pouce : c'est tout ce que vos
+   > clients auront à faire. »
+   Le laisser faire défiler lui-même, puis 30 secondes de silence.
 3. **Questionnaire** (section 4) : 8 à 10 minutes, noter ses mots exacts.
 4. **Reformuler son besoin avec ses mots** :
    > « Si je résume : vous voulez [plus de demandes de devis en
@@ -82,7 +83,7 @@ Noter la réponse ; ne jamais rappeler s'il le demande.
 6. **Trois garanties** :
    > « Ce que je veux que vous reteniez : votre site et votre nom de domaine sont à votre nom. Pas
    > d'engagement de 12 mois : 6 mois, puis vous restez seulement si vous
-   > êtes content. Et chaque mois, un petit bilan : combien de personnes
+   > êtes content. Et chaque mois, un bilan rapide : combien de personnes
    > vous ont appelé grâce au site. »
 7. **Vérifier qu'il a compris**, puis **question de décision** :
    > « Qu'est-ce que vous en retenez ? » (écouter, corriger si besoin), puis

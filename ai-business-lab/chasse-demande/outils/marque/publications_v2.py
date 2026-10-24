@@ -193,12 +193,12 @@ SERIE = [
      "images": [
          ("cover", "Un site suivi, *chaque mois.*", "Pas abandonné après sa mise en ligne."),
          ("point", "1", "Vos changements *en 3 jours ouvrés.*", "Un horaire, une photo, un prix : un email suffit."),
-         ("point", "2", "Un petit bilan *chaque mois.*", "Pour savoir combien de personnes vous ont trouvé."),
+         ("point", "2", "Un bilan rapide *chaque mois.*", "Pour savoir combien de personnes vous ont trouvé."),
          APPEL],
      "legende": "Avec DIG16, votre site n'est pas abandonné après sa mise en ligne 🔧\n"
-                "Chaque mois : vos changements faits en 3 jours ouvrés, et un petit bilan pour savoir combien de personnes "
+                "Chaque mois : vos changements faits en 3 jours ouvrés, et un bilan rapide pour savoir combien de personnes "
                 "vous ont trouvé.",
-     "alt": "Un site suivi chaque mois : changements en 3 jours ouvrés et petit bilan mensuel."},
+     "alt": "Un site suivi : changements en 3 jours ouvrés et bilan rapide chaque mois."},
     {"id": "p13", "date": "2026-11-16T18:30:00", "theme": "sombre", "etiquette": "Le conseil", "metricool": 392400921,
      "titre_tiktok": "Votre site s'affiche-t-il vite ?",
      "images": [

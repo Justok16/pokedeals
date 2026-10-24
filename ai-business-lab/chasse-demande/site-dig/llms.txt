@@ -1,6 +1,6 @@
 # DIG16
 
-> DIG16 crée des sites internet pour les artisans, commerçants et indépendants de Charente : modernes, rapides, pensés d'abord pour le téléphone (le visiteur n'a qu'à faire défiler avec le pouce : rien à chercher, rien à zoomer), à leur nom. Entreprise individuelle immatriculée au RCS d'Angoulême. Page d'accueil refaite gratuitement avant toute décision.
+> DIG16 crée des sites internet pour les artisans, commerçants et indépendants de Charente : modernes, rapides, pensés d'abord pour le téléphone (le visiteur n'a qu'à faire défiler avec le pouce, sans rien chercher ni zoomer), à leur nom. Entreprise individuelle immatriculée au RCS d'Angoulême. Page d'accueil refaite gratuitement avant toute décision.
 
 ## Offres (prix sans TVA : TVA non applicable, article 293 B du CGI)
 

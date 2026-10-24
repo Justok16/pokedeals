@@ -62,6 +62,19 @@ de tes capacités ». Tout ce qui suit a été mesuré ou vérifié le 18/10/202
 
 ## 4. Présentations des réseaux : textes proposés (à coller si la capture montre autre chose)
 
+**Version du 24/10 (demande de l'utilisateur : insister sur « il suffit de faire défiler avec le pouce »)**, à coller
+à la place des textes du tableau ci-dessous. Limites vérifiées le 24/10 : Instagram 150, Threads 150, X 160, TikTok 80
+caractères ; Facebook ne publie pas de limite pour la bio de page, d'où une version courte.
+
+| Réseau | Bio (nombre de caractères) |
+|---|---|
+| Instagram | Sites internet pour artisans de Charente 📱 Vos clients n'ont qu'à faire défiler avec le pouce. Dès 49 €/mois, à votre nom. Démo gratuite 👇 (138) |
+| Threads | Sites internet pour artisans de Charente. Vos clients n'ont qu'à faire défiler avec le pouce. Dès 49 €/mois, à votre nom. Démo gratuite sur dig16.fr (148) |
+| X | Sites internet pour artisans et commerçants de Charente. Sur téléphone, on fait défiler avec le pouce et tout y est. Dès 49 €/mois, à votre nom. (144) |
+| TikTok | Sites pour artisans de Charente : tout au bout du pouce. Dès 49 €/mois. (71) |
+| Facebook (bio courte) | Sites internet pour artisans de Charente. Vos clients n'ont qu'à faire défiler avec le pouce. |
+
+
 Tous citent le métier, la cible, le département et le site ; aucune donnée personnelle, aucun parcours.
 
 | Réseau | Texte court (bio) | Lien |
