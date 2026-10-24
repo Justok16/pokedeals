@@ -23,7 +23,6 @@ import json
 import sys
 
 from pypdf import PdfReader, PdfWriter
-from pypdf.generic import NameObject
 
 
 def champs(chemin):
@@ -43,7 +42,7 @@ def champs(chemin):
             libelle = a.get("/TU") or source.get("/TU") or ""
             choix = ""
             if genre == "case":
-                etats = [str(k) for k in (a.get("/AP", {}).get("/N", {}) or {}).keys() if str(k) != "/Off"]
+                etats = [str(k) for k in (a.get("/AP", {}).get("/N", {}) or {}) if str(k) != "/Off"]
                 choix = " valeur=" + ",".join(etats)
             elif genre == "liste":
                 choix = " choix=" + ",".join(str(o) for o in source.get("/Opt", []))
@@ -56,7 +55,8 @@ def champs(chemin):
 
 
 def remplir(chemin, valeurs_json, sortie):
-    valeurs = json.load(open(valeurs_json, encoding="utf-8"))
+    with open(valeurs_json, encoding="utf-8") as f:
+        valeurs = json.load(f)
     lecteur = PdfReader(chemin)
     redacteur = PdfWriter(clone_from=lecteur)
     connus = set((lecteur.get_fields() or {}).keys())  # noms complets…
@@ -79,7 +79,7 @@ def remplir(chemin, valeurs_json, sortie):
             if nom in valeurs:
                 v = valeurs[nom]
                 if isinstance(v, bool):
-                    etats = [k for k in (a.get("/AP", {}).get("/N", {}) or {}).keys() if str(k) != "/Off"]
+                    etats = [k for k in (a.get("/AP", {}).get("/N", {}) or {}) if str(k) != "/Off"]
                     v = str(etats[0]) if (v and etats) else "/Off"
                 a_remplir[nom] = v
         if a_remplir:
@@ -93,7 +93,8 @@ def remplir(chemin, valeurs_json, sortie):
 def ecrire(chemin, textes_json, sortie):
     from reportlab.pdfgen import canvas
 
-    textes = json.load(open(textes_json, encoding="utf-8"))
+    with open(textes_json, encoding="utf-8") as f:
+        textes = json.load(f)
     lecteur = PdfReader(chemin)
     redacteur = PdfWriter(clone_from=lecteur)
     for num, page in enumerate(redacteur.pages, 1):
