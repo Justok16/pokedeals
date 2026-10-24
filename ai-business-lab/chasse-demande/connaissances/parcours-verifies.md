@@ -112,3 +112,8 @@ La vidéo reste 30 jours dans « supprimés récemment » avant d'être effacée
 
 ### TikTok : épingler un commentaire sur une vidéo → n'existe plus (vérifié le 22/10/2026)
 L'aide officielle TikTok « Comments » et « Manage comments » (lues le 22/10) ne parle plus d'épingler ; wikiHow « How to Pin a Comment on TikTok » (lu le 22/10) indique que l'épinglage n'existe plus que pendant un LIVE ; l'utilisateur ne trouve pas l'option (22/10). Ne plus le proposer : écrire un simple commentaire (marqué « Créateur ») et garder le lien dans la bio.
+
+## Facebook : partager une publication de la page DIG16 sur le profil personnel (Android)
+- Source : aide officielle Facebook « Switch between your profile and Page » (facebook.com/business/help/571062040244333, lue le 24/10/2026) ; **✅ confirmé par capture le 24/10 (17 h 23)**.
+- Piège vu le 24/10 : si l'appli est restée sur la page, le partage part **au nom de la page** (auteur « DIG16 - Sites intern… », bouton « Créer une publicité »). Avant de partager : Menu ou photo de profil → petite flèche → choisir le profil personnel. Après le partage, l'auteur affiché doit être le nom du profil, avec l'icône « amis » à côté de l'heure.
+- Le texte d'accompagnement se colle dans la zone au-dessus de la publication **avant** de publier (le 24/10 il a été oublié : partage sans texte, acceptable).
