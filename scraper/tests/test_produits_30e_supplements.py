@@ -126,3 +126,26 @@ def test_gem_pack_vol7_ne_declenche_aucun_autre_produit():
     autres = [p.nom for p in PRODUITS_SURVEILLES
               if p.nom != GEM7 and evaluer_correspondance(titre, "", p)[0] is not None]
     assert autres == []
+
+
+# 25/10/2026, signale par Justok : cartes a l'unite de jmcards.fr annoncees
+# « Disponible » comme les collections Mew / Mewtwo / Metamorph (les mots
+# "figurine"/"collection premium" venaient du reste de la page).
+@pytest.mark.parametrize("titre", [
+    "Mewtwo 063/128 – 30e Anniversaire – Pokémon FR - JM Cards",
+    "Mew-ex 066/128 – 30e Anniversaire – Pokémon FR - JM Cards",
+    "Métamorph 115/128 – 30e Anniversaire – Pokémon FR - JM Cards",
+    "Mewtwo-ex - 157/161 - Futuristic Rare - 30ᵉ Anniversaire",
+])
+def test_carte_a_l_unite_jamais_prise_pour_un_produit_scelle(titre):
+    page = "Carte Pokémon en français. Coffret collection premium figurine Mew Mewtwo Métamorph"
+    assert [p.nom for p in PRODUITS_SURVEILLES if evaluer_correspondance(titre, page, p)[0]] == []
+
+
+@pytest.mark.parametrize("titre", [
+    # Titres reels du radar avec une DATE au format jour/mois.
+    "ME5.5 - 30 ans - Coffret Figurine Mew - FRANCAIS (06/11)",
+    "ME5.5 - 30 ans - Coffret Figurine Mewtwo - FRANCAIS (06/11)",
+])
+def test_date_jour_mois_dans_le_titre_reste_acceptee(titre):
+    assert any(evaluer_correspondance(titre, "", p)[0] for p in PRODUITS_SURVEILLES)

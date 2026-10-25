@@ -713,6 +713,23 @@ def _titre_sans_nom_officiel(titre: str, produit: ProduitSurveille) -> str:
     return norm
 
 
+# Numero de carte a l'unite dans un titre ("063/128", "Mew-ex 66/128") : aucun
+# produit suivi ici n'est une carte, ce sont tous des produits scelles. Faux
+# positifs reels du 25/10/2026 (jmcards.fr) : "Mewtwo 063/128 – 30e
+# Anniversaire – Pokémon FR" annonce comme la Collection figurine Mewtwo,
+# "figurine"/"collection premium" venant du menu ou des produits voisins de
+# la page. Denominateur >= 13 pour ne jamais confondre une date "16/09"
+# (jour/mois) ; jamais colle a un autre "/" ou chiffre ("16/09/2026").
+_NUMERO_CARTE = re.compile(r"(?<![/\d])\d{1,3}\s?/\s?(\d{2,3})(?![/\d])")
+
+
+def numero_de_carte_dans_titre(titre: str) -> str | None:
+    for m in _NUMERO_CARTE.finditer(titre):
+        if int(m.group(1)) >= 13:
+            return m.group(0)
+    return None
+
+
 def evaluer_correspondance(
     titre: str, texte_description: str, produit: ProduitSurveille,
     texte_exclusions: str | None = None,
@@ -741,6 +758,10 @@ def evaluer_correspondance(
     articles). None = page entiere (comportement d'origine)."""
     texte_complet = f"{titre} {texte_description}"
     texte_exclu = texte_complet if texte_exclusions is None else f"{titre} {texte_exclusions}"
+
+    numero = numero_de_carte_dans_titre(titre)
+    if numero:
+        return None, f"carte a l'unite ('{numero}' dans le titre)"
 
     exclu = (_mot_exclu(_titre_sans_nom_officiel(titre, produit), produit.mots_exclus_titre)
              or _mot_exclu(texte_exclu, produit.mots_exclus_texte))
