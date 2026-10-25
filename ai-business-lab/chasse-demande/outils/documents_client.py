@@ -62,7 +62,7 @@ def prestataire_html(s, P):
 
 def bloc_client(C):
     lignes = [e(C["denomination"]), e(C["adresse"]), "SIREN " + e(C["siren"])]
-    if C.get("dirigeant"):
+    if C.get("dirigeant") and "individuel" not in C.get("forme", ""):
         lignes.insert(1, "Représentée par " + e(C["dirigeant"]))
     return '<div class="cadre"><b>Client</b><br>' + "<br>".join(lignes) + "</div>"
 
@@ -74,16 +74,21 @@ def devis(P, C, D):
     s = re.sub(r'<div class="cadre"><b>Client</b>.*?</div></div>', bloc_client(C) + "</div>", s, count=1, flags=re.DOTALL)
     s = s.replace("☐ " + D["formule"], "☑ " + D["formule"], 1)
     s = s.replace("[date convenue ensemble]", e(D["mise_en_ligne"]))
+    if D.get("detail_formule"):
+        s = s.replace(f"<td>☑ {D['formule']}</td><td>Site haut de gamme, voir le détail joint</td>",
+                      f"<td>☑ {D['formule']}</td><td>{e(D['detail_formule'])}</td>", 1)
     if D.get("offert"):
         texte = (f"<p><b>Site offert</b> : remise de 100 % sur la formule {e(D['formule'])} (valeur {euros(D['prix'])}). "
                  "Aucun paiement, aucun abonnement, aucun engagement de durée et aucun prélèvement. Les clauses de prix, "
                  "d’engagement et de paiement de ce devis et des conditions générales de vente ne s’appliquent pas ; "
-                 "l’accord de réalisation gracieuse joint précise les droits sur le site, l’hébergement et les modifications, "
-                 "et prévaut en cas de différence.</p>")
+                 "l’accord de réalisation gracieuse joint précise les droits sur le site, l’hébergement et les modifications ; "
+                 "il prévaut sur ce devis et sur les conditions générales de vente en cas de différence.</p>"
+                 "<p><b>Montant à payer : 0,00 €</b> (TVA non applicable, art. 293 B du CGI).</p>")
+        s = s.replace("(aucun paiement n’est demandé avant 8 jours).", "(prestation offerte : aucun paiement ne sera demandé).", 1)
         s = re.sub(r"<p><b>Engagement</b>.*?</p>\s*<p><b>Paiement</b>.*?</p>", texte, s, count=1, flags=re.DOTALL)
         s = re.sub(r"<p><b>Création offerte</b>.*?</p>",
                    f"<p>Mise en ligne prévue {'au plus tard le ' if D['mise_en_ligne'][:1].isdigit() else ': '}<b>{e(D['mise_en_ligne'])}</b>, sous réserve de la validation "
-                   "des contenus par le client. Nom de domaine au nom du client, à sa charge.</p>", s, count=1, flags=re.DOTALL)
+                   "des contenus par le client, et jamais avant le 8e jour suivant la signature. Nom de domaine au nom du client, à sa charge.</p>", s, count=1, flags=re.DOTALL)
     return s
 
 
@@ -100,14 +105,28 @@ def facture(P, C, D):
     s = s.replace("[Formule Essentiel — abonnement du mois de …]", e(D["designation"]))
     s = s.replace("<td class=\"n\">[49,00 €]</td><td class=\"n\">[49,00 €]</td>", f'<td class="n">{euros(D["prix"])}</td><td class="n">{euros(D["prix"])}</td>', 1)
     s = re.sub(r"<tr><td>\[Autre ligne si besoin\]</td>.*?</tr>", "", s, count=1, flags=re.DOTALL)
-    s = s.replace("[néant ou montant]", (euros(remise) + (" (site offert)" if D.get("offert") else "")) if remise else "néant")
-    s = s.replace("<b>[49,00 €]</b></td></tr>\n<tr>", f"<b>{euros(total)}</b></td></tr>\n<tr>", 1)
+    if remise:
+        motif = D.get("motif_remise", "site offert") if D.get("offert") else D.get("motif_remise", "remise")
+        lignes = (f'<tr><td colspan="3">Total brut HT</td><td class="n">{euros(D["prix"])}</td></tr>\n'
+                  f'<tr><td colspan="3">{"Remise exceptionnelle 100 %" if remise == D["prix"] else "Remise"} ({e(motif)})</td>'
+                  f'<td class="n">−{euros(remise)}</td></tr>\n'
+                  f'<tr><td colspan="3"><b>Total net HT</b></td><td class="n"><b>{euros(total)}</b></td></tr>\n')
+        s = re.sub(r'<tr><td colspan="3"><b>Total HT</b>.*?</tr>\n', lignes, s, count=1, flags=re.DOTALL)
+    else:
+        s = s.replace("[néant ou montant]", "néant")
+        s = s.replace("<b>[49,00 €]</b></td></tr>\n<tr>", f"<b>{euros(total)}</b></td></tr>\n<tr>", 1)
     s = s.replace("<b>[49,00 €]</b>", f"<b>{euros(total)}</b>", 1)
     if total == 0:
         s = s.replace("<b>Date de règlement</b> : [jj/mm/aaaa] · Mode : [prélèvement / virement].", "<b>Règlement</b> : sans objet, rien n’est à payer.")
     else:
         s = s.replace("[jj/mm/aaaa]", e(D.get("date_reglement", "à réception"))).replace("[prélèvement / virement]", e(D.get("mode", "virement")))
     s = re.sub(r'<p class="petit">Mentions vérifiées.*?</p>', "", s, flags=re.DOTALL)
+    s = s.replace("<th>Prix unitaire HT</th>", '<th style="white-space:nowrap">Prix unitaire HT</th>', 1)
+    if not D["date_facture"][:1].isdigit():  # facture préparée d'avance : marquée PROJET tant qu'elle n'est pas datée
+        s = s.replace("<h1>Facture</h1>", "<h1>Facture <em>(projet)</em></h1>", 1)
+        s = s.replace("<p><b>Nature de l’opération</b>", '<p class="petit"><b>Projet, à ne pas envoyer</b> : à dater, '
+                      "puis régénérer et émettre le jour de la mise en ligne définitive (numérotation continue).</p>"
+                      "<p><b>Nature de l’opération</b>", 1)
     return s
 
 
@@ -137,13 +156,20 @@ def questionnaire(C, D, reponses):
                 if "☐ " + c not in corps:
                     sys.exit(f"Question {num} : case « {c} » introuvable.")
                 corps = corps.replace("☐ " + c, "☑ " + c, 1)
-            if rep.get("texte"):
+            autre = "☑ Autre" + NB + ": ________"  # le modèle met une espace insécable avant les deux-points
+            if rep.get("texte") and autre in corps:
+                corps = corps.replace(autre, "☑ Autre" + NB + ": " + f'<b>{e(rep["texte"])}</b>', 1)
+            elif rep.get("texte"):
                 corps += f'<div class="rep">{e(rep["texte"])}</div>'
         elif '<div class="ln"></div>' in corps:
             corps = re.sub(r'(<div class="ln"></div>)+', f'<div class="rep">{e(rep)}</div>', corps, count=1)
         else:
             corps += f'<div class="rep">{e(rep)}</div>'
         s = s[:debut] + corps + s[fin:]
+    for doc in D.get("documents_recus", []):
+        if f"<li>☐ {doc}" not in s:
+            sys.exit(f"Document « {doc} » introuvable dans la liste du questionnaire.")
+        s = s.replace(f"<li>☐ {doc}", f"<li>☑ {doc}", 1)
     s = s.replace("</style>", ".rep{border-bottom:.25mm solid #b9b0a2;padding:1mm 0;font-family:Geist,Arial,sans-serif;color:#1a1814;min-height:6mm}</style>", 1)
     return s
 
