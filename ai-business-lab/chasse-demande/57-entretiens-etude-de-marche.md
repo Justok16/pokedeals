@@ -19,6 +19,18 @@ proposer un prix et une signature ne le serait pas.
 Moins de 3 « rappelez-moi » après 20 entretiens → changer de métier cible ou d'accroche, pas de
 design. Zone 16230 d'abord (visites possibles) ; liste nominative **privée** (Drive « Dig »).
 
+## Avant chaque appel : fiche de préparation d'une page (ajout du 25/10, vidéo rbV689ZZWp8)
+
+L'utilisateur écrit seulement « prépare la fiche de <nom de l'entreprise> » ; Claude rend une page, **privée** (scratchpad ou
+Drive « Dig », jamais dans ce dépôt), vérifiée le jour même :
+
+1. **Qui** : dirigeant, forme, date de création, adresse du siège (registre RNE, connecteur infosociétés ; source et date citées).
+2. **Ce que fait vraiment l'entreprise** : métier, zone, services, d'après son site, sa fiche Google et ses réseaux (liens).
+3. **Ce qu'on sait déjà** : échanges passés (tableau privé des prospects, mails), ce qui a été promis.
+4. **Son site aujourd'hui** : existe ou non, téléphone visible, devis demandable, rendu sur téléphone (capture), mentions légales.
+5. **Les 3 questions à creuser** parmi les 7 ci-dessous, choisies d'après les points 2 à 4.
+6. **Ce qu'on ne dit pas** : aucun prix proposé sans l'utilisateur, aucune promesse de résultat, Prestige non proposé.
+
 ## Ouverture (téléphone, 20 secondes)
 
 > « Bonjour, [Prénom], je prépare une activité de création de sites internet pour les artisans et
