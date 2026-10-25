@@ -1,0 +1,6 @@
+Légende : titouan.ia Commente « CLAUDE » ! ✴️ #business #entrepreneur #ia #claude #video View all 188 comments
+Durée : 38 s
+
+Résumé Gemini indisponible ({"erreur":"gemini-3.8-flash 429 {\"error\":{\"code\":429,\"message\":\"You excee…) : transcription locale (faster-whisper « small »), à trier à la main.
+
+Transcription : Ce skill, Claude, te permet de créer 100 vidéos dans Claude.  Oui, je sais ce que tu penses.  Aucune descente sera publiable.  C'est là que tu te trompes, parce qu'il ne crée pas des vidéos au hasard.  Chacune est pensée pour ta niche, à partir des tendances de tes concurrents, de tes propres pics,  et de ce qui marche partout sur internet, pour les hooks et le vocabulaire.  Et ce n'est pas tout. Ce skill te permet aussi de créer et de monter tes rils exactement comme celui-ci.  Fluide, comme un voyage. Et c'est ça qui compte vraiment pour raconter une histoire.  Tu veux le setup ? Écris Claude en commentaire pour rejoindre la communauté La Fabrique.  Tu y trouves le setup et tu apprends à faire plein de vidéos comme celle-ci.  Et tout commence avec ce skill.
