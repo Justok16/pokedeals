@@ -149,3 +149,28 @@ def test_carte_a_l_unite_jamais_prise_pour_un_produit_scelle(titre):
 ])
 def test_date_jour_mois_dans_le_titre_reste_acceptee(titre):
     assert any(evaluer_correspondance(titre, "", p)[0] for p in PRODUITS_SURVEILLES)
+
+
+# 25/10/2026 (suite) : cartes a l'unite SANS numero "NNN/NNN" rangees sous les
+# collections -- le titre doit nommer la forme du produit (coffret, figurine...).
+@pytest.mark.parametrize("titre", [
+    "Mew G/RGB – 30e Anniversaire – Pokémon FR - JM Cards",
+    "Mew ex - 30th Celebration - 066 - Yukistore",
+    "Mewtwo ex - 30th Celebration - 064 - Yukistore",
+])
+def test_carte_sans_numero_fraction_rejetee(titre):
+    page = "coffret figurine collection premium 30e anniversaire pokemon francais"
+    assert [p.nom for p in PRODUITS_SURVEILLES if evaluer_correspondance(titre, page, p)[0]] == []
+
+
+@pytest.mark.parametrize("nom, titre", [
+    # Titres reels du radar (memoire au 25/10/2026), dont l'allemand de fantasysphere.net.
+    (MEW, "Coffret - Collection avec Figurine / Mew"),
+    (MEW, "Mew-Figurenset zum 30. Jubiläum – Pokémon FR - Fantasy Sphere"),
+    (MEWTWO, "Mewtwo 30. Jubiläumsfigurenset - Pokémon FR - Fantasy Sphere"),
+    (DITTO, "Ditto 30th Anniversary Premium Box FR - Pokémon - Fantasy Sphere"),
+    (DITTO, "Pokémon · 30e Anniversaire - Coffret Premium Métamorph - FR"),
+])
+def test_vrais_coffrets_toujours_reconnus(nom, titre):
+    page = "coffret figurine collection premium 30e anniversaire pokemon francais"
+    assert evaluer_correspondance(titre, page, P[nom])[0] is not None

@@ -94,6 +94,12 @@ class ProduitSurveille:
     # True : uniquement la VERSION FRANCAISE (demande de Justok, 04/10/2026 :
     # "aucune autre langue") -- cf. langue_non_francaise().
     francais_uniquement: bool = False
+    # Au moins un de ces mots (sous-chaine normalisee) doit figurer dans le
+    # TITRE : forme du produit scelle ("coffret", "figurine"...). Cartes a
+    # l'unite sans numero rangees sous les collections (25/10/2026) :
+    # "Mew G/RGB – 30e Anniversaire" (jmcards.fr), "Mew ex - 30th
+    # Celebration - 066" (yukistore.fr).
+    mots_titre_obligatoires: frozenset[str] = frozenset()
 
 
 # 04/10/2026, faux positifs reels recus sur Telegram (kwilytcg.com, nin-nin-game.com) :
@@ -189,6 +195,8 @@ EDITION_30E_IMPORT = frozenset({
 })
 LANGUE_CHINOIS_SIMPLIFIE = frozenset({"chinois", "chinoise", "chinese", "simplifie", "simplified"})
 FIGURINE = frozenset({"figurine", "figure"})
+# "figure" couvre aussi les titres allemands ("Mew-Figurenset") de fantasysphere.net.
+FORME_COFFRET_FIGURINE = frozenset({"coffret", "collection", "figurine", "figure"})
 # "&" devient un espace a la normalisation : "Day & Night" -> "day night".
 DAY_AND_NIGHT = frozenset({"day night", "day and night", "jour et nuit", "jour nuit"})
 FIN_SUIVI_30E_SUPPLEMENTS = date(2027, 3, 31)
@@ -418,6 +426,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         # Une carte Metamorph a l'unite de l'extension n'est pas le coffret.
         mots_cles_supplementaires=(frozenset({
             "collection premium", "premium collection", "coffret premium"}),),
+        mots_titre_obligatoires=frozenset({"coffret", "collection", "premium"}),
         date_sortie=None,
         surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
         alerte_disponibilite=True,
@@ -428,6 +437,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         mots_cles_edition=EDITION_30E_FR,
         mots_cles_type=frozenset({"mew"}),
         mots_cles_supplementaires=(FIGURINE,),
+        mots_titre_obligatoires=FORME_COFFRET_FIGURINE,
         date_sortie=None,
         surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
         alerte_disponibilite=True,
@@ -440,6 +450,7 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         mots_cles_edition=EDITION_30E_FR,
         mots_cles_type=frozenset({"mewtwo"}),
         mots_cles_supplementaires=(FIGURINE,),
+        mots_titre_obligatoires=FORME_COFFRET_FIGURINE,
         date_sortie=None,
         surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
         alerte_disponibilite=True,
@@ -762,6 +773,10 @@ def evaluer_correspondance(
     numero = numero_de_carte_dans_titre(titre)
     if numero:
         return None, f"carte a l'unite ('{numero}' dans le titre)"
+    if produit.mots_titre_obligatoires:
+        titre_norm = _normaliser(titre)
+        if not any(_normaliser(m) in titre_norm for m in produit.mots_titre_obligatoires):
+            return None, "forme du produit absente du titre (carte a l'unite ?)"
 
     exclu = (_mot_exclu(_titre_sans_nom_officiel(titre, produit), produit.mots_exclus_titre)
              or _mot_exclu(texte_exclu, produit.mots_exclus_texte))
