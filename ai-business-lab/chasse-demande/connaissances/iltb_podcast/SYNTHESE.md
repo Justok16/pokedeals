@@ -1,8 +1,9 @@
-# Invest Like the Best — index des fiches (synthèse du samedi 24/10/2026)
+# Invest Like the Best — index des fiches (synthèse du dimanche 25/10/2026)
 
-28 vidéos résumées sur 163. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+29 vidéos résumées sur 163. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
+- **[Ancien conseiller du DoD sur l'Iran, la Chine et la cyberguerre](7-HmjiXKlvg.md)** — Sujet : L’analyse géopolitique de la puissance (États-Unis, Chine, Iran, régimes dictatoriaux vs démocraties) et son application aux investissements, aux dépenses publiques et à la stratégie de défense et de puissance (similitudes entre stratégie militaire et allocation des…
 - **[Ancien ingénieur de NVIDIA : pourquoi l'IA est sur le point de devenir 1000 fois moins chère](uyzqxIoiobU.md)** — Sujet : L’évolution de l’intelligence artificielle (IA), son coût (les « jetons »), la puissance de calcul (GPU, tenseur, mémoire SRAM/DRAM) et l’impact sur l’économie, les entreprises et les infrastructures informatiques.
 - **[Brian Chesky : le meilleur conseil sur les startups qu'il ait jamais reçu](4HeyrawOpkI.md)** — La stratégie de croissance initiale d'une entreprise par l'attention portée à un très petit nombre de clients fondateurs (« faire des choses qui ne scalent pas »). Thèse principale : pour réussir à acquérir une base massive d'utilisateurs, il faut d'abord séduire un petit…
 - **[Comment Brian Chesky veut réinventer Airbnb](9yfJ5CnR20I.md)** — - Sujet : La vision stratégique et l'évolution d'Airbnb (exposée par l'intervenant, Brian Chesky).

@@ -1,6 +1,6 @@
-# This Week in Startups — index des fiches (synthèse du samedi 24/10/2026)
+# This Week in Startups — index des fiches (synthèse du dimanche 25/10/2026)
 
-374 vidéos résumées sur 5236. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+375 vidéos résumées sur 5236. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["I'm holding for 10+ years." | Jason Calacanis explains why he's bullish on $UBER | CNBC 2/10/21](c3_Ab2MsIME.md)** — Sujet : L'action Uber atteignant des sommets historiques sur fond d'anticipation des résultats du quatrième trimestre (données affichées : 10 février 2021 sur CNBC).
@@ -103,6 +103,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Elon a inspiré cette entreprise à construire un avion électrique](93ZJVoW6mdQ.md)** — L'extrait traite de la faisabilité technologique et de l'avenir de l'aviation électrique et hybride-électrique pour les vols régionaux. La thèse soutenue est que la progression de la densité énergétique gravimétrique des batteries permet désormais de dépasser le seuil critique…
 - **[Est-ce la méthode la plus sûre pour perdre du poids ?](KOrL04gXaME.md)** — Sujet : Suivi continu du glucose, perte de poids sans médicament et comparaison avec les traitements GLP-1.
 - **[EV REVIEW: 2021 Audi e-tron Sportback Quattro | Molly's Five Minute EV Reviews](hpsP58ZktOo.md)** — - Sujet : Essai et critique de l'Audi e-tron Sportback Quattro 2021 (format court par Molly Wood).
+- **[EV Truck Startup Nikola Runs Out of Juice | E2087](OWD4h8BvZ2c.md)** — Sujet : Actualité économique, analyse d'opportunités d'investissement, leçons pour fondateurs de startups et décryptage des dérives frauduleuses dans la tech (émission This Week in Startups).
 - **[Exits Are Back, QSB Stock & The New America Party? | E2148](Z-kfVx417Ck.md)** — Sujet : Panorama de l'actualité du capital-risque (VC), des sorties d'entreprises (exits), des règles fiscales sur les jeunes entreprises (QSBS), du marché secondaire/tokenisé des actions non cotées et des marchés de prédiction.
 - **[Fact-Checking Mark Rober, and the Fall of TechCrunch  | E2101](YwuQk3YWECI.md)** — Sujet : L’actualité de la tech et les bonnes pratiques pour entrepreneurs : gestion des litiges d’actionnariat et de propriété intellectuelle en phase d’amorçage, stratégie du « build in public » (construire en public), modèles économiques des médias numériques, et débats sur…
 - **[Figma IPO, IMAX AI Festival, the Tea app spill, that one Sydney Sweeney jeans ad, and more! | E2157](hKrPe6uAyFE.md)** — Sujet : Tour d'horizon de l'actualité tech, des affaires et des startups abordé lors du podcast This Week in Startups : la controverse marketing d'American Eagle avec Sydney Sweeney, la communication de crise de l'entreprise Astronomer avec Gwyneth Paltrow, l'intégration de…

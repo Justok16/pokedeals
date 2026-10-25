@@ -1,6 +1,6 @@
-# BG2 Pod — index des fiches (synthèse du lundi 19/10/2026)
+# BG2 Pod — index des fiches (synthèse du dimanche 25/10/2026)
 
-10 vidéos résumées sur 47. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+12 vidéos résumées sur 50. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Bulle de l'IA, boom des stablecoins et la fin d'un rêve | BG2 avec Bill Gurley et Brad Gerstner](KX6q6lvoYtM.md)** — Sujet : L’actualité économique, les tendances de l'intelligence artificielle (IA), les dépenses d’investissement (CAPEX), la réglementation de l’IA, et la transition vers les cryptomonnaies/stablecoins, reliés au développement personnel et professionnel (promotion du livre de…
@@ -10,6 +10,8 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Coatue Pt2. Open AI’s Kevin Weil Dives into All Things ChatGPT | BG2 w/ Bill Gurley & Brad Gerstner](IOoRXSyezBE.md)** — Sujet : L'impact de l'intelligence artificielle (notamment OpenAI et ChatGPT) sur l'économie, l'utilisation quotidienne des consommateurs, l'évolution des produits technologiques et la régulation.
 - **[IA Entreprise - Databricks et Glean | Interview d'un invité de BG2](jA8ZQfq_Hzs.md)** — Sujet : L'état de l'intelligence artificielle (IA) dans le monde de l'entreprise.
 - **[Inside OpenAI Enterprise: Forward Deployed Engineering, GPT-5, and More | BG2 Guest Interview](yLTSqBzKG2s.md)** — Sujet : L'utilisation de l'intelligence artificielle générative (notamment les modèles OpenAI et GPT-5) et de l'IA agentique (les « agents IA ») en entreprise et dans le secteur de la tech.
+- **[Jensen Huang | Does AI Revenue Justify Capex, '27 AI Bottlenecks, Singularity, Open vs Closed & more](eS7qQ3WJSrw.md)** — Sujet : L'état de l'industrie de l'intelligence artificielle (IA), son développement et son impact économique.
 - **[L'introduction en bourse de SpaceX, Fable 5, point sur les dépenses d'investissement en IA et ana...](Tx9jT2c6e3U.md)** — Sujet : L'impact de l'intelligence artificielle (IA) et de l'infrastructure technologique sur les marchés financiers, avec un focus sur les capacités de production et les investissements en capital (CAPEX) des « hyperscalers ».
 - **[Michael Dell – Adoption de la loi Invest America Act, guerre des talents en IA, demande en puissa...](X52BNWZrXSk.md)** — Sujet : Discussion entre Brad Gerstner, Bill Gurley et Michael Dell (fondateur de Dell) sur l’économie américaine, l’IA, les marchés boursiers et une initiative législative majeure aux États-Unis appelée l’Invest America Act.
+- **[NVIDIA : OpenAI, l’avenir du calcul et le rêve américain | BG2 avec Bill Gurley et Brad Gerstner](pE6sw_E9Gh0.md)** — Sujet : L'impact de l'intelligence artificielle (IA) sur l'économie mondiale, les infrastructures technologiques et les opportunités d'investissement.
 - **[Tout sur l'IA avec @altcap @sama et @satyanadella. Un spécial Halloween. 🎃🔥BG2 avec Brad Gerstner](Gnl833wXRz0.md)** — Sujet : L'évolution du partenariat technologique et financier entre Microsoft et OpenAI, ainsi que l'impact de l'IA sur l'économie et les entreprises ("Big Tech").
