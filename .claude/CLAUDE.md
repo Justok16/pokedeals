@@ -48,6 +48,9 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
 
 ## Prospects, démos, démarchage
 
+- **Chaque site créé, quel que soit le prix (même offert)** (règle du 25/10) : pré-remplir aussitôt tous les documents liés
+  (devis et rétractation, CGV, facture, questionnaire de lancement, accord gratuit si offert) avec
+  `outils/documents_client.py` (données en JSON privés, PDF hors du dépôt), les contrôler (44), les envoyer à l'utilisateur et au Drive « Dig ».
 - Secteurs exclus : bars, tabac, jeux, armurerie, alcool, santé et pharmacie, professions réglementées, immobilier,
   assurance, crédit, CBD (restaurants et hôtels restent).
 - Seulement des prospects de priorité 1 (score ≥ 55 ; bonus photos et logo, détail dans la fiche) ; plus d'ajout
