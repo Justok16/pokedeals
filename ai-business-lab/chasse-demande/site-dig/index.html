@@ -76,7 +76,7 @@ section.bloc{padding:clamp(80px,11vw,150px) 0}
 .clair .btn.second:hover{border-color:var(--or-fonce)}
 .btn:active{transform:scale(.97)}
 .btn .fleche{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s var(--ease)}
-.btn:hover .fleche{transform:translateX(3px)}
+@media (hover:hover) and (pointer:fine){.btn:hover .fleche{transform:translateX(3px)}}
 @media (hover:none),(pointer:coarse){.btn:hover{transform:none}}
 /* accès direct, toucher, barre de progression */
 .saut{position:absolute;left:-9999px;top:0;min-height:44px;display:inline-flex;align-items:center}
@@ -144,7 +144,7 @@ nav .cadre{display:flex;align-items:center;justify-content:space-between;gap:1re
 .fig-film.auto video{filter:none}
 .film-lecture{position:absolute;inset:9px;border-radius:22px;border:0;padding:0;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;color:#fff}
 .film-lecture .rond{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;background:rgba(200,164,110,.95);box-shadow:0 12px 34px rgba(0,0,0,.45);animation:pouls 2.2s infinite;transition:transform .25s}
-.film-lecture:hover .rond,.film-lecture:focus-visible .rond{transform:scale(1.08)}
+.film-lecture:focus-visible .rond{transform:scale(1.08)}@media (hover:hover) and (pointer:fine){.film-lecture:hover .rond{transform:scale(1.08)}}
 .film-lecture svg{width:36px;height:36px;fill:var(--or-ink);margin-left:5px}
 .film-lecture .etiquette{background:rgba(15,14,12,.8);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:.38rem .85rem;min-height:44px;display:inline-flex;align-items:center;border-radius:999px;font-weight:600;font-size:.92rem}
 .film-lecture .etiquette b{color:var(--or-clair);font-weight:700}
@@ -191,7 +191,7 @@ nav .cadre{display:flex;align-items:center;justify-content:space-between;gap:1re
 .bande{overflow:hidden;border-top:1px solid var(--trait);border-bottom:1px solid var(--trait);padding:1.1rem 0;background:var(--encre);position:relative;z-index:2}
 /* 26/10 soir (retour utilisateur sur ordinateur) : la bande défile nettement plus vite, et continue même avec « animations réduites » (plus lentement) */
 .bande-piste{display:flex;width:max-content;animation:bande 26s linear infinite}
-.bande-piste:hover{animation-play-state:paused}
+@media (hover:hover) and (pointer:fine){.bande-piste:hover{animation-play-state:paused}}
 .bande ul{display:flex;list-style:none;margin:0;padding:0;white-space:nowrap}
 .bande li{font-family:var(--serif);font-size:clamp(1.3rem,2.4vw,1.9rem);color:var(--doux);padding:0 1.2rem;display:flex;align-items:center;letter-spacing:-.01em}
 .bande li::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--or);margin-left:2.4rem;opacity:.8}
@@ -260,10 +260,10 @@ html:not(.js) .aa-suite{display:none}
 /* ===== démos : galerie horizontale épinglée ===== */
 .vitrine-piste{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem}
 .demo{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.62fr);gap:14px;align-items:end;padding:22px;border-radius:var(--r);background:linear-gradient(180deg,#1b1915,#151310);border:1px solid rgba(239,233,223,.08);text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:border-color .3s,transform .4s var(--ease)}
-.demo:hover{border-color:rgba(200,164,110,.5);transform:translateY(-4px)}
+@media (hover:hover) and (pointer:fine){.demo:hover{border-color:rgba(200,164,110,.5);transform:translateY(-4px)}}
 .demo .pc{border-radius:12px;overflow:hidden;background:#0b0a08;box-shadow:0 20px 50px rgba(0,0,0,.45)}
 .demo .pc img{aspect-ratio:1200/750;object-fit:cover;object-position:top;width:100%;transition:transform 1.2s var(--ease)}
-.demo:hover .pc img{transform:scale(1.04)}
+@media (hover:hover) and (pointer:fine){.demo:hover .pc img{transform:scale(1.04)}}
 .demo .mob{border-radius:14px;overflow:hidden;background:#0b0a08;padding:4px;box-shadow:0 20px 50px rgba(0,0,0,.5);transform:translateY(10px)}
 .demo .mob img{aspect-ratio:560/1212;object-fit:cover;object-position:top;border-radius:11px;width:100%}
 .demo .txt{grid-column:1/-1;margin-top:10px}

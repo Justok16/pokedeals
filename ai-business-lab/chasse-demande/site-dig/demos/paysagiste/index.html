@@ -24,7 +24,7 @@
   img { display: block; max-width: 100%; }
   :focus-visible { outline: 2px solid var(--terre); outline-offset: 3px; }
   .bt { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; font: inherit; font-weight: 600; text-decoration: none; border: 0; border-radius: 999px; padding: .95rem 1.4rem; cursor: pointer; min-height: 48px; white-space: nowrap; transition: transform .15s, background .15s; }
-  .bt:hover { transform: translateY(-1px); }
+  @media (hover:hover) and (pointer:fine){ .bt:hover { transform: translateY(-1px); } }
   .bt.plein { background: var(--terre); color: #fff; }
   .bt.plein:hover { background: #9e4622; }
   .bt.clair { background: var(--blanc); color: var(--encre); }
@@ -90,7 +90,7 @@
   .service { position: relative; border-radius: 18px; overflow: hidden; background: var(--blanc); }
   .service.photo { min-height: 340px; color: #fff; }
   .service.photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
-  .service.photo:hover img { transform: scale(1.04); }
+  @media (hover:hover) and (pointer:fine){ .service.photo:hover img { transform: scale(1.04); } }
   .service.photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(20,34,26,.85), rgba(20,34,26,0) 60%); }
   .service .txt { position: relative; z-index: 1; padding: 22px; }
   .service.photo .txt { position: absolute; left: 0; right: 0; bottom: 0; }

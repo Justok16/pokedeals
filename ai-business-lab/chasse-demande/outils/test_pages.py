@@ -138,6 +138,28 @@ def main():
                             &&!e.closest('.eventail,figure,[aria-hidden=true],.avant,.saut,.vitrine-piste')}).map(e=>e.textContent.trim().slice(0,30))""")
                         if coupes:
                             errs.append(f'bouton coupé {coupes[:3]}')
+                    # 26/10 (skill mobile-native) : un survol qui bouge (transform, pause d'animation) reste « collé »
+                    # après un toucher sur téléphone (carte de démo restée soulevée). Il doit être réservé à la souris :
+                    # @media (hover:hover) and (pointer:fine), ou annulé dans un bloc (hover:none)/(pointer:coarse).
+                    if w == 390:
+                        colles = pg.evaluate(r"""(()=>{const bouge=[],annule=new Set();
+                            const parcours=(regles,conds)=>{for(const r of regles){
+                              if(r.cssRules&&r.conditionText!==undefined){const ct=r.conditionText;
+                                // bloc qui ne s'applique pas à un téléphone de 390 px (ex. grand écran) : ignoré
+                                if(!/hover|pointer/.test(ct)&&!matchMedia(ct).matches)continue;
+                                parcours(r.cssRules,conds.concat(ct.replace(/\s+/g,'')));continue}
+                              if(!r.selectorText||!r.style)continue;
+                              const t=r.style.transform||r.style.translate||r.style.scale||r.style.animationPlayState;
+                              if(!t)continue;
+                              const c=conds.join(' ');const sels=r.selectorText.split(',').map(s=>s.trim());
+                              // réglage prévu pour le toucher : annule ou remplace l'effet de survol
+                              if(/hover:none|pointer:coarse/.test(c)){sels.forEach(s=>annule.add(s));continue}
+                              if(/hover:hover/.test(c))continue;
+                              sels.filter(s=>s.includes(':hover')).forEach(s=>bouge.push(s))}};
+                            for(const f of document.styleSheets){try{parcours(f.cssRules,[])}catch(e){}}
+                            return [...new Set(bouge.filter(s=>!annule.has(s)))]})()""")
+                        if colles:
+                            errs.append(f'survol collé au toucher {colles[:3]}')
                     ok = not (errs or bad or nb or ov > 0)
                     souci += not ok
                     print(('OK    ' if ok else 'ALERTE'), w, u, '' if ok else f'débord={ov} erreurs={errs[:2]} 404={bad[:2]} images={nb[:2]}')
