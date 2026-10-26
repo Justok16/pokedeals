@@ -13,7 +13,7 @@ import subprocess, sys, time, os
 from playwright.sync_api import sync_playwright
 
 PAGES = ['/', '/prestige.html', '/mentions-legales.html', '/test-du-pouce/', '/le-projet/', '/site-internet-artisan/', '/demos/prestige/',
-         '/demos/paysagiste/', '/demos/menuisier/', '/demos/menuisier-visite/']
+         '/demos/paysagiste/', '/demos/menuisier/', '/demos/menuisier-visite/', '/demos/garage/']
 CHROME = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
 
 def son_videos():

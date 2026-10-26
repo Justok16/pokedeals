@@ -106,17 +106,17 @@ Formule Visibilité
 Ouvert ou fermé en direct, les travaux du mois, les avis mis en avant et la zone d’intervention : tout ce qui rassure avant d’appeler.
 
 Voir la démo](https://dig16.fr/demos/paysagiste/)
-[![Démo Essentiel sur ordinateur : page d’accueil d’un menuisier](https://dig16.fr/img/vitrine-essentiel-pc-700.webp)
+[![Démo Essentiel sur ordinateur : page d’accueil d’un garage automobile](https://dig16.fr/img/vitrine-garage-pc-700.webp)
 
-![Démo Essentiel sur téléphone : page d’accueil d’un menuisier, bouton Demander un devis](https://dig16.fr/img/vitrine-essentiel-tel-300.webp)
+![Démo Essentiel sur téléphone : page d’accueil d’un garage automobile, bouton Demander un devis](https://dig16.fr/img/vitrine-garage-tel-300.webp)
 
 Formule Essentiel
 
-### Atelier Verrier, le site
+### Garage Aubrelin, le site
 
-Services, réalisations, étapes, avis, zone d’intervention et demande de devis : tout l’essentiel d’un artisan.
+Services, atelier, étapes, avis, horaires, secteur et demande de devis : tout l’essentiel d’un garage, lisible au pouce.
 
-Voir la démo](https://dig16.fr/demos/menuisier/)
+Voir la démo](https://dig16.fr/demos/garage/)
 
 La méthode
 
