@@ -1,15 +1,17 @@
 # matthiasbaccino — index des fiches (synthèse du lundi 26/10/2026)
 
-32 vidéos résumées sur 729. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+35 vidéos résumées sur 738. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[7 millions d'euros pour une usine française : le choix de Brique House ! Replay Live 23/09/26](RLzDWqd03A0.md)** — Sujet : L’industrie de la bière en France, les défis de l’entrepreneuriat brassicole, et la levée de fonds participative en capital d’une entreprise non cotée (start-up/PME) à travers l'exemple de la marque Brique House.
 - **[BILAN économique et boursier de l’été ! Replay Live 23/08/26](0oPGL_C0r34.md)** — Sujet : Le point sur l’actualité économique, la dette publique en France, l’évolution des marchés boursiers et les nouveautés concernant l’épargne (en particulier le Livret A).
+- **[CHAOS politique et économique : quelles SOLUTIONS pour s’en SORTIR ? Replay Live 19/04/26](CdzyaykHYJQ.md)** — Sujet : Le point hebdomadaire sur l’économie, les marchés financiers, la bourse, l’inflation, l’épargne et les politiques économiques (notamment en France et aux États-Unis), avec une discussion sur les débats de la semaine en cours.
 - **[Comment INVESTIR en partant de zéro (GUIDE COMPLET)](K2PGWYX6aBQ.md)** — Sujet : L'initiation à l'investissement boursier pour le grand public.
 - **[Comment LUTTER contre les ARNAQUES ?](XSbEX45dra8.md)** — - Sujet : Les arnaques financières en matière d'épargne et d'investissement (notamment le phénomène d'explosion des escroqueries auprès des particuliers et des jeunes).
 - **[Comment PROTÉGER votre ARGENT !](r2iMajW8z14.md)** — Sujet : Que se passe-t-il si votre banque fait faillite, comment les banques fonctionnent et comment protéger son épargne en France.
 - **[C’est quoi une INTRODUCTION en BOURSE ? Replay Live 07/06/26](d9cmvhANkFo.md)** — Sujet : Point sur l'actualité économique et financière (marchés, inflation, dette) et réponses aux questions des spectateurs.
 - **[Doit-on avoir peur de l’IA ? Replay Live 13/09/26](YvsoRcPjtD0.md)** — Le sujet est l'actualité économique et financière (marchés, épargne, IA).
+- **[Doit-on avoir PEUR des PÉNURIES en FRANCE ? Replay Live 17/05/26](mpFFpITWlsI.md)** — Sujet : Point hebdomadaire sur l'actualité économique et financière (inflation, taux d'intérêt, marchés boursiers, géopolitique) et discussion avec les abonnés en direct.
 - **[DÉCOUVERTS BANCAIRES : comment les ÉVITER ?](Dm9ynUhSAk4.md)** — - Sujet : Les découverts bancaires en France (ampleur, gravité, coûts).
 - **[Faut-il continuer à INVESTIR dans BITCOIN à long terme ? Replay Live 21/06/26](9OBNCFm_hN8.md)** — Le sujet est une discussion sur le Bitcoin en tant qu'investissement long terme, ses risques, et les opportunités liées à la « tokénisation » des actifs financiers traditionnels (actions, obligations). La thèse principale est que le Bitcoin, bien que volatil, constitue un…
 - **[Faut-il Miléiser les finances publiques Françaises ?](So1OPQVinkk.md)** — Sujet : Faut-il « miléiser » le budget de la France et ses finances publiques ? (en référence à la méthode de Javier Milei, président de l'Argentine depuis décembre 2023).
@@ -30,6 +32,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[L’IMMOBILIER une passion française : pour quels RÉSULTATS ?](O5TmoB0K0ak.md)** — Sujet : L’investissement immobilier en France, présenté comme un pilier historique et culturel de la gestion de l'argent et de l'épargne.
 - **[L’ÉCONOMIE BASCULE (Je réponds à vos questions) - Replay Live 26/07/26](pvT5xtF1nEc.md)** — Sujet : Bilan hebdomadaire sur l'actualité économique, les marchés boursiers et les questions de finances personnelles.
 - **[L’ÉCONOMIE MONDIALE au bord du GOUFFRE ? Replay Live 12/07/26](mBEpniRIYRI.md)** — Sujet : Bilan macroéconomique et boursier de début d’année (juillet 2026) et analyse des tendances à long terme (inflation, taux d’intérêt, transition énergétique, immobilier).
+- **[Notre POUVOIR d’ACHAT continue de BAISSER ! Replay Live 12/04/26](UOkFYAY-FZ8.md)** — Sujet : L’actualité économique et géopolitique (tensions géopolitiques, marchés financiers, crypto), l’impact de l’inflation et de la fiscalité sur le pouvoir d’achat en France, et les stratégies d'investissement à long terme (DCA).
 - **[Plus de la moitié de la France est détenue par des étrangers !](FBsqoITkJFw.md)** — Sujet : La composition des créanciers de la dette de l'État français (« qui détient la dette »).
 - **[Pourquoi vous finissez TOUJOURS dans le rouge en fin de mois !](_EfoRUyE6yk.md)** — Sujet : Comprendre les causes des difficultés financières quotidiennes et apprendre à établir un budget stable pour protéger son pouvoir d'achat.
 - **[Que faire si je suis VICTIME de FRAUDE BANCAIRE ?](Gp4dv0KBFNw.md)** — Sujet : L’explosion des fraudes bancaires en France.

@@ -1,6 +1,6 @@
-# Ben Felix — index des fiches (synthèse du dimanche 25/10/2026)
+# Ben Felix — index des fiches (synthèse du lundi 26/10/2026)
 
-101 vidéos résumées sur 182. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+104 vidéos résumées sur 182. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[20 ans de location ou d'achat d'une maison au Canada (2005 à 2024)](lBG-g1CKfgs.md)** — La vidéo analyse le mythe selon lequel « être propriétaire d'un logement est toujours financièrement supérieur à la location ». En comparant des données historiques canadiennes sur 20 ans (2005-2024), la thèse est que la location combinée à un investissement boursier performe…
@@ -15,6 +15,8 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Canada's New Evidence-Based ETFs](Yts3o2EDO-Y.md)** — Sujet : Le lancement par CIBC d’une nouvelle gamme de FNB (Fonds Négociés en Bourse) gérés par Avantis Investors sur le marché canadien.
 - **[Ce document pourrait changer votre façon d'investir.](N5v2b42i_2g.md)** — Sujet : L'article de recherche fondateur d’Eugene Fama et Kenneth French (1993) sur les « facteurs de risque communs dans les rendements des actions et des obligations ».
 - **[Choisir une répartition d'actifs (quelle part en actions ou en obligations ?)](p25PPBgMiEk.md)** — Déterminer combien de risque prendre dans un portefeuille d'investissement. La thèse est que le niveau de risque doit être calibré selon trois piliers : la capacité, le besoin et la tolérance psychologique au risque.
+- **[Comment financer une retraite anticipée (au-delà de la règle des 4 %)](3BScK-QyWIo.md)** — Sujet : Le financement d'une retraite précoce et l'évaluation critique de la « règle des 4 % » pour les dépenses de retraite.
+- **[Comment fonctionne réellement la « planche à billets » de la Fed](K3lP3BhvnSo.md)** — Sujet : Le fonctionnement de la monnaie, le rôle des banques et des banques centrales (notamment la Réserve fédérale/Fed), et la réalité derrière la « création monétaire » et le quantitative easing (QE).
 - **[Comparaison des ETF d'actions américaines : VTI et DFUS](lMdGA0ePXzI.md)** — Le sujet est l'analyse comparative entre deux types d'ETF indiciels totaux américains : un fonds indiciel pondéré par la capitalisation boursière (VTI) et un fonds multifactoriel optimisé sans réplication stricte d'indice (DFUS). La thèse principale est que ne pas suivre…
 - **[Covered Calls : L'illusion de revenus](YMLVdY8y8vM.md)** — La vidéo examine les fonds de type « covered call » (options d'achat couvertes), expliquant que leurs rendements de distribution élevés sont le fruit d'une conception financière astucieuse mais trompeuse, et qu'ils sous-performent généralement les investissements traditionnels…
 - **[Crashs boursiers (édition 2025)](_9c-DkBFS3w.md)** — Sujet : La réaction des investisseurs face aux krachs boursiers et aux baisses de marché, et l'influence des « narratifs » (récits médiatiques et sociaux) sur les comportements d'investissement.
@@ -78,6 +80,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Pourquoi la croissance économique ne signifie pas toujours des rendements plus élevés](DEV49qY0TP8.md)** — Sujet : L'investissement dans les marchés émergents.
 - **[Pourquoi les conseillers financiers existent-ils encore ?](pXm29GoVlDM.md)** — La valeur ajoutée d'un conseiller financier. La thèse est que le rôle principal d'un conseiller financier est de fournir un service de "coaching" comportemental (gérer les émotions du client) plutôt que de sélectionner des produits financiers (fonctionnellement résolu par les…
 - **[Pourquoi les ETF thématiques sous-performent généralement le marché](dwPh-PAg9A8.md)** — Sujet : L'investissement thématique (ex: crypto, cannabis, IA, énergies propres) au travers des FNB (Fonds Négociés en Bourse / ETF).
+- **[Pourquoi les mauvaises nouvelles économiques ne font pas toujours chuter les marchés boursiers](0ECqDaPjjV0.md)** — Sujet : La relation (souvent mal comprise) entre les données macroéconomiques (croissance, chômage, récession) et les rendements du marché boursier.
 - **[Pourquoi les meilleurs fonds d'aujourd'hui ne le seront peut-être pas demain](p6HrepdLSu4.md)** — Sujet : L'illusion de la performance des fonds d'investissement gérés activement (« hot funds »).
 - **[Pourquoi les sceptiques du Régime de pensions du Canada ont tort](7lAsJMqjUw0.md)** — Le Régime de pensions du Canada (RPC). La thèse est que le RPC est un actif de retraite très précieux et solide, et qu'il est une erreur de parier sur sa faillite.
 - **[Pourquoi NE PAS investir va (probablement) vous coûter cher](1qjSfyVPwLQ.md)** — La vidéo explique pourquoi s'attendre à des baisses de marché ou nourrir du pessimisme quant à l'économie coûte cher aux investisseurs à long terme, et démontre que les actions et obligations ont historiquement généré des rendements réels positifs sur de longues périodes…

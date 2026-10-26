@@ -1,6 +1,6 @@
-# Zonebourse — index des fiches (synthèse du vendredi 23/10/2026)
+# Zonebourse — index des fiches (synthèse du lundi 26/10/2026)
 
-2288 vidéos résumées sur 2288. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+2289 vidéos résumées sur 2289. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["Bloquons Tout" à la sauce américaine](TXjVOkOfkjI.md)** — Analyse de la paralysie budgétaire aux États-Unis et des impacts sur les marchés financiers.
@@ -32,6 +32,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[2024: Année baissière ou haussière ?](-cLbBLc3Wl8.md)** — Sujet : L'état de l'économie mondiale, la valorisation de la bourse et la pertinence d'investir en période de baisse ou de hausse des marchés.
 - **[29% par an ... pendant 10 ans](iktg1bgBFFM.md)** — La vidéo présente le troisième volet de la série consacrée aux traders particuliers à succès, en se concentrant sur Michael Kean (fondateur de Steel Road Capital), ancien étudiant en Nouvelle-Zélande ayant déménagé à Londres. La thèse est que Michael Kean a généré des…
 - **[2: Crypto Recap : LVMH à la conquête du Web3 (05/08/2022)](TvTozRI8joo.md)** — - Sujet : Revue de l'actualité crypto (« Crypt On It »), présentée par Laurent Pignot pour Zonebourse le 5 août 2022.
+- **[3 banques centrales, 3 stars de la tech, 3 novembre en ligne de mire](XzincdmoFnQ.md)** — Sujet : Panorama hebdomadaire des marchés financiers mondiaux, marqué par une forte volatilité et une période de transition majeure (résultats d'entreprises, banques centrales et élections).
 - **[3 Changements qui pourraient redéfinir l’économie mondiale #trading #investir #finance #bourse](uSxIe-AwBks.md)** — Les changements structurels qui ont transformé les marchés financiers sur les 120 à 140 dernières années. La thèse est que quatre grandes vagues de transformation (industrialisation, automobile, électrification, révolution Internet) ont révolutionné l'économie, la structure…
 - **[3 Changements qui pourraient redéfinir l’économie mondiale](73dCmEkwbQ0.md)** — - Sujet : Analyse d’une étude de l’UBS sur les transformations structurelles de l’économie et leur impact sur les marchés financiers, avec discussion sur les vagues de transformation passées et futures.
 - **[3 conseils pour bien finir 2023](NIaBlbm2P9Y.md)** — Une émission animée par Xavier Delmas sur le "market timing" en bourse. La thèse principale est que le market timing (essayer d'acheter au plus bas et de vendre au plus haut) est un piège inefficace dans lequel tombent la majorité des investisseurs, et qu'il est préférable…
