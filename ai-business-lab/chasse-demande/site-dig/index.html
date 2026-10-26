@@ -189,13 +189,15 @@ nav .cadre{display:flex;align-items:center;justify-content:space-between;gap:1re
 }
 /* ===== bande des métiers ===== */
 .bande{overflow:hidden;border-top:1px solid var(--trait);border-bottom:1px solid var(--trait);padding:1.1rem 0;background:var(--encre);position:relative;z-index:2}
-.bande-piste{display:flex;width:max-content;animation:bande 48s linear infinite}
+/* 26/10 soir (retour utilisateur sur ordinateur) : la bande défile nettement plus vite, et continue même avec « animations réduites » (plus lentement) */
+.bande-piste{display:flex;width:max-content;animation:bande 26s linear infinite}
+.bande-piste:hover{animation-play-state:paused}
 .bande ul{display:flex;list-style:none;margin:0;padding:0;white-space:nowrap}
 .bande li{font-family:var(--serif);font-size:clamp(1.3rem,2.4vw,1.9rem);color:var(--doux);padding:0 1.2rem;display:flex;align-items:center;letter-spacing:-.01em}
 .bande li::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--or);margin-left:2.4rem;opacity:.8}
 .bande li em{color:var(--ivoire);font-style:italic}
 @keyframes bande{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.bande-piste{animation:none}}
+@media (prefers-reduced-motion:reduce){.bande-piste{animation:bande 60s linear infinite!important}}
 /* ===== avant / après (épinglé) ===== */
 .avant-apres{position:relative;height:300vh;height:300svh}
 .aa-scene{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
