@@ -126,6 +126,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Clipping payé à la vue (Whop + OpusClip) : revenu d'appoint en publiant des clips de vidéos autorisées | Dej1p_IgkuM (18/10) | En réserve : à ressortir si l'utilisateur veut un complément en plus de DIG16 ; revenus aléatoires (vues, validation), gains à déclarer, chiffres de l'auteur non vérifiés |
 | Racheter de petits logiciels sous-exploités | 7XTYaVrt4QM | Idée notée, chiffres de l'auteur non vérifiés |
 | Chaînes vidéo « sans visage » | x.com/chesny | Écartée pour l'instant : outils payants et règles YouTube vérifiées |
+| Carte « automatisé ou humain » des tâches de DIG16 (prise de demande, devis, factures, rapport mensuel, relances) : pour chaque tâche, ce que Claude fait seul et ce qui reste validé par l'utilisateur | TikTok vm.tiktok.com/ZN8D5w2rR (26/10, consigne 5) | En réserve : à faire au premier client payant (règle n° 1) |
 | Standardiste IA pour artisans | 96G4KDnEFyI | Option à proposer si un client le demande |
 | Visuels avant/après pour cuisinistes | hRr-yUSM0_A | Option future |
 | Veille « 30 derniers jours » (Reddit, X, YouTube, TikTok…) | mvanhorn/last30days-skill (reel DepRxdRpj-p) | En réserve : sources surtout américaines, clés payantes au-delà des quotas ; à ressortir pour une étude de marché large |
