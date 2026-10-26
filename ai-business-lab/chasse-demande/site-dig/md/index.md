@@ -23,7 +23,7 @@ Après
 
 Je prépare votre page d’accueil avant que vous décidiez quoi que ce soit.
 
-Faites défiler pour voir la différence
+Avant, après : la différence sous le pouce
 
 ![La même page d’accueil refaite par DIG16 : grande photo de l’atelier, nom de l’entreprise et bouton Demander un devis](https://dig16.fr/img/vitrine-visite-tel-300.webp)
 
@@ -48,6 +48,22 @@ Site et nom de domaine à votre nom. Après les 6 premiers mois, vous partez qua
 ### Suivi chaque mois
 
 Modifications sous 3 jours ouvrés, et un bilan rapide chaque mois : combien de personnes vous ont trouvé.
+
+![Pains sortis d’un four à bois, posés sur une planche](https://dig16.fr/img/accueil/metier-boulanger-600.webp)
+
+Boulangerie
+
+![Électricien testant un tableau électrique](https://dig16.fr/img/accueil/metier-electricien-600.webp)
+
+Électricité
+
+![Fleuriste composant un bouquet](https://dig16.fr/img/accueil/metier-fleuriste-600.webp)
+
+Fleuriste
+
+![Plombier tenant un coupe-tube devant son mur d’outils](https://dig16.fr/img/accueil/metier-plombier-600.webp)
+
+Plomberie
 
 Démonstrations
 
@@ -112,11 +128,15 @@ Vous jugez sur pièce, avant de vous engager.
 
 Je refais gratuitement la page d’accueil de votre entreprise. Vous la regardez sur votre téléphone.
 
+![Artisan au travail, une pièce de métal entre les mains](https://dig16.fr/img/accueil/methode-1-800.webp)
+
 **2**
 
 ### 20 minutes ensemble
 
 Chez vous ou au téléphone : vos services, vos photos, votre zone. Je vous conseille la bonne formule.
+
+![Menuisier façonnant une pièce de bois à l’atelier](https://dig16.fr/img/accueil/methode-2-800.webp)
 
 **3**
 
@@ -124,11 +144,15 @@ Chez vous ou au téléphone : vos services, vos photos, votre zone. Je vous con
 
 Textes rédigés, mentions légales, tests sur téléphone et ordinateur. Vous validez, on publie.
 
+![Mains d’un mécanicien serrant une pièce sous une voiture](https://dig16.fr/img/accueil/methode-3-800.webp)
+
 **4**
 
 ### Je reste à vos côtés
 
 Modifications, horaires, photos, promotions : un email suffit. Bilan chaque mois.
+
+![Mains au travail sur un moteur, clé à la main](https://dig16.fr/img/accueil/methode-4-800.webp)
 
 Les offres
 
@@ -208,19 +232,19 @@ Mes engagements
 
 ## Sans piège, par écrit
 
-**100 % à vous**
+**100 % à vous**
 
 Site et nom de domaine à votre nom, dès le départ.
 
-**6 mois, puis libre**
+**6 mois, puis libre**
 
 Ensuite sans engagement, résiliation simple.
 
-**14 jours**
+**14 jours**
 
 pour changer d’avis après la signature, et rien n’est prélevé avant 8 jours.
 
-**3 jours**
+**3 jours**
 
 ouvrés pour vos demandes de modification.
 
@@ -335,7 +359,9 @@ Laissez-moi vos coordonnées : je prépare votre page d’accueil et je vous la
 [Téléphone06 87 91 02 14](tel:+33687910214)
 [Emailcontact@dig16.fr](mailto:contact@dig16.fr)
 
-DisponibilitéToujours joignable, 7 jours sur 7
+DisponibilitéToujours joignable, 7 jours sur 7
+
+![Artisan souriant, son téléphone à la main, dans son atelier](https://dig16.fr/img/accueil/contact-1000.webp)
 
 ```json
 {

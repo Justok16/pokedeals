@@ -1,0 +1,6 @@
+GSAP 3.13.0 et ScrollTrigger (gsap.min.js, ScrollTrigger.min.js)
+Copyright 2025, GreenSock. All rights reserved.
+Utilisés sous la licence standard GSAP (« GSAP Standard License, no charge »), lue le 26/10/2026 :
+https://gsap.com/standard-license — usage gratuit, y compris commercial, depuis le 30/04/2025 (Webflow).
+Fichiers d'origine : https://unpkg.com/gsap@3.13.0/dist/ — non modifiés, hébergés ici car la politique de
+sécurité du site (CSP script-src 'self') interdit tout script tiers.

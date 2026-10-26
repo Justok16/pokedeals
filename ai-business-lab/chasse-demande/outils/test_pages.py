@@ -129,12 +129,13 @@ def main():
                     if geante:
                         errs.append(f'barre fixe géante {geante}')
                     nb = pg.evaluate('[...document.images].filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.src)')
+                    # 26/10 : la galerie horizontale des démos de l'accueil (.vitrine-piste) glisse volontairement hors écran.
                     # 24/10 : bouton ou lien coupé par le bord de l'écran (le débordement est masqué, donc invisible
                     # pour scrollWidth). Pages du site seulement : les démos ont des carrousels hors écran volontaires.
                     if not u.startswith('/demos/'):
                         coupes = pg.evaluate("""[...document.querySelectorAll('a,button')].filter(e=>{const r=e.getBoundingClientRect();
                             return r.width>0&&r.height>0&&getComputedStyle(e).visibility!=='hidden'&&(r.right>innerWidth+1||r.left<-1)
-                            &&!e.closest('.eventail,figure,[aria-hidden=true],.avant,.saut')}).map(e=>e.textContent.trim().slice(0,30))""")
+                            &&!e.closest('.eventail,figure,[aria-hidden=true],.avant,.saut,.vitrine-piste')}).map(e=>e.textContent.trim().slice(0,30))""")
                         if coupes:
                             errs.append(f'bouton coupé {coupes[:3]}')
                     ok = not (errs or bad or nb or ov > 0)
