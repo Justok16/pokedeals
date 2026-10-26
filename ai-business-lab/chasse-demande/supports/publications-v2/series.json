@@ -312,5 +312,21 @@
    "https://dig16.fr/img/reseaux/pub/p19-3.jpg",
    "https://dig16.fr/img/reseaux/pub/p19-4.jpg"
   ]
+ },
+ {
+  "id": "p20",
+  "date": "2026-10-31T18:30:00",
+  "theme": "sombre",
+  "etiquette": "Le conseil",
+  "titre_tiktok": "Fermé pour la Toussaint ? Dites-le partout",
+  "legende": "Vous fermez pour la Toussaint ? 🍂 Dites-le là où vos clients regardent : votre fiche Google, votre site, votre page Facebook.\nUn client devant une porte close ne revient pas toujours.\nSur un site DIG16, un email suffit : horaires, congés, promotions sont à jour sous 3 jours ouvrés.",
+  "alt": "Le conseil DIG16 : avant la Toussaint, indiquer sa fermeture sur la fiche Google, le site et la page Facebook.",
+  "metricool": null,
+  "images": [
+   "https://dig16.fr/img/reseaux/pub/p20-1.jpg",
+   "https://dig16.fr/img/reseaux/pub/p20-2.jpg",
+   "https://dig16.fr/img/reseaux/pub/p20-3.jpg",
+   "https://dig16.fr/img/reseaux/pub/p20-4.jpg"
+  ]
  }
 ]

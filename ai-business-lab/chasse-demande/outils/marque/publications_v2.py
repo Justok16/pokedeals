@@ -276,6 +276,23 @@ SERIE = [
      "legende": "Votre page d'accueil refaite gratuitement, pour voir avant de décider 🎁\n"
                 "Aucune obligation. Écrivez-moi ou appelez.",
      "alt": "L'offre découverte DIG16 : votre page d'accueil refaite gratuitement, sans obligation."},
+    # p20 (26/10) : demande de l'utilisateur de combler le samedi 31/10 (veille du week-end de la Toussaint) ;
+    # phrases reprises de p11 (horaires) et de la FAQ du site (« horaires, photo, promotion, congés… sous 3 jours ouvrés »).
+    {"id": "p20", "date": "2026-10-31T18:30:00", "theme": "sombre", "etiquette": "Le conseil", "metricool": None,
+     "titre_tiktok": "Fermé pour la Toussaint ? Dites-le partout",
+     "images": [
+         ("cover", "Fermé pour la Toussaint ? *Dites-le partout.*",
+          "Un client devant une porte close ne revient pas toujours."),
+         ("liste", "Où l'indiquer, en 5 minutes", ["Votre fiche Google", "Votre site", "Votre page Facebook",
+                                                    "Vos annuaires"]),
+         ("point", "", "Sur un site DIG16, *un email suffit.*",
+          "Horaires, congés, promotions : c'est fait sous 3 jours ouvrés."),
+         APPEL],
+     "legende": "Vous fermez pour la Toussaint ? 🍂 Dites-le là où vos clients regardent : votre fiche Google, "
+                "votre site, votre page Facebook.\n"
+                "Un client devant une porte close ne revient pas toujours.\n"
+                "Sur un site DIG16, un email suffit : horaires, congés, promotions sont à jour sous 3 jours ouvrés.",
+     "alt": "Le conseil DIG16 : avant la Toussaint, indiquer sa fermeture sur la fiche Google, le site et la page Facebook."},
 ]
 
 
