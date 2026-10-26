@@ -55,15 +55,32 @@ inventé. Si une formule change (prix, contenu), mettre à jour `kit_client.py` 
 - **Validation Google de la fiche** (appel, vidéo ou courrier) : seul le client peut la faire.
 - **Première activation du formulaire** (email de confirmation reçu par le client) : un clic du client.
 
-## 4. Points à trancher par l'utilisateur (posés le 26/10)
+## 4. Décisions de l'utilisateur (26/10, le soir même)
 
-1. Signature : électronique (DocuSeal, gratuit et illimité — mais la conversion automatique des champs demande l'API
-   complète, leçon du 19/10) ou papier au rendez-vous (PDF imprimé ou signé sur l'écran) ?
-2. Mesure d'audience des sites clients pour le rapport mensuel : outil à choisir (sans cookie, gratuit, au nom du client).
-3. Compte GoCardless : inscription terminée ? (sans lui, pas de mandat SEPA : paiement par virement en attendant).
-4. Nom de domaine : acheté par le client (recommandé, à son nom) ou avancé par DIG16 puis refacturé ?
+1. **Signature électronique par email, avec DocuSeal.** Vérifié sur docuseal.com/pricing le 26/10 : offre cloud « Basic » à 0 $,
+   **« 10 request emails per month »**, **API non incluse** (« eSignature API : No » ; Pro à 20 $ par mois). Donc : pas d'API ;
+   le connecteur DocuSeal (déjà relié) sert à créer les modèles et à envoyer les demandes ; les champs à remplir et à signer
+   sont placés **une fois** par l'utilisateur dans l'éditeur DocuSeal sur des modèles génériques (devis, accord gracieux,
+   PV de réception, remise des fichiers) ; ensuite chaque envoi est automatique (`send_documents`, valeurs pré-remplies).
+   Au-delà de 10 emails par mois : envoyer soi-même le lien de signature (depuis la boîte DIG16). À mettre en place : voir § 6.
+2. **Mesure d'audience des sites clients** : l'outil sans cookie de l'hébergeur (Cloudflare Web Analytics, déjà utilisé sur
+   dig16.fr), sur le compte du client ; le rapport mensuel s'appuie dessus + Search Console.
+3. **Paiement** : « on propose tout » : prélèvement SEPA (mandat GoCardless signé en ligne) **ou virement**, au choix du client.
+4. **Nom de domaine** : enregistré par DIG16 **au nom du client**, coût avancé puis **refacturé au prix coûtant**.
+   Comptabilité (BOFiP BOI-TVA-BASE-10-10-30, lu le 26/10) : un « débours » exclu du chiffre d'affaires suppose une facture
+   du tiers au nom du client (ou mentionnant que DIG16 agit pour lui) et un compte rendu exact ; la facture du bureau
+   d'enregistrement étant au nom de DIG16, la ligne refacturée est **comptée dans le chiffre d'affaires** (environ 10 € par
+   client et par an, sans marge) : simple et sans risque.
 
 ## 5. Historique
 
 - 25/10 : règle « chaque site créé = documents pré-remplis » (documents 1 à 5, `documents_client.py`), testée sur FD Touchatou.
 - 26/10 : kit complet (documents 0, 6 à 11, LISEZMOI), modèles `supports/kit-client/`, testé sur FD Touchatou (Prestige offerte).
+- 26/10 soir : 4 décisions de l'utilisateur appliquées (§ 4) ; CGV art. 3 et devis : nom de domaine enregistré par DIG16 au nom du client, avancé et refacturé au prix coûtant.
+
+## 6. Signature électronique : mise en place (à faire)
+
+1. Claude produit 4 PDF génériques avec les blancs à remplir (devis, accord gracieux, PV de réception, remise des fichiers) et les charge dans DocuSeal par le connecteur (`create_template`).
+2. **À TOI (une fois, 10 minutes)** : dans l'éditeur DocuSeal de chaque modèle, placer les champs listés par Claude (texte, cases, dates, signatures ; rôles « Client » et « DIG16 »).
+3. Ensuite, à chaque client : `send_documents` avec les valeurs pré-remplies ; le client signe sur son téléphone ; DIG16 contresigne ; le PDF signé est rangé dans le Drive « Dig ».
+

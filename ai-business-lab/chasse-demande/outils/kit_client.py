@@ -55,10 +55,10 @@ def formule_info(D):
         compris = ["Site 5 pages sur mesure", "Galerie de réalisations", "Formulaire de demande de devis",
                    "1 modification par mois", "Rapport mensuel"] + base
         quota = "Votre formule comprend 1 modification par mois (les modifications non utilisées ne se reportent pas)."
-        mois = ["Un rapport simple : nombre de visites, demandes de devis reçues, points d’amélioration. Sans jargon.",
+        mois = ["Un rapport simple : nombre de visites (mesure sans cookie de l’hébergeur, sur votre compte), demandes de devis reçues, points d’amélioration. Sans jargon.",
                 "Les contrôles techniques et de sécurité du site."]
-        paiement = ("Prélèvement SEPA mensuel de 49 € sur le mandat que vous avez signé ; une facture chaque mois ; vous êtes "
-                    "prévenu du montant et de la date au moins 2 jours avant. Le premier mois est réglé avant la mise en ligne, "
+        paiement = ("49 € par mois, par prélèvement SEPA (mandat signé en ligne) ou par virement, au choix ; une facture chaque mois ; en cas de "
+                    "prélèvement, vous êtes prévenu du montant et de la date au moins 2 jours avant. Le premier mois est réglé avant la mise en ligne, "
                     "au plus tôt le 8e jour suivant la signature.")
         engagement = ("Engagement minimal de 6 mois (il couvre la création offerte), puis sans engagement : vous pouvez arrêter à "
                       "tout moment, par email, avec effet à la fin du mois en cours.")
@@ -71,8 +71,8 @@ def formule_info(D):
         mois = ["Votre fiche Google : une publication, les réponses aux avis, de nouvelles photos si vous en envoyez.",
                 "Un rapport simple : visites, demandes reçues, ce qui a été fait sur la fiche Google, le prochain pas.",
                 "Les contrôles techniques et de sécurité du site."]
-        paiement = ("Prélèvement SEPA mensuel de 79 € sur le mandat que vous avez signé ; une facture chaque mois ; vous êtes "
-                    "prévenu du montant et de la date au moins 2 jours avant. Le premier mois est réglé avant la mise en ligne, "
+        paiement = ("79 € par mois, par prélèvement SEPA (mandat signé en ligne) ou par virement, au choix ; une facture chaque mois ; en cas de "
+                    "prélèvement, vous êtes prévenu du montant et de la date au moins 2 jours avant. Le premier mois est réglé avant la mise en ligne, "
                     "au plus tôt le 8e jour suivant la signature.")
         engagement = ("Engagement minimal de 6 mois (il couvre la création offerte), puis sans engagement : vous pouvez arrêter à "
                       "tout moment, par email, avec effet à la fin du mois en cours.")
@@ -86,7 +86,7 @@ def formule_info(D):
             quota = "Avec l’option hébergement et suivi, 1 petite modification par mois est comprise ; les autres modifications sont sur devis."
             mois = ["La surveillance et les contrôles techniques et de sécurité du site."]
             paiement = ("690 € en une fois, à réception de la facture et au plus tard dans les 30 jours (acompte convenu au devis, solde "
-                        "avant la mise en ligne définitive). Option hébergement et suivi : 15 € par mois, prélèvement SEPA sur mandat, "
+                        "avant la mise en ligne définitive). Option hébergement et suivi : 15 € par mois, par prélèvement SEPA ou par virement, "
                         "une facture chaque mois.")
             engagement = "L’option hébergement et suivi s’arrête à tout moment, par email, avec effet à la fin du mois en cours ; vous recevez alors les fichiers du site."
         else:
@@ -106,7 +106,7 @@ def formule_info(D):
             quota = "Avec l’option hébergement, sécurité et modifications (29 € par mois), vos modifications sont comprises ; sans elle, elles sont sur devis."
             mois = ["Avec l’option : les contrôles techniques et de sécurité, vos modifications, la fiche Google et le rapport."]
             paiement = ("1 990 € en une fois, à réception de la facture et au plus tard dans les 30 jours (acompte convenu au devis, "
-                        "solde avant la mise en ligne définitive). Option à 29 € par mois : prélèvement SEPA sur mandat, une facture chaque mois.")
+                        "solde avant la mise en ligne définitive). Option à 29 € par mois : par prélèvement SEPA ou par virement, une facture chaque mois.")
             engagement = "Aucun engagement de durée ; l’option s’arrête à tout moment, par email, avec effet à la fin du mois en cours."
             cession = "(cédés à la livraison pour le paiement en une fois)"
         else:
@@ -114,8 +114,8 @@ def formule_info(D):
             mois = ["Votre fiche Google : une publication, les réponses aux avis, de nouvelles photos si vous en envoyez.",
                     "Un rapport simple : visites, réservations, demandes, le prochain pas.",
                     "Les contrôles techniques et de sécurité du site."]
-            paiement = ("Prélèvement SEPA mensuel de 199 € sur le mandat que vous avez signé ; une facture chaque mois ; vous êtes "
-                        "prévenu du montant et de la date au moins 2 jours avant. 0 € de création ; le premier mois est réglé avant la "
+            paiement = ("199 € par mois, par prélèvement SEPA (mandat signé en ligne) ou par virement, au choix ; une facture chaque mois ; en cas de "
+                        "prélèvement, vous êtes prévenu du montant et de la date au moins 2 jours avant. 0 € de création ; le premier mois est réglé avant la "
                         "mise en ligne, au plus tôt le 8e jour suivant la signature.")
             engagement = ("Engagement minimal de 12 mois (il couvre la création offerte), puis sans engagement : vous pouvez arrêter à "
                           "tout moment, par email, avec effet à la fin du mois en cours.")
@@ -186,13 +186,14 @@ def mode_emploi(P, C, D):
     if D.get("offert"):
         s = s.replace(" Vous pouvez passer à tout moment à une formule supérieure, et à une formule inférieure à la fin de l’engagement minimal.", "")
         s = re.sub(r"suffit.{0,8}: nouveaux horaires, photo, tarif, promotion, congés, actualité\. C’est fait <b>sous 3.jours ouvrés</b>\. ", "suffit. ", s)
-    return s.replace("[PAIEMENT]", dc.e(F["paiement"])).replace("[ENGAGEMENT]", dc.e(F["engagement"]))
+    pai = F["paiement"] + ("" if D.get("offert") else " Le nom de domaine, enregistré à votre nom par DIG16, est avancé puis refacturé au prix coûtant (environ 10 € par an).")
+    return s.replace("[PAIEMENT]", dc.e(pai)).replace("[ENGAGEMENT]", dc.e(F["engagement"]))
 
 
 def comptes(P, C, D):
     s = entete_commun(modele("vos-comptes"), P, C, D, f"{C['nom_commercial']} · {D['date']}")
     etapes = [
-        ("Client", "Nom de domaine", "Vous l’achetez à votre nom (environ 10 € par an), chez un bureau d’enregistrement de votre choix, au rendez-vous de lancement. DIG16 vous indique les réglages à copier ; le domaine reste à vous, même si vous partez."),
+        ("DIG16", "Nom de domaine", "DIG16 l’enregistre à votre nom, en avance le coût (environ 10 € par an) et vous le refacture au prix coûtant, sans marge. Le domaine est à vous : il vous suit même si vous partez."),
         ("Client", "Hébergement", "Un compte d’hébergement est ouvert à votre nom (offre gratuite autorisant l’usage commercial) ; DIG16 y est invité comme gestionnaire pour installer et suivre le site. Vous pouvez retirer cet accès à tout moment."),
         ("Client", "Formulaire de contact", "Les messages arrivent sur votre adresse email. Au premier envoi, vous recevez un email de confirmation : un clic suffit pour activer le formulaire. DIG16 fait ensuite un test avec vous."),
         ("Client", "Fiche Google", "La fiche est à votre nom : vous la créez ou la validez (Google demande une vérification : en général un appel, une vidéo ou un courrier). DIG16 prépare les textes et les photos" + (", puis la suit chaque mois." if D["formule"] in ("Visibilité", "Prestige") else ".")),
@@ -292,12 +293,12 @@ def main():
 
 Produit le {D['date']} par outils/kit_client.py. Dossier privé : ne jamais le copier dans le dépôt public.
 
-## À signer (une fois : au rendez-vous, ou par signature électronique)
+## À signer (signature électronique par email avec DocuSeal, décision du 26/10 ; au rendez-vous sinon)
 | Document | Client | DIG16 | Quand |
 |---|---|---|---|
 | 1 — Devis et bon de commande (+ formulaire de rétractation joint) | signe « Bon pour accord » | signe | à la commande |
 | 2 — CGV | reçoit (jointes au devis) | — | à la commande |
-{"| 5 — Accord de réalisation gracieuse | signe | signe | à la commande |" if D.get('offert') else "| Mandat de prélèvement SEPA | signe (lien GoCardless) | — | à la commande |" if mensuel else "| — | — | — | — |"}
+{"| 5 — Accord de réalisation gracieuse | signe | signe | à la commande |" if D.get('offert') else "| Mandat de prélèvement SEPA (ou virement, au choix du client) | signe (lien GoCardless) | — | à la commande |" if mensuel else "| — | — | — | — |"}
 | 6 — Procès-verbal de réception | signe « Site reçu et accepté » | signe | avant la mise en ligne définitive |
 {"| 9 — Remise des fichiers | signe « Fichiers reçus » | signe | à la livraison |" if any(n.startswith('9-') for n, _ in pages) else ""}
 
