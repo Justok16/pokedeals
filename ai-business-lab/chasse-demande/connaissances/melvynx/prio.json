@@ -1,6 +1,11 @@
 {
 "videos": [
 {
+"id": "R6P669gbROs",
+"titre": "SuperPowers rend Claude Code plus lent (et BMAD est encore pire)",
+"duree": "19:11"
+},
+{
 "id": "01sWd0EoQWQ",
 "titre": "Je ne touche plus jamais à mes DNS (Claude le fait sur Cloudflare)",
 "duree": "4:53"
