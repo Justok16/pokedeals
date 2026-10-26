@@ -26,7 +26,7 @@ REGLES = [  # (gravité, nom, motif sur le texte visible, conseil)
         "bloquant",
         "invitation à défiler",
         r"(?i)\b(scroll|défilez|faites défiler)\b",
-        "supprimer : le visiteur sait faire défiler",
+        "supprimer : le visiteur sait faire défiler (exception, décision utilisateur du 26/10 : dans une section épinglée\n        au défilement, une invitation explicite « Continuez à faire défiler… » est voulue ; formuler avec « faire défiler »)",
     ),
     (
         "bloquant",

@@ -23,7 +23,9 @@ Après
 
 Je prépare votre page d’accueil avant que vous décidiez quoi que ce soit.
 
-Avant, après : la différence sous le pouce
+Votre site avant, puis refait par DIG16
+
+Continuez à faire défiler pour voir l’après
 
 ![La même page d’accueil refaite par DIG16 : grande photo de l’atelier, nom de l’entreprise et bouton Demander un devis](https://dig16.fr/img/vitrine-visite-tel-300.webp)
 
@@ -278,7 +280,7 @@ Les prix sont indiqués sans TVA : DIG16 relève de la franchise en base de TVA
 
 Comment je paie ? Est-ce que je reçois une facture ?
 
-Par prélèvement automatique mensuel, sécurisé. Vous recevez une facture chaque mois, conforme aux obligations en vigueur (y compris la facturation électronique entre professionnels).
+Par prélèvement automatique mensuel, sécurisé, ou par virement si vous préférez. Vous recevez une facture chaque mois, conforme aux obligations en vigueur (y compris la facturation électronique entre professionnels).
 
 Puis-je changer de formule ?
 
@@ -557,7 +559,7 @@ DisponibilitéToujours joignable, 7 jours sur 7
       "name": "Comment je paie ? Est-ce que je reçois une facture ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Par prélèvement automatique mensuel, sécurisé. Vous recevez une facture chaque mois, conforme aux obligations en vigueur (y compris la facturation électronique entre professionnels)."
+        "text": "Par prélèvement automatique mensuel, sécurisé, ou par virement si vous préférez. Vous recevez une facture chaque mois, conforme aux obligations en vigueur (y compris la facturation électronique entre professionnels)."
       }
     },
     {
