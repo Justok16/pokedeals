@@ -80,7 +80,7 @@ inventé. Si une formule change (prix, contenu), mettre à jour `kit_client.py` 
 
 ## 6. Signature électronique : mise en place (à faire)
 
-1. Claude produit 4 PDF génériques avec les blancs à remplir (devis, accord gracieux, PV de réception, remise des fichiers) et les charge dans DocuSeal par le connecteur (`create_template`).
-2. **À TOI (une fois, 10 minutes)** : dans l'éditeur DocuSeal de chaque modèle, placer les champs listés par Claude (texte, cases, dates, signatures ; rôles « Client » et « DIG16 »).
+1. **Fait le 26/10** : `outils/modeles_docuseal.py` produit les 4 PDF génériques (identité du prestataire intégrée, donc privés : sortie hors du dépôt), les aperçus annotés (bleu = DIG16, rouge = Client) et `LISEZMOI-champs.md` (noms exacts des champs). Modèles créés vides par le connecteur (le PDF ne peut pas être chargé par lui sans adresse publique) : n° 6628706 (devis + CGV), 6628707 (accord gracieux), 6628708 (PV de réception), 6628709 (remise des fichiers), lien `https://docuseal.com/templates/<n°>/edit`. PDF, aperçus et liste des champs envoyés à l'utilisateur ; note privée « DIG16 – Modèles DocuSeal : liens et champs » dans le Drive « Dig ».
+2. **À TOI (une fois, sur ordinateur, environ 20 minutes)** : ouvrir chaque lien, importer le PDF du même numéro, placer les champs sur les cadres jaunes en recopiant exactement leur nom (rôles « DIG16 » et « Client »). Quota gratuit : 10 emails de demande par mois ; au-delà, envoyer soi-même le lien de signature.
 3. Ensuite, à chaque client : `send_documents` avec les valeurs pré-remplies ; le client signe sur son téléphone ; DIG16 contresigne ; le PDF signé est rangé dans le Drive « Dig ».
 
