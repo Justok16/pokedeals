@@ -177,6 +177,16 @@ v = subprocess.run(
 mal = [ligne.split("|")[0].replace("mal dite", "").strip() for ligne in v.stdout.splitlines() if ligne.startswith("mal dite")]
 ok("marque « dig16 » bien dite dans les vidéos du site", v.returncode == 0, ", ".join(mal) or v.stderr[-120:])
 
+# 26/10 : la carte du dossier (CARTE.md) doit suivre les fiches et outils ajoutés
+c = subprocess.run(
+    [sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "carte.py"), "--verifier"],
+    capture_output=True,
+    text=True,
+    timeout=60,
+    check=False,
+)
+ok("carte du dossier (CARTE.md) à jour", c.returncode == 0, c.stdout.strip()[:120])
+
 alertes = [r for r in res if not r[1]]
 if "--json" in sys.argv:
     print(

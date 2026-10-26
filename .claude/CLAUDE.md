@@ -2,7 +2,7 @@
 
 Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles restent en vigueur** ; le détail de chacune
 (raisons, dates, exemples, réglages techniques) est dans `ai-business-lab/chasse-demande/connaissances/consignes-detaillees.md`,
-**à relire avant toute tâche technique ou en cas de doute**.
+**à relire avant toute tâche technique ou en cas de doute**. Pour trouver une fiche ou un outil : `ai-business-lab/chasse-demande/CARTE.md` (une ligne par fichier, fabriquée par `outils/carte.py`).
 
 ## Qui et quoi
 

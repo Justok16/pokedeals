@@ -1,3 +1,4 @@
+# Relevé des extensions WordPress populaires (API officielle wordpress.org) vers wp.csv : chasse à la demande du 24/09.
 import json
 import urllib.request
 import csv

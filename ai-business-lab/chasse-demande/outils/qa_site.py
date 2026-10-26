@@ -1,3 +1,4 @@
+# Contrôle d'une page de démo à 7 tailles d'écran (320 à 1440 px) : barre d'appel qui ne cache rien, pas de débordement, pas de marqueur [..] oublié. Usage : qa_site.py page.html
 import os
 import sys
 from playwright.sync_api import sync_playwright
