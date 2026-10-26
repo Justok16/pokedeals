@@ -1,10 +1,4 @@
 {
- "2026-09-27": {
-  "scans": 97,
-  "annonces": 29625,
-  "deals": 259,
-  "profit_potentiel": 13893.26
- },
  "2026-09-28": {
   "scans": 98,
   "annonces": 29692,
@@ -178,5 +172,11 @@
   "annonces": 34840,
   "deals": 614,
   "profit_potentiel": 103604.78
+ },
+ "2026-10-27": {
+  "scans": 1,
+  "annonces": 0,
+  "deals": 0,
+  "profit_potentiel": 0.0
  }
 }
