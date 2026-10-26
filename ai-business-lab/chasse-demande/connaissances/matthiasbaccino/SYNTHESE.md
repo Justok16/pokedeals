@@ -1,27 +1,37 @@
-# matthiasbaccino — index des fiches (synthèse du dimanche 25/10/2026)
+# matthiasbaccino — index des fiches (synthèse du lundi 26/10/2026)
 
-22 vidéos résumées sur 729. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+32 vidéos résumées sur 729. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[7 millions d'euros pour une usine française : le choix de Brique House ! Replay Live 23/09/26](RLzDWqd03A0.md)** — Sujet : L’industrie de la bière en France, les défis de l’entrepreneuriat brassicole, et la levée de fonds participative en capital d’une entreprise non cotée (start-up/PME) à travers l'exemple de la marque Brique House.
 - **[BILAN économique et boursier de l’été ! Replay Live 23/08/26](0oPGL_C0r34.md)** — Sujet : Le point sur l’actualité économique, la dette publique en France, l’évolution des marchés boursiers et les nouveautés concernant l’épargne (en particulier le Livret A).
 - **[Comment INVESTIR en partant de zéro (GUIDE COMPLET)](K2PGWYX6aBQ.md)** — Sujet : L'initiation à l'investissement boursier pour le grand public.
+- **[Comment LUTTER contre les ARNAQUES ?](XSbEX45dra8.md)** — - Sujet : Les arnaques financières en matière d'épargne et d'investissement (notamment le phénomène d'explosion des escroqueries auprès des particuliers et des jeunes).
 - **[Comment PROTÉGER votre ARGENT !](r2iMajW8z14.md)** — Sujet : Que se passe-t-il si votre banque fait faillite, comment les banques fonctionnent et comment protéger son épargne en France.
+- **[C’est quoi une INTRODUCTION en BOURSE ? Replay Live 07/06/26](d9cmvhANkFo.md)** — Sujet : Point sur l'actualité économique et financière (marchés, inflation, dette) et réponses aux questions des spectateurs.
 - **[Doit-on avoir peur de l’IA ? Replay Live 13/09/26](YvsoRcPjtD0.md)** — Le sujet est l'actualité économique et financière (marchés, épargne, IA).
 - **[DÉCOUVERTS BANCAIRES : comment les ÉVITER ?](Dm9ynUhSAk4.md)** — - Sujet : Les découverts bancaires en France (ampleur, gravité, coûts).
+- **[Faut-il continuer à INVESTIR dans BITCOIN à long terme ? Replay Live 21/06/26](9OBNCFm_hN8.md)** — Le sujet est une discussion sur le Bitcoin en tant qu'investissement long terme, ses risques, et les opportunités liées à la « tokénisation » des actifs financiers traditionnels (actions, obligations). La thèse principale est que le Bitcoin, bien que volatil, constitue un…
 - **[Faut-il Miléiser les finances publiques Françaises ?](So1OPQVinkk.md)** — Sujet : Faut-il « miléiser » le budget de la France et ses finances publiques ? (en référence à la méthode de Javier Milei, président de l'Argentine depuis décembre 2023).
 - **[INVESTIR dans les petites et moyennes ENTREPRISES ?](aorv0LcAZgo.md)** — Sujet : Faut-il investir dans les petites et moyennes entreprises (PME et ETI) ?
 - **[J’analyse les propositions sur les retraites des candidats ! Replay Live 04/10/26](s_Vb7jrAg2A.md)** — Le sujet est l'actualité économique et financière française, avec un focus sur la crise budgétaire, la dette publique et les réformes des retraites. La thèse principale est que la France traverse une crise économique structurelle grave, causée par une dette publique…
+- **[La FISCALITÉ : un vrai enjeu !](sNnNinkEdFg.md)** — Sujet : L’impact de la fiscalité sur l’épargne et les investissements à long terme.
+- **[La France au pied du mur : qui va payer la facture ? Replay Live 31/05/26](8ItaSRSsqlM.md)** — La vidéo traite de l'état de l'économie et du système financier, avec un focus particulier sur la dette publique française.
 - **[La GUERRE à Ormuz va avoir de graves conséquences ! Replay Live 19/07/26](mQCWFS0PPZ4.md)** — Sujet : Point hebdomadaire sur l’actualité économique et boursière (évolution des finances publiques françaises, inflation, marchés des semi-conducteurs, tensions géopolitiques autour du détroit d’Ormuz, et conseils en entrepreneuriat/investissement).
 - **[La mission impossible de Lecornu : un budget pour la France en 2027 ! Replay Live 20/09/26](r7rmaUUD450.md)** — Sujet : Point hebdomadaire d'actualité macroéconomique, géopolitique, boursière et budgétaire (France, Europe, USA, etc.) animé par Matthias Baccino.
 - **[La mondialisation a-t-elle appauvri la France ?](F8Z97h-FZh4.md)** — Sujet : Le fonctionnement de la machine économique mondiale et ses conséquences sur l'industrie et le pouvoir d'achat en France.
+- **[LA VÉRITÉ SUR LE SYSTÈME DE RETRAITE !](EvZhaHrIvuQ.md)** — Sujet : Le fonctionnement réel, les défis financiers et les solutions d'avenir du système de retraite français (comparé à d'autres modèles internationaux).
 - **[La VÉRITÉ sur votre facture d’ÉLECTRICITÉ !](A5HHJ2GiVNs.md)** — Sujet : Comprendre la composition et l'évolution de la facture d'électricité en France, ainsi que les mécanismes de marché qui influencent son prix.
 - **[Le compte à rebours de la dette est lancé ! Replay Live 06/2026](V_neIUVJHWo.md)** — Sujet : Analyse de la situation économique actuelle, de la dette des États et de la gestion de l'épargne des Français dans un contexte de crise économique.
+- **[Le point hebdo sur l'éco et les marchés - 14/09/26](6YakaRVU1wc.md)** — Sujet : Point hebdomadaire sur l'actualité économique et boursière de la rentrée de septembre, les tensions sur les marchés, la dette globale, la situation de la France et l'inflation/taux d'intérêt.
 - **[Les CONSÉQUENCES sont plus GRAVES que ce que vous pensez ! Replay Live 28/06/26](x9dnSzly2Q4.md)** — Sujet : Analyse de l'actualité économique, des marchés financiers et de l'épargne.
 - **[Les géants de l'IA empruntent pour investir](PKaMW0Rs8UI.md)** — - Sujet : L’évolution du financement des investissements dans l’intelligence artificielle par les grandes entreprises technologiques (« hyperscalers »).
 - **[Les élections américaines, un danger pour les marchés ? Replay Live 30/08/26](uSlpSgYlPKA.md)** — Sujet : Analyse macroéconomique de l’actualité et conseils en investissement.
+- **[L’IMMOBILIER une passion française : pour quels RÉSULTATS ?](O5TmoB0K0ak.md)** — Sujet : L’investissement immobilier en France, présenté comme un pilier historique et culturel de la gestion de l'argent et de l'épargne.
 - **[L’ÉCONOMIE BASCULE (Je réponds à vos questions) - Replay Live 26/07/26](pvT5xtF1nEc.md)** — Sujet : Bilan hebdomadaire sur l'actualité économique, les marchés boursiers et les questions de finances personnelles.
 - **[L’ÉCONOMIE MONDIALE au bord du GOUFFRE ? Replay Live 12/07/26](mBEpniRIYRI.md)** — Sujet : Bilan macroéconomique et boursier de début d’année (juillet 2026) et analyse des tendances à long terme (inflation, taux d’intérêt, transition énergétique, immobilier).
+- **[Plus de la moitié de la France est détenue par des étrangers !](FBsqoITkJFw.md)** — Sujet : La composition des créanciers de la dette de l'État français (« qui détient la dette »).
 - **[Pourquoi vous finissez TOUJOURS dans le rouge en fin de mois !](_EfoRUyE6yk.md)** — Sujet : Comprendre les causes des difficultés financières quotidiennes et apprendre à établir un budget stable pour protéger son pouvoir d'achat.
 - **[Que faire si je suis VICTIME de FRAUDE BANCAIRE ?](Gp4dv0KBFNw.md)** — Sujet : L’explosion des fraudes bancaires en France.
+- **[Quelle RÉFORME des RETRAITES pour SAUVER le système ? Replay Live 15/06/26](qj8QeFO3V2Q.md)** — Sujet : Le système des retraites, les enjeux de financement de l'État et l'investissement financier.
 - **[Stratégies d'investissement et de trading : on fait le point ! Replay Live 27/09/2026](Y4HAWhzu1KQ.md)** — Sujet : L'investissement financier et les principes de gestion de portefeuille pour les investisseurs actifs.
