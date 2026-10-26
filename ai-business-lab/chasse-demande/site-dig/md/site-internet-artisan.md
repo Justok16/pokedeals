@@ -5,6 +5,10 @@ image: "https://dig16.fr/img/apercu-dig16-v3.jpg"
 url: "https://dig16.fr/site-internet-artisan/"
 ---
 
+![Menuisier façonnant une pièce de bois à l’atelier](https://dig16.fr/img/accueil/methode-2-800.webp)
+
+Le guide
+
 # Site internet pour artisan : le guide avant de choisir
 
 Publié le 18 octobre 2026 · DIG16, Charente

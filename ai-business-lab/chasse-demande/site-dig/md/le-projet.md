@@ -5,6 +5,10 @@ image: "https://dig16.fr/img/apercu-dig16-v3.jpg"
 url: "https://dig16.fr/le-projet/"
 ---
 
+![Artisan souriant, son téléphone à la main, dans son atelier](https://dig16.fr/img/accueil/contact-1000.webp)
+
+Le projet
+
 # Le projet DIG16, en 2 minutes
 
 DIG16 est née en octobre 2026, en Charente. Une idée simple : que chaque artisan, commerçant ou indépendant du coin soit facile à trouver et à appeler depuis un téléphone.

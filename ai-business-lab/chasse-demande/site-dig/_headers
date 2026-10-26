@@ -23,6 +23,8 @@
 # 26/10/2026 : bibliothèques d'animation de la page d'accueil (GSAP, ScrollTrigger, Lenis), hébergées sur le site.
 /moteur/anim/*
   Cache-Control: public, max-age=2592000
+/moteur/vitrine.css
+  Cache-Control: public, max-age=2592000
 # Maquettes privées chiffrées (04/10/2026) : jamais indexées, aucune adresse d'origine transmise.
 /m/*
   X-Robots-Tag: noindex, nofollow

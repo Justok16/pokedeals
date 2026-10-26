@@ -1,0 +1,20 @@
+/* DIG16 : finitions « vitrine » des pages secondaires (26/10/2026), dans l'esprit de la nouvelle page d'accueil.
+   Entrées en CSS pur (aucun JavaScript, premier affichage immédiat), photo d'ambiance sous l'en-tête, signature géante
+   en pied de page. Désactivé avec « animations réduites ». */
+@keyframes vit-glisse{from{transform:translateY(28px)}to{transform:none}}
+@keyframes vit-monte{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes vit-zoom{from{transform:scale(1.08)}to{transform:none}}
+main>h1,.pheros h1,.hero h1{animation:vit-glisse .9s cubic-bezier(.23,1,.32,1) backwards}
+main>.chapo,.pheros .chapo,.pheros .pastille,.hero p{animation:vit-monte .9s cubic-bezier(.23,1,.32,1) .25s backwards}
+.pheros .actions,.hero .actions{animation:vit-monte .9s cubic-bezier(.23,1,.32,1) .4s backwards}
+.pheros{overflow:hidden}
+.pheros::before{animation:vit-zoom 2.4s cubic-bezier(.23,1,.32,1) both}
+figure.bandeau{margin:0 0 2.2rem;border-radius:22px;overflow:hidden;aspect-ratio:16/6;background:#181613;position:relative;animation:vit-monte 1s cubic-bezier(.23,1,.32,1) .15s backwards}
+figure.bandeau img{width:100%;height:100%;object-fit:cover;display:block;animation:vit-zoom 2.4s cubic-bezier(.23,1,.32,1) both}
+figure.bandeau figcaption{position:absolute;left:16px;bottom:14px;font-family:'Geist Mono','Geist Mono Fallback',ui-monospace,monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#efe9df;background:rgba(15,14,12,.6);padding:.35rem .6rem;border-radius:999px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+@media (max-width:700px){figure.bandeau{aspect-ratio:16/9;border-radius:16px}}
+footer{overflow:hidden}
+.signature{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-size:clamp(5rem,22vw,20rem);line-height:.85;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(200,164,110,.55);text-align:center;margin:0 0 1.6rem;user-select:none;white-space:nowrap}
+.signature em{font-style:italic;color:#c8a46e;-webkit-text-stroke:0}
+footer:has(.signature){padding-top:48px}
+@media (prefers-reduced-motion:reduce){main>h1,.pheros h1,.hero h1,main>.chapo,.pheros .chapo,.pheros .pastille,.hero p,.pheros .actions,.hero .actions,.pheros::before,figure.bandeau,figure.bandeau img{animation:none}}
