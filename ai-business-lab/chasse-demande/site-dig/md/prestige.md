@@ -82,17 +82,18 @@ Comparer
 
 ## Prestige ou Essentiel ?
 
-Essentiel convient à la plupart des artisans. Prestige est fait pour les lieux où l’image décide de tout.
+Le même soin dans les deux cas : design sur mesure, photos mises en valeur, animations. Prestige ajoute plus de pages, la version anglaise, des modifications chaque mois et le meilleur référencement possible.
 
 | Critère | Essentiel | Prestige |
 | --- | --- | --- |
 | Prix | 49 €/mois | 199 €/mois ou 1 990 € |
-| Design | Sur mesure, sobre et efficace | Haut de gamme, dessiné pour votre lieu |
+| Design sur mesure et animations | ✓ | ✓ |
 | Pages | 5 | Jusqu’à 12 |
-| Photos plein écran et animations | — | ✓ |
+| Modifications | 1 par mois | Incluses chaque mois |
 | Réservation en ligne | ✓ | ✓ |
 | Version anglaise | +5 €/mois | ✓ incluse |
 | Fiche Google suivie, avis | — | ✓ |
+| Référencement Google | Bases incluses | Complet, suivi chaque mois |
 | Engagement | 6 mois | 12 mois (abonnement) |
 
 La méthode

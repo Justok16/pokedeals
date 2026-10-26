@@ -59,7 +59,9 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   visages et domaines repris par un tiers ; jamais sur le site public ; accord préalable, montrées en direct ; les 64
   démos existantes restent hors diffusion sans accord ; couleur tirée du logo ; jamais de logos de partenaires.
 - Démarchage B2B par email autorisé dans le cadre CNIL (`35`) ; pas de particuliers ; pas de campagne en série sous
-  pseudonyme. Prestige jamais proposé en prospection, mais **toujours cité avec les autres formules** dans les présentations de l'entreprise (décision du 21/10 : « elle existe comme les autres formules »).
+  pseudonyme. **Tous les sites sont beaux, quelle que soit la formule** (décision du 26/10 : même exigence de design, photos
+  et animations que la leçon Prestige du 26/10) ; la différence de prix porte surtout sur le suivi, les mises à jour et le
+  référencement (le meilleur possible en Prestige). Prestige jamais proposé en prospection, mais **toujours cité avec les autres formules** dans les présentations de l'entreprise (décision du 21/10 : « elle existe comme les autres formules »).
 
 ## Sécurité, dépôt public, vie privée
 

@@ -673,7 +673,7 @@ document.querySelectorAll('.choix').forEach(g=>g.addEventListener('click',e=>{
  g.querySelectorAll('button').forEach(x=>x.classList.remove('actif'));b.classList.add('actif');rep[g.dataset.q]=b.dataset.v;
  if(Object.keys(rep).length<3)return;
  let f,why;
- if(rep.but==='image'){f='Prestige — 1 990 € ou 199 €/mois';why='Une image haut de gamme demande un design entièrement sur mesure.'}
+ if(rep.but==='image'){f='Prestige — 1 990 € ou 199 €/mois';why='Plus de pages, version anglaise, modifications chaque mois et référencement complet : de quoi faire venir une clientèle exigeante.'}
   else if(rep.paie==='fois'){f='Achat — 690 € une fois';why='Vous payez une fois, le site de 5 pages est à vous. Hébergement et suivi (sécurité, surveillance, 1 petite modification par mois) : 15 €/mois, facultatifs.'+(rep.but==='clients'?'<br><br>Pour le suivi de votre fiche Google, Visibilité reste conseillée : 79 €/mois, ou 869 € pour 12 mois payés d’avance (1 mois offert).':'')}
   else if(rep.but==='clients'){f='Visibilité — 79 €/mois';why='Fiche Google suivie chaque mois et demandes d’avis clients : pour être plus visible sur Google.'}
   else {f='Essentiel — 49 €/mois';why=rep.site==='non'?'Un site complet et moderne, 0 € de création.':'Un site complet et moderne pour remplacer l’existant.'}
