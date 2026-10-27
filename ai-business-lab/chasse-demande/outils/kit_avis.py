@@ -65,13 +65,23 @@ Et si quelque chose ne vous a pas plu, dites-le-nous directement en répondant �
 
 REPONSES = """## Répondre à chaque avis (dans les 48 h)
 
-Avis positif :
-« Merci <prénom> pour ce retour, ça fait vraiment plaisir. Au plaisir de travailler à nouveau avec vous. »
+Règles : moins de 60 mots (une longue réponse a l'air de se défendre) ; reprendre le point précis dont parle le client ;
+signer de son prénom ; jamais deux fois la même réponse mot pour mot (les lecteurs voient tout de suite un copier-coller).
 
-Avis mitigé ou négatif (toujours calme, jamais d'excuse publique sur un détail privé) :
-« Merci d'avoir pris le temps d'écrire. Je suis désolé que cela n'ait pas été à la hauteur. Je vous appelle (ou : écrivez-moi à <email>) pour comprendre et trouver une solution. »
+Avis positif (remercier pour la chose dont il parle) :
+« Merci <prénom>, content que <le point cité : la terrasse, le délai tenu…> vous plaise. Au plaisir de vous revoir. — <prénom de l'artisan> »
 
-Jamais : répondre à chaud, contester publiquement, demander de retirer l'avis, proposer un geste en échange.
+Avis mitigé (répondre aux deux moitiés, pas seulement au compliment) :
+« Merci pour <le point positif>. Vous avez raison pour <le point négatif> : <ce qui a été changé, seulement si c'est vrai>. — <prénom> »
+
+Avis négatif (toujours calme, jamais d'excuse publique sur un détail privé) :
+« <Le point précis : « Trois semaines d'attente, c'est trop long. »> <Ce qui a changé, seulement si c'est vrai.> Appelez-moi au <numéro> ou écrivez-moi à <email>, on règle ça ensemble. — <prénom> »
+
+Avis injuste ou faux : rester calme, corriger une seule fois le fait inexact, puis s'arrêter (la réponse s'adresse
+surtout aux futurs clients qui la liront).
+
+Jamais : répondre à chaud, contester publiquement, citer le règlement, demander de retirer l'avis, proposer un geste
+en échange.
 """
 
 
