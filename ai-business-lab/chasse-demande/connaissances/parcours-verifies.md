@@ -132,3 +132,7 @@ Source : page officielle « L'essentiel du statut » (autoentrepreneur.urssaf.fr
 Solocal reprend la règle de Google : indiquer les horaires où l'on reçoit les clients ; les établissements qui reçoivent seulement sur rendez-vous « n'ont pas intérêt à mentionner des horaires ». Parcours : solocal manager → « Mes fiches établissements » → « Voir mon établissement » → section « Horaire d'ouverture » → crayon → fenêtre de modification (jours ouverts et créneaux). L'aide ne dit pas s'il existe une option « aucun horaire » : capture de la fenêtre avant d'enregistrer ; ne jamais enregistrer un réglage qui afficherait « Fermé ». Les horaires Solocal sont aussi envoyés vers Google si la fiche Google est reliée à Solocal Manager.
 
 Constat sur capture du 27/10/2026 : la fenêtre « Horaires d'ouverture » de Solocal Manager propose seulement, pour chaque jour, « Ouvert » (désactivé = Fermé) et « Ouvert 24h/24 », puis Annuler/Enregistrer : pas d'option « aucun horaire ».
+
+## YouTube : description de la chaîne (aide officielle support.google.com/youtube/answer/3027950, lue le 27/10/2026)
+
+Ordinateur : se connecter à YouTube Studio (studio.youtube.com) → menu de gauche « Personnalisation » → onglet « Profil » (nom, identifiant, description, liens) → modifier → « Publier ». Sur téléphone : appli YouTube ou YouTube Studio, photo de profil → modifier (aide answer/2657964).
