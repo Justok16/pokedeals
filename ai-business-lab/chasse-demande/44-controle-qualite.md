@@ -62,6 +62,22 @@ forme ». Rien n'est envoyé tant que chaque case applicable n'est pas cochée.
 
 - Démos personnalisées de prospects (depuis le 28/09, audit externe n° 1) : **jamais publiées en ligne** sans accord écrit du prospect ; montrées sur écran ou en PDF privé, supprimées en cas de refus. Les démos publiques du site utilisent uniquement des entreprises fictives.
 
+## Couleurs : règle 60/30/10 (ajoutée le 27/10/2026, reel De7K4bwIeR3 envoyé par l'utilisateur)
+Pour dig16.fr et pour **chaque site client** (démo comprise), avant envoi ou mise en ligne :
+1. `python3 outils/palette_60_30_10.py --dossier <site> --accent "<couleur d'accent tirée du logo>" --pages / …` →
+   aucune ALERTE. Repère des designers : ~60 % couleur dominante, ~30 % secondaire, ~10 % accent ; l'outil mesure
+   le dessin du site (photos masquées) et alerte si l'accent dépasse 15 %, s'il n'apparaît nulle part ou si une
+   deuxième couleur vive dépasse 1,5 %. Illustrations volontaires : `--exclure <sélecteur>`.
+2. L'accent (une seule couleur, tirée du logo) est **réservé** aux boutons d'appel, aux titres courts et aux filets ;
+   jamais en grands aplats ni pour du texte courant.
+3. Contraste des textes lisible sur téléphone : déjà contrôlé par `audit_acces.py` (≥ 4,5).
+4. Petits formats : `python3 outils/palette_60_30_10.py --planche <logo ou icône.png>` → regarder à l'œil le logo à
+   16, 32, 48 et 180 px sur fonds clair, gris et sombre ; ce qui devient illisible n'est pas utilisé à cette taille.
+5. Constance : la palette choisie va dans la fiche du client (couleurs, rôle de chacune) et ne change plus ; la même
+   sert au site, à la fiche Google, aux réseaux et aux documents.
+Pour dig16.fr, le contrôle tourne dans `outils/test_pages.py` (mesure du 27/10 : accent laiton 0,4 à 4 % selon
+la page, aucune autre couleur vive ; planche des icônes lisible dès 32 px, le « 16 » ne se lit plus à 16 px).
+
 ## Doublons entre listes de prospects (leçon du 30/09/2026)
 
 Erreur constatée : les ajouts n°12 et 13 reprenaient 23 artisans déjà présents dans les ajouts

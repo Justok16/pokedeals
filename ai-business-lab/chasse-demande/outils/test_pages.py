@@ -83,6 +83,14 @@ def accessibilite():
     print(('OK    ' if ok else 'ALERTE'), 'accessibilité', '' if ok else detail)
     return 0 if ok else 1
 
+def palette():
+    """27/10 : règle des couleurs 60/30/10 (reel De7K4bwIeR3) : accent laiton discret, pas de deuxième couleur vive."""
+    r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'palette_60_30_10.py')],
+                       capture_output=True, text=True, timeout=900)
+    alertes = [l for l in r.stdout.splitlines() if l.startswith('ALERTE')]
+    print(('ALERTE' if r.returncode else 'OK    '), 'palette 60/30/10', alertes[:3] if alertes else '')
+    return 1 if r.returncode else 0
+
 def markdown_a_jour():
     """24/10 : la version Markdown des pages (servie aux agents IA) doit suivre chaque modification d'une page."""
     outil = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pages_markdown.py')
@@ -98,7 +106,7 @@ def main():
         serveur = subprocess.Popen([sys.executable, '-m', 'http.server', '4699'], cwd=site,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(1.5); base = 'http://localhost:4699'
-    souci = son_videos() + regles_interface() + plan_du_site() + accessibilite() + markdown_a_jour()
+    souci = son_videos() + regles_interface() + plan_du_site() + accessibilite() + palette() + markdown_a_jour()
     try:
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()

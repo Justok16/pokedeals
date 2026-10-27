@@ -112,6 +112,7 @@ Sous-dossiers de résumés par source (58) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/orthographe.py` | Contrôle orthographe et grammaire (LanguageTool, hors ligne) du texte visible de fichiers HTML ou Markdown. |
 | `outils/ouverture_site.py` | Ouverture de dig16.fr le jour où la formalité de création est validée (préparé le 08/10/2026). |
 | `outils/pages_markdown.py` | Version Markdown des pages publiques de dig16.fr, pour les agents IA (24/10/2026). |
+| `outils/palette_60_30_10.py` | Mesure la répartition des couleurs d'un site selon la règle des designers 60/30/10 (27/10/2026). |
 | `outils/pdf_pages.py` | Génère le PDF d'un support à pages A4 fixes et vérifie qu'aucune page ne déborde. |
 | `outils/plan_complet.py` | Régénère supports/Dig-Plan-complet.pdf à partir des fichiers à jour du dossier |
 | `outils/postnify.py` | Postnify (offre « Free Forever » : 2 réseaux, 15 publications par mois, API incluse). |
