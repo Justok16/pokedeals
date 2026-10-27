@@ -1,6 +1,16 @@
 {
 "videos": [
 {
+"id": "F85Dbmqm2MU",
+"titre": "Convex : 0 €, 1 million d'appels, le backend parfait du vibecodeur",
+"duree": "5:27"
+},
+{
+"id": "nTR1U5PWm7g",
+"titre": "Claude : 5 habitudes pour avoir de meilleurs résultats (sans coder)",
+"duree": "12:09"
+},
+{
 "id": "R6P669gbROs",
 "titre": "SuperPowers rend Claude Code plus lent (et BMAD est encore pire)",
 "duree": "19:11"
