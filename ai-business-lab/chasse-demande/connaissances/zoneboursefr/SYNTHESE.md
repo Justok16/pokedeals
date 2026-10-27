@@ -1,6 +1,6 @@
-# Zonebourse — index des fiches (synthèse du lundi 26/10/2026)
+# Zonebourse — index des fiches (synthèse du mardi 27/10/2026)
 
-2289 vidéos résumées sur 2289. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+2290 vidéos résumées sur 2290. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["Bloquons Tout" à la sauce américaine](TXjVOkOfkjI.md)** — Analyse de la paralysie budgétaire aux États-Unis et des impacts sur les marchés financiers.
@@ -142,6 +142,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Another one bites the dust](vGreDCq2TQY.md)** — La chronique boursière du 11 février 2026 analyse l'impact des services financiers sur le marché suite à un nouveau couac lié à l'intelligence artificielle (IA), tout en examinant la correction en cours dans le secteur tech et les statistiques de l'emploi américain.
 - **[Ant Group, la plus grosse introduction en bourse de l'histoire](3X_Tigkk3GM.md)** — Présentation d’Ant Group (filiale d’Alibaba), présentée comme la plus grande fintech du monde, et analyse de son écosystème géant, de ses services (paiement, crédit, assurance) et de ses perspectives de croissance en Chine et à l’international, malgré des risques…
 - **[Anthropic sème la zizanie dans le logiciel](khtq8KABe8I.md)** — Chronique boursière du 4 février 2026. Thème : La nervosité des investisseurs se propage au secteur du logiciel après les annonces de solutions IA, provoquant des ventes de précaution sur les actifs risqués.
+- **[Anthropic, et ça repart](e7o-2XaQ7gg.md)** — Sujet : Point sur les marchés financiers, centré notamment sur l’introduction en bourse (IPO) d'Antropic et l’actualité boursière internationale (résultats d'entreprises, rachats, IA, etc.).
 - **[Apple : bientôt l'iPhone pliable ? #iphone #apple](uAKK3wGP7hQ.md)** — Apple prépare le lancement d'un iPhone pliable d'ici 2027 pour regagner du terrain face à Samsung après avoir pris du retard dans l'intelligence artificielle.
 - **[Apple : La pomme manque de jus ? #apple #ia](6wTNEiFzmGI.md)** — - Sujet : La position d'Apple face à l'essor de l'intelligence artificielle et l'évolution de son modèle économique.
 - **[Apple change tout ! #trading #actualité #information #apple #iphone #ios26](e5leNfJELJM.md)** — 1) Sujet et thèse : Apple opère une transformation majeure avec l'intégration de nouvelles technologies (IA, interface) dans iOS.

@@ -1,6 +1,6 @@
 # matthiasbaccino — index des fiches (synthèse du mardi 27/10/2026)
 
-37 vidéos résumées sur 738. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+40 vidéos résumées sur 740. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[7 millions d'euros pour une usine française : le choix de Brique House ! Replay Live 23/09/26](RLzDWqd03A0.md)** — Sujet : L’industrie de la bière en France, les défis de l’entrepreneuriat brassicole, et la levée de fonds participative en capital d’une entreprise non cotée (start-up/PME) à travers l'exemple de la marque Brique House.
@@ -27,6 +27,8 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[LA VÉRITÉ SUR LE SYSTÈME DE RETRAITE !](EvZhaHrIvuQ.md)** — Sujet : Le fonctionnement réel, les défis financiers et les solutions d'avenir du système de retraite français (comparé à d'autres modèles internationaux).
 - **[La VÉRITÉ sur votre facture d’ÉLECTRICITÉ !](A5HHJ2GiVNs.md)** — Sujet : Comprendre la composition et l'évolution de la facture d'électricité en France, ainsi que les mécanismes de marché qui influencent son prix.
 - **[Le compte à rebours de la dette est lancé ! Replay Live 06/2026](V_neIUVJHWo.md)** — Sujet : Analyse de la situation économique actuelle, de la dette des États et de la gestion de l'épargne des Français dans un contexte de crise économique.
+- **[Le grand gâchis : l'épargne des Français ! Replay Live 03/05/26](s8BN2AJKVTU.md)** — Sujet : L'éducation financière en France, l'épargne des ménages et les enjeux macro-économiques actuels.
+- **[Le PIÈGE de la DETTE se referme sur la FRANCE ! Replay Live 06/04/26](07OH7BUgfUE.md)** — Sujet : Analyse de la situation économique mondiale et française, et ses répercussions sur les stratégies d'investissement des particuliers.
 - **[Le point hebdo sur l'éco et les marchés - 14/09/26](6YakaRVU1wc.md)** — Sujet : Point hebdomadaire sur l'actualité économique et boursière de la rentrée de septembre, les tensions sur les marchés, la dette globale, la situation de la France et l'inflation/taux d'intérêt.
 - **[Les CONSÉQUENCES sont plus GRAVES que ce que vous pensez ! Replay Live 28/06/26](x9dnSzly2Q4.md)** — Sujet : Analyse de l'actualité économique, des marchés financiers et de l'épargne.
 - **[Les géants de l'IA empruntent pour investir](PKaMW0Rs8UI.md)** — - Sujet : L’évolution du financement des investissements dans l’intelligence artificielle par les grandes entreprises technologiques (« hyperscalers »).
@@ -39,4 +41,5 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Pourquoi vous finissez TOUJOURS dans le rouge en fin de mois !](_EfoRUyE6yk.md)** — Sujet : Comprendre les causes des difficultés financières quotidiennes et apprendre à établir un budget stable pour protéger son pouvoir d'achat.
 - **[Que faire si je suis VICTIME de FRAUDE BANCAIRE ?](Gp4dv0KBFNw.md)** — Sujet : L’explosion des fraudes bancaires en France.
 - **[Quelle RÉFORME des RETRAITES pour SAUVER le système ? Replay Live 15/06/26](qj8QeFO3V2Q.md)** — Sujet : Le système des retraites, les enjeux de financement de l'État et l'investissement financier.
+- **[RÉFORME du logement : un espoir pour notre POUVOIR D’ACHAT ? Replay Live 26/04/26](enYKWvTjrxU.md)** — Sujet : Analyse de la situation économique actuelle, des marchés financiers et des enjeux de la retraite et du logement en France.
 - **[Stratégies d'investissement et de trading : on fait le point ! Replay Live 27/09/2026](Y4HAWhzu1KQ.md)** — Sujet : L'investissement financier et les principes de gestion de portefeuille pour les investisseurs actifs.

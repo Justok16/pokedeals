@@ -1,6 +1,6 @@
 # Aswath Damodaran — index des fiches (synthèse du mardi 27/10/2026)
 
-432 vidéos résumées sur 1416. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+433 vidéos résumées sur 1416. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[A "Fairly Highly Valued" (Stock) Market: The Fed Chair Opines but should anyone listen?](0faNl-maR5o.md)** — Le sujet est l'analyse de la cherté des marchés d'actions américains en 2025, suite aux déclarations du président de la Fed, Jérôme Powell, qualifiant le marché de « passablement hautement évalué ». La thèse principale est que, bien que les actions américaines soient…
@@ -275,6 +275,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Session 38 (of 42): Alternative Investments](6fr1Mu1ephs.md)** — Sujet : L’investissement dans les classes d’actifs alternatives (immobilier, private equity, hedge funds, matières premières, cryptos, objets de collection, etc.), en opposition aux actifs financiers traditionnels (actions et obligations long-only).
 - **[Session 39 (of 42): Collectibles!](s2ldevkz0Nw.md)** — - Sujet : Les investissements alternatifs, plus particulièrement les objets de collection, les « actifs trophées », l'or et les franchises sportives.
 - **[Session 3: Cash Flows](y_T3kubRm7Q.md)** — Sujet : La différence entre les flux de trésorerie (cash-flows) et les bénéfices comptables (earnings), et l’importance des cash-flows dans l'évaluation financière et la prise de décision.
+- **[Session 3: The Groundwork for an intrinsic valuation](lnPfpvUJEIc.md)** — Sujet : Les bases de l’évaluation financière par la méthode des flux de trésorerie actualisés (Discounted Cash Flow - DCF), la distinction entre valorisation des fonds propres (Equity) et valorisation globale de l'entreprise (Firm), ainsi que l'importance de la cohérence des…
 - **[Session 3: Where does the power lie?](6b0CsNQd4Ns.md)** — Sujet : L'analyse de la gouvernance d'entreprise (qui contrôle et détient le pouvoir dans une entreprise), les conflits d'intérêts entre actionnaires, managers et créanciers (obligataires), ainsi que l'efficience et la rationalité des marchés financiers.
 - **[Session 4 (of 42): Understanding Risk III: The Risk in Equities](nc6EKMUFPcc.md)** — Cette vidéo traite de la mesure du risque dans l'investissement en actions. La thèse principale est que le risque en actions est une entité multidimensionnelle qui nécessite de dépasser les mesures statistiques simples (comme la variance) pour comprendre les risques…
 - **[Session 4 (Val MBA) : Structure des DCF et taux sans risque !](_KqO3OAEad8.md)** — Sujet : Le rôle et le choix du taux sans risque dans l'évaluation financière (méthodes par actualisation des flux de trésorerie ou DCF).
