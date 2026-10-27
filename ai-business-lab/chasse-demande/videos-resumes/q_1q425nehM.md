@@ -6,8 +6,8 @@
 ## Tri DIG16 (27/10/2026)
 
 - **Rien à installer.** C'est une démonstration : une boulangerie fictive gérée par 31 agents IA, avec Claude Code, Obsidian et Airtable, et des données inventées. Aucun revenu n'est annoncé.
-- **Déjà appliqué chez nous** : une base de connaissances en Markdown reliée par une carte (, ajoutée le 26/10), des leçons qui s'enrichissent (), et une relecture par un deuxième agent avant tout envoi ().
-- **⏳ Réserve, idée d'offre** : « des agents IA par service pour un commerce » prolonge l'idée du 19/10 sur les automatisations pour artisans (, service devis-factures). Rien n'est construit tant que 3 artisans n'ont pas cité la même tâche (règle n° 1 et question bonus n° 2 du guide ).
+- **Déjà appliqué chez nous** : une base de connaissances en Markdown reliée par une carte (`CARTE.md`, ajoutée le 26/10), des leçons qui s'enrichissent (`connaissances/lecons.md`), et une relecture par un deuxième agent avant tout envoi (`44`).
+- **⏳ Réserve, idée d'offre** : « des agents IA par service pour un commerce » prolonge l'idée du 19/10 sur les automatisations pour artisans (`70`, service devis-factures). Rien n'est construit tant que 3 artisans n'ont pas cité la même tâche (règle n° 1 et question bonus n° 2 du guide `57`).
 
 ### 1) Idée principale
 La vidéo présente la construction d’un monde virtuel gamifié (simulant une boulangerie-pâtisserie) géré par une équipe de **31 agents IA**, orchestrés hiérarchiquement (CEO, managers, employés/sous-agents) et connectés à une base de connaissances évolutive. L'objectif est de démontrer comment automatiser les processus d'une petite entreprise (création de contenu, affiches, gestion des stocks, prévisions de ventes, devis, etc.) à l'aide de l'IA, afin d'optimiser le temps et d'intégrer des solutions IA réelles ou commercialisables pour d'autres entreprises.
