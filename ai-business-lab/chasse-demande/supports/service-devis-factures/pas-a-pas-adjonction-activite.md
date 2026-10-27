@@ -28,6 +28,11 @@ Nature de l'activité : **BNC**. C'est la réponse de l'URSSAF au téléphone, l
   (« Secrétariat à façon… ») ne vise qu'une seule tâche (secrétariat, documents).
 - Description : pas de « logistique » (transport et entreposage, autre activité) ni de « comptabilité ».
 
+**27/10/2026 (soir) : brouillon commencé sur le guichet unique, laissé en l'état (décision de l'utilisateur)** :
+non signé, non payé. À reprendre quand le SIE a répondu par écrit (BIC/BNC) et que le premier client de ce
+service va signer ; avant de signer : catégorie 82.11Z, description ci-dessous, date du premier contrat,
+synthèse PDF relue par Claude.
+
 ## Ce qu'il faut avoir sous la main
 
 - **FranceConnect+**, conseillé par l'INPI. On s'y connecte avec l'appli « L'Identité Numérique La Poste »
