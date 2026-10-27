@@ -17,6 +17,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Outil (envoi d'origine) | Sert à | Le ressortir quand… | Comment l'activer / coût |
 |---|---|---|---|
 | CRM « for agents » (carrousel Ddytkf2gBEj, 17/10) | Fichier clients tenu à jour par une IA (fiches, relances, suivi) | À partir de 3 à 5 clients, quand les tableaux privés ne suffisent plus | Dépôt GitHub open source, à installer après lecture ; gratuit (auto-hébergé) |
+| « Carte des fonctions » d'un site client (vidéo Cursor relayée par @AndyL5cc, 27/10) | Fichier qui dit où est chaque élément du site (formulaire, horaires, bouton d'appel, galerie) et comment le tester, pour comprendre vite un signalement vague du client | **Dès le 1er site client livré**, avec le mode d'emploi ; au premier « ça ne marche pas » d'un client | Fichier texte dans le dossier privé du client ; gratuit |
 | Pin Feed (veille 16/10, free-for.dev) | Le client clique sur sa maquette en ligne pour laisser ses corrections | **Dès le 1er client**, pendant les allers-retours sur la maquette | Gratuit jusqu'à 3 projets, sans compte côté client (à revérifier le jour J) |
 | Cal.com (carrousel DeekQtwk30w) | Lien de prise de rendez-vous en ligne | Quand les rendez-vous se multiplient | Gratuit, open source (à revérifier) ; équivalent libre de Calendly |
 | Chatwoot (DeekQtwk30w) | Boîte unique des messages clients (site, Facebook, mail) | Si un client veut un chat sur son site | Open source, auto-hébergé |

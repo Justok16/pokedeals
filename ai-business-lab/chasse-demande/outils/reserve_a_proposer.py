@@ -72,11 +72,37 @@ def rendu(propositions):
         for _, r, c in propositions)
 
 
+# Jeu d'essai (idée « evals » de la conférence Cursor du 27/10 : tester chaque outil sur des cas connus à chaque modification)
+CAS = [
+    ("premier client : il veut corriger sa maquette et prendre rendez-vous", "Pin Feed"),
+    ("je prépare mes entretiens avec les artisans, comment structurer les questions", "discovery-coach"),
+    ("je vais à l'avocat pour relire mes CGV", "review-contract"),
+    ("l'artisan m'a dit qu'il hésite avec Wix, un concurrent", "replica-entrepreneur"),
+    ("fait", None),
+    ("c'est bon c'est fait merci", None),
+    ("Donne moi la tâche suivante à faire stp", None),
+]
+
+
+def evaluer():
+    echecs = 0
+    for texte, attendu in CAS:
+        noms = [r["outil"] for _, r, _ in proposer(texte)]
+        ok = (not noms) if attendu is None else any(attendu in n for n in noms)
+        echecs += not ok
+        print(("OK    " if ok else "ÉCHEC ") + texte[:60] + " -> " + (", ".join(noms) or "rien"))
+    print(f"{len(CAS) - echecs}/{len(CAS)} cas réussis")
+    return 1 if echecs else 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Outils de la réserve à proposer au bon moment")
     ap.add_argument("--texte", help="texte de la tâche ou du message")
     ap.add_argument("--crochet", action="store_true", help="lit le JSON du crochet UserPromptSubmit sur l'entrée")
+    ap.add_argument("--eval", action="store_true", help="rejoue le jeu d'essai (à lancer après chaque modification)")
     a = ap.parse_args(argv)
+    if a.eval:
+        return evaluer()
     if a.crochet:
         try:
             texte = json.load(sys.stdin).get("prompt", "")
