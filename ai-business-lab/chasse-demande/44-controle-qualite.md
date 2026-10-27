@@ -212,6 +212,15 @@ fait mieux.
   visite) ; le lien privé n'est remis que s'il le demande. Sans accord : photos d'illustration.
 - Les 64 démos existantes restent hors diffusion tant que l'accord n'est pas obtenu.
 
+## Affirmations périmées : à chercher partout avant toute publication (27/10/2026, vidéo MSFFJ2ov0Fg)
+
+Une promesse retirée doit disparaître **partout** (site, fiches Google, PagesJaunes, Bing, profils sociaux, YouTube,
+publications programmées et brouillons, PDF, modèles de mails). Phrases interdites dans tout nouveau texte public :
+« en ligne en 7 jours », « mise en ligne en 7 jours » ou tout délai de création (retiré le 24/10) ; « test du pouce »
+(campagne abandonnée le 19/10) ; horaires « 9 h-18 h » ou « lundi au samedi » pour DIG16 (remplacés par « toujours
+joignable, 7 jours sur 7 » le 24/10). Autorisé : « joignable 7 jours sur 7 ». À chaque décision qui retire une promesse :
+l'ajouter ici le jour même, puis chercher et corriger toutes les copies.
+
 ## Aucune trace d'un autre client (27/10/2026, dépôt replica-skill, MIT)
 
 Avant toute démo ou livraison d'un site client : `python3 outils/traces_autre_client.py <dossier du site> --avoid "<noms des
