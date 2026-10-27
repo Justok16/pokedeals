@@ -212,6 +212,12 @@ fait mieux.
   visite) ; le lien privé n'est remis que s'il le demande. Sans accord : photos d'illustration.
 - Les 64 démos existantes restent hors diffusion tant que l'accord n'est pas obtenu.
 
+## Aucune trace d'un autre client (27/10/2026, dépôt replica-skill, MIT)
+
+Avant toute démo ou livraison d'un site client : `python3 outils/traces_autre_client.py <dossier du site> --avoid "<noms des
+autres clients et du modèle>" --domains <leurs domaines> --colors <leurs couleurs>` doit répondre « Clean » (code 0). Il
+cherche aussi dans les noms de fichiers et les identifiants. Un seul résultat bloque l'envoi ; corriger puis relancer.
+
 ## État d'un site : revérifié en ligne le jour même (leçon du 05/10/2026, soir)
 
 Erreur signalée par l'utilisateur : le n° 1 de la liste « les plus probables » était présenté comme un site « pas

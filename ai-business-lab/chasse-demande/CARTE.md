@@ -134,6 +134,7 @@ Sous-dossiers de résumés par source (58) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/test_formulaire.py` | Teste l'envoi du formulaire de contact AVEC la politique de sécurité (CSP) réelle du site (09/10/2026). |
 | `outils/test_pages.py` | Test de non-régression du site DIG16 (07/10). |
 | `outils/toutes_videos.py` | Traite TOUTES les vidéos des chaînes suivies (demande de l'utilisateur du 07/10/2026 : « les 40 467 vidéos »). |
+| `outils/traces_autre_client.py` | Traces d'un autre client dans un site DIG16 (27/10/2026), avant toute livraison ou démo. |
 | `outils/trouver_contact.py` | Cherche les adresses email publiques d'un organisme : page d'accueil + pages contact, économie, presse, |
 | `outils/typo_fr.py` | Espaces insécables de la typographie française dans un fichier HTML (texte seulement, hors <script>/<style>). |
 | `outils/veille_presse.py` | Cherche un article sur DIG16 dans Charente Libre (27/10/2026, demande de l'utilisateur après le rendez-vous du 27/10). |
