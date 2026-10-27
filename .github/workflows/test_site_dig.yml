@@ -12,6 +12,8 @@ on:
       - "ai-business-lab/chasse-demande/site-dig/**"
       - "ai-business-lab/chasse-demande/outils/test_pages.py"
       - "ai-business-lab/chasse-demande/outils/pages_markdown.py"
+      - "ai-business-lab/chasse-demande/outils/palette_60_30_10.py"
+      - "ai-business-lab/chasse-demande/outils/audit_acces.py"
       - ".github/workflows/test_site_dig.yml"
   workflow_dispatch: {}
 permissions:
