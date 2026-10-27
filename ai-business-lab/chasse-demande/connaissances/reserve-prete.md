@@ -22,6 +22,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Chatwoot (DeekQtwk30w) | Boîte unique des messages clients (site, Facebook, mail) | Si un client veut un chat sur son site | Open source, auto-hébergé |
 | Agent `discovery-coach` (DeguteFBRO2, 17/10) | Préparer et débriefer un appel avec un artisan (questions, structure, objections) | **Installé le 17/10**, prêt : avant l'appel de Pauline et chaque entretien | `.claude/agents/discovery-coach.md` ; gratuit (MIT) |
 | Autres agents « The Agency » : ventes, marketing, design (DeguteFBRO2) | Fiches d'experts prêtes à copier | Si une skill manque pour un besoin précis | Copier le fichier voulu depuis github.com/msitarzewski/agency-agents dans `.claude/agents/` après lecture ; gratuit (MIT) |
+| `replica-entrepreneur` (replica-skill, 27/10) | Classer les vraies plaintes des clients d'un concurrent (avis avec lien, nombre, citations) pour en tirer un argument | Quand un artisan cite un concurrent (Wix, agence, créateur de sites en ligne) ou pour affiner le discours après les entretiens | Script `reviews.py` (bibliothèque standard, sans réseau) dans github.com/Jakeschincariol/replica-skill ; gratuit (MIT) ; avis relevés à la main, jamais inventés |
 | Débriefing après appel (_To3N8UTh94) | L'utilisateur dicte ses notes, Claude dit quoi améliorer | **Dès les premiers appels**, déjà possible sans outil | Gratuit (Claude) |
 | Retell AI (96G4KDnEFyI) | Standardiste téléphonique IA pour un client | Si un artisan demande qu'on réponde à ses appels | 10 $ offerts puis ~0,07 à 0,31 $/min (lu le 01/10) : option payante à refacturer |
 | Google Forms (DeekQtwk30w) | Formulaires et questionnaires | Questionnaire client, sondage | Gratuit |
@@ -77,6 +78,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 |---|---|---|---|
 | Jsonpage (veille 14/10) | Données d'entreprises françaises (SIREN, SIRET, TVA) | Si `verif_entreprises.py` ou l'annuaire officiel tombe | 1 000 requêtes/jour gratuites sans carte (annoncé, à revérifier) |
 | OpenRegistry (veille 11/10) | Registres officiels de 80 pays | Secours de la vérification d'un client | À vérifier |
+| Skill `review-contract` (extension legal d'Anthropic, guide @joo.systeme, 27/10) | Relire un contrat clause par clause (risques, points à négocier), jamais un avis juridique | Avant un rendez-vous d'avocat (CGV, devis, contrat client ou fournisseur) ; **prévu le 18/11** | Cloner anthropics/knowledge-work-plugins, relire `legal/skills/review-contract/SKILL.md` ; gratuit (Apache 2.0) |
 | MailSenpai DNS Check (veille 15/10) | Vérifie SPF, DKIM et DMARC | **Le 21/10**, après l'activation de DKIM | Gratuit, sans clé |
 | Brevo (veille 11/10) | Envoi de mails automatiques | Si FormSubmit ou les envois saturent | Offre gratuite à revérifier |
 | VirusTotal (DeCV78sETMT) | Vérifier un fichier ou un lien suspect | Un client envoie une pièce jointe douteuse | Gratuit |

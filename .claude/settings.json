@@ -161,6 +161,15 @@
             "timeout": 15
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/ai-business-lab/chasse-demande/outils/reserve_a_proposer.py --crochet",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "Stop": [

@@ -119,6 +119,7 @@ Sous-dossiers de résumés par source (58) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/qa_site.py` | Contrôle d'une page de démo à 7 tailles d'écran (320 à 1440 px) : barre d'appel qui ne cache rien, pas de débordement, pas de marqueur [..] oublié. Usage : qa_site.py page.html |
 | `outils/radar_fermetures.py` | Radar des fermetures annoncées (API, intégrations, fonctions) chez les |
 | `outils/remplir_pdf.py` | Remplir un formulaire PDF (cerfa, dossier d'organisme, contrat) sans le réécrire à la main (24/10/2026). |
+| `outils/reserve_a_proposer.py` | Outils de la réserve à proposer au bon moment (27/10/2026). |
 | `outils/resumer_chaine.py` | Résume, par lots, les vidéos d'une chaîne YouTube via le relais Vercel (clé Gemini |
 | `outils/resumer_lots_tiktok.py` | Résume par lots de 15 les vidéos courtes (TikTok, reels) déjà collectées en texte |
 | `outils/resumer_reel_facebook.py` | Résume une vidéo ou un reel Facebook public sans compte (constaté le 01/10/2026) : |

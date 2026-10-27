@@ -117,4 +117,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
 - **Envois de l'utilisateur** (vidéos, liens, outils) : résumés, triés et appliqués sans attendre (`46`) ; rien n'est
   écarté : réserve dans `connaissances/boite-a-outils.md` et `connaissances/reserve-prete.md` (⛔ seulement illégal ou
   dangereux) ; consulter ces deux fichiers avant toute tâche ; vérifier d'abord si un lien a déjà été traité.
+  **Proposer la réserve au bon moment** (demande du 27/10 : « toujours chercher à améliorer ») : le crochet
+  `outils/reserve_a_proposer.py` signale les outils dont la condition « Le ressortir quand… » rejoint la demande ; les
+  proposer à l'utilisateur en une ligne quand ils servent vraiment ; revue complète au garde-fou du 20 de chaque mois.
 - Veille quotidienne des sources et base de connaissances vidéo : voir la fiche.
