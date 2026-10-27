@@ -69,29 +69,42 @@ def teinte(hexa):
 
 
 def repartition(image, masque, accent_hexa):
-    """image PIL RGB, masque bool (True = pixel à ignorer) -> dict de parts en %."""
+    """image PIL RGB, masque bool (True = pixel à ignorer) -> dict de parts en %.
+
+    27/10 : sur GitHub, Chromium lisse le texte avec des franges bleues et orangées d'un pixel (2,6 % de « couleur
+    vive » fantôme). Une « autre couleur » ne compte donc que si le pixel et ses quatre voisins le sont aussi :
+    une vraie couleur de dessin forme une surface, une frange de lettre non."""
     px = np.asarray(image.convert('RGB'))
     garder = ~masque
-    lab = oklab(px[garder])
-    if lab.size == 0:
+    if not garder.any():
         return None
-    chroma = np.hypot(lab[:, 1], lab[:, 2])
-    h = np.degrees(np.arctan2(lab[:, 2], lab[:, 1])) % 360
+    lab = oklab(px)
+    chroma = np.hypot(lab[..., 1], lab[..., 2])
+    h = np.degrees(np.arctan2(lab[..., 2], lab[..., 1])) % 360
     h_acc, _ = teinte(accent_hexa)
     ecart = np.abs((h - h_acc + 180) % 360 - 180)
     neutre = chroma < SEUIL_NEUTRE
     accent = ~neutre & (ecart <= ECART_TEINTE)
-    autre = ~neutre & ~accent
-    clair = neutre & (lab[:, 0] >= 0.6)
+    vif = ~neutre & ~accent
+    surface = vif.copy()
+    surface[1:, :] &= vif[:-1, :]
+    surface[:-1, :] &= vif[1:, :]
+    surface[:, 1:] &= vif[:, :-1]
+    surface[:, :-1] &= vif[:, 1:]
+    autre = surface
+    frange = vif & ~surface  # franges de lettres : rangées avec le texte (neutre)
+    neutre = neutre | frange
+    clair = neutre & (lab[..., 0] >= 0.6)
     sombre = neutre & ~clair
-    n = len(lab)
-    parts = {k: 100.0 * v.sum() / n for k, v in (('sombre', sombre), ('clair', clair), ('accent', accent), ('autre', autre))}
+    n = int(garder.sum())
+    parts = {k: 100.0 * (v & garder).sum() / n for k, v in (('sombre', sombre), ('clair', clair), ('accent', accent), ('autre', autre))}
     dom, sec = sorted(('sombre', 'clair'), key=lambda k: -parts[k])
     parts['dominante'], parts['secondaire'] = parts[dom], parts[sec]
     parts['dominante_nom'] = dom
     # Teintes des « autres couleurs vives », pour dire lesquelles (par tranches de 30°).
-    if autre.any():
-        hist = np.bincount((h[autre] // 30).astype(int), minlength=12)
+    sel = autre & garder
+    if sel.any():
+        hist = np.bincount((h[sel] // 30).astype(int), minlength=12)
         parts['autres_teintes'] = [f'{30 * i}-{30 * i + 30}°:{100.0 * c / n:.1f}%' for i, c in enumerate(hist) if 100.0 * c / n >= 0.3]
     return parts
 
@@ -110,7 +123,10 @@ def mesurer(base, pages, accent, exclure):
     from playwright.sync_api import sync_playwright
     alertes, lignes = 0, []
     with sync_playwright() as p:
-        b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()
+        # Lissage du texte en gris (pas de franges colorées) et couleurs sRGB, identiques ici et sur GitHub.
+        args = ['--disable-lcd-text', '--force-color-profile=srgb']
+        chrome = os.environ.get('PALETTE_CHROME', CHROME)
+        b = p.chromium.launch(executable_path=chrome, args=args) if os.path.exists(chrome) else p.chromium.launch(args=args)
         for largeur, hauteur in ((390, 844), (1440, 900)):
             ctx = b.new_context(viewport={'width': largeur, 'height': hauteur}, reduced_motion='reduce')
             for chemin in pages:
