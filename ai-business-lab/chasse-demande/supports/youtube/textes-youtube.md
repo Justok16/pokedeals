@@ -13,7 +13,7 @@ Règles : aucune commune de résidence de l'utilisateur, seulement « Charente �
   > Dès 49 € par mois, 0 € de création. Je refais votre page d'accueil gratuitement, avant que vous décidiez quoi que ce soit.
   > Ici : conseils simples pour être trouvé sur Google, avant / après de sites, et un guide gratuit pour bien choisir son site.
   > 👉 https://dig16.fr
-- **27/10/2026 : chaîne publique encore sur l'ancien texte** (lu sur youtube.com/@dig16fr/about : « en ligne en 7 jours » et « test du pouce », tous deux retirés) → texte ci-dessus redonné à l'utilisateur ; parcours vérifié (support.google.com/youtube/answer/3027950, lu le 27/10) : YouTube Studio → Personnalisation → onglet Profil → Description → Publier. Le guide gratuit est sur https://dig16.fr/site-internet-artisan/ (dig16.fr/guide y redirige).
+- **27/10/2026 : chaîne publique encore sur l'ancien texte** (lu sur youtube.com/@dig16fr/about : « en ligne en 7 jours » et « test du pouce », tous deux retirés) → texte ci-dessus redonné à l'utilisateur ; parcours vérifié (support.google.com/youtube/answer/3027950, lu le 27/10) : YouTube Studio → Personnalisation → onglet Profil → Description → Publier. Le guide gratuit est sur https://dig16.fr/site-internet-artisan/ (dig16.fr/guide y redirige). **Fait par l'utilisateur le 27/10 au soir, vérifié sur la page publique** (plus de « en ligne en 7 jours » ni de « test du pouce »).
 - Liens de la chaîne : Site DIG16 → https://dig16.fr ; Facebook → https://www.facebook.com/1334231963113482 ;
   Instagram → https://www.instagram.com/dig16fr/
 - E-mail de contact : contact@dig16.fr
