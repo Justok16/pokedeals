@@ -88,7 +88,8 @@ def palette():
     r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'palette_60_30_10.py')],
                        capture_output=True, text=True, timeout=900)
     alertes = [l for l in r.stdout.splitlines() if l.startswith('ALERTE')]
-    print(('ALERTE' if r.returncode else 'OK    '), 'palette 60/30/10', alertes[:3] if alertes else '')
+    detail = alertes[:3] or (r.stderr.strip().splitlines()[-2:] if r.returncode else '')
+    print(('ALERTE' if r.returncode else 'OK    '), 'palette 60/30/10', detail)
     return 1 if r.returncode else 0
 
 def markdown_a_jour():
