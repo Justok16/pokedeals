@@ -1,6 +1,6 @@
-# matthiasbaccino — index des fiches (synthèse du lundi 26/10/2026)
+# matthiasbaccino — index des fiches (synthèse du mardi 27/10/2026)
 
-35 vidéos résumées sur 738. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+37 vidéos résumées sur 738. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[7 millions d'euros pour une usine française : le choix de Brique House ! Replay Live 23/09/26](RLzDWqd03A0.md)** — Sujet : L’industrie de la bière en France, les défis de l’entrepreneuriat brassicole, et la levée de fonds participative en capital d’une entreprise non cotée (start-up/PME) à travers l'exemple de la marque Brique House.
@@ -10,6 +10,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Comment LUTTER contre les ARNAQUES ?](XSbEX45dra8.md)** — - Sujet : Les arnaques financières en matière d'épargne et d'investissement (notamment le phénomène d'explosion des escroqueries auprès des particuliers et des jeunes).
 - **[Comment PROTÉGER votre ARGENT !](r2iMajW8z14.md)** — Sujet : Que se passe-t-il si votre banque fait faillite, comment les banques fonctionnent et comment protéger son épargne en France.
 - **[C’est quoi une INTRODUCTION en BOURSE ? Replay Live 07/06/26](d9cmvhANkFo.md)** — Sujet : Point sur l'actualité économique et financière (marchés, inflation, dette) et réponses aux questions des spectateurs.
+- **[Des cours d’éducation financière en France ! Replay Live 10/05/26](6he52xcKGFk.md)** — Sujet : Point hebdomadaire sur l'actualité économique et financière (marchés, épargne, éducation financière).
 - **[Doit-on avoir peur de l’IA ? Replay Live 13/09/26](YvsoRcPjtD0.md)** — Le sujet est l'actualité économique et financière (marchés, épargne, IA).
 - **[Doit-on avoir PEUR des PÉNURIES en FRANCE ? Replay Live 17/05/26](mpFFpITWlsI.md)** — Sujet : Point hebdomadaire sur l'actualité économique et financière (inflation, taux d'intérêt, marchés boursiers, géopolitique) et discussion avec les abonnés en direct.
 - **[DÉCOUVERTS BANCAIRES : comment les ÉVITER ?](Dm9ynUhSAk4.md)** — - Sujet : Les découverts bancaires en France (ampleur, gravité, coûts).
@@ -19,6 +20,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[J’analyse les propositions sur les retraites des candidats ! Replay Live 04/10/26](s_Vb7jrAg2A.md)** — Le sujet est l'actualité économique et financière française, avec un focus sur la crise budgétaire, la dette publique et les réformes des retraites. La thèse principale est que la France traverse une crise économique structurelle grave, causée par une dette publique…
 - **[La FISCALITÉ : un vrai enjeu !](sNnNinkEdFg.md)** — Sujet : L’impact de la fiscalité sur l’épargne et les investissements à long terme.
 - **[La France au pied du mur : qui va payer la facture ? Replay Live 31/05/26](8ItaSRSsqlM.md)** — La vidéo traite de l'état de l'économie et du système financier, avec un focus particulier sur la dette publique française.
+- **[La FRANCE croule sous les NORMES ! Replay Live 24/05/26](PqqK-MysEA0.md)** — Sujet : Analyse de l'actualité économique, financière et boursière (France et international).
 - **[La GUERRE à Ormuz va avoir de graves conséquences ! Replay Live 19/07/26](mQCWFS0PPZ4.md)** — Sujet : Point hebdomadaire sur l’actualité économique et boursière (évolution des finances publiques françaises, inflation, marchés des semi-conducteurs, tensions géopolitiques autour du détroit d’Ormuz, et conseils en entrepreneuriat/investissement).
 - **[La mission impossible de Lecornu : un budget pour la France en 2027 ! Replay Live 20/09/26](r7rmaUUD450.md)** — Sujet : Point hebdomadaire d'actualité macroéconomique, géopolitique, boursière et budgétaire (France, Europe, USA, etc.) animé par Matthias Baccino.
 - **[La mondialisation a-t-elle appauvri la France ?](F8Z97h-FZh4.md)** — Sujet : Le fonctionnement de la machine économique mondiale et ses conséquences sur l'industrie et le pouvoir d'achat en France.

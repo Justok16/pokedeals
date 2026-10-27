@@ -1,6 +1,6 @@
-# This Week in Startups — index des fiches (synthèse du lundi 26/10/2026)
+# This Week in Startups — index des fiches (synthèse du mardi 27/10/2026)
 
-376 vidéos résumées sur 5236. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+377 vidéos résumées sur 5236. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["I'm holding for 10+ years." | Jason Calacanis explains why he's bullish on $UBER | CNBC 2/10/21](c3_Ab2MsIME.md)** — Sujet : L'action Uber atteignant des sommets historiques sur fond d'anticipation des résultats du quatrième trimestre (données affichées : 10 février 2021 sur CNBC).
@@ -302,6 +302,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Self-Driving Car Myths, Klarna’s Big IPO & Netflix’s $300M Gamble | E2098](AvuxLAFplb8.md)** — Sujet : Gestion des finances personnelles, crédit à la consommation, arbitrage budgétaire transport/véhicule, éducation financière des jeunes et discipline personnelle liée à la réussite financière (à travers le prisme de l'actualité tech et des startups).
 - **[Sending Data Centers into Orbit! | E2203](LgyaAx-E7HU.md)** — Sujet : L'économie financière des entreprises de la tech et de l'intelligence artificielle (engagements d'infrastructure d'OpenAI, risques de bulle ou de contagion, valorisations), la transparence des revenus (build in public), l'investissement boursier et les règles…
 - **[Shein’s U.S. IPO](V-rol_msKJI.md)** — Sujet : Les démarches et revirements de l'entreprise de commerce en ligne Shein concernant son projet d'introduction en bourse (IPO) face aux autorités de régulation.
+- **[Silicon Valley Clones and Jersey Drones: Decoding the Signals with Nicole Wischoff | E2061](HvTBZ07KkzY.md)** — Sujets abordés :
 - **[Sora 2, Tilly Norwood et la nouvelle ère du slop | E2187](yH7cuyEksRU.md)** — Sujet : Actualités financières et technologiques des startups : l'impact du « shutdown » du gouvernement américain, le projet d'entrée en Bourse (IPO) de Wealthfront, les avancées de la vidéo IA (OpenAI Sora 2), l'émergence d'acteurs virtuels IA et l'évolution du leadership…
 - **[Sora app review, Perplexity’s Comet is free, and which AI tools reign supreme? | E2188](Tvu_8AvEtqk.md)** — Sujet : Gestion patrimoniale et risque de concentration pour les salariés/fondateurs de la tech, dynamique des marchés de l'intelligence artificielle (ventes secondaires d'actions, valorisations, nouveaux outils comme Sora et les navigateurs IA), et mécanismes de monétisation…
 - **[SpaceX + xAI deal gets us one step closer to Musk Industries | E2243](qfk6fBDO3sM.md)** — Sujets abordés :

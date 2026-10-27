@@ -1,6 +1,6 @@
-# Ben Felix — index des fiches (synthèse du lundi 26/10/2026)
+# Ben Felix — index des fiches (synthèse du mardi 27/10/2026)
 
-104 vidéos résumées sur 182. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+105 vidéos résumées sur 182. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[20 ans de location ou d'achat d'une maison au Canada (2005 à 2024)](lBG-g1CKfgs.md)** — La vidéo analyse le mythe selon lequel « être propriétaire d'un logement est toujours financièrement supérieur à la location ». En comparant des données historiques canadiennes sur 20 ans (2005-2024), la thèse est que la location combinée à un investissement boursier performe…
@@ -87,6 +87,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Pourquoi parier sur des industries « gagnantes » ne fonctionne presque jamais](3B9umhfv_ww.md)** — Les paris sur un seul secteur industriel. La thèse est que miser sur un secteur spécifique, même prometteur, est une erreur car les meilleures industries d'une décennie sont rarement celles de la suivante.
 - **[Pourquoi vous perdrez (probablement) de l'argent en négociant des options](K-U6eoICrYQ.md)** — La vidéo traite du trading d'options de détail (particuliers), qualifié de jeu de perdants. La thèse est que le trading d'options s'apparente à de la spéculation ou du jeu d'argent, et que la vaste majorité des investisseurs particuliers perdent de l'argent.
 - **[Quand les intérêts composés se retournent contre vous](skc2T5fcoLY.md)** — Sujet : L’analogie entre l'investissement financier et l’investissement dans sa propre santé (sommeil, nutrition, exercice, santé mentale).
+- **[Que faire en cas de chute du marché boursier ?](Jh9Gn58r9Fw.md)** — Sujet : La nature des marchés baissiers (bear markets) et la stratégie d'investissement à long terme.
 - **[Quelles sont les conséquences d'une récession sur les rendements boursiers attendus ? [Canada]](_mAJqr3Uzxc.md)** — L’impact d’une récession économique au Canada sur les décisions d’investissement en bourse. La thèse est que l’état de l’économie (ex. récession) ne doit pas dicter les décisions d'investissement car la Bourse anticipe les cycles à l’avance.
 - **[Rendements géométriques et arithmétiques](z2cOEbFYLsA.md)** — La vidéo critique l'affirmation de Dave Ramsey selon laquelle les retraités peuvent dépenser en toute sécurité 8 % de leur portefeuille par an. La thèse est que cette affirmation repose sur une confusion entre rendement arithmétique et géométrique, aggravant l'analyse des…
 - **[Republican Power and Stock Returns](gY225CEObO4.md)** — L'impact des cycles politiques sur les rendements boursiers. La thèse est que, historiquement, les rendements boursiers ont été plus élevés sous les présidents démocrates que sous les républicains.
