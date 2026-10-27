@@ -82,6 +82,9 @@ def main(argv=None):
             texte = json.load(sys.stdin).get("prompt", "")
         except (ValueError, AttributeError):
             return 0
+        # notifications automatiques (GitHub, rappels programmés) : jamais de proposition, ce ne sont pas des demandes
+        if any(m in texte for m in ("SYSTEM NOTIFICATION", "<task-notification>", "<system-reminder>")):
+            return 0
         props = proposer(texte)
         if props:
             msg = ("RÉSERVE À PROPOSER (demande de l'utilisateur du 27/10 : proposer les outils mis de côté quand "
