@@ -122,3 +122,7 @@ L'aide officielle TikTok « Comments » et « Manage comments » (lues le 22/10)
 - Source : documentation de l'environnement (`read_documentation` session.permissions, 24/10/2026) ; **✅ confirmé par capture le 24/10 (PC)**.
 - En bas, sous la zone de saisie, à gauche : bouton du mode (affichait « Accepter les modifications »). Clic → menu « Mode » : **Auto** (Recommandé, « Claude gère les décisions d'autorisation »), Accepter les modifications, Plan. Choisir **Auto**. Jamais « Plan » (bloque les rappels).
 - Sur téléphone (Android, 24/10) : pas trouvé ; « Default » dans l'en-tête n'ouvre rien.
+
+## URSSAF auto-entrepreneur : question écrite sur la situation du compte (vérifié le 27/10/2026)
+
+Source : page officielle « L'essentiel du statut » (autoentrepreneur.urssaf.fr), lue le 27/10/2026 : « autoentrepreneur.urssaf.fr > Rubrique « Ma messagerie » > Nouveau Message > Une question concernant la situation administrative de votre compte ». Utilisé le 27/10 pour demander la catégorie BIC ou BNC : aucun écran de l'espace ne l'affiche clairement ; la déclaration de chiffre d'affaires (lignes « BIC Prestations » ou « Activités libérales BNC », fiche « Déterminer mon chiffre d'affaires ») la montre à l'ouverture de la déclaration.
