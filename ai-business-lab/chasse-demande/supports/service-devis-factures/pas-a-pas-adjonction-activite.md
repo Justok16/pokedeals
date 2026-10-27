@@ -18,6 +18,16 @@ Nature de l'activité : **BNC**. C'est la réponse de l'URSSAF au téléphone, l
   indiquer : celle du premier contrat.
 - Ne jamais préparer de facture pour un client avant d'avoir fait cette déclaration (`l-essentiel.md`).
 
+## Écran « Activité » (capture de l'utilisateur du 27/10/2026, démarche en cours)
+
+- Catégorisation 1 « Activités de services », 2 « Activités administratives, agents commerciaux… ».
+- **Catégorisation 3 : « Services administratifs combinés de bureau »** (NAF 82.11Z). Vérifié sur la page INSEE
+  (mise à jour le 19/12/2025, lue le 27/10/2026) : « combinaison de services administratifs de bureau quotidiens,
+  comme l'accueil, la planification financière, la facturation, la gestion de dossiers et l'archivage… pour le
+  compte de tiers » : c'est exactement devis + factures + suivi des règlements + plannings. Le 82.19Z
+  (« Secrétariat à façon… ») ne vise qu'une seule tâche (secrétariat, documents).
+- Description : pas de « logistique » (transport et entreposage, autre activité) ni de « comptabilité ».
+
 ## Ce qu'il faut avoir sous la main
 
 - **FranceConnect+**, conseillé par l'INPI. On s'y connecte avec l'appli « L'Identité Numérique La Poste »
@@ -26,7 +36,7 @@ Nature de l'activité : **BNC**. C'est la réponse de l'URSSAF au téléphone, l
 - Le **numéro SIREN** de DIG16 (9 chiffres).
 - Le texte de l'activité, à recopier tel quel :
   > Assistance administrative aux professionnels : préparation de devis, établissement de factures sous
-  > mandat de facturation, suivi des règlements
+  > mandat de facturation, suivi des règlements, gestion de plannings
 - Ne **jamais** écrire « comptabilité » : cette activité est réservée aux experts-comptables.
 
 ## Les étapes (libellés exacts de la page INPI)
