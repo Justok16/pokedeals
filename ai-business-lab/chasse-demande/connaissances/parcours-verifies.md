@@ -126,3 +126,7 @@ L'aide officielle TikTok « Comments » et « Manage comments » (lues le 22/10)
 ## URSSAF auto-entrepreneur : question écrite sur la situation du compte (vérifié le 27/10/2026)
 
 Source : page officielle « L'essentiel du statut » (autoentrepreneur.urssaf.fr), lue le 27/10/2026 : « autoentrepreneur.urssaf.fr > Rubrique « Ma messagerie » > Nouveau Message > Une question concernant la situation administrative de votre compte ». Utilisé le 27/10 pour demander la catégorie BIC ou BNC : aucun écran de l'espace ne l'affiche clairement ; la déclaration de chiffre d'affaires (lignes « BIC Prestations » ou « Activités libérales BNC », fiche « Déterminer mon chiffre d'affaires ») la montre à l'ouverture de la déclaration.
+
+## PagesJaunes (Solocal Manager) : horaires d'ouverture (aide officielle lue le 27/10/2026, article 360016527599 mis à jour le 27/10/2026)
+
+Solocal reprend la règle de Google : indiquer les horaires où l'on reçoit les clients ; les établissements qui reçoivent seulement sur rendez-vous « n'ont pas intérêt à mentionner des horaires ». Parcours : solocal manager → « Mes fiches établissements » → « Voir mon établissement » → section « Horaire d'ouverture » → crayon → fenêtre de modification (jours ouverts et créneaux). L'aide ne dit pas s'il existe une option « aucun horaire » : capture de la fenêtre avant d'enregistrer ; ne jamais enregistrer un réglage qui afficherait « Fermé ». Les horaires Solocal sont aussi envoyés vers Google si la fiche Google est reliée à Solocal Manager.
