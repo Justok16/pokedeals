@@ -5,14 +5,14 @@ Lien direct : https://search.google.com/local/writereview?placeid=ChIJAdVqsNbLl4
 
 ## SMS (après un chantier ou une commande livrée)
 
-Bonjour <prénom>, merci pour votre confiance. Si vous avez 30 secondes, un avis sur notre fiche Google nous aide beaucoup à être trouvés par d'autres clients : https://search.google.com/local/writereview?placeid=ChIJAdVqsNbLl4ER-hOYOcw0p1k
+Bonjour <Madame / Monsieur + nom>, merci pour votre confiance. Si vous avez 30 secondes, un avis sur notre fiche Google nous aide beaucoup à être trouvés par d'autres clients : https://search.google.com/local/writereview?placeid=ChIJAdVqsNbLl4ER-hOYOcw0p1k
 Bonne journée, DIG16 · dig16.fr
 
 ## Email
 
 Objet : Un petit mot sur votre expérience avec DIG16 ?
 
-Bonjour <prénom>,
+Bonjour <Madame / Monsieur + nom>,
 
 Merci encore pour votre confiance. Si vous êtes satisfait du travail, votre avis sur notre fiche Google nous aide vraiment à être trouvés par d'autres personnes de la région. Ça prend 30 secondes :
 
@@ -25,7 +25,7 @@ DIG16 · dig16.fr
 ## Répondre à chaque avis (dans les 48 h)
 
 Avis positif :
-« Merci <prénom> pour ce retour, ça fait vraiment plaisir. Au plaisir de travailler à nouveau avec vous. »
+« Merci <Madame / Monsieur + nom> pour ce retour, ça fait vraiment plaisir. Au plaisir de travailler à nouveau avec vous. »
 
 Avis mitigé ou négatif (toujours calme, jamais d'excuse publique sur un détail privé) :
 « Merci d'avoir pris le temps d'écrire. Je suis désolé que cela n'ait pas été à la hauteur. Je vous appelle (ou : écrivez-moi à <email>) pour comprendre et trouver une solution. »

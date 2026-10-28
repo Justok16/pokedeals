@@ -48,12 +48,12 @@ h1 em{{font-style:italic;color:#c8a46e}}
 <div><p class="merci">Merci.</p><p class="pied">{pied}</p></div>
 </body></html>"""
 
-SMS = """Bonjour {prenom}, merci pour votre confiance. Si vous avez 30 secondes, un avis sur notre fiche Google nous aide beaucoup à être trouvés par d'autres clients : {lien_court}
+SMS = """Bonjour {appel}, merci pour votre confiance. Si vous avez 30 secondes, un avis sur notre fiche Google nous aide beaucoup à être trouvés par d'autres clients : {lien_court}
 Bonne journée, {signature}"""
 
 EMAIL = """Objet : Un petit mot sur votre expérience avec {nom} ?
 
-Bonjour {prenom},
+Bonjour {appel},
 
 Merci encore pour votre confiance. Si vous êtes satisfait du travail, votre avis sur notre fiche Google nous aide vraiment à être trouvés par d'autres personnes de la région. Ça prend 30 secondes :
 
@@ -66,10 +66,10 @@ Et si quelque chose ne vous a pas plu, dites-le-nous directement en répondant �
 REPONSES = """## Répondre à chaque avis (dans les 48 h)
 
 Règles : moins de 60 mots (une longue réponse a l'air de se défendre) ; reprendre le point précis dont parle le client ;
-signer de son prénom ; jamais deux fois la même réponse mot pour mot (les lecteurs voient tout de suite un copier-coller).
+s'adresser au client par « Madame » ou « Monsieur » et son nom, jamais par son prénom (consigne du 28/10) ; signer de son prénom ; jamais deux fois la même réponse mot pour mot (les lecteurs voient tout de suite un copier-coller).
 
 Avis positif (remercier pour la chose dont il parle) :
-« Merci <prénom>, content que <le point cité : la terrasse, le délai tenu…> vous plaise. Au plaisir de vous revoir. — <prénom de l'artisan> »
+« Merci <Madame / Monsieur + nom>, content que <le point cité : la terrasse, le délai tenu…> vous plaise. Au plaisir de vous revoir. — <prénom de l'artisan> »
 
 Avis mitigé (répondre aux deux moitiés, pas seulement au compliment) :
 « Merci pour <le point positif>. Vous avez raison pour <le point négatif> : <ce qui a été changé, seulement si c'est vrai>. — <prénom> »
@@ -191,8 +191,8 @@ def main():
     sig = a.signature or a.nom
     (out / "messages-avis.md").write_text(
         f"# Kit avis Google — {a.nom}\n\nLien direct : {lien}\n(code HTTP {code} le jour de la génération ; Google demande une connexion au compte Google du client, c'est normal)\n\n"
-        f"## SMS (après un chantier ou une commande livrée)\n\n{SMS.format(prenom='<prénom>', lien_court=lien, signature=sig)}\n\n"
-        f"## Email\n\n{EMAIL.format(prenom='<prénom>', nom=a.nom, lien=lien, signature=sig)}\n\n{REPONSES}",
+        f"## SMS (après un chantier ou une commande livrée)\n\n{SMS.format(appel='<Madame / Monsieur + nom>', lien_court=lien, signature=sig)}\n\n"
+        f"## Email\n\n{EMAIL.format(appel='<Madame / Monsieur + nom>', nom=a.nom, lien=lien, signature=sig)}\n\n{REPONSES}",
         encoding="utf-8",
     )
     print(f"ok : {png} (QR décodé = lien), {out/'messages-avis.md'}")
