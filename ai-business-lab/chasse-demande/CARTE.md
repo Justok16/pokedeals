@@ -61,6 +61,7 @@ liste unique des tâches : `64-mise-en-ordre-administrative.md` § 0.
 | `connaissances/README.md` | Base de connaissances vidéo |
 | `connaissances/boite-a-outils.md` | Boîte à outils DIG16 — tout ce que l'utilisateur a envoyé, classé par besoin |
 | `connaissances/consignes-detaillees.md` | Consignes détaillées DIG16 (version complète, 21/10/2026) |
+| `connaissances/kapso-whatsapp.md` | Kapso : un agent WhatsApp qui répond et prend des rendez-vous (lu le 28/10/2026) |
 | `connaissances/lecons.md` | Registre des leçons — à relire au début de chaque session et avant toute tâche du même type |
 | `connaissances/ludo-salenne-marketing.md` | Synthèse : playlist « Le Marketing Digital facile » (Ludo Salenne) — appliquée à DIG16 |
 | `connaissances/parcours-verifies.md` | Parcours vérifiés dans les applis (guidage pas à pas de l'utilisateur) |
