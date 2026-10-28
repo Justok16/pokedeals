@@ -348,9 +348,9 @@ Qui êtes-vous ?
 
 DIG16 crée des sites internet pour les professionnels de Charente. C’est une entreprise individuelle immatriculée au RCS d’Angoulême ; son nom, son adresse et son numéro SIREN figurent dans les mentions légales. Un seul interlocuteur, joignable directement, du premier appel au suivi mensuel.
 
-Vous vous déplacez ?
+Vous vous déplacez ? Et si je ne suis pas en Charente ?
 
-Oui, dans le secteur, pour le rendez-vous de 20 minutes. Tout le reste se fait à distance, pour ne pas vous faire perdre de temps.
+En Charente, oui, pour le rendez-vous de 20 minutes. Ailleurs en France, tout se fait à distance : le rendez-vous par téléphone ou en visio, les documents signés en ligne, les mêmes formules et le même suivi.
 
 Votre démo gratuite
 
@@ -408,6 +408,10 @@ DisponibilitéToujours joignable, 7 jours sur 7
         {
           "@type": "City",
           "name": "Ruffec"
+        },
+        {
+          "@type": "Country",
+          "name": "France"
         }
       ],
       "knowsLanguage": "fr",
@@ -684,10 +688,10 @@ DisponibilitéToujours joignable, 7 jours sur 7
     },
     {
       "@type": "Question",
-      "name": "Vous vous déplacez ?",
+      "name": "Vous vous déplacez ? Et si je ne suis pas en Charente ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui, dans le secteur, pour le rendez-vous de 20 minutes. Tout le reste se fait à distance, pour ne pas vous faire perdre de temps."
+        "text": "En Charente, oui, pour le rendez-vous de 20 minutes. Ailleurs en France, tout se fait à distance : le rendez-vous par téléphone ou en visio, les documents signés en ligne, les mêmes formules et le même suivi."
       }
     }
   ]
