@@ -212,3 +212,33 @@ Réponse la plus sérieuse des deux IA : dépôts exacts, licences citées, date
 - ArtCraft (vérifié : `storytold/*`) et la série `ig-*` jugés introuvables.
 - Il rejette Humanizer, alors que nous l'utilisons seulement pour retirer les tics d'écriture d'IA, jamais pour inventer des preuves.
 - Il n'a ni Chrome DevTools MCP, ni les GSAP Skills officiels, ni tarteaucitron, ni Claude SEO, ni security-guidance.
+
+---
+
+## Comparaison avec Gemini (réponse reçue le 28/10, résumé : `connaissances/reponses-ia/gemini-outils-claude-code-2026-10-28.md`)
+
+**C'est la réponse la moins fiable des trois.** Elle marque tout « Vérifié : oui », mais beaucoup d'éléments sont faux une fois contrôlés à la source le 28/10.
+
+| Affirmation de Gemini | Vérification à la source | Conclusion |
+|---|---|---|
+| GSAP : MorphSVG et plugins « Club » payants ; licence « tant que vous ne faites pas payer l'accès au site » | Page gsap.com/standard-license : « All of GSAP including the plugins that were formerly "members-only" like SplitText and MorphSVG can be used in commercial projects at no charge » | **Faux** |
+| Lenis : paquet `@studio-freight/lenis`, 6 500 étoiles | Paquet actuel `lenis` 1.3.27 (15/10/2026), ★16 809 | **Périmé ou faux** |
+| sharp-cli sur `vips-ie/sharp-cli`, 2 500 étoiles | Dépôt inexistant ; le vrai est `vseventer/sharp-cli` (MIT, ★227, 6.1.0 du 01/09/2026) | **Faux lien** |
+| « PhotoCraft » : `npx skills add artcraft/photocraft` (skill MIT) | PhotoCraft est un logiciel de bureau (`storytold/photocraft`), pas un skill | **Inventé** |
+| OpenMontage sous MIT | Fichier LICENSE lu : GNU AGPL v3 ; ★70 994 | **Faux** |
+| AdDownloader sous MIT | deps.dev : GPL-3.0, ★37 | **Faux** |
+| axe-core sur `dequan/axe-core` | Le vrai dépôt est `dequelabs/axe-core` (MPL-2.0) | **Faux lien** |
+| critical sous MIT | deps.dev : Apache-2.0 ; 9.0.0 du 13/09/2026, ★10 296 | Licence fausse, outil réel |
+| awesome-design-md ~15 000 étoiles, Remotion 19 000, Three.js 102 000 | ★122 845 ; ★66 749 ; ★116 492 | Chiffres faux |
+| `vibe-security` « inclus dans addyosmani/agent-skills » | Non confirmé | À ne pas reprendre |
+
+**Apports réels, vérifiés :**
+
+| Outil | Vérification | Décision |
+|---|---|---|
+| **SVGO** (`svg/svgo`) | MIT, ★22 606, 4.1.0 du 24/08/2026 | Réserve : alléger les logos SVG des artisans avant mise en ligne (`npx svgo logo.svg`) ; à relire après optimisation (masques complexes) |
+| **critical** (`addyosmani/critical`) | Apache-2.0, ★10 296, 9.0.0 du 13/09/2026 | Réserve : CSS du premier écran injecté dans la page pour un affichage plus rapide, si Lighthouse signale du CSS bloquant |
+
+**Pièges confirmés (à ne jamais utiliser) :**
+- **meta-ads-collector** (PyPI 1.7.0, `promisingcoder/MetaAdsCollector`) : « no API key required ». D'après Gemini, il passe par l'API interne de Meta. C'est donc du **contournement**, contraire à nos règles et aux conditions de Meta. Pour les publicités des concurrents, consulter la bibliothèque publicitaire officielle à la main, ou l'API officielle après vérification d'identité.
+- **google-ads-transparency-mcp** (`block-town`) : ★11, non publié sur npm, « scraping » du centre de transparence. Projet minuscule et du même type de contournement : à écarter.
