@@ -52,7 +52,7 @@
   "sharp-cli": {
    "version": "6.1.0",
    "date": "2026-09-01",
-   "etoiles": 227,
+   "etoiles": 228,
    "licence": "MIT"
   },
   "rembg": {
@@ -196,7 +196,7 @@
   "mcp-gsc": {
    "version": null,
    "date": null,
-   "etoiles": 1994,
+   "etoiles": 2045,
    "licence": "MIT"
   },
   "Google Analytics MCP": {

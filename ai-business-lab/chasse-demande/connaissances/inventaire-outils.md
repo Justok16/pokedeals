@@ -37,7 +37,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Photos | eleventy-img | réserve | Balises <picture> complètes | 7.1.1 (2026-10-21) | MIT | 470 |
 | Photos | rembg | réserve | Détourage local | 2.0.86 (2026-10-21) | MIT | 25144 |
 | Photos | sharp | réserve | WebP/AVIF et tailles multiples | 0.35.5 (2026-09-27) | Apache-2.0 | 32786 |
-| Photos | sharp-cli | réserve | sharp en ligne de commande | 6.1.0 (2026-09-01) | MIT | 227 |
+| Photos | sharp-cli | réserve | sharp en ligne de commande | 6.1.0 (2026-09-01) | MIT | 228 |
 | Prospection | Fiche d'appel prospect (outils/prospects/fiche_appel.py) | en place | Fiche d'appel revérifiée en direct | — | — | — |
 | Prospection | Trouver un contact (trouver_contact.py) | en place | Pages contact d'un organisme | — | — | — |
 | Publicité | Google Ads MCP | réserve | Lecture des campagnes Google Ads | — | Apache-2.0 | 1059 |
@@ -60,7 +60,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | SEO | OpenSEO (connecteur) | en place | Fiche Google, Search Console, audits | — | — | — |
 | SEO | Unlighthouse | réserve | Lighthouse sur tout un site | 0.19.1 (2026-10-03) | MIT | — |
 | SEO | critical | réserve | CSS du premier écran | 9.0.0 (2026-09-13) | Apache-2.0 | 10296 |
-| SEO | mcp-gsc | réserve | Search Console dans Claude | — | MIT | 1994 |
+| SEO | mcp-gsc | réserve | Search Console dans Claude | — | MIT | 2045 |
 | Signature électronique | Modèles DocuSeal (modeles_docuseal.py + connecteur DocuSeal) | en place | 4 modèles prêts (6628706 à 6628709), envoi send_documents | — | — | — |
 | Sécurité | ALTCHA | réserve | Anti-spam sans tiers | 3.5.0 (2026-10-22) | MIT | 2852 |
 | Sécurité | Gitleaks | réserve | Secrets oubliés dans le dépôt | v8.30.1 (2026-02-21) | MIT | 30204 |
