@@ -167,3 +167,25 @@ Légende de la colonne « Vérifié » :
 - utopia.fyi ; cloudflare.com (Turnstile, Web Analytics) ; developer.mozilla.org/observatory.
 - developers.google.com (PageSpeed Insights, accès Google Ads API) ; indexnow.org/documentation ; facebook.com/ads/library/api ; brevo.com/pricing.
 - README bruts : raw.githubusercontent.com (claude-seo, google-ads-mcp).
+
+---
+
+## Comparaison avec ChatGPT (réponse reçue le 28/10, `connaissances/reponses-ia/chatgpt-outils-claude-code-2026-10-28.md`)
+
+**Points communs** (confirment nos choix) : GSAP + Lenis, Playwright, Lighthouse, axe-core, Gitleaks, Chrome DevTools MCP, Unsplash/Pexels, Fontsource, Remotion (gratuit jusqu'à 3 personnes), données structurées LocalBusiness, IndexNow, Search Console, Impeccable, Frontend Design, UI UX Pro Max (déjà installés).
+
+**Nouveautés utiles, vérifiées par Claude le 28/10 :**
+
+| Outil | Vérification | Décision |
+|---|---|---|
+| **security-guidance** (extension officielle Anthropic, `anthropics/claude-plugins-official`, version 2.0.17) | Lue dans `marketplace.json` : « Pattern-based warnings on edits, LLM-powered diff review on Stop, and an agentic commit reviewer that catches injection, XSS, SSRF, hardcoded secrets, and 25+ other vulnerability classes » | Réserve, priorité haute : à installer avant le prochain code serveur (`functions/`), après lecture complète ; la revue « on Stop » consomme du quota |
+| **Context7** (`upstash/context7`, MIT) | README lu : documentation à jour des bibliothèques (GSAP, Lenis…) dans Claude ; « Get a free API key … for higher rate limits » ; les requêtes partent chez Upstash | Réserve : utile si Claude se trompe d'API d'une bibliothèque ; plafond gratuit exact à vérifier |
+| ImageMagick | Licence citée par ChatGPT, non relue | Doublon de sharp et de notre étalonnage Python ; pas d'installation |
+| Fichier `_headers` Cloudflare | Notre `site-dig/_headers` est **déjà plus complet** que le modèle proposé (CSP, HSTS, Permissions-Policy, cache) | Rien à faire ; un commentaire périmé (« polices : Google Fonts ») corrigé le 28/10 |
+| Règle « lecture / préparation / action payante » pour la publicité | Bonne pratique | Déjà notre règle : toute dépense est validée par l'utilisateur |
+
+**Erreurs ou manques de ChatGPT** (à ne pas reprendre) :
+- ArtCraft, Hyperframes, OpenMontage jugés « ambigus » : nous avons identifié et vérifié les dépôts exacts (`storytold/*` MIT ou Apache-2.0 ; `heygen-com/hyperframes` Apache-2.0, ★73 742).
+- Squoosh recommandé : son outil en ligne de commande a été retiré ; pour l'automatique, sharp est le bon choix.
+- Pas de GSAP Skills officiels, de swup, de tarteaucitron, de Turnstile, de Claude SEO ni d'Unlighthouse : notre recherche va plus loin sur ces points.
+- Plusieurs chiffres donnés sans vérification (« environ 70 k étoiles », « plus de 100 k ») : non repris.
