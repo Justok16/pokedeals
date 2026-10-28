@@ -456,6 +456,29 @@ PRODUITS_SURVEILLES: list[ProduitSurveille] = [
         alerte_disponibilite=True,
         **EXCLUSIONS_LOTS_ET_IMPORTS,
     ),
+    # Demande de Justok (28/10/2026) : tripacks 30 ans du 13/11/2026 (3 boosters
+    # + carte promo Pikachu & Mew / Pikachu & Mewtwo, 19,99 EUR). "tripack" est
+    # un mot EXCLU partout ailleurs (lots de revendeur) : entree dediee, qui
+    # exclut a la place les lots et les autres produits a 3 boosters (coffret
+    # poster, tripack Lucario / Noadkoko de septembre).
+    ProduitSurveille(
+        nom="Tripack 30e Anniversaire (Pikachu & Mew / Mewtwo) FR",
+        mots_cles_edition=EDITION_30E_FR | {"30 ans"},
+        mots_cles_type=frozenset({
+            "tripack", "tri pack", "pack 3 boosters", "pack de 3 boosters",
+            "blister 3 boosters", "3 boosters",
+        }),
+        date_sortie=None,
+        surveiller_jusqu_au=FIN_SUIVI_30E_SUPPLEMENTS,
+        alerte_disponibilite=True,
+        mots_exclus_titre=MOTS_AUTRES_JEUX_TITRE | {
+            "lot", "lots", "duopack", "duo pack", "coffret", "collection", "poster",
+            "display", "lucario", "noadkoko", "exeggutor", "carte",
+        },
+        mots_exclus_texte=MOTS_IMPORTS_TEXTE,
+        type_dans_titre=True,
+        francais_uniquement=True,
+    ),
     # Imports : contenus TRES differents malgre les memes Pikachu-ex FUR
     # (avertissement de Justok) -> une entree par coffret, types exclusifs.
     ProduitSurveille(
