@@ -316,7 +316,7 @@ Chaque site est rapide, bien structuré et rédigé pour votre métier et votre 
 
 Et ma fiche Google (Google Business Profile) ?
 
-Je la mets en place avec vous ou je l’améliore. Elle reste à votre nom, et la fiche elle-même est un service gratuit de Google. Google exige une vérification par vous (en général un appel, une vidéo ou un courrier). Ensuite je m’occupe de la tenir à jour avec vous.
+Je la mets en place avec vous ou je l’améliore. Elle reste à votre nom, et la fiche elle-même est un service gratuit de Google. Google exige une vérification par vous (en général un appel, une vidéo ou un courrier). Ensuite, avec la formule Visibilité ou Prestige, je la suis chaque mois avec vous ; avec l’Essentiel (ou l’option suivi de la formule Achat), une mise à jour de la fiche compte comme votre modification du mois.
 
 Je n’ai pas de photos. C’est un problème ?
 
@@ -627,7 +627,7 @@ DisponibilitéToujours joignable, 7 jours sur 7
       "name": "Et ma fiche Google (Google Business Profile) ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Je la mets en place avec vous ou je l’améliore. Elle reste à votre nom, et la fiche elle-même est un service gratuit de Google. Google exige une vérification par vous (en général un appel, une vidéo ou un courrier). Ensuite je m’occupe de la tenir à jour avec vous."
+        "text": "Je la mets en place avec vous ou je l’améliore. Elle reste à votre nom, et la fiche elle-même est un service gratuit de Google. Google exige une vérification par vous (en général un appel, une vidéo ou un courrier). Ensuite, avec la formule Visibilité ou Prestige, je la suis chaque mois avec vous ; avec l’Essentiel (ou l’option suivi de la formule Achat), une mise à jour de la fiche compte comme votre modification du mois."
       }
     },
     {
