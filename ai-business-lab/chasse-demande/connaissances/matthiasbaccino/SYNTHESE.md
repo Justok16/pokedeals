@@ -1,6 +1,6 @@
-# matthiasbaccino — index des fiches (synthèse du mardi 27/10/2026)
+# matthiasbaccino — index des fiches (synthèse du mercredi 28/10/2026)
 
-40 vidéos résumées sur 740. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+47 vidéos résumées sur 740. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[7 millions d'euros pour une usine française : le choix de Brique House ! Replay Live 23/09/26](RLzDWqd03A0.md)** — Sujet : L’industrie de la bière en France, les défis de l’entrepreneuriat brassicole, et la levée de fonds participative en capital d’une entreprise non cotée (start-up/PME) à travers l'exemple de la marque Brique House.
@@ -9,15 +9,18 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Comment INVESTIR en partant de zéro (GUIDE COMPLET)](K2PGWYX6aBQ.md)** — Sujet : L'initiation à l'investissement boursier pour le grand public.
 - **[Comment LUTTER contre les ARNAQUES ?](XSbEX45dra8.md)** — - Sujet : Les arnaques financières en matière d'épargne et d'investissement (notamment le phénomène d'explosion des escroqueries auprès des particuliers et des jeunes).
 - **[Comment PROTÉGER votre ARGENT !](r2iMajW8z14.md)** — Sujet : Que se passe-t-il si votre banque fait faillite, comment les banques fonctionnent et comment protéger son épargne en France.
+- **[Conflit USA/IRAN : comment réagir ? Replay Live 08/03/26](R9L3YG8XcV0.md)** — Sujet : Analyse de l'impact du conflit en Iran sur l'économie, les marchés boursiers et les finances personnelles.
 - **[C’est quoi une INTRODUCTION en BOURSE ? Replay Live 07/06/26](d9cmvhANkFo.md)** — Sujet : Point sur l'actualité économique et financière (marchés, inflation, dette) et réponses aux questions des spectateurs.
 - **[Des cours d’éducation financière en France ! Replay Live 10/05/26](6he52xcKGFk.md)** — Sujet : Point hebdomadaire sur l'actualité économique et financière (marchés, épargne, éducation financière).
 - **[Doit-on avoir peur de l’IA ? Replay Live 13/09/26](YvsoRcPjtD0.md)** — Le sujet est l'actualité économique et financière (marchés, épargne, IA).
 - **[Doit-on avoir PEUR des PÉNURIES en FRANCE ? Replay Live 17/05/26](mpFFpITWlsI.md)** — Sujet : Point hebdomadaire sur l'actualité économique et financière (inflation, taux d'intérêt, marchés boursiers, géopolitique) et discussion avec les abonnés en direct.
 - **[DÉCOUVERTS BANCAIRES : comment les ÉVITER ?](Dm9ynUhSAk4.md)** — - Sujet : Les découverts bancaires en France (ampleur, gravité, coûts).
+- **[Faut-il avoir PEUR de la CHINE ? Replay Live 22/03/26](cDHzM2MNVy0.md)** — Sujet : L'impact de la situation économique mondiale et du conflit avec l'Iran sur les finances publiques françaises et le pouvoir d'achat.
 - **[Faut-il continuer à INVESTIR dans BITCOIN à long terme ? Replay Live 21/06/26](9OBNCFm_hN8.md)** — Le sujet est une discussion sur le Bitcoin en tant qu'investissement long terme, ses risques, et les opportunités liées à la « tokénisation » des actifs financiers traditionnels (actions, obligations). La thèse principale est que le Bitcoin, bien que volatil, constitue un…
 - **[Faut-il Miléiser les finances publiques Françaises ?](So1OPQVinkk.md)** — Sujet : Faut-il « miléiser » le budget de la France et ses finances publiques ? (en référence à la méthode de Javier Milei, président de l'Argentine depuis décembre 2023).
 - **[INVESTIR dans les petites et moyennes ENTREPRISES ?](aorv0LcAZgo.md)** — Sujet : Faut-il investir dans les petites et moyennes entreprises (PME et ETI) ?
 - **[J’analyse les propositions sur les retraites des candidats ! Replay Live 04/10/26](s_Vb7jrAg2A.md)** — Le sujet est l'actualité économique et financière française, avec un focus sur la crise budgétaire, la dette publique et les réformes des retraites. La thèse principale est que la France traverse une crise économique structurelle grave, causée par une dette publique…
+- **[Krach Bitcoin et maintenant ? Replay Live 08/02/26](e6A7c_r-brY.md)** — Sujet : Point hebdomadaire sur l'actualité des marchés financiers et des crypto-monnaies.
 - **[La FISCALITÉ : un vrai enjeu !](sNnNinkEdFg.md)** — Sujet : L’impact de la fiscalité sur l’épargne et les investissements à long terme.
 - **[La France au pied du mur : qui va payer la facture ? Replay Live 31/05/26](8ItaSRSsqlM.md)** — La vidéo traite de l'état de l'économie et du système financier, avec un focus particulier sur la dette publique française.
 - **[La FRANCE croule sous les NORMES ! Replay Live 24/05/26](PqqK-MysEA0.md)** — Sujet : Analyse de l'actualité économique, financière et boursière (France et international).
@@ -33,13 +36,17 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Les CONSÉQUENCES sont plus GRAVES que ce que vous pensez ! Replay Live 28/06/26](x9dnSzly2Q4.md)** — Sujet : Analyse de l'actualité économique, des marchés financiers et de l'épargne.
 - **[Les géants de l'IA empruntent pour investir](PKaMW0Rs8UI.md)** — - Sujet : L’évolution du financement des investissements dans l’intelligence artificielle par les grandes entreprises technologiques (« hyperscalers »).
 - **[Les élections américaines, un danger pour les marchés ? Replay Live 30/08/26](uSlpSgYlPKA.md)** — Sujet : Analyse macroéconomique de l’actualité et conseils en investissement.
+- **[L’EUROPE première VICTIME du CONFLIT en IRAN ? Replay Live 15/03/26](s7ZR8EiZsAs.md)** — Le sujet est une analyse de l'actualité économique et boursière sur fond de tensions géopolitiques (guerre avec l'Iran).
 - **[L’IMMOBILIER une passion française : pour quels RÉSULTATS ?](O5TmoB0K0ak.md)** — Sujet : L’investissement immobilier en France, présenté comme un pilier historique et culturel de la gestion de l'argent et de l'épargne.
 - **[L’ÉCONOMIE BASCULE (Je réponds à vos questions) - Replay Live 26/07/26](pvT5xtF1nEc.md)** — Sujet : Bilan hebdomadaire sur l'actualité économique, les marchés boursiers et les questions de finances personnelles.
 - **[L’ÉCONOMIE MONDIALE au bord du GOUFFRE ? Replay Live 12/07/26](mBEpniRIYRI.md)** — Sujet : Bilan macroéconomique et boursier de début d’année (juillet 2026) et analyse des tendances à long terme (inflation, taux d’intérêt, transition énergétique, immobilier).
+- **[MON COMBAT : l'éducation financière !](5GQBKPAzEbg.md)** — Sujet : L'éducation financière et la prise de contrôle sur son épargne personnelle face au contexte économique.
 - **[Notre POUVOIR d’ACHAT continue de BAISSER ! Replay Live 12/04/26](UOkFYAY-FZ8.md)** — Sujet : L’actualité économique et géopolitique (tensions géopolitiques, marchés financiers, crypto), l’impact de l’inflation et de la fiscalité sur le pouvoir d’achat en France, et les stratégies d'investissement à long terme (DCA).
+- **[PERSONNE ne vous dit la VÉRITÉ sur l’IA ! Replay Live 15/02/26](Q-ZQFHrwGTI.md)** — Sujet : Point hebdomadaire sur l'actualité des marchés financiers et les enjeux de l'éducation financière.
 - **[Plus de la moitié de la France est détenue par des étrangers !](FBsqoITkJFw.md)** — Sujet : La composition des créanciers de la dette de l'État français (« qui détient la dette »).
 - **[Pourquoi vous finissez TOUJOURS dans le rouge en fin de mois !](_EfoRUyE6yk.md)** — Sujet : Comprendre les causes des difficultés financières quotidiennes et apprendre à établir un budget stable pour protéger son pouvoir d'achat.
 - **[Que faire si je suis VICTIME de FRAUDE BANCAIRE ?](Gp4dv0KBFNw.md)** — Sujet : L’explosion des fraudes bancaires en France.
 - **[Quelle RÉFORME des RETRAITES pour SAUVER le système ? Replay Live 15/06/26](qj8QeFO3V2Q.md)** — Sujet : Le système des retraites, les enjeux de financement de l'État et l'investissement financier.
 - **[RÉFORME du logement : un espoir pour notre POUVOIR D’ACHAT ? Replay Live 26/04/26](enYKWvTjrxU.md)** — Sujet : Analyse de la situation économique actuelle, des marchés financiers et des enjeux de la retraite et du logement en France.
 - **[Stratégies d'investissement et de trading : on fait le point ! Replay Live 27/09/2026](Y4HAWhzu1KQ.md)** — Sujet : L'investissement financier et les principes de gestion de portefeuille pour les investisseurs actifs.
+- **[TRUMP va-t-il couler l'AMÉRIQUE (et le monde avec) ? Replay Live 02/03/26](PzhQeCz5kMQ.md)** — Sujet : Analyse de l'actualité économique, géopolitique et boursière (conflit Iran/États-Unis, inflation, situation des entreprises technologiques).

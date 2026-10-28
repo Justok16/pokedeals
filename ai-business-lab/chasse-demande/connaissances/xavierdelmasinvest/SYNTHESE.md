@@ -1,6 +1,6 @@
-# Xavier Delmas — index des fiches (synthèse du mardi 27/10/2026)
+# Xavier Delmas — index des fiches (synthèse du mercredi 28/10/2026)
 
-174 vidéos résumées sur 200. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+180 vidéos résumées sur 200. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[100 ans de krachs, et ça recommence](fjoxYroq2gc.md)** — Sujet : L'histoire des méthodes de valorisation boursière (des années 1920 à aujourd'hui) et leurs limites.
@@ -25,6 +25,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bourse et immobilier, les clés d’une bonne analyse](tGtzM1NgqdI.md)** — Sujet : Comparaison et méthodes d’analyse de deux grandes classes d’actifs pour l’investissement long terme : les actions en bourse (via le stock picking) et l’immobilier locatif (via l’analyse de projets).
 - **[Bourse: Ce que personne ne t'explique quand tu débutes](XIct_HfiMUA.md)** — Sujet : Le passage d'un ordre de bourse pour un investisseur débutant.
 - **[Bulle IA : L'analyse qui dérange](tS4XIKf9Z_U.md)** — La vidéo analyse la valorisation actuelle des géants technologiques et de l'intelligence artificielle (IA) à travers le prisme de la philosophie d'investissement de Seth Klarman (geste de prudence, rareté des années de perte, analyse des bulles et de la loi de Moore).
+- **[Café à la maison = Fin de Starbucks ?](WezIeWI1Ojc.md)** — Sujet : Analyse financière de l'entreprise Starbucks (SBUX) suite à la publication de ses résultats du deuxième trimestre 2024.
 - **[Ce graphique de 1872 a prévu tous les krachs](GprvHiDgaTM.md)** — Sujet : L'analyse critique du « cycle de Benner » et des modèles de prédiction boursière à long terme.
 - **[Ce que vous ne voyez pas dans les ratios financiers… et qui peut faire mal en 2025](Y8sAj5IVgWY.md)** — Sujet : L'analyse approfondie des entreprises en bourse et l'importance de dépasser les ratios financiers classiques pour éviter les pièges en période de volatilité.
 - **[Ce qui change sans faire de bruit : la vraie menace sur les marchés](_dQBemUKVG0.md)** — Sujet : L'analyse des mutations économiques de secteurs d'activité en Bourse, à travers deux exemples opposés : la musique enregistrée (secteur ressenti comme « mort » puis relancé) et les réseaux de paiement (secteur jugé « indestructible » menacé par de nouveaux modèles).
@@ -72,6 +73,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Investir en 2026 sans stress](tHV02LFyZoI.md)** — Présentation de 8 « bonnes résolutions » pour l'année 2026 en matière d'investissement et de finances personnelles, insistant sur la nécessité d'avoir un pourquoi clair, un plan structuré, une bonne gestion du risque et une vision à long terme exempte de panique face aux…
 - **[J'ai trouvé l'entreprise la plus vieille du monde](wVouYBlb7vw.md)** — La survie des entreprises et les facteurs de longévité, illustrés par le cas de la plus vieille entreprise encore en activité, Kongō Gumi, et par opposition avec la fragilité des start-ups modernes. La thèse principale est que pour durer, une entreprise doit répondre à un…
 - **[J'investis 100 000€ en live: le détail (Actions, ETF)](chnEFWip6gw.md)** — Sujet : Stratégie d'investissement lors d'un apport important de capital (somme "lump sum").
+- **[Je change de courtier](fLzgREAn6AY.md)** — Sujet : Les critères à prendre en compte pour choisir un courtier en ligne.
 - **[Je déteste son portefeuille mais il cartonne](HIU2J2fbO9w.md)** — Sujet : Étude de cas d'un portefeuille patrimonial atypique de 700 000 €.
 - **[Je lance ma chaîne perso !](zWlIB-cXkDs.md)** — Présentation du lancement de la chaîne personnelle de l'auteur. Le sujet principal est la volonté de créer un contenu plus informel, interactif et axé sur les finances personnelles, en s'appuyant sur l'échange avec la communauté plutôt que sur la prédiction du futur.
 - **[Je m'amuse avec le stock screener et achète l'action XXX](4GoUqLZ9h54.md)** — Sujet : Utilisation pratique d'un outil de filtrage d'actions (Stock Screener) pour identifier des opportunités d'investissement.
@@ -121,6 +123,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Les traders du pape](MsoTKOm5g7o.md)** — Sujet : Fonctionnement financier, patrimoine réel et gouvernance des investissements du Vatican (Saint-Siège).
 - **[L’IA fait exploser les marchés : combien de temps ça peut durer ?](tsK9gVBCBfo.md)** — Sujet : L'intelligence artificielle (IA) est-elle une bulle financière sur les marchés boursiers actuels (analyse basée sur l'étude du hedge fund Coatue et de son fondateur Philippe Laffont) ?
 - **[L’État détourne vos rendements ... en toute légalité](dosGjM8uTfM.md)** — Le comportement d'épargne des Français, leur aversion au risque boursier et les performances comparées des placements sans risque (livrets, fonds en euros) par rapport aux actions (CAC 40). La thèse principale est que l'aversion excessive des épargnants français pour le risque…
+- **[Mettre obligatoirement des stop loss en bourse?](ezc6V1pKSlU.md)** — Sujet : L'usage des ordres « stop » (vendre automatiquement une action dès qu'elle atteint un certain seuil de baisse) pour l'investissement en actions.
 - **[Militaire: il investit dans la défense et la tech](o59zbl8d8TA.md)** — Sujet : Revue de portefeuille d'un investisseur débutant (Anthony, 29 ans, militaire).
 - **[Moins de liberté, plus de performance](RJ5PIo9ExbI.md)** — La réflexion sur la notion de liberté et de contraintes dans l'investissement et le sport. La thèse est que la liberté totale sans cadre mène à l'inefficacité, tandis que l'application de contraintes (règles strictes, limites d'allocation, discipline) favorise la performance à…
 - **[Musk importe une centrale électrique en pièces détachées](mLEuHP00WFQ.md)** — La vidéo traite de l'augmentation massive des besoins énergétiques des data centers, en particulier pour l'intelligence artificielle, illustrée par les projets d'infrastructure d'xAI (Elon Musk). La thèse est que les besoins en électricité dépassent les capacités des réseaux…
@@ -155,6 +158,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Quand investir devient dangereux](yotZ5rE2aAc.md)** — L'analyse de l'investissement en actions sous l'angle du « talent » (la compétence) versus la « chance » (le timing), démontrant que si le timing à court terme relève largement du hasard, la maîtrise du risque, la diversification et la discipline à long terme permettent de…
 - **[Quand le service baisse… les profits explosent](QuEYbHosBXc.md)** — L'analyse du phénomène de « dégradation de la qualité » des produits et services (concept de l'enshitification / merdification), montrant que la hausse des marges des grandes entreprises s'accompagne souvent d'une baisse perçue de l'expérience utilisateur, mais que ce modèle…
 - **[Qui s’enrichit vraiment quand vous consommez ?](oEe76GAcGxk.md)** — Sujet : L'analyse de la chaîne de valeur et la répartition des marges dans le secteur des entreprises.
+- **[Revue portefeuille: ETF, Actions de qualité et cryptos (+40%)](WQ_npCab-3g.md)** — Sujet : Analyse et examen du portefeuille boursier d'un abonné ("Jérémy").
 - **[Samsung a fait tout le travail. Apple encaisse.](cIbrXipNigE.md)** — Sujet : L'analyse de la stratégie de marché d'Apple (la technique du "deuxième arrivant") et son impact sur sa valorisation boursière à travers ses différents produits.
 - **[Se protéger contre une baisse: Ce qui marche vraiment](R1qZ-tvjJjw.md)** — Sujet : Stratégies de protection d'un portefeuille boursier face aux crises économiques.
 - **[Soft Power : comment les pays influencent l’économie sans tirer un coup de feu](2SxpBjxkEe0.md)** — Sujet : Le "Soft Power" (puissance douce) des nations et son impact sur l'économie et l'investissement.
@@ -162,7 +166,9 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[SpaceX en Bourse: le casse du siècle ?](QLNMV9_iI0o.md)** — - Sujet : L'introduction en bourse (IPO) de SpaceX (estimée à l'horizon 2026 avec une valorisation de 1 500 milliards de dollars) et ses répercussions sur les indices boursiers (notamment le Nasdaq 100), ainsi que le mécanisme de capitalisation boursière (et les risques liés…
 - **[Surperformer en bourse avec 2 critères simples](2psxgbKPmSY.md)** — Le sujet est la "Formule Magique" de l'investisseur Joel Greenblatt, présentée dans son livre Le petit livre qui bat le marché.
 - **[S’endetter pour investir: Immo ou bourse ?](KMomCC5AacY.md)** — Sujet : L'utilisation de l'effet de levier (emprunt) pour investir, en comparant l'immobilier et la bourse.
+- **[Tesla peut-elle faire faillite ?](-GsbgjZONxU.md)** — Sujet : L'analyse des difficultés actuelles de Tesla et les risques potentiels sur la valeur de l'action.
 - **[Tibo InShape: Analyse de sa société](tUsMWHOUsyc.md)** — Sujet : L'analyse des revenus et de la santé financière du youtubeur Tibo InShape à travers les comptes de son entreprise (SASU D2AM).
+- **[Total à Wall Street: Comprendre les places de cotations](wU8XBuORpKQ.md)** — Sujet : Le possible transfert de la cotation principale de TotalEnergies de la Bourse de Paris vers Wall Street (New York).
 - **[TotalEnergies: Et si tout le monde se trompait ?](TGMAN4hml-E.md)** — Sujet : La stratégie de transition énergétique de TotalEnergies et sa rentabilité par rapport aux énergies renouvelables.
 - **[Tout va mal ? La bourse dit le contraire.](bixzwb2ZwcI.md)** — Sujet : L'analyse du décalage entre le discours alarmiste des experts (macroéconomie) et la bonne santé actuelle des marchés boursiers.
 - **[Trop diversifié, pas assez… comment trouver le bon équilibre](sJTabH9ZrbM.md)** — Sujet : La gestion diversifiée de portefeuille (gestion multi-actifs).
