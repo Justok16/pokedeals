@@ -1,0 +1,455 @@
+{
+ "_lisez_moi": "Inventaire des outils retenus (demande de l'utilisateur du 28/10 : garder TOUS les outils à jour, fiables et légitimes). Surveillé chaque jour par outils/veille_outils.py (versions, licences, abandon). statut : en_place (utilisé), installe (skill ou outil prêt), reserve (vérifié, à sortir au bon moment). Ajouter ici chaque nouvel outil retenu. reference=true : référence stable, signalée seulement après 18 mois sans version.",
+ "outils": [
+  {
+   "nom": "GSAP",
+   "depot": "greensock/GSAP",
+   "registre": "npm",
+   "paquet": "gsap",
+   "statut": "en_place",
+   "domaine": "Animations",
+   "usage": "Moteur d'animation des sites (site-dig/moteur/anim/gsap-3.15.0.min.js et ScrollTrigger, mis à jour le 28/10)",
+   "reference": true
+  },
+  {
+   "nom": "GSAP Skills officiels",
+   "depot": "greensock/gsap-skills",
+   "statut": "installe",
+   "domaine": "Animations",
+   "usage": ".claude/skills/gsap-* (core, timeline, scrolltrigger, plugins, utils, performance)"
+  },
+  {
+   "nom": "Lenis",
+   "depot": "darkroomengineering/lenis",
+   "registre": "npm",
+   "paquet": "lenis",
+   "statut": "en_place",
+   "domaine": "Animations",
+   "usage": "Défilement fluide (site-dig/moteur/anim/lenis-1.3.27.min.js, mis à jour le 28/10)"
+  },
+  {
+   "nom": "swup",
+   "depot": "swup/swup",
+   "registre": "npm",
+   "paquet": "swup",
+   "statut": "reserve",
+   "domaine": "Animations",
+   "usage": "Transitions entre pages d'un site statique"
+  },
+  {
+   "nom": "Motion",
+   "registre": "npm",
+   "paquet": "motion",
+   "statut": "reserve",
+   "domaine": "Animations",
+   "usage": "Micro-interactions légères"
+  },
+  {
+   "nom": "Three.js",
+   "depot": "mrdoob/three.js",
+   "registre": "npm",
+   "paquet": "three",
+   "statut": "reserve",
+   "domaine": "Animations",
+   "usage": "3D légère pour un client Prestige",
+   "reference": true
+  },
+  {
+   "nom": "dotLottie web",
+   "depot": "LottieFiles/dotlottie-web",
+   "registre": "npm",
+   "paquet": "@lottiefiles/dotlottie-web",
+   "statut": "reserve",
+   "domaine": "Animations",
+   "usage": "Icônes animées vectorielles"
+  },
+  {
+   "nom": "sharp",
+   "depot": "lovell/sharp",
+   "registre": "npm",
+   "paquet": "sharp",
+   "statut": "reserve",
+   "domaine": "Photos",
+   "usage": "WebP/AVIF et tailles multiples",
+   "reference": true
+  },
+  {
+   "nom": "sharp-cli",
+   "depot": "vseventer/sharp-cli",
+   "registre": "npm",
+   "paquet": "sharp-cli",
+   "statut": "reserve",
+   "domaine": "Photos",
+   "usage": "sharp en ligne de commande"
+  },
+  {
+   "nom": "rembg",
+   "depot": "danielgatis/rembg",
+   "registre": "pypi",
+   "paquet": "rembg",
+   "statut": "reserve",
+   "domaine": "Photos",
+   "usage": "Détourage local"
+  },
+  {
+   "nom": "eleventy-img",
+   "depot": "11ty/eleventy-img",
+   "registre": "npm",
+   "paquet": "@11ty/eleventy-img",
+   "statut": "reserve",
+   "domaine": "Photos",
+   "usage": "Balises <picture> complètes"
+  },
+  {
+   "nom": "SVGO",
+   "depot": "svg/svgo",
+   "registre": "npm",
+   "paquet": "svgo",
+   "statut": "reserve",
+   "domaine": "Photos",
+   "usage": "Alléger les logos SVG"
+  },
+  {
+   "nom": "Fontsource",
+   "depot": "fontsource/fontsource",
+   "registre": "npm",
+   "paquet": "@fontsource-variable/inter",
+   "statut": "reserve",
+   "domaine": "Design",
+   "usage": "Polices libres à héberger"
+  },
+  {
+   "nom": "google-webfonts-helper",
+   "depot": "majodev/google-webfonts-helper",
+   "statut": "reserve",
+   "domaine": "Design",
+   "usage": "Télécharger une police Google pour l'héberger"
+  },
+  {
+   "nom": "Leonardo (Adobe)",
+   "depot": "adobe/leonardo",
+   "registre": "npm",
+   "paquet": "@adobe/leonardo-contrast-colors",
+   "statut": "reserve",
+   "domaine": "Design",
+   "usage": "Palettes à contraste garanti",
+   "reference": true
+  },
+  {
+   "nom": "Open Props",
+   "registre": "npm",
+   "paquet": "open-props",
+   "statut": "reserve",
+   "domaine": "Design",
+   "usage": "Variables CSS prêtes",
+   "reference": true
+  },
+  {
+   "nom": "awesome-design-md",
+   "depot": "VoltAgent/awesome-design-md",
+   "statut": "installe",
+   "domaine": "Design",
+   "usage": "Skill design-md-references"
+  },
+  {
+   "nom": "Impeccable",
+   "depot": "pbakaus/impeccable",
+   "statut": "installe",
+   "domaine": "Design",
+   "usage": "Skill impeccable"
+  },
+  {
+   "nom": "UI UX Pro Max",
+   "depot": "nextlevelbuilder/ui-ux-pro-max-skill",
+   "statut": "installe",
+   "domaine": "Design",
+   "usage": "Skill ui-ux-pro-max (attention : liens Google Fonts, contrôle polices_locales)"
+  },
+  {
+   "nom": "Emil Kowalski skills",
+   "depot": "emilkowalski/skills",
+   "statut": "installe",
+   "domaine": "Design",
+   "usage": "emil-design-eng, mobile-native, review-animations, break-ui"
+  },
+  {
+   "nom": "Taste skill",
+   "depot": "Leonxlnx/taste-skill",
+   "statut": "installe",
+   "domaine": "Design",
+   "usage": "taste-design, taste-redesign"
+  },
+  {
+   "nom": "Anthropic skills",
+   "depot": "anthropics/skills",
+   "statut": "installe",
+   "domaine": "Design",
+   "usage": "frontend-design et skills officiels"
+  },
+  {
+   "nom": "Remotion",
+   "depot": "remotion-dev/remotion",
+   "registre": "npm",
+   "paquet": "remotion",
+   "statut": "reserve",
+   "domaine": "Vidéo",
+   "usage": "Vidéos en code (gratuit tant que DIG16 ≤ 3 personnes, livraison MP4 seule)"
+  },
+  {
+   "nom": "Remotion Agent Skills",
+   "depot": "remotion-dev/skills",
+   "statut": "reserve",
+   "domaine": "Vidéo",
+   "usage": "npx skills add remotion-dev/skills"
+  },
+  {
+   "nom": "Hyperframes",
+   "depot": "heygen-com/hyperframes",
+   "statut": "reserve",
+   "domaine": "Vidéo",
+   "usage": "Vidéo depuis HTML/GSAP"
+  },
+  {
+   "nom": "Revideo",
+   "registre": "npm",
+   "paquet": "@revideo/core",
+   "statut": "reserve",
+   "domaine": "Vidéo",
+   "usage": "Vidéos en code, MIT"
+  },
+  {
+   "nom": "faster-whisper",
+   "depot": "SYSTRAN/faster-whisper",
+   "registre": "pypi",
+   "paquet": "faster-whisper",
+   "statut": "en_place",
+   "domaine": "Vidéo",
+   "usage": "Transcription et sous-titres locaux",
+   "reference": true
+  },
+  {
+   "nom": "auto-editor",
+   "depot": "WyattBlue/auto-editor",
+   "registre": "pypi",
+   "paquet": "auto-editor",
+   "statut": "reserve",
+   "domaine": "Vidéo",
+   "usage": "Couper les silences",
+   "reference": true
+  },
+  {
+   "nom": "OpenMontage",
+   "depot": "calesthio/OpenMontage",
+   "statut": "reserve",
+   "domaine": "Vidéo",
+   "usage": "Montage par agent (AGPL-3.0)"
+  },
+  {
+   "nom": "Claude SEO",
+   "depot": "AgriciDaniel/claude-seo",
+   "statut": "reserve",
+   "domaine": "SEO",
+   "usage": "Audit SEO complet (MIT)"
+  },
+  {
+   "nom": "Lighthouse",
+   "depot": "GoogleChrome/lighthouse",
+   "registre": "npm",
+   "paquet": "lighthouse",
+   "statut": "en_place",
+   "domaine": "SEO",
+   "usage": "Audit performance, SEO, accessibilité",
+   "reference": true
+  },
+  {
+   "nom": "Unlighthouse",
+   "registre": "npm",
+   "paquet": "unlighthouse",
+   "statut": "reserve",
+   "domaine": "SEO",
+   "usage": "Lighthouse sur tout un site"
+  },
+  {
+   "nom": "mcp-gsc",
+   "depot": "AminForou/mcp-gsc",
+   "statut": "reserve",
+   "domaine": "SEO",
+   "usage": "Search Console dans Claude"
+  },
+  {
+   "nom": "Google Analytics MCP",
+   "depot": "googleanalytics/google-analytics-mcp",
+   "statut": "reserve",
+   "domaine": "SEO",
+   "usage": "GA4 d'un client"
+  },
+  {
+   "nom": "critical",
+   "depot": "addyosmani/critical",
+   "registre": "npm",
+   "paquet": "critical",
+   "statut": "reserve",
+   "domaine": "SEO",
+   "usage": "CSS du premier écran"
+  },
+  {
+   "nom": "tarteaucitron.js",
+   "depot": "AmauriC/tarteaucitron.js",
+   "registre": "npm",
+   "paquet": "tarteaucitronjs",
+   "statut": "reserve",
+   "domaine": "Sécurité",
+   "usage": "Bandeau cookies CNIL"
+  },
+  {
+   "nom": "ALTCHA",
+   "depot": "altcha-org/altcha",
+   "registre": "npm",
+   "paquet": "altcha",
+   "statut": "reserve",
+   "domaine": "Sécurité",
+   "usage": "Anti-spam sans tiers"
+  },
+  {
+   "nom": "Gitleaks",
+   "depot": "gitleaks/gitleaks",
+   "registre": "go",
+   "paquet": "github.com/zricethezav/gitleaks/v8",
+   "statut": "reserve",
+   "domaine": "Sécurité",
+   "usage": "Secrets oubliés dans le dépôt",
+   "reference": true
+  },
+  {
+   "nom": "OSV-Scanner",
+   "depot": "google/osv-scanner",
+   "registre": "go",
+   "paquet": "github.com/google/osv-scanner/v2",
+   "statut": "reserve",
+   "domaine": "Sécurité",
+   "usage": "Dépendances vulnérables"
+  },
+  {
+   "nom": "Semgrep",
+   "depot": "semgrep/semgrep",
+   "registre": "pypi",
+   "paquet": "semgrep",
+   "statut": "reserve",
+   "domaine": "Sécurité",
+   "usage": "Analyse du code serveur"
+  },
+  {
+   "nom": "security-guidance (Anthropic)",
+   "depot": "anthropics/claude-plugins-official",
+   "statut": "reserve",
+   "domaine": "Sécurité",
+   "usage": "Extension officielle ; revues IA à chaque fin de tour et commit = gros quota"
+  },
+  {
+   "nom": "Google Ads MCP",
+   "depot": "googleads/google-ads-mcp",
+   "statut": "reserve",
+   "domaine": "Publicité",
+   "usage": "Lecture des campagnes Google Ads"
+  },
+  {
+   "nom": "Chrome DevTools MCP",
+   "depot": "ChromeDevTools/chrome-devtools-mcp",
+   "registre": "npm",
+   "paquet": "chrome-devtools-mcp",
+   "statut": "reserve",
+   "domaine": "Qualité",
+   "usage": "Performance réelle, console, réseau"
+  },
+  {
+   "nom": "Playwright MCP",
+   "depot": "microsoft/playwright-mcp",
+   "registre": "npm",
+   "paquet": "@playwright/mcp",
+   "statut": "en_place",
+   "domaine": "Qualité",
+   "usage": "Navigateur piloté (.mcp.json)"
+  },
+  {
+   "nom": "axe-core",
+   "depot": "dequelabs/axe-core",
+   "registre": "npm",
+   "paquet": "axe-core",
+   "statut": "reserve",
+   "domaine": "Qualité",
+   "usage": "Moteur d'accessibilité",
+   "reference": true
+  },
+  {
+   "nom": "pa11y",
+   "depot": "pa11y/pa11y",
+   "registre": "npm",
+   "paquet": "pa11y",
+   "statut": "reserve",
+   "domaine": "Qualité",
+   "usage": "Accessibilité en une commande"
+  },
+  {
+   "nom": "html-validate",
+   "registre": "npm",
+   "paquet": "html-validate",
+   "statut": "reserve",
+   "domaine": "Qualité",
+   "usage": "Validation HTML"
+  },
+  {
+   "nom": "lychee",
+   "depot": "lycheeverse/lychee",
+   "statut": "reserve",
+   "domaine": "Qualité",
+   "usage": "Liens cassés"
+  },
+  {
+   "nom": "Context7",
+   "depot": "upstash/context7",
+   "registre": "npm",
+   "paquet": "@upstash/context7-mcp",
+   "statut": "reserve",
+   "domaine": "Qualité",
+   "usage": "Documentation à jour des bibliothèques"
+  },
+  {
+   "nom": "marketingskills",
+   "depot": "coreyhaines31/marketingskills",
+   "statut": "installe",
+   "domaine": "Marketing",
+   "usage": "copywriting, seo-audit, schema, ai-seo…"
+  },
+  {
+   "nom": "Humanizer",
+   "depot": "blader/humanizer",
+   "statut": "installe",
+   "domaine": "Marketing",
+   "usage": "Retirer les tics d'écriture d'IA"
+  },
+  {
+   "nom": "PhotoCraft (ArtCraft)",
+   "depot": "storytold/photocraft",
+   "statut": "reserve",
+   "domaine": "Photos",
+   "usage": "Retouche type Photoshop, pilotable par Claude"
+  },
+  {
+   "nom": "LightCraft (ArtCraft)",
+   "depot": "storytold/lightcraft",
+   "statut": "reserve",
+   "domaine": "Photos",
+   "usage": "Retouche de séries de photos"
+  }
+ ],
+ "sources_officielles": [
+  {
+   "nom": "Extensions officielles Claude Code",
+   "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.claude-plugin/marketplace.json"
+  },
+  {
+   "nom": "Skills officiels Anthropic",
+   "url": "https://raw.githubusercontent.com/anthropics/skills/main/.claude-plugin/marketplace.json"
+  }
+ ]
+}

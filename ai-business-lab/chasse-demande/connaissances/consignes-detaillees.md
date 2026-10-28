@@ -257,3 +257,15 @@ Le résumé obligatoire est dans `.claude/CLAUDE.md` ; **ce fichier fait foi pou
 
 - Un site client n'est jamais livré seul : `outils/kit_client.py` produit les 12 pièces de la formule (`72-kit-client-complet.md`).
 - Décisions du 26/10 : signature électronique DocuSeal par email (offre gratuite sans API : modèles génériques, champs placés une fois par l'utilisateur, 10 emails par mois) ; mesure d'audience sans cookie de l'hébergeur sur le compte du client ; prélèvement SEPA ou virement au choix ; nom de domaine enregistré par DIG16 au nom du client, avancé puis refacturé au prix coûtant (compté dans le chiffre d'affaires).
+
+## Outils toujours à jour et veille des nouveaux outils (consigne du 28/10/2026)
+
+Texte de l'utilisateur : « Désormais j'aimerais que tu gardes absolument TOUS les outils qui sont à jour, fiables et légitimes afin de les avoir à portée pour les sites internet et l'entreprise en général. Je souhaite que dès aujourd'hui, tu surveilles l'arrivée de nouveaux outils gratuits qui pourraient permettre de toujours proposer le meilleur à nos clients. Je veux des sites superbes et irréprochables, aussi bien sur le fond que sur la forme. Pareil en ce qui concerne toutes les tâches à effectuer en parallèle pour l'entreprise. […] Prends des initiatives, installe, améliore, optimise, automatise, trouve des alternatives si besoin, improvise si besoin, accélère absolument TOUT. »
+
+Mise en œuvre :
+- **Inventaire unique** : `connaissances/inventaire-outils.json`. Chaque outil retenu y figure, avec son statut (en place, installé, réserve) et son domaine. Le tableau lisible `connaissances/inventaire-outils.md` est régénéré à chaque veille.
+- **Veille quotidienne** : `outils/veille_outils.py`, lancé à la fin de `veille_sources.py` (point de 07:34 UTC). Il relève les nouvelles versions, signale tout changement de licence, tout projet sans version depuis plus de 6 mois (18 mois pour une référence stable) et tout paquet introuvable. Il signale aussi les nouvelles extensions des catalogues officiels d'Anthropic. Un jeu d'essai est fourni (`--eval`).
+- **Traitement** : rappel quotidien de 09:41 (heure de Paris), « Veille des outils DIG16 ». Il traite les alertes (alternative gratuite et active), installe les skills sûrs après lecture complète, range le reste en réserve et met à jour les bibliothèques du site, avec les tests avant publication.
+- **Bibliothèques du site** : fichiers nommés avec leur version (`gsap-3.15.0.min.js`…). Comme elles sont gardées 30 jours dans le cache des navigateurs, un nouveau nom évite de mélanger deux versions chez un visiteur.
+- **Ce que disent les autres IA** : toujours revérifié à la source (deps.dev, npm, PyPI, fichier LICENSE, page de prix). Leçon du 28/10 : Gemini marquait tout « vérifié », avec des licences fausses.
+- **Limites maintenues** : budget 0 €, aucun crédit acheté, aucun contournement de protection, rien d'installé sans lecture complète, rien de ce qui engage l'utilisateur (dépense, identité) sans son accord.

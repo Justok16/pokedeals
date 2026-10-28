@@ -120,4 +120,10 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   **Proposer la réserve au bon moment** (demande du 27/10 : « toujours chercher à améliorer ») : le crochet
   `outils/reserve_a_proposer.py` signale les outils dont la condition « Le ressortir quand… » rejoint la demande ; les
   proposer à l'utilisateur en une ligne quand ils servent vraiment ; revue complète au garde-fou du 20 de chaque mois.
+- **Outils toujours à jour** (consigne du 28/10 : « garder absolument TOUS les outils à jour, fiables et légitimes […]
+  surveiller les nouveaux outils gratuits […] installe, améliore, automatise, trouve des alternatives […] que TOUT soit
+  irréprochable ») : inventaire unique `connaissances/inventaire-outils.json` (tableau `.md` régénéré) ; veille
+  quotidienne `outils/veille_outils.py` (versions, licences, abandon, nouveautés des catalogues officiels) lancée par
+  `veille_sources.py` et traitée par le rappel quotidien de 09:41 ; tout outil retenu y est ajouté ; toute affirmation
+  d'une autre IA est revérifiée à la source avant d'être retenue.
 - Veille quotidienne des sources et base de connaissances vidéo : voir la fiche.

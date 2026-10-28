@@ -281,6 +281,9 @@ def main():
     os.makedirs(VEILLE, exist_ok=True)
     open(os.path.join(VEILLE, jour + ".md"), "w").write("\n".join(rapport) + "\n")
     print("\n".join(rapport))
+    # 28/10 : veille des outils retenus (versions, licences, abandon) et des catalogues officiels Claude Code,
+    # ajoutée à la fin du même rapport (demande de l'utilisateur : tout garder à jour au fur et à mesure).
+    subprocess.run([sys.executable, os.path.join(ICI, "veille_outils.py")], check=False)
 
 
 if __name__ == "__main__":

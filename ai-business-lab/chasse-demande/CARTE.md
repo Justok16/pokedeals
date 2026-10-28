@@ -61,6 +61,7 @@ liste unique des tâches : `64-mise-en-ordre-administrative.md` § 0.
 | `connaissances/README.md` | Base de connaissances vidéo |
 | `connaissances/boite-a-outils.md` | Boîte à outils DIG16 — tout ce que l'utilisateur a envoyé, classé par besoin |
 | `connaissances/consignes-detaillees.md` | Consignes détaillées DIG16 (version complète, 21/10/2026) |
+| `connaissances/inventaire-outils.md` | Inventaire des outils DIG16 (tenu à jour automatiquement) |
 | `connaissances/kapso-whatsapp.md` | Kapso : un agent WhatsApp qui répond et prend des rendez-vous (lu le 28/10/2026) |
 | `connaissances/lecons.md` | Registre des leçons — à relire au début de chaque session et avant toute tâche du même type |
 | `connaissances/ludo-salenne-marketing.md` | Synthèse : playlist « Le Marketing Digital facile » (Ludo Salenne) — appliquée à DIG16 |
@@ -140,6 +141,7 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/traces_autre_client.py` | Traces d'un autre client dans un site DIG16 (27/10/2026), avant toute livraison ou démo. |
 | `outils/trouver_contact.py` | Cherche les adresses email publiques d'un organisme : page d'accueil + pages contact, économie, presse, |
 | `outils/typo_fr.py` | Espaces insécables de la typographie française dans un fichier HTML (texte seulement, hors <script>/<style>). |
+| `outils/veille_outils.py` | Veille des outils retenus et des nouveaux outils officiels (28/10/2026). |
 | `outils/veille_presse.py` | Cherche un article sur DIG16 dans Charente Libre (27/10/2026, demande de l'utilisateur après le rendez-vous du 27/10). |
 | `outils/veille_sources.py` | Veille quotidienne sur toutes les sources ajoutées par l'utilisateur (demande du 28/09/2026 : |
 | `outils/verif_entreprises.py` | Vérifie la santé administrative d'une liste d'entreprises avant de les démarcher ou de signer. |
