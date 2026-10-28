@@ -265,3 +265,7 @@ Pour chaque document important (offre, contrat, CGV, page du site, texte d'appel
 ## Relecteur sans droit de modifier (21/10/2026, vidéo dl78bCncIe0)
 
 Avant d'envoyer un document, une démo ou un texte important : le faire relire par un agent **en lecture seule** (agent « Explore », qui ne peut rien modifier). Il rend un verdict « validé » ou « à refaire » avec, pour chaque défaut, le fichier, le problème et le résultat attendu ; c'est Claude qui corrige. Trois allers-retours au plus ; ensuite, présenter à l'utilisateur ce qui reste douteux plutôt que de boucler.
+
+## Documents pour un échange avec un tiers : remplissables au clavier (consigne du 28/10/2026)
+
+Tout PDF fourni à l'utilisateur pour un appel, un entretien ou un rendez-vous avec un tiers (fiche d'appel, fiche d'entretien, questionnaire de lancement…) est livré **remplissable** : `python3 outils/pdf_remplissable.py entree.pdf sortie.pdf --notes "<étiquettes des cadres>" [--lignes]` (blancs ____ → champs, ☐ → cases, cadres de notes et lignes d'écriture → zones de saisie). `documents_client.py` le fait déjà pour le questionnaire du kit client. Contrôle avant envoi : remplir toutes les zones par programme (pymupdf) et vérifier sur image qu'aucune ne chevauche du texte.

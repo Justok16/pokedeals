@@ -215,6 +215,14 @@ def main():
     if D.get("offert"):
         pages.append((f"5-Accord-gratuit-{base}.pdf", accord(P, C, D)))
     rendre(pages, sortie)
+    # Questionnaire rempli pendant l'échange avec le client : remplissable au clavier (consigne du 28/10)
+    sys.path.insert(0, ICI)
+    from pdf_remplissable import rendre_remplissable
+    q = os.path.join(sortie, f"4-Questionnaire-lancement-{base}.pdf")
+    tmp = q + ".tmp.pdf"
+    os.replace(q, tmp)
+    print("questionnaire remplissable :", rendre_remplissable(tmp, q, lignes=True), "champs")
+    os.remove(tmp)
 
 
 if __name__ == "__main__":
