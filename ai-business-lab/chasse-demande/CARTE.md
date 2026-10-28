@@ -136,7 +136,7 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/suivi_siren.py` | Suivi de l'immatriculation de DIG16 dans l'annuaire officiel (préparé le 08/10/2026). |
 | `outils/synthese_chaine.py` | Synthèse du dimanche : index des fiches vidéo d'une chaîne (connaissances/<chaine>/SYNTHESE.md). |
 | `outils/test_formulaire.py` | Teste l'envoi du formulaire de contact AVEC la politique de sécurité (CSP) réelle du site (09/10/2026). |
-| `outils/test_pages.py` | Test de non-régression du site DIG16 (07/10). |
+| `outils/test_pages.py` | (pas de description) |
 | `outils/toutes_videos.py` | Traite TOUTES les vidéos des chaînes suivies (demande de l'utilisateur du 07/10/2026 : « les 40 467 vidéos »). |
 | `outils/traces_autre_client.py` | Traces d'un autre client dans un site DIG16 (27/10/2026), avant toute livraison ou démo. |
 | `outils/trouver_contact.py` | Cherche les adresses email publiques d'un organisme : page d'accueil + pages contact, économie, presse, |

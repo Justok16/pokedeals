@@ -1,3 +1,4 @@
+import re
 #!/usr/bin/env python3
 """Test de non-régression du site DIG16 (07/10).
 
@@ -114,6 +115,18 @@ def polices_locales():
     print(('ALERTE' if trouves else 'OK    '), 'polices hébergées sur le site', trouves[:5] or '')
     return 1 if trouves else 0
 
+def reseaux_visibles():
+    """28/10 : TikTok et Threads figuraient dans les données structurées (sameAs) mais pas dans le pied de page de
+    l'accueil (remarque de l'utilisateur). Chaque compte de sameAs doit avoir un lien visible sur l'accueil."""
+    site = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site-dig')
+    t = open(os.path.join(site, 'index.html'), encoding='utf-8').read()
+    m = re.search(r'"sameAs":\[([^\]]*)\]', t)
+    comptes = re.findall(r'"([^"]+)"', m.group(1)) if m else []
+    reseaux = ('facebook.com', 'instagram.com', 'threads.com', 'tiktok.com', 'youtube.com', 'x.com')
+    manquants = [u for u in comptes if any(r in u for r in reseaux) and f'href="{u}"' not in t]
+    print(('ALERTE' if manquants or not comptes else 'OK    '), 'réseaux visibles sur l\'accueil', manquants or '')
+    return 1 if manquants or not comptes else 0
+
 def main():
     base = sys.argv[1].rstrip('/') if len(sys.argv) > 1 else None
     serveur = None
@@ -122,7 +135,7 @@ def main():
         serveur = subprocess.Popen([sys.executable, '-m', 'http.server', '4699'], cwd=site,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(1.5); base = 'http://localhost:4699'
-    souci = son_videos() + regles_interface() + plan_du_site() + accessibilite() + palette() + markdown_a_jour() + polices_locales()
+    souci = son_videos() + regles_interface() + plan_du_site() + accessibilite() + palette() + markdown_a_jour() + polices_locales() + reseaux_visibles()
     try:
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()

@@ -49,6 +49,7 @@ Vous connaissez un artisan, un commerçant ou un indépendant en Charente ? Do
 [Facebook](https://www.facebook.com/1334231963113482)
 [Instagram](https://www.instagram.com/dig16fr/)
 [TikTok](https://www.tiktok.com/@dig16fr)
+[Threads](https://www.threads.com/@dig16fr)
 [YouTube](https://www.youtube.com/@dig16fr)
 [X](https://x.com/dig16charente)
 
