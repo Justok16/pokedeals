@@ -18,7 +18,7 @@ Aucun prix : on écoute (57). Les objections ont leurs réponses dans l'antisèc
 
 Usage : python3 fiche_appel.py <lot.json> <dossier de sortie PRIVÉ>
 Le lot et la sortie contiennent des données de prospects : scratchpad ou Drive « Dig », JAMAIS ce dépôt.
-Format du lot : {"date": "21/10/2026", "titre": "...", "prospects": [{"num", "nom", "siren", "metier", "commune",
+Format du lot : {"date": "21/10/2026", "date_recherches"? (date des relevés Google et volumes si plus ancienne), "titre": "...", "prospects": [{"num", "nom", "siren", "metier", "commune",
 "telephone", "site"?, "google", "bodacc", "demande", "notes"?, "pourquoi"}]}
 """
 
@@ -174,9 +174,10 @@ def questions(p, a, site):
     return q
 
 
-def bloc_site(site):
+def bloc_site(site, date, date_rech):
+    # 28/10 : chaque information porte sa date (relecture du 28/10 : « recherche du jour » trompeur sur une fiche refaite)
     if not site:
-        return "<b>aucun site à son nom</b> (recherche du jour sur son nom et sa commune)."
+        return f"<b>aucun site à son nom</b> (recherche du {e(date_rech[:5])} sur son nom et sa commune)."
     if not site["code"].startswith("2"):
         return f"<b>{e(site['url'])}</b> ne répond plus (code {e(site['code'] or 'aucun')})."
     L = [f"<b>{e(site['finale'].split('//')[-1].rstrip('/'))}</b>"]
@@ -189,10 +190,11 @@ def bloc_site(site):
     L.append("adapté au téléphone" if site["mobile"] else "<b>pas adapté au téléphone</b>")
     if not site["https"]:
         L.append("<b>sans cadenas (pas de HTTPS)</b>")
-    return " · ".join(L)
+    return " · ".join(L) + f" (vu le {e(date[:5])})"
 
 
-def fiche(p, a, site, date, rang, total):
+def fiche(p, a, site, date, rang, total, date_rech=None):
+    date_rech = date_rech or date
     qui = []
     if a:
         if a["dirigeants"]:
@@ -200,23 +202,25 @@ def fiche(p, a, site, date, rang, total):
         qui.append(f"Créée en {e(a['creation'])} · {e(a['salaries'])}"
                    + (f" (donnée {e(str(a['annee_salaries']))})" if a["annee_salaries"] else ""))
         qui.append("Adresse au registre : " + e(joli(a["adresse"])))
-        qui.append("Entreprise <b>active</b>" if a["actif"] else "<b>ATTENTION : fermée au registre, ne pas appeler</b>")
+        qui.append(f"Entreprise <b>active</b> (registre lu le {e(date[:5])})" if a["actif"] else "<b>ATTENTION : fermée au registre, ne pas appeler</b>")
     else:
         qui.append("<b>Introuvable au registre par son SIREN : vérifier avant l'appel</b>")
     qui.append(e(p["bodacc"]))
     qs = "".join(f"<li>{e(x)}</li>" for x in questions(p, a, site))
     notes = f'<p class="note">{e(p["notes"])}</p>' if p.get("notes") else ""
+    entete = (f"Registre {e(date[:5])} · Google {e(date_rech[:5])} · PRIVÉ" if date_rech != date
+              else f"Vérifiée le {e(date)} · PRIVÉ")
     personnes = [d for d in (a or {}).get("dirigeants", []) if "(société)" not in d]
     demander = (f"<b>Demander :</b> {e(personnes[0].split(' (')[0])}" if personnes
                 else "<b>Demander :</b> le dirigeant, ou la personne qui décide pour l'entreprise")
     return f"""<section class="page">
-<div class="haut"><span>Appel {rang}/{total} · n° {e(str(p['num']))} de ta liste</span><span>Vérifiée le {e(date)} · PRIVÉ</span></div>
+<div class="haut"><span>Appel {rang}/{total} · n° {e(str(p['num']))} de ta liste</span><span>{entete}</span></div>
 <h1>{e(p['nom'])}</h1>
 <p class="metier">{e(p['metier'])} · {e(p['commune'])}</p>
 <p class="tel">{e(p['telephone'])}</p><p class="dem">{demander}</p>
 <div class="pourquoi"><b>Pourquoi l'appeler :</b> {e(p['pourquoi'])}</div>
 <h2>Qui tu vas avoir</h2><ul>{''.join(f'<li>{x}</li>' for x in qui)}</ul>
-<h2>Sur internet aujourd'hui</h2><ul><li>Site : {bloc_site(site)}</li><li>Google : {e(p['google'])}</li>
+<h2>Sur internet</h2><ul><li>Site : {bloc_site(site, date, date_rech)}</li><li>Google : {e(p['google'])}</li>
 <li>Demande : {e(p['demande'])}</li></ul>{notes}
 <h2>Tes 3 questions</h2><ol>{qs}</ol>
 <div class="cadre"><b>Ouverture (20 s) :</b> « Bonjour, ici DIG16, une entreprise de Charente qui fait des sites pour
@@ -249,12 +253,15 @@ padding:2mm 4mm;font-size:12px;color:#8a6d3b}
 
 
 def couverture(lot, prospects):
+    dr = lot.get("date_recherches", lot["date"])
+    dates = (f" Registre, BODACC et sites relus le {e(lot['date'])} ; recherches Google et volumes du {e(dr)}."
+             if dr != lot["date"] else "")
     lignes = "".join(f"<tr><td>{i}</td><td>{e(str(p['num']))}</td><td><b>{e(p['nom'])}</b><br>{e(p['metier'])}, {e(p['commune'])}</td>"
                      f'<td class="nw">{e(p["telephone"])}</td><td>{e(p["pourquoi"])}</td></tr>'
                      for i, p in enumerate(prospects, 1))
     return f"""<section class="page couv"><div class="haut"><span>DIG16 · fiches d'appel</span>
 <span>Vérifiées le {e(lot['date'])} · PRIVÉ</span></div><h1>{e(lot['titre'])}</h1>
-<p class="metier">Dans l'ordre conseillé. Une page par entreprise, avec tes 3 questions et la place pour noter.</p>
+<p class="metier">Dans l'ordre conseillé. Une page par entreprise, avec tes 3 questions et la place pour noter.{dates}</p>
 <table><colgroup><col style="width:7%"><col style="width:7%"><col style="width:32%"><col style="width:17%"><col style="width:37%"></colgroup><tr><th>Ordre</th><th>N° liste</th><th>Entreprise</th><th>Téléphone</th><th>Pourquoi l'appeler</th></tr>{lignes}</table>
 <div class="regles"><b>Rappels :</b> on écoute, on note les mots exacts, on ne propose ni prix ni offre (57).
 Les 3 questions sont choisies pour chacun ; si l'échange dure, continue avec les 7 questions de la fiche 57
@@ -281,7 +288,7 @@ def main():
         a = annuaire(p["siren"]) if p.get("siren") else None
         site = analyser_site(p.get("site"))
         p.setdefault("metier_court", p["metier"].split(",")[0].lower())
-        pages.append(fiche(p, a, site, lot["date"], len(pages) + 1, len(lot["prospects"])))
+        pages.append(fiche(p, a, site, lot["date"], len(pages) + 1, len(lot["prospects"]), lot.get("date_recherches")))
         print(f"n° {p['num']} {p['nom']} : registre {'ok' if a else 'INTROUVABLE'}"
               + (f", site {site['code']} {site['outil']} maj {site['maj'] or site['annee']}" if site else ", sans site"))
     corps = typo(couverture(lot, lot["prospects"]) + "".join(pages))
