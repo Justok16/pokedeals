@@ -371,7 +371,8 @@ def contenu(image, theme):
                 '</div>')
     if genre == "formules":
         lignes = [("Essentiel", "49 €", "par mois"), ("Visibilité", "79 €", "par mois"),
-                  ("Achat", "690 €", "une fois, puis 15 € par mois pour l'hébergement et le suivi")]
+                  ("Achat", "690 €", "une fois ; hébergement et suivi en option : 15 € par mois"),
+                  ("Prestige", "1 990 €", "une fois, ou 199 € par mois : sur mesure")]
         rangs = "".join(f'<div class="formule"><b>{a}</b><span class="m">{b}</span><span>{insecables(c)}</span></div>'
                         for a, b, c in lignes)
         return (f'<div class="corps bas"><div class="etq2">Les formules</div>{rangs}'
