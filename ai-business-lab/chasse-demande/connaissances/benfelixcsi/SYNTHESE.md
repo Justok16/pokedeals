@@ -1,6 +1,6 @@
-# Ben Felix — index des fiches (synthèse du mardi 27/10/2026)
+# Ben Felix — index des fiches (synthèse du mercredi 28/10/2026)
 
-121 vidéos résumées sur 182. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+122 vidéos résumées sur 182. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[20 ans de location ou d'achat d'une maison au Canada (2005 à 2024)](lBG-g1CKfgs.md)** — La vidéo analyse le mythe selon lequel « être propriétaire d'un logement est toujours financièrement supérieur à la location ». En comparant des données historiques canadiennes sur 20 ans (2005-2024), la thèse est que la location combinée à un investissement boursier performe…
@@ -96,6 +96,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Pourquoi NE PAS investir va (probablement) vous coûter cher](1qjSfyVPwLQ.md)** — La vidéo explique pourquoi s'attendre à des baisses de marché ou nourrir du pessimisme quant à l'économie coûte cher aux investisseurs à long terme, et démontre que les actions et obligations ont historiquement généré des rendements réels positifs sur de longues périodes…
 - **[Pourquoi parier sur des industries « gagnantes » ne fonctionne presque jamais](3B9umhfv_ww.md)** — Les paris sur un seul secteur industriel. La thèse est que miser sur un secteur spécifique, même prometteur, est une erreur car les meilleures industries d'une décennie sont rarement celles de la suivante.
 - **[Pourquoi vous perdrez (probablement) de l'argent en négociant des options](K-U6eoICrYQ.md)** — La vidéo traite du trading d'options de détail (particuliers), qualifié de jeu de perdants. La thèse est que le trading d'options s'apparente à de la spéculation ou du jeu d'argent, et que la vaste majorité des investisseurs particuliers perdent de l'argent.
+- **[Préjugés du pays d'origine](qYedjI03Q0g.md)** — Sujet : La diversification géographique des portefeuilles d'investissement et le « biais domestique » (home country bias), avec un focus particulier sur le point de vue d'un investisseur canadien.
 - **[Prévisions boursières](f5INbrzS894.md)** — Le sujet est la pertinence des prévisions boursières et économiques. La thèse principale est qu’il est impossible de prédire de manière fiable les rendements futurs des marchés financiers. Par conséquent, il est inutile d'essayer de « timer » le marché (acheter/vendre au bon…
 - **[Quand les intérêts composés se retournent contre vous](skc2T5fcoLY.md)** — Sujet : L’analogie entre l'investissement financier et l’investissement dans sa propre santé (sommeil, nutrition, exercice, santé mentale).
 - **[Que faire en cas de chute du marché boursier ?](Jh9Gn58r9Fw.md)** — Sujet : La nature des marchés baissiers (bear markets) et la stratégie d'investissement à long terme.

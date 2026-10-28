@@ -1,6 +1,6 @@
-# Zonebourse — index des fiches (synthèse du mardi 27/10/2026)
+# Zonebourse — index des fiches (synthèse du mercredi 28/10/2026)
 
-2290 vidéos résumées sur 2290. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+2291 vidéos résumées sur 2291. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["Bloquons Tout" à la sauce américaine](TXjVOkOfkjI.md)** — Analyse de la paralysie budgétaire aux États-Unis et des impacts sur les marchés financiers.
@@ -846,6 +846,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[L'IA Le pari démesuré des géants de la tech ? #meta #alphabet #google #microsoft](RlwOy1jWA0k.md)** — - Sujet : L'investissement dans les "Magnifiques" (les géants technologiques américains) et l'impact de l'intelligence artificielle.
 - **[L'IA porte la bourse, la politique la secoue.](4NF2zHXKHJY.md)** — - Le podcast « La Chronique Bourse » par Anthony Bondain (Zonebourse) dresse un point sur les marchés financiers le 5 octobre 2026. La thèse est que l'IA apporte la bourse, la politique l'secoue, avec des marchés boursiers dominés par l'intelligence artificielle d'un côté et…
 - **[L'IA remet tout le monde d'accord à Wall Street, ou presque](XGdOpuUZwUc.md)** — Analyse de la "Journée mondiale de la solitude" (23 janvier) et de l'engouement persistant pour l'intelligence artificielle (IA) et les entreprises technologiques (notamment Nvidia, Microsoft, Alphabet, etc.) malgré les contradictions et les risques de bulle. La thèse est que,…
+- **[L'IA reprend le contrôle de la narration boursière avant le retour de la Fed](HDO423xdpgs.md)** — Sujet : État des lieux des marchés financiers mondiaux à l'ouverture de la séance.
 - **[L'IA reprend le leadership](OGdXoSg0G4E.md)** — Chronique boursière quotidienne du vendredi 22 mai 2026. L'intelligence artificielle (IA) continue de porter les marchés malgré les résistances des investisseurs face aux tensions géopolitiques et aux débats réglementaires.
 - **[L'IA révolutionne l'industrie musicale #universalmusic  #sony](U1_J0q5QViI.md)** — Les géants de l'industrie musicale, initialement opposés à l'IA, changent de stratégie en négociant des licences permettant aux start-ups d'utiliser leurs catalogues musicaux pour entraîner des modèles d'IA générative.
 - **[L'IA, LE PLUS GROS PARI FINANCIER DE L'HISTOIRE MODERNE - La Finance Décomplexée](1zheSFaQ-_w.md)** — - Sujet : L’impact de l’intelligence artificielle (IA) sur le modèle économique de la "Tech" américaine et le coût croissant de son infrastructure.
