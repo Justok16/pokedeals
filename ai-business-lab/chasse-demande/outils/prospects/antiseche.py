@@ -305,5 +305,6 @@ def typo_fr(h):
     return h[:i] + b
 
 
-open("antiseche.html", "w").write(typo_fr(H))
+import os
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "antiseche.html"), "w").write(typo_fr(H))
 print(n)

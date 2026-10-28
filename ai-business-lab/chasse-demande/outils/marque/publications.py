@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Calendrier complet des publications DIG16 sur 8 semaines, prêt à programmer (08/10/2026).
+"""ARCHIVE (28/10/2026) : ne plus relancer. Ces textes du 08/10 contiennent des promesses retirées depuis
+(« en ligne en 7 jours », « test du pouce », Bluesky) : voir 44 « Affirmations périmées ». Série en cours :
+supports/publications-v2/.
+
+Calendrier complet des publications DIG16 sur 8 semaines, prêt à programmer (08/10/2026).
 
 Réunit les textes déjà validés (50-campagne-lancement.md § 9, 61-plan-publicite.md § 3, 62-campagne-test-du-pouce.md)
 et fabrique pour chacun un visuel 1080 × 1350 à la charte (60-charte-dig16.md), avec l'empreinte de la campagne.
