@@ -269,3 +269,8 @@ Mise en œuvre :
 - **Bibliothèques du site** : fichiers nommés avec leur version (`gsap-3.15.0.min.js`…). Comme elles sont gardées 30 jours dans le cache des navigateurs, un nouveau nom évite de mélanger deux versions chez un visiteur.
 - **Ce que disent les autres IA** : toujours revérifié à la source (deps.dev, npm, PyPI, fichier LICENSE, page de prix). Leçon du 28/10 : Gemini marquait tout « vérifié », avec des licences fausses.
 - **Limites maintenues** : budget 0 €, aucun crédit acheté, aucun contournement de protection, rien d'installé sans lecture complète, rien de ce qui engage l'utilisateur (dépense, identité) sans son accord.
+
+**Précision de l'utilisateur (28/10) :** « ces outils [doivent] concerner absolument toutes les facettes de l'entreprise. Par exemple l'automatisation des papiers administratifs lors de la création d'un site web d'un client. » Mise en œuvre :
+- **Inventaire élargi à 73 outils**, rangés par domaine : clients et administratif, signature, facturation et paiement, prospection, communication, réseaux, SEO, qualité, hébergement, veille.
+- **Surveillance des offres gratuites** des services dont dépend l'entreprise : Indy, DocuSeal, Zapier, Metricool, Cloudflare Pages et Turnstile, Brevo, GSAP, Remotion, GoCardless. Chaque page de prix doit garder ses phrases repères (ex. « 10 request emails per month »). Une ALERTE est levée si une phrase disparaît.
+- **Skill `.claude/skills/nouveau-client`** : le parcours complet d'un nouveau client, en 10 étapes. Il va de la vérification de l'entreprise (SIREN, BODACC) aux rappels de suivi, en passant par le kit de 12 documents, le contrôle 44, la signature DocuSeal, le Drive, la facture Indy, le mandat SEPA et la livraison selon 65.

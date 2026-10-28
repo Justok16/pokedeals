@@ -125,5 +125,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   irréprochable ») : inventaire unique `connaissances/inventaire-outils.json` (tableau `.md` régénéré) ; veille
   quotidienne `outils/veille_outils.py` (versions, licences, abandon, nouveautés des catalogues officiels) lancée par
   `veille_sources.py` et traitée par le rappel quotidien de 09:41 ; tout outil retenu y est ajouté ; toute affirmation
-  d'une autre IA est revérifiée à la source avant d'être retenue.
+  d'une autre IA est revérifiée à la source avant d'être retenue. **Toutes les facettes de l'entreprise** (précision du
+  28/10 : administratif, facturation, signature, prospection, réseaux…), pas seulement les sites : pages de prix des
+  services gratuits surveillées ; parcours client complet automatisé par le skill `nouveau-client`.
 - Veille quotidienne des sources et base de connaissances vidéo : voir la fiche.

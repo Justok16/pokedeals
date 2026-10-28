@@ -1,5 +1,5 @@
 {
- "_lisez_moi": "Inventaire des outils retenus (demande de l'utilisateur du 28/10 : garder TOUS les outils à jour, fiables et légitimes). Surveillé chaque jour par outils/veille_outils.py (versions, licences, abandon). statut : en_place (utilisé), installe (skill ou outil prêt), reserve (vérifié, à sortir au bon moment). Ajouter ici chaque nouvel outil retenu. reference=true : référence stable, signalée seulement après 18 mois sans version.",
+ "_lisez_moi": "Inventaire des outils retenus (demande de l'utilisateur du 28/10 : garder TOUS les outils à jour, fiables et légitimes). Surveillé chaque jour par outils/veille_outils.py (versions, licences, abandon). statut : en_place (utilisé), installe (skill ou outil prêt), reserve (vérifié, à sortir au bon moment). Ajouter ici chaque nouvel outil retenu. reference=true : référence stable, signalée seulement après 18 mois sans version. services_offres_gratuites : pages de prix surveillées ; ALERTE si une phrase « doit_contenir » disparaît (offre gratuite peut-être changée).",
  "outils": [
   {
    "nom": "GSAP",
@@ -440,6 +440,126 @@
    "statut": "reserve",
    "domaine": "Photos",
    "usage": "Retouche de séries de photos"
+  },
+  {
+   "nom": "Kit client complet (kit_client.py)",
+   "statut": "en_place",
+   "domaine": "Clients et administratif",
+   "usage": "12 documents d'un nouveau client en une commande (devis, CGV, facture, PV, mode d'emploi…), 72"
+  },
+  {
+   "nom": "Documents client (documents_client.py)",
+   "statut": "en_place",
+   "domaine": "Clients et administratif",
+   "usage": "Devis, CGV, facture, questionnaire, accord gracieux"
+  },
+  {
+   "nom": "Modèles DocuSeal (modeles_docuseal.py + connecteur DocuSeal)",
+   "statut": "en_place",
+   "domaine": "Signature électronique",
+   "usage": "4 modèles prêts (6628706 à 6628709), envoi send_documents"
+  },
+  {
+   "nom": "Remplir un PDF (remplir_pdf.py)",
+   "statut": "en_place",
+   "domaine": "Clients et administratif",
+   "usage": "Cerfa et formulaires remplis automatiquement"
+  },
+  {
+   "nom": "Vérification d'entreprise (verif_entreprises.py + connecteur Contract-Factory SIREN)",
+   "statut": "en_place",
+   "domaine": "Clients et administratif",
+   "usage": "SIREN, état, BODACC avant signature (45)"
+  },
+  {
+   "nom": "Fiche d'appel prospect (outils/prospects/fiche_appel.py)",
+   "statut": "en_place",
+   "domaine": "Prospection",
+   "usage": "Fiche d'appel revérifiée en direct"
+  },
+  {
+   "nom": "Trouver un contact (trouver_contact.py)",
+   "statut": "en_place",
+   "domaine": "Prospection",
+   "usage": "Pages contact d'un organisme"
+  },
+  {
+   "nom": "Indy (facturation, plateforme agréée, compte pro)",
+   "statut": "en_place",
+   "domaine": "Facturation et paiement",
+   "usage": "Factures, facturation électronique, livre des recettes"
+  },
+  {
+   "nom": "GoCardless (prélèvement SEPA)",
+   "statut": "en_place",
+   "domaine": "Facturation et paiement",
+   "usage": "Mandats SEPA des formules mensuelles"
+  },
+  {
+   "nom": "Gmail + Google Drive + Google Agenda (connecteurs)",
+   "statut": "en_place",
+   "domaine": "Communication et organisation",
+   "usage": "Courrier DIG16, archives privées « Dig », rendez-vous"
+  },
+  {
+   "nom": "Metricool (connecteur)",
+   "statut": "en_place",
+   "domaine": "Réseaux sociaux",
+   "usage": "Programmation et statistiques des réseaux"
+  },
+  {
+   "nom": "Zapier / Buffer (connecteur)",
+   "statut": "en_place",
+   "domaine": "Réseaux sociaux",
+   "usage": "Stories et Shorts quand Metricool est plein"
+  },
+  {
+   "nom": "vidIQ (connecteur)",
+   "statut": "en_place",
+   "domaine": "Réseaux sociaux",
+   "usage": "YouTube : vidéos, transcriptions"
+  },
+  {
+   "nom": "OpenSEO (connecteur)",
+   "statut": "en_place",
+   "domaine": "SEO",
+   "usage": "Fiche Google, Search Console, audits"
+  },
+  {
+   "nom": "Contrôle qualité des documents (orthographe.py, typo_fr.py, lisibilite.py, pdf_pages.py)",
+   "statut": "en_place",
+   "domaine": "Qualité des documents",
+   "usage": "Contrôle 44 avant tout envoi"
+  },
+  {
+   "nom": "Contrôle global du site (controle_global.py, test_pages.py, seo_client.py, test_formulaire.py)",
+   "statut": "en_place",
+   "domaine": "Qualité",
+   "usage": "Santé du site et des sites clients avant livraison"
+  },
+  {
+   "nom": "Traces d'un autre client (traces_autre_client.py)",
+   "statut": "en_place",
+   "domaine": "Qualité",
+   "usage": "Aucune trace d'un autre client dans un site livré"
+  },
+  {
+   "nom": "Cloudflare Pages + Web Analytics + Turnstile",
+   "statut": "en_place",
+   "domaine": "Hébergement et sécurité",
+   "usage": "Hébergement, mesure sans cookie, anti-robots"
+  },
+  {
+   "nom": "Veille presse (veille_presse.py) et veille des sources (veille_sources.py)",
+   "statut": "en_place",
+   "domaine": "Veille",
+   "usage": "Presse locale, chaînes, annuaires d'outils"
+  },
+  {
+   "nom": "Réserve à proposer (reserve_a_proposer.py)",
+   "statut": "en_place",
+   "domaine": "Veille",
+   "usage": "Ressort l'outil gardé au bon moment"
   }
  ],
  "sources_officielles": [
@@ -450,6 +570,82 @@
   {
    "nom": "Skills officiels Anthropic",
    "url": "https://raw.githubusercontent.com/anthropics/skills/main/.claude-plugin/marketplace.json"
+  }
+ ],
+ "services_offres_gratuites": [
+  {
+   "nom": "Indy (offre 0 €, plateforme agréée)",
+   "url": "https://www.indy.fr/tarifs/",
+   "doit_contenir": [
+    "Plateforme agréée",
+    "dès 0 €"
+   ]
+  },
+  {
+   "nom": "DocuSeal (Basic gratuit)",
+   "url": "https://www.docuseal.com/pricing",
+   "doit_contenir": [
+    "Basic $0",
+    "10 request emails per month"
+   ]
+  },
+  {
+   "nom": "Zapier (gratuit)",
+   "url": "https://zapier.com/pricing",
+   "doit_contenir": [
+    "(100 tasks per month)"
+   ]
+  },
+  {
+   "nom": "Metricool (gratuit)",
+   "url": "https://metricool.com/pricing/",
+   "doit_contenir": [
+    "Schedule up to 20 posts per month"
+   ]
+  },
+  {
+   "nom": "Cloudflare Pages (gratuit)",
+   "url": "https://developers.cloudflare.com/pages/platform/limits/",
+   "doit_contenir": [
+    "Builds per month 500"
+   ]
+  },
+  {
+   "nom": "Cloudflare Turnstile (gratuit)",
+   "url": "https://developers.cloudflare.com/turnstile/plans/",
+   "doit_contenir": [
+    "Unlimited challenges"
+   ]
+  },
+  {
+   "nom": "Brevo (gratuit)",
+   "url": "https://www.brevo.com/pricing/",
+   "doit_contenir": [
+    "Free forever, no credit card needed",
+    "300 emails per day"
+   ]
+  },
+  {
+   "nom": "GSAP (licence sans frais)",
+   "url": "https://gsap.com/standard-license/",
+   "doit_contenir": [
+    "at no charge in commercial"
+   ]
+  },
+  {
+   "nom": "Remotion (gratuit jusqu'à 3 personnes)",
+   "url": "https://www.remotion.dev/docs/license/faq",
+   "doit_contenir": [
+    "with up to 3 people"
+   ]
+  },
+  {
+   "nom": "GoCardless (tarif Standard)",
+   "url": "https://gocardless.com/fr-fr/tarifs/",
+   "doit_contenir": [
+    "1 % + 0,20 € par transaction",
+    "Plafonnés à 2 €"
+   ]
   }
  ]
 }

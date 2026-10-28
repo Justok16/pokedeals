@@ -17,8 +17,10 @@ Puis lit les catalogues officiels (`sources_officielles`) et signale chaque exte
 """
 import argparse
 import datetime
+import html
 import json
 import os
+import re
 import sys
 import urllib.parse
 import urllib.request
@@ -108,6 +110,27 @@ def nouveautes_catalogue(src, avant):
     return noms, lignes
 
 
+def texte_page(url):
+    """Texte lisible d'une page de prix (scripts et balises retirés), ou None si la page ne répond pas."""
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            brut = r.read().decode("utf-8", errors="ignore")
+    except Exception:  # noqa: BLE001 (page injoignable : signalé en INFO, la veille continue)
+        return None
+    brut = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", brut, flags=re.DOTALL)
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", brut)))
+
+
+def controler_offre(service, texte):
+    """28/10 : une offre gratuite peut changer sans prévenir. ALERTE si une phrase repère a disparu de la page de prix."""
+    if not texte or len(texte) < 500:
+        return [f"INFO {service['nom']} : page de prix illisible aujourd'hui ({service['url']}), à relire à la main si cela dure"]
+    manquent = [p for p in service["doit_contenir"] if p not in texte]
+    return [f"ALERTE {service['nom']} : la page de prix ne dit plus « {m} » ({service['url']}) : relire l'offre gratuite"
+            for m in manquent]
+
+
 def ecrire_tableau(inv, etat):
     lignes = ["# Inventaire des outils DIG16 (tenu à jour automatiquement)", "",
               ("Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inventaire-outils.json` "
@@ -140,6 +163,8 @@ def veille():
         apres = interroger(o)
         rapport += comparer(o["nom"], etat.get("outils", {}).get(o["nom"]), apres, aujourdhui, o.get("reference", False))
         nouvel["outils"][o["nom"]] = apres
+    for service in inv.get("services_offres_gratuites", []):
+        rapport += controler_offre(service, texte_page(service["url"]))
     for src in inv.get("sources_officielles", []):
         noms, lignes = nouveautes_catalogue(src, etat.get("catalogues", {}).get(src["nom"]))
         rapport += lignes
@@ -168,6 +193,11 @@ def evaluer():
         ("rien de neuf", comparer("X", {"version": "1.0", "licence": "MIT"},
                                   {"version": "1.0", "licence": "MIT", "date": "2026-10-20"}, j), None),
         ("premier passage sans historique", comparer("X", None, {"version": "1.0", "date": "2026-10-20"}, j), None),
+        ("offre gratuite inchangée", controler_offre({"nom": "S", "url": "u", "doit_contenir": ["100 tasks"]},
+                                                      "x" * 600 + " 100 tasks "), None),
+        ("offre gratuite modifiée", controler_offre({"nom": "S", "url": "u", "doit_contenir": ["100 tasks"]},
+                                                     "x" * 600 + " 50 tasks "), "ALERTE"),
+        ("page de prix illisible", controler_offre({"nom": "S", "url": "u", "doit_contenir": ["a"]}, None), "INFO"),
     ]
     echecs = 0
     for nom, lignes, attendu in cas:

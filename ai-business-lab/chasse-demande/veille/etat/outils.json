@@ -318,6 +318,126 @@
    "date": null,
    "etoiles": null,
    "licence": null
+  },
+  "Kit client complet (kit_client.py)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Documents client (documents_client.py)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Modèles DocuSeal (modeles_docuseal.py + connecteur DocuSeal)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Remplir un PDF (remplir_pdf.py)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Vérification d'entreprise (verif_entreprises.py + connecteur Contract-Factory SIREN)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Fiche d'appel prospect (outils/prospects/fiche_appel.py)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Trouver un contact (trouver_contact.py)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Indy (facturation, plateforme agréée, compte pro)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "GoCardless (prélèvement SEPA)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Gmail + Google Drive + Google Agenda (connecteurs)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Metricool (connecteur)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Zapier / Buffer (connecteur)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "vidIQ (connecteur)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "OpenSEO (connecteur)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Contrôle qualité des documents (orthographe.py, typo_fr.py, lisibilite.py, pdf_pages.py)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Contrôle global du site (controle_global.py, test_pages.py, seo_client.py, test_formulaire.py)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Traces d'un autre client (traces_autre_client.py)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Cloudflare Pages + Web Analytics + Turnstile": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Veille presse (veille_presse.py) et veille des sources (veille_sources.py)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Réserve à proposer (reserve_a_proposer.py)": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
   }
  },
  "catalogues": {
