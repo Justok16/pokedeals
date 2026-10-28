@@ -174,3 +174,36 @@ def test_carte_sans_numero_fraction_rejetee(titre):
 def test_vrais_coffrets_toujours_reconnus(nom, titre):
     page = "coffret figurine collection premium 30e anniversaire pokemon francais"
     assert evaluer_correspondance(titre, page, P[nom])[0] is not None
+
+
+TRIPACK = "Tripack 30e Anniversaire (Pikachu & Mew / Mewtwo) FR"
+PAGE_TRIPACK = "tripack 3 boosters carte promo pikachu mew mewtwo 30e anniversaire pokemon francais"
+
+
+@pytest.mark.parametrize("titre", [
+    "Tripack Pokémon 30e Anniversaire Pikachu & Mew (FR)",
+    "Tri-pack 30 ans Mewtwo - 3 boosters - Français",
+    "Pack 3 boosters 30e Anniversaire Mew",
+    "Pokémon · 30e Anniversaire - Tripack Mewtwo - FR",
+])
+def test_tripack_30e_reconnu(titre):
+    assert evaluer_correspondance(titre, PAGE_TRIPACK, P[TRIPACK])[0] is not None
+
+
+@pytest.mark.parametrize("titre", [
+    "Tripack Pokémon Lucario 3 boosters (FR)",
+    "Coffret poster 30e Anniversaire - 3 boosters",
+    "Lot de 3 tripacks 30e Anniversaire",
+    "Lot duopack 30 ans - 30e anniversaire - Pokémon français officiel",
+    "Display 18 tripacks 30e Anniversaire",
+    "Coffret Pokémon Collection avec Figurine Mew – 30e Anniversaire – 5 Boosters",
+    "Pokémon – Lot de 2 Pokébox 30e Anniversaire – Nymphali-ex & Amphinobi-ex – 8 Boosters – VF",
+])
+def test_tripack_30e_rejette_les_autres_produits(titre):
+    assert evaluer_correspondance(titre, PAGE_TRIPACK, P[TRIPACK])[0] is None
+
+
+def test_tripack_30e_ne_chevauche_aucun_autre_produit():
+    titre = "Tripack Pokémon 30e Anniversaire Pikachu & Mewtwo (FR)"
+    noms = [p.nom for p in PRODUITS_SURVEILLES if evaluer_correspondance(titre, PAGE_TRIPACK, p)[0]]
+    assert noms == [TRIPACK]
