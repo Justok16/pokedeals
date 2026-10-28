@@ -59,6 +59,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   assurance, crédit, CBD (restaurants et hôtels restent).
 - Seulement des prospects de priorité 1 (score ≥ 55 ; bonus photos et logo, détail dans la fiche) ; plus d'ajout
   « annuaire seulement » sans autre signal. **Avant tout appel de prospect, tout doit être fini et irréprochable.**
+- **Validation d'abord** (consigne du 28/10) : chaque site ou démo est montré à l'utilisateur (lien + captures) et validé par lui **avant** tout envoi au prospect ou au client.
 - Démos : photos et logo du prospect d'abord, illustrations seulement en complément ; écarter images du modèle de site,
   visages et domaines repris par un tiers ; jamais sur le site public ; accord préalable, montrées en direct ; les 64
   démos existantes restent hors diffusion sans accord ; couleur tirée du logo ; jamais de logos de partenaires.
