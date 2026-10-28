@@ -99,6 +99,21 @@ def markdown_a_jour():
     print((r.stdout or r.stderr).strip())
     return 0 if r.returncode == 0 else 1
 
+def polices_locales():
+    """28/10 : aucune police chargée depuis Google (RGPD, consigne du 15/10). Le skill ui-ux-pro-max propose des liens
+    fonts.googleapis.com dans ses paires de polices (relevé par Grok le 28/10) : ce contrôle empêche qu'ils passent."""
+    site = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site-dig')
+    trouves = []
+    for racine, _, fichiers in os.walk(site):
+        for f in fichiers:
+            if f.endswith(('.html', '.css', '.js')):
+                chemin = os.path.join(racine, f)
+                with open(chemin, encoding='utf-8', errors='ignore') as fh:
+                    if 'fonts.googleapis.com' in (t := fh.read()) or 'fonts.gstatic.com' in t:
+                        trouves.append(os.path.relpath(chemin, site))
+    print(('ALERTE' if trouves else 'OK    '), 'polices hébergées sur le site', trouves[:5] or '')
+    return 1 if trouves else 0
+
 def main():
     base = sys.argv[1].rstrip('/') if len(sys.argv) > 1 else None
     serveur = None
@@ -107,7 +122,7 @@ def main():
         serveur = subprocess.Popen([sys.executable, '-m', 'http.server', '4699'], cwd=site,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(1.5); base = 'http://localhost:4699'
-    souci = son_videos() + regles_interface() + plan_du_site() + accessibilite() + palette() + markdown_a_jour()
+    souci = son_videos() + regles_interface() + plan_du_site() + accessibilite() + palette() + markdown_a_jour() + polices_locales()
     try:
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()

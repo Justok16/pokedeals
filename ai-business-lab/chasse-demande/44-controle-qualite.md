@@ -212,6 +212,10 @@ fait mieux.
   visite) ; le lien privé n'est remis que s'il le demande. Sans accord : photos d'illustration.
 - Les 64 démos existantes restent hors diffusion tant que l'accord n'est pas obtenu.
 
+## Polices hébergées sur le site (28/10/2026)
+
+`outils/test_pages.py` signale en ALERTE toute page, feuille de style ou script du site contenant `fonts.googleapis.com` ou `fonts.gstatic.com` (RGPD, consigne du 15/10). À appliquer aussi à chaque site client avant livraison : `grep -rl "fonts.googleapis\|fonts.gstatic" <dossier du site>` doit être vide. Attention : le skill `ui-ux-pro-max` propose des liens Google Fonts dans ses paires de polices : télécharger la police (Fontsource, Fontshare) et l'héberger.
+
 ## Affirmations périmées : à chercher partout avant toute publication (27/10/2026, vidéo MSFFJ2ov0Fg)
 
 Une promesse retirée doit disparaître **partout** (site, fiches Google, PagesJaunes, Bing, profils sociaux, YouTube,

@@ -189,3 +189,26 @@ Légende de la colonne « Vérifié » :
 - Squoosh recommandé : son outil en ligne de commande a été retiré ; pour l'automatique, sharp est le bon choix.
 - Pas de GSAP Skills officiels, de swup, de tarteaucitron, de Turnstile, de Claude SEO ni d'Unlighthouse : notre recherche va plus loin sur ces points.
 - Plusieurs chiffres donnés sans vérification (« environ 70 k étoiles », « plus de 100 k ») : non repris.
+
+---
+
+## Comparaison avec Grok (réponse reçue le 28/10, `connaissances/reponses-ia/grok-outils-claude-code-2026-10-28.md`)
+
+Réponse la plus sérieuse des deux IA : dépôts exacts, licences citées, dates. Points communs : Impeccable, frontend-design, emilkowalski/skills, la série better-*, ui-ux-pro-max, awesome-design-md, sharp, Pexels/Unsplash/Pixabay, GSAP, Lenis, swup, Hyperframes, Remotion, faster-whisper, marketingskills, IndexNow, Unlighthouse, Turnstile, Gitleaks, axe-core, Playwright.
+
+**Apports vérifiés par Claude le 28/10 :**
+
+| Point | Vérification à la source | Décision |
+|---|---|---|
+| **Piège ui-ux-pro-max + Google Fonts** | Confirmé : les fichiers `data/typography.csv` et `data/stacks/nextjs.csv` du skill installé contiennent des liens `fonts.googleapis.com` | **Corrigé** : nouveau contrôle `polices_locales()` dans `outils/test_pages.py` (ALERTE si `fonts.googleapis.com` ou `fonts.gstatic.com` dans une page, un CSS ou un JS du site) ; 0 trouvé aujourd'hui |
+| **Fontshare** (polices de fonderie gratuites) | Licence ITF FFL lue : « All Fontshare fonts are 100% free for personal and commercial use » ; « You may self-host the Font Software on your own servers… through… CSS @font-face » ; licence « non-transferable » | Retenu pour les sites clients ; **précaution** : licence non transférable, donc faire télécharger la police au nom du client (ou vérifier ce cas avant usage) |
+| **Remotion pour un client** | FAQ lue : si l'on ne livre qu'un MP4 et que le client ne reçoit ni le code ni Remotion, « Only your agency's headcount counts. If your agency has 3 or fewer personnel, the Free License covers this work » | Remotion utilisable pour des vidéos clients tant que DIG16 compte 3 personnes au plus et ne livre que la vidéo |
+| **Turnstile** | Page « Plans » (mise à jour le 14/08/2026) : « Pricing: Free », « Up to 20 widgets », « Unlimited challenges » | Confirmé |
+| **ALTCHA** (`altcha-org/altcha`) | README lu : « 100% Self-Hosted », « Fully GDPR compliant and cookie-free », licence MIT | Réserve : anti-spam de formulaire **sans aucun tiers** (alternative à Turnstile) |
+| OpenMontage | `calesthio/OpenMontage`, AGPL-3.0 selon Grok ; dépend de Piper (archivé en août 2025) et de Remotion | Déjà en réserve ; AGPL et dépendance archivée notées |
+| agent-browser (`vercel-labs/agent-browser`) | Apache-2.0 selon Grok, README non lu | Doublon de Playwright et Chrome DevTools MCP : non retenu |
+
+**Erreurs ou limites de Grok** (à ne pas reprendre) :
+- ArtCraft (vérifié : `storytold/*`) et la série `ig-*` jugés introuvables.
+- Il rejette Humanizer, alors que nous l'utilisons seulement pour retirer les tics d'écriture d'IA, jamais pour inventer des preuves.
+- Il n'a ni Chrome DevTools MCP, ni les GSAP Skills officiels, ni tarteaucitron, ni Claude SEO, ni security-guidance.
