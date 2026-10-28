@@ -117,6 +117,7 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/pages_markdown.py` | Version Markdown des pages publiques de dig16.fr, pour les agents IA (24/10/2026). |
 | `outils/palette_60_30_10.py` | Mesure la répartition des couleurs d'un site selon la règle des designers 60/30/10 (27/10/2026). |
 | `outils/pdf_pages.py` | Génère le PDF d'un support à pages A4 fixes et vérifie qu'aucune page ne déborde. |
+| `outils/pdf_remplissable.py` | Rend un PDF remplissable au clavier (demande de l'utilisateur du 28/10 : « taper au clavier dessus pendant l'appel »). |
 | `outils/plan_complet.py` | Régénère supports/Dig-Plan-complet.pdf à partir des fichiers à jour du dossier |
 | `outils/postnify.py` | Postnify (offre « Free Forever » : 2 réseaux, 15 publications par mois, API incluse). |
 | `outils/qa_site.py` | Contrôle d'une page de démo à 7 tailles d'écran (320 à 1440 px) : barre d'appel qui ne cache rien, pas de débordement, pas de marqueur [..] oublié. Usage : qa_site.py page.html |
