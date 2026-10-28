@@ -101,7 +101,7 @@ ccvaldecharente.fr ; CCI : page de la mairie ; CAPEB : capeb.fr/charente/contact
 | 13/10 | CC Cœur de Charente (secrétariat, à transmettre au service économique) | idem | en attente ; **relancé le 27/10** (mail unique, signature + image jointe) |
 | 13/10 | CC Charente Limousine (accueil) | idem | en attente ; **relancé le 27/10** (mail unique, signature + image jointe) |
 | 13/10 | CC La Rochefoucauld - Porte du Périgord (accueil) | idem | en attente ; **relancé le 27/10** (mail unique, signature + image jointe) |
-| 13/10 | CC Lavalette Tude Dronne (accueil) | idem | en attente ; **relancé le 27/10** (mail unique, signature + image jointe) |
+| 13/10 | CC Lavalette Tude Dronne (accueil) | idem | **répondu le 28/10 : refus poli** (les élus ne relaient pas de démarches commerciales ; contact gardé ; conseillent les associations d'artisans-commerçants et clubs d'entreprises du territoire). Pas de réponse à faire ; plus de relance |
 | 13/10 | CC 4B Sud Charente (accueil) | idem | en attente ; **relancé le 27/10** (mail unique, signature + image jointe) |
 | 13/10 | RCF Charente (rédaction d'Angoulême) | information de presse locale (création, test du pouce) | en attente ; **relancé le 27/10** (mail unique, signature + image jointe) |
 | 13/10 | Charente Libre (service internet, à transmettre à la rédaction, cahier Pays ruffécois / économie) | information de presse locale | suite : rendez-vous du 27/10 (ligne ci-dessous), ne pas relancer |
