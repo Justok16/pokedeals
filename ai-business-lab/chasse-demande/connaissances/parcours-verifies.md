@@ -136,3 +136,5 @@ Constat sur capture du 27/10/2026 : la fenêtre « Horaires d'ouverture » de So
 ## YouTube : description de la chaîne (aide officielle support.google.com/youtube/answer/3027950, lue le 27/10/2026)
 
 Ordinateur : se connecter à YouTube Studio (studio.youtube.com) → menu de gauche « Personnalisation » → onglet « Profil » (nom, identifiant, description, liens) → modifier → « Publier ». Sur téléphone : appli YouTube ou YouTube Studio, photo de profil → modifier (aide answer/2657964).
+
+- **28/10, autoriser un outil de connecteur une fois pour toutes (ex. Vercel « Upload file »)** : https://claude.ai/customize/connectors → ouvrir le connecteur (Vercel) → réglages des outils → mettre l'outil sur « toujours autoriser ». Source : documentation de l'environnement lue le 28/10. La règle `mcp__Vercel__*` est déjà dans `.claude/settings.json` ; la fenêtre vient du réglage du connecteur côté claude.ai. Libellés exacts de l'écran : à confirmer sur capture.
