@@ -65,6 +65,7 @@ liste unique des tâches : `64-mise-en-ordre-administrative.md` § 0.
 | `connaissances/lecons.md` | Registre des leçons — à relire au début de chaque session et avant toute tâche du même type |
 | `connaissances/ludo-salenne-marketing.md` | Synthèse : playlist « Le Marketing Digital facile » (Ludo Salenne) — appliquée à DIG16 |
 | `connaissances/parcours-verifies.md` | Parcours vérifiés dans les applis (guidage pas à pas de l'utilisateur) |
+| `connaissances/recherche-outils-claude-code-2026-10-28.md` | Recherche : meilleurs outils gratuits pour Claude Code (28/10/2026) |
 | `connaissances/reserve-prete.md` | Réserve prête à l'emploi : tous les outils envoyés et gardés pour plus tard |
 | `connaissances/selection-taaft-2026-10-21.md` | Sélection d'outils gratuits dans l'annuaire « There's An AI For That » (21/10/2026) |
 | `connaissances/sources-finance.md` | Sources finance et investissement envoyées le 05/10/2026 (soir) |
