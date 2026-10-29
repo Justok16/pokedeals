@@ -35,4 +35,4 @@ Règles : aucune commune de résidence de l'utilisateur, seulement « Charente �
 - Public : « Non, elle n'est pas conçue pour les enfants » ; Visibilité : Publique ; Catégorie : Science et technologie
   (sinon « Éducation ») ; Commentaires : autorisés.
 
-**Publié le 11/10/2026** : https://youtube.com/shorts/8mgDyxbrp5g (vérifié public via oEmbed, auteur @dig16fr). YouTube ajouté au pied de page et au `sameAs` du site.
+**Publié le 11/10/2026, supprimé le 29/10/2026** (promesse « en ligne en 7 jours » retirée le 24/10) : https://youtube.com/shorts/8mgDyxbrp5g (vérifié public via oEmbed, auteur @dig16fr). YouTube ajouté au pied de page et au `sameAs` du site.
