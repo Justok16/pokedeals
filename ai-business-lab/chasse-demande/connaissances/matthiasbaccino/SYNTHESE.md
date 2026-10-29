@@ -1,6 +1,6 @@
-# matthiasbaccino — index des fiches (synthèse du mercredi 28/10/2026)
+# matthiasbaccino — index des fiches (synthèse du jeudi 29/10/2026)
 
-55 vidéos résumées sur 742. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+57 vidéos résumées sur 744. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[7 millions d'euros pour une usine française : le choix de Brique House ! Replay Live 23/09/26](RLzDWqd03A0.md)** — Sujet : L’industrie de la bière en France, les défis de l’entrepreneuriat brassicole, et la levée de fonds participative en capital d’une entreprise non cotée (start-up/PME) à travers l'exemple de la marque Brique House.
@@ -18,6 +18,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[DÉCOUVERTS BANCAIRES : comment les ÉVITER ?](Dm9ynUhSAk4.md)** — - Sujet : Les découverts bancaires en France (ampleur, gravité, coûts).
 - **[Faut-il avoir PEUR de la CHINE ? Replay Live 22/03/26](cDHzM2MNVy0.md)** — Sujet : L'impact de la situation économique mondiale et du conflit avec l'Iran sur les finances publiques françaises et le pouvoir d'achat.
 - **[Faut-il avoir peur des Etats-Unis en 2026 ? Replay Live 11/01/26](KqLsbvXcdKw.md)** — Sujet : Questions-réponses sur l'actualité économique et le fonctionnement opérationnel de la banque Trade Republic.
+- **[Faut-il avoir peur pour l’économie et notre argent en 2026 ? Replay Live 14/12/25](0iRZjiWEWKM.md)** — Sujet : Analyse des perspectives économiques globales pour 2026, impacts sur les marchés financiers et conseils pour les investisseurs individuels.
 - **[Faut-il continuer à INVESTIR dans BITCOIN à long terme ? Replay Live 21/06/26](9OBNCFm_hN8.md)** — Le sujet est une discussion sur le Bitcoin en tant qu'investissement long terme, ses risques, et les opportunités liées à la « tokénisation » des actifs financiers traditionnels (actions, obligations). La thèse principale est que le Bitcoin, bien que volatil, constitue un…
 - **[Faut-il Miléiser les finances publiques Françaises ?](So1OPQVinkk.md)** — Sujet : Faut-il « miléiser » le budget de la France et ses finances publiques ? (en référence à la méthode de Javier Milei, président de l'Argentine depuis décembre 2023).
 - **[INVESTIR dans les petites et moyennes ENTREPRISES ?](aorv0LcAZgo.md)** — Sujet : Faut-il investir dans les petites et moyennes entreprises (PME et ETI) ?
@@ -26,6 +27,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[L'économie française dans le mur ? Replay Live 18/01/26](HBGlmoDEsBE.md)** — Sujet : Un point hebdomadaire sur l'actualité économique, les marchés financiers et la gestion de l'épargne.
 - **[La FISCALITÉ : un vrai enjeu !](sNnNinkEdFg.md)** — Sujet : L’impact de la fiscalité sur l’épargne et les investissements à long terme.
 - **[La France au pied du mur : qui va payer la facture ? Replay Live 31/05/26](8ItaSRSsqlM.md)** — La vidéo traite de l'état de l'économie et du système financier, avec un focus particulier sur la dette publique française.
+- **[La France augmente les impôts et la FED baisse les taux - Replay Live 10/12/25](JmqGIdVyZFQ.md)** — Sujet : Analyse de l'actualité économique, financière et fiscale (politique monétaire de la Fed, situation des marchés et enjeux liés à l'investissement et à la fiscalité).
 - **[La FRANCE croule sous les NORMES ! Replay Live 24/05/26](PqqK-MysEA0.md)** — Sujet : Analyse de l'actualité économique, financière et boursière (France et international).
 - **[La GUERRE à Ormuz va avoir de graves conséquences ! Replay Live 19/07/26](mQCWFS0PPZ4.md)** — Sujet : Point hebdomadaire sur l’actualité économique et boursière (évolution des finances publiques françaises, inflation, marchés des semi-conducteurs, tensions géopolitiques autour du détroit d’Ormuz, et conseils en entrepreneuriat/investissement).
 - **[La mission impossible de Lecornu : un budget pour la France en 2027 ! Replay Live 20/09/26](r7rmaUUD450.md)** — Sujet : Point hebdomadaire d'actualité macroéconomique, géopolitique, boursière et budgétaire (France, Europe, USA, etc.) animé par Matthias Baccino.

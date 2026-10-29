@@ -1,6 +1,6 @@
-# Melvynx — index des fiches (synthèse du mercredi 28/10/2026)
+# Melvynx — index des fiches (synthèse du jeudi 29/10/2026)
 
-1128 vidéos résumées sur 1137. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+1129 vidéos résumées sur 1138. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["Je n’ai pas eu besoin de chercher de mission : le recruteur est venu à moi" - Mirko Bozzetto](ULvvQ7aRLiQ.md)** — 1) Idée principale : Interview d'un élève (Mirko) qui a suivi les formations de l'auteur, son parcours de musicien à développeur freelance, l'importance de la pratique et de l'intégration dans des projets réels.
@@ -216,6 +216,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Claude m'a effacé d'Internet pendant que je dormais](dJA8JPkiM9I.md)** — 1. Idée principale : Utiliser Claude pour automatiser des demandes de suppression de données personnelles en ligne en invoquant le droit à l'effacement (RGPD, article 17).
 - **[Claude MAX : Nouveau modèle SANS LIMITE (mais très chère) | Cursor](_L1pgl-xbCA.md)** — L'auteur teste et analyse les performances, l'utilité et le coût de l'utilisation de la nouvelle option Claude 3.7 Max (et du mode Thinking) intégrée dans l'éditeur Cursor pour effectuer des tâches complexes de refactoring de code et de correction de bugs.
 - **[Claude met fin à la fête : les développeurs s'énervent (sont-ils méchants ?)](_nsnEuhI4KM.md)** — La vidéo analyse le changement de dynamique entre Anthropic (Claude) et OpenAI (ChatGPT/Codex) pour les développeurs. Alors qu'Anthropic durcit ses conditions d'utilisation (blocage d'outils tiers, surtaxation « extra usage », discours anxiogène sur le remplacement des…
+- **[Claude mods : les 3 meilleures façons de les utiliser](rfxAJaT8TSg.md)** — La vidéo présente les « Mods », une nouvelle fonctionnalité récente de Claude (via Claude Code), qui permet de personnaliser l'interface et d'automatiser des tâches pour optimiser sa productivité et sa sécurité lors du développement.
 - **[Claude Motion : le hack pour des animations premium en 4 étapes](J2PLJaMCvGA.md)** — Créer du "Motion Design" (animations vidéo) de qualité professionnelle en utilisant Claude Motion, en s'appuyant sur des références de style existantes.
 - **[Claude Mythos : CE QUE PERSONNE NE VOUS DIT sur ce modèle (attention)](hH45AwGQrUo.md)** — L'auteur analyse l'annonce d'Anthropic concernant Claude Mythos Preview et l'initiative Project Glasswing (un modèle ultra-performant axé sur la détection de failles de cybersécurité zero-day, notamment dans Linux/Firefox).
 - **[Claude Opus 5 vient de sortir et il est incroyable (je mens pas promis)](pRyNGZrzMHY.md)** — L'auteur teste et compare les performances du modèle Claude Opus 5 (utilisé via Claude Code) face à d'autres modèles (Claude Fable 5, GPT-5.6 Sol, Kimi K3) sur diverses tâches de développement web, d'animations 3D, de refonte d'interfaces utilisateur et d'optimisation de…
