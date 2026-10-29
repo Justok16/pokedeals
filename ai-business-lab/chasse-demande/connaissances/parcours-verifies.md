@@ -152,3 +152,6 @@ Ordinateur : se connecter à YouTube Studio (studio.youtube.com) → menu de gau
 ### Modifier la légende d'une publication déjà parue
 - **Instagram** (aide officielle help.instagram.com/1490745927855762, lue le 29/10/2026) : « … » (Options) en haut à droite de la publication → **Modifier** → corriger la légende → **OK / Terminé**.
 - **Facebook** (aide officielle facebook.com/help/462476073850410, lue le 29/10/2026) : sur la publication, « … » (Options) en haut à droite → **Modifier la publication** → corriger → **Enregistrer**.
+
+### Instagram : archiver une publication (la masquer sans la supprimer)
+- Aide officielle help.instagram.com/136706673552668 (« Archive a post you've shared on Instagram », lue le 29/10/2026) : fonction disponible dans l'appli (Android, iPhone), pas sur ordinateur ; réversible (« Show an archived post again in your Instagram profile », help.instagram.com). Dans l'appli : sur la publication, « … » en haut à droite → **Archiver**. Si le mot n'apparaît pas : capture de l'écran.
