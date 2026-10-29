@@ -155,3 +155,6 @@ Ordinateur : se connecter à YouTube Studio (studio.youtube.com) → menu de gau
 
 ### Instagram : archiver une publication (la masquer sans la supprimer)
 - Aide officielle help.instagram.com/136706673552668 (« Archive a post you've shared on Instagram », lue le 29/10/2026) : fonction disponible dans l'appli (Android, iPhone), pas sur ordinateur ; réversible (« Show an archived post again in your Instagram profile », help.instagram.com). Dans l'appli : sur la publication, « … » en haut à droite → **Archiver**. Si le mot n'apparaît pas : capture de l'écran.
+
+### YouTube : rendre une vidéo privée (sans la supprimer)
+- Aide officielle support.google.com/youtube/answer/157177 (Android, lue le 29/10/2026) : **appli YouTube** → photo de profil → **Vos vidéos** → « ⋮ » (Plus) à côté de la vidéo → **Corriger** → **Visibilité** → **Privé** → Retour → **ENREGISTRER**. Appli YouTube Studio : **Contenu** → « ⋮ » → **Corriger** → **Visibilité** → **Privé**. Réversible.
