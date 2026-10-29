@@ -17,7 +17,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Clients et administratif | Vérification d'entreprise (verif_entreprises.py + connecteur Contract-Factory SIREN) | en place | SIREN, état, BODACC avant signature (45) | — | — | — |
 | Communication et organisation | Gmail + Google Drive + Google Agenda (connecteurs) | en place | Courrier DIG16, archives privées « Dig », rendez-vous | — | — | — |
 | Design | Anthropic skills | installé | frontend-design et skills officiels | — | — | 182636 |
-| Design | Emil Kowalski skills | installé | emil-design-eng, mobile-native, review-animations, break-ui | — | MIT | 48180 |
+| Design | Emil Kowalski skills | installé | emil-design-eng, mobile-native, review-animations, break-ui | — | MIT | 51166 |
 | Design | Fontsource | réserve | Polices libres à héberger | 5.3.0 (2026-07-19) | MIT | 6228 |
 | Design | Impeccable | installé | Skill impeccable | — | Apache-2.0 | 84190 |
 | Design | Leonardo (Adobe) | réserve | Palettes à contraste garanti | 1.1.0 (2026-02-18) | Apache-2.0 | 2161 |
@@ -41,12 +41,12 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Prospection | Fiche d'appel prospect (outils/prospects/fiche_appel.py) | en place | Fiche d'appel revérifiée en direct | — | — | — |
 | Prospection | Trouver un contact (trouver_contact.py) | en place | Pages contact d'un organisme | — | — | — |
 | Publicité | Google Ads MCP | réserve | Lecture des campagnes Google Ads | — | Apache-2.0 | 1059 |
-| Qualité | Chrome DevTools MCP | réserve | Performance réelle, console, réseau | 1.12.0 (2026-10-22) | Apache-2.0 | 53902 |
+| Qualité | Chrome DevTools MCP | réserve | Performance réelle, console, réseau | 1.12.0 (2026-10-22) | Apache-2.0 | 54337 |
 | Qualité | Context7 | réserve | Documentation à jour des bibliothèques | 4.4.4 (2026-10-19) | MIT | 63497 |
 | Qualité | Contrôle global du site (controle_global.py, test_pages.py, seo_client.py, test_formulaire.py) | en place | Santé du site et des sites clients avant livraison | — | — | — |
 | Qualité | Playwright MCP | en place | Navigateur piloté (.mcp.json) | 0.0.83 (2026-09-28) | Apache-2.0 | 38474 |
 | Qualité | Traces d'un autre client (traces_autre_client.py) | en place | Aucune trace d'un autre client dans un site livré | — | — | — |
-| Qualité | axe-core | réserve | Moteur d'accessibilité | 4.14.0 (2026-10-05) | non-standard | 7675 |
+| Qualité | axe-core | réserve | Moteur d'accessibilité | 4.14.0 (2026-10-05) | non-standard | 7725 |
 | Qualité | html-validate | réserve | Validation HTML | 11.17.0 (2026-10-20) | MIT | — |
 | Qualité | lychee | réserve | Liens cassés | — | Apache-2.0 | 4037 |
 | Qualité | pa11y | réserve | Accessibilité en une commande | 10.0.0 (2026-08-28) | LGPL-3.0 | 4582 |
@@ -78,4 +78,4 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5610 |
 | Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26119 |
 
-Dernière veille : 2026-10-28.
+Dernière veille : 2026-10-29.
