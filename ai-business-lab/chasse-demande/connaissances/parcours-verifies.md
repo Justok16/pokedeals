@@ -138,3 +138,12 @@ Constat sur capture du 27/10/2026 : la fenêtre « Horaires d'ouverture » de So
 Ordinateur : se connecter à YouTube Studio (studio.youtube.com) → menu de gauche « Personnalisation » → onglet « Profil » (nom, identifiant, description, liens) → modifier → « Publier ». Sur téléphone : appli YouTube ou YouTube Studio, photo de profil → modifier (aide answer/2657964).
 
 - **28/10, autoriser un outil de connecteur une fois pour toutes (ex. Vercel « Upload file »)** : https://claude.ai/customize/connectors → ouvrir le connecteur (Vercel) → réglages des outils → mettre l'outil sur « toujours autoriser ». Source : documentation de l'environnement lue le 28/10. La règle `mcp__Vercel__*` est déjà dans `.claude/settings.json` ; la fenêtre vient du réglage du connecteur côté claude.ai. Libellés exacts de l'écran : à confirmer sur capture.
+
+## GoCardless : créer les modèles de paiement (confirmé sur captures le 29/10/2026)
+
+- Accueil manage.gocardless.com → cadre « Démarrer avec les paiements » → **Poursuivre** → page « Créer des paiements » (cartes Plan d'abonnement, Frais de provision, Service ou produit unique…).
+- Accès direct au formulaire : https://manage.gocardless.com/setup-payments/create → onglets « Client final uniquement », « Unique », « Abonnement », « Échéances ».
+- **Abonnement** : Nom du produit, Montant, Fréquence (Mensuel), Référence (facultatif, visible sur le relevé du client), 3 interrupteurs (nombre fixe de paiements, date du prélèvement, redirection) laissés éteints. **Unique** : Nom, Montant, interrupteurs « Rediriger » et « Utiliser Pay by Bank » (paiement instantané par l'appli bancaire ; inclus dans l'offre Standard au même tarif, page tarifs lue le 29/10).
+- « Créer » → page « Invitez des clients finaux » avec le lien pay.gocardless.com à partager (et code QR). Ne pas suivre le conseil « partagez le lien avec vous-même » (vrai prélèvement).
+- Modèles créés le 29/10 : Essentiel 49 €/mois (réf. DIG16 ESSENTIEL), Visibilité 79 €/mois (DIG16 VISIBILITE), Prestige au mois 199 €/mois (DIG16 PRESTIGE), option Achat 15 €/mois (DIG16 SUIVI), Achat 690 € et Prestige 1 990 € en paiement unique avec Pay by Bank.
+- Bandeau « jours restants sans frais » + « Prolonger » : ne pas cliquer avant d'avoir lu ce que propose « Prolonger » (conditions de l'offre de bienvenue : aucun frais de transaction pendant la période).
