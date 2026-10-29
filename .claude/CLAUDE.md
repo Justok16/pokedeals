@@ -12,7 +12,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   Travail dans `ai-business-lab/chasse-demande/`, branche `claude/ai-business-portfolio-strategy-96yf4g`. Tous les domaines
   légaux sont ouverts (détail : fin de `00-grille-anti-digcost.md`).
 - **Abandonnés, ne jamais reproposer** : piste Atlassian (08/10), campagne « Le test du pouce » (19/10 ; la page outil
-  reste), cours Udemy (19/10), LinkedIn (10/10), Bluesky (11/10), Pinterest (12/10), flyer papier et affichage imprimé (21/10 : tout numérique).
+  reste), cours Udemy (19/10), LinkedIn (10/10), Bluesky (11/10), Pinterest (12/10), flyer papier et affichage imprimé (21/10 : tout numérique), profil Malt (29/10).
 
 ## Comment travailler
 
