@@ -148,3 +148,7 @@ Ordinateur : se connecter à YouTube Studio (studio.youtube.com) → menu de gau
 - Modèles créés le 29/10 : Essentiel 49 €/mois (réf. DIG16 ESSENTIEL), Visibilité 79 €/mois (DIG16 VISIBILITE), Prestige au mois 199 €/mois (DIG16 PRESTIGE), option Achat 15 €/mois (DIG16 SUIVI), Achat 690 € et Prestige 1 990 € en paiement unique avec Pay by Bank.
 - Logo : bouton « + Ajoutez votre logo » (en haut à droite de l'aperçu) → « Télécharger un logo » (JPG ou PNG jusqu'à 5 Mo), taille S/M/L, couleurs « Arrière-plan du logo » et « Bouton », aperçu « Page de paiement » / « E-mail » → « Enregistrer les modifications ». Fait le 29/10 avec site-dig/img/marque/icone-512.png, taille L.
 - Bandeau « jours restants sans frais » + « Prolonger » : ne pas cliquer avant d'avoir lu ce que propose « Prolonger » (conditions de l'offre de bienvenue : aucun frais de transaction pendant la période).
+
+### Modifier la légende d'une publication déjà parue
+- **Instagram** (aide officielle help.instagram.com/1490745927855762, lue le 29/10/2026) : « … » (Options) en haut à droite de la publication → **Modifier** → corriger la légende → **OK / Terminé**.
+- **Facebook** (aide officielle facebook.com/help/462476073850410, lue le 29/10/2026) : sur la publication, « … » (Options) en haut à droite → **Modifier la publication** → corriger → **Enregistrer**.
