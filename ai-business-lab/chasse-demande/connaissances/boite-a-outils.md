@@ -367,7 +367,7 @@ _274 entrées, registres : 46-apprentissage-continu.md, connaissances/technology
 | ✅ | Reels Devqb2KFTct, DePOoFtCy8S + yanny.space (22/10) | LinkedIn abandonné (non installé) ; ui-ux-pro-max et impeccable déjà en place ; Framer Motion / 21st.dev sans objet (sites statiques) ; yanny.space = liste d attente, rien envoyé |
 | ✅ | Fiche Core Labs Roast Room (22/10) | Non installé (trop gourmand) ; méthode ajoutée au « conseil » déjà prêt (reserve-prete) ; aucun email donné |
 | ✅ | Reel DeUQ6OHMi_z (22/10) | Doublon : OpenMontage déjà en réserve |
-| ✅ | Reel Facebook 1430366055915392 (29/10, « Installer OpenMontage en 5 minutes ») | Doublon : OpenMontage déjà en réserve depuis le 22/10 ; README relu, fiche mise à jour (prérequis, faux dépôts « installateurs » à éviter) ; résumé `videos-resumes/fb-1430366055915392.md` ; lien de la légende vers une « ressource gratuite » non suivi (page de collecte d'emails) |
+| ✅ | Reel Facebook 1430366055915392 (29/10, « Installer OpenMontage en 5 minutes ») | Doublon : OpenMontage déjà en réserve depuis le 22/10 ; README relu, fiche mise à jour (prérequis, faux dépôts « installateurs » à éviter) ; résumé `videos-resumes/fb-1430366055915392.md` ; lien de la légende vers une « ressource gratuite » non suivi (inutile : le README officiel suffit) |
 | ✅ | Reel Dezu72ljHE8 (22/10) | Déjà en place (CLAUDE.md, connaissances, connecteurs, skills) |
 | ✅ | Guide Notion « Un week-end avec Claude » (22/10) | Déjà en place pour l essentiel ; ajout au garde-fou mensuel : contexte à jour + test visiteurs |
 | ✅ | Reels Deh0m4YDNf1 et Deya5_ND6zs (22/10) | SEO : déjà en place (OpenSEO, ai-seo, seo-audit) ; LinkedIn abandonné |
