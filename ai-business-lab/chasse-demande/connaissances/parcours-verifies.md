@@ -158,3 +158,11 @@ Ordinateur : se connecter à YouTube Studio (studio.youtube.com) → menu de gau
 
 ### YouTube : rendre une vidéo privée (sans la supprimer)
 - Aide officielle support.google.com/youtube/answer/157177 (Android, lue le 29/10/2026) : **appli YouTube** → photo de profil → **Vos vidéos** → « ⋮ » (Plus) à côté de la vidéo → **Corriger** → **Visibilité** → **Privé** → Retour → **ENREGISTRER**. Appli YouTube Studio : **Contenu** → « ⋮ » → **Corriger** → **Visibilité** → **Privé**. Réversible.
+
+## vidIQ : ajouter un compte Instagram (page d'aide officielle lue le 29/10/2026)
+
+Source : support.vidiq.com, article « vidIQ for Instagram ». Inclus dans l'offre gratuite (150 crédits par mois, partagés avec YouTube ; une analyse Instagram coûte environ 10 crédits).
+- Sur ordinateur : app.vidiq.com/ai-coach → clic sur la photo de profil ou l'adresse en **bas à gauche** → **Accounts** → **Add** → **Instagram** → taper le nom du compte (`@...`) → le sélectionner dans **Accounts**.
+- Ce n'est pas une vraie connexion : vidIQ lit seulement les données publiques (aucun mot de passe Instagram ni autorisation Meta).
+- Inutile pour Claude : l'outil vidIQ lit déjà un compte public à partir de son nom (`vidiq_ig_profile`, 5 crédits ; `vidiq_ig_profile_reels`).
+- Statistiques privées et publication de Reels : une connexion Meta distincte, par l'outil « Clipping » de vidIQ. Non nécessaire, car Metricool publie déjà sur Instagram.
