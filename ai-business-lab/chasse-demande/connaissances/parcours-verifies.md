@@ -166,3 +166,12 @@ Source : support.vidiq.com, article « vidIQ for Instagram ». Inclus dans l'off
 - Ce n'est pas une vraie connexion : vidIQ lit seulement les données publiques (aucun mot de passe Instagram ni autorisation Meta).
 - Inutile pour Claude : l'outil vidIQ lit déjà un compte public à partir de son nom (`vidiq_ig_profile`, 5 crédits ; `vidiq_ig_profile_reels`).
 - Statistiques privées et publication de Reels : une connexion Meta distincte, par l'outil « Clipping » de vidIQ. Non nécessaire, car Metricool publie déjà sur Instagram.
+
+## PagesJaunes (Solocal Manager) : publier une actualité (aide officielle lue le 30/10/2026)
+
+Source : help.solocal.com, article 360017586359 « Publier une actualité » (mis à jour le 26/10/2026) et article 13625331212188 « Les règles de paramétrages de votre publication » (26/10/2026), lus par l'API publique du centre d'aide.
+- Menu **Communication** → **« Créer une publication »** (ou bouton « Créer une publication » en haut à droite dans « Mes publications »).
+- Plateformes de diffusion : celles qui sont connectées sont **pré-cochées** ; ne garder que **pagesjaunes** (la fiche Google reçoit ses publications par Metricool).
+- Type de publication : **Standard** ; texte obligatoire (1 500 caractères au plus pour pagesjaunes) ; jusqu'à 10 photos ; « Ajouter un bouton » → **En savoir plus** + adresse (lien de mesure `https://dig16.fr/pj`).
+- « Début de la diffusion » : **maintenant** par défaut ; « Fin de diffusion » facultative (la publication disparaît alors du fil pagesjaunes) → **Publier**.
+- Libellés exacts sur téléphone : à confirmer sur capture.
