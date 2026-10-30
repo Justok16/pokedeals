@@ -96,6 +96,7 @@ Résultat le 19/10 : « 3/3 channels connected » (DIG16 Facebook, dig16fr Insta
 **TrustGrowth** (écrans vus par Claude le 21/10)
 - https://trustgrowth.ai/ → champ « Your site URL » : `dig16.fr` → « Get my score → ». Le site annonce : « Read-only Google Search Console · about 60 seconds · no card, ever ».
 - La suite (connexion Google, autorisation de lecture de la Search Console) n'est pas visible sans compte : procéder **un écran à la fois, sur capture**.
+- **Confirmé sur captures le 30/10/2026** : connexion Google → « Select Properties » (dig16.fr coché, « Continue with 1 site → ») → « Record Baselines & Continue → » (≈ 30 s) → « You're All Set! » (étapes Connected… Published, puis Scored et Live) → « Open Dashboard ». En bas : offre Starter à 9 $/mois et liste d'attente Growth (adresse pré-remplie) : ne rien cocher.
 - Search Console de dig16.fr validée depuis le 12/10.
 
 **ProspectFlow** : le lien d'inscription mène à une **liste d'attente** (« ProspectFlow is launching soon. Join the waitlist », lu le 21/10). Il n'y a pas de compte possible pour l'instant, donc l'outil est écarté.
