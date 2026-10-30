@@ -1,6 +1,6 @@
 # Aswath Damodaran — index des fiches (synthèse du vendredi 30/10/2026)
 
-464 vidéos résumées sur 1417. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+465 vidéos résumées sur 1417. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[A "Fairly Highly Valued" (Stock) Market: The Fed Chair Opines but should anyone listen?](0faNl-maR5o.md)** — Le sujet est l'analyse de la cherté des marchés d'actions américains en 2025, suite aux déclarations du président de la Fed, Jérôme Powell, qualifiant le marché de « passablement hautement évalué ». La thèse principale est que, bien que les actions américaines soient…
@@ -414,6 +414,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Séance 3 (Étudiants de premier cycle en évaluation) : Premiers pas en évaluation intrinsèque](OJgEKIYi4l0.md)** — Sujet : L’évaluation financière des entreprises (actions, firmes, approches par les flux de trésorerie, la tarification relative et les options).
 - **[Séance 3B : Évaluation des actifs incorporels, contrôle et jeunes entreprises](landwqMR3AA.md)** — Sujet : La valorisation des actifs incorporels (comme la marque ou la franchise) et de la structure de capital, en particulier dans les entreprises jeunes ou "difficiles à évaluer" (ex. Amazon, Star Wars, Coca-Cola).
 - **[Séance 4 (Étudiants en premier cycle en évaluation) : L'architecture des DCF et des taux sans risque](sYgxNrwmnjA.md)** — Sujet : L'évaluation d'entreprise par la méthode des flux de trésorerie actualisés (DCF).
+- **[Séance 4B : Approfondissement de la narration et de la tarification](qtLlhg71r4g.md)** — Sujet : La méthode pour valoriser une entreprise (comme Uber, Ferrari ou d'autres) en partant de son « récit » (narrative) pour le traduire en chiffres, puis la distinction entre la valorisation fondamentale (DCF) et la tarification relative par multiples.
 - **[Séance 4 : Externalités, alternative à la maximisation de la valeur actionnariale et objectif final](tm--EaAn9xM.md)** — Sujet : L'analyse critique des crises financières, de la théorie financière traditionnelle (maximisation de la valeur pour l'actionnaire, coûts/bénéfices sociaux), de la gouvernance d'entreprise (modèles alternatifs comme le keiretsu japonais) et des critères ESG…
 - **[Séance 4 : Vue d’ensemble du DCF et premiers pas vers les taux sans risque](oFz94rZbc4c.md)** — Sujet : L’utilisation des taux sans risque dans l’évaluation financière par flux de trésorerie actualisés (DCF) et les complexités liées aux devises, aux taux bas/négatifs et au risque souverain.
 - **[Séance 5 (MBA de Val) : Conclusion sur les taux sans risque et premiers pas sur les primes de ris...](l2ZDQ3HHaNM.md)** — Sujet : L’estimation des taux sans risque, des primes de risque historiques et des primes de risque de pays (ou d'entreprise) dans le cadre de la valorisation d'actifs et de multinationales.

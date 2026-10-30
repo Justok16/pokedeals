@@ -1,6 +1,6 @@
-# Zonebourse — index des fiches (synthèse du mercredi 28/10/2026)
+# Zonebourse — index des fiches (synthèse du vendredi 30/10/2026)
 
-2291 vidéos résumées sur 2291. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+2293 vidéos résumées sur 2293. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["Bloquons Tout" à la sauce américaine](TXjVOkOfkjI.md)** — Analyse de la paralysie budgétaire aux États-Unis et des impacts sur les marchés financiers.
@@ -123,6 +123,8 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Alphabet dépasse les 3000 milliards de valorisation - Émission du 16 septembre #google #alphabet](Jw5WtMgS4A4.md)** — L'interview analyse les enjeux financiers, la rentabilité et la croissance d'Alphabet (Google), l'une des GAFAM les plus rentables, tout en évoquant l'impact de ses investissements massifs dans l'intelligence artificielle (notamment Gemini, modèles de langage, cloud) et ses…
 - **[Alphabet dépasse les 3000 milliards de valorisation - Émission du 16 septembre #google #alphabet](PkDHnbqLi1w.md)** — Cette vidéo analyse la concentration des profits dans le secteur technologique américain (le "Top 10"). La thèse est que cette performance n'est pas seulement spéculative, mais repose sur des résultats économiques et une rentabilité réels et historiques.
 - **[Alphabet et Boeing, monuments en péril ?](ghPHRIzz3Ng.md)** — Analyse de la volatilité extrême des marchés chinois et des réponses des autorités pour stimuler l'économie.
+- **[Alphabet gâche un peu la fête de l'IA](qya-uxxYr5M.md)** — - Sujet : Chronique boursière du jeudi 29 octobre 2026 par Anthony Bondain.
+- **[Alphabet, Amazon, Intel… c'est plus ce que c'était !](znejBbDnA14.md)** — - Sujet : Chronique boursière du vendredi 30 octobre 2026 par Anthony Bondain.
 - **[Alstom déraille en bourse #alstom #cac40](vea6Sf9XCWI.md)** — La chute brutale en bourse d'Alstom (-16 % en une séance) malgré une année 2024 exceptionnelle. La thèse est que les perspectives d'Alstom sont jugées trop prudentes par les investisseurs en raison de contraintes financières, d'un endettement préoccupant et de défis…
 - **[Amazon / Alibaba : le match !](tjUDCFbEeck.md)** — Analyse des géants mondiaux du e-commerce, Amazon (États-Unis) et Alibaba (Chine), axée sur leurs chiffres financiers, leurs modèles économiques (marketplace pure vs vente directe et détention de stocks), ainsi que sur les risques géopolitiques et réglementaires pesant sur les…
 - **[Amazon et  Google tombent sous le charme de Janky et Guggimon](wc--kyJr-r4.md)** — Le sujet est le lien entre Amazon, Google et Kering avec Superplastic, un studio d'animation NFT créateur de célébrités synthétiques ayant levé 58 millions de dollars auprès de géants de la bourse. La thèse est que de grands acteurs traditionnels et de la technologie…
