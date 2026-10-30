@@ -175,3 +175,10 @@ Source : help.solocal.com, article 360017586359 « Publier une actualité » (mi
 - Type de publication : **Standard** ; texte obligatoire (1 500 caractères au plus pour pagesjaunes) ; jusqu'à 10 photos ; « Ajouter un bouton » → **En savoir plus** + adresse (lien de mesure `https://dig16.fr/pj`).
 - « Début de la diffusion » : **maintenant** par défaut ; « Fin de diffusion » facultative (la publication disparaît alors du fil pagesjaunes) → **Publier**.
 - Libellés exacts sur téléphone : à confirmer sur capture.
+
+## X : profil (aide officielle lue le 30/10/2026)
+
+Sources : help.x.com « How to customize your profile » et « About profile visibility settings » (lues le 30/10/2026, en anglais ; libellés français à confirmer sur capture).
+- Profil → **Edit profile / Éditer le profil** : bio (160 caractères), site web, lieu, date de naissance.
+- Date de naissance : section **Birth date** → réglages de visibilité séparés pour le jour et le mois, et pour l'année → **Only you / Uniquement vous** ; ces réglages ne peuvent être changés que « quelques fois ». Retrait possible aussi (« Remove birth date » sur l'appli), mais la date sert à X pour vérifier l'âge : préférer la visibilité.
+- Épingler : sur le profil, la publication → icône « … » → **Pin to your profile / Épingler à votre profil**.
