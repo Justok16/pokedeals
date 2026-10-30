@@ -87,6 +87,7 @@ Résultat le 19/10 : « 3/3 channels connected » (DIG16 Facebook, dig16fr Insta
 - Relier les réseaux : Settings → Channels → « Add Channel », puis X, puis Facebook. Chaque réseau demande la connexion de son titulaire.
 - Clé pour Claude : Settings → Developers → Public API. La clé ne se colle **jamais** dans la conversation : elle va dans les réglages de l'environnement cloud (menu de l'environnement dans la barre de titre de la session → Edit → « Network secrets », ou variable d'environnement `POSTNIFY_API_KEY`). Elle sera lue par une nouvelle session.
 - Limite de l'API : 30 appels par heure ; plusieurs publications peuvent partir dans un seul appel.
+- **Constaté sur captures le 30/10/2026 (compte gratuit)** : Settings n'a que « Global Settings » et « Approved Apps » ; aucun onglet « Developers / Public API », rien non plus dans « Integrations » (HeyGen, Reel.Farm). La clé n'est donc pas accessible en offre gratuite malgré la page des prix : ne plus reproposer Postnify pour X automatique, sauf si l'onglet apparaît.
 
 **WebAnatomy** (écrans vus par Claude le 21/10)
 - https://www.webanatomy.ai/landing-page-analyzer → coller `https://dig16.fr/` → « Analyze for free ».
