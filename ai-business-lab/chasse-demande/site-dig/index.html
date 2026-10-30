@@ -114,14 +114,16 @@ nav .cadre{display:flex;align-items:center;justify-content:space-between;gap:1re
 /* Titre et accroche : glissement sans fondu (Chrome ne compte un texte qui apparaît en fondu qu'à la fin du fondu : LCP retardé de 1,2 s) */
 @keyframes glisse{from{transform:translateY(34px)}to{transform:none}}
 .heros h1,.accroche{animation:glisse .95s var(--ease) backwards}
-.actions,.confiance{animation:monte .95s var(--ease) backwards}
+.actions,.rassure,.confiance{animation:monte .95s var(--ease) backwards}
 .heros h1 .ligne2{animation:glisse .95s var(--ease) .12s backwards}
-.accroche{animation-delay:.3s}.actions{animation-delay:.42s}.confiance{animation-delay:.54s}
+.accroche{animation-delay:.3s}.actions{animation-delay:.42s}.rassure{animation-delay:.48s}.confiance{animation-delay:.54s}
 @keyframes monte-fig{from{opacity:0;translate:0 40px}to{opacity:1;translate:0 0}}
 .eventail figure{animation:monte-fig 1.1s var(--ease) backwards}.eventail figure:nth-child(2){animation-delay:.25s}.eventail figure:nth-child(3){animation-delay:.4s}
 .accroche{font-size:1.14rem;line-height:1.65;font-weight:300;color:#c4bcb0;max-width:34rem}
 .accroche b{color:var(--ivoire);font-weight:500}
 .actions{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.7rem 0 0}
+/* 30/10 : réassurance sous le bouton (rapport WebAnatomy, accord de l'utilisateur) */
+.rassure{margin:.85rem 0 0;font-size:.9rem;color:var(--doux);max-width:34rem}
 .btn-film{gap:.55rem}.btn-film svg{width:16px;height:16px;fill:var(--or)}.btn-film small{font-size:.78rem;font-weight:500;color:var(--doux);margin-left:.15rem}
 .confiance{display:flex;gap:2.2rem;flex-wrap:wrap;margin-top:2.4rem;color:var(--doux);font-size:.95rem}
 .confiance b{display:block;font-family:var(--serif);font-weight:400;font-size:1.9rem;color:var(--ivoire);letter-spacing:-.01em;line-height:1}
@@ -432,12 +434,13 @@ footer a:hover{color:var(--ivoire)}
  <div class="cadre">
  <div>
   <h1>Vos clients vous cherchent sur leur téléphone. <span class="ligne2">Ils vous trouvent&nbsp;?</span></h1>
-  <p class="accroche">Un site moderne, rapide, <b>qui vous appartient</b>, fait près de chez vous. Sur téléphone, vos clients n’ont qu’à <b>faire défiler avec le pouce</b>&nbsp;: rien à chercher, rien à zoomer. Et avant de décider quoi que ce soit, <b>je refais votre page d’accueil gratuitement</b>.</p>
+  <p class="accroche"><b>Pour les artisans et commerçants</b>, en Charente et partout en France à distance&nbsp;: un site moderne, rapide, <b>qui vous appartient</b>. Sur téléphone, vos clients n’ont qu’à <b>faire défiler avec le pouce</b>&nbsp;: rien à chercher, rien à zoomer. Et avant de décider quoi que ce soit, <b>je refais votre page d’accueil gratuitement</b>.</p>
   <div class="actions">
    <a href="#contact" class="btn principal aimant" id="cta-haut">Recevoir ma démo gratuite<svg class="fleche" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
    <a href="#demos" class="btn second aimant">Voir les démos</a>
    <button type="button" class="btn second btn-film aimant" id="btn-film"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Voir la présentation<small>31 s</small></button>
   </div>
+  <p class="rassure">Gratuite et sans engagement&nbsp;: si elle ne vous plaît pas, elle est supprimée.</p>
   <div class="confiance"><div><b>0 €</b> de création</div><div><b>7 j/7</b> joignable</div><div><b>100 %</b> à votre nom</div></div>
  </div>
  <div class="eventail">
@@ -650,6 +653,7 @@ footer a:hover{color:var(--ivoire)}
   <label>Vous avez déjà un site ?<select name="site"><option>Non</option><option>Oui, mais il est daté</option><option>Oui, et je voudrais l’améliorer</option><option>Oui, loué avec un contrat</option></select></label>
   <label>Un message (facultatif)<textarea name="message" rows="3"></textarea></label>
   <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none"><button class="btn principal" type="submit">Recevoir ma démo gratuite</button>
+  <p class="rgpd">Entreprise immatriculée&nbsp;: DIG16, entreprise individuelle, RCS d’Angoulême, SIREN 131&nbsp;256&nbsp;091.</p>
   <p class="rgpd">Vos informations servent uniquement à préparer votre démo et à vous recontacter à ce sujet. Elles ne sont jamais revendues. Vous pouvez demander leur suppression à tout moment.</p>
   <p class="msg" id="msg"></p></fieldset>
  </form>
