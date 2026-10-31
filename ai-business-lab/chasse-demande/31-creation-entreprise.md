@@ -170,3 +170,38 @@ Points à trancher, dans l'ordre :
 
 Claude tient ce calendrier dans une routine de rappels et prépare chaque
 déclaration à l'avance.
+
+## 2 ter. Plan d'optimisation fiscale et sociale (31/10/2026, demande de l'utilisateur : « le moins de choses à payer »)
+
+Tout ce qui suit est **légal** et vient de pages officielles lues le 31/10/2026 (valeurs et sources :
+`connaissances/fiscal-valeurs.json`, calculs : `python3 outils/fiscal/simulateur.py <CA>`). Aucun
+montage, aucune minoration de recettes : toute recette encaissée est déclarée. Les décisions qui
+engagent l'utilisateur sont marquées **À TOI**. Correction du 31/10 : la phrase du § 2 bis
+« articulation avec le versement libératoire non précisée » est tranchée ci-dessous (levier 3).
+
+| # | Levier | Gain | État | Source lue le 31/10/2026 |
+|---|---|---|---|---|
+| 1 | **Rester en BIC « prestations de services »** (classement actuel : immatriculation RCS, compte Indy « BIC services ») et non en BNC | cotisations 15,9 % au lieu de 19,2 % avec ACRE, 21,2 % au lieu de 25,6 % ensuite ; formation 0,1 % au lieu de 0,2 % ; abattement 50 % au lieu de 34 %. Pour 30 000 € de CA : **≈ 1 000 € par an** avec ACRE, **≈ 1 340 €** ensuite | Classement à faire **confirmer par écrit** par le SIE (message préparé le 03/11). Arguments : offre vendue en **abonnement** comprenant hébergement géré, maintenance, mises à jour et référencement (prestations de services commerciales répétées), et non une œuvre intellectuelle isolée. Le classement suit les faits : on ne le « choisit » pas, on le fait reconnaître | F36232, F23459, page impots.gouv « régime unique des micro-entreprises » |
+| 2 | **Ne pas ajouter d'activité BNC** (« assistance administrative ») tant que le SIE n'a pas répondu | évite une activité mixte et une part de CA au taux BNC (25,6 %) | brouillon INPI laissé en l'état (décision du 27/10 maintenue) | F36232 |
+| 3 | **Exonération d'impôt sur le revenu ZFRR+** (art. 44 quindecies A) : bénéfice exonéré à 100 % pendant 59 mois, puis 75 %, 50 %, 25 % | impôt sur le revenu du bénéfice DIG16 **à 0 €** jusqu'à fin 2031 environ | **Micro admis en ZFRR+** (« quel que soit son régime fiscal », F31139) — attention, en ZFRR simple le micro est **exclu** : vérifier que la commune est bien sur la liste **ZFRR+** (arrêté du 9 juillet 2025, fait le 05/10). Bénéfice exonéré reporté chaque année sur la **2042-C-PRO** (BOFiP 75-40 § 80). Sécuriser par une **prise de position écrite** du correspondant ZFRR de la DDFIP de la Charente (art. L. 80 B du LPF, BOFiP 75-40 § 90) : demande préparée avec le message au SIE | F31139 ; BOFiP BOI-BIC-CHAMP-80-10-75-10 et -40 (29/07/2026) |
+| 4 | **Ne jamais opter pour le versement libératoire** | le versement libératoire ferait payer 1,7 % du CA (BIC) alors que le bénéfice est exonéré par le levier 3 | à garder ; le rappeler si l'URSSAF le propose | F36232 (22,9 % au lieu de 21,2 % en BIC) |
+| 5 | **CFE : 0 € en 2026, 2027 et 2028** | CFE minimum évitée (base 2026 entre 250 € et 597 € selon la commune pour un CA ≤ 10 000 €, F23999) | 2026 : année de création exonérée. 2027 et 2028 : exonération si le CA HT de **2026**, ramené à 12 mois, ne dépasse pas 5 000 €, soit **≤ 1 164 € HT encaissés en 2026** (85 jours d'activité). **À TOI (décision)** : pour toute vente signée en novembre ou décembre, proposer au client un **démarrage et une facture en janvier 2027** ; sinon dépasser n'est pas grave si l'exonération ZFRR+ de CFE (levier 6) est votée | F23999, impots.gouv « dois-je payer une CFE » (14/10/2026), art. 1647 D CGI |
+| 6 | **CFE ZFRR+ (art. 1466 G)** : 5 ans d'exonération puis abattements | CFE à 0 € jusqu'en 2031 environ | **Seulement si la commune ou la communauté de communes a voté la délibération** (non trouvée en ligne le 31/10) : question ajoutée au message au SIE ; sur la **1447-C-SD** (version « CFE 2027 », imprimé 5568) cocher la ligne 1466 G **uniquement** si la délibération existe (option définitive, une seule ligne). Dépôt **avant le 31/12/2026** (rappel du 10/12) | BOFiP BOI-IF-CFE-10-30-40-60 (29/07/2026), F31139, imprimé 1447-C-SD 2027 |
+| 7 | **Taxe CCI** (0,044 % du CA en services) | 0 € tant que le CA ≤ 5 000 € ; puis quelques euros | automatique | F36244, F32847 |
+| 8 | **ACRE** : cotisations à 75 % du taux normal jusqu'au 30/09/2027 | ≈ 25 % de cotisations en moins pendant 4 trimestres | **acquise** (attestation URSSAF du 23/10) ; rappel de fin le 01/09/2027 | attestation privée, F11677 |
+| 9 | **Franchise de TVA** (TVA non facturée, « TVA non applicable, art. 293 B du CGI ») | prix 20 % plus bas que des concurrents assujettis | rester sous **37 500 € HT** par an (au-delà : TVA l'année suivante ; au-delà de 41 250 € : dès le jour du dépassement) ; garde-fou à 33 000 € dans le livre des recettes | F21746 |
+| 10 | **Rester au régime micro** (pas de régime réel) | pas de comptable payant ; le régime réel n'apporterait rien puisque le bénéfice est exonéré (levier 3) et que les charges sont presque nulles | à garder ; à réexaminer seulement si les charges dépassent 50 % du CA | impots.gouv « puis-je déduire des charges » |
+| 11 | **Déclarations sans pénalité** : URSSAF même à 0 € (trimestrielle), 2042-C-PRO en mai, CFP prélevée en novembre | évite les majorations | rappels programmés (05/01/2027 pour le 4e trimestre 2026) | F23257 (à revérifier), F23459 |
+| 12 | **Frais bancaires et outils à 0 €** (Indy Essentiel, plateforme agréée gratuite) | 0 € d'abonnement | en place | page tarifs Indy (10/10) |
+
+**Ce qui n'est pas possible (vérifié)** : déduire des frais réels en micro ; réduire les cotisations
+autrement que par l'ACRE et le bon classement ; « choisir » BIC pour une activité qui serait
+réellement libérale (le SIE tranche sur les faits) ; cumuler l'exonération ZFRR+ de CFE avec une
+autre exonération de zone (option unique et définitive).
+
+**À surveiller** : budget 2027 (rien de prévu pour les micro-entrepreneurs d'après la presse
+spécialisée lue le 31/10, à confirmer au vote de décembre), taux BNC (relevé chaque année depuis 2025),
+seuil de TVA (projet de seuil unique supprimé en 2025, peut revenir). Veille mensuelle programmée.
+
+**Point d'attention (privé)** : le bénéfice exonéré reste compté dans le revenu fiscal de référence
+(brochure IR, cases des bénéfices exonérés) ; effets éventuels traités dans le document privé du Drive.

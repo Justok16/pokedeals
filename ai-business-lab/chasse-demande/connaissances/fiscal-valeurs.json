@@ -1,0 +1,16 @@
+{
+  "_lu_le": "2026-10-31",
+  "_regle": "Chaque valeur vient d'une page officielle lue à la date indiquée. Le rappel mensuel de veille fiscale relit ces pages et met ce fichier à jour ; le simulateur s'arrête si une valeur a plus de 45 jours.",
+  "cotisations_taux": {
+    "BIC_services": {"normal": 0.212, "acre": 0.159, "source": "F36232 (Vérifié le 01/01/2026) ; ACRE = 75 % du taux normal pour un début après le 01/07/2026, F11677 et autoentrepreneur.urssaf.fr « L'essentiel du statut », lus le 20/10 et le 31/10/2026"},
+    "BNC_liberal": {"normal": 0.256, "acre": 0.192, "source": "idem"}
+  },
+  "cfp_taux": {"BIC_services": 0.001, "BNC_liberal": 0.002, "source": "F23459, lu le 31/10/2026 (commerciale 0,1 %, libérale 0,2 %, versement unique en novembre)"},
+  "tcci_taux": {"BIC_services": 0.00044, "BNC_liberal": 0.0, "exoneration_si_ca_inferieur_ou_egal": 5000, "source": "F36244 et F32847, lus le 31/10/2026 (activité exclusivement non commerciale exonérée)"},
+  "abattement_micro": {"BIC_services": 0.50, "BNC_liberal": 0.34, "minimum": 305, "source": "impots.gouv.fr « Le régime unique des micro-entreprises » (modifié le 23/04/2025) et page « puis-je déduire des charges », lus le 31/10/2026"},
+  "plafond_micro_services": {"valeur": 83600, "source": "autoentrepreneur.urssaf.fr « L'essentiel du statut », lu le 31/10/2026"},
+  "franchise_tva_services": {"base": 37500, "majore": 41250, "source": "F21746, lu le 31/10/2026"},
+  "cfe": {"exoneration_ca_n2_inferieur_ou_egal": 5000, "prorata_si_annee_incomplete": true, "annee_creation_exoneree": true, "base_minimum_2026_ca_10000": [250, 597], "source": "F23999 et impots.gouv.fr « Je suis micro-entrepreneur, dois-je payer une CFE » (modifié le 14/10/2026), lus le 31/10/2026 ; art. 1647 D du CGI"},
+  "zfrr_plus": {"exoneration_ir_mois": 59, "puis_abattements": [0.75, 0.50, 0.25], "micro_admis_en_frr_plus": true, "micro_exclu_en_frr_simple": true, "cfe_1466G_sur_deliberation": true, "source": "F31139 et BOFiP BOI-BIC-CHAMP-80-10-75-10 et -40 (29/07/2026), BOI-IF-CFE-10-30-40-60 (29/07/2026), lus le 31/10/2026"},
+  "debut_activite": "2026-10-08"
+}
