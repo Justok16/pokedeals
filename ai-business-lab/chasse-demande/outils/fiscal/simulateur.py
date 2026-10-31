@@ -33,6 +33,8 @@ def cout(ca: float, nature: str, acre: bool) -> dict:
     t = VALEURS["cotisations_taux"][nature]["acre" if acre else "normal"]
     cotis = ca * t
     cfp = ca * VALEURS["cfp_taux"][nature]
+    # Taxe CCI additionnelle à la CFE : comptée ici par prudence (cas où la CFE est due) ;
+    # elle vaut 0 € l'année de création et les années d'exonération de CFE.
     tcci = 0.0 if ca <= VALEURS["tcci_taux"]["exoneration_si_ca_inferieur_ou_egal"] else ca * VALEURS["tcci_taux"][nature]
     ab = VALEURS["abattement_micro"]
     benefice = max(0.0, ca - max(ca * ab[nature], ab["minimum"]))
