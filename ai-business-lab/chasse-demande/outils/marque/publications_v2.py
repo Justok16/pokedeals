@@ -505,8 +505,42 @@ CONTROLE = """() => {
 }"""
 
 
+def main_x(ids):
+    """Version X (4 images au plus) : les 3 premières images et la dernière (l'appel), numérotées sur 4.
+    Retour de l'utilisateur du 31/10 : sur X, le compteur « 4 / 5 » laissait croire qu'une image manquait.
+    Fichiers dans supports/publications-v2/x/ (jamais sur le site)."""
+    dossier = os.path.join(SUPPORTS, "x")
+    os.makedirs(dossier, exist_ok=True)
+    faits = []
+    with sync_playwright() as p:
+        b = p.chromium.launch(executable_path=CHROME)
+        pg = b.new_page(viewport={"width": 1080, "height": 1350})
+        for pub in SERIE:
+            if pub["id"] not in ids:
+                continue
+            images = pub["images"] if len(pub["images"]) <= 4 else pub["images"][:3] + pub["images"][-1:]
+            px = dict(pub, images=images)
+            for n in range(len(images)):
+                pg.set_content(page(px, n, len(images)), wait_until="load")
+                pg.evaluate("""async () => Promise.all(['400 40px "Instrument Serif"', 'italic 400 40px "Instrument Serif"',
+                    '400 40px Geist', '500 40px Geist', '600 40px Geist', '500 40px "Geist Mono"'].map(f => document.fonts.load(f)))""")
+                pg.evaluate("document.fonts.ready")
+                pg.wait_for_timeout(150)
+                png = os.path.join(dossier, "_tmp.png")
+                pg.screenshot(path=png)
+                nom = os.path.join(dossier, f"{pub['id']}-x{n + 1}.jpg")
+                Image.open(png).convert("RGB").save(nom, "JPEG", quality=90, optimize=True, progressive=True)
+                os.remove(png)
+                faits.append(nom)
+        b.close()
+    print("\n".join(faits))
+
+
 def main():
     choix = set(sys.argv[1:])
+    if "--x" in choix:
+        main_x(choix - {"--x"})
+        return
     os.makedirs(SORTIE, exist_ok=True)
     os.makedirs(SUPPORTS, exist_ok=True)
     alertes, sortie = [], []
