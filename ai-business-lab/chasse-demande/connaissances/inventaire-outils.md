@@ -6,11 +6,11 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 |---|---|---|---|---|---|---|
 | Animations | GSAP | en place | Moteur d'animation des sites (site-dig/moteur/anim/gsap-3.15.0.min.js et ScrollTrigger, mis à jour le 28/10) | 3.15.0 (2026-04-13) | Standard 'no charge' license: https://gsap.com/standard-license. | 29802 |
 | Animations | GSAP Skills officiels | installé | .claude/skills/gsap-* (core, timeline, scrolltrigger, plugins, utils, performance) | — | MIT | 17468 |
-| Animations | Lenis | en place | Défilement fluide (site-dig/moteur/anim/lenis-1.3.27.min.js, mis à jour le 28/10) | 1.3.27 (2026-10-15) | MIT | 16809 |
-| Animations | Motion | réserve | Micro-interactions légères | 14.8.0 (2026-10-29) | MIT | — |
-| Animations | Three.js | réserve | 3D légère pour un client Prestige | 0.186.1 (2026-09-24) | MIT | 116492 |
+| Animations | Lenis | en place | Défilement fluide (site-dig/moteur/anim/lenis-1.3.27.min.js, mis à jour le 28/10) | 1.3.27 (2026-10-15) | MIT | 16987 |
+| Animations | Motion | réserve | Micro-interactions légères | 14.9.0 (2026-10-30) | MIT | — |
+| Animations | Three.js | réserve | 3D légère pour un client Prestige | 0.187.0 (2026-10-30) | MIT | 116492 |
 | Animations | dotLottie web | réserve | Icônes animées vectorielles | 0.82.0 (2026-10-30) | MIT | 928 |
-| Animations | swup | réserve | Transitions entre pages d'un site statique | 4.10.0 (2026-09-03) | MIT | 5248 |
+| Animations | swup | réserve | Transitions entre pages d'un site statique | 4.10.0 (2026-09-03) | MIT | 5252 |
 | Clients et administratif | Documents client (documents_client.py) | en place | Devis, CGV, facture, questionnaire, accord gracieux | — | — | — |
 | Clients et administratif | Kit client complet (kit_client.py) | en place | 12 documents d'un nouveau client en une commande (devis, CGV, facture, PV, mode d'emploi…), 72 | — | — | — |
 | Clients et administratif | Remplir un PDF (remplir_pdf.py) | en place | Cerfa et formulaires remplis automatiquement | — | — | — |
@@ -23,14 +23,14 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Design | Leonardo (Adobe) | réserve | Palettes à contraste garanti | 1.1.0 (2026-02-18) | Apache-2.0 | 2161 |
 | Design | Open Props | réserve | Variables CSS prêtes | 1.7.23 (2026-01-31) | MIT | — |
 | Design | Taste skill | installé | taste-design, taste-redesign | — | MIT | 105498 |
-| Design | UI UX Pro Max | installé | Skill ui-ux-pro-max (attention : liens Google Fonts, contrôle polices_locales) | — | MIT | 138866 |
+| Design | UI UX Pro Max | installé | Skill ui-ux-pro-max (attention : liens Google Fonts, contrôle polices_locales) | — | MIT | 142830 |
 | Design | awesome-design-md | installé | Skill design-md-references | — | MIT | 124555 |
 | Design | google-webfonts-helper | réserve | Télécharger une police Google pour l'héberger | — | MIT | 13070 |
 | Facturation et paiement | GoCardless (prélèvement SEPA) | en place | Mandats SEPA des formules mensuelles | — | — | — |
 | Facturation et paiement | Indy (facturation, plateforme agréée, compte pro) | en place | Factures, facturation électronique, livre des recettes | — | — | — |
 | Hébergement et sécurité | Cloudflare Pages + Web Analytics + Turnstile | en place | Hébergement, mesure sans cookie, anti-robots | — | — | — |
-| Marketing | Humanizer | installé | Retirer les tics d'écriture d'IA | — | MIT | 59534 |
-| Marketing | marketingskills | installé | copywriting, seo-audit, schema, ai-seo… | — | MIT | 55952 |
+| Marketing | Humanizer | installé | Retirer les tics d'écriture d'IA | — | MIT | 62539 |
+| Marketing | marketingskills | installé | copywriting, seo-audit, schema, ai-seo… | — | MIT | 57423 |
 | Photos | LightCraft (ArtCraft) | réserve | Retouche de séries de photos | — | — | — |
 | Photos | PhotoCraft (ArtCraft) | réserve | Retouche type Photoshop, pilotable par Claude | — | Apache-2.0 | 71669 |
 | Photos | SVGO | réserve | Alléger les logos SVG | 4.1.0 (2026-08-24) | MIT | 22606 |
@@ -42,7 +42,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Prospection | Trouver un contact (trouver_contact.py) | en place | Pages contact d'un organisme | — | — | — |
 | Publicité | Google Ads MCP | réserve | Lecture des campagnes Google Ads | — | Apache-2.0 | 1099 |
 | Qualité | Chrome DevTools MCP | réserve | Performance réelle, console, réseau | 1.12.0 (2026-10-22) | Apache-2.0 | 54337 |
-| Qualité | Context7 | réserve | Documentation à jour des bibliothèques | 4.4.4 (2026-10-19) | MIT | 63497 |
+| Qualité | Context7 | réserve | Documentation à jour des bibliothèques | 4.4.4 (2026-10-19) | MIT | 63945 |
 | Qualité | Contrôle global du site (controle_global.py, test_pages.py, seo_client.py, test_formulaire.py) | en place | Santé du site et des sites clients avant livraison | — | — | — |
 | Qualité | Playwright MCP | en place | Navigateur piloté (.mcp.json) | 0.0.83 (2026-09-28) | Apache-2.0 | 38813 |
 | Qualité | Traces d'un autre client (traces_autre_client.py) | en place | Aucune trace d'un autre client dans un site livré | — | — | — |
@@ -66,16 +66,16 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Sécurité | Gitleaks | réserve | Secrets oubliés dans le dépôt | v8.30.1 (2026-02-21) | MIT | 30506 |
 | Sécurité | OSV-Scanner | réserve | Dépendances vulnérables | v2.7.0 (2026-10-12) | Apache-2.0 | 11314 |
 | Sécurité | Semgrep | réserve | Analyse du code serveur | 1.183.0 (2026-10-29) | LGPL-2.1 | 17209 |
-| Sécurité | security-guidance (Anthropic) | réserve | Extension officielle ; revues IA à chaque fin de tour et commit = gros quota | — | Apache-2.0 | 43789 |
+| Sécurité | security-guidance (Anthropic) | réserve | Extension officielle ; revues IA à chaque fin de tour et commit = gros quota | — | Apache-2.0 | 45367 |
 | Sécurité | tarteaucitron.js | réserve | Bandeau cookies CNIL | 1.37.0 (2026-10-15) | MIT | 1059 |
 | Veille | Réserve à proposer (reserve_a_proposer.py) | en place | Ressort l'outil gardé au bon moment | — | — | — |
 | Veille | Veille presse (veille_presse.py) et veille des sources (veille_sources.py) | en place | Presse locale, chaînes, annuaires d'outils | — | — | — |
 | Vidéo | Hyperframes | réserve | Vidéo depuis HTML/GSAP | — | Apache-2.0 | 73742 |
-| Vidéo | OpenMontage | réserve | Montage par agent (AGPL-3.0) | — | AGPL-3.0 | 70994 |
+| Vidéo | OpenMontage | réserve | Montage par agent (AGPL-3.0) | — | AGPL-3.0 | 73523 |
 | Vidéo | Remotion | réserve | Vidéos en code (gratuit tant que DIG16 ≤ 3 personnes, livraison MP4 seule) | 4.0.539 (2026-10-26) | non-standard | 66749 |
-| Vidéo | Remotion Agent Skills | réserve | npx skills add remotion-dev/skills | — | — | 5531 |
+| Vidéo | Remotion Agent Skills | réserve | npx skills add remotion-dev/skills | — | — | 5905 |
 | Vidéo | Revideo | réserve | Vidéos en code, MIT | 0.11.0 (2026-07-10) | MIT | — |
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5610 |
 | Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26119 |
 
-Dernière veille : 2026-10-30.
+Dernière veille : 2026-10-31.
