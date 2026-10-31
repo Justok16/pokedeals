@@ -72,6 +72,9 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Mixpost, Shoutrrr (Dd2tZCCDofx) | Secours de Metricool pour programmer les publications | Si Metricool devient payant ou tombe en panne | Libres (MIT, Apache 2.0) ; noté dans `63` § 4 |
 | Instagram Agent Skill (DeeyiaVILNi, 18/10) : `ig-reel` (26 accroches notées), `ig-viral`, `ig-plan`, `ig-carousel`, `ig-story`, `ig-comment`, `ig-reply`, `ig-dm`, `ig-repurpose`, `ig-audit` | Préparer reels, recherche des formats qui marchent, planning de la semaine, réponses aux commentaires | Reprise des réseaux après le 1er client payant, ou réseaux d'un client (offre Visibilité) | github.com/Jakeschincariol/instagram-agent-skill, MIT, gratuit, hors ligne ; copier `skills/ig-*` dans `.claude/skills/` ; listes de mots en anglais ; **ne pas utiliser `ig-human` sur du français** (casse ’ et insécables). `ig-caption` et `ig-profile` déjà installés |
 | Skill `conversion-tracking` (veille 22/10, `coreyhaines31/marketingskills`, MIT) | Mesurer les conversions (formulaire, appel) vers Google Ads, Meta, GA4 | Première publicité payante d'un client ou de DIG16 | Gratuit ; 30 Ko + extraits ; à installer après lecture complète le jour venu |
+| Umami (vidéo v8hMT8HYoNk, 31/10) | Statistiques de visite d'un site sans Google Analytics | Client qui veut des statistiques plus fines que Cloudflare Web Analytics | Logiciel libre à héberger, ou offre cloud (gratuité à revérifier) |
+| Dub (vidéo v8hMT8HYoNk, 31/10) | Liens courts qui comptent les clics (publications, mails, aimant à prospects) | Pour savoir quelle publication ou quel mail fait cliquer | Gratuité à revérifier sur la page officielle |
+
 
 ## Administratif, données d'entreprises, sécurité
 
@@ -90,6 +93,8 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 | Nextcloud, Baserow, Vikunja, PostHog, n8n (DeekQtwk30w, revus dans DegsO8likZa) | Fichiers, tableaux, tâches, statistiques, automatisations | Si un service gratuit actuel devient payant | Libres, auto-hébergés |
 | OpenUptime (veille 22/10) | Surveille dig16.fr toutes les 5 min et prévient par email s'il tombe (aujourd'hui : contrôle 2 fois par jour seulement) | Dès que l'utilisateur veut une alerte immédiate, ou au 1er site client hébergé | Offre gratuite lue sur openuptime.app/pricing le 22/10 : 3 moniteurs, 26 000 contrôles et 100 emails par mois, 30 jours d'historique ; éditeur BECOOL INC., code MIT ; compte à créer par l'utilisateur |
 | DMARCmetric (veille 22/10) | Lire les rapports DMARC (qui envoie des mails au nom de dig16.fr, SPF/DKIM alignés) | Si des mails de DIG16 arrivent en spam ou si une usurpation est soupçonnée | « Free forever for 1 domain », « No credit card » (lu le 22/10) ; demande d'ajouter `rua=` à l'enregistrement DMARC (OVH/Cloudflare, par l'utilisateur) ; éditeur non nommé sur le site : lire la page About et la politique de confidentialité avant |
+| Doppler (vidéo v8hMT8HYoNk, 31/10) | Coffre-fort en ligne pour les clés API, à la place des variables d'environnement | Quand les clés se multiplient ou qu'un client a besoin de clés partagées | Offre gratuite affirmée par l'auteur (« 10 ou 40 clés »), à lire sur la page officielle |
+
 
 ## Claude, agents et automatisation
 
