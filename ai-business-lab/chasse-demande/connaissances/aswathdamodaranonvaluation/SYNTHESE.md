@@ -1,6 +1,6 @@
-# Aswath Damodaran — index des fiches (synthèse du vendredi 30/10/2026)
+# Aswath Damodaran — index des fiches (synthèse du samedi 31/10/2026)
 
-465 vidéos résumées sur 1417. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+466 vidéos résumées sur 1417. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[A "Fairly Highly Valued" (Stock) Market: The Fed Chair Opines but should anyone listen?](0faNl-maR5o.md)** — Le sujet est l'analyse de la cherté des marchés d'actions américains en 2025, suite aux déclarations du président de la Fed, Jérôme Powell, qualifiant le marché de « passablement hautement évalué ». La thèse principale est que, bien que les actions américaines soient…
@@ -218,6 +218,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Session 1: Class Logistics and Animating Principles](2S_vt-N0czE.md)** — Sujet : Introduction au cours de valorisation d’entreprise (Spring 2023, NYU Stern, par Aswath Damodaran). Le cours explore ce qu'est la valorisation, ses méthodes et sa nature pratique.
 - **[Session 1: Introduction to the class](H8QYr-Z5qfY.md)** — Sujet : Introduction à la finance d’entreprise appliquée à des cas réels.
 - **[Session 1: The Financial Statements - An Overview](7rW7lpQZpqY.md)** — Sujet : Le rôle de l'expert-comptable et la présentation des trois grands états financiers (bilan, compte de résultat, tableau des flux de trésorerie).
+- **[Session 1A : Introduction et thèmes de valorisation](vY-XKUoo1sc.md)** — Sujet : L'art et la méthode de la valorisation d'entreprise (actions, sociétés) et les idées reçues sur cette discipline.
 - **[Session 2 (MBA CF) : L'objectif final en affaires](gAxOT_aynqI.md)** — Sujet : L'importance du respect des "premiers principes" de la finance d'entreprise et les conséquences de leur violation.
 - **[Session 2 (of 42): Understanding Risk I: Defining and Measuring Risk](mTGJz2AUaeY.md)** — Sujet : Comprendre et mesurer le risque en investissement.
 - **[Session 2 (Val MBAs): The Bermuda Triangle of Valuation](M2IJy5EQews.md)** — Sujet : L'évaluation financière d'actifs (entreprises).

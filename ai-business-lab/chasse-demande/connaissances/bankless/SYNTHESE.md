@@ -1,6 +1,6 @@
-# Bankless — index des fiches (synthèse du vendredi 30/10/2026)
+# Bankless — index des fiches (synthèse du samedi 31/10/2026)
 
-154 vidéos résumées sur 2989. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+155 vidéos résumées sur 2989. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[10 Crypto Predictions for 2026: $1M BTC, Wall Street Onchain & ETF Takeover](J9vvH49_dus.md)** — Sujet : Bilan des prédictions passées (2025) et perspectives/prédictions pour l'avenir de l'écosystème crypto (notamment vers 2026 et au-delà).
@@ -42,6 +42,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[How the Stablecoin Milkshake will Redollarize the World](jtMxC5gabk4.md)** — Sujet : L'analyse macroéconomique du système monétaire actuel, le rôle du dollar américain comme monnaie de réserve mondiale et la tendance vers la "dé-dollarisation".
 - **[Il faut absolument qu'on trouve une solution maintenant… sinon on est fichus (Pétrole, Marchés, C...](JYQFJpiM5P0.md)** — Sujet : L'actualité hebdomadaire des cryptomonnaies et leur intersection avec la finance traditionnelle, le contexte géopolitique et les enjeux réglementaires (notamment le "Clarity Act").
 - **[Illia Polosukhin: Why AI Agents Are Still Useless (And What Fixes Them) | NEAR Founder on IronClaw](Z1yxc1ndKt8.md)** — La vidéo traite de l'intersection entre l'intelligence artificielle (IA) et la technologie blockchain. La thèse principale, défendue par l'invité Ilia Polosukhin, est que l'IA va devenir l'interface utilisateur dominante (le "système d'exploitation" de demain) tandis que la…
+- **[Inside Gary Gensler’s SEC: A Conversation with Former Crypto Policy Advisor](cVNgtVmr6m8.md)** — Sujet : Le rôle de la Securities and Exchange Commission (SEC) dans la régulation du secteur des cryptomonnaies et la définition des actifs numériques.
 - **[Internet sous attaque : la crypto est-elle la prochaine cible ?](q63GRIQ0ves.md)** — Sujet : Un point de situation hebdomadaire (« Rollup ») sur l'actualité du marché des cryptomonnaies et de la finance numérique.
 - **[Is Canton a Real Blockchain? | Canton Founder Yuval Rooz](o1dHXx5R1bY.md)** — Sujet : Discussion sur les infrastructures décentralisées, les réseaux blockchain (comme Canton Network) et les enjeux de la finance sur la blockchain.
 - **[Jouer aux bons jeux : pourquoi les scores remplacent discrètement le sens](hiw51ppCbuE.md)** — Sujet : L'utilisation de la théorie des jeux pour analyser nos comportements quotidiens, nos institutions et nos décisions financières.
