@@ -274,3 +274,5 @@ Mise en œuvre :
 - **Inventaire élargi à 73 outils**, rangés par domaine : clients et administratif, signature, facturation et paiement, prospection, communication, réseaux, SEO, qualité, hébergement, veille.
 - **Surveillance des offres gratuites** des services dont dépend l'entreprise : Indy, DocuSeal, Zapier, Metricool, Cloudflare Pages et Turnstile, Brevo, GSAP, Remotion, GoCardless. Chaque page de prix doit garder ses phrases repères (ex. « 10 request emails per month »). Une ALERTE est levée si une phrase disparaît.
 - **Skill `.claude/skills/nouveau-client`** : le parcours complet d'un nouveau client, en 10 étapes. Il va de la vérification de l'entreprise (SIREN, BODACC) aux rappels de suivi, en passant par le kit de 12 documents, le contrôle 44, la signature DocuSeal, le Drive, la facture Indy, le mandat SEPA et la livraison selon 65.
+
+- **Horaires de l'utilisateur (31/10/2026)** : « Je suis plutôt de l'après-midi ». Tout appel, rendez-vous ou tâche à faire au téléphone se propose **l'après-midi** (14 h-17 h de préférence), jamais tôt le matin.
