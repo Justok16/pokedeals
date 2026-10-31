@@ -41,6 +41,8 @@ Envoyer les PDF à l'utilisateur (`SendUserFile`) et les déposer dans le Drive 
 Mettre à jour 64 § 0 et `scratchpad/appels/ETAT.md`.
 
 ## Étape 7 — Paiement et facture
+
+- **Contrôle CFE 2026 (décision de l'utilisateur du 31/10/2026 : « oui, mais seulement si on approche de la limite »)** : pour toute vente signée avant le 31/12/2026, additionner le CA HT déjà encaissé en 2026 (livre des recettes) et celui de ce client, puis `python3 ai-business-lab/chasse-demande/outils/fiscal/simulateur.py --cfe2026 <total>`. Si le total dépasse ou approche 1 164 € HT : proposer à l'utilisateur de convenir avec le client d'un démarrage, d'une facture et d'un paiement en janvier 2027 (`31` § 2 ter, levier 5). Un client pressé reste prioritaire : on ne perd jamais une vente pour la CFE.
 - Formules mensuelles : lien de mandat SEPA GoCardless (compte de l'utilisateur) à faire signer par le client.
 - Facture : émise le jour de la mise en ligne définitive, par **Indy** (plateforme agréée de facturation électronique) ;
   Claude prépare, l'utilisateur valide. Inscrire la recette au livre des recettes.
