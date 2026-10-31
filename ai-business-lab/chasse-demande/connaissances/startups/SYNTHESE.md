@@ -1,6 +1,6 @@
-# This Week in Startups — index des fiches (synthèse du vendredi 30/10/2026)
+# This Week in Startups — index des fiches (synthèse du samedi 31/10/2026)
 
-390 vidéos résumées sur 5243. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+391 vidéos résumées sur 5245. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **["I'm holding for 10+ years." | Jason Calacanis explains why he's bullish on $UBER | CNBC 2/10/21](c3_Ab2MsIME.md)** — Sujet : L'action Uber atteignant des sommets historiques sur fond d'anticipation des résultats du quatrième trimestre (données affichées : 10 février 2021 sur CNBC).
@@ -50,6 +50,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Behind the Scenes with an early OpenClaw contributor! | E2255](65NplKBgwUA.md)** — Sujet : L'écosystème de l'intelligence artificielle (IA), le projet open-source OpenClaw, la prolifération des agents autonomes, l'impact sur le marché des logiciels SaaS (Software as a Service) et l'émergence de nouvelles interfaces matérielles homme-machine.
 - **[Best of This Week in Startups: Week of November 23rd, 2020](pHJMl8IHjEU.md)** — Sujet : Compilation de deux extraits de l'émission :
 - **[Bill Gates foresees massive AI job loss: these VCs disagree | E2330](yGsOZgFtcik.md)** — Sujet : L'impact de l'intelligence artificielle (IA) et de la robotique sur l'emploi, la réglementation des réseaux sociaux pour les mineurs, et l'évolution de la finance des startups (capital-risque, liquidités secondaires vs IPOs).
+- **[Binance piraté : 6,3 milliards de dollars dérobés, DoorDash rachète Instacart pour 17 milliards d...](Hl87hl0yuCY.md)** — Sujet : Gestion des risques financiers et de contrepartie (plateformes crypto et banques), actualité tech et fusions-acquisitions (DoorDash / Instacart), investissement en startup et présentation d'outils d'annotation de contenu.
 - **[Bittensor creator Const on Affine, dTAO, “mining reasoning,” and more | E2326](quq00obUVQ4.md)** — Sujet : Le réseau crypto Bittensor (jeton $TAO) et son fonctionnement via des sous-réseaux (subnets) dédiés au calcul et à l'intelligence artificielle décentralisée.
 - **[Bittensor fait des vagues ! Le TAO chute de 15 % ! | E2274](BaGVZI-sMK0.md)** — Sujet : Épisode du podcast This Week in Startups (TWiST) abordant les projets d'IA décentralisée sur le réseau Bittensor (TAO), l'usage d'outils d'IA pour les décisions stratégiques des fondateurs (attribution d'actions/equity), les questions d'optimisation fiscale…
 - **[Bittensor’s Rise, Meta’s Llama Goes Cloud, & AI Now Writes Your Code | E2119](16nd_lIy-lA.md)** — Sujet : L'écosystème tech, les cryptomonnaies appliquées à l'intelligence artificielle (réseau Bittensor et jeton TAO), les infrastructures de calcul IA décentralisées et propriétaires, l'impact de l'IA sur le développement logiciel, les bonnes pratiques de levée de…

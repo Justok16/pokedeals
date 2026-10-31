@@ -1,6 +1,6 @@
 # Aswath Damodaran — index des fiches (synthèse du samedi 31/10/2026)
 
-466 vidéos résumées sur 1417. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+467 vidéos résumées sur 1417. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[A "Fairly Highly Valued" (Stock) Market: The Fed Chair Opines but should anyone listen?](0faNl-maR5o.md)** — Le sujet est l'analyse de la cherté des marchés d'actions américains en 2025, suite aux déclarations du président de la Fed, Jérôme Powell, qualifiant le marché de « passablement hautement évalué ». La thèse principale est que, bien que les actions américaines soient…
@@ -298,6 +298,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Session 3: Intrinsic and DCF Valuation - Laying the Groundwork](veSXjIzTa3c.md)** — Sujet : Les fondements de la valorisation d'entreprise et des actifs (méthodes d'évaluation intrinsèque, relative/pricing, et par options).
 - **[Session 3: The Groundwork for an intrinsic valuation](lnPfpvUJEIc.md)** — Sujet : Les bases de l’évaluation financière par la méthode des flux de trésorerie actualisés (Discounted Cash Flow - DCF), la distinction entre valorisation des fonds propres (Equity) et valorisation globale de l'entreprise (Firm), ainsi que l'importance de la cohérence des…
 - **[Session 3: Where does the power lie?](6b0CsNQd4Ns.md)** — Sujet : L'analyse de la gouvernance d'entreprise (qui contrôle et détient le pouvoir dans une entreprise), les conflits d'intérêts entre actionnaires, managers et créanciers (obligataires), ainsi que l'efficience et la rationalité des marchés financiers.
+- **[Session 3A: Loose Ends in Valuation](T_gegih_20A.md)** — Sujet : Les « fins de course » ou « bouts manquants » de l'évaluation financière (en anglais : the loose ends in valuation), c'est-à-dire l'art d'ajuster une valorisation financière (par exemple par DCF) en y ajoutant ou soustrayant des éléments spécifiques tels que la…
 - **[Session 4 (of 42): Understanding Risk III: The Risk in Equities](nc6EKMUFPcc.md)** — Cette vidéo traite de la mesure du risque dans l'investissement en actions. La thèse principale est que le risque en actions est une entité multidimensionnelle qui nécessite de dépasser les mesures statistiques simples (comme la variance) pour comprendre les risques…
 - **[Session 4 (Val MBA) : Structure des DCF et taux sans risque !](_KqO3OAEad8.md)** — Sujet : Le rôle et le choix du taux sans risque dans l'évaluation financière (méthodes par actualisation des flux de trésorerie ou DCF).
 - **[Session 4 : Conclusion sur le dénouement final - Parties prenantes, durabilité et ESG](cLotdkcvdd4.md)** — Sujet : La gouvernance d'entreprise, les limites du modèle de maximisation du cours de l'action, l'alternative des systèmes de gouvernance (Allemagne, Japon), et l'analyse critique de l'investissement ESG (Environnement, Social, Gouvernance).

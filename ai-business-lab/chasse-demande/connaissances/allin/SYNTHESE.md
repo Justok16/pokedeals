@@ -1,11 +1,12 @@
-# All-In — index des fiches (synthèse du jeudi 29/10/2026)
+# All-In — index des fiches (synthèse du samedi 31/10/2026)
 
-80 vidéos résumées sur 1039. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+81 vidéos résumées sur 1041. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[Accord SpaceX-Cursor, bombe à retardement dans le secteur des SaaS, nouveau PDG d'Apple, inculpat...](1bCXCxrDsCs.md)** — Sujet : L'analyse des stratégies d'entreprises (SpaceX, Apple, Medallia) et des enjeux économiques/sociaux actuels (SPLC, inflation) à travers le prisme de la gestion financière et de la communication médiatique.
 - **[Adam Foroughi, PDG d'AppLovin : Survivre à une chute de 92 %, la publicité comme ML 1.0 et le mar...](JtomF4bGxHs.md)** — Sujet : Entretien avec Adam Foroughi, PDG d'AppLovin, lors de l'All-In Summit. L'échange porte sur l'évolution du marché de la publicité mobile et en ligne, l'intelligence artificielle (deep learning) appliquée à la publicité, et le parcours boursier d'une entreprise tech…
 - **[AI Kills Everybody or Doomer Psyop? OpenAI’s Math Breakthrough, Nike’s $200B Collapse](cvxjqbfLVk0.md)** — Sujet : Les risques existentiels liés au développement de l'intelligence artificielle (IA) et la manière dont les entreprises technologiques gèrent leur communication et leur stratégie vis-à-vis du public et des investisseurs.
+- **[Anthropic S-1 Shocker, Greatest Business Ever? Google’s $500B Wipeout, Midterm Predictions](p1Dy4e4ff0s.md)** — Sujet : L'analyse de la santé financière des grandes entreprises de la tech (Alphabet, Amazon, etc.) et de l'essor économique du secteur de l'IA.
 - **[Anthropic’s $30B Ramp, Mythos Doomsday, OpenClaw Ankled, Iran War Ceasefire, Israel's Influence](DVBJQQCjgXU.md)** — Sujet : Le marché de l'intelligence artificielle (IA) et ses répercussions géopolitiques et économiques.
 - **[Arvind Krishna & Nikesh Arora: Quantum Threat, Open vs Frontier AI, AI Cyber Warfare & SaaS Collapse](yzk44lz-RGI.md)** — Sujet : L'impact de l'intelligence artificielle (IA) et de l'informatique quantique sur la cybersécurité et l'avenir des entreprises technologiques.
 - **[Au cœur du programme scientifique de Trump : affirmations anti-science, dégâts causés par Fauci, ...](Xj4pTYsVSWQ.md)** — Sujet : Le rôle du gouvernement américain dans la politique scientifique et technologique, et la gestion du financement de la recherche.
