@@ -3,6 +3,9 @@
 # Autorisé par l'utilisateur le 07/10/2026. 22/10 : le réglage local avait disparu avec le conteneur et la file est
 # restée arrêtée ; le crochet est donc dans settings.json (SessionStart + UserPromptSubmit) et trouve seul la file
 # dans le scratchpad (aucun chemin privé dans le dépôt).
+# 01/11/2026 : ARRÊT demandé par l'utilisateur (« on arrête le traitement des vidéos finance […] pour économiser les tokens »).
+# Ne plus relancer la file. Pour la reprendre un jour : supprimer la ligne « exit 0 » ci-dessous, sur sa seule demande.
+exit 0
 F="$1"
 [ -n "$F" ] || F=$(ls -t /tmp/claude-*/*/*/scratchpad/videos3/finance.sh 2>/dev/null | head -n 1)
 [ -f "$F" ] || exit 0

@@ -96,8 +96,9 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   coworking sur le territoire (ne plus le proposer) ; parrainage plafonné (`47` § 6) ; site : bandeau « ouverture
   prochaine », pas de badge « Le plus choisi » sans client, modifications sous 3 jours ouvrés ; réseaux sociaux relancés
   au maximum depuis le 19/10 (`61` § 6). **En pause jusqu'au premier client payant** : nouvelles démos, photos des
-  prospects, résumés vidéo de masse (sauf les sources finance du 05/10 et les vidéos envoyées par l'utilisateur) ; la
-  veille quotidienne des sources a été **reprise le 10/10**.
+  prospects, résumés vidéo de masse (seules restent les vidéos envoyées par l'utilisateur). **Vidéos finance ARRÊTÉES le 01/11**
+  (demande de l'utilisateur : économiser les jetons ; crochet `reprise_finance.sh` neutralisé) et, dans cette conversation,
+  **plus rien qui ne concerne pas l'entreprise**. La veille quotidienne des sources (utile à DIG16) continue.
 - **Rappels promis** (détail dans la fiche) : franchise de TVA (art. 293 B) ; **investissement** rappelé à chaque
   paiement client (fichier privé ; toujours rappeler : pas de prévision du marché, risque de perte, pas de conseiller
   agréé ; l'utilisateur valide et passe lui-même chaque ordre) ; **service devis-factures** : relire `supports/service-devis-factures/l-essentiel.md`,
