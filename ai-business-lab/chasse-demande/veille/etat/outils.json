@@ -1,5 +1,5 @@
 {
- "date": "2026-10-31",
+ "date": "2026-11-01",
  "outils": {
   "GSAP": {
    "version": "3.15.0",
@@ -34,7 +34,7 @@
   "Three.js": {
    "version": "0.187.0",
    "date": "2026-10-30",
-   "etoiles": 116492,
+   "etoiles": 117315,
    "licence": "MIT"
   },
   "dotLottie web": {
@@ -46,7 +46,7 @@
   "sharp": {
    "version": "0.35.5",
    "date": "2026-09-27",
-   "etoiles": 32786,
+   "etoiles": 32809,
    "licence": "Apache-2.0"
   },
   "sharp-cli": {
@@ -82,7 +82,7 @@
   "google-webfonts-helper": {
    "version": null,
    "date": null,
-   "etoiles": 13070,
+   "etoiles": 13076,
    "licence": "MIT"
   },
   "Leonardo (Adobe)": {
@@ -136,7 +136,7 @@
   "Remotion": {
    "version": "4.0.539",
    "date": "2026-10-26",
-   "etoiles": 66749,
+   "etoiles": 69431,
    "licence": "non-standard"
   },
   "Remotion Agent Skills": {
@@ -238,7 +238,7 @@
   "Semgrep": {
    "version": "1.183.0",
    "date": "2026-10-29",
-   "etoiles": 17209,
+   "etoiles": 17379,
    "licence": "LGPL-2.1"
   },
   "security-guidance (Anthropic)": {
@@ -260,8 +260,8 @@
    "licence": "Apache-2.0"
   },
   "Playwright MCP": {
-   "version": "0.0.83",
-   "date": "2026-09-28",
+   "version": "0.0.84",
+   "date": "2026-10-31",
    "etoiles": 38813,
    "licence": "Apache-2.0"
   },
@@ -286,7 +286,7 @@
   "lychee": {
    "version": null,
    "date": null,
-   "etoiles": 4037,
+   "etoiles": 4072,
    "licence": "Apache-2.0"
   },
   "Context7": {
@@ -310,7 +310,7 @@
   "PhotoCraft (ArtCraft)": {
    "version": null,
    "date": null,
-   "etoiles": 71669,
+   "etoiles": 75326,
    "licence": "Apache-2.0"
   },
   "LightCraft (ArtCraft)": {
