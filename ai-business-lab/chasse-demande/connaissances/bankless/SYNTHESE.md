@@ -1,6 +1,6 @@
 # Bankless — index des fiches (synthèse du dimanche 01/11/2026)
 
-161 vidéos résumées sur 2993. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+163 vidéos résumées sur 2993. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[10 Crypto Predictions for 2026: $1M BTC, Wall Street Onchain & ETF Takeover](J9vvH49_dus.md)** — Sujet : Bilan des prédictions passées (2025) et perspectives/prédictions pour l'avenir de l'écosystème crypto (notamment vers 2026 et au-delà).
@@ -13,6 +13,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Arthur Hayes : Le krach de l'IA qui pourrait propulser le Bitcoin à 1 million de dollars](Hzdw3YWVXyo.md)** — Sujet : L'analyse des marchés financiers, avec un focus sur les cryptomonnaies, l'intelligence artificielle (IA) et l'impact des politiques monétaires mondiales (inflation, prix du pétrole).
 - **[Au cœur de la machine à voler des cryptomonnaies nord-coréenne | Ari Redbord](EpCiB4Pp8Go.md)** — Sujet : Les activités criminelles liées aux cryptomonnaies et leur impact sur la sécurité nationale.
 - **[Au cœur du piratage de Binance à 6 milliards de dollars](SwZgfGzbKfQ.md)** — Sujet : L'analyse du piratage récent de l'échange de cryptomonnaies Bybit et les enjeux de cybersécurité dans l'écosystème crypto.
+- **[Aztec: The Private World Computer for Ethereum Privacy](whaiNjJMi3w.md)** — Sujet : L’évolution de la confidentialité (privacy) et de la décentralisation sur le réseau Ethereum, et l'introduction de services financiers on-chain.
 - **[Ben Cowen explique où en sera la crypto en 2026](qyD63PNaFl0.md)** — Sujet : Analyse du cycle de marché actuel des cryptomonnaies, perspectives sur le Bitcoin et l'Ethereum, et comparaison avec les cycles économiques historiques.
 - **[Bitcoin a 3 ans pour survivre à la menace quantique | Nic Carter](IoeiFtkkkzI.md)** — Sujet : L'impact potentiel de l'informatique quantique sur la sécurité des réseaux blockchain (notamment Bitcoin et Ethereum).
 - **[Bitcoin Below $60K: Michael Saylor Is Running Out of Moves](BbOvbGQSb_A.md)** — Sujet : Le "Weekly Rollup" (tour d'horizon hebdomadaire) de l'actualité des cryptomonnaies et de la finance décentralisée (DeFi).
@@ -143,6 +144,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Tariffs, AI, & Crypto! Why ALL Markets Feel Broken Right Now](gi3AjUuC2uk.md)** — Sujet : Actualité macroéconomique, marchés crypto (Bitcoin, Ethereum), incertitudes réglementaires et géopolitiques, et nouveaux produits de trading ou de rendement (DeFi vs TradFi).
 - **[Tendances d'investissement pour 2026 : DeFi, tokenisation, formation de capital, spéculation et IA](Poes3EpAR5c.md)** — Le sujet est l'analyse des opportunités d'investissement dans l'écosystème crypto pour 2026. La thèse principale des intervenants est que le secteur crypto est arrivé à maturité et n'est plus une thèse "contrarienne". Il existe désormais des opportunités concrètes dans tous…
 - **[The Crypto Bull Market Just Got a Reality Check](jWHj7u2B5j4.md)** — Le sujet est une revue d'actualité du secteur des crypto-actifs. La thèse principale est que le secteur crypto est entré dans une nouvelle ère, dite « ère du produit », et que les investisseurs doivent s'adapter à une nouvelle réalité macroéconomique marquée par des taux…
+- **[The Holy Grail of Crypto Privacy: Encrypted Ethereum, FHE & Living Forever](YLwTEu7kuxs.md)** — Sujet : L'importance de la confidentialité (privacy) et de la cryptographie dans l'écosystème blockchain, appliquée aux services financiers.
 - **[The Market Reaction to War Was Not What Anyone Expected](DFISbcoppos.md)** — Sujet : Revue hebdomadaire des marchés macroéconomiques, géopolitiques et de l'écosystème crypto (guerre au Moyen-Orient, prix du pétrole, or, actions, intelligence artificielle, régulation bancaire et adoption institutionnelle).
 - **[The “Quantum Threat” Behind Bitcoin’s Sudden Sell-Off](r5xLZbURBpg.md)** — Sujet : Le "Bankless Weekly Rollup" : revue d'actualité hebdomadaire sur le secteur des cryptomonnaies et de la finance décentralisée (DeFi), avec un regard sur la "TradFi" (finance traditionnelle).
 - **[This AI Agent Hired a Human, Built Apps, and Started Making Money](8xHc_fFSMd0.md)** — La vidéo traite de l'utilisation de l'intelligence artificielle (IA) autonome pour la création et la gestion d'entreprises. La thèse principale est que, bien que nous soyons au début de cette technologie, l'IA est capable, sous supervision humaine, de concevoir des produits,…
