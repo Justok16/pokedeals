@@ -8,12 +8,12 @@ d'ecran, bouche a oreille...), l'ajouter directement dans boutiques_shopify.py
 / boutiques_woocommerce.py a la place -- ces fichiers-la restent geres a la
 main et ne sont jamais touches par ce script.
 
-Derniere mise a jour : 2026-10-26
+Derniere mise a jour : 2026-11-01
 """
 
 BOUTIQUES_SHOPIFY_AUTO = ['tsd-tcg.fr']
 
-BOUTIQUES_SHOPIFY_AUTO_PRECOMMANDE_SEULEMENT = []
+BOUTIQUES_SHOPIFY_AUTO_PRECOMMANDE_SEULEMENT = ['quintus-tcg.fr']
 
 BOUTIQUES_WOOCOMMERCE_AUTO = []
 
