@@ -13,9 +13,10 @@ Usage : NB_GROUPES=4 python3 toutes_videos.py <groupe 0…NB_GROUPES-1> <dossier
   ne bloquent pas les autres. S'arrête dès que les modèles du groupe ont épuisé leur quota du jour.
 """
 
+import datetime
 import json
 import os
-import datetime
+import re
 import subprocess
 import sys
 import time
@@ -24,7 +25,7 @@ RACINE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 CONNAISSANCES = os.path.join(RACINE, "connaissances")
 EXCLUES = {"unefille", "iaboss"}  # comptes TikTok, traités autrement
 SANS_MODE_FINANCE = {"gabzer", "melvynx", "mreflow"}
-TOUR = int(os.environ.get("TOUR", 240))  # minutes de vidéo par chaîne et par tour
+TOUR = int(os.environ.get("TOUR", "240"))  # minutes de vidéo par chaîne et par tour
 LONGUE = 2 * 3600
 
 
@@ -44,12 +45,20 @@ def chaines():
     )
 
 
+def lire(chemin):
+    with open(chemin) as fh:
+        return json.load(fh)
+
+
+def ecrire(chemin, donnees):
+    with open(chemin, "w") as fh:
+        json.dump(donnees, fh, ensure_ascii=False)
+
+
 def reste(c, fiches):
-    liste = json.load(open(os.path.join(CONNAISSANCES, c, "liste-videos.json")))[
-        "videos"
-    ]
+    liste = lire(os.path.join(CONNAISSANCES, c, "liste-videos.json"))["videos"]
     f_prio = os.path.join(CONNAISSANCES, c, "prio.json")
-    prio = json.load(open(f_prio))["videos"] if os.path.exists(f_prio) else []
+    prio = lire(f_prio)["videos"] if os.path.exists(f_prio) else []
     vus, ordre = set(), []
     for v in prio + liste:
         if v["id"] not in vus:
@@ -61,21 +70,37 @@ def reste(c, fiches):
             os.path.join(CONNAISSANCES, c, i + ".md")
         ) or os.path.exists(os.path.join(fiches, c, i + ".md"))
 
-    a_faire = [v for v in ordre if not fait(v["id"])]
+    ecartees = {i for i, n in lire_echecs(fiches, c).items() if n >= MAX_REFUS}
+    a_faire = [v for v in ordre if not fait(v["id"]) and v["id"] not in ecartees]
     os.makedirs(os.path.join(fiches, c), exist_ok=True)
     courtes = [v for v in a_faire if secondes(v["duree"]) <= LONGUE]
     longues = [v for v in a_faire if secondes(v["duree"]) > LONGUE]
-    json.dump(
-        {"videos": courtes},
-        open(os.path.join(fiches, c, ".reste.json"), "w"),
-        ensure_ascii=False,
-    )
-    json.dump(
-        {"videos": longues},
-        open(os.path.join(fiches, c, ".longues.json"), "w"),
-        ensure_ascii=False,
-    )
+    ecrire(os.path.join(fiches, c, ".reste.json"), {"videos": courtes})
+    ecrire(os.path.join(fiches, c, ".longues.json"), {"videos": longues})
     return len(courtes)
+
+
+MAX_REFUS = 3  # vidéo refusée seule (403) 3 fois : écartée, sinon elle fait échouer tout son lot
+
+
+def lire_echecs(fiches, c):
+    f = os.path.join(fiches, c, ".refus.json")
+    if not os.path.exists(f):
+        return {}
+    with open(f) as fh:
+        return json.load(fh)
+
+
+def noter_refus(fiches, c, sortie):
+    """Compte les refus 403 d'une vidéo seule (ligne « échec <id> … 403 »)."""
+    refus = lire_echecs(fiches, c)
+    for ligne in sortie.splitlines():
+        m = re.match(r"échec ([\w-]{11}) .*\b403\b", ligne)
+        if m:
+            refus[m.group(1)] = refus.get(m.group(1), 0) + 1
+    if refus:
+        with open(os.path.join(fiches, c, ".refus.json"), "w") as fh:
+            json.dump(refus, fh)
 
 
 def attendre_quota():
@@ -92,15 +117,11 @@ def main():
     groupe, fiches, cookies = int(sys.argv[1]), sys.argv[2], sys.argv[3]
     # répartition équilibrée et stable : chaînes triées par taille de liste, chacune au groupe le moins chargé
     nb = int(
-        os.environ.get("NB_GROUPES", 3)
+        os.environ.get("NB_GROUPES", "3")
     )  # un groupe par famille de modèles (quotas séparés)
     charge, groupes = [0] * nb, [[] for _ in range(nb)]
     tailles = {
-        c: len(
-            json.load(open(os.path.join(CONNAISSANCES, c, "liste-videos.json")))[
-                "videos"
-            ]
-        )
+        c: len(lire(os.path.join(CONNAISSANCES, c, "liste-videos.json"))["videos"])
         for c in chaines()
     }
     for c in sorted(tailles, key=lambda x: (-tailles[x], x)):
@@ -130,8 +151,10 @@ def main():
                 capture_output=True,
                 text=True,
                 cwd=RACINE,
+                check=False,
             )
             sortie = r.stdout + r.stderr
+            noter_refus(fiches, c, sortie)
             print(f"--- {c} ({n} à faire)\n{sortie.strip()[-1500:]}", flush=True)
             if "cookie du relais" in sortie or r.returncode == 3:
                 print("arrêt du groupe : relais à renouveler", flush=True)
