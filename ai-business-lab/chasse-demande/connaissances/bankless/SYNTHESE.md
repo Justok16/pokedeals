@@ -1,6 +1,6 @@
-# Bankless — index des fiches (synthèse du samedi 31/10/2026)
+# Bankless — index des fiches (synthèse du dimanche 01/11/2026)
 
-159 vidéos résumées sur 2993. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+161 vidéos résumées sur 2993. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[10 Crypto Predictions for 2026: $1M BTC, Wall Street Onchain & ETF Takeover](J9vvH49_dus.md)** — Sujet : Bilan des prédictions passées (2025) et perspectives/prédictions pour l'avenir de l'écosystème crypto (notamment vers 2026 et au-delà).
@@ -28,6 +28,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Clarity Passes, les actions s'envolent et Wall Street se rue sur Ethereum](2_TwBsL3U9o.md)** — Sujet : Le point hebdomadaire sur l'actualité macroéconomique, boursière et cryptographique (inflation, marchés boursiers, géopolitique, régulation américaine et actualités des cryptos/ETFs).
 - **[Coinbase lance des actions tokenisées sur Base](sEA6HrQju4Q.md)** — Sujet : La tokenisation des actifs financiers traditionnels (stocks) sur la blockchain « Base ».
 - **[Combien de temps va durer le boom de l'IA ? La question numéro 1 des investisseurs en cryptomonnaies](DCIAoXgW448.md)** — Sujet : L'impact de l'essor de l'intelligence artificielle (IA) sur le marché boursier et la question de savoir si nous sommes actuellement dans une "bulle" financière, similaire à celle des années 2000 (.com).
+- **[Comment il a su que le cycle était terminé](aVHMqoGtqKM.md)** — Sujet : Analyse du cycle de marché des cryptomonnaies (Bitcoin et Ethereum) et stratégies d'investissement.
 - **[Could the Next Crypto Bull Market Arrive Sooner Than Expected?](nx6hpy2oDjY.md)** — Sujet : Analyse macroéconomique de la situation financière mondiale (liquidités, taux d'intérêt, dette, inflation) et son impact sur les marchés (actions, obligations, or, cryptomonnaies).
 - **[Could This Bearish Market Be the Setup Everyone Misses?](yIhXfyyZ1pI.md)** — La vidéo est une revue hebdomadaire de l'actualité crypto. La thèse principale est que malgré une période de marché "ours" (bear market), l'écosystème continue d'innover (mises à jour techniques, adoption institutionnelle) et qu'il faut rester optimiste sur le long terme tout…
 - **[Créer une entreprise à un million de dollars sans employé avec OpenClaw | Nat Eliason](vF3dK1TywAk.md)** — Sujet : L'utilisation de l'intelligence artificielle (IA) et des agents autonomes pour automatiser la gestion financière et opérationnelle.
@@ -37,6 +38,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Ethereum : une nouvelle ère pour la levée de fonds en ligne ! Le retour des ICO](QId8-IRl0bA.md)** — Sujet : Le retour des Initial Coin Offerings (ICO) dans l'écosystème crypto, avec une attention particulière pour les nouvelles méthodes de vente au public (ex: vente aux enchères).
 - **[Ethereum a un problème d'émission](mUEEFxN2_DY.md)** — Sujet : Le débat autour de l'EIP (Ethereum Improvement Proposal) 8363, centré sur le ciblage du jalonnement (stake targeting) d'Ethereum.
 - **[Ethereum Foundation's New Mandate Has The Community Divided](UpSP2j3WoWw.md)** — Sujet : L'analyse du document « EF Mandate » (Mandat de la Fondation Ethereum) publié en mars 2026.
+- **[Ethereum’s Next Decade: Inside the EF’s Vision at Bankless Summit](4FzS3nkH1Oc.md)** — Sujet : L'évolution de l'écosystème Ethereum vers une adoption dans le "monde réel" (Real World Ethereum) à travers le développement technique et le renforcement des services financiers décentralisés (DeFi).
 - **[FWA reconstruit le marché des NFT](Ld2dAzzxwQQ.md)** — La vidéo traite des FWA (Fake World Assets), un nouveau protocole d'achat de NFT sur la blockchain Ethereum. La thèse principale est que ce protocole, inspiré par les mécanismes de finance décentralisée (DeFi) comme Uniswap V2, permet de créer un marché décentralisé,…
 - **[Google Just Dropped a Quantum Bomb on Crypto](vbivuW2wWAk.md)** — Le sujet principal est une analyse de l'actualité crypto et économique de la première semaine d'avril 2025. La thèse des intervenants est que le marché traverse une période d'instabilité macroéconomique marquée par des risques géopolitiques (guerre en Iran), une dette…
 - **[Has Crypto Lost the Plot? Bear Market Reality & What Happens Next](IWZV_0TiZp0.md)** — Sujet : Le point hebdomadaire sur l'actualité des crypto-actifs et de la finance décentralisée (DeFi), avec un focus sur les récentes dynamiques de marché et les annonces technologiques.

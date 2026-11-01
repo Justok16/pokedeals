@@ -1,6 +1,6 @@
-# Benjamin Cowen — index des fiches (synthèse du samedi 31/10/2026)
+# Benjamin Cowen — index des fiches (synthèse du dimanche 01/11/2026)
 
-1499 vidéos résumées sur 3189. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+1535 vidéos résumées sur 3189. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[08/10/2026 11:23:42](se6UlLbDTEo.md)** — Sujet : Analyse technique et macroéconomique du cours du Bitcoin pour le quatrième trimestre (Q4) de 2026, en le comparant aux cycles historiques précédents (notamment 2018, 2019 et 2022).
@@ -8,6 +8,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[A Chance To Recharge, Meet Good People, & Hear Different Perspectives On The Market In Person](nw6DtHns0pc.md)** — Promotion de la conférence ITC (Into The Cryptoverse) à Miami.
 - **[A Discussion With David Lin on Bitcoin, Stocks, and Macro](RzoeiOwIrMY.md)** — Sujet : Une discussion entre deux analystes financiers, Benjamin Cowen et David Lin, sur l'impact des récentes décisions de la nouvelle administration américaine (sous la présidence de Donald Trump) sur l'économie, les marchés financiers (actions et cryptomonnaies) et les taux…
 - **[A Line Has Been Crossed](qzWWMQaI6Vk.md)** — Sujet : L'annonce d'une enquête criminelle du Département de la Justice (DOJ) américain visant le président de la Réserve fédérale (Fed), Jerome Powell (officiellement concernant un projet de rénovation de bâtiments de la Fed). Powell dénonce cette action comme une manœuvre de…
+- **[Accès direct et options de prise de parole pour ITC](YKz7MHsA9Wc.md)** — Sujet : Annonces de fin de vidéo par un créateur de contenu spécialisé dans les cryptomonnaies, incluant la promotion de ses services et de son site web personnel.
 - **[Actions : Atterrissage brutal ou en douceur ?](D5Lw6ZXjkYc.md)** — Sujet : Analyse technique et macroéconomique du S&P 500 (indice boursier américain) en lien avec la politique monétaire de la Réserve fédérale (Fed) et l'inflation.
 - **[Actions et conflits géopolitiques](hqph0v44yxI.md)** — Sujet : L'analyse de l'indice boursier américain S&P 500 face aux tensions géopolitiques actuelles, à l'évolution de l'inflation, du marché de l'emploi et à la hausse du prix du pétrole.
 - **[Adoption et perspectives du Bitcoin (Une discussion avec Bitcoin Archive)](MWrhbCLfnic.md)** — Sujet : Une discussion sur l'état actuel du marché du Bitcoin (adoption, volatilité, cycle de marché et psychologie des investisseurs).
@@ -214,6 +215,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin : Spéculations douteuses](sigSZCnSa6M.md)** — Sujet : Analyse de la saisonnalité et des cycles de marché du Bitcoin (BTC), spécifiquement au cours des années d'élections américaines de mi-mandat (mid-term election years).
 - **[Bitcoin : Stratégies d'entrée/sortie](ReziClqylXA.md)** — Sujet : Stratégies d'investissement en cryptomonnaies, spécifiquement le Bitcoin (BTC), via la gestion du risque et le lissage des coûts d'investissement (Dollar Cost Averaging - DCA).
 - **[Bitcoin : Théorie des cycles de marché (cycle normal ou pic anticipé ?)](mooXO-U2nno.md)** — Sujet : L'analyse du cycle de marché du Bitcoin pour déterminer si le cycle actuel suit la tendance historique ("cycle normal") ou s'il s'agit d'un "sommet translaté vers la gauche" (un sommet survenant plus tôt que prévu).
+- **[Bitcoin : un argument en faveur des pessimistes](qXosJdJRMnk.md)** — Sujet : Analyse technique du marché du Bitcoin et stratégie de gestion de portefeuille face à un potentiel "marché baissier" (bear market).
 - **[Bitcoin : Un graphique magnifique](vxnpP3EOl-8.md)** — Le sujet est l'analyse du graphique « Bitcoin Percentage of Supply in Profit and Loss » (pourcentage d'approvisionnement en profit et en perte). La thèse principale est que ce graphique est l'un des plus esthétiques et informatifs pour identifier les cycles de marché,…
 - **[Bitcoin : un indicateur de risque social amélioré](WwzQ6gjktHs.md)** — Sujet : L'évaluation de l'intérêt du grand public (retail) pour le marché des crypto-monnaies grâce à l'analyse de données de fréquentation sociale et de recherche.
 - **[Bitcoin : Un marché baissier d'un genre nouveau ?](5txYvyuM4uE.md)** — Sujet : L'analyse des cycles de marché du Bitcoin (BTC), avec un focus sur la nature du marché baissier (bear market) actuel par rapport aux cycles historiques.
@@ -236,6 +238,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin and the US Presidential Election](X9PNsQ_XaIs.md)** — Sujet : L'analyse de l'impact des élections présidentielles américaines sur le cours du Bitcoin et les marchés financiers.
 - **[Bitcoin and the Yield Curve](tvGHykcAwoE.md)** — Sujet : L'analyse du marché financier, de l'économie et du Bitcoin à travers la courbe des taux (Treasury Yield Curve) et les spreads de rendement des bons du Trésor.
 - **[Bitcoin Approaches $100k After CPI Report](TZgCGKrQAlI.md)** — Sujet : L'analyse de l'impact des récentes données sur l'inflation (CPI) et le marché du travail sur le prix du Bitcoin et des actifs risqués.
+- **[Bitcoin Approaches the 21D EMA](Q6gAIc4XPfU.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC) sur les graphiques journalier et hebdomadaire, avec un accent particulier sur la position du prix par rapport à la moyenne mobile exponentielle (EMA) à 21 jours et à d'autres indicateurs de tendance.
 - **[Bitcoin Approaches the Bull Market Support Band](Va4uxOptS4c.md)** — Le sujet de la vidéo est l'analyse technique du cours du Bitcoin. La thèse principale est que le Bitcoin doit franchir la « bande de support du marché haussier » pour confirmer la solidité de sa structure de marché actuelle.
 - **[Bitcoin approche un niveau important](Ox0mi5n3Ju4.md)** — L'analyse du cours du Bitcoin par rapport à sa moyenne mobile sur 200 jours (200 DMA). L'auteur soutient que le Bitcoin est très proche de cette moyenne mobile, qui a historiquement agi comme une résistance majeure dans plusieurs marchés baissiers passés. Il conserve une…
 - **[Bitcoin atteint un nouveau record historique !](BLKjikjqVIc.md)** — Sujet : Analyse technique et temporelle de l'évolution du cours du Bitcoin (BTC) et de sa dominance sur le marché des cryptomonnaies.
@@ -244,6 +247,8 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin balaye le plus bas de février 2026](LuiJ6uK_qh0.md)** — Sujet : L'analyse technique et cyclique du cours du Bitcoin, en particulier son comportement durant les années dites de "mi-cycle" (mid-term years) par rapport aux cycles historiques (comme ceux de 2018 et 2019).
 - **[Bitcoin Bear Market Mindset](mnTHfSerGtQ.md)** — Sujet : Stratégies de gestion d'investissement dans un contexte de "marché baissier" (bear market) du Bitcoin.
 - **[Bitcoin Bull Market Support Band (LIVE!)](O4lI9jpEf2A.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC) en se basant sur des indicateurs de tendance et des données on-chain.
+- **[Bitcoin Bull Market Support Band Update](OwGUTjpZguU.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC/USD) en utilisant l'indicateur "Bull Market Support Band".
+- **[Bitcoin Bull Market Support Band Update](v1AwU2H5xqU.md)** — 1) Sujet et thèse : Analyse technique du Bitcoin et de son "Bull Market Support Band". La thèse est que le Bitcoin est actuellement sous une résistance technique majeure et qu'il faudra du temps pour retrouver une dynamique positive.
 - **[Bitcoin Bull Market Support Band](1HHNRJdfMiw.md)** — Sujet : Analyse technique du cours du Bitcoin pour identifier les tendances de marché (haussier ou baissier).
 - **[Bitcoin Bull Market Support Band](43LMMOXu-0M.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC/USD) et de sa tendance actuelle.
 - **[Bitcoin Bull Market Support Band](5FlzMTpwEtE.md)** — Sujet : Analyse de la santé du marché du Bitcoin (BTC) à l'aide d'outils d'analyse technique.
@@ -258,6 +263,8 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin Bull Market Support Band](k68mx9VYvZY.md)** — Sujet : Analyse technique et mise à jour de la situation de Bitcoin, notamment par rapport au "Bitcoin Bull Market Support Band" (bande de support du marché haussier).
 - **[Bitcoin Bull Market Support Band](p676TyVAdc0.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC/USD) et de l'indice S&P 500.
 - **[Bitcoin Bull Market Support Band](PjE1GL_E8kM.md)** — Sujet : Analyse technique du Bitcoin, focalisée sur la notion de support et de résistance en « marché haussier » (Bull market support band).
+- **[Bitcoin Bull Market Support Band](q6e8_yzBHM4.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC) à travers l'indicateur de la "bande de support du marché haussier" (Bull Market Support Band).
+- **[Bitcoin Bull Market Support Band](QanhgG7otwI.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC) en relation avec le « Bull Market Support Band ».
 - **[Bitcoin Bull Market Support Band](rOKqDtfkyuw.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC) en lien avec les supports de marché, les moyennes mobiles (croisements dits « golden cross » et « death cross ») et la comparaison avec d'autres indices historiques (S&P 500).
 - **[Bitcoin Bull Market Support Band](WcC3fC_K2E8.md)** — Sujet : Analyse technique de la tendance du Bitcoin et de sa dominance sur le marché des crypto-monnaies.
 - **[Bitcoin Bull Market Support Band](XJgZqUN2C4A.md)** — Sujet : Analyse technique du cours du Bitcoin.
@@ -271,6 +278,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin contre le DXY](8mfTFG9YFuM.md)** — Sujet : L'analyse de la corrélation inverse entre le cours du Bitcoin et l'indice du dollar américain (DXY).
 - **[Bitcoin Correction In Context (Relative Strength Index)](X2ATY5BwXaI.md)** — - Sujet : L'analyse technique du Bitcoin à travers l'indicateur RSI (Relative Strength Index) sur différentes unités de temps et son rapport avec les moyennes mobiles (notamment à 200 jours).
 - **[Bitcoin Corrections in 2017](_t0Ox26txMA.md)** — Sujet : L'analyse historique de la volatilité du cours du Bitcoin lors des périodes suivant un « halving ».
+- **[Bitcoin Corridor: Standing The Test Of Time](oeGXCJKLEWI.md)** — Sujet : L'analyse du cours du Bitcoin à l'aide d'un indicateur technique (« le corridor ») développé par l'auteur sur TradingView.
 - **[Bitcoin DCA Simulation](6hktqvtUGxw.md)** — Sujet : L'analyse comparative de différentes stratégies d'investissement dans les cryptomonnaies : le Dollar Cost Averaging (DCA) face à l'investissement en capital (Lump Sum).
 - **[Bitcoin Death Cross Rally](BmjEZvbMk1Y.md)** — Sujet : L'analyse technique du Bitcoin et la survenance d'une « death cross » (croisement de la mort).
 - **[Bitcoin Dominance (60% Target Closing In) LIVE SHOW](krN8gedvV78.md)** — Sujet : L'analyse technique de la domination du Bitcoin sur le marché des crypto-monnaies et les prévisions de cycles de marché.
@@ -333,6 +341,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin et rue principale](zui1cJW0c_8.md)** — - Le sujet est l'analyse des cycles du Bitcoin à travers le prisme de l'indicateur macroéconomique américain ISM Manufacturing PMI.
 - **[Bitcoin et taux d'intérêt](bcAgbiN8gYo.md)** — Sujet : L'analyse de l'impact des cycles de taux directeurs de la Réserve fédérale américaine (Fed) sur le prix du Bitcoin.
 - **[Bitcoin Falls Below The Bull Market Support Band](2j8fbCW4GpU.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC) en relation avec le marché boursier et la politique monétaire.
+- **[Bitcoin Fear and Greed Index](_RqnqPWakAc.md)** — Sujet : L'analyse de l'indice de « peur et avidité » (Fear & Greed Index) appliqué au Bitcoin.
 - **[Bitcoin Fear and Greed Index](RvaNpJ96juw.md)** — - Sujet : L'utilisation de l'indice de peur et de la cupidité (« Fear and Greed Index ») pour analyser le sentiment du marché de Bitcoin.
 - **[Bitcoin Halving Eve](kjHe5KLT1W8.md)** — Sujet : Analyse du marché des cryptomonnaies à l'approche du « halving » du Bitcoin.
 - **[Bitcoin Hits a New All-Time-High: What is Next?](29nSJuyPrP0.md)** — Sujet : Analyse technique du cours du Bitcoin et corrélation avec les indicateurs macroéconomiques (taux à 10 ans, S&P 500).
@@ -346,6 +355,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin LIVE SHOW!](x3_OlcoUJ_M.md)** — Sujet : Analyse technique du marché des crypto-actifs et de leur corrélation avec les marchés financiers traditionnels.
 - **[Bitcoin Logarithmic Regression](2-x_f6vOfIU.md)** — Sujet : L'analyse technique du cours du Bitcoin, en particulier l'utilisation de modèles de régression logarithmique pour anticiper les cycles du marché.
 - **[Bitcoin Logarithmic Regression](93dyVDxP7K0.md)** — Le sujet est l'analyse du cours de Bitcoin en utilisant les bandes de régression logarithmique. La thèse principale est que ces bandes constituent le meilleur moyen de définir l'évolution et les cycles de prix de Bitcoin, montrant une croissance explosive au début qui tend à…
+- **[Bitcoin Logarithmic Regression](aNMUY11MXc0.md)** — Sujet : La modélisation du prix du Bitcoin au moyen de la régression logarithmique.
 - **[Bitcoin Logarithmic Regression](hsNkRFxixPo.md)** — Sujet : Analyse technique du cours du Bitcoin à long terme via l'utilisation de modèles de régression logarithmique.
 - **[Bitcoin Logarithmic Regression](uprhqAv5Ri4.md)** — Sujet : L’analyse technique du cours du Bitcoin à l’aide des bandes de régression logarithmique.
 - **[Bitcoin Logarithmic Regression](Z2nonDGPrVk.md)** — Sujet : Analyse technique du cours du Bitcoin en utilisant le modèle de régression logarithmique.
@@ -442,16 +452,22 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin Watch Party](J3GytGlx4ZU.md)** — Sujet : Analyse technique et macroéconomique du marché des crypto-actifs et de la dominance du Bitcoin.
 - **[Bitcoin, actions et inflation](PUoOWnX8nC8.md)** — Sujet : L'analyse macroéconomique de l'inflation et son impact sur les actifs risqués (actions, Bitcoin).
 - **[Bitcoin, affaires et baseball avec Dana Howell, directrice marketing d'ITC](qCuY9YMQiS4.md)** — Sujet : L'entrepreneuriat, le développement d'entreprise et l'intégration des cryptomonnaies dans les transactions commerciales.
+- **[Bitcoin, Altcoins, and Macro-Economic Conditions](lrttkb_-O30.md)** — Sujet : Analyse du marché des cryptomonnaies (Bitcoin et altcoins) dans le contexte macroéconomique actuel (inflation, décisions de la Réserve fédérale américaine, tensions géopolitiques).
 - **[Bitcoin, FOMC, & CPI (Aftermath)](2yxq9FMYi68.md)** — Sujet : Analyse des décisions de la Réserve fédérale (Fed) américaine, de l'inflation et leurs impacts sur le marché des cryptomonnaies.
 - **[Bitcoin, FOMC, and CPI](DzLO5x3IXW0.md)** — Sujet : L'analyse de l'impact des annonces macroéconomiques (FOMC et inflation/CPI) sur le cours du Bitcoin.
 - **[Bitcoin, Gold, Stocks, Chess](8VWZ9GCJIWM.md)** — Sujet : Analyse des marchés financiers (Bitcoin, Ethereum, Or, S&P 500) à travers des graphiques et des indicateurs macroéconomiques, le tout entrecoupé de parties d'échecs en direct.
 - **[Bitcoin, Inflation, DXY, and Stocks](FcxNGoRXA1I.md)** — Sujet : Analyse de la corrélation entre l'inflation, la politique monétaire de la FED (Réserve fédérale américaine), le marché boursier (S&P 500) et le prix du Bitcoin.
 - **[Bitcoin: 2024 Returns](Enqi2zqzC40.md)** — Sujet : Analyse technique comparative des performances du Bitcoin en 2024 par rapport aux années précédentes.
 - **[Bitcoin: A Big Test](UaiwFHnEAQg.md)** — Sujet : Analyse technique du cours du Bitcoin.
+- **[Bitcoin: A Case For The Bulls](jC5vrLjXKXA.md)** — Sujet : L'analyse des arguments haussiers (bullish) pour le Bitcoin, en contrepartie d'une précédente analyse baissière.
 - **[Bitcoin: A Date With Destiny](346ZTxpCCgo.md)** — Sujet : L'analyse technique du prix du Bitcoin et la recherche d'un point bas cyclique.
+- **[Bitcoin: A Date With Destiny](SAZ3oS8It9w.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC) face à sa moyenne mobile simple à 200 semaines (MM200) et aux bandes de régression logarithmique.
 - **[Bitcoin: A Date With Destiny](vCMnzSm9_1A.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC) et perspectives de marché.
+- **[Bitcoin: A Lower Low Ahead?](eXwhE4LYfjE.md)** — Sujet : L'analyse technique du Bitcoin et son corrélation avec le Nasdaq.
+- **[Bitcoin: A Mountain To Climb](yPN0UwhIFC4.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC) sur le graphique journalier et hebdomadaire, et perspectives d'évolution suite à la récente remontée des prix au-dessus des 40 000 $.
 - **[Bitcoin: Accounting for the Money Supply](fuAR57Btd7M.md)** — Sujet : L'analyse du cours du Bitcoin en le comparant à la masse monétaire (M1 et M2).
 - **[Bitcoin: Accounting for the Money Supply](o9rPquOoCvc.md)** — Sujet : Analyse du prix du Bitcoin par rapport à l'offre monétaire (M2).
+- **[Bitcoin: Accounting For The NASDAQ](uncU4178PLo.md)** — Sujet : L'analyse de la performance du Bitcoin par rapport au Nasdaq.
 - **[Bitcoin: Aftermath of the Death Cross](v5H1KoBw08w.md)** — Sujet : Analyse technique du cours du Bitcoin à la suite d'un « Death Cross ».
 - **[Bitcoin: At A Crossroads](T_E7gLMH0L0.md)** — Sujet : L'analyse technique du Bitcoin (BTC) et de sa dominance sur le marché des crypto-monnaies, en examinant les tendances actuelles et les scénarios possibles (croisements de tendances, hausses/baisse de prix).
 - **[Bitcoin: Battle for the 20 day MA](TbDQkJhHeQk.md)** — Sujet : Analyse technique du cours du Bitcoin face à sa moyenne mobile à 20 jours.
@@ -509,6 +525,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin: Comparing Capitulations](XoooZq9Z5qM.md)** — Sujet : Analyse technique de la trajectoire du cours du Bitcoin pendant les marchés baissiers (bears markets).
 - **[Bitcoin: Comparing The Bear Markets](qyU_4p8KmSc.md)** — Sujet : Analyse technique comparative des cycles de marché du Bitcoin (BTC) pour évaluer la position actuelle dans le cycle baissier (bear market).
 - **[Bitcoin: Comparing The Bear Markets](u8Dce5epRJE.md)** — Sujet : Analyse historique des marchés baissiers (bear markets) du Bitcoin.
+- **[Bitcoin: Creating Your Own Trading View Indicator](cWPceZ-C5So.md)** — Sujet : La création d'indicateurs personnalisés sur TradingView en utilisant le langage de programmation Pine Script, appliqué à l'analyse du Bitcoin.
 - **[Bitcoin: Days Since X% Drawdown](8mnnY0LFx_0.md)** — Sujet : Analyse de la durée (en nombre de jours) entre les baisses du cours du Bitcoin (et de quelques autres actifs) selon différents seuils de pourcentage de déclin, à l'aide d'un graphique spécifique basé sur les clôtures journalières.
 - **[Bitcoin: Death Cross Rally Update](mlirSKwP490.md)** — Sujet : Analyse technique et tendances du marché des cryptomonnaies (Bitcoin, Ethereum, Altcoins) et leurs corrélations avec le marché boursier (S&P 500, Nasdaq).
 - **[Bitcoin: Death Cross Rally](YHaoOIzHAp4.md)** — Sujet : Analyse technique du Bitcoin et de son comportement face au "Death Cross" (croisement de la mort) en période pré-halving.
@@ -569,6 +586,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin: How Far We've Come](8cuDJkqFB-s.md)** — Sujet : Analyse de l'évolution du prix du Bitcoin et de sa stratégie d'investissement à long terme.
 - **[Bitcoin: In Lockstep With The NASDAQ](8vnX85ZKhEQ.md)** — Le sujet est l’analyse de la corrélation entre le Bitcoin et le NASDAQ, l'orateur expliquant que le Bitcoin évolue en phase de risque avec les marchés traditionnels et que les corrections du NASDAQ offrent un indicateur précieux pour la tendance future du Bitcoin.
 - **[Bitcoin: Key Milestones](hWeW5LT5mH4.md)** — Sujet : Analyse technique des indicateurs de prix du Bitcoin (BTC/USD) pour évaluer la tendance actuelle du marché.
+- **[Bitcoin: Lengthening Cycles And Diminishing Returns](WI03C0a0XD4.md)** — Sujet : Analyse des cycles de marché du Bitcoin et des théories sur son évolution future.
 - **[Bitcoin: Lessons From The Past](pXvyiX-vgD0.md)** — Sujet : Analyse technique du Bitcoin (BTC) et gestion des risques en période de « bear market » (marché baissier).
 - **[Bitcoin: LIVE SHOW!](Sbhw9dH-T-o.md)** — Sujet : Analyse technique des marchés financiers et des cryptomonnaies (Bitcoin, Ethereum, Solana, etc.) dans un contexte de forte volatilité.
 - **[Bitcoin: Logarithmic Regression Rainbow](wB3pyXN-zKU.md)** — - Sujet : L’analyse de l’évolution du cours du Bitcoin à l’aide du modèle de régression logarithmique (représenté sous forme de « rainbow chart »).
@@ -636,6 +654,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin: Summer Lull 2.0?](fK8D6x3Mwss.md)** — Sujet : Analyse technique et historique du cours du Bitcoin pour anticiper les mouvements du marché.
 - **[Bitcoin: Supply in Profit/Loss](XiXsP4Ch5no.md)** — L'analyse du Bitcoin à travers l'indicateur "Pourcentage de l'offre en profit et perte". L'auteur soutient que cet indicateur est particulièrement utile pour identifier les bas de marché (points d'entrée macro) plutôt que les sommets.
 - **[Bitcoin: The 2024 Halving](wf19QDH7EG8.md)** — Sujet : L'analyse du cycle du Bitcoin (BTC) en relation avec l'événement du "halving" (réduction de moitié des récompenses de minage).
+- **[Bitcoin: The Battles We Face](C8sw8hnPtOE.md)** — - Sujet : L'analyse technique et les tendances actuelles du Bitcoin par rapport aux marchés financiers traditionnels.
 - **[Bitcoin: The Bear Market Blues (LIVE SHOW!)](rEDovrevTNM.md)** — Sujet : Analyse technique et macroéconomique du marché des cryptomonnaies (principalement Bitcoin) en lien avec les marchés traditionnels et le dollar américain (DXY).
 - **[Bitcoin: The Bear Market Blues](GgG6N_uBacE.md)** — Sujet : Analyse technique du marché du Bitcoin (BTC) en période de marché baissier.
 - **[Bitcoin: The Bear Market Blues](XOdE_tP8RGA.md)** — Sujet : Analyse du cours du Bitcoin (BTC) face aux cycles macroéconomiques actuels (politique monétaire, taux d'intérêt) et à l'état psychologique du marché ("blues du marché baissier").
@@ -675,6 +694,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin: The Winds Of Winter (LIVE SHOW!)](TBjRB6K-Vdk.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC/USD) sur des unités de temps hebdomadaires (1W) et journalières (1D).
 - **[Bitcoin: The Winds Of Winter (LIVE SHOW!)](ViZQD-mp4JI.md)** — Sujet : Analyse du marché des cryptomonnaies et de la situation du stablecoin UST (TerraUSD) lors d'un épisode de forte volatilité (mai 2022).
 - **[Bitcoin: The Winds Of Winter](UDLiSo3TfwI.md)** — Sujet : Analyse technique et macroéconomique du marché des cryptomonnaies (notamment Bitcoin et Ethereum) dans un contexte de "marché baissier" (bear market).
+- **[Bitcoin: Through The Lens Of Gold](TL16x2KRp0s.md)** — Sujet : L'analyse de la valorisation du Bitcoin par rapport à d'autres actifs (l'or, le Nasdaq, le dollar et la masse monétaire M2).
 - **[Bitcoin: Time-Based Capitulation](GtczHysHrHc.md)** — Sujet : Analyse technique du marché du Bitcoin en 2022.
 - **[Bitcoin: Tips for Navigating the Bear Market [Updated]](-LGeRPEJE54.md)** — Sujet : Stratégies de gestion d'investissement dans un marché baissier (bear market) pour les cryptomonnaies.
 - **[Bitcoin: Tips For Navigating The Bear Market](BJRUnZLR4IE.md)** — Sujet : Conseils stratégiques pour investir dans le Bitcoin et les « Altcoins » (autres cryptomonnaies) dans un contexte de marché baissier (bear market).
@@ -685,8 +705,10 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin: Whale Games](-1BY1OXLrVQ.md)** — Sujet : Analyse « on-chain » (analyse des mouvements sur la blockchain) de portefeuilles Bitcoin de grande taille, surnommés « baleines ».
 - **[Bitcoin: Whale Games](7HkiEc4db0k.md)** — Sujet : L'analyse des transactions des "baleines" (portefeuilles détenant de très grandes quantités de Bitcoin) pour tenter d'anticiper les tendances du marché.
 - **[Bitcoin: Whale Games](rm1_BXMuFho.md)** — Sujet : L'analyse des mouvements de grands portefeuilles Bitcoin (« Whale Games ») et l'observation de leurs stratégies d'investissement.
+- **[Bitcoin: Whale Games](YW_uIO1AZAk.md)** — Sujet : Analyse du comportement des « baleines » (grands détenteurs de cryptomonnaies) à travers le suivi des transactions sur la blockchain Bitcoin.
 - **[Bitcoin: Whale Watching](br_zl2AST90.md)** — Sujet : Analyse des mouvements de "baleines" (gros détenteurs de cryptomonnaies) sur le marché du Bitcoin via des outils d'analyse on-chain.
 - **[Bitcoin: Whale Watching](OlVLGemglEQ.md)** — Sujet : L’analyse on-chain des portefeuilles Bitcoin les plus importants (« baleines ») via le suivi de leurs adresses publiques, de leurs soldes et de leurs mouvements récents (achats/ventes).
+- **[Bitcoin: What Is The Fair Value?](GtDyt88hoRE.md)** — Sujet : L'analyse de la « juste valeur » (fair value) du Bitcoin basée sur des modèles de régression logarithmique.
 - **[Bitcoin: Why This Cycle Feels So Different](_LdNRGMv4sw.md)** — Sujet : Analyse du cycle actuel du marché des crypto-monnaies par rapport aux cycles précédents et explication de la divergence de performance entre le Bitcoin et les "altcoins" (autres crypto-monnaies).
 - **[Bitcoin: Wikipedia Page Views](J2m8ou_0oB0.md)** — Sujet : L’analyse de l’intérêt social et public pour Bitcoin et les cryptomonnaies à travers les vues de pages Wikipédia.
 - **[Bitcoin: Will This Indicator Mark The Bottom?](6_nnLajs_r8.md)** — Sujet : Analyse technique historique du cours du Bitcoin.
@@ -713,6 +735,8 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin : bande de support du marché haussier](usiYMWUgCQE.md)** — - Sujet : Analyse technique et saisonnière du cours du Bitcoin (BTC) en septembre.
 - **[Bitcoin : bande de support du marché haussier](XFVpk61cA3E.md)** — Sujet : Analyse technique du cours du Bitcoin (BTC), de son comportement récent par rapport à sa bande de support de marché haussier (Bull Market Support Band) et de la comparaison de son cycle actuel avec les cycles historiques.
 - **[Bitcoin : bande de support du marché haussier](YwNA4wHZLPg.md)** — Sujet : Analyse des tendances du cours du Bitcoin (BTC), de sa bande de support de marché haussier (Bull Market Support Band), et de sa dominance face aux cryptomonnaies alternatives (altcoins).
+- **[Bitcoin : Comparaison des cycles, difficultés rencontrées…](Li3m6eEWECA.md)** — 1) Sujet et thèse : Comparaison entre le cycle actuel du Bitcoin et ceux de 2018 et 2019. L'auteur conclut à une forte similarité structurelle entre ces périodes.
+- **[Bitcoin : Conseils pour naviguer dans un marché baissier](zMlIizZc5mA.md)** — Sujet : Stratégies d'investissement en période de marché baissier (bear market) pour le Bitcoin.
 - **[Bitcoin : Courbure asymétrique de la queue de distribution des quantiles de prix du Bitcoin](uFn3KUE-VTI.md)** — Sujet : La modélisation mathématique du prix du Bitcoin à long terme, en particulier l'étude de la convergence et de l'asymétrie des courbures de prix dans les extrêmes (creux de marché et sommets spéculatifs).
 - **[Bitcoin : Frais de transaction](QKO4igYkF7s.md)** — Sujet : L'analyse des frais de transaction Bitcoin (BTC) en tant qu'indicateur de marché.
 - **[Bitcoin : indicateur du sommet du cycle Pi](yOp27xcksAw.md)** — Le sujet est l'indicateur technique « Pi Cycle Top » utilisé pour prédire les sommets des cycles de prix du Bitcoin.
@@ -751,6 +775,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Bitcoin : Utilisation des indicateurs on-chain pour identifier les points bas du cycle de marché](Di8YR9nX8Q8.md)** — Sujet : L’analyse des indicateurs « on-chain » (données issues directement de la blockchain) pour Bitcoin, en particulier l'offre de monnaie en profit et en perte.
 - **[Bonne année Bitcoin !](-BUj1qN1VxA.md)** — Sujet : Analyse technique et macroéconomique du cours du Bitcoin (BTC) en ce début d'année.
 - **[Bonne année Bitcoin !](p8_8_sZJdR4.md)** — Sujet : Analyse de la performance du Bitcoin (BTC) à la fin de l'année 2025, de la validité de son cycle de 4 ans, et perspectives d'investissement pour l'année intermédiaire 2026.
+- **[Bougies Heikin-Ashi Bitcoin](FCBZPu9LdA8.md)** — Sujet : L’analyse des tendances du cours du Bitcoin en utilisant les chandeliers Heikin-Ashi sur différents horizons temporels (quotidien, hebdomadaire, mensuel, etc.).
 - **[Bougies Heikin-Ashi Bitcoin](Kk12rQTrCNM.md)** — Sujet : L'utilisation des bougies Heikin Ashi pour analyser les tendances du Bitcoin.
 - **[Bougies Heikin-Ashi Bitcoin](vuUXFfkhHBM.md)** — Sujet : Analyse technique du cours du Bitcoin à l'aide des bougies Heikin Ashi.
 - **[BTC ROI After Halving](Qy_d-VV1S5k.md)** — Sujet : L'analyse du cours du Bitcoin (BTC) après l'événement du « halving ».
@@ -760,6 +785,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Cardano : Entrée dans la phase de dépression](5fmrSkhEYOQ.md)** — Sujet : Analyse technique du cours de la crypto-monnaie Cardano (ADA) et prévisions sur sa trajectoire à court et moyen terme.
 - **[Cardano Market Update](o95H9usTUeg.md)** — Sujet : Analyse technique du cours de la cryptomonnaie Cardano (ADA) et perspectives du marché global.
 - **[Cardano Outlook](7XLP30dkWyA.md)** — Sujet : Analyse des cycles de marché de la cryptomonnaie Cardano (ADA) et stratégie d'investissement (hedging).
+- **[Cardano Outlook](mjl6HY7J3VM.md)** — Sujet : Analyse technique du cours de Cardano (ADA) en lien avec la performance du Bitcoin.
 - **[Cardano Outlook](VOJdqSwFgBU.md)** — Sujet : Analyse technique et fondamentale de la cryptomonnaie Cardano (ADA) par rapport au Bitcoin et au dollar.
 - **[Cardano Outlook](wTTJ_TtrGeo.md)** — Sujet : Analyse technique du marché de la crypto-monnaie Cardano (ADA) et perspectives par rapport à Bitcoin (BTC) et Ethereum (ETH).
 - **[Cardano Outlook](znrZR9sp6uY.md)** — Sujet : Analyse technique et comportement cyclique de Cardano (ADA) face à Bitcoin (BTC).
@@ -777,6 +803,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Cela entraîne des réactions de marché plus violentes dans les deux sens](7aT9vvqYwoE.md)** — Sujet : L'incertitude des marchés financiers face aux décisions de la Réserve fédérale américaine (Fed) concernant les taux d'intérêt.
 - **[Cette année, je pense que le Bitcoin et cette classe d'actifs vont...](BoSW-PLx1Ms.md)** — Analyse macroéconomique du marché des cryptomonnaies, de la capitalisation totale et de l'évolution du Bitcoin par rapport à sa tendance logarithmique de juste valeur.
 - **[Chainlink Market Update](lmp6xnZjKAQ.md)** — Sujet : Analyse technique et mise à jour du marché pour Chainlink (LINK) et son token natif LINK.
+- **[Chainlink Outlook](_pCJodWYdpY.md)** — Sujet : Analyse technique du cours de la cryptomonnaie Chainlink (LINK) par rapport au dollar (USD), au Bitcoin (BTC) et à l'Ether (ETH).
 - **[Chute du prix de l'argent : pourquoi maintenant ?](UGiJaLDut50.md)** — Sujet : Les facteurs influençant le cours de l'argent (métal précieux).
 - **[Chômage, récessions et points bas du marché boursier](wydFXSSJsy4.md)** — Sujet : Analyse de la relation entre le taux de chômage américain, les récessions et le comportement du marché boursier (S&P 500).
 - **[Combien de fois le Bitcoin a-t-il dépassé les 100 000 $ ?](Y2bqg_whkFc.md)** — Sujet : L'analyse historique de la fréquence à laquelle le prix du Bitcoin franchit des seuils de prix majeurs (en progression exponentielle).
@@ -788,6 +815,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Construction d'un portefeuille de cryptomonnaies](olyYMQEYwt8.md)** — Sujet : Utilisation de la théorie moderne du portefeuille (Modern Portfolio Theory - MPT) pour optimiser les investissements en cryptomonnaies.
 - **[Core Inflation Accelerates](7Vn_1lhQWTQ.md)** — Sujet : L’analyse du rapport sur l’indice des prix à la consommation (IPC) d’août 2022 aux États-Unis et son impact sur les marchés financiers (taux de la Réserve fédérale, dollar, cryptomonnaies, actions).
 - **[Corrections boursières : quand cela arrive-t-il généralement ?](FM6ecJnMWiM.md)** — Le sujet est le comportement du marché boursier (S&P 500) durant les années d'élections de mi-mandat aux États-Unis. La thèse est que le marché subit souvent des corrections au second semestre, commençant généralement en août ou septembre, bien que cela ne soit pas toujours…
+- **[Counting Bitcoin (Monthly Returns)](hmFzwGDDdT4.md)** — Sujet : L'analyse des rendements mensuels du Bitcoin et l'utilisation de modèles de « comptage » pour anticiper les mouvements de prix.
 - **[CPI and FOMC This Week](A7jidlN3lNI.md)** — Sujet : L'analyse des indicateurs macroéconomiques américains (inflation et décisions de la Réserve fédérale) et leurs impacts potentiels sur les actifs risqués (bourse et crypto-monnaies).
 - **[CPI Report (and Bitcoin)](b_pEPk70y0E.md)** — Sujet : L'analyse du dernier rapport sur l'inflation aux États-Unis (CPI) et son impact potentiel sur la politique monétaire de la Fed (Réserve fédérale américaine) et les marchés financiers.
 - **[CPI Report](499zpdYZOnA.md)** — Sujet : Analyse du rapport sur l'indice des prix à la consommation (IPC ou CPI) aux États-Unis.
@@ -827,6 +855,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[DCA Live! Bitcoin,  Ethereum,  and the Fed](DJGAIloL65o.md)** — Sujet : Analyse macroéconomique et perspectives du marché des cryptomonnaies dans un contexte d'inflation élevée et de resserrement monétaire par les banques centrales (Fed, BCE).
 - **[DCA Live! Bitcoin,  Inflation, and the Fed](P_TMPUZk-7E.md)** — Sujet : Analyse macroéconomique du marché des cryptomonnaies et de son évolution dans le contexte inflationniste actuel.
 - **[DCA Live! Bitcoin, Stocks, and Real Estate](AtmmPZKXBfg.md)** — Sujet : Un point hebdomadaire sur le marché financier (actions, cryptomonnaies, immobilier et métaux précieux).
+- **[DCA Live! Bitcoin, War, and Inflation](KZmYUJbmoMc.md)** — Sujet : L'impact des événements géopolitiques (notamment le conflit en Ukraine) sur les marchés financiers (crypto-actifs et marchés boursiers).
 - **[DCA Live! Is Bitcoin Back?](FJ4rIxTjfe8.md)** — Sujet : Analyse des tendances du marché des cryptomonnaies et des perspectives d'investissement pour le deuxième trimestre.
 - **[DCA Live! Q4 Awaits](6i_h_VVYa_w.md)** — Sujet : Analyse macroéconomique des marchés financiers (indices boursiers et cryptomonnaies) dans un contexte d'inflation et de décisions des banques centrales.
 - **[DCA Live! The Bear Market Blues](jJVQ2zUK8Qg.md)** — Sujet : Une discussion entre trois experts (Benjamin Cowen, Rob de Digital Asset News et James de InvestAnswers) sur la situation actuelle des marchés (crypto, actions, économie mondiale).
@@ -911,6 +940,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Ethereum : Spéculations douteuses](mgVJnXvPjqk.md)** — Sujet : Analyse technique et macro-économique de la performance de l'Ethereum (ETH) par rapport au Bitcoin (BTC).
 - **[Ethereum After The Merge](JvIjVeMop3E.md)** — Sujet : Analyse technique post-The Merge des prix d'Ethereum (ETH) et de sa valorisation face au Bitcoin (ETH/BTC), dans un contexte de marché baissier.
 - **[Ethereum atteint des sommets historiques](ETNI470gSlg.md)** — Analyse des performances de l'Ethereum (ETH) et de sa dynamique vis-à-vis du Bitcoin et des crypto-monnaies alternatives (altcoins). La thèse principale est que l'Ethereum devrait surperformer à court terme pour potentiellement atteindre de nouveaux sommets historiques (ATH)…
+- **[Ethereum Bull Market Support Band](EKQDcStUcAw.md)** — 1) Sujet et thèse : L'analyse technique du cours de l'Ethereum et de son "Bull Market Support Band". La thèse est que le franchissement de ces moyennes mobiles (20 semaines et 21 semaines) est un test majeur, et que retrouver ces niveaux est essentiel pour une reprise.
 - **[Ethereum Capitulation?](Y50iyDlu0Bg.md)** — Sujet : Analyse technique du cours de l’Ethereum (ETH) et de sa valeur par rapport au Bitcoin (BTC).
 - **[Ethereum chute de 30 % – Et maintenant ?](NREjLugm83U.md)** — Sujet : Analyse technique des performances d'Ethereum (ETH) face au Dollar américain (USD) et au Bitcoin (BTC), ainsi que de la dominance du Bitcoin sur le marché.
 - **[Ethereum dépasse les 4 000 $ !](fwYb6AEUb2Q.md)** — Sujet : Analyse de la dynamique de prix d'Ethereum (ETH), de son rapport de force avec le Bitcoin (paire ETH/BTC) et du comportement des cryptomonnaies alternatives (altcoins).
@@ -935,6 +965,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Ethereum à 5 000 $ ?](iwurmuYjvOM.md)** — Le sujet est l'analyse technique d'Ethereum (ETH) et sa trajectoire vers de nouveaux sommets historiques. La thèse principale est qu'après avoir subi une correction de 30 % (avec une baisse rapide et temporaire jusqu'à 3 500 $, qualifiée de simple mèche), l'Ethereum a validé…
 - **[Ethereum établit un nouveau record historique !](0mY0CglvElA.md)** — Sujet : Analyse technique et prévisions pour le cours de l'Ethereum (ETH).
 - **[Ethereum's Valuation Against Bitcoin: Wyckoff Distribution?](UANh00R5w1M.md)** — Analyse de la valorisation d’Ethereum par rapport à Bitcoin (paire ETH/BTC) à travers le prisme de la théorie de la distribution de Wyckoff, afin d'évaluer les risques potentiels d’une tendance baissière similaire à celle observée par le passé.
+- **[Ethereum: A Cause For Concern](sPyNP1QbP5Q.md)** — Sujet : Analyse technique des cours d'Ethereum, de Bitcoin et des marchés financiers pour évaluer la tendance baissière actuelle.
 - **[Ethereum: Almost Home](6XPb-c_8hHc.md)** — Sujet : Analyse du cycle de l'Ethereum (ETH) et sa corrélation avec la politique monétaire de la Réserve fédérale américaine (Fed).
 - **[Ethereum: Dubious Speculation](doNwL_epMf0.md)** — Sujet : Analyse technique et financière de la performance d'Ethereum par rapport au Bitcoin (paire ETH/BTC) et des perspectives de marché.
 - **[Ethereum: Dubious Speculation](gHkgO3wwPH4.md)** — Sujet : L'analyse technique et le comportement du cours de l'Ethereum (ETH) par rapport au Bitcoin (BTC) et au dollar (USD).
@@ -945,6 +976,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Ethereum: Dubious Speculation](x1RigqaQjmM.md)** — Sujet : Analyse technique du marché des cryptomonnaies (principalement Ethereum et Bitcoin) dans le contexte actuel de politique monétaire de la Fed.
 - **[Ethereum: End Of Year Outlook](lfkwZgVA6fQ.md)** — Sujet : Analyse technique et historique des performances de l'Ethereum (ETH) face au Bitcoin (BTC) et au dollar (USD), ainsi que ses perspectives pour la fin de l'année 2024.
 - **[Ethereum: Far From Home](sV-fmvytlNs.md)** — Sujet : Analyse technique et perspective d'investissement sur l'Ethereum (ETH) par rapport au dollar (USD) et au Bitcoin (BTC).
+- **[Ethereum: Final Accumulation?](aPr33k1cb7o.md)** — Sujet : L'analyse du cours d'Ethereum (ETH) et sa comparaison avec les cycles historiques du Bitcoin, dans une perspective d'investissement en cryptomonnaies.
 - **[Ethereum: Finally Going Home](TGCR40obh8I.md)** — Sujet : L'analyse du cours de l'Ethereum (ETH) et sa corrélation avec le Bitcoin et les politiques monétaires américaines.
 - **[Ethereum: Going Home](zsTTu0f-6OE.md)** — Sujet : Analyse technique du cours de l'Ethereum (ETH) et de sa valeur par rapport au Bitcoin (BTC).
 - **[Ethereum: Heading Home](VHDZuf9iWVs.md)** — Sujet : Analyse technique de la trajectoire du cours de l'Ethereum (ETH).
@@ -1113,6 +1145,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Le Bitcoin remonte à 80 000 $ | Kevin Warsh s'exprimera à Jackson Hole](UJlilUexICw.md)** — Sujet : Analyse technique et macroéconomique du cours du Bitcoin (BTC) alors qu'il s'échange au-dessus de 80 000 USD, en parallèle avec l'anticipation du discours de Kevin Warsh à Jackson Hole.
 - **[Le Bitcoin va-t-il capituler ?](BP3kD5i3ykQ.md)** — Sujet : L'analyse technique du cours du Bitcoin (BTC) en 2022, comparée aux cycles baissiers précédents (2014 et 2018).
 - **[Le Bitcoin va-t-il encore chuter de 30 % face à l'or ?](Xsq6jK4BVzE.md)** — La valorisation du Bitcoin par rapport à l'or. La thèse principale de l'auteur est que le Bitcoin devrait subir une baisse supplémentaire de l'ordre de 30 % à 40 % par rapport à l'or au cours de l'année (qui correspond à une année de milieu de cycle électoral américain),…
+- **[Le cycle de 4 ans du Bitcoin](CNiGShpj3M0.md)** — 1) Sujet et thèse : Analyse du cycle de 4 ans du Bitcoin. L'auteur soutient que le cycle est toujours valide et que ceux qui affirment qu'il est "mort" ignorent la majorité des données historiques.
 - **[Le cycle de baisse des taux est terminé](NxBLe5qTi_g.md)** — Sujet : L'analyse des cycles de taux d'intérêt de la Réserve fédérale américaine (Fed) et leur impact sur les marchés financiers (actions, obligations et crypto-actifs).
 - **[Le Dow Jones atteint les 50 000 points - Une correction est-elle nécessaire ?](KHU6IwOXzwA.md)** — Le sujet est l'analyse technique et cyclique de l'indice boursier américain Dow Jones Industrial Average (DJIA), qui vient de franchir la barre symbolique des 50 000 points. La thèse principale est que le Dow Jones est potentiellement au milieu d'un processus de formation de…
 - **[Le DXY est-il proche d’un plus bas ?](wdPiMb2xJqY.md)** — Sujet : L'analyse de l'indice du dollar américain (DXY) et ses perspectives d'évolution future, notamment en lien avec les baisses de taux d'intérêt de la Réserve fédérale (Fed).
@@ -1186,6 +1219,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Mes prévisions pour le reste de l'année](AvKtrd_JZdU.md)** — Sujet : Prévisions sur l'évolution du cours du Bitcoin.
 - **[Mesurer l'ampleur des rallyes cryptographiques](PWXDeSWvPAA.md)** — Sujet : L'évaluation de la participation globale du marché des crypto-monnaies lors des hausses (ce qu'on appelle la « largeur » ou breadth du marché) à l'aide d'indicateurs de moyennes mobiles.
 - **[Metal Mania](lCB33h_s8Zw.md)** — Sujet : L'analyse technique et macroéconomique des métaux précieux (or, argent, palladium, platine) et leur corrélation avec d'autres classes d'actifs (crypto-monnaies, actions, pétrole).
+- **[Moyenne mobile sur 200 jours du Bitcoin](RxD-bxH6tMg.md)** — 1) Sujet et thèse : Analyse technique de la moyenne mobile à 200 jours pour le Bitcoin. L'auteur identifie ce niveau comme une barrière critique dans les marchés baissiers passés.
 - **[Métaux précieux](vUpMCfRhLmY.md)** — Sujet : Analyse des relations entre l'or, l'argent, le cuivre et les marchés financiers (notamment l'indice boursier S&P 500) pour mieux naviguer dans les marchés financiers.
 - **[Naviguer dans les marchés baissiers du Bitcoin](prz4p7r45vU.md)** — Sujet : L'analyse des marchés baissiers (bear markets) du Bitcoin, la prévision du point bas (bottom) du cycle actuel et l'étude des indicateurs techniques à long terme.
 - **[Net Liquidity: S&P 500 and Bitcoin](RvxigkwfYRA.md)** — Sujet : L'analyse de la liquidité nette (Net Liquidity) et son impact sur le marché des actions (S&P 500), ainsi que sa corrélation avec le comportement du Bitcoin dans les années pré-électorales américaines.
@@ -1380,6 +1414,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Risque social Bitcoin](B5vEqNNcJUk.md)** — Sujet : Analyse des indicateurs de risque social liés au Bitcoin et au marché des cryptomonnaies.
 - **[Risque social du Bitcoin](gAf6tPzkcgg.md)** — Sujet : L'analyse du « risque social » (intérêt et engagement du grand public) pour le Bitcoin et les cryptomonnaies, et son impact sur la dynamique du marché (notamment la dominance du Bitcoin par rapport aux altcoins).
 - **[Risque social du Bitcoin : pourquoi le commerce de détail n'a jamais repris](16l2PcW3Z4g.md)** — Sujet : L'analyse de l'intérêt des investisseurs particuliers (retail) pour le marché des cryptomonnaies à travers l'étude de données d'audience et de réseaux sociaux.
+- **[Réduction progressive de la courbe des risques (Graphique présenté : SPX/WM2NS (1 semaine))](jDrPHN5P1EU.md)** — Le sujet est l’analyse des cycles de marché et la psychologie des investisseurs. La thèse principale est que la complaisance est dangereuse : les investisseurs ne doivent pas supposer qu'un actif restera élevé simplement parce qu'il l'est actuellement, ni ignorer les risques…
 - **[Régression logarithmique du Bitcoin](iYhTg19oEcU.md)** — Sujet : L'utilisation des modèles de régression logarithmique pour anticiper le comportement à long terme du prix du Bitcoin.
 - **[Régression logarithmique du Bitcoin](QzdJYGUf1O4.md)** — Sujet : Analyse technique du cours du Bitcoin à travers la méthode de la « régression logarithmique ».
 - **[Régression logarithmique du Bitcoin](ye2YDUGy8zQ.md)** — Sujet : Analyse du cours du Bitcoin à l'aide de la régression logarithmique.
@@ -1446,6 +1481,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[The Altcoin Reckoning](UqUUYmTgc0U.md)** — Sujet : L'analyse du marché des "Altcoins" (cryptomonnaies autres que Bitcoin et Ethereum) et leur corrélation avec les conditions macroéconomiques actuelles.
 - **[The Altcoin Reckoning](uY0Y980B07Y.md)** — Sujet : Analyse du marché des « altcoins » (toutes les cryptomonnaies hors Bitcoin et Ethereum) pendant la phase de « marché baissier » (bear market) de 2022.
 - **[The Altcoin Reckoning](wzsfVpXcYJ0.md)** — Sujet : L'analyse du marché des "altcoins" (cryptomonnaies autres que le Bitcoin et l'Ethereum) dans le contexte actuel de "reckoning" (reddition des comptes/ajustement).
+- **[The Crypto Bowl: Understanding The Risks With Cryptocurrency](T3xuU7GEGZE.md)** — Sujet : L'investissement en cryptomonnaies et la gestion des risques associés.
 - **[The Fed Cuts Interest Rates (and Bitcoin and Ethereum Discussion)](NPu6mfY_Pz8.md)** — Sujet : L'analyse des décisions récentes du Federal Open Market Committee (FOMC) de la Réserve fédérale américaine (Fed) et leur impact potentiel sur le marché des cryptomonnaies (en particulier la domination du Bitcoin).
 - **[The Fed Cuts Interest Rates by 25 bps](EjiTJ8hlT1Q.md)** — Sujet : L'analyse de la décision du FOMC (Federal Open Market Committee) du 18 décembre 2024 concernant les taux directeurs et son impact potentiel sur le marché des crypto-actifs.
 - **[The Fed Slows Quantitative Tightening](uOl8N1ESb58.md)** — Sujet : L'impact des annonces de la Réserve fédérale américaine (Fed) sur les marchés financiers (crypto-monnaies et actions).

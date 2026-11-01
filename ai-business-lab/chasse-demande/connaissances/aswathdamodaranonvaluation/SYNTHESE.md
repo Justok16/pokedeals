@@ -1,6 +1,6 @@
-# Aswath Damodaran — index des fiches (synthèse du samedi 31/10/2026)
+# Aswath Damodaran — index des fiches (synthèse du dimanche 01/11/2026)
 
-467 vidéos résumées sur 1417. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+469 vidéos résumées sur 1417. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[A "Fairly Highly Valued" (Stock) Market: The Fed Chair Opines but should anyone listen?](0faNl-maR5o.md)** — Le sujet est l'analyse de la cherté des marchés d'actions américains en 2025, suite aux déclarations du président de la Fed, Jérôme Powell, qualifiant le marché de « passablement hautement évalué ». La thèse principale est que, bien que les actions américaines soient…
@@ -278,6 +278,8 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[Session 2: The Bermuda Triangle and Approaches to Valuation](5T2PmzsxhkM.md)** — Sujet : L'impact des biais cognitifs et des idées reçues sur l'évaluation des entreprises.
 - **[Session 2: The Bermuda Triangle of Valuation](Kv7j9SNexFM.md)** — Sujet : Introduction à l'évaluation des entreprises (et des actions), méthodologies d'évaluation et identification des biais psychologiques et analytiques dans ce processus.
 - **[Session 2: The End Game in Business](S_SI29b_pzM.md)** — Sujet : L'objectif en finance d'entreprise, les limites de l'objectif théorique de maximisation de la valeur et de la richesse des actionnaires, et les conflits d'intérêts inhérents à la gouvernance d'entreprise (« Agency Problems »).
+- **[Session 2A : Données d'évaluation - Taux d'actualisation](xf3HTN5qH9U.md)** — Sujet : L’évaluation financière des entreprises, avec un focus sur les méthodes d’actualisation (flux de trésorerie actualisés ou DCF), le traitement des données comptables, l’utilisation des bêtas et le choix de la devise et du taux sans risque.
+- **[Session 2B: Valuation Inputs - Equity Risk Premiums, Growth Rates and Terminal Value](MlHPAnFp3uo.md)** — Sujet : L'estimation du risque (Bêta) et de la prime de risque sur actions (ERP) dans l'évaluation d'entreprises.
 - **[Session 3 (of 42): Understanding Risk II: The Risk in Bonds](X8rLxfoZ4JU.md)** — Sujet : Comprendre les risques liés à l'investissement dans les obligations.
 - **[Session 3 : Approches d'évaluation (suite) et premiers pas vers la valeur intrinsèque](OvmxS1g0KoU.md)** — Sujet : La cohérence dans les flux de trésorerie (consistency in cash flows) et les différentes méthodes de valorisation (flux de trésorerie actualisés ou DCF, évaluation relative ou "pricing", options) appliquées aux entreprises et aux investissements.
 - **[Session 3 : Gouvernance d'entreprise - La nature a horreur du vide !](IPTe5Ww2kOk.md)** — Sujet : L’analyse de la gouvernance d’entreprise (les conseils d’administration), les conflits d’intérêts entre actionnaires, dirigeants et créanciers (lenders), et le fonctionnement réel des marchés financiers (efficience vs mythes).

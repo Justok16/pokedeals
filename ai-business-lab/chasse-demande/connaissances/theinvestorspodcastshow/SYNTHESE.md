@@ -1,6 +1,6 @@
-# The Investor's Podcast — index des fiches (synthèse du lundi 19/10/2026)
+# The Investor's Podcast — index des fiches (synthèse du dimanche 01/11/2026)
 
-69 vidéos résumées sur 426. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
+70 vidéos résumées sur 426. Pour chaque vidéo : la thèse principale, en une phrase, telle que résumée par Gemini.
 Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle fiscale est revérifié à la source officielle avant d’être affirmé (voir `../README.md`).
 
 - **[A Soulful Journey to Stellar Returns w/ Nima Shayegh (RWH064)](iitZPHBpYiM.md)** — Sujet : L'art de l'investissement à long terme, la philosophie de gestion de portefeuille concentré et la psychologie de l'investisseur.
@@ -28,6 +28,7 @@ Connaissances générales **non vérifiées** : tout chiffre, plafond ou règle 
 - **[How to Flourish in Business, Work & Life w/ David Epstein (RWH068)](B5u1x6XbZIg.md)** — Sujet : L'importance des contraintes et des limites (personnelles, temporelles, d'information) dans la prise de décision, la créativité, la productivité et la gestion du temps, en s'appuyant notamment sur la philosophie de Herbert Simon et sur l'expérience de l'auteur (David…
 - **[How to Live Off Your Portfolio | Ian Cassel, Author of Stock Picker (TIP846)](TFMyFup1k48.md)** — Sujet : L'entretien explore le parcours d'Ian Cassel en tant qu'investisseur privé à temps plein et gestionnaire de fonds spécialisé dans les micro-capitalisations, ainsi que la philosophie derrière son nouveau livre, Stock Picker.
 - **[How to Outperform with Unconventional Thinking w/ Larry Connor (TIP671)](H2MCUWhgEcg.md)** — - Sujet : La stratégie d'investissement et de gestion à long terme dans l'immobilier résidentiel (appartements multifamiliaux) et l'importance de la culture d'entreprise, de la résilience face aux crises et du refus des modes de pensée conventionnelles.
+- **[Intelligent Fanatics: How Great Leaders Win by Ian Cassel & Sean Iddings (TIP766)](t6BNZrKIsBM.md)** — Sujet : L'analyse du livre Intelligent Fanatics (par Ian Castle et Sean Iding) et son application à la gestion d'entreprise, à travers l'étude de cas historiques (Southwest Airlines, Les Schwab, QuikTrip) et la psychologie des affaires.
 - **[Interactive Brokers Stock Deep Dive | Best Quality Stock Idea Q4 2025 w/ Clay Finck (TIP768)](BiNDEayBCQ8.md)** — Sujet : Analyse détaillée de l’entreprise Interactive Brokers (IBKR) dans le cadre de la série « Best Quality Idea Series » (évaluation d'une action de qualité pour un portefeuille personnel).
 - **[Is Berkshire Hathaway Undervalued Right Now? (Chris Bloomstran Explains) (TIP810)](j7OLFxaflS4.md)** — Sujet : Entretien avec Christopher Bloomstran (gestionnaire de fonds et analyste de Berkshire Hathaway) sur la valorisation de Berkshire Hathaway, l'évaluation de son portefeuille et la psychologie de l'investissement.
 - **[Keynes And The Markets (TIP794)](w6s7y7T1rFM.md)** — Le sujet est l’évolution de la stratégie d’investissement de l’économiste John Maynard Keynes. La thèse principale est que le succès financier durable ne repose pas sur la spéculation macroéconomique à court terme, mais sur l’achat d’entreprises de qualité à des prix…
