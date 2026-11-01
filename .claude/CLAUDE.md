@@ -98,7 +98,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   au maximum depuis le 19/10 (`61` § 6). **En pause jusqu'au premier client payant** : nouvelles démos, photos des
   prospects, résumés vidéo de masse (seules restent les vidéos envoyées par l'utilisateur). **Vidéos finance ARRÊTÉES le 01/11**
   (demande de l'utilisateur : économiser les jetons ; crochet `reprise_finance.sh` neutralisé) et, dans cette conversation,
-  **plus rien qui ne concerne pas l'entreprise**. La veille quotidienne des sources (utile à DIG16) continue.
+  **plus rien qui ne concerne pas l'entreprise**. La veille quotidienne des sources ET des nouveaux outils (Claude Code, MCP, skills, outils gratuits utiles à DIG16) continue : demande ferme de l'utilisateur du 01/11.
 - **Rappels promis** (détail dans la fiche) : franchise de TVA (art. 293 B) ; **investissement** rappelé à chaque
   paiement client (fichier privé ; toujours rappeler : pas de prévision du marché, risque de perte, pas de conseiller
   agréé ; l'utilisateur valide et passe lui-même chaque ordre) ; **service devis-factures** : relire `supports/service-devis-factures/l-essentiel.md`,
