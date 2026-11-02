@@ -276,3 +276,10 @@ Mise en œuvre :
 - **Skill `.claude/skills/nouveau-client`** : le parcours complet d'un nouveau client, en 10 étapes. Il va de la vérification de l'entreprise (SIREN, BODACC) aux rappels de suivi, en passant par le kit de 12 documents, le contrôle 44, la signature DocuSeal, le Drive, la facture Indy, le mandat SEPA et la livraison selon 65.
 
 - **Horaires de l'utilisateur (31/10/2026)** : « Je suis plutôt de l'après-midi ». Tout appel, rendez-vous ou tâche à faire au téléphone se propose **l'après-midi** (14 h-17 h de préférence), jamais tôt le matin.
+
+## Idées d'effets haut de gamme (02/11/2026)
+
+Demande de l'utilisateur : « tout ce qui s'anime, qui fait haut de gamme, surtout pour le sur-mesure et les sites
+Prestige, il faut garder toutes les bonnes idées ». Toute idée d'animation ou d'effet (vidéo, carrousel, capture,
+veille), même venant d'un outil écarté, va le jour même dans `connaissances/effets-prestige.md` (source + façon de la
+refaire en GSAP/CSS + poids sur téléphone). Ce catalogue est relu avant toute démo ou tout site Prestige.
