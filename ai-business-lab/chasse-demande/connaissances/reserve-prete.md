@@ -46,7 +46,7 @@ extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`
 
 | Outil | Sert à | Le ressortir quand… | Comment l'activer / coût |
 |---|---|---|---|
-| OpusClip (Dej1p_IgkuM, 18/10) | Découper une vidéo longue en clips verticaux sous-titrés | Interview, rendez-vous presse filmé, vidéo d'un client à recycler en réseaux | opus.pro ; gratuit vérifié le 18/10 : filigrane, fichiers gardés 3 jours, quota non précisé ; sans filigrane dès 15 $/mois (Starter). Ne pas entrer de carte pour un essai |
+| OpusClip (Dej1p_IgkuM, 18/10) | Découper une vidéo longue en clips verticaux sous-titrés | Interview, rendez-vous presse filmé, vidéo d'un client à recycler en réseaux | opus.pro ; gratuit vérifié le 18/10 : filigrane, fichiers gardés 3 jours, quota non précisé ; sans filigrane dès 15 $/mois (Starter). Ne pas entrer de carte pour un essai | 02/11 : mail « OpusClip 4.0, 1er mois Pro gratuit » reçu par l'utilisateur → non pris (aucune vidéo longue à découper, Shorts déjà fabriqués par nos outils, essai qui devient payant).
 | OBS Studio (DegsO8likZa, 17/10) | Enregistrer l'écran (démo du site, tutoriel pour un client) | Tutoriel « comment modifier vos horaires » ou démo à distance | Logiciel libre et gratuit, à installer sur le PC de l'utilisateur |
 | Editor de Diffusion Studio (Ddytkf2gBEj) | Montage vidéo piloté par un agent | Si un client commande des vidéos régulières | Open source, appli de bureau ; aujourd'hui : ffmpeg suffit |
 | Skill `cbh991/animate`, méthode Canvas + Playwright + FFmpeg (rscb1DgJtNg) | Vidéos animées en code | Vidéo de démo ou de lancement | Gratuit, déjà dans le conteneur |
