@@ -269,3 +269,15 @@ Avant d'envoyer un document, une démo ou un texte important : le faire relire p
 ## Documents pour un échange avec un tiers : remplissables au clavier (consigne du 28/10/2026)
 
 Tout PDF fourni à l'utilisateur pour un appel, un entretien ou un rendez-vous avec un tiers (fiche d'appel, fiche d'entretien, questionnaire de lancement…) est livré **remplissable** : `python3 outils/pdf_remplissable.py entree.pdf sortie.pdf --notes "<étiquettes des cadres>" [--lignes]` (blancs ____ → champs, ☐ → cases, cadres de notes et lignes d'écriture → zones de saisie). `documents_client.py` le fait déjà pour le questionnaire du kit client. Contrôle avant envoi : remplir toutes les zones par programme (pymupdf) et vérifier sur image qu'aucune ne chevauche du texte.
+
+## Signes d'un site « fait par l'IA » : à éviter partout (02/11/2026, vidéo I3jQnfZXeS4 de la veille)
+
+Avant de montrer un site ou une démo, vérifier qu'il ne porte aucun de ces signes : dégradé violet sur fond noir,
+couleurs néon, bordures lumineuses, boutons indigo par défaut, gros titre centré + 2 gros boutons, 3 cartes égales côte
+à côte, grille « bento », coins arrondis et ombre sur tout, effet verre partout, fond à points, bulles floues, icône
+étincelle (✨), compteurs qui défilent (« 10 000 utilisateurs »), émojis dans les titres, coches vertes à chaque ligne,
+phrase « ce n'est pas X, c'est Y », faux témoignages, 3 prix avec « le plus populaire » au milieu, aucune vraie
+réalisation montrée. Et ce qui manque le plus souvent : mentions légales, politique de confidentialité, vrai titre
+d'onglet. Les skills `taste-design` et `taste-redesign` portent déjà la plupart de ces règles. Contrôle du 02/11 sur
+dig16.fr : mentions et confidentialité présentes, aucun des marqueurs textuels ; effet de flou (`backdrop-filter`)
+utilisé 8 fois, à garder discret.
