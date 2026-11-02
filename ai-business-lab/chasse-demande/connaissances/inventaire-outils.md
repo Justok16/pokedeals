@@ -47,9 +47,9 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Qualité | Playwright MCP | en place | Navigateur piloté (.mcp.json) | 0.0.84 (2026-10-31) | Apache-2.0 | 38813 |
 | Qualité | Traces d'un autre client (traces_autre_client.py) | en place | Aucune trace d'un autre client dans un site livré | — | — | — |
 | Qualité | axe-core | réserve | Moteur d'accessibilité | 4.14.0 (2026-10-05) | non-standard | 7725 |
-| Qualité | html-validate | réserve | Validation HTML | 11.17.0 (2026-10-20) | MIT | — |
+| Qualité | html-validate | réserve | Validation HTML | 11.18.0 (2026-11-01) | MIT | — |
 | Qualité | lychee | réserve | Liens cassés | — | Apache-2.0 | 4072 |
-| Qualité | pa11y | réserve | Accessibilité en une commande | 10.0.0 (2026-08-28) | LGPL-3.0 | 4582 |
+| Qualité | pa11y | réserve | Accessibilité en une commande | 10.0.0 (2026-08-28) | LGPL-3.0 | 4589 |
 | Qualité des documents | Contrôle qualité des documents (orthographe.py, typo_fr.py, lisibilite.py, pdf_pages.py) | en place | Contrôle 44 avant tout envoi | — | — | — |
 | Réseaux sociaux | Metricool (connecteur) | en place | Programmation et statistiques des réseaux | — | — | — |
 | Réseaux sociaux | Zapier / Buffer (connecteur) | en place | Stories et Shorts quand Metricool est plein | — | — | — |
@@ -75,7 +75,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Vidéo | Remotion | réserve | Vidéos en code (gratuit tant que DIG16 ≤ 3 personnes, livraison MP4 seule) | 4.0.539 (2026-10-26) | non-standard | 69431 |
 | Vidéo | Remotion Agent Skills | réserve | npx skills add remotion-dev/skills | — | — | 5905 |
 | Vidéo | Revideo | réserve | Vidéos en code, MIT | 0.11.0 (2026-07-10) | MIT | — |
-| Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5610 |
-| Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26119 |
+| Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5694 |
+| Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26391 |
 
-Dernière veille : 2026-11-01.
+Dernière veille : 2026-11-02.
