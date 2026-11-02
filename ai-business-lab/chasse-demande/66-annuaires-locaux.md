@@ -158,3 +158,9 @@ Libre : rendez-vous déjà pris le 27/10, ne pas doubler.
 vérification des faits cités (liens, chiffres du dernier lundi, résultat du rendez-vous Charente Libre du 27/10),
 envoi, archivage, relance à J+10 (12/11) pour les sans-réponse. Le brouillon Atout Ruffec est réécrit après l'appel
 avec Pauline du 19/10 et montré à l'utilisateur avant le 02/11.
+
+**02/11/2026 : envoyés.** Les brouillons de l'époque avaient disparu de la boîte ; textes réécrits à partir du guide
+en ligne (titre et parties relus le 02/11, dig16.fr/guide en 200) et envoyés comme nouveaux messages, sans citation ni
+mention de l'ancienne campagne, signature texte + image : CCI de la Charente (conseillère création) et mairie de Ruffec
+(Petites villes de demain). Val de Charente et Atout Ruffec : rien envoyé (décisions de l'utilisateur des 19 et 28/10).
+Relance unique programmée le 12/11 si pas de réponse.
