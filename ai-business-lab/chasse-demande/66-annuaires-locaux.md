@@ -159,6 +159,8 @@ vérification des faits cités (liens, chiffres du dernier lundi, résultat du r
 envoi, archivage, relance à J+10 (12/11) pour les sans-réponse. Le brouillon Atout Ruffec est réécrit après l'appel
 avec Pauline du 19/10 et montré à l'utilisateur avant le 02/11.
 
+**03/11/2026 : mairie de Ruffec réglée** (réponse : renvoi vers Atout Ruffec, dont l'utilisateur fait partie) ; relance du 12/11 limitée à la CCI.
+
 **02/11/2026 : envoyés.** Les brouillons de l'époque avaient disparu de la boîte ; textes réécrits à partir du guide
 en ligne (titre et parties relus le 02/11, dig16.fr/guide en 200) et envoyés comme nouveaux messages, sans citation ni
 mention de l'ancienne campagne, signature texte + image : CCI de la Charente (conseillère création) et mairie de Ruffec
