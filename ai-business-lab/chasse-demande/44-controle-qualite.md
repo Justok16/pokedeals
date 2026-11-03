@@ -289,3 +289,8 @@ Avant de montrer un site client (et à chaque refonte de dig16.fr) : `sh outils/
 pratiques et référencement sur chaque page ; sinon corriger avant de montrer. Le rapport sert aussi de preuve chiffrée
 au client, et de comparaison avec le site d'un concurrent (même commande sur son adresse). Premier passage sur
 dig16.fr le 03/11 : 1,00 partout sauf vitesse 0,96 à 0,99 (Prestige 0,96).
+
+## Liens cassés (03/11/2026)
+
+Avant de montrer un site et à chaque modification : `sh outils/liens/verifier.sh https://adresse` ; exigence : 0 lien
+cassé (pages, images, liens externes). dig16.fr le 03/11 : 159 liens, 0 cassé.

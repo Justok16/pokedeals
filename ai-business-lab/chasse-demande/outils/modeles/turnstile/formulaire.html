@@ -1,0 +1,12 @@
+<!-- Formulaire de contact avec Turnstile (rendu implicite, doc officielle Cloudflare lue le 03/11/2026) -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<form method="POST" action="/api/contact">
+  <label for="nom">Votre nom</label>
+  <input id="nom" name="nom" required autocomplete="name">
+  <label for="tel">Votre téléphone</label>
+  <input id="tel" name="tel" type="tel" required autocomplete="tel">
+  <label for="message">Votre demande</label>
+  <textarea id="message" name="message" required rows="5"></textarea>
+  <div class="cf-turnstile" data-sitekey="CLE_PUBLIQUE" data-language="fr"></div>
+  <button type="submit">Envoyer ma demande</button>
+</form>

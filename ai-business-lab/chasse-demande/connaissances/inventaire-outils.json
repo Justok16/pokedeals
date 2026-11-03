@@ -568,6 +568,14 @@
    "statut": "installe",
    "domaine": "Qualité",
    "usage": "Audit vitesse, accessibilité, bonnes pratiques et référencement de toutes les pages (outils/unlighthouse/audit.sh) ; MIT, 0.19.1 vérifiée le 03/11/2026"
+  },
+  {
+   "nom": "Linkinator",
+   "registre": "npm",
+   "paquet": "linkinator",
+   "statut": "installe",
+   "domaine": "Qualité",
+   "usage": "Liens cassés d'un site entier (outils/liens/verifier.sh) ; MIT, 8.1.0 vérifiée le 03/11/2026"
   }
  ],
  "sources_officielles": [
