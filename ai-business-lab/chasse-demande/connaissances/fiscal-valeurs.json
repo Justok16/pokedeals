@@ -1,5 +1,5 @@
 {
-  "_lu_le": "2026-10-31",
+  "_lu_le": "2026-11-03",
   "_regle": "Chaque valeur vient d'une page officielle lue à la date indiquée. Le rappel mensuel de veille fiscale relit ces pages et met ce fichier à jour ; le simulateur s'arrête si une valeur a plus de 45 jours.",
   "cotisations_taux": {
     "BIC_services": {"normal": 0.212, "acre": 0.159, "source": "F36232 (Vérifié le 01/01/2026) ; ACRE = 75 % du taux normal pour un début après le 01/07/2026, F11677 et autoentrepreneur.urssaf.fr « L'essentiel du statut », lus le 20/10 et le 31/10/2026"},
