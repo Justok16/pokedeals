@@ -9,7 +9,7 @@ façon de la refaire chez nous. On l'utilise sur un site Prestige ou sur-mesure,
 
 **Comment on les fait** : HTML/CSS + GSAP 3.15 et ScrollTrigger (déjà hébergés dans `site-dig/moteur/anim/`), Lenis pour le
 défilement doux. Les plugins officiels de GSAP (SplitText, ScrambleText, Flip, MorphSVG…) : licence à relire à la source
-avant le premier usage. Skills installés : `gsap-core`, `gsap-scrolltrigger`, `gsap-plugins`, `gsap-timeline`,
+avant le premier usage. Skills installés : `threejs-web` (03/11, MIT, cesartevisual/threejs-skills ; les 23 skills compagnons — performance, accessibilité, shaders, matériaux « verre »… — sont lus puis installés au premier projet 3D), `gsap-core`, `gsap-scrolltrigger`, `gsap-plugins`, `gsap-timeline`,
 `gsap-performance`, `review-animations`, `emil-design-eng`.
 
 **Garde-fous (toujours)** :
