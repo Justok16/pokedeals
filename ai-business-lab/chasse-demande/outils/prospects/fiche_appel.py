@@ -19,7 +19,7 @@ Aucun prix : on écoute (57). Les objections ont leurs réponses dans l'antisèc
 Usage : python3 fiche_appel.py <lot.json> <dossier de sortie PRIVÉ>
 Le lot et la sortie contiennent des données de prospects : scratchpad ou Drive « Dig », JAMAIS ce dépôt.
 Format du lot : {"date": "21/10/2026", "date_recherches"? (date des relevés Google et volumes si plus ancienne), "titre": "...", "prospects": [{"num", "nom", "siren", "metier", "commune",
-"telephone", "site"?, "google", "bodacc", "demande", "notes"?, "pourquoi"}]}
+"telephone", "site"?, "google", "google_statut" (obligatoire : « ouvert, fiche Google vue le JJ/MM »), "bodacc", "demande", "notes"?, "pourquoi"}]}
 """
 
 import base64
@@ -283,6 +283,14 @@ def main():
     if os.path.abspath(sortie).startswith(os.path.abspath(os.path.join(ICI, "..", "..", "..", ".."))):
         sys.exit("Sortie dans le dépôt public refusée : utiliser le scratchpad ou le Drive « Dig ».")
     os.makedirs(sortie, exist_ok=True)
+    # Garde-fou du 03/11/2026 (restaurant « définitivement fermé » sur Google mis en liste) : chaque prospect doit avoir
+    # « google_statut » relevé le jour même sur sa fiche Google ou PagesJaunes ; « fermé » sous toutes ses formes = refus.
+    for p in lot["prospects"]:
+        statut = p.get("google_statut", "")
+        if not statut:
+            sys.exit(f"ALERTE : n° {p['num']} {p['nom']} : « google_statut » manquant (vérifier la fiche Google le jour même).")
+        if re.search(r"ferm[ée]", statut, re.IGNORECASE) and not re.search(r"\bouvert", statut, re.IGNORECASE):
+            sys.exit(f"ALERTE : n° {p['num']} {p['nom']} : fiche Google « {statut} » : prospect à retirer.")
     pages = []
     for p in lot["prospects"]:
         a = annuaire(p["siren"]) if p.get("siren") else None
