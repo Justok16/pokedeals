@@ -19,7 +19,8 @@ avant le premier usage. Skills installés : `gsap-core`, `gsap-scrolltrigger`, `
   animer seulement `transform` et `opacity`, rien de lourd au premier affichage ;
 - sobriété : pas de « signes d'un site fait par l'IA » (`44`, 02/11) : pas de néon, de lueur partout, de faux compteurs,
   de faux témoignages, de logos de partenaires ;
-- une seule « signature » forte par page (un effet mémorable), le reste discret.
+- une seule « signature » forte par page (un effet mémorable), le reste discret ;
+- objectif (consigne du 03/11) : dépasser, jamais seulement égaler, toute référence jugée plus belle : plus beau ET plus rapide sur téléphone.
 
 | Effet | Ce que ça donne | Source de l'idée | Comment chez nous | Poids sur téléphone |
 |---|---|---|---|---|

@@ -283,3 +283,12 @@ Demande de l'utilisateur : « tout ce qui s'anime, qui fait haut de gamme, surto
 Prestige, il faut garder toutes les bonnes idées ». Toute idée d'animation ou d'effet (vidéo, carrousel, capture,
 veille), même venant d'un outil écarté, va le jour même dans `connaissances/effets-prestige.md` (source + façon de la
 refaire en GSAP/CSS + poids sur téléphone). Ce catalogue est relu avant toute démo ou tout site Prestige.
+
+## On dépasse, on n'égale pas (03/11/2026)
+
+Consigne de l'utilisateur : « on ne l'égale pas, on le dépasse. N'oublie pas, on fait mieux. Parfait et irréprochable. »
+Chaque fois qu'un site concurrent ou une référence est jugé plus beau (par un client, l'utilisateur ou une veille) :
+1) analyser comment il est fait (structure, typographie, photos, animations, vitesse mesurée) ; 2) produire une version
+DIG16 qui le dépasse sur la beauté ET reste plus rapide sur téléphone, plus claire et plus sobre (règles de `44` et de
+`connaissances/effets-prestige.md`) ; 3) comparer les deux côte à côte (captures téléphone et PC, vitesse) avant de
+montrer quoi que ce soit ; 4) verser au catalogue des effets toute bonne idée trouvée.
