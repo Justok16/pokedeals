@@ -560,6 +560,14 @@
    "statut": "en_place",
    "domaine": "Veille",
    "usage": "Ressort l'outil gardé au bon moment"
+  },
+  {
+   "nom": "Unlighthouse",
+   "registre": "npm",
+   "paquet": "@unlighthouse/cli",
+   "statut": "installe",
+   "domaine": "Qualité",
+   "usage": "Audit vitesse, accessibilité, bonnes pratiques et référencement de toutes les pages (outils/unlighthouse/audit.sh) ; MIT, 0.19.1 vérifiée le 03/11/2026"
   }
  ],
  "sources_officielles": [

@@ -281,3 +281,11 @@ réalisation montrée. Et ce qui manque le plus souvent : mentions légales, pol
 d'onglet. Les skills `taste-design` et `taste-redesign` portent déjà la plupart de ces règles. Contrôle du 02/11 sur
 dig16.fr : mentions et confidentialité présentes, aucun des marqueurs textuels ; effet de flou (`backdrop-filter`)
 utilisé 8 fois, à garder discret.
+
+## Audit Unlighthouse de toutes les pages (03/11/2026)
+
+Avant de montrer un site client (et à chaque refonte de dig16.fr) : `sh outils/unlighthouse/audit.sh https://adresse`
+(téléphone, toutes les pages du plan du site). Exigence : 0,95 ou plus en vitesse, et 1,00 en accessibilité, bonnes
+pratiques et référencement sur chaque page ; sinon corriger avant de montrer. Le rapport sert aussi de preuve chiffrée
+au client, et de comparaison avec le site d'un concurrent (même commande sur son adresse). Premier passage sur
+dig16.fr le 03/11 : 1,00 partout sauf vitesse 0,96 à 0,99 (Prestige 0,96).

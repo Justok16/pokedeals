@@ -703,3 +703,4 @@ résultat (appels, fiche Google), pas le prix ; (2) une page Artizo non réclam�
 - 02/11/2026 : capture de l'utilisateur « 5 UI libraries » : Uiverse en réserve (MIT vérifié) ; 4 bibliothèques React écartées (nos sites sont statiques, sans React).
 - 02/11/2026 : carrousel DfCEyQvCFZK (7 bibliothèques React animées) trié : écarté, même raison que la capture du jour (sites statiques + GSAP).
 - 03/11/2026 : reel Ddh2J6Zppgb (fifbuilds) : Lenis et GSAP déjà en place ; Vanta.js versé au catalogue des effets Prestige (ancien, refaire en Three.js) ; React Bits déjà écarté.
+- 03/11/2026 : Unlighthouse installé (demande de l'utilisateur) : outils/unlighthouse/audit.sh, version 0.19.1 figée, MIT ; dig16.fr : 1,00 en accessibilité, bonnes pratiques et référencement sur les 6 pages, vitesse 0,96 à 1,00 ; ajouté à 44.
