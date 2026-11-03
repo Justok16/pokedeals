@@ -1,5 +1,5 @@
 {
- "date": "2026-11-02",
+ "date": "2026-11-03",
  "outils": {
   "GSAP": {
    "version": "3.15.0",
@@ -38,8 +38,8 @@
    "licence": "MIT"
   },
   "dotLottie web": {
-   "version": "0.82.0",
-   "date": "2026-10-30",
+   "version": "0.82.1",
+   "date": "2026-11-02",
    "etoiles": 928,
    "licence": "MIT"
   },
@@ -134,8 +134,8 @@
    "licence": null
   },
   "Remotion": {
-   "version": "4.0.539",
-   "date": "2026-10-26",
+   "version": "4.0.540",
+   "date": "2026-11-02",
    "etoiles": 69431,
    "licence": "non-standard"
   },
@@ -290,8 +290,8 @@
    "licence": "Apache-2.0"
   },
   "Context7": {
-   "version": "4.4.4",
-   "date": "2026-10-19",
+   "version": "4.5.0",
+   "date": "2026-11-03",
    "etoiles": 63945,
    "licence": "MIT"
   },
@@ -438,6 +438,12 @@
    "date": null,
    "etoiles": null,
    "licence": null
+  },
+  "Linkinator": {
+   "version": "8.1.0",
+   "date": "2026-08-29",
+   "etoiles": null,
+   "licence": "MIT"
   }
  },
  "catalogues": {
