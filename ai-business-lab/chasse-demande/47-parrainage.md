@@ -88,3 +88,14 @@ et filleul), **plafonnée à 79 €** par personne. Exemple : parrain Prestige +
 49 € offerts à chacun, pas 199 €. Elle n'est jamais liée à un avis Google (règles Google :
 aucun avantage contre un avis), ne se cumule pas avec une autre promotion, et reste conditionnée
 aux deux premiers mois réglés par le filleul. Plafond annuel inchangé : 6 mois par parrain.
+
+## 7. Offre Atout Ruffec (décision de l'utilisateur du 03/11/2026)
+
+Pour **tous les adhérents d'Atout Ruffec** et **toute personne qu'ils recommandent ou à qui ils parlent de DIG16** :
+formule **Essentiel à 29 € par mois au lieu de 49 €**, **à vie** (tant que le contrat continue), **sans durée
+minimale** (arrêt par simple email, effet à la fin du mois en cours), **sans date limite ni nombre de places**,
+**non cumulable** avec le parrainage ni une autre promotion. Inchangé : 0 € de création, premier mois réglé avant la
+mise en ligne, nom de domaine au nom du client et à sa charge. Le client dit « Atout Ruffec » au premier contact ;
+noter la provenance dans sa fiche privée. Document de présentation (A4, PDF et image) fabriqué le 03/11 (scratchpad
+`offre-atout/`, copie au Drive « Dig »). À reporter dans le devis et les CGV du kit client (`outils/kit_client.py`)
+au premier client concerné : prix 29 €, clause « sans durée minimale » à la place des 6 mois.
