@@ -39,6 +39,16 @@ Drive « Dig », jamais dans ce dépôt), vérifiée le jour même :
 
 Si « non » : « Pas de souci, bonne journée. » On note, on ne rappelle pas.
 
+**Répondeur (ajout du 03/11/2026, question de l'utilisateur)** : un seul message, au 1er répondeur, 15 secondes, sans rien vendre :
+
+> « Bonjour Monsieur [Nom], ici [ton prénom et nom], de DIG16, une entreprise de Charente qui fait des sites pour
+> les artisans. Je fais le tour des professionnels du secteur pour savoir comment ça se passe pour eux sur internet,
+> trois minutes, sans rien vendre. Je vous rappelle jeudi après-midi ; vous pouvez aussi me joindre au [ton numéro].
+> Bonne journée. »
+
+Puis on rappelle au jour annoncé, **sans laisser de 2e message**. Après 3 essais sans réponse : on arrête et on passe au suivant.
+Pas de répondeur (comme le 03/11) : on rappelle simplement un autre jour, à une autre heure.
+
 ## Trois réflexes pendant l'entretien (ajout du 22/10, skill `customer-research`, lu en entier)
 
 - **Chercher à se donner tort, pas raison** : une question utile peut rapporter une réponse qui dérange
