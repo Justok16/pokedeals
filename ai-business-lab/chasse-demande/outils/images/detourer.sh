@@ -3,7 +3,9 @@
 # Outil : rembg 2.0.86 (MIT, PyPI, vérifié le 03/11/2026), installé à la demande dans un environnement Python du
 # scratchpad, version figée. Modèle « isnet-general-use » téléchargé au premier usage (licence à relire alors).
 # Demande de l'utilisateur du 03/11 (« TOUT »). Usage : sh outils/images/detourer.sh entree.jpg sortie.png
-# Toujours regarder le résultat (bords, détails fins) avant de l'utiliser ; garder l'original.
+# Toujours regarder le résultat (bords, détails fins) avant de l'utiliser ; garder l'original. Essai du 03/11 sur une
+# photo d'atelier chargée : sujet principal bien détouré, mais une main au second plan perdue → parfait pour un logo ou un
+# objet net, à vérifier de près sur une photo encombrée. 1re installation : environ 10 min + modèle de 179 Mo.
 set -e
 [ -f "$1" ] && [ -n "$2" ] || { echo "usage : detourer.sh entree.jpg sortie.png"; exit 2; }
 T=$(ls -d /tmp/claude-*/*/*/scratchpad 2>/dev/null | head -n 1)/rembg
