@@ -40,7 +40,9 @@ Sur la base exacte des méthodes présentées dans la vidéo :
 
 1.  **Intégrer Lenis sur ses projets** : Appliquer le composant *lenis* pour offrir immédiatement un défilement fluide (*smooth scroll*) sur les sites des artisans qu'il réalise.
 2.  **Habiller les en-têtes avec Vanta.js** : Ajouter un arrière-plan animé 3D (ex. effets de vagues ou de nuages) dans la section principale (*hero section*) du site d'un artisan en insérant simplement 5 lignes de code.
-3.  **Dynamiser les visuels avec GSAP ou React Bits** : Copier-coller des animations préconçues pour dynamiser le texte, les images de chantiers/réalisations ou les éléments d'interface sans devoir coder ces effets complexes de zéro.## Tri DIG16 (03/11/2026)
+3.  **Dynamiser les visuels avec GSAP ou React Bits** : Copier-coller des animations préconçues pour dynamiser le texte, les images de chantiers/réalisations ou les éléments d'interface sans devoir coder ces effets complexes de zéro.
+
+## Tri DIG16 (03/11/2026)
 - **Déjà en place** : Lenis (défilement doux) et GSAP sont hébergés sur dig16.fr depuis octobre (`site-dig/moteur/anim/`).
 - **Vanta.js** : fonds animés WebGL en 5 lignes ; licence MIT (npm, lu le 03/11) mais dernière version publiée le 16/09/2022 → idée versée dans `connaissances/effets-prestige.md` (Prestige seulement, refaite en Three.js à jour, après test de vitesse sur téléphone).
 - **React Bits** : React, déjà écarté le 02/11 (carrousel DfCEyQvCFZK) ; idées d'effets déjà au catalogue.
