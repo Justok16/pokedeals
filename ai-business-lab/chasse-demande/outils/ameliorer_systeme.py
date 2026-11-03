@@ -20,7 +20,10 @@ import sys
 CORRECTION = re.compile(
     r"\b(toujours pas|pas ça|c'est faux|erreur|tu as oublié|tu n'as pas|pourquoi tu|"
     r"je t'avais|je t'ai déjà|déjà dit|ne marche pas|ne fonctionne pas|pas bon|mauvais|"
-    r"anglais|pas centré|chevauch\w*|où est-ce que|bah alors)\b",
+    r"anglais|pas centré|chevauch\w*|où est-ce que|bah alors|"
+    # Ajout du 03/11/2026 : 4 corrections du jour non vues (mail non montré, prospect fermé, heure fausse, numéro mort).
+    r"la moindre des choses|c'est quand même|il est \d{1,2} ?h\d*|me faire lire|pas attribué|"
+    r"tu aurais dû|j'aurais dû|tu ne m'as pas|sans me demander)\b",
     re.I,
 )
 MOTS_VIDES = set(
