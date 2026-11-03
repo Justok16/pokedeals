@@ -312,6 +312,13 @@ def main():
         b.close()
     if trop:
         sys.exit(f"ALERTE : page(s) {trop} trop longue(s), raccourcir les textes.")
+    # Remplissable au clavier pendant l'appel (consigne du 28/10/2026, 44 ; oubli constaté le 03/11 : désormais automatique).
+    sys.path.insert(0, os.path.join(ICI, ".."))
+    from pdf_remplissable import rendre_remplissable
+    n = rendre_remplissable(nom + ".pdf", nom + "-tmp.pdf", notes=("Ce qu’il a dit",))
+    os.replace(nom + "-tmp.pdf", nom + ".pdf")
+    if n < len(lot["prospects"]):
+        sys.exit(f"ALERTE : {n} zone(s) de notes pour {len(lot['prospects'])} fiches : PDF non remplissable.")
     print("PDF :", nom + ".pdf")
 
 
