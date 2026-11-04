@@ -1,12 +1,7 @@
 name: Vérifier Alertes Watchlist
+# Programmation retirée le 04/11/2026 : PokéDeals n'est plus utilisé (demande de Justok). Lancement manuel encore possible.
 
 on:
-  schedule:
-    # Toutes les 30 minutes -- volume actuel tres faible (quelques dizaines
-    # d'alertes), largement dans les clous meme a cette cadence. Pas de
-    # fichier memoire a sauvegarder (ecriture directe dans Supabase), donc
-    # pas de risque de collision Git entre cycles qui se chevauchent.
-    - cron: "*/30 * * * *"
   workflow_dispatch: {}
 
 permissions:

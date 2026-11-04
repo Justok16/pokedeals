@@ -1,12 +1,7 @@
 name: Canari Push
+# Programmation retirée le 04/11/2026 : PokéDeals n'est plus utilisé (demande de Justok). Lancement manuel encore possible.
 
 on:
-  schedule:
-    # Meme cadence que le canari email (email_canari.yml) et
-    # watchdog_workflows.yml -- meme classe de probleme : detection
-    # automatique d'une panne silencieuse, sans attendre qu'un vrai
-    # utilisateur signale ne rien recevoir.
-    - cron: "20 */3 * * *"
   workflow_dispatch: {}
 
 permissions:

@@ -1,4 +1,5 @@
 name: Contrôle clé SendGrid
+# Programmation retirée le 04/11/2026 : PokéDeals n'est plus utilisé (demande de Justok). Lancement manuel encore possible.
 
 # Ajoute le 07/10/2026. Pourquoi : SendGrid refusait la clef (401) depuis
 # plusieurs jours sans que personne ne le voie -- le canari email (qui envoie
@@ -18,8 +19,6 @@ name: Contrôle clé SendGrid
 # livres aux destinataires (c'est le role du canari email, a reactiver une
 # fois EMAIL_CANARI_DESTINATAIRE pointe vers une boite dediee).
 on:
-  schedule:
-    - cron: "47 7 * * *"   # une fois par jour, ~9h45 Paris (minute decalee de :00, cf. charge du planificateur GitHub)
   workflow_dispatch: {}
 
 permissions:

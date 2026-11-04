@@ -1,18 +1,6 @@
 name: Scan précommandes génériques (PokéPrécoms)
+# Programmation retirée le 04/11/2026 : PokéDeals n'est plus utilisé (demande de Justok). Lancement manuel encore possible.
 on:
-  schedule:
-    # Resserre a 15 min le 28/08/2026 (demande de Justok, grosse sortie
-    # Pokemon a venir -- ce radar est justement celui qui detecte les
-    # NOUVELLES precommandes, le plus pertinent pour ne pas rater une
-    # sortie) : mesure reelle sur plusieurs jours, cycle complet stable a
-    # 11.7-12.6 min, largement sous les 15 min (marge >15%). Workflow
-    # SEPARE de scan_shopify.yml (budget de temps propre) plutot qu'une
-    # etape de plus dans ce dernier : ce radar refait un passage COMPLET
-    # sur le catalogue de chaque boutique Shopify (pas de reutilisation du
-    # catalogue deja recupere par scan_boutique.py dans le meme cycle), ce
-    # qui entamerait la marge de scan_shopify.yml. Ne PAS descendre plus
-    # bas que la duree reelle mesuree, meme raison que scan_shopify.yml.
-    - cron: "*/15 * * * *"
   workflow_dispatch:
     inputs:
       boutiques:
