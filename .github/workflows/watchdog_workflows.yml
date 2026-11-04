@@ -1,11 +1,7 @@
 name: Watchdog Workflows
+# Programmation retirée le 04/11/2026 : PokéDeals n'est plus utilisé (demande de Justok). Lancement manuel encore possible.
 
 on:
-  schedule:
-    # Toutes les 3h : assez frequent pour detecter un scanner casse en
-    # quelques heures, assez espace pour rester tres largement sous les
-    # limites de l'API GitHub Actions (9 workflows x 1 appel par passage).
-    - cron: "0 */3 * * *"
   workflow_dispatch: {}
 permissions:
   actions: read     # necessaire pour lire l'historique des executions des autres workflows

@@ -1,9 +1,6 @@
 name: Decouverte Annuaires (boutiques verifiees)
+# Programmation retirée le 04/11/2026 : PokéDeals n'est plus utilisé (demande de Justok). Lancement manuel encore possible.
 on:
-  schedule:
-    # Hebdomadaire (mercredi 06h00 UTC), decale de la decouverte AFNIC
-    # (lundi) pour ne jamais commiter en meme temps.
-    - cron: "0 6 * * 3"
   workflow_dispatch: {}
 permissions:
   contents: write   # necessaire pour sauvegarder boutiques_complement.py

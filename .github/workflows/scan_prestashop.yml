@@ -1,11 +1,6 @@
 name: Scan PrestaShop
+# Programmation retirée le 04/11/2026 : PokéDeals n'est plus utilisé (demande de Justok). Lancement manuel encore possible.
 on:
-  schedule:
-    # Toutes les 30 minutes -- independant des trois autres cron (main.py
-    # 15 min, scan_shopify.yml et scan_woocommerce.yml 30 min). Tous tournent
-    # en parallele sur le meme repo ; cf. les etapes de sauvegarde ci-dessous
-    # pour la gestion des collisions Git.
-    - cron: "*/30 * * * *"
   workflow_dispatch:
     inputs:
       boutiques:

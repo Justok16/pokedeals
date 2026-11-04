@@ -1,11 +1,7 @@
 name: Decouverte Boutiques
+# Programmation retirée le 04/11/2026 : PokéDeals n'est plus utilisé (demande de Justok). Lancement manuel encore possible.
 
 on:
-  schedule:
-    # Hebdomadaire (lundi 06h00 UTC) -- suffisant car les fichiers AFNIC
-    # restent disponibles 7 jours sur leur serveur (le script en telecharge
-    # toujours les 7 derniers), donc un cron plus frequent n'apporterait rien.
-    - cron: "0 6 * * 1"
   workflow_dispatch: {}
 permissions:
   contents: write   # necessaire pour sauvegarder boutiques_decouvertes.py

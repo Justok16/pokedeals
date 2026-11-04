@@ -1,8 +1,6 @@
 name: PokéDeals
+# Programmation retirée le 04/11/2026 : PokéDeals n'est plus utilisé (demande de Justok). Lancement manuel encore possible.
 on:
-  schedule:
-    # Toutes les 15 minutes (GitHub peut décaler de quelques minutes)
-    - cron: "*/15 * * * *"
   workflow_dispatch: {}   # permet aussi de lancer à la main depuis l'onglet Actions
 permissions:
   contents: write   # nécessaire pour sauvegarder data/*.json
