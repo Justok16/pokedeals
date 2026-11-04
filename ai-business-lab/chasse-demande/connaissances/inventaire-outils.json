@@ -576,6 +576,22 @@
    "statut": "installe",
    "domaine": "Qualité",
    "usage": "Liens cassés d'un site entier (outils/liens/verifier.sh) ; MIT, 8.1.0 vérifiée le 03/11/2026"
+  },
+  {
+   "nom": "Skill horizontal-scroll-scenes",
+   "registre": "github",
+   "paquet": "mengto/skills",
+   "statut": "installe",
+   "domaine": "Animation (Prestige)",
+   "usage": "Chapitres qui défilent de gauche à droite pendant le défilement vertical, état dérivé du scroll, accessible et sans mouvement réduit ; MIT, lu en entier et installé le 04/11/2026 (.claude/skills/horizontal-scroll-scenes)"
+  },
+  {
+   "nom": "Skill threejs-animation",
+   "registre": "github",
+   "paquet": "cesartevisual/threejs-skills",
+   "statut": "installe",
+   "domaine": "Animation (Prestige)",
+   "usage": "Compagnon de threejs-web : animations Three.js indépendantes du nombre d'images, liées au défilement, mouvement réduit ; MIT, lu en entier et installé le 04/11/2026"
   }
  ],
  "sources_officielles": [

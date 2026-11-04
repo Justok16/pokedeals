@@ -4,6 +4,8 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 
 | Domaine | Outil | Statut | Usage | Version (date) | Licence | Étoiles |
 |---|---|---|---|---|---|---|
+| Animation (Prestige) | Skill horizontal-scroll-scenes | installé | Chapitres qui défilent de gauche à droite pendant le défilement vertical, état dérivé du scroll, accessible et sans mouvement réduit ; MIT, lu en entier et installé le 04/11/2026 (.claude/skills/horizontal-scroll-scenes) | — | — | — |
+| Animation (Prestige) | Skill threejs-animation | installé | Compagnon de threejs-web : animations Three.js indépendantes du nombre d'images, liées au défilement, mouvement réduit ; MIT, lu en entier et installé le 04/11/2026 | — | — | — |
 | Animations | GSAP | en place | Moteur d'animation des sites (site-dig/moteur/anim/gsap-3.15.0.min.js et ScrollTrigger, mis à jour le 28/10) | 3.15.1 (2026-11-04) | Standard 'no charge' license: https://gsap.com/standard-license. | 30137 |
 | Animations | GSAP Skills officiels | installé | .claude/skills/gsap-* (core, timeline, scrolltrigger, plugins, utils, performance) | — | MIT | 17468 |
 | Animations | Lenis | en place | Défilement fluide (site-dig/moteur/anim/lenis-1.3.27.min.js, mis à jour le 28/10) | 1.3.27 (2026-10-15) | MIT | 16987 |

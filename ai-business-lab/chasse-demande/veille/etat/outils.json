@@ -444,6 +444,18 @@
    "date": "2026-08-29",
    "etoiles": null,
    "licence": "MIT"
+  },
+  "Skill horizontal-scroll-scenes": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
+  },
+  "Skill threejs-animation": {
+   "version": null,
+   "date": null,
+   "etoiles": null,
+   "licence": null
   }
  },
  "catalogues": {
