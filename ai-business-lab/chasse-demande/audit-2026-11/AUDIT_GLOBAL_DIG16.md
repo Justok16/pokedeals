@@ -59,12 +59,12 @@ Documents de l'audit, dans ce dossier :
 2. Statut officiel des 4 plateformes : toutes dans la liste définitive du 03/11/2026.
 3. Arrêt des tâches PokéDeals (PR #172).
 4. CSP resserrée, avec tests du site et du formulaire.
-5. Livre des recettes et préparation du e-reporting, avec tests automatiques réussis en local (le job de la CI, c'est-à-dire les tests lancés par GitHub à chaque envoi, n'a pas encore tourné : voir « FAIT MAIS NON TESTÉ »).
+5. Livre des recettes et préparation du e-reporting, avec tests automatiques réussis en local ; le job de la CI (tests lancés par GitHub à chaque envoi) est passé au vert le 04/11 à 23 h 47.
 6. Rappel du 04/05/2027.
 7. Ces sept documents.
 
 **FAIT MAIS NON TESTÉ**
-- Le job CI `outils_dig16` ne sera exécuté par GitHub qu'au prochain envoi. Il a été testé en local.
+- Aucun (le job CI `outils_dig16` est vert sur GitHub depuis le 04/11 ; la nouvelle règle de sécurité est en ligne sur dig16.fr, vérifiée le 04/11).
 
 **À FAIRE** : A4 (transferts hors UE) ; B1 à B4 au premier client (dont les contrats de sous-traitance).
 
@@ -91,4 +91,5 @@ Documents de l'audit, dans ce dossier :
 | `python3 -m unittest discover -s outils/compta` | tous les tests OK (voir CHANGELOG) |
 | `ruff check outils/compta` | 0 erreur |
 | `detect-secrets scan` | 9 signalements, tous faux positifs |
-| CI de la PR #118 (avant ces changements) | Cloudflare Pages, pytest et scoring : verts |
+| CI de la PR #118 | `outils_dig16` et `scoring_strategie` : verts (04/11, 23 h 47) |
+| CSP en ligne (`curl -I https://dig16.fr/`) | plus de `cloudflareinsights` ; formulaire OK après mise en ligne |

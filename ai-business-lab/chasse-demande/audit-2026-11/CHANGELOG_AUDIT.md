@@ -7,7 +7,7 @@ Chaque ligne indique le changement, le fichier, la vérification et le retour ar
 | 1 | Arrêt des 13 tâches programmées PokéDeals (demande de l'utilisateur) | `.github/workflows/*.yml` sur la branche principale (PR #172, fusionnée) | YAML relu ; `cron` restants : `sentinelle_dig16.yml` et `codeql.yml` seulement | Rétablir les blocs `schedule` depuis la PR #172 |
 | 2 | CSP : retrait de Cloudflare Web Analytics, non utilisé | `site-dig/_headers` | `test_pages.py` : pages propres ; `test_formulaire.py` : OK | Historique git (commit 65b3b6dba) |
 | 3 | Nouvel outil livre des recettes + préparation du e-reporting | `outils/compta/livre_recettes.py`, `outils/compta/test_livre_recettes.py` | 13 tests réussis ; `ruff` sans erreur | Supprimer `outils/compta/` |
-| 4 | Tests DIG16 en CI | `.github/workflows/tests.yml` (job `outils_dig16`) | `yaml.safe_load` : 3 jobs ; pas encore exécuté par GitHub | Retirer le job |
+| 4 | Tests DIG16 en CI | `.github/workflows/tests.yml` (job `outils_dig16`) | `yaml.safe_load` : 3 jobs ; vert sur GitHub le 04/11 | Retirer le job |
 | 5 | Rappel « facturation électronique 2027 » | tâche programmée `trig_01NtmbRzdCZSdDdsMK21ikx1` (04/05/2027) | Création confirmée par l'outil | Supprimer la tâche |
 | 6 | Sept documents d'audit | `audit-2026-11/*.md` | Relus | Supprimer le dossier |
 

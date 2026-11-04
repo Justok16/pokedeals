@@ -113,8 +113,8 @@ En mai 2027, deux cas se présenteront :
 
 Tests :
 - `python3 -m unittest discover -s outils/compta -p "test_*.py"` : **tous les tests réussis** (nombre dans le CHANGELOG), données fictives ;
-- ajoutés aux tests automatiques de GitHub (job `outils_dig16` de `.github/workflows/tests.yml`), pas encore exécutés
-  par GitHub au moment de la rédaction.
+- ajoutés aux tests automatiques de GitHub (job `outils_dig16` de `.github/workflows/tests.yml`), vert sur GitHub le
+  04/11/2026.
 
 Utilisation : au premier encaissement, créer le fichier CSV privé dans le **Drive « Dig »** (copie de référence, durable) et
 le copier dans le scratchpad `prive/compta/` pour lancer l'outil. Puis lancer :
