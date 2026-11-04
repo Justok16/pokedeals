@@ -54,3 +54,21 @@ jobs:
         run: pip install pytest pyyaml
       - name: Lancer les tests
         run: python -m pytest tests/ -v
+
+  # 04/11/2026 (audit global DIG16) : outils de gestion DIG16 testés à chaque envoi (livre des recettes, e-reporting).
+  # Bibliothèque standard seulement (unittest), aucune donnée réelle : les tests utilisent des valeurs fictives.
+  outils_dig16:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ai-business-lab/chasse-demande
+    timeout-minutes: 5
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+      - name: Installer Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Lancer les tests
+        run: python -m unittest discover -s outils/compta -p "test_*.py" -v
