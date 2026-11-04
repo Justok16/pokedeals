@@ -35,7 +35,13 @@ Pistes refusées par Grok, dont **« Agence et contenus pour réseaux : pas d'ac
   market […] shall have an electronic record (“battery passport”) » (EUR-Lex, lu le 04/11/2026).
 - La page de la Commission « Digital Product Passport », lue le 04/11/2026, confirme deux points : « The Digital Product
   Passport Registry is now live », et des exigences « iron and steel » prévues au T4 2026.
-- Pistes 02 à 07 : non vérifiées. Ce sont des affirmations de Grok.
+- **Tous les faits datés du dossier ont été contrôlés le 04/11/2026** (sources officielles) : 6 confirmés
+  (registre DPP en service le 20/07/2026 ; batteries le 18/02/2027 ; NIS2 Allemagne 06/12/2025, BGBl 2025 I n° 301 ;
+  Pays-Bas 15/08/2026, NCSC ; France pas encore en vigueur, FAQ ANSSI ; filière nucléaire ≈ 250 000 emplois et 2 200
+  entreprises, CSFN), 3 en partie (acier T4 2026 indicatif ; PEMD : seuils confirmés, date absente de la page du
+  ministère ; REP bâtiment : décision annoncée, textes à venir), 1 à vérifier (Autriche 01/10/2026).
+- Page de synthèse (privée) : https://claude.ai/artifact/TQssyP585cjbauFktm9iSL ; source HTML dans ce dossier
+  (`carnet-pistes-envers.html`). Revue automatique le 1er de chaque mois jusqu'en février 2027.
 
 ## Tri DIG16
 
