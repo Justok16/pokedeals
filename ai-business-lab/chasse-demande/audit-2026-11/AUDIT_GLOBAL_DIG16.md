@@ -62,6 +62,8 @@ Documents de l'audit, dans ce dossier :
 5. Livre des recettes et préparation du e-reporting, avec tests automatiques réussis en local ; le job de la CI (tests lancés par GitHub à chaque envoi) est passé au vert le 04/11 à 23 h 47.
 6. Rappel du 04/05/2027.
 7. Ces sept documents.
+8. Audit Migration 0.4.5 : archive originale vérifiée (même SHA-256, 50/50 tests, reconstruction identique), intégrée sans
+   modification et testée en CI ; utilisée pour les refontes (65, point 12).
 
 **FAIT MAIS NON TESTÉ**
 - Aucun (le job CI `outils_dig16` est vert sur GitHub depuis le 04/11 ; la nouvelle règle de sécurité est en ligne sur dig16.fr, vérifiée le 04/11).
@@ -69,7 +71,6 @@ Documents de l'audit, dans ce dossier :
 **À FAIRE** : A4 (transferts hors UE) ; B1 à B4 au premier client (dont les contrats de sous-traitance).
 
 **BLOQUÉ**
-- A1 : « Audit 0.4.5 » introuvable.
 - Import automatique depuis Indy : pas d'API publique, connexion au compte interdite.
 
 **À DÉCIDER par l'utilisateur**

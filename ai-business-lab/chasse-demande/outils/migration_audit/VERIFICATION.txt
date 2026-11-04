@@ -1,0 +1,22 @@
+DIG16 Migration Audit 0.4.5 — journal de vérification
+Date: 2026-11-04
+Environnement de test local: Python 3.13.5 / Linux
+
+Compilation Python: PASS
+Version CLI: DIG16 Migration Audit 0.4.5
+Tests unitaires: 50/50 PASS
+Méthode: tests HTTP locaux via serveur éphémère ; aucun site tiers sollicité par la suite de tests.
+Tests CSV: séparateurs virgule/point-virgule/tabulation, BOM, doublons, contradictions, colonnes excédentaires et guillemets mal formés.
+Tests rapport: UTF-8 BOM, séparateur point-virgule et neutralisation des cellules commençant par =, +, - ou @, y compris après espaces/tabulations.
+Tests CLI: génération du rapport, refus d'écraser le CSV source y compris via hard link, rejet des délais non finis et refus des interpréteurs Python antérieurs à 3.11.
+Tests sécurité: IP privée littérale, hostname résolu en IP privée et réponses DNS mixtes publique/privée bloqués par défaut ; résolution et connexion épinglée à l'IP validée ; test local autorisé explicitement via --allow-private-hosts.
+Redirections: tests statuts permanents/temporaires, destination erronée, boucle, chaîne de 4/5 sauts, absence de Location, downgrade HTTPS vers HTTP et limite de sauts.
+Tests de release: ZIP déterministe, intégrité CRC, manifeste complet, exclusions de caches, sidecar SHA-256 strict, détection d'archive altérée, refus des noms ZIP dupliqués, synchronisation des métadonnées et construction CI.
+
+GitHub Actions: workflow et matrice de tests Windows/Ubuntu + Python 3.11–3.15 livrés. Le workflow construit et vérifie aussi le ZIP. Non exécuté dans GitHub car le paquet n'a pas été intégré à un dépôt.
+Dépendances: aucune dépendance tierce à installer.
+Installation sur le PC Windows de l'utilisateur: NON EFFECTUÉE.
+Test sur un site de production: NON EFFECTUÉ.
+Intégration dans le dépôt/site DIG16 de production: NON EFFECTUÉE ; aucun dépôt dédié DIG16 identifié dans les dépôts accessibles.
+
+La réussite des tests unitaires valide uniquement les comportements couverts. Elle ne constitue pas une validation complète d'une migration SEO ni une certification de sécurité.

@@ -78,12 +78,18 @@ PokéDeals (scraper/) : aucune dépendance avec DIG16 (vérifié : sentinelle et
   identifiants de publications X.
 - Crochet `secrets_avant_commit.sh` actif sur chaque commit.
 
-## 7. Audit 0.4.5 (BLOQUÉ)
+## 7. Audit Migration 0.4.5 (FAIT ET VÉRIFIÉ, 04/11/2026 au soir)
 
-Aucune trace de « Audit 0.4.5 » :
-- ni dans le dépôt (`git grep`) ;
-- ni dans le Drive (recherche par titre et contenu) ;
-- ni dans Gmail.
-
-Son intégration ne peut donc pas être vérifiée. L'utilisateur doit indiquer où se trouve l'archive (lien ou dépôt). Rien n'a
-été modifié.
+Archive originale `dig16_migration_audit.zip` envoyée par l'utilisateur (créée dans l'espace d'une autre IA).
+- **Empreinte SHA-256 identique** à celle annoncée : `ab8c6660dd519350996473f20f68454a3d0990af1795d7798b28b7c5848eebe7`.
+- `MANIFEST.sha256` : 14 fichiers sur 14 conformes. Aucun chemin dangereux dans l'archive. Code relu avant exécution :
+  bibliothèque standard Python seulement, réseau uniquement vers les URL du CSV.
+- **50 tests sur 50 réussis** avec Python 3.11.17 et 3.13.16 ; `--version` → « DIG16 Migration Audit 0.4.5 ».
+- **Reconstruction indépendante** (`build_release.py`, dossier nommé `dig16_migration_audit`) : **même empreinte
+  ab8c6660…eebe7**, l'archive est donc bien reproductible.
+- **Essai réel sur dig16.fr** : http→https, www→dig16.fr et www/prestige sont en 301 en un saut (PASS). Le lien du QR
+  code `/qr` est en 302 (FAIL « redirection temporaire »). C'est voulu pour un lien de suivi de flyer, ce n'est pas une
+  migration : aucune correction.
+- **Intégré sans aucune modification** dans `outils/migration_audit/` (version inchangée : 0.4.5). Ses tests et sa
+  vérification d'intégrité tournent à chaque envoi (job `outils_dig16`). Utilisation prévue : toute **refonte d'un site
+  existant** d'un client (`65-seo-sites-clients.md`, point 12).

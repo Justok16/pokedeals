@@ -20,6 +20,7 @@ Rien d'inventé : jamais de faux avis, de fausses réalisations ni de pages en s
 | 9 | Signalement immédiat aux moteurs : IndexNow (Bing, Yandex…) | `outils/indexnow.py` adapté au domaine |
 | 10 | Une seule adresse en 200 (`www` redirigé en 301 vers l'adresse canonique, ou l'inverse) : `functions/_middleware.js` du site DIG16 à adapter | `curl -I` sur les deux adresses |
 | 11 | **Kit avis Google** livré avec le site : carte A6 avec QR code vers « Laisser un avis » + messages SMS/email (`python3 outils/kit_avis.py "<Nom>" <place_id> <dossier privé>` ; place_id via OpenSEO `get_business_profile`) | QR décodé et lien testé par l'outil |
+| 12 | **Refonte d'un site existant (le client avait déjà un site)** : chaque ancienne adresse utile garde sa place ou est redirigée en **301** vers son équivalent (jamais tout vers l'accueil). Avant la bascule : tableau `old_url,new_url` (CSV privé) ; après la bascule : `python3 outils/migration_audit/migration_audit.py correspondances.csv -o rapport.csv` (Audit Migration 0.4.5, intégré le 04/11/2026) → 0 FAIL, puis `CHECKLIST_MIGRATION_SEO.md` du même dossier et Search Console. Une redirection de suivi (ex. QR code `/qr` en 302) n'est pas une migration : son « FAIL » 302 est attendu | `outils/migration_audit/` |
 
 ## 2. Les comptes du client (toujours à son nom ; DIG16 ajouté comme gestionnaire)
 
