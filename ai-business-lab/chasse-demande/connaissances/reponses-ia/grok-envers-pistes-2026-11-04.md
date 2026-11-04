@@ -45,7 +45,7 @@ Pistes refusées par Grok, dont **« Agence et contenus pour réseaux : pas d'ac
 
 ## Tri DIG16
 
-**📦 Réserve.** Aucune de ces pistes ne passe aujourd'hui la règle n° 1 (« vérifier l'argent avant de construire »).
+**📦 Réserve** (passerelle « passeport produit » creusée le 04/11 : à ne pas construire, voir `passeport-produit-dig16.md`). Aucune de ces pistes ne passe aujourd'hui la règle n° 1 (« vérifier l'argent avant de construire »).
 Toutes s'adressent à l'industrie, demandent une expertise métier (normes, nucléaire, cybersécurité) et changent
 complètement de cible.
 
