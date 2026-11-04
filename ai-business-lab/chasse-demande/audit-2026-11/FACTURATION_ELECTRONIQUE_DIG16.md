@@ -8,14 +8,15 @@ Vérifié le **04/11/2026** (soir), aux sources citées ligne par ligne. Légend
 La mission indiquait : « aucune plateforme agréée n'a encore été désignée », « logiciel de facturation non identifié ».
 **Les documents locaux disent l'inverse** (`64-mise-en-ordre-administrative.md`, étapes 3 et 5) :
 
-- **Logiciel de facturation : Indy, offre Essentiel (0 €)**. Compte créé le 13/10/2026 (EI, micro, BIC services,
-  franchise en base de TVA). Il sert aussi de compte pro.
+- **Logiciel de facturation : Indy, offre Essentiel (0 €)**. Compte créé le 13/10/2026 (EI, micro, franchise en base de TVA ;
+  nature BIC ou BNC encore à confirmer, 64 étape 2). Il sert aussi de compte pro.
 - **Plateforme agréée désignée : Indy, le 16/10/2026.** Preuve : courriel d'Indy « Vous avez choisi Indy comme
   Plateforme Agréée » (capture du 16/10, 19:25, notée dans 64). Aucune autre plateforme n'est inscrite.
 - **Franchise en base de TVA : confirmée.** Elle est choisie à la création (64 étape 3). La mention « TVA non applicable,
   article 293 B du CGI » figure dans les modèles de documents (`connaissances/consignes-detaillees.md`, ligne 158).
 
-La réception est donc **déjà en règle depuis le 16/10/2026** (FAIT ET VÉRIFIÉ, d'après les documents locaux).
+La réception est donc **déjà en règle depuis le 16/10/2026** (FAIT ; preuve : capture du 16/10 notée dans 64, non revue
+pendant cet audit).
 La stratégie « désigner une plateforme gratuite pour la réception » est déjà réalisée. **Ne pas désigner Tiime ni une
 autre plateforme** : l'aide d'Indy avertit qu'une seconde inscription « au risque d'écraser votre inscription de
 réception chez nous » (wikicompta.indy.fr, article 17058407, daté du 22/09/2026, lu le 04/11/2026).
@@ -53,7 +54,8 @@ Bimestres et dépôts :
 ## 3. Plateformes : statut officiel (FAIT ET VÉRIFIÉ le 04/11/2026)
 
 Page impots.gouv.fr « Je consulte la liste des plateformes agréées » : « modifié le 03/11/2026 ». Deux fichiers y sont
-publiés :
+publiés (le premier porte un nom de fichier ancien contenant « attente », mais la page le présente bien comme la liste
+des opérateurs ayant réussi tous les tests) :
 - `liste_pa_attente_rapport_audit.xlsx` : opérateurs « satisfaisant à l'ensemble des conditions, incluant les tests
   d'interopérabilité », 158 lignes de données ;
 - `liste_pa_attente_test_interop.xlsx` : opérateurs « en attente de leur immatriculation définitive », 8 lignes.
@@ -94,7 +96,7 @@ En mai 2027, deux cas se présenteront :
 - **sinon** : choisir une solution d'émission seule (Tiime Free est le premier candidat à revérifier), **sans** l'étape
   « inscription plateforme agréée », pour ne pas écraser la réception chez Indy.
 
-## 5. Outil livré : livre des recettes et préparation du e-reporting (FAIT ET VÉRIFIÉ)
+## 5. Outil livré : livre des recettes et préparation du e-reporting (FAIT ET VÉRIFIÉ en local)
 
 `outils/compta/livre_recettes.py` (bibliothèque standard Python, aucune dépendance) :
 - il tient le **livre des recettes obligatoire**, dans l'ordre des dates, avec le montant, le client, le mode de
@@ -106,14 +108,16 @@ En mai 2027, deux cas se présenteront :
 - il prépare, **par bimestre et avec l'échéance**, les totaux des **données de paiement** (services) et des **données de
   transaction** (particuliers et étranger), séparément, à partir du 01/09/2027. Il ne transmet rien : il sert à
   contrôler ce que la plateforme enverra ;
-- il **refuse** toute entrée ou sortie placée dans le dépôt public, car les données des clients sont privées.
+- il **refuse** d'écrire ou de lire dans un dossier suivi par git (le dépôt public ou tout autre dépôt), car les données
+  des clients sont privées ; si la vérification échoue, il refuse aussi.
 
 Tests :
-- `python3 -m unittest discover -s outils/compta -p "test_*.py"` : **9 tests réussis**, données fictives ;
-- ajoutés à la CI GitHub (job `outils_dig16` de `.github/workflows/tests.yml`).
+- `python3 -m unittest discover -s outils/compta -p "test_*.py"` : **tous les tests réussis** (nombre dans le CHANGELOG), données fictives ;
+- ajoutés aux tests automatiques de GitHub (job `outils_dig16` de `.github/workflows/tests.yml`), pas encore exécutés
+  par GitHub au moment de la rédaction.
 
-Utilisation : au premier encaissement, créer le fichier CSV privé dans le scratchpad `prive/compta/`, avec une copie dans
-le Drive « Dig ». Puis lancer :
+Utilisation : au premier encaissement, créer le fichier CSV privé dans le **Drive « Dig »** (copie de référence, durable) et
+le copier dans le scratchpad `prive/compta/` pour lancer l'outil. Puis lancer :
 `python3 outils/compta/livre_recettes.py <csv> --sortie <dossier privé> --annee 2026`.
 
 **Intégration avec Indy (BLOQUÉ)** : Indy ne publie pas d'API ouverte, aucune n'a été trouvée sur ses pages publiques le

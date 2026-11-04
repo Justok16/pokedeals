@@ -18,8 +18,8 @@ Vérifié le **04/11/2026**. Principe suivi : améliorer l'existant, ne pas ajou
 | Changement | Pourquoi | Vérification | Retour arrière |
 |---|---|---|---|
 | **13 tâches PokéDeals arrêtées** (PR #172, fusionnée le 04/11) | Application abandonnée : un échec quotidien (SendGrid), des minutes de CI et du bruit dans les courriels | `git show origin/main` : seuls `sentinelle_dig16.yml` et `codeql.yml` restent programmés | Remettre les blocs `schedule` (historique de la PR #172) |
-| **Nouveau job `outils_dig16`** dans `tests.yml` | Les outils de gestion DIG16 n'avaient pas de tests en CI | 9 tests réussis en local ; YAML relu (`yaml.safe_load`) | Retirer le job |
-| **Livre des recettes + préparation du e-reporting** (`outils/compta/`) | Obligation légale non couverte par l'offre gratuite d'Indy ; préparation de septembre 2027 | 9 tests | Supprimer le dossier (aucune autre dépendance) |
+| **Nouveau job `outils_dig16`** dans `tests.yml` | Les outils de gestion DIG16 n'avaient pas de tests en CI | tests réussis en local ; fichier de configuration relu ; **pas encore exécuté par GitHub** (FAIT MAIS NON TESTÉ) | Retirer le job |
+| **Livre des recettes + préparation du e-reporting** (`outils/compta/`) | Obligation légale non couverte par l'offre gratuite d'Indy ; préparation de septembre 2027 | tests automatiques (voir CHANGELOG) | Supprimer le dossier (aucune autre dépendance) |
 | **Rappel du 04/05/2027** (facturation électronique) | L'échéance du 01/09/2027 ne doit pas être oubliée | Tâche `trig_01NtmbRzdCZSdDdsMK21ikx1` créée | La supprimer |
 | **CSP resserrée** (`_headers`) | Domaine Cloudflare Web Analytics inutile | `test_pages.py` propre, formulaire OK | Remettre les deux domaines |
 
@@ -34,9 +34,8 @@ Vérifié le **04/11/2026**. Principe suivi : améliorer l'existant, ne pas ajou
 
 ## 4. Recommandations
 
-1. **Sauvegarde durable des données privées** (priorité haute). Le point du soir copierait chaque jour `ETAT.md` et les
-   nouveaux lots dans le Drive « Dig ». Le Drive est déjà utilisé et gratuit. À brancher dans la consigne du point de
-   19:34 (A2 du plan d'action).
+1. **Sauvegarde durable des données privées** (priorité haute). Chaque dimanche soir, le point de 19:34 copierait `ETAT.md` et les
+   nouveaux lots dans le Drive « Dig » (déjà utilisé, gratuit). Décision de l'utilisateur attendue (A2 du plan d'action).
 2. **Rapport mensuel automatique du livre des recettes**, à faire au premier encaissement : la veille fiscale du 3 lance
    `livre_recettes.py` et signale une alerte de seuil.
 3. **Quota Zapier épuisé chaque mois** (stories Buffer) : la solution manuelle prévue suffit. Pas d'abonnement payant

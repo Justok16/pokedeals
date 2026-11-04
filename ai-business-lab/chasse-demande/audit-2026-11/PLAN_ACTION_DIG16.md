@@ -9,7 +9,7 @@ Classé par priorité. Pour chaque action : qui la fait, et ce qu'elle engage.
 | A1 | Dire où se trouve « Audit 0.4.5 » (lien, dépôt ou fichier) | Utilisateur (une ligne) | Rien | **BLOQUÉ** : introuvable dans le dépôt, le Drive et Gmail |
 | A2 | Sauvegarde durable du journal privé (`ETAT.md`) et des lots dans le Drive « Dig », chaque semaine au point du dimanche soir | Claude, après le « oui » de l'utilisateur (coût en jetons : environ 15 000 par copie) | Rien d'autre que le quota | **À DÉCIDER** |
 | A3 | Mesure d'audience : obtenir de Metricool la preuve d'exemption CNIL, sinon remplacer par un compteur sans tiers (fonction Cloudflare Pages) | Claude prépare ; l'utilisateur choisit | Perte éventuelle des statistiques Metricool du site | **À DÉCIDER** |
-| A4 | Transferts hors UE : vérifier l'adhésion de Cloudflare et de Devro LABS (FormSubmit) au Data Privacy Framework, puis compléter les mentions légales avec la preuve | Claude | Modification juridique : relecture et accord de l'utilisateur avant publication | **À FAIRE** (site officiel illisible depuis le conteneur le 04/11 ; réessayer avec un autre outil) |
+| A4 | Transferts hors UE : vérifier l'adhésion de Cloudflare et de Devro LABS (FormSubmit) au « Data Privacy Framework », puis compléter les mentions légales avec la preuve | Claude | Modification juridique : relecture et accord de l'utilisateur avant publication | **À FAIRE** (site officiel illisible depuis le conteneur le 04/11 ; réessayer avec un autre outil) |
 
 ## B. Au premier client (règle « construire sur demande »)
 

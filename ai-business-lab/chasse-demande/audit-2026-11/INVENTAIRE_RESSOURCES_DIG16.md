@@ -10,7 +10,7 @@ programmées, GitHub, Drive). La carte fichier par fichier existe déjà et rest
 |---|---|---|
 | Dépôt `Justok16/pokedeals` (GitHub) | Opérationnel | **Public**. 8 249 commits depuis le 05/07/2026 ; dossier `.git` de 644 Mo. Branche de travail DIG16 : `claude/ai-business-portfolio-strategy-96yf4g` (PR #118 ouverte, CI verte le 04/11). |
 | Sauvegarde du code | Opérationnelle | GitHub (chaque commit est poussé). Jamais de réécriture d'historique. |
-| Données privées (prospects, clients, identité) | **À risque** | Dans le scratchpad du conteneur, **effacé quand le conteneur est recyclé**. Copies partielles dans le Drive « Dig » (lots d'appels). Archive locale faite le 04/11 : `scratchpad/audit/sauvegarde-prive-2026-11-04.tgz`, 49 Mo, SHA-256 `d4480cf3…0dcb1450`. Elle reste dans le conteneur : **ce n'est pas une sauvegarde durable**. Voir le plan d'action, A2. |
+| Données privées (prospects, clients, identité) | **À risque** | Dans le scratchpad du conteneur, **effacé quand le conteneur est recyclé**. Copies partielles dans le Drive « Dig » (lots d'appels). Archive locale faite le 04/11 : `scratchpad/audit/sauvegarde-prive-2026-11-04.tgz`, 49 Mo, SHA-256 `d4480cf3…0dcb1450`. Elle reste dans le conteneur : **ce n'est pas une sauvegarde durable** (le scratchpad est le dossier de travail temporaire du conteneur, c'est-à-dire de l'ordinateur à distance où Claude travaille). Voir le plan d'action, A2. |
 | Drive « Dig » | Opérationnel | Documents privés : fiches d'appels, lots, kits. |
 
 ## 2. Projets dans le dépôt
@@ -50,7 +50,7 @@ Familles et outils principaux, tous opérationnels au 04/11 sauf mention :
 |---|---|---|
 | Workflows GitHub actifs (programmés) | 2 | `sentinelle_dig16.yml` (toutes les 3 h), `codeql.yml` (hebdomadaire) ; `tests.yml` à chaque envoi |
 | Workflows PokéDeals | 13 | Programmation retirée le 04/11 (lancement manuel encore possible) |
-| Tâches programmées Claude | plus de 15 actives | Courrier (2 par jour), points 07:34 et 19:34, contrôle du soir des publications, publications manuelles, Charente Libre, veille des outils (09:41), veille fiscale (le 3), appels du mardi et du jeudi, relances datées (CCI, maçon, Athanas), échéances (CFE, ACRE, impôts 2027), **facturation électronique 2027 (créée le 04/11)** |
+| Tâches programmées Claude | plus de 15 actives | Courrier (2 par jour), points 07:34 et 19:34, contrôle du soir des publications, publications manuelles, Charente Libre, veille des outils (09:41), veille fiscale (le 3), appels du mardi et du jeudi, relances datées (CCI et 2 prospects), échéances (CFE, ACRE, impôts 2027), **facturation électronique 2027 (créée le 04/11)** |
 | Crochets Claude Code | 8 | Secrets avant commit, syntaxe Python, quotas de publication, « vérifier avant d'agir », réserve à proposer… (`.claude/hooks/`) |
 | Services externes | — | Metricool (marque 7154026), Buffer par Zapier (quota de novembre épuisé), Gmail, Drive, Agenda, DocuSeal, Vercel (relais), Cloudflare Pages, Indy, GoCardless (inscription à faire), vidIQ |
 
@@ -85,5 +85,5 @@ Aucune trace de « Audit 0.4.5 » :
 - ni dans le Drive (recherche par titre et contenu) ;
 - ni dans Gmail.
 
-Son intégration ne peut donc pas être vérifiée. Il faut à l'utilisateur dire où se trouve l'archive (lien ou dépôt). Rien n'a
+Son intégration ne peut donc pas être vérifiée. L'utilisateur doit indiquer où se trouve l'archive (lien ou dépôt). Rien n'a
 été modifié.

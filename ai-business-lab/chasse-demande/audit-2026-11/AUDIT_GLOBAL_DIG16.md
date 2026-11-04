@@ -32,7 +32,7 @@ Documents de l'audit, dans ce dossier :
 | Domaine | Niveau | Résumé |
 |---|---|---|
 | Administratif et réglementaire | Bon | Les démarches sont suivies dans 64 avec des rappels datés. La CFE est à déposer avant le 31/12 (rappel du 10/12). |
-| Facturation électronique, réception | **Conforme** | Indy est désigné plateforme agréée depuis le 16/10/2026. **La mission le croyait à faire : c'est déjà fait.** |
+| Facturation électronique, réception | **Fait** (preuve : capture du 16/10 notée dans 64, non revue pendant l'audit) | Indy est désigné plateforme agréée depuis le 16/10/2026. **La mission le croyait à faire : c'est déjà fait.** |
 | Facturation électronique, émission et e-reporting | Préparé | Obligatoires au 01/09/2027. Pas encore ouverts chez Indy. Outil de préparation livré et testé. Rappel le 04/05/2027. Un point est à lever : données de paiement pour un franchisé (la DGFiP dit oui). |
 | Factures clients et fournisseurs | Prêt, non utilisé | Aucun client ni fournisseur facturé à ce jour. Le livre des recettes, obligatoire, est maintenant outillé. |
 | Protection des données | Correct, 2 points à vérifier | Pas de cookie, polices sur le site, formulaire chiffré et protégé du spam. À vérifier : exemption CNIL du compteur Metricool, encadrement des transferts vers les États-Unis (FormSubmit, Cloudflare). |
@@ -41,6 +41,17 @@ Documents de l'audit, dans ce dossier :
 | Qualité des sites | Bon | Toutes les pages et les démos sont propres sur 7 largeurs d'écran (`test_pages.py`). |
 | Documentation et maintenance | Bon | `CARTE.md` est à jour, ainsi que les leçons et l'inventaire des outils. Point faible : les données privées vivent dans un conteneur éphémère (A2). |
 
+## Petit lexique
+
+- **CSP** : liste, envoyée par le site au navigateur, des seuls sites tiers que la page a le droit d'appeler.
+- **CI** : tests lancés automatiquement par GitHub à chaque envoi de code ; un **job** est un de ces lots de tests.
+- **PR** : demande de fusion d'un changement dans le code principal.
+- **Plateforme agréée (PA)** : opérateur immatriculé par l'État pour recevoir et envoyer les factures électroniques ; « PA à PA » = envoi d'une plateforme à une autre.
+- **DPA** : contrat de sous-traitance des données (article 28 du RGPD) signé avec un prestataire.
+- **Faux positif** : alerte d'un outil de contrôle qui, vérifiée, ne correspond à aucun vrai problème.
+- **Scratchpad / conteneur** : dossier de travail temporaire de l'ordinateur à distance où travaille Claude ; il peut être effacé.
+- **SHA-256** : empreinte d'un fichier, qui permet de vérifier qu'il n'a pas changé.
+
 ## Synthèse des actions de l'audit
 
 **FAIT ET VÉRIFIÉ**
@@ -48,14 +59,14 @@ Documents de l'audit, dans ce dossier :
 2. Statut officiel des 4 plateformes : toutes dans la liste définitive du 03/11/2026.
 3. Arrêt des tâches PokéDeals (PR #172).
 4. CSP resserrée, avec tests du site et du formulaire.
-5. Livre des recettes et préparation du e-reporting (9 tests), ajoutés à la CI.
+5. Livre des recettes et préparation du e-reporting, avec tests automatiques réussis en local (le job de la CI, c'est-à-dire les tests lancés par GitHub à chaque envoi, n'a pas encore tourné : voir « FAIT MAIS NON TESTÉ »).
 6. Rappel du 04/05/2027.
 7. Ces sept documents.
 
 **FAIT MAIS NON TESTÉ**
 - Le job CI `outils_dig16` ne sera exécuté par GitHub qu'au prochain envoi. Il a été testé en local.
 
-**À FAIRE** : A4 (transferts hors UE), B1 à B4 (au premier client).
+**À FAIRE** : A4 (transferts hors UE) ; B1 à B4 au premier client (dont les contrats de sous-traitance).
 
 **BLOQUÉ**
 - A1 : « Audit 0.4.5 » introuvable.
@@ -77,7 +88,7 @@ Documents de l'audit, dans ce dossier :
 | `outils/audit_securite.py https://dig16.fr` | 100/100 |
 | `outils/test_pages.py` (après la modification de la CSP) | « Toutes les pages sont propres » |
 | `outils/test_formulaire.py site-dig` | OK, aucun refus CSP |
-| `python3 -m unittest discover -s outils/compta` | 9 tests OK |
+| `python3 -m unittest discover -s outils/compta` | tous les tests OK (voir CHANGELOG) |
 | `ruff check outils/compta` | 0 erreur |
 | `detect-secrets scan` | 9 signalements, tous faux positifs |
 | CI de la PR #118 (avant ces changements) | Cloudflare Pages, pytest et scoring : verts |

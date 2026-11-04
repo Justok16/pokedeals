@@ -96,6 +96,36 @@ class Tests(unittest.TestCase):
         code = lr.main(["x", os.path.join(depot, "r.csv"), "--sortie", self.tmp])
         self.assertEqual(code, 2)
 
+    def test_montants_et_pays_anormaux(self):
+        p = fichier([["2026-11-05", "F1", "A", "pro", "FRA", "service", "NaN", "virement"],
+                     ["2026-11-06", "F2", "B", "pro", "France", "service", "-49", "virement"],
+                     ["2026-11-07", "F3", "C", "pro", "FR", "service", "Infinity", "virement"]], self.tmp)
+        lignes, alertes = lr.lire(p)
+        texte = " | ".join(alertes)
+        self.assertIn("montant négatif", texte)
+        self.assertIn("code pays", texte)
+        self.assertEqual([r["numero_facture"] for r in lignes], ["F2"])
+
+    def test_doublon_exact(self):
+        lignes = [{"date": date(2026, 11, 1), "montant": Decimal(49), "numero_facture": "F7"},
+                  {"date": date(2026, 11, 1), "montant": Decimal(49), "numero_facture": "F7"}]
+        alertes, _, _ = lr.controler(lignes, 2026, Decimal(37500), Decimal(41250))
+        self.assertTrue(any("double" in a for a in alertes))
+
+    def test_arguments_invalides(self):
+        self.assertEqual(lr.main(["x", "r.csv", "--sortie"]), 2)
+        self.assertEqual(lr.main(["x", "r.csv", "--sortie", self.tmp, "--annee", "abc"]), 2)
+
+    def test_rapport_filtre_sur_l_annee(self):
+        p = fichier([["2027-09-05", "F1", "A", "pro", "FR", "service", "49", "virement"],
+                     ["2028-01-05", "F2", "A", "pro", "FR", "service", "49", "virement"]], self.tmp)
+        sortie = os.path.join(self.tmp, "s2")
+        lr.main(["x", p, "--sortie", sortie, "--annee", "2027"])
+        with open(os.path.join(sortie, "controle-2027.md"), encoding="utf-8") as f:
+            texte = f.read()
+        self.assertIn("2027, bimestre 5", texte)
+        self.assertNotIn("2028, bimestre", texte)
+
     def test_bout_en_bout(self):
         p = fichier([["2026-11-05", "F2026-001", "Client A", "pro", "FR", "service", "49", "prelevement"],
                      ["2026-12-05", "F2026-002", "Client A", "pro", "FR", "service", "49", "prelevement"]], self.tmp)

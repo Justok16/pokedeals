@@ -31,7 +31,6 @@ Code de sortie : 0 si aucun défaut, 1 si au moins une ALERTE.
 import csv
 import json
 import os
-import subprocess
 import sys
 from collections import defaultdict
 from datetime import date, datetime
@@ -76,8 +75,15 @@ def lire(chemin):
             except InvalidOperation:
                 alertes.append(f"ligne {n} : montant invalide « {r['montant_eur']} »")
                 continue
+            if not r["montant"].is_finite():
+                alertes.append(f"ligne {n} : montant invalide « {r['montant_eur']} »")
+                continue
             if r["montant"] == 0:
                 alertes.append(f"ligne {n} : montant nul")
+            elif r["montant"] < 0:
+                alertes.append(f"ligne {n} : montant négatif ({r['montant']} €) : remboursement ou avoir ? à vérifier")
+            if len(r["pays"]) != 2 or not r["pays"].isalpha():
+                alertes.append(f"ligne {n} : code pays « {r['pays']} » invalide (2 lettres, ex. FR, BE)")
             if r["mode"] not in MODES:
                 alertes.append(f"ligne {n} : mode de règlement inconnu « {r['mode']} » (attendu : {', '.join(sorted(MODES))})")
             if r["type_client"] not in TYPES:
@@ -114,6 +120,11 @@ def controler(lignes, annee, seuil_base, seuil_majore):
     for r in lignes:
         vues[r["numero_facture"]].append(r)
     for num, rs in vues.items():
+        if not num:
+            continue
+        cles = [(x["date"], x["montant"]) for x in rs]
+        if len(set(cles)) < len(cles):
+            alertes.append(f"facture {num} : encaissement en double (même date, même montant) — saisie à vérifier")
         total = sum(x["montant"] for x in rs)
         if len(rs) > 1 and total <= 0:
             alertes.append(f"facture {num} : encaissements dont la somme est nulle ou négative ({total} €)")
@@ -147,14 +158,21 @@ def e_reporting(lignes):
 
 
 def dans_le_depot(chemin):
+    """Vrai si le chemin est dans un dossier suivi par git (ce dépôt ou un autre) ; en cas de doute : vrai (refus)."""
     try:
-        racine = subprocess.run(["git", "-C", ICI, "rev-parse", "--show-toplevel"], capture_output=True,
-                                text=True, check=True).stdout.strip()
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        return False
-    return os.path.realpath(chemin).startswith(os.path.realpath(racine) + os.sep) or \
-        os.path.realpath(chemin) == os.path.realpath(racine)
-
+        p = os.path.realpath(chemin)
+        while not os.path.exists(p):
+            p = os.path.dirname(p)
+        d = p if os.path.isdir(p) else os.path.dirname(p)
+        while True:
+            if os.path.exists(os.path.join(d, ".git")):
+                return True
+            parent = os.path.dirname(d)
+            if parent == d:
+                return False
+            d = parent
+    except OSError:
+        return True
 
 def ecrire(lignes, annee, sortie, alertes, infos, ca, source_seuils):
     os.makedirs(sortie, exist_ok=True)
@@ -182,7 +200,7 @@ def ecrire(lignes, annee, sortie, alertes, infos, ca, source_seuils):
         f.write("\n## E-reporting (préparation, à comparer avec la plateforme agréée ; obligation au 01/09/2027)\n")
         if not paiement and not transaction:
             f.write("- aucun encaissement à partir du 01/09/2027 dans ce fichier.\n")
-        for (a, b) in sorted(set(paiement) | set(transaction)):
+        for (a, b) in sorted(k for k in set(paiement) | set(transaction) if k[0] == annee):
             ma, mm = echeance_bimestre(a, b)
             f.write(f"\n### {a}, bimestre {b} (mois {2*b-1:02d}-{2*b:02d}) — dépôt entre le 25 et le 30/{mm:02d}/{ma}\n")
             p = paiement.get((a, b), {})
@@ -193,26 +211,28 @@ def ecrire(lignes, annee, sortie, alertes, infos, ca, source_seuils):
 
 
 def main(argv):
-    if len(argv) < 2 or "--sortie" not in argv:
-        print(__doc__)
+    import argparse
+    ap = argparse.ArgumentParser(description="Livre des recettes DIG16 (voir l'aide en tête du fichier).")
+    ap.add_argument("entree", help="CSV privé des encaissements")
+    ap.add_argument("--sortie", required=True, help="dossier privé (hors dépôt)")
+    ap.add_argument("--annee", type=int, default=datetime.now(PARIS).year)
+    try:
+        a = ap.parse_args(argv[1:])
+    except SystemExit:
         return 2
-    entree = argv[1]
-    sortie = argv[argv.index("--sortie") + 1]
-    annee = int(argv[argv.index("--annee") + 1]) if "--annee" in argv else datetime.now(PARIS).year
-    if dans_le_depot(sortie) or dans_le_depot(entree):
+    if dans_le_depot(a.sortie) or dans_le_depot(a.entree):
         print("REFUSÉ : le fichier des recettes et les sorties contiennent des données de clients ; "
-              "ils doivent rester hors du dépôt (scratchpad privé ou Drive « Dig »).")
+              "ils doivent rester hors de tout dossier git (scratchpad privé ou Drive « Dig »).")
         return 2
     base, majore, source = seuils_franchise()
-    lignes, alertes = lire(entree)
-    a2, infos, ca = controler(lignes, annee, base, majore)
+    lignes, alertes = lire(a.entree)
+    a2, infos, ca = controler(lignes, a.annee, base, majore)
     alertes += a2
-    livre, rapport = ecrire(lignes, annee, sortie, alertes, infos, ca, source)
-    for a in alertes:
-        print("ALERTE", a)
-    print(f"{len(lignes)} encaissement(s) ; CA {annee} = {ca:.2f} € ; livre : {livre} ; rapport : {rapport}")
+    livre, rapport = ecrire(lignes, a.annee, a.sortie, alertes, infos, ca, source)
+    for x in alertes:
+        print("ALERTE", x)
+    print(f"{len(lignes)} encaissement(s) ; CA {a.annee} = {ca:.2f} € ; livre : {livre} ; rapport : {rapport}")
     return 1 if alertes else 0
-
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
