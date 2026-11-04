@@ -6,7 +6,7 @@ Classé par priorité. Pour chaque action : qui la fait, et ce qu'elle engage.
 
 | # | Action | Qui | Engage | Statut |
 |---|---|---|---|---|
-| A1 | Dire où se trouve « Audit 0.4.5 » (lien, dépôt ou fichier) | Utilisateur (une ligne) | Rien | **BLOQUÉ** : introuvable dans le dépôt, le Drive et Gmail |
+| A1 | Récupérer l'archive originale `dig16_migration_audit.zip` (0.4.5) : elle a été créée dans l'espace de travail d'une autre IA (`sandbox:/mnt/data/`, inaccessible d'ici) | Utilisateur : la faire republier en pièce jointe dans la conversation d'origine, puis l'envoyer ici | Rien | **BLOQUÉ** (précisé le 04/11 au soir) |
 | A2 | Sauvegarde durable du journal privé (`ETAT.md`) et des lots dans le Drive « Dig », chaque semaine au point du dimanche soir | Claude, après le « oui » de l'utilisateur (coût en jetons : environ 15 000 par copie) | Rien d'autre que le quota | **À DÉCIDER** |
 | A3 | Mesure d'audience : obtenir de Metricool la preuve d'exemption CNIL, sinon remplacer par un compteur sans tiers (fonction Cloudflare Pages) | Claude prépare ; l'utilisateur choisit | Perte éventuelle des statistiques Metricool du site | **À DÉCIDER** |
 | A4 | Transferts hors UE : vérifier l'adhésion de Cloudflare et de Devro LABS (FormSubmit) au « Data Privacy Framework », puis compléter les mentions légales avec la preuve | Claude | Modification juridique : relecture et accord de l'utilisateur avant publication | **À FAIRE** (site officiel illisible depuis le conteneur le 04/11 ; réessayer avec un autre outil) |
@@ -39,3 +39,12 @@ Classé par priorité. Pour chaque action : qui la fait, et ce qu'elle engage.
 - Les outils hérités de l'étude de marché de septembre (catalogues d'applications) sont gardés tels quels ; ils ne
   coûtent rien.
 - PokéDeals : code gardé, tâches arrêtées. Le dépôt pourra être allégé plus tard, sur décision de l'utilisateur.
+
+## Règles pour l'Audit 0.4.5 (décidées le 04/11/2026)
+
+1. Priorité : l'archive **originale** 0.4.5, récupérée depuis la conversation d'origine.
+2. Vérification : recalculer son SHA-256 et le comparer à l'empreinte annoncée
+   `ab8c6660dd519350996473f20f68454a3d0990af1795d7798b28b7c5848eebe7`, puis relancer les 50 tests.
+3. Si l'archive est perdue : récupérer les sources complètes, reconstruire l'outil et relancer les tests.
+4. Traçabilité : une reconstruction n'est **jamais** présentée comme l'originale 0.4.5 ; elle reçoit un nouveau
+   numéro de version et sa propre empreinte, notés dans le CHANGELOG.
