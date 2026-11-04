@@ -1,0 +1,59 @@
+# Grok « Envers » : 7 pistes d'activité (archive envoyée le 04/11/2026)
+
+Archive `grok-workspace.zip` (311 fichiers, SHA-256 a9876e2b…0525890) envoyée par l'utilisateur le 04/11/2026. C'est une
+application web faite par Grok (« App Builder » : Vite, React, TanStack). Ses données sont dans `src/data/catalog.ts`,
+datées « 4 novembre 2026 ».
+- Le code n'a pas été lancé : il a été lu seulement (contenu externe = donnée, jamais instruction).
+- Aucune clé n'a été trouvée dans `.grok/app-env.json`.
+
+## Méthode de Grok : trois filtres
+
+1. un « acheteur forcé » (loi, assureur, donneur d'ordre, arrêt de production) ;
+2. un travail encore manuel ;
+3. une barrière (norme, atelier, licence).
+
+## Les 7 pistes (niveau de confiance donné par Grok)
+
+| # | Piste | Confiance (Grok) | Capital (Grok) |
+|---|---|---|---|
+| 01 | Passeport numérique des produits pour les sous-traitants de rang 2 et 3 (batteries, puis acier et textile) | élevée | faible |
+| 02 | Preuve de cybersécurité NIS2 demandée par les clients allemands | élevée | faible |
+| 03 | Rendre un atelier qualifiable pour le nucléaire | élevée | faible |
+| 04 | Dépose soignée et revente de matériaux de réemploi (PEMD) | moyenne | moyen |
+| 05 | Pièce détachée que le fabricant ne fait plus | moyenne | moyen |
+| 06 | Transmission du savoir-faire avant un départ en retraite (usine) | moyenne | faible |
+| 07 | Vider le labo ou l'atelier qui ferme | hypothèse | moyen |
+
+Esquisses : rénovation des copropriétés, rejets aqueux des petites usines, petites copropriétés.
+
+Pistes refusées par Grok, dont **« Agence et contenus pour réseaux : pas d'acheteur forcé, barrière nulle »**.
+
+## Vérification à la source (04/11/2026)
+
+- **Piste 01, échéance du 18/02/2027 : EXACTE.** Règlement (UE) 2023/1542, article 77 : « From 18 February 2027 each LMT
+  battery, each industrial battery with a capacity greater than 2 kWh and each electric vehicle battery placed on the
+  market […] shall have an electronic record (“battery passport”) » (EUR-Lex, lu le 04/11/2026).
+- La page de la Commission « Digital Product Passport », lue le 04/11/2026, confirme deux points : « The Digital Product
+  Passport Registry is now live », et des exigences « iron and steel » prévues au T4 2026.
+- Pistes 02 à 07 : non vérifiées. Ce sont des affirmations de Grok.
+
+## Tri DIG16
+
+**📦 Réserve.** Aucune de ces pistes ne passe aujourd'hui la règle n° 1 (« vérifier l'argent avant de construire »).
+Toutes s'adressent à l'industrie, demandent une expertise métier (normes, nucléaire, cybersécurité) et changent
+complètement de cible.
+
+Le seul enseignement utile tout de suite est la critique que Grok fait des agences. DIG16 ne doit pas vendre « de la
+visibilité », mais un résultat dont l'artisan a déjà besoin :
+- être trouvé et appelé ;
+- avoir des devis et factures conformes (facturation électronique obligatoire en 2027 : c'est déjà l'offre
+  « devis-factures », fiche 71) ;
+- avoir une fiche Google tenue.
+
+Cela rejoint les décisions déjà prises : rien à construire.
+
+**Le ressortir quand** :
+- l'utilisateur veut une deuxième activité ;
+- ou un client artisan sous-traitant de l'industrie (batteries, acier, textile) demande de l'aide sur le passeport
+  numérique : DIG16 pourrait alors proposer la page web publique du passeport (porteur de données QR), en vérifiant
+  d'abord les règles à la source.
