@@ -1,10 +1,10 @@
 {
- "date": "2026-11-03",
+ "date": "2026-11-04",
  "outils": {
   "GSAP": {
-   "version": "3.15.0",
-   "date": "2026-04-13",
-   "etoiles": 29802,
+   "version": "3.15.1",
+   "date": "2026-11-04",
+   "etoiles": 30137,
    "licence": "Standard 'no charge' license: https://gsap.com/standard-license."
   },
   "GSAP Skills officiels": {
@@ -26,8 +26,8 @@
    "licence": "MIT"
   },
   "Motion": {
-   "version": "14.9.0",
-   "date": "2026-10-30",
+   "version": "14.9.1",
+   "date": "2026-11-04",
    "etoiles": null,
    "licence": "MIT"
   },
@@ -40,7 +40,7 @@
   "dotLottie web": {
    "version": "0.82.1",
    "date": "2026-11-02",
-   "etoiles": 928,
+   "etoiles": 937,
    "licence": "MIT"
   },
   "sharp": {
@@ -88,7 +88,7 @@
   "Leonardo (Adobe)": {
    "version": "1.1.0",
    "date": "2026-02-18",
-   "etoiles": 2161,
+   "etoiles": 2163,
    "licence": "Apache-2.0"
   },
   "Open Props": {
@@ -208,7 +208,7 @@
   "critical": {
    "version": "9.0.0",
    "date": "2026-09-13",
-   "etoiles": 10296,
+   "etoiles": 10300,
    "licence": "Apache-2.0"
   },
   "tarteaucitron.js": {
@@ -220,7 +220,7 @@
   "ALTCHA": {
    "version": "3.5.0",
    "date": "2026-10-22",
-   "etoiles": 2852,
+   "etoiles": 2875,
    "licence": "MIT"
   },
   "Gitleaks": {
