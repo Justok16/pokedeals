@@ -36,7 +36,7 @@ avant le premier usage. Skills installés : `threejs-web` (03/11, MIT, cesartevi
 | Bordure qui s'éclaire sous le curseur | Lumière qui suit la souris sur une carte | Skill `taste-redesign` (« spotlight borders ») | CSS variables + petit script | Faible (PC seulement) |
 | Défilement d'un bandeau sans fin | Liste des services ou des communes qui défile | Magic UI (DfCEyQvCFZK) | CSS animation | Faible ; jamais de logos de partenaires |
 | Transition entre pages | La page suivante arrive en glissant | Animate UI (02/11) | View Transitions du navigateur ou GSAP Flip | Faible |
-| Vidéo pilotée par le défilement | Une vidéo du métier avance quand on descend | Sites « vitrines » ; Huashu Motion (De4lCPQJ2d4, 25/10) | ScrollTrigger + vidéo légère | Moyen |
+| Vidéo pilotée par le défilement | Une vidéo du métier avance quand on descend | Sites « vitrines » ; Huashu Motion (De4lCPQJ2d4, 25/10) ; skill scroll-world (oso95, MIT, reel DfRUPVVoPSK du 04/11 : moteur `scrub-engine.js` gratuit, vidéos du skill payantes → les faire en local) | ScrollTrigger + vidéo légère | Moyen |
 | Film de lancement de 30 s | Petite vidéo animée de présentation du client | Huashu Motion (De4lCPQJ2d4) ; skill `cbh991/animate` | HTML/GSAP filmé (méthode déjà utilisée pour nos Shorts 3D) | Hors site |
 | Effet « waouh » propre au métier | Fonction interactive du métier (essayage d'un motif, simulateur de couleur de façade…) | Reel DepgnIQT9_Q (tatouage) | Petit outil sur-mesure | Variable : Prestige |
 | Éléments d'interface tout prêts (boutons, interrupteurs, chargements) | Gain de temps pour un détail | Uiverse (MIT vérifié le 02/11) | Copier l'élément sobre, garder la mention de licence | Faible |
