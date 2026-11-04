@@ -72,6 +72,8 @@ jobs:
           python-version: "3.12"
       - name: Lancer les tests
         run: python -m unittest discover -s outils/compta -p "test_*.py" -v
+      - name: Tests de l'outil des repreneurs (annonces fictives, aucun réseau)
+        run: python -m unittest discover -s outils/prospects -p "test_repreneurs.py" -v
       # Audit Migration 0.4.5 (archive originale, SHA-256 ab8c6660…eebe7, intégrée sans modification le 04/11/2026) :
       # intégrité des fichiers puis ses 50 tests (serveur HTTP local éphémère, aucun site tiers sollicité).
       - name: Audit Migration 0.4.5 — intégrité et tests
