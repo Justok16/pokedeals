@@ -66,3 +66,28 @@ def test_ecriture_puis_relecture_du_fichier(tmp_path, monkeypatch):
     D.ecrire_listes_complement(listes)
     assert D.charger_listes_complement()["shopify"] == ["a.fr", "b.fr"]
     assert not (tmp_path / "boutiques_complement.py.tmp").exists()
+
+
+def test_sitemap_prestashop_introuvable_ne_plante_pas_la_decouverte(monkeypatch):
+    # 04/11/2026 : 1001hobbies.fr (sitemap 404) faisait echouer tout le workflow.
+    import connecteur_prestashop_sitemap as cps
+
+    def leve(self):
+        raise RuntimeError("aucune URL produit recuperee (HTTP 404)")
+
+    monkeypatch.setattr(cps.ConnecteurPrestaShopSitemap, "recuperer_toutes_les_urls_produits", leve)
+
+    class Reponse:
+        def __init__(self, code, texte=""):
+            self.status_code, self.text = code, texte
+
+        def json(self):
+            raise ValueError
+
+    class Session:
+        def get(self, url, **kw):
+            if url.endswith("/"):
+                return Reponse(200, "<html>propulse par PrestaShop</html>")
+            return Reponse(404)
+
+    assert D.classer_plateforme("exemple.fr", session=Session()) == "prestashop_repli_html"

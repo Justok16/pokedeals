@@ -95,8 +95,14 @@ def classer_plateforme(domaine: str, session=None) -> str | None:
         pass
     try:
         from connecteur_prestashop_sitemap import ConnecteurPrestaShopSitemap
-        if ConnecteurPrestaShopSitemap(domaine).recuperer_toutes_les_urls_produits():
-            return "prestashop_sitemap"
+        try:
+            if ConnecteurPrestaShopSitemap(domaine).recuperer_toutes_les_urls_produits():
+                return "prestashop_sitemap"
+        except RuntimeError:
+            # Pas de sitemap PrestaShop exploitable (ex. 404) : ce n'est qu'une
+            # sonde parmi d'autres, on passe au repli HTML au lieu de planter
+            # toute la decouverte (1001hobbies.fr, 04/11/2026).
+            pass
         accueil = s.get(f"{base}/", headers=HEADERS_HTML, timeout=TIMEOUT)
         if accueil.status_code == 200 and "prestashop" in accueil.text[:200000].lower():
             return "prestashop_repli_html"
