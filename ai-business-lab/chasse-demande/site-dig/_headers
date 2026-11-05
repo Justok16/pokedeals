@@ -9,7 +9,7 @@
 # transmise à Google ; vitesse : plus de décalage d'affichage au chargement de la police). Images, vidéos et polices gardées
 # 30 jours en cache navigateur (les fichiers changent de nom quand ils changent : v3, v6…).
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://tracker.metricool.com; connect-src 'self' https://formsubmit.co; media-src 'self' blob:; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://tracker.metricool.com; connect-src 'self'; media-src 'self' blob:; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff

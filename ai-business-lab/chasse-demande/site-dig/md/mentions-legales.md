@@ -7,7 +7,7 @@ url: "https://dig16.fr/mentions-legales"
 
 # Mentions légales et confidentialité
 
-Dernière mise à jour : 14 octobre 2026
+Dernière mise à jour : 5 novembre 2026
 
 ## 1. Éditeur du site
 
@@ -35,7 +35,7 @@ Quand vous remplissez le formulaire de contact ou nous appelez, nous recevons :
 - **Pourquoi :** uniquement pour répondre à votre demande et, si vous le souhaitez, préparer votre démo et votre devis.
 - **Base légale :** mesures précontractuelles prises à votre demande (article 6.1.b du RGPD).
 - **Durée de conservation :** 3 ans après notre dernier échange si vous ne devenez pas client ; pour les clients, la durée du contrat puis les durées légales de conservation comptable.
-- **Destinataires :** DIG16 uniquement. Vos données ne sont **jamais vendues ni louées**. Elles transitent par nos prestataires techniques (hébergement, messagerie et, pour le formulaire de contact, le service d’envoi FormSubmit de Devro LABS, aux États-Unis), tenus à la confidentialité.
+- **Destinataires :** DIG16 uniquement. Vos données ne sont **jamais vendues ni louées**. Elles transitent par nos prestataires techniques, tenus à la confidentialité : notre messagerie et l’hébergeur du site, Cloudflare (Cloudflare, Inc., États-Unis), qui conserve aussi les messages du formulaire de contact dans une base de données située en Europe de l’Ouest. Aucun autre service ne les reçoit. Cloudflare est certifié au cadre de protection des données UE – États-Unis (« Data Privacy Framework »), reconnu par la Commission européenne (décision d’exécution (UE) 2023/1795 du 10 juillet 2023) : [fiche officielle de Cloudflare](https://www.dataprivacyframework.gov/participant/5666) (vérifiée le 5 novembre 2026).
 - **Vos droits :** accès, rectification, effacement, opposition, limitation et portabilité. Écrivez-nous à l’adresse email indiquée ci-dessus [contact@dig16.fr](mailto:contact@dig16.fr) : réponse sous un mois maximum.
 - **Réclamation :** si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la CNIL ([www.cnil.fr](https://www.cnil.fr)).
 

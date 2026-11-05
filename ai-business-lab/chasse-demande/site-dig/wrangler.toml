@@ -1,0 +1,12 @@
+# Configuration Cloudflare Pages du projet « digsite » (dig16.fr), ajoutée le 05/11/2026 pour brancher la base des
+# messages du formulaire de contact (functions/api/contact.js). Ce fichier devient la référence du projet
+# (developers.cloudflare.com/pages/functions/wrangler-configuration, « Source of truth », lu le 05/11/2026).
+# L'identifiant de base n'est pas un secret : il ne donne aucun accès sans le compte Cloudflare.
+name = "digsite"
+pages_build_output_dir = "."
+compatibility_date = "2026-10-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "dig16-messages"
+database_id = "3c17e0f9-3e7f-4398-aaa8-df471bc02b8f"

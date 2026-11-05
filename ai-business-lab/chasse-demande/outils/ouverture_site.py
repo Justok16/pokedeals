@@ -100,6 +100,12 @@ def ouvrir(html):
 
 
 def main():
+    # 05/11/2026 : le site est ouvert depuis octobre et le formulaire n'utilise plus FormSubmit (non certifié au Data
+    # Privacy Framework) mais functions/api/contact.js (base Cloudflare D1). Relancer ce script remettrait FormSubmit
+    # dans la CSP et les mentions : il est donc désactivé. Garder seulement comme trace de l'ouverture.
+    if "--force-ancien" not in sys.argv:
+        print("REFUSÉ : script d'ouverture déjà utilisé ; le formulaire passe désormais par /api/contact (Cloudflare).")
+        return 2
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     site = args[0] if args else SITE
     ecrire = "--ecrire" in sys.argv
@@ -137,4 +143,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
