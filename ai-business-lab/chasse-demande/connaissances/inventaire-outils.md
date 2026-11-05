@@ -39,11 +39,11 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Photos | eleventy-img | réserve | Balises <picture> complètes | 7.1.1 (2026-10-21) | MIT | 470 |
 | Photos | rembg | réserve | Détourage local | 2.0.86 (2026-10-21) | MIT | 25219 |
 | Photos | sharp | réserve | WebP/AVIF et tailles multiples | 0.35.5 (2026-09-27) | Apache-2.0 | 32809 |
-| Photos | sharp-cli | réserve | sharp en ligne de commande | 6.1.0 (2026-09-01) | MIT | 228 |
+| Photos | sharp-cli | réserve | sharp en ligne de commande | 6.1.0 (2026-09-01) | MIT | 229 |
 | Prospection | Fiche d'appel prospect (outils/prospects/fiche_appel.py) | en place | Fiche d'appel revérifiée en direct | — | — | — |
 | Prospection | Trouver un contact (trouver_contact.py) | en place | Pages contact d'un organisme | — | — | — |
 | Publicité | Google Ads MCP | réserve | Lecture des campagnes Google Ads | — | Apache-2.0 | 1099 |
-| Qualité | Chrome DevTools MCP | réserve | Performance réelle, console, réseau | 1.12.0 (2026-10-22) | Apache-2.0 | 54337 |
+| Qualité | Chrome DevTools MCP | réserve | Performance réelle, console, réseau | 1.12.0 (2026-10-22) | Apache-2.0 | 54811 |
 | Qualité | Context7 | réserve | Documentation à jour des bibliothèques | 4.5.0 (2026-11-03) | MIT | 63945 |
 | Qualité | Contrôle global du site (controle_global.py, test_pages.py, seo_client.py, test_formulaire.py) | en place | Santé du site et des sites clients avant livraison | — | — | — |
 | Qualité | Linkinator | installé | Liens cassés d'un site entier (outils/liens/verifier.sh) ; MIT, 8.1.0 vérifiée le 03/11/2026 | 8.1.0 (2026-08-29) | MIT | — |
@@ -64,7 +64,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | SEO | OpenSEO (connecteur) | en place | Fiche Google, Search Console, audits | — | — | — |
 | SEO | Unlighthouse | réserve | Lighthouse sur tout un site | 0.19.1 (2026-10-03) | MIT | — |
 | SEO | critical | réserve | CSS du premier écran | 9.0.0 (2026-09-13) | Apache-2.0 | 10300 |
-| SEO | mcp-gsc | réserve | Search Console dans Claude | — | MIT | 2045 |
+| SEO | mcp-gsc | réserve | Search Console dans Claude | — | MIT | 2106 |
 | Signature électronique | Modèles DocuSeal (modeles_docuseal.py + connecteur DocuSeal) | en place | 4 modèles prêts (6628706 à 6628709), envoi send_documents | — | — | — |
 | Sécurité | ALTCHA | réserve | Anti-spam sans tiers | 3.5.0 (2026-10-22) | MIT | 2875 |
 | Sécurité | Gitleaks | réserve | Secrets oubliés dans le dépôt | v8.30.1 (2026-02-21) | MIT | 30506 |
@@ -74,7 +74,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Sécurité | tarteaucitron.js | réserve | Bandeau cookies CNIL | 1.37.0 (2026-10-15) | MIT | 1059 |
 | Veille | Réserve à proposer (reserve_a_proposer.py) | en place | Ressort l'outil gardé au bon moment | — | — | — |
 | Veille | Veille presse (veille_presse.py) et veille des sources (veille_sources.py) | en place | Presse locale, chaînes, annuaires d'outils | — | — | — |
-| Vidéo | Hyperframes | réserve | Vidéo depuis HTML/GSAP | — | Apache-2.0 | 73742 |
+| Vidéo | Hyperframes | réserve | Vidéo depuis HTML/GSAP | — | Apache-2.0 | 78668 |
 | Vidéo | OpenMontage | réserve | Montage par agent (AGPL-3.0) | — | AGPL-3.0 | 73523 |
 | Vidéo | Remotion | réserve | Vidéos en code (gratuit tant que DIG16 ≤ 3 personnes, livraison MP4 seule) | 4.0.540 (2026-11-02) | non-standard | 69431 |
 | Vidéo | Remotion Agent Skills | réserve | npx skills add remotion-dev/skills | — | — | 5905 |
@@ -82,4 +82,4 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5694 |
 | Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26391 |
 
-Dernière veille : 2026-11-04.
+Dernière veille : 2026-11-05.
