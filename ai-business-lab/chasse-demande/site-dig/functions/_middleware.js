@@ -22,7 +22,9 @@ const SIGNAL = "search=yes, ai-input=yes, ai-train=yes"; // même choix que robo
 
 export async function onRequest({ request, next, env }) {
   const u = new URL(request.url);
-  if (u.hostname === "www.dig16.fr") {
+  // Ancienne adresse technique (05/11/2026) : digsite.pages.dev servait encore le site et des moteurs en gardaient
+  // d'anciens extraits. Elle renvoie désormais vers dig16.fr. Les aperçus de branche (xxx.digsite.pages.dev) restent.
+  if (u.hostname === "www.dig16.fr" || u.hostname === "digsite.pages.dev") {
     u.hostname = "dig16.fr";
     return Response.redirect(u.toString(), 301);
   }

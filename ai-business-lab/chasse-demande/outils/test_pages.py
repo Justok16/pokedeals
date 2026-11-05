@@ -127,6 +127,25 @@ def reseaux_visibles():
     print(('ALERTE' if manquants or not comptes else 'OK    '), 'réseaux visibles sur l\'accueil', manquants or '')
     return 1 if manquants or not comptes else 0
 
+def titres_uniques():
+    """Leçon du 05/11 : la page Charente a gardé le <title> de « Le projet » (remplacement de modèle raté sans erreur).
+    Chaque page publique doit avoir son propre titre et sa propre description."""
+    import re
+    site = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site-dig')
+    vus, doublons = {}, []
+    for p in [p for p in PAGES if not p.startswith('/demos/')]:
+        f = os.path.join(site, p.lstrip('/'), 'index.html') if p.endswith('/') else os.path.join(site, p.lstrip('/'))
+        with open(f, encoding='utf-8') as fh:
+            h = fh.read()
+        for balise in (r'<title>([^<]*)</title>', r'<meta name="description" content="([^"]*)"'):
+            m = re.search(balise, h)
+            cle = (balise[:6], m.group(1).strip() if m else '')
+            if cle in vus:
+                doublons.append(f'{p} = {vus[cle]} ({cle[1][:50]})')
+            vus.setdefault(cle, p)
+    print(('OK    ' if not doublons else 'ALERTE'), 'titres et descriptions uniques', '' if not doublons else doublons)
+    return 1 if doublons else 0
+
 def main():
     base = sys.argv[1].rstrip('/') if len(sys.argv) > 1 else None
     serveur = None
@@ -135,7 +154,7 @@ def main():
         serveur = subprocess.Popen([sys.executable, '-m', 'http.server', '4699'], cwd=site,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(1.5); base = 'http://localhost:4699'
-    souci = son_videos() + regles_interface() + plan_du_site() + accessibilite() + palette() + markdown_a_jour() + polices_locales() + reseaux_visibles()
+    souci = son_videos() + regles_interface() + plan_du_site() + titres_uniques() + accessibilite() + palette() + markdown_a_jour() + polices_locales() + reseaux_visibles()
     try:
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()

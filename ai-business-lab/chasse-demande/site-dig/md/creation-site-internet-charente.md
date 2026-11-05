@@ -1,5 +1,5 @@
 ---
-title: "Le projet DIG16 : sites internet pour artisans en Charente"
+title: "Création de site internet en Charente (16) pour artisans | DIG16"
 description: "Création de site internet en Charente : sites web rapides, pensés pour le téléphone, à votre nom. 0 € de création, dès 49 €/mois. Basé à Ruffec, partout en Charente."
 image: "https://dig16.fr/img/apercu-dig16-v3.jpg"
 url: "https://dig16.fr/creation-site-internet-charente/"
