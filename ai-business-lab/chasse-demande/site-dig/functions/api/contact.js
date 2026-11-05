@@ -18,6 +18,12 @@ function reponse(corps, statut = 200) {
 
 export async function onRequestPost({ request, env }) {
   if (!env || !env.DB) return reponse({ success: "false", erreur: "service indisponible" }, 503);
+  // Revue de sécurité du 05/11 : n'accepter que du JSON envoyé depuis dig16.fr. Un autre site ne peut pas poster ici
+  // depuis le navigateur d'un visiteur (le type JSON impose une vérification préalable que cette fonction refuse).
+  const type = (request.headers.get("Content-Type") || "").toLowerCase();
+  if (!type.startsWith("application/json")) return reponse({ success: "false", erreur: "format invalide" }, 415);
+  const origine = request.headers.get("Origin");
+  if (origine && origine !== "https://dig16.fr") return reponse({ success: "false", erreur: "origine refusée" }, 403);
   const texte = await request.text();
   if (texte.length > 8000) return reponse({ success: "false", erreur: "message trop long" }, 413);
   let d;
