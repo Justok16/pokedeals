@@ -35,7 +35,9 @@ class Tests(unittest.TestCase):
 
     def test_secteurs_exclus(self):
         for act in ["bar brasserie licence IV", "débit de boissons", "tabac presse", "pharmacie", "agence immobilière",
-                    "vente de CBD", "cave à vins", "armurerie"]:
+                    "vente de CBD", "cave à vins", "armurerie", "diagnostics immobiliers",
+                    "profession de pharmacien d'officine", "vente de produits du vapotage",
+                    "hébergement social pour handicapés"]:
             self.assertTrue(rp.lire_annonce(annonce(act))["exclu"], act)
         for act in ["restaurant traditionnel", "plomberie chauffage", "coiffure mixte", "garage automobile"]:
             self.assertFalse(rp.lire_annonce(annonce(act))["exclu"], act)

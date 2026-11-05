@@ -31,9 +31,10 @@ API = "https://bodacc-datadila.opendatasoft.com/api/explore/v2.1/catalog/dataset
 PARIS = ZoneInfo("Europe/Paris")
 EXCLUS = re.compile(
     r"\b(bar|bars|caf[ée]-bar|d[ée]bit de boissons?|licence (iv|4|iii|3)|tabac|presse-tabac|jeux|fran[çc]aise des jeux|"
-    r"pmu|casino|armurerie|armes?|vins?|spiritueux|cave|alcools?|bi[èe]re|brasserie artisanale|pharmacie|"
+    r"pmu|casino|armurerie|armes?|vins?|spiritueux|cave|alcools?|bi[èe]re|brasserie artisanale|pharmac\w*|vapot\w*|"
+    r"cigarettes? [ée]lectroniques?|m[ée]dico-social|h[ée]bergement social|"
     r"parapharmacie|m[ée]dical|sant[ée]|optique|opticien|audioprothés|infirmi|kin[ée]|dentaire|v[ée]t[ée]rinaire|"
-    r"immobili[èe]re?|agence immobili|transactions? immobili|assurances?|courtage|cr[ée]dit|cbd|chanvre|"
+    r"immobili\w*|transactions? immobili|assurances?|courtage|cr[ée]dit|cbd|chanvre|"
     r"notari|avocat|expert-comptable|pompes fun[èe]bres|holding|location de locaux|marchand de biens|discoth[èe]que)\b",
     re.IGNORECASE,
 )
@@ -111,7 +112,8 @@ def chercher(departements, depuis):
             res = d.get("results") or []
             for a in res:
                 f = lire_annonce(a)
-                cle = (f or {}).get("siren_acheteur"), (f or {}).get("adresse")
+                # Un même repreneur publie souvent plusieurs annonces : on garde la plus récente.
+                cle = (f or {}).get("siren_acheteur") or ((f or {}).get("acheteur"), (f or {}).get("adresse"))
                 if f and cle not in vus:
                     vus.add(cle)
                     fiches.append(f)
