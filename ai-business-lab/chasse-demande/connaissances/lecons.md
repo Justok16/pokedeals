@@ -222,3 +222,8 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 ## 05/11/2026 — Publication avec une alerte non lue
 - Erreur : `test_pages.py` a rendu 1 ALERTE (version Markdown pas encore régénérée) et la modification a été poussée quand même ; la relance après `pages_markdown.py` était propre.
 - Règle : pour toute modification du site, l'ordre est **pages_markdown.py → test_pages.py (0 ALERTE lue) → commit/push** ; jamais de push dans la même commande qu'un test dont le résultat n'a pas été lu.
+
+## 05/11/2026 — Remplacement de modèle raté sans erreur (titre de la page Charente)
+- Erreur (signalée par une autre IA relue par l'utilisateur) : la page `/creation-site-internet-charente/` a été publiée avec le `<title>` de « Le projet » ; le `str.replace` du modèle n'a rien trouvé et n'a rien dit. Autre point relevé : l'ancienne adresse `digsite.pages.dev` restait servie et des moteurs en gardaient d'anciens extraits.
+- Règle : toute substitution dans un modèle passe par une assertion (nombre de remplacements = 1) ; contrôle automatique ajouté : `test_pages.py` → « titres et descriptions uniques » ; `functions/_middleware.js` redirige `digsite.pages.dev` vers dig16.fr (301).
+- Les rapports d'autres IA sont revérifiés point par point avant d'agir : ici deux constats exacts, corrigés le jour même.
