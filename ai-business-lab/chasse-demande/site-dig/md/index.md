@@ -33,7 +33,7 @@ Pourquoi un site ?
 
 ## Aujourd’hui, tout commence par une recherche
 
-Avant d’appeler un artisan ou de pousser la porte d’un commerce, vos futurs clients regardent sur leur téléphone. S’ils ne vous trouvent pas, ou s’ils tombent sur un site daté, ils appellent quelqu’un d’autre.
+Avant d’appeler un artisan ou de pousser la porte d’un commerce, vos futurs clients regardent sur leur téléphone. S’ils ne vous trouvent pas, ou s’ils tombent sur un site daté, ils appellent quelqu’un d’autre. Tout ce que comprend [la création d’un site internet en Charente avec DIG16](https://dig16.fr/creation-site-internet-charente/) tient sur une page.
 
 ### Tout au bout du pouce
 
