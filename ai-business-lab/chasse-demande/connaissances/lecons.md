@@ -218,3 +218,7 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 - Erreur : la fiche d'appel aux impôts disait « numéro SIREN … » et « à avoir sous la main : le Kbis » au lieu de donner les informations.
 - Règle (consigne de l'utilisateur du 05/11, « garde ces consignes pour plus tard ») : **toute fiche d'appel ou de rendez-vous avec un organisme ou un tiers contient déjà, en haut, toutes les informations qu'on peut lui demander** : SIREN, SIRET, adresse, téléphone, dates de début et d'immatriculation, code APE, régime (micro, TVA, versement libératoire, ACRE), chiffre d'affaires à date, service compétent, date et résultat du dernier appel. Données lues dans le fichier privé et le registre officiel le jour même ; fiche privée, jamais dans le dépôt.
 - Contrôle : avant d'envoyer une fiche d'appel, chercher « … », « ____ » placés à la place d'une donnée connue et « sous la main » : chacun doit être remplacé par la valeur.
+
+## 05/11/2026 — Publication avec une alerte non lue
+- Erreur : `test_pages.py` a rendu 1 ALERTE (version Markdown pas encore régénérée) et la modification a été poussée quand même ; la relance après `pages_markdown.py` était propre.
+- Règle : pour toute modification du site, l'ordre est **pages_markdown.py → test_pages.py (0 ALERTE lue) → commit/push** ; jamais de push dans la même commande qu'un test dont le résultat n'a pas été lu.

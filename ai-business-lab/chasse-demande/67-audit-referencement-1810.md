@@ -144,3 +144,18 @@ Ce qui fera monter DIG16 (par ordre d'effet) :
 2. **Liens et citations locales** : Atout Ruffec (page des membres), CCI, communauté de communes, presse (Charente Libre), « Site réalisé par DIG16 » sur chaque site client.
 3. **Fiche Google active** : publications réactivées après la réponse de Google, doublons supprimés, horaires « toujours joignable ».
 4. **Temps** : un site neuf met en général plusieurs mois à gagner des places ; mesure mensuelle (rappel du 07/12).
+
+## 8. Exécution du prompt de référencement (05/11/2026, après-midi)
+
+| Constat | Impact | Source | Date |
+|---|---|---|---|
+| 0 domaine référent connu vers dig16.fr | Fort : premier frein des résultats classiques | index de liens (OpenRush, inspect_backlinks) | 05/11/2026 |
+| « site web Charente » : carte locale de 3 fiches (19, 17 et 96 avis), pages dédiées « création de site internet en Charente » en tête | Fort : avis + page dédiée attendus | page de résultats France | 05/11/2026 |
+| « site internet artisan Charente » : le compte Instagram @dig16fr est déjà 8e | Encourageant : la marque commence à exister | page de résultats France | 05/11/2026 |
+| « création site internet Ruffec » : pas de carte locale, DIG16 absent ; résultats d'agences d'Angoulême et d'annuaires | Moyen : la fiche Google (zone desservie, centre vers Angoulême) ne ressort pas sur Ruffec | page de résultats France | 05/11/2026 |
+| Fiche Google : 0 avis, pas de liste de services, pas d'horaires | Fort pour la carte | fiche (cid 6460190242230506490) | 05/11/2026 |
+| Vitesse mobile : non remesurée (quota du jour de PageSpeed atteint) ; contrôles internes sans alerte | — | PageSpeed / test_pages.py | 05/11/2026 |
+
+Fait : page Charente (§ 7), lien dans le texte de l'accueil, liens Threads retirés, tests sans alerte, IndexNow.
+À l'utilisateur (gestes impossibles par les outils) : services et zone de la fiche Google, lien Atout Ruffec, code Bing Places.
+Écartés : sites « comparateurs » qui revendent des demandes de devis (prix-creation-site-internet.fr, digital-charente.fr : pas d'inscription d'entreprise, pas de lien utile).
