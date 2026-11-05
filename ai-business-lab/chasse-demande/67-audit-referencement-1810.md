@@ -158,4 +158,5 @@ Ce qui fera monter DIG16 (par ordre d'effet) :
 
 Fait : page Charente (§ 7), lien dans le texte de l'accueil, liens Threads retirés, tests sans alerte, IndexNow.
 À l'utilisateur (gestes impossibles par les outils) : services et zone de la fiche Google, lien Atout Ruffec, code Bing Places.
+05/11 (soir) : services de la fiche Google ajoutés (« C'est bon ») ; lien Atout Ruffec sans objet (pas de site, l'association communique par WhatsApp) ; reste le code Bing Places. Liens entrants à chercher ailleurs : CCI, communauté de communes, presse, annuaires gratuits sérieux, sites clients.
 Écartés : sites « comparateurs » qui revendent des demandes de devis (prix-creation-site-internet.fr, digital-charente.fr : pas d'inscription d'entreprise, pas de lien utile).
