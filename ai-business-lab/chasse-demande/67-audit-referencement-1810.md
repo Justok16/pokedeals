@@ -128,3 +128,19 @@ Grille `ig-profile` (12 critères). Constat : nom « DIG16 · Sites internet Cha
 Après les 3 corrections faciles (bio, épingles, lien unique) : ≈ 76 / 100 ; le reste dépend des stories et de la preuve
 client. Épingler : publication → « ⋯ » en haut à droite → « Épingler à la grille principale » (3 au maximum ; aide
 Instagram « Pin a post to the top of your profile », lue le 18/10 ; libellé français exact à confirmer sur l'écran).
+
+## 7. Objectif « premier sur “création site web Charente” » (demande de l'utilisateur du 05/11/2026)
+
+Mesuré le 05/11/2026 :
+- dig16.fr est **indexé** (accueil, guide, projet, Prestige : « Submitted and indexed », Search Console) mais n'apparaît presque jamais : **1 seule impression en 28 jours** (Search Console, 06/10 → 02/11). Site ouvert le 09/10 : pas encore d'ancienneté ni de liens.
+- Page de résultats « création site web Charente » (France, 05/11) : **carte locale en tête** (6 fiches, dont WEBCREATION16 avec 19 avis, Forgit Web 99 avis, Tassita Création 22 avis), puis des pages dédiées « création de site internet en Charente » et des agences d'Angoulême, Cognac, Charente-Maritime.
+- Demande réelle (index de mots-clés, France) : « création site internet charente » ≈ 10 recherches/mois ; « … charente-maritime » ≈ 110/mois. Le volume « site web Charente » est trop faible pour être mesuré.
+- Fiche Google DIG16 : catégorie « Concepteur de sites Web », revendiquée, 8 photos, **0 avis**, sans horaires.
+
+Fait le 05/11 : page dédiée `/creation-site-internet-charente/` (une seule page départementale, pas de pages « par ville » : règle du § 3), données structurées Service + FAQ + fil d'Ariane, liens depuis tous les pieds de page, sitemap, llms.txt, version Markdown, IndexNow.
+
+Ce qui fera monter DIG16 (par ordre d'effet) :
+1. **Avis Google réels** (1er critère de la carte locale) : le premier client et le site offert en cours ; jamais d'avis payé, inventé ou demandé à des proches qui ne sont pas clients.
+2. **Liens et citations locales** : Atout Ruffec (page des membres), CCI, communauté de communes, presse (Charente Libre), « Site réalisé par DIG16 » sur chaque site client.
+3. **Fiche Google active** : publications réactivées après la réponse de Google, doublons supprimés, horaires « toujours joignable ».
+4. **Temps** : un site neuf met en général plusieurs mois à gagner des places ; mesure mensuelle (rappel du 07/12).
