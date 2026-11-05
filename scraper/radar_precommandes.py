@@ -307,13 +307,22 @@ def scanner_prestashop_sitemap(domaine: str, produits: list[ProduitSurveille]) -
 def scanner_prestashop_repli_html(domaine: str, produits: list[ProduitSurveille]) -> list[dict]:
     connecteur = rendre_poli(ConnecteurPrestaShopSitemap(domaine))
     urls_vues = set()
-    for produit in produits:
-        for mot in produit.mots_cles_type:
-            urls_vues.update(connecteur._decouvrir_candidats_recherche(mot))
-            time.sleep(DELAI_ENTRE_PAGES)
+    # Mots-cles dedoublonnes entre produits (meme mot = meme recherche).
+    for mot in sorted({m for produit in produits for m in produit.mots_cles_type}):
+        urls_vues.update(connecteur._decouvrir_candidats_recherche(mot))
+        time.sleep(DELAI_ENTRE_PAGES)
+
+    # Meme prefiltre de slug (edition ET type) que les scanners sitemap : sur
+    # une boutique generaliste (1001hobbies.fr, 05/11/2026), « coffret »,
+    # « boite »... ramenaient des centaines de produits hors sujet, tous
+    # ouverts un par un -> scan_complement depassait son delai a chaque cycle.
+    candidats_urls = {
+        u for u in urls_vues
+        if any(_slug_est_candidat(u, p) for p in produits)
+    }
 
     resultats = []
-    for url in urls_vues:
+    for url in candidats_urls:
         resultats.extend(_evaluer_page(connecteur, url, produits))
     return resultats
 

@@ -258,3 +258,37 @@ def test_evaluer_page_woocommerce_liste_attente_avec_bouton_panier_reste_en_stoc
     with patch("radar_precommandes.time.sleep"):
         candidats = _evaluer_page(connecteur, "https://exemple.fr/produit", [_produit_test()])
     assert candidats[0]["en_stock"] is True
+
+
+def test_repli_html_prestashop_ne_charge_que_les_pages_candidates(monkeypatch):
+    # 05/11/2026 : 1001hobbies.fr (boutique generaliste) -- les recherches
+    # « coffret »/« boite »... ramenaient des centaines de produits hors sujet,
+    # tous ouverts -> scan_complement annule par son delai a chaque cycle.
+    import radar_precommandes as R
+    from connecteur_prestashop_sitemap import ConnecteurPrestaShopSitemap
+
+    recherches = []
+
+    def recherche(self, mot):
+        recherches.append(mot)
+        return [
+            "https://ex.fr/maquettes/123-coffret-peinture-gundam.html",
+            "https://ex.fr/pokemon/456-coffret-dresseur-elite-30e-anniversaire.html",
+        ]
+
+    pages = []
+    monkeypatch.setattr(ConnecteurPrestaShopSitemap, "_decouvrir_candidats_recherche", recherche)
+    monkeypatch.setattr(R, "_evaluer_page", lambda c, url, p: pages.append(url) or [])
+    monkeypatch.setattr(R, "rendre_poli", lambda c: c)
+    monkeypatch.setattr(R.time, "sleep", lambda s: None)
+
+    produits = [
+        ProduitSurveille(nom="A", mots_cles_edition=frozenset({"30e anniversaire"}),
+                         mots_cles_type=frozenset({"coffret dresseur", "coffret"}), date_sortie=None),
+        ProduitSurveille(nom="B", mots_cles_edition=frozenset({"30e anniversaire"}),
+                         mots_cles_type=frozenset({"coffret"}), date_sortie=None),
+    ]
+    R.scanner_prestashop_repli_html("ex.fr", produits)
+
+    assert sorted(recherches) == ["coffret", "coffret dresseur"]  # pas de doublon
+    assert pages == ["https://ex.fr/pokemon/456-coffret-dresseur-elite-30e-anniversaire.html"]
