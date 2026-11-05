@@ -13,7 +13,7 @@ Code de sortie 1 si un problème est trouvé.
 import subprocess, sys, time, os
 from playwright.sync_api import sync_playwright
 
-PAGES = ['/', '/prestige.html', '/mentions-legales.html', '/test-du-pouce/', '/le-projet/', '/site-internet-artisan/', '/demos/prestige/',
+PAGES = ['/', '/prestige.html', '/mentions-legales.html', '/test-du-pouce/', '/le-projet/', '/creation-site-internet-charente/', '/site-internet-artisan/', '/demos/prestige/',
          '/demos/paysagiste/', '/demos/menuisier/', '/demos/menuisier-visite/', '/demos/garage/']
 CHROME = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
 
@@ -75,7 +75,7 @@ def accessibilite():
     """Audit d'accessibilité (outils/audit_acces.py) sur les pages publiques : cibles tactiles de 44 px,
     étiquettes, titres, contrastes. Intégré le 22/10 après la correction des liens du pied de page."""
     site = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site-dig')
-    pages = [os.path.join(site, p) for p in ('index.html', 'prestige.html', 'le-projet/index.html',
+    pages = [os.path.join(site, p) for p in ('index.html', 'prestige.html', 'le-projet/index.html', 'creation-site-internet-charente/index.html',
                                              'site-internet-artisan/index.html', 'mentions-legales.html')]
     r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audit_acces.py'), *pages],
                        capture_output=True, text=True, timeout=600)

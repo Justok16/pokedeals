@@ -30,6 +30,7 @@ PAGES = {
     "/prestige": ("prestige.html", "md/prestige.md"),
     "/test-du-pouce/": ("test-du-pouce/index.html", "md/test-du-pouce.md"),
     "/le-projet/": ("le-projet/index.html", "md/le-projet.md"),
+    "/creation-site-internet-charente/": ("creation-site-internet-charente/index.html", "md/creation-site-internet-charente.md"),
     "/site-internet-artisan/": ("site-internet-artisan/index.html", "md/site-internet-artisan.md"),
     "/mentions-legales": ("mentions-legales.html", "md/mentions-legales.md"),
 }

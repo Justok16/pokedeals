@@ -379,7 +379,6 @@ DisponibilitéToujours joignable, 7 jours sur 7
       "sameAs": [
         "https://www.facebook.com/1334231963113482",
         "https://www.instagram.com/dig16fr/",
-        "https://www.threads.com/@dig16fr",
         "https://www.tiktok.com/@dig16fr",
         "https://www.youtube.com/@dig16fr",
         "https://x.com/dig16charente",

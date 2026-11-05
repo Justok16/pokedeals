@@ -13,6 +13,7 @@ const MARKDOWN = {
   "/prestige.html": "/md/prestige.md",
   "/test-du-pouce/": "/md/test-du-pouce.md",
   "/le-projet/": "/md/le-projet.md",
+  "/creation-site-internet-charente/": "/md/creation-site-internet-charente.md",
   "/site-internet-artisan/": "/md/site-internet-artisan.md",
   "/mentions-legales": "/md/mentions-legales.md",
   "/mentions-legales.html": "/md/mentions-legales.md",
