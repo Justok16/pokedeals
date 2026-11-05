@@ -292,3 +292,5 @@ Chaque fois qu'un site concurrent ou une référence est jugé plus beau (par un
 DIG16 qui le dépasse sur la beauté ET reste plus rapide sur téléphone, plus claire et plus sobre (règles de `44` et de
 `connaissances/effets-prestige.md`) ; 3) comparer les deux côte à côte (captures téléphone et PC, vitesse) avant de
 montrer quoi que ce soit ; 4) verser au catalogue des effets toute bonne idée trouvée.
+
+- **Fiches d'appel (consigne du 05/11/2026)** : chaque fiche d'appel ou de rendez-vous (impôts, URSSAF, banque, organisme, prospect) contient en haut toutes les informations que l'interlocuteur peut demander (SIREN, SIRET, adresse, APE, régime, dates, CA à date, dernier échange), lues le jour même ; détail dans `connaissances/lecons.md` (05/11).
