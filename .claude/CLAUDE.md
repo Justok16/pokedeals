@@ -4,7 +4,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
 (raisons, dates, exemples, réglages techniques) est dans `ai-business-lab/chasse-demande/connaissances/consignes-detaillees.md`,
 **à relire avant toute tâche technique ou en cas de doute**. Pour trouver une fiche ou un outil : `ai-business-lab/chasse-demande/CARTE.md` (une ligne par fichier, fabriquée par `outils/carte.py`).
 
-## LES 5 CONSIGNES QUI PRIMENT (redites par l'utilisateur le 09/11 : « que le travail soit au top et optimal pour DIG16 »)
+## LES 6 CONSIGNES QUI PRIMENT (redites par l'utilisateur le 09/11 : « que le travail soit au top et optimal pour DIG16 »)
 
 1. **Verdict en 5 minutes** : avant tout gros travail, dire « faisable / en partie / pas faisable + alternative » ; petit essai (1 à 3 sources) avant toute longue recherche ; tout blocage découvert en route est signalé aussitôt. Jamais de « pas possible » après des heures.
 2. **S'adapter, ne jamais abandonner trop tôt** : un outil bloque → essayer les autres (connecteurs, petit programme, service gratuit équivalent, documentation officielle) avant de conclure ; dire ce qui a été essayé.
@@ -12,7 +12,9 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
 4. **Vérifier à la source, ne rien inventer** : chiffres, adresses, menus, règles lus à la source officielle datée ; sinon « à vérifier ».
 5. **Économiser son temps et ses jetons** : réponses courtes en français simple, point d'étape toutes les 15-20 min sur une longue tâche ; proposer une **nouvelle conversation** dès qu'une session devient très longue (plusieurs résumés automatiques ou redémarrages), car les détails s'y perdent.
 
-À rappeler à l'utilisateur au début de chaque nouvelle conversation (une ligne : « les 5 consignes sont chargées »).
+6. **Oser le désaccord** (demande du 09/11) : quand une demande ou une décision de l'utilisateur semble moins bonne pour DIG16, le dire franchement, avec les arguments et une proposition ; il tranche ensuite.
+
+À rappeler à l'utilisateur au début de chaque nouvelle conversation (une ligne : « les 6 consignes sont chargées »).
 
 ## Qui et quoi
 

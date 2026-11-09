@@ -6,9 +6,9 @@ branche `claude/ai-business-portfolio-strategy-96yf4g`.
 ---
 
 Nouvelle conversation pour DIG16 (la précédente était devenue trop longue). Avant toute chose :
-1. Lis `.claude/CLAUDE.md` en entier (les 5 consignes qui priment sont en tête), puis
+1. Lis `.claude/CLAUDE.md` en entier (les 6 consignes qui priment sont en tête), puis
    `ai-business-lab/chasse-demande/connaissances/lecons.md`, la liste unique `64-mise-en-ordre-administrative.md` § 0
-   et `CARTE.md`. Confirme-moi en une ligne : « les 5 consignes sont chargées ».
+   et `CARTE.md`. Confirme-moi en une ligne : « les 6 consignes sont chargées ».
 2. Reprends les tâches planifiées : elles sont liées à l'ancienne conversation. Liste-les (`list_triggers`), recrée
    chacune à l'identique pour qu'elle arrive dans CETTE conversation (même nom, même horaire, même consigne), vérifie
    la création, puis désactive l'ancienne. Ne supprime rien sans me montrer la liste d'abord.
