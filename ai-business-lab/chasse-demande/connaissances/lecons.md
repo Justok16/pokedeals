@@ -227,3 +227,8 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 - Erreur (signalée par une autre IA relue par l'utilisateur) : la page `/creation-site-internet-charente/` a été publiée avec le `<title>` de « Le projet » ; le `str.replace` du modèle n'a rien trouvé et n'a rien dit. Autre point relevé : l'ancienne adresse `digsite.pages.dev` restait servie et des moteurs en gardaient d'anciens extraits.
 - Règle : toute substitution dans un modèle passe par une assertion (nombre de remplacements = 1) ; contrôle automatique ajouté : `test_pages.py` → « titres et descriptions uniques » ; `functions/_middleware.js` redirige `digsite.pages.dev` vers dig16.fr (301).
 - Les rapports d'autres IA sont revérifiés point par point avant d'agir : ici deux constats exacts, corrigés le jour même.
+
+## 09/11/2026 — « Pas possible » annoncé après des dizaines de minutes ou des heures
+- Erreur (signalée par l'utilisateur) : il arrive souvent qu'une demande soit travaillée longtemps avant que Claude annonce qu'elle n'est pas faisable, alors que le blocage était visible dès le départ (outil sans accès, compte personnel, règle interdite, quota).
+- Règle : **verdict de faisabilité dans les 5 premières minutes**, avant tout gros travail : « faisable / faisable en partie (ce qui manque) / pas faisable (pourquoi, et l'alternative) », en une ou deux lignes. Les blocages connus d'avance (connexion aux comptes de l'utilisateur, paiement, identité, outils indisponibles, limites gratuites) se vérifient en premier. Si un blocage apparaît en cours de route : prévenir tout de suite, sans finir le reste en silence.
+- Pour toute tâche longue : un point d'étape court toutes les 15 à 20 minutes.
