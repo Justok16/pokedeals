@@ -234,3 +234,17 @@ dans `connaissances/lecons-detail.md`** : le relire, à la date indiquée, avant
 ## 10/11/2026 — Bouton d'appli cité de mémoire (« Nouvelle session »)
 - Erreur : j'ai demandé à l'utilisateur d'ouvrir une conversation neuve avec un bouton « Nouvelle session » que je n'avais lu nulle part ; il ne l'a pas trouvé. Deux fautes : menu décrit de mémoire, et tâche donnée alors que je pouvais la faire.
 - Règle : pour poursuivre dans une conversation neuve, Claude la crée lui-même (outil `create_session`, dépôt, branche et texte d'ouverture fournis) et donne le lien direct ; jamais de nom de bouton non lu.
+
+## 10/11/2026 — Tâches planifiées traitées avec 2 à 3 heures de retard (conversation trop longue)
+- Erreur : les 32 tâches planifiées ont été rattachées à une conversation déjà très chargée (copie des 32 textes) ; le 10/11 elle a redémarré plusieurs fois entre 11 h et 14 h UTC et trois tâches (Charente Libre, Short du mardi, fiche d'appels) sont restées en file d'attente. Sans conséquence ce jour-là (Metricool publie seul, pas d'appels), mais une fiche d'appels arrivée à 15 h aurait été inutile un jeudi.
+- Règle : les tâches planifiées vivent dans une conversation légère qui ne sert qu'à cela ; on n'y fait ni gros travail ni longue copie. Dès qu'une conversation porteuse de tâches redémarre ou se résume, proposer à l'utilisateur de les déplacer (il tranche) ; une tâche traitée en retard est toujours signalée avec son retard.
+- Garde-fou : filet de sécurité dans une conversation séparée (tâche avec `create_new_session_on_fire`) quand une échéance du jour compte (appels, rendez-vous).
+
+## 10/11/2026 — Commande longue en arrière-plan : sortie perdue et délai trop court
+- Erreur : `resumer_video_longue.py` lancé en arrière-plan avec `timeout 1500 … | tail -15` : la commande a été coupée au bout de 25 minutes (4 morceaux sur 5 faits) et `tail` n'a rien affiché ; il a fallu relancer.
+- Règle : une commande longue en arrière-plan écrit dans un fichier journal (`> fichier.log 2>&1`), jamais dans `| tail` ; le délai se calcule (vidéo longue : environ 6 minutes par morceau de 20 minutes, plus la synthèse, avec une marge de moitié). Le cache du script permet de relancer sans rien refaire.
+
+## 09/11/2026 — « Outil indisponible » affirmé sans vérifier
+- Erreur : j'ai écrit à l'utilisateur que l'outil de lecture du Drive n'était plus disponible et je lui ai demandé d'ouvrir le document lui-même, alors que l'outil était listé sous un autre nom après une reconnexion.
+- Règle : avant de dire qu'un outil manque, le chercher (ToolSearch par mot-clé) ; les connecteurs changent de nom quand ils se reconnectent. Ne demander une vérification à l'utilisateur qu'après cet essai.
+
