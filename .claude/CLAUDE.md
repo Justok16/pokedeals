@@ -127,8 +127,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   un écran à la fois sur capture ; toujours prévoir l'alternative ; ne jamais déclarer « c'est bon » sans preuve
   réelle ; chaque parcours confirmé y est ajouté.
 - **Site dig16.fr** : `outils/test_pages.py` sans ALERTE avant toute mise en ligne ; polices hébergées sur le site
-  (jamais Google Fonts) ; règles de référencement de `67` (jamais d'avis Google payé, inventé ou trié ; pas de pages
-  « par ville ») ; contrôle de santé `outils/controle_global.py` à chaque point (ne signaler que les ALERTE) ; issues
+  (jamais Google Fonts) ; règles de référencement de `67` (jamais d'avis Google payé, inventé ou trié ; pas de pages par commune : une seule page départementale, `/creation-site-internet-charente/`, qui cite les villes principales dans son texte (décision du 10/11, règle Google sur les pages satellites lue le 10/11) ; une page de ville seulement plus tard, avec un contenu vraiment propre (réalisation d'un client de cette ville, avec son accord)) ; contrôle de santé `outils/controle_global.py` à chaque point (ne signaler que les ALERTE) ; issues
   « Alerte DIG16 » : corriger puis fermer.
 - **Envois de l'utilisateur** (vidéos, liens, outils) : résumés, triés et appliqués sans attendre (`46`) ; rien n'est
   écarté : réserve dans `connaissances/boite-a-outils.md` et `connaissances/reserve-prete.md` (⛔ seulement illégal ou
