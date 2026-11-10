@@ -48,8 +48,31 @@ def zapier(reg, entree):
         f.write("\n")
 
 
+def docuseal(reg):
+    """DocuSeal gratuit : 10 demandes de signature par mois (docuseal.com/pricing, lue le 10/11/2026).
+    Compte 1 par appel de send_documents ; si un envoi vise plusieurs signataires, corriger le compteur à la main."""
+    from datetime import datetime, timezone
+
+    mois = datetime.now(timezone.utc).strftime("%Y-%m")
+    d = reg.get("docuseal")
+    if not d:
+        return
+    deja = d.setdefault("mois", {}).get(mois, 0)
+    if deja + 1 > d["limite"]:
+        refuser(f"Quota DocuSeal : {deja} demandes de signature envoyées en {mois} sur {d['limite']} (offre gratuite). "
+                f"Attendre le mois suivant ou faire signer autrement (PDF remplissable envoyé par mail).")
+    d["mois"][mois] = deja + 1
+    with open(REGISTRE, "w", encoding="utf-8") as f:
+        json.dump(reg, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
 def main():
     donnees = json.load(sys.stdin)
+    if donnees.get("tool_name", "").endswith("DocuSeal__send_documents"):
+        with open(REGISTRE, encoding="utf-8") as f:
+            docuseal(json.load(f))
+        return
     if donnees.get("tool_name", "").startswith("mcp__Zapier__execute_zapier"):
         with open(REGISTRE, encoding="utf-8") as f:
             zapier(json.load(f), donnees.get("tool_input", {}))

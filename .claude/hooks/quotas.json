@@ -46,7 +46,7 @@
   "docuseal": {
     "limite": 10,
     "source": "docuseal.com/pricing lue le 10/11/2026 : Basic 0 $, « 10 request emails per month » ; API, webhooks et Zapier payants",
-    "note": "un kit client = plusieurs demandes de signature : compter les envois du mois avant d'envoyer (non compté automatiquement)",
+    "note": "1 compté par appel de send_documents (garde-fou quota_publications.py, ajouté le 10/11) ; si un envoi vise plusieurs signataires, corriger le compteur à la main",
     "mois": {}
   }
 }
