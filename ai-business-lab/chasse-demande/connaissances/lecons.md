@@ -238,3 +238,7 @@ une ligne ici**, avec la règle qui l'empêche de revenir et, si possible, un co
 - Erreur : dans une nouvelle conversation (machine neuve), le module Python `playwright` manquait et 35 outils citaient un navigateur à un chemin daté (`chromium-1194/…`) qui n'existe plus ; `test_pages.py`, `fiche_appel.py`, les PDF et le contrôle des voix ne pouvaient pas tourner, et `controle_global.py` ne le signalait que par une erreur peu lisible.
 - Règle : un outil ne cite jamais un chemin de navigateur avec un numéro de version ; il utilise le lien stable `/opt/pw-browsers/chromium` (avec repli `launch()`). Tout module indispensable est réinstallé au démarrage (crochet SessionStart).
 - Contrôle : crochet SessionStart ajouté pour `playwright` (installation en arrière-plan, elle peut prendre plusieurs minutes) ; au début de chaque nouvelle conversation, lancer `controle_global.py` puis `test_pages.py` avant tout travail sur le site ou les fiches.
+
+## 10/11/2026 — Bouton d'appli cité de mémoire (« Nouvelle session »)
+- Erreur : j'ai demandé à l'utilisateur d'ouvrir une conversation neuve avec un bouton « Nouvelle session » que je n'avais lu nulle part ; il ne l'a pas trouvé. Deux fautes : menu décrit de mémoire, et tâche donnée alors que je pouvais la faire.
+- Règle : pour poursuivre dans une conversation neuve, Claude la crée lui-même (outil `create_session`, dépôt, branche et texte d'ouverture fournis) et donne le lien direct ; jamais de nom de bouton non lu.
