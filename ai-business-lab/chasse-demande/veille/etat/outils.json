@@ -1,5 +1,5 @@
 {
- "date": "2026-11-06",
+ "date": "2026-11-10",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -10,13 +10,13 @@
   "GSAP Skills officiels": {
    "version": null,
    "date": null,
-   "etoiles": 17468,
+   "etoiles": 17983,
    "licence": "MIT"
   },
   "Lenis": {
    "version": "1.3.27",
    "date": "2026-10-15",
-   "etoiles": 16987,
+   "etoiles": 17135,
    "licence": "MIT"
   },
   "swup": {
@@ -26,15 +26,15 @@
    "licence": "MIT"
   },
   "Motion": {
-   "version": "14.9.1",
-   "date": "2026-11-04",
+   "version": "14.11.1",
+   "date": "2026-11-09",
    "etoiles": null,
    "licence": "MIT"
   },
   "Three.js": {
    "version": "0.187.0",
    "date": "2026-10-30",
-   "etoiles": 117315,
+   "etoiles": 117888,
    "licence": "MIT"
   },
   "dotLottie web": {
@@ -46,7 +46,7 @@
   "sharp": {
    "version": "0.35.5",
    "date": "2026-09-27",
-   "etoiles": 32809,
+   "etoiles": 32829,
    "licence": "Apache-2.0"
   },
   "sharp-cli": {
@@ -76,13 +76,13 @@
   "Fontsource": {
    "version": "5.3.0",
    "date": "2026-07-19",
-   "etoiles": 6249,
+   "etoiles": 6265,
    "licence": "MIT"
   },
   "google-webfonts-helper": {
    "version": null,
    "date": null,
-   "etoiles": 13076,
+   "etoiles": 13077,
    "licence": "MIT"
   },
   "Leonardo (Adobe)": {
@@ -100,7 +100,7 @@
   "awesome-design-md": {
    "version": null,
    "date": null,
-   "etoiles": 124555,
+   "etoiles": 125911,
    "licence": "MIT"
   },
   "Impeccable": {
@@ -112,7 +112,7 @@
   "UI UX Pro Max": {
    "version": null,
    "date": null,
-   "etoiles": 142830,
+   "etoiles": 146262,
    "licence": "MIT"
   },
   "Emil Kowalski skills": {
@@ -124,7 +124,7 @@
   "Taste skill": {
    "version": null,
    "date": null,
-   "etoiles": 105498,
+   "etoiles": 111124,
    "licence": "MIT"
   },
   "Anthropic skills": {
@@ -134,15 +134,15 @@
    "licence": null
   },
   "Remotion": {
-   "version": "4.0.541",
-   "date": "2026-11-05",
-   "etoiles": 69431,
+   "version": "4.0.542",
+   "date": "2026-11-09",
+   "etoiles": 71674,
    "licence": "non-standard"
   },
   "Remotion Agent Skills": {
    "version": null,
    "date": null,
-   "etoiles": 5905,
+   "etoiles": 6505,
    "licence": null
   },
   "Hyperframes": {
@@ -160,19 +160,19 @@
   "faster-whisper": {
    "version": "1.2.1",
    "date": "2025-10-31",
-   "etoiles": 26391,
+   "etoiles": 26629,
    "licence": "MIT"
   },
   "auto-editor": {
    "version": "29.3.1",
    "date": "2025-11-04",
-   "etoiles": 5694,
+   "etoiles": 5821,
    "licence": "non-standard"
   },
   "OpenMontage": {
    "version": null,
    "date": null,
-   "etoiles": 73523,
+   "etoiles": 78232,
    "licence": "AGPL-3.0"
   },
   "Claude SEO": {
@@ -202,7 +202,7 @@
   "Google Analytics MCP": {
    "version": null,
    "date": null,
-   "etoiles": 3593,
+   "etoiles": 3673,
    "licence": "Apache-2.0"
   },
   "critical": {
@@ -226,31 +226,31 @@
   "Gitleaks": {
    "version": "v8.30.1",
    "date": "2026-02-21",
-   "etoiles": 30506,
+   "etoiles": 30738,
    "licence": "MIT"
   },
   "OSV-Scanner": {
-   "version": "v2.7.0",
-   "date": "2026-10-12",
+   "version": "v2.7.1",
+   "date": "2026-11-09",
    "etoiles": 11421,
    "licence": "Apache-2.0"
   },
   "Semgrep": {
    "version": "1.184.0",
    "date": "2026-11-05",
-   "etoiles": 17379,
+   "etoiles": 17546,
    "licence": "LGPL-2.1"
   },
   "security-guidance (Anthropic)": {
    "version": null,
    "date": null,
-   "etoiles": 45367,
+   "etoiles": 46316,
    "licence": "Apache-2.0"
   },
   "Google Ads MCP": {
    "version": null,
    "date": null,
-   "etoiles": 1099,
+   "etoiles": 1124,
    "licence": "Apache-2.0"
   },
   "Chrome DevTools MCP": {
@@ -260,9 +260,9 @@
    "licence": "Apache-2.0"
   },
   "Playwright MCP": {
-   "version": "0.0.84",
-   "date": "2026-10-31",
-   "etoiles": 38813,
+   "version": "0.0.85",
+   "date": "2026-11-09",
+   "etoiles": 39256,
    "licence": "Apache-2.0"
   },
   "axe-core": {
@@ -274,43 +274,43 @@
   "pa11y": {
    "version": "10.0.0",
    "date": "2026-08-28",
-   "etoiles": 4589,
+   "etoiles": 4594,
    "licence": "LGPL-3.0"
   },
   "html-validate": {
-   "version": "11.18.0",
-   "date": "2026-11-01",
+   "version": "11.21.0",
+   "date": "2026-11-09",
    "etoiles": null,
    "licence": "MIT"
   },
   "lychee": {
    "version": null,
    "date": null,
-   "etoiles": 4072,
+   "etoiles": 4106,
    "licence": "Apache-2.0"
   },
   "Context7": {
-   "version": "4.5.0",
-   "date": "2026-11-03",
-   "etoiles": 63945,
+   "version": "4.6.0",
+   "date": "2026-11-09",
+   "etoiles": 64301,
    "licence": "MIT"
   },
   "marketingskills": {
    "version": null,
    "date": null,
-   "etoiles": 57423,
+   "etoiles": 58956,
    "licence": "MIT"
   },
   "Humanizer": {
    "version": null,
    "date": null,
-   "etoiles": 62539,
+   "etoiles": 65711,
    "licence": "MIT"
   },
   "PhotoCraft (ArtCraft)": {
    "version": null,
    "date": null,
-   "etoiles": 75326,
+   "etoiles": 77757,
    "licence": "Apache-2.0"
   },
   "LightCraft (ArtCraft)": {
