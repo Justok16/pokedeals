@@ -8,7 +8,8 @@
     },
     "note_2026-11": "Réorganisé le 21/10 : 19 publications non brouillon (11 carrousels TikTok, 5 Shorts YouTube, 3 posts Google) ; Instagram, Facebook, Threads et stories en brouillon (contenu dans supports/publications-v2/novembre-metricool-avant-reorg.json), Instagram et Facebook à envoyer par Buffer à partir du 01/11 (rappel trig_01PvxXHpog5J8MrBUzdGUzAM)",
     "constat_2210": "22/10 18 h 25 : essai bloqué (« You have reached your Metricool account limit », mail Metricool « limite de 20 publications mensuelles »). En réalité Metricool compte 1 par PUBLICATION, pas par réseau : en octobre, 20 publications couvrant 32 réseaux sont toutes parties, la 21e est refusée. Le compteur de ce fichier compte donc des publications.",
-    "note_2026-11b": "23/10 14 h 14 : 20e place prise par le reel de lancement corrigé (samedi 07/11 18 h 30, Instagram, Facebook, Threads, TikTok, YouTube). Novembre complet : plus aucun ajout Metricool."
+    "note_2026-11b": "23/10 14 h 14 : 20e place prise par le reel de lancement corrigé (samedi 07/11 18 h 30, Instagram, Facebook, Threads, TikTok, YouTube). Novembre complet : plus aucun ajout Metricool.",
+    "relu_2026-11-10": "metricool.com/pricing relue le 10/11/2026 : 1 marque, « Schedule up to 20 posts per month », LinkedIn et X exclus du gratuit"
   },
   "zapier": {
     "limite": 100,
@@ -26,12 +27,14 @@
       "update"
     ],
     "note_reserve": "22/10 : entre la marge (90) et la limite (100), seules ces actions passent : Shorts YouTube du calendrier et correction de la vidéo d'une publication Buffer déjà programmée (voix « Di seize »). 22/10 18 h : republication du reel corrigé du conseil 6 sur Instagram, Facebook et TikTok (demande de l'utilisateur : tout automatiser) ; en contrepartie le Short du 29/10 passe au début du cycle Zapier suivant. 22/10 18 h 15 : demande expresse de l'utilisateur (« fais-le à ma place ») : les 2 dernières tâches servent au reel Instagram corrigé (action Buffer native « Add to Queue », fiable) ; le Short du 27/10 passe en novembre.",
-    "constat_0111": "01/11 08:40-08:42 UTC : 16 appels Buffer « Add to Queue » réussis (stories 02→20/11 Instagram et Facebook), puis refus Zapier « reached its task limit for the current billing period ». Le cycle gratuit ne suit PAS le mois civil (date de facturation inconnue) : compteur bloqué à 100 en attendant ; relire la date de renouvellement dans la page de facturation Zapier avant tout nouvel appel. Restent à programmer : stories 25 et 27/11 (Instagram et Facebook)."
+    "constat_0111": "01/11 08:40-08:42 UTC : 16 appels Buffer « Add to Queue » réussis (stories 02→20/11 Instagram et Facebook), puis refus Zapier « reached its task limit for the current billing period ». Le cycle gratuit ne suit PAS le mois civil (date de facturation inconnue) : compteur bloqué à 100 en attendant ; relire la date de renouvellement dans la page de facturation Zapier avant tout nouvel appel. Restent à programmer : stories 25 et 27/11 (Instagram et Facebook).",
+    "relu_2026-11-10": "zapier.com/pricing relue le 10/11/2026 : 100 tâches par mois, Zaps à 2 étapes seulement, MCP ouvert à tous les comptes (2 tâches par appel)"
   },
   "buffer": {
     "limite_file_par_reseau": 10,
     "source": "buffer.com/pricing FAQ, lue le 19/10/2026 : 3 réseaux, 10 publications programmées par réseau, la place se libère après publication",
-    "note": "avant chaque ajout : lire la file (action queue) du réseau"
+    "note": "avant chaque ajout : lire la file (action queue) du réseau",
+    "relu_2026-11-10": "buffer.com/pricing relue le 10/11/2026 : 3 réseaux, 10 publications en file par réseau (place rendue après publication) ; API : 1 000 requêtes par réseau et par mois"
   },
   "tavily": {
     "limite": 1000,
@@ -39,5 +42,11 @@
     "mois": {
       "2026-10": "environ 20 appels le 21/10 (annuaire There's An AI For That, docs Postnify) ; compte exact à relire sur app.tavily.com"
     }
+  },
+  "docuseal": {
+    "limite": 10,
+    "source": "docuseal.com/pricing lue le 10/11/2026 : Basic 0 $, « 10 request emails per month » ; API, webhooks et Zapier payants",
+    "note": "un kit client = plusieurs demandes de signature : compter les envois du mois avant d'envoyer (non compté automatiquement)",
+    "mois": {}
   }
 }

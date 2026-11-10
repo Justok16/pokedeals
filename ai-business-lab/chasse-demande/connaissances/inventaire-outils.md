@@ -9,7 +9,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Animations | GSAP | en place | Moteur d'animation des sites (site-dig/moteur/anim/gsap-3.15.0.min.js et ScrollTrigger, mis à jour le 28/10) | 3.15.1 (2026-11-04) | Standard 'no charge' license: https://gsap.com/standard-license. | 30137 |
 | Animations | GSAP Skills officiels | installé | .claude/skills/gsap-* (core, timeline, scrolltrigger, plugins, utils, performance) | — | MIT | 17983 |
 | Animations | Lenis | en place | Défilement fluide (site-dig/moteur/anim/lenis-1.3.27.min.js, mis à jour le 28/10) | 1.3.27 (2026-10-15) | MIT | 17135 |
-| Animations | Motion | réserve | Micro-interactions légères | 14.11.1 (2026-11-09) | MIT | — |
+| Animations | Motion | réserve | Micro-interactions légères | 14.12.0 (2026-11-10) | MIT | — |
 | Animations | Three.js | réserve | 3D légère pour un client Prestige | 0.187.0 (2026-10-30) | MIT | 117888 |
 | Animations | dotLottie web | réserve | Icônes animées vectorielles | 0.82.1 (2026-11-02) | MIT | 937 |
 | Animations | swup | réserve | Transitions entre pages d'un site statique | 4.10.0 (2026-09-03) | MIT | 5252 |
@@ -69,7 +69,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Sécurité | ALTCHA | réserve | Anti-spam sans tiers | 3.5.0 (2026-10-22) | MIT | 2875 |
 | Sécurité | Gitleaks | réserve | Secrets oubliés dans le dépôt | v8.30.1 (2026-02-21) | MIT | 30738 |
 | Sécurité | OSV-Scanner | réserve | Dépendances vulnérables | v2.7.1 (2026-11-09) | Apache-2.0 | 11421 |
-| Sécurité | Semgrep | réserve | Analyse du code serveur | 1.184.0 (2026-11-05) | LGPL-2.1 | 17546 |
+| Sécurité | Semgrep | réserve | Analyse du code serveur | 1.185.0 (2026-11-10) | LGPL-2.1 | 17546 |
 | Sécurité | security-guidance (Anthropic) | réserve | Extension officielle ; revues IA à chaque fin de tour et commit = gros quota | — | Apache-2.0 | 46316 |
 | Sécurité | tarteaucitron.js | réserve | Bandeau cookies CNIL | 1.37.0 (2026-10-15) | MIT | 1059 |
 | Veille | Réserve à proposer (reserve_a_proposer.py) | en place | Ressort l'outil gardé au bon moment | — | — | — |

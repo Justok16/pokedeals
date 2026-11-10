@@ -26,8 +26,8 @@
    "licence": "MIT"
   },
   "Motion": {
-   "version": "14.11.1",
-   "date": "2026-11-09",
+   "version": "14.12.0",
+   "date": "2026-11-10",
    "etoiles": null,
    "licence": "MIT"
   },
@@ -236,8 +236,8 @@
    "licence": "Apache-2.0"
   },
   "Semgrep": {
-   "version": "1.184.0",
-   "date": "2026-11-05",
+   "version": "1.185.0",
+   "date": "2026-11-10",
    "etoiles": 17546,
    "licence": "LGPL-2.1"
   },

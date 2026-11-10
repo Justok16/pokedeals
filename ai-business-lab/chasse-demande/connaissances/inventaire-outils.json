@@ -678,6 +678,34 @@
     "1 % + 0,20 € par transaction",
     "Plafonnés à 2 €"
    ]
+  },
+  {
+   "nom": "Buffer (gratuit)",
+   "url": "https://buffer.com/pricing",
+   "doit_contenir": [
+    "Connect up to 3 channels"
+   ]
+  },
+  {
+   "nom": "Cloudflare Workers (gratuit)",
+   "url": "https://developers.cloudflare.com/workers/platform/limits/",
+   "doit_contenir": [
+    "100,000"
+   ]
+  },
+  {
+   "nom": "Cloudflare D1 (gratuit, formulaire de dig16.fr)",
+   "url": "https://developers.cloudflare.com/d1/platform/pricing/",
+   "doit_contenir": [
+    "5 million"
+   ]
+  },
+  {
+   "nom": "Vercel Hobby (usage non commercial seulement)",
+   "url": "https://vercel.com/docs/limits/fair-use-guidelines",
+   "doit_contenir": [
+    "non-commercial personal use only"
+   ]
   }
  ]
 }
