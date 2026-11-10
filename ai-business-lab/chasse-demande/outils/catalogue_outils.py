@@ -2,8 +2,9 @@
 """Boîte à outils DIG16 : catalogue, classé par besoin, de tout ce que l'utilisateur a envoyé (12/10/2026).
 
 Usage : python3 outils/catalogue_outils.py
-Lit les registres (46-apprentissage-continu.md, connaissances/technologybrief-sites.md) et réécrit la partie
-automatique de connaissances/boite-a-outils.md (entre les deux balises), sans toucher à la partie écrite à la main.
+Lit les registres (46-apprentissage-continu.md, archives/46-a-faire-termines.md, 46-registre-videos.md,
+connaissances/technologybrief-sites.md) et réécrit connaissances/boite-a-outils-catalogue.md (entre les deux balises).
+La partie écrite à la main reste dans connaissances/boite-a-outils.md (découpage du 10/11/2026).
 Chaque ligne de registre est rangée dans un domaine (mots-clés) et reçoit un état :
   ✅ en place (installé, appliqué, fait)  ⏳ plus tard ou à vérifier  ⛔ écarté  · noté (simple information).
 À lancer après chaque ajout au registre (le point automatique le fait via sync).
@@ -14,8 +15,9 @@ import re
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.normpath(os.path.join(ICI, ".."))
-SOURCES = ["46-apprentissage-continu.md", "connaissances/technologybrief-sites.md"]
-CIBLE = os.path.join(RACINE, "connaissances", "boite-a-outils.md")
+SOURCES = ["46-apprentissage-continu.md", "archives/46-a-faire-termines.md", "46-registre-videos.md",
+           "connaissances/technologybrief-sites.md"]
+CIBLE = os.path.join(RACINE, "connaissances", "boite-a-outils-catalogue.md")
 DEBUT, FIN = "<!-- catalogue-auto:debut -->", "<!-- catalogue-auto:fin -->"
 
 # domaine : mots-clés (minuscules) ; l'ordre compte, le premier domaine reconnu gagne
@@ -122,7 +124,7 @@ def main():
     else:
         texte = texte.rstrip() + "\n\n" + bloc + "\n"
     open(CIBLE, "w", encoding="utf-8").write(texte)
-    print(f"boite-a-outils.md : {total} entrées")
+    print(f"boite-a-outils-catalogue.md : {total} entrées")
 
 
 if __name__ == "__main__":
