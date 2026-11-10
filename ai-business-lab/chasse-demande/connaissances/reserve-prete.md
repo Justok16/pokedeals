@@ -5,12 +5,12 @@ moindre question ». Ce sont les outils **pas utiles aujourd'hui mais gardés**.
 quand le ressortir, comment l'activer et ce qu'il coûte.
 
 **Comment s'en servir :** à toute question ou tout nouveau besoin, chercher d'abord ici. Ce fichier est classé
-par besoin. Ensuite, regarder le catalogue complet (`boite-a-outils.md`) et le résumé d'origine
+par besoin. Ensuite, regarder le catalogue complet (`boite-a-outils-catalogue.md`) et le résumé d'origine
 (`videos-resumes/` ou `connaissances/`). Une gratuité marquée « à revérifier » doit être relue sur la page
 officielle, et datée, le jour où l'outil sert. Avant d'installer quoi que ce soit, lire le code en entier.
 
 Ne figurent pas ici les outils refusés par principe (piratage, contrefaçon, IA sans garde-fous, faux visages,
-extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils.md`.
+extraction de profils interdite). Ils sont marqués ⛔ dans `boite-a-outils-catalogue.md`.
 
 ## Clients, suivi et vente
 

@@ -2,7 +2,7 @@
 
 Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles restent en vigueur** ; le détail de chacune
 (raisons, dates, exemples, réglages techniques) est dans `ai-business-lab/chasse-demande/connaissances/consignes-detaillees.md`,
-**à relire avant toute tâche technique ou en cas de doute**. Pour trouver une fiche ou un outil : `ai-business-lab/chasse-demande/CARTE.md` (une ligne par fichier, fabriquée par `outils/carte.py`).
+**à relire avant toute tâche technique ou en cas de doute**. Fichiers allégés le 10/11/2026, rien de supprimé : ce qui est terminé est dans `ai-business-lab/chasse-demande/archives/` (lignes finies de `64` § 0 et de `46`). Pour trouver une fiche ou un outil : `ai-business-lab/chasse-demande/CARTE.md` (une ligne par fichier, fabriquée par `outils/carte.py`).
 
 ## LES 6 CONSIGNES QUI PRIMENT (redites par l'utilisateur le 09/11 : « que le travail soit au top et optimal pour DIG16 »)
 
@@ -28,7 +28,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
 
 ## Comment travailler
 
-- **Leçons** : lire `connaissances/lecons.md` en début de session et avant toute tâche du même type ; chaque erreur y est
+- **Leçons** : lire `connaissances/lecons.md` en début de session et avant toute tâche du même type (récit complet des leçons du 20 au 31/10 : `connaissances/lecons-detail.md`, à relire avant une tâche du même type) ; chaque erreur y est
   ajoutée **avant** de répondre, avec la règle et si possible un contrôle automatique (crochet, outil). Chaque bonne
   pratique qui marche est étendue aux autres outils du même type. Connecteurs et MCP utiles : offre gratuite vérifiée à
   la source, proposés à l'utilisateur (lui seul les branche) ; outils gratuits et sûrs installés après lecture complète.
@@ -54,7 +54,7 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
   relecture par un agent en lecture seule) ; PDF régénéré et renvoyé à chaque modification, mêmes numéros de prospects.
 - **Tout enregistrer** : public sans donnée personnelle → ce dépôt ; privé (prospects, clients, région, identité) →
   Drive « Dig », jamais ici.
-- **Ne rien oublier** : chaque tâche, décision ou envoi va aussitôt dans la LISTE UNIQUE `64` § 0 ; à chaque « que me
+- **Ne rien oublier** : chaque tâche, décision ou envoi va aussitôt dans la LISTE UNIQUE `64` § 0 (une ligne finie est déplacée telle quelle à la fin de `archives/64-liste-unique-terminees.md`) ; à chaque « que me
   reste-t-il ? » : relire 64 en entier, `63`, `66`, `69` § 5, `61` § 1, `68` § 5, `supports/partages-groupes.md` et les
   rappels programmés, et vérifier les données réelles.
 - Économiser le quota ; garder de la réserve pour l'utilisateur.
@@ -129,8 +129,8 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
 - **Site dig16.fr** : `outils/test_pages.py` sans ALERTE avant toute mise en ligne ; polices hébergées sur le site
   (jamais Google Fonts) ; règles de référencement de `67` (jamais d'avis Google payé, inventé ou trié ; pas de pages par commune : une seule page départementale, `/creation-site-internet-charente/`, qui cite les villes principales dans son texte (décision du 10/11, règle Google sur les pages satellites lue le 10/11) ; une page de ville seulement plus tard, avec un contenu vraiment propre (réalisation d'un client de cette ville, avec son accord)) ; contrôle de santé `outils/controle_global.py` à chaque point (ne signaler que les ALERTE) ; issues
   « Alerte DIG16 » : corriger puis fermer.
-- **Envois de l'utilisateur** (vidéos, liens, outils) : résumés, triés et appliqués sans attendre (`46`) ; rien n'est
-  écarté : réserve dans `connaissances/boite-a-outils.md` et `connaissances/reserve-prete.md` (⛔ seulement illégal ou
+- **Envois de l'utilisateur** (vidéos, liens, outils) : résumés, triés et appliqués sans attendre (marche à suivre : `46` ; registre où ajouter chaque envoi : `46-registre-videos.md`) ; rien n'est
+  écarté : réserve dans `connaissances/boite-a-outils.md` (par besoin ; catalogue complet automatique : `boite-a-outils-catalogue.md`) et `connaissances/reserve-prete.md` (⛔ seulement illégal ou
   dangereux) ; consulter ces deux fichiers avant toute tâche ; vérifier d'abord si un lien a déjà été traité.
   **Proposer la réserve au bon moment** (demande du 27/10 : « toujours chercher à améliorer ») : le crochet
   `outils/reserve_a_proposer.py` signale les outils dont la condition « Le ressortir quand… » rejoint la demande ; les
