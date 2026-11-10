@@ -64,7 +64,7 @@ def texte(f):
 
             with sync_playwright() as p:
                 nav = p.chromium.launch(
-                    executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+                    executable_path="/opt/pw-browsers/chromium"
                 )
                 pg = nav.new_page()
                 pg.goto("file://" + os.path.abspath(f))

@@ -21,7 +21,7 @@ DOSSIER = os.path.normpath(os.path.join(ICI, "..", "supports", "service-devis-fa
 SOURCE = os.path.join(DOSSIER, "mandat-de-facturation.md")
 HTML = os.path.join(DOSSIER, "..", "DIG16-contrat-mandat-facturation.html")  # dans supports/ : images ../site-dig/
 PDF = os.path.join(DOSSIER, "DIG16-contrat-mandat-facturation.pdf")
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 
 
 def tag(nom, role, type_="text"):

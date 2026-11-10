@@ -11,7 +11,7 @@ import sys
 import urllib.request
 from playwright.async_api import async_playwright
 
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 
 
 def catalogue():

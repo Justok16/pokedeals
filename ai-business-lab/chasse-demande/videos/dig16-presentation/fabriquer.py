@@ -21,7 +21,7 @@ ff=subprocess.Popen(['ffmpeg','-y','-loglevel','error','-f','image2pipe','-frame
  '-af','loudnorm=I=-15:TP=-1.5:LRA=9','-c:v','libx264','-preset','slow','-crf','20','-pix_fmt','yuv420p','-movflags','+faststart',
  '-ar','44100','-c:a','aac','-b:a','192k','-shortest',f'dig16-{voix}.mp4'],stdin=subprocess.PIPE)
 with sync_playwright() as p:
-    b=p.chromium.launch(executable_path='/opt/pw-browsers/chromium-1194/chrome-linux/chrome')
+    b=p.chromium.launch(executable_path='/opt/pw-browsers/chromium')
     pg=b.new_page(viewport={'width':1080,'height':1920})
     pg.goto('file://'+os.getcwd()+'/video.html',wait_until='networkidle');pg.wait_for_timeout(1500)
     for i in range(int(FPS*DUR)):

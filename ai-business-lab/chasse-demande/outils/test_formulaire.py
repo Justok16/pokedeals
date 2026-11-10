@@ -17,7 +17,7 @@ from playwright.sync_api import sync_playwright
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 SITE = sys.argv[1] if len(sys.argv) > 1 else os.path.normpath(os.path.join(ICI, "..", "site-dig"))
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 
 
 def main():

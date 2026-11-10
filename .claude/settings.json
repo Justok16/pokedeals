@@ -144,6 +144,11 @@
             "type": "command",
             "command": "python3 -c 'import imageio_ffmpeg' 2>/dev/null || python3 -m pip install -q imageio-ffmpeg 2>&1 | tail -n 1 || true",
             "timeout": 120
+          },
+          {
+            "type": "command",
+            "command": "python3 -c 'import playwright' 2>/dev/null || (nohup python3 -m pip install -q playwright >/dev/null 2>&1 &)",
+            "timeout": 15
           }
         ]
       }

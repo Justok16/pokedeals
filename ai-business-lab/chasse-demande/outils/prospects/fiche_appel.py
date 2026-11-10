@@ -37,7 +37,7 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 POLICES = os.path.join(ICI, "..", "..", "site-dig", "moteur", "polices", "instrumentserif-geist-geistmono.css")
 RELAIS = "https://relais-dig-justok1.vercel.app/api/entreprise"
 COOKIE = "/tmp/cj.txt"
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 AGENT = "Mozilla/5.0 (compatible; DIG16-fiche/1.0; +https://dig16.fr)"
 TRANCHES = {"NN": "aucun salarié déclaré", "00": "aucun salarié", "01": "1 ou 2 salariés", "02": "3 à 5 salariés",
             "03": "6 à 9 salariés", "11": "10 à 19 salariés", "12": "20 à 49 salariés", "21": "50 à 99 salariés"}

@@ -29,7 +29,7 @@ CD = os.path.normpath(os.path.join(ICI, "..", ".."))
 sys.path.insert(0, os.path.join(CD, "outils", "marque"))
 from empreinte import empreinte_svg  # noqa: E402
 
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 RELAIS = "https://relais-dig-justok1.vercel.app/api/voix"
 POLICES = os.path.join(CD, "site-dig", "moteur", "polices")
 FPS = 30

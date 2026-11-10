@@ -118,7 +118,7 @@ def rendre(html, sortie):
     from playwright.sync_api import sync_playwright
 
     with sync_playwright() as p:
-        b = p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome")
+        b = p.chromium.launch(executable_path="/opt/pw-browsers/chromium")
         pg = b.new_page(viewport={"width": 1240, "height": 1748}, device_scale_factor=1)
         pg.set_content(html, wait_until="load")
         pg.wait_for_timeout(800)  # polices
@@ -137,7 +137,7 @@ def fiche_ouverte(place_id):
 
     url = f"https://www.google.com/maps/place/?q=place_id:{place_id}&hl=fr&gl=FR"
     with sync_playwright() as p:
-        b = p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome")
+        b = p.chromium.launch(executable_path="/opt/pw-browsers/chromium")
         pg = b.new_page(locale="fr-FR")
         pg.goto(url, wait_until="domcontentloaded", timeout=60000)
         try:

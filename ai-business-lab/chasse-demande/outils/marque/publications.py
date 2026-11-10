@@ -32,7 +32,7 @@ from empreinte import empreinte_svg  # noqa: E402
 
 RACINE = os.path.normpath(os.path.join(ICI, "..", ".."))
 SORTIE = os.path.join(RACINE, "supports", "publications")
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 BRUT = ("https://raw.githubusercontent.com/Justok16/pokedeals/claude/ai-business-portfolio-strategy-96yf4g/"
         "ai-business-lab/chasse-demande/supports/")
 TAGS = "\n\n#Charente #artisan #commerce #siteinternet"

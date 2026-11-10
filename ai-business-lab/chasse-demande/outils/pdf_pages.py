@@ -12,7 +12,7 @@ Code de sortie 1 si une page déborde (le PDF n'est alors pas écrit).
 import sys
 from playwright.sync_api import sync_playwright
 
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 
 MESURE = """() => [...document.querySelectorAll('section.page')].map((s, i) => {
   const pied = s.querySelector('.pied');

@@ -25,7 +25,7 @@ import identite  # noqa: E402
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 SUP = os.path.normpath(os.path.join(ICI, "..", "supports"))
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 
 EMETTEUR = "[Prénom Nom] EI — « DIG16 »<br>[Adresse]<br>SIREN [numéro à l’immatriculation]<br>contact@dig16.fr"
 CSS = BASE + COUVERTURE + """@page{size:A4;margin:13mm 14mm 14mm}*{box-sizing:border-box}

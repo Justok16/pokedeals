@@ -18,7 +18,7 @@ import sys
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.dirname(os.path.dirname(ICI))
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 EXIGENCE = {"performance": 0.95, "accessibility": 1.0, "best-practices": 1.0, "seo": 1.0}
 NOMS = {
     "performance": "Vitesse sur téléphone",

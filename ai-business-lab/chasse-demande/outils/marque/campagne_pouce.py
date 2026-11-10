@@ -32,7 +32,7 @@ from empreinte import empreinte_svg  # noqa: E402
 
 RACINE = os.path.normpath(os.path.join(ICI, "..", ".."))
 SORTIE = os.path.join(RACINE, "supports", "campagne-pouce")
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 LIEN = "https://dig16.fr/"
 POLICES = ('<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1'
            '&family=Geist:wght@300;400;500;600&display=block" rel="stylesheet">')

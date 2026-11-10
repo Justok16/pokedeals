@@ -19,7 +19,7 @@ from charte_documents import attendre_polices  # noqa: E402
 from pdf_pages import MESURE  # noqa: E402
 
 SUP = os.path.normpath(os.path.join(ICI, "..", "..", "supports"))
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 
 PDF = {
     "antiseche-reponses.html": "Dig-Antiseche-reponses.pdf",

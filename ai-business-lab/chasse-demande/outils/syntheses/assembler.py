@@ -128,7 +128,7 @@ for ch, themes in ORDRE.items():
     open(hp, "w").write(page)
     with sync_playwright() as p:
         b = p.chromium.launch(
-            executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+            executable_path="/opt/pw-browsers/chromium"
         )
         pg = b.new_page()
         pg.goto("file://" + hp)

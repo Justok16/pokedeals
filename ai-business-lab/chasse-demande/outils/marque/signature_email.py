@@ -18,7 +18,7 @@ from playwright.sync_api import sync_playwright
 ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.normpath(os.path.join(ICI, "..", ".."))
 SUP = os.path.join(RACINE, "supports")
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 LOGO = "https://dig16.fr/img/marque/signature-email@2x.png"
 
 SIGNATURE = f"""<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;color:#1a1814">

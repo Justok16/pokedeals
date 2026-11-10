@@ -38,7 +38,7 @@ def main():
     os.makedirs(SORTIE, exist_ok=True)
     polices = '<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&display=block" rel="stylesheet">'
     with sync_playwright() as p:
-        b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium-1194/chrome-linux/chrome')
+        b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium')
         for nom, (svg, w, h) in FICHIERS.items():
             open(os.path.join(SORTIE, nom + '.svg'), 'w').write(svg)
             for echelle in (2, 6):

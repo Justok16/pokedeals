@@ -26,7 +26,7 @@ from playwright.sync_api import sync_playwright
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 CD = os.path.normpath(os.path.join(ICI, "..", ".."))
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 POLICES = os.path.join(CD, "site-dig", "moteur", "polices")
 SOURCE = os.path.join(CD, "videos", "conseils", "conseil-1.mp4")
 THREE = os.path.join(ICI, "three.module.min.js")

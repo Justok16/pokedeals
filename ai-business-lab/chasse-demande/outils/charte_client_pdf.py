@@ -18,7 +18,7 @@ DOSSIER = os.path.normpath(os.path.join(ICI, "..", "supports", "service-devis-fa
 SOURCE = os.path.join(DOSSIER, "charte-client.md")
 HTML = os.path.join(DOSSIER, "..", "DIG16-charte-client.html")  # dans supports/ : images ../site-dig/
 PDF = os.path.join(DOSSIER, "DIG16-charte-client.pdf")
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 
 CSS = BASE + COUVERTURE + """@page{size:A4;margin:10mm 13mm 10mm}*{box-sizing:border-box}
 body{font-size:9.1pt;line-height:1.4;margin:0}

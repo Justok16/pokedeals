@@ -38,7 +38,7 @@ SITE = os.path.join(RACINE, "site-dig")
 SORTIE = os.path.join(SITE, "img", "reseaux", "pub")
 SUPPORTS = os.path.join(RACINE, "supports", "publications-v2")
 POLICES = os.path.join(SITE, "moteur", "polices")
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 URL = "https://dig16.fr/img/reseaux/pub/"
 MARGE = 84
 

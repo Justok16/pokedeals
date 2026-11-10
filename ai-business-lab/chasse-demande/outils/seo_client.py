@@ -30,7 +30,7 @@ import xml.etree.ElementTree as ET
 import requests
 from playwright.sync_api import sync_playwright
 
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 UA = "Mozilla/5.0 (compatible; DIG16-controle-SEO/1.0)"
 
 # Type schema.org le plus précis pour chaque métier courant (liste officielle : schema.org/LocalBusiness)

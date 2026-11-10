@@ -27,7 +27,7 @@ from playwright.sync_api import sync_playwright
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 CD = os.path.normpath(os.path.join(ICI, "..", ".."))
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 POLICES = os.path.join(CD, "site-dig", "moteur", "polices")
 sys.path.insert(0, os.path.join(CD, "videos", "conseils"))
 from fabriquer import SERIE  # noqa: E402  (textes des conseils, source unique)

@@ -15,7 +15,7 @@ from playwright.sync_api import sync_playwright
 
 PAGES = ['/', '/prestige.html', '/mentions-legales.html', '/test-du-pouce/', '/le-projet/', '/creation-site-internet-charente/', '/site-internet-artisan/', '/demos/prestige/',
          '/demos/paysagiste/', '/demos/menuisier/', '/demos/menuisier-visite/', '/demos/garage/']
-CHROME = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
+CHROME = '/opt/pw-browsers/chromium'
 
 def son_videos():
     """Vidéos MP4 et WebM du site qui ont un son : lisible partout (48 kHz au plus).

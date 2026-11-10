@@ -37,7 +37,7 @@ import numpy as np
 from PIL import Image
 
 RACINE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-CHROME = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
+CHROME = '/opt/pw-browsers/chromium'
 # Pages publiques de dig16.fr ; .vieux = l'illustration « ancien site » (couleurs volontairement criardes).
 PAGES_DIG = ['/', '/prestige.html', '/le-projet/', '/site-internet-artisan/', '/test-du-pouce/', '/mentions-legales.html']
 EXCLURE_DIG = ['.vieux']

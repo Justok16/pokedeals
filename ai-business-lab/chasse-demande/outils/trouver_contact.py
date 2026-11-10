@@ -6,7 +6,7 @@ from urllib.parse import urljoin, urlparse
 from playwright.sync_api import sync_playwright
 KEY=re.compile(r"(contact|econom|entrepr|entreprise|nous-joindre|developpement|presse|redaction|commerce)",re.I)
 with sync_playwright() as p:
-    b=p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome")
+    b=p.chromium.launch(executable_path="/opt/pw-browsers/chromium")
     ctx=b.new_context(locale="fr-FR",user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140 Safari/537.36")
     for start in sys.argv[1:]:
         pg=ctx.new_page(); found={}; seen=set()

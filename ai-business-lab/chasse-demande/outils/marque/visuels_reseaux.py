@@ -21,7 +21,7 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.normpath(os.path.join(ICI, "..", ".."))
 SORTIE = os.path.join(RACINE, "supports", "reseaux")
 MARQUE = "file://" + os.path.join(RACINE, "site-dig", "img", "marque") + "/"
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 POLICES = ('<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1'
            '&family=Geist:wght@400;500&family=Geist+Mono&display=block" rel="stylesheet">')
 

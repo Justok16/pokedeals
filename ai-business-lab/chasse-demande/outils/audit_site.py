@@ -8,7 +8,7 @@ res = {}
 liens = set()
 with sync_playwright() as p:
     b = p.chromium.launch(
-        executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+        executable_path="/opt/pw-browsers/chromium"
     )
     for chemin in pages:
         for nom, vp in (

@@ -10,7 +10,7 @@ import csv
 import re
 from playwright.sync_api import sync_playwright
 
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 PRIX = re.compile(
     r"^(Free to install|Free plan available|Free|\d+ day free trial|From .*|\$.*)$"
 )

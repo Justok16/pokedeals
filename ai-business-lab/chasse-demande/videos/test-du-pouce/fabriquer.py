@@ -24,7 +24,7 @@ CD = os.path.normpath(os.path.join(ICI, "..", ".."))
 sys.path.insert(0, os.path.join(CD, "outils", "marque"))
 from empreinte import empreinte_svg  # noqa: E402
 
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 FPS = 30
 DEBUT_VOIX = 0.5  # s de silence avant la voix
 FIN = 2.2  # s d'écran final après la voix

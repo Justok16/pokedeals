@@ -26,7 +26,7 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.dirname(ICI)
 SUPPORTS = os.path.join(RACINE, "supports")
 DEPOT = os.path.dirname(os.path.dirname(RACINE))
-CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+CHROME = "/opt/pw-browsers/chromium"
 NB = " "
 
 
