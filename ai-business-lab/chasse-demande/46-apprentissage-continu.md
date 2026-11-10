@@ -27,6 +27,7 @@
 
 - Marche à suivre, actions encore ouvertes, veille : cette fiche, `46-apprentissage-continu.md`.
 - Registre de tous les envois (vivant, ajouts à la fin) : `46-registre-videos.md`.
+  **Quand une tâche planifiée demande « une ligne dans 46 » ou « dans `46-apprentissage-continu.md` » : l'écrire à la fin de `46-registre-videos.md`** (les textes des tâches datent d'avant le découpage).
 - Actions terminées et décisions tranchées : `archives/46-a-faire-termines.md`.
 - Catalogue classé par besoin (automatique) : `connaissances/boite-a-outils-catalogue.md`.
 
