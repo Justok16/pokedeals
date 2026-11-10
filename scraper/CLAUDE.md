@@ -4,6 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Comments, log messages, config, and the README are in French (the user's language); code identifiers mix French and English. Keep new code/comments in French to match the existing style. **L'utilisateur est débutant en programmation** : explique en français, sans jargon technique non expliqué.
 
+## ⚠️ État actuel : PokéDeals et PokéPrécoms à l'arrêt (depuis le 05/11/2026)
+
+Décision de Justok (04/11/2026, PR #172 ; confirmée le 05/11/2026) : PokéDeals et PokéPrécoms ne sont plus utilisés. Seuls restent suivis **Dig16** (son entreprise) et le dépôt séparé `alertes-btc`.
+
+- Les 21 workflows PokéDeals/PokéPrécoms (scans, veilles, découvertes, canaris, watchdog, tests manuels) sont **désactivés côté GitHub** depuis le 05/11/2026 (état `disabled_manually`). Les tâches cron-job.org qui les déclenchaient par `workflow_dispatch` sont donc refusées par GitHub ; leur suppression sur cron-job.org reste à faire par Justok (aucun accès depuis une session).
+- Restent **actifs** : `sentinelle_dig16.yml`, `test_site_dig.yml`, `tests.yml`, `codeql.yml`, Dependabot.
+- Tout est réversible : onglet Actions → workflow → « Enable workflow » (ou `PUT /repos/Justok16/pokedeals/actions/workflows/<fichier>/enable`). Ne rien réactiver sans demande explicite de Justok.
+- Le reste de ce fichier décrit le système tel qu'il fonctionnait ; il reste valable comme référence si le projet est relancé.
+
 ## Vue d'ensemble
 
 PokéDeals est un bot d'alerte Pokémon TCG entièrement automatisé, sans serveur ni base de données : il tourne uniquement via des cron GitHub Actions, et persiste son état dans `data/*.json`/`.csv` que le bot commit lui-même dans le repo. Trois fonctions actives aujourd'hui, indépendantes les unes des autres :
