@@ -135,11 +135,11 @@ Le résumé obligatoire est dans `.claude/CLAUDE.md` ; **ce fichier fait foi pou
 - **En pause jusqu'au premier client payant** : réseaux sociaux (noms réservés seulement, **levé le 19/10 : voir la ligne au-dessus**),
   résumés vidéo (sauf les 30 chaînes et liens finance/investissement envoyés le 05/10 au soir, à traiter
   sur demande de l'utilisateur : `connaissances/`, `46` et `connaissances/sources-finance.md`), veille des sources, photos des prospects, nouvelles démos. Points automatiques
-  **2 fois par jour** (07:34 et 19:34 UTC).
+  **2 fois par jour** (07:34 et 19:34 UTC) ; **depuis le 09/11 : un seul point par jour, à 07:34 UTC, courrier compris (point du soir supprimé)**.
 - **Prestige** : jamais proposé en prospection (page conservée).
 - **Démos** : accord préalable avant toute démo avec les photos ou le logo du prospect ; montrée
   **en direct**, pas envoyée ; les 64 démos existantes restent hors diffusion sans accord.
-- **Site** : bandeau « ouverture prochaine », formulaire désactivé, « Facile à appeler », pas de
+- **Site** : bandeau « ouverture prochaine » et formulaire désactivé (**dépassé : site ouvert le 09/10, formulaire actif sur Cloudflare D1 depuis le 05/11**), « Facile à appeler », pas de
   badge « Le plus choisi » tant qu'il n'y a pas de client ; modifications sous 3 jours ouvrés.
 - **Capacité** : 15 clients maximum la première année ; un compte Cloudflare gratuit au nom de
   chaque client ; parrainage plafonné (`47` § 6).

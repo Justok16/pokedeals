@@ -118,7 +118,7 @@ for adresse, champ in SOURCES_CERT:
     except Exception as e:
         erreurs.append(str(e)[:40])
 if fins:
-    jours = (max(fins) - datetime.datetime.utcnow()).days
+    jours = (max(fins) - datetime.datetime.now(datetime.UTC).replace(tzinfo=None)).days
     ok("certificat HTTPS (registre public)", jours > 14, f"le plus récent expire dans {jours} jours")
 else:
     ok("certificat HTTPS (registre public)", False, "registres injoignables : " + " ; ".join(erreurs))
@@ -153,18 +153,7 @@ try:
     )
 except Exception as e:
     ok("relais Vercel (cookie)", False, str(e)[:80])
-n = subprocess.run(
-    "ps -eo args | grep -c '[r]esumer_chaine'",
-    shell=True,
-    capture_output=True,
-    text=True,
-).stdout.strip()
-ok(
-    "file des résumés finance",
-    True,
-    f"{n} processus (0 : quota gratuit du jour épuisé ou file finie ; le point relance finance.sh)",
-    info=True,
-)
+# 10/11 : contrôle « file des résumés finance » retiré (vidéos finance arrêtées le 01/11 à la demande de l'utilisateur).
 
 # 22/10 : la marque doit être bien dite dans toutes les vidéos parlées du site (cache : seules les nouvelles sont écoutées)
 v = subprocess.run(

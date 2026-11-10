@@ -192,7 +192,7 @@ des canaux gratuits (section 3, points de contrôle).
 
 - Identifiant `dig16fr` partout (`dig16` est déjà pris sur Bluesky et Pinterest).
 - Priorités : Facebook, Instagram, LinkedIn, YouTube Shorts, TikTok ; Pinterest, Bluesky,
-  Threads et X en publication automatique seulement.
+  X en publication automatique seulement (Threads abandonné le 05/11).
 - Publication programmée avec Metricool : offre gratuite lue le 05/10/2026 sur
   metricool.com/pricing : « Schedule up to 20 posts per month », tous les réseaux
   « except LinkedIn and Twitter » ; LinkedIn et X à la main (texte prêt fourni par Claude).

@@ -104,10 +104,8 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
 
 - Création d'entreprise : juridiquement parfaite, fiscalité optimisée (`31` § 2 bis) ; implantation réelle en zone FRR+ ;
   chercher **toutes** les aides, financières et en nature (`36`) ; nom commercial DIG16 ; synthèse privée dans le Drive « Dig ».
-- Décisions du 05/10 (détail dans la fiche) : priorité aux entretiens de preuve de la demande (`57`) ; points
-  automatiques 07:34 et 19:34 UTC ; 15 clients max la 1re année ; compte Cloudflare au nom de chaque client ; aucun
-  coworking sur le territoire (ne plus le proposer) ; parrainage plafonné (`47` § 6) ; site : bandeau « ouverture
-  prochaine », pas de badge « Le plus choisi » sans client, modifications sous 3 jours ouvrés ; réseaux sociaux relancés
+- Décisions du 05/10 (détail dans la fiche) : priorité aux entretiens de preuve de la demande (`57`) ; un point automatique par jour à 07:34 UTC (point du soir supprimé le 09/11, courrier relevé dans ce point) ; 15 clients max la 1re année ; compte Cloudflare au nom de chaque client ; aucun
+  coworking sur le territoire (ne plus le proposer) ; parrainage plafonné (`47` § 6) ; site : ouvert depuis le 09/10 (plus de bandeau « ouverture prochaine »), pas de badge « Le plus choisi » sans client, modifications sous 3 jours ouvrés ; réseaux sociaux relancés
   au maximum depuis le 19/10 (`61` § 6). **En pause jusqu'au premier client payant** : nouvelles démos, photos des
   prospects, résumés vidéo de masse (seules restent les vidéos envoyées par l'utilisateur). **Vidéos finance ARRÊTÉES le 01/11**
   (demande de l'utilisateur : économiser les jetons ; crochet `reprise_finance.sh` neutralisé) et, dans cette conversation,
