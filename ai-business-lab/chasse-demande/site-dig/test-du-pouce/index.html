@@ -43,6 +43,7 @@ b{color:#fff}
 a{color:#fff}
 .retour{display:inline-block;margin-top:2.5rem;padding:.9rem 1.3rem;border-radius:14px;text-decoration:none;font-weight:700;background:linear-gradient(135deg,var(--orange),var(--rose))}
 footer{border-top:1px solid var(--ligne);padding:24px 0;color:var(--doux);font-size:.85rem}
+.pied-liens{display:flex;flex-wrap:wrap;column-gap:1.1rem;row-gap:0;margin-top:.3rem}.pied-liens a{margin:0;padding:0;justify-content:flex-start;text-align:left;display:inline-flex;align-items:center;min-height:44px}
 .logo{min-height:44px}
 /* ===== charte premium DIG16 (08/10), commune à toutes les pages ===== */
 body{font-family:Geist,'Geist Fallback',system-ui,sans-serif;font-weight:400;letter-spacing:-.003em}
@@ -72,11 +73,11 @@ nav.plein{background:rgba(15,14,12,.86)!important}
 .sous-titre{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-style:italic;font-size:clamp(1.25rem,4.4vw,1.6rem);line-height:1.25;color:#c8a46e;max-width:34rem;margin-top:.5rem;text-wrap:balance}
 .intro{font-size:1.12rem;color:#cfc6b8;max-width:36rem;margin-top:.6rem}
 .etiq{color:#c8a46e;font-weight:500;font-size:.95rem}
-form.test{display:grid;gap:12px;margin-top:2rem}
+form.test{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:2rem}
 form.test label{display:grid;gap:6px;font-size:.92rem;color:#cfc6b8}
-form.test input{font:inherit;font-size:1.05rem;color:#efe9df;background:#181613;border:1px solid rgba(200,164,110,.35);border-radius:14px;padding:.85rem 1rem;min-height:48px}
+form.test input{width:100%;min-width:0;box-sizing:border-box;font:inherit;font-size:1.05rem;color:#efe9df;background:#181613;border:1px solid rgba(200,164,110,.35);border-radius:14px;padding:.85rem 1rem;min-height:48px}
 form.test input:focus-visible{outline:2px solid #c8a46e;outline-offset:2px}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.85rem 1.4rem;border:0;cursor:pointer;font:inherit;font-weight:500;text-decoration:none}
+.btn{max-width:100%;white-space:normal;text-align:center;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.85rem 1.4rem;border:0;cursor:pointer;font:inherit;font-weight:500;text-decoration:none}
 .btn.principal{background:#c8a46e;color:#14110d}
 .btn.second{background:transparent;color:#efe9df;border:1px solid rgba(239,233,223,.3)}
 .btn:disabled{opacity:.6;cursor:wait}
@@ -149,7 +150,7 @@ html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
 <p class="note">Le test lit seulement la page d’accueil publique du site indiqué, au moment du test. Rien n’est enregistré. La rapidité mesurée est le temps de réponse de la page (hors images) : un indicateur, pas un audit complet.</p>
 </main>
 <footer><p class="signature" aria-hidden="true">DIG<em>16</em></p>
-<div class="cadre">© DIG16 — Sites internet pour artisans, commerçants et indépendants · <a href="/creation-site-internet-charente/">Création de site internet en Charente</a> · <a href="/site-internet-artisan/">Guide : site internet pour artisan</a> · <a href="/mentions-legales">Mentions légales</a></div></footer>
+<div class="cadre"><div>© DIG16 — Sites internet pour artisans, commerçants et indépendants</div><div class="pied-liens"><a href="/creation-site-internet-charente/">Création de site internet en Charente</a><a href="/site-internet-artisan/">Guide : site internet pour artisan</a><a href="/mentions-legales">Mentions légales</a></div></div></footer>
 <script>
 const $=s=>document.querySelector(s);
 function ligne(classe,signe,titre,texte){return '<div class="ligne '+classe+'"><div class="pastille" aria-hidden="true">'+signe+'</div><div><b>'+titre+'</b><span>'+texte+'</span></div></div>'}

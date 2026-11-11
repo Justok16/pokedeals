@@ -220,6 +220,50 @@ def main():
                     souci += not ok
                     print(('OK    ' if ok else 'ALERTE'), w, u, '' if ok else f'débord={ov} erreurs={errs[:2]} 404={bad[:2]} images={nb[:2]}')
                     pg.close()
+            # Bug du 11/11 (vu par l'utilisateur sur son téléphone, jamais par les audits) : l'écran final de la
+            # présentation (#film-fin, caché tant que la vidéo n'est pas finie) débordait du téléphone dessiné.
+            # Règle : tout écran caché à l'ouverture est affiché de force et mesuré, à 10 largeurs et 3 tailles de texte.
+            for w in (320, 360, 390, 412, 600, 768, 820, 1024, 1440, 1920):
+                pg = b.new_page(viewport={'width': w, 'height': 850})
+                pg.goto(base + '/', wait_until='load'); pg.wait_for_timeout(500)
+                pires = []
+                for fs in (100, 130, 160):
+                    r = pg.evaluate("""fs=>{document.documentElement.style.fontSize=fs+'%';
+                        const f=document.getElementById('film-fin');if(!f)return ['écran final absent'];
+                        f.hidden=false;for(const i of ['film-muet','film-pause']){const e=document.getElementById(i);if(e)e.hidden=true}
+                        const c=f.getBoundingClientRect(),out=[];
+                        const els=[...f.querySelectorAll('p,a,button')].filter(e=>getComputedStyle(e).display!=='none');
+                        for(const e of els){const r=e.getBoundingClientRect();
+                          if(r.left<c.left-1||r.right>c.right+1||r.top<c.top-1||r.bottom>c.bottom+1)out.push('sort du cadre: '+e.textContent.trim().slice(0,25));
+                          if(e.scrollWidth>e.clientWidth+1)out.push('texte coupé: '+e.textContent.trim().slice(0,25))}
+                        const blocs=[...f.children].filter(e=>getComputedStyle(e).display!=='none').map(e=>e.getBoundingClientRect());
+                        for(let i=1;i<blocs.length;i++)if(blocs[i].top<blocs[i-1].bottom-1)out.push('blocs superposés '+i);
+                        if(els.length<3)out.push('écran final vide');
+                        return out}""", fs)
+                    if r:
+                        pires.append(f'texte {fs} % : {r[:3]}')
+                souci += bool(pires)
+                print(('ALERTE' if pires else 'OK    '), w, '/ écran final de la présentation (texte 100, 130, 160 %)', pires[:2] or '')
+                pg.close()
+            # Même jour : proportions sur tous les supports. Les pages du site (hors démos) aux largeurs que la boucle
+            # du haut ne voit pas (petit téléphone, tablette, grand écran) et sur téléphone avec le texte agrandi.
+            for w, fs in ((320, 100), (768, 100), (1024, 100), (1920, 100), (360, 130)):
+                for u in [x for x in PAGES if not x.startswith('/demos/')]:
+                    pg = b.new_page(viewport={'width': w, 'height': 850})
+                    pg.goto(base + u, wait_until='load'); pg.wait_for_timeout(400)
+                    pg.evaluate("fs=>{document.documentElement.style.fontSize=fs+'%'}", fs)
+                    for y in range(0, pg.evaluate('document.body.scrollHeight'), 700):
+                        pg.evaluate(f'scrollTo(0,{y})'); pg.wait_for_timeout(40)
+                    ov = pg.evaluate('document.documentElement.scrollWidth-innerWidth')
+                    coupes = pg.evaluate("""[...document.querySelectorAll('a,button')].filter(e=>{const r=e.getBoundingClientRect();
+                        return r.width>0&&r.height>0&&getComputedStyle(e).visibility!=='hidden'&&(r.right>innerWidth+1||r.left<-1)
+                        &&!e.closest('.eventail,figure,[aria-hidden=true],.avant,.saut,.vitrine-piste')}).map(e=>e.textContent.trim().slice(0,30))""")
+                    # points de séparation restés seuls en début ou en fin de ligne dans le bas de page
+                    orphelins = pg.evaluate("""[...document.querySelectorAll('footer *')].some(e=>[...e.childNodes].some(n=>n.nodeType===3&&/^\\s*·\\s*$/.test(n.textContent)))""")
+                    ok = not (ov > 0 or coupes or orphelins)
+                    souci += not ok
+                    print(('OK    ' if ok else 'ALERTE'), w, f'texte {fs} %', u, '' if ok else f'débord={ov} coupés={coupes[:3]} points seuls={orphelins}')
+                    pg.close()
             # Bug du 22/10 : sur téléphone, un toucher laisse « :hover » collé sur l'éventail et une règle tactile
             # retirait le centrage de la vidéo, qui sautait en bas à droite. Contrôle : après survol, la vidéo
             # reste centrée dans l'éventail (écart de 24 px au plus).
