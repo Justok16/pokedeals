@@ -243,7 +243,7 @@ SERIE = [
      "legende": "Un site lent, ce sont souvent des photos trop lourdes 🐢\n"
                 "Une photo de plusieurs mégaoctets peut presque toujours être allégée fortement sans perte visible.",
      "alt": "Le conseil DIG16 : un site lent vient souvent de photos trop lourdes."},
-    {"id": "p17", "date": "2026-11-27T18:30:00", "theme": "sombre", "etiquette": "Vos questions", "metricool": 392400998,
+    {"id": "p17", "date": "2026-12-07T18:30:00", "theme": "sombre", "etiquette": "Vos questions", "metricool": 392400998,
      "titre_tiktok": "Les questions qu'on me pose le plus",
      "images": [
          ("cover", "Les questions *qu'on me pose le plus.*", "Et les réponses, sans détour."),
@@ -295,7 +295,7 @@ SERIE = [
      "alt": "Le conseil DIG16 : avant la Toussaint, indiquer sa fermeture sur la fiche Google, le site et la page Facebook."},
     # 11/11/2026 : parution dans Charente Libre (10/11, 14 h 38). Texte à nous, sans reprise de l'article ni de sa photo :
     # on ajoute ce qui manque (site pensé pour le téléphone, « DIG16 », 49 € par mois, dig16.fr). Jamais « chevronné ».
-    {"id": "p21", "date": "2026-11-12T12:15:00", "theme": "clair", "etiquette": "Dans la presse", "metricool": None,
+    {"id": "p21", "date": "2026-11-12T18:30:00", "theme": "clair", "etiquette": "Dans la presse", "metricool": 424479011,
      "titre_tiktok": "DIG16 dans Charente Libre",
      "images": [
          ("cover", "DIG16 dans *Charente Libre.*",
