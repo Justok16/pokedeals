@@ -66,3 +66,22 @@ les appels du jeudi 12/11. Complète `audit-2026-11/AUDIT_TOTAL_2026-11-11.md`.
 9. **Prestige, étape 1** : avant « Chez vous, pour sentir le lieu… » → après « Chez vous en Charente, en visio ailleurs en France, pour… ».
 
 Chaque changement passe par `pages_markdown.py`, puis `test_pages.py` sans alerte, puis IndexNow.
+
+## Complément : audit de ChatGPT (collé par l'utilisateur le 11/11 au soir, 37 constats)
+
+Vérifié par Claude le 11/11 (site lu en direct, PagesJaunes et concurrents lus par Firecrawl).
+
+| Constat de ChatGPT | Vérification | Suite |
+|---|---|---|
+| PagesJaunes : la présentation dit encore « en ligne en 7 jours » | **CONFIRMÉ** (fiche lue le 11/11, présentation mise à jour le 30/10) : promesse retirée partout ailleurs le 24/10 | À corriger par l'utilisateur dans Solocal Manager (texte fourni) |
+| PagesJaunes : horaires « 24h/24 », adresse sans numéro | Confirmé, mais ce sont deux décisions de l'utilisateur (13/10 et 24/10) | Rien |
+| Mentions légales : la liste des données reçues (nom, entreprise, téléphone ou email, message) oublie la commune et le site actuel, demandés par le formulaire | **CONFIRMÉ** (champs du formulaire : nom, entreprise, commune, contact, site, message) | Ajouté aux retouches « oui site » |
+| Mentions légales : « Destinataires : DIG16 uniquement » puis « notre messagerie » non nommée et Cloudflare | Confirmé (formulation) | Avocat du 19/11 (avec le point « assistant IA ») |
+| Téléphone de l'hébergeur absent, facturation électronique, rétractation (L. 221-3), CGV non publiées, premier écran sans prix ni appel | Déjà confirmés (Grok, audit du 11/11) ; nuance utile : l'article L. 441-1 du Code de commerce impose de communiquer les CGV au professionnel qui les demande, pas de les publier (à faire confirmer par l'avocat) | Retouches « oui site » et avocat |
+| Démos : notes et avis d'exemple (« 4,9, 38 avis »), mention « fictif » seulement en bas | **À vérifier** (pages de démo non relues ce soir) | À contrôler avant les retouches du site |
+| Concurrents : Munus 25 € par mois sans engagement, domaine compris ; VeryXL 30 € TTC par mois sans engagement | **CONFIRMÉ** pour ces deux-là (munus.fr et veryxl.fr lus le 11/11) ; ID16, C-Agence, SiteW, siteartisan.fr : non relus | Voir ci-dessous |
+| Écrire le coût minimal (« 6 mois, soit 294 € ») sur le premier écran ; vendre Essentiel d'abord ; ouvrir l'appel sur un problème précis observé chez le prospect ; liste d'opposition | Conseils, pas des faits | Repris dans la proposition de fiche d'appels |
+
+Enseignement pour l'offre (à ne pas trancher avant les premiers appels) : au moins deux offres nationales lues le 11/11 sont
+moins chères que l'Essentiel (49 € par mois, 6 mois minimum, domaine en plus) et sans engagement. Ce qui distingue DIG16 et se
+vérifie : interlocuteur local, démonstration de la vraie page d'accueil avant tout paiement, site et domaine au nom du client.
