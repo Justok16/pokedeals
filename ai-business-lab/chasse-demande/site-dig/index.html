@@ -160,6 +160,14 @@ nav .cadre{display:flex;align-items:center;justify-content:space-between;gap:1re
 .film-fin .btn{width:100%;white-space:normal;text-align:center;padding:.85rem 1rem}
 .fin-liens{display:flex;justify-content:space-between;font-size:.9rem}
 .fin-liens a,.fin-liens button{color:#cfc6b8;background:none;border:0;cursor:pointer;padding:.45rem 0;min-height:44px;text-decoration:underline;text-underline-offset:.2em}
+/* écran final : tailles liées à la largeur du téléphone dessiné, pour ne jamais déborder (correction du 11/11) */
+.eventail .fig-film{container-type:inline-size}
+.film-fin{overflow:hidden;padding:min(1.4rem,7cqw);gap:min(.7rem,4cqw);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.film-fin .fin-titre{font-size:min(1.7rem,11cqw)}
+.film-fin .fin-texte{font-size:min(.92rem,5.4cqw)}
+.film-fin .btn{font-size:min(1rem,8cqw);padding:min(.85rem,5cqw) min(1rem,4cqw);line-height:1.25}
+.fin-liens{font-size:min(.9rem,7.2cqw);gap:.5rem;align-items:center}
+@container (max-width:240px){.film-fin .fin-texte{display:none}}
 .fig-film.auto::after{content:"";position:absolute;left:9px;right:9px;bottom:9px;height:42%;border-radius:0 0 22px 22px;background:linear-gradient(0deg,rgba(15,14,12,.85),rgba(15,14,12,0));pointer-events:none;z-index:3}
 .film-muet{position:absolute;left:50%;bottom:15%;transform:translateX(-50%);z-index:4;display:inline-flex;align-items:center;gap:.6rem;border:0;cursor:pointer;font-weight:700;font-size:1.12rem;color:var(--or-ink);background:var(--or);padding:.9rem 1.45rem .9rem 1.2rem;border-radius:999px;box-shadow:0 0 0 3px rgba(239,233,223,.9),0 14px 40px rgba(0,0,0,.6);white-space:nowrap;animation:appel 1.8s ease-in-out infinite}
 .film-muet svg{width:26px;height:26px;flex:none;fill:currentColor}
@@ -400,6 +408,8 @@ footer{border-top:1px solid var(--trait);padding:40px 0 110px;color:var(--doux);
 footer .cadre{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 footer a{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;text-align:center;padding:0 .4rem;margin:0 -.25rem;color:var(--doux)}
 footer a:hover{color:var(--ivoire)}
+.pied-liens{display:flex;flex-wrap:wrap;column-gap:1.1rem;row-gap:0}
+.pied-liens a{margin:0;padding:0;justify-content:flex-start;text-align:left}
 @media (max-width:699px){a[href="/mentions-legales"]{display:inline-block;padding:13px 0}}
 /* ===== apparitions (JS) ===== */
 .js [data-in]{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
@@ -669,7 +679,7 @@ footer a:hover{color:var(--ivoire)}
  <p class="signature" aria-hidden="true" id="signature">DIG<em>16</em></p>
  <div class="cadre">
  <div><b style="color:#fff">DIG16</b> — sites internet pour artisans, commerçants et indépendants.</div>
- <div><a href="https://www.facebook.com/1334231963113482" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/dig16fr/" rel="noopener">Instagram</a> · <a href="https://www.tiktok.com/@dig16fr" rel="noopener">TikTok</a> · <a href="https://www.youtube.com/@dig16fr" rel="noopener">YouTube</a> · <a href="https://x.com/dig16charente" rel="noopener">X</a> · <a href="/test-du-pouce/">Le test du pouce</a> · <a href="/le-projet/">Le projet</a> · <a href="/creation-site-internet-charente/">Création de site internet en Charente</a> · <a href="/site-internet-artisan/">Guide : site internet pour artisan</a> · <a href="/mentions-legales">Mentions légales et confidentialité</a></div>
+ <div class="pied-liens"><a href="https://www.facebook.com/1334231963113482" rel="noopener">Facebook</a><a href="https://www.instagram.com/dig16fr/" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@dig16fr" rel="noopener">TikTok</a><a href="https://www.youtube.com/@dig16fr" rel="noopener">YouTube</a><a href="https://x.com/dig16charente" rel="noopener">X</a><a href="/test-du-pouce/">Le test du pouce</a><a href="/le-projet/">Le projet</a><a href="/creation-site-internet-charente/">Création de site internet en Charente</a><a href="/site-internet-artisan/">Guide : site internet pour artisan</a><a href="/mentions-legales">Mentions légales et confidentialité</a></div>
 </div></footer>
 
 <script>
