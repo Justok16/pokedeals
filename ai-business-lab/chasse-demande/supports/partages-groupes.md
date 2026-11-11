@@ -61,7 +61,7 @@ Liens vérifiés le 19/10 (ceux du pied de page de dig16.fr) ; l'ancien lien ver
 
 ## 4. Ce que Claude fait de son côté
 
-- Chaque jour à 17 h 52 (rappel existant) : le texte de partage du soir, prêt à coller, avec la version X.
+- Chaque soir, au contrôle de 18 h 47 : le texte de partage du soir, prêt à coller (plus de version X depuis le 11/11/2026, décision de l'utilisateur).
 - Chaque lundi : nombre de partages faits (déclaré par l'utilisateur) rapproché des visites `?de=fb` et des contacts.
 - Toute règle de groupe apprise (jour des pros, interdiction) est notée ici pour ne pas la violer.
 

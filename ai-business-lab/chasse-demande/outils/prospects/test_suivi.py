@@ -73,6 +73,22 @@ class Suivi(unittest.TestCase):
         self.assertEqual(f["entreprises"][4]["prochaine_date"], "12/11/2026")
         self.assertEqual(len(suivi.lignes(f, a_faire=True)), 3)
 
+    def test_corrections_du_relecteur(self):
+        f = feuille_test()
+        a = f["entreprises"][0]
+        with self.assertRaises(SystemExit):                      # date de rappel invalide : rien n'est écrit
+            suivi.noter_appel(a, "12/11/2026", "pas_de_reponse", rappel_le="2026-11-15")
+        self.assertEqual(len(a["appels"]), 2)
+        suivi.noter_appel(a, "05/11/2026", "message_laisse")     # appel ancien saisi après coup
+        self.assertEqual((a["prochaine_action"], a["prochaine_date"]), ("rappeler", "12/11/2026"))
+        suivi.ajouter(f, "SARL Martin Test", "111111111")
+        suivi.ajouter(f, "EURL Martin Test", "222222222")        # même nom, autre SIREN : deux lignes
+        self.assertEqual(len(f["entreprises"]), 5)
+        suivi.ajouter(f, "Fermé Test", ne_plus_appeler="fermée")
+        suivi.ajouter(f, "Fermé Test", prochaine="appeler", jour="12/11/2026")
+        self.assertIn("ne plus appeler", f["entreprises"][5]["prochaine_action"])
+        suivi.lignes(f)
+
     def test_tri_et_export(self):
         f = feuille_test()
         tableau = suivi.lignes(f)
@@ -81,7 +97,8 @@ class Suivi(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             chemin, n = suivi.exporter(f, d)
             self.assertEqual(n, 3)
-            self.assertIn("REFUS DÉFINITIF", open(chemin, encoding="utf-8").read())
+            with open(chemin, encoding="utf-8") as fh:
+                self.assertIn("REFUS DÉFINITIF", fh.read())
 
     def test_jamais_dans_le_depot(self):
         with self.assertRaises(SystemExit):
@@ -92,9 +109,11 @@ class Suivi(unittest.TestCase):
         """fiche_appel.py s'arrête avant tout appel réseau : refus dans le lot, ou feuille absente."""
         with tempfile.TemporaryDirectory() as d:
             lot = os.path.join(d, "lot.json")
-            json.dump({"date": "12/11/2026", "titre": "essai", "prospects": [
+            contenu = {"date": "12/11/2026", "titre": "essai", "prospects": [
                 {"num": 1, "nom": "Garage Essai", "telephone": "05 45 00 00 02", "metier": "garage",
-                 "commune": "Bourg-Test", "google_statut": "ouvert, fiche Google vue le 12/11"}]}, open(lot, "w"))
+                 "commune": "Bourg-Test", "google_statut": "ouvert, fiche Google vue le 12/11"}]}
+            with open(lot, "w") as fh:
+                json.dump(contenu, fh)
             env = {k: v for k, v in os.environ.items() if k != "DIG16_SUIVI"}
             r = subprocess.run([sys.executable, os.path.join(ICI, "fiche_appel.py"), lot, os.path.join(d, "sortie")],
                                capture_output=True, text=True, env=env)

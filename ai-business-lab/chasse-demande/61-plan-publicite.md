@@ -181,8 +181,8 @@ Rythme obtenu jusqu'au 04/12 : lundi, mercredi, vendredi 18 h 30 (carrousels, 4 
 à 17 h 52 et remise à l'utilisateur (X n'est pas relié : module payant).
 **Mise à jour du 11/11/2026** : le contrôle se fait à 18 h 47 (tâche « Contrôle du soir DIG16 », depuis le 09/11), et
 **l'utilisateur arrête la publication quotidienne à la main sur X** (décision du 11/11) : plus de texte X ni d'images X
-le soir ; le compte X reste en ligne comme simple lien (rien n'y est effacé) ; le soir, seul le texte de partage dans les
-groupes Facebook est préparé.
+le soir ; le compte X reste en ligne comme simple lien (rien n'y est effacé) ; le soir, seuls le texte de partage dans les
+groupes Facebook et, un jeudi sur deux, la version PagesJaunes sont préparés.
 
 Règles de la série (contrôles bloquants de l'outil) : polices chargées, aucun texte hors marge ni débordement, aucune
 image de téléphone mal placée, aucun numéro de téléphone ni « @ » sur les images, décor jamais sous le texte, mots à

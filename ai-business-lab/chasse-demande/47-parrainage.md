@@ -91,10 +91,10 @@ aux deux premiers mois réglés par le filleul. Plafond annuel inchangé : 6 moi
 
 ## 7. Offre Atout Ruffec (décision de l'utilisateur du 03/11/2026, limitée aux 10 premiers adhérents le 11/11/2026)
 
-Pour **tous les adhérents d'Atout Ruffec** et **toute personne qu'ils recommandent ou à qui ils parlent de DIG16** :
+Pour **les 10 premiers adhérents d'Atout Ruffec qui signent** (limite du 11/11, voir ci-dessous) et **toute personne qu'ils recommandent ou à qui ils parlent de DIG16** :
 formule **Essentiel à 29 € par mois au lieu de 49 €**, **à vie** (tant que le contrat continue), **sans durée
 minimale** (arrêt par simple email, effet à la fin du mois en cours), ~~sans date limite ni nombre de places~~ **limitée aux 10 premiers adhérents qui signent** (décision de l'utilisateur
-du 11/11/2026 ; toujours sans date limite ; tenir le compte des places dans la feuille privée de suivi),
+du 11/11/2026 ; toujours sans date limite ; tenir le compte des places dans la feuille privée de suivi : `suivi.py … appel --note "Atout Ruffec, place n° X"`),
 **non cumulable** avec le parrainage ni une autre promotion. Inchangé : 0 € de création, premier mois réglé avant la
 mise en ligne, nom de domaine au nom du client et à sa charge. Le client dit « Atout Ruffec » au premier contact ;
 noter la provenance dans sa fiche privée. Document de présentation (A4, PDF et image) fabriqué le 03/11 (scratchpad

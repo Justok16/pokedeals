@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Feuille unique de suivi des prospects (décision de l'utilisateur du 11/11/2026, audit lot B3 : « un seul endroit
-avec, par prospect, un état et une date de relance »).
+"""Feuille unique et privée de suivi des prospects : état et prochaine action par entreprise ; bloque les refus.
+
+Décision de l'utilisateur du 11/11/2026 (audit lot B3 : « un seul endroit avec, par prospect, un état et une date
+de relance »).
 
 Une ligne par entreprise : date de chaque appel, résultat, prochaine action. La feuille est PRIVÉE : un fichier
 JSON dans le scratchpad, copié au Drive « Dig » (jamais dans ce dépôt, qui est public). Cet outil ne contient
@@ -57,7 +59,7 @@ REFUS = "refus_definitif"
 
 
 def hors_depot(chemin):
-    if os.path.abspath(chemin).startswith(DEPOT + os.sep):
+    if os.path.realpath(chemin).startswith(os.path.realpath(DEPOT) + os.sep):
         sys.exit("Refusé : la feuille de suivi est privée (scratchpad ou Drive « Dig »), jamais dans le dépôt public.")
 
 
@@ -89,7 +91,8 @@ def cle_siren(siren):
 def charger(chemin):
     if not os.path.exists(chemin):
         return {"maj": "", "entreprises": []}
-    return json.load(open(chemin, encoding="utf-8"))
+    with open(chemin, encoding="utf-8") as f:
+        return json.load(f)
 
 
 def enregistrer(feuille, chemin):
@@ -97,7 +100,8 @@ def enregistrer(feuille, chemin):
     feuille["maj"] = datetime.date.today().strftime("%d/%m/%Y")
     os.makedirs(os.path.dirname(os.path.abspath(chemin)), exist_ok=True)
     tmp = chemin + ".tmp"
-    json.dump(feuille, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(feuille, f, ensure_ascii=False, indent=1)
     os.replace(tmp, chemin)
 
 
@@ -106,8 +110,10 @@ def trouver(feuille, nom=None, siren=None, telephone=None):
     s, t, n = cle_siren(siren), cle_tel(telephone), cle_nom(nom)
     trouvees = []
     for ent in feuille["entreprises"]:
-        if ((s and s == cle_siren(ent.get("siren"))) or (t and t == cle_tel(ent.get("telephone")))
-                or (n and n == cle_nom(ent.get("nom")))):
+        s2 = cle_siren(ent.get("siren"))
+        if s and s2 and s != s2:
+            continue  # deux SIREN connus et différents : deux entreprises, même si le nom ou le téléphone se ressemblent
+        if (s and s == s2) or (t and t == cle_tel(ent.get("telephone"))) or (n and n == cle_nom(ent.get("nom"))):
             trouvees.append(ent)
     return trouvees
 
@@ -143,7 +149,7 @@ def ajouter(feuille, nom, siren="", telephone="", commune="", metier="", prochai
     if ne_plus_appeler:
         ent["ne_plus_appeler"] = ne_plus_appeler.strip()
         ent["prochaine_action"], ent["prochaine_date"] = "aucune : ne plus appeler (" + ne_plus_appeler.strip() + ")", ""
-    elif prochaine and etat(ent) != REFUS:
+    elif prochaine and not bloque(ent):
         ent["prochaine_action"], ent["prochaine_date"] = prochaine, jour
     return ent
 
@@ -164,11 +170,16 @@ def noter_appel(ent, jour, resultat, rappel_le="", demo_le="", prochaine="", not
         sys.exit("« interesse » : --prochaine \"…\" obligatoire (la suite à préparer).")
     if resultat == "autre" and not note:
         sys.exit("« autre » : --note obligatoire.")
+    for jour_cite in (rappel_le, demo_le):
+        if jour_cite:
+            date(jour_cite)  # toute date est contrôlée AVANT d'écrire quoi que ce soit
     appel = {"date": jour, "resultat": resultat}
     if note:
         appel["note"] = note
     ent.setdefault("appels", []).append(appel)
     ent["appels"].sort(key=lambda a: date(a["date"]))
+    if ent["appels"][-1] is not appel and resultat != REFUS:
+        return ent  # appel plus ancien saisi après coup : la prochaine action reste celle de l'appel le plus récent
     if resultat == REFUS:
         ent["prochaine_action"], ent["prochaine_date"] = "aucune : ne jamais rappeler", ""
     elif resultat == "rappeler":
@@ -183,6 +194,8 @@ def noter_appel(ent, jour, resultat, rappel_le="", demo_le="", prochaine="", not
             date(rappel_le)
     elif resultat in ("pas_de_reponse", "message_laisse"):
         ent["prochaine_action"], ent["prochaine_date"] = "à rappeler au prochain créneau (sans nouveau message)", rappel_le
+    else:  # « autre » sans suite précisée : ne pas laisser une ancienne action périmée
+        ent["prochaine_action"], ent["prochaine_date"] = "à préciser (voir la note du dernier appel)", ""
     return ent
 
 
@@ -238,7 +251,10 @@ def refus_du_lot(lot, feuille):
 
 def chercher_feuille(*dossiers):
     """Feuille de suivi : variable DIG16_SUIVI, sinon suivi-prospects.json dans les dossiers donnés ou leur parent."""
-    candidats = [os.environ.get("DIG16_SUIVI", "")]
+    voulu = os.environ.get("DIG16_SUIVI", "")
+    if voulu and not os.path.isfile(voulu):
+        sys.exit(f"ALERTE : DIG16_SUIVI désigne un fichier absent ({voulu}) : corriger la variable ou la retirer.")
+    candidats = [voulu]
     for d in dossiers:
         d = os.path.abspath(d)
         candidats += [os.path.join(d, NOM_FICHIER), os.path.join(os.path.dirname(d), NOM_FICHIER),
