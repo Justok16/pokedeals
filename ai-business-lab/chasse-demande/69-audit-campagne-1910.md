@@ -96,7 +96,7 @@ Sources des visites : Direct 594, facebook.com 46, google.com 11. Pages les plus
 | 5 | Vidéos 6 à 10 et suivantes : « en Charente » dans les 2 premières secondes ; légendes avec noms de villes ; lieu ajouté | Claude | 0 € | TikTok et Instagram ciblent le territoire |
 | 6 | Dès le premier site livré : publication « avant / après » réelle (accord écrit du client), avis Google demandé (`outils/kit_avis.py`) | Claude + client | 0 € | La preuve, ce qui manque le plus |
 | 7 | ~~Flyer A5~~ **abandonné le 21/10 (décision de l'utilisateur : tout numérique)** — ancien texte : Flyer A5 : 20 exemplaires déposés chez les commerçants qui acceptent (boulangerie, bar-tabac exclu, coiffeur…) ; QR à régénérer vers `dig16.fr/qr` avant réimpression | utilisateur | impression | Le seul support qui touche l'artisan sans écran |
-| 8 | Aligner le nom du compte sur tous les réseaux : « DIG16 · Sites internet Charente » | utilisateur, 5 min | 0 € | Cohérence |
+| 8 | Aligner le nom du compte sur tous les réseaux : « DIG16 · Sites internet Charente » — **FAIT (confirmé par l'utilisateur le 11/11)** | utilisateur, 5 min | 0 € | Cohérence |
 
 Ce qui ne sera **pas** fait : publicité payante (budget 0 €), achat d'abonnés ou d'avis (interdit), LinkedIn,
 Bluesky, Pinterest (abandonnés par l'utilisateur), réactivation des posts Google avant la réponse de Google.
