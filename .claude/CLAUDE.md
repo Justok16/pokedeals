@@ -16,6 +16,8 @@ Version allégée du 21/10/2026 (accord de l'utilisateur). **Toutes les règles 
 
 À rappeler à l'utilisateur au début de chaque nouvelle conversation (une ligne : « les 6 consignes sont chargées »).
 
+**Une seule conversation pour l'utilisateur** (décision du 11/11 : « je commence à me perdre avec toutes ces conversations ») : il n'ouvre que « DIG16 – LA conversation (tout arrive ici) », où arrivent tous les rappels. Un gros travail peut se faire dans une conversation de service, mais : son résultat, ses aperçus et ses « À TOI » sont renvoyés dans LA conversation (`send_message`), l'utilisateur y répond et la réponse est transmise ; la conversation de service est archivée dès que le travail est fini ; aucun rappel n'est rattaché à une conversation de service ; jamais de lien « ouvrez cette autre conversation ». Quand LA conversation devient trop longue (environ une fois par mois), elle est remplacée en une fois (rappels déplacés, ancienne archivée) et l'utilisateur reçoit un seul lien.
+
 ## Qui et quoi
 
 - Utilisateur francophone, non développeur, souvent sur téléphone : **tout en français simple**, y compris les petits
