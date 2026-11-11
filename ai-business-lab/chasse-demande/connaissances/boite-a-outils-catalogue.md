@@ -9,7 +9,7 @@ Séparé de `connaissances/boite-a-outils.md` le 10/11/2026 (grand ménage). **N
 
 Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pas utile aujourd'hui, gardé : à ressortir dès que le besoin apparaît, raison et condition indiquées) · ⛔ refusé par principe (illégal ou dangereux) · · simple information.
 
-### Vidéo, voix et montage (92)
+### Vidéo, voix et montage (93)
 
 | État | Envoi / outil | Décision et usage |
 |---|---|---|
@@ -92,6 +92,7 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | 📦 | Capture Threads (textura.eu, « 6 design resources worth bookmarking », envoyée le 26/10) ; les 4 pages d'accu… | getlayers.ai : déjà vu et écarté le 24/10 (licence commerciale payante). land-book.com : galerie de sites et de sections pour l'inspiration, offre gratuite « Basic » lim… |
 | 📦 | Reel Instagram DfXjPKFBWwN (@malinx.ia, « ton plan à 20 € comme un plan à 100 € », envoyé le 05/11 ; connaiss… | 5e passage, rien à installer (trié le 15/10, revu les 21 et 25/10) : notre dépôt a déjà sa carte maison CARTE.md (outils/carte.py), et un ticket officiel (issue n° 580,… |
 | 📦 | Lot de 9 liens envoyés entre le 06 et le 09/11 (reels DfbndiVCCA3, Dfcyuu8jFW3, DfW5GTTEgH2, De2hjH5Rjxs, DfK… | Harvey : réserve (demande de prospection déjà couverte par nos outils et la fiche CNIL 35 ; il exige un ordinateur allumé en permanence et une boîte mail préchauffée 2 à… |
+| 📦 | 11/11 | Vidéo YouTube XQfbNtp67OE (envoyée le 11/11, Riley Brown, « I Spent $5,000 Using Claude Fable 5.2 » ; résumé : videos-resumes/XQfbNtp67OE.md) : démonstrations coûteuses… |
 | · | Pages Facebook IA Boss (@iabossai) et Unefille.ia : toutes les vidéos (demande du 29/09) | Collecte des légendes et sous-titres lancée (texte privé, hors dépôt), puis fiches par lots de 15 dans connaissances/iaboss/ et connaissances/unefille/ |
 | · | Outil créé | Testé le 30/09 sur ces 4 reels : fonctionne |
 | · | 0m0FJJjAWyE (Lucas Montano, 18 min) | Rien à changer. Cohérent avec la règle Dig : budget 0 € tant que rien ne rapporte, puis l'outil se paie avec les premiers clients. Résumé : videos-resumes/0m0FJJjAWyE.md |
@@ -372,6 +373,6 @@ Légende : ✅ en place · ⏳ plus tard ou à vérifier · 📦 en réserve (pa
 | · | Sécurité de contact@dig16.fr | Alerte si l'adresse fuit dans une base piratée |
 | ⛔ | skOBL2Yc35I | Écarté : son « repost amélioré » est de la contrefaçon |
 
-_323 entrées, registres : 46-apprentissage-continu.md, archives/46-a-faire-termines.md, 46-registre-videos.md, connaissances/technologybrief-sites.md._
+_324 entrées, registres : 46-apprentissage-continu.md, archives/46-a-faire-termines.md, 46-registre-videos.md, connaissances/technologybrief-sites.md._
 
 <!-- catalogue-auto:fin -->
