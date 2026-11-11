@@ -54,6 +54,7 @@ liste unique des tâches : `64-mise-en-ordre-administrative.md` § 0.
 | `70-etude-taches-chronophages-artisans.md` | Ce qui prend le plus de temps aux artisans et commerçants : ce que disent les études (19/10/2026) |
 | `71-tarifs-service-devis-factures.md` | Tarifs du service « devis, factures, relances » : ce que la concurrence fait payer (19/10/2026) |
 | `72-kit-client-complet.md` | Kit client complet : tout ce qui accompagne un site, par formule (26/10/2026) |
+| `73-audits-externes-grok-gemini-1111.md` | Audits externes Grok et Gemini du 11/11/2026 : vérifications et suites |
 
 ## Connaissances
 
