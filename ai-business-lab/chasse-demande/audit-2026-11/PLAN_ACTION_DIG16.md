@@ -25,13 +25,15 @@ Classé par priorité. Pour chaque action : qui la fait, et ce qu'elle engage.
 
 | Date | Quoi | Rappel |
 |---|---|---|
-| 06/11/2026 | Impôts « Adhérer aux services » | trig_01PapKxGXAECdRyQHBwssBz7 |
-| 10/12/2026 | CFE 1447-C-SD avant le 31/12 | trig_01K1FQ78F7BjPoMyp3zGXssc |
-| 05/01/2027 | 1re déclaration URSSAF trimestrielle | voir 64 § 0 |
-| 13/04/2027 | Déclaration des revenus 2026 (ZFRR+) | trig_01Ee2ux8W6i2nFZSug691sUK |
-| **04/05/2027** | **Facturation électronique : émission et e-reporting (Indy)** | **trig_01NtmbRzdCZSdDdsMK21ikx1 (créé le 04/11)** |
+| 06/11/2026 | Impôts « Adhérer aux services » | passé ; suite : mail au SIE du 05/11 (tâche « Réponse du SIE d'Angoulême ») |
+| 10/12/2026 | CFE 1447-C-SD avant le 31/12 | tâche « CFE 1447-C-SD : dépôt avant le 31/12 fait ? » |
+| 05/01/2027 | URSSAF : **ouverture** de la 1re déclaration trimestrielle. **Date limite officielle : 30/04/2027**, avec deux déclarations (4e trimestre 2026 et 1er trimestre 2027), même à 0 € (autoentrepreneur.urssaf.fr « Déclarer et payer mes cotisations » et service-public F23257, relus le 11/11/2026) | tâche « URSSAF : 1re déclaration trimestrielle » (05/01/2027) ; elle doit créer le rappel du 12/04/2027 |
+| 13/04/2027 | Déclaration des revenus 2026 (ZFRR+) | tâche « Déclaration de revenus 2026 » |
+| **04/05/2027** | **Facturation électronique : émission et e-reporting (Indy)** | **tâche « Facturation électronique 2027 »** |
 | 01/09/2027 | Émission électronique obligatoire et e-reporting (transactions et paiements, tous les deux mois) | même rappel |
-| 30/09/2027 | Fin de l'ACRE | trig_01B4ZT6gs7oqc3cz5HqKVxzX |
+| 30/09/2027 | Fin de l'ACRE | tâche « Fin de l'ACRE le 30/09/2027 » (01/09/2027) |
+
+Note du 11/11/2026 : les tâches ont été recréées le 10/11 avec de nouveaux identifiants ; on écrit désormais leur **nom**, jamais leur identifiant (liste à jour : outil `list_triggers`).
 
 ## D. Recommandations sans urgence
 

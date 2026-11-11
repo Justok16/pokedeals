@@ -69,11 +69,13 @@ def docuseal(reg):
 
 def main():
     donnees = json.load(sys.stdin)
-    if donnees.get("tool_name", "").endswith("DocuSeal__send_documents"):
+    # Audit du 11/11/2026 : selon la session, les connecteurs portent un nom lisible (mcp__Zapier__…) ou un
+    # identifiant (mcp__9dbc…__…) ; on reconnaît donc l'outil par la fin de son nom.
+    if donnees.get("tool_name", "").endswith("__send_documents"):
         with open(REGISTRE, encoding="utf-8") as f:
             docuseal(json.load(f))
         return
-    if donnees.get("tool_name", "").startswith("mcp__Zapier__execute_zapier"):
+    if "__execute_zapier_" in donnees.get("tool_name", ""):
         with open(REGISTRE, encoding="utf-8") as f:
             zapier(json.load(f), donnees.get("tool_input", {}))
         return
@@ -108,4 +110,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as erreur:  # audit du 11/11/2026 : un garde-fou en panne doit refuser, pas laisser passer
+        refuser(f"Garde-fou des quotas en erreur ({type(erreur).__name__}) : vérifier .claude/hooks/quotas.json "
+                f"et l'entrée du crochet avant de publier.")

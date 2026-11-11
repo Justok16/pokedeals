@@ -78,8 +78,8 @@ def fabriquer() -> str:
     dossiers = sorted(d.name for d in (RACINE / "connaissances").iterdir() if d.is_dir())
     out += ["", f"Sous-dossiers de résumés par source ({len(dossiers)}) : " + ", ".join(dossiers) + "."]
     out += ["", "## Outils", "", "| Outil | Rôle |", "|---|---|"]
-    for p in sorted((RACINE / "outils").glob("*.py")):
-        out.append(ligne("outils/" + p.name, description_outil(p)))
+    for p in sorted((RACINE / "outils").rglob("*.py")):  # sous-dossiers compris (audit du 11/11/2026)
+        out.append(ligne("outils/" + p.relative_to(RACINE / "outils").as_posix(), description_outil(p)))
     out += [
         "",
         "## Archives : chasse à la demande (23 au 25/09/2026, avant le choix de DIG16)",

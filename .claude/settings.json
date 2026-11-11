@@ -100,7 +100,7 @@
         ]
       },
       {
-        "matcher": "mcp__Metricool_Social_Media_Management__createScheduledPost|mcp__Zapier__execute_zapier_write_action|mcp__Zapier__execute_zapier_read_action|mcp__DocuSeal__send_documents",
+        "matcher": "mcp__.*__(createScheduledPost|execute_zapier_write_action|execute_zapier_read_action|send_documents)",
         "hooks": [
           {
             "type": "command",
@@ -147,8 +147,13 @@
           },
           {
             "type": "command",
-            "command": "python3 -c 'import playwright' 2>/dev/null || (nohup python3 -m pip install -q playwright >/dev/null 2>&1 &)",
-            "timeout": 15
+            "command": "python3 -c 'import playwright' 2>/dev/null || timeout 100 python3 -m pip install -q playwright 2>&1 | tail -n 1 || true",
+            "timeout": 120
+          },
+          {
+            "type": "command",
+            "command": "python3 -c 'import pymupdf, segno, cv2, markdown' 2>/dev/null || timeout 250 python3 -m pip install -q --retries 3 -r \"$CLAUDE_PROJECT_DIR\"/ai-business-lab/chasse-demande/outils/requirements.txt 2>&1 | tail -n 2 || true",
+            "timeout": 280
           }
         ]
       }

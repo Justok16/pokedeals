@@ -15,10 +15,14 @@ qu'un paiement est en retard** (procédure). Sources officielles lues le
 
 ## 2. Ce que le modèle Dig protège déjà
 
-- **Abonnement mensuel** : un impayé coûte un mois (49 à 79 €). Les conditions
-  de vente prévoient la **mise en pause du site** jusqu'au paiement.
+- **Abonnement mensuel** : un impayé coûte un mois (49 à 79 €). La **mise en pause du site**
+  jusqu'au paiement est prévue dans le projet de CGV v2 (Drive « Dig ») ; **elle n'est PAS dans les CGV en vigueur**
+  (`supports/cgv-dig.html`, constat de l'audit du 11/11/2026) : à faire valider par l'avocat le 19/11, puis régénérer.
 - **Gros montants** (achat 690 €, Prestige 1 990 €) : **acompte de 30 à 50 %
-  avant de commencer**, solde avant la mise en ligne définitive.
+  avant de commencer**, solde avant la mise en ligne définitive. **Attention (audit du 11/11/2026)** : les CGV et le
+  devis en vigueur disent encore « à réception de la facture, au plus tard dans les 30 jours », sans acompte, et
+  `kit_client.py` écrit les deux règles : une seule règle à choisir avec l'avocat le 19/11, avant toute signature
+  d'un Achat ou d'un Prestige.
 - **Prélèvement SEPA** (mode choisi le 27/09) : avec le mandat classique
   (« CORE »), le payeur peut demander le remboursement **sans justification
   pendant 8 semaines** (Banque de France,

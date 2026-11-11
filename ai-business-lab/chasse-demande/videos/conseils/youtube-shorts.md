@@ -30,7 +30,7 @@ Demande de l'utilisateur du 20/10 : « faire régulièrement des shorts sur ma c
 | mar. 10/11 | 12 h 15 | conseil-4 | Le conseil DIG16 : 3 questions avant de signer | **par Metricool** (programmé, YouTube seul, description et 11 mots-clés à jour le 21/10) : ne pas envoyer par Zapier, seulement vérifier ; **publié le 10/11 par Metricool** (vérifié le 10/11 à 14 h UTC, statut PUBLISHED) : https://www.youtube.com/shorts/AeNHARW1X0U |
 | jeu. 12/11 | 10 h 15 | conseil-9-3d | Le conseil DIG16 : Location ou achat ? | **par Metricool** (programmé, YouTube seul, description et 11 mots-clés à jour le 21/10) : ne pas envoyer par Zapier, seulement vérifier |
 | mar. 17/11 | 12 h 15 | conseil-5 | Le conseil DIG16 : Une page Facebook suffit ? | **par Metricool** (programmé, YouTube seul, description et 11 mots-clés à jour le 21/10) : ne pas envoyer par Zapier, seulement vérifier |
-| jeu. 19/11 | 10 h 15 | conseil-10-3d | Le conseil DIG16 : Besoin d'un site ? | à publier |
+| jeu. 19/11 | 10 h 15 | conseil-10-3d | Le conseil DIG16 : Besoin d'un site ? | à publier ; **11/11 : Zapier à 100 sur 100 et Metricool à 20 sur 20 : ne pas essayer Zapier ; envoi par vidIQ, sinon à la main par l'utilisateur** |
 | Note du 21/10 | | | Novembre réorganisé : les Shorts des 03, 05, 10, 12 et 17/11 partent par Metricool (YouTube seul) ; Zapier ne publie que le 19/11 (conseil 10) et ceux d'octobre | tranché le 21/10 |
 | à partir du 24/11 | | conseils 11 à 15 | (nouveaux sujets tirés du guide, même format validé ; à montrer à l'utilisateur avant publication) | à fabriquer début novembre |
 

@@ -1,0 +1,8 @@
+# Modules Python des outils DIG16 (audit du 11/11/2026 : ils manquaient sur une machine neuve, sans que rien ne le dise).
+# Installés au démarrage par le crochet SessionStart de .claude/settings.json.
+pymupdf
+segno
+opencv-python-headless
+markdown
+pypdf
+pillow

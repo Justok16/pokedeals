@@ -100,12 +100,15 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/charte_client_pdf.py` | Charte « Comment nous travaillons ensemble » → PDF à remettre à chaque client du service devis-factures. |
 | `outils/chercher_skills.py` | Cherche des skills dans l'annuaire public skills.sh (lecture seule, rien n'est installé). |
 | `outils/chrome_extensions.py` | Relevé complet du Chrome Web Store : nom, catégorie, utilisateurs, note, |
+| `outils/compta/livre_recettes.py` | Livre des recettes DIG16 + contrôles + préparation du e-reporting des paiements (04/11/2026, audit global). |
+| `outils/compta/test_livre_recettes.py` | Tests du livre des recettes (python3 -m unittest outils/compta/test_livre_recettes.py). Données fictives. |
 | `outils/contrat_mandat_pdf.py` | Contrat d'assistance administrative et mandat de facturation → PDF signable (DocuSeal). |
 | `outils/controle_global.py` | Contrôle de santé du projet en une commande (06/10/2026) : python3 outils/controle_global.py [--json] |
 | `outils/controle_voix_videos.py` | Contrôle de la marque dans toutes les vidéos parlées du site (22/10/2026). |
 | `outils/documents_client.py` | Pré-remplit TOUS les documents d'un nouveau site client (règle du 25/10/2026 : « à chaque site créé, quel que soit le prix »). |
 | `outils/documents_commerciaux.py` | Documents commerciaux de DIG16 (05/10/2026) : CGV, modèle de devis-bon de commande, modèle de facture. |
 | `outils/film_photos.py` | Fabrique un plan-séquence « caméra » à partir de photos fixes (poussées, travellings), sans IA payante. |
+| `outils/fiscal/simulateur.py` | Simulateur DIG16 : ce que coûte un chiffre d'affaires en micro-entreprise, BIC ou BNC. |
 | `outils/hubspot_apps.py` | Relevé de la place de marché HubSpot (sitemap officiel, pages rendues). |
 | `outils/indexnow.py` | Signale les pages de dig16.fr aux moteurs qui utilisent IndexNow (Bing, Yandex, Seznam, Naver…), sans compte |
 | `outils/kit_avis.py` | Kit « avis Google » (18/10/2026) : carte A6 avec QR code vers la page « Laisser un avis » d'une fiche Google, |
@@ -113,6 +116,23 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/lire_reel.py` | Lit un reel Instagram (ou toute vidéo courte publique lisible par yt-dlp) et le fait résumer par Gemini |
 | `outils/lisibilite.py` | Mesure la lisibilité de chaque texte visible : taille >= 13 px, graisse >= 400, contraste >= 4,5 (3 si >= 24 px), |
 | `outils/maj_chaines.py` | Ajoute les nouvelles vidéos des chaînes suivies à leur liste (demande de l'utilisateur du 28/09 : |
+| `outils/marque/campagne_pouce.py` | Campagne « Le test du pouce » (08/10/2026, version 2 « signature ») : visuels à la charte DIG16 (60-charte-dig16.md). |
+| `outils/marque/charte_documents.py` | Charte imprimée de DIG16 (08/10/2026), commune à tous les documents A4 : même rendu que dig16.fr. |
+| `outils/marque/empreinte.py` | Empreinte de pouce dorée, motif de la campagne « Le test du pouce » (08/10/2026). |
+| `outils/marque/flyer.py` | Flyer A5 de DIG16, charte premium du 08/10/2026, version claire et accessible (textes de 10 pt minimum, |
+| `outils/marque/flyer_reseaux.py` | Flyer DIG16 pour les réseaux sociaux (18/10/2026) : même flyer que l'A5 (`flyer.py`), adapté au fil. |
+| `outils/marque/identite.py` | Coordonnées de l'entrepreneur pour les documents de DIG16 (préparé le 08/10/2026, jour du dépôt au guichet). |
+| `outils/marque/logo.py` | Logo DIG16 (08/10/2026) : emblème « D16 » et signature « DIG16 », charte premium (60-charte-dig16.md). |
+| `outils/marque/pdf_supports.py` | Refait les PDF (et le visuel PNG) des supports écrits à la main, après restyler_supports.py. |
+| `outils/marque/publications.py` | ARCHIVE (28/10/2026) : ne plus relancer. Ces textes du 08/10 contiennent des promesses retirées depuis |
+| `outils/marque/publications_v2.py` | Série 2 des publications DIG16 (19/10/2026) : carrousels 1080 × 1350 pour Instagram, Facebook, Threads et TikTok. |
+| `outils/marque/restyler_supports.py` | Passe les supports écrits à la main (supports/*.html) à la charte premium du 08/10/2026. |
+| `outils/marque/signature_email.py` | Signature des emails DIG16 (08/10/2026), à la charte (60-charte-dig16.md) et aux règles du démarchage B2B : |
+| `outils/marque/visuels_reseaux.py` | Visuels des profils DIG16 sur les réseaux (08/10/2026), à la charte premium (60-charte-dig16.md). |
+| `outils/migration_audit/build_release.py` | Build a deterministic ZIP release and verify its internal SHA-256 manifest. |
+| `outils/migration_audit/migration_audit.py` | Audit HTTP redirects for a website migration (Python standard library only). |
+| `outils/migration_audit/tests/test_build_release.py` | (pas de description) |
+| `outils/migration_audit/tests/test_migration_audit.py` | (pas de description) |
 | `outils/modeles_docuseal.py` | Modèles de signature électronique DocuSeal (26/10/2026), décision de l'utilisateur du 26/10 : |
 | `outils/monday_apps.py` | Relevé de la place de marché monday.com : catalogue public |
 | `outils/nettete.py` | Vérifie que chaque image d'une page est assez grande pour sa surface d'affichage × densité d'écran. |
@@ -124,6 +144,30 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/pdf_remplissable.py` | Rend un PDF remplissable au clavier (demande de l'utilisateur du 28/10 : « taper au clavier dessus pendant l'appel »). |
 | `outils/plan_complet.py` | Régénère supports/Dig-Plan-complet.pdf à partir des fichiers à jour du dossier |
 | `outils/postnify.py` | Postnify (offre « Free Forever » : 2 réseaux, 15 publications par mois, API incluse). |
+| `outils/prospects/antiseche.py` | (pas de description) |
+| `outils/prospects/brouillon_fiches.py` | Brouillon des fiches d'un ajout à partir d'un lot pré-vérifié (lot_rge.py + mappy_lot.py). |
+| `outils/prospects/comparer_site.py` | Comparateur pour les rendez-vous (demande de l'utilisateur du 03/11/2026, « TOUT ») : une page qui met côte à côte le |
+| `outils/prospects/construire_vivier.py` | Construit un nouveau vivier de candidats (02/10/2026) à partir du registre d'un département (reg<dép>.json de registre.py) |
+| `outils/prospects/controle_flyer.py` | Contrôle au pixel du flyer exporté (QR décodé et centré dans son cadre, pastille du haut). Lancer depuis supports/. |
+| `outils/prospects/demo_perso.py` | Maquette premium personnalisée (privée) par prospect. |
+| `outils/prospects/devine_sites.py` | (pas de description) |
+| `outils/prospects/etape0_doublons.py` | Étape 0 (02/10) : doublons d'un lot de candidats contre suivi_appels.csv (téléphone 9 derniers chiffres, puis nom/enseigne normalisés) |
+| `outils/prospects/fiche_appel.py` | Fiche d'appel d'une page par prospect (demande de l'utilisateur du 21/10/2026 : « Oui » à la proposition |
+| `outils/prospects/filmer_demo.py` | Filme une démo de site en format téléphone (défilement doux) -> .webm. Usage : filmer_demo.py page.html sortie_dossier |
+| `outils/prospects/lot_rge.py` | Pré-vérification automatique d'un lot d'artisans RGE tirés d'un vivier (02/10/2026). |
+| `outils/prospects/mappy_lot.py` | Complément automatique de lot_rge.py pour les entreprises NON RGE d'un lot (02/10/2026, après-midi). |
+| `outils/prospects/pack_visibilite.py` | Pack visibilité d'un site client publié : Google et assistants IA (ChatGPT, Claude, Perplexity). |
+| `outils/prospects/photos_archives.py` | Récupère les photos des anciens sites (archivés par la Wayback Machine) des prospects (05/10/2026). |
+| `outils/prospects/publier_maquettes.py` | Publie des maquettes privées sur le site public de Dig, chiffrées (04/10/2026). |
+| `outils/prospects/qa_maquettes.py` | (pas de description) |
+| `outils/prospects/questionnaire_lancement.py` | (titre, intro, [ (question, type, aide) ])  type: l=ligne, L=plusieurs lignes, c=cases (options séparées par /), o=oui/non |
+| `outils/prospects/registre.py` | (pas de description) |
+| `outils/prospects/repreneurs.py` | Repreneurs récents : entreprises qui viennent d'être rachetées, d'après le BODACC (04/11/2026). |
+| `outils/prospects/reprise_site.py` | Reprise du contenu d'un ancien site d'artisan (09/10/2026), pour refaire SA page d'accueil plus vite. |
+| `outils/prospects/sonder_domaines.py` | Teste les noms de domaine probables d'une entreprise (DNS puis page HTTP) : repère un site que la recherche web aurait raté. |
+| `outils/prospects/test_repreneurs.py` | Tests de repreneurs.py (python3 -m unittest outils/prospects/test_repreneurs.py). Annonces fictives, aucun réseau. |
+| `outils/prospects/verif_maquettes.py` | (pas de description) |
+| `outils/prospects/vers_site.py` | Transforme une démo gen2 (images en base64) en page de site : images en fichiers nommés, chargement différé. |
 | `outils/qa_site.py` | Contrôle d'une page de démo à 7 tailles d'écran (320 à 1440 px) : barre d'appel qui ne cache rien, pas de débordement, pas de marqueur [..] oublié. Usage : qa_site.py page.html |
 | `outils/radar_fermetures.py` | Radar des fermetures annoncées (API, intégrations, fonctions) chez les |
 | `outils/remplir_pdf.py` | Remplir un formulaire PDF (cerfa, dossier d'organisme, contrat) sans le réécrire à la main (24/10/2026). |
@@ -140,6 +184,9 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/slack_classic.py` | Apps de la Slack Marketplace encore « classic » (fin de fonctionnement le |
 | `outils/suivi_siren.py` | Suivi de l'immatriculation de DIG16 dans l'annuaire officiel (préparé le 08/10/2026). |
 | `outils/synthese_chaine.py` | Synthèse du dimanche : index des fiches vidéo d'une chaîne (connaissances/<chaine>/SYNTHESE.md). |
+| `outils/syntheses/assembler.py` | Assemble un document par chaîne (Markdown + HTML + PDF) à partir des synthèses par thème nettoyées. |
+| `outils/syntheses/lancer.py` | (pas de description) |
+| `outils/syntheses/nettoyer.py` | Vérifie les identifiants de vidéos cités : un identifiant inexistant est retiré (Gemini en invente parfois). |
 | `outils/test_formulaire.py` | Teste l'envoi du formulaire de contact AVEC la politique de sécurité (CSP) réelle du site (09/10/2026). |
 | `outils/test_pages.py` | (pas de description) |
 | `outils/toutes_videos.py` | Traite TOUTES les vidéos des chaînes suivies (demande de l'utilisateur du 07/10/2026 : « les 40 467 vidéos »). |

@@ -34,7 +34,7 @@ jobs:
           python-version: "3.12"
       - name: Installer Playwright, Chromium et ffprobe
         run: |
-          sudo apt-get install -y --no-install-recommends ffmpeg
+          sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 install -y --no-install-recommends ffmpeg
           pip install playwright markdownify numpy pillow
           python -m playwright install --with-deps chromium
       - name: Ouvrir toutes les pages (ordinateur et téléphone)

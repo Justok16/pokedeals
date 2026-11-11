@@ -15,7 +15,7 @@ Sources :
 | Droits et réclamation à la CNIL | Cités, avec l'adresse de contact | mentions § 4 |
 | Cookies | « aucun cookie publicitaire ni de mesure d'audience » (formule des mentions), donc pas de bandeau ; polices hébergées sur le site (aucun appel à Google) | mentions § 5, `_headers` |
 | En-têtes de sécurité | HSTS, CSP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy | `outils/audit_securite.py` : 100/100 (04/11/2026) |
-| Formulaire | Envoi chiffré (HTTPS) ; champ piège anti-spam `_honey` ; CSP qui n'autorise que formsubmit.co | `test_formulaire.py` : OK, aucun refus CSP (04/11/2026) |
+| Formulaire | Envoi chiffré (HTTPS) ; champ piège anti-spam `_honey` ; CSP `form-action 'self'` (FormSubmit retiré le 05/11 : voir plus bas) | `test_formulaire.py` : OK, aucun refus CSP (04/11/2026) |
 | Adresse personnelle | Seule l'adresse légale de l'EI figure (déjà publique au registre) ; pas de nouvelle adresse publiée | mentions § 1 |
 | Données de prospects | Jamais dans le dépôt public (scratchpad privé ou Drive « Dig ») | contrôles du 04/11 : aucun courriel personnel ni numéro de prospect dans le dépôt ; les numéros repérés étaient des identifiants de publications X |
 
