@@ -1,0 +1,30 @@
+{
+  "_mode_d_emploi": "Exemple FICTIF (11/11/2026) : copier ce fichier HORS du dépôt, remplacer TOUTES les valeurs, puis lancer outils/kit_client.py. Les champs de « client » et les 9 premiers champs de « dossier » sont obligatoires ; l'outil s'arrête en les nommant s'il en manque un. Formules : Essentiel (49), Visibilité (79), Achat (690), Prestige (1990 ou 199 avec paiement mensuel) : prix à relire sur dig16.fr le jour même.",
+  "client": {
+    "denomination": "MENUISERIE FICTIVE SARL",
+    "nom_commercial": "Menuiserie Fictive",
+    "adresse": "2 rue du Test, 16000 Angoulême",
+    "siren": "111 111 111",
+    "dirigeant": "Monsieur Paul FICTIF",
+    "forme": "SARL",
+    "fichier": "Menuiserie-Fictive"
+  },
+  "dossier": {
+    "formule": "Essentiel",
+    "prix": 49,
+    "date": "11/11/2026",
+    "numero_devis": "D-2026-900",
+    "mise_en_ligne": "02/12/2026",
+    "designation": "Formule Essentiel — abonnement du premier mois",
+    "numero_facture": "2026-900",
+    "date_facture": "à dater",
+    "date_prestation": "02/12/2026",
+    "adresse_provisoire": "https://exemple-fictif.pages.dev",
+    "adresse_site": "https://menuiserie-fictive.example",
+    "option_suivi": false,
+    "offert": false,
+    "controles": [
+      {"point": "Entreprise active dans l’annuaire officiel", "resultat": "à vérifier", "source": "annuaire-entreprises.data.gouv.fr, date de lecture"}
+    ]
+  }
+}

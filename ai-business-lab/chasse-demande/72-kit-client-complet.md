@@ -74,8 +74,8 @@ inventé. Si une formule change (prix, contenu), mettre à jour `kit_client.py` 
 
 ## 5. Historique
 
-- 25/10 : règle « chaque site créé = documents pré-remplis » (documents 1 à 5, `documents_client.py`), testée sur FD Touchatou.
-- 26/10 : kit complet (documents 0, 6 à 11, LISEZMOI), modèles `supports/kit-client/`, testé sur FD Touchatou (Prestige offerte).
+- 25/10 : règle « chaque site créé = documents pré-remplis » (documents 1 à 5, `documents_client.py`), testé sur le dossier 2026-001 (site offert).
+- 26/10 : kit complet (documents 0, 6 à 11, LISEZMOI), modèles `supports/kit-client/`, testé sur le dossier 2026-001 (site offert) (Prestige offerte).
 - 26/10 soir : 4 décisions de l'utilisateur appliquées (§ 4) ; CGV art. 3 et devis : nom de domaine enregistré par DIG16 au nom du client, avancé et refacturé au prix coûtant.
 
 ## 6. Signature électronique : mise en place (à faire)

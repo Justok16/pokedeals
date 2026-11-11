@@ -19,7 +19,7 @@ Au moindre doute sur un point qui engage (prix, remise, délai, identité) : dem
 4. Écrire ces contrôles dans le JSON client privé, clé `dossier.controles` (point, résultat, source datée).
 
 ## Étape 2 — Le JSON client privé
-Modèle : reprendre le JSON du client précédent (scratchpad `prive/`), remplacer **toutes** les valeurs. Champs : identité de
+Modèle : copier **hors du dépôt** `supports/kit-client/exemple-dossier-fictif.json` (fictif, ajouté le 11/11 : le JSON du client précédent disparaît avec la machine), remplacer **toutes** les valeurs ; `kit_client.py` s'arrête en nommant chaque champ manquant. Champs : identité de
 l'entreprise (étape 1), formule et prix **relus sur dig16.fr le jour même**, remise éventuelle (accord de l'utilisateur),
 `dossier` : adresse_site, paiement, option_suivi, place_id (fiche Google), pages.
 

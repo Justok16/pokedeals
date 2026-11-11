@@ -260,7 +260,22 @@ def main():
     os.makedirs(sortie, exist_ok=True)
     P = json.loads(dc.lire(o.prestataire))
     dossier = json.loads(dc.lire(o.client))
-    C, D = dossier["client"], dossier["dossier"]
+    C, D = dossier.get("client", {}), dossier.get("dossier", {})
+    # Audit du 11/11/2026 : l'outil plantait sur le premier champ absent (KeyError), sans dire lesquels manquaient.
+    # Tous les champs obligatoires sont contrôlés d'un coup ; modèle fictif : supports/kit-client/exemple-dossier-fictif.json
+    manque = [f"prestataire.{k}" for k in ("nom", "adresse", "siren", "telephone", "date_immatriculation") if not P.get(k)]
+    manque += [f"client.{k}" for k in ("denomination", "nom_commercial", "adresse", "siren", "dirigeant", "fichier") if not C.get(k)]
+    manque += [f"dossier.{k}" for k in ("formule", "date", "numero_devis", "mise_en_ligne", "designation", "numero_facture",
+                                        "date_facture", "date_prestation") if not D.get(k)]
+    if D.get("prix") is None:
+        manque.append("dossier.prix")
+    if D.get("offert") and not D.get("adresse_provisoire"):
+        manque.append("dossier.adresse_provisoire (site offert)")
+    if manque:
+        sys.exit("Champs obligatoires absents ou vides : " + ", ".join(manque)
+                 + "\nModèle à copier hors du dépôt : supports/kit-client/exemple-dossier-fictif.json")
+    if D["formule"] not in ("Essentiel", "Visibilité", "Achat", "Prestige"):
+        sys.exit(f"Formule inconnue : « {D['formule']} » (attendu : Essentiel, Visibilité, Achat ou Prestige).")
     base = C["fichier"]
     f = D["formule"]
     pages = [(f"0-Controle-avant-signature-{base}.pdf", controle(P, C, D)),

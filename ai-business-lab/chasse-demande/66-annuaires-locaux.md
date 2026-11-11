@@ -148,7 +148,7 @@ texte prêt à coller. Quatre brouillons créés dans la boîte DIG16, chacun **
 |---|---|---|
 | Val de Charente, développement économique | réponse à leur mail du 14/10 | rappelle l'appel de la semaine et la soirée du 30/11 |
 | CCI de la Charente (accueil Angoulême) | réponse à leur mail du 13/10 | rappelle l'attente de la conseillère création |
-| Atout Ruffec (Pauline) | réponse à son mail du 16/10 | **22/10 (matin) : rencontrée en personne à la librairie** ; l'utilisateur a rejoint le groupe WhatsApp des professionnels d'Atout Ruffec et y a envoyé sa présentation et celle de DIG16. **28/10 : aucun mail de relais à Atout Ruffec** (réponse de l'utilisateur : « je fais déjà partie de leur réseau » ; brouillon gardé, jamais envoyé). Historique : **20/10 : Pauline indisponible le 20 et le 21, de retour jeudi 22/10** → l'appeler jeudi 22 (rencontre jeudi, vendredi ou samedi) ; brouillon à finaliser après l'appel ; propose aussi un atelier gratuit d'une heure |
+| Atout Ruffec (responsable) | réponse à son mail du 16/10 | **22/10 (matin) : rencontrée en personne à la librairie** ; l'utilisateur a rejoint le groupe WhatsApp des professionnels d'Atout Ruffec et y a envoyé sa présentation et celle de DIG16. **28/10 : aucun mail de relais à Atout Ruffec** (réponse de l'utilisateur : « je fais déjà partie de leur réseau » ; brouillon gardé, jamais envoyé). Historique : **20/10 : la responsable de l’association indisponible le 20 et le 21, de retour jeudi 22/10** → l'appeler jeudi 22 (rencontre jeudi, vendredi ou samedi) ; brouillon à finaliser après l'appel ; propose aussi un atelier gratuit d'une heure |
 | Mairie de Ruffec (Petites villes de demain) | relance du mail du 13/10 (sans réponse) | bulletin municipal, page Facebook de la ville |
 
 Non sollicitée : la CMA (DIG16 relève du RCS, donc de la CCI ; la CMA relaie ses propres ressortissants). Charente
@@ -158,7 +158,7 @@ Libre : rendez-vous déjà pris le 27/10, ne pas doubler.
 **lundi 02/11/2026 à 9 h 07** (rappel programmé « Envoyer les 4 mails de relais ») : relecture de chaque brouillon,
 vérification des faits cités (liens, chiffres du dernier lundi, résultat du rendez-vous Charente Libre du 27/10),
 envoi, archivage, relance à J+10 (12/11) pour les sans-réponse. Le brouillon Atout Ruffec est réécrit après l'appel
-avec Pauline du 19/10 et montré à l'utilisateur avant le 02/11.
+avec la responsable de l’association du 19/10 et montré à l'utilisateur avant le 02/11.
 
 **03/11/2026 : mairie de Ruffec réglée** (réponse : renvoi vers Atout Ruffec, dont l'utilisateur fait partie) ; relance du 12/11 limitée à la CCI.
 

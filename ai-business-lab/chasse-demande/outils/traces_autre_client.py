@@ -5,7 +5,7 @@ Un site client est souvent bâti à partir d'un modèle ou d'un autre site : ce 
 site, le nom, le domaine ou les couleurs d'un AUTRE client ou du modèle (y compris dans les noms de fichiers et les
 identifiants) et sort en erreur (code 1) s'il en trouve. À lancer sur le dossier du site, avec la liste des noms à
 exclure, par exemple :
-    python3 outils/traces_autre_client.py <dossier du site> --avoid "FD Touchatou,Touchatou" --domains exemple.fr
+    python3 outils/traces_autre_client.py <dossier du site> --avoid "Ancien Client,AncienClient" --domains exemple.fr
 Repris tel quel de `replica-brand/sweep.py` (dépôt Jakeschincariol/replica-skill, licence MIT, lu en entier le 27/10 :
 bibliothèque standard seulement, aucun accès réseau). Licence d'origine en fin de fichier.
 """
