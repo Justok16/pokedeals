@@ -186,14 +186,14 @@ def mode_emploi(P, C, D):
     if D.get("offert"):
         s = s.replace(" Vous pouvez passer à tout moment à une formule supérieure, et à une formule inférieure à la fin de l’engagement minimal.", "")
         s = re.sub(r"suffit.{0,8}: nouveaux horaires, photo, tarif, promotion, congés, actualité\. C’est fait <b>sous 3.jours ouvrés</b>\. ", "suffit. ", s)
-    pai = F["paiement"] + ("" if D.get("offert") else " Le nom de domaine, enregistré à votre nom par DIG16, est avancé puis refacturé au prix coûtant (environ 10 € par an).")
+    pai = F["paiement"] + ("" if D.get("offert") else " Le nom de domaine, enregistré à votre nom, est réglé par vous directement au bureau d’enregistrement (environ 10 € par an) : DIG16 ne l’avance pas et ne le refacture pas.")
     return s.replace("[PAIEMENT]", dc.e(pai)).replace("[ENGAGEMENT]", dc.e(F["engagement"]))
 
 
 def comptes(P, C, D):
     s = entete_commun(modele("vos-comptes"), P, C, D, f"{C['nom_commercial']} · {D['date']}")
     etapes = [
-        ("DIG16", "Nom de domaine", "DIG16 l’enregistre à votre nom, en avance le coût (environ 10 € par an) et vous le refacture au prix coûtant, sans marge. Le domaine est à vous : il vous suit même si vous partez."),
+        ("Client", "Nom de domaine", "Vous l’enregistrez à votre nom et vous le réglez vous-même, par carte bancaire, au bureau d’enregistrement (environ 10 € par an), pendant le rendez-vous : DIG16 vous guide pas à pas, n’avance pas cette somme et ne la refacture pas. Le domaine est à vous : il vous suit même si vous partez."),
         ("Client", "Hébergement", "Un compte d’hébergement est ouvert à votre nom (offre gratuite autorisant l’usage commercial) ; DIG16 y est invité comme gestionnaire pour installer et suivre le site. Vous pouvez retirer cet accès à tout moment."),
         ("Client", "Formulaire de contact", "Les messages arrivent sur votre adresse email. Au premier envoi, vous recevez un email de confirmation : un clic suffit pour activer le formulaire. DIG16 fait ensuite un test avec vous."),
         ("Client", "Fiche Google", "La fiche est à votre nom : vous la créez ou la validez (Google demande une vérification : en général un appel, une vidéo ou un courrier). DIG16 prépare les textes et les photos" + (", puis la suit chaque mois." if D["formule"] in ("Visibilité", "Prestige") else ".")),
@@ -327,7 +327,7 @@ Produit le {D['date']} par outils/kit_client.py. Dossier privé : ne jamais le c
 - Contrôle qualité complet des documents (44-controle-qualite.md) et relecture par un agent en lecture seule.
 
 ## Fait par DIG16 avec le client (rendez-vous de lancement, 20 minutes)
-- Nom de domaine à son nom, compte d'hébergement à son nom, activation du formulaire, fiche Google, Search Console (document 8).
+- Nom de domaine à son nom, PAYÉ PAR LE CLIENT LUI-MÊME pendant le rendez-vous (sa carte bancaire, au bureau d'enregistrement ; décision du 11/11 : DIG16 n'avance plus rien et ne refacture pas) ; compte d'hébergement à son nom, activation du formulaire, fiche Google, Search Console (document 8). Prévenir le client avant le rendez-vous : avoir sa carte bancaire et son adresse email.
 
 ## Au plus tard le jour de la mise en ligne définitive
 - 3 — Facture : dater, régénérer, émettre (numérotation continue){" ; premier mois réglé avant la mise en ligne" if mensuel and not D.get('offert') else ""}.

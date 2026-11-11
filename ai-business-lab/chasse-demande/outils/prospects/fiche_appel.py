@@ -16,7 +16,9 @@ Ce qui vient du fichier d'entrée, relevé par Claude avec ses outils (sources c
 Les 3 questions viennent de `57-entretiens-etude-de-marche.md` et sont choisies selon la situation du prospect.
 Aucun prix : on écoute (57). Les objections ont leurs réponses dans l'antisèche (`antiseche.py`).
 
-Usage : python3 fiche_appel.py <lot.json> <dossier de sortie PRIVÉ>
+Usage : python3 fiche_appel.py <lot.json> <dossier de sortie PRIVÉ> [--sans-suivi]
+La feuille de suivi privée (`suivi.py`, fichier suivi-prospects.json à côté du lot, dans le dossier parent ou dans la
+variable DIG16_SUIVI) est lue d'abord : un refus définitif dans le lot arrête tout. Sans feuille : arrêt, sauf --sans-suivi.
 Le lot et la sortie contiennent des données de prospects : scratchpad ou Drive « Dig », JAMAIS ce dépôt.
 Format du lot : {"date": "21/10/2026", "date_recherches"? (date des relevés Google et volumes si plus ancienne), "titre": "...", "prospects": [{"num", "nom", "siren", "metier", "commune",
 "telephone", "site"?, "google", "google_statut" (obligatoire : « ouvert, fiche Google vue le JJ/MM »), "bodacc", "demande", "notes"?, "pourquoi"}]}
@@ -277,10 +279,16 @@ def typo(t):
 
 
 def main():
-    if len(sys.argv) != 3:
+    sans_suivi = "--sans-suivi" in sys.argv
+    arguments = [x for x in sys.argv[1:] if x != "--sans-suivi"]
+    if len(arguments) != 2:
         sys.exit(__doc__)
-    lot = json.load(open(sys.argv[1], encoding="utf-8"))
-    sortie = sys.argv[2]
+    lot = json.load(open(arguments[0], encoding="utf-8"))
+    sortie = arguments[1]
+    # Garde-fou du 11/11/2026 (feuille unique de suivi, `suivi.py`) : un prospect qui a dit non (refus définitif)
+    # ne ressort jamais dans un lot ; sans feuille de suivi, l'outil s'arrête (sauf --sans-suivi, explicite).
+    import suivi
+    suivi.controler_lot(lot, os.path.dirname(os.path.abspath(arguments[0])), sortie, sans_suivi=sans_suivi)
     if os.path.abspath(sortie).startswith(os.path.abspath(os.path.join(ICI, "..", "..", "..", ".."))):
         sys.exit("Sortie dans le dépôt public refusée : utiliser le scratchpad ou le Drive « Dig ».")
     os.makedirs(sortie, exist_ok=True)

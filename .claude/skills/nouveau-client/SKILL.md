@@ -51,13 +51,17 @@ Mettre à jour 64 § 0 et `scratchpad/appels/ETAT.md`.
 ## Étape 8 — Livraison du site (`65` § 1)
 `seo_client.py` sans ALERTE, `--schema` (entreprise locale), tests téléphone et ordinateur, Lighthouse ≥ 90, accessibilité,
 formulaire testé (`test_formulaire.py`), aucune police chargée depuis Google, IndexNow. Comptes **au nom du client**
-(domaine, hébergement, fiche Google, Search Console, Bing ; `65` § 2), DIG16 gestionnaire. PV de réception à signer.
+(domaine, hébergement, fiche Google, Search Console, Bing ; `65` § 2), DIG16 gestionnaire. **Nom de domaine : le client le paie
+lui-même pendant le rendez-vous** (sa carte bancaire, au bureau d'enregistrement ; décision du 11/11 : DIG16 n'avance plus
+l'argent et ne refacture plus ; aucune ligne « nom de domaine » sur la facture) ; le prévenir avant le rendez-vous d'avoir sa
+carte bancaire et son adresse email. PV de réception à signer.
 
 ## Étape 9 — Rappels de suivi (send_later ou create_trigger)
 - J+1 après livraison : PV de réception signé ? facture émise ? paiement reçu ?
 - Chaque mois (Visibilité, Prestige) : rapport mensuel (`65` § 4).
 - Avant échéance de paiement : contrôle du prélèvement ; retard → `45` § 3.
-- 45 jours avant l'expiration du nom de domaine du client : renouvellement.
+- 45 jours avant l'expiration du nom de domaine du client : lui rappeler le renouvellement (il le paie lui-même ; vérifier avec
+  lui que le renouvellement automatique et son moyen de paiement sont en place chez son bureau d'enregistrement).
 - Kit avis Google : dès que la fiche du client est validée.
 
 ## Étape 10 — Fin

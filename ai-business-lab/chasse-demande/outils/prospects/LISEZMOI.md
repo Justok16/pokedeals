@@ -69,3 +69,17 @@ Rappels déjà en place et confirmés par ce guide : pas d'extraction en masse d
   (nom, puis « métier + commune ») et volumes (OpenRush, France) relevés par Claude dans le lot privé. Contrôles
   bloquants : polices DIG16 chargées, aucune page qui déborde, sortie refusée dans le dépôt. Lot et PDF : privés
   (scratchpad, puis Drive « Dig »).
+
+## Feuille unique de suivi (11/11/2026, décision de l'utilisateur, audit lot B3)
+
+- `suivi.py` : une ligne par entreprise (date de chaque appel, résultat, prochaine action et sa date) dans un fichier
+  PRIVÉ `suivi-prospects.json` (scratchpad ; copie au Drive « Dig » : feuille Google « DIG16 – Suivi des prospects
+  (PRIVÉ, feuille unique) » pour l'utilisateur, et fichier « DIG16 – suivi-prospects.json (PRIVÉ, source de l'outil
+  suivi.py) » pour reprendre la feuille sur une machine neuve). Jamais dans ce dépôt : l'outil refuse d'y écrire.
+- Après chaque série d'appels : `suivi.py <suivi.json> appel …` pour chaque appel, `exporter`, puis mise à jour des deux
+  fichiers du Drive.
+- `fiche_appel.py` lit la feuille avant tout : un refus définitif ou une entreprise « à ne plus appeler » dans le lot
+  arrête la fabrication de la fiche ; sans feuille, arrêt aussi (`--sans-suivi` seulement après relecture des refus).
+- Rapprochement par SIREN, téléphone (9 derniers chiffres) ou nom : renseigner SIREN et téléphone dans la feuille dès
+  qu'ils sont connus (un nom écrit autrement dans un lot ne serait pas reconnu).
+- Tests : `python3 -m unittest outils/prospects/test_suivi.py`.

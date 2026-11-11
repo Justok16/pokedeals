@@ -179,6 +179,10 @@ Rythme obtenu jusqu'au 04/12 : lundi, mercredi, vendredi 18 h 30 (carrousels, 4 
 « Le conseil DIG16 », 5 réseaux), + vidéos 6 à 10 le jeudi 10 h 15 (n° 6 programmée le 22/10 ; 7 à 10 dès que la voix est refaite, voir `64`). Contrôle automatique chaque soir à
 19 h 07 (statut de chaque publication, correction et reprogrammation en cas d'erreur) ; version X préparée chaque jour
 à 17 h 52 et remise à l'utilisateur (X n'est pas relié : module payant).
+**Mise à jour du 11/11/2026** : le contrôle se fait à 18 h 47 (tâche « Contrôle du soir DIG16 », depuis le 09/11), et
+**l'utilisateur arrête la publication quotidienne à la main sur X** (décision du 11/11) : plus de texte X ni d'images X
+le soir ; le compte X reste en ligne comme simple lien (rien n'y est effacé) ; le soir, seul le texte de partage dans les
+groupes Facebook est préparé.
 
 Règles de la série (contrôles bloquants de l'outil) : polices chargées, aucun texte hors marge ni débordement, aucune
 image de téléphone mal placée, aucun numéro de téléphone ni « @ » sur les images, décor jamais sous le texte, mots à

@@ -166,7 +166,9 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/prospects/repreneurs.py` | Repreneurs récents : entreprises qui viennent d'être rachetées, d'après le BODACC (04/11/2026). |
 | `outils/prospects/reprise_site.py` | Reprise du contenu d'un ancien site d'artisan (09/10/2026), pour refaire SA page d'accueil plus vite. |
 | `outils/prospects/sonder_domaines.py` | Teste les noms de domaine probables d'une entreprise (DNS puis page HTTP) : repère un site que la recherche web aurait raté. |
+| `outils/prospects/suivi.py` | Feuille unique de suivi des prospects (décision de l'utilisateur du 11/11/2026, audit lot B3 : « un seul endroit |
 | `outils/prospects/test_repreneurs.py` | Tests de repreneurs.py (python3 -m unittest outils/prospects/test_repreneurs.py). Annonces fictives, aucun réseau. |
+| `outils/prospects/test_suivi.py` | Tests de suivi.py (python3 -m unittest outils/prospects/test_suivi.py). Entreprises fictives, aucun réseau. |
 | `outils/prospects/verif_maquettes.py` | (pas de description) |
 | `outils/prospects/vers_site.py` | Transforme une démo gen2 (images en base64) en page de site : images en fichiers nommés, chargement différé. |
 | `outils/qa_site.py` | Contrôle d'une page de démo à 7 tailles d'écran (320 à 1440 px) : barre d'appel qui ne cache rien, pas de débordement, pas de marqueur [..] oublié. Usage : qa_site.py page.html |

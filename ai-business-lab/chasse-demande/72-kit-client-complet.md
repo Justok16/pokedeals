@@ -50,7 +50,8 @@ inventé. Si une formule change (prix, contenu), mettre à jour `kit_client.py` 
 
 - **Signatures** : devis, accord gracieux le cas échéant, PV de réception, remise des fichiers.
 - **Mandat SEPA** (formules mensuelles) : signé par le client sur le lien GoCardless de l'utilisateur.
-- **Nom de domaine, hébergement, fiche Google, Search Console** : ouverts **au nom du client** (décision du 05/10) ; Claude
+- **Nom de domaine, hébergement, fiche Google, Search Console** : ouverts **au nom du client** (décision du 05/10) ; le nom de
+  domaine est **payé par le client lui-même pendant le rendez-vous** (décision du 11/11) ; Claude
   prépare tout et guide au rendez-vous, mais la création des comptes demande l'identité et la carte bancaire du client.
 - **Validation Google de la fiche** (appel, vidéo ou courrier) : seul le client peut la faire.
 - **Première activation du formulaire** (email de confirmation reçu par le client) : un clic du client.
@@ -66,11 +67,13 @@ inventé. Si une formule change (prix, contenu), mettre à jour `kit_client.py` 
 2. **Mesure d'audience des sites clients** : l'outil sans cookie de l'hébergeur (Cloudflare Web Analytics, déjà utilisé sur
    dig16.fr), sur le compte du client ; le rapport mensuel s'appuie dessus + Search Console.
 3. **Paiement** : « on propose tout » : prélèvement SEPA (mandat GoCardless signé en ligne) **ou virement**, au choix du client.
-4. **Nom de domaine** : enregistré par DIG16 **au nom du client**, coût avancé puis **refacturé au prix coûtant**.
-   Comptabilité (BOFiP BOI-TVA-BASE-10-10-30, lu le 26/10) : un « débours » exclu du chiffre d'affaires suppose une facture
-   du tiers au nom du client (ou mentionnant que DIG16 agit pour lui) et un compte rendu exact ; la facture du bureau
-   d'enregistrement étant au nom de DIG16, la ligne refacturée est **comptée dans le chiffre d'affaires** (environ 10 € par
-   client et par an, sans marge) : simple et sans risque.
+4. **Nom de domaine** (décision de l'utilisateur du 11/11/2026, qui remplace celle du 26/10) : le client l'enregistre
+   **à son nom et le paie lui-même**, avec sa carte bancaire, au bureau d'enregistrement, **pendant le rendez-vous de
+   lancement** ; DIG16 le guide pas à pas, **n'avance plus l'argent et ne refacture plus rien**. Conséquences : aucune
+   ligne « nom de domaine » sur la facture DIG16, rien à compter dans le chiffre d'affaires, la facture du bureau
+   d'enregistrement est au nom du client ; le renouvellement annuel est payé par le client (DIG16 le lui rappelle
+   45 jours avant l'échéance). À dire au client avant le rendez-vous : avoir sa carte bancaire et son adresse email.
+   (Ancienne règle du 26/10, abandonnée : enregistrement par DIG16, coût avancé puis refacturé au prix coûtant.)
 
 ## 5. Historique
 
@@ -84,4 +87,4 @@ inventé. Si une formule change (prix, contenu), mettre à jour `kit_client.py` 
 2. **À TOI (une fois, sur ordinateur, environ 20 minutes)** : ouvrir chaque lien, importer le PDF du même numéro, placer les champs sur les cadres jaunes en recopiant exactement leur nom (rôles « DIG16 » et « Client »). Quota gratuit : 10 emails de demande par mois ; au-delà, envoyer soi-même le lien de signature.
    **27/10 (soir) : modèle 1 (6628706, devis + CGV) TERMINÉ par l'utilisateur, guidé sur captures** : rôles « DIG16 » et « Client », 11 champs vérifiés par `load_template` (noms, rôles, types exacts) ; « Exécution immédiate » rendue facultative selon l'utilisateur (non lisible par le connecteur). Astuces confirmées : choisir le rôle en haut à droite, outil puis rectangle dessiné à la souris, renommer en cliquant sur le nom dans l'étiquette de la zone (case à cocher : dans la colonne de droite), ne jamais taper dans la zone (sinon valeur par défaut). **Modèles 2 (6628707, 12 champs), 3 (6628708, 10 champs) et 4 (6628709, 9 champs) TERMINÉS le même soir**, tous vérifiés par `load_template` (une erreur corrigée : « Signature Client » du modèle 4 créée en texte, repassée en signature). **Les 4 modèles sont prêts** : l'étape 2 est faite.
 3. Ensuite, à chaque client : `send_documents` avec les valeurs pré-remplies ; le client signe sur son téléphone ; DIG16 contresigne ; le PDF signé est rangé dans le Drive « Dig ».
-
+- 11/11 : nom de domaine désormais payé par le client lui-même pendant le rendez-vous (DIG16 n'avance plus et ne refacture plus) : § 4 point 4, CGV art. 3, devis, document 8 « Vos comptes », mode d'emploi (phrase de paiement), LISEZMOI du kit, skill `nouveau-client` ; essai à blanc du kit refait sur l'exemple fictif.

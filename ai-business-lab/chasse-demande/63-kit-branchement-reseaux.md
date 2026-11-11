@@ -44,6 +44,9 @@ https://app.metricool.com/brands/connections?blogId=7154026
 
 ## 3. Les autres supports
 
+**X (décision de l'utilisateur du 11/11/2026)** : plus de publication quotidienne à la main ; le compte reste en ligne comme
+simple lien vers dig16.fr, rien n'y est effacé ; le contrôle du soir ne prépare plus ni texte X ni images X.
+
 | Support | Action | Qui |
 |---|---|---|
 | ~~Bing~~ **ABANDONNÉ le 10/11/2026 (décision de l'utilisateur, ne plus le reproposer)** — **Bing Places** | Importer la fiche Google (une fois vérifiée) | Utilisateur, 10 min |
