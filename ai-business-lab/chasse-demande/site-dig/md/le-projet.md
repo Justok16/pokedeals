@@ -40,6 +40,7 @@ Les détails sont sur [la page d’accueil](https://dig16.fr/). Avant de choisir
 - L’entreprise est immatriculée et le site **dig16.fr** est en ligne.
 - DIG16 est présente sur Google, Facebook, Instagram, TikTok, YouTube et X.
 - Les organismes et la presse de la Charente ont été contactés.
+- Charente Libre a consacré un article à DIG16 le 10 novembre 2026 : [lire l’article](https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php) (en partie réservé aux abonnés).
 - Prochaine étape : rencontrer les artisans et commerçants, et écouter ce dont ils ont vraiment besoin.
 
 ## Comment aider

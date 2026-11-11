@@ -250,6 +250,8 @@ pour changer d’avis après la signature, et rien n’est prélevé avant 8 jo
 
 ouvrés pour vos demandes de modification.
 
+Vu dans [Charente Libre](https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php) · article du 10 novembre 2026
+
 Questions fréquentes
 
 ## Toutes les réponses, sans détour
