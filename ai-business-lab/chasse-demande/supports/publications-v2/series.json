@@ -328,5 +328,22 @@
    "https://dig16.fr/img/reseaux/pub/p20-3.jpg",
    "https://dig16.fr/img/reseaux/pub/p20-4.jpg"
   ]
+ },
+ {
+  "id": "p21",
+  "date": "2026-11-12T12:15:00",
+  "theme": "clair",
+  "etiquette": "Dans la presse",
+  "titre_tiktok": "DIG16 dans Charente Libre",
+  "legende": "DIG16 est dans Charente Libre 📰 Un article sur mon entreprise est paru le 10 novembre 2026. Merci au journal !\nL'essentiel, pour moi : un site DIG16 est pensé d'abord pour le téléphone. Vos clients le font défiler du bout du pouce et vous appellent en un geste.\nLe prix : 0 € de création, puis dès 49 € par mois, hébergement, modifications et suivi compris.",
+  "alt": "DIG16 dans Charente Libre, article du 10 novembre 2026 : un site pensé pour le téléphone, dès 49 € par mois.",
+  "metricool": null,
+  "images": [
+   "https://dig16.fr/img/reseaux/pub/p21-1.jpg",
+   "https://dig16.fr/img/reseaux/pub/p21-2.jpg",
+   "https://dig16.fr/img/reseaux/pub/p21-3.jpg",
+   "https://dig16.fr/img/reseaux/pub/p21-4.jpg",
+   "https://dig16.fr/img/reseaux/pub/p21-5.jpg"
+  ]
  }
 ]

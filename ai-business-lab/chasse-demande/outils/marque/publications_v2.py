@@ -293,6 +293,24 @@ SERIE = [
                 "Un client devant une porte close ne revient pas toujours.\n"
                 "Sur un site DIG16, un email suffit : horaires, congés, promotions sont à jour sous 3 jours ouvrés.",
      "alt": "Le conseil DIG16 : avant la Toussaint, indiquer sa fermeture sur la fiche Google, le site et la page Facebook."},
+    # 11/11/2026 : parution dans Charente Libre (10/11, 14 h 38). Texte à nous, sans reprise de l'article ni de sa photo :
+    # on ajoute ce qui manque (site pensé pour le téléphone, « DIG16 », 49 € par mois, dig16.fr). Jamais « chevronné ».
+    {"id": "p21", "date": "2026-11-12T12:15:00", "theme": "clair", "etiquette": "Dans la presse", "metricool": None,
+     "titre_tiktok": "DIG16 dans Charente Libre",
+     "images": [
+         ("cover", "DIG16 dans *Charente Libre.*",
+          "Un article sur DIG16 est paru le 10 novembre 2026. Merci au journal."),
+         ("point", "", "L'essentiel, pour moi : *un site pensé pour le téléphone.*",
+          "Vos clients vous cherchent sur leur téléphone. Ils font défiler votre site du bout du pouce."),
+         ("phone", "Tout se lit *du bout du pouce.*", ESSENTIEL, "Démonstration · entreprise fictive"),
+         ("prix",),
+         APPEL],
+     "legende": "DIG16 est dans Charente Libre 📰 Un article sur mon entreprise est paru le 10 novembre 2026. "
+                "Merci au journal !\n"
+                "L'essentiel, pour moi : un site DIG16 est pensé d'abord pour le "
+                "téléphone. Vos clients le font défiler du bout du pouce et vous appellent en un geste.\n"
+                "Le prix : 0 € de création, puis dès 49 € par mois, hébergement, modifications et suivi compris.",
+     "alt": "DIG16 dans Charente Libre, article du 10 novembre 2026 : un site pensé pour le téléphone, dès 49 € par mois."},
 ]
 
 

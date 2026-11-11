@@ -185,3 +185,7 @@ image de téléphone mal placée, aucun numéro de téléphone ni « @ » sur le
 trait d'union jamais coupés. Les mots « entreprise fictive » figurent sur chaque capture de démonstration.
 
 **Audit du 19/10** : `69-audit-campagne-1910.md` (note, chiffres, plan d'action, réponses prêtes aux messages privés).
+
+## 7. Parution Charente Libre du 10/11/2026 : annonce sur tous les supports (préparée le 11/11)
+
+Article : « Ruffec : avec DIG 16, un web designer pour créer son site internet » (10/11/2026, 14 h 38, en partie réservé aux abonnés). Annonce avec un texte à nous, qui ajoute ce qui manquait (site pensé pour le téléphone, « DIG16 », 49 € par mois, dig16.fr) ; ni copie de l'article ni photo du journal ; jamais « chevronné ». Carrousel `p21` (`publications_v2.py`), textes dans `supports/publications-v2/presse-charente-libre-1111.md`. Supports : Facebook, Instagram (publication + story), TikTok par Buffer (quota Metricool de novembre plein : 20 sur 20) ; fiche Google par Metricool en remplaçant le texte du post du 13/11 ; X, groupes Facebook, groupe des professionnels et onglet Posts de YouTube à la main ; site : mention « Vu dans Charente Libre » sur l'accueil et « Le projet ». Signature de mail et imprimés : non (attendre la nouvelle interview prévue vers le 25/11). État au 11/11 : aperçu envoyé, en attente de validation.
