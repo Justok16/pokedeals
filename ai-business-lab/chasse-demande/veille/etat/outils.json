@@ -1,5 +1,5 @@
 {
- "date": "2026-11-10",
+ "date": "2026-11-11",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -38,8 +38,8 @@
    "licence": "MIT"
   },
   "dotLottie web": {
-   "version": "0.82.1",
-   "date": "2026-11-02",
+   "version": "0.83.0",
+   "date": "2026-11-11",
    "etoiles": 937,
    "licence": "MIT"
   },
@@ -208,7 +208,7 @@
   "critical": {
    "version": "9.0.0",
    "date": "2026-09-13",
-   "etoiles": 10300,
+   "etoiles": 10302,
    "licence": "Apache-2.0"
   },
   "tarteaucitron.js": {
