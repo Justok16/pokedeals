@@ -194,3 +194,18 @@ Sources : help.x.com « How to customize your profile » et « About profile vis
 - Dans la recherche Google : ouvrir https://business.google.com/ (connecté au compte de la fiche) → **Éditer la fiche** → modifier → **Enregistrer**.
 - Dans l'application Google Maps : en bas à droite **Établissement** → **Modifier le profil** → modifier → **Enregistrer**.
 - Nom : « tel qu'il apparaît sur votre signalétique, sur vos documents et sur vos autres éléments de branding ». Attention (même page) : « Si vous modifiez le nom de votre établissement après l'avoir validé, vous devrez peut-être le valider à nouveau. » Google examine chaque modification avant de l'appliquer.
+
+## Cloudflare : couper l'ajout automatique du script « Web Analytics » sur dig16.fr (aide officielle lue le 11/11/2026 ; PAS ENCORE confirmé sur capture)
+
+Sources : developers.cloudflare.com/web-analytics/get-started/ (mise à jour le 17/04/2026), developers.cloudflare.com/pages/how-to/web-analytics/
+(mise à jour le 21/04/2026) et developers.cloudflare.com/web-analytics/faq/ (mise à jour le 14/07/2026). Constat du 11/11 avec un vrai
+navigateur : Cloudflare ajoute `beacon.min.js` sur dig16.fr ; la règle de sécurité du site le bloque (erreur dans la console, aucune donnée ne part).
+
+- **Voie 1 (écrite dans l'aide, sites servis par Cloudflare)** : https://dash.cloudflare.com/?to=/:account/web-analytics → carte « dig16.fr » →
+  **Manage site** → choisir **Disable** (« The JS Snippet will not be injected and has been disabled ») → enregistrer.
+- **Voie 2 (projet Pages)** : https://dash.cloudflare.com/?to=/:account/workers-and-pages → le projet du site → onglet **Metrics** → bloc
+  **Web Analytics**. L'aide ne décrit que le bouton **Enable** à cet endroit (le script est alors ajouté « au prochain déploiement ») ; le bouton
+  pour désactiver n'est pas décrit : à confirmer sur capture. Après désactivation ici, prévoir un nouveau déploiement pour que le script disparaisse.
+- Les menus du tableau de bord sont en anglais. Si l'écran diffère : une capture, un écran à la fois.
+- **Contrôle par Claude après coup** : ouvrir https://dig16.fr/ avec un vrai navigateur (Playwright) : plus de balise `cloudflareinsights` ni
+  d'erreur « Content Security Policy » dans la console (`curl` ne voit pas ce script).

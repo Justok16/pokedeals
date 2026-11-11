@@ -226,6 +226,11 @@ def veille_chaines(cookies, rapport):
         if not os.path.exists(chemin):
             continue
         liste = json.load(open(chemin))
+        # Décision de l'utilisateur du 11/11/2026 (audit, lot F5) : la veille ne suit plus que les chaînes
+        # utiles à DIG16, c'est-à-dire celles qui portent un « filtre » (les chaînes de finance n'en ont pas ;
+        # leurs listes restent dans le dépôt, sans être relues).
+        if not liste.get("filtre"):
+            continue
         try:
             neuve = json.loads(telecharger(RELAIS + liste["chaine"], cookies, 150))[
                 "videos"
