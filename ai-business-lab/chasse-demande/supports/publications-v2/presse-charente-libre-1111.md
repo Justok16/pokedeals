@@ -66,3 +66,51 @@ DIG16 est dans Charente Libre 📰 (article du 10 novembre 2026). L'essentiel, p
 
 - Accueil, sous « Mes engagements » : « Vu dans Charente Libre · article du 10 novembre 2026 » (lien vers l'article).
 - Page « Le projet », « Où en est le projet » : « Charente Libre a consacré un article à DIG16 le 10 novembre 2026 » (lien).
+
+## 9. Coupure du journal papier, publiée à la main par l'utilisateur (choix « B » du 11/11)
+
+L'utilisateur publie lui-même l'article entier (image privée, jamais dans le dépôt ni sur le site ; jamais sur la fiche
+Google : le téléphone est sur l'image). Textes à nous, sans date d'édition papier (non vérifiée).
+
+**Page Facebook** (sans aucun lien : règle du 31/10)
+
+DIG16 dans le journal 📰
+Merci à Charente Libre pour cet article, paru aussi dans l'édition papier, pages Nord Ruffécois.
+Un point me tient à cœur et mérite d'être précisé : un site DIG16 est pensé d'abord pour le téléphone. Vos clients le font défiler du bout du pouce et vous appellent en un geste.
+Et pour le prix : 0 € de création, puis dès 49 € par mois, hébergement, modifications et suivi compris.
+👉 Votre page d'accueil refaite gratuitement, pour voir avant de décider : écrivez-moi en message privé.
+
+#Charente #Ruffec #artisan
+
+**Instagram (publication) et TikTok (photo)**
+
+DIG16 dans le journal 📰
+Merci à Charente Libre pour cet article, paru aussi dans l'édition papier, pages Nord Ruffécois.
+Un point me tient à cœur : un site DIG16 est pensé d'abord pour le téléphone 📱 Vos clients le font défiler du bout du pouce et vous appellent en un geste.
+0 € de création, puis dès 49 € par mois, hébergement, modifications et suivi compris.
+👉 Votre page d'accueil refaite gratuitement : écrivez-moi en message privé.
+
+#Charente #Ruffec #artisan
+
+**Story Instagram et Facebook** (texte à poser sur l'image)
+
+DIG16 dans Charente Libre 📰 Merci !
+
+**X**
+
+DIG16 dans le journal 📰 Merci à Charente Libre pour cet article, paru aussi dans l'édition papier.
+À préciser : un site DIG16 est pensé d'abord pour le téléphone, vos clients le font défiler du bout du pouce 📱
+0 € de création, puis dès 49 € par mois.
+👉 https://dig16.fr
+
+**Groupes Facebook (ceux qui autorisent la promotion), groupe WhatsApp des professionnels**
+
+Bonjour à tous. Petit moment de fierté : Charente Libre a consacré un article à DIG16, mon entreprise de sites internet à Ruffec. Je crée des sites pour les artisans et commerçants, pensés d'abord pour le téléphone : on les fait défiler du bout du pouce. Si vous connaissez un professionnel difficile à trouver sur internet, je refais sa page d'accueil gratuitement pour qu'il voie ce que ça donne.
+
+**Profil personnel (Facebook, WhatsApp)**
+
+Un article sur DIG16 dans Charente Libre 📰 Merci au journal, et merci à tous ceux qui me soutiennent depuis le début. Si vous connaissez un artisan ou un commerçant qui a besoin d'un site, parlez-lui de DIG16 !
+
+**YouTube (onglet « Posts », facultatif)**
+
+DIG16 dans le journal 📰 Merci à Charente Libre pour cet article. À préciser : un site DIG16 est pensé d'abord pour le téléphone, vos clients le font défiler du bout du pouce. 0 € de création, puis dès 49 € par mois. 👉 https://dig16.fr
