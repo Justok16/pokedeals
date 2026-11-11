@@ -223,10 +223,11 @@ def fiche(p, a, site, date, rang, total, date_rech=None):
 <h2>Sur internet</h2><ul><li>Site : {bloc_site(site, date, date_rech)}</li><li>Google : {e(p['google'])}</li>
 <li>Demande : {e(p['demande'])}</li></ul>{notes}
 <h2>Tes 3 questions</h2><ol>{qs}</ol>
-<div class="cadre"><b>Ouverture (20 s) :</b> « Bonjour, ici DIG16, une entreprise de Charente qui fait des sites pour
-les artisans. Je fais le tour des professionnels du coin pour comprendre comment ça se passe pour eux sur internet. Je ne
-vends rien aujourd'hui. Vous avez 3 minutes ? »
-<br><b>Fin :</b> « Merci. D'ici quelques semaines, je peux vous rappeler pour vous montrer à quoi pourrait ressembler votre site, sans engagement ? » → noter oui / non / date.</div>
+<div class="cadre"><b>Ouverture (20 s) :</b> « Bonjour Madame / Monsieur [nom], [ton prénom et ton nom], de DIG16 à Ruffec.
+Je crée des sites internet pour les artisans et commerçants de Charente ; Charente Libre en a parlé le 10 novembre. J'ai regardé
+votre présence sur internet depuis un téléphone et j'ai remarqué [le point du cadre « Pourquoi l'appeler »]. Vous avez 2 minutes ? »
+<br><b>Fin :</b> « Je peux vous préparer gratuitement votre page d'accueil refaite et vous la montrer sur votre téléphone, sans
+engagement : plutôt mardi ou jeudi prochain ? » → noter oui + date / non. Refus : « Très bien, je ne vous rappellerai pas », et le noter. Aucun prix au téléphone.</div>
 <div class="notes">Ce qu'il a dit (mots exacts) :</div>
 </section>"""
 
@@ -263,7 +264,7 @@ def couverture(lot, prospects):
 <span>Vérifiées le {e(lot['date'])} · PRIVÉ</span></div><h1>{e(lot['titre'])}</h1>
 <p class="metier">Dans l'ordre conseillé. Une page par entreprise, avec tes 3 questions et la place pour noter.{dates}</p>
 <table><colgroup><col style="width:7%"><col style="width:7%"><col style="width:32%"><col style="width:17%"><col style="width:37%"></colgroup><tr><th>Ordre</th><th>N° liste</th><th>Entreprise</th><th>Téléphone</th><th>Pourquoi l'appeler</th></tr>{lignes}</table>
-<div class="regles"><b>Rappels :</b> on écoute, on note les mots exacts, on ne propose ni prix ni offre (57).
+<div class="regles"><b>Rappels :</b> on écoute, on note les mots exacts, on n'annonce aucun prix ; chaque appel se termine par la proposition de démo gratuite et une date (décision du 11/11).
 Les 3 questions sont choisies pour chacun ; si l'échange dure, continue avec les 7 questions de la fiche 57
 (dont « Qui décide d'un changement ? »). Si « non » : « Pas de souci, bonne journée », on ne rappelle pas. Après l'appel, dis-moi le résultat :
 je le note dans ton suivi et je prépare la suite.</div></section>"""
