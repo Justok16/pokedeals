@@ -89,22 +89,18 @@ et filleul), **plafonnée à 79 €** par personne. Exemple : parrain Prestige +
 aucun avantage contre un avis), ne se cumule pas avec une autre promotion, et reste conditionnée
 aux deux premiers mois réglés par le filleul. Plafond annuel inchangé : 6 mois par parrain.
 
-## 7. Offre Atout Ruffec (décision de l'utilisateur du 03/11/2026, limitée aux 10 premiers adhérents le 11/11/2026)
+## 7. Offre Atout Ruffec (décision de l'utilisateur du 03/11/2026, confirmée sans limite le 11/11/2026)
 
-Pour **les 10 premiers adhérents d'Atout Ruffec qui signent** (limite du 11/11, voir ci-dessous) et **toute personne qu'ils recommandent ou à qui ils parlent de DIG16** :
+Pour **tout adhérent d'Atout Ruffec** et **toute personne qu'il recommande ou à qui il parle de DIG16** :
 formule **Essentiel à 29 € par mois au lieu de 49 €**, **à vie** (tant que le contrat continue), **sans durée
-minimale** (arrêt par simple email, effet à la fin du mois en cours), ~~sans date limite ni nombre de places~~ **limitée aux 10 premiers adhérents qui signent** (décision de l'utilisateur
-du 11/11/2026 ; toujours sans date limite ; tenir le compte des places dans la feuille privée de suivi : `suivi.py … appel --note "Atout Ruffec, place n° X"`),
+minimale** (arrêt par simple email, effet à la fin du mois en cours), **sans date limite ni nombre de places**,
 **non cumulable** avec le parrainage ni une autre promotion. Inchangé : 0 € de création, premier mois réglé avant la
 mise en ligne, nom de domaine au nom du client et à sa charge. Le client dit « Atout Ruffec » au premier contact ;
 noter la provenance dans sa fiche privée. Document de présentation (A4, PDF et image) fabriqué le 03/11 (scratchpad
 `offre-atout/`, copie au Drive « Dig »). À reporter dans le devis et les CGV du kit client (`outils/kit_client.py`)
 au premier client concerné : prix 29 €, clause « sans durée minimale » à la place des 6 mois.
 
-**Suites du 11/11/2026** : 1) l'offre publiée le 03/11 dans le groupe de l'association et le document A4 (privé, Drive
-« Dig », dossier `offre-atout`) disent encore « sans nombre de places » : textes déjà remis à des tiers, donc **non
-modifiés par Claude** ; avant / après remis à l'utilisateur, qui décide de l'annonce au groupe. 2) Toute personne qui a
-déjà accepté l'offre telle que publiée garde ses conditions ; la limite vaut à partir de l'annonce. 3) **Point à trancher
-par l'utilisateur** : les personnes recommandées par un adhérent comptent-elles dans les 10 places ? D'ici sa réponse,
-elles comptent dans les mêmes 10 places (lecture la plus prudente). 4) Nom de domaine : payé par le client lui-même
-pendant le rendez-vous (décision du 11/11, `72` § 4).
+**Décision finale du 11/11/2026 au soir** : la limite « 10 premiers adhérents » (n° 21 des audits, d'abord acceptée)
+est **retirée** par l'utilisateur : « on ne change pas ça, j'ai déjà dit à toute l'association que je leur ferais un
+prix ainsi qu'à leurs contacts ». L'annonce du 03/11 et le document A4 restent donc exacts ; ne plus reproposer de
+limite de places. Nom de domaine : payé par le client lui-même pendant le rendez-vous (décision du 11/11, `72` § 4).
