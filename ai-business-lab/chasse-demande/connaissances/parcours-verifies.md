@@ -188,3 +188,9 @@ Sources : help.x.com « How to customize your profile » et « About profile vis
 - **Contrôle par Claude sans connexion (30/10/2026)** : `curl -s https://api.fxtwitter.com/dig16charente` renvoie la bio, le site web et le lieu publics du profil (la date de naissance et la publication épinglée n'y figurent pas : capture si besoin).
 
 | YouTube (appli Android) | Mettre en ligne un Short depuis le téléphone | Appli YouTube → **Créer** → **Vidéo** → choisir le fichier → **SUIVANT** (vertical et 3 min ou moins = Short) → titre (100 caractères max), description, visibilité. Variante appli YouTube Studio : **Créer** en haut → fichier → infos → **Suivant**. Source : aide officielle support.google.com/youtube/answer/57407 (Android), lue le 02/11/2026 | 02/11/2026 |
+
+## Fiche d'établissement Google : modifier le nom ou une information (aide officielle support.google.com/business/answer/3039617, lue le 11/11/2026)
+
+- Dans la recherche Google : ouvrir https://business.google.com/ (connecté au compte de la fiche) → **Éditer la fiche** → modifier → **Enregistrer**.
+- Dans l'application Google Maps : en bas à droite **Établissement** → **Modifier le profil** → modifier → **Enregistrer**.
+- Nom : « tel qu'il apparaît sur votre signalétique, sur vos documents et sur vos autres éléments de branding ». Attention (même page) : « Si vous modifiez le nom de votre établissement après l'avoir validé, vous devrez peut-être le valider à nouveau. » Google examine chaque modification avant de l'appliquer.
