@@ -15,6 +15,10 @@ DIG16 est née en octobre 2026, en Charente. Une idée simple : que chaque arti
 
 DIG16, c’est une seule personne : **Maximilien Boireau**, entrepreneur individuel installé à Ruffec. C’est moi qui vous réponds, qui crée votre site et qui le suis ensuite.
 
+[![Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact.](https://dig16.fr/img/presse/charente-libre-2026-11-10-1200.jpg)Agrandir](https://dig16.fr/img/presse/charente-libre-2026-11-10-1200.jpg)
+
+**Vu dans la presse** Charente Libre, édition du 10 novembre 2026. [Lire l’article sur le site du journal](https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php)
+
 ## L’idée de départ
 
 Aujourd’hui, on cherche presque tout sur son téléphone : « plombier », « coiffeur », « garage », suivi du nom de la ville. Beaucoup de professionnels de Charente n’ont pas de site, ou ont un site ancien, lent ou illisible sur un petit écran. Ils perdent des clients sans le savoir.
@@ -46,10 +50,6 @@ Les détails sont sur [la page d’accueil](https://dig16.fr/). Avant de choisir
 - Les organismes et la presse de la Charente ont été contactés.
 - Charente Libre a consacré un article à DIG16 le 10 novembre 2026 : [lire l’article](https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php) (en partie réservé aux abonnés).
 - Prochaine étape : rencontrer les artisans et commerçants, et écouter ce dont ils ont vraiment besoin.
-
-[![Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact.](https://dig16.fr/img/presse/charente-libre-2026-11-10-1200.jpg)Agrandir](https://dig16.fr/img/presse/charente-libre-2026-11-10-1200.jpg)
-
-**Vu dans la presse** Charente Libre, édition du 10 novembre 2026. [Lire l’article sur le site du journal](https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php)
 
 ## Comment aider
 

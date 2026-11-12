@@ -5,6 +5,18 @@ image: "https://dig16.fr/img/apercu-dig16-v3.jpg"
 url: "https://dig16.fr/"
 ---
 
+[![Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact.](https://dig16.fr/img/presse/charente-libre-2026-11-10-1200.jpg)Agrandir](https://dig16.fr/img/presse/charente-libre-2026-11-10-1200.jpg)
+
+Dans la presse
+
+## Charente Libre parle de *DIG16*
+
+> « Il crée, il suit le client, remet à jour les pages du site : il est en effet essentiel qu’un site soit toujours renouvelé et entretenu. »
+
+Charente Libre, édition du 10 novembre 2026
+
+[Lire l’article sur le site du journal](https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php)
+
 Avant
 
 ## Votre site aujourd’hui : daté, minuscule sur un téléphone.
@@ -253,10 +265,6 @@ pour changer d’avis après la signature, et rien n’est prélevé avant 8 jo
 **3 jours**
 
 ouvrés pour vos demandes de modification.
-
-[![Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact.](https://dig16.fr/img/presse/charente-libre-2026-11-10-1200.jpg)Agrandir](https://dig16.fr/img/presse/charente-libre-2026-11-10-1200.jpg)
-
-**Vu dans la presse** Charente Libre, édition du 10 novembre 2026. [Lire l’article sur le site du journal](https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php)
 
 Questions fréquentes
 

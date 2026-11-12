@@ -454,6 +454,18 @@ nav#nav{position:sticky;margin-bottom:calc(-1*var(--nav) - 1px)}
 .article-presse figcaption b{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-weight:400;font-size:1.5rem;line-height:1.15;color:#efe9df}
 .article-presse figcaption a{display:inline-flex;align-items:center;min-height:44px;color:#efe9df;text-decoration:underline;text-decoration-color:rgba(200,164,110,.7);text-underline-offset:.22em;justify-self:start}
 @media (max-width:420px){.article-presse{grid-template-columns:minmax(0,1fr);max-width:260px}}
+.presse{padding:clamp(44px,6vw,84px) 0 clamp(8px,2vw,24px)}
+.presse-carte{margin:0 auto;display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:clamp(1.6rem,4vw,3.6rem);align-items:center;max-width:980px;padding:clamp(1.2rem,3vw,2.2rem);border:1px solid rgba(200,164,110,.28);border-radius:22px;background:linear-gradient(135deg,#1b1815,#141210)}
+.presse-image .article-vignette{transform:rotate(-1.6deg);box-shadow:0 22px 50px rgba(0,0,0,.55)}
+.presse-texte{display:grid;gap:.9rem;justify-items:start;min-width:0}
+.presse-texte h2{font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.06;margin:0}
+.presse-texte h2 em{color:var(--or)}
+.presse-texte blockquote{margin:0;padding-left:1rem;border-left:2px solid var(--or);font-family:var(--serif);font-size:clamp(1.15rem,2.2vw,1.45rem);line-height:1.35;color:#efe9df}
+.presse-source{margin:0;color:#a8a093;font-size:.92rem}
+.presse-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.2rem;margin-top:.3rem}
+.presse-actions a{display:inline-flex;align-items:center;min-height:44px;color:#efe9df;text-decoration:underline;text-decoration-color:rgba(200,164,110,.7);text-underline-offset:.22em}
+.presse-actions .btn{white-space:normal;text-align:center;max-width:100%}
+@media (max-width:720px){.presse-carte{grid-template-columns:minmax(0,1fr);justify-items:center}.presse-image{width:min(100%,300px)}.presse-texte{justify-items:start;width:100%}}
 .article-grand{margin:auto;inset:0;position:fixed;width:min(96vw,760px);max-width:96vw;height:fit-content;max-height:94vh;max-height:94dvh;padding:0;border:1px solid rgba(239,233,223,.16);border-radius:14px;background:#181613;color:#efe9df;overflow:hidden}
 .article-grand[open]{display:flex;flex-direction:column}
 .article-grand::backdrop{background:rgba(8,7,6,.82)}
@@ -526,6 +538,20 @@ nav#nav{position:sticky;margin-bottom:calc(-1*var(--nav) - 1px)}
 </div>
 
 <main id="contenu">
+
+<!-- 12/11/2026 (demande de l'utilisateur : « article bien plus haut et mieux mis en place ») : la presse, juste sous le premier écran -->
+<section class="presse" id="presse" aria-labelledby="presse-titre"><div class="cadre">
+ <figure class="presse-carte" data-in>
+  <div class="presse-image"><a class="article-vignette" id="article-ouvrir" href="/img/presse/charente-libre-2026-11-10-1200.jpg" aria-haspopup="dialog" aria-controls="article-grand"><picture><source type="image/webp" srcset="/img/presse/charente-libre-2026-11-10-600.webp"><img src="/img/presse/charente-libre-2026-11-10-1200.jpg" width="600" height="787" alt="Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact." loading="lazy" decoding="async"></picture><span class="article-loupe"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8.5v5M8.5 11h5"/></svg>Agrandir</span></a></div>
+  <figcaption class="presse-texte">
+   <div class="sur">Dans la presse</div>
+   <h2 id="presse-titre">Charente Libre parle de <em>DIG16</em></h2>
+   <blockquote>«&nbsp;Il crée, il suit le client, remet à jour les pages du site&nbsp;: il est en effet essentiel qu’un site soit toujours renouvelé et entretenu.&nbsp;»</blockquote>
+   <p class="presse-source">Charente Libre, édition du 10&nbsp;novembre&nbsp;2026</p>
+   <div class="presse-actions"><button type="button" class="btn second" id="article-ouvrir-2">Agrandir l’article</button><a href="https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php" rel="noopener">Lire l’article sur le site du journal</a></div>
+  </figcaption>
+ </figure>
+</div></section>
 
 <!-- Le moment fort : le vieux site devient un site DIG16 sous le doigt -->
 <section class="avant-apres" id="avant-apres" aria-label="Avant, après">
@@ -654,10 +680,6 @@ nav#nav{position:sticky;margin-bottom:calc(-1*var(--nav) - 1px)}
   <div data-in><b><span class="n" data-compte="14">14</span> jours</b><p>pour changer d’avis après la signature, et rien n’est prélevé avant 8 jours.</p></div>
   <div data-in><b><span class="n" data-compte="3">3</span> jours</b><p>ouvrés pour vos demandes de modification.</p></div>
  </div>
-<figure class="article-presse" data-in>
- <a class="article-vignette" id="article-ouvrir" href="/img/presse/charente-libre-2026-11-10-1200.jpg" aria-haspopup="dialog" aria-controls="article-grand"><picture><source type="image/webp" srcset="/img/presse/charente-libre-2026-11-10-600.webp"><img src="/img/presse/charente-libre-2026-11-10-1200.jpg" width="600" height="787" alt="Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact." loading="lazy" decoding="async"></picture><span class="article-loupe"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8.5v5M8.5 11h5"/></svg>Agrandir</span></a>
- <figcaption><b>Vu dans la presse</b> <span>Charente Libre, édition du 10&nbsp;novembre&nbsp;2026.</span> <a href="https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php" rel="noopener">Lire l’article sur le site du journal</a></figcaption>
-</figure>
 <dialog class="article-grand" id="article-grand" aria-label="Article de Charente Libre, édition du 10 novembre 2026, en grand">
  <div class="article-barre"><span>Charente Libre, édition du 10&nbsp;novembre&nbsp;2026</span><button type="button" id="article-fermer" aria-label="Fermer l’image agrandie"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Fermer</button></div>
  <div class="article-zone" id="article-zone" tabindex="0"><picture><source type="image/webp" srcset="/img/presse/charente-libre-2026-11-10-1200.webp"><img id="article-image" src="/img/presse/charente-libre-2026-11-10-1200.jpg" width="1200" height="1574" alt="Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact." loading="lazy" decoding="async"></picture></div>
@@ -841,6 +863,7 @@ var bf=document.getElementById('btn-film');if(bf)bf.addEventListener('click',fun
 <script src="/mesure.js" defer></script>
 <!--/email_off--><script>
 // 12/11/2026 : article de Charente Libre en grand (sans JavaScript, le lien ouvre simplement l'image)
+(function(){var o2=document.getElementById('article-ouvrir-2');if(o2)o2.addEventListener('click',function(){var v=document.getElementById('article-ouvrir');if(v)v.click()});})();
 (function(){var o=document.getElementById('article-ouvrir'),d=document.getElementById('article-grand'),z=document.getElementById('article-zone');
 if(!o||!d||!d.showModal)return;
 o.addEventListener('click',function(e){e.preventDefault();z.classList.remove('zoom');d.showModal();z.scrollTop=0});
