@@ -27,7 +27,7 @@
   .titre { font-family: var(--sc-font-display); font-weight: 500; letter-spacing: -.012em; line-height: 1.02; margin: 0; }
 
   /* En-tête : marque à gauche, langue et réservation à droite */
-  .barre { position: fixed; inset: 0 0 auto; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  .barre { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
     padding: max(14px, env(safe-area-inset-top)) clamp(16px, 4vw, 52px) 14px; color: var(--sc-ink);
     background: linear-gradient(180deg, rgba(31,33,29,.7), rgba(31,33,29,0)); pointer-events: none; }
   .barre { transition: background .35s ease; }
@@ -120,10 +120,10 @@
   .sejour .ligne p { font-family: var(--sc-font-display); font-size: clamp(1.9rem, 3.6vw, 3.1rem); line-height: 1.1; margin: 0; color: #f6f1e7; }
   @media (max-width: 820px) { .sejour [data-sc-stage] { grid-template-columns: 1fr; grid-template-rows: 46% 54%; } }
 
-  /* Acte 5 : un avis, en grand */
+  /* Acte 5 : l'emplacement des avis (aucun avis d'illustration : les vrais avis du client s'y afficheront) */
   .avis { background: var(--pierre); color: var(--encre); text-align: center; }
-  .avis blockquote { margin: 0 auto; max-width: 46rem; font-family: var(--sc-font-display); font-style: italic; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.12; }
-  .avis cite { display: block; margin-top: 1.4rem; font-style: normal; font-size: .95rem; color: var(--encre-douce); }
+  .avis h2 { margin: 0 auto; max-width: 46rem; font-family: var(--sc-font-display); font-weight: 500; font-style: italic; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.12; }
+  .avis p { margin: 1.4rem auto 0; max-width: 34rem; font-size: 1rem; line-height: 1.6; color: var(--encre-douce); }
 
   /* Acte 6 : réserver en direct, avec le prix qui se calcule */
   .resa { background: var(--sc-canvas); color: var(--sc-ink); }
@@ -131,9 +131,9 @@
   .resa h2 { font-size: clamp(2.6rem, 5.4vw, 4.6rem); }
   .resa .intro p { color: var(--sc-ink-soft); line-height: 1.7; max-width: 28rem; margin: 1.2rem 0 0; }
   form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; background: var(--sc-surface); padding: clamp(20px, 3vw, 36px); border-radius: 6px; }
-  label { display: grid; gap: .45rem; font-size: .9rem; color: var(--sc-ink-soft); }
+  label { display: grid; gap: .45rem; font-size: .9rem; color: var(--sc-ink-soft); min-width: 0; }
   label.plein { grid-column: 1 / -1; }
-  input, select { font: inherit; font-size: 1rem; color: var(--sc-ink); background: #1b1d19; border: 1px solid rgba(244,238,226,.18); border-radius: 4px; padding: .8rem .85rem; min-height: 48px; color-scheme: dark; }
+  input, select { font: inherit; font-size: 1rem; color: var(--sc-ink); background: #1b1d19; border: 1px solid rgba(244,238,226,.18); border-radius: 4px; padding: .8rem .85rem; min-height: 48px; color-scheme: dark; box-sizing: border-box; width: 100%; min-width: 0; }
   input:focus, select:focus { outline: 2px solid var(--sc-accent); outline-offset: 1px; }
   .total { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid rgba(244,238,226,.12); padding-top: 1rem; margin-top: .4rem; }
   .total span { color: var(--sc-ink-soft); font-size: .95rem; }
@@ -141,16 +141,28 @@
   form button { grid-column: 1 / -1; font: inherit; font-weight: 600; font-size: 1rem; background: var(--sc-accent); color: var(--sc-accent-ink); border: 0; border-radius: 999px; padding: 1rem 1.4rem; cursor: pointer; }
   form button:hover { background: #b8c48a; }
   .note { grid-column: 1 / -1; min-height: 1.4em; font-size: .95rem; color: var(--sc-accent); margin: 0; }
-  @media (max-width: 820px) { .resa .grille { grid-template-columns: 1fr; } }
-  @media (max-width: 460px) { form { grid-template-columns: 1fr; } }
+  @media (max-width: 820px) { .resa .grille { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 460px) { form { grid-template-columns: minmax(0, 1fr); } }
 
   .pied { background: #171915; color: #9c9483; font-size: .86rem; line-height: 1.6; padding: 1.6rem var(--sc-gutter) max(1.6rem, env(safe-area-inset-bottom)); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
   .pied a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Bandeau « Démonstration fictive » : identique dans les cinq démos */
+.demo-fictive{position:relative;z-index:70;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:.45em;margin:0;padding:env(safe-area-inset-top) max(12px,env(safe-area-inset-right)) 0 max(12px,env(safe-area-inset-left));background:#111315;color:#ecebe7;font:400 .8125rem/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:0;text-transform:none;text-shadow:none;pointer-events:auto}
+.demo-fictive strong{font-weight:700;color:#fff;white-space:nowrap}
+.demo-fictive a{display:inline-flex;align-items:center;min-height:2.75rem;margin-left:.7em;padding:0 .35em;color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;text-shadow:none}
+.demo-fictive a:focus-visible{outline:2px solid #fff;outline-offset:-3px}
+@media (max-width:560px){.demo-fictive{justify-content:space-between;padding-bottom:.5rem}.demo-fictive .df-p{display:none}.demo-fictive .df-s{order:3;flex-basis:100%}.demo-fictive a{margin-left:0;padding-right:0}}
+/* Le bandeau et l’en-tête se posent par-dessus le film : bandeau en haut à l’arrivée, en-tête dessous puis collé en haut */
+body{position:relative}
+.demo-haut{position:absolute;inset:0;z-index:40;pointer-events:none}
 </style>
 </head>
 <body>
 <span data-sc-progress></span>
 
+<div class="demo-haut">
+<div class="demo-fictive" role="note"><strong data-fr="Démonstration fictive" data-en="Fictional demo">Démonstration fictive</strong><span class="df-p" aria-hidden="true">·</span><span class="df-s" data-fr="site d’exemple réalisé par DIG16" data-en="sample site made by DIG16">site d’exemple réalisé par DIG16</span><a href="/" data-fr="Retour à dig16.fr" data-en="Back to dig16.fr">Retour à dig16.fr</a></div>
 <header class="barre">
   <a class="marque" href="#haut"><b>Le Clos des Tilleuls</b><span data-fr="Maison d'hôtes" data-en="Guest house">Maison d'hôtes</span></a>
   <nav aria-label="Navigation">
@@ -159,6 +171,7 @@
     <a class="reserver" href="#reserver" data-fr="Réserver" data-en="Book">Réserver</a>
   </nav>
 </header>
+</div>
 
 <main id="haut">
 
@@ -279,11 +292,11 @@
     </div>
   </section>
 
-  <!-- 5 · Un avis -->
-  <section class="avis sc-section">
+  <!-- 5 · L'emplacement des avis -->
+  <section class="avis sc-section" id="avis">
     <div class="sc-wrap" data-sc-in>
-      <blockquote data-fr="« Nous sommes venus pour deux nuits, nous sommes restés cinq. »" data-en="“We came for two nights and stayed five.”">« Nous sommes venus pour deux nuits, nous sommes restés cinq. »</blockquote>
-      <cite data-fr="Avis fictif, pour la démonstration" data-en="Fictional review, for the demo">Avis fictif, pour la démonstration</cite>
+      <h2 data-fr="Vos avis Google, ici" data-en="Your Google reviews, here">Vos avis Google, ici</h2>
+      <p data-fr="Emplacement prévu pour vos vrais avis Google. Aucun avis n’est inventé." data-en="Space reserved for your real Google reviews. No review is made up.">Emplacement prévu pour vos vrais avis Google. Aucun avis n’est inventé.</p>
     </div>
   </section>
 
@@ -318,7 +331,7 @@
 
 <footer class="pied">
   <span>© Le Clos des Tilleuls · <span data-fr="établissement fictif" data-en="fictional property">établissement fictif</span> · <a href="../../mentions-legales.html" data-fr="Mentions légales" data-en="Legal notice">Mentions légales</a></span>
-  <span data-fr="Démonstration « Prestige » réalisée par DIG16. Maison, avis et prix fictifs ; film composé à partir de photos d'illustration libres de droits (Unsplash)." data-en="DIG16 “Prestige” demo. Fictional house, review and prices; film made from royalty-free illustrative photos (Unsplash).">Démonstration « Prestige » réalisée par DIG16. Maison, avis et prix fictifs ; film composé à partir de photos d'illustration libres de droits (Unsplash).</span>
+  <span data-fr="Démonstration « Prestige » réalisée par DIG16. Maison et prix fictifs ; film composé à partir de photos d'illustration libres de droits (Unsplash)." data-en="DIG16 “Prestige” demo. Fictional house and prices; film made from royalty-free illustrative photos (Unsplash).">Démonstration « Prestige » réalisée par DIG16. Maison et prix fictifs ; film composé à partir de photos d'illustration libres de droits (Unsplash).</span>
 </footer>
 
 <script src="scrollcraft.min.js"></script>

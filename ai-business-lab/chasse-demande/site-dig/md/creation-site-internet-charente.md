@@ -15,7 +15,7 @@ DIG16 crée des sites internet pour les artisans, les commerçants et les indép
 
 **Dès 49 €**par mois
 
-**7 j/7**joignable
+**7 j/7**joignable, réponse sous 24 h
 
 **À votre nom**le site vous appartient
 
@@ -29,7 +29,7 @@ Vos futurs clients cherchent sur leur téléphone : « plombier Angoulême », �
 - **Pensé pour le téléphone** : tout se trouve en faisant défiler avec le pouce, le numéro s’appelle d’un geste.
 - **Rapide et bien référencé** : pages légères, textes écrits pour Google, informations de votre entreprise lisibles par les moteurs de recherche.
 - **Un formulaire de demande de devis** et une galerie de vos réalisations.
-- **À votre nom** : le nom de domaine vous appartient, et vous gardez vos fichiers.
+- **À votre nom** : site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout.
 - **Un suivi chaque mois** : vos modifications faites sous 3 jours ouvrés, et un bilan rapide des visites.
 
 ## Des prix clairs
@@ -53,11 +53,11 @@ DIG16 est installée à Ruffec, dans le nord de la Charente, et travaille avec l
 
 ### Combien coûte la création d’un site internet en Charente avec DIG16 ?
 
-Avec les formules mensuelles, la création est à 0 € : Essentiel à 49 € par mois, Visibilité à 79 € par mois, 6 mois minimum puis sans engagement. Si vous préférez payer une seule fois, la formule Achat coûte 690 €, avec l’hébergement et le suivi en option à 15 € par mois.
+Avec les formules mensuelles, la création est à 0 € : Essentiel à 49 € par mois, Visibilité à 79 € par mois, 6 mois minimum (soit 294 € pour l’Essentiel, 474 € pour Visibilité), puis sans engagement. Si vous préférez payer une seule fois, la formule Achat coûte 690 €, avec l’hébergement et le suivi en option à 15 € par mois.
 
 ### Le site m’appartient-il ?
 
-Oui. Le nom de domaine est enregistré à votre nom, et si vous arrêtez, vous repartez avec les fichiers de votre site.
+Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout.
 
 ### Je ne suis pas à Ruffec : vous travaillez dans toute la Charente ?
 
@@ -171,7 +171,7 @@ Ou appelez le [06 87 91 02 14](tel:+33687910214), ou écrivez à [contact@dig16.
           "name": "Combien coûte la création d’un site internet en Charente avec DIG16 ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Avec les formules mensuelles, la création est à 0 € : Essentiel à 49 € par mois, Visibilité à 79 € par mois, 6 mois minimum puis sans engagement. Si vous préférez payer une seule fois, la formule Achat coûte 690 €, avec l’hébergement et le suivi en option à 15 € par mois."
+            "text": "Avec les formules mensuelles, la création est à 0 € : Essentiel à 49 € par mois, Visibilité à 79 € par mois, 6 mois minimum (soit 294 € pour l’Essentiel, 474 € pour Visibilité), puis sans engagement. Si vous préférez payer une seule fois, la formule Achat coûte 690 €, avec l’hébergement et le suivi en option à 15 € par mois."
           }
         },
         {
@@ -179,7 +179,7 @@ Ou appelez le [06 87 91 02 14](tel:+33687910214), ou écrivez à [contact@dig16.
           "name": "Le site m’appartient-il ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui. Le nom de domaine est enregistré à votre nom, et si vous arrêtez, vous repartez avec les fichiers de votre site."
+            "text": "Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout."
           }
         },
         {

@@ -143,7 +143,7 @@ S = [
         [
             (
                 "Qui écrit les textes ?",
-                "Moi, à partir d'un rendez-vous de 20 minutes avec vous. Vous relisez et validez tout avant la mise en ligne.",
+                "Je rédige, avec l’aide d’un outil, à partir d’un rendez-vous de 20 minutes avec vous, et vous validez chaque phrase avant la mise en ligne.",
             ),
             (
                 "Et les photos ?",
@@ -167,7 +167,7 @@ S = [
             ),
             (
                 "Prise de rendez-vous en ligne ?",
-                "Oui, c’est inclus dans toutes les formules : vos clients choisissent un créneau libre sur votre site et reçoivent une confirmation.",
+                "Oui, avec la formule Prestige, où la réservation en ligne est incluse : vos clients choisissent un créneau libre sur votre site et reçoivent une confirmation. Avec les autres formules, le site renvoie vers votre téléphone, votre formulaire ou votre outil de réservation habituel.",
             ),
             (
                 "En anglais ?",
@@ -229,7 +229,7 @@ S = [
             ),
             (
                 "Envoyez-moi une documentation.",
-                "Je vous envoie mieux : votre démo. Je vous rappelle [jour] pour avoir votre avis ?",
+                "Je vous montre mieux : votre démo. Je vous rappelle [jour] pour avoir votre avis ?",
             ),
             (
                 "Je dois en parler à mon associé / ma femme.",

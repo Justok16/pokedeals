@@ -34,7 +34,7 @@ sys.path.insert(0, ICI)
 import documents_client as dc
 
 KIT = os.path.join(dc.SUPPORTS, "kit-client")
-TEL_7J = "Joignable 7 jours sur 7"
+TEL_7J = "Joignable 7 jours sur 7, réponse sous 24 h"
 
 
 def modele(nom):

@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#1e3528">
 <title>Atelier Végétal, paysagiste (démonstration Visibilité DIG16)</title>
-<meta name="description" content="Démonstration « Visibilité » réalisée par DIG16 : un paysagiste fictif, ses travaux du mois, ses avis et sa zone d'intervention.">
+<meta name="description" content="Démonstration « Visibilité » réalisée par DIG16 : un paysagiste fictif, ses travaux du mois, sa zone d'intervention et l'emplacement réservé à ses vrais avis Google.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231e3528'/><path d='M16 26V13m0 0c0-5 4-8 9-8 0 5-4 8-9 8zm0 4c0-4-3-7-8-7 0 4 3 7 8 7z' fill='none' stroke='%23e9a074' stroke-width='2.2' stroke-linecap='round'/></svg>">
 <link rel="stylesheet" href="/moteur/polices/bricolagegrotesque-figtree.css?v=20261015">
 <style>
@@ -38,10 +38,11 @@
   .marque span { font-size: .85rem; opacity: .85; }
   .tete nav { display: flex; gap: 1.4rem; align-items: center; font-weight: 500; font-size: .96rem; }
   .tete nav a { text-decoration: none; text-shadow: 0 1px 6px rgba(0,0,0,.3); }
-  @media (max-width: 760px) { .tete nav a:not(.bt) { display: none; } .tete nav .bt { padding: .7rem 1rem; min-height: 44px; } }
+  @media (max-width: 760px) { .tete nav a:not(.bt) { display: none; } .tete .marque { flex: 1 1 0; } .tete nav { min-width: 0; } .tete nav .bt { padding: .7rem 1rem; min-height: 44px; white-space: normal; text-align: center; line-height: 1.15; } }
+  @media (max-width: 340px) { .tete { gap: .5rem; } .marque svg { width: 32px; height: 32px; } .marque b { font-size: 1.2rem; } .tete nav .bt { padding: .7rem .8rem; font-size: .9rem; } }
 
   /* Héros : la photo, et la « fiche » telle qu'on la voit sur Google */
-  .heros { position: relative; min-height: min(100svh, 860px); display: grid; align-items: end; padding: 120px var(--g) clamp(32px, 6vw, 64px); color: #fff; }
+  .heros { position: relative; min-height: min(calc(100svh - 2.75rem), 860px); display: grid; align-items: end; padding: 120px var(--g) clamp(32px, 6vw, 64px); color: #fff; }
   .heros > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .heros::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, rgba(20,34,26,.88) 0%, rgba(20,34,26,.35) 45%, rgba(20,34,26,.15) 70%, rgba(20,34,26,.45) 100%); }
   .heros .contenu { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); gap: clamp(24px, 4vw, 56px); align-items: end; }
@@ -50,17 +51,12 @@
   .heros .actions { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1.8rem; }
   .fiche { background: var(--blanc); color: var(--encre); border-radius: 18px; padding: 20px 22px; box-shadow: 0 24px 60px rgba(0,0,0,.3); }
   .fiche .nom { font-family: var(--titre); font-weight: 700; font-size: 1.25rem; }
-  .fiche .note { display: flex; align-items: center; gap: .5rem; margin-top: .3rem; font-size: .96rem; }
-  .etoiles { display: inline-flex; gap: 2px; }
-  .etoiles svg { width: 16px; height: 16px; fill: #e7a33a; }
-  .fiche .note small { color: var(--doux); }
   .fiche ul { list-style: none; display: grid; gap: .55rem; margin-top: .9rem; font-size: .96rem; }
   .fiche li { display: flex; gap: .6rem; align-items: center; }
   .fiche li svg { width: 18px; height: 18px; flex: none; fill: none; stroke: var(--haie-2); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .ouvert { font-weight: 600; color: #1d7a45; }
   .ferme { font-weight: 600; color: #a33a1c; }
-  .fiche .exemple { margin-top: .9rem; font-size: .82rem; color: var(--doux); border-top: 1px solid var(--sauge-2); padding-top: .7rem; }
-  @media (max-width: 860px) { .heros .contenu { grid-template-columns: 1fr; } .heros { padding-top: 110px; }
+  @media (max-width: 860px) { .heros .contenu { grid-template-columns: 1fr; } .heros { padding-top: max(110px, 6.875rem); }
     .heros::before { background: linear-gradient(0deg, rgba(20,34,26,.94) 0%, rgba(20,34,26,.78) 55%, rgba(20,34,26,.45) 85%, rgba(20,34,26,.6) 100%); } }
   .heros p { text-shadow: 0 1px 10px rgba(0,0,0,.35); }
 
@@ -102,20 +98,10 @@
   @media (max-width: 860px) { .services .grille { grid-template-columns: 1fr 1fr; } .s1 { grid-column: span 2; } .s2, .s3, .s4, .s5 { grid-column: span 1; } .service.photo { min-height: 260px; } }
   @media (max-width: 520px) { .services .grille { grid-template-columns: 1fr; } .s1, .s2, .s3, .s4, .s5 { grid-column: span 1; } }
 
-  /* Avis */
+  /* Avis : un emplacement, sans note ni avis d'illustration (les vrais avis Google du client s'y afficheront) */
   .avis { background: var(--sauge-2); }
-  .avis .entete { display: flex; justify-content: space-between; align-items: end; gap: 2rem; flex-wrap: wrap; }
-  .moyenne { display: flex; align-items: center; gap: 1rem; }
-  .moyenne b { font-family: var(--titre); font-size: 3.6rem; line-height: 1; }
-  .moyenne .etoiles svg { width: 22px; height: 22px; }
-  .moyenne small { display: block; color: var(--doux); }
-  .cartes-avis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 2.4rem; }
-  .cartes-avis figure { background: var(--blanc); border-radius: 16px; padding: 24px; }
-  .cartes-avis blockquote { font-size: 1.06rem; margin-top: .7rem; }
-  .cartes-avis figcaption { margin-top: 1rem; color: var(--doux); font-size: .92rem; }
   .avis .pied-avis { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-top: 2rem; }
   .avis .pied-avis p { color: var(--doux); font-size: .95rem; max-width: 34rem; }
-  @media (max-width: 860px) { .cartes-avis { grid-template-columns: 1fr; } }
 
   /* Zone d'intervention */
   .zone .grille { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
@@ -151,10 +137,21 @@
   .apparait { opacity: 0; transform: translateY(16px); transition: opacity .6s ease-out, transform .6s ease-out; }
   .apparait.vu { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { .apparait { opacity: 1; transform: none; transition: none; } .bt, .service.photo img { transition: none; } }
+
+/* Bandeau « Démonstration fictive » : identique dans les cinq démos */
+.demo-fictive{position:relative;z-index:70;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:.45em;margin:0;padding:env(safe-area-inset-top) max(12px,env(safe-area-inset-right)) 0 max(12px,env(safe-area-inset-left));background:#111315;color:#ecebe7;font:400 .8125rem/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:0;text-transform:none;text-shadow:none;pointer-events:auto}
+.demo-fictive strong{font-weight:700;color:#fff;white-space:nowrap}
+.demo-fictive a{display:inline-flex;align-items:center;min-height:2.75rem;margin-left:.7em;padding:0 .35em;color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;text-shadow:none}
+.demo-fictive a:focus-visible{outline:2px solid #fff;outline-offset:-3px}
+@media (max-width:560px){.demo-fictive{justify-content:space-between;padding-bottom:.5rem}.demo-fictive .df-p{display:none}.demo-fictive .df-s{order:3;flex-basis:100%}.demo-fictive a{margin-left:0;padding-right:0}}
+/* En-tête de la démo : posé sur la photo, juste sous le bandeau */
+.demo-ancre{position:relative;height:0;z-index:5}
 </style>
 </head>
 <body>
 
+<div class="demo-fictive" role="note"><strong>Démonstration fictive</strong><span class="df-p" aria-hidden="true">·</span><span class="df-s">site d’exemple réalisé par DIG16</span><a href="/">Retour à dig16.fr</a></div>
+<div class="demo-ancre">
 <header class="tete">
   <a class="marque" href="#">
     <svg viewBox="0 0 38 38" aria-hidden="true"><circle cx="19" cy="19" r="19" fill="#fffdf8"/><path d="M19 30V16m0 0c0-6 4.5-9 10.5-9 0 6-4.5 9-10.5 9zm0 5c0-4.5-3.5-8-9-8 0 4.5 3.5 8 9 8z" fill="none" stroke="#1e3528" stroke-width="2.2" stroke-linecap="round"/></svg>
@@ -165,6 +162,7 @@
     <a class="bt plein" href="#devis">Demander un devis</a>
   </nav>
 </header>
+</div>
 
 <main>
   <section class="heros" aria-label="Présentation">
@@ -180,13 +178,11 @@
       </div>
       <aside class="fiche apparait" aria-label="Fiche de l'entreprise">
         <div class="nom">Atelier Végétal</div>
-        <div class="note"><b>4,9</b><span class="etoiles" role="img" aria-label="4,9 sur 5"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg></span><small>38 avis</small></div>
         <ul>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="statut">Horaires : lundi au samedi</span></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Votre commune et 20 km alentour</li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M12 4v16"/></svg>Devis gratuit sous 48 heures</li>
         </ul>
-        <p class="exemple">Exemple de note et d'avis : avec la formule Visibilité, ce bloc reprend vos vrais avis Google.</p>
       </aside>
     </div>
   </section>
@@ -213,15 +209,9 @@
   </section>
 
   <section class="avis" id="avis" aria-labelledby="titre-avis">
-    <div class="entete">
-      <div><div class="sur">Ils nous ont fait confiance</div><h2 id="titre-avis">Ce que disent nos clients</h2></div>
-      <div class="moyenne"><b>4,9</b><div><span class="etoiles" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg></span><small>38 avis sur Google (exemple)</small></div></div>
-    </div>
-    <div class="cartes-avis">
-      <figure class="apparait"><span class="etoiles" role="img" aria-label="5 sur 5"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg></span><blockquote>« Devis reçu en deux jours, haie taillée la semaine suivante et tout était propre en partant. »</blockquote><figcaption>Avis d'exemple, démonstration</figcaption></figure>
-      <figure class="apparait"><span class="etoiles" role="img" aria-label="5 sur 5"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg></span><blockquote>« Notre jardin était une friche. Un an après, on y mange tous les soirs d'été. »</blockquote><figcaption>Avis d'exemple, démonstration</figcaption></figure>
-      <figure class="apparait"><span class="etoiles" role="img" aria-label="5 sur 5"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg></span><blockquote>« Ponctuels, de bon conseil sur les plantes qui tiennent l'été. Je recommande. »</blockquote><figcaption>Avis d'exemple, démonstration</figcaption></figure>
-    </div>
+    <div class="sur">Avis Google</div>
+    <h2 id="titre-avis">Vos avis Google, ici</h2>
+    <p class="chapo">Emplacement prévu pour vos vrais avis Google. Aucun avis n’est inventé.</p>
     <div class="pied-avis">
       <button class="bt plein" type="button" id="laisser-avis">Laisser un avis</button>
       <p id="note-avis">Avec la formule Visibilité, chaque client reçoit après le chantier un message avec le lien direct vers votre fiche Google.</p>
@@ -273,7 +263,7 @@
 
 <footer>
   <span>© Atelier Végétal · <a href="../../mentions-legales.html">Mentions légales</a></span>
-  <span>Démonstration « Visibilité » réalisée par DIG16 : entreprise, coordonnées, note et avis fictifs ; photos d'illustration libres de droits (Unsplash).</span>
+  <span>Démonstration « Visibilité » réalisée par DIG16 : entreprise et coordonnées fictives ; photos d'illustration libres de droits (Unsplash).</span>
 </footer>
 
 <div class="appel"><a class="bt plein" href="tel:+33199000000">Appeler l'atelier</a></div>

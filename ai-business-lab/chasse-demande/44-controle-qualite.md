@@ -225,6 +225,17 @@ publications programmées et brouillons, PDF, modèles de mails). Phrases interd
 joignable, 7 jours sur 7 » le 24/10). Autorisé : « joignable 7 jours sur 7 ». À chaque décision qui retire une promesse :
 l'ajouter ici le jour même, puis chercher et corriger toutes les copies.
 
+Ajouts du 12/11/2026 (retouches du site validées le 11/11, détail `73-audits-externes-grok-gemini-1111.md`) : ne plus écrire
+« Réservation en ligne incluse » pour Essentiel, Visibilité ou Achat (réservée à Prestige) ; « Rien n'est enregistré » (écrire
+« L'adresse testée et son résultat ne sont pas enregistrés ») ; « y compris la facturation électronique » ; « C'est une obligation
+légale pour les contrats signés chez vous » (écrire « Je l'applique à tous mes clients, par écrit sur le devis ») ; « je vous
+l'envoie » pour la démo (écrire « je vous la montre ») ; des horaires « 00:00-23:59 » ou « 24 h/24 » dans les données du site ;
+« 6 mois d'engagement » sans « 12 mois pour Prestige et pour 12 mois payés d'avance » quand Prestige est cité. Phrase unique sur
+la propriété : « Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez,
+et vous gardez tout. » « Joignable 7 jours sur 7 » s'écrit avec « réponse sous 24 h ». Sous un prix mensuel : « 6 mois minimum, soit
+294 € » (Essentiel), « soit 474 € » (Visibilité), « 12 mois minimum, soit 2 388 € » (Prestige). Qui écrit les textes : « Je rédige,
+avec l'aide d'un outil, à partir de notre échange, et vous validez chaque phrase avant la mise en ligne. »
+
 ## Aucune trace d'un autre client (27/10/2026, dépôt replica-skill, MIT)
 
 Avant toute démo ou livraison d'un site client : `python3 outils/traces_autre_client.py <dossier du site> --avoid "<noms des

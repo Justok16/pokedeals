@@ -26,7 +26,7 @@
   :focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
 
   /* Barre du haut : la marque, un seul appel à l'action (même libellé partout) */
-  .barre { position: fixed; inset: 0 0 auto; z-index: 40; display: flex; justify-content: space-between; align-items: center;
+  .barre { position: sticky; top: 0; z-index: 40; display: flex; justify-content: space-between; align-items: center;
     padding: max(14px, env(safe-area-inset-top)) clamp(16px, 4vw, 48px) 14px; color: var(--sc-ink);
     background: linear-gradient(180deg, rgba(22,18,14,.72), rgba(22,18,14,0)); pointer-events: none; }
   .barre > * { pointer-events: auto; }
@@ -36,6 +36,7 @@
   .devis { text-decoration: none; background: var(--sc-accent); color: var(--sc-accent-ink); padding: .62rem 1.05rem; border-radius: 2px; font-weight: 500; white-space: nowrap; transition: background 150ms; }
   .devis:hover { background: #d6a56b; }
   @media (max-width: 560px) { .tel { display: none; } }
+  @media (max-width: 340px) { .barre .devis { padding-inline: .8rem; } }
 
   /* Acte 1 : la visite. Le film avance sous le doigt ; les légendes suivent le film lui-même. */
   /* Hauteur réservée dès le premier affichage (le moteur pose la même : span × 100vh), sinon la suite de la page saute */
@@ -127,11 +128,23 @@
     .chapitre { transition: none; }
     .plan { display: none; }
   }
+
+/* Bandeau « Démonstration fictive » : identique dans les cinq démos */
+.demo-fictive{position:relative;z-index:70;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:.45em;margin:0;padding:env(safe-area-inset-top) max(12px,env(safe-area-inset-right)) 0 max(12px,env(safe-area-inset-left));background:#111315;color:#ecebe7;font:400 .8125rem/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:0;text-transform:none;text-shadow:none;pointer-events:auto}
+.demo-fictive strong{font-weight:700;color:#fff;white-space:nowrap}
+.demo-fictive a{display:inline-flex;align-items:center;min-height:2.75rem;margin-left:.7em;padding:0 .35em;color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;text-shadow:none}
+.demo-fictive a:focus-visible{outline:2px solid #fff;outline-offset:-3px}
+@media (max-width:560px){.demo-fictive{justify-content:space-between;padding-bottom:.5rem}.demo-fictive .df-p{display:none}.demo-fictive .df-s{order:3;flex-basis:100%}.demo-fictive a{margin-left:0;padding-right:0}}
+/* Le bandeau et l’en-tête se posent par-dessus le film : bandeau en haut à l’arrivée, en-tête dessous puis collé en haut */
+body{position:relative}
+.demo-haut{position:absolute;inset:0;z-index:40;pointer-events:none}
 </style>
 </head>
 <body>
 <span data-sc-progress></span>
 
+<div class="demo-haut">
+<div class="demo-fictive" role="note"><strong>Démonstration fictive</strong><span class="df-p" aria-hidden="true">·</span><span class="df-s">site d’exemple réalisé par DIG16</span><a href="/">Retour à dig16.fr</a></div>
 <header class="barre">
   <a class="marque" href="#haut">Atelier Verrier</a>
   <nav aria-label="Contact">
@@ -139,6 +152,7 @@
     <a class="devis" href="#devis">Demander un devis</a>
   </nav>
 </header>
+</div>
 
 <main id="haut">
 

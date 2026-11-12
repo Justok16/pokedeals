@@ -83,15 +83,62 @@ html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
 .chapo{font-size:1.15rem;color:var(--encre);max-width:62ch}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"AboutPage","@id":"https://dig16.fr/le-projet/#page","url":"https://dig16.fr/le-projet/","name":"Le projet DIG16 : sites internet pour artisans en Charente","description":"DIG16, créé en octobre 2026 en Charente : des sites internet modernes, pensés pour le téléphone, pour les artisans, commerçants et indépendants. L’idée, l’offre et où en est le projet.","inLanguage":"fr-FR","isPartOf":{"@id":"https://dig16.fr/#site"},"about":{"@id":"https://dig16.fr/#organisation"},"publisher":{"@id":"https://dig16.fr/#organisation"},"datePublished":"2026-10-13","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://dig16.fr/"},{"@type":"ListItem","position":2,"name":"Le projet","item":"https://dig16.fr/le-projet/"}]}}</script>
+<style>
+/* 12/11/2026 : bandeau « Vu dans Charente Libre » (toutes les pages, pas les démos) */
+.vu-presse{display:flex;align-items:center;justify-content:center;min-height:44px;padding:.25rem 1rem;position:relative;z-index:90;background:#181613;border-bottom:1px solid rgba(239,233,223,.11);color:#a8a093;font:400 .84rem/1.3 Geist,'Geist Fallback',system-ui,sans-serif;letter-spacing:.01em;text-align:center;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.vu-presse b{font-weight:500;color:#efe9df;text-decoration:underline;text-decoration-color:rgba(200,164,110,.7);text-underline-offset:.22em}
+.vu-presse:focus-visible{outline:2px solid #c8a46e;outline-offset:-4px}
+@media (hover:hover) and (pointer:fine){.vu-presse:hover{color:#efe9df}}
+</style>
+<style>
+/* 12/11/2026 : photo de l'article papier de Charente Libre, agrandissable d'un toucher (élément <dialog>, aucune bibliothèque) */
+.article-presse{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:1.4rem;align-items:center;margin:1.6rem 0 2rem;max-width:38rem;padding:1.1rem;border:1px solid rgba(200,164,110,.28);border-radius:18px;background:#181613}
+.article-vignette{position:relative;display:block;border-radius:10px;overflow:hidden;background:#ebeae8;box-shadow:0 14px 34px rgba(0,0,0,.45);cursor:zoom-in;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.article-vignette img{display:block;width:100%;height:auto}
+.article-loupe{position:absolute;right:8px;bottom:8px;display:inline-flex;align-items:center;gap:.35rem;padding:.4rem .7rem;border-radius:999px;background:rgba(15,14,12,.86);color:#efe9df;font:500 .82rem/1 Geist,'Geist Fallback',system-ui,sans-serif}
+.article-loupe svg,.article-barre svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.article-vignette:focus-visible{outline:2px solid #c8a46e;outline-offset:3px}
+/* 12/11 (demande : « bouton dessous ») : le bouton « Agrandir » est sous l'image, il ne cache plus le texte de l'article */
+.article-vignette{overflow:visible;background:none;box-shadow:none;border-radius:0;display:grid;justify-items:center;gap:.75rem}
+.article-vignette picture{display:block;border-radius:10px;overflow:hidden;background:#ebeae8;box-shadow:0 18px 44px rgba(0,0,0,.5)}
+.article-loupe{position:static;min-height:44px;padding:.55rem 1.1rem;border:1px solid rgba(239,233,223,.3);background:transparent;font-size:.9rem}
+.presse-image .article-vignette{box-shadow:none}
+
+.article-presse figcaption{display:grid;gap:.3rem;color:#a8a093;font-size:.95rem;line-height:1.45;text-align:left}
+.article-presse figcaption b{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-weight:400;font-size:1.5rem;line-height:1.15;color:#efe9df}
+.article-presse figcaption a{display:inline-flex;align-items:center;min-height:44px;color:#efe9df;text-decoration:underline;text-decoration-color:rgba(200,164,110,.7);text-underline-offset:.22em;justify-self:start}
+@media (max-width:420px){.article-presse{grid-template-columns:minmax(0,1fr);max-width:260px}}
+.article-grand{margin:auto;inset:0;position:fixed;width:min(96vw,760px);max-width:96vw;height:fit-content;max-height:94vh;max-height:94dvh;padding:0;border:1px solid rgba(239,233,223,.16);border-radius:14px;background:#181613;color:#efe9df;overflow:hidden}
+.article-grand[open]{display:flex;flex-direction:column}
+.article-grand::backdrop{background:rgba(8,7,6,.82)}
+.article-barre{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.35rem .5rem .35rem 1rem;font:400 .88rem/1.3 Geist,'Geist Fallback',system-ui,sans-serif;color:#a8a093;flex:none}
+.article-barre span{flex:1 1 0;min-width:0}
+.article-barre button{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:.4rem;min-height:44px;padding:0 .9rem;border-radius:999px;border:1px solid rgba(239,233,223,.22);color:#efe9df;font:500 .9rem/1 Geist,'Geist Fallback',system-ui,sans-serif;cursor:pointer;flex:none;touch-action:manipulation}
+.article-barre button:focus-visible,.article-zone:focus-visible{outline:2px solid #c8a46e;outline-offset:-2px}
+.article-zone{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;background:#ebeae8;cursor:zoom-in;-webkit-overflow-scrolling:touch}
+.article-zone img{display:block;width:100%;height:auto}
+.article-zone.zoom{cursor:zoom-out}.article-zone.zoom img{width:200%;max-width:none}
+.article-pied{margin:0;padding:.2rem 1rem;font:400 .86rem/1.4 Geist,'Geist Fallback',system-ui,sans-serif;color:#a8a093;flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;column-gap:1rem}
+.article-pied a{display:inline-flex;align-items:center;min-height:44px;color:#efe9df;text-decoration:underline;text-decoration-color:rgba(200,164,110,.7);text-underline-offset:.22em}
+/* mouvement réduit : rien ne bouge ici (ni fondu ni zoom animé), le second agrandissement est immédiat */
+@media (prefers-reduced-motion:reduce){.article-zone{scroll-behavior:auto}}
+@media (hover:hover) and (pointer:fine){.article-vignette:hover .article-loupe{background:#c8a46e;color:#14110d}.article-barre button:hover{border-color:#c8a46e}}
+</style>
 </head>
 <body><!--email_off-->
 <a class="saut" href="#contenu">Aller au contenu</a>
+<a class="vu-presse" href="https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php" rel="noopener"><span>Vu dans <b>Charente Libre</b>, 10&nbsp;novembre&nbsp;2026</span></a>
 <header><div class="cadre"><a href="/" class="logo"><svg class="logo-embleme" viewBox="20 20 160 160" aria-hidden="true"><rect x="24" y="24" width="152" height="152" rx="30" fill="none" stroke="#c8a46e" stroke-width="2.2"/><rect x="31" y="31" width="138" height="138" rx="24" fill="none" stroke="#c8a46e" stroke-width=".8" opacity=".5"/><text x="90" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="116" fill="#c8a46e">D</text><text x="134" y="136" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="42" fill="#efe9df">16</text></svg><span class="logo-mot"><span>DIG<em>16</em></span></span></a></div></header>
 <main id="contenu" class="cadre">
 <figure class="bandeau"><img src="/img/accueil/contact-1000.webp" srcset="/img/accueil/contact-600.webp 600w, /img/accueil/contact-1000.webp 1000w, /img/accueil/contact-1600.webp 1600w" sizes="(max-width:900px) 92vw, 860px" width="1000" height="668" alt="Artisan souriant, son téléphone à la main, dans son atelier" fetchpriority="high"><figcaption>Le projet</figcaption></figure>
 <h1>Le projet DIG16, en 2 minutes</h1>
 <p class="chapo">DIG16 est née en octobre 2026, en Charente. Une idée simple : que chaque artisan, commerçant ou indépendant du coin soit facile à trouver et à appeler depuis un téléphone.</p>
+<p>DIG16, c’est une seule personne : <b>Maximilien Boireau</b>, entrepreneur individuel installé à Ruffec. C’est moi qui vous réponds, qui crée votre site et qui le suis ensuite.</p>
 
+<figure class="article-presse">
+ <a class="article-vignette" id="article-ouvrir" href="/img/presse/charente-libre-2026-11-10-1200.jpg" aria-haspopup="dialog" aria-controls="article-grand"><picture><source type="image/webp" srcset="/img/presse/charente-libre-2026-11-10-600.webp"><img src="/img/presse/charente-libre-2026-11-10-1200.jpg" width="600" height="787" alt="Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact." loading="lazy" decoding="async"></picture><span class="article-loupe"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8.5v5M8.5 11h5"/></svg>Agrandir</span></a>
+ <figcaption><b>Vu dans la presse</b> <span>Charente Libre, édition du 10&nbsp;novembre&nbsp;2026.</span> <a href="https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php" rel="noopener">Lire l’article sur le site du journal</a></figcaption>
+</figure>
 <h2>L’idée de départ</h2>
 <p>Aujourd’hui, on cherche presque tout sur son téléphone : « plombier », « coiffeur », « garage », suivi du nom de la ville. Beaucoup de professionnels de Charente n’ont pas de site, ou ont un site ancien, lent ou illisible sur un petit écran. Ils perdent des clients sans le savoir.</p>
 <p>D’où <a href="/test-du-pouce/">le test du pouce</a> : prenez votre téléphone, tapez votre métier et votre ville. Est-ce que vous apparaissez ? Est-ce que votre numéro s’appelle d’un geste ?</p>
@@ -100,12 +147,14 @@ html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
 <div class="chiffres">
 <div><strong>0 €</strong><span>de création</span></div>
 <div><strong>Dès 49 €</strong><span>par mois</span></div>
-<div><strong>7 j/7</strong><span>joignable</span></div>
+<div><strong>7 j/7</strong><span>joignable, réponse sous 24&nbsp;h</span></div>
 <div><strong>À votre nom</strong><span>le site vous appartient</span></div>
 </div>
 <ul style="margin-top:1.2rem">
 <li><b>Essentiel, 49 € par mois :</b> site de 5 pages sur mesure, formulaire de demande de devis, 1 modification par mois, bilan mensuel.</li>
 <li><b>Visibilité, 79 € par mois :</b> tout l’Essentiel, suivi de la fiche Google, demandes d’avis clients, 3 modifications par mois.</li>
+<li><b>Achat, 690 € une fois :</b> site de 5 pages livré, à vous pour toujours ; hébergement et suivi facultatifs à 15 € par mois.</li>
+<li><b>Prestige, 1 990 € une fois ou 199 € par mois :</b> pour les maisons d’exception (hôtels, restaurants, domaines, artisans d’art), un site entièrement sur mesure, version anglaise et réservation en ligne incluses. <a href="/prestige">Voir Prestige</a>.</li>
 <li><b>Pour juger avant de décider :</b> je refais gratuitement votre page d’accueil.</li>
 </ul>
 <p>Les détails sont sur <a href="/">la page d’accueil</a>. Avant de choisir un prestataire, quel qu’il soit, lisez <a href="/site-internet-artisan/">le guide : site internet pour artisan, ce qu’il faut savoir</a>.</p>
@@ -118,6 +167,11 @@ html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
 <li>Charente Libre a consacré un article à DIG16 le 10&nbsp;novembre&nbsp;2026 : <a href="https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php" rel="noopener">lire l’article</a> (en partie réservé aux abonnés).</li>
 <li>Prochaine étape : rencontrer les artisans et commerçants, et écouter ce dont ils ont vraiment besoin.</li>
 </ul>
+<dialog class="article-grand" id="article-grand" aria-label="Article de Charente Libre, édition du 10 novembre 2026, en grand">
+ <div class="article-barre"><span>Charente Libre, édition du 10&nbsp;novembre&nbsp;2026</span><button type="button" id="article-fermer" aria-label="Fermer l’image agrandie"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Fermer</button></div>
+ <div class="article-zone" id="article-zone" tabindex="0"><picture><source type="image/webp" srcset="/img/presse/charente-libre-2026-11-10-1200.webp"><img id="article-image" src="/img/presse/charente-libre-2026-11-10-1200.jpg" width="1200" height="1574" alt="Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact." loading="lazy" decoding="async"></picture></div>
+ <p class="article-pied"><span>Touchez l’image (ou cliquez) pour l’agrandir encore.</span> <a href="https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php" rel="noopener">Lire l’article sur le site du journal</a></p>
+</dialog>
 
 <h2>Comment aider</h2>
 <p>Vous connaissez un artisan, un commerçant ou un indépendant en Charente ? Donnez-lui l’adresse <b>dig16.fr</b>. Un abonnement ou un partage sur les réseaux aide aussi beaucoup au début.</p>
@@ -135,5 +189,18 @@ html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
 <footer><p class="signature" aria-hidden="true">DIG<em>16</em></p>
 <div class="cadre"><div>© DIG16 — Sites internet pour artisans, commerçants et indépendants</div><div class="pied-liens"><a href="/creation-site-internet-charente/">Création de site internet en Charente</a><a href="/site-internet-artisan/">Guide : site internet pour artisan</a><a href="/mentions-legales">Mentions légales</a></div></div></footer>
 <script src="/mesure.js" defer></script>
-<!--/email_off--></body>
+<!--/email_off--><script>
+// 12/11/2026 : article de Charente Libre en grand (sans JavaScript, le lien ouvre simplement l'image)
+(function(){var o=document.getElementById('article-ouvrir'),d=document.getElementById('article-grand'),z=document.getElementById('article-zone');
+if(!o||!d||!d.showModal)return;
+o.addEventListener('click',function(e){e.preventDefault();z.classList.remove('zoom');d.showModal();z.scrollTop=0});
+document.getElementById('article-fermer').addEventListener('click',function(){d.close()});
+d.addEventListener('click',function(e){if(e.target===d)d.close()});
+d.addEventListener('close',function(){o.focus()});
+z.addEventListener('click',function(e){var r=z.getBoundingClientRect(),fx=(e.clientX-r.left+z.scrollLeft)/z.scrollWidth,fy=(e.clientY-r.top+z.scrollTop)/z.scrollHeight;
+ z.classList.toggle('zoom');if(z.classList.contains('zoom')){z.scrollLeft=fx*z.scrollWidth-r.width/2;z.scrollTop=fy*z.scrollHeight-r.height/2}});
+z.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();z.classList.toggle('zoom')}});
+})();
+</script>
+</body>
 </html>
