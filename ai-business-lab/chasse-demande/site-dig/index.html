@@ -466,6 +466,8 @@ nav#nav{position:sticky;margin-bottom:calc(-1*var(--nav) - 1px)}
 .article-zone.zoom{cursor:zoom-out}.article-zone.zoom img{width:200%;max-width:none}
 .article-pied{margin:0;padding:.2rem 1rem;font:400 .86rem/1.4 Geist,'Geist Fallback',system-ui,sans-serif;color:#a8a093;flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;column-gap:1rem}
 .article-pied a{display:inline-flex;align-items:center;min-height:44px;color:#efe9df;text-decoration:underline;text-decoration-color:rgba(200,164,110,.7);text-underline-offset:.22em}
+/* mouvement réduit : rien ne bouge ici (ni fondu ni zoom animé), le second agrandissement est immédiat */
+@media (prefers-reduced-motion:reduce){.article-zone{scroll-behavior:auto}}
 @media (hover:hover) and (pointer:fine){.article-vignette:hover .article-loupe{background:#c8a46e;color:#14110d}.article-barre button:hover{border-color:#c8a46e}}
 </style>
 </head>
