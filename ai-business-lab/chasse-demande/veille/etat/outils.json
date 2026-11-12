@@ -1,5 +1,5 @@
 {
- "date": "2026-11-11",
+ "date": "2026-11-12",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -38,9 +38,9 @@
    "licence": "MIT"
   },
   "dotLottie web": {
-   "version": "0.83.0",
-   "date": "2026-11-11",
-   "etoiles": 937,
+   "version": "0.83.1",
+   "date": "2026-11-12",
+   "etoiles": 942,
    "licence": "MIT"
   },
   "sharp": {
@@ -88,7 +88,7 @@
   "Leonardo (Adobe)": {
    "version": "1.1.0",
    "date": "2026-02-18",
-   "etoiles": 2163,
+   "etoiles": 2167,
    "licence": "Apache-2.0"
   },
   "Open Props": {
@@ -134,8 +134,8 @@
    "licence": null
   },
   "Remotion": {
-   "version": "4.0.542",
-   "date": "2026-11-09",
+   "version": "4.0.543",
+   "date": "2026-11-11",
    "etoiles": 71674,
    "licence": "non-standard"
   },
@@ -214,13 +214,13 @@
   "tarteaucitron.js": {
    "version": "1.37.0",
    "date": "2026-10-15",
-   "etoiles": 1059,
+   "etoiles": 1062,
    "licence": "MIT"
   },
   "ALTCHA": {
-   "version": "3.5.0",
-   "date": "2026-10-22",
-   "etoiles": 2875,
+   "version": "3.6.0",
+   "date": "2026-11-12",
+   "etoiles": 2895,
    "licence": "MIT"
   },
   "Gitleaks": {
@@ -254,8 +254,8 @@
    "licence": "Apache-2.0"
   },
   "Chrome DevTools MCP": {
-   "version": "1.12.0",
-   "date": "2026-10-22",
+   "version": "1.13.0",
+   "date": "2026-11-11",
    "etoiles": 54811,
    "licence": "Apache-2.0"
   },
