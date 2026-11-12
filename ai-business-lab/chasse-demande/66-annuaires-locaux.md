@@ -162,6 +162,8 @@ avec la responsable de l’association du 19/10 et montré à l'utilisateur avan
 
 **03/11/2026 : mairie de Ruffec réglée** (réponse : renvoi vers Atout Ruffec, dont l'utilisateur fait partie) ; relance du 12/11 limitée à la CCI.
 
+**12/11/2026 : CCI close, sans relance** : l'utilisateur indique que la CCI lui avait déjà répondu en l'orientant vers Atout Ruffec (dont il est membre). Plus aucune relance ; sujet clos.
+
 **02/11/2026 : envoyés.** Les brouillons de l'époque avaient disparu de la boîte ; textes réécrits à partir du guide
 en ligne (titre et parties relus le 02/11, dig16.fr/guide en 200) et envoyés comme nouveaux messages, sans citation ni
 mention de l'ancienne campagne, signature texte + image : CCI de la Charente (conseillère création) et mairie de Ruffec
