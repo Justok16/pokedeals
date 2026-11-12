@@ -131,9 +131,9 @@
   .resa h2 { font-size: clamp(2.6rem, 5.4vw, 4.6rem); }
   .resa .intro p { color: var(--sc-ink-soft); line-height: 1.7; max-width: 28rem; margin: 1.2rem 0 0; }
   form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; background: var(--sc-surface); padding: clamp(20px, 3vw, 36px); border-radius: 6px; }
-  label { display: grid; gap: .45rem; font-size: .9rem; color: var(--sc-ink-soft); }
+  label { display: grid; gap: .45rem; font-size: .9rem; color: var(--sc-ink-soft); min-width: 0; }
   label.plein { grid-column: 1 / -1; }
-  input, select { font: inherit; font-size: 1rem; color: var(--sc-ink); background: #1b1d19; border: 1px solid rgba(244,238,226,.18); border-radius: 4px; padding: .8rem .85rem; min-height: 48px; color-scheme: dark; }
+  input, select { font: inherit; font-size: 1rem; color: var(--sc-ink); background: #1b1d19; border: 1px solid rgba(244,238,226,.18); border-radius: 4px; padding: .8rem .85rem; min-height: 48px; color-scheme: dark; box-sizing: border-box; width: 100%; min-width: 0; }
   input:focus, select:focus { outline: 2px solid var(--sc-accent); outline-offset: 1px; }
   .total { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid rgba(244,238,226,.12); padding-top: 1rem; margin-top: .4rem; }
   .total span { color: var(--sc-ink-soft); font-size: .95rem; }
@@ -141,8 +141,8 @@
   form button { grid-column: 1 / -1; font: inherit; font-weight: 600; font-size: 1rem; background: var(--sc-accent); color: var(--sc-accent-ink); border: 0; border-radius: 999px; padding: 1rem 1.4rem; cursor: pointer; }
   form button:hover { background: #b8c48a; }
   .note { grid-column: 1 / -1; min-height: 1.4em; font-size: .95rem; color: var(--sc-accent); margin: 0; }
-  @media (max-width: 820px) { .resa .grille { grid-template-columns: 1fr; } }
-  @media (max-width: 460px) { form { grid-template-columns: 1fr; } }
+  @media (max-width: 820px) { .resa .grille { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 460px) { form { grid-template-columns: minmax(0, 1fr); } }
 
   .pied { background: #171915; color: #9c9483; font-size: .86rem; line-height: 1.6; padding: 1.6rem var(--sc-gutter) max(1.6rem, env(safe-area-inset-bottom)); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
   .pied a { text-decoration: underline; text-underline-offset: 3px; }

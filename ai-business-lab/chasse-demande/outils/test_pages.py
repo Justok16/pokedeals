@@ -319,7 +319,7 @@ def main():
                             const leg=v.closest('figure').querySelector('figcaption');
                             if(!/Charente Libre, édition du 10\\s novembre\\s 2026|Charente Libre, édition du 10.novembre.2026/.test(leg.textContent))out.push('légende');
                             if(!/charentelibre\\.fr/.test(leg.querySelector('a').href))out.push('lien du journal');
-                            if(d.open)d.close();d.showModal();const im=document.getElementById('article-image');
+                            if(d.open)d.close();const larg0=document.documentElement.scrollWidth;d.showModal();const im=document.getElementById('article-image');
                             for(let i=0;i<40&&!(im.complete&&im.naturalWidth);i++)await new Promise(r=>setTimeout(r,100));
                             if(!im.naturalWidth)out.push('image agrandie non chargée');
                             const c=d.getBoundingClientRect();
@@ -333,7 +333,7 @@ def main():
                               if(r.width&&(r.left<c.left-1||r.right>c.right+1||r.bottom>c.bottom+1))out.push('sort du cadre : '+e.textContent.trim().slice(0,22))}
                             const blocs=[...d.children].map(e=>e.getBoundingClientRect());
                             for(let i=1;i<blocs.length;i++)if(blocs[i].top<blocs[i-1].bottom-1)out.push('blocs superposés '+i);
-                            if(document.documentElement.scrollWidth>innerWidth)out.push('débordement');
+                            if(document.documentElement.scrollWidth>larg0)out.push('la fenêtre élargit la page');
                             d.close();return out}""", fs)
                         if r:
                             pires.append(f'texte {fs} % : {r[:3]}')
