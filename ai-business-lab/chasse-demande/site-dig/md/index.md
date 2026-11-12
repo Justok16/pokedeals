@@ -302,7 +302,7 @@ Oui : vous disposez de 14 jours pour vous rétracter, et aucun paiement n’es
 
 Le site m’appartient-il vraiment ?
 
-Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout : le nom de domaine, les textes, les photos et les fichiers du site.
+Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout : le nom de domaine, les textes, les photos et les fichiers du site. Pour Prestige en mensuel, l’engagement est de 12 mois.
 
 Que se passe-t-il si j’arrête ?
 
@@ -578,7 +578,7 @@ DisponibilitéToujours joignable, 7 jours sur 7
       "name": "Le site m’appartient-il vraiment ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout : le nom de domaine, les textes, les photos et les fichiers du site."
+        "text": "Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout : le nom de domaine, les textes, les photos et les fichiers du site. Pour Prestige en mensuel, l’engagement est de 12 mois."
       }
     },
     {
