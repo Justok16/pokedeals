@@ -98,6 +98,12 @@ html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
 .article-loupe{position:absolute;right:8px;bottom:8px;display:inline-flex;align-items:center;gap:.35rem;padding:.4rem .7rem;border-radius:999px;background:rgba(15,14,12,.86);color:#efe9df;font:500 .82rem/1 Geist,'Geist Fallback',system-ui,sans-serif}
 .article-loupe svg,.article-barre svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
 .article-vignette:focus-visible{outline:2px solid #c8a46e;outline-offset:3px}
+/* 12/11 (demande : « bouton dessous ») : le bouton « Agrandir » est sous l'image, il ne cache plus le texte de l'article */
+.article-vignette{overflow:visible;background:none;box-shadow:none;border-radius:0;display:grid;justify-items:center;gap:.75rem}
+.article-vignette picture{display:block;border-radius:10px;overflow:hidden;background:#ebeae8;box-shadow:0 18px 44px rgba(0,0,0,.5)}
+.article-loupe{position:static;min-height:44px;padding:.55rem 1.1rem;border:1px solid rgba(239,233,223,.3);background:transparent;font-size:.9rem}
+.presse-image .article-vignette{box-shadow:none}
+
 .article-presse figcaption{display:grid;gap:.3rem;color:#a8a093;font-size:.95rem;line-height:1.45;text-align:left}
 .article-presse figcaption b{font-family:'Instrument Serif','Instrument Serif Fallback',Georgia,serif;font-weight:400;font-size:1.5rem;line-height:1.15;color:#efe9df}
 .article-presse figcaption a{display:inline-flex;align-items:center;min-height:44px;color:#efe9df;text-decoration:underline;text-decoration-color:rgba(200,164,110,.7);text-underline-offset:.22em;justify-self:start}
