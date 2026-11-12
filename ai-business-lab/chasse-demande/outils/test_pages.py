@@ -297,7 +297,7 @@ def main():
                         if(!top||!e.contains(top))out.push('recouvert par '+(top&&(top.id||top.className||top.tagName)));
                         const n=document.getElementById('nav');
                         if(n){const rn=n.getBoundingClientRect();if(rn.top<r.bottom-1)out.push('menu sur le bandeau');
-                          scrollTo(0,600);const r2=n.getBoundingClientRect();if(Math.abs(r2.top)>1)out.push('menu décollé après défilement : '+Math.round(r2.top))}
+                          scrollTo({top:600,behavior:'instant'});const r2=n.getBoundingClientRect();if(Math.abs(r2.top)>1)out.push('menu décollé après défilement : '+Math.round(r2.top))}
                         return out}""", fs)
                     souci += bool(r)
                     print(('ALERTE' if r else 'OK    '), w, f'texte {fs} %', u, 'bandeau presse', r or '')

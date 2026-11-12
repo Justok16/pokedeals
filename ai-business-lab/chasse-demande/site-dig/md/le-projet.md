@@ -13,7 +13,7 @@ Le projet
 
 DIG16 est née en octobre 2026, en Charente. Une idée simple : que chaque artisan, commerçant ou indépendant du coin soit facile à trouver et à appeler depuis un téléphone.
 
-DIG16, c’est une seule personne : **Maximilien Boireau**, entrepreneur individuel installé à Ruffec. C’est moi qui vous réponds, qui crée votre site et qui le suis ensuite.
+DIG16, c’est une seule personne : **Maximilien Boireau**, entrepreneur individuel installé à Ruffec. C’est moi qui vous réponds, qui crée votre site et qui le suis ensuite.
 
 ## L’idée de départ
 
@@ -33,8 +33,8 @@ D’où [le test du pouce](https://dig16.fr/test-du-pouce/) : prenez votre tél
 
 - **Essentiel, 49 € par mois :** site de 5 pages sur mesure, formulaire de demande de devis, 1 modification par mois, bilan mensuel.
 - **Visibilité, 79 € par mois :** tout l’Essentiel, suivi de la fiche Google, demandes d’avis clients, 3 modifications par mois.
-- **Achat, 690 € une fois :** site de 5 pages livré, à vous pour toujours ; hébergement et suivi facultatifs à 15 € par mois.
-- **Prestige, 1 990 € une fois ou 199 € par mois :** pour les maisons d’exception (hôtels, restaurants, domaines, artisans d’art), un site entièrement sur mesure, version anglaise et réservation en ligne incluses. [Voir Prestige](https://dig16.fr/prestige).
+- **Achat, 690 € une fois :** site de 5 pages livré, à vous pour toujours ; hébergement et suivi facultatifs à 15 € par mois.
+- **Prestige, 1 990 € une fois ou 199 € par mois :** pour les maisons d’exception (hôtels, restaurants, domaines, artisans d’art), un site entièrement sur mesure, version anglaise et réservation en ligne incluses. [Voir Prestige](https://dig16.fr/prestige).
 - **Pour juger avant de décider :** je refais gratuitement votre page d’accueil.
 
 Les détails sont sur [la page d’accueil](https://dig16.fr/). Avant de choisir un prestataire, quel qu’il soit, lisez [le guide : site internet pour artisan, ce qu’il faut savoir](https://dig16.fr/site-internet-artisan/).

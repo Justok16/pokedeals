@@ -68,7 +68,7 @@ Nos services sont réservés aux professionnels (entreprises, artisans, commerç
   "publisher": {
     "@id": "https://dig16.fr/#organisation"
   },
-  "dateModified": "2026-10-14",
+  "dateModified": "2026-11-12",
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [

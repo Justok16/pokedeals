@@ -214,7 +214,7 @@ Prestige
 
 ### Pour les maisons d’exception
 
-Hôtels, restaurants, domaines, artisans d’art : un site entièrement sur mesure, photos plein écran, version anglaise et réservation incluses. **1 990 € une fois, ou 199 €/mois sans frais de création.**
+Hôtels, restaurants, domaines, artisans d’art : un site entièrement sur mesure, photos plein écran, version anglaise et réservation incluses. **1 990 € une fois, ou 199 €/mois sans frais de création (12 mois minimum).**
 
 [Découvrir Prestige](https://dig16.fr/prestige)
 
@@ -302,7 +302,7 @@ Oui : vous disposez de 14 jours pour vous rétracter, et aucun paiement n’es
 
 Le site m’appartient-il vraiment ?
 
-Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout : le nom de domaine, les textes, les photos et les fichiers du site. Pour Prestige en mensuel, l’engagement est de 12 mois.
+Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout. Cela comprend le nom de domaine, les textes, les photos et les fichiers du site. Pour Prestige en mensuel, l’engagement est de 12 mois.
 
 Que se passe-t-il si j’arrête ?
 
@@ -369,7 +369,7 @@ Laissez-moi vos coordonnées : je prépare votre page d’accueil et je vous la
 [Téléphone06 87 91 02 14](tel:+33687910214)
 [Emailcontact@dig16.fr](mailto:contact@dig16.fr)
 
-DisponibilitéToujours joignable, 7 jours sur 7
+DisponibilitéJoignable 7 jours sur 7, réponse sous 24 h
 
 ![Artisan souriant, son téléphone à la main, dans son atelier](https://dig16.fr/img/accueil/contact-1000.webp)
 
@@ -578,7 +578,7 @@ DisponibilitéToujours joignable, 7 jours sur 7
       "name": "Le site m’appartient-il vraiment ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout : le nom de domaine, les textes, les photos et les fichiers du site. Pour Prestige en mensuel, l’engagement est de 12 mois."
+        "text": "Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout. Cela comprend le nom de domaine, les textes, les photos et les fichiers du site. Pour Prestige en mensuel, l’engagement est de 12 mois."
       }
     },
     {

@@ -148,7 +148,7 @@ Demandez-le simplement à chaque client satisfait, avec un lien direct vers votr
       "description": "Prix, propriété du nom de domaine, pages utiles, fiche Google et avis : ce qu'un artisan ou un commerçant doit savoir avant de commander un site internet.",
       "inLanguage": "fr-FR",
       "datePublished": "2026-10-18",
-      "dateModified": "2026-10-18",
+      "dateModified": "2026-11-12",
       "author": {
         "@id": "https://dig16.fr/#organisation"
       },

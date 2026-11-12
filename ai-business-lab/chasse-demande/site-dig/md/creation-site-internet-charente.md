@@ -29,7 +29,7 @@ Vos futurs clients cherchent sur leur téléphone : « plombier Angoulême », �
 - **Pensé pour le téléphone** : tout se trouve en faisant défiler avec le pouce, le numéro s’appelle d’un geste.
 - **Rapide et bien référencé** : pages légères, textes écrits pour Google, informations de votre entreprise lisibles par les moteurs de recherche.
 - **Un formulaire de demande de devis** et une galerie de vos réalisations.
-- **À votre nom** : le nom de domaine vous appartient, et vous gardez vos fichiers.
+- **À votre nom** : site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout.
 - **Un suivi chaque mois** : vos modifications faites sous 3 jours ouvrés, et un bilan rapide des visites.
 
 ## Des prix clairs
