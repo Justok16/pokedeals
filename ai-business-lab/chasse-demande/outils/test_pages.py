@@ -264,6 +264,117 @@ def main():
                     souci += not ok
                     print(('OK    ' if ok else 'ALERTE'), w, f'texte {fs} %', u, '' if ok else f'débord={ov} coupés={coupes[:3]} points seuls={orphelins}')
                     pg.close()
+            # 12/11 : retouches validées le 11/11. (1) Premier écran de l'accueil sur téléphone : le prix « Dès 49 € par mois »
+            # et la barre « Appeler / Démo gratuite » sont visibles sans défiler, la barre ne recouvre ni le prix ni le titre.
+            for w, h in ((320, 568), (360, 640), (360, 780), (390, 844), (412, 915)):
+                c = b.new_context(viewport={'width': w, 'height': h}, is_mobile=True, has_touch=True)
+                pg = c.new_page(); pg.goto(base + '/', wait_until='load'); pg.wait_for_timeout(1500)
+                r = pg.evaluate("""()=>{const out=[],q=s=>document.querySelector(s),p=q('.prix-heros'),ba=q('#barre');
+                    if(!p||!/49\\s€ par mois, 0\\s€ de création/.test(p.textContent))return ['prix du premier écran absent'];
+                    const rp=p.getBoundingClientRect(),rb=ba.getBoundingClientRect(),st=getComputedStyle(ba);
+                    if(st.display==='none'||st.opacity!=='1'||rb.height<44)out.push('barre du bas invisible à l’arrivée');
+                    if(rb.bottom>innerHeight+1||rb.top<0)out.push('barre du bas hors écran');
+                    if(rp.bottom>rb.top-4||rp.top<0)out.push('prix caché ou sous la barre');
+                    if(!/Appeler/.test(ba.textContent)||!/Démo gratuite/.test(ba.textContent))out.push('texte de la barre');
+                    return out}""")
+                souci += bool(r)
+                print(('ALERTE' if r else 'OK    '), f'{w}x{h}', '/ premier écran : prix et barre visibles sans défiler', r or '')
+                c.close()
+            # (2) Bandeau « Vu dans Charente Libre » : présent en haut de chaque page du site (pas des démos), entièrement
+            # visible à l'arrivée (rien ne le recouvre), sur une ligne ou deux, lien vers le journal, cible d'au moins 38 px.
+            for w, fs in ((320, 100), (360, 130), (390, 100), (768, 100), (1440, 100), (1920, 100)):
+                for u in [x for x in PAGES if not x.startswith('/demos/')]:
+                    pg = b.new_page(viewport={'width': w, 'height': 850})
+                    pg.goto(base + u, wait_until='load'); pg.wait_for_timeout(500)
+                    r = pg.evaluate("""fs=>{document.documentElement.style.fontSize=fs+'%';const e=document.querySelector('a.vu-presse');
+                        if(!e)return ['bandeau absent'];const out=[],r=e.getBoundingClientRect(),s=e.querySelector('span').getBoundingClientRect();
+                        if(!/charentelibre\\.fr/.test(e.href))out.push('lien');
+                        if(!/Vu dans Charente Libre, 10\\s novembre\\s 2026|Vu dans Charente Libre, 10.novembre.2026/.test(e.textContent))out.push('texte : '+e.textContent);
+                        if(r.top<-1||r.left<-1||r.right>innerWidth+1)out.push('hors écran');
+                        if(r.height<38)out.push('cible trop petite');
+                        if(s.left<0||s.right>innerWidth||s.height>r.height)out.push('texte coupé');
+                        const top=document.elementFromPoint(innerWidth/2,r.top+r.height/2);
+                        if(!top||!e.contains(top))out.push('recouvert par '+(top&&(top.id||top.className||top.tagName)));
+                        const n=document.getElementById('nav');
+                        if(n){const rn=n.getBoundingClientRect();if(rn.top<r.bottom-1)out.push('menu sur le bandeau');
+                          scrollTo(0,600);const r2=n.getBoundingClientRect();if(Math.abs(r2.top)>1)out.push('menu décollé après défilement : '+Math.round(r2.top))}
+                        return out}""", fs)
+                    souci += bool(r)
+                    print(('ALERTE' if r else 'OK    '), w, f'texte {fs} %', u, 'bandeau presse', r or '')
+                    pg.close()
+            # (3) Article de Charente Libre en grand (fenêtre cachée à l'ouverture) : affichée de force et mesurée,
+            # à 10 largeurs et 3 tailles de texte (leçon du 11/11), puis ouverte par un vrai clic et fermée par Échap.
+            for u in ('/', '/le-projet/'):
+                for w in (320, 360, 390, 412, 600, 768, 820, 1024, 1440, 1920):
+                    pg = b.new_page(viewport={'width': w, 'height': 700 if w < 600 else 850})
+                    pg.goto(base + u, wait_until='load'); pg.wait_for_timeout(400)
+                    pires = []
+                    for fs in (100, 130, 160):
+                        r = pg.evaluate("""async fs=>{document.documentElement.style.fontSize=fs+'%';
+                            const d=document.getElementById('article-grand'),v=document.getElementById('article-ouvrir');
+                            if(!d||!v)return ['article absent'];const out=[];
+                            const rv=v.getBoundingClientRect(),iv=v.querySelector('img');
+                            if(rv.width<120||rv.right>innerWidth+1||rv.left<-1)out.push('vignette '+Math.round(rv.width));
+                            if(!iv.alt||iv.alt.length<80)out.push('texte alternatif trop court');
+                            const leg=v.closest('figure').querySelector('figcaption');
+                            if(!/Charente Libre, édition du 10\\s novembre\\s 2026|Charente Libre, édition du 10.novembre.2026/.test(leg.textContent))out.push('légende');
+                            if(!/charentelibre\\.fr/.test(leg.querySelector('a').href))out.push('lien du journal');
+                            if(d.open)d.close();d.showModal();const im=document.getElementById('article-image');
+                            for(let i=0;i<40&&!(im.complete&&im.naturalWidth);i++)await new Promise(r=>setTimeout(r,100));
+                            if(!im.naturalWidth)out.push('image agrandie non chargée');
+                            const c=d.getBoundingClientRect();
+                            if(c.left<-1||c.top<-1||c.right>innerWidth+1||c.bottom>innerHeight+1)out.push('fenêtre hors écran '+[c.left,c.top,c.right,c.bottom].map(Math.round));
+                            const f=document.getElementById('article-fermer').getBoundingClientRect();
+                            if(f.height<44||f.width<44||f.right>c.right+1||f.top<c.top-1||f.bottom>innerHeight)out.push('bouton Fermer');
+                            const z=document.getElementById('article-zone').getBoundingClientRect();
+                            if(z.height<Math.min(220,innerHeight*.3))out.push('image trop petite : '+Math.round(z.height)+' px');
+                            const ri=im.getBoundingClientRect();if(ri.width>z.width+1)out.push('image plus large que son cadre');
+                            for(const e of d.querySelectorAll('span,a,button')){const r=e.getBoundingClientRect();
+                              if(r.width&&(r.left<c.left-1||r.right>c.right+1||r.bottom>c.bottom+1))out.push('sort du cadre : '+e.textContent.trim().slice(0,22))}
+                            const blocs=[...d.children].map(e=>e.getBoundingClientRect());
+                            for(let i=1;i<blocs.length;i++)if(blocs[i].top<blocs[i-1].bottom-1)out.push('blocs superposés '+i);
+                            if(document.documentElement.scrollWidth>innerWidth)out.push('débordement');
+                            d.close();return out}""", fs)
+                        if r:
+                            pires.append(f'texte {fs} % : {r[:3]}')
+                    if w in (390, 1440):
+                        pg.evaluate("document.documentElement.style.fontSize=''")
+                        pg.locator('#article-ouvrir').scroll_into_view_if_needed(); pg.wait_for_timeout(900)
+                        pg.locator('#article-ouvrir').click(); pg.wait_for_timeout(400)
+                        if not pg.evaluate("document.getElementById('article-grand').open"): pires.append('le clic n’ouvre pas l’image')
+                        pg.locator('#article-zone').click(position={'x': 60, 'y': 60}); pg.wait_for_timeout(200)
+                        if not pg.evaluate("document.getElementById('article-zone').classList.contains('zoom')"): pires.append('second agrandissement inactif')
+                        pg.keyboard.press('Escape'); pg.wait_for_timeout(200)
+                        if pg.evaluate("document.getElementById('article-grand').open"): pires.append('Échap ne ferme pas')
+                    souci += bool(pires)
+                    print(('ALERTE' if pires else 'OK    '), w, u, 'article de presse en grand (texte 100, 130, 160 %)', pires[:2] or '')
+                    pg.close()
+            # (4) Démos : mêmes proportions que le reste du site (320, 768, 1024, 1920 px et texte à 130 %), mention
+            # « Démonstration fictive » visible en haut dès l'arrivée, aucune note ni avis d'exemple.
+            for w, fs in ((320, 100), (768, 100), (1024, 100), (1920, 100), (360, 130)):
+                for u in [x for x in PAGES if x.startswith('/demos/')]:
+                    pg = b.new_page(viewport={'width': w, 'height': 850})
+                    errs = []
+                    pg.on('pageerror', lambda e: errs.append(str(e)))
+                    pg.goto(base + u, wait_until='load'); pg.wait_for_timeout(700)
+                    pg.evaluate("fs=>{document.documentElement.style.fontSize=fs+'%'}", fs); pg.wait_for_timeout(150)
+                    r = pg.evaluate("""()=>{const out=[],e=document.querySelector('.demo-fictive');
+                        if(!e)return ['mention « Démonstration fictive » absente'];const r=e.getBoundingClientRect();
+                        if(!/Démonstration fictive/.test(e.textContent))out.push('texte de la mention');
+                        if(r.top<-1||r.bottom>innerHeight*.3||r.left<-1||r.right>innerWidth+1||r.height<20)out.push('mention pas en haut : '+[r.top,r.bottom].map(Math.round));
+                        const t=[...e.querySelectorAll('*')].find(x=>/Démonstration fictive/.test(x.textContent)&&!x.children.length)||e,rt=t.getBoundingClientRect();
+                        const top=document.elementFromPoint(Math.min(innerWidth-2,Math.max(2,rt.left+rt.width/2)),rt.top+rt.height/2);
+                        if(!top||!(e.contains(top)))out.push('mention recouverte par '+(top&&(top.id||top.className||top.tagName)));
+                        if(/4,9|38 avis|★|Avis d.exemple|Avis fictif/.test(document.body.innerText))out.push('note ou avis d’exemple encore affiché');
+                        if(/aggregateRating|"review"/.test(document.documentElement.innerHTML))out.push('note dans les données structurées');
+                        return out}""")
+                    for y in range(0, pg.evaluate('document.body.scrollHeight'), 700):
+                        pg.evaluate(f'scrollTo(0,{y})'); pg.wait_for_timeout(40)
+                    ov = pg.evaluate('document.documentElement.scrollWidth-innerWidth')
+                    ok = not (r or ov > 0 or errs)
+                    souci += not ok
+                    print(('OK    ' if ok else 'ALERTE'), w, f'texte {fs} %', u, '' if ok else f'débord={ov} {r[:3]} erreurs={errs[:1]}')
+                    pg.close()
             # Bug du 22/10 : sur téléphone, un toucher laisse « :hover » collé sur l'éventail et une règle tactile
             # retirait le centrage de la vidéo, qui sautait en bas à droite. Contrôle : après survol, la vidéo
             # reste centrée dans l'éventail (écart de 24 px au plus).

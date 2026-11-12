@@ -7,7 +7,7 @@ body{font-family:Figtree,"Figtree Fallback",system-ui,sans-serif;font-weight:400
 h1,h2,h3{font-family:"Bricolage Grotesque","Bricolage Grotesque Fallback",Arial,sans-serif;font-weight:700;line-height:1.04;letter-spacing:-.02em}
 a{color:inherit;text-decoration:none}img{display:block;width:100%;height:100%;object-fit:cover}
 .basbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}.maq{flex-basis:100%;color:#a9acb0;font-size:.84rem;border-top:1px solid rgba(255,255,255,.08);padding-top:14px}
-nav{background:linear-gradient(180deg,rgba(17,19,21,.78),rgba(17,19,21,0));position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.2rem clamp(18px,4vw,56px);color:#fff;transition:.4s}
+nav{background:linear-gradient(180deg,rgba(17,19,21,.78),rgba(17,19,21,0));position:absolute;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.2rem clamp(18px,4vw,56px);color:#fff;transition:.4s}
 nav a{display:inline-block;padding:4px 0}
 nav:not(.plein) .marque,nav:not(.plein) .liens a{text-shadow:0 1px 3px rgba(0,0,0,.55)}
 nav.plein{background:rgba(242,240,235,.95);backdrop-filter:blur(10px);color:var(--encre);padding:.75rem clamp(18px,4vw,56px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
@@ -15,7 +15,7 @@ nav.plein{background:rgba(242,240,235,.95);backdrop-filter:blur(10px);color:var(
 .marque small{display:block;font-family:Figtree,"Figtree Fallback";font-weight:500;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;opacity:.85;margin-top:.45rem}
 .liens{display:flex;gap:2rem;align-items:center;font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
 .cta{border:1.5px solid currentColor;padding:calc(.6rem + 1px) calc(1.1rem - .12em) calc(.6rem - 1px) 1.1rem;line-height:1;white-space:nowrap;display:inline-flex;align-items:center;border-radius:4px}
-.heros{min-height:100svh;display:grid;grid-template-columns:minmax(380px,44%) 1fr;background:var(--nuit);color:#f1efea}
+.heros{min-height:calc(100svh - 2.75rem);display:grid;grid-template-columns:minmax(380px,44%) 1fr;background:var(--nuit);color:#f1efea}
 .heros .texte{display:flex;flex-direction:column;justify-content:center;padding:130px clamp(24px,5vw,80px) 90px;animation:monte 1.1s .15s both;position:relative}
 .heros .texte::before{content:"";display:block;width:56px;height:3px;background:var(--acc);margin-bottom:1.3rem}
 @keyframes monte{from{opacity:0;transform:translateY(24px)}}
@@ -56,8 +56,7 @@ section.services .sur,section.services .titre .sur,section.services .n{color:var
 .etapes div::before{counter-increment:e;content:"0" counter(e);font-family:"Bricolage Grotesque","Bricolage Grotesque Fallback";font-weight:700;font-size:2.4rem;color:var(--acct)}
 .etapes h3{font-size:1.4rem;margin:.3rem 0 .4rem}.etapes p{color:var(--doux)}
 .avis{background:#e7e3da;text-align:center}
-.etoiles{color:var(--acct);letter-spacing:.3em;font-size:1.3rem}
-.avis blockquote{font-family:"Bricolage Grotesque","Bricolage Grotesque Fallback";font-weight:600;letter-spacing:-.01em;font-size:clamp(1.5rem,2.8vw,2.1rem);max-width:760px;margin:1.2rem auto;line-height:1.2}
+.avis blockquote{font-family:"Bricolage Grotesque","Bricolage Grotesque Fallback";font-weight:600;letter-spacing:-.01em;font-size:clamp(1.5rem,2.8vw,2.1rem);max-width:760px;margin:0 auto 1.2rem;line-height:1.2}
 .avis cite{font-style:normal;font-size:.84rem;letter-spacing:.2em;text-transform:uppercase;color:var(--doux)}
 .bande{position:relative;color:#fff;text-align:center;padding:clamp(96px,14vw,180px) 18px;overflow:hidden}
 .bande img{position:absolute;inset:0}.bande::after{display:none}
@@ -76,8 +75,17 @@ footer .marque{color:#edebe6}
 .galerie{grid-template-columns:1fr 1fr;grid-template-rows:230px 170px}.galerie figure:first-child{grid-column:span 2;grid-row:auto}
 .etapes{grid-template-columns:1fr}.appel{display:flex;align-items:center;justify-content:center;gap:.55rem;margin:0 14px 10px;min-height:52px;background:var(--acct);color:#fff;font-size:.92rem;font-weight:600;line-height:1;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.25);border-radius:6px;transform:translateY(calc(100% + 24px));opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .3s}.appel.on{transform:none;opacity:1;pointer-events:auto}.appel span{margin-right:-.14em}.appel svg{flex:none}}
 @media (max-width:520px){nav{padding:1rem 18px}.services .grille{grid-template-columns:1fr}}
-.ligne a{display:inline-block;padding:11px 0}@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1!important;transform:none!important}}</style></head><body>
-<nav><a class="marque" href="#">Garage Aubrelin<small>Votre commune</small></a><div class="liens"><a href="#garage">Le garage</a><a href="#services">Services</a><a href="#atelier">L’atelier</a><a class="cta" href="#contact">Devis gratuit</a></div></nav>
+.ligne a{display:inline-block;padding:11px 0}@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1!important;transform:none!important}}
+/* Bandeau « Démonstration fictive » : identique dans les cinq démos */
+.demo-fictive{position:relative;z-index:70;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:.45em;margin:0;padding:env(safe-area-inset-top) max(12px,env(safe-area-inset-right)) 0 max(12px,env(safe-area-inset-left));background:#111315;color:#ecebe7;font:400 .8125rem/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:0;text-transform:none;text-shadow:none;pointer-events:auto}
+.demo-fictive strong{font-weight:700;color:#fff;white-space:nowrap}
+.demo-fictive a{display:inline-flex;align-items:center;min-height:2.75rem;margin-left:.7em;padding:0 .35em;color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;text-shadow:none}
+.demo-fictive a:focus-visible{outline:2px solid #fff;outline-offset:-3px}
+@media (max-width:560px){.demo-fictive{justify-content:space-between;padding-bottom:.5rem}.demo-fictive .df-p{display:none}.demo-fictive .df-s{order:3;flex-basis:100%}.demo-fictive a{margin-left:0;padding-right:0}}
+/* En-tête de la démo : sous le bandeau à l’arrivée, puis collé en haut de l’écran */
+.demo-ancre{position:sticky;top:0;height:0;z-index:50}</style></head><body>
+<div class="demo-fictive" role="note"><strong>Démonstration fictive</strong><span class="df-p" aria-hidden="true">·</span><span class="df-s">site d’exemple réalisé par DIG16</span><a href="/">Retour à dig16.fr</a></div>
+<div class="demo-ancre"><nav><a class="marque" href="#">Garage Aubrelin<small>Votre commune</small></a><div class="liens"><a href="#garage">Le garage</a><a href="#services">Services</a><a href="#atelier">L’atelier</a><a class="cta" href="#contact">Devis gratuit</a></div></nav></div>
 <header class="heros"><div class="texte"><div class="sur">Mécanique · Entretien toutes marques</div><h1>Votre voiture, <em>entretenue</em> sans surprise.</h1><p>Révision, freins, pneus, diagnostic, contrôle technique préparé : un garage indépendant, toutes marques, qui explique avant de réparer.</p>
 <div class="boutons"><a class="b plein" href="#contact">Demander un devis</a><a class="b vide" href="tel:0199000000">01 99 00 00 00</a></div></div><div class="fond"><img width="3000" height="2000" fetchpriority="high" src="atelier-1200.webp" srcset="atelier-640.webp 640w, atelier-1200.webp 1200w, atelier-2000.webp 2000w" sizes="100vw" alt=""><div class="etiq">Votre commune</div></div></header>
 <main>
@@ -87,7 +95,7 @@ footer .marque{color:#edebe6}
 <section id="atelier"><div class="titre rv"><div class="sur">L’atelier</div><h2>Du travail propre, des pièces de qualité</h2></div><div class="galerie"><figure class="rv"><img width="3000" height="2000" src="moteur-1200.webp" srcset="moteur-640.webp 640w, moteur-1200.webp 1200w, moteur-2000.webp 2000w" sizes="(max-width:860px) 92vw, 50vw" loading="lazy" decoding="async" alt=""><figcaption>Moteur remis à neuf</figcaption></figure><figure class="rv"><img width="3000" height="2000" src="entretien-1200.webp" srcset="entretien-640.webp 640w, entretien-1200.webp 1200w, entretien-2000.webp 2000w" sizes="(max-width:860px) 46vw, 25vw" loading="lazy" decoding="async" alt=""><figcaption>Chaque vis au couple</figcaption></figure><figure class="rv"><img width="3000" height="2000" src="outils-1200.webp" srcset="outils-640.webp 640w, outils-1200.webp 1200w, outils-2000.webp 2000w" sizes="(max-width:860px) 46vw, 25vw" loading="lazy" decoding="async" alt=""><figcaption>L’outil juste</figcaption></figure></div></section>
 <section style="padding-top:0"><div class="titre rv"><div class="sur">Comment ça se passe</div><h2>Trois étapes, zéro surprise</h2></div><div class="etapes rv">
 <div><h3>Rendez-vous</h3><p>Par téléphone ou par le formulaire, en deux minutes.</p></div><div><h3>Diagnostic &amp; devis</h3><p>On regarde, on explique, on chiffre. Rien n’est fait sans votre accord.</p></div><div><h3>Réparation</h3><p>Pièces de qualité, essai sur route, véhicule rendu propre.</p></div></div></section>
-<section class="avis"><div class="rv"><div class="etoiles">★★★★★</div><blockquote>Vos avis Google s’afficheront ici, automatiquement.</blockquote><cite>Emplacement réservé aux avis de vos clients</cite></div></section>
+<section class="avis"><div class="rv"><blockquote>Vos avis Google s’afficheront ici, automatiquement.</blockquote><cite>Emplacement réservé aux avis de vos clients</cite></div></section>
 <div class="bande"><img width="3000" height="1688" src="fond-atelier-1200.webp" srcset="fond-atelier-640.webp 640w, fond-atelier-1200.webp 1200w, fond-atelier-2000.webp 2000w" sizes="100vw" loading="lazy" decoding="async" alt=""><div class="rv"><div class="sur">Votre commune et alentours</div><h2>Un bruit, un voyant ? <em>Appelez.</em></h2><div class="boutons" style="justify-content:center"><a class="b plein" href="tel:0199000000">01 99 00 00 00</a></div></div></div>
 <section id="contact" class="contact"><div class="rv"><div class="sur" style="color:var(--acct)">Contact</div><h2>Demander un devis</h2><p>Réponse rapide, devis gratuit et sans engagement.</p>
 <div style="margin-top:1.6rem"><div class="ligne"><span>Téléphone</span><a href="tel:0199000000">01 99 00 00 00</a></div><div class="ligne"><span>Horaires</span><span>Lun.–ven. 8 h–12 h, 14 h–18 h</span></div><div class="ligne"><span>Secteur</span><span>Votre commune et alentours</span></div></div></div>
