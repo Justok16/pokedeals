@@ -23,6 +23,8 @@ Abonnement
 
 199 € /mois
 
+12 mois minimum, soit 2 388 €
+
 0 € de création. Tout est compris, vous n’avez rien à gérer.
 
 - Création complète sur mesure, sans frais au départ
@@ -90,7 +92,7 @@ Le même soin dans les deux cas : design sur mesure, photos mises en valeur, an
 | Design sur mesure et animations | ✓ | ✓ |
 | Pages | 5 | Jusqu’à 12 |
 | Modifications | 1 par mois | Incluses chaque mois |
-| Réservation en ligne | ✓ | ✓ |
+| Réservation en ligne | — | ✓ incluse |
 | Version anglaise | +5 €/mois | ✓ incluse |
 | Fiche Google suivie, avis | — | ✓ |
 | Référencement Google | Bases incluses | Complet, suivi chaque mois |
@@ -104,7 +106,7 @@ La méthode
 
 ### Rencontre
 
-Chez vous, pour sentir le lieu, comprendre votre clientèle et vos objectifs.
+Chez vous en Charente, en visio ailleurs en France, pour sentir le lieu, comprendre votre clientèle et vos objectifs.
 
 2
 

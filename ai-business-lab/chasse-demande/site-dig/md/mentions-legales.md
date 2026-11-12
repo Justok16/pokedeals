@@ -7,7 +7,7 @@ url: "https://dig16.fr/mentions-legales"
 
 # Mentions légales et confidentialité
 
-Dernière mise à jour : 5 novembre 2026
+Dernière mise à jour : 12 novembre 2026
 
 ## 1. Éditeur du site
 
@@ -22,6 +22,7 @@ Directeur de la publication : Maximilien BOIREAU
 
 **Cloudflare, Inc.** (service Cloudflare Pages)
 101 Townsend St., San Francisco, CA 94107, États-Unis
+Téléphone : +1 (650) 319-8930
 Site : [www.cloudflare.com](https://www.cloudflare.com)
 
 ## 3. Propriété intellectuelle
@@ -30,7 +31,7 @@ Les textes, visuels et le code de ce site appartiennent à DIG16, sauf mention c
 
 ## 4. Vos données personnelles
 
-Quand vous remplissez le formulaire de contact ou nous appelez, nous recevons : votre nom, votre entreprise, votre téléphone ou email et votre message.
+Quand vous remplissez le formulaire de contact ou nous appelez, nous recevons : votre nom, votre entreprise, votre commune, votre téléphone ou email, l’adresse de votre site actuel si vous en avez un, et votre message.
 
 - **Pourquoi :** uniquement pour répondre à votre demande et, si vous le souhaitez, préparer votre démo et votre devis.
 - **Base légale :** mesures précontractuelles prises à votre demande (article 6.1.b du RGPD).

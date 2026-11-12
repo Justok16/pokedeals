@@ -25,7 +25,7 @@ Je refais votre page d’accueil gratuitement, pour que vous voyiez la différen
 
 [Recevoir ma démo gratuite](https://dig16.fr/#contact)[Découvrir DIG16](https://dig16.fr/)
 
-Le test lit seulement la page d’accueil publique du site indiqué, au moment du test. Rien n’est enregistré. La rapidité mesurée est le temps de réponse de la page (hors images) : un indicateur, pas un audit complet.
+Le test lit seulement la page d’accueil publique du site indiqué, au moment du test. L’adresse testée et son résultat ne sont pas enregistrés. La rapidité mesurée est le temps de réponse de la page (hors images) : un indicateur, pas un audit complet.
 
 ```json
 {

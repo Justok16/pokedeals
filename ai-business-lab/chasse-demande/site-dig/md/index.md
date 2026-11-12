@@ -41,7 +41,7 @@ Vos services, vos photos, votre numéro : tout arrive l’un après l’autre, 
 
 ### Votre site vous appartient
 
-Site et nom de domaine à votre nom. Après les 6 premiers mois, vous partez quand vous voulez, avec votre site.
+Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout.
 
 ### Je m’occupe de tout
 
@@ -166,6 +166,8 @@ Essentiel
 
 49 € /mois
 
+6 mois minimum, soit 294 €
+
 Le site complet de la plupart des artisans.
 
 - Site 5 pages sur mesure
@@ -181,6 +183,8 @@ Conseillée
 Visibilité
 
 79 € /mois
+
+6 mois minimum, soit 474 €
 
 Pour être plus visible sur Google.
 
@@ -204,7 +208,7 @@ Vous préférez payer une seule fois.
 
 [Choisir Achat](https://dig16.fr/#contact)
 
-**Réservation en ligne incluse** : vos clients réservent un créneau directement sur votre site**12 mois payés d’avance** : 1 mois offert (Essentiel 539 €, Visibilité 869 €)**Version anglaise** : +5 €/mois**Vous changez de prestataire ?** Je m’occupe du transfert, sans coupure : offert**Parrainage** : un professionnel recommandé = un mois offert pour vous, et son premier mois offert pour lui
+**12 mois payés d’avance** : 1 mois offert (Essentiel 539 €, Visibilité 869 €)**Version anglaise** : +5 €/mois**Vous changez de prestataire ?** Je m’occupe du transfert, sans coupure : offert**Parrainage** : un professionnel recommandé = un mois offert pour vous, et son premier mois offert pour lui
 
 Prestige
 
@@ -236,7 +240,7 @@ Mes engagements
 
 **100 % à vous**
 
-Site et nom de domaine à votre nom, dès le départ.
+Site et nom de domaine à votre nom dès le départ.
 
 **6 mois, puis libre**
 
@@ -250,7 +254,9 @@ pour changer d’avis après la signature, et rien n’est prélevé avant 8 jo
 
 ouvrés pour vos demandes de modification.
 
-Vu dans [Charente Libre](https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php) · article du 10 novembre 2026
+[![Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact.](https://dig16.fr/img/presse/charente-libre-2026-11-10-1200.jpg)Agrandir](https://dig16.fr/img/presse/charente-libre-2026-11-10-1200.jpg)
+
+**Vu dans la presse** Charente Libre, édition du 10 novembre 2026. [Lire l’article sur le site du journal](https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php)
 
 Questions fréquentes
 
@@ -260,7 +266,7 @@ Questions fréquentes
 
 La démo est-elle vraiment gratuite et sans engagement ?
 
-Oui. Je refais la page d’accueil de votre entreprise à partir des informations publiques, je vous l’envoie, et vous décidez. Si elle ne vous plaît pas, on en reste là et elle est supprimée.
+Oui. Je refais la page d’accueil de votre entreprise à partir des informations publiques, je vous la montre, et vous décidez. Si elle ne vous plaît pas, on en reste là et elle est supprimée.
 
 Qu’est-ce que je dois fournir ?
 
@@ -282,7 +288,7 @@ Les prix sont indiqués sans TVA : DIG16 relève de la franchise en base de TVA
 
 Comment je paie ? Est-ce que je reçois une facture ?
 
-Par prélèvement automatique mensuel, sécurisé, ou par virement si vous préférez. Vous recevez une facture chaque mois, conforme aux obligations en vigueur (y compris la facturation électronique entre professionnels).
+Par prélèvement automatique mensuel, sécurisé, ou par virement si vous préférez. Vous recevez une facture chaque mois, conforme aux obligations en vigueur.
 
 Puis-je changer de formule ?
 
@@ -290,13 +296,13 @@ Oui, à tout moment vers une formule supérieure, et vers une formule inférieur
 
 Puis-je changer d’avis après avoir signé ?
 
-Oui : vous disposez de 14 jours pour vous rétracter, et aucun paiement n’est demandé avant 8 jours. C’est une obligation légale pour les contrats signés chez vous, et je l’applique à tout le monde.
+Oui : vous disposez de 14 jours pour vous rétracter, et aucun paiement n’est demandé avant 8 jours. Je l’applique à tous mes clients, par écrit sur le devis.
 
 ### Mon site, mes droits
 
 Le site m’appartient-il vraiment ?
 
-Oui. Le nom de domaine est enregistré à votre nom, et le site (textes, photos, fichiers) est à vous. Vous pouvez le récupérer en partant, après les 6 premiers mois.
+Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout : le nom de domaine, les textes, les photos et les fichiers du site.
 
 Que se passe-t-il si j’arrête ?
 
@@ -326,7 +332,7 @@ Non. Quelques photos prises avec votre téléphone suffisent souvent ; je vous
 
 Qui écrit les textes ?
 
-Moi, à partir de notre échange. Vous relisez et validez tout avant la mise en ligne.
+Je rédige, avec l’aide d’un outil, à partir de notre échange, et vous validez chaque phrase avant la mise en ligne.
 
 Comment demander une modification ?
 
@@ -424,22 +430,6 @@ DisponibilitéToujours joignable, 7 jours sur 7
         "addressRegion": "Charente",
         "addressCountry": "FR"
       },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
       "priceRange": "€€",
       "identifier": {
         "@type": "PropertyValue",
@@ -524,7 +514,7 @@ DisponibilitéToujours joignable, 7 jours sur 7
       "name": "La démo est-elle vraiment gratuite et sans engagement ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui. Je refais la page d’accueil de votre entreprise à partir des informations publiques, je vous l’envoie, et vous décidez. Si elle ne vous plaît pas, on en reste là et elle est supprimée."
+        "text": "Oui. Je refais la page d’accueil de votre entreprise à partir des informations publiques, je vous la montre, et vous décidez. Si elle ne vous plaît pas, on en reste là et elle est supprimée."
       }
     },
     {
@@ -564,7 +554,7 @@ DisponibilitéToujours joignable, 7 jours sur 7
       "name": "Comment je paie ? Est-ce que je reçois une facture ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Par prélèvement automatique mensuel, sécurisé, ou par virement si vous préférez. Vous recevez une facture chaque mois, conforme aux obligations en vigueur (y compris la facturation électronique entre professionnels)."
+        "text": "Par prélèvement automatique mensuel, sécurisé, ou par virement si vous préférez. Vous recevez une facture chaque mois, conforme aux obligations en vigueur."
       }
     },
     {
@@ -580,7 +570,7 @@ DisponibilitéToujours joignable, 7 jours sur 7
       "name": "Puis-je changer d’avis après avoir signé ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui : vous disposez de 14 jours pour vous rétracter, et aucun paiement n’est demandé avant 8 jours. C’est une obligation légale pour les contrats signés chez vous, et je l’applique à tout le monde."
+        "text": "Oui : vous disposez de 14 jours pour vous rétracter, et aucun paiement n’est demandé avant 8 jours. Je l’applique à tous mes clients, par écrit sur le devis."
       }
     },
     {
@@ -588,7 +578,7 @@ DisponibilitéToujours joignable, 7 jours sur 7
       "name": "Le site m’appartient-il vraiment ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui. Le nom de domaine est enregistré à votre nom, et le site (textes, photos, fichiers) est à vous. Vous pouvez le récupérer en partant, après les 6 premiers mois."
+        "text": "Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout : le nom de domaine, les textes, les photos et les fichiers du site."
       }
     },
     {
@@ -644,7 +634,7 @@ DisponibilitéToujours joignable, 7 jours sur 7
       "name": "Qui écrit les textes ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Moi, à partir de notre échange. Vous relisez et validez tout avant la mise en ligne."
+        "text": "Je rédige, avec l’aide d’un outil, à partir de notre échange, et vous validez chaque phrase avant la mise en ligne."
       }
     },
     {

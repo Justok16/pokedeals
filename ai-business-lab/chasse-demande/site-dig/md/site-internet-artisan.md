@@ -51,7 +51,7 @@ Le site vous appartient si **le nom de domaine est enregistré à votre nom** et
 
 C’est le point que les artisans découvrent trop tard : au moment de changer de prestataire, l’adresse du site ne leur appartient pas, et tout est à refaire, y compris les cartes de visite. Avant de signer, demandez par écrit : « Le nom de domaine sera-t-il enregistré à mon nom ? Que se passe-t-il si j’arrête ? »
 
-Chez DIG16, le nom de domaine est pris à votre nom et le site vous est remis si vous partez. Ce n’est pas une faveur, c’est la règle de départ ; elle figure dans les [questions fréquentes](https://dig16.fr/#faq) de la page d’accueil.
+Chez DIG16 : site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout. Ce n’est pas une faveur, c’est la règle de départ ; elle figure dans les [questions fréquentes](https://dig16.fr/#faq) de la page d’accueil.
 
 ## Les 5 pages qui comptent
 
