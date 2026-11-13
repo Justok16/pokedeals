@@ -1,0 +1,54 @@
+name: Alerte message DIG16
+
+# Alerte « nouveau message » du formulaire de dig16.fr (13/11/2026, demande de l'utilisateur : « oui alerte »).
+# Toutes les 10 minutes environ, lit https://dig16.fr/api/nouveaux, qui ne donne qu'un numéro (aucune donnée du
+# message : ce dépôt est public). S'il y a un message non lu et non douteux, ouvre une issue « Alerte DIG16 » :
+# GitHub prévient le propriétaire du dépôt par mail, et le point automatique de Claude lit les issues ouvertes,
+# transmet le message à l'utilisateur dans sa conversation privée, puis ferme l'issue.
+on:
+  schedule:
+    - cron: "3-59/10 * * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: alerte_message_dig16
+  cancel-in-progress: false
+jobs:
+  alerte:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Lire le numéro du dernier message non lu
+        id: lire
+        run: |
+          reponse=$(curl -s -m 30 --retry 2 -H "User-Agent: DIG16-alerte-message" https://dig16.fr/api/nouveaux || true)
+          dernier=$(printf '%s' "$reponse" | python3 -c "import sys,json; print(int(json.load(sys.stdin).get('dernier',0)))" 2>/dev/null || echo 0)
+          echo "dernier=$dernier" >> "$GITHUB_OUTPUT"
+          echo "Dernier message non lu : $dernier"
+      - name: Ouvrir l'issue d'alerte (une seule par message)
+        if: steps.lire.outputs.dernier != '0'
+        uses: actions/github-script@v9
+        env:
+          DERNIER: ${{ steps.lire.outputs.dernier }}
+        with:
+          script: |
+            const numero = parseInt(process.env.DERNIER, 10);
+            if (!Number.isInteger(numero) || numero <= 0) return;
+            const titre = `Alerte DIG16 : nouveau message du site (n° ${numero})`;
+            const toutes = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner, repo: context.repo.repo, state: 'all', per_page: 100,
+              since: new Date(Date.now() - 30 * 24 * 3600 * 1000).toISOString(),
+            });
+            if (toutes.some(i => !i.pull_request && i.title === titre)) { core.info('Alerte déjà ouverte pour ce message.'); return; }
+            await github.rest.issues.create({
+              owner: context.repo.owner, repo: context.repo.repo, title: titre,
+              body: [
+                'Un message vient d’être reçu par le formulaire de dig16.fr.',
+                '',
+                'Pour le lire : ouvrez la conversation « DIG16 – LA conversation » et écrivez « message ».',
+                '',
+                'Aucune donnée du message n’est écrite ici (dépôt public). Cette alerte sera fermée une fois le message traité.',
+              ].join('\n'),
+            });
