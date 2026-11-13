@@ -68,3 +68,4 @@ les anciens tris du 28/09 au 01/10 sont à la fin de `46-registre-videos.md`.
 - **Facebook** : une page Facebook ne se liste pas sans connexion ; **réflexe** : chercher la chaîne
   YouTube du même créateur. Reels « gabzermp4 » = YouTube **@gabzer.mp4** (547 vidéos courtes,
   246 retenues sur leur titre), ajoutée à la veille (`connaissances/gabzer/`).
+- **13/11/2026, auto-analyse (4 jours, 54 messages, 2 corrections repérées par l'outil, 5 leçons ajoutées)** : opérations techniques faites sans demander ; alerte « en service » seulement après réception confirmée ; offre annoncée jamais restreinte sans décision ; relance seulement après avoir vérifié qu'il n'y a pas eu de réponse ; nouvel outil `outils/resumer_video.py` (résumé d'une vidéo envoyée, par le relais).

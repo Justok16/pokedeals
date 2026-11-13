@@ -179,6 +179,7 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/resumer_lots_tiktok.py` | Résume par lots de 15 les vidéos courtes (TikTok, reels) déjà collectées en texte |
 | `outils/resumer_reel_facebook.py` | Résume une vidéo ou un reel Facebook public sans compte (constaté le 01/10/2026) : |
 | `outils/resumer_reel_instagram.py` | Résume un reel Instagram public sans compte : page « embed » d'Instagram -> fichier vidéo -> |
+| `outils/resumer_video.py` | Résumé d'UNE vidéo YouTube envoyée par l'utilisateur, par le relais (Gemini gratuit). |
 | `outils/resumer_video_longue.py` | Résume une vidéo YouTube trop longue pour Gemini (plus de ~3 h : « input token count exceeds |
 | `outils/resumer_video_x.py` | Résume une vidéo publiée sur X (Twitter) : récupère seulement la piste son (HLS), la découpe |
 | `outils/sentinelle_dig16.py` | Sentinelle DIG16 (13/10/2026) : surveillance indépendante de la conversation Claude, lancée toutes les 3 heures |
