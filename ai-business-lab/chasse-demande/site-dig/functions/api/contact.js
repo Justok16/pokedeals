@@ -32,35 +32,11 @@ function reponse(corps, statut = 200) {
   });
 }
 
-// Alerte immédiate du 13/11/2026 (« oui alerte ») : une notification part vers le téléphone de l'utilisateur par ntfy.sh
-// (gratuit, 250 messages par jour, lu sur docs.ntfy.sh le 13/11/2026). Elle ne contient AUCUNE donnée du message
-// (ni nom, ni contact, ni texte) : seulement « nouveau message » et son numéro. Le nom du canal est secret : il est
-// rangé dans la table D1 « reglages » (clé « alerte_sujet »), jamais dans ce dépôt public. Si l'alerte échoue,
-// le message reste enregistré et le visiteur voit « envoyé » : l'alerte ne peut pas faire perdre un message.
-async function alerter(env, numero, douteux) {
-  try {
-    const r = await env.DB.prepare("SELECT valeur FROM reglages WHERE cle = 'alerte_sujet'").first();
-    if (!r || !r.valeur) return;
-    await fetch("https://ntfy.sh/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      signal: AbortSignal.timeout(4000),
-      body: JSON.stringify({
-        topic: r.valeur,
-        title: douteux ? "DIG16 : message à vérifier" : "DIG16 : nouveau message du site",
-        message: douteux
-          ? `Message n° ${numero}, probablement indésirable. Claude le vérifie au prochain point.`
-          : `Message n° ${numero} reçu par le formulaire de dig16.fr. Ouvrez la conversation DIG16 et écrivez « message » pour le lire.`,
-        priority: douteux ? 2 : 4,
-        tags: [douteux ? "grey_question" : "envelope_with_arrow"],
-      }),
-    });
-  } catch {
-    // jamais bloquant
-  }
-}
-
-export async function onRequestPost({ request, env, waitUntil }) {
+// Alerte du 13/11/2026 (« oui alerte ») : cette fonction n'envoie rien à aucun service extérieur. C'est un contrôle
+// GitHub (toutes les 10 minutes environ) qui lit /api/nouveaux (un simple numéro, aucune donnée du message) et ouvre
+// une issue « Alerte DIG16 » : GitHub prévient alors l'utilisateur par mail. Essai écarté le même jour : ntfy.sh
+// (quota gratuit partagé entre tous les serveurs d'un même hébergeur, épuisé : réponse 429 lue le 13/11).
+export async function onRequestPost({ request, env }) {
   if (!env || !env.DB) return reponse({ success: "false", erreur: "service indisponible" }, 503);
   // Revue de sécurité du 05/11 : n'accepter que du JSON envoyé depuis dig16.fr. Un autre site ne peut pas poster ici
   // depuis le navigateur d'un visiteur (le type JSON impose une vérification préalable que cette fonction refuse).
@@ -91,15 +67,11 @@ export async function onRequestPost({ request, env, waitUntil }) {
   const raisons = doutes(v, Number(d._duree));
   const etiquette = raisons.length ? `[À VÉRIFIER : ${raisons.join(", ")}] ` : "";
   const message = (etiquette + v.message).slice(0, LIMITES.message + 120);
-  const resultat = await env.DB.prepare(
+  await env.DB.prepare(
     "INSERT INTO messages (nom, entreprise, commune, contact, site, message) VALUES (?, ?, ?, ?, ?, ?)",
   )
     .bind(v.nom, v.entreprise, v.commune, v.contact, v.site, message)
     .run();
-  const numero = (resultat && resultat.meta && resultat.meta.last_row_id) || "?";
-  const envoi = alerter(env, numero, raisons.length > 0);
-  if (typeof waitUntil === "function") waitUntil(envoi);
-  else await envoi;
   return reponse({ success: "true" });
 }
 
