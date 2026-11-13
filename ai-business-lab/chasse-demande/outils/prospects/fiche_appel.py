@@ -246,7 +246,7 @@ h1{font:400 40px/1.05 'Instrument Serif','Instrument Serif Fallback',Georgia,ser
 h2{font:400 22px 'Instrument Serif','Instrument Serif Fallback',Georgia,serif;margin:4.5mm 0 1.5mm;color:#8a6d3b}
 ul,ol{margin:0;padding-left:5mm;font-size:14px;line-height:1.5}li{margin:.7mm 0}ol li{font-size:15px;margin:1.5mm 0}
 .note{font-size:13px;color:#5b544a;margin:2mm 0 0}
-.cadre{margin-top:4mm;border:1px solid #d9c9a8;border-radius:3mm;padding:3mm 4mm;font-size:12.5px;line-height:1.45;color:#3a352e}
+.cadre{margin-top:3mm;border:1px solid #d9c9a8;border-radius:3mm;padding:2.5mm 4mm;font-size:11.5px;line-height:1.4;color:#3a352e}
 .notes{flex:1;min-height:20mm;margin-top:4mm;border:1px dashed #b8925a;border-radius:3mm;
 padding:2mm 4mm;font-size:12px;color:#8a6d3b}
 .couv h1{font-size:46px}.couv table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12.5px;margin-top:5mm}

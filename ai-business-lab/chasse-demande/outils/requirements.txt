@@ -6,3 +6,4 @@ opencv-python-headless
 markdown
 pypdf
 pillow
+playwright
