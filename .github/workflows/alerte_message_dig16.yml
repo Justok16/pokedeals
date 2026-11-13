@@ -5,6 +5,8 @@ name: Alerte message DIG16
 # message : ce dépôt est public). S'il y a un message non lu et non douteux, ouvre une issue « Alerte DIG16 » :
 # GitHub prévient le propriétaire du dépôt par mail, et le point automatique de Claude lit les issues ouvertes,
 # transmet le message à l'utilisateur dans sa conversation privée, puis ferme l'issue.
+# 13/11 : l'issue est attribuée au propriétaire et le cite (@…), sinon GitHub n'envoie pas de mail pour une issue
+# ouverte par un automate (essai du 13/11 : issue n° 177 ouverte, aucun mail reçu).
 # La branche main ne contient pas le site : tout commit vers main porte « [CF-Pages-Skip] » dans son message,
 # pour que Cloudflare Pages n'essaie pas de le construire (convention des commits précédents de main).
 on:
@@ -46,8 +48,9 @@ jobs:
             if (toutes.some(i => !i.pull_request && i.title === titre)) { core.info('Alerte déjà ouverte pour ce message.'); return; }
             await github.rest.issues.create({
               owner: context.repo.owner, repo: context.repo.repo, title: titre,
+              assignees: [context.repo.owner],
               body: [
-                'Un message vient d’être reçu par le formulaire de dig16.fr.',
+                `@${context.repo.owner} : un message vient d’être reçu par le formulaire de dig16.fr.`,
                 '',
                 'Pour le lire : ouvrez la conversation « DIG16 – LA conversation » et écrivez « message ».',
                 '',
