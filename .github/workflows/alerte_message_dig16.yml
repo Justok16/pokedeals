@@ -5,6 +5,8 @@ name: Alerte message DIG16
 # message : ce dépôt est public). S'il y a un message non lu et non douteux, ouvre une issue « Alerte DIG16 » :
 # GitHub prévient le propriétaire du dépôt par mail, et le point automatique de Claude lit les issues ouvertes,
 # transmet le message à l'utilisateur dans sa conversation privée, puis ferme l'issue.
+# La branche main ne contient pas le site : tout commit vers main porte « [CF-Pages-Skip] » dans son message,
+# pour que Cloudflare Pages n'essaie pas de le construire (convention des commits précédents de main).
 on:
   schedule:
     - cron: "3-59/10 * * * *"
