@@ -64,6 +64,9 @@ export async function onRequestPost({ request, env }) {
     "SELECT COUNT(*) AS n FROM messages WHERE recu_le > datetime('now', '-1 hour')",
   ).first();
   if (recents && recents.n >= MAX_PAR_HEURE) return reponse({ success: "false", erreur: "réessayez plus tard" }, 429);
+  // Revue de sécurité du 13/11 : un visiteur ne peut pas écrire lui-même l'étiquette (elle le ferait passer pour
+  // un message déjà trié et couperait l'alerte) : son crochet d'ouverture est remplacé par une parenthèse.
+  v.message = v.message.replace(/^\s*\[(?=\s*À\s*V[ÉE]RIFIER)/i, "(");
   const raisons = doutes(v, Number(d._duree));
   const etiquette = raisons.length ? `[À VÉRIFIER : ${raisons.join(", ")}] ` : "";
   const message = (etiquette + v.message).slice(0, LIMITES.message + 120);
