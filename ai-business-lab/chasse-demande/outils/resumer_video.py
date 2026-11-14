@@ -43,6 +43,11 @@ def main():
         pass
     r = curl("-m", "295", "-b", cookies,
              f"https://relais-dig-justok1.vercel.app/api/video?id={vid}&modeles={MODELES}")
+    if not r.strip().startswith("{") and "Protected by Vercel Authentication" not in r:
+        # 14/11/2026 : une vidéo longue est restée sans réponse ; second essai avec d'autres modèles et une image
+        # toutes les 5 secondes (c'est ce qui a marché pour j5BDkyEcML4).
+        r = curl("-m", "295", "-b", cookies,
+                 f"https://relais-dig-justok1.vercel.app/api/video?id={vid}&modeles=gemini-3.8-flash,gemini-3.6-flash&fps=0.2")
     if "Protected by Vercel Authentication" in r or not r.strip():
         sys.exit("relais sans réponse : cookie expiré ? (get_access_to_vercel_url, puis curl -s -L -c /tmp/cj.txt -b /tmp/cj.txt)")
     try:
