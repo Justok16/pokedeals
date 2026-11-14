@@ -6,7 +6,21 @@
 
 ## Tri pour DIG16 (14/11)
 
-À REMPLIR
+Vidéo en anglais de Jack Roberts (auteur déjà trié les 15/10 et 25/10) : neuf usages de Fable 5.2 (jeux, sites, 3D dans Blender, montage de vidéos courtes), avec la publicité de ses propres systèmes payants et de Higgsfield.
+
+- **Sites « haut de gamme » fabriqués par l'IA** : déjà notre métier et nos outils (skills de design, `gsap-*`, `threejs-*`) ; rien de nouveau dans le résumé.
+- **Documents, présentations, tableaux et pages partagés par lien depuis Claude (« Artifacts »)** : déjà en place et déjà utilisés (pages privées publiées par lien, noté le 25/10 dans `46-registre-videos.md`). Pour un client, nos documents passent par le kit client (`outils/kit_client.py`) et le Drive « Dig » : rien à changer.
+- **Copier l'interface d'une application à partir de captures d'écran** : écarté ; contraire à notre règle (s'inspirer, ne jamais copier l'identité d'une marque).
+- **Essayer une page sur son téléphone par un QR code, puis « ajouter à l'écran d'accueil »** : sans objet pour nous ; l'utilisateur ouvre déjà les liens d'aperçu en ligne sur son téléphone, et `outils/test_pages.py` contrôle les largeurs de téléphone.
+- **Étudier les vidéos qui marchent sur six points (émotion, 3 premières secondes, images, son, histoire, commentaires)** : déjà couvert par le skill `ig-viral` ; nouveaux contenus vidéo en pause jusqu'au premier client payant.
+- **Blender piloté par des scripts écrits par l'IA** : en réserve, déjà noté le 09/11 (`connaissances/reserve-prete.md`) ; à la reprise des nouvelles vidéos, après le premier client payant.
+- **Higgsfield et son connecteur (payant, promotion annoncée par l'auteur)** : déjà en réserve comme payant (`connaissances/reserve-prete.md`, lu le 16/10) ; écarté tant que le budget est de 0 €.
+- **Glaido et « Stacked Shorts System » (systèmes payants de l'auteur pour les vidéos courtes)** : écartés (publicité de l'auteur, payants, vidéos en pause).
+- **Jeux vidéo** : écartés, hors sujet.
+- **Vercel** : déjà utilisé chez nous (relais des résumés) ; simple hébergeur des exemples de l'auteur.
+- **Chiffres cités (79 300 vues, jeu « équivalent à 42 $ », entreprise revendue, « milliers de dollars » de monteur économisés, promotion de 60 %)** : affirmés par l'auteur, non vérifiés ; à ne jamais reprendre. Le résumé décrit Fable 5.2 comme « une couche au-dessus de Claude » : formulation du résumé automatique, non vérifiée.
+
+Conclusion : rien à installer, rien à changer.
 
 ## Résumé (Gemini)
 
