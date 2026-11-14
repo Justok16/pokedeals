@@ -1,5 +1,5 @@
 {
- "date": "2026-11-13",
+ "date": "2026-11-14",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -26,8 +26,8 @@
    "licence": "MIT"
   },
   "Motion": {
-   "version": "14.13.0",
-   "date": "2026-11-12",
+   "version": "14.14.0",
+   "date": "2026-11-13",
    "etoiles": null,
    "licence": "MIT"
   },
@@ -196,7 +196,7 @@
   "mcp-gsc": {
    "version": null,
    "date": null,
-   "etoiles": 2106,
+   "etoiles": 2195,
    "licence": "MIT"
   },
   "Google Analytics MCP": {
@@ -256,7 +256,7 @@
   "Chrome DevTools MCP": {
    "version": "1.13.0",
    "date": "2026-11-11",
-   "etoiles": 54811,
+   "etoiles": 55268,
    "licence": "Apache-2.0"
   },
   "Playwright MCP": {
@@ -709,9 +709,9 @@
    "salesforce-development",
    "sanity",
    "sap-cds-mcp",
-   "sap-fiori-mcp-server",
    "sap-hana-cli",
    "sap-mdk-server",
+   "sap-ux-fiori-tools",
    "save-to-spotify",
    "scandit-sdk",
    "security-guidance",
@@ -747,6 +747,7 @@
    "teamcity-cli",
    "telegram",
    "terraform",
+   "theme-examples",
    "togetherai-skills",
    "twilio-developer-kit",
    "typescript-lsp",
