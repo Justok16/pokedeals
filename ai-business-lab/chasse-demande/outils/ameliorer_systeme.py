@@ -23,7 +23,10 @@ CORRECTION = re.compile(
     r"anglais|pas centré|chevauch\w*|où est-ce que|bah alors|"
     # Ajout du 03/11/2026 : 4 corrections du jour non vues (mail non montré, prospect fermé, heure fausse, numéro mort).
     r"la moindre des choses|c'est quand même|il est \d{1,2} ?h\d*|me faire lire|pas attribué|"
-    r"tu aurais dû|j'aurais dû|tu ne m'as pas|sans me demander)\b",
+    r"tu aurais dû|j'aurais dû|tu ne m'as pas|sans me demander|"
+    # Ajout du 15/11/2026 : 6 corrections de la semaine non vues par l'outil (seules 2 l'avaient été).
+    r"je me répète|encore une fois|comment être sûr|très déçu|pas reçu|obligé de|on ne change pas|"
+    r"justement je te demande|il me semble)\b",
     re.I,
 )
 MOTS_VIDES = set(
@@ -50,7 +53,7 @@ def messages(fichier, depuis):
         # On écarte les messages du système, les résumés automatiques et les rappels programmés.
         if not c or c.startswith("<") or "SYSTEM NOTIFICATION" in c or c.startswith("This session is being continued"):
             continue
-        if c.startswith(("Rappel", "Point autonome", "Relevé du courrier", "Bilan mensuel")):
+        if c.startswith(("Rappel", "Point autonome", "Relevé du courrier", "Bilan mensuel", "Stop hook feedback")):
             continue
         date = d.get("timestamp", "")[:10]
         if date >= depuis:
@@ -81,6 +84,43 @@ def attentes_accord(fichier, depuis):
     return bloques
 
 
+def erreurs_outils(fichier, depuis):
+    """15/11/2026 (idée du skill « ameliore-systeme » de Melvynx, lu à la source, non installé) : compter par outil
+    les appels qui ont échoué, et à part les refus d'une protection ou d'un crochet : là où le travail a buté."""
+    appels, erreurs, refus = {}, collections.Counter(), collections.Counter()
+    for ligne in open(fichier, errors="ignore"):
+        try:
+            d = json.loads(ligne)
+        except ValueError:
+            continue
+        c = (d.get("message") or {}).get("content")
+        if not isinstance(c, list):
+            continue
+        for x in c:
+            if not isinstance(x, dict):
+                continue
+            if x.get("type") == "tool_use":
+                appels[x.get("id")] = x.get("name")
+            elif x.get("type") == "tool_result" and d.get("timestamp", "")[:10] >= depuis:
+                nom = appels.get(x.get("tool_use_id"), "?")
+                texte = json.dumps(x.get("content"), ensure_ascii=False)
+                if "denied by the Claude Code auto mode classifier" in texte or "hook error" in texte:
+                    refus[nom] += 1
+                elif x.get("is_error"):
+                    erreurs[nom] += 1
+    return erreurs, refus
+
+
+def repetitions(msgs):
+    """Messages que l'utilisateur a dû redire presque mot pour mot (même début sur 60 caractères, 2 fois ou plus)."""
+    vus = collections.defaultdict(list)
+    for d, t in msgs:
+        cle = re.sub(r"\W+", " ", t.lower())[-60:] if len(t) > 80 else ""
+        if cle:
+            vus[cle].append((d, t))
+    return [v for v in vus.values() if len(v) >= 2]
+
+
 def main():
     if len(sys.argv) < 3:
         sys.exit(__doc__)
@@ -107,6 +147,14 @@ def main():
     bloques = attentes_accord(fichier, depuis)
     rapport += ["", "## Outils restés en attente d'accord (à autoriser par leur nom exact dans .claude/settings.json)"]
     rapport += [f"- {n} : {k} fois" for n, k in bloques.most_common()] or ["- aucun"]
+    rep = repetitions(msgs)
+    rapport += ["", "## Consignes redites presque mot pour mot (signe qu'elles n'ont pas été appliquées du premier coup)"]
+    rapport += [f"- {len(v)} fois ({v[0][0]} → {v[-1][0]}) : …{v[-1][1][-220:]}" for v in rep] or ["- aucune"]
+    erreurs, refus = erreurs_outils(fichier, depuis)
+    rapport += ["", "## Outils qui ont le plus échoué (à fiabiliser ou à remplacer)"]
+    rapport += [f"- {n} : {k} échec(s)" for n, k in erreurs.most_common(10)] or ["- aucun"]
+    rapport += ["", "## Refus d'une protection ou d'un crochet (ne pas contourner : demander la phrase d'autorisation)"]
+    rapport += [f"- {n} : {k} refus" for n, k in refus.most_common(10)] or ["- aucun"]
     rapport += ["", "## Sujets les plus fréquents (mots présents dans le plus de messages)"]
     rapport += [f"- {m} : {n}" for m, n in mots.most_common(25)]
     nom = f"{sortie}/auto-analyse-{dt.date.today().isoformat()}.md"
