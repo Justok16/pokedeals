@@ -18,10 +18,10 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Clients et administratif | Remplir un PDF (remplir_pdf.py) | en place | Cerfa et formulaires remplis automatiquement | — | — | — |
 | Clients et administratif | Vérification d'entreprise (verif_entreprises.py + connecteur Contract-Factory SIREN) | en place | SIREN, état, BODACC avant signature (45) | — | — | — |
 | Communication et organisation | Gmail + Google Drive + Google Agenda (connecteurs) | en place | Courrier DIG16, archives privées « Dig », rendez-vous | — | — | — |
-| Design | Anthropic skills | installé | frontend-design et skills officiels | — | — | 187787 |
-| Design | Emil Kowalski skills | installé | emil-design-eng, mobile-native, review-animations, break-ui | — | MIT | 53854 |
+| Design | Anthropic skills | installé | frontend-design et skills officiels | — | — | 194524 |
+| Design | Emil Kowalski skills | installé | emil-design-eng, mobile-native, review-animations, break-ui | — | MIT | 56835 |
 | Design | Fontsource | réserve | Polices libres à héberger | 5.3.0 (2026-07-19) | MIT | 6265 |
-| Design | Impeccable | installé | Skill impeccable | — | Apache-2.0 | 104007 |
+| Design | Impeccable | installé | Skill impeccable | — | Apache-2.0 | 110111 |
 | Design | Leonardo (Adobe) | réserve | Palettes à contraste garanti | 1.1.0 (2026-02-18) | Apache-2.0 | 2167 |
 | Design | Open Props | réserve | Variables CSS prêtes | 1.7.23 (2026-01-31) | MIT | — |
 | Design | Taste skill | installé | taste-design, taste-redesign | — | MIT | 111124 |
@@ -37,7 +37,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Photos | PhotoCraft (ArtCraft) | réserve | Retouche type Photoshop, pilotable par Claude | — | Apache-2.0 | 77757 |
 | Photos | SVGO | réserve | Alléger les logos SVG | 4.1.0 (2026-08-24) | MIT | 22606 |
 | Photos | eleventy-img | réserve | Balises <picture> complètes | 7.1.1 (2026-10-21) | MIT | 470 |
-| Photos | rembg | réserve | Détourage local | 2.0.87 (2026-11-06) | MIT | 25352 |
+| Photos | rembg | réserve | Détourage local | 2.0.87 (2026-11-06) | MIT | 25460 |
 | Photos | sharp | réserve | WebP/AVIF et tailles multiples | 0.35.5 (2026-09-27) | Apache-2.0 | 32829 |
 | Photos | sharp-cli | réserve | sharp en ligne de commande | 6.1.0 (2026-09-01) | MIT | 229 |
 | Prospection | Fiche d'appel prospect (outils/prospects/fiche_appel.py) | en place | Fiche d'appel revérifiée en direct | — | — | — |
@@ -50,7 +50,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Qualité | Playwright MCP | en place | Navigateur piloté (.mcp.json) | 0.0.85 (2026-11-09) | Apache-2.0 | 39256 |
 | Qualité | Traces d'un autre client (traces_autre_client.py) | en place | Aucune trace d'un autre client dans un site livré | — | — | — |
 | Qualité | Unlighthouse | installé | Audit vitesse, accessibilité, bonnes pratiques et référencement de toutes les pages (outils/unlighthouse/audit.sh) ; MIT, 0.19.1 vérifiée le 03/11/2026 | 0.19.1 (2026-10-03) | MIT | — |
-| Qualité | axe-core | réserve | Moteur d'accessibilité | 4.14.0 (2026-10-05) | non-standard | 7764 |
+| Qualité | axe-core | réserve | Moteur d'accessibilité | 4.14.0 (2026-10-05) | non-standard | 7818 |
 | Qualité | html-validate | réserve | Validation HTML | 11.21.1 (2026-11-12) | MIT | — |
 | Qualité | lychee | réserve | Liens cassés | — | Apache-2.0 | 4106 |
 | Qualité | pa11y | réserve | Accessibilité en une commande | 10.0.0 (2026-08-28) | LGPL-3.0 | 4594 |
@@ -60,7 +60,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Réseaux sociaux | vidIQ (connecteur) | en place | YouTube : vidéos, transcriptions | — | — | — |
 | SEO | Claude SEO | réserve | Audit SEO complet (MIT) | — | — | — |
 | SEO | Google Analytics MCP | réserve | GA4 d'un client | — | Apache-2.0 | 3673 |
-| SEO | Lighthouse | en place | Audit performance, SEO, accessibilité | 13.6.0 (2026-10-27) | Apache-2.0 | 31023 |
+| SEO | Lighthouse | en place | Audit performance, SEO, accessibilité | 13.6.0 (2026-10-27) | Apache-2.0 | 31083 |
 | SEO | OpenSEO (connecteur) | en place | Fiche Google, Search Console, audits | — | — | — |
 | SEO | Unlighthouse | réserve | Lighthouse sur tout un site | 0.19.1 (2026-10-03) | MIT | — |
 | SEO | critical | réserve | CSS du premier écran | 9.0.0 (2026-09-13) | Apache-2.0 | 10302 |
@@ -68,7 +68,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Signature électronique | Modèles DocuSeal (modeles_docuseal.py + connecteur DocuSeal) | en place | 4 modèles prêts (6628706 à 6628709), envoi send_documents | — | — | — |
 | Sécurité | ALTCHA | réserve | Anti-spam sans tiers | 3.6.0 (2026-11-12) | MIT | 2895 |
 | Sécurité | Gitleaks | réserve | Secrets oubliés dans le dépôt | v8.30.1 (2026-02-21) | MIT | 30738 |
-| Sécurité | OSV-Scanner | réserve | Dépendances vulnérables | v2.7.1 (2026-11-09) | Apache-2.0 | 11421 |
+| Sécurité | OSV-Scanner | réserve | Dépendances vulnérables | v2.7.1 (2026-11-09) | Apache-2.0 | 11517 |
 | Sécurité | Semgrep | réserve | Analyse du code serveur | 1.185.0 (2026-11-10) | LGPL-2.1 | 17546 |
 | Sécurité | security-guidance (Anthropic) | réserve | Extension officielle ; revues IA à chaque fin de tour et commit = gros quota | — | Apache-2.0 | 46316 |
 | Sécurité | tarteaucitron.js | réserve | Bandeau cookies CNIL | 1.37.0 (2026-10-15) | MIT | 1062 |
@@ -82,4 +82,4 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5821 |
 | Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26629 |
 
-Dernière veille : 2026-11-14.
+Dernière veille : 2026-11-15.
