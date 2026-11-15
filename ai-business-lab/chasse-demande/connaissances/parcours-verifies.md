@@ -212,3 +212,4 @@ navigateur : Cloudflare ajoute `beacon.min.js` sur dig16.fr ; la règle de sécu
 - Les menus du tableau de bord sont en anglais. Si l'écran diffère : une capture, un écran à la fois.
 - **Contrôle par Claude après coup** : ouvrir https://dig16.fr/ avec un vrai navigateur (Playwright) : plus de balise `cloudflareinsights` ni
   d'erreur « Content Security Policy » dans la console (`curl` ne voit pas ce script).
+| Fiche d'établissement Google | Ajouter une catégorie supplémentaire | Accéder à la fiche → **Modifier la fiche** → à côté de « Catégorie d'activité », **Modifier** → **Ajouter une autre catégorie** → saisir, choisir dans la liste → **Enregistrer**. Attention (aide officielle) : Google peut demander de refaire valider l'établissement après un changement de catégorie | aide officielle support.google.com/business/answer/7249669, lue le 15/11/2026 (pas encore confirmée sur capture) |
