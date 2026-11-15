@@ -281,6 +281,10 @@ Avant d'envoyer un document, une démo ou un texte important : le faire relire p
 
 Tout PDF fourni à l'utilisateur pour un appel, un entretien ou un rendez-vous avec un tiers (fiche d'appel, fiche d'entretien, questionnaire de lancement…) est livré **remplissable** : `python3 outils/pdf_remplissable.py entree.pdf sortie.pdf --notes "<étiquettes des cadres>" [--lignes]` (blancs ____ → champs, ☐ → cases, cadres de notes et lignes d'écriture → zones de saisie). `documents_client.py` le fait déjà pour le questionnaire du kit client. Contrôle avant envoi : remplir toutes les zones par programme (pymupdf) et vérifier sur image qu'aucune ne chevauche du texte.
 
+## Fiche des effets : obligatoire avant de montrer un site ou une démo (15/11/2026)
+
+`python3 outils/fiche_effets.py verifier <dossier du site>` sans ALERTE : chaque effet du catalogue `connaissances/effets-prestige.md` a une décision écrite (« retenu : où » ou « écarté : pourquoi »). Le message qui montre le site à l'utilisateur recopie `resume`. Une seule signature forte par page ; rapidité sur téléphone d'abord.
+
 ## Signes d'un site « fait par l'IA » : à éviter partout (02/11/2026, vidéo I3jQnfZXeS4 de la veille)
 
 Avant de montrer un site ou une démo, vérifier qu'il ne porte aucun de ces signes : dégradé violet sur fond noir,

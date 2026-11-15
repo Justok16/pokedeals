@@ -49,6 +49,7 @@ Mettre à jour 64 § 0 et `scratchpad/appels/ETAT.md`.
 - Rappeler à l'utilisateur le « rappel investissement » et la franchise de TVA (règles promises dans `.claude/CLAUDE.md`).
 
 ## Étape 8 — Livraison du site (`65` § 1)
+**Avant de montrer le site à l'utilisateur (règle du 15/11)** : `python3 outils/fiche_effets.py creer <dossier privé du client> "<nom>"`, remplir une décision pour CHAQUE effet du catalogue `connaissances/effets-prestige.md` (« retenu : où » ou « écarté : pourquoi »), puis `verifier` sans ALERTE ; le message qui montre le site recopie `resume` (effets retenus et écartés). Page d'accueil seule d'abord, validée, puis les autres pages.
 `seo_client.py` sans ALERTE, `--schema` (entreprise locale), tests téléphone et ordinateur, Lighthouse ≥ 90, accessibilité,
 formulaire testé (`test_formulaire.py`), aucune police chargée depuis Google, IndexNow. Comptes **au nom du client**
 (domaine, hébergement, fiche Google, Search Console, Bing ; `65` § 2), DIG16 gestionnaire. **Nom de domaine : le client le paie

@@ -108,6 +108,7 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/controle_voix_videos.py` | Contrôle de la marque dans toutes les vidéos parlées du site (22/10/2026). |
 | `outils/documents_client.py` | Pré-remplit TOUS les documents d'un nouveau site client (règle du 25/10/2026 : « à chaque site créé, quel que soit le prix »). |
 | `outils/documents_commerciaux.py` | Documents commerciaux de DIG16 (05/10/2026) : CGV, modèle de devis-bon de commande, modèle de facture. |
+| `outils/fiche_effets.py` | Fiche des effets d'un site : oblige à passer TOUT le catalogue en revue avant de montrer un site ou une démo. |
 | `outils/film_photos.py` | Fabrique un plan-séquence « caméra » à partir de photos fixes (poussées, travellings), sans IA payante. |
 | `outils/fiscal/simulateur.py` | Simulateur DIG16 : ce que coûte un chiffre d'affaires en micro-entreprise, BIC ou BNC. |
 | `outils/hubspot_apps.py` | Relevé de la place de marché HubSpot (sitemap officiel, pages rendues). |

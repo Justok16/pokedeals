@@ -282,7 +282,7 @@ Mise en œuvre :
 Demande de l'utilisateur : « tout ce qui s'anime, qui fait haut de gamme, surtout pour le sur-mesure et les sites
 Prestige, il faut garder toutes les bonnes idées ». Toute idée d'animation ou d'effet (vidéo, carrousel, capture,
 veille), même venant d'un outil écarté, va le jour même dans `connaissances/effets-prestige.md` (source + façon de la
-refaire en GSAP/CSS + poids sur téléphone). Ce catalogue est relu avant toute démo ou tout site Prestige.
+refaire en GSAP/CSS + poids sur téléphone). Ce catalogue est relu avant toute démo ou tout site Prestige. **Contrôle du 15/11/2026** (question de l'utilisateur : « comment être sûr que tu essaieras de l'appliquer aux sites en construction ? ») : pour TOUT site ou toute démo, quelle que soit la formule, `outils/fiche_effets.py` crée une fiche où chaque effet du catalogue reçoit une décision (« retenu : où » ou « écarté : pourquoi ») ; `verifier` doit passer sans ALERTE avant de montrer le site, et le message à l'utilisateur recopie la liste des effets retenus et écartés (`resume`). Une idée d'effet seulement « mise en réserve » ne suffit pas : elle va au catalogue le jour même, sinon la fiche ne la voit pas.
 
 ## On dépasse, on n'égale pas (03/11/2026)
 
