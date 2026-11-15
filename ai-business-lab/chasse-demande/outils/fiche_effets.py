@@ -65,6 +65,8 @@ def main():
         os.makedirs(dossier, exist_ok=True)
         open(fiche, "w", encoding="utf-8").write("\n".join(t) + "\n")
         print(f"écrit : {fiche} ({len(cat)} effets, {sum(1 for n, _ in cat if deja.get(n))} déjà décidés)")
+        print("À faire aussi maintenant : python3 outils/reserve_a_proposer.py --evenement site (puis --evenement photos) : "
+              "outils mis en réserve pour un site, à examiner un par un.")
         return
     if not os.path.exists(fiche):
         sys.exit(f"ALERTE : pas de fiche des effets ({fiche}) : lancer « creer » puis la remplir")

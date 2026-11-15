@@ -10,6 +10,9 @@ Consignes : `72-kit-client-complet.md` (kit), `45-impayes-se-proteger.md` § 1 (
 Données du client et de DIG16 : **toujours privées** (scratchpad `prive/` ou Drive « Dig »), jamais dans le dépôt.
 Au moindre doute sur un point qui engage (prix, remise, délai, identité) : demander à l'utilisateur.
 
+## Étape 0 — Ressortir la réserve (règle du 15/11)
+`python3 outils/reserve_a_proposer.py --evenement client`, puis `--evenement document` ; au moment de fabriquer le site : `--evenement site` et `--evenement photos`. Pour chaque ligne affichée : « utilisé », « proposé à l'utilisateur » ou « écarté : pourquoi » ; la liste figure dans le message envoyé à l'utilisateur. Gratuité relue à la source avant tout usage.
+
 ## Étape 1 — Vérifier l'entreprise (avant toute signature)
 1. Connecteur **Contract-Factory SIREN** : `search_company` (nom + commune), puis `get_company` et `get_etablissements`
    → SIREN, état actif, adresse, dirigeant (signataire), code NAF.

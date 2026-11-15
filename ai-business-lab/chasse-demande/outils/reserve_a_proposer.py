@@ -72,6 +72,34 @@ def rendu(propositions):
         for _, r, c in propositions)
 
 
+# 15/11/2026 (question de l'utilisateur : « comment être sûr que tu vas les appliquer si besoin ? ») : la recherche par
+# mots ne voit que le message du moment ; beaucoup de conditions sont des ÉVÉNEMENTS (« au premier client payant »,
+# « site Prestige », « reprise des vidéos »). Chaque événement ci-dessous ressort TOUTES les lignes dont la condition
+# « Le ressortir quand… » le concerne ; les skills et les rappels l'appellent au moment où l'événement arrive.
+EVENEMENTS = {
+    "client": ("client payant", "premier client", "1er client", "client signe", "client qui", "un client", "site client"),
+    "site": ("site prestige", "site client", "sur-mesure", "sur mesure", "demo", "maquette", "refonte", "page d'accueil",
+             "site anime", "haut de gamme", "corrections visuelles"),
+    "video": ("video", "montage", "reel", "short", "film"),
+    "appel": ("appel", "entretien", "prospect", "rendez-vous", "demarchage"),
+    "document": ("devis", "facture", "pdf", "signature", "contrat", "cgv", "avocat", "impaye"),
+    "photos": ("photo", "image", "logo", "retouch"),
+    "avis": ("avis", "fiche google", "referencement", "seo"),
+    "quota": ("quota", "devient payant", "bloque", "limite"),
+    "bilan": ("bilan", "statistique", "tableau de bord", "suivi"),
+}
+
+
+def sans_accent(texte):
+    t = unicodedata.normalize("NFD", texte.lower())
+    return "".join(c for c in t if unicodedata.category(c) != "Mn")
+
+
+def par_evenement(nom):
+    cles = EVENEMENTS[nom]
+    return [r for r in lignes_reserve() if any(c in sans_accent(r["quand"]) for c in cles)]
+
+
 # Jeu d'essai (idée « evals » de la conférence Cursor du 27/10 : tester chaque outil sur des cas connus à chaque modification)
 CAS = [
     ("premier client : il veut corriger sa maquette et prendre rendez-vous", "Pin Feed"),
@@ -91,6 +119,15 @@ def evaluer():
         ok = (not noms) if attendu is None else any(attendu in n for n in noms)
         echecs += not ok
         print(("OK    " if ok else "ÉCHEC ") + texte[:60] + " -> " + (", ".join(noms) or "rien"))
+    for ev in EVENEMENTS:  # chaque événement doit ressortir au moins une ligne, sinon ses mots-clés sont à revoir
+        n = len(par_evenement(ev))
+        echecs += n == 0
+        print(("OK    " if n else "ÉCHEC ") + f"événement « {ev} » -> {n} ligne(s)")
+    couvert = {r["outil"] for ev in EVENEMENTS for r in par_evenement(ev)}
+    hors = [r["outil"] for r in lignes_reserve() if r["outil"] not in couvert]
+    print(f"{len(hors)} ligne(s) de la réserve ne dépendent d'aucun événement (revue du 20 de chaque mois) :")
+    for h in hors[:60]:
+        print("   - " + h[:90])
     print(f"{len(CAS) - echecs}/{len(CAS)} cas réussis")
     return 1 if echecs else 0
 
@@ -99,10 +136,18 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="Outils de la réserve à proposer au bon moment")
     ap.add_argument("--texte", help="texte de la tâche ou du message")
     ap.add_argument("--crochet", action="store_true", help="lit le JSON du crochet UserPromptSubmit sur l'entrée")
+    ap.add_argument("--evenement", choices=sorted(EVENEMENTS), help="toutes les lignes à ressortir pour cet événement")
     ap.add_argument("--eval", action="store_true", help="rejoue le jeu d'essai (à lancer après chaque modification)")
     a = ap.parse_args(argv)
     if a.eval:
         return evaluer()
+    if a.evenement:
+        lignes = par_evenement(a.evenement)
+        print(f"Réserve à examiner pour l'événement « {a.evenement} » : {len(lignes)} ligne(s). Pour chacune, décider "
+              "« utilisé », « proposé à l'utilisateur » ou « écarté : pourquoi », et le dire dans le message.")
+        for r in lignes:
+            print(f"- {r['outil']} | sert à : {r['sert']} | quand : {r['quand']}")
+        return 0
     if a.crochet:
         try:
             texte = json.load(sys.stdin).get("prompt", "")
