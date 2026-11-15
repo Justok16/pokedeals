@@ -23,6 +23,16 @@ classement : on montre les résultats, sans garantir une première place (comme 
 6. Sur le site : une page par service principal. Une page « service × ville » seulement s'il y a un vrai contenu
    local, jamais de pages copiées à l'identique.
 
+### Comparaison avec les concurrents (ajout du 15/11/2026, vidéo N4PZQBRzP5o)
+
+À la mise en route, puis une fois par trimestre, avec OpenSEO (crédits gratuits à compter avant la série) :
+1. `search_local_businesses` autour du client (sa catégorie, rayon adapté : 5 à 10 km en ville, 30 à 45 km à la campagne), tri par nombre d'avis : les 10 premières fiches.
+2. `get_business_profile` du client : catégories, attributs, photos, avis.
+3. Tableau client / médiane des 10 : nombre d'avis, note, nombre de catégories supplémentaires, nombre de photos.
+4. Catégories et attributs présents chez 40 % ou plus des 10 et absents chez le client : proposés au client SEULEMENT s'ils sont vrais pour lui.
+5. Positions : `get_local_serp_results` sur au moins 5 recherches (métier + ville, métier + code postal, métier + commune voisine), jamais une seule.
+6. Le tableau va dans le bilan remis au client ; l'écart d'avis se comble par le kit avis, jamais autrement.
+
 ## Chaque mois (environ 30 minutes par client)
 
 1. **Avis** : répondre à **tous** les avis, poliment, sans donnée personnelle. Claude rédige, l'artisan valide.
