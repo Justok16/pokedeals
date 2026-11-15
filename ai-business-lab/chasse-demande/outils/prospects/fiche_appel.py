@@ -340,4 +340,19 @@ def main():
 
 
 if __name__ == "__main__":
+    # 15/11/2026 : rappel automatique de la réserve à la fin de l'outil (consigne de l'utilisateur : que les outils mis
+    # de côté soient réellement examinés quand l'événement arrive). Pour chaque ligne affichée, décider « utilisé »,
+    # « proposé à l'utilisateur » ou « écarté : pourquoi », et le dire dans le message.
+    import atexit as _atexit
+    import os as _os
+    import subprocess as _subprocess
+    import sys as _sys
+
+    _outil_reserve = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "reserve_a_proposer.py")
+
+    def _reserve(_outil=_outil_reserve, _run=_subprocess.run, _py=_sys.executable):
+        for _ev in ['appel']:
+            _run([_py, _outil, "--evenement", _ev], check=False)
+
+    _atexit.register(_reserve)
     main()
