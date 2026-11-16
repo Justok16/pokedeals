@@ -1,5 +1,5 @@
 {
- "date": "2026-11-15",
+ "date": "2026-11-16",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -10,7 +10,7 @@
   "GSAP Skills officiels": {
    "version": null,
    "date": null,
-   "etoiles": 17983,
+   "etoiles": 18471,
    "licence": "MIT"
   },
   "Lenis": {
@@ -22,7 +22,7 @@
   "swup": {
    "version": "4.10.0",
    "date": "2026-09-03",
-   "etoiles": 5252,
+   "etoiles": 5253,
    "licence": "MIT"
   },
   "Motion": {
@@ -76,7 +76,7 @@
   "Fontsource": {
    "version": "5.3.0",
    "date": "2026-07-19",
-   "etoiles": 6265,
+   "etoiles": 6285,
    "licence": "MIT"
   },
   "google-webfonts-helper": {
@@ -100,7 +100,7 @@
   "awesome-design-md": {
    "version": null,
    "date": null,
-   "etoiles": 125911,
+   "etoiles": 127661,
    "licence": "MIT"
   },
   "Impeccable": {
@@ -112,7 +112,7 @@
   "UI UX Pro Max": {
    "version": null,
    "date": null,
-   "etoiles": 146262,
+   "etoiles": 150022,
    "licence": "MIT"
   },
   "Emil Kowalski skills": {
@@ -124,7 +124,7 @@
   "Taste skill": {
    "version": null,
    "date": null,
-   "etoiles": 111124,
+   "etoiles": 115918,
    "licence": "MIT"
   },
   "Anthropic skills": {
@@ -134,15 +134,15 @@
    "licence": null
   },
   "Remotion": {
-   "version": "4.0.543",
-   "date": "2026-11-11",
+   "version": "4.0.544",
+   "date": "2026-11-16",
    "etoiles": 71674,
    "licence": "non-standard"
   },
   "Remotion Agent Skills": {
    "version": null,
    "date": null,
-   "etoiles": 6505,
+   "etoiles": 7286,
    "licence": null
   },
   "Hyperframes": {
@@ -202,7 +202,7 @@
   "Google Analytics MCP": {
    "version": null,
    "date": null,
-   "etoiles": 3673,
+   "etoiles": 3793,
    "licence": "Apache-2.0"
   },
   "critical": {
@@ -226,7 +226,7 @@
   "Gitleaks": {
    "version": "v8.30.1",
    "date": "2026-02-21",
-   "etoiles": 30738,
+   "etoiles": 31050,
    "licence": "MIT"
   },
   "OSV-Scanner": {
@@ -244,13 +244,13 @@
   "security-guidance (Anthropic)": {
    "version": null,
    "date": null,
-   "etoiles": 46316,
+   "etoiles": 47399,
    "licence": "Apache-2.0"
   },
   "Google Ads MCP": {
    "version": null,
    "date": null,
-   "etoiles": 1124,
+   "etoiles": 1180,
    "licence": "Apache-2.0"
   },
   "Chrome DevTools MCP": {
@@ -262,7 +262,7 @@
   "Playwright MCP": {
    "version": "0.0.85",
    "date": "2026-11-09",
-   "etoiles": 39256,
+   "etoiles": 39659,
    "licence": "Apache-2.0"
   },
   "axe-core": {
@@ -292,19 +292,19 @@
   "Context7": {
    "version": "4.7.0",
    "date": "2026-11-12",
-   "etoiles": 64301,
+   "etoiles": 64883,
    "licence": "MIT"
   },
   "marketingskills": {
    "version": null,
    "date": null,
-   "etoiles": 58956,
+   "etoiles": 60609,
    "licence": "MIT"
   },
   "Humanizer": {
    "version": null,
    "date": null,
-   "etoiles": 65711,
+   "etoiles": 69506,
    "licence": "MIT"
   },
   "PhotoCraft (ArtCraft)": {

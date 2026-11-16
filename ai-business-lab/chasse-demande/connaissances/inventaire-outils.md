@@ -7,12 +7,12 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Animation (Prestige) | Skill horizontal-scroll-scenes | installé | Chapitres qui défilent de gauche à droite pendant le défilement vertical, état dérivé du scroll, accessible et sans mouvement réduit ; MIT, lu en entier et installé le 04/11/2026 (.claude/skills/horizontal-scroll-scenes) | — | — | — |
 | Animation (Prestige) | Skill threejs-animation | installé | Compagnon de threejs-web : animations Three.js indépendantes du nombre d'images, liées au défilement, mouvement réduit ; MIT, lu en entier et installé le 04/11/2026 | — | — | — |
 | Animations | GSAP | en place | Moteur d'animation des sites (site-dig/moteur/anim/gsap-3.15.0.min.js et ScrollTrigger, mis à jour le 28/10) | 3.15.1 (2026-11-04) | Standard 'no charge' license: https://gsap.com/standard-license. | 30503 |
-| Animations | GSAP Skills officiels | installé | .claude/skills/gsap-* (core, timeline, scrolltrigger, plugins, utils, performance) | — | MIT | 17983 |
+| Animations | GSAP Skills officiels | installé | .claude/skills/gsap-* (core, timeline, scrolltrigger, plugins, utils, performance) | — | MIT | 18471 |
 | Animations | Lenis | en place | Défilement fluide (site-dig/moteur/anim/lenis-1.3.27.min.js, mis à jour le 28/10) | 1.3.27 (2026-10-15) | MIT | 17135 |
 | Animations | Motion | réserve | Micro-interactions légères | 14.14.0 (2026-11-13) | MIT | — |
 | Animations | Three.js | réserve | 3D légère pour un client Prestige | 0.187.0 (2026-10-30) | MIT | 117888 |
 | Animations | dotLottie web | réserve | Icônes animées vectorielles | 0.83.2 (2026-11-12) | MIT | 942 |
-| Animations | swup | réserve | Transitions entre pages d'un site statique | 4.10.0 (2026-09-03) | MIT | 5252 |
+| Animations | swup | réserve | Transitions entre pages d'un site statique | 4.10.0 (2026-09-03) | MIT | 5253 |
 | Clients et administratif | Documents client (documents_client.py) | en place | Devis, CGV, facture, questionnaire, accord gracieux | — | — | — |
 | Clients et administratif | Kit client complet (kit_client.py) | en place | 12 documents d'un nouveau client en une commande (devis, CGV, facture, PV, mode d'emploi…), 72 | — | — | — |
 | Clients et administratif | Remplir un PDF (remplir_pdf.py) | en place | Cerfa et formulaires remplis automatiquement | — | — | — |
@@ -20,19 +20,19 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Communication et organisation | Gmail + Google Drive + Google Agenda (connecteurs) | en place | Courrier DIG16, archives privées « Dig », rendez-vous | — | — | — |
 | Design | Anthropic skills | installé | frontend-design et skills officiels | — | — | 194524 |
 | Design | Emil Kowalski skills | installé | emil-design-eng, mobile-native, review-animations, break-ui | — | MIT | 56835 |
-| Design | Fontsource | réserve | Polices libres à héberger | 5.3.0 (2026-07-19) | MIT | 6265 |
+| Design | Fontsource | réserve | Polices libres à héberger | 5.3.0 (2026-07-19) | MIT | 6285 |
 | Design | Impeccable | installé | Skill impeccable | — | Apache-2.0 | 110111 |
 | Design | Leonardo (Adobe) | réserve | Palettes à contraste garanti | 1.1.0 (2026-02-18) | Apache-2.0 | 2167 |
 | Design | Open Props | réserve | Variables CSS prêtes | 1.7.23 (2026-01-31) | MIT | — |
-| Design | Taste skill | installé | taste-design, taste-redesign | — | MIT | 111124 |
-| Design | UI UX Pro Max | installé | Skill ui-ux-pro-max (attention : liens Google Fonts, contrôle polices_locales) | — | MIT | 146262 |
-| Design | awesome-design-md | installé | Skill design-md-references | — | MIT | 125911 |
+| Design | Taste skill | installé | taste-design, taste-redesign | — | MIT | 115918 |
+| Design | UI UX Pro Max | installé | Skill ui-ux-pro-max (attention : liens Google Fonts, contrôle polices_locales) | — | MIT | 150022 |
+| Design | awesome-design-md | installé | Skill design-md-references | — | MIT | 127661 |
 | Design | google-webfonts-helper | réserve | Télécharger une police Google pour l'héberger | — | MIT | 13077 |
 | Facturation et paiement | GoCardless (prélèvement SEPA) | en place | Mandats SEPA des formules mensuelles | — | — | — |
 | Facturation et paiement | Indy (facturation, plateforme agréée, compte pro) | en place | Factures, facturation électronique, livre des recettes | — | — | — |
 | Hébergement et sécurité | Cloudflare Pages + Web Analytics + Turnstile | en place | Hébergement, mesure sans cookie, anti-robots | — | — | — |
-| Marketing | Humanizer | installé | Retirer les tics d'écriture d'IA | — | MIT | 65711 |
-| Marketing | marketingskills | installé | copywriting, seo-audit, schema, ai-seo… | — | MIT | 58956 |
+| Marketing | Humanizer | installé | Retirer les tics d'écriture d'IA | — | MIT | 69506 |
+| Marketing | marketingskills | installé | copywriting, seo-audit, schema, ai-seo… | — | MIT | 60609 |
 | Photos | LightCraft (ArtCraft) | réserve | Retouche de séries de photos | — | — | — |
 | Photos | PhotoCraft (ArtCraft) | réserve | Retouche type Photoshop, pilotable par Claude | — | Apache-2.0 | 77757 |
 | Photos | SVGO | réserve | Alléger les logos SVG | 4.1.0 (2026-08-24) | MIT | 22606 |
@@ -42,12 +42,12 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Photos | sharp-cli | réserve | sharp en ligne de commande | 6.1.0 (2026-09-01) | MIT | 229 |
 | Prospection | Fiche d'appel prospect (outils/prospects/fiche_appel.py) | en place | Fiche d'appel revérifiée en direct | — | — | — |
 | Prospection | Trouver un contact (trouver_contact.py) | en place | Pages contact d'un organisme | — | — | — |
-| Publicité | Google Ads MCP | réserve | Lecture des campagnes Google Ads | — | Apache-2.0 | 1124 |
+| Publicité | Google Ads MCP | réserve | Lecture des campagnes Google Ads | — | Apache-2.0 | 1180 |
 | Qualité | Chrome DevTools MCP | réserve | Performance réelle, console, réseau | 1.13.0 (2026-11-11) | Apache-2.0 | 55268 |
-| Qualité | Context7 | réserve | Documentation à jour des bibliothèques | 4.7.0 (2026-11-12) | MIT | 64301 |
+| Qualité | Context7 | réserve | Documentation à jour des bibliothèques | 4.7.0 (2026-11-12) | MIT | 64883 |
 | Qualité | Contrôle global du site (controle_global.py, test_pages.py, seo_client.py, test_formulaire.py) | en place | Santé du site et des sites clients avant livraison | — | — | — |
 | Qualité | Linkinator | installé | Liens cassés d'un site entier (outils/liens/verifier.sh) ; MIT, 8.1.0 vérifiée le 03/11/2026 | 8.1.0 (2026-08-29) | MIT | — |
-| Qualité | Playwright MCP | en place | Navigateur piloté (.mcp.json) | 0.0.85 (2026-11-09) | Apache-2.0 | 39256 |
+| Qualité | Playwright MCP | en place | Navigateur piloté (.mcp.json) | 0.0.85 (2026-11-09) | Apache-2.0 | 39659 |
 | Qualité | Traces d'un autre client (traces_autre_client.py) | en place | Aucune trace d'un autre client dans un site livré | — | — | — |
 | Qualité | Unlighthouse | installé | Audit vitesse, accessibilité, bonnes pratiques et référencement de toutes les pages (outils/unlighthouse/audit.sh) ; MIT, 0.19.1 vérifiée le 03/11/2026 | 0.19.1 (2026-10-03) | MIT | — |
 | Qualité | axe-core | réserve | Moteur d'accessibilité | 4.14.0 (2026-10-05) | non-standard | 7818 |
@@ -59,7 +59,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Réseaux sociaux | Zapier / Buffer (connecteur) | en place | Stories et Shorts quand Metricool est plein | — | — | — |
 | Réseaux sociaux | vidIQ (connecteur) | en place | YouTube : vidéos, transcriptions | — | — | — |
 | SEO | Claude SEO | réserve | Audit SEO complet (MIT) | — | — | — |
-| SEO | Google Analytics MCP | réserve | GA4 d'un client | — | Apache-2.0 | 3673 |
+| SEO | Google Analytics MCP | réserve | GA4 d'un client | — | Apache-2.0 | 3793 |
 | SEO | Lighthouse | en place | Audit performance, SEO, accessibilité | 13.6.0 (2026-10-27) | Apache-2.0 | 31083 |
 | SEO | OpenSEO (connecteur) | en place | Fiche Google, Search Console, audits | — | — | — |
 | SEO | Unlighthouse | réserve | Lighthouse sur tout un site | 0.19.1 (2026-10-03) | MIT | — |
@@ -67,19 +67,19 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | SEO | mcp-gsc | réserve | Search Console dans Claude | — | MIT | 2195 |
 | Signature électronique | Modèles DocuSeal (modeles_docuseal.py + connecteur DocuSeal) | en place | 4 modèles prêts (6628706 à 6628709), envoi send_documents | — | — | — |
 | Sécurité | ALTCHA | réserve | Anti-spam sans tiers | 3.6.0 (2026-11-12) | MIT | 2895 |
-| Sécurité | Gitleaks | réserve | Secrets oubliés dans le dépôt | v8.30.1 (2026-02-21) | MIT | 30738 |
+| Sécurité | Gitleaks | réserve | Secrets oubliés dans le dépôt | v8.30.1 (2026-02-21) | MIT | 31050 |
 | Sécurité | OSV-Scanner | réserve | Dépendances vulnérables | v2.7.1 (2026-11-09) | Apache-2.0 | 11517 |
 | Sécurité | Semgrep | réserve | Analyse du code serveur | 1.185.0 (2026-11-10) | LGPL-2.1 | 17546 |
-| Sécurité | security-guidance (Anthropic) | réserve | Extension officielle ; revues IA à chaque fin de tour et commit = gros quota | — | Apache-2.0 | 46316 |
+| Sécurité | security-guidance (Anthropic) | réserve | Extension officielle ; revues IA à chaque fin de tour et commit = gros quota | — | Apache-2.0 | 47399 |
 | Sécurité | tarteaucitron.js | réserve | Bandeau cookies CNIL | 1.37.0 (2026-10-15) | MIT | 1062 |
 | Veille | Réserve à proposer (reserve_a_proposer.py) | en place | Ressort l'outil gardé au bon moment | — | — | — |
 | Veille | Veille presse (veille_presse.py) et veille des sources (veille_sources.py) | en place | Presse locale, chaînes, annuaires d'outils | — | — | — |
 | Vidéo | Hyperframes | réserve | Vidéo depuis HTML/GSAP | — | Apache-2.0 | 83272 |
 | Vidéo | OpenMontage | réserve | Montage par agent (AGPL-3.0) | — | AGPL-3.0 | 78232 |
-| Vidéo | Remotion | réserve | Vidéos en code (gratuit tant que DIG16 ≤ 3 personnes, livraison MP4 seule) | 4.0.543 (2026-11-11) | non-standard | 71674 |
-| Vidéo | Remotion Agent Skills | réserve | npx skills add remotion-dev/skills | — | — | 6505 |
+| Vidéo | Remotion | réserve | Vidéos en code (gratuit tant que DIG16 ≤ 3 personnes, livraison MP4 seule) | 4.0.544 (2026-11-16) | non-standard | 71674 |
+| Vidéo | Remotion Agent Skills | réserve | npx skills add remotion-dev/skills | — | — | 7286 |
 | Vidéo | Revideo | réserve | Vidéos en code, MIT | 0.11.0 (2026-07-10) | MIT | — |
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5821 |
 | Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26629 |
 
-Dernière veille : 2026-11-15.
+Dernière veille : 2026-11-16.

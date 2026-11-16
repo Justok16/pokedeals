@@ -702,9 +702,9 @@
   },
   {
    "nom": "Vercel Hobby (usage non commercial seulement)",
-   "url": "https://vercel.com/docs/limits/fair-use-guidelines",
+   "url": "https://vercel.com/legal/terms",
    "doit_contenir": [
-    "non-commercial personal use only"
+    "personal or non-commercial"
    ]
   }
  ]
