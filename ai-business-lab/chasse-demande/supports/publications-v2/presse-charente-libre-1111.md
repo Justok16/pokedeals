@@ -114,3 +114,15 @@ Un article sur DIG16 dans Charente Libre 📰 Merci au journal, et merci à tous
 **YouTube (onglet « Posts », facultatif)**
 
 DIG16 dans le journal 📰 Merci à Charente Libre pour cet article. À préciser : un site DIG16 est pensé d'abord pour le téléphone, vos clients le font défiler du bout du pouce. 0 € de création, puis dès 49 € par mois. 👉 https://dig16.fr
+
+## 10. Demander l'accord du journal pour l'image de l'article (préparé le 16/11, à dire lors du rappel au correspondant vers le 25/11)
+
+À dire au téléphone (ou à écrire si le correspondant préfère un message) :
+
+> « Merci encore pour l'article du 10 novembre. Je l'ai mis en avant sur mon site, dig16.fr, et sur mes réseaux, avec le
+> lien vers votre page. Est-ce que Charente Libre m'autorise à montrer aussi la photo de l'article papier, en citant le
+> journal ? Si vous préférez que je ne garde que le lien, je l'enlève tout de suite. »
+
+- Réponse « oui » : noter le nom de la personne et la date dans 64 § 0 (preuve de l'accord).
+- Réponse « non » ou « il faut demander à la rédaction » : retirer l'image du site (accueil et « Le projet »), garder le
+  bandeau « Vu dans Charente Libre » et le lien ; Claude s'en charge dès que l'utilisateur le dit.

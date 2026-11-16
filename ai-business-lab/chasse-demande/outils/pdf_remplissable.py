@@ -38,8 +38,15 @@ def rendre_remplissable(entree, sortie, notes=(), lignes=False):
                 zone = pymupdf.Rect(r.x0, r.y0 - 15, r.x1, r.y0 - .5)
                 if r.width > 120 and r.height < 1.5 and (round(r.x0), round(r.y0)) not in vus:
                     vus.add((round(r.x0), round(r.y0)))
-                    if page.get_text("text", clip=zone).strip():
-                        continue  # ligne déjà remplie ou étiquette au-dessus : on n'y touche pas
+                    if r.y0 > H - 40:
+                        continue  # filet du pied de page, pas une ligne de réponse (corrigé le 16/11)
+                    mots = page.get_text("words", clip=zone)
+                    if mots:
+                        # texte d'aide au-dessus de la ligne (16/11) : champ à droite du texte s'il reste assez de place
+                        fin = max(m[2] for m in mots) + 6
+                        if r.x1 - fin < 90:
+                            continue  # ligne déjà remplie ou étiquette au-dessus : on n'y touche pas
+                        zone = pymupdf.Rect(fin, r.y0 - 15, r.x1, r.y0 - .5)
                     w = pymupdf.Widget()
                     w.field_type = pymupdf.PDF_WIDGET_TYPE_TEXT
                     w.field_name = f"ligne_{num}_{n}"
