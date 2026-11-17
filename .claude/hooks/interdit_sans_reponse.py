@@ -54,7 +54,9 @@ def main():
                       "(dernier rappel programmé ou « Continue ») avec les outils, puis réponds en français.",
         }))
         return
-    t2 = t.replace("’", "'")
+    import re
+    # les tournures citées entre guillemets (pour expliquer le crochet) ne comptent pas : faux positif du 17/11
+    t2 = re.sub(r"«[^»]*»|\"[^\"]*\"|`[^`]*`", " ", t.replace("’", "'"))
     trouve = [x for x in NON_REPARE if x in t2]
     if trouve:
         print(json.dumps({
