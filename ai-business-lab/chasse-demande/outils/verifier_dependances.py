@@ -35,12 +35,20 @@ def main():
                 if not f.endswith(".py"):
                     continue
                 p = os.path.join(d, f)
+                source = open(p, encoding="utf-8").read()
+                with warnings.catch_warnings():
+                    # 17/11 : un « \\b » non doublé dans du JavaScript devenait un caractère invisible (contrôle faussé)
+                    warnings.simplefilter("error", SyntaxWarning)
+                    try:
+                        ast.parse(source)
+                    except (SyntaxError, SyntaxWarning) as err:
+                        manque.setdefault("(échappement ou syntaxe à corriger)", set()).add(
+                            f"{os.path.relpath(p, RACINE)}:{getattr(err, 'lineno', '?')}")
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
                     try:
-                        arbre = ast.parse(open(p, encoding="utf-8").read())
+                        arbre = ast.parse(source)
                     except SyntaxError:
-                        manque.setdefault("(erreur de syntaxe)", set()).add(os.path.relpath(p, RACINE))
                         continue
                 for n in ast.walk(arbre):
                     if isinstance(n, ast.Import):

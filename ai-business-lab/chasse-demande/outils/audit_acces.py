@@ -49,7 +49,7 @@ JS = """() => {
     });
   }
   const vp = (document.querySelector('meta[name=viewport]') || {}).content || '';
-  if (/user-scalable\s*=\s*(no|0)|maximum-scale\s*=\s*1(\.0)?\b/.test(vp)) pb.push('zoom du navigateur bloqué (viewport)');
+  if (/user-scalable\\s*=\\s*(no|0)|maximum-scale\\s*=\\s*1(\\.0)?\\b/.test(vp)) pb.push('zoom du navigateur bloqué (viewport)');
   if (!document.querySelector('meta[name=theme-color]')) pb.push('meta theme-color absente');
   if (w < 700) document.querySelectorAll('input,textarea,select').forEach(c => {
     if (c.type !== 'hidden' && parseFloat(getComputedStyle(c).fontSize) < 16) pb.push(`champ en police < 16 px (zoom iOS) : ${c.name || c.id || c.tagName}`);
@@ -64,10 +64,10 @@ JS = """() => {
   document.querySelectorAll('div[onclick],span[onclick],button[onclick]').forEach(e => {
     if (/location|href/.test(e.getAttribute('onclick'))) pb.push("navigation par onclick au lieu d’un lien : " + e.tagName.toLowerCase());
   });
-  if (/\.\.\./.test(document.body.innerText)) pb.push('« ... » au lieu de « … »');
+  if (/\\.\\.\\./.test(document.body.innerText)) pb.push('« ... » au lieu de « … »');
   const css = [...document.styleSheets].map(s => { try { return [...s.cssRules].map(r => r.cssText).join(' '); } catch (e) { return ''; } }).join(' ');
   if (/animation|transition/.test(css) && !/prefers-reduced-motion/.test(css)) pb.push('animations sans variante prefers-reduced-motion');
-  if (/transition:\s*all\b/.test(css)) pb.push('« transition: all » (lister les propriétés animées)');
+  if (/transition:\\s*all\\b/.test(css)) pb.push('« transition: all » (lister les propriétés animées)');
   return [...new Set(pb)];
 }"""
 
