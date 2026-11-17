@@ -51,6 +51,12 @@ def main():
                  f"https://relais-dig-justok1.vercel.app/api/video?id={vid}"
                  "&modeles=gemini-3.8-flash,gemini-3.7-flash,gemini-3-flash-preview,gemini-3.5-flash-lite&fps=0.2")
     if "Protected by Vercel Authentication" in r or not r.strip():
+        # 17/11 : distinguer cookie expiré et vidéo trop longue (le relais coupe à 5 minutes)
+        sante = curl("-m", "20", "-b", cookies, "https://relais-dig-justok1.vercel.app/api/video?id=x")
+        if "identifiant" in sante:
+            sys.exit("relais en bon état mais aucune réponse en 5 minutes : vidéo trop longue pour le relais. "
+                     "Repli : transcription vidIQ (outil vidiq_video_transcript, 5 crédits ; vidiq_balance d'abord), "
+                     "puis résumé à la main dans videos-resumes/<id>.md (un agent si la transcription est très longue).")
         sys.exit("relais sans réponse : cookie expiré ? (get_access_to_vercel_url, puis curl -s -L -c /tmp/cj.txt -b /tmp/cj.txt)")
     try:
         d = json.loads(r)
