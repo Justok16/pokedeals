@@ -1,5 +1,5 @@
 {
- "date": "2026-11-16",
+ "date": "2026-11-17",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -16,7 +16,7 @@
   "Lenis": {
    "version": "1.3.27",
    "date": "2026-10-15",
-   "etoiles": 17135,
+   "etoiles": 17296,
    "licence": "MIT"
   },
   "swup": {
@@ -172,7 +172,7 @@
   "OpenMontage": {
    "version": null,
    "date": null,
-   "etoiles": 78232,
+   "etoiles": 81000,
    "licence": "AGPL-3.0"
   },
   "Claude SEO": {
@@ -266,8 +266,8 @@
    "licence": "Apache-2.0"
   },
   "axe-core": {
-   "version": "4.14.0",
-   "date": "2026-10-05",
+   "version": "4.14.1",
+   "date": "2026-11-16",
    "etoiles": 7818,
    "licence": "non-standard"
   },
@@ -290,8 +290,8 @@
    "licence": "Apache-2.0"
   },
   "Context7": {
-   "version": "4.7.0",
-   "date": "2026-11-12",
+   "version": "4.7.1",
+   "date": "2026-11-16",
    "etoiles": 64883,
    "licence": "MIT"
   },
@@ -310,7 +310,7 @@
   "PhotoCraft (ArtCraft)": {
    "version": null,
    "date": null,
-   "etoiles": 77757,
+   "etoiles": 79871,
    "licence": "Apache-2.0"
   },
   "LightCraft (ArtCraft)": {
