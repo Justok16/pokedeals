@@ -141,6 +141,14 @@ def resumer_fichier(
     ).stdout
     avis = json.loads(r).get("avis", "") if r.startswith("{") else ""
     if not avis:
+        # 17/11 : modèles par défaut saturés (« high demand ») → second essai avec des modèles de secours
+        c = json.load(open(corps))
+        c["modeles"] = "gemini-3-flash-preview,gemini-3.5-flash,gemini-3.6-flash,gemini-3.5-flash-lite"
+        json.dump(c, open(corps, "w"))
+        r = subprocess.run(["curl", "-s", "-m", "280", "-b", cookies, "-H", "content-type: application/json",
+                            "--data-binary", "@" + corps, RELAIS], capture_output=True, text=True).stdout
+        avis = json.loads(r).get("avis", "") if r.startswith("{") else ""
+    if not avis:
         # 22/10 : quota Gemini épuisé le soir → secours gratuit : transcription locale (faster-whisper « small »)
         texte = transcrire_local(brut, ff)
         if texte:

@@ -146,6 +146,28 @@ def titres_uniques():
     print(('OK    ' if not doublons else 'ALERTE'), 'titres et descriptions uniques', '' if not doublons else doublons)
     return 1 if doublons else 0
 
+def donnees_structurees():
+    """17/11 (reel DdUYzAZMsP3, outil « Rich Results Test » de Google) : chaque bloc JSON-LD des pages publiques doit
+    être du JSON valide avec @context schema.org et @type, sinon Google ignore les informations enrichies."""
+    import re, json
+    site = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'site-dig')
+    fautes, nb = [], 0
+    for p in PAGES:
+        f = os.path.join(site, p.lstrip('/'), 'index.html') if p.endswith('/') else os.path.join(site, p.lstrip('/'))
+        with open(f, encoding='utf-8') as fh:
+            h = fh.read()
+        for bloc in re.findall(r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', h, re.S):
+            nb += 1
+            try:
+                d = json.loads(bloc)
+            except ValueError as err:
+                fautes.append(f'{p} : JSON invalide ({str(err)[:40]})'); continue
+            for o in (d if isinstance(d, list) else [d]):
+                if 'schema.org' not in str(o.get('@context', '')) or not (o.get('@type') or o.get('@graph')):
+                    fautes.append(f'{p} : @context ou @type manquant')
+    print(('ALERTE' if fautes else 'OK    '), f'données structurées JSON-LD ({nb} blocs)', fautes[:3] or '')
+    return 1 if fautes else 0
+
 def main():
     base = sys.argv[1].rstrip('/') if len(sys.argv) > 1 else None
     serveur = None
@@ -154,7 +176,7 @@ def main():
         serveur = subprocess.Popen([sys.executable, '-m', 'http.server', '4699'], cwd=site,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(1.5); base = 'http://localhost:4699'
-    souci = son_videos() + regles_interface() + plan_du_site() + titres_uniques() + accessibilite() + palette() + markdown_a_jour() + polices_locales() + reseaux_visibles()
+    souci = son_videos() + regles_interface() + plan_du_site() + titres_uniques() + donnees_structurees() + accessibilite() + palette() + markdown_a_jour() + polices_locales() + reseaux_visibles()
     try:
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=CHROME) if os.path.exists(CHROME) else p.chromium.launch()
