@@ -152,7 +152,7 @@
           },
           {
             "type": "command",
-            "command": "python3 -c 'import pymupdf, segno, cv2, markdown' 2>/dev/null || timeout 250 python3 -m pip install -q --retries 3 -r \"$CLAUDE_PROJECT_DIR\"/ai-business-lab/chasse-demande/outils/requirements.txt 2>&1 | tail -n 2 || true",
+            "command": "python3 -c 'import pymupdf, segno, cv2, markdown, pypdf, PIL, faster_whisper, google_play_scraper' 2>/dev/null || timeout 250 python3 -m pip install -q --retries 3 -r \"$CLAUDE_PROJECT_DIR\"/ai-business-lab/chasse-demande/outils/requirements.txt 2>&1 | tail -n 2 || true",
             "timeout": 280
           }
         ]

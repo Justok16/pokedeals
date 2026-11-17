@@ -8,6 +8,13 @@ import json
 import sys
 
 INTERDIT = "no response requested"
+# 17/11/2026 : panne d'outil signalée à l'utilisateur au lieu d'être réparée (consigne : « je te laisse toujours
+# gérer seul ce genre de problème »). Ces tournures bloquent la fin du tour : réparer d'abord, puis le dire.
+NON_REPARE = (
+    "pas encore réparé", "pas encore regardé", "pas encore cherché à", "je n'ai pas réparé",
+    "je n'ai pas encore réparé", "je n'ai pas encore corrigé", "reste à réparer", "réparer plus tard",
+    "toujours en panne", "reste en panne", "je n'ai pas encore cherché",
+)
 
 
 def dernier_texte(chemin):
@@ -45,6 +52,17 @@ def main():
             "decision": "block",
             "reason": "Réponse interdite (« No response requested ») : reprends la tâche ouverte "
                       "(dernier rappel programmé ou « Continue ») avec les outils, puis réponds en français.",
+        }))
+        return
+    t2 = t.replace("’", "'")
+    trouve = [x for x in NON_REPARE if x in t2]
+    if trouve:
+        print(json.dumps({
+            "decision": "block",
+            "reason": f"Panne signalée sans réparation ({trouve[0]!r}) : consigne du 17/11, répare d'abord l'outil "
+                      "ou le service toi-même (autre méthode, autre outil gratuit, dépendance à installer), vérifie, "
+                      "puis dis-le en une ligne. Seules une protection automatique ou une décision qui engage "
+                      "l'utilisateur justifient de lui demander.",
         }))
 
 
