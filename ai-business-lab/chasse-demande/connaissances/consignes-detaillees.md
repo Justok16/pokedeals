@@ -309,3 +309,10 @@ montrer quoi que ce soit ; 4) verser au catalogue des effets toute bonne idée t
 - Exemple du 17/11 : vidéo trop longue pour le relais (coupure à 5 minutes) prise pour un cookie expiré → `outils/resumer_video.py` teste l'état du relais et propose la transcription vidIQ.
 
 - **Pannes d'outils (consigne de l'utilisateur du 17/11 : « pour ce genre de problème, je te laisse toujours gérer seul »)** : un outil, une dépendance ou un secours en panne se répare aussitôt sans demander, puis une ligne à l'utilisateur ; seules les protections automatiques et ce qui engage l'utilisateur restent soumis à son accord.
+
+## vidIQ partagé entre plusieurs comptes (consigne de l'utilisateur du 17/11/2026)
+
+- vidIQ est relié tour à tour à plusieurs comptes de l'utilisateur ; un seul à la fois.
+- **Avant tout usage de vidIQ pour DIG16** : `vidiq_user_channels` (gratuit) ; la chaîne DIG16 est @dig16fr.
+- Si le compte relié n'est pas celui de DIG16 et que la tâche a besoin de la chaîne DIG16 (statistiques, publication) : le dire tout de suite à l'utilisateur, une ligne « À TOI : » avec le parcours (Réglages claude.ai → Connecteurs → vidIQ → Déconnecter, puis Connecter avec le compte DIG16), et avancer le reste par une autre voie en attendant.
+- Les crédits d'un autre compte ne servent pas à DIG16 sans l'accord de l'utilisateur : d'abord une autre voie gratuite (relais Gemini avec modèles de secours, découpage de la vidéo).
