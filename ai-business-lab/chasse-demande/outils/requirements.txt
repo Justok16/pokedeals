@@ -10,3 +10,5 @@ playwright
 imageio-ffmpeg
 # transcription locale de secours (17/11 : manquait après un redémarrage ; décodage par outils/whisper_compat.py)
 faster-whisper
+# recherche d'avis négatifs sur Google Play (outils/avis_negatifs.py), MIT, lu le 17/11
+google-play-scraper

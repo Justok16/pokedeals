@@ -176,6 +176,16 @@ c = subprocess.run(
 )
 ok("carte du dossier (CARTE.md) à jour", c.returncode == 0, c.stdout.strip()[:120])
 
+# 17/11 : une dépendance manquante casse un outil sans bruit (transcription de secours, 17/11)
+c = subprocess.run(
+    [sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "verifier_dependances.py")],
+    capture_output=True,
+    text=True,
+    timeout=120,
+    check=False,
+)
+ok("dépendances Python des outils installées", c.returncode == 0, c.stdout.strip().splitlines()[-1][:160] if c.stdout.strip() else "")
+
 alertes = [r for r in res if not r[1]]
 if "--json" in sys.argv:
     print(
