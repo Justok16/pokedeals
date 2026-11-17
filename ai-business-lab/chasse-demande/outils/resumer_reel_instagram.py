@@ -54,6 +54,17 @@ def main(lien, dossier, cookies="/tmp/cj.txt"):
         else None
     )
     if not u:
+        if legende:
+            # Repli du 17/11 : Instagram ne donne plus la vidéo sans compte, mais la légende reste lisible
+            # (souvent tout le conseil quand la vidéo n'est qu'un texte sur musique).
+            sortie = os.path.join(dossier, f"{code}.md")
+            with open(sortie, "w") as f:
+                f.write(f"# Reel Instagram {code} (légende seule : vidéo non accessible sans compte)\n\n")
+                f.write(legende + "\n")
+            sys.exit(
+                f"{code} : vidéo non accessible, LÉGENDE SEULE écrite dans {sortie} ; si elle ne suffit pas, "
+                "chercher la même vidéo sur la chaîne YouTube ou TikTok de l'auteur."
+            )
         sys.exit(f"{code} : vidéo introuvable (reel privé ou supprimé ?)")
     url = re.sub(r"\\+u0025", "%", re.sub(r"\\+/", "/", u[1])).replace("\\", "")
     brut = (
