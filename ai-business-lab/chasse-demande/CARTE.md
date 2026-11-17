@@ -203,6 +203,7 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/veille_sources.py` | Veille quotidienne sur toutes les sources ajoutées par l'utilisateur (demande du 28/09/2026 : |
 | `outils/verif_entreprises.py` | Vérifie la santé administrative d'une liste d'entreprises avant de les démarcher ou de signer. |
 | `outils/verif_metadonnees.py` | Vérifie (et nettoie sur demande) les métadonnées cachées des images : position GPS, appareil, |
+| `outils/whisper_compat.py` | Compatibilité faster-whisper (17/11/2026). |
 | `outils/wix_apps.py` | Relevé de la boutique d'apps Wix (pages rendues par un vrai navigateur). |
 | `outils/wordpress_plugins.py` | Relevé des extensions WordPress populaires (API officielle wordpress.org) vers wp.csv : chasse à la demande du 24/09. |
 | `outils/workspace_apps.py` | Relevé de Google Workspace Marketplace par catégorie (sitemap officiel) : |

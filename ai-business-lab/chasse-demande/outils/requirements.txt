@@ -7,3 +7,6 @@ markdown
 pypdf
 pillow
 playwright
+imageio-ffmpeg
+# transcription locale de secours (17/11 : manquait après un redémarrage ; décodage par outils/whisper_compat.py)
+faster-whisper

@@ -170,6 +170,7 @@ def transcrire_local(video, ff):
     try:
         subprocess.run([ff, "-loglevel", "error", "-y", "-i", video, "-vn", "-ac", "1", "-ar", "16000", wav],
                        check=True)
+        import whisper_compat  # noqa: F401 — décodage par ffmpeg (av 19, 17/11)
         from faster_whisper import WhisperModel
 
         modele = WhisperModel("small", compute_type="int8")

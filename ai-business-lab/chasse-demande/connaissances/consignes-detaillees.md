@@ -307,3 +307,5 @@ montrer quoi que ce soit ; 4) verser au catalogue des effets toute bonne idée t
 - **Chaque skill ou outil qui produit un document ou un texte public** finit par une grille de notation (ce qu'est un résultat irréprochable, en 4 à 8 points vérifiables) : le résultat est noté, corrigé et renoté jusqu'à valider tous les points, avant d'être montré.
 - **Avant toute nouvelle tâche planifiée** : écrire ce qui peut échouer (donnée absente, cookie ou connexion expirés, quota plein, service lent) et le repli prévu pour chaque cas ; le compte rendu de chaque passage dit ce qui a été fait, ce qui demande l'attention, ce qui a échoué.
 - Exemple du 17/11 : vidéo trop longue pour le relais (coupure à 5 minutes) prise pour un cookie expiré → `outils/resumer_video.py` teste l'état du relais et propose la transcription vidIQ.
+
+- **Pannes d'outils (consigne de l'utilisateur du 17/11 : « pour ce genre de problème, je te laisse toujours gérer seul »)** : un outil, une dépendance ou un secours en panne se répare aussitôt sans demander, puis une ligne à l'utilisateur ; seules les protections automatiques et ce qui engage l'utilisateur restent soumis à son accord.

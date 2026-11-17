@@ -50,6 +50,7 @@ def main():
                 texte = ""
                 if r.returncode == 0 and os.path.exists(wav) and os.path.getsize(wav) > 2000:
                     if modele is None:
+                        import whisper_compat  # noqa: F401 — décodage par ffmpeg (av 19, 17/11)
                         from faster_whisper import WhisperModel
 
                         modele = WhisperModel("small", compute_type="int8")

@@ -205,6 +205,10 @@ def verifier_voix(fichiers, textes):
     import difflib
     import re
 
+    import sys as _s, os as _o; _s.path.insert(0, _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), '..', '..', 'outils'))
+
+    import whisper_compat  # noqa: F401 — décodage par ffmpeg (av 19, 17/11)
+
     from faster_whisper import WhisperModel
 
     m = WhisperModel("small", compute_type="int8")
