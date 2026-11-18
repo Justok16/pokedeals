@@ -100,4 +100,4 @@ la signature électronique ; statistiques de visites dans l'annexe.
 
 ## 6. Site aligné sur l'article 9 (18/11, accord de l'utilisateur : « site aligné »)
 
-Phrase unique du site remplacée partout (accueil, guide artisan, page Charente, `llms.txt`, copies `md/`) : « Nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé. » Tuile « À votre nom » des pages Le projet et Charente : « votre nom de domaine, dès le départ ». `44` mis à jour. Reste hors du site : le flyer A5 (« Site et nom de domaine à votre nom. »), question posée à l'utilisateur.
+Phrase unique du site remplacée partout (accueil, guide artisan, page Charente, `llms.txt`, copies `md/`) : « Nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé. » Tuile « À votre nom » des pages Le projet et Charente : « votre nom de domaine, dès le départ ». `44` mis à jour. Flyer A5 aligné le 18/11 (« flyer aligné ») : « Nom de domaine à votre nom dès le départ. » (la phrase entière faisait déborder les mentions du bas) ; PDF d'impression privé régénéré et renvoyé.
