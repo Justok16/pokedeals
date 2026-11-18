@@ -69,6 +69,13 @@ def bloc_client(C):
 
 def devis(P, C, D):
     s = lire(os.path.join(SUPPORTS, "modele-devis.html"))
+    # 18/11/2026 (contrôle 74) : sans l'information sur la rétractation, le formulaire type et la demande
+    # expresse, le délai passe à 12 mois (L221-20) et rien n'est dû en cas de rétractation (L221-25).
+    for attendu in ("Informations concernant l’exercice du droit de rétractation",
+                    "Modèle de formulaire de rétractation",
+                    "Je demande que la prestation commence avant la fin du délai de rétractation"):
+        if attendu not in s:
+            raise SystemExit(f"ALERTE devis : bloc légal manquant dans modele-devis.html : « {attendu} »")
     s = prestataire_html(s, P)
     s = s.replace("N° [AAAA-NNN] · Date : [jj/mm/aaaa]", f"N° {e(D['numero_devis'])} · Date : {e(D['date'])}")
     s = re.sub(r'<div class="cadre"><b>Client</b>.*?</div></div>', bloc_client(C) + "</div>", s, count=1, flags=re.DOTALL)

@@ -53,3 +53,21 @@ Le kit d'un premier client partirait aujourd'hui avec la version la moins protec
    formulaire de rétractation dans `outils/kit_client.py`, contrôle `44` et relecteur en lecture seule, copie au Drive.
 2. Points « à confirmer » : relire R526-27 et D441-5 du code de commerce, 1170, 1171, 1231-3 et 1231-5 du code
    civil, L612-1 du code de la consommation avant d'écrire la v3 ; les poser à l'avocat le 17/12 s'ils restent douteux.
+
+## 4. Suite donnée le 18/11 (« oui CGV v3 » de l'utilisateur)
+
+- **Rectification du point « art. 4 »** : la case « Je demande que la prestation commence avant la fin du délai de
+  rétractation » existait déjà sur le devis-bon de commande (`modele-devis.html`), avec l'information type et le
+  formulaire de rétractation ; il manquait seulement la règle dans les conditions (rien ne commence avant la fin
+  des 14 jours sans cette case) et la reconnaissance demandée par L221-25 (« après l'exécution entière du contrat,
+  je ne disposerai plus du droit de rétractation »). Les deux sont ajoutées.
+- **v3 écrite** dans `outils/documents_commerciaux.py` (source de `supports/cgv-dig.html` et `Dig-CGV.pdf`, 2 pages) :
+  articles 4, 4 bis, 5, 6, 7, 8, 9, 10, 11, 12, 12 bis, 13 et annexe de sous-traitance ; « Version 3 du 18 novembre 2026 ».
+- **Références relues le 18/11** : D441-5 du code de commerce (« fixé à 40 euros ») ; R526-27 (mots « entrepreneur
+  individuel » ou initiales « EI ») ; code civil 1170 (clause qui prive de sa substance l'obligation essentielle :
+  réputée non écrite) et 1231-5 (le juge peut modérer une pénalité manifestement excessive ; elle n'est encourue
+  qu'après mise en demeure). Conséquence pour l'article 6 : la somme due en cas de départ anticipé est justifiée par
+  la création offerte, mais un juge garde le pouvoir de la réduire.
+- **Contrôle automatique** : `documents_client.devis()` s'arrête avec une ALERTE si l'information sur la
+  rétractation, le formulaire type ou la case de demande expresse manquent dans le devis.
+- Non relus à ce jour : code civil 1231-3 et 1171, code de la consommation L612-1 (médiation) : à poser le 17/12.
