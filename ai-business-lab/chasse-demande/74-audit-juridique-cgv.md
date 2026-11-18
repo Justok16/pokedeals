@@ -71,3 +71,29 @@ Le kit d'un premier client partirait aujourd'hui avec la version la moins protec
 - **Contrôle automatique** : `documents_client.devis()` s'arrête avec une ALERTE si l'information sur la
   rétractation, le formulaire type ou la case de demande expresse manquent dans le devis.
 - Non relus à ce jour : code civil 1231-3 et 1171, code de la consommation L612-1 (médiation) : à poser le 17/12.
+
+## 5. Relecture indépendante de la v3 (agent en lecture seule, 18/11) et corrections appliquées
+
+Confirmé à la source par le relecteur : L221-25, L221-18, L221-10, L441-10, D441-5, L441-1, article 293 B du CGI,
+information type identique à l'annexe R221-3 ; prix et durées identiques entre conditions, devis et site.
+
+Corrections appliquées le 18/11 (`documents_commerciaux.py`, `documents_client.py`) :
+1. Mandat de prélèvement signé au plus tôt le 8e jour (L221-10 ; nullité prévue par L242-1).
+2. Téléphone du prestataire dans l'en-tête des conditions et du devis ; **prix total de l'engagement** écrit sur le
+   devis et calculé par le kit (L221-5, L221-9).
+3. Référence de l'article 4 corrigée : L221-5 (et non L111-1, qui ne fait pas partie des sections étendues aux
+   professionnels par L221-3).
+4. Article 2 : le devis signé prévaut sur les conditions générales (code civil, article 1119).
+5. Article 9 : usage libre du site dès la mise en ligne ; cession sans supplément de prix ; supports imprimés ajoutés.
+6. Annexe de sous-traitance complétée d'après l'article 28.3 du RGPD (personnes concernées, alerte sur instruction
+   illicite, confidentialité, transferts hors UE, aide au client, contrôle, sort des données en fin de contrat) ;
+   Cloudflare décrit comme hébergeur dans le compte du client.
+7. Article 6 : mensualités restantes non dues si la fin du contrat vient d'un manquement grave de DIG16.
+8. Article 12 : plafond de responsabilité jamais inférieur au prix de l'engagement minimal (code civil, article 1170).
+9. Pied du devis : formulaire repris de l'annexe à l'article R221-1 ; condition « hors du champ de l'activité principale ».
+10. « avant le 8e jour » partout ; « hors défauts non apparents » à l'article 4 bis.
+
+Restent ouverts (pour l'avocat du 17/12, ou décision de l'utilisateur) : phrase publique du site sur la propriété
+« dès le départ » face à la cession au complet paiement ; mention de la médiation de la consommation pour un client
+professionnel ; clauses de force majeure, de résiliation pour faute et d'arrêt d'activité ; accord du client pour
+la signature électronique ; statistiques de visites dans l'annexe.

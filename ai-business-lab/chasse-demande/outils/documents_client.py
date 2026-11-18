@@ -81,6 +81,19 @@ def devis(P, C, D):
     s = re.sub(r'<div class="cadre"><b>Client</b>.*?</div></div>', bloc_client(C) + "</div>", s, count=1, flags=re.DOTALL)
     s = s.replace("☐ " + D["formule"], "☑ " + D["formule"], 1)
     s = s.replace("[date convenue ensemble]", e(D["mise_en_ligne"]))
+    # 18/11 (relecture de la v3) : prix total de l'engagement, information exigée par L221-5 du code de la consommation
+    f = D["formule"]
+    if D.get("offert"):
+        total_eng = "0 € (site offert)"
+    elif f in ("Essentiel", "Visibilité"):
+        total_eng = f"{euros(D['prix'] * 6)} (6 mois à {euros(D['prix'])})"
+    elif f == "Prestige" and D.get("paiement", "mensuel" if D.get("prix") == 199 else "unique") != "unique":
+        total_eng = f"{euros(D['prix'] * 12)} (12 mois à {euros(D['prix'])})"
+    else:
+        total_eng = f"{euros(D['prix'])} (payé en une fois)"
+    if "[montant] € (prix mensuel × nombre de mois, ou prix payé en une fois)" not in s:
+        raise SystemExit("ALERTE devis : ligne « Prix total de l’engagement » absente de modele-devis.html")
+    s = s.replace("[montant] € (prix mensuel × nombre de mois, ou prix payé en une fois)", total_eng)
     if D.get("detail_formule"):
         s = s.replace(f"<td>☑ {D['formule']}</td><td>Site haut de gamme, voir le détail joint</td>",
                       f"<td>☑ {D['formule']}</td><td>{e(D['detail_formule'])}</td>", 1)
