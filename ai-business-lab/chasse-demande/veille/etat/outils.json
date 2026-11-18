@@ -1,5 +1,5 @@
 {
- "date": "2026-11-17",
+ "date": "2026-11-18",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -34,7 +34,7 @@
   "Three.js": {
    "version": "0.187.0",
    "date": "2026-10-30",
-   "etoiles": 117888,
+   "etoiles": 118786,
    "licence": "MIT"
   },
   "dotLottie web": {
@@ -46,7 +46,7 @@
   "sharp": {
    "version": "0.35.5",
    "date": "2026-09-27",
-   "etoiles": 32829,
+   "etoiles": 32858,
    "licence": "Apache-2.0"
   },
   "sharp-cli": {
@@ -82,7 +82,7 @@
   "google-webfonts-helper": {
    "version": null,
    "date": null,
-   "etoiles": 13077,
+   "etoiles": 13083,
    "licence": "MIT"
   },
   "Leonardo (Adobe)": {
@@ -136,7 +136,7 @@
   "Remotion": {
    "version": "4.0.544",
    "date": "2026-11-16",
-   "etoiles": 71674,
+   "etoiles": 73903,
    "licence": "non-standard"
   },
   "Remotion Agent Skills": {
@@ -236,9 +236,9 @@
    "licence": "Apache-2.0"
   },
   "Semgrep": {
-   "version": "1.185.0",
-   "date": "2026-11-10",
-   "etoiles": 17546,
+   "version": "1.186.0",
+   "date": "2026-11-18",
+   "etoiles": 17761,
    "licence": "LGPL-2.1"
   },
   "security-guidance (Anthropic)": {
@@ -286,12 +286,12 @@
   "lychee": {
    "version": null,
    "date": null,
-   "etoiles": 4106,
+   "etoiles": 4141,
    "licence": "Apache-2.0"
   },
   "Context7": {
-   "version": "4.7.1",
-   "date": "2026-11-16",
+   "version": "4.7.3",
+   "date": "2026-11-17",
    "etoiles": 64883,
    "licence": "MIT"
   },

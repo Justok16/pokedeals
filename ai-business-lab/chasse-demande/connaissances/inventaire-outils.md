@@ -10,7 +10,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Animations | GSAP Skills officiels | installé | .claude/skills/gsap-* (core, timeline, scrolltrigger, plugins, utils, performance) | — | MIT | 18471 |
 | Animations | Lenis | en place | Défilement fluide (site-dig/moteur/anim/lenis-1.3.27.min.js, mis à jour le 28/10) | 1.3.27 (2026-10-15) | MIT | 17296 |
 | Animations | Motion | réserve | Micro-interactions légères | 14.14.0 (2026-11-13) | MIT | — |
-| Animations | Three.js | réserve | 3D légère pour un client Prestige | 0.187.0 (2026-10-30) | MIT | 117888 |
+| Animations | Three.js | réserve | 3D légère pour un client Prestige | 0.187.0 (2026-10-30) | MIT | 118786 |
 | Animations | dotLottie web | réserve | Icônes animées vectorielles | 0.83.2 (2026-11-12) | MIT | 942 |
 | Animations | swup | réserve | Transitions entre pages d'un site statique | 4.10.0 (2026-09-03) | MIT | 5253 |
 | Clients et administratif | Documents client (documents_client.py) | en place | Devis, CGV, facture, questionnaire, accord gracieux | — | — | — |
@@ -27,7 +27,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Design | Taste skill | installé | taste-design, taste-redesign | — | MIT | 115918 |
 | Design | UI UX Pro Max | installé | Skill ui-ux-pro-max (attention : liens Google Fonts, contrôle polices_locales) | — | MIT | 150022 |
 | Design | awesome-design-md | installé | Skill design-md-references | — | MIT | 127661 |
-| Design | google-webfonts-helper | réserve | Télécharger une police Google pour l'héberger | — | MIT | 13077 |
+| Design | google-webfonts-helper | réserve | Télécharger une police Google pour l'héberger | — | MIT | 13083 |
 | Facturation et paiement | GoCardless (prélèvement SEPA) | en place | Mandats SEPA des formules mensuelles | — | — | — |
 | Facturation et paiement | Indy (facturation, plateforme agréée, compte pro) | en place | Factures, facturation électronique, livre des recettes | — | — | — |
 | Hébergement et sécurité | Cloudflare Pages + Web Analytics + Turnstile | en place | Hébergement, mesure sans cookie, anti-robots | — | — | — |
@@ -38,13 +38,13 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Photos | SVGO | réserve | Alléger les logos SVG | 4.1.0 (2026-08-24) | MIT | 22606 |
 | Photos | eleventy-img | réserve | Balises <picture> complètes | 7.1.1 (2026-10-21) | MIT | 470 |
 | Photos | rembg | réserve | Détourage local | 2.0.87 (2026-11-06) | MIT | 25460 |
-| Photos | sharp | réserve | WebP/AVIF et tailles multiples | 0.35.5 (2026-09-27) | Apache-2.0 | 32829 |
+| Photos | sharp | réserve | WebP/AVIF et tailles multiples | 0.35.5 (2026-09-27) | Apache-2.0 | 32858 |
 | Photos | sharp-cli | réserve | sharp en ligne de commande | 6.1.0 (2026-09-01) | MIT | 229 |
 | Prospection | Fiche d'appel prospect (outils/prospects/fiche_appel.py) | en place | Fiche d'appel revérifiée en direct | — | — | — |
 | Prospection | Trouver un contact (trouver_contact.py) | en place | Pages contact d'un organisme | — | — | — |
 | Publicité | Google Ads MCP | réserve | Lecture des campagnes Google Ads | — | Apache-2.0 | 1180 |
 | Qualité | Chrome DevTools MCP | réserve | Performance réelle, console, réseau | 1.13.0 (2026-11-11) | Apache-2.0 | 55268 |
-| Qualité | Context7 | réserve | Documentation à jour des bibliothèques | 4.7.1 (2026-11-16) | MIT | 64883 |
+| Qualité | Context7 | réserve | Documentation à jour des bibliothèques | 4.7.3 (2026-11-17) | MIT | 64883 |
 | Qualité | Contrôle global du site (controle_global.py, test_pages.py, seo_client.py, test_formulaire.py) | en place | Santé du site et des sites clients avant livraison | — | — | — |
 | Qualité | Linkinator | installé | Liens cassés d'un site entier (outils/liens/verifier.sh) ; MIT, 8.1.0 vérifiée le 03/11/2026 | 8.1.0 (2026-08-29) | MIT | — |
 | Qualité | Playwright MCP | en place | Navigateur piloté (.mcp.json) | 0.0.85 (2026-11-09) | Apache-2.0 | 39659 |
@@ -52,7 +52,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Qualité | Unlighthouse | installé | Audit vitesse, accessibilité, bonnes pratiques et référencement de toutes les pages (outils/unlighthouse/audit.sh) ; MIT, 0.19.1 vérifiée le 03/11/2026 | 0.19.1 (2026-10-03) | MIT | — |
 | Qualité | axe-core | réserve | Moteur d'accessibilité | 4.14.1 (2026-11-16) | non-standard | 7818 |
 | Qualité | html-validate | réserve | Validation HTML | 11.21.1 (2026-11-12) | MIT | — |
-| Qualité | lychee | réserve | Liens cassés | — | Apache-2.0 | 4106 |
+| Qualité | lychee | réserve | Liens cassés | — | Apache-2.0 | 4141 |
 | Qualité | pa11y | réserve | Accessibilité en une commande | 10.0.0 (2026-08-28) | LGPL-3.0 | 4594 |
 | Qualité des documents | Contrôle qualité des documents (orthographe.py, typo_fr.py, lisibilite.py, pdf_pages.py) | en place | Contrôle 44 avant tout envoi | — | — | — |
 | Réseaux sociaux | Metricool (connecteur) | en place | Programmation et statistiques des réseaux | — | — | — |
@@ -69,17 +69,17 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Sécurité | ALTCHA | réserve | Anti-spam sans tiers | 3.6.0 (2026-11-12) | MIT | 2895 |
 | Sécurité | Gitleaks | réserve | Secrets oubliés dans le dépôt | v8.30.1 (2026-02-21) | MIT | 31050 |
 | Sécurité | OSV-Scanner | réserve | Dépendances vulnérables | v2.7.1 (2026-11-09) | Apache-2.0 | 11517 |
-| Sécurité | Semgrep | réserve | Analyse du code serveur | 1.185.0 (2026-11-10) | LGPL-2.1 | 17546 |
+| Sécurité | Semgrep | réserve | Analyse du code serveur | 1.186.0 (2026-11-18) | LGPL-2.1 | 17761 |
 | Sécurité | security-guidance (Anthropic) | réserve | Extension officielle ; revues IA à chaque fin de tour et commit = gros quota | — | Apache-2.0 | 47399 |
 | Sécurité | tarteaucitron.js | réserve | Bandeau cookies CNIL | 1.37.0 (2026-10-15) | MIT | 1062 |
 | Veille | Réserve à proposer (reserve_a_proposer.py) | en place | Ressort l'outil gardé au bon moment | — | — | — |
 | Veille | Veille presse (veille_presse.py) et veille des sources (veille_sources.py) | en place | Presse locale, chaînes, annuaires d'outils | — | — | — |
 | Vidéo | Hyperframes | réserve | Vidéo depuis HTML/GSAP | — | Apache-2.0 | 83272 |
 | Vidéo | OpenMontage | réserve | Montage par agent (AGPL-3.0) | — | AGPL-3.0 | 81000 |
-| Vidéo | Remotion | réserve | Vidéos en code (gratuit tant que DIG16 ≤ 3 personnes, livraison MP4 seule) | 4.0.544 (2026-11-16) | non-standard | 71674 |
+| Vidéo | Remotion | réserve | Vidéos en code (gratuit tant que DIG16 ≤ 3 personnes, livraison MP4 seule) | 4.0.544 (2026-11-16) | non-standard | 73903 |
 | Vidéo | Remotion Agent Skills | réserve | npx skills add remotion-dev/skills | — | — | 7286 |
 | Vidéo | Revideo | réserve | Vidéos en code, MIT | 0.11.0 (2026-07-10) | MIT | — |
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5821 |
 | Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26629 |
 
-Dernière veille : 2026-11-17.
+Dernière veille : 2026-11-18.
