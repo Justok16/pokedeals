@@ -72,6 +72,7 @@ Source : aide Buffer « Connecting your channels », « Connecting your Instagra
 2. publish.buffer.com, à gauche « Connect more channels » → icône du réseau.
 3. Facebook : tout autoriser, choisir la page DIG16. Instagram : « Connect Instagram through Facebook » en bas de la fenêtre.
 4. Après chaque réseau, fenêtre « How many times a week would you like to post? » → 5 times/week → Next → « Got It » (heures indicatives seulement).
+5. Autorisation perdue (« lost authorization », 18/11) : aide Buffer « Refreshing a channel in Buffer » et « Facebook error library » (lues le 18/11) : sur ordinateur, « Manage Channels » → rafraîchir le canal, en étant connecté au profil Facebook qui administre la page, toutes les pages et autorisations cochées. Écran pas encore vu sur capture.
 Résultat le 19/10 : « 3/3 channels connected » (DIG16 Facebook, dig16fr Instagram, dig16fr TikTok), offre gratuite.
 
 ## Google : supprimer une fiche d'établissement en double (confirmé sur captures le 21/10/2026, téléphone, navigateur)
