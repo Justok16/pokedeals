@@ -214,3 +214,8 @@ navigateur : Cloudflare ajoute `beacon.min.js` sur dig16.fr ; la règle de sécu
 - **Contrôle par Claude après coup** : ouvrir https://dig16.fr/ avec un vrai navigateur (Playwright) : plus de balise `cloudflareinsights` ni
   d'erreur « Content Security Policy » dans la console (`curl` ne voit pas ce script).
 | Fiche d'établissement Google | Ajouter une catégorie supplémentaire | Accéder à la fiche → **Modifier la fiche** → à côté de « Catégorie d'activité », **Modifier** → **Ajouter une autre catégorie** → saisir, choisir dans la liste → **Enregistrer**. Attention (aide officielle) : Google peut demander de refaire valider l'établissement après un changement de catégorie | aide officielle support.google.com/business/answer/7249669, lue le 15/11/2026 (pas encore confirmée sur capture) |
+
+## vidIQ : reconnecter Instagram (confirmé sur captures le 18/11/2026, téléphone, navigateur)
+- Lien donné par l'outil `vidiq_social_account_connect` (usage unique). Le navigateur doit être connecté à Instagram avec le compte dig16fr : sinon page vidIQ « The Instagram account was not connected / No changes were made ».
+- Bonne fin : page vidIQ « Instagram account connected ». La liste des comptes affichait « canPublish » même avant : seule une publication réussie prouve la connexion.
+
