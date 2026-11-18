@@ -17,7 +17,7 @@ DIG16 crée des sites internet pour les artisans, les commerçants et les indép
 
 **7 j/7**joignable, réponse sous 24 h
 
-**À votre nom**le site vous appartient
+**À votre nom**votre nom de domaine, dès le départ
 
 ## Pourquoi un site web quand on est artisan ou commerçant en Charente
 
@@ -29,7 +29,7 @@ Vos futurs clients cherchent sur leur téléphone : « plombier Angoulême », �
 - **Pensé pour le téléphone** : tout se trouve en faisant défiler avec le pouce, le numéro s’appelle d’un geste.
 - **Rapide et bien référencé** : pages légères, textes écrits pour Google, informations de votre entreprise lisibles par les moteurs de recherche.
 - **Un formulaire de demande de devis** et une galerie de vos réalisations.
-- **À votre nom** : site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout.
+- **À votre nom** : nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout.
 - **Un suivi chaque mois** : vos modifications faites sous 3 jours ouvrés, et un bilan rapide des visites.
 
 ## Des prix clairs
@@ -57,7 +57,7 @@ Avec les formules mensuelles, la création est à 0 € : Essentiel à 49 € pa
 
 ### Le site m’appartient-il ?
 
-Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout.
+Oui. Nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout.
 
 ### Je ne suis pas à Ruffec : vous travaillez dans toute la Charente ?
 
@@ -179,7 +179,7 @@ Ou appelez le [06 87 91 02 14](tel:+33687910214), ou écrivez à [contact@dig16.
           "name": "Le site m’appartient-il ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout."
+            "text": "Oui. Nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout."
           }
         },
         {

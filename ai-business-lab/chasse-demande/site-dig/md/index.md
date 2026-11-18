@@ -53,7 +53,7 @@ Vos services, vos photos, votre numéro : tout arrive l’un après l’autre, 
 
 ### Votre site vous appartient
 
-Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout.
+Nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout.
 
 ### Je m’occupe de tout
 
@@ -252,7 +252,7 @@ Mes engagements
 
 **100 % à vous**
 
-Site et nom de domaine à votre nom dès le départ.
+Nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé.
 
 **6 mois, puis libre**
 
@@ -310,7 +310,7 @@ Oui : vous disposez de 14 jours pour vous rétracter, et aucun paiement n’es
 
 Le site m’appartient-il vraiment ?
 
-Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout. Cela comprend le nom de domaine, les textes, les photos et les fichiers du site. Pour Prestige en mensuel, l’engagement est de 12 mois.
+Oui. Nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout. Cela comprend le nom de domaine, les textes, les photos et les fichiers du site. Pour Prestige en mensuel, l’engagement est de 12 mois.
 
 Que se passe-t-il si j’arrête ?
 
@@ -586,7 +586,7 @@ DisponibilitéJoignable 7 jours sur 7, réponse sous 24 h
       "name": "Le site m’appartient-il vraiment ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui. Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout. Cela comprend le nom de domaine, les textes, les photos et les fichiers du site. Pour Prestige en mensuel, l’engagement est de 12 mois."
+        "text": "Oui. Nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé. Après les 6 premiers mois, vous pouvez partir quand vous voulez, et vous gardez tout. Cela comprend le nom de domaine, les textes, les photos et les fichiers du site. Pour Prestige en mensuel, l’engagement est de 12 mois."
       }
     },
     {

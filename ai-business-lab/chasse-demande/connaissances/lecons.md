@@ -298,3 +298,4 @@ dans `connaissances/lecons-detail.md`** : le relire, à la date indiquée, avant
 ## 17/11/2026 — vidIQ relié à un autre compte
 - **Erreur** : 10 crédits vidIQ utilisés pour 2 transcriptions DIG16 sans vérifier quel compte était relié (ce n'était pas celui de DIG16).
 - **Règle** : `vidiq_user_channels` avant tout usage ; jamais les crédits d'un autre compte sans accord (consignes détaillées, 17/11).
+- **18/11, quota Firecrawl épuisé avant la fin du cycle** (1 000 crédits gratuits, retour le 28/11 ; l'utilisateur a reçu le courriel). Cause : Firecrawl utilisé par habitude pour des lectures que WebFetch ou Tavily savent faire (vérifications juridiques, veille). Règle : lire d'abord avec WebSearch/WebFetch (sans quota), puis Tavily, puis Playwright ; Firecrawl seulement pour une page que les autres ne lisent pas. Détail : `33-outils.md`, tableau des pannes.

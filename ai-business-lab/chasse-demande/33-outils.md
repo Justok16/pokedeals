@@ -372,6 +372,7 @@ Premier réflexe pour tout outil payant ou bloqué : chercher l'équivalent grat
 | Similarweb sans crédit | OpenRush `inspect_domain` |
 | Annuaire officiel bloqué depuis le conteneur | Relais Vercel `/api/entreprise` |
 | Crédit Vercel AI Gateway épuisé | 9 modèles de la clé Gemini gratuite |
+| Firecrawl : crédits gratuits du mois épuisés (1 000 par cycle ; courriel de Firecrawl du 18/11, retour le 28/11) | Ne jamais payer. Ordre à suivre désormais pour ménager chaque quota : 1) WebSearch et WebFetch (sans quota) ; 2) Tavily `tavily_search` / `tavily_extract` (1 000 crédits par mois, à ménager aussi) ; 3) Playwright installé ici pour une page qui exige un navigateur ; 4) Firecrawl seulement pour une page que les trois autres ne lisent pas |
 | Firecrawl en 429 (trop de recherches rapprochées) (29/09) | Tavily `tavily_search` (1 000 crédits gratuits par mois) |
 | Annuaire officiel saturé (29/09) | infosociétés `search_company` (gratuit) |
 | Firecrawl en erreur (« Invalid content from server », 28/09) | Outil WebFetch, ou curl direct sur la page |

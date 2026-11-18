@@ -33,7 +33,7 @@ D’où [le test du pouce](https://dig16.fr/test-du-pouce/) : prenez votre tél
 
 **7 j/7**joignable, réponse sous 24 h
 
-**À votre nom**le site vous appartient
+**À votre nom**votre nom de domaine, dès le départ
 
 - **Essentiel, 49 € par mois :** site de 5 pages sur mesure, formulaire de demande de devis, 1 modification par mois, bilan mensuel.
 - **Visibilité, 79 € par mois :** tout l’Essentiel, suivi de la fiche Google, demandes d’avis clients, 3 modifications par mois.

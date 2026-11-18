@@ -97,3 +97,7 @@ Restent ouverts (pour l'avocat du 17/12, ou décision de l'utilisateur) : phrase
 « dès le départ » face à la cession au complet paiement ; mention de la médiation de la consommation pour un client
 professionnel ; clauses de force majeure, de résiliation pour faute et d'arrêt d'activité ; accord du client pour
 la signature électronique ; statistiques de visites dans l'annexe.
+
+## 6. Site aligné sur l'article 9 (18/11, accord de l'utilisateur : « site aligné »)
+
+Phrase unique du site remplacée partout (accueil, guide artisan, page Charente, `llms.txt`, copies `md/`) : « Nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé. » Tuile « À votre nom » des pages Le projet et Charente : « votre nom de domaine, dès le départ ». `44` mis à jour. Reste hors du site : le flyer A5 (« Site et nom de domaine à votre nom. »), question posée à l'utilisateur.

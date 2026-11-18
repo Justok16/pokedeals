@@ -231,7 +231,7 @@ Ajouts du 12/11/2026 (retouches du site validées le 11/11, détail `73-audits-e
 légale pour les contrats signés chez vous » (écrire « Je l'applique à tous mes clients, par écrit sur le devis ») ; « je vous
 l'envoie » pour la démo (écrire « je vous la montre ») ; des horaires « 00:00-23:59 » ou « 24 h/24 » dans les données du site ;
 « 6 mois d'engagement » sans « 12 mois pour Prestige et pour 12 mois payés d'avance » quand Prestige est cité. Phrase unique sur
-la propriété : « Site et nom de domaine à votre nom dès le départ. Après les 6 premiers mois, vous pouvez partir quand vous voulez,
+la propriété (changée le 18/11, « site aligné » de l'utilisateur, pour coller à l'article 9 des conditions v3) : « Nom de domaine à votre nom dès le départ, site à vous une fois l’engagement réglé. Après les 6 premiers mois, vous pouvez partir quand vous voulez,
 et vous gardez tout. » « Joignable 7 jours sur 7 » s'écrit avec « réponse sous 24 h ». Sous un prix mensuel : « 6 mois minimum, soit
 294 € » (Essentiel), « soit 474 € » (Visibilité), « 12 mois minimum, soit 2 388 € » (Prestige). Qui écrit les textes : « Je rédige,
 avec l'aide d'un outil, à partir de notre échange, et vous validez chaque phrase avant la mise en ligne. »
