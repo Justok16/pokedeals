@@ -249,12 +249,13 @@ SERIE = [
          ("cover", "Les questions *qu'on me pose le plus.*", "Et les réponses, sans détour."),
          ("qr", "Je dois écrire les textes ?", "Non : je les rédige avec vous."),
          ("qr", "Je peux modifier mon site ?", "Oui : envoyez-moi un email, c'est fait en 3 jours ouvrés."),
-         ("qr", "Et si j'arrête ?", "Vous gardez votre nom de domaine et vos fichiers."),
+         ("qr", "Et si j'arrête ?", "Après les 6 premiers mois, vous partez quand vous voulez. Vous gardez votre nom de domaine et vos fichiers."),
          APPEL],
      "legende": "Les questions qu'on me pose le plus 💬\n"
                 "« Je dois écrire les textes ? » Non, je les rédige avec vous.\n"
                 "« Je peux modifier mon site ? » Oui, envoyez-moi un email, c'est fait en 3 jours ouvrés.\n"
-                "« Et si j'arrête ? » Vous gardez votre nom de domaine et vos fichiers.",
+                "« Et si j'arrête ? » Après les 6 premiers mois, vous partez quand vous voulez, et vous gardez votre nom de "
+                "domaine et vos fichiers.",
      "alt": "Les 3 questions les plus posées à DIG16, avec leurs réponses."},
     {"id": "p18", "date": "2026-12-02T18:30:00", "theme": "clair", "etiquette": "Le conseil", "metricool": 392401018,
      "titre_tiktok": "Préparez votre saison dès maintenant",
