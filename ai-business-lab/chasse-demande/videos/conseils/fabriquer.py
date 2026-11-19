@@ -117,6 +117,29 @@ SERIE = {
          "Votre métier et votre ville : *vous trouve-t-on ?*"),
         ("Et peut-on vous appeler d'un geste ?", "Et peut-on vous appeler *d'un geste ?*"),
         ("Le guide complet est sur Dig seize point F R.", None)]},
+    # Conseils 11 à 13 (19/11/2026, textes validés par l'utilisateur : « oui textes ») : guide, « Questions fréquentes »
+    # (délai de mise en ligne) et « À vérifier avant de signer » (prix, modifications, hébergement).
+    11: {"titre": "En combien de temps ?", "scenes": [
+        ("Combien de temps faut-il pour mettre un site en ligne ?", "Un site en ligne, *en combien de temps ?*"),
+        ("Pour un site de cinq pages, quelques jours suffisent, une fois les textes, les photos et les informations "
+         "réunis.", "Cinq pages : *quelques jours suffisent.*"),
+        ("Demandez que la date de mise en ligne soit écrite sur le devis.", "La date, *écrite sur le devis.*"),
+        ("Le guide complet est sur Dig seize point F R.", None)]},
+    12: {"titre": "Le prix, tout compris ?", "scenes": [
+        ("Le prix affiché, c'est vraiment tout ?", "Le prix affiché, *c'est vraiment tout ?*"),
+        ("Demandez s'il est indiqué avec ou sans TVA.", "Avec ou *sans TVA ?*"),
+        ("Et s'il y a des frais en plus : nom de domaine, options.", "Des frais en plus ? *Domaine, options.*"),
+        ("Le nom de domaine : environ dix euros par an, et toujours à votre nom.",
+         "Le nom de domaine : *toujours à votre nom.*"),
+        ("Le guide complet est sur Dig seize point F R.", None)]},
+    13: {"titre": "Et après la mise en ligne ?", "scenes": [
+        ("Votre site est en ligne. Et après ?", "Votre site est en ligne. *Et après ?*"),
+        ("Demandez combien de modifications sont comprises chaque mois, et en combien de temps elles sont faites.",
+         "Combien de modifications, *en combien de temps ?*"),
+        ("Et qui s'occupe de l'hébergement, de la sécurité et des sauvegardes.",
+         "Hébergement, sécurité, *sauvegardes : qui ?*"),
+        ("Si une réponse est floue, demandez-la par écrit.", "Réponse floue ? *Demandez-la par écrit.*"),
+        ("Le guide complet est sur Dig seize point F R.", None)]},
 }
 
 
