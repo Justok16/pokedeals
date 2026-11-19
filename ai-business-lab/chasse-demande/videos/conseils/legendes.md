@@ -80,3 +80,28 @@ Si votre carnet est plein pour six mois grâce au bouche-à-oreille, pas tout de
 Le guide complet, gratuit, sur dig16.fr (lien dans la bio)
 #artisan #Charente #siteinternet
 X : Avez-vous vraiment besoin d'un site ? Une seule question : vous trouve-t-on sur un téléphone ? https://dig16.fr/site-internet-artisan/
+
+## Conseils 11 à 13 (19/11/2026, textes validés par l'utilisateur : « oui textes » ; vidéos à valider avant programmation)
+
+## Conseil 11 — En combien de temps ?
+Combien de temps faut-il pour mettre un site en ligne ? ⏱️
+Pour un site de 5 pages, quelques jours suffisent, une fois les textes, les photos et les informations réunis. Demandez que la date de mise en ligne soit écrite sur le devis.
+Le guide complet, gratuit, sur dig16.fr (lien dans la bio)
+#artisan #Charente #siteinternet
+
+## Conseil 12 — Le prix, tout compris ?
+Le prix affiché, c'est vraiment tout ? 💶
+Demandez s'il est indiqué avec ou sans TVA, et s'il y a des frais en plus : nom de domaine, options. Le nom de domaine : environ 10 € par an, et toujours à votre nom.
+Le guide complet, gratuit, sur dig16.fr (lien dans la bio)
+#artisan #Charente #siteinternet
+
+## Conseil 13 — Et après la mise en ligne ?
+Votre site est en ligne. Et après ? 🔧
+Demandez combien de modifications sont comprises chaque mois, et en combien de temps elles sont faites. Et qui s'occupe de l'hébergement, de la sécurité et des sauvegardes. Si une réponse est floue, demandez-la par écrit.
+Le guide complet, gratuit, sur dig16.fr (lien dans la bio)
+#artisan #Charente #siteinternet
+
+## Rediffusions de décembre : nouvelle première ligne, le reste du texte inchangé (validé le 19/11)
+- Conseil 1 (08/12) : « Changer de prestataire sans perdre l'adresse de votre site : possible ? 🔑 »
+- Conseil 9 (15/12) : « Louer ou acheter son site : que gardez-vous à la fin ? 💶 »
+- Conseil 5 (29/12) : « Et si votre page Facebook fermait demain ? 🤔 »

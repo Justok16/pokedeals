@@ -91,6 +91,8 @@ ren.setPixelRatio(1); ren.setSize(1080,1920,false); ren.setClearColor(0x000000,0
 const scene=new THREE.Scene();
 const cam=new THREE.PerspectiveCamera(38,1080/1920,.1,400);
 
+// 19/11 : les deux graisses sont chargées AVANT tout dessin sur la toile (sinon police de secours : conseils 11 et 12).
+await Promise.all([document.fonts.load("400 232px 'Instrument Serif'"),document.fonts.load("italic 400 232px 'Instrument Serif'")]);
 // Phrase : texte dessiné sur une toile (polices de la charte), flottant seul dans l'espace (cadre de verre retiré le 21/10).
 function texture(texte){{
   const W=2048,H=1600,cv=document.createElement('canvas');cv.width=W;cv.height=H;
@@ -225,6 +227,10 @@ def fabriquer(n):
         polices = pg.evaluate("[...document.fonts].filter(f=>f.status==='loaded').map(f=>f.family)")
         if not any("Instrument" in x for x in polices):
             sys.exit(f"ALERTE : polices non chargées {polices}")
+        # 19/11 : la toile des phrases doit avoir été dessinée avec la police de la charte, droite et italique
+        if not pg.evaluate("document.fonts.check(\"400 232px 'Instrument Serif'\") && "
+                           "document.fonts.check(\"italic 400 232px 'Instrument Serif'\")"):
+            sys.exit(f"ALERTE conseil {n} : Instrument Serif (droit ou italique) non chargé pour les phrases")
         # 23/10 : zone visible d'un Reel (guide Meta : 14 % du haut et 35 % du bas peuvent être couverts par l'appli)
         caches = pg.evaluate("""[...document.querySelectorAll('.fin h2,.lien,.chemin')].map(e=>{
             const r=e.getBoundingClientRect(); return (r.top<269||r.bottom>1248)?e.textContent:null}).filter(Boolean)""")
