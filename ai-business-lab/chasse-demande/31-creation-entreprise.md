@@ -205,3 +205,12 @@ seuil de TVA (projet de seuil unique supprimé en 2025, peut revenir). Veille me
 
 **Point d'attention (privé)** : le bénéfice exonéré reste compté dans le revenu fiscal de référence
 (brochure IR, cases des bénéfices exonérés) ; effets éventuels traités dans le document privé du Drive.
+
+### Réponse écrite du SIE d'Angoulême du 19/11/2026 (au message du 05/11 et à la relance du 19/11)
+- **Espace professionnel** : l'entreprise n'avait pas été créée dans leurs services ; « c'est chose faite » le 19/11. Un **questionnaire** et une **déclaration de CFE 2027** partent par la poste le 19/11.
+- **BIC ou BNC** : tranché d'après le questionnaire, « à compléter de façon très précise ».
+- **Activité complémentaire** (devis-factures) : déclarer une **adjonction d'activité** avant de l'exercer.
+- **Exonération (impôt sur le bénéfice et CFE)** : le SIE écrit qu'elle est « applicable uniquement aux redevables relevant du régime réel ». **Point contesté, sources relues le 19/11** : entreprendre.service-public F31139 (vérifiée le 21/02/2026) : en ZFRR+, exonération « quelque soit son régime fiscal » (le micro n'est exclu qu'en ZFRR simple) ; BOFiP BOI-BIC-CHAMP-80-10-75 § 1 (29/07/2026) : dispositif ouvert « aux micro-entrepreneurs qui s'installent en FRR+ ». Le SIE joint un modèle de **demande de rescrit** à renvoyer par la messagerie sécurisée une fois l'espace activé : c'est la voie pour obtenir une position écrite. Formulaire pré-rempli le 19/11 (privé), activités antérieures et signature laissées à l'utilisateur.
+- **Prélèvement à la source** (question 6) : pas de réponse.
+- Tant que le rescrit n'est pas rendu : ne pas compter l'impôt à 0 € comme acquis (levier 3 du plan « à confirmer ») ; rester au micro, ne pas opter pour le réel sans calcul.
+
