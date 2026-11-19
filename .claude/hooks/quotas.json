@@ -5,7 +5,7 @@
     "mois": {
       "2026-10": 20,
       "2026-11": 20,
-      "2026-12": 8
+      "2026-12": 14
     },
     "note_2026-11": "Réorganisé le 21/10 : 19 publications non brouillon (11 carrousels TikTok, 5 Shorts YouTube, 3 posts Google) ; Instagram, Facebook, Threads et stories en brouillon (contenu dans supports/publications-v2/novembre-metricool-avant-reorg.json), Instagram et Facebook à envoyer par Buffer à partir du 01/11 (rappel trig_01PvxXHpog5J8MrBUzdGUzAM)",
     "constat_2210": "22/10 18 h 25 : essai bloqué (« You have reached your Metricool account limit », mail Metricool « limite de 20 publications mensuelles »). En réalité Metricool compte 1 par PUBLICATION, pas par réseau : en octobre, 20 publications couvrant 32 réseaux sont toutes parties, la 21e est refusée. Le compteur de ce fichier compte donc des publications.",
