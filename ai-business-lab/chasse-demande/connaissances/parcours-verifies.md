@@ -219,3 +219,9 @@ navigateur : Cloudflare ajoute `beacon.min.js` sur dig16.fr ; la règle de sécu
 - Lien donné par l'outil `vidiq_social_account_connect` (usage unique). Le navigateur doit être connecté à Instagram avec le compte dig16fr : sinon page vidIQ « The Instagram account was not connected / No changes were made ».
 - Bonne fin : page vidIQ « Instagram account connected ». La liste des comptes affichait « canPublish » même avant : seule une publication réussie prouve la connexion.
 - vidIQ et la page Facebook (captures du 18/11) : la page DIG16 apparaît et se coche dans la fenêtre Facebook, mais vidIQ conclut « You selected 1 Facebook Page, but Facebook didn't share it with vidIQ » (limite annoncée par l'outil : pages accessibles seulement par un portefeuille Meta Business non reliées). Ne plus essayer vidIQ pour Facebook : passer par Metricool (Connexions).
+
+## impots.gouv.fr : ajouter le SIREN de DIG16 à l'espace professionnel (confirmé sur captures le 19/11/2026, ordinateur)
+- Connexion à « Mon espace professionnel » → page « Mes services » → rubrique « Adhérer aux services », premier bouton (bleu foncé) → page « Gérer mon espace » → cadre SERVICES → « Adhérer aux services » → étape « Choix du SIREN » : saisir 131256091 → « Continuer ».
+- Le 19/11 au soir : message « Ce SIREN (ou équivalent) est inconnu de notre système d'information », alors que le SIE écrivait le jour même que l'entreprise venait d'être créée dans ses services. Hypothèse (non officielle, blog de micro-entrepreneurs) : la mise à jour n'est pas immédiate. Réessayer les jours suivants avant de recontacter le SIE.
+- Ensuite (aide officielle impots.gouv.fr lue le 19/11) : choix des services, récapitulatif, enregistrement ; code d'activation envoyé par courrier (valable 60 jours), à saisir via « Activer » sur la page d'accueil de l'espace professionnel.
+
