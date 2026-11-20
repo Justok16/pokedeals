@@ -316,3 +316,7 @@ montrer quoi que ce soit ; 4) verser au catalogue des effets toute bonne idée t
 - **Avant tout usage de vidIQ pour DIG16** : `vidiq_user_channels` (gratuit) ; la chaîne DIG16 est @dig16fr.
 - Si le compte relié n'est pas celui de DIG16 et que la tâche a besoin de la chaîne DIG16 (statistiques, publication) : le dire tout de suite à l'utilisateur, une ligne « À TOI : » avec le parcours (Réglages claude.ai → Connecteurs → vidIQ → Déconnecter, puis Connecter avec le compte DIG16), et avancer le reste par une autre voie en attendant.
 - Les crédits d'un autre compte ne servent pas à DIG16 sans l'accord de l'utilisateur : d'abord une autre voie gratuite (relais Gemini avec modèles de secours, découpage de la vidéo).
+
+## Déclarations pré-remplies (demande de l'utilisateur du 20/11/2026)
+
+« Je compte sur toi pour tout me pré-remplir afin que je n'aie plus qu'à signer. » Pour chaque déclaration (URSSAF, CFE, revenus, rescrit, questionnaires des impôts) : formulaire papier ou PDF → entièrement rempli (contrôle 44 + relecteur, copie au Drive « Dig »), seules la date et la signature restent ; déclaration en ligne → fiche « écran par écran » avec la valeur exacte de chaque case (Claude ne se connecte jamais à ses comptes). Rappels concernés : impôts 26/11, CFE 10/12, URSSAF 05/01/2027 et chaque trimestre, revenus 13/04/2027.
