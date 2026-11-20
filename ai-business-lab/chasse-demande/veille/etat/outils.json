@@ -1,5 +1,5 @@
 {
- "date": "2026-11-19",
+ "date": "2026-11-20",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -160,7 +160,7 @@
   "faster-whisper": {
    "version": "1.2.1",
    "date": "2025-10-31",
-   "etoiles": 26629,
+   "etoiles": 26875,
    "licence": "MIT"
   },
   "auto-editor": {
@@ -188,8 +188,8 @@
    "licence": "Apache-2.0"
   },
   "Unlighthouse": {
-   "version": "0.19.1",
-   "date": "2026-10-03",
+   "version": "0.20.0",
+   "date": "2026-11-20",
    "etoiles": null,
    "licence": "MIT"
   },
@@ -218,8 +218,8 @@
    "licence": "MIT"
   },
   "ALTCHA": {
-   "version": "3.6.0",
-   "date": "2026-11-12",
+   "version": "3.7.0",
+   "date": "2026-11-20",
    "etoiles": 2895,
    "licence": "MIT"
   },

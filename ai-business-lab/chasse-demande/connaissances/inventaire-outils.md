@@ -49,7 +49,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Qualité | Linkinator | installé | Liens cassés d'un site entier (outils/liens/verifier.sh) ; MIT, 8.1.0 vérifiée le 03/11/2026 | 8.1.0 (2026-08-29) | MIT | — |
 | Qualité | Playwright MCP | en place | Navigateur piloté (.mcp.json) | 0.0.86 (2026-11-18) | Apache-2.0 | 39659 |
 | Qualité | Traces d'un autre client (traces_autre_client.py) | en place | Aucune trace d'un autre client dans un site livré | — | — | — |
-| Qualité | Unlighthouse | installé | Audit vitesse, accessibilité, bonnes pratiques et référencement de toutes les pages (outils/unlighthouse/audit.sh) ; MIT, 0.19.1 vérifiée le 03/11/2026 | 0.19.1 (2026-10-03) | MIT | — |
+| Qualité | Unlighthouse | installé | Audit vitesse, accessibilité, bonnes pratiques et référencement de toutes les pages (outils/unlighthouse/audit.sh) ; MIT, 0.19.1 vérifiée le 03/11/2026 | 0.20.0 (2026-11-20) | MIT | — |
 | Qualité | axe-core | réserve | Moteur d'accessibilité | 4.14.1 (2026-11-16) | non-standard | 7818 |
 | Qualité | html-validate | réserve | Validation HTML | 11.21.1 (2026-11-12) | MIT | — |
 | Qualité | lychee | réserve | Liens cassés | — | Apache-2.0 | 4141 |
@@ -62,11 +62,11 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | SEO | Google Analytics MCP | réserve | GA4 d'un client | — | Apache-2.0 | 3793 |
 | SEO | Lighthouse | en place | Audit performance, SEO, accessibilité | 13.6.0 (2026-10-27) | Apache-2.0 | 31083 |
 | SEO | OpenSEO (connecteur) | en place | Fiche Google, Search Console, audits | — | — | — |
-| SEO | Unlighthouse | réserve | Lighthouse sur tout un site | 0.19.1 (2026-10-03) | MIT | — |
+| SEO | Unlighthouse | réserve | Lighthouse sur tout un site | 0.20.0 (2026-11-20) | MIT | — |
 | SEO | critical | réserve | CSS du premier écran | 9.0.0 (2026-09-13) | Apache-2.0 | 10302 |
 | SEO | mcp-gsc | réserve | Search Console dans Claude | — | MIT | 2195 |
 | Signature électronique | Modèles DocuSeal (modeles_docuseal.py + connecteur DocuSeal) | en place | 4 modèles prêts (6628706 à 6628709), envoi send_documents | — | — | — |
-| Sécurité | ALTCHA | réserve | Anti-spam sans tiers | 3.6.0 (2026-11-12) | MIT | 2895 |
+| Sécurité | ALTCHA | réserve | Anti-spam sans tiers | 3.7.0 (2026-11-20) | MIT | 2895 |
 | Sécurité | Gitleaks | réserve | Secrets oubliés dans le dépôt | v8.30.1 (2026-02-21) | MIT | 31050 |
 | Sécurité | OSV-Scanner | réserve | Dépendances vulnérables | v2.7.1 (2026-11-09) | Apache-2.0 | 11517 |
 | Sécurité | Semgrep | réserve | Analyse du code serveur | 1.186.0 (2026-11-18) | LGPL-2.1 | 17761 |
@@ -80,6 +80,6 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Vidéo | Remotion Agent Skills | réserve | npx skills add remotion-dev/skills | — | — | 7286 |
 | Vidéo | Revideo | réserve | Vidéos en code, MIT | 0.11.0 (2026-07-10) | MIT | — |
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5995 |
-| Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26629 |
+| Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26875 |
 
-Dernière veille : 2026-11-19.
+Dernière veille : 2026-11-20.
