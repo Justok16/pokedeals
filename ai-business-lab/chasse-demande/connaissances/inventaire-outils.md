@@ -36,7 +36,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Photos | LightCraft (ArtCraft) | réserve | Retouche de séries de photos | — | — | — |
 | Photos | PhotoCraft (ArtCraft) | réserve | Retouche type Photoshop, pilotable par Claude | — | Apache-2.0 | 79871 |
 | Photos | SVGO | réserve | Alléger les logos SVG | 4.1.0 (2026-08-24) | MIT | 22606 |
-| Photos | eleventy-img | réserve | Balises <picture> complètes | 7.1.1 (2026-10-21) | MIT | 470 |
+| Photos | eleventy-img | réserve | Balises <picture> complètes | 7.1.1 (2026-10-21) | MIT | 469 |
 | Photos | rembg | réserve | Détourage local | 2.0.87 (2026-11-06) | MIT | 25460 |
 | Photos | sharp | réserve | WebP/AVIF et tailles multiples | 0.35.5 (2026-09-27) | Apache-2.0 | 32858 |
 | Photos | sharp-cli | réserve | sharp en ligne de commande | 6.1.0 (2026-09-01) | MIT | 229 |
@@ -82,4 +82,4 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5995 |
 | Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26875 |
 
-Dernière veille : 2026-11-20.
+Dernière veille : 2026-11-21.

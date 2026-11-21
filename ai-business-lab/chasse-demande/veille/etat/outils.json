@@ -1,5 +1,5 @@
 {
- "date": "2026-11-20",
+ "date": "2026-11-21",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -64,7 +64,7 @@
   "eleventy-img": {
    "version": "7.1.1",
    "date": "2026-10-21",
-   "etoiles": 470,
+   "etoiles": 469,
    "licence": "MIT"
   },
   "SVGO": {
