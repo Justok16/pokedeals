@@ -43,3 +43,13 @@ L'auteur affirme que cette stack de 3 outils permet de régler le problème **gr
 D'après ce qui est présenté dans la vidéo, cet entrepreneur peut :
 * **Créer des vidéos de présentation ou démos dynamiques** pour les sites de ses clients artisans (ou pour sa propre communication/prospection) en animant des éléments visuels et en y ajoutant automatiquement des effets sonores professionnels.
 * **Automatiser le montage sonore** sans avoir besoin de compétences particulières en montage vidéo/audio (« nul en montage vidéo »), en s'appuyant uniquement sur Claude, le prompt et la stack d'outils présentés.
+## Complément du 22/11 : fiche PDF de l'auteur (envoyée par l'utilisateur)
+
+La fiche (3 pages) ne donne **aucun lien** vers « Real SFX » ni « Earshot » ; elle précise seulement que les trois outils doivent être « connectés dans la config » de Claude (donc des connecteurs ou skills à installer, non identifiés). Elle contient la méthode, à retenir pour un futur film avec bruitages :
+1. lister les moments qui méritent un son (apparition d'un texte, coupe franche, clic), avec leur minutage ; ignorer ce que la voix ou la musique couvre déjà ;
+2. chercher 3 sons candidats par moment (moins de 2 secondes), noter la licence de chacun ;
+3. écouter et choisir : le son colle à l'image, il est propre, il ne fait pas « bon marché » ; sinon en créer un autre ;
+4. placer au minutage exact, toujours moins fort que la voix, varier les sons, un seul son si deux moments sont à moins d'une demi-seconde ; mieux vaut trop peu que trop ;
+5. réécouter le tout ; 6. tableau final : minutage, rôle, origine et licence de chaque son, moments laissés sans son.
+
+Faisable chez nous sans ces outils : sons d'Openverse (licence lue son par son) et contrôle par notre relais (écoute par Gemini), montage par ffmpeg.
