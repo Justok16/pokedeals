@@ -167,7 +167,7 @@ html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
 <li>Charente Libre a consacré un article à DIG16 le 10&nbsp;novembre&nbsp;2026 : <a href="https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php" rel="noopener">lire l’article</a> (en partie réservé aux abonnés).</li>
 <li>Prochaine étape : rencontrer les artisans et commerçants, et écouter ce dont ils ont vraiment besoin.</li>
 </ul>
-<dialog class="article-grand" id="article-grand" aria-label="Article de Charente Libre, édition du 10 novembre 2026, en grand">
+<dialog class="article-grand" id="article-grand" closedby="any" aria-label="Article de Charente Libre, édition du 10 novembre 2026, en grand">
  <div class="article-barre"><span>Charente Libre, édition du 10&nbsp;novembre&nbsp;2026</span><button type="button" id="article-fermer" aria-label="Fermer l’image agrandie"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Fermer</button></div>
  <div class="article-zone" id="article-zone" tabindex="0"><picture><source type="image/webp" srcset="/img/presse/charente-libre-2026-11-10-1200.webp"><img id="article-image" src="/img/presse/charente-libre-2026-11-10-1200.jpg" width="1200" height="1574" alt="Article paru dans Charente Libre le 10 novembre 2026, page Nord Ruffécois, rubrique Ruffec, titré « Avec DIG 16, un web designer pour créer son site internet ». Il présente le créateur de DIG16, photographié un téléphone à la main, qui accompagne les professionnels, artisans et commerçants de Charente pour créer leur site internet, le suivre et le tenir à jour, et cite la démonstration gratuite, des tarifs à partir de 49 euros et un numéro de téléphone de contact." loading="lazy" decoding="async"></picture></div>
  <p class="article-pied"><span>Touchez l’image (ou cliquez) pour l’agrandir encore.</span> <a href="https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php" rel="noopener">Lire l’article sur le site du journal</a></p>
@@ -195,7 +195,8 @@ html{-webkit-tap-highlight-color:rgba(200,164,110,.25)}
 if(!o||!d||!d.showModal)return;
 o.addEventListener('click',function(e){e.preventDefault();z.classList.remove('zoom');d.showModal();z.scrollTop=0});
 document.getElementById('article-fermer').addEventListener('click',function(){d.close()});
-d.addEventListener('click',function(e){if(e.target===d)d.close()});
+// 22/11/2026 : fermeture au clic hors de l'image par closedby="any" (Modern Web Guidance) ; ancien code gardé pour les navigateurs qui ne le connaissent pas
+if(!('closedBy' in HTMLDialogElement.prototype))d.addEventListener('click',function(e){if(e.target===d)d.close()});
 d.addEventListener('close',function(){o.focus()});
 z.addEventListener('click',function(e){var r=z.getBoundingClientRect(),fx=(e.clientX-r.left+z.scrollLeft)/z.scrollWidth,fy=(e.clientY-r.top+z.scrollTop)/z.scrollHeight;
  z.classList.toggle('zoom');if(z.classList.contains('zoom')){z.scrollLeft=fx*z.scrollWidth-r.width/2;z.scrollTop=fy*z.scrollHeight-r.height/2}});
