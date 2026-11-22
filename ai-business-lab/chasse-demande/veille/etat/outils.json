@@ -1,5 +1,5 @@
 {
- "date": "2026-11-21",
+ "date": "2026-11-22",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -88,7 +88,7 @@
   "Leonardo (Adobe)": {
    "version": "1.1.0",
    "date": "2026-02-18",
-   "etoiles": 2167,
+   "etoiles": 2188,
    "licence": "Apache-2.0"
   },
   "Open Props": {
@@ -208,7 +208,7 @@
   "critical": {
    "version": "9.0.0",
    "date": "2026-09-13",
-   "etoiles": 10302,
+   "etoiles": 10305,
    "licence": "Apache-2.0"
   },
   "tarteaucitron.js": {

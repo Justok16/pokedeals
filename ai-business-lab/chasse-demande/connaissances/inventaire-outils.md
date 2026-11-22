@@ -22,7 +22,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Design | Emil Kowalski skills | installé | emil-design-eng, mobile-native, review-animations, break-ui | — | MIT | 56835 |
 | Design | Fontsource | réserve | Polices libres à héberger | 5.3.0 (2026-07-19) | MIT | 6285 |
 | Design | Impeccable | installé | Skill impeccable | — | Apache-2.0 | 110111 |
-| Design | Leonardo (Adobe) | réserve | Palettes à contraste garanti | 1.1.0 (2026-02-18) | Apache-2.0 | 2167 |
+| Design | Leonardo (Adobe) | réserve | Palettes à contraste garanti | 1.1.0 (2026-02-18) | Apache-2.0 | 2188 |
 | Design | Open Props | réserve | Variables CSS prêtes | 1.7.23 (2026-01-31) | MIT | — |
 | Design | Taste skill | installé | taste-design, taste-redesign | — | MIT | 115918 |
 | Design | UI UX Pro Max | installé | Skill ui-ux-pro-max (attention : liens Google Fonts, contrôle polices_locales) | — | MIT | 150022 |
@@ -63,7 +63,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | SEO | Lighthouse | en place | Audit performance, SEO, accessibilité | 13.6.0 (2026-10-27) | Apache-2.0 | 31083 |
 | SEO | OpenSEO (connecteur) | en place | Fiche Google, Search Console, audits | — | — | — |
 | SEO | Unlighthouse | réserve | Lighthouse sur tout un site | 0.20.0 (2026-11-20) | MIT | — |
-| SEO | critical | réserve | CSS du premier écran | 9.0.0 (2026-09-13) | Apache-2.0 | 10302 |
+| SEO | critical | réserve | CSS du premier écran | 9.0.0 (2026-09-13) | Apache-2.0 | 10305 |
 | SEO | mcp-gsc | réserve | Search Console dans Claude | — | MIT | 2195 |
 | Signature électronique | Modèles DocuSeal (modeles_docuseal.py + connecteur DocuSeal) | en place | 4 modèles prêts (6628706 à 6628709), envoi send_documents | — | — | — |
 | Sécurité | ALTCHA | réserve | Anti-spam sans tiers | 3.7.0 (2026-11-20) | MIT | 2895 |
@@ -82,4 +82,4 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5995 |
 | Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26875 |
 
-Dernière veille : 2026-11-21.
+Dernière veille : 2026-11-22.
