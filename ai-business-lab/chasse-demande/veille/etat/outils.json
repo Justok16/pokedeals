@@ -1,5 +1,5 @@
 {
- "date": "2026-11-22",
+ "date": "2026-11-23",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -40,7 +40,7 @@
   "dotLottie web": {
    "version": "0.83.2",
    "date": "2026-11-12",
-   "etoiles": 942,
+   "etoiles": 953,
    "licence": "MIT"
   },
   "sharp": {
@@ -134,8 +134,8 @@
    "licence": null
   },
   "Remotion": {
-   "version": "4.0.545",
-   "date": "2026-11-18",
+   "version": "4.0.546",
+   "date": "2026-11-23",
    "etoiles": 73903,
    "licence": "non-standard"
   },
@@ -214,13 +214,13 @@
   "tarteaucitron.js": {
    "version": "1.37.0",
    "date": "2026-10-15",
-   "etoiles": 1062,
+   "etoiles": 1059,
    "licence": "MIT"
   },
   "ALTCHA": {
    "version": "3.7.0",
    "date": "2026-11-20",
-   "etoiles": 2895,
+   "etoiles": 2917,
    "licence": "MIT"
   },
   "Gitleaks": {
