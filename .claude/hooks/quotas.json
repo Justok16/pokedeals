@@ -4,7 +4,7 @@
     "source": "help.metricool.com « Main differences between Free and paid plans », relue le 21/10/2026 : 20 publications PUBLIÉES par mois, chaque réseau compte une fois (« Duplicate posts count once for each social network »), compteur remis à zéro le 1er ; au-delà, seules 20 sont publiées",
     "mois": {
       "2026-10": 20,
-      "2026-11": 20,
+      "2026-11": 18,
       "2026-12": 14
     },
     "note_2026-11": "Réorganisé le 21/10 : 19 publications non brouillon (11 carrousels TikTok, 5 Shorts YouTube, 3 posts Google) ; Instagram, Facebook, Threads et stories en brouillon (contenu dans supports/publications-v2/novembre-metricool-avant-reorg.json), Instagram et Facebook à envoyer par Buffer à partir du 01/11 (rappel trig_01PvxXHpog5J8MrBUzdGUzAM)",
@@ -12,7 +12,8 @@
     "note_2026-11b": "23/10 14 h 14 : 20e place prise par le reel de lancement corrigé (samedi 07/11 18 h 30, Instagram, Facebook, Threads, TikTok, YouTube). Novembre complet : plus aucun ajout Metricool.",
     "relu_2026-11-10": "metricool.com/pricing relue le 10/11/2026 : 1 marque, « Schedule up to 20 posts per month », LinkedIn et X exclus du gratuit",
     "note_2026-12": "17/11 : getScheduledPosts du 01 au 31/12 lu : 7 publications non brouillon (02/12 x3, 04/12 x3, 07/12 x1) ; inscrit sur autorisation écrite de l'utilisateur du 17/11",
-    "constat_2011": "20/11 18 h 31 : mail Metricool « 18 publications créées, limite 20 » (capture de l'utilisateur). Compteur de ce fichier laissé à 20 par prudence (reste en novembre : la publication du 25/11, déjà comptée) ; aucune action."
+    "constat_2011": "20/11 18 h 31 : mail Metricool « 18 publications créées, limite 20 » (capture de l'utilisateur). Compteur de ce fichier laissé à 20 par prudence (reste en novembre : la publication du 25/11, déjà comptée) ; aucune action.",
+    "alignement_2311": "23/11 18 h 45 : compteur de novembre aligné sur le mail officiel de Metricool du 20/11 (« 18 publications créées », capture de l'utilisateur), accord écrit de l'utilisateur (« oui » à la question « oui compteur 18 »). Places restantes en novembre : 2."
   },
   "zapier": {
     "limite": 100,
