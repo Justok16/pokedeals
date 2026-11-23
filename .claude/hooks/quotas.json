@@ -21,7 +21,7 @@
     "source": "zapier.com/pricing (Free : 100 tâches/mois) et help.zapier.com « How is task usage measured » (MCP : 2 tâches par appel réussi), lus le 19/10/2026",
     "mois": {
       "2026-10": 100,
-      "2026-11": 50
+      "2026-11": 58
     },
     "reserve_autorisee": [
       "upload_video",
@@ -32,7 +32,8 @@
     "note_reserve": "22/10 : entre la marge (90) et la limite (100), seules ces actions passent : Shorts YouTube du calendrier et correction de la vidéo d'une publication Buffer déjà programmée (voix « Di seize »). 22/10 18 h : republication du reel corrigé du conseil 6 sur Instagram, Facebook et TikTok (demande de l'utilisateur : tout automatiser) ; en contrepartie le Short du 29/10 passe au début du cycle Zapier suivant. 22/10 18 h 15 : demande expresse de l'utilisateur (« fais-le à ma place ») : les 2 dernières tâches servent au reel Instagram corrigé (action Buffer native « Add to Queue », fiable) ; le Short du 27/10 passe en novembre.",
     "constat_0111": "01/11 08:40-08:42 UTC : 16 appels Buffer « Add to Queue » réussis (stories 02→20/11 Instagram et Facebook), puis refus Zapier « reached its task limit for the current billing period ». Le cycle gratuit ne suit PAS le mois civil (date de facturation inconnue) : compteur bloqué à 100 en attendant ; relire la date de renouvellement dans la page de facturation Zapier avant tout nouvel appel. Restent à programmer : stories 25 et 27/11 (Instagram et Facebook).",
     "relu_2026-11-10": "zapier.com/pricing relue le 10/11/2026 : 100 tâches par mois, Zaps à 2 étapes seulement, MCP ouvert à tous les comptes (2 tâches par appel)",
-    "remise_a_zero_1411": "14/11/2026 au soir : compteur de novembre remis à 0 sur autorisation écrite de l'utilisateur (« Je t'autorise à remettre à zéro le compteur Zapier de novembre dans le fichier des quotas. »). Raison : le cycle gratuit de Zapier suit le cycle de facturation mensuel, pas le mois civil (aide officielle help.zapier.com, article 8496196837261, lu le 14/11) ; le compte sert depuis le 19/10 au plus tard et les 100 tâches ont été atteintes le 01/11 sans remise à zéro au 1er : le cycle recommence donc entre le 02 et le 19/11. Si Zapier répond encore « task limit », remettre le compteur à 100 et attendre le 20/11."
+    "remise_a_zero_1411": "14/11/2026 au soir : compteur de novembre remis à 0 sur autorisation écrite de l'utilisateur (« Je t'autorise à remettre à zéro le compteur Zapier de novembre dans le fichier des quotas. »). Raison : le cycle gratuit de Zapier suit le cycle de facturation mensuel, pas le mois civil (aide officielle help.zapier.com, article 8496196837261, lu le 14/11) ; le compte sert depuis le 19/10 au plus tard et les 100 tâches ont été atteintes le 01/11 sans remise à zéro au 1er : le cycle recommence donc entre le 02 et le 19/11. Si Zapier répond encore « task limit », remettre le compteur à 100 et attendre le 20/11.",
+    "constat_2311": "23/11 18 h 20 (Paris) : Zapier répond « task limit for the current billing period » alors que ce compteur indiquait 58 : d'autres conversations de l'utilisateur utilisent le même compte Zapier, le compteur local sous-estime. Ne plus compter sur Zapier jusqu'au renouvellement du cycle ; secours : Metricool (places restantes) puis publication manuelle."
   },
   "buffer": {
     "limite_file_par_reseau": 10,
