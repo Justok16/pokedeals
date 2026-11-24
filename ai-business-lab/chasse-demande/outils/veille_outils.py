@@ -139,10 +139,15 @@ def ecrire_tableau(inv, etat):
               "bon moment, voir `reserve-prete.md`)."), "",
               "| Domaine | Outil | Statut | Usage | Version (date) | Licence | Étoiles |", "|---|---|---|---|---|---|---|"]
     statuts = {"en_place": "en place", "installe": "installé", "reserve": "réserve"}
-    for o in sorted(inv["outils"], key=lambda x: (x["domaine"], x["nom"])):
+    # Leçon du 24/11 : une fiche sans « domaine » (écrite « categorie ») faisait planter toute la veille.
+    for o in inv["outils"]:
+        if not o.get("domaine"):
+            print(f"ALERTE inventaire : « {o.get('nom', '?')} » sans champ domaine (classé « À classer »)")
+            o["domaine"] = o.get("categorie") or "À classer"
+    for o in sorted(inv["outils"], key=lambda x: (x["domaine"], x.get("nom", ""))):
         e = etat.get("outils", {}).get(o["nom"], {})
         ver = f"{e.get('version')} ({e.get('date')})" if e.get("version") else "—"
-        lignes.append(f"| {o['domaine']} | {o['nom']} | {statuts.get(o['statut'], o['statut'])} | {o['usage']} | {ver} | "
+        lignes.append(f"| {o['domaine']} | {o['nom']} | {statuts.get(o['statut'], o['statut'])} | {o.get('usage', '—')} | {ver} | "
                       f"{e.get('licence') or '—'} | {e.get('etoiles') or '—'} |")
     lignes += ["", f"Dernière veille : {etat.get('date', '—')}."]
     with open(TABLEAU, "w", encoding="utf-8") as fh:

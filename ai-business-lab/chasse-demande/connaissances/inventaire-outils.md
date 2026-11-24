@@ -6,9 +6,9 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 |---|---|---|---|---|---|---|
 | Animation (Prestige) | Skill horizontal-scroll-scenes | installé | Chapitres qui défilent de gauche à droite pendant le défilement vertical, état dérivé du scroll, accessible et sans mouvement réduit ; MIT, lu en entier et installé le 04/11/2026 (.claude/skills/horizontal-scroll-scenes) | — | — | — |
 | Animation (Prestige) | Skill threejs-animation | installé | Compagnon de threejs-web : animations Three.js indépendantes du nombre d'images, liées au défilement, mouvement réduit ; MIT, lu en entier et installé le 04/11/2026 | — | — | — |
-| Animations | GSAP | en place | Moteur d'animation des sites (site-dig/moteur/anim/gsap-3.15.0.min.js et ScrollTrigger, mis à jour le 28/10) | 3.15.1 (2026-11-04) | Standard 'no charge' license: https://gsap.com/standard-license. | 30503 |
+| Animations | GSAP | en place | Moteur d'animation des sites (site-dig/moteur/anim/gsap-3.15.0.min.js et ScrollTrigger, mis à jour le 28/10) | 3.15.1 (2026-11-04) | Standard 'no charge' license: https://gsap.com/standard-license. | 31157 |
 | Animations | GSAP Skills officiels | installé | .claude/skills/gsap-* (core, timeline, scrolltrigger, plugins, utils, performance) | — | MIT | 18471 |
-| Animations | Lenis | en place | Défilement fluide (site-dig/moteur/anim/lenis-1.3.27.min.js, mis à jour le 28/10) | 1.3.27 (2026-10-15) | MIT | 17296 |
+| Animations | Lenis | en place | Défilement fluide (site-dig/moteur/anim/lenis-1.3.27.min.js, mis à jour le 28/10) | 1.3.28 (2026-11-23) | MIT | 17296 |
 | Animations | Motion | réserve | Micro-interactions légères | 14.14.0 (2026-11-13) | MIT | — |
 | Animations | Three.js | réserve | 3D légère pour un client Prestige | 0.187.0 (2026-10-30) | MIT | 118786 |
 | Animations | dotLottie web | réserve | Icônes animées vectorielles | 0.83.2 (2026-11-12) | MIT | 953 |
@@ -28,6 +28,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Design | UI UX Pro Max | installé | Skill ui-ux-pro-max (attention : liens Google Fonts, contrôle polices_locales) | — | MIT | 150022 |
 | Design | awesome-design-md | installé | Skill design-md-references | — | MIT | 127661 |
 | Design | google-webfonts-helper | réserve | Télécharger une police Google pour l'héberger | — | MIT | 13083 |
+| Design | unslop (skill Claude Code, heydamir/unslop) | installé | Contrôle anti-aspect-IA des démos et sites avant de les montrer ; scripts snapshot/story seulement si Playwright est présent ; aucune vidéo publiée sans accord (crédit @heydamir incrusté) | — | — | — |
 | Facturation et paiement | GoCardless (prélèvement SEPA) | en place | Mandats SEPA des formules mensuelles | — | — | — |
 | Facturation et paiement | Indy (facturation, plateforme agréée, compte pro) | en place | Factures, facturation électronique, livre des recettes | — | — | — |
 | Hébergement et sécurité | Cloudflare Pages + Web Analytics + Turnstile | en place | Hébergement, mesure sans cookie, anti-robots | — | — | — |
@@ -82,4 +83,4 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5995 |
 | Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26875 |
 
-Dernière veille : 2026-11-23.
+Dernière veille : 2026-11-24.

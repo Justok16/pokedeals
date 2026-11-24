@@ -595,13 +595,13 @@
     },
     {
       "nom": "unslop (skill Claude Code, heydamir/unslop)",
-      "categorie": "design",
       "statut": "installé",
       "licence": "CC BY 4.0 (crédit de l'auteur gardé dans .claude/skills/unslop)",
       "source": "https://github.com/heydamir/unslop",
       "installe_le": "2026-11-23",
       "usage": "Contrôle anti-aspect-IA des démos et sites avant de les montrer ; scripts snapshot/story seulement si Playwright est présent ; aucune vidéo publiée sans accord (crédit @heydamir incrusté)",
-      "verifie": "lecture complète par un agent le 23/11 : aucun code distant, aucun envoi de données"
+      "verifie": "lecture complète par un agent le 23/11 : aucun code distant, aucun envoi de données",
+      "domaine": "Design"
     }
   ],
   "sources_officielles": [
