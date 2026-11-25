@@ -1,6 +1,6 @@
 // Alerte « nouveau message » (13/11/2026, demande de l'utilisateur : « oui alerte »).
 // Répond seulement par le numéro du dernier message non lu et non douteux (0 s'il n'y en a pas). Aucune donnée du
-// message ne sort d'ici : ni nom, ni contact, ni texte. Lu toutes les 10 minutes environ par le contrôle GitHub
+// message ne sort d'ici : ni nom, ni contact, ni texte. Lu par le contrôle GitHub (prévu toutes les 10 minutes, en pratique environ toutes les 9 h : bilan du 25/11)
 // « Alerte message DIG16 », qui ouvre une issue ; GitHub prévient alors l'utilisateur par mail.
 // Un message douteux (étiquette « [À VÉRIFIER », voir contact.js) ne déclenche pas d'alerte : Claude le lit au point suivant.
 
