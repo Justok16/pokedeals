@@ -81,7 +81,7 @@ Plomberie
 
 Démonstrations
 
-## Jugez sur pièce
+## Jugez sur pièces
 
 Des exemples réalisés pour des entreprises fictives. Ouvrez-les sur votre téléphone : c’est là que vos clients les verront.
 

@@ -93,7 +93,7 @@ Sept questions à poser à n’importe quel prestataire, DIG16 compris. Les rép
 - Quelle est la **durée d’engagement**, et comment j’arrête ?
 - Si j’arrête, est-ce que je **récupère le site** (textes, photos, fichiers) ?
 - Combien de **modifications** sont comprises chaque mois, et en combien de temps sont-elles faites ?
-- Qui s’occupe de l'**hébergement**, de la sécurité et des sauvegardes ?
+- Qui s’occupe de l’**hébergement**, de la sécurité et des sauvegardes ?
 - Les prix sont-ils indiqués **avec ou sans TVA**, et y a-t-il des frais en plus (domaine, options) ?
 - Qui écrit les **textes** et fournit les **photos** ?
 

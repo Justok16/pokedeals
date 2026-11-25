@@ -31,7 +31,7 @@ Les textes, visuels et le code de ce site appartiennent à DIG16, sauf mention c
 
 ## 4. Vos données personnelles
 
-Quand vous remplissez le formulaire de contact ou nous appelez, nous recevons : votre nom, votre entreprise, votre commune, votre téléphone ou email, l’adresse de votre site actuel si vous en avez un, et votre message.
+Quand vous remplissez le formulaire de contact ou nous appelez, nous recevons : votre nom, votre entreprise, votre commune, votre téléphone ou email, si vous avez déjà un site (et de quel type), et votre message.
 
 - **Pourquoi :** uniquement pour répondre à votre demande et, si vous le souhaitez, préparer votre démo et votre devis.
 - **Base légale :** mesures précontractuelles prises à votre demande (article 6.1.b du RGPD).

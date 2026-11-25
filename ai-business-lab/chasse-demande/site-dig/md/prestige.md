@@ -130,7 +130,7 @@ Votre site est testé sur téléphone et ordinateur, mis en ligne après votre a
 
 Démonstration
 
-## Jugez sur pièce
+## Jugez sur pièces
 
 Une maison d’hôtes fictive, réalisée avec la formule Prestige : un film qui avance au fil de la page, le choix de la chambre, le prix du séjour calculé en direct et une version anglaise. Ouvrez-la sur votre téléphone : c’est là que vos clients vous découvrent.
 
