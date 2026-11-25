@@ -1,5 +1,5 @@
 {
- "date": "2026-11-24",
+ "date": "2026-11-25",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -56,8 +56,8 @@
    "licence": "MIT"
   },
   "rembg": {
-   "version": "2.0.87",
-   "date": "2026-11-06",
+   "version": "2.0.88",
+   "date": "2026-11-24",
    "etoiles": 25460,
    "licence": "MIT"
   },
@@ -134,8 +134,8 @@
    "licence": null
   },
   "Remotion": {
-   "version": "4.0.546",
-   "date": "2026-11-23",
+   "version": "4.0.547",
+   "date": "2026-11-24",
    "etoiles": 73903,
    "licence": "non-standard"
   },
@@ -148,7 +148,7 @@
   "Hyperframes": {
    "version": null,
    "date": null,
-   "etoiles": 83272,
+   "etoiles": 89265,
    "licence": "Apache-2.0"
   },
   "Revideo": {
@@ -206,8 +206,8 @@
    "licence": "Apache-2.0"
   },
   "critical": {
-   "version": "9.0.0",
-   "date": "2026-09-13",
+   "version": "9.1.0",
+   "date": "2026-11-24",
    "etoiles": 10305,
    "licence": "Apache-2.0"
   },
@@ -236,8 +236,8 @@
    "licence": "Apache-2.0"
   },
   "Semgrep": {
-   "version": "1.186.0",
-   "date": "2026-11-18",
+   "version": "1.187.0",
+   "date": "2026-11-24",
    "etoiles": 17761,
    "licence": "LGPL-2.1"
   },
@@ -254,8 +254,8 @@
    "licence": "Apache-2.0"
   },
   "Chrome DevTools MCP": {
-   "version": "1.13.0",
-   "date": "2026-11-11",
+   "version": "1.14.0",
+   "date": "2026-11-24",
    "etoiles": 55268,
    "licence": "Apache-2.0"
   },
@@ -278,8 +278,8 @@
    "licence": "LGPL-3.0"
   },
   "html-validate": {
-   "version": "11.21.1",
-   "date": "2026-11-12",
+   "version": "11.22.1",
+   "date": "2026-11-24",
    "etoiles": null,
    "licence": "MIT"
   },
@@ -290,8 +290,8 @@
    "licence": "Apache-2.0"
   },
   "Context7": {
-   "version": "4.7.3",
-   "date": "2026-11-17",
+   "version": "4.8.0",
+   "date": "2026-11-24",
    "etoiles": 64883,
    "licence": "MIT"
   },
