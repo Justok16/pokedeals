@@ -46,7 +46,8 @@ Les détails sont sur [la page d’accueil](https://dig16.fr/). Avant de choisir
 ## Où en est le projet
 
 - L’entreprise est immatriculée et le site **dig16.fr** est en ligne.
-- DIG16 est présente sur Google, Facebook, Instagram, TikTok, YouTube et X.
+- DIG16 est présente sur Google, Facebook, TikTok, YouTube et X.
+- Notre ancien compte Instagram n’est plus disponible ; tout autre compte à notre nom n’est pas le nôtre.
 - Les organismes et la presse de la Charente ont été contactés.
 - Charente Libre a consacré un article à DIG16 le 10 novembre 2026 : [lire l’article](https://www.charentelibre.fr/charente/ruffec/ruffec-avec-dig-16-un-web-designer-pour-creer-son-site-internet-31463508.php) (en partie réservé aux abonnés).
 - Prochaine étape : rencontrer les artisans et commerçants, et écouter ce dont ils ont vraiment besoin.
@@ -56,7 +57,6 @@ Les détails sont sur [la page d’accueil](https://dig16.fr/). Avant de choisir
 Vous connaissez un artisan, un commerçant ou un indépendant en Charente ? Donnez-lui l’adresse **dig16.fr**. Un abonnement ou un partage sur les réseaux aide aussi beaucoup au début.
 
 [Facebook](https://www.facebook.com/1334231963113482)
-[Instagram](https://www.instagram.com/dig16fr/)
 [TikTok](https://www.tiktok.com/@dig16fr)
 [YouTube](https://www.youtube.com/@dig16fr)
 [X](https://x.com/dig16charente)
