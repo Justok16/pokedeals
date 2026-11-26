@@ -1,5 +1,5 @@
 {
- "date": "2026-11-25",
+ "date": "2026-11-26",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -196,7 +196,7 @@
   "mcp-gsc": {
    "version": null,
    "date": null,
-   "etoiles": 2195,
+   "etoiles": 2287,
    "licence": "MIT"
   },
   "Google Analytics MCP": {
@@ -256,7 +256,7 @@
   "Chrome DevTools MCP": {
    "version": "1.14.0",
    "date": "2026-11-24",
-   "etoiles": 55268,
+   "etoiles": 59333,
    "licence": "Apache-2.0"
   },
   "Playwright MCP": {

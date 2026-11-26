@@ -44,7 +44,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Prospection | Fiche d'appel prospect (outils/prospects/fiche_appel.py) | en place | Fiche d'appel revérifiée en direct | — | — | — |
 | Prospection | Trouver un contact (trouver_contact.py) | en place | Pages contact d'un organisme | — | — | — |
 | Publicité | Google Ads MCP | réserve | Lecture des campagnes Google Ads | — | Apache-2.0 | 1180 |
-| Qualité | Chrome DevTools MCP | réserve | Performance réelle, console, réseau | 1.14.0 (2026-11-24) | Apache-2.0 | 55268 |
+| Qualité | Chrome DevTools MCP | réserve | Performance réelle, console, réseau | 1.14.0 (2026-11-24) | Apache-2.0 | 59333 |
 | Qualité | Context7 | réserve | Documentation à jour des bibliothèques | 4.8.0 (2026-11-24) | MIT | 64883 |
 | Qualité | Contrôle global du site (controle_global.py, test_pages.py, seo_client.py, test_formulaire.py) | en place | Santé du site et des sites clients avant livraison | — | — | — |
 | Qualité | Linkinator | installé | Liens cassés d'un site entier (outils/liens/verifier.sh) ; MIT, 8.1.0 vérifiée le 03/11/2026 | 8.1.0 (2026-08-29) | MIT | — |
@@ -65,7 +65,7 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | SEO | OpenSEO (connecteur) | en place | Fiche Google, Search Console, audits | — | — | — |
 | SEO | Unlighthouse | réserve | Lighthouse sur tout un site | 0.20.0 (2026-11-20) | MIT | — |
 | SEO | critical | réserve | CSS du premier écran | 9.1.0 (2026-11-24) | Apache-2.0 | 10305 |
-| SEO | mcp-gsc | réserve | Search Console dans Claude | — | MIT | 2195 |
+| SEO | mcp-gsc | réserve | Search Console dans Claude | — | MIT | 2287 |
 | Signature électronique | Modèles DocuSeal (modeles_docuseal.py + connecteur DocuSeal) | en place | 4 modèles prêts (6628706 à 6628709), envoi send_documents | — | — | — |
 | Sécurité | ALTCHA | réserve | Anti-spam sans tiers | 3.7.0 (2026-11-20) | MIT | 2917 |
 | Sécurité | Gitleaks | réserve | Secrets oubliés dans le dépôt | v8.30.1 (2026-02-21) | MIT | 31050 |
@@ -83,4 +83,4 @@ Fichier régénéré par `outils/veille_outils.py` à chaque veille, depuis `inv
 | Vidéo | auto-editor | réserve | Couper les silences | 29.3.1 (2025-11-04) | non-standard | 5995 |
 | Vidéo | faster-whisper | en place | Transcription et sous-titres locaux | 1.2.1 (2025-10-31) | MIT | 26875 |
 
-Dernière veille : 2026-11-25.
+Dernière veille : 2026-11-26.
