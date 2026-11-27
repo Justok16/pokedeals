@@ -1,5 +1,5 @@
 {
- "date": "2026-11-26",
+ "date": "2026-11-27",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -14,8 +14,8 @@
    "licence": "MIT"
   },
   "Lenis": {
-   "version": "1.3.28",
-   "date": "2026-11-23",
+   "version": "1.3.29",
+   "date": "2026-11-26",
    "etoiles": 17296,
    "licence": "MIT"
   },
@@ -58,7 +58,7 @@
   "rembg": {
    "version": "2.0.88",
    "date": "2026-11-24",
-   "etoiles": 25460,
+   "etoiles": 25696,
    "licence": "MIT"
   },
   "eleventy-img": {
@@ -106,7 +106,7 @@
   "Impeccable": {
    "version": null,
    "date": null,
-   "etoiles": 110111,
+   "etoiles": 117668,
    "licence": "Apache-2.0"
   },
   "UI UX Pro Max": {
@@ -118,7 +118,7 @@
   "Emil Kowalski skills": {
    "version": null,
    "date": null,
-   "etoiles": 56835,
+   "etoiles": 60153,
    "licence": "MIT"
   },
   "Taste skill": {
@@ -130,7 +130,7 @@
   "Anthropic skills": {
    "version": null,
    "date": null,
-   "etoiles": 194524,
+   "etoiles": 201157,
    "licence": null
   },
   "Remotion": {
@@ -184,7 +184,7 @@
   "Lighthouse": {
    "version": "13.6.0",
    "date": "2026-10-27",
-   "etoiles": 31083,
+   "etoiles": 31215,
    "licence": "Apache-2.0"
   },
   "Unlighthouse": {
@@ -232,7 +232,7 @@
   "OSV-Scanner": {
    "version": "v2.7.1",
    "date": "2026-11-09",
-   "etoiles": 11517,
+   "etoiles": 11643,
    "licence": "Apache-2.0"
   },
   "Semgrep": {
@@ -268,7 +268,7 @@
   "axe-core": {
    "version": "4.14.1",
    "date": "2026-11-16",
-   "etoiles": 7818,
+   "etoiles": 7892,
    "licence": "non-standard"
   },
   "pa11y": {
@@ -278,8 +278,8 @@
    "licence": "LGPL-3.0"
   },
   "html-validate": {
-   "version": "11.22.1",
-   "date": "2026-11-24",
+   "version": "11.23.0",
+   "date": "2026-11-26",
    "etoiles": null,
    "licence": "MIT"
   },
@@ -290,8 +290,8 @@
    "licence": "Apache-2.0"
   },
   "Context7": {
-   "version": "4.8.0",
-   "date": "2026-11-24",
+   "version": "4.9.0",
+   "date": "2026-11-26",
    "etoiles": 64883,
    "licence": "MIT"
   },
