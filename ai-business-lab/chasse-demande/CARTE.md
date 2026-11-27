@@ -116,6 +116,7 @@ Sous-dossiers de résumés par source (59) : 20vc, a16z, acquiredfm, allin, aswa
 | `outils/indexnow.py` | Signale les pages de dig16.fr aux moteurs qui utilisent IndexNow (Bing, Yandex, Seznam, Naver…), sans compte |
 | `outils/kit_avis.py` | Kit « avis Google » (18/10/2026) : carte A6 avec QR code vers la page « Laisser un avis » d'une fiche Google, |
 | `outils/kit_client.py` | Kit client complet (26/10/2026) : TOUT ce qui accompagne un site client, en une commande. |
+| `outils/lire_buffer_envoyes.py` | Lire la réponse (trop longue pour être affichée) de l'action Zapier Buffer « New Sent Item ». |
 | `outils/lire_reel.py` | Lit un reel Instagram (ou toute vidéo courte publique lisible par yt-dlp) et le fait résumer par Gemini |
 | `outils/lisibilite.py` | Mesure la lisibilité de chaque texte visible : taille >= 13 px, graisse >= 400, contraste >= 4,5 (3 si >= 24 px), |
 | `outils/maj_chaines.py` | Ajoute les nouvelles vidéos des chaînes suivies à leur liste (demande de l'utilisateur du 28/09 : |
