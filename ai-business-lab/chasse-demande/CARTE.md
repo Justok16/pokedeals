@@ -62,6 +62,7 @@ liste unique des tâches : `64-mise-en-ordre-administrative.md` § 0.
 | Fichier | Sujet |
 |---|---|
 | `connaissances/README.md` | Base de connaissances vidéo |
+| `connaissances/audit-visibilite-ia-2026-11-28.md` | Audit de visibilité IA de dig16.fr (28/11/2026) |
 | `connaissances/boite-a-outils-catalogue.md` | Boîte à outils DIG16 — catalogue complet (automatique) |
 | `connaissances/boite-a-outils.md` | Boîte à outils DIG16 — tout ce que l'utilisateur a envoyé, classé par besoin |
 | `connaissances/consignes-detaillees.md` | Consignes détaillées DIG16 (version complète du 21/10/2026, complétée au fil de l'eau ; dernière revue au garde-fou du 20/11/2026) |

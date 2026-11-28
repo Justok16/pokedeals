@@ -1,5 +1,5 @@
 {
- "date": "2026-11-27",
+ "date": "2026-11-28",
  "outils": {
   "GSAP": {
    "version": "3.15.1",
@@ -10,7 +10,7 @@
   "GSAP Skills officiels": {
    "version": null,
    "date": null,
-   "etoiles": 18471,
+   "etoiles": 19190,
    "licence": "MIT"
   },
   "Lenis": {
@@ -76,7 +76,7 @@
   "Fontsource": {
    "version": "5.3.0",
    "date": "2026-07-19",
-   "etoiles": 6285,
+   "etoiles": 6307,
    "licence": "MIT"
   },
   "google-webfonts-helper": {
@@ -124,7 +124,7 @@
   "Taste skill": {
    "version": null,
    "date": null,
-   "etoiles": 115918,
+   "etoiles": 122413,
    "licence": "MIT"
   },
   "Anthropic skills": {
@@ -212,8 +212,8 @@
    "licence": "Apache-2.0"
   },
   "tarteaucitron.js": {
-   "version": "1.37.0",
-   "date": "2026-10-15",
+   "version": "1.38.0",
+   "date": "2026-11-27",
    "etoiles": 1059,
    "licence": "MIT"
   },
@@ -262,7 +262,7 @@
   "Playwright MCP": {
    "version": "0.0.86",
    "date": "2026-11-18",
-   "etoiles": 39659,
+   "etoiles": 40223,
    "licence": "Apache-2.0"
   },
   "axe-core": {
@@ -290,8 +290,8 @@
    "licence": "Apache-2.0"
   },
   "Context7": {
-   "version": "4.9.0",
-   "date": "2026-11-26",
+   "version": "4.9.1",
+   "date": "2026-11-27",
    "etoiles": 64883,
    "licence": "MIT"
   },
