@@ -5,7 +5,7 @@
 - Les chiffres ci-dessous sont « affirmés par l'auteur », non vérifiés.
 
 ## Tri pour DIG16 (28/11)
-Treg (treg.to) : routeur payant à l'usage vers des milliers d'API (SEO, pubs, prospection) ; son « AEO workflow » coûte environ 0,30 \$ par audit (page treg.to/aeo lue le 28/11). Écarté pour l'instant : budget 0 € et nous avons déjà Firecrawl, Tavily, OpenSEO et les skills ai-seo / seo-local (audit IA de dig16.fr fait le 28/11). À ressortir si un client Visibilité paie un suivi « cité par les IA » et que les outils gratuits ne suffisent plus.
+Treg (treg.to) : routeur payant à l'usage vers des milliers d'API (SEO, pubs, prospection) ; son « AEO workflow » coûte environ 0,30 $ par audit (page treg.to/aeo lue le 28/11). Écarté pour l'instant : budget 0 € et nous avons déjà Firecrawl, Tavily, OpenSEO et les skills ai-seo / seo-local (audit IA de dig16.fr fait le 28/11). À ressortir si un client Visibilité paie un suivi « cité par les IA » et que les outils gratuits ne suffisent plus.
 
 ## Résumé (Gemini)
 
