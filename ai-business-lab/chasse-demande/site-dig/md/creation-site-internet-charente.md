@@ -79,6 +79,8 @@ Quel que soit votre choix, lisez [le guide gratuit : site internet pour artisan,
 
 Ou appelez le [06 87 91 02 14](tel:+33687910214), ou écrivez à [contact@dig16.fr](mailto:contact@dig16.fr).
 
+Mis à jour le 28 novembre 2026.
+
 ```json
 {
   "@context": "https://schema.org",

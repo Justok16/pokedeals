@@ -35,6 +35,8 @@ Une fiche Google ou une page Facebook ne remplace pas un site. Elles sont utiles
 
 ## Ce que coûte un site, selon la formule
 
+**Combien coûte un site pour un artisan en 2026 ?** Chez une agence ou un indépendant, un site vitrine payé en une fois coûte 1 200 € en médiane ; la moitié des prestataires se situe entre 690 € et 1 800 € (France Num, d’après l’Observatoire de l’achat de sites internet, 133 prestataires). Ajoutez le nom de domaine, environ 10 € par an, et l’hébergement.
+
 Il existe trois façons d’avoir un site. Aucune n’est mauvaise en soi ; ce qui compte, c’est de savoir ce que vous payez et ce que vous gardez.
 
 | Formule | Ce que vous payez | Qui fait le travail | Point d’attention |
@@ -135,7 +137,10 @@ Demandez-le simplement à chaque client satisfait, avec un lien direct vers votr
 
 - Google Search Central, « Mobile-first indexing » : "Google uses the mobile version of a site’s content, crawled with the smartphone agent, for indexing and ranking" (page mise à jour le 10 décembre 2025, lue le 18 octobre 2026).
 - Google, « Règles relatives aux contenus publiés sur Maps » (support.google.com/contributionpolicy), section sur les avis, lue le 18 octobre 2026.
+- France Num (ministère de l’Économie), « Combien payer pour un site web ou un site e-commerce ? » : "Un site vitrine au forfait y coûte 1 200 € en médiane : la moitié des prestataires se situe entre 690 € et 1 800 € (133 prestataires)." (page mise à jour le 27 octobre 2026, lue le 28 novembre 2026).
 - Prix et conditions DIG16 : [page d’accueil](https://dig16.fr/#offres), au 18 octobre 2026.
+
+Mis à jour le 28 novembre 2026.
 
 ```json
 {
@@ -148,7 +153,7 @@ Demandez-le simplement à chaque client satisfait, avec un lien direct vers votr
       "description": "Prix, propriété du nom de domaine, pages utiles, fiche Google et avis : ce qu'un artisan ou un commerçant doit savoir avant de commander un site internet.",
       "inLanguage": "fr-FR",
       "datePublished": "2026-10-18",
-      "dateModified": "2026-11-12",
+      "dateModified": "2026-11-28",
       "author": {
         "@id": "https://dig16.fr/#organisation"
       },
